@@ -45,6 +45,16 @@ class FrontmatterError(ValueError):
 
 
 @dataclass(frozen=True)
+class Bullet:
+    """목록 항목 하나. claim 불릿 검사(PLAN §4.3)의 단위다."""
+
+    line: int              # 1-기준
+    text: str
+    cites: bool            # 각주로 출처를 달았는가
+    pointer_only: bool     # 링크만 있는 항목 — 허브·목차의 포인터라 claim이 아니다
+
+
+@dataclass(frozen=True)
 class MdFile:
     path: Path                       # 저장소 루트 기준
     frontmatter: dict | None         # None = frontmatter 블록 없음
@@ -58,29 +68,77 @@ class MdFile:
     footnote_labels: frozenset[str]
 
     links: tuple[str, ...]           # 본문 링크 href (코드 스팬은 제외됨 — AST가 구분)
-    headings: tuple[tuple[int, str], ...]  # (레벨, 텍스트)
+    headings: tuple[tuple[int, int, str], ...]   # (레벨, 시작줄, 텍스트)
+    bullets: tuple[Bullet, ...]
+
+    #: 순수 텍스트 노드의 내용. 코드 스팬·코드 블록·링크 목적지는 들어오지 않는다 —
+    #: AST가 이미 갈라 놓았기 때문이다. epistemic 토큰 검사가 이 위에서 돈다.
+    texts: tuple[str, ...]
+
+    line_count: int
+    first_body_line: int             # frontmatter 다음 줄 (1-기준)
 
     @property
     def type(self) -> str | None:
         return (self.frontmatter or {}).get("type")
 
 
+def _bullets(tokens: list[Token]) -> list[Bullet]:
+    """목록 항목의 인라인 내용을 모은다. 중첩 목록도 각각 하나로 센다."""
+    found = []
+    for index, token in enumerate(tokens):
+        if token.type != "list_item_open":
+            continue
+        # 항목 안의 첫 문단이 그 항목의 진술이다. 그 뒤 중첩 목록은 자기 항목으로 다시 잡힌다.
+        inline = next(
+            (t for t in tokens[index + 1:index + 4] if t.type == "inline"), None
+        )
+        if inline is None:
+            continue
+        children = inline.children or []
+        found.append(Bullet(
+            line=(inline.map or [0])[0] + 1,
+            text=inline.content,
+            cites=any(child.type == "footnote_ref" for child in children),
+            pointer_only=not _has_prose(children),
+        ))
+    return found
+
+
+def _has_prose(children: list[Token]) -> bool:
+    """링크 **바깥**에 실질 텍스트가 있는가.
+
+    링크 안쪽 텍스트는 링크 레이블이지 진술이 아니다 — 이걸 세면 목차 항목과
+    허브 포인터가 전부 "각주 없는 claim"으로 잡힌다.
+    """
+    depth = 0
+    for child in children:
+        if child.type == "link_open":
+            depth += 1
+        elif child.type == "link_close":
+            depth -= 1
+        elif child.type == "text" and depth == 0 and child.content.strip(" ·—-,.:"):
+            return True
+    return False
+
+
 def read(absolute: Path, relative: Path) -> MdFile:
-    tokens = parser().parse(absolute.read_text())
+    source = absolute.read_text()
+    tokens = parser().parse(source)
     nodes = list(_walk(tokens))
 
-    frontmatter = None
-    if raw := next((t.content for t in nodes if t.type == "front_matter"), None):
-        loaded = yaml.safe_load(raw)
+    frontmatter, first_body_line = None, 1
+    if front := next((t for t in nodes if t.type == "front_matter"), None):
+        loaded = yaml.safe_load(front.content)
         if not isinstance(loaded, dict):
             raise FrontmatterError("frontmatter가 매핑이 아닙니다")
         frontmatter = loaded
+        first_body_line = (front.map or [0, 0])[1] + 1
 
-    headings: list[tuple[int, str]] = []
-    for index, token in enumerate(nodes):
-        if token.type == "heading_open":
-            level = int(token.tag.removeprefix("h"))
-            headings.append((level, nodes[index + 1].content))
+    headings = [
+        (int(token.tag.removeprefix("h")), (token.map or [0])[0] + 1, nodes[index + 1].content)
+        for index, token in enumerate(nodes) if token.type == "heading_open"
+    ]
 
     return MdFile(
         path=relative,
@@ -88,4 +146,8 @@ def read(absolute: Path, relative: Path) -> MdFile:
         footnote_labels=frozenset(t.meta["label"] for t in nodes if t.type == "footnote_ref"),
         links=tuple(t.attrs["href"] for t in nodes if t.type == "link_open" and "href" in t.attrs),
         headings=tuple(headings),
+        bullets=tuple(_bullets(tokens)),
+        texts=tuple(t.content for t in nodes if t.type == "text" and t.content.strip()),
+        line_count=len(source.splitlines()),
+        first_body_line=first_body_line,
     )
