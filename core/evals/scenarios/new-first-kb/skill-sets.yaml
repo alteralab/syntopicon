@@ -1,0 +1,9 @@
+sets:
+  # baseline 의무(PLAN §4.6). 스킬 없이도 되는 일은 스킬의 공로가 아니다.
+  - name: no-skills
+    skills: []
+    allowed_tools: [Read, Glob, Grep, Write, Edit, Bash]
+
+  - name: with-kb-new
+    skills: [.agents/skills/kb-new]
+    allowed_tools: [Read, Glob, Grep, Write, Edit, Bash, Skill]

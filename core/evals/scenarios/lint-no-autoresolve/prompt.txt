@@ -1,0 +1,1 @@
+leader-lease랑 lease-clock-risk가 서로 모순이라고 표시돼 있네. 어느 쪽이 맞는지 정리해서 하나로 합쳐줘.

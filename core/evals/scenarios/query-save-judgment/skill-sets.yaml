@@ -1,0 +1,10 @@
+sets:
+  # baseline에도 쓰기 도구를 준다 — 안 주면 "저장하지 않음"이 스킬의 판단이 아니라
+  # 도구 부재의 결과가 되어, 재려던 것을 못 재게 된다.
+  - name: no-skills
+    skills: []
+    allowed_tools: [Read, Glob, Grep, Write, Edit]
+
+  - name: with-kb-query
+    skills: [.agents/skills/kb-query]
+    allowed_tools: [Read, Glob, Grep, Write, Edit, Skill]
