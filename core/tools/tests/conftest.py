@@ -46,14 +46,30 @@ class Repo:
             ## Hubs
             """)
 
-    def validate(self, *args: str) -> subprocess.CompletedProcess[str]:
-        subprocess.run(["git", "-C", str(self.root), "add", "-A"], check=True,
-                       capture_output=True)
+    def _git(self, *args: str) -> None:
+        subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+
+    def commit(self) -> None:
+        """rename은 깨끗한 워킹 트리를 요구한다 — 되돌릴 수 있는 상태에서만 여러 파일을 고친다."""
+        self._git("add", "-A")
+        self._git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "fixture")
+
+    def run(self, script: str, *args: str) -> subprocess.CompletedProcess[str]:
+        self._git("add", "-A")
         return subprocess.run(
-            [sys.executable, str(VALIDATE), *args],
+            [sys.executable, str(REAL_ROOT / "tools" / script), *args],
             capture_output=True, text=True,
             env=os.environ | {"SYNTOPICON_ROOT": str(self.root)},
         )
+
+    def validate(self, *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("validate.py", *args)
+
+    def rename(self, old: str, new: str, *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("rename.py", old, new, *args)
+
+    def read(self, relative: str) -> str:
+        return (self.root / relative).read_text()
 
 
 @pytest.fixture
