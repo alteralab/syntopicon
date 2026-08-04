@@ -10,4 +10,15 @@ dependencies = [
     "referencing==0.37.0",  # 크로스 파일 $ref 레지스트리 — jsonschema가 위임하는 계층
     "markdown-it-py==4.2.0",# md AST — 링크 재작성·각주 정합·표 파싱. regex 파싱 금지(PLAN §3)
     "pyyaml==6.0.3",        # frontmatter·schema/*.yaml
+    "mdit-py-plugins==0.6.1", # 각주·front matter 토큰 — GFM 부분집합의 나머지 절반
 ]
+
+[dependency-groups]
+# 테스트 도구는 소모품이라 == 로 묶지 않는다 — 핀 요구는 md를 변경하는 런타임 의존에
+# 걸리는 것이고(PLAN §3 Tier A), 재현은 uv.lock이 이미 보장한다.
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tools/tests"]
