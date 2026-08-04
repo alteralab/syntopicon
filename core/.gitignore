@@ -1,0 +1,10 @@
+# §3 규정 (콘텐츠 디렉터리는 kb-new가 생성 — 구축 전이라 아직 없음)
+*/archive/
+*.db
+*.sqlite*
+evals/runs/
+
+# 로컬 도구 산출물 (KB 아님)
+.claude/
+.code-review-graph/
+.DS_Store
