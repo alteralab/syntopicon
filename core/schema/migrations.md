@@ -51,3 +51,7 @@ append-only. `schema/*.yaml`이 **현재** 스키마이고, 이 파일이 **해�
 3. **`number`를 문자열 전용으로 좁혔다.** CSL은 `string|number`지만 따옴표 없는 arXiv ID
    `2405.14831`이 YAML에서 float로 파싱돼 식별자가 조용히 손상된다. 스키마가 그 실수를
    fail-loud로 잡게 했다.
+4. **`redirect.superseded_by`가 citekey 형태도 받는다.** `sources/`의 스텁은 슬러그가
+   아니라 citekey를 가리키는데 citekey는 `-2` 숫자 접미를 허용한다(동일 저자·연도 충돌).
+   슬러그 문법만 받으면 그런 소스는 rename 자체가 불가능해진다. 디렉터리별 정밀도는
+   validate의 관계 규칙이 맡는다. (rename 구현 중 발견 — 콘텐츠 0개 시점이라 무비용 수정.)

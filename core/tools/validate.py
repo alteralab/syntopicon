@@ -116,10 +116,18 @@ def check_file(layout: layout_mod.Layout, sch: schemas.Schemas, f: MdFile) -> li
 
     # 파일명 = ID. 발급 후 불변이므로 문자집합 위반은 여기서 막는 것이 마지막 기회다.
     if (id_kind := _id_kind(layout, f.path)) is not None:
-        stem = f.path.stem
-        if errors := list(sch.shared(id_kind).iter_errors(stem)):
+        if errors := list(sch.shared(id_kind).iter_errors(f.path.stem)):
             problems.append(Problem(
                 SEVERITY_ERROR, path, f"파일명이 {id_kind} 규칙 위반: {errors[0].message}"))
+
+        # redirect 대상이 어떤 ID 문법이어야 하는지는 스텁이 놓인 디렉터리가 정한다.
+        # 스키마는 네 형태를 다 받으므로(sources/는 citekey) 여기서 좁힌다.
+        if kind == "redirect" and (target := front.get("superseded_by")):
+            name = target.rpartition("/")[2]   # 정규형 `<kb>/<이름>`의 KB 접두 제거
+            if errors := list(sch.shared(id_kind).iter_errors(name)):
+                problems.append(Problem(
+                    SEVERITY_ERROR, path,
+                    f"superseded_by '{target}'가 {id_kind} 규칙 위반: {errors[0].message}"))
 
     # 각주 = 출처 귀속 전용 채널이므로, 인용된 라벨은 sources[]에 있어야 한다.
     # 반대 방향(선언했는데 인용 안 함)은 lint 소관이다 — 깨진 각주도 그쪽으로 드러난다

@@ -32,9 +32,16 @@ $defs:
   citekey:
     # PLAN §2.2: 콜론·공백·대문자 금지(각주 앵커 파손 방지). 구조 규칙
     # (저자성last연도[-슬러그])와 유일성은 파이썬 관계 규칙 층이 검사한다.
+    # 슬러그와 달리 `-2` 숫자 접미가 허용된다(동일 저자·연도 충돌 해소 — §2.5-4).
     type: string
     minLength: 1
     pattern: "^[a-z0-9_.-]+$"
+
+  qualified_citekey:
+    # sources/의 redirect 스텁이 KB 간 이동을 가리킬 때. slug 계열과 문자집합이 달라
+    # 따로 둔다 — 하나로 합치면 개념 슬러그 쪽 검증이 느슨해진다.
+    type: string
+    pattern: "^[a-z][a-z0-9-]*/[a-z0-9_.-]+$"
 
   repo_path:
     # frontmatter 경로 = 저장소 루트 기준(PLAN §2.4). OS 절대경로 금지는
