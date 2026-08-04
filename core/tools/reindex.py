@@ -33,6 +33,11 @@ def main() -> int:
 
     print(f"{index_db.DB_PATH.name}: 파일 {counts.files} · 간선 {counts.edges}"
           f" (미해결 {counts.unresolved})")
+    if counts.morph:
+        print(f"형태소 레그: 섹션 {counts.sections} · 파편화 후보 {counts.fragments}")
+    else:
+        print("형태소 레그 건너뜀 — kiwipiepy 미설치 (uv sync --group index). "
+              "한국어 검색은 qmd 음절 레그만으로 돕니다.")
     if counts.unresolved:
         print("미해결 간선은 깨진 링크 후보입니다 — kb-lint가 리포트합니다.")
     return 0

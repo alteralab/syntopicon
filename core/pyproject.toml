@@ -19,6 +19,11 @@ dependencies = [
 dev = [
     "pytest>=9.1.1",
 ]
+index = [
+    "kiwipiepy>=0.23.2",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tools/tests"]
+# 테스트는 도구를 서브프로세스로 부르지만, 순수 함수는 직접 import해 확인한다.
+pythonpath = ["tools"]

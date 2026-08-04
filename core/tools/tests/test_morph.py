@@ -1,0 +1,117 @@
+"""형태소 레그. 이 레그의 존재 이유가 질의 대칭이라, 대칭이 깨지는 경우를 먼저 본다."""
+
+from __future__ import annotations
+
+import sqlite3
+
+import pytest
+
+from conftest import Repo
+from test_validate import DDIA, SOURCE, concept
+
+pytest.importorskip("kiwipiepy", reason="Tier B — uv sync --group index")
+
+from syntopicon import morph  # noqa: E402
+
+
+def test_POS_필터가_조사와_어미를_버린다():
+    assert morph.analyze("복제 지연은 읽기 일관성을 깨뜨린다") == \
+        ["복제", "지연", "읽", "일관", "깨뜨리"]
+
+
+def test_nori_STOP_TAGS와_교집합이_없다():
+    """PLAN §4.1의 "nori STOP_TAGS 정합" — Lucene 소스에서 확인한 30개."""
+    nori_stop = {
+        "EP", "EF", "EC", "ETN", "ETM", "IC", "JKS", "JKC", "JKG", "JKO", "JKB",
+        "JKV", "JKQ", "JX", "JC", "MAG", "MAJ", "MM", "SP", "SSC", "SSO", "SC",
+        "SE", "XPN", "XSA", "XSN", "XSV", "UNA", "NA", "VSV",
+    }
+    assert morph.KEEP_TAGS & nori_stop == set()
+
+
+def test_질의와_색인이_같은_함수를_지난다():
+    """본문은 `읽 일관`으로 들어간다. 질의가 원형으로 가면 영원히 맞지 않는다."""
+    indexed = morph.index_text("읽기 일관성을 보장한다")
+    phrase = morph.query_phrase("읽기 일관성")
+    assert phrase.strip('"') in indexed
+
+
+def test_활용형과_조사_변형이_같은_형태로_모인다():
+    for variant in ("복제가", "복제를", "복제는", "복제로"):
+        assert morph.analyze(variant) == ["복제"]
+
+
+def test_파편화를_관측한다():
+    assert morph.fragments("정상적인 문장이다") == []
+    found = morph.fragments("가 나 다 라")
+    assert found and found[0].surface == "가나다라"
+
+
+def test_섹션으로_자르고_HTML_주석은_뺀다(tmp_path):
+    from pathlib import Path as P
+    from syntopicon.mdfile import read
+    text = ("---\ntype: concept\n---\n\n# 제목\n\n머리말\n\n"
+            "## 첫 절\n\n<!-- 이 주석의 복제 라는 낱말은 색인되면 안 된다 -->\n\n내용\n\n"
+            "## 둘째 절\n\n내용2\n")
+    path = tmp_path / "s.md"
+    path.write_text(text)
+    md = read(path, P("s.md"))
+    got = list(morph.sections(text, md))
+    assert [(title, line) for title, line, _ in got] == [(None, 4), ("첫 절", 9), ("둘째 절", 15)]
+    assert "복제" not in got[1][2], "HTML 주석이 섹션 본문에 남았습니다"
+
+
+def test_앵커는_GitHub_규칙을_따른다():
+    assert morph.anchor("읽기와 quorum") == "읽기와-quorum"
+    assert morph.anchor("5.4 절: 읽기 경로") == "54-절-읽기-경로"
+
+
+# ── CLI ──────────────────────────────────────────────────────────────────────
+
+def indexed(repo: Repo) -> None:
+    repo.kb_new("it", "IT 지식", "설명")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.write("it/concepts/replication-lag.md", concept(
+        body=f"\n## 읽기 일관성\n\n복제 지연은 읽기 일관성을 깨뜨린다.[^{DDIA}]\n"
+             f"\n[^{DDIA}]: Kleppmann 2017, 5장\n"))
+    repo.run("reindex.py")
+
+
+def test_조사가_붙은_질의가_본문을_찾는다(repo: Repo):
+    indexed(repo)
+    result = repo.run("ksearch.py", "복제 지연이")     # 본문은 "복제 지연은"
+    assert result.returncode == 0
+    assert "it/concepts/replication-lag.md#읽기-일관성" in result.stdout
+    assert "1건" in result.stdout
+
+
+def test_스니펫은_형태소가_아니라_원문을_보여준다(repo: Repo):
+    indexed(repo)
+    result = repo.run("ksearch.py", "일관성")
+    assert "복제 지연은 읽기 일관성을 깨뜨린다" in result.stdout
+    assert "읽 일관" not in result.stdout.split("분석된 질의")[0]
+
+
+def test_KB로_좁힌다(repo: Repo):
+    indexed(repo)
+    assert "0건" in repo.run("ksearch.py", "복제", "--kb", "ops").stdout
+    assert "1건" in repo.run("ksearch.py", "복제", "--kb", "it").stdout
+
+
+def test_색인_대상_형태소가_없는_질의는_거부한다(repo: Repo):
+    indexed(repo)
+    # Kiwi는 홀로 선 조사도 명사로 읽으므로("은 는 이 가" → 은/늘/이) 진짜로 비는 것은
+    # 구두점뿐이다. 이 경계를 규격으로 고정해 둔다.
+    result = repo.run("ksearch.py", "!!! ...")
+    assert result.returncode == 1 and "형태소가 나오지 않았습니다" in result.stderr
+
+
+def test_reindex가_섹션과_파편화를_보고한다(repo: Repo):
+    indexed(repo)
+    result = repo.run("reindex.py")
+    assert "형태소 레그: 섹션" in result.stdout
+
+    connection = sqlite3.connect(repo.root / "derived.sqlite")
+    with connection:
+        count = connection.execute("SELECT COUNT(*) FROM morph").fetchone()[0]
+    assert count > 0

@@ -5,11 +5,8 @@ validate와의 경계: validate는 "깨졌는가"를 묻고 커밋을 막는다.
 어떤가"를 묻고 **검출만 한다** — 수정 커밋은 사람이 한다. 경계를 섞으면 커밋이
 품질 논쟁에 막힌다.
 
-미구현 2행(도구가 아직 없어서, PLAN §4.3 표):
-  · 페이지 overlap  → 임베딩 필요 (qmd 단계)
-  · 형태소 파편화    → 한국어 형태소 레그 CLI 필요
-둘 다 자리를 비워 두고, 해당 도구가 서면 붙인다. 조용히 빠뜨리지 않기 위해 실행할
-때마다 미구현 목록을 출력한다.
+미구현 1행(PLAN §4.3 표): 페이지 overlap — 임베딩이 서야 한다(qmd 단계).
+자리를 비워 두고, 조용히 빠뜨리지 않도록 실행할 때마다 미구현 목록을 출력한다.
 
     uv run tools/lint.py                 # 전수
     uv run tools/lint.py --incremental   # 직전 실행 이후 바뀐 페이지만 (주간 실행)
@@ -48,8 +45,8 @@ LINT_ERROR_TRIPWIRE = 50
 
 UNIMPLEMENTED = {
     "page-overlap": "임베딩 필요 (qmd 단계)",
-    "morph-fragmentation": "한국어 형태소 레그 CLI 필요",
 }
+FRAGMENT_MIN_HITS = 2   # 한 번뿐인 파편은 오탐일 확률이 높다 — 자체 상수
 
 # 본문 인라인 토큰. AST가 "코드도 링크도 아닌 텍스트"까지 갈라 준 **뒤에** 그 텍스트
 # 안에서 어휘를 보는 것이라, PLAN §3이 허용한 정규 언어 검증에 해당한다.
@@ -162,6 +159,23 @@ def check_contradictions(ctx: Context):
             else:
                 yield Finding("contradiction", "info",
                               f"{other} 와 모순 — 해소 시 최신성 단독 판단 금지", meta["kb"], path)
+
+
+def check_fragments(ctx: Context):
+    """형태소 파편화 → 사용자 사전 후보 큐(PLAN §4.3).
+
+    reindex가 관측해 둔 것을 읽기만 한다. 여러 페이지에서 같은 파편이 반복되면
+    사전에 없는 복합어라는 신호가 강해진다.
+    """
+    rows = ctx.connection.execute("""
+        SELECT surface, pieces, COUNT(*) AS hits, COUNT(DISTINCT path) AS pages
+        FROM fragments GROUP BY surface, pieces
+        HAVING hits >= ? ORDER BY hits DESC
+    """, (FRAGMENT_MIN_HITS,)).fetchall()
+    for row in rows:
+        yield Finding("morph-fragmentation", "info",
+                      f"'{row['surface']}' 가 {row['pieces']} 로 부서집니다 "
+                      f"({row['hits']}회/{row['pages']}페이지) — user-dict.yaml 후보")
 
 
 def check_field_usage(ctx: Context):
@@ -299,8 +313,8 @@ def check_ingest_trailers(ctx: Context):
 # ── 실행 ─────────────────────────────────────────────────────────────────────
 
 GRAPH_CHECKS = (check_links, check_orphans, check_hubs, check_stale,
-                check_contradictions, check_field_usage, check_inbox,
-                check_ingest_trailers)
+                check_contradictions, check_field_usage, check_fragments,
+                check_inbox, check_ingest_trailers)
 
 
 def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str],

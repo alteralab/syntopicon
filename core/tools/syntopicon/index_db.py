@@ -18,6 +18,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
+from . import morph
 from .layout import Layout
 from .mdfile import read
 from .repo import ROOT, visible_files
@@ -46,6 +47,21 @@ CREATE TABLE IF NOT EXISTS edges (
   anchor   TEXT,                  -- #헤딩 — 앵커 검증은 lint 소관
   resolved INTEGER NOT NULL
 );
+
+-- 한국어 형태소 레그. body만 색인하고 나머지는 결과 표시용이다.
+-- 섹션 단위로 잘라 넣는 이유: 결과가 파일이 아니라 앵커를 가리켜야
+-- "섹션 → 페이지 순 확장"이 된다(PLAN §4.1).
+CREATE VIRTUAL TABLE IF NOT EXISTS morph USING fts5(
+  path UNINDEXED, anchor UNINDEXED, line UNINDEXED, raw UNINDEXED, body,
+  tokenize='unicode61'
+);
+
+-- 파편화 관측 → 사용자 사전 후보 큐. lint가 읽는다(PLAN §4.3).
+CREATE TABLE IF NOT EXISTS fragments (
+  path    TEXT NOT NULL,
+  surface TEXT NOT NULL,
+  pieces  TEXT NOT NULL
+);
 """
 
 
@@ -54,6 +70,9 @@ class Counts:
     files: int
     edges: int
     unresolved: int
+    sections: int = 0
+    fragments: int = 0
+    morph: bool = True
 
 
 @contextmanager
@@ -97,7 +116,8 @@ def _link_target(layout: Layout, src: Path, href: str) -> tuple[str, str, str | 
 def build(layout: Layout) -> Counts:
     """md 전량에서 다시 만든다. 증분이 아닌 이유: 이 규모에서 전량 재생성이 초 단위이고,
     증분은 삭제·이동을 놓치는 실패 모드를 들여온다."""
-    files, edges = [], []
+    files, edges, sections, fragments = [], [], [], []
+    with_morph = morph.available()
 
     for relative in visible_files():
         if relative.suffix != ".md" or relative.parts[0] not in layout.kbs():
@@ -107,6 +127,18 @@ def build(layout: Layout) -> Counts:
         md = read(ROOT / relative, relative)
         front = md.frontmatter or {}
         directory = layout.content_dir_of(relative)
+
+        if with_morph:
+            text = raw.decode()
+            for title, line, body in morph.sections(text, md):
+                if not body.strip():
+                    continue
+                sections.append((str(relative), morph.anchor(title), line,
+                                 body, morph.index_text(body)))
+            fragments += [
+                (str(relative), fragment.surface, " ".join(fragment.pieces))
+                for fragment in morph.fragments(text)
+            ]
 
         files.append((
             str(relative),
@@ -126,15 +158,21 @@ def build(layout: Layout) -> Counts:
                 edges.append((str(relative), dst, kind, anchor, int(resolved)))
 
     with connect() as connection:
-        connection.execute("DELETE FROM files")
-        connection.execute("DELETE FROM edges")
+        for table in ("files", "edges", "morph", "fragments"):
+            connection.execute(f"DELETE FROM {table}")
         connection.executemany("INSERT INTO files VALUES (?,?,?,?,?,?,?,?,?)", files)
         connection.executemany("INSERT INTO edges VALUES (?,?,?,?,?)", edges)
+        connection.executemany(
+            "INSERT INTO morph (path, anchor, line, raw, body) VALUES (?,?,?,?,?)", sections)
+        connection.executemany("INSERT INTO fragments VALUES (?,?,?)", fragments)
 
     return Counts(
         files=len(files),
         edges=len(edges),
         unresolved=sum(1 for edge in edges if not edge[4]),
+        sections=len(sections),
+        fragments=len(fragments),
+        morph=with_morph,
     )
 
 

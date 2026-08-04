@@ -78,6 +78,10 @@ class MdFile:
     line_count: int
     first_body_line: int             # frontmatter 다음 줄 (1-기준)
 
+    #: HTML 블록의 줄 범위 (1-기준, 끝 포함). 주석은 사람에게 주는 지시지 본문이
+    #: 아니므로 색인에서 뺀다 — 안 빼면 템플릿 주석이 모든 KB에서 거짓 히트를 낸다.
+    html_ranges: tuple[tuple[int, int], ...]
+
     @property
     def type(self) -> str | None:
         return (self.frontmatter or {}).get("type")
@@ -150,4 +154,7 @@ def read(absolute: Path, relative: Path) -> MdFile:
         texts=tuple(t.content for t in nodes if t.type == "text" and t.content.strip()),
         line_count=len(source.splitlines()),
         first_body_line=first_body_line,
+        html_ranges=tuple(
+            (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
+        ),
     )
