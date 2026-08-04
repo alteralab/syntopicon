@@ -47,8 +47,8 @@ def main(argv: list[str]) -> int:
         print("파생 인덱스가 없습니다. tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
         return 1
 
-    phrase = morph.query_phrase(args.query)
-    if not phrase:
+    expression = morph.query_expression(args.query)
+    if not expression:
         print(f"질의에서 색인 대상 형태소가 나오지 않았습니다: {args.query}\n"
               f"(유지 품사: {', '.join(sorted(morph.KEEP_TAGS))})", file=sys.stderr)
         return 1
@@ -57,7 +57,7 @@ def main(argv: list[str]) -> int:
         rows = connection.execute("""
             SELECT path, anchor, line, raw, bm25(morph) AS score
             FROM morph WHERE morph MATCH ? ORDER BY score LIMIT ?
-        """, (f"body : {phrase}", args.n * 3)).fetchall()
+        """, (f"body : {expression}", args.n * 3)).fetchall()
 
     needles = morph.analyze(args.query)
     shown = 0
@@ -71,7 +71,7 @@ def main(argv: list[str]) -> int:
         if shown >= args.n:
             break
 
-    print(f"{shown}건 · 분석된 질의: {phrase}")
+    print(f"{shown}건 · 분석된 질의: {expression}")
     return 0
 
 

@@ -32,8 +32,16 @@ def test_nori_STOP_TAGS와_교집합이_없다():
 def test_질의와_색인이_같은_함수를_지난다():
     """본문은 `읽 일관`으로 들어간다. 질의가 원형으로 가면 영원히 맞지 않는다."""
     indexed = morph.index_text("읽기 일관성을 보장한다")
-    phrase = morph.query_phrase("읽기 일관성")
-    assert phrase.strip('"') in indexed
+    for term in morph.analyze("읽기 일관성"):
+        assert term in indexed.split()
+
+
+def test_낱말끼리는_AND_복합어만_phrase():
+    """질의 전체를 한 phrase로 묶으면 모든 형태소가 인접해야 해서 거의 안 맞는다
+    (멀티홉 하네스가 recall 0.0으로 잡아낸 버그)."""
+    assert morph.query_expression("읽기 일관성") == "읽 일관"        # 낱말 둘 → AND
+    assert morph.query_expression("복제지연") == '"복제 지연"'      # 복합어 → phrase
+    assert morph.query_expression("복제지연 읽기") == '"복제 지연" 읽'
 
 
 def test_활용형과_조사_변형이_같은_형태로_모인다():

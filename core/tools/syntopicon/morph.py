@@ -80,13 +80,22 @@ def index_text(text: str) -> str:
     return " ".join(analyze(text))
 
 
-def query_phrase(text: str) -> str:
-    """질의를 FTS5 구문으로. 복합어는 성분으로 분해되므로 phrase로 묶어 순서를 보존한다."""
-    morphemes = analyze(text)
-    if not morphemes:
-        return ""
-    escaped = " ".join(m.replace('"', '""') for m in morphemes)
-    return f'"{escaped}"'
+def query_expression(text: str) -> str:
+    """질의를 FTS5 구문으로 — **낱말 단위로** 분석해 낱말끼리는 AND, 낱말 안은 phrase.
+
+    질의 전체를 한 phrase로 묶으면 모든 형태소가 본문에서 인접해야 하고, 그런 일은
+    거의 없다(멀티홉 하네스 실측: 전체 phrase는 recall 0.0). PLAN §4.1이 phrase를
+    말한 대상은 "compound는 성분 분해 + phrase 질의" — 복합어 하나이지 질의 전체가
+    아니다. FTS5는 공백을 암묵 AND로 읽는다(실측 확인).
+    """
+    words = []
+    for word in text.split():
+        morphemes = [m.replace('"', '""') for m in analyze(word)]
+        if len(morphemes) > 1:
+            words.append('"' + " ".join(morphemes) + '"')   # 복합어 — 순서 보존
+        elif morphemes:
+            words.append(morphemes[0])
+    return " ".join(words)
 
 
 def fragments(text: str) -> list[Fragment]:
