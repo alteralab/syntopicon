@@ -5,6 +5,7 @@
 evals/runs/
 
 # 로컬 도구 산출물 (KB 아님)
+.venv/
 .claude/
 .code-review-graph/
 .DS_Store
