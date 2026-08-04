@@ -1,0 +1,61 @@
+# 개념 페이지(PLAN §2.1). 지식의 단위 — claim은 본문의 각주 달린 불릿이다.
+#
+# 이 계층이 강제하지 않는 것(= kb-lint 소관, PLAN §4.3): 각주 없는 claim 불릿,
+# 각주 라벨↔sources[].id 정합, 500줄·TOC, 미정의 epistemic 토큰, overlap.
+# validate는 커밋 게이트(구조), lint는 전수 리포트(품질) — 경계를 섞지 않는다.
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "concept.yaml"
+title: concept
+
+type: object
+required: [type, title, description, generated, sources]
+properties:
+  type: {const: concept}
+
+  title:
+    # 표시 전용, 유일성 비요구(PLAN §2.1). 한국어 유지가 기본(§2.5-4).
+    type: string
+    minLength: 1
+
+  description:
+    # 소비자: 검색 스니펫·스코프 pruning. 손실 요약이며 전문 FTS가 폴백(PLAN §2.1).
+    type: string
+    minLength: 1
+
+  generated: {$ref: "common.yaml#/$defs/stamp"}
+
+  sources:
+    # 개념 페이지는 소스에서 누적된 claim의 집합이므로 최소 1개를 요구한다.
+    # (허브처럼 포인터만 있는 페이지는 type: synthesis다 — PLAN §2.3.)
+    type: array
+    minItems: 1
+    items: {$ref: "common.yaml#/$defs/source_ref"}
+
+  # ── 값이 생길 때만 기록. 부재 = 기본값(PLAN §2.1) ──────────────────────────
+  status: {$ref: "common.yaml#/$defs/status"}
+  verified: {$ref: "common.yaml#/$defs/verified"}
+  stale_after: {$ref: "common.yaml#/$defs/date"}
+
+  superseded_by:
+    # 동일 KB 슬러그만. 정규형 `<kb>/<slug>`는 redirect 스텁 전용(PLAN §2.1).
+    $ref: "common.yaml#/$defs/slug"
+
+  contradicts:
+    # 모순 상호 기록(동일 KB). 소비자: kb-lint 쌍 목록. 자동 해소 금지.
+    type: array
+    minItems: 1
+    items: {$ref: "common.yaml#/$defs/slug"}
+
+# superseded_by는 deprecated 전환 시에만 쓴다(PLAN §2.1). JSON Schema로 표현
+# 가능한 관계이므로 파이썬 층으로 내리지 않는다.
+allOf:
+  - if:
+      required: [superseded_by]
+    then:
+      properties:
+        status: {const: deprecated}
+      required: [status]
+
+# additionalProperties를 닫지 않는다 — OKF unknown-key 허용(PLAN §2.7).
+# 신규 개인 필드는 `x_` 접두 관용을 따르고, 도입 시 소비자를 함께 선언한다.

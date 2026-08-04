@@ -1,0 +1,14 @@
+# 본문 인라인 폐쇄 어휘. JSON Schema가 아니다 — frontmatter가 아니라 md 본문을
+# 대상으로 하므로 소비자는 kb-lint의 AST 스캔이다(PLAN §2.1·§4.3).
+#
+# 추가는 이 파일 개정 + schema/migrations.md 기록으로만. 임의 토큰은 lint가 검출한다.
+
+epistemic:
+  # 무표기 = 사실 서술. 숫자 confidence는 금지한다(PLAN §2.1).
+  # lint는 본문의 인라인 `#<토큰>` 중 아래에 없는 것을 전부 리포트한다 —
+  # 이것이 "태그 없음"(PLAN §6 불채택)의 집행 기전이기도 하다.
+  tokens:
+    hypothesis:
+      description: 근거가 있으나 확정되지 않은 주장. 반증 가능한 형태로 적는다.
+    speculation:
+      description: 근거가 얇은 추측. 출처가 뒷받침하지 않는 자기 판단임을 표시한다.

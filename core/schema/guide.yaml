@@ -1,0 +1,16 @@
+# guide — 진입·설명 문서(PLAN §2.3): 루트 overview.md, <kb>/overview.md, SCHEMA.md.
+# 지식 계층이 아니므로 sources·verified·contradicts를 갖지 않는다.
+# <kb>/overview.md는 KB 인스턴스 판별 마커이기도 하다(schema/layout.yaml의 kb.marker).
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "guide.yaml"
+title: guide
+
+type: object
+required: [type, title, description]
+properties:
+  type: {const: guide}
+  title: {type: string, minLength: 1}
+  description: {type: string, minLength: 1}
+  generated: {$ref: "common.yaml#/$defs/stamp"}
+  stale_after: {$ref: "common.yaml#/$defs/date"}

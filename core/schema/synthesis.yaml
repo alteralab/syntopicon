@@ -1,0 +1,39 @@
+# 인간 저작 종합(PLAN §2.1·§4.4). 경계 기준은 provenance(작성 주체·리뷰)이지
+# 내용의 종합성이 아니다 — 분류 마비 방지.
+#
+# 허브(MoC)도 이 type이다(PLAN §2.3: 전용 type·표지 없음, 링크 차수로 식별).
+# 그래서 concept과 달리 sources를 요구하지 않는다 — 허브는 포인터만 갖는 페이지다.
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "synthesis.yaml"
+title: synthesis
+
+type: object
+required: [type, title, description, generated]
+properties:
+  type: {const: synthesis}
+  title: {type: string, minLength: 1}
+  description: {type: string, minLength: 1}
+  generated: {$ref: "common.yaml#/$defs/stamp"}
+
+  sources:
+    type: array
+    minItems: 1
+    items: {$ref: "common.yaml#/$defs/source_ref"}
+
+  status: {$ref: "common.yaml#/$defs/status"}
+  verified: {$ref: "common.yaml#/$defs/verified"}
+  stale_after: {$ref: "common.yaml#/$defs/date"}
+  superseded_by: {$ref: "common.yaml#/$defs/slug"}
+  contradicts:
+    type: array
+    minItems: 1
+    items: {$ref: "common.yaml#/$defs/slug"}
+
+allOf:
+  - if:
+      required: [superseded_by]
+    then:
+      properties:
+        status: {const: deprecated}
+      required: [status]
