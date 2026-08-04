@@ -79,18 +79,20 @@ kb:
     # 콘텐츠 디렉터리에 영구 예외 파일을 만들고, 해결하는 문제(클론 시 디렉터리 부재)는
     # retrofit O(1)이다(PLAN 원칙 5: 실측 전 선제 구축 금지). 쓰기 도구가 필요 시 생성한다.
     files:
-      # 치환 자리: {kb} {title} {description} {now}
+      # 치환 자리: $kb $title $description $now (string.Template).
+      # `{}`가 아니라 `$`인 이유: frontmatter의 YAML 플로우 매핑 `{ by: … }`이
+      # str.format의 치환 필드와 충돌한다.
       overview.md: |
         ---
         type: guide
-        title: "{title}"
-        description: "{description}"
-        generated: { by: "tools/kb-new", at: "{now}" }
+        title: "$title"
+        description: "$description"
+        generated: { by: "tools/kb-new", at: "$now" }
         ---
 
-        # {title}
+        # $title
 
-        {description}
+        $description
 
         ## Hubs
 
@@ -99,9 +101,9 @@ kb:
 
         ## Tools
 
-        - 검색: `qmd query <질의> -c {kb}` / 형태소 레그 `tools/ksearch`
-        - 저장: `/kb-ingest --kb {kb}` — inbox/ 경유
-        - 점검: `tools/lint --kb {kb}`
+        - 검색: `qmd query <질의> -c $kb` / 형태소 레그 `tools/ksearch`
+        - 저장: `/kb-ingest --kb $kb` — inbox/ 경유
+        - 점검: `tools/lint --kb $kb`
 
 index:
   # 소비자: kb-new(qmd 컬렉션 등록 — path=<repo>/<kb>, 아래 pattern·ignore를 그대로 매핑),

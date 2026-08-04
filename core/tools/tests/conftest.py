@@ -26,6 +26,8 @@ class Repo:
     """임시 저장소 하나. schema/는 실물을 복사하므로 실제 규약을 검증한다."""
 
     root: Path
+    #: 저장소 **밖**에 둔다 — 안에 두면 validate의 루트 완전 분할 검사에 정당하게 걸린다.
+    qmd_config_dir: Path
 
     def write(self, relative: str, content: str) -> Path:
         path = self.root / relative
@@ -59,7 +61,12 @@ class Repo:
         return subprocess.run(
             [sys.executable, str(REAL_ROOT / "tools" / script), *args],
             capture_output=True, text=True,
-            env=os.environ | {"SYNTOPICON_ROOT": str(self.root)},
+            # QMD_CONFIG_DIR은 qmd 자신의 테스트용 override다 — 우리가 만든 seam이 아니라
+            # qmd와 같은 파일을 보게 하는 장치라서, 실제 홈 설정을 건드리지 않는다.
+            env=os.environ | {
+                "SYNTOPICON_ROOT": str(self.root),
+                "QMD_CONFIG_DIR": str(self.qmd_config_dir),
+            },
         )
 
     def validate(self, *args: str) -> subprocess.CompletedProcess[str]:
@@ -67,6 +74,11 @@ class Repo:
 
     def rename(self, old: str, new: str, *args: str) -> subprocess.CompletedProcess[str]:
         return self.run("rename.py", old, new, *args)
+
+    def kb_new(self, name: str, title: str, description: str,
+               *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("kb-new.py", name, "--title", title,
+                        "--description", description, *args)
 
     def read(self, relative: str) -> str:
         return (self.root / relative).read_text()
@@ -80,4 +92,4 @@ def repo(tmp_path: Path) -> Repo:
     for name in ("SCHEMA.md", "overview.md", ".gitignore"):
         shutil.copy(REAL_ROOT / name, root / name)
     subprocess.run(["git", "-C", str(root), "init", "-q"], check=True)
-    return Repo(root)
+    return Repo(root=root, qmd_config_dir=tmp_path / "qmdconfig")

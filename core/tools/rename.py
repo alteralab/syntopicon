@@ -216,7 +216,7 @@ def main(argv: list[str]) -> int:
         (ROOT / edit.path).write_text(edit.text)
 
     # 사후 링크 검사 게이트 — 재작성이 끝난 상태를 같은 규칙으로 다시 본다.
-    print()
+    print(flush=True)   # validate의 출력과 섞이지 않게 먼저 비운다
     return subprocess.run([sys.executable, str(Path(__file__).parent / "validate.py")]).returncode
 
 

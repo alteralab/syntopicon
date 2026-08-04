@@ -82,6 +82,30 @@ def rewrite_links(source: str, old_href: str, new_href: str) -> Rewrite:
     return Rewrite(text="".join(lines), changed=changed, ambiguities=())
 
 
+def replace_section_body(source: str, heading: str, body: str) -> Rewrite:
+    """`## <heading>` 절의 본문을 통째로 갈아끼운다. 헤딩 자체와 다른 절은 건드리지 않는다.
+
+    라우터의 KB 목록처럼 **기계가 소유하는 절**에만 쓴다 — 파일시스템이 정본인 목록은
+    누적 편집이 아니라 재생성이 맞고, 그래야 삭제된 KB가 남지 않는다.
+    """
+    tokens = parser().parse(source)
+    lines = source.splitlines(keepends=True)
+
+    for index, token in enumerate(tokens):
+        if token.type != "heading_open" or tokens[index + 1].content.strip() != heading:
+            continue
+        level, start = int(token.tag.removeprefix("h")), token.map[1]
+        end = next(
+            (t.map[0] for t in tokens[index + 1:]
+             if t.type == "heading_open" and int(t.tag.removeprefix("h")) <= level),
+            len(lines),
+        )
+        lines[start:end] = (body if body.endswith("\n") else body + "\n").splitlines(keepends=True)
+        return Rewrite(text="".join(lines), changed=1, ambiguities=())
+
+    raise LookupError(f"'{heading}' 절을 찾지 못했습니다")
+
+
 def rewrite_frontmatter_path(source: str, old_path: str, new_path: str) -> Rewrite:
     """frontmatter의 저장소 루트 기준 경로만 바꾼다 — YAML 라운드트립은 하지 않는다.
 
