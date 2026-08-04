@@ -47,6 +47,14 @@ kb:
     path: overview.md
     type: guide
 
+  # 진입 문서의 절 이름 계약. 자유 md 안에서 이 두 절 이름만 기계가 붙잡는다
+  # (PLAN §3: "## Hubs 절 이름만 자체 계약"). 도구에 하드코딩하지 않는 이유는
+  # lint가 같은 이름으로 대조해야 하기 때문이다 — 코드에 숨으면 대조가 불가능하다.
+  # 소비자: kb-new(라우터·허브 절 갱신), kb-lint(Hubs↔고차수 synthesis 대조).
+  sections:
+    router: KBs      # 루트 overview.md — KB당 1줄
+    hubs: Hubs       # <kb>/overview.md — 허브 링크 10–30
+
   # 디렉터리↔type 정합 표. 값은 type 그룹 이름이며 그룹 정의는 schema/common.yaml의
   # $defs가 정본이다(여기서 type 값을 다시 열거하지 않는다 — 정본 이중화 금지).
   # "디렉터리는 뷰, type 정본은 frontmatter"(PLAN §2.7-1) — 이 표는 둘의 정합만 강제한다.
