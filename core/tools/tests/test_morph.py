@@ -44,6 +44,15 @@ def test_낱말끼리는_AND_복합어만_phrase():
     assert morph.query_expression("복제지연 읽기") == '"복제 지연" 읽'
 
 
+def test_불규칙_용언_어간을_버리지_않는다():
+    """Kiwi는 불규칙 어간에 VV-I·VA-I 태그를 붙인다. 접미를 떼지 않으면 긋다·걷다·
+    듣다·돕다·어렵다가 통째로 색인에서 빠진다 — 첫 실제 콘텐츠에서 발견된 구멍이다."""
+    for word, stem in [("긋는다", "긋"), ("걷는다", "걷"), ("듣는다", "듣"),
+                       ("돕는다", "돕"), ("어렵다", "어렵"), ("아름답다", "아름답")]:
+        assert stem in morph.analyze(word), f"{word}의 어간 {stem}이 빠졌습니다"
+    assert morph.base_tag("VV-I") == "VV" and morph.base_tag("VV") == "VV"
+
+
 def test_활용형과_조사_변형이_같은_형태로_모인다():
     for variant in ("복제가", "복제를", "복제는", "복제로"):
         assert morph.analyze(variant) == ["복제"]

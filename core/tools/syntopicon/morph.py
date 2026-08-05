@@ -71,9 +71,20 @@ def _kiwi():
     return kiwi
 
 
+def base_tag(tag: str) -> str:
+    """Kiwi의 불규칙 활용 변형 접미를 떼어 낸 기본 태그.
+
+    Kiwi는 용언 어간을 규칙/불규칙으로 갈라 `VV-R`·`VV-I`·`VA-I` 같은 태그를 붙인다
+    (실측: 긋다→긋/VV-I, 어렵다→어렵/VA-I, 먹다→먹/VV). 접미를 떼지 않으면 KEEP_TAGS의
+    `VV`·`VA`에 걸리지 않아 **불규칙 용언이 통째로 색인에서 빠진다** — 긋다·걷다·듣다·
+    돕다·어렵다·아름답다가 전부 그렇다. 한국어에서 이는 작은 누락이 아니다.
+    """
+    return tag.split("-", 1)[0]
+
+
 def analyze(text: str) -> list[str]:
     """색인·질의 양쪽이 쓰는 유일한 분석 경로. 여기가 갈라지면 레그 전체가 무의미하다."""
-    return [t.form for t in _kiwi().tokenize(text) if t.tag in KEEP_TAGS]
+    return [t.form for t in _kiwi().tokenize(text) if base_tag(t.tag) in KEEP_TAGS]
 
 
 def index_text(text: str) -> str:
@@ -102,7 +113,8 @@ def fragments(text: str) -> list[Fragment]:
     """연속 1음절 한글 형태소 런을 찾는다 → 사용자 사전 후보(PLAN §4.3)."""
     found, run = [], []
     for token in _kiwi().tokenize(text):
-        single = token.tag in KEEP_TAGS and len(token.form) == 1 and HANGUL.match(token.form)
+        single = (base_tag(token.tag) in KEEP_TAGS
+                  and len(token.form) == 1 and HANGUL.match(token.form))
         if single:
             run.append(token.form)
             continue
