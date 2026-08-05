@@ -55,6 +55,10 @@ uv run tools/lint.py --kb <kb> --quiet     # info 숨김
 **hub-candidate** — `<kb>/overview.md`의 `## Hubs` 갱신 후보. **자동으로 넣지 않는다** —
 목록 자동화는 생존하지만 큐레이션 자동화는 실패한다. 사람이 고른다. 상한은 10–30개.
 
+**hub-split-hint** — 링크 40개 초과 허브. 분할은 부모–자식 패턴(옛 허브가 자식들을
+가리키는 부모로 남아 링크 불파손). 새 허브 이름은 **현재 내용 범위만큼만 좁게** —
+넓은 이름은 description을 미래에 거짓으로 만든다(SCHEMA.md §5).
+
 **claim-unfootnoted / source-uncited** — 각주는 출처 귀속 전용 채널이다. 선언한
 소스가 인용되지 않았다면 죽은 항목이거나, 각주 정의가 빠져 본문에 `[^…]`가
 평문으로 남아 있는 것이다(후자는 validate가 못 본다).
