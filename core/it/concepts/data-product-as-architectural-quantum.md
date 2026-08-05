@@ -1,13 +1,13 @@
 ---
 type: concept
-title: 아키텍처 양자로서의 데이터 제품
+title: 아키텍처 퀀텀으로서의 데이터 제품
 description: 서비스 메시에서 데이터 메시로 넘어올 때 무엇이 최소 단위가 되는가
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }
 ---
 
-# 아키텍처 양자로서의 데이터 제품
+# 아키텍처 퀀텀(architectural quantum)으로서의 데이터 제품
 
 데이터 메시(data mesh)라는 말을 만든 Zhamak Dehghani는 **마이크로서비스에서 영감을
 얻었다.** 이 페이지는 그 유추가 어디까지 성립하고 어디서 깨지는지를 다룬다

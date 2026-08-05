@@ -52,6 +52,8 @@ FRAGMENT_MIN_HITS = 2   # 한 번뿐인 파편은 오탐일 확률이 높다 —
 # 안에서 어휘를 보는 것이라, PLAN §3이 허용한 정규 언어 검증에 해당한다.
 EPISTEMIC_TOKEN = re.compile(r"(?<![\w#])#([a-z][a-z0-9-]*)")
 WIKILINK = re.compile(r"!?\[\[[^\]]+\]\]")
+# 원어 병기 쌍 `한국어 역어(english term)` — 같은 범주의 어휘 스캔이다.
+TERM_PAIR = re.compile(r"([가-힣][가-힣 ·]{0,30}?)\(([A-Za-z][A-Za-z /,\u2013-]{2,60})\)")
 
 
 @dataclass(frozen=True)
@@ -187,6 +189,49 @@ def check_fragments(ctx: Context):
         yield Finding("morph-fragmentation", "info",
                       f"'{row['surface']}' 가 {row['pieces']} 로 부서집니다 "
                       f"({row['hits']}회/{row['pages']}페이지) — user-dict.yaml 후보")
+
+
+def check_term_drift(ctx: Context):
+    """같은 원어가 서로 다른 역어로 병기되면 리포트한다 — 저장 어휘와 미래의 검색어가
+    갈라지는 것이 이 검사가 막는 실패다("집계 도메인" vs "애그리게이트", 실사례).
+
+    한계를 명시한다: **병기된 것만 잡는다.** 병기 없이 쓰인 역어("공통 진입로"가
+    그랬다)는 기계가 원어를 알 수 없어 못 잡는다 — 그쪽은 리뷰 소관이고, 병기
+    규율(§4.4-4)을 지킬수록 이 검사의 커버리지가 넓어진다.
+    """
+    renderings: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    for path, md in ctx.files.items():
+        for text in md.texts:
+            for korean, english in TERM_PAIR.findall(text):
+                renderings[english.strip().lower()][korean.strip()].add(path)
+
+    def same_term(a: str, b: str) -> bool:
+        """캡처에는 산문 접두가 붙는다(정규식이 leftmost에서 시작하므로). 같은 역어로
+        보는 조건: 한쪽이 다른 쪽의 어절 접미이거나("핵심은 비즈니스 역량" ⊇ "비즈니스
+        역량"), 공통 어절 접미가 2어절 이상 — 용어 자체가 겹친다는 뜻이다. 1어절
+        공통("도메인"·"흐름")은 일반 명사 머리일 뿐이라 드리프트로 남긴다. 휴리스틱이고
+        info 등급이다 — 판정은 사람이 한다."""
+        ta, tb = a.split(), b.split()
+        short, long_ = (ta, tb) if len(ta) <= len(tb) else (tb, ta)
+        if long_[-len(short):] == short:
+            return True
+        common = 0
+        for x, y in zip(reversed(ta), reversed(tb)):
+            if x != y:
+                break
+            common += 1
+        return common >= 2
+
+    for english, by_korean in sorted(renderings.items()):
+        clusters: list[str] = []           # 대표 = 가장 짧은 표기
+        for korean in sorted(by_korean, key=lambda k: (len(k.split()), len(k))):
+            if not any(same_term(korean, seen) for seen in clusters):
+                clusters.append(korean)
+        if len(clusters) > 1:
+            pages = sorted({p for paths in by_korean.values() for p in paths})
+            yield Finding("term-drift", "info",
+                          f"({english}) 역어가 갈라짐: {' / '.join(clusters)} — "
+                          f"{', '.join(pages)}")
 
 
 def check_field_usage(ctx: Context):
@@ -325,7 +370,7 @@ def check_ingest_trailers(ctx: Context):
 
 GRAPH_CHECKS = (check_links, check_orphans, check_hubs, check_stale,
                 check_contradictions, check_field_usage, check_fragments,
-                check_inbox, check_ingest_trailers)
+                check_term_drift, check_inbox, check_ingest_trailers)
 
 
 def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str],

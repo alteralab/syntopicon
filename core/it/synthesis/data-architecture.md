@@ -23,6 +23,6 @@ generated: { by: "claude-opus-5", at: "2026-08-06T08:10:00Z" }
 
 ## 도메인 운용
 
-- [도메인 역할 유형](../concepts/domain-role-topology.md) — 소스 정렬·소비자 정렬·집계·구성자 도메인
+- [도메인 역할 유형](../concepts/domain-role-topology.md) — 소스 정렬·소비자 정렬·애그리게이트·구성자 도메인
 - [공유 역량의 데이터 소유권](../concepts/shared-capability-ownership.md) — 한 시스템을 여러 도메인이 쓸 때의 소유권
-- [아키텍처 양자로서의 데이터 제품](../concepts/data-product-as-architectural-quantum.md) — 서비스 메시→데이터 메시 유추의 성립과 한계
+- [아키텍처 퀀텀으로서의 데이터 제품](../concepts/data-product-as-architectural-quantum.md) — 서비스 메시→데이터 메시 유추의 성립과 한계

@@ -34,14 +34,14 @@ sources:
 관심사를 격리해 관리하려면 공유 데이터를 만드는 업무 로직을 사용처와 분리된 곳에
 모아 둘 수 있다 (2장 Domain Characteristics, p.46).[^strengholt2023-dms]
 
-- **집계 도메인(aggregate domain)** — 데이터를 먼저 결합·통합한 뒤 자기도 쓰고 다른
+- **애그리게이트 도메인(aggregate domain)** — 데이터를 먼저 결합·통합한 뒤 자기도 쓰고 다른
   도메인에도 공유한다. 이 고객/공급자 패턴은 도메인 간 통합 요구가 겹칠 때 특히
   유용하다 (2장 Domain Characteristics, p.46).[^strengholt2023-dms]
 - **공급자 도메인** — 순수하게 상류/하류 관계로만 협업하는 모델. 결합 데이터 제품을
   만들어 배포하지만 **자기 유스케이스에는 쓰지 않는다.** 소비자이면서 제공자로 동시에
   행동한다 (2장 Domain Characteristics, p.46).[^strengholt2023-dms]
 - **구성자 도메인(constructor domain)** — 소비하던 도메인이 새 데이터를 만들어 제공자가
-  되는 경우다. 앞의 집계와 다른 점은 만들어진 데이터 제품에 **새로운 업무 통찰이
+  되는 경우다. 앞의 애그리게이트 시나리오와 다른 점은 만들어진 데이터 제품에 **새로운 업무 통찰이
   담긴다**는 것 — 구조만 바뀐 게 아니라 다른 맥락으로 풍부해졌다
   (2장 Domain Characteristics, p.47-48).[^strengholt2023-dms]
 
@@ -49,14 +49,14 @@ sources:
 도메인 객체의 묶음이고, 데이터를 그룹핑해 요약 형태로 표현하는 **데이터 집계(data
 aggregation)** 와 다르다 (2장 Domain Characteristics, p.47).[^strengholt2023-dms]
 
-## 공통 진입로
+## 공동 진입로
 
 - 모든 시나리오에서 데이터 배포는 **공동 진입로(common driveway)** 를 쓰는 것이 모범
   사례다 (2장 Domain Characteristics, p.48).[^strengholt2023-dms]
 - 도메인이 다른 도메인과 통신할 때는 **표준화된 인터페이스**를 쓴다. 도메인 안쪽은
   애플리케이션 고유 인터페이스와 데이터 모델로 직접 통신해도 된다
   (2장 Data Domains, p.42).[^strengholt2023-dms]
-- 통합 스타일은 하나로 통일하지 않고 몇 가지 공통 진입로 패턴으로 **표준화**한다.
+- 통합 스타일은 하나로 통일하지 않고 몇 가지 공동 진입로(common driveway) 패턴으로 **표준화**한다.
   대량 데이터 처리에는 데이터 제품을, 강한 일관성 읽기·명령에는 API 서비스를 권한다
   (2장 Patterns for complex integration challenges, p.49).[^strengholt2023-dms]
 

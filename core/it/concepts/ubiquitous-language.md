@@ -9,7 +9,7 @@ sources:
 
 # 유비쿼터스 언어
 
-유비쿼터스 언어(ubiquitous language)는 DDD에서 **개발자와 사용자가 함께 쌓아 공유하는
+유비쿼터스 언어(ubiquitous language, 에반스 번역서 역어는 '보편 언어')는 DDD에서 **개발자와 사용자가 함께 쌓아 공유하는
 공통의 엄밀한 언어**다. 특정 관심 영역의 사람들이 쓰는 정의·어휘·전문용어의 공유
 집합에 해당한다 (2장 Ubiquitous language, p.34).[^strengholt2023-dms]
 

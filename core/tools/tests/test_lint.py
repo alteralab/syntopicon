@@ -142,6 +142,23 @@ def test_미정의_epistemic_토큰을_잡고_정의된_것은_통과시킨다(r
     assert "#hypothesis" not in reported and "#nottoken" not in reported
 
 
+def test_역어_드리프트를_잡되_산문_접두는_무시한다(repo: Repo):
+    """같은 원어에 다른 역어 = 저장 어휘와 미래 검색어의 분열(실사례: 집계/애그리게이트).
+    산문이 앞에 붙은 병기("모든 것이 비즈니스 역량(business capability)")는 접미
+    관계라 드리프트가 아니다."""
+    base(repo)
+    repo.write("it/concepts/alpha-page.md", cited() + (
+        "\n가치 흐름(value stream)은 가치를 전달한다.\n"
+        "핵심은 비즈니스 역량(business capability)이다.\n"))
+    repo.write("it/concepts/beta-page.md", cited() + (
+        "\n값 흐름(value stream)이라고 부르는 이도 있다.\n"
+        "모든 것이 비즈니스 역량(business capability) 위에 선다.\n"))
+    lint(repo)
+    drift = " ".join(findings(repo, "term-drift"))
+    assert "value stream" in drift and "가치 흐름" in drift and "값 흐름" in drift
+    assert "business capability" not in drift, "접미 관계를 드리프트로 오인했습니다"
+
+
 def test_wikilink를_잡는다(repo: Repo):
     base(repo)
     repo.write("it/concepts/obsidian.md", cited() + "\n- [[라프트]] 로 연결.\n")

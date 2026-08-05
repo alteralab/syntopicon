@@ -20,7 +20,7 @@ sources:
 - **공유 역량(shared capability)** — 하나의 비즈니스 역량이 여러 사업 라인에 중앙
   as-a-service로 제공되는 경우. 예: 아시아·유럽 사업부가 같은 고객 관리 시스템을 쓴다
   (2장 Shared capabilities, p.43).[^strengholt2023-dms]
-- **복합 애플리케이션(complex application)** — 반대로 하나의 애플리케이션·데이터베이스가
+- **복잡한 애플리케이션(complex application)** — 반대로 하나의 애플리케이션·데이터베이스가
   **여러 비즈니스 역량**을 담당하는 경우. 벤더 업무 스위트나 레거시 모놀리스가 그렇다
   (2장 Complex applications, p.45).[^strengholt2023-dms]
 
