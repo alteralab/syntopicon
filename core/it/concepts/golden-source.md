@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 골든 소스
-description: 어떤 애플리케이션이 특정 맥락에서 데이터의 정본인가
+description: 특정 맥락에서 데이터의 권위 있는 출처(authoritative source)가 되는 애플리케이션
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }

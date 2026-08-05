@@ -13,11 +13,11 @@ generated: { by: "claude-opus-5", at: "2026-08-06T08:10:00Z" }
 ## 기초 전제
 
 - [데이터 통합 딜레마](../concepts/data-integration-dilemma.md) — 애플리케이션 간 이동에는 변환이 항상 필요한 이유
-- [골든 소스](../concepts/golden-source.md) — 특정 맥락에서 데이터의 정본이 되는 애플리케이션
+- [골든 소스](../concepts/golden-source.md) — 특정 맥락에서 데이터의 권위 있는 출처(authoritative source)가 되는 애플리케이션
 
 ## 경계 긋기
 
-- [경계 컨텍스트](../concepts/bounded-context.md) — 도메인 해결 공간의 논리적 경계와 그 설계 원칙
+- [바운디드 컨텍스트](../concepts/bounded-context.md) — 도메인 해결 공간의 논리적 경계와 그 설계 원칙
 - [유비쿼터스 언어](../concepts/ubiquitous-language.md) — 경계 안에서 공유되는 언어, 전사 통일이 아닌 이유
 - [비즈니스 역량](../concepts/business-capability.md) — 문제 공간을 나누는 기준, 도메인 경계의 출발점
 
