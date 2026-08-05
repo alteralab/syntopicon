@@ -118,6 +118,10 @@ def check_orphans(ctx: Context):
     for path, meta in ctx.meta.items():
         if path in linked or path in cited or meta["directory"] in (None, "inbox"):
             continue
+        if meta["type"] == "redirect":
+            # 스텁은 잔존 참조를 받기 위해 존재한다 — 내부 링크 0이 정상 상태이고,
+            # 경유하는 링크가 생기면 redirect-hop 검사가 따로 잡는다.
+            continue
         yield Finding("orphan", "info", "가리키는 페이지가 없습니다", meta["kb"], path)
 
 
