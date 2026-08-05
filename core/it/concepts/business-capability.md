@@ -2,7 +2,6 @@
 type: concept
 title: 비즈니스 역량
 description: 문제 공간을 무엇을 기준으로 나누는가 — 도메인 경계의 출발점
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 도메인 역할 유형
 description: 도메인이 데이터 흐름에서 맡는 역할과 그에 따라 달라지는 설계
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }

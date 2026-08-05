@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 통합 딜레마
 description: 애플리케이션 사이에서 변환을 피할 수 없는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }

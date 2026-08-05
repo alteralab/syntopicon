@@ -2,7 +2,6 @@
 type: concept
 title: 아키텍처 양자로서의 데이터 제품
 description: 서비스 메시에서 데이터 메시로 넘어올 때 무엇이 최소 단위가 되는가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-06T06:30:00Z" }
 sources:
   - { id: strengholt2023-dms, resource: /it/sources/strengholt2023-dms.md }
