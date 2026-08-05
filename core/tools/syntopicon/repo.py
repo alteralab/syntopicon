@@ -30,8 +30,15 @@ def visible_files() -> tuple[Path, ...]:
 
     무엇이 저장소에 속하는지의 정본은 .gitignore다. layout.yaml에 무시 목록을
     다시 적으면 두 정본이 갈라진다.
+
+    디스크에 없는 경로는 뺀다. `ls-files -c`는 **인덱스**를 보여 주므로 방금 지워지고
+    아직 스테이징되지 않은 파일을 계속 나열하는데, 그러면 이 함수를 믿고 읽는 쪽이
+    전부 깨진다(merge가 파일을 지운 직후 validate가 그렇게 죽었다).
     """
-    return tuple(Path(p) for p in _git("ls-files", "-co", "--exclude-standard"))
+    return tuple(
+        path for name in _git("ls-files", "-co", "--exclude-standard")
+        if (path := Path(name)) and (ROOT / path).exists()
+    )
 
 
 def top_level_entries() -> set[str]:
