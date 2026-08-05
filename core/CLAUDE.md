@@ -2,8 +2,8 @@
 
 IT 서적·논문을 10–20년 축적하는 개인 지식 베이스. **정본 계획 = PLAN.md** (결정·규약 본문 + §8 검증 원장).
 
-현재 상태: **구축 중** — 루트 골격·`schema/` 동결 코어 + **tools/ 9종 전부 완료**(validate·lint·rename·kb-new·reindex·edges·affected·ksearch·retrieval_eval). 콘텐츠 디렉터리·KB는 아직 없음(의도된 상태: KB는 kb-new만이 생성, PLAN §3).
-다음 작업: PLAN §6 "구축" 나머지 — 스킬 4종+evals(evals 먼저) → qmd 설정 → 백업 가동. 완료 게이트 = kb-new 첫 실행(수용 검증 개시).
+현재 상태: **구축 중** — 루트 골격·`schema/` 동결 코어 + tools/ 11종 + **스킬 4종·evals 12시나리오 완료**. 콘텐츠 디렉터리·KB는 아직 없음(의도된 상태: KB는 kb-new만이 생성, PLAN §3).
+다음 작업: PLAN §6 "구축" 나머지 — qmd 설정(임베딩 모델 교체 검증 포함) → 백업 가동. 완료 게이트 = kb-new 첫 실행(수용 검증 개시).
 
 도구: `uv run tools/<이름>.py` (validate=커밋 게이트·lint=전수 리포트·reindex=파생 인덱스 재생성).
 테스트: `uv run --group index --group eval pytest` — 그룹을 빼면 형태소·하네스 테스트가 skip된다.
