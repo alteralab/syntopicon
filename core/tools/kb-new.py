@@ -23,7 +23,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod
-from syntopicon import repo, schemas
+from syntopicon import schemas
 from syntopicon.mdfile import read
 from syntopicon.repo import ROOT
 from syntopicon.rewrite import replace_section_body
@@ -161,11 +161,7 @@ def main(argv: list[str]) -> int:
 
     try:
         created = create_skeleton(layout, args.name, args.title, args.description)
-        # 방금 만든 KB가 보이도록 캐시를 비운다. KB 목록의 정본은 파일시스템이고
-        # 그 스냅샷을 visible_files가 들고 있다.
-        repo.visible_files.cache_clear()
-        layout_mod.load.cache_clear()
-        layout = layout_mod.load()
+        # visible_files는 캐시하지 않으므로 방금 만든 KB가 다음 조회부터 그대로 보인다.
         registered = None if args.no_qmd else register_qmd(layout, args.name)
         router = update_router(layout)
     except KbNewError as error:

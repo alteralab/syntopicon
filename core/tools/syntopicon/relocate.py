@@ -15,7 +15,6 @@ from pathlib import Path
 
 from .layout import Layout
 from .mdfile import read
-from . import repo as repo_mod
 from .repo import ROOT, visible_files
 from .rewrite import rewrite_frontmatter_path, rewrite_links
 
@@ -119,6 +118,3 @@ def apply(new: Path, content: str, edits: list[Edit]) -> None:
         handle.write(content)
     for edit in edits:
         (ROOT / edit.path).write_text(edit.text)
-    # 파일 목록이 바뀌었다. 캐시를 비우지 않으면 연속 이동에서 두 번째 호출이
-    # 이미 사라진 경로를 읽으려 든다 — merge --all이 정확히 그 경로다.
-    repo_mod.visible_files.cache_clear()
