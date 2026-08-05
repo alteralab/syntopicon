@@ -94,11 +94,22 @@ def check_links(ctx: Context):
 
 
 def check_orphans(ctx: Context):
-    """어디서도 가리키지 않는 페이지. 진입점과 검역 중인 초안은 제외한다."""
+    """어디서도 가리키지 않는 페이지. 진입점과 검역 중인 초안은 제외한다.
+
+    참조는 두 채널이다 — 본문 링크(edges)와 frontmatter의 `sources[].resource`
+    (PLAN §2.4의 루트 기준 경로). 후자를 안 세면 인용되고 있는 소스 메타가 전부
+    영구 false positive로 찍히고, 그런 소음은 리포트 전체를 무시하게 만든다.
+    """
     linked = {row["dst"] for row in
               ctx.connection.execute("SELECT DISTINCT dst FROM edges WHERE resolved = 1")}
+    cited = {
+        source["resource"].lstrip("/")
+        for meta in ctx.meta.values()
+        for source in meta["frontmatter"].get("sources", [])
+        if isinstance(source, dict) and "resource" in source
+    }
     for path, meta in ctx.meta.items():
-        if path in linked or meta["directory"] in (None, "inbox"):
+        if path in linked or path in cited or meta["directory"] in (None, "inbox"):
             continue
         yield Finding("orphan", "info", "가리키는 페이지가 없습니다", meta["kb"], path)
 

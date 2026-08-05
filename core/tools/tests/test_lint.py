@@ -68,6 +68,9 @@ def test_고아_페이지를_찾되_진입점과_inbox는_뺀다(repo: Repo):
     assert "it/concepts/lonely.md" in orphans
     assert "it/inbox/draft-idea.md" not in orphans
     assert "it/overview.md" not in orphans
+    # frontmatter sources[].resource로 인용되는 소스 메타는 고아가 아니다 —
+    # 본문 링크만 세면 모든 소스가 영구 false positive가 된다(첫 ingest에서 발견).
+    assert f"it/sources/{DDIA}.md" not in orphans
 
 
 def test_고차수_synthesis를_Hubs_후보로_낸다(repo: Repo):
