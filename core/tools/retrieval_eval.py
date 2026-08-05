@@ -80,15 +80,30 @@ def search_flat(connection, query: str, limit: int) -> list[str]:
 
 
 def search_expand(connection, query: str, depth: int, limit: int) -> list[str]:
-    """top-3 시드에서 k홉 확장. 점수는 (시드 순위 + 홉수)의 역수 — 가까울수록 높다."""
+    """top-3 시드에서 k홉 확장. 점수 = (1/시드 순위) × 경로 가중.
+
+    경로 가중은 neighbors가 준다(경유 분기 역수 곱) — 고차수 허브를 경유한
+    이웃은 자연 강등되므로, 메가허브가 있어도 확장이 전 KB를 동점으로
+    쏟아내지 않는다. 그 성질은 하네스의 메가허브 시나리오가 단언한다.
+    """
     from syntopicon import index_db
 
     scores: dict[str, float] = {}
-    seeds = search_flat(connection, query, SEED_COUNT)
+    # 확장 시드에서 synthesis(허브)는 제외한다 — 허브에서의 확장은 차수 가중의
+    # 정의상 균등 1/N 잡음이라 시드 슬롯만 소모한다(하네스가 메가허브 시나리오에서
+    # 실측: 허브가 시드 슬롯을 훔치면 recall 1.0→0.9). 허브는 flat 결과·이웃으로는
+    # 그대로 돌아온다 — 시드 자격만 콘텐츠 페이지로 한정한다. type 기준이라 상수가 없다.
+    flat_pool = search_flat(connection, query, SEED_COUNT * 3)
+    seed_types = {
+        row["path"]: row["type"] for row in connection.execute(
+            f"SELECT path, type FROM files WHERE path IN "
+            f"({','.join('?' * len(flat_pool))})", flat_pool)
+    } if flat_pool else {}
+    seeds = [p for p in flat_pool if seed_types.get(p) != "synthesis"][:SEED_COUNT]
     for rank, seed in enumerate(seeds, start=1):
         scores[seed] = max(scores.get(seed, 0), 1 / rank)
         for row in index_db.neighbors(connection, seed, depth):
-            candidate = 1 / (rank + row["hops"])
+            candidate = (1 / rank) * row["weight"]
             scores[row["path"]] = max(scores.get(row["path"], 0), candidate)
     return sorted(scores, key=lambda p: -scores[p])[:limit]
 

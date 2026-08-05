@@ -33,8 +33,8 @@ def cmd_backlinks(connection, args) -> int:
 def cmd_neighbors(connection, args) -> int:
     rows = index_db.neighbors(connection, args.path, args.depth, args.cross_kb)
     for row in rows:
-        print(f"{row['hops']}홉  {row['path']}")
-    print(f"\n{len(rows)}건 (깊이 {args.depth})")
+        print(f"{row['hops']}홉  w={row['weight']:.4f}  {row['path']}")
+    print(f"\n{len(rows)}건 (깊이 {args.depth}, 가중=경유 분기 역수 곱 — 고차수 경유는 강등)")
     return 0
 
 

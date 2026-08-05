@@ -90,9 +90,41 @@ def test_neighbors는_방향을_무시하고_깊이를_센다(repo: Repo):
     repo.run("reindex.py")
     result = repo.run("edges.py", "neighbors", "it/concepts/raft.md", "--depth", "2")
     assert result.returncode == 0
-    # raft ← consensus (1홉), consensus → replication (2홉)
-    assert "1홉  it/concepts/consensus.md" in result.stdout
-    assert "2홉  it/concepts/replication.md" in result.stdout
+    # raft ← consensus (1홉), consensus → replication (2홉). 가중이 함께 나온다.
+    assert "1홉  w=" in result.stdout and "it/concepts/consensus.md" in result.stdout
+    assert "2홉  w=" in result.stdout and "it/concepts/replication.md" in result.stdout
+    assert "it/concepts/raft.md" not in result.stdout, "시드 자신이 이웃으로 돌아왔습니다"
+
+
+def test_고차수_허브_경유는_강등되고_직접_링크가_이긴다(repo: Repo):
+    """메가허브 고장의 회귀 방지 — 실측: 300링크 허브면 전 KB가 동급 2-hop이었다.
+    차수 가중 후에는 직접 링크 경로가 허브 경유 경로를 항상 이겨야 한다."""
+    repo.kb_new("it", "IT 지식", "설명")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.write("it/concepts/seed-page.md", concept(
+        body="\n- [직접 이웃](direct-friend.md)\n"))
+    repo.write("it/concepts/direct-friend.md", concept())
+    for i in range(30):
+        repo.write(f"it/concepts/filler-{i:02d}.md", concept())
+    hub_links = "\n".join(
+        f"- [f{i}](../concepts/filler-{i:02d}.md)" for i in range(30))
+    repo.write("it/synthesis/big-hub.md", page({
+        "type": "synthesis", "title": "큰 허브", "description": "고차수",
+        "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}},
+        body=f"\n- [시드](../concepts/seed-page.md)\n{hub_links}\n"))
+    repo.run("reindex.py")
+
+    connection = sqlite3.connect(repo.root / "derived.sqlite")
+    connection.row_factory = sqlite3.Row
+    from syntopicon import index_db
+    with connection:
+        rows = index_db.neighbors(connection, "it/concepts/seed-page.md", 2)
+    weight = {r["path"]: r["weight"] for r in rows}
+    assert "it/concepts/direct-friend.md" in weight
+    hub_mediated = [w for p_, w in weight.items() if p_.startswith("it/concepts/filler")]
+    assert hub_mediated, "허브 경유 이웃이 도달점으로도 안 돌아옵니다"
+    assert weight["it/concepts/direct-friend.md"] > max(hub_mediated) * 5, \
+        "직접 링크가 허브 경유를 확실히 이기지 못합니다"
 
 
 def test_탐색_깊이_상한을_강제한다(repo: Repo):

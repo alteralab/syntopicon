@@ -47,6 +47,11 @@ UNIMPLEMENTED = {
     "page-overlap": "임베딩 필요 (qmd 단계)",
 }
 FRAGMENT_MIN_HITS = 2   # 한 번뿐인 파편은 오탐일 확률이 높다 — 자체 상수
+# 허브 분할 힌트 임계. 근거: PLAN이 허브 페이지에 준 예산은 1–2k 토큰[선택]이고
+# 실측 30링크 허브 ≈ 2.6KB ≈ 그 예산 규모다 — 40은 상단 여유를 둔 환산치.
+# 탐색 고장은 차수 가중 neighbors가 임계 없이 막으므로(§4.1 구현), 이 검사가 지키는
+# 것은 진입점 예산과 훑기 가능성뿐이다. 자체 상수 — 운영 데이터로 보정.
+HUB_SPLIT_HINT = 40
 
 # 본문 인라인 토큰. AST가 "코드도 링크도 아닌 텍스트"까지 갈라 준 **뒤에** 그 텍스트
 # 안에서 어휘를 보는 것이라, PLAN §3이 허용한 정규 언어 검증에 해당한다.
@@ -189,6 +194,24 @@ def check_fragments(ctx: Context):
         yield Finding("morph-fragmentation", "info",
                       f"'{row['surface']}' 가 {row['pieces']} 로 부서집니다 "
                       f"({row['hits']}회/{row['pages']}페이지) — user-dict.yaml 후보")
+
+
+def check_hub_size(ctx: Context):
+    """출차수가 임계를 넘은 synthesis 페이지 → 분할 후보 리포트.
+
+    메가허브의 탐색 고장 자체는 차수 가중 neighbors가 막지만, 오리엔테이션 때
+    통째로 읽히는 진입점이 예산(1–2k 토큰)을 넘게 크는 것과 훑기 불가능해지는
+    것은 남는다. 분할 판단은 사람이 한다 — "주제가 갈라지면 허브를 나눈다".
+    """
+    for row in ctx.connection.execute("""
+        SELECT src, COUNT(*) AS degree FROM edges WHERE resolved = 1
+        GROUP BY src HAVING degree > ?
+    """, (HUB_SPLIT_HINT,)):
+        if ctx.meta.get(row["src"], {}).get("type") == "synthesis":
+            yield Finding("hub-split-hint", "info",
+                          f"링크 {row['degree']}개 > {HUB_SPLIT_HINT} — 허브 분할 후보 "
+                          "(진입점 예산 1–2k 토큰, PLAN §3)",
+                          ctx.kb_of(row["src"]), row["src"])
 
 
 def check_term_drift(ctx: Context):
@@ -370,7 +393,7 @@ def check_ingest_trailers(ctx: Context):
 
 GRAPH_CHECKS = (check_links, check_orphans, check_hubs, check_stale,
                 check_contradictions, check_field_usage, check_fragments,
-                check_term_drift, check_inbox, check_ingest_trailers)
+                check_term_drift, check_hub_size, check_inbox, check_ingest_trailers)
 
 
 def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str],

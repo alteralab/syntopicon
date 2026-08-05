@@ -71,8 +71,15 @@ def generate(root: Path, kb: str = "bench", chains: int = 10, seed: int = 202608
         names = [f"{english.replace(' ', '-')}-{index}-{step}" for step in range(hops + 1)]
         for step, name in enumerate(names):
             nxt = f"[다음 단계]({names[step + 1]}.md)" if step + 1 < len(names) else ""
+            # 사슬 출발점(step 0)은 방해 페이지보다 어휘 신호가 결정적으로 강해야 한다.
+            # 동점이면 순위가 코퍼스 통계 운에 달리고, 벤치가 재려는 것은 시드 변별이
+            # 아니라 "어휘로 안 보이는 정답의 회수"다 — 메가허브 추가로 동점 운이
+            # 뒤집혀 recall이 흔들린 실측이 이 줄의 근거다.
+            anchor_line = (f"{korean} 즉 {english} 논의의 출발점이 이 페이지다.\n"
+                           if step == 0 else "")
             body = (
-                f"{korean} 개념의 {step}단계 서술이다. 이 문단은 {english} 를 다룬다.\n\n"
+                f"{korean} 개념의 {step}단계 서술이다. 이 문단은 {english} 를 다룬다.\n"
+                f"{anchor_line}\n"
                 f"- 단계 설명 불릿.[^{cite}]\n{nxt}\n\n[^{cite}]: 합성 코퍼스\n"
                 if step < len(names) - 1 else
                 f"정답 마커 {marker} 가 여기에만 있다. {korean} 사슬의 끝이다.\n\n"
@@ -96,6 +103,19 @@ def generate(root: Path, kb: str = "bench", chains: int = 10, seed: int = 202608
             seed=f"{kb}/concepts/{names[0]}.md",
             hops=hops,
         ))
+
+    # 메가허브: 모든 개념 페이지를 링크하는 고차수 노드. 실측된 고장 조건(300링크
+    # 허브 → 전 KB가 2-hop)을 하네스에 상시로 심어, 차수 가중 탐색이 이것에
+    # 강건한지를 인수 게이트가 계속 물게 한다.
+    pages = sorted(concepts.glob("*.md"))
+    hub_lines = "\n".join(
+        f"- [{page.stem}]({page.name})" for page in pages
+    )
+    (root / kb / "synthesis").mkdir(parents=True, exist_ok=True)
+    (root / kb / "synthesis" / "mega-hub.md").write_text(
+        "---\ntype: synthesis\ntitle: 메가허브\ndescription: 전 개념을 링크하는 최악 조건\n"
+        'generated: { by: "tools/synth", at: "2026-08-05T00:00:00Z" }\n---\n'
+        f"\n# 메가허브\n\n{hub_lines}\n".replace("](", "](../concepts/"))
 
     rng.shuffle(questions)
     return questions

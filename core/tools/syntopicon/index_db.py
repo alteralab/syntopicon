@@ -182,25 +182,51 @@ def backlinks(connection: sqlite3.Connection, path: str) -> list[sqlite3.Row]:
     ).fetchall()
 
 
+# 가중 탐색의 잡음 하한. 경로 가중이 이 아래로 떨어지면 확장을 멈춘다 —
+# 평균 분기 ~5.6의 4-hop 체인(1/5.6⁴ ≈ 0.001)까지 생존하고, 그 너머는 근접
+# 신호가 아니라 잡음이다. 깊이 상한 4와 같은 계보의 운영 상수이며, 부수 효과로
+# 고차수 노드 경유의 행 폭발도 이 하한이 막는다.
+WEIGHT_FLOOR = 0.001
+
+
 def neighbors(connection: sqlite3.Connection, path: str, depth: int,
               cross_kb: bool = False) -> list[sqlite3.Row]:
-    """k-hop 이웃. 탐색 기본 스코프는 KB 내부이고 상한은 4다(PLAN §4.1).
+    """k-hop 이웃 — **차수 가중**. 탐색 기본 스코프는 KB 내부, 상한 4(PLAN §4.1).
 
-    상한 근거는 CTE 실측 — 10만 노드 depth-3 1.97ms 대 depth-5 218ms. 방향은 무시한다
-    (링크 탐색은 backlink도 따라가는 것이 요점).
+    가중 = 경유 노드 분기 수의 역수 곱(무방향 random walk 확률). 이것이 없으면
+    고차수 노드(허브)가 만능 지름길이 되어 300링크 허브 하나로 KB 전체가 2-hop
+    이내가 된다(실측: 개념 1개의 2-hop 이웃 = 301건 = 전 KB). 링크가 큐레이션된
+    선별일 때만 "가까움"이 신호라는 전제를, 사람 규율이 아니라 질의가 강제한다.
+    HippoRAG의 Personalized PageRank와 같은 계보다(PLAN §8이 인용한 메커니즘).
+
+    고차수 노드 자체는 이웃으로 **돌아온다**(도달점) — 경유(transit)만 강등된다.
+    깊이 상한 근거는 CTE 실측 — 10만 노드 depth-3 1.97ms 대 depth-5 218ms.
+    방향은 무시한다(링크 탐색은 backlink도 따라가는 것이 요점).
     """
     if not 1 <= depth <= 4:
         raise ValueError(f"탐색 깊이는 1–4입니다 (요청: {depth}) — PLAN §4.1 상한")
 
     scope = "" if cross_kb else "AND e.kind = 'internal'"
     return connection.execute(f"""
-        WITH RECURSIVE walk(path, hops) AS (
-            SELECT ?, 0
+        WITH RECURSIVE
+        deg(node, branches) AS (
+            SELECT node, COUNT(*) FROM (
+                SELECT src AS node FROM edges WHERE resolved = 1
+                UNION ALL
+                SELECT dst FROM edges WHERE resolved = 1
+            ) GROUP BY node
+        ),
+        walk(path, hops, weight) AS (
+            SELECT ?, 0, 1.0
             UNION
-            SELECT CASE WHEN e.src = w.path THEN e.dst ELSE e.src END, w.hops + 1
+            SELECT CASE WHEN e.src = w.path THEN e.dst ELSE e.src END,
+                   w.hops + 1,
+                   w.weight / (SELECT branches FROM deg WHERE node = w.path)
             FROM edges e JOIN walk w ON (e.src = w.path OR e.dst = w.path)
             WHERE w.hops < ? AND e.resolved = 1 {scope}
+              AND w.weight / (SELECT branches FROM deg WHERE node = w.path) >= {WEIGHT_FLOOR}
         )
-        SELECT path, MIN(hops) AS hops FROM walk
-        WHERE hops > 0 GROUP BY path ORDER BY hops, path
-    """, (path, depth)).fetchall()
+        SELECT path, MIN(hops) AS hops, MAX(weight) AS weight FROM walk
+        WHERE hops > 0 AND path != ?
+        GROUP BY path ORDER BY weight DESC, hops, path
+    """, (path, depth, path)).fetchall()

@@ -159,6 +159,18 @@ def test_역어_드리프트를_잡되_산문_접두는_무시한다(repo: Repo)
     assert "business capability" not in drift, "접미 관계를 드리프트로 오인했습니다"
 
 
+def test_허브_분할_힌트(repo: Repo):
+    base(repo)
+    links = "\n".join(f"- [x{i}](../concepts/topic-{i:02d}.md)" for i in range(45))
+    for i in range(45):
+        repo.write(f"it/concepts/topic-{i:02d}.md", cited())
+    repo.write("it/synthesis/fat-hub.md", page({
+        "type": "synthesis", "title": "비대 허브", "description": "분할 후보",
+        "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}}, body=f"\n{links}\n"))
+    lint(repo)
+    assert any("허브 분할 후보" in f for f in findings(repo, "hub-split-hint"))
+
+
 def test_wikilink를_잡는다(repo: Repo):
     base(repo)
     repo.write("it/concepts/obsidian.md", cited() + "\n- [[라프트]] 로 연결.\n")
