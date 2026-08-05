@@ -121,7 +121,9 @@ def router_body(layout: layout_mod.Layout) -> str:
                      f"{front.get('description', '')}")
     if not layout.kbs():
         lines.append("아직 없다. `/kb-new`가 KB의 유일한 생성 경로다.")
-    lines.append("")
+    # 절 본문은 빈 줄로 끝난다 — 안 그러면 다음 헤딩이 목록에 붙고, 갱신할 때마다
+    # 그 붙음이 누적된다.
+    lines += ["", ""]
     return "\n".join(lines)
 
 

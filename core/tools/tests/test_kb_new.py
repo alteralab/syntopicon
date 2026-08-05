@@ -45,6 +45,15 @@ def test_두번째_KB도_라우터에_누적된다(repo: Repo):
     assert "[IT 지식](it/overview.md)" in router and "[운영](ops/overview.md)" in router
 
 
+def test_라우터_갱신이_다음_절을_붙이지_않는다(repo: Repo):
+    """절 본문이 빈 줄로 끝나지 않으면 다음 헤딩이 목록에 달라붙고, 갱신할 때마다
+    누적된다. 기계가 소유하는 절이라 사람이 고쳐 줄 기회도 없다."""
+    for name in ("it", "ops"):
+        repo.kb_new(name, name, "설명")
+        router = repo.read("overview.md")
+        assert "\n\n## 규약" in router, f"{name} 생성 후 규약 절이 붙었습니다"
+
+
 def test_이름_규칙을_어기면_거부한다(repo: Repo):
     for bad in ("IT", "2024-it", "it_kb"):
         result = repo.kb_new(bad, "제목", "설명")

@@ -84,6 +84,22 @@ class Repo:
         return (self.root / relative).read_text()
 
 
+def _reset_router(path: Path) -> None:
+    """라우터의 KB 목록을 0개 상태로 되돌린다.
+
+    실물 overview.md를 복사해 쓰되(그 파일의 frontmatter·구조를 실제로 검증하려고),
+    KB 목록만은 임시 저장소의 실제 상태와 맞춰야 한다 — 안 그러면 KB 0개인
+    픽스처가 존재하지 않는 KB를 나열하는 라우터를 갖게 되고, 그 불일치가
+    hub-dangling 같은 검사를 조용히 가린다.
+    """
+    sys.path.insert(0, str(REAL_ROOT / "tools"))
+    from syntopicon.rewrite import replace_section_body
+
+    body = "\n<!-- 기계 소유 절: tools/kb-new가 파일시스템에서 재생성한다. -->\n\n" \
+           "아직 없다. `/kb-new`가 KB의 유일한 생성 경로다.\n\n"
+    path.write_text(replace_section_body(path.read_text(), "KBs", body).text)
+
+
 @pytest.fixture
 def repo(tmp_path: Path) -> Repo:
     root = tmp_path / "repo"
@@ -91,5 +107,6 @@ def repo(tmp_path: Path) -> Repo:
     shutil.copytree(REAL_ROOT / "schema", root / "schema")
     for name in ("SCHEMA.md", "overview.md", ".gitignore"):
         shutil.copy(REAL_ROOT / name, root / name)
+    _reset_router(root / "overview.md")
     subprocess.run(["git", "-C", str(root), "init", "-q"], check=True)
     return Repo(root=root, qmd_config_dir=tmp_path / "qmdconfig")
