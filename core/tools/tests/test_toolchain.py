@@ -24,13 +24,14 @@ def load(name: str, module_name: str):
 
 
 qmd_setup = load("qmd-setup.py", "qmd_setup")
+backup = load("backup.py", "backup_tool")
 
 
 def test_핀_갱신이_주석을_지우지_않는다(tmp_path, monkeypatch):
     """YAML 라운드트립은 주석을 날린다. 이 파일에서 사라지면 곤란한 것이 정확히
     주석(왜 벤더링하는가·왜 sha256이 핀인가)이라 제자리 치환이어야 한다."""
-    pin = tmp_path / "qmd-pin.yaml"
-    pin.write_text((TOOLS / "qmd-pin.yaml").read_text())
+    pin = tmp_path / "toolchain-pin.yaml"
+    pin.write_text((TOOLS / "toolchain-pin.yaml").read_text())
     before = pin.read_text()
     comments = sum(1 for line in before.splitlines() if line.strip().startswith("#"))
     assert comments > 5, "픽스처에 주석이 없으면 이 테스트는 아무것도 재지 않는다"
@@ -50,7 +51,7 @@ def test_핀_갱신이_주석을_지우지_않는다(tmp_path, monkeypatch):
 
 
 def test_핀에_선언된_모델이_셋이다():
-    pin = yaml.safe_load((TOOLS / "qmd-pin.yaml").read_text())
+    pin = yaml.safe_load((TOOLS / "toolchain-pin.yaml").read_text())
     assert set(pin["models"]) == {"embed", "rerank", "generate"}
     for role, spec in pin["models"].items():
         assert spec["sha256"] and len(spec["sha256"]) == 64, f"{role}: sha256 미기록"
@@ -73,6 +74,22 @@ def test_임베딩_세대_게이트가_모델_교체를_막는다(tmp_path):
 
     assert qmd_setup.check_embed_generation(pin, vendor, rebuilt=True) is True
     assert (vendor / qmd_setup.ACTIVE_MARKER).read_text().strip() == "b" * 64
+
+
+def test_restic_핀도_주석을_지우지_않고_기록된다(tmp_path, monkeypatch):
+    pin = tmp_path / "toolchain-pin.yaml"
+    pin.write_text((TOOLS / "toolchain-pin.yaml").read_text())
+    comments = sum(1 for line in pin.read_text().splitlines() if line.strip().startswith("#"))
+
+    monkeypatch.setattr(backup, "PIN_PATH", pin)
+    backup.record_restic_digest("c" * 64)
+
+    after = pin.read_text()
+    assert sum(1 for line in after.splitlines() if line.strip().startswith("#")) == comments
+    data = yaml.safe_load(after)
+    assert data["restic"]["sha256"] == "c" * 64
+    # models 쪽 sha256을 잘못 건드리지 않았는지
+    assert data["models"]["embed"]["sha256"] != "c" * 64
 
 
 def test_번들이_실제로_복원된다(repo: Repo, tmp_path, monkeypatch):

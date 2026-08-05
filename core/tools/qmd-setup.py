@@ -2,7 +2,7 @@
 """qmd 툴체인 고정과 복구 (PLAN §5·§6 구축).
 
 새 기기 런북의 실행 가능한 판본이다. 산문으로 적힌 절차는 복구 시점에 실행되지
-않거나 틀리게 실행된다 — 그래서 스크립트가 정본이고 `tools/qmd-pin.yaml`이 그 입력이다.
+않거나 틀리게 실행된다 — 그래서 스크립트가 정본이고 `tools/toolchain-pin.yaml`이 그 입력이다.
 
 하는 일:
   1. qmd 설치 버전이 핀과 같은지 확인
@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from syntopicon import layout as layout_mod
 from syntopicon.repo import ROOT
 
-PIN_PATH = Path(__file__).resolve().parent / "qmd-pin.yaml"
+PIN_PATH = Path(__file__).resolve().parent / "toolchain-pin.yaml"
 # 현재 인덱스를 만든 임베딩 모델의 sha256. qmd가 이 사실을 신뢰할 수 있게 기록하지
 # 못하므로(아래 check_embed_generation 주석) 우리가 따로 들고 있는다.
 ACTIVE_MARKER = "embed-model.sha256"
