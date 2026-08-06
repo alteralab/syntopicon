@@ -168,3 +168,21 @@ def test_superseded_by는_deprecated를_동반해야_한다(repo: Repo):
     repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
     repo.write("it/concepts/old-page.md", concept(superseded_by="new-page"))
     assert "'status' is a required property" in failures(repo.validate())
+
+
+def test_규모_회귀_가드_파일당_서브프로세스_금지(repo: Repo):
+    """2,113파일에서 validate가 247초 걸렸던 회귀의 재발 방지 — 원인은 루프 안
+    kbs() 호출(파일당 git 서브프로세스)이었다. 300파일이 옛 병리 속도면 ~35초,
+    정상이면 1~2초다. 경계 20초는 CI 흔들림을 허용하면서 그 클래스만 잡는다."""
+    import time
+    repo.kb("it")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    for i in range(300):
+        name = chr(97 + i // 26) + chr(97 + i % 26)
+        repo.write(f"it/concepts/scale-{name}.md", concept())
+
+    start = time.monotonic()
+    result = repo.validate()
+    elapsed = time.monotonic() - start
+    assert result.returncode == 0, result.stdout
+    assert elapsed < 20, f"validate 300파일에 {elapsed:.1f}s — 파일당 서브프로세스 회귀 의심"

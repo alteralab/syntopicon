@@ -118,15 +118,16 @@ def build(layout: Layout) -> Counts:
     증분은 삭제·이동을 놓치는 실패 모드를 들여온다."""
     files, edges, sections, fragments = [], [], [], []
     with_morph = morph.available()
+    kbs = layout.kbs()          # 연산당 1회 — 루프 안 kbs()는 파일당 git 서브프로세스다
 
     for relative in visible_files():
-        if relative.suffix != ".md" or relative.parts[0] not in layout.kbs():
+        if relative.suffix != ".md" or relative.parts[0] not in kbs:
             continue
 
         raw = (ROOT / relative).read_bytes()
         md = read(ROOT / relative, relative)
         front = md.frontmatter or {}
-        directory = layout.content_dir_of(relative)
+        directory = layout.content_dir_of(relative, kbs)
 
         if with_morph:
             text = raw.decode()

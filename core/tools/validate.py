@@ -42,13 +42,13 @@ class Problem:
         return f"{self.severity:5}  {self.path}: {self.message}"
 
 
-def check_partition(layout: layout_mod.Layout) -> list[Problem]:
+def check_partition(layout: layout_mod.Layout, kbs: tuple[str, ...]) -> list[Problem]:
     """루트 직하는 `공유 자산 ∪ KB`로 완전히 갈라져야 한다.
 
     어느 쪽도 아닌 항목은 대개 오타 디렉터리다 — 조용히 색인 밖에 놓이느니
     커밋에서 막히는 편이 낫다.
     """
-    unclassified = top_level_entries() - layout.shared_names - set(layout.kbs())
+    unclassified = top_level_entries() - layout.shared_names - set(kbs)
     return [
         Problem(SEVERITY_ERROR, name,
                 "루트 직하 항목이 공유 자산도 KB도 아닙니다 "
@@ -75,15 +75,16 @@ def check_retired_keys(files: list[MdFile]) -> list[Problem]:
     return problems
 
 
-def _id_kind(layout: layout_mod.Layout, relative: Path) -> str | None:
+def _id_kind(layout: layout_mod.Layout, kbs: tuple[str, ...], relative: Path) -> str | None:
     """파일명이 어떤 종류의 ID여야 하는가. 예약 파일명(overview 등)은 None."""
-    directory = layout.content_dir_of(relative)
+    directory = layout.content_dir_of(relative, kbs)
     if directory is None:
         return None
     return "citekey" if directory == "sources" else "slug"
 
 
-def check_file(layout: layout_mod.Layout, sch: schemas.Schemas, f: MdFile) -> list[Problem]:
+def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
+               sch: schemas.Schemas, f: MdFile) -> list[Problem]:
     problems: list[Problem] = []
     path = str(f.path)
     front = f.frontmatter
@@ -102,7 +103,7 @@ def check_file(layout: layout_mod.Layout, sch: schemas.Schemas, f: MdFile) -> li
     ]
 
     # 디렉터리는 뷰, type 정본은 frontmatter — 둘의 정합만 강제한다.
-    if (directory := layout.content_dir_of(f.path)) is not None:
+    if (directory := layout.content_dir_of(f.path, kbs)) is not None:
         allowed = layout.dir_types[directory]
         if sch.group_of(kind) not in allowed:
             problems.append(Problem(
@@ -115,7 +116,7 @@ def check_file(layout: layout_mod.Layout, sch: schemas.Schemas, f: MdFile) -> li
                     SEVERITY_ERROR, path, f"{directory}/ 는 {key}: {want} 가 필요합니다"))
 
     # 파일명 = ID. 발급 후 불변이므로 문자집합 위반은 여기서 막는 것이 마지막 기회다.
-    if (id_kind := _id_kind(layout, f.path)) is not None:
+    if (id_kind := _id_kind(layout, kbs, f.path)) is not None:
         if errors := list(sch.shared(id_kind).iter_errors(f.path.stem)):
             problems.append(Problem(
                 SEVERITY_ERROR, path, f"파일명이 {id_kind} 규칙 위반: {errors[0].message}"))
@@ -149,13 +150,14 @@ def check_file(layout: layout_mod.Layout, sch: schemas.Schemas, f: MdFile) -> li
     return problems
 
 
-def check_uniqueness(layout: layout_mod.Layout, files: list[MdFile]) -> list[Problem]:
+def check_uniqueness(layout: layout_mod.Layout, kbs: tuple[str, ...],
+                     files: list[MdFile]) -> list[Problem]:
     """ID 유일성 스코프는 KB다 — 슬러그는 concepts/synthesis/inbox를 가로질러 유일해야 한다."""
     problems: list[Problem] = []
-    for kb in layout.kbs():
+    for kb in kbs:
         seen: dict[str, list[str]] = defaultdict(list)
         for f in files:
-            if f.path.parts[0] == kb and layout.content_dir_of(f.path) is not None:
+            if f.path.parts[0] == kb and layout.content_dir_of(f.path, kbs) is not None:
                 seen[f.path.stem].append(str(f.path))
 
         problems += [
@@ -174,11 +176,12 @@ def check_uniqueness(layout: layout_mod.Layout, files: list[MdFile]) -> list[Pro
     return problems
 
 
-def collect(layout: layout_mod.Layout, only: list[Path] | None) -> tuple[list[MdFile], list[Problem]]:
+def collect(layout: layout_mod.Layout, kbs: tuple[str, ...],
+            only: list[Path] | None) -> tuple[list[MdFile], list[Problem]]:
     """typed frontmatter 범위의 md를 읽는다. 범위 밖 .md는 검사 대상이 아니다."""
     scope = [
         p for p in visible_files()
-        if p.suffix == ".md" and _in_scope(layout, p) and (only is None or p in only)
+        if p.suffix == ".md" and _in_scope(layout, kbs, p) and (only is None or p in only)
     ]
     files, problems = [], []
     for relative in scope:
@@ -189,13 +192,13 @@ def collect(layout: layout_mod.Layout, only: list[Path] | None) -> tuple[list[Md
     return files, problems
 
 
-def _in_scope(layout: layout_mod.Layout, relative: Path) -> bool:
+def _in_scope(layout: layout_mod.Layout, kbs: tuple[str, ...], relative: Path) -> bool:
     """layout.yaml의 typed_frontmatter 포함 목록에 걸리는가. `<kb>/`는 KB 이름으로 푼다."""
     for pattern in layout.typed_frontmatter:
         if not pattern.startswith("<kb>/"):
             if str(relative) == pattern:
                 return True
-        elif relative.parts[0] in layout.kbs():
+        elif relative.parts[0] in kbs:
             within = Path(*relative.parts[1:])
             if within.full_match(pattern.removeprefix("<kb>/")):
                 return True
@@ -205,23 +208,25 @@ def _in_scope(layout: layout_mod.Layout, relative: Path) -> bool:
 def main(argv: list[str]) -> int:
     layout = layout_mod.load()
     sch = schemas.load()
+    # KB 스냅샷은 연산당 한 번 — kbs()는 호출마다 git 서브프로세스라 루프에 넣으면
+    # 파일 수에 비례해 폭발한다(2,113파일에서 247초 실측 → 이 끌어올림으로 초 단위).
+    kbs = layout.kbs()
 
     only = None
     if argv:
         only = [Path(a).resolve().relative_to(ROOT) for a in argv]
 
-    files, problems = collect(layout, only)
-    problems += check_partition(layout)
+    files, problems = collect(layout, kbs, only)
+    problems += check_partition(layout, kbs)
     problems += check_retired_keys(files)
-    problems += check_uniqueness(layout, files)
+    problems += check_uniqueness(layout, kbs, files)
     for f in files:
-        problems += check_file(layout, sch, f)
+        problems += check_file(layout, kbs, sch, f)
 
     errors = [p for p in problems if p.severity == SEVERITY_ERROR]
     for problem in sorted(problems, key=lambda p: (p.severity, p.path, p.message)):
         print(problem)
 
-    kbs = layout.kbs()
     named = f" ({', '.join(kbs)})" if kbs else ""
     print(f"\n{len(files)}개 파일 · KB {len(kbs)}개{named} · "
           f"오류 {len(errors)} · 경고 {len(problems) - len(errors)}")

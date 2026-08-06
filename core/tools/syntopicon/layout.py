@@ -42,10 +42,16 @@ class Layout:
             if name not in self.shared_names and (ROOT / name / self.marker_path).is_file()
         ))
 
-    def content_dir_of(self, relative: Path) -> str | None:
-        """`<kb>/<dir>/...` 에서 <dir>를 돌려준다. KB 밖이면 None."""
+    def content_dir_of(self, relative: Path, kbs: tuple[str, ...] | None = None) -> str | None:
+        """`<kb>/<dir>/...` 에서 <dir>를 돌려준다. KB 밖이면 None.
+
+        kbs()는 매 호출이 git 서브프로세스다(의도 — 상태 함수는 현재를 답한다).
+        **루프 안에서는 호출자가 kbs를 한 번 떠서 넘겨라** — 2천 파일 루프에서
+        파일마다 서브프로세스를 부르면 247초가 된다(규모 스모크 실측).
+        """
         parts = relative.parts
-        if len(parts) >= 3 and parts[0] in self.kbs() and parts[1] in self.dir_types:
+        members = self.kbs() if kbs is None else kbs
+        if len(parts) >= 3 and parts[0] in members and parts[1] in self.dir_types:
             return parts[1]
         return None
 
