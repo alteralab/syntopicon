@@ -23,7 +23,7 @@ Satellite는 [Hub](data-vault-hub.md)나 [Link](data-vault-link.md)에 맥락
   테이블의 부모가 될 수 없다(눈송이화 금지). 그래서 자체 해시 키를 만들지
   않으며, 식별은 부모 해시 키 + Load Date의 조합이다 (§4.5, pp.133–135).[^linstedt2016]
 - 변경이 있는 원천 레코드만 새 엔트리로 쌓는 델타 구동이다 —
-  [차원 모델링](dimensional-modeling.md)의 Type II 디멘전에 비견된다
+  [차원 모델링](dimensional-modeling.md)의 Type II 차원에 비견된다
   (§4.5.1, pp.135–136).[^linstedt2016]
 - 원천 포착이 목적이므로 서술 속성의 데이터 타입은 원천에 최대한 가깝게 두고
   NULL도 그대로 담는다 (§4.5, pp.133–135).[^linstedt2016]
