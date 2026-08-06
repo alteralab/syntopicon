@@ -113,52 +113,6 @@ def test_워킹_트리가_더러우면_거부한다(repo: Repo):
     assert result.returncode == 1 and "깨끗하지 않습니다" in result.stderr
 
 
-# ── 나이 기반 자동 머지 (PLAN §4.4 쓰기 정책 ②, [실험]) ──────────────────────
-
-def commit_dated(repo: Repo, date: str) -> None:
-    """저자 시각을 박아 커밋한다 — added_at(%aI)이 읽는 축이 저자 시각이다."""
-    repo._git("add", "-A")
-    repo._git("-c", "user.email=t@t", "-c", "user.name=t",
-              "commit", "-qm", "fixture", f"--date={date}")
-
-
-def test_auto는_min_age_days와_함께만_돈다(repo: Repo):
-    """N의 기본값은 없다 — 수용 검증에서 확정하기로 한 상수를 코드가 선점하면 안 된다."""
-    seeded(repo)
-    result = repo.run("merge.py", "--kb", "it", "--auto")
-    assert result.returncode == 1 and "함께 씁니다" in result.stderr
-
-
-def test_auto는_나이가_찬_가산_개정만_승격한다(repo: Repo):
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
-    old_body = "\n- 기존 주장.\n"
-    repo.write("it/concepts/additive.md", concept(body=old_body))
-    repo.write("it/concepts/rewritten.md", concept(body=old_body))
-    repo.commit()
-
-    # 나이가 찬 초안 셋: 가산 개정 / 비가산 개정 / 신규 페이지
-    repo.write("it/inbox/additive.md", concept(status="draft", body=old_body + "- 새 주장.\n"))
-    repo.write("it/inbox/rewritten.md", concept(status="draft", body="\n- 고쳐 쓴 주장.\n"))
-    repo.write("it/inbox/brand-new.md", concept(status="draft"))
-    commit_dated(repo, "2026-06-01T00:00:00+00:00")
-
-    # 어린 가산 개정 — 나이 미달로 보류돼야 한다
-    repo.write("it/inbox/additive-young.md", concept(status="draft", body=old_body))
-    repo.write("it/concepts/additive-young.md", concept(body=old_body))
-    repo.commit()
-
-    result = repo.run("merge.py", "--kb", "it", "--auto", "--min-age-days", "14")
-    assert result.returncode == 0, result.stdout + result.stderr
-    assert "1개 승격" in result.stdout
-    assert "신규 페이지" in result.stdout and "비가산 개정" in result.stdout
-    assert "나이" in result.stdout                      # additive-young 보류 사유
-    assert "새 주장" in repo.read("it/concepts/additive.md")
-    assert (repo.root / "it/inbox/rewritten.md").exists()
-    assert (repo.root / "it/inbox/brand-new.md").exists()
-    assert (repo.root / "it/inbox/additive-young.md").exists()
-
-
 def test_dry_run은_아무것도_옮기지_않는다(repo: Repo):
     seeded(repo)
     result = repo.run("merge.py", "--kb", "it", "--all", "--dry-run")

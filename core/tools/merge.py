@@ -15,14 +15,12 @@ rename과 다른 연산이다. rename은 발급된 ID의 이동이라 옛 경로
 승격은 **unverified 계층으로** 간다. `status: draft`와 함께 `verified`도 벗긴다 —
 개정 초안이 원본에서 스탬프를 복사해 왔더라도 그것은 옛 내용에 대한 증언이다.
 
-나이 기반 자동 머지(PLAN §4.4 ②, [실험]): `--auto --min-age-days N`은 커밋된 지
-N일이 지난 **가산 개정판**(기존 본문을 전부 보존하고 추가만 한 것 = "기존 claim
-보강")만 승격한다. 신규 페이지와 비가산 개정은 사람 몫으로 남는다. N의 기본값은
-없다 — 수용 검증에서 확정한다.
+나이 기반 자동 머지(PLAN §4.4 ②)는 **여기 없다** — retrofit O(1) 기능이고 필요를
+판정할 수치(diff 리뷰 분/건)가 미실측이라, 원칙 5에 따라 수용 검증의 부하 실측이
+예산 초과를 보일 때 붙인다(제거 커밋 revert로 복원).
 
     uv run tools/merge.py it/inbox/golden-source.md
     uv run tools/merge.py --kb it --all --dry-run
-    uv run tools/merge.py --kb it --auto --min-age-days 14
 """
 
 from __future__ import annotations
@@ -73,24 +71,6 @@ def strip_quarantine_keys(text: str) -> str:
     return "".join(lines)
 
 
-def body_lines(text: str) -> frozenset[str]:
-    """frontmatter를 뺀 본문의 실질 줄 집합 — 가산 개정 판정의 재료."""
-    tokens = parser().parse(text)
-    block = next((t for t in tokens if t.type == "front_matter" and t.map), None)
-    lines = text.splitlines()
-    body = lines[block.map[1]:] if block else lines
-    return frozenset(line.strip() for line in body if line.strip())
-
-
-def is_additive_revision(target_text: str, draft_text: str) -> bool:
-    """기존 본문 전 줄이 초안에 살아 있으면 가산(= "기존 claim 보강")이다.
-
-    자동 머지의 저위험 판별을 결정적으로 만든 대리 기준이다. 오타 수정처럼 줄을
-    바꾸는 개정은 여기 안 걸리고 사람 리뷰로 남는다 — 보수 쪽으로 틀리는 선택이다.
-    """
-    return body_lines(target_text) <= body_lines(draft_text)
-
-
 def merge_one(layout: layout_mod.Layout, old: Path, dry_run: bool) -> Path:
     if layout.content_dir_of(old) != "inbox":
         raise relocate.RelocateError(f"{old}: inbox/의 파일이 아닙니다")
@@ -124,46 +104,20 @@ def main(argv: list[str]) -> int:
     parser_.add_argument("paths", nargs="*", type=Path, help="승격할 inbox 파일")
     parser_.add_argument("--kb", default=None, help="--all과 함께 쓴다")
     parser_.add_argument("--all", action="store_true", help="그 KB의 inbox 전부")
-    parser_.add_argument("--auto", action="store_true",
-                         help="나이 기반 자동 머지 — 가산 개정판만, --min-age-days 필수")
-    parser_.add_argument("--min-age-days", type=int, default=None,
-                         help="이 일수를 넘긴 초안만 (기본값 없음 — 수용 검증에서 확정)")
     parser_.add_argument("--dry-run", action="store_true")
     args = parser_.parse_args(argv)
 
-    if args.auto != (args.min_age_days is not None):
-        print("--auto와 --min-age-days는 함께 씁니다.", file=sys.stderr)
-        return 1
-
     layout = layout_mod.load()
     targets = list(args.paths)
-    if args.all or args.auto:
+    if args.all:
         if not args.kb:
-            print("--all/--auto에는 --kb가 필요합니다.", file=sys.stderr)
+            print("--all에는 --kb가 필요합니다.", file=sys.stderr)
             return 1
         targets += sorted(
             p for p in visible_files()
             if p.suffix == ".md" and p.parts[0] == args.kb
             and layout.content_dir_of(p) == "inbox"
         )
-
-    if args.auto:
-        from datetime import datetime, timezone
-        from syntopicon.repo import added_at
-        eligible = []
-        for draft in targets:
-            age = (datetime.now(timezone.utc) - added_at(draft)).days
-            target = ROOT / draft.parts[0] / TARGET_DIR / draft.name
-            if age < args.min_age_days:
-                print(f"  보류  {draft}  (나이 {age}일 < {args.min_age_days}일)")
-            elif not target.exists():
-                print(f"  보류  {draft}  (신규 페이지 — 사람 리뷰)")
-            elif not is_additive_revision(target.read_text(), (ROOT / draft).read_text()):
-                print(f"  보류  {draft}  (비가산 개정 — 기존 줄 변경, 사람 리뷰)")
-            else:
-                eligible.append(draft)
-        targets = eligible
-
     if not targets:
         print("승격할 파일이 없습니다.", file=sys.stderr)
         return 1
