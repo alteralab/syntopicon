@@ -12,6 +12,7 @@ Tier B다. kiwipiepy가 없으면 이 레그만 조용히 빠지고 나머지 �
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 from functools import cache
 from pathlib import Path
@@ -83,7 +84,13 @@ def base_tag(tag: str) -> str:
 
 
 def analyze(text: str) -> list[str]:
-    """색인·질의 양쪽이 쓰는 유일한 분석 경로. 여기가 갈라지면 레그 전체가 무의미하다."""
+    """색인·질의 양쪽이 쓰는 유일한 분석 경로. 여기가 갈라지면 레그 전체가 무의미하다.
+
+    NFC로 정규화하고 들어간다 — macOS 도구가 만든 NFD 본문은 바이트가 달라
+    NFC 질의와 영원히 못 만난다(적대 배터리 실측: NFD 페이지가 검색 0건).
+    색인과 질의가 같은 함수를 지나므로 여기 한 곳이면 양쪽이 함께 고쳐진다.
+    """
+    text = unicodedata.normalize("NFC", text)
     return [t.form for t in _kiwi().tokenize(text) if base_tag(t.tag) in KEEP_TAGS]
 
 
@@ -105,14 +112,17 @@ def query_expression(text: str) -> str:
         if len(morphemes) > 1:
             words.append('"' + " ".join(morphemes) + '"')   # 복합어 — 순서 보존
         elif morphemes:
-            words.append(morphemes[0])
+            # 홑항도 인용한다. 비인용 토큰은 FTS5 문법에 노출된다 — 영어 낱말
+            # AND/OR/NOT이 연산자로 해석돼 크래시했다(적대 배터리 실측). 인용은
+            # 키워드 블랙리스트와 달리 그 클래스 전체를 없앤다.
+            words.append('"' + morphemes[0] + '"')
     return " ".join(words)
 
 
 def fragments(text: str) -> list[Fragment]:
     """연속 1음절 한글 형태소 런을 찾는다 → 사용자 사전 후보(PLAN §4.3)."""
     found, run = [], []
-    for token in _kiwi().tokenize(text):
+    for token in _kiwi().tokenize(unicodedata.normalize("NFC", text)):
         single = (base_tag(token.tag) in KEEP_TAGS
                   and len(token.form) == 1 and HANGUL.match(token.form))
         if single:

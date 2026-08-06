@@ -68,6 +68,21 @@ def test_모호한_링크가_있으면_아무것도_고치지_않는다(repo: Re
     assert "type: concept" in repo.read("it/concepts/raft.md")  # 스텁으로 덮이지 않았다
 
 
+def test_적대_제목이_스텁을_깨지_못한다(repo: Repo):
+    """콜론 제목이 스텁 frontmatter를 깨고 — 파일을 쓴 뒤에야 — validate가 실패하던
+    버그의 회귀 방지. YAML 값은 손으로 조립하지 않는다."""
+    seeded(repo)
+    repo.write("it/concepts/kafka-guide.md", concept().replace(
+        "title: 테스트 개념", 'title: "Kafka: 완벽 [실전] 가이드"'))
+    repo.commit()
+    result = repo.rename("it/concepts/kafka-guide.md", "it/concepts/kafka-manual.md")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert repo.validate().returncode == 0
+    stub = repo.read("it/concepts/kafka-guide.md")
+    assert '"Kafka: 완벽 [실전] 가이드"' in stub          # YAML 인용 보존
+    assert "\\[실전\\]" in stub                        # 링크 텍스트 이스케이프
+
+
 def test_대상이_이미_있으면_거부한다(repo: Repo):
     seeded(repo)
     result = repo.rename("it/concepts/raft.md", "it/concepts/consensus.md")

@@ -67,6 +67,17 @@ def test_분류되지_않은_루트_디렉터리를_잡는다(repo: Repo):
     assert "공유 자산도 KB도 아닙니다" in failures(repo.validate())
 
 
+def test_BOM이_있어도_frontmatter를_읽는다(repo: Repo):
+    """BOM이 구분선 인식을 죽여 'type 없음'이라는 엉뚱한 오류가 되던 버그의 회귀 방지."""
+    repo.kb("it")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    target = repo.root / "it/concepts/bom-page.md"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(b"\xef\xbb\xbf" + concept().encode())
+    result = repo.validate()
+    assert result.returncode == 0, result.stdout
+
+
 def test_type_없는_md를_잡는다(repo: Repo):
     repo.kb("it")
     repo.write("it/concepts/no-type.md", "# 제목만 있다\n")

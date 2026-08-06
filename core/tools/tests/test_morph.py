@@ -38,10 +38,11 @@ def test_질의와_색인이_같은_함수를_지난다():
 
 def test_낱말끼리는_AND_복합어만_phrase():
     """질의 전체를 한 phrase로 묶으면 모든 형태소가 인접해야 해서 거의 안 맞는다
-    (멀티홉 하네스가 recall 0.0으로 잡아낸 버그)."""
-    assert morph.query_expression("읽기 일관성") == "읽 일관"        # 낱말 둘 → AND
-    assert morph.query_expression("복제지연") == '"복제 지연"'      # 복합어 → phrase
-    assert morph.query_expression("복제지연 읽기") == '"복제 지연" 읽'
+    (멀티홉 하네스가 recall 0.0으로 잡아낸 버그). 홑항도 인용된다 — 비인용 토큰은
+    FTS5 연산자(AND/OR/NOT)에 노출되기 때문."""
+    assert morph.query_expression("읽기 일관성") == '"읽" "일관"'    # 낱말 둘 → 암묵 AND
+    assert morph.query_expression("복제지연") == '"복제 지연"'       # 복합어 → phrase
+    assert morph.query_expression("복제지연 읽기") == '"복제 지연" "읽"'
 
 
 def test_불규칙_용언_어간을_버리지_않는다():
@@ -56,6 +57,25 @@ def test_불규칙_용언_어간을_버리지_않는다():
 def test_활용형과_조사_변형이_같은_형태로_모인다():
     for variant in ("복제가", "복제를", "복제는", "복제로"):
         assert morph.analyze(variant) == ["복제"]
+
+
+def test_NFD_본문과_NFC_질의가_만난다():
+    """macOS 도구가 만든 NFD 본문은 바이트가 달라 검색 0건이 되던 버그의 회귀 방지 —
+    색인·질의 공용 분석 지점에서 NFC 정규화."""
+    import unicodedata
+    nfd = unicodedata.normalize("NFD", "골든 소스")
+    assert morph.analyze(nfd) == morph.analyze("골든 소스")
+    assert morph.index_text(nfd) == morph.index_text("골든 소스")
+
+
+def test_질의의_모든_항은_인용된다():
+    """비인용 토큰은 FTS5 문법에 노출된다 — AND/OR/NOT이 연산자로 해석돼
+    크래시하던 버그의 회귀 방지. 인용은 그 클래스 전체를 없앤다."""
+    import re
+    assert morph.query_expression("AND") == '"AND"'
+    expression = morph.query_expression("복제지연 OR checksum")
+    # phrase 안에 공백이 있으므로 공백 split이 아니라 전체 형태로 검사한다
+    assert re.fullmatch(r'"[^"]+"( "[^"]+")*', expression), expression
 
 
 def test_파편화를_관측한다():

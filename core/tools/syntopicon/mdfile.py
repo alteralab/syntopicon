@@ -127,7 +127,9 @@ def _has_prose(children: list[Token]) -> bool:
 
 
 def read(absolute: Path, relative: Path) -> MdFile:
-    source = absolute.read_text()
+    # BOM은 벗겨서 파싱한다 — 앞에 붙으면 frontmatter 구분선 인식이 통째로 죽어
+    # "type 없음"이라는 엉뚱한 오류가 된다(적대 배터리 실측).
+    source = absolute.read_text().removeprefix("\ufeff")
     tokens = parser().parse(source)
     nodes = list(_walk(tokens))
 

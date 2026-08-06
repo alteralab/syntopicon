@@ -14,6 +14,7 @@ lint가 깨진 앵커를 검증한다(PLAN §2.5-2).
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -34,21 +35,29 @@ QMD_SCHEME = relocate.QMD_SCHEME
 
 
 def stub(old: Path, new: Path, title: str) -> str:
-    """옛 경로에 남길 redirect 스텁. 대상은 같은 KB면 이름만, KB를 넘으면 정규형."""
+    """옛 경로에 남길 redirect 스텁. 대상은 같은 KB면 이름만, KB를 넘으면 정규형.
+
+    title은 사용자 입력이다 — YAML 값은 손으로 조립하지 않고 json.dumps로 감싼다
+    (JSON은 YAML의 부분집합이라 콜론·따옴표·이스케이프가 전부 안전하다). 링크
+    텍스트의 대괄호는 이스케이프한다: 균형 잡힌 대괄호는 CommonMark가 봐주지만
+    불균형이면 링크가 통째로 깨진다. 적대 입력 배터리가 콜론 제목으로 이 함수가
+    깨진 frontmatter를 **파일을 쓴 뒤에야** 드러내는 것을 잡았다.
+    """
     same_kb = old.parts[0] == new.parts[0]
     target = new.stem if same_kb else f"{new.parts[0]}/{new.stem}"
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    label = title.replace("[", "\\[").replace("]", "\\]")
     return (
         "---\n"
         "type: redirect\n"
-        f"title: {title}\n"
+        f"title: {json.dumps(title, ensure_ascii=False)}\n"
         f"superseded_by: {target}\n"
         f'generated: {{ by: "tools/rename", at: "{now}" }}\n'
         "---\n"
         "\n"
         f"# {title}\n"
         "\n"
-        f"이 페이지는 [{title}]({href_to(old, new)})로 이동했습니다.\n"
+        f"이 페이지는 [{label}]({href_to(old, new)})로 이동했습니다.\n"
     )
 
 
