@@ -18,9 +18,11 @@ uv run tools/reindex.py                    # 파생 인덱스 먼저
 uv run tools/lint.py                       # 전수
 uv run tools/lint.py --incremental         # 직전 실행 이후 바뀐 페이지만 (주간)
 uv run tools/lint.py --kb <kb> --quiet     # info 숨김
+uv run tools/lint.py --overlap-full        # overlap 전쌍 — 부트스트랩·분기 전수용
 ```
 
-주간은 `--incremental`, 분기 전수 검사와 부트스트랩만 전수다.
+주간은 `--incremental`(overlap도 바뀐 페이지 × 전체만 본다), 분기 전수 검사와
+부트스트랩만 전수다.
 결과는 사람이 읽는 리포트와 `stats.sqlite`(경보·큐)에 이원 기록된다.
 
 ## 등급이 곧 우선순위는 아니다
@@ -97,7 +99,9 @@ write-once이므로 **기록을 새 값으로 덮지 않는다.** 무엇이 왜 
 1인 운영에서 리뷰 공급은 1이고 백로그가 정상 상태가 되는 것은 알려진 성질이다.
 P90은 파산 시점의 계측이지 더 열심히 하라는 신호가 아니다.
 
-## 미구현
-
-`page-overlap`(임베딩 필요)은 아직 비어 있다. 리포트 끝에 매번 출력되니
-"검사했다"고 착각하지 말 것.
+**overlap / overlap-skipped** — qmd 벡터로 페이지 쌍 유사도(청크 최대 코사인)를
+재서 compaction 후보를 낸다. 병합 판단은 사람. 능력의 경계를 알고 읽을 것(실측):
+거의 그대로 겹치는 재작성은 잡지만, **어휘가 전혀 다른 재서술은 못 잡는다**
+(그런 쌍이 0.54로, 관련-상이 쌍 대역 0.65~0.77보다 오히려 낮았다 — 임계로 분리
+불가). 그 사각은 inbox 리뷰의 3문 ⑵와 저장 전 검색이 담당한다. 벡터가 없으면
+경고로 크게 건너뛴다 — `qmd update && qmd embed` 후 재실행.

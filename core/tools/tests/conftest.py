@@ -66,6 +66,9 @@ class Repo:
             env=os.environ | {
                 "SYNTOPICON_ROOT": str(self.root),
                 "QMD_CONFIG_DIR": str(self.qmd_config_dir),
+                # 실기기의 ~/.cache/qmd 인덱스(실제 KB 벡터)가 픽스처 검사에 새어들지
+                # 않게 캐시도 격리한다 — overlap 검사가 이 경로를 본다.
+                "XDG_CACHE_HOME": str(self.qmd_config_dir / "cache"),
             },
         )
 

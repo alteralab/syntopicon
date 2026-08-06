@@ -5,8 +5,8 @@ validate와의 경계: validate는 "깨졌는가"를 묻고 커밋을 막는다.
 어떤가"를 묻고 **검출만 한다** — 수정 커밋은 사람이 한다. 경계를 섞으면 커밋이
 품질 논쟁에 막힌다.
 
-미구현 1행(PLAN §4.3 표): 페이지 overlap — 임베딩이 서야 한다(qmd 단계).
-자리를 비워 두고, 조용히 빠뜨리지 않도록 실행할 때마다 미구현 목록을 출력한다.
+PLAN §4.3 매트릭스 15행 전부 구현됐다. overlap은 qmd 벡터가 없으면 **경고로**
+건너뛴다 — 조용한 생략은 "검사했다"는 착각을 만든다.
 
     uv run tools/lint.py                 # 전수
     uv run tools/lint.py --incremental   # 직전 실행 이후 바뀐 페이지만 (주간 실행)
@@ -43,9 +43,15 @@ HUB_DEGREE = 3                 # 허브 후보로 볼 최소 피링크 차수 �
 INBOX_P90_DAYS = 30
 LINT_ERROR_TRIPWIRE = 50
 
-UNIMPLEMENTED = {
-    "page-overlap": "임베딩 필요 (qmd 단계)",
-}
+# overlap 후보 임계. 실측(2026-08-06, Qwen3-Embedding-0.6B)으로 잡은 값:
+#   · 관련되지만 서로 다른 개념 쌍(실 KB 8페이지 전쌍): 0.65–0.77
+#   · 무관한 페이지: 0.21–0.24
+#   · 어휘가 전혀 다른 의미 중복(골든소스↔SSOT 프로브): 0.542 ← 관련-상이 대역보다 낮다!
+# 즉 이 임계(관련-상이 대역 위)가 잡는 것은 **거의 그대로 겹치는 재작성**이고,
+# 교차 어휘 재서술은 대역이 겹쳐 어떤 임계로도 분리되지 않는다 — 모델 능력의 한계라
+# 숫자로 못 고친다. 그 사각은 리뷰·검색이 담당하고, 수용 검증 ②의 임베딩 A/B(vs
+# KURE-v1)가 한국어 특화 모델로 대역이 갈라지는지를 재측정한다.
+OVERLAP_THRESHOLD = 0.85
 FRAGMENT_MIN_HITS = 2   # 한 번뿐인 파편은 오탐일 확률이 높다 — 자체 상수
 # 허브 분할 힌트 임계. 근거: PLAN이 허브 페이지에 준 예산은 1–2k 토큰[선택]이고
 # 실측 30링크 허브 ≈ 2.6KB ≈ 그 예산 규모다 — 40은 상단 여유를 둔 환산치.
@@ -76,6 +82,7 @@ class Context:
     connection: object
     files: dict[str, MdFile]          # 경로 → 파싱 결과 (전수)
     changed: set[str]                 # 이번에 페이지 검사를 돌릴 대상
+    overlap_full: bool = False        # 전쌍 비교 (부트스트랩·분기) — 기본은 changed×전체
     meta: dict[str, dict] = field(default_factory=dict)
     epistemic: frozenset[str] = frozenset()
 
@@ -198,6 +205,39 @@ def check_fragments(ctx: Context):
         yield Finding("morph-fragmentation", "info",
                       f"'{row['surface']}' 가 {row['pieces']} 로 부서집니다 "
                       f"({row['hits']}회/{row['pages']}페이지) — user-dict.yaml 후보")
+
+
+def check_overlap(ctx: Context):
+    """어휘가 달라도 의미가 겹치는 페이지 쌍 → compaction 후보 큐 (PLAN §2.6·§4.3).
+
+    qmd의 청크 벡터를 재사용한다. 읽을 수 없으면 **크게** 건너뛴다 — 조용한 생략은
+    "검사했다"는 착각을 만들고, 그 착각이 미구현 목록을 두던 이유였다.
+    """
+    from syntopicon import overlap
+
+    knowledge = {
+        path for path, meta in ctx.meta.items()
+        if meta["directory"] in ("concepts", "synthesis", "inbox")
+        and meta["type"] != "redirect"
+    }
+    try:
+        vectors = overlap.load_vectors(tuple(ctx.layout.kbs()))
+    except overlap.QmdUnavailable as reason:
+        yield Finding("overlap-skipped", "warn",
+                      f"overlap 검사를 건너뜀 — {reason}")
+        return
+
+    vectors = {path: matrix for path, matrix in vectors.items() if path in knowledge}
+    if missing := knowledge - set(vectors):
+        yield Finding("overlap-skipped", "warn",
+                      f"임베딩 없는 페이지 {len(missing)}개 제외 — qmd update && qmd embed "
+                      f"(예: {sorted(missing)[0]})")
+
+    changed = None if ctx.overlap_full else ctx.changed
+    for pair in overlap.find_pairs(vectors, OVERLAP_THRESHOLD, changed):
+        yield Finding("overlap", "info",
+                      f"{pair.left} ↔ {pair.right}  유사도 {pair.similarity:.2f} — "
+                      "compaction 후보(병합 판단은 사람)", ctx.kb_of(pair.left))
 
 
 def check_hub_size(ctx: Context):
@@ -397,7 +437,7 @@ def check_ingest_trailers(ctx: Context):
 
 GRAPH_CHECKS = (check_links, check_orphans, check_hubs, check_stale,
                 check_contradictions, check_field_usage, check_fragments,
-                check_term_drift, check_hub_size, check_inbox, check_ingest_trailers)
+                check_term_drift, check_hub_size, check_overlap, check_inbox, check_ingest_trailers)
 
 
 def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str],
@@ -428,6 +468,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--kb", default=None)
     parser.add_argument("--incremental", action="store_true",
                         help="직전 실행 이후 바뀐 페이지만 검사한다 (그래프 검사는 항상 전수)")
+    parser.add_argument("--overlap-full", action="store_true",
+                        help="overlap 전쌍 비교 — 부트스트랩과 분기 전수 검사용(PLAN §4.3)")
     parser.add_argument("--quiet", action="store_true", help="info 등급을 숨긴다")
     args = parser.parse_args(argv)
 
@@ -440,6 +482,7 @@ def main(argv: list[str]) -> int:
         baseline = stats.baseline(stats_db)
         with index_db.connect() as connection:
             ctx = build_context(layout, connection, baseline, args.incremental, args.kb)
+            ctx.overlap_full = args.overlap_full
             findings = [f for check in GRAPH_CHECKS for f in check(ctx)]
             for path in sorted(ctx.changed):
                 findings += list(check_page(ctx, path, ctx.files[path]))
@@ -474,7 +517,6 @@ def report(findings: list[Finding], ctx: Context, mode: str, quiet: bool) -> int
           f"정보 {sum(1 for f in findings if f.severity == 'info')}")
     if errors > LINT_ERROR_TRIPWIRE:
         print(f"임계 경보: 오류 {errors} > {LINT_ERROR_TRIPWIRE} — 유지보수 세션이 필요합니다(PLAN §6).")
-    print("미구현 검사: " + ", ".join(f"{k}({v})" for k, v in UNIMPLEMENTED.items()))
 
     # lint는 검출만 한다 — 오류가 있어도 실패로 끝내지 않는다. 커밋을 막는 것은 validate다.
     return 0

@@ -253,11 +253,13 @@ def test_오류가_있어도_실패로_끝내지_않는다(repo: Repo):
     assert findings(repo, "broken-link")
 
 
-def test_미구현_검사를_매번_알린다(repo: Repo):
-    """조용한 미구현이 가장 위험하다 — 검사한 줄 알게 된다."""
+def test_overlap은_벡터가_없으면_크게_건너뛴다(repo: Repo):
+    """조용한 생략이 가장 위험하다 — 격리된 픽스처엔 qmd 인덱스가 없으므로
+    경고가 반드시 떠야 한다. --quiet에서도 살아남는 warn 등급이다."""
     base(repo)
     result = lint(repo)
-    assert "미구현 검사: page-overlap" in result.stdout
+    assert result.returncode == 0
+    assert any("overlap 검사를 건너뜀" in f for f in findings(repo, "overlap-skipped"))
 
 
 def test_재색인_없이는_거부한다(repo: Repo):
