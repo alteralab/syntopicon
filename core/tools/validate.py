@@ -152,17 +152,27 @@ def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
 
 def check_uniqueness(layout: layout_mod.Layout, kbs: tuple[str, ...],
                      files: list[MdFile]) -> list[Problem]:
-    """ID 유일성 스코프는 KB다 — 슬러그는 concepts/synthesis/inbox를 가로질러 유일해야 한다."""
+    """ID 유일성 스코프는 KB다 — 슬러그는 concepts/synthesis/inbox를 가로질러 유일해야 한다.
+
+    한 가지 쌍만 합법이다: **concepts + inbox의 같은 슬러그 = 개정 대기**. 기존 페이지
+    갱신도 검역을 지나야 하므로(PLAN §4.4-4·5) 개정 초안은 같은 ID의 검역 그림자로
+    inbox에 머문다 — 두 ID의 충돌이 아니라 한 ID의 두 상태이고, 정규 참조형
+    `<kb>/<slug>`는 발행 위치(concepts)로만 해석되므로 모호함도 없다. synthesis가
+    끼는 쌍은 여전히 오류다 — 기계 산출물의 synthesis 직행은 금지다.
+    """
     problems: list[Problem] = []
     for kb in kbs:
         seen: dict[str, list[str]] = defaultdict(list)
+        dirs: dict[str, set[str]] = defaultdict(set)
         for f in files:
-            if f.path.parts[0] == kb and layout.content_dir_of(f.path, kbs) is not None:
+            if f.path.parts[0] == kb and (d := layout.content_dir_of(f.path, kbs)) is not None:
                 seen[f.path.stem].append(str(f.path))
+                dirs[f.path.stem].add(d)
 
         problems += [
             Problem(SEVERITY_ERROR, kb, f"ID '{ident}' 중복: {', '.join(paths)}")
-            for ident, paths in sorted(seen.items()) if len(paths) > 1
+            for ident, paths in sorted(seen.items())
+            if len(paths) > 1 and not (len(paths) == 2 and dirs[ident] == {"concepts", "inbox"})
         ]
 
         # 유사 충돌은 경고다 — 하이픈만 다른 이름은 사람이 헷갈리지만 규칙 위반은 아니다.

@@ -78,6 +78,11 @@ uv run tools/edges.py neighbors <관련페이지> --depth 2
 기계 산출물은 전부 `<kb>/inbox/`에 착지한다. `concepts/`·`synthesis/` 직행은 없다.
 `status: draft`를 단다.
 
+**기존 페이지 갱신도 같은 경로다** — 갱신된 전체 페이지를 **같은 슬러그**로
+`inbox/`에 착지시킨다(개정판). concepts의 원본은 그대로 두고, 리뷰어는 두 파일의
+diff로 무엇이 변했는지 본다. 승인 시 `tools/merge.py`가 원본을 대치한다.
+concepts + inbox의 같은 슬러그 쌍은 validate가 개정 대기로 인정한다.
+
 사용자가 "내가 종합한 거니 synthesis에 바로 넣어달라"고 해도 마찬가지다 —
 `synthesis/`의 경계 기준은 **작성 주체와 리뷰**이지 내용의 종합성이 아니다.
 

@@ -31,7 +31,7 @@ import yaml
 
 from syntopicon import index_db, layout as layout_mod, schemas, snapshot, stats
 from syntopicon.mdfile import MdFile, read
-from syntopicon.repo import ROOT, visible_files
+from syntopicon.repo import ROOT, added_at as repo_added_at, visible_files
 
 # ── 운영 상수 ────────────────────────────────────────────────────────────────
 # PLAN이 규정한 것: 500줄 백스톱·100줄 TOC(§2.6), inbox P90 30일·lint 오류 50건(§6).
@@ -315,7 +315,7 @@ def check_inbox(ctx: Context):
     for path, meta in ctx.meta.items():
         if meta["directory"] != "inbox":
             continue
-        days = (datetime.now(timezone.utc) - _added_at(path)).days
+        days = (datetime.now(timezone.utc) - repo_added_at(path)).days
         ages[meta["kb"]].append(days)
         if days > INBOX_P90_DAYS:
             yield Finding("inbox-age", "warn", f"{days}일째 리뷰 대기", meta["kb"], path)
@@ -329,14 +329,7 @@ def check_inbox(ctx: Context):
                           "자동 머지 범위 확대를 검토하십시오(PLAN §4.4 킬 기준)", kb)
 
 
-def _added_at(path: str) -> datetime:
-    """파일이 저장소에 들어온 시점. 아직 커밋 전이면 지금으로 본다."""
-    result = subprocess.run(
-        ["git", "-C", str(ROOT), "log", "--diff-filter=A", "--format=%aI", "--", path],
-        capture_output=True, text=True)
-    if lines := result.stdout.split():
-        return datetime.fromisoformat(lines[-1])
-    return datetime.now(timezone.utc)
+
 
 
 # ── 페이지 검사 (md AST) ─────────────────────────────────────────────────────

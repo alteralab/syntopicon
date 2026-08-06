@@ -135,6 +135,23 @@ def test_KB로_좁힌다(repo: Repo):
     assert "1건" in repo.run("ksearch.py", "복제", "--kb", "it").stdout
 
 
+def test_inbox_결과에는_unreviewed_라벨이_붙는다(repo: Repo):
+    """검역의 "보이는 저하"(PLAN §4.4 쓰기 정책 ①) — AfC의 실패 기전이 hiddenness였다.
+    inbox도 검색에 나오되, 리뷰 전임이 결과 줄에서 바로 보여야 한다."""
+    indexed(repo)
+    repo.write("it/inbox/quorum-read.md", concept(
+        status="draft",
+        body=f"\n## 정족수\n\n정족수 읽기는 복제 지연을 가린다.[^{DDIA}]\n"
+             f"\n[^{DDIA}]: Kleppmann 2017, 5장\n"))
+    repo.run("reindex.py")
+
+    result = repo.run("ksearch.py", "복제 지연")
+    inbox_lines = [l for l in result.stdout.splitlines() if l.startswith("it/inbox/")]
+    concept_lines = [l for l in result.stdout.splitlines() if l.startswith("it/concepts/")]
+    assert inbox_lines and all("[unreviewed]" in l for l in inbox_lines)
+    assert concept_lines and all("[unreviewed]" not in l for l in concept_lines)
+
+
 def test_색인_대상_형태소가_없는_질의는_거부한다(repo: Repo):
     indexed(repo)
     # Kiwi는 홀로 선 조사도 명사로 읽으므로("은 는 이 가" → 은/늘/이) 진짜로 비는 것은

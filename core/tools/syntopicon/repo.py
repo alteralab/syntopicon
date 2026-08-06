@@ -47,6 +47,29 @@ def visible_files() -> tuple[Path, ...]:
     return tuple(sorted(Path(name) for name in listed - deleted))
 
 
+def added_at(relative: Path | str):
+    """이 경로가 저장소에 (가장 최근에) 추가된 시점. 아직 커밋 전이면 지금.
+
+    inbox 나이의 정본이다 — mtime은 checkout·rsync로 흔들리지만 추가 커밋은 불변이고,
+    자동 머지가 '커밋(=트레일러가 달린 런)된 초안'만 대상으로 삼게 되는 부수 효과도
+    옳다: 커밋 전 초안은 아직 어떤 런에도 속하지 않은 작업 중 파일이다.
+
+    `--follow` 금지 — 개정 초안은 본질적으로 concepts 쌍둥이와 닮았으므로 git의
+    복사·개명 추적이 초안을 원본 페이지의 복사(C)로 읽고, 초안 자신의 착지 시점
+    대신 **원본이 추가된 시점**을 돌려준다(테스트에서 실측). 같은 이유로 최신 추가
+    커밋(재착지 시 가장 최근 것)을 쓴다 — 옛 동명 초안의 나이를 계승하면 갓 착지한
+    초안이 자동 머지 나이를 통과해 버린다.
+    """
+    from datetime import datetime, timezone
+    out = subprocess.run(
+        ("git", "-C", str(ROOT), "log", "--diff-filter=A", "--format=%aI",
+         "--", str(relative)),
+        capture_output=True, text=True).stdout.split()
+    if out:
+        return datetime.fromisoformat(out[0])
+    return datetime.now(timezone.utc)
+
+
 def top_level_entries() -> set[str]:
     """루트 직하 항목 이름 — 완전 분할 검사의 좌변."""
     return {p.parts[0] for p in visible_files()}

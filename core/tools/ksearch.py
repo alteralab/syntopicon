@@ -54,9 +54,14 @@ def main(argv: list[str]) -> int:
         return 1
 
     with index_db.connect() as connection:
+        # unreviewed 라벨은 검역의 "보이는 저하"다(PLAN §4.4 쓰기 정책 ①) — inbox도
+        # 검색에는 나오되, 아직 리뷰를 안 지났음이 결과 줄에서 바로 보여야 한다.
+        # AfC의 실패 기전이 hiddenness였다(§8). LEFT JOIN: files에 없어도 결과는 산다.
         rows = connection.execute("""
-            SELECT path, anchor, line, raw, bm25(morph) AS score
-            FROM morph WHERE morph MATCH ? ORDER BY score LIMIT ?
+            SELECT morph.path AS path, morph.anchor AS anchor, morph.line AS line,
+                   morph.raw AS raw, bm25(morph) AS score, files.unreviewed AS unreviewed
+            FROM morph LEFT JOIN files ON files.path = morph.path
+            WHERE morph MATCH ? ORDER BY score LIMIT ?
         """, (f"body : {expression}", args.n * 3)).fetchall()
 
     needles = morph.analyze(args.query)
@@ -65,7 +70,8 @@ def main(argv: list[str]) -> int:
         if args.kb and not row["path"].startswith(f"{args.kb}/"):
             continue
         location = f"{row['path']}#{row['anchor']}" if row["anchor"] else row["path"]
-        print(f"{location}:{row['line']}  [morph]")
+        label = "  [morph] [unreviewed]" if row["unreviewed"] else "  [morph]"
+        print(f"{location}:{row['line']}{label}")
         print(f"    {snippet(row['raw'], needles)}\n")
         shown += 1
         if shown >= args.n:

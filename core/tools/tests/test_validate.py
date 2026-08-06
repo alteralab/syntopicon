@@ -140,6 +140,28 @@ def test_KB_안의_슬러그_중복을_잡는다(repo: Repo):
     assert "중복" in failures(repo.validate())
 
 
+def test_개정_대기_쌍은_중복이_아니다(repo: Repo):
+    """concepts + inbox의 같은 슬러그 = 한 ID의 두 상태(개정 대기, PLAN §4.4-4·5).
+    이 쌍을 막으면 기존 페이지 갱신이 검역을 지날 방법이 없다."""
+    repo.kb("it")
+    repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
+    repo.write("it/concepts/replication.md", concept())
+    repo.write("it/inbox/replication.md", concept(status="draft"))
+    result = repo.validate()
+    assert result.returncode == 0, result.stdout
+
+
+def test_synthesis가_끼는_쌍은_여전히_중복이다(repo: Repo):
+    """synthesis는 인간 저작 전용 — 기계 초안의 검역 그림자를 가질 수 없다."""
+    repo.kb("it")
+    repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
+    repo.write("it/synthesis/replication.md", page({
+        "type": "synthesis", "title": "복제", "description": "허브",
+        "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}}))
+    repo.write("it/inbox/replication.md", concept(status="draft"))
+    assert "중복" in failures(repo.validate())
+
+
 def test_유사_ID는_경고일_뿐_막지_않는다(repo: Repo):
     repo.kb("it")
     repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
