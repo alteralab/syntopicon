@@ -2,7 +2,6 @@
 type: concept
 title: 차원 테이블
 description: 측정 이벤트의 서술 맥락(누가·무엇을·어디서)을 담는 테이블 — 분석력은 속성 품질에 비례
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T16:10:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
@@ -42,7 +41,7 @@ sources:
   기하급수적으로 작아 공간 절약이 무의미하다 — **단순성·접근성을 위해 공간을
   치르는 교환이 거의 항상 옳다** (1장, p.15).[^kimball2013]
 
-Data Vault와의 대응: [Satellite](data-vault-satellite.md)가 같은 서술 맥락
+Data Vault와의 대응: [Satellite](../concepts/data-vault-satellite.md)가 같은 서술 맥락
 자리를 맡되 이력 추적을 우선하고, Kimball의 눈송이화 금지와 달리 원천·변경
 빈도별 분할을 권장한다 — 두 방법론이 갈라지는 지점이다.
 

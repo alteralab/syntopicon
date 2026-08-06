@@ -2,7 +2,6 @@
 type: concept
 title: Data Vault Hub
 description: 업무 키의 유일 목록을 보관하는 Data Vault의 기둥 엔티티 — 해시 키·적재 메타데이터 구조
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T15:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
@@ -10,7 +9,7 @@ sources:
 
 # Data Vault Hub
 
-Hub는 [업무 키](business-key.md)를 모델의 나머지에서 분리해 보관하는
+Hub는 [업무 키](../concepts/business-key.md)를 모델의 나머지에서 분리해 보관하는
 [Data Vault](data-vault-modeling.md)의 기둥 엔티티다 (§4.2.1, p.109).[^linstedt2016]
 
 > The purpose of a hub entity is to store the business keys of business

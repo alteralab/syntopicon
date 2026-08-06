@@ -2,7 +2,6 @@
 type: concept
 title: Data Vault Satellite
 description: 업무 키·관계의 맥락과 전체 변경 이력을 담는 엔티티 — 단일 부모·분할 규칙·불변 이력
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T15:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
@@ -10,9 +9,9 @@ sources:
 
 # Data Vault Satellite
 
-Satellite는 [Hub](data-vault-hub.md)나 [Link](data-vault-link.md)에 맥락
+Satellite는 [Hub](../concepts/data-vault-hub.md)나 [Link](../concepts/data-vault-link.md)에 맥락
 (context) — 업무 객체·관계·트랜잭션을 서술하는 속성 — 을 붙이고 그 변경
-이력을 추적하는 [Data Vault](data-vault-modeling.md) 엔티티다 (§4.5, pp.133–135).[^linstedt2016]
+이력을 추적하는 [Data Vault](../concepts/data-vault-modeling.md) 엔티티다 (§4.5, pp.133–135).[^linstedt2016]
 
 > Satellites store all data that describes a business object, relationship,
 > or transaction.

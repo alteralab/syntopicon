@@ -2,7 +2,6 @@
 type: concept
 title: 차원 모델링
 description: 이해 가능성과 질의 성능을 동시에 겨냥한 분석 데이터 표현 기법 — 정규화 모델과의 관계와 5대 오해
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T16:10:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
@@ -17,7 +16,7 @@ sources:
 - 50년 넘게 수렴해 온 구조이고, 용어의 기원도 Kimball이 아니다 — fact와
   dimension이라는 말은 1960년대 General Mills·Dartmouth 공동 연구에서 나와
   1970년대 AC Nielsen·IRI가 정착시켰다 (1장, p.15).[^kimball2013]
-- [팩트 테이블](fact-table.md)(측정값)과 [차원 테이블](dimension-table.md)
+- [팩트 테이블](fact-table.md)(측정값)과 [차원 테이블](../concepts/dimension-table.md)
   (서술 맥락)을 조인한 별 모양 구조가 스타 스키마(star schema)다. 같은 논리
   설계를 다차원 DB에 구현하면 OLAP 큐브(cube)인데, 권장은 원자 데이터를 스타
   스키마에 적재하고 큐브는 그로부터 파생시키는 것이다 (1장, pp.8–9).[^kimball2013]
@@ -52,7 +51,7 @@ sources:
 5. "통합이 안 된다" — conformed dimension을 ETL의 중앙 마스터 데이터로 두면
    차원 모델들이 결합된다(버스 아키텍처 — [Kimball DW/BI 아키텍처](kimball-dwbi-architecture.md)).
 
-방법론 축의 대안: [Data Vault 모델링](data-vault-modeling.md)은 같은 웨어하우스
+방법론 축의 대안: [Data Vault 모델링](../concepts/data-vault-modeling.md)은 같은 웨어하우스
 문제에서 감사 가능성·원천 보존을 우선한다 — Linstedt 책 7장도 정보 마트 계층은
 차원 모델로 낸다.
 

@@ -2,7 +2,6 @@
 type: concept
 title: 업무 키
 description: 업무가 정보를 식별·추적·조회하는 키 — 유일성·불변성 요건과 대리 키와의 구분
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T15:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }

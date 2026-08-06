@@ -2,7 +2,6 @@
 type: concept
 title: Kimball DW/BI 아키텍처
 description: 원천–ETL–프레젠테이션–BI 4구획과 프레젠테이션 4원칙, 독립 마트·CIF와의 대비
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T16:10:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
@@ -51,8 +50,8 @@ Kimball 아키텍처는 DW/BI 환경을 넷으로 가른다: 운영 원천 시�
   프레젠테이션을 그 뒤에 단다. 이미 3NF EDW에 투자했다면 적절하지만, 백지에서
   시작하면 데이터 이동·저장 중복으로 시간과 비용이 더 든다.
 
-[Data Vault](data-vault-modeling.md)는 이 지형에서 EDW 계층(원천 보존·감사)을
-맡는 제3의 접근이고, 정보 마트는 역시 [차원 모델](dimensional-modeling.md)로
+[Data Vault](../concepts/data-vault-modeling.md)는 이 지형에서 EDW 계층(원천 보존·감사)을
+맡는 제3의 접근이고, 정보 마트는 역시 [차원 모델](../concepts/dimensional-modeling.md)로
 낸다.
 
 [^kimball2013]: Kimball & Ross 2013, 1장 "Data Warehousing, Business Intelligence, and Dimensional Modeling Primer"

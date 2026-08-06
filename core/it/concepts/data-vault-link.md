@@ -2,7 +2,6 @@
 type: concept
 title: Data Vault Link
 description: 허브 사이의 관계를 다대다로만 담는 엔티티 — 시간성 배제·입도·driving key 규칙
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T15:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
@@ -10,7 +9,7 @@ sources:
 
 # Data Vault Link
 
-Link는 [Hub](data-vault-hub.md)들 사이의 관계·트랜잭션·계층을 담는
+Link는 [Hub](../concepts/data-vault-hub.md)들 사이의 관계·트랜잭션·계층을 담는
 [Data Vault](data-vault-modeling.md) 엔티티다 (§4.4, pp.121–122).[^linstedt2016]
 
 > Links capture and record the past, present, and future relationships

@@ -2,7 +2,6 @@
 type: concept
 title: 팩트 테이블
 description: 업무 프로세스 측정 이벤트를 담는 차원 모델의 중심 — 측정 이벤트 1:1 원칙·grain·합산 가능성
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T16:10:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
@@ -11,7 +10,7 @@ sources:
 # 팩트 테이블
 
 팩트 테이블(fact table)은 업무 프로세스 이벤트의 성과 측정값(measurement)을
-담는 [차원 모델](dimensional-modeling.md)의 중심 테이블이다. 측정 데이터는
+담는 [차원 모델](../concepts/dimensional-modeling.md)의 중심 테이블이다. 측정 데이터는
 전사에서 압도적으로 크므로 조직 기능별로 복제하지 않고 단일 저장소에 둔다
 (1장, p.10).[^kimball2013]
 
@@ -49,7 +48,7 @@ sources:
   복합 키(composite key)다 — **복합 키를 가진 테이블은 팩트 테이블이고, 그
   외는 전부 차원이다**. 팩트 테이블은 다대다 관계를 표현한다 (1장, p.12).[^kimball2013]
 
-Data Vault와의 대응: [Link](data-vault-link.md)도 다대다·복합 식별이라는 같은
+Data Vault와의 대응: [Link](../concepts/data-vault-link.md)도 다대다·복합 식별이라는 같은
 자리에 서고, 링크 입도에 Hub 참조를 더하는 것은 팩트에 차원을 더하는 것과 같은
 원리다 — Linstedt 자신의 유비다.
 

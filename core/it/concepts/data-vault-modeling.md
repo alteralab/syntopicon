@@ -2,7 +2,6 @@
 type: concept
 title: Data Vault 모델링
 description: business key 중심의 3-엔티티(Hub·Link·Satellite) 데이터 웨어하우스 모델
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-06T15:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
@@ -30,8 +29,8 @@ Data Vault는 1990년대 Dan Linstedt가 만든 데이터 웨어하우스 모델
 > **satellites** store the context (the attributes of a business key or
 > relationship).
 
-- [Hub](data-vault-hub.md) — 업무 키를 모델의 나머지에서 분리해 보관한다.
-- [Link](data-vault-link.md) — 업무 키(허브)들 사이의 관계·트랜잭션을 담는다.
+- [Hub](../concepts/data-vault-hub.md) — 업무 키를 모델의 나머지에서 분리해 보관한다.
+- [Link](../concepts/data-vault-link.md) — 업무 키(허브)들 사이의 관계·트랜잭션을 담는다.
 - [Satellite](data-vault-satellite.md) — 업무 키·관계의 맥락(속성)과 그 변경
   이력을 담는다.
 - 링크가 트랜잭션을 표현할 때가 많아 [차원 모델](dimensional-modeling.md)의
