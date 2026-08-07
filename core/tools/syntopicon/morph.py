@@ -83,15 +83,23 @@ def base_tag(tag: str) -> str:
     return tag.split("-", 1)[0]
 
 
-def analyze(text: str) -> list[str]:
-    """색인·질의 양쪽이 쓰는 유일한 분석 경로. 여기가 갈라지면 레그 전체가 무의미하다.
+def analyze_tokens(text: str):
+    """색인·질의 양쪽이 쓰는 유일한 분석 경로(토큰 객체 — form과 원문 위치 포함).
 
     NFC로 정규화하고 들어간다 — macOS 도구가 만든 NFD 본문은 바이트가 달라
     NFC 질의와 영원히 못 만난다(적대 배터리 실측: NFD 페이지가 검색 0건).
     색인과 질의가 같은 함수를 지나므로 여기 한 곳이면 양쪽이 함께 고쳐진다.
+
+    **호출자는 전체 텍스트를 한 번에 넣어야 한다.** Kiwi는 문맥 민감이라 같은
+    낱말도 홀로 분석하면 다른 형태소가 나온다("완만하게" 단독 → 완만하,
+    문장 속 → 완만 — 실측). 낱말별 재분석은 색인과 질의를 조용히 가른다.
     """
     text = unicodedata.normalize("NFC", text)
-    return [t.form for t in _kiwi().tokenize(text) if base_tag(t.tag) in KEEP_TAGS]
+    return [t for t in _kiwi().tokenize(text) if base_tag(t.tag) in KEEP_TAGS]
+
+
+def analyze(text: str) -> list[str]:
+    return [t.form for t in analyze_tokens(text)]
 
 
 def index_text(text: str) -> str:
@@ -105,13 +113,35 @@ def query_expression(text: str) -> str:
     거의 없다(멀티홉 하네스 실측: 전체 phrase는 recall 0.0). PLAN §4.1이 phrase를
     말한 대상은 "compound는 성분 분해 + phrase 질의" — 복합어 하나이지 질의 전체가
     아니다. FTS5는 공백을 암묵 AND로 읽는다(실측 확인).
+
+    분석은 **질의 전문을 한 번에** 하고(색인과 같은 입도 — analyze_tokens 주석의
+    문맥 민감성), 낱말 묶음은 토큰의 원문 위치로 복원한다. 낱말별 재분석은
+    "완만하게 변하는 차원"이 색인(완만)과 다른 형태소(완만하)를 내는 것이 실측돼
+    금지다.
     """
+    # 원문 문자 위치 → 낱말 번호 (공백 경계로 증가)
+    word_id, ids = 0, []
+    prev_space = True
+    for ch in unicodedata.normalize("NFC", text):
+        if ch.isspace():
+            prev_space = True
+            ids.append(-1)
+        else:
+            if prev_space:
+                word_id += 1
+                prev_space = False
+            ids.append(word_id)
+
+    grouped: dict[int, list[str]] = {}
+    for token in analyze_tokens(text):
+        wid = ids[token.start] if token.start < len(ids) else word_id
+        grouped.setdefault(wid, []).append(token.form.replace('"', '""'))
+
     words = []
-    for word in text.split():
-        morphemes = [m.replace('"', '""') for m in analyze(word)]
+    for _, morphemes in sorted(grouped.items()):
         if len(morphemes) > 1:
             words.append('"' + " ".join(morphemes) + '"')   # 복합어 — 순서 보존
-        elif morphemes:
+        else:
             # 홑항도 인용한다. 비인용 토큰은 FTS5 문법에 노출된다 — 영어 낱말
             # AND/OR/NOT이 연산자로 해석돼 크래시했다(적대 배터리 실측). 인용은
             # 키워드 블랙리스트와 달리 그 클래스 전체를 없앤다.

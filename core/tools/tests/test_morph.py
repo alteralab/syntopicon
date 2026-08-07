@@ -152,6 +152,16 @@ def test_inbox_결과에는_unreviewed_라벨이_붙는다(repo: Repo):
     assert concept_lines and all("[unreviewed]" not in l for l in concept_lines)
 
 
+def test_문맥_민감_활용형_질의가_색인과_만난다():
+    """Kiwi는 문맥 민감이라 낱말별 재분석은 색인과 다른 형태소를 낸다 —
+    "완만하게" 단독 분석은 완만하, 문장 분석은 완만(실측). query_expression은
+    전문 일괄 분석 + 위치 기반 낱말 묶음이어야 색인과 같은 형태소를 낸다."""
+    expression = morph.query_expression("완만하게 변하는 차원")
+    assert '"완만"' in expression and '"완만하"' not in expression
+    # 색인 경로와 동일한 형태소 집합
+    assert set(morph.analyze("완만하게 변하는 차원")) == {"완만", "변하", "차원"}
+
+
 def test_색인_대상_형태소가_없는_질의는_거부한다(repo: Repo):
     indexed(repo)
     # Kiwi는 홀로 선 조사도 명사로 읽으므로("은 는 이 가" → 은/늘/이) 진짜로 비는 것은
