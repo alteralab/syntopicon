@@ -36,13 +36,14 @@ def test_질의와_색인이_같은_함수를_지난다():
         assert term in indexed.split()
 
 
-def test_낱말끼리는_AND_복합어만_phrase():
-    """질의 전체를 한 phrase로 묶으면 모든 형태소가 인접해야 해서 거의 안 맞는다
-    (멀티홉 하네스가 recall 0.0으로 잡아낸 버그). 홑항도 인용된다 — 비인용 토큰은
-    FTS5 연산자(AND/OR/NOT)에 노출되기 때문."""
-    assert morph.query_expression("읽기 일관성") == '"읽" "일관"'    # 낱말 둘 → 암묵 AND
+def test_낱말끼리는_OR_복합어만_phrase():
+    """질의 전체 phrase는 recall 0.0(멀티홉 하네스 실측), 암묵 AND는 기능어
+    형태소("어떻게"·"정해지나") 하나가 본문에 없으면 전멸시킨다 — qrels 26문항
+    실측으로 OR+bm25가 전 클래스 우세(R@5 0.288→0.763). 홑항도 인용된다 —
+    비인용 토큰은 FTS5 연산자(AND/OR/NOT)에 노출되기 때문."""
+    assert morph.query_expression("읽기 일관성") == '"읽" OR "일관"'
     assert morph.query_expression("복제지연") == '"복제 지연"'       # 복합어 → phrase
-    assert morph.query_expression("복제지연 읽기") == '"복제 지연" "읽"'
+    assert morph.query_expression("복제지연 읽기") == '"복제 지연" OR "읽"'
 
 
 def test_불규칙_용언_어간을_버리지_않는다():
@@ -75,7 +76,7 @@ def test_질의의_모든_항은_인용된다():
     assert morph.query_expression("AND") == '"AND"'
     expression = morph.query_expression("복제지연 OR checksum")
     # phrase 안에 공백이 있으므로 공백 split이 아니라 전체 형태로 검사한다
-    assert re.fullmatch(r'"[^"]+"( "[^"]+")*', expression), expression
+    assert re.fullmatch(r'"[^"]+"( OR "[^"]+")*', expression), expression
 
 
 def test_파편화를_관측한다():

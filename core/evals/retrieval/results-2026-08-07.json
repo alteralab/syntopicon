@@ -1,0 +1,1433 @@
+{
+ "rows": [
+  {
+   "id": "kr-conj-1",
+   "type": "exact",
+   "query": "완만하게 변하는 차원의 타입",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md"
+     ],
+     "ms": 201
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "concepts/conformed-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md"
+     ],
+     "ms": 900
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/etl-subsystems.md"
+     ],
+     "ms": 930
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 1087
+    }
+   }
+  },
+  {
+   "id": "kr-conj-2",
+   "type": "exact",
+   "query": "지각 도착한 팩트를 어떻게 처리하나",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 197
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/late-arriving-data.md",
+      "concepts/clickstream-facts.md",
+      "concepts/fact-table.md"
+     ],
+     "ms": 775
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/late-arriving-data.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/four-step-dimensional-design.md"
+     ],
+     "ms": 782
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/late-arriving-data.md",
+      "synthesis/dw-operations-and-process.md",
+      "concepts/etl-subsystems.md"
+     ],
+     "ms": 1007
+    }
+   }
+  },
+  {
+   "id": "kr-conj-3",
+   "type": "exact",
+   "query": "적재 시각은 언제 정해지나",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 196
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.3333333333333333,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/snapshot-fact-tables.md",
+      "concepts/late-arriving-data.md"
+     ],
+     "ms": 775
+    },
+    "hybrid(query)": {
+     "r_at_5": 0.6666666666666666,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/data-vault-loading-patterns.md",
+      "concepts/data-vault-hub.md"
+     ],
+     "ms": 783
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/information-mart.md"
+     ],
+     "ms": 1006
+    }
+   }
+  },
+  {
+   "id": "kr-conj-4",
+   "type": "exact",
+   "query": "업무 키가 갖춰야 하는 요건",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 202
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/data-vault-hub.md",
+      "concepts/kimball-lifecycle.md"
+     ],
+     "ms": 779
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/data-vault-hub.md",
+      "concepts/data-vault-modeling.md"
+     ],
+     "ms": 800
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/hashing-in-data-vault.md",
+      "concepts/point-in-time-and-bridge-tables.md"
+     ],
+     "ms": 1006
+    }
+   }
+  },
+  {
+   "id": "kr-comp-1",
+   "type": "exact",
+   "query": "해시키 계산 규칙",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 198
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/data-quality-management.md",
+      "concepts/snapshot-fact-tables.md",
+      "concepts/hashing-in-data-vault.md"
+     ],
+     "ms": 775
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/fact-table.md",
+      "concepts/data-quality-management.md",
+      "concepts/hashing-in-data-vault.md"
+     ],
+     "ms": 809
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/hashing-in-data-vault.md",
+      "concepts/staging-area.md",
+      "concepts/data-vault-loading-patterns.md"
+     ],
+     "ms": 1120
+    }
+   }
+  },
+  {
+   "id": "kr-comp-2",
+   "type": "exact",
+   "query": "정크차원",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 219
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/junk-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/conformed-dimension.md"
+     ],
+     "ms": 834
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/junk-dimension.md",
+      "concepts/clickstream-facts.md",
+      "synthesis/dimensional-modeling-techniques.md"
+     ],
+     "ms": 779
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/junk-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md"
+     ],
+     "ms": 1003
+    }
+   }
+  },
+  {
+   "id": "kr-comp-3",
+   "type": "exact",
+   "query": "브리지테이블 가중치",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 205
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/multivalued-dimension-bridge.md",
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/data-vault-methodology.md"
+     ],
+     "ms": 772
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/multivalued-dimension-bridge.md",
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/information-mart.md"
+     ],
+     "ms": 783
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/multivalued-dimension-bridge.md",
+      "synthesis/dimensional-modeling-techniques.md"
+     ],
+     "ms": 998
+    }
+   }
+  },
+  {
+   "id": "kr-part-1",
+   "type": "exact",
+   "query": "PIT",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/business-vault.md",
+      "sources/linstedt2016.md"
+     ],
+     "ms": 198
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/business-vault.md",
+      "concepts/fact-table.md"
+     ],
+     "ms": 771
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/business-vault.md",
+      "sources/linstedt2016.md"
+     ],
+     "ms": 775
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/business-vault.md",
+      "concepts/information-mart.md"
+     ],
+     "ms": 999
+    }
+   }
+  },
+  {
+   "id": "kr-part-2",
+   "type": "exact",
+   "query": "허브 응용",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "synthesis/data-vault.md"
+     ],
+     "ms": 200
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-hub.md",
+      "concepts/data-quality-management.md",
+      "overview.md"
+     ],
+     "ms": 784
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "overview.md",
+      "concepts/data-vault-hub.md",
+      "concepts/data-vault-link.md"
+     ],
+     "ms": 785
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "synthesis/data-vault.md",
+      "concepts/data-vault-link.md",
+      "concepts/data-vault-satellite.md"
+     ],
+     "ms": 1010
+    }
+   }
+  },
+  {
+   "id": "alias-1",
+   "type": "alias",
+   "query": "surrogate key",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/degenerate-dimension.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 225
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 823
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/dimension-table.md",
+      "concepts/business-key.md",
+      "concepts/data-vault-hub.md"
+     ],
+     "ms": 835
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/hashing-in-data-vault.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 1050
+    }
+   }
+  },
+  {
+   "id": "alias-2",
+   "type": "alias",
+   "query": "grain 선언",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/four-step-dimensional-design.md",
+      "concepts/dimensional-design-process.md",
+      "concepts/snapshot-fact-tables.md"
+     ],
+     "ms": 200
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/four-step-dimensional-design.md",
+      "concepts/snapshot-fact-tables.md",
+      "concepts/point-in-time-and-bridge-tables.md"
+     ],
+     "ms": 781
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/four-step-dimensional-design.md",
+      "concepts/snapshot-fact-tables.md",
+      "concepts/fact-table.md"
+     ],
+     "ms": 790
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/four-step-dimensional-design.md",
+      "concepts/dimensional-design-process.md",
+      "concepts/snapshot-fact-tables.md"
+     ],
+     "ms": 999
+    }
+   }
+  },
+  {
+   "id": "alias-3",
+   "type": "alias",
+   "query": "SCD type 2",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/dimensional-design-process.md"
+     ],
+     "ms": 208
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "concepts/data-quality-management.md",
+      "concepts/supertype-subtype-schema.md"
+     ],
+     "ms": 821
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/dimensional-design-process.md"
+     ],
+     "ms": 866
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/information-mart.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/data-vault-link.md"
+     ],
+     "ms": 1041
+    }
+   }
+  },
+  {
+   "id": "alias-4",
+   "type": "alias",
+   "query": "conformed dimension",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/conformed-dimension.md",
+      "concepts/enterprise-bus-architecture.md"
+     ],
+     "ms": 203
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/conformed-dimension.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 851
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/conformed-dimension.md",
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/degenerate-dimension.md"
+     ],
+     "ms": 861
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/conformed-dimension.md",
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/enterprise-bus-architecture.md"
+     ],
+     "ms": 1007
+    }
+   }
+  },
+  {
+   "id": "alias-5",
+   "type": "alias",
+   "query": "driving key",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "concepts/enterprise-data-warehouse.md"
+     ],
+     "ms": 201
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "concepts/business-key.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/data-vault-hub.md"
+     ],
+     "ms": 752
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "concepts/business-key.md",
+      "concepts/late-arriving-data.md"
+     ],
+     "ms": 812
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "concepts/dimension-table.md",
+      "concepts/business-key.md"
+     ],
+     "ms": 1106
+    }
+   }
+  },
+  {
+   "id": "sem-1",
+   "type": "semantic",
+   "query": "천천히 바뀌는 고객 속성의 이력을 관리하는 방법",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 223
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "concepts/business-vault.md",
+      "concepts/supertype-subtype-schema.md"
+     ],
+     "ms": 800
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/master-data-management.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/reference-table.md"
+     ],
+     "ms": 783
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/reference-table.md",
+      "concepts/slowly-changing-dimension.md",
+      "synthesis/data-warehouse-modeling.md"
+     ],
+     "ms": 990
+    }
+   }
+  },
+  {
+   "id": "sem-2",
+   "type": "semantic",
+   "query": "부서마다 숫자가 달라서 회의마다 싸우는 문제",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 198
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.6666666666666666,
+     "mrr": 0.25,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-lifecycle.md",
+      "concepts/consolidated-fact-table.md",
+      "concepts/data-vault-methodology.md"
+     ],
+     "ms": 776
+    },
+    "hybrid(query)": {
+     "r_at_5": 0.3333333333333333,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-lifecycle.md",
+      "concepts/conformed-dimension.md",
+      "concepts/multivalued-dimension-bridge.md"
+     ],
+     "ms": 791
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.3333333333333333,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-methodology.md",
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/dimensional-modeling.md"
+     ],
+     "ms": 1014
+    }
+   }
+  },
+  {
+   "id": "sem-3",
+   "type": "semantic",
+   "query": "조인이 너무 많아 질의가 느릴 때 쓰는 구조",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 200
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.0,
+     "mrr": 0.125,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-lifecycle.md",
+      "concepts/multivalued-dimension-bridge.md",
+      "concepts/junk-dimension.md"
+     ],
+     "ms": 779
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/multivalued-dimension-bridge.md",
+      "concepts/kimball-lifecycle.md",
+      "concepts/point-in-time-and-bridge-tables.md"
+     ],
+     "ms": 791
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/conformed-dimension.md",
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/data-quality-management.md"
+     ],
+     "ms": 1011
+    }
+   }
+  },
+  {
+   "id": "sem-4",
+   "type": "semantic",
+   "query": "원본은 손대지 않고 보관하고 비즈니스 규칙은 나중에 적용한다",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 201
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-vault.md",
+      "concepts/data-vault-architecture.md",
+      "concepts/metadata-management.md"
+     ],
+     "ms": 781
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/business-vault.md",
+      "concepts/master-data-management.md",
+      "concepts/data-vault-architecture.md"
+     ],
+     "ms": 798
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.5,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/slowly-changing-dimension.md",
+      "concepts/business-vault.md",
+      "concepts/data-vault-methodology.md"
+     ],
+     "ms": 1103
+    }
+   }
+  },
+  {
+   "id": "sem-5",
+   "type": "semantic",
+   "query": "규제 감사에 대비해 모든 변경 이력을 남기려면",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 227
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-satellite.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/reference-table.md"
+     ],
+     "ms": 935
+    },
+    "hybrid(query)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-satellite.md",
+      "concepts/enterprise-data-warehouse.md",
+      "concepts/reference-table.md"
+     ],
+     "ms": 912
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.5,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/reference-table.md",
+      "concepts/etl-subsystems.md",
+      "concepts/data-vault-satellite.md"
+     ],
+     "ms": 998
+    }
+   }
+  },
+  {
+   "id": "top-1",
+   "type": "topical",
+   "query": "Data Vault 엔티티별 적재 순서와 규칙",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 201
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "synthesis/data-vault.md",
+      "concepts/data-vault-loading-patterns.md",
+      "concepts/business-vault.md"
+     ],
+     "ms": 784
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-loading-patterns.md",
+      "synthesis/data-vault.md",
+      "concepts/hashing-in-data-vault.md"
+     ],
+     "ms": 791
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-loading-patterns.md",
+      "synthesis/data-vault.md",
+      "concepts/data-vault-hub.md"
+     ],
+     "ms": 1009
+    }
+   }
+  },
+  {
+   "id": "top-2",
+   "type": "topical",
+   "query": "ETL 시스템은 어떤 구성 요소로 이뤄지나",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 196
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/etl-subsystems.md",
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/enterprise-bus-architecture.md"
+     ],
+     "ms": 763
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/etl-subsystems.md",
+      "concepts/enterprise-bus-architecture.md",
+      "synthesis/dw-operations-and-process.md"
+     ],
+     "ms": 768
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "concepts/metadata-management.md",
+      "concepts/enterprise-data-warehouse.md",
+      "concepts/kimball-lifecycle.md"
+     ],
+     "ms": 995
+    }
+   }
+  },
+  {
+   "id": "top-3",
+   "type": "topical",
+   "query": "킴벌 프로젝트는 어떤 순서로 진행하나",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 199
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-lifecycle.md",
+      "concepts/data-vault-methodology.md",
+      "concepts/four-step-dimensional-design.md"
+     ],
+     "ms": 806
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-methodology.md",
+      "concepts/kimball-lifecycle.md",
+      "concepts/four-step-dimensional-design.md"
+     ],
+     "ms": 813
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-lifecycle.md",
+      "concepts/data-vault-methodology.md",
+      "concepts/enterprise-bus-architecture.md"
+     ],
+     "ms": 1010
+    }
+   }
+  },
+  {
+   "id": "top-4",
+   "type": "topical",
+   "query": "스테이징에 이력을 두면 안 되는 이유",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 210
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/data-vault-architecture.md",
+      "concepts/data-vault-methodology.md"
+     ],
+     "ms": 857
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/data-vault-architecture.md",
+      "concepts/data-vault-methodology.md"
+     ],
+     "ms": 877
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/staging-area.md",
+      "concepts/data-vault-loading-patterns.md",
+      "concepts/data-vault-architecture.md"
+     ],
+     "ms": 1085
+    }
+   }
+  },
+  {
+   "id": "x-1",
+   "type": "cross-domain",
+   "query": "Data Vault 링크와 팩트 테이블의 공통점",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 202
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "concepts/fact-table.md",
+      "synthesis/data-vault.md"
+     ],
+     "ms": 865
+    },
+    "hybrid(query)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/data-vault-link.md",
+      "concepts/fact-table.md",
+      "concepts/multivalued-dimension-bridge.md"
+     ],
+     "ms": 865
+    },
+    "morph(ksearch)": {
+     "r_at_5": 1.0,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/multivalued-dimension-bridge.md",
+      "concepts/data-vault-link.md"
+     ],
+     "ms": 993
+    }
+   }
+  },
+  {
+   "id": "x-2",
+   "type": "cross-domain",
+   "query": "새틀라이트와 차원 테이블의 이력 관리 차이",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md"
+     ],
+     "ms": 199
+    },
+    "vector(vsearch)": {
+     "r_at_5": 0.6666666666666666,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/reference-table.md",
+      "concepts/slowly-changing-dimension.md",
+      "concepts/dimension-table.md"
+     ],
+     "ms": 793
+    },
+    "hybrid(query)": {
+     "r_at_5": 0.6666666666666666,
+     "mrr": 0.3333333333333333,
+     "found_any": true,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/reference-table.md",
+      "concepts/data-vault-satellite.md"
+     ],
+     "ms": 790
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [
+      "concepts/point-in-time-and-bridge-tables.md",
+      "concepts/reference-table.md",
+      "concepts/data-vault-loading-patterns.md"
+     ],
+     "ms": 1012
+    }
+   }
+  },
+  {
+   "id": "x-3",
+   "type": "cross-domain",
+   "query": "정보 마트를 만들 때 차원 모델로 어떻게 전개하나",
+   "legs": {
+    "bm25(search)": {
+     "r_at_5": 0.0,
+     "mrr": 0.0,
+     "found_any": false,
+     "top3": [],
+     "ms": 202
+    },
+    "vector(vsearch)": {
+     "r_at_5": 1.0,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/information-mart.md",
+      "synthesis/dimensional-modeling-techniques.md",
+      "concepts/dimensional-design-process.md"
+     ],
+     "ms": 778
+    },
+    "hybrid(query)": {
+     "r_at_5": 0.5,
+     "mrr": 0.5,
+     "found_any": true,
+     "top3": [
+      "concepts/kimball-dwbi-architecture.md",
+      "concepts/information-mart.md",
+      "sources/kimball2013.md"
+     ],
+     "ms": 794
+    },
+    "morph(ksearch)": {
+     "r_at_5": 0.5,
+     "mrr": 1.0,
+     "found_any": true,
+     "top3": [
+      "concepts/information-mart.md",
+      "synthesis/data-vault.md",
+      "concepts/business-vault.md"
+     ],
+     "ms": 1027
+    }
+   }
+  }
+ ],
+ "summary": {
+  "bm25(search)": {
+   "exact": {
+    "n": 9,
+    "R@5": 0.222,
+    "MRR": 0.222,
+    "found%": 22,
+    "p50ms": 201
+   },
+   "ALL": {
+    "n": 26,
+    "R@5": 0.25,
+    "MRR": 0.25,
+    "found%": 27,
+    "p50ms": 201
+   },
+   "alias": {
+    "n": 5,
+    "R@5": 0.9,
+    "MRR": 0.9,
+    "found%": 100,
+    "p50ms": 201
+   },
+   "semantic": {
+    "n": 5,
+    "R@5": 0.0,
+    "MRR": 0.0,
+    "found%": 0,
+    "p50ms": 201
+   },
+   "topical": {
+    "n": 4,
+    "R@5": 0.0,
+    "MRR": 0.0,
+    "found%": 0,
+    "p50ms": 201
+   },
+   "cross-domain": {
+    "n": 3,
+    "R@5": 0.0,
+    "MRR": 0.0,
+    "found%": 0,
+    "p50ms": 201
+   }
+  },
+  "vector(vsearch)": {
+   "exact": {
+    "n": 9,
+    "R@5": 0.926,
+    "MRR": 0.926,
+    "found%": 100,
+    "p50ms": 784
+   },
+   "ALL": {
+    "n": 26,
+    "R@5": 0.833,
+    "MRR": 0.835,
+    "found%": 96,
+    "p50ms": 784
+   },
+   "alias": {
+    "n": 5,
+    "R@5": 0.7,
+    "MRR": 0.8,
+    "found%": 80,
+    "p50ms": 784
+   },
+   "semantic": {
+    "n": 5,
+    "R@5": 0.633,
+    "MRR": 0.675,
+    "found%": 100,
+    "p50ms": 784
+   },
+   "topical": {
+    "n": 4,
+    "R@5": 1.0,
+    "MRR": 0.875,
+    "found%": 100,
+    "p50ms": 784
+   },
+   "cross-domain": {
+    "n": 3,
+    "R@5": 0.889,
+    "MRR": 0.833,
+    "found%": 100,
+    "p50ms": 784
+   }
+  },
+  "hybrid(query)": {
+   "exact": {
+    "n": 9,
+    "R@5": 0.963,
+    "MRR": 0.87,
+    "found%": 100,
+    "p50ms": 794
+   },
+   "ALL": {
+    "n": 26,
+    "R@5": 0.91,
+    "MRR": 0.827,
+    "found%": 100,
+    "p50ms": 794
+   },
+   "alias": {
+    "n": 5,
+    "R@5": 1.0,
+    "MRR": 1.0,
+    "found%": 100,
+    "p50ms": 794
+   },
+   "semantic": {
+    "n": 5,
+    "R@5": 0.767,
+    "MRR": 0.667,
+    "found%": 100,
+    "p50ms": 794
+   },
+   "topical": {
+    "n": 4,
+    "R@5": 1.0,
+    "MRR": 0.875,
+    "found%": 100,
+    "p50ms": 794
+   },
+   "cross-domain": {
+    "n": 3,
+    "R@5": 0.722,
+    "MRR": 0.611,
+    "found%": 100,
+    "p50ms": 794
+   }
+  },
+  "morph(ksearch)": {
+   "exact": {
+    "n": 9,
+    "R@5": 0.889,
+    "MRR": 0.889,
+    "found%": 89,
+    "p50ms": 1010
+   },
+   "ALL": {
+    "n": 26,
+    "R@5": 0.763,
+    "MRR": 0.737,
+    "found%": 88,
+    "p50ms": 1010
+   },
+   "alias": {
+    "n": 5,
+    "R@5": 0.9,
+    "MRR": 0.9,
+    "found%": 100,
+    "p50ms": 1010
+   },
+   "semantic": {
+    "n": 5,
+    "R@5": 0.667,
+    "MRR": 0.467,
+    "found%": 100,
+    "p50ms": 1010
+   },
+   "topical": {
+    "n": 4,
+    "R@5": 0.625,
+    "MRR": 0.75,
+    "found%": 75,
+    "p50ms": 1010
+   },
+   "cross-domain": {
+    "n": 3,
+    "R@5": 0.5,
+    "MRR": 0.444,
+    "found%": 67,
+    "p50ms": 1010
+   }
+  }
+ }
+}

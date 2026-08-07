@@ -112,7 +112,14 @@ def query_expression(text: str) -> str:
     질의 전체를 한 phrase로 묶으면 모든 형태소가 본문에서 인접해야 하고, 그런 일은
     거의 없다(멀티홉 하네스 실측: 전체 phrase는 recall 0.0). PLAN §4.1이 phrase를
     말한 대상은 "compound는 성분 분해 + phrase 질의" — 복합어 하나이지 질의 전체가
-    아니다. FTS5는 공백을 암묵 AND로 읽는다(실측 확인).
+    아니다.
+
+    낱말끼리는 **OR로 잇고 랭킹(bm25)이 다항 일치를 우대하게 한다** — 암묵 AND는
+    "어떻게"·"정해지나" 같은 기능어 형태소 하나가 본문에 없으면 전멸시키고, 섹션
+    단위 색인에서는 답이 여러 절에 흩어진 페이지를 놓친다. qrels 26문항 실측:
+    AND R@5 0.288 → OR 0.763, 주력(조사·활용·복합명사) 0.444 → 0.889, 악화
+    클래스 없음. stopword 목록은 두지 않는다 — 블랙리스트는 자라기만 하고, OR은
+    그 클래스 전체를 없앤다.
 
     분석은 **질의 전문을 한 번에** 하고(색인과 같은 입도 — analyze_tokens 주석의
     문맥 민감성), 낱말 묶음은 토큰의 원문 위치로 복원한다. 낱말별 재분석은
@@ -146,7 +153,7 @@ def query_expression(text: str) -> str:
             # AND/OR/NOT이 연산자로 해석돼 크래시했다(적대 배터리 실측). 인용은
             # 키워드 블랙리스트와 달리 그 클래스 전체를 없앤다.
             words.append('"' + morphemes[0] + '"')
-    return " ".join(words)
+    return " OR ".join(words)
 
 
 def fragments(text: str) -> list[Fragment]:

@@ -77,16 +77,23 @@ def generate(root: Path, kb: str = "bench", chains: int = 10, seed: int = 202608
             # 뒤집혀 recall이 흔들린 실측이 이 줄의 근거다.
             anchor_line = (f"{korean} 즉 {english} 논의의 출발점이 이 페이지다.\n"
                            if step == 0 else "")
+            # 정답(종점) 페이지에는 질의 어휘({korean}·{english})를 한 톨도 두지
+            # 않는다 — 설계 계약("질의는 시드에만 걸린다")의 집행이다. AND 시절에는
+            # 종점의 "{korean} 사슬의 끝" 누수가 가려졌지만 OR 전환이 flat R@10
+            # 1.0으로 드러냈다(질의 의미론과 무관하게 코퍼스가 보장해야 할 성질).
+            # 파일명의 영문 토큰은 무해하다 — morph 색인은 body만 본다(path UNINDEXED).
+            last = step == len(names) - 1
             body = (
+                f"정답 마커 {marker} 가 여기에만 있다. 사슬의 종점이다.\n\n"
+                f"- 정답 불릿.[^{cite}]\n\n[^{cite}]: 합성 코퍼스\n"
+                if last else
                 f"{korean} 개념의 {step}단계 서술이다. 이 문단은 {english} 를 다룬다.\n"
                 f"{anchor_line}\n"
                 f"- 단계 설명 불릿.[^{cite}]\n{nxt}\n\n[^{cite}]: 합성 코퍼스\n"
-                if step < len(names) - 1 else
-                f"정답 마커 {marker} 가 여기에만 있다. {korean} 사슬의 끝이다.\n\n"
-                f"- 정답 불릿.[^{cite}]\n\n[^{cite}]: 합성 코퍼스\n"
             )
-            (concepts / f"{name}.md").write_text(
-                _page(f"{korean} {step}단계", f"{english} 체인 {index}의 {step}단계", body, cite))
+            title = f"사슬 종점 {marker}" if last else f"{korean} {step}단계"
+            desc = f"체인 {index}의 종점" if last else f"{english} 체인 {index}의 {step}단계"
+            (concepts / f"{name}.md").write_text(_page(title, desc, body, cite))
 
         # 방해 페이지: 시드와 어휘가 겹치지만 사슬 밖이다 — flat 검색이 여기서 맴돈다.
         for extra in range(3):
