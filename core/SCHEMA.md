@@ -70,6 +70,7 @@ sources:
   | surrogate key | 대리 키 | "대체 키"는 alternate key의 확립 역어라 충돌 |
   | dimension (table·attribute) | 차원 (차원 테이블·차원 속성) | 확립 역어. 팩트·허브·링크·새틀라이트는 확립 음차 유지 |
   | dimensional modeling | 차원 모델링 | "다차원"은 multidimensional DB와 구분 소실(킴벌 국역판 p.8 순환문이 반례 실물) |
+  | conformed dimension | 표준 차원 | 킴벌 국역판 채택례("표준 디멘션") — 합치·적합보다 확립 근거 있음. conform 동사는 "정제·통합" |
 - **정의·정리·수치처럼 왜곡에 민감한 구간은 번역하지 말고 원문을 직인용한다**(인용 블록).
   의미는 원문이, 해설은 한국어가 담당한다.
 
