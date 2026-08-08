@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "docs-mirror sources registry",
+  "description": "미러 대상 레지스트리의 계약 (PLAN §2). 상태=sources.yaml, 연산=tools/mirror.",
+  "type": "object",
+  "required": ["config", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "config": {
+      "type": "object",
+      "required": ["fork_org"],
+      "additionalProperties": false,
+      "properties": {
+        "fork_org": {
+          "type": "string",
+          "description": "§3.5 0겹 fork 네임스페이스 (GitHub org)"
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "description": "기술명 → 소스 항목",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["format", "license"],
+        "additionalProperties": false,
+        "properties": {
+          "repo": {
+            "type": ["string", "null"],
+            "description": "git 저장소 URL (수집 ①·② 경로). crawl과 택일"
+          },
+          "crawl": {
+            "type": ["string", "null"],
+            "description": "크롤 시작 URL (수집 ③ 최후 수단). repo 부재 시만"
+          },
+          "subdir": {
+            "type": ["string", "null"],
+            "description": "sparse-checkout 대상 하위 디렉토리"
+          },
+          "format": {
+            "enum": ["md", "mdx", "rst", "docbook", "html"],
+            "description": "원문 포맷. rst·docbook은 _converted/ 변환 대상"
+          },
+          "license": {
+            "type": ["string", "null"],
+            "description": "SPDX id (필수 기록 — add가 gh api로 채움)"
+          },
+          "versions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "고정 워크트리로 펼친 태그 목록 (선제 생성 금지)"
+          },
+          "fork": {
+            "type": ["string", "null"],
+            "description": "§3.5 0겹 fork URL. null = 미가동(validate가 경고)"
+          },
+          "swh_registered": {
+            "type": ["string", "null"],
+            "description": "Software Heritage save-code-now 등록일 (ISO)"
+          },
+          "fallback": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "온디맨드 폴백 (llms.txt·공식 MCP·이슈 트래커 URL)"
+          },
+          "added": {
+            "type": "string",
+            "description": "등록일 (ISO)"
+          }
+        }
+      }
+    }
+  }
+}
