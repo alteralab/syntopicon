@@ -1,0 +1,321 @@
+====================================================================================================
+KEY: code-value
+--- SUMMARY ---
+종합 판정 재료: (1) '설치된 버전의 라이브러리 소스를 에이전트가 직접 읽는' 관행은 실재하며 1차 근거가 있다 — Vercel AI SDK 공식 문서가 node_modules 내 소스 정독을 버전 일치의 수단으로 명시 권장하고, Claude Code는 지시 없이도 자발적으로 node_modules에서 API·타입을 확인한다(issue #55146). Anthropic 공식 best-practices에는 명시 권고가 없고 '필요한 파일을 스스로 읽게 하라' 수준이다. (2) 연구 실증은 비대칭적이다: 버전 조건부 태스크에서 정량 입증된 것은 문서 RAG(+~10%p, GitChameleon)와 실행 피드백(+10~20%p)이고, '라이브러리 소스 코드를 retrieval 소스로 쓴' 통제 실험은 찾지 못했다(GitChameleon은 docs만 실험, CodeRAG-Bench는 GitHub repo 포함 datastore가 이득이지만 소스별 우열 미확정). 대신 SWE-agent의 2배 성능(ACI= bounded 검색+정독)이 '무색인 lexical 탐색 + 코드 정독' 구조 자체의 유효성을 입증하고, BM25가 dense embedding을 이긴다는 결과(2503.15231)는 사용자의 rg 계약과 정합적이다. (3) 버전 혼동은 VersiCode·LibEvolutionEval·GitChameleon으로 계측된 실재 문제이며, '설치된 버전 산출물 읽기'가 그 우회 수단이라는 실무 주장(Vercel)과 상업적 방증(Context7)이 있다. (4) 반대 근거도 명확하다: 임베딩·전량 색인 관점에서 의존 코드는 노이즈(Cursor 기본 제외), 통제 없는 코드 읽기는 토큰 낭비 불만의 대상, 무관 코드 retrieval은 성능을 낮춘다는 연구 복수 — 실무 완화책은 '표적 정독 + tests/픽스처 제외'다. 캐시 계약 관점 시사점: 버전별 코드는 외부 유래·버전 종속·재생성 가능(git tag에서 결정론적)·인간 저작물 제로를 모두 충족하고, '무색인 rg + 정독' 소비 모델과도 연구적으로 정합적이나, 가치의 실증 강도는 docs(정량 실증)보다 한 단계 약한 '관행+구조적 실증' 수준이다.
+--- FINDINGS ---
+[LB] 설치된 의존 패키지의 소스를 에이전트가 직접 읽으라는 1차(벤더 공식) 가이드가 존재한다. Vercel AI SDK 공식 문서 'Coding Agents' 페이지는 node_modules/ai/ 안의 소스·문서를 에이전트가 직접 읽도록 권장하며, 'your agent can look up accurate API signatures, implementations, and usage examples directly from the installed package — ensuring it always uses the version of the SDK that's actually installed in your project'라고 명시한다. 코드 읽기의 근거가 '설치된 버전과의 일치'라는 점에서, 버전 종속 캐시(vendor 레이어)에 코드 자체를 넣는 논거와 정확히 같은 구조다.
+     src: https://ai-sdk.dev/docs/getting-started/coding-agents (2026-08-08 확인 (문서 게시일 미상))
+[LB] Anthropic의 Claude Code 공식 best-practices 문서에는 '라이브러리 소스를 읽어라'는 명시 권고는 없다. 가장 가까운 것은 'Let Claude fetch what it needs. Tell Claude to pull context itself using Bash commands, MCP tools, or by reading files'와 코드베이스 탐색(Explore first)·기존 패턴 참조 권고다. 즉 '의존 소스 읽기'는 공식 규범이 아니라 에이전트의 자발적 행동 + 서드파티 관행으로 존재한다.
+     src: https://code.claude.com/docs/en/best-practices (2026-08-08 확인)
+[LB] Claude Code 에이전트(서브에이전트 포함)는 실제로 import 경로를 따라 node_modules에 들어가 컴포넌트 API·타입 정의를 스스로 읽는다 — 다만 이 행동은 사용자가 범위를 제한했을 때 토큰 낭비로 보고된 '버그성 마찰'이기도 하다(issue #55146, 2026-04-30, duplicate로 close). 즉 '설치된 코드에서 API를 확인하는' 행동 자체는 모델의 기본 성향으로 실증되지만, 통제 없는 코드 읽기는 비용 문제로 불만의 대상이다.
+     src: https://github.com/anthropics/claude-code/issues/55146 (2026-04-30)
+[LB] GitChameleon 2.0(버전 조건부 코드 생성 벤치마크, 328문항): 문서(docs) RAG로 GPT-4.1이 48.5%→58.5%(약 +10%p), Claude 4 Sonnet 59.4% 등 최대 ~10%p 향상. 단, retrieval corpus는 'API documentation' 뿐이며 라이브러리 소스 코드를 retrieval 소스로 쓴 조건은 실험되지 않았다. self-debugging(실행 피드백)은 +10~20%p로 docs RAG보다 컸다. Claude Code 에이전트 자체는 48.8%.
+     src: https://arxiv.org/abs/2507.12367 (2025-07 (arXiv), ACL 2026 게재)
+[  ] 코드 자체를 retrieval 소스로 쓰는 통제 실험은 CodeRAG-Bench(NAACL 2025 Findings)가 가장 가깝다: GitHub repositories를 포함한 5개 소스에서 retrieval을 평가했고, '다양한 대형 datastore에서의 retrieval은 GPT-4에도 유의미한 이득'이지만 (1) 어려운 태스크(DS-1000, SWE-bench)에서 retrieval 품질이 낮고 (2) oracle retrieval과 실제 retrieval 사이 큰 격차, (3) 일부 모델은 retrieval 이득이 작음을 보고. '코드 retrieval > 문서 retrieval'을 입증한 깨끗한 비교는 발견하지 못했다.
+     src: https://code-rag-bench.github.io/ (2024-06 arXiv (2406.14497), NAACL 2025)
+[LB] docs RAG의 효과는 비인기 라이브러리에서 극대화된다: 'When LLMs Meet API Documentation'(arXiv 2503.15231)은 Polars·Ibis·GeoPandas·Ivy에서 문서 top-5 retrieval로 pass rate 83–220% 상대 향상을 실측했고, 문서 구성요소 중 '예제 코드'가 압도적으로 중요(예제 제거 시 Qwen32B 66–82% → 22–39%), 반면 파라미터 목록은 제거 시 오히려 약간 향상(=노이즈). 또 BM25가 dense embedding을 크게 이김(recall@5 0.72–0.94 vs 0.21–0.72) — 무색인 rg(리터럴 매칭) 접근이 코드류 코퍼스에 유리하다는 방증.
+     src: https://arxiv.org/html/2503.15231v1 (2025-03 (arXiv))
+[LB] 버전 혼동(파라메트릭 지식의 낡음)은 계측된 실재 문제다: VersiCode(300개 라이브러리·2,207개 버전)에서 GPT-4o조차 Pass@1 70.44로 HumanEval/MBPP(85+) 대비 크게 하락, 일부 모델은 50점 이상 격차. LibEvolutionEval은 '버전 관련 맥락(버전 명시 + 해당 버전 문서 retrieval)을 주면 성능이 실질 개선'되고 모델이 deprecated API에서 특히 취약함을 보고. 즉 '설치된 버전의 산출물을 읽히는 것'이 버전 혼동 우회 수단이라는 연구적 근거는 성립하나, 실험된 매체는 주로 버전별 문서이지 소스 코드가 아니다.
+     src: https://arxiv.org/abs/2406.07411 (2024-06 (VersiCode arXiv v1))
+[LB] SWE-bench류 에이전트의 성공 구조 자체가 '코드 정독 + 검색 도구'의 유효성 실증이다: SWE-agent(NeurIPS 2024)는 find_file/search_file/search_dir 같은 코드 탐색 인터페이스(ACI)를 제공하는 것만으로 동일 GPT-4의 SWE-bench 점수를 raw bash 대비 약 2배로 올렸고, 핵심은 '간결하고 크기 제한된 출력'이었다. 이는 사용자의 'rg + 파일 정독, 무색인' vendor 계약과 같은 형태(색인 없는 lexical 탐색 + bounded read)가 에이전트에 충분히 작동함을 시사한다. 단 이는 수정 대상 저장소의 코드이지 의존 라이브러리 코드에 대한 직접 실험은 아니다.
+     src: https://proceedings.neurips.cc/paper_files/paper/2024/file/5a7c947568c1b1328ccc5230172e1e7c-Paper-Conference.pdf (2024 (NeurIPS))
+[LB] 반대 근거 (1) — 임베딩/색인 관점에서 의존 코드는 노이즈로 취급된다: Cursor는 node_modules·빌드 산출물을 기본 ignore 목록으로 색인에서 제외하며, 실무 보고는 'AI가 문맥으로 API를 추론하므로 node_modules 색인이 불필요하고, 제외해도 React Hooks/Lodash/Axios 제안이 정상 동작'이라고 한다. ClaudeLog는 grep이 deny 규칙을 우회해 node_modules를 훑으며 대량 토큰을 태우는 문제와 차단법을 다룬다. 즉 '전량 색인·무차별 검색'은 실무에서 명확한 반대 근거가 있고, 가치가 인정되는 것은 '필요 시 표적 정독'이다.
+     src: https://claudelog.com/faqs/how-to-stop-claude-code-reading-node-modules/ (2026-01-15 (eastondev), ClaudeLog 게시일 미상)
+[LB] 반대 근거 (2) — retrieval 노이즈 연구: 검색된 코드 스니펫이 입력 의도와 무관하면 생성 성능을 떨어뜨린다는 실증이 복수 존재한다. 'An Empirical Study of Retrieval-Augmented Code Generation'(arXiv 2501.13742)은 무관한 retrieved code가 노이즈로 작용해 성능을 낮춘다고 보고하고, repository-level QA 연구(arXiv 2603.26567)는 '대형 저장소에서는 접선적으로 관련된 파일·의존이 많아 distracting retrieval 위험이 급증'하며 무관 문맥 추가 시 성능이 뚜렷이 하락한다고 보고한다. 실무 측 완화책의 예: Simon Willison은 코드를 LLM에 먹일 때 tests·문서를 제외하고 .py만 추렸다(files-to-prompt -e py).
+     src: https://arxiv.org/pdf/2501.13742 (2025-01 (arXiv))
+[  ] '코드 = 최종 문서' 워크플로의 실무 사례: (a) Simon Willison — Datasette permissions 시스템의 문서를 소스 코드 전체(99,348 입력 토큰)를 LLM에 넣어 생성, 문서에 없는 실제 구현 동작을 코드에서 도출. (b) Eric J. Ma(ericmjl) — 코딩 에이전트에게 로컬의 다른 저장소 절대 경로나 임시 clone을 주어 '복사된 스니펫이 아닌 실제 구현 파일'을 읽혀 정확성을 확보하는 워크플로를 상세 기술. (c) Claude Code 생태계에는 '프로젝트가 실제로 쓰는 버전 태그를 감지해 외부 저장소를 clone·분석'하는 스킬(Repo Explorer)과 필요한 슬라이스만 vendoring하는 스킬(code-graft)이 유통 중 — 버전 태그 매칭 + 임시 clone이 이미 관행화된 패턴이다.
+     src: https://ericmjl.github.io/blog/2025/11/17/how-to-reference-code-across-repositories-with-coding-agents/ (2025-11-17 (ericmjl))
+[  ] 버전 특정성 문제의 상업적 방증: Context7(Upstash) MCP는 '모델 훈련 데이터의 낡음 → hallucinated API·deprecated 패턴'을 명시적 문제 정의로 삼고 버전 특정(version-specific) 문서를 source repo에서 끌어와 주입하는 제품으로, Claude 공식 플러그인 디렉토리에 등재되어 30+ 클라이언트에 통합됐다. 이는 '버전 특정 산출물 로컬 공급'의 수요 실증이지만, 매체는 코드가 아닌 문서다 — 사용자의 현행 'docs git 미러' 설계와 같은 편에 있는 근거.
+     src: https://context7.com/docs/overview (2026-08-08 확인)
+--- UNRESOLVED ---
+ - '라이브러리 소스 코드 retrieval' vs '문서 retrieval'을 동일 태스크에서 직접 비교한 통제 실험은 발견하지 못함 — GitChameleon은 docs만, CodeRAG-Bench는 소스별 breakdown 수치를 공개 페이지에서 확인 불가(논문 PDF 표 미정독)
+ - Cursor의 node_modules 기본 색인 제외는 2차 소스(eastondev 블로그)로만 확인 — docs.cursor.com 원문 미확인
+ - Claude Code issue #55146은 duplicate로 close — canonical issue와 팀의 공식 입장 미추적
+ - Anthropic의 구(舊) 'Claude Code Best Practices'(2025-04 blog판)에 라이브러리 소스 관련 문구가 있었는지는 미확인(현행 docs판만 정독)
+ - ericmjl 워크플로는 site-packages/설치 버전 고정에 대해서는 무언급 — '로컬 저장소/임시 clone' 패턴까지만 확인
+ - 과제 범위 밖이지만 (b) 이슈 레이어 관련: GitHub issues를 retrieval 소스로 쓴 효과의 정량 연구는 이번 검색에서 미발견(Elastic 블로그 등 구현 사례만 존재)
+--- VERDICTS ---
+  [CONFIRMED] Vercel AI SDK 공식 'Coding Agents' 문서가 node_modules/ai/ 소스·문서 직접 읽기를 권장하며 근거가 '설치된 버전과의 일치'
+       note: 페이지 raw HTML을 직접 grep해 5개 인용 전부 축자 확인: 'Your coding agent can read these directly — no internet access required', 'ensuring it always uses the version of the SDK that's actually installed in your project', 'node_modules/ai/src/ # Full source code', 'node_modules/ai/docs/ # Official documentation'. 벤더 1차 가이드로서 실재하며 논거 구조도 claim대로다.
+  [CONFIRMED] Claude Code 공식 best-practices에는 '라이브러리 소스를 읽어라' 명시 권고가 없고, 가장 가까운 것은 'Let Claude fetch what it needs' 등
+       note: 2026-08-08 문서 전문을 읽어 확인. 'Let Claude fetch what it needs. Tell Claude to pull context itself using Bash commands, MCP tools, or by reading files', 'Explore first, then plan, then code', 'Reference existing patterns' 전부 존재. node_modules/의존 소스 읽기 권고는 전문 어디에도 없음(오히려 'Detailed API documentation (link to docs instead)'는 CLAUDE.md 제외 항목). 부재 주장은 현재 게시본 기준으로만 성립한다는 한계는 있음.
+  [CONFIRMED] Claude Code 서브에이전트가 node_modules에 들어가 컴포넌트 API·타입 정의를 스스로 읽으며, 이것이 issue #55146(2026-04-30, duplicate close)에서 토큰 낭비로 보고됨
+       note: GitHub API로 원문 확인. 제목 'Subagents sometimes read node_modules instead of source files', created 2026-04-30, closed 2026-05-04 state_reason=duplicate. 본문에 'looking up component APIs or type definitions', node_modules/@chakra-ui/·@televet/kibble-ui 읽기, 'burned significant context and token budget' 프레이밍 전부 일치. 단 1건의 일화적 보고라는 점(모델 '기본 성향'의 실증으로는 표본 1)은 유의.
+  [CONFIRMED] GitChameleon 2.0: docs RAG로 GPT-4.1 48.5→58.5%, Claude 4 Sonnet 59.4%, retrieval 코퍼스는 API 문서뿐(소스 코드 조건 미실험), self-debugging이 docs RAG보다 큰 향상, Claude Code 48.8%
+       note: arXiv HTML v2에서 실측: 'GPT-4.1 ... 58.5%, up from 48.5%', Claude 4 Sonnet 59.4±2.8(RAG 최고), VectorDB는 'each sample's relevant API documentation'(536 documents)로만 구축 — 라이브러리 소스 코드 retrieval 조건 없음 확인. Claude Code 48.8±2.8 확인. 한 가지 경미한 부정확: self-debugging 향상은 Llama 3.1 30.2→52.1(+21.9%p), GPT-4.1-mini 44.2→68.0(+23.8%p)로 claim의 '+10~20%p'보다 오히려 크다(방향성 주장은 유효).
+  [CONFIRMED] arXiv 2503.15231: 비인기 라이브러리 4종에서 docs top-5 RAG로 83–220% 상대 향상, 예제 코드가 압도적으로 중요(Qwen32B 66–82→22–39%), 파라미터 목록 제거는 약간 향상, BM25가 dense를 크게 이김(recall@5 0.72–0.94 
+       note: 논문 HTML v1에서 전 수치 축자 확인: 'We select four libraries, i.e., Polars, Ibis, GeoPandas, and Ivy', 'RAG helps improve LLMs' performance by 83%∼220%', 'pass rates of Qwen32B decrease from 0.66∼0.82 to 0.22∼0.39'(DelExmpl), 'removing the parameter list (DelParam) even slightly improves generation', 'BM25 shows 0.72∼0.94 recall@5 rates; while Text3 scores only 0.21∼0.72'. 단 'BM25 우위→무색인 rg 유리'는 claim 측의 추론(방증)이지 논문의 직접 결론은 아님 — 논문은 BM25(색인 기반 lexical)를 실험
+  [CONFIRMED] VersiCode(300 라이브러리·2,207 버전)에서 GPT-4o Pass@1 70.44(HumanEval/MBPP 85+ 대비 하락), 일부 모델 50점 이상 격차; LibEvolutionEval은 버전별 문서 retrieval의 개선 효과 보고; 실험 매체는 문서이지 소스 코드가
+       note: VersiCode v1 HTML에서 축자 확인: 'For some LLMs, the performance gap of Pass@1 between existing benchmarks and VersiCode is more than 50 points. Even the most capable LLM, GPT-4o, obtains a Pass@1 score of 70.44 on VersiCode while achieving a score higher than 85 on HumanEval and MBPP'. Table 4에서 300 libraries·2,207 versions 확인. LibEvolutionEval(arXiv 2412.04478) abstract에서 'retrieved version-specific library documentation and prompting can improve the
+  [REFUTED] SWE-agent: ACI(find_file/search_file/search_dir 등) 제공만으로 동일 GPT-4의 SWE-bench 점수가 raw bash 대비 약 2배, 핵심은 간결·크기 제한 출력
+       note: 핵심 수치가 1차 소스와 다르다. NeurIPS 2024 PDF 원문: 'An LM-friendly ACI's value is confirmed by SWE-agent's 64% relative increase compared to Shell-only, both with GPT-4 Turbo' — SWE-bench Lite에서 Shell-only 11.00% vs SWE-agent 18.00%, 즉 1.64배이지 '약 2배'가 아니다. '2×' 인용문은 논문에 존재하지 않는 검색 요약 문구다. 또 ACI는 탐색 명령만이 아니라 파일 뷰어·edit 명령을 포함하므로 '탐색 인터페이스 제공만으로'도 부정확. 반면 bounded output 부분은 원문 확인됨: 'Environment feedback should be informative but concise', 검색 명령은 'return at mo
+  [CONFIRMED] 반대 근거(1): Cursor는 node_modules를 기본 색인 제외하고, ClaudeLog는 grep이 deny 규칙을 우회해 node_modules를 훑으며 토큰을 태우는 문제를 다룸 — 가치는 '전량 색인'이 아니라 '표적 정독'
+       note: 1차 소스 양쪽 확인. Cursor 공식 docs(cursor.com/docs/context/ignore-files): 'Cursor automatically ignores files in .gitignore and the default ignore list below' — 기본 목록에 node_modules/, .next/, __pycache__ 등 포함. ClaudeLog 페이지 HTML에서 축자 확인: 'The deny: ["Read(node_modules/)"] config only blocks direct file reads. When Claude uses grep or bash commands to search your codebase, these bypass the deny rules entirely. Each search can consume massive tokens'. 단 ea
+  [CONFIRMED] 반대 근거(2): 무관한 retrieved code가 노이즈로 성능을 낮춘다는 실증(2501.13742, 2603.26567), 실무 완화책으로 Willison의 files-to-prompt -e py 사례
+       note: 실체는 성립하나 인용 하나가 부정확. 2501.13742의 'Not all retrieved code snippets are beneficial ... may confuse code generation models as noise'는 축자 인용이 아니라 패러프레이즈 — 원문 실제 문구는 'noisy retrieved code snippets could decrease the model performance'(연구 동기 서술)이며, 이 논문의 주 결론은 RAF가 유익하다는 쪽이다. 2603.26567(StackRepoQA)은 §5.4에서 축자 확인: 'In large repositories, multiple files, packages, and dependencies may be tangentially related to a query, sharply increasing the risk of re
+====================================================================================================
+KEY: code-cost
+--- SUMMARY ---
+버전별 코드 미러(과제 a의 코드 측)의 비용·기법 실측 결과. (1) 규모: 5개 저장소 전체 이력 합계 ~11.6GB이나 ClickHouse(9.8GB)가 84%를 차지하고, 나머지 4개는 87MB~671MB에 그친다. 문서/사이트 저장소가 코드 저장소보다 큰 경우가 5개 중 4개(docs.getdbt.com은 dbt-core의 19배)라서, 기존 문서 미러를 이미 감당하는 vendor 레이어에 코드 미러를 더해도 저장량 증가는 지배적이지 않다. (2) 권장 기법: shallow(--depth)는 GitHub 공식 블로그가 일회성 빌드 외 비권장이고 과거 태그 다중 보관에 구조적으로 부적합. 적합한 조합은 blobless clone(--filter=blob:none) + git worktree — 객체 저장소는 공유되어 .git 측 N버전 추가 비용은 버전 간 고유 blob뿐이지만, '추가 비용이 delta뿐'은 절반만 참으로, rg 검색이 요구하는 워킹트리는 버전당 통으로 든다(Spark 버전당 ~198MB). (3) 오프라인 충돌: blobless는 공식 문서상 promisor remote 온라인 접속을 요구하므로, '온라인일 때 버전별 워크트리를 만들어 blob를 상주시키는' 운용 규율이 전제되어야 캐시 계약(오프라인 정독)과 양립한다. (4) 노이즈: Spark는 테스트·픽스처가 워킹트리의 58%(골든 파일만 30%)라 .rgignore(ripgrep 최우선순위 ignore) 한 장이 검색 코퍼스를 절반 이하로 줄인다. (5) 유지비: 태그 고정 미러는 갱신 0이 원칙이나 예외 둘 — 태그는 기술적으로 가변이며 tj-actions 사고(2025-03)처럼 소급 재작성될 수 있고(단 git은 fetch된 태그를 자동 덮어쓰지 않으므로 미러는 오히려 보호됨), release branch는 6~18개월간 patch 태그가 계속 신설되므로 '최신 patch 추적'은 주기적 git fetch(증분 비용만)가 필요하다. 종합 판정: 코드 미러는 캐시 계약(외부 유래·버전 종속·재생성 가능·인간 저작물 제로)과 부합하며, 실무 규약은 [blobless bare clone 1개 + 화이트리스트된 태그의 worktree 소수 + .rgignore]가 예산(2-3주당 30-45분) 내에서 성립한다. 단 ClickHouse만은 이력 9.8GB라 blobless 필수이고 submodule(contrib) 비용은 미측정.
+--- FINDINGS ---
+[LB] 5개 대상 코드 저장소의 GitHub API size(전체 이력 포함, KB): apache/spark 591,416 (~578MB), ClickHouse/ClickHouse 10,254,538 (~9.8GB), apache/kafka 305,007 (~298MB), dbt-labs/dbt-core 88,719 (~87MB), apache/airflow 687,041 (~671MB). 5개 합계 약 11.6GB이며 ClickHouse 하나가 84%를 차지한다.
+     src: https://api.github.com/repos/ClickHouse/ClickHouse (2026-08-08)
+[LB] '코드 미러는 문서 미러보다 무겁다'는 직관은 실측상 뒤집힌다: 5개 중 4개에서 문서/사이트 저장소가 코드 저장소보다 크다 — docs.getdbt.com 1,699,654KB(dbt-core의 19배), spark-website 1,052,471KB(spark의 1.8배), kafka-site 544,452KB(kafka의 1.8배), airflow-site 914,847KB(airflow의 1.3배). 예외는 ClickHouse뿐(clickhouse-docs 1,293,678KB < ClickHouse 10.25GB).
+     src: https://api.github.com/repos/dbt-labs/docs.getdbt.com (2026-08-08)
+[  ] 체크아웃 1개(워킹트리)의 실제 크기는 이력 크기보다 훨씬 작다: dbt-core 35.6MB, spark 198.1MB, ClickHouse ≥703.8MB(응답 truncated로 하한값). 특이점: 2026-08 현재 dbt-core 저장소는 crates/(Rust)가 blob의 92.6%를 차지하는 구조이고, ClickHouse 코드 저장소 안의 docs/가 501.4MB(측정분의 71.2%)로 최대 디렉토리다.
+     src: https://api.github.com/repos/apache/spark/git/trees/master?recursive=1 (2026-08-08)
+[LB] 다중 버전 저장 기법의 공식 권고: shallow clone(--depth)은 '저장소를 곧바로 삭제하는 빌드 외에는 권장하지 않음(we do not recommend shallow clones except for builds that delete the repository immediately afterwards)'이고, 개발자 일상용으로는 blobless clone(--filter=blob:none)이 권장된다. treeless(--filter=tree:0)는 이력 조작 시 비용 폭증으로 비권장.
+     src: https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone/ (2020-12-21)
+[LB] git worktree는 객체 저장소를 공유한다 — 'The new worktree is linked to the current repository, sharing everything except per-worktree files such as HEAD, index, etc.' 따라서 태그 N개를 워크트리로 펼칠 때 .git 객체 측 추가 비용은 버전 간 고유 blob(delta 압축)뿐이다. 단, '추가 비용이 delta뿐'이라는 명제는 절반만 참: 각 워크트리는 파일을 디스크에 전량 체크아웃하므로 워킹트리 자체는 버전당 통으로 든다(예: Spark 버전당 ~198MB, 5개 버전이면 워킹트리만 ~1GB).
+     src: https://git-scm.com/docs/git-worktree (2026-08-08)
+[LB] blobless clone은 오프라인 요건과 충돌한다: 'Use of partial clone requires that the user be online and the origin remote or other promisor remotes be available for on-demand fetching of missing objects.' 과거 태그 checkout 시 필요한 blob를 promisor remote에서 일괄 pre-fetch하며(checkout은 bulk pre-fetch 최적화됨), 원격이 닿지 않으면 실패한다. 단, 한 번 checkout한 버전의 blob는 로컬에 남으므로 '온라인 상태에서 버전별 워크트리를 만들어 두면' 이후 검색·정독은 오프라인 가능.
+     src: https://git-scm.com/docs/partial-clone (2026-08-08)
+[  ] 노이즈 비율 실측: Spark는 테스트/픽스처/벤치마크 경로가 워킹트리 blob의 58.2%(115.2MB/198.1MB)를 차지하고, 그중 */src/test/resources 골든 파일만 60.4MB(30.5%), sql/core/src/test 단일 트리가 66.2MB다. ClickHouse는 tests/ 76.3MB(측정분의 10.8%)에 더해 docs/ 501MB(71.2%)가 코드 저장소 안에 있다. dbt-core는 테스트성 경로 9.7%. 즉 .rgignore 한 장으로 Spark 검색 코퍼스를 절반 이하로 줄일 수 있다.
+     src: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md (2026-08-08)
+[LB] '태그는 불변이므로 갱신 비용 0'의 예외 1 — 태그는 기술적으로 가변이며 실제 재작성 사고가 있다: tj-actions/changed-files에서 2025-03-14~15에 기존 태그 v1.0.0, v35.7.7-sec, v44.5.1이 악성 커밋(0e58ed86...)으로 소급 재작성되어 23,000+ 저장소에 영향(GHSA-mrrh-fwg8-r2c3). git-tag 문서 'On Re-tagging'은 git이 변경된 태그를 자동 덮어쓰지 않음을 명시 — 미러 입장에선 한 번 fetch한 태그가 상류 재작성에도 그대로 유지된다(오히려 불변성엔 유리하나, 보안 패치된 재태깅을 놓칠 수 있음).
+     src: https://github.com/advisories/GHSA-mrrh-fwg8-r2c3 (2025-03-15)
+[LB] '갱신 비용 0'의 예외 2 — release branch는 계속 움직인다: Spark 공식 정책상 release branch는 일반 6개월·LTS 18개월간 bug fix release가 계속 나오고 'Critical security patches will be backported to all actively maintained branches'(Spark 3.5.x는 2027-11까지 보안 수정 연장). 즉 태그 고정 미러는 갱신 0이 맞지만, 'minor 라인의 최신 patch'를 추적하려면 주기적 fetch(신규 태그 수신)가 필요하다. ClickHouse도 -stable/-lts 태그가 patch 단위로 계속 신설된다(v26.7.2.59-stable, v26.7.3.19-stable 등 실측).
+     src: https://spark.apache.org/versioning-policy.html (2026-08-08)
+[  ] airflow의 태그 수 10,065는 core 버전 수가 아니다: upgrade-check/*, providers-* 등 monorepo 부속 패키지 태그가 대부분이라, '태그별 워크트리' 전략을 기계적으로 적용하면 폭발한다. 버전 선정은 태그 전수(全數)가 아니라 화이트리스트(관심 minor의 최신 patch 몇 개)여야 한다.
+     src: https://api.github.com/repos/apache/airflow/tags (2026-08-08)
+--- UNRESOLVED ---
+ - ClickHouse trees API 응답이 truncated(62,471 entries)라 디렉토리별 크기는 하한값이며, contrib/ submodule 전체를 재귀 clone할 때의 실제 추가 용량은 미측정
+ - 5개 저장소 각각의 blobless clone(--filter=blob:none) 실제 다운로드 크기는 미실측 — clone 금지 제약으로 API 메타데이터까지만 확인(GitHub 블로그의 일반 사례 수치만 확보)
+ - aquasecurity/trivy-action 태그 재작성 사고(2026-03-19, 76개 중 75개 태그)는 2차 소스(dev.to)만 확인, 1차 advisory 미검증
+ - GitHub API size 필드의 정확한 정의(서버 측 디스크 사용량 vs 현재 파일 합)는 공식 문서에 명시가 없음 — ClickHouse 실측(워킹트리 ~0.7GB vs size 9.8GB)으로 '전체 이력 포함'임을 경험적으로만 확인
+ - dbt-core 저장소가 Rust(crates/ 92.6%) 구조로 재편된 시점·경위(dbt Fusion 통합 여부)는 미조사 — 버전별 미러 시 구세대(Python)와 신세대(Rust) 태그의 구조 단절 가능성 있음
+--- VERDICTS ---
+  [CONFIRMED] 5개 코드 저장소 GitHub API size: spark 591,416 / ClickHouse 10,254,538 / kafka 305,007 / dbt-core 88,719 / airflow 687,041 KB, 합계 약 11.6GB, ClickHouse가 84%
+       note: 2026-08-08 gh api 직접 호출로 size 5건 전부 자릿수까지 일치 확인. 태그 수도 Link 헤더 페이지네이션 실측으로 spark 304·ClickHouse 2,025·kafka 314·dbt-core 343 일치, airflow만 10,064로 claim(10,065)과 1건 차이(당일 태그 변동 수준). 단 파생 계산 2건은 부정확: 합계 11,926,721KB는 11.4GiB(또는 11.9GB 10진)로 '11.6GB'는 MiB 합을 GB로 잘못 부른 단위 혼용이고, ClickHouse 점유율은 정확히 86.0%다(84%는 반올림된 9.8/11.6에서 나온 이차 오차). 원시 데이터는 전부 정확하므로 핵심 주장은 유지.
+  [CONFIRMED] 5개 중 4개에서 문서/사이트 저장소가 코드 저장소보다 크다 (예외는 ClickHouse뿐)
+       note: gh api 재실측으로 4개 문서 저장소 size 전부 일치: docs.getdbt.com 1,699,654KB(dbt-core의 19.2배), spark-website 1,052,471KB(1.78배), kafka-site 544,452KB(1.79배), airflow-site 914,847KB(1.33배). clickhouse-docs 1,293,678KB < ClickHouse 10,254,538KB도 확인되어 예외 지목까지 정확. 배수 표기(19배·1.8배·1.8배·1.3배)도 재계산과 일치. 첫 호출은 무인증 레이트리밋에 걸렸으나 인증 호출로 전량 확인.
+  [CONFIRMED] GitHub 공식 권고: shallow clone은 즉시 삭제하는 빌드 외 비권장, 개발자용은 blobless clone, treeless는 비권장
+       note: GitHub 블로그(Derrick Stolee, 2020-12-21, 2021-04-28 갱신) 원문에서 'we do not recommend shallow clones except for builds that delete the repository immediately afterwards' 축자 확인. treeless는 'We strongly recommend that developers do not use treeless clones for their daily work'로 일상 사용 비권장 명시, blobless는 'the most widely-used partial clone option'으로 대형 저장소 개발자에게 권장. shallow의 fetch 시 서버 비용 증가('This computation can be more expensive than a typical fetch')도 원문에
+  [CONFIRMED] git worktree는 객체 저장소를 공유하며, 추가 비용은 delta뿐이라는 명제는 절반만 참 — 워킹트리는 버전당 통으로 든다(Spark 버전당 ~198MB)
+       note: git-worktree 공식 문서 DESCRIPTION(add 절)에서 'The new worktree is linked to the current repository, sharing everything except per-worktree files such as HEAD, index, etc.' 축자 확인. 워킹트리가 파일을 전량 체크아웃한다는 논리도 git 동작상 옳음. Spark 워킹트리 크기는 독립 재실측: trees API로 v4.2.0 태그의 blob 26,545개 크기 합산 = 187.4MB로, claim의 ~198MB와 5% 이내(태그 차이·파일시스템 블록 오버헤드 고려 시 정합). '버전당 통' 주장 자체는 정확하나 수치는 근사치임을 유의.
+  [CONFIRMED] blobless clone은 오프라인 요건과 충돌하되, checkout은 bulk pre-fetch 최적화되고 한 번 받은 blob는 로컬에 남아 이후 오프라인 가능
+       note: git 공식 partial-clone 기술 문서에서 3개 인용 전부 축자 확인: 온라인 요구 문장, 'checkout (and any other command using unpack-trees) has been taught to bulk pre-fetch all required missing blobs in a single batch', 오프라인 대비 pre-fetch 완화책 문장. GitHub 블로그의 'after that you will have those blobs in your repository and do not need to download them a second time'도 원문 확인. 인용·해석 모두 정확.
+  [CONFIRMED] 태그는 가변이며 tj-actions/changed-files에서 2025-03-14~15 태그 소급 재작성 사고 발생(23,000+ 저장소), git은 태그를 자동 덮어쓰지 않음, Immutable Releases는 2025-10-28 GA이나 opt-in
+       note: GHSA-mrrh-fwg8-r2c3 원문에서 공격 기간 2025-03-14~15, 악성 커밋 0e58ed8671d6b60d0890c21b07f8835ace038e67, 재작성 태그 v1.0.0·v35.7.7-sec·v44.5.1, 'Over 23,000 repositories' 전부 확인. git-tag 문서 On Re-tagging의 'Git does not (and it should not) change tags behind users back'과 fetch 시 기존 태그 비덮어쓰기('doing a git pull on your tree shouldn't just make them overwrite the old one')도 축자 확인. Immutable Releases GA는 GitHub Changelog 2025-10-28자 및 discussion 178351에서 확인, 저장소/조직 소유
+  [CONFIRMED] Spark release branch는 일반 6개월·LTS 18개월 유지, 보안 패치는 활성 브랜치 전체 백포트, 3.5.x는 2027-11까지 연장, ClickHouse -stable/-lts 태그는 patch 단위로 계속 신설
+       note: spark.apache.org/versioning-policy.html 현재 원문에서 'Release branches other than LTS will, generally, be maintained with bug fix releases for a period of 6 months', LTS 18개월, 'Critical security patches will be backported to all actively maintained branches' 축자 확인. 3.5.x extended LTS가 'November 2027'에 종료되고 그 기간엔 보안 수정만 포함한다는 문구도 확인. ClickHouse는 gh api로 v26.7.2.59-stable·v26.7.3.19-stable 태그 실존 확인(refs/tags 존재), v26.7.1→.2→.3 등 patch 단위 신설 패턴도 태그 목록에서 
+====================================================================================================
+KEY: code-search-landscape
+--- SUMMARY ---
+핵심 결론 재료. (1) 버전 고정 원격 코드 검색은 사실상 막혀 있다: GitHub 코드 검색은 웹 UI·REST API 모두 공식 문서로 "default branch만" 확정(태그/과거 버전 원격 검색 불가), grep.app도 rev 문법이 문서화돼 있지 않다. 유일한 원격 예외는 sourcegraph.com — 무인증 태그 고정 검색(spark@v3.5.1)이 2026-08-08 실측으로 동작하지만 count:1에 10초+로 느리고, 2024년 본체 비공개화·공개 색인 축소 등 지속성 리스크가 커서 10-20년 시스템의 의존처로는 부적합. 따라서 (a) 코드 편입은 로컬이 정답이며, 캐시 계약(외부 유래·버전=tag·재생성 가능·인간 저작물 제로)과 완전 정합한다. 최소 형태는 버전별 디렉토리 복사가 아니라 풀 clone 1개 + git grep <tree-ish>(checkout 불필요)이고, 검색 성능은 무색인 rg로 충분(커널 트리 75k 파일 regex 0.08초; Spark git 578MB·ClickHouse만 10GB급). 색인형이 필요해지면 sourcebot(zoekt 기반, revisions.tags glob으로 태그 고정 색인 최대 64 rev, MCP 서버는 유료 라이선스 필요, 활발히 개발 중)이 유일하게 살아있는 자가호스팅 선택지다. (2) 이슈 편입은 계약 위반: 이슈는 버전 종속이 아니라 시점 종속·연속 변이 데이터이고(GitHub issues에는 구조적 버전 필드 자체가 없음), 소스도 기술별 이원화(Spark·Kafka 정본은 JIRA 58,235/19,618건, ClickHouse·dbt는 GitHub 30,100/8,692건)라 단일 수집 규약이 성립하지 않는다. JIRA만 affectedVersion으로 버전 절단이 가능(SPARK 4.0.0 → 5,881건). 규모상 로컬 미러 없이 인증 API on-demand(5,000 req/hr)로 충분하므로, 이슈는 vendor 편입 대신 질의 시점 조회 + 필요한 판단만 canon으로 승격하는 편이 계약에 맞다.
+--- FINDINGS ---
+[LB] GitHub 코드 검색(웹 UI)은 default branch만 색인한다 — 태그·과거 버전·비기본 브랜치는 원격 검색 불가
+     src: https://docs.github.com/en/search-github/github-code-search/about-github-code-search (2026-08-08 확인)
+[LB] GitHub Search REST API(code search)도 default branch만 대상이며, 인증 필수·분당 10회·384KB 미만 파일만 검색
+     src: https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-code (2026-08-08 확인)
+[LB] sourcegraph.com 공개 검색은 2026-08-08 현재 살아 있고, 무인증으로 태그 고정 검색이 실제 동작한다 — 단 느리다
+     src: https://sourcegraph.com/docs/code-search/queries (2026-08-08 실측)
+[LB] Sourcegraph의 지속성 리스크: 2024-08 본체 저장소 비공개화, 2024-09-30 public snapshot 아카이브, 공개 색인은 저스타 저장소를 대량 제거해 약 100만 repo 수준으로 축소
+     src: https://devclass.com/2024/08/21/sourcegraph-makes-core-repository-private-co-founder-complains-open-source-means-extra-work-and-risk/ (2024-08-21)
+[  ] grep.app(2024-11 Vercel 인수)은 100만+ 공개 repo 색인 + 임의 공개 repo 온디맨드 검색 + MCP를 제공하지만, 태그/버전 검색 문법은 어디에도 문서화돼 있지 않다
+     src: https://vercel.com/changelog/search-any-public-github-repo-with-grep (2026-08-08 확인)
+[  ] zoekt는 멀티 브랜치 색인을 설계 차원에서 지원하며(파일별 branch bitmask), 색인 크기 ~3.5x corpus, 검색 RAM ~1.2x corpus
+     src: https://github.com/sourcegraph/zoekt/blob/main/doc/design.md (2026-08-08 확인)
+[LB] Sourcebot(자가호스팅, zoekt 기반)은 revisions.branches/revisions.tags glob 설정으로 태그 고정 색인(최대 64개 rev)과 rev: 검색을 지원하고, MCP 서버(grep/read_file/list_tree 등 12개 도구, ref 파라미터로 태그 지정)를 제공한다 — 단 MCP는 유료 라이선스 키 필요(anonymous access 활성화 시 예외)
+     src: https://docs.sourcebot.dev/docs/features/search/multi-branch-indexing (2026-08-08 확인)
+[  ] livegrep은 활동성이 낮다 — 마지막 push 2026-02-10 (약 6개월 전)
+     src: https://api.github.com/repos/livegrep/livegrep (2026-08-08 실측)
+[LB] 무색인 ripgrep은 Linux kernel 소스 트리 전체(~75k 파일)를 regex 포함 0.06-0.08초에 검색한다 — Spark급 저장소에서 무색인 rg는 성능상 충분
+     src: https://github.com/BurntSushi/ripgrep/blob/master/README.md (2026-08-08 확인)
+[LB] 코드 사본 없이 버전 고정 검색을 하는 로컬 최소해는 '풀 clone 1개 + git grep <tree-ish>'다 — 버전별 워킹트리 복사가 필요 없다
+     src: https://git-scm.com/docs/git-grep (2026-08-08 확인)
+[LB] (b) 이슈 데이터의 소재와 규모 실측: Spark·Kafka의 정본 이슈는 GitHub이 아니라 Apache JIRA에 있다 (Spark JIRA 58,235건 vs GitHub issues 95건; Kafka는 has_issues=false, JIRA 19,618건). ClickHouse 30,100건·dbt-core 8,692건은 GitHub
+     src: https://issues.apache.org/jira/rest/api/2/search?jql=project%3DSPARK&maxResults=0 (2026-08-08 실측)
+[LB] (b) 이슈는 '버전 종속' 데이터가 아니다 — JIRA만 affectedVersion 구조 필드로 버전 절단이 가능하고(실측: SPARK affectedVersion=4.0.0 → 5,881건), GitHub issues는 구조적 버전 축이 없다. 그리고 이슈는 계속 변이하는(open/close·코멘트 유입) 시점 종속 데이터다
+     src: https://issues.apache.org/jira/rest/api/2/search?jql=project%3DSPARK%20AND%20affectedVersion%3D%224.0.0%22&maxResults=0 (2026-08-08 실측)
+[  ] (b) 이슈를 로컬에 안 두더라도 API on-demand 조회는 예산 내에서 충분하다 — 인증 REST 5,000 req/hr이면 ClickHouse 전체 30,100건도 ~302 요청(100/page)
+     src: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api (2026-08-08 확인)
+--- UNRESOLVED ---
+ - grep.app의 색인 브랜치 범위(default branch/HEAD only인지)를 1차 소스로 확정하지 못함 — Vercel 문서에 브랜치 언급이 전혀 없고 grep.app 직접 접근은 HTTP 429로 실패. rev/tag 검색 문법이 문서화된 곳이 없다는 부재 증거만 확보
+ - sourcegraph.com 공개 검색의 공식 지속 정책(sunset 계획 유무)을 공식 발표문으로 확인하지 못함 — 서비스 동작은 실측했으나 회사의 명시적 커밋먼트/폐지 계획 문서는 못 찾음
+ - blobless partial clone(--filter=blob:none) 상태에서 git grep <tag>의 실효 성능(블롭 온디맨드 페치 지연)은 미검증 — 풀 clone 기준으로만 결론 냄
+ - ClickHouse처럼 git 이력이 ~10GB인 저장소에서 버전 여러 개를 태그로 유지할 때의 실제 디스크·fetch 시간은 실측 못함(대형 저장소 clone 금지 제약)
+ - Sourcebot MCP의 유료 라이선스 요구가 언제부터인지·free tier 범위의 정확한 경계는 문서 1페이지만 확인 — 가격 페이지 미조사
+--- VERDICTS ---
+  [CONFIRMED] GitHub 코드 검색(웹 UI)은 default branch만 색인한다 — 태그·과거 버전·비기본 브랜치는 원격 검색 불가
+       note: 공식 문서에서 원문 축자 확인: "We currently only support searching for code on the default branch of a repository." 부속 제약도 전부 원문 확인 — 빈 파일·350 KiB 초과 제외, 1,024자 초과 라인 잘림, "Very large repositories may not be indexed", regex 지원. 추가로 문서에는 UTF-8만 색인·바이너리 제외·결과 100건 상한도 명시돼 있음(claim의 제약 목록은 부분집합).
+  [CONFIRMED] GitHub Search REST API(code search)도 default branch만 대상이며, 인증 필수·분당 10회·384KB 미만 파일만 검색
+       note: 공식 REST 문서에서 네 문장 모두 축자 확인: "Only the default branch is considered." / "This endpoint requires you to authenticate and limits you to 10 requests per minute." / "Only files smaller than 384 KB are searchable." / 256자·AND/OR/NOT 5개 제한. API 경유 버전 고정 검색 불가라는 결론도 문서와 정합.
+  [CONFIRMED] sourcegraph.com 공개 검색은 2026-08-08 현재 살아 있고, 무인증으로 태그 고정 검색이 실제 동작한다 — 단 느리다
+       note: 2026-08-08 직접 재실측: 무인증 curl로 apache/spark@v3.5.1 SparkContext count:1 → 매치 1건(branches:["v3.5.1"], commit fd86f85) 반환, 별도 콜드 질의(kafka@3.6.2)도 성공. 핵심(생존·무인증·태그 고정)은 재현됨. 단 '10초 이상'은 재현 안 됨 — 내 실측 3.3초·7.1초. 느린 편인 건 맞으나 수치는 과장 또는 시점 변동. @tag·rev: 문법은 공식 문서에 명시 확인.
+  [CONFIRMED] Sourcegraph 지속성 리스크: 2024-08 본체 비공개화, 2024-09-30 public snapshot 아카이브, 공개 색인 약 100만 repo로 축소
+       note: 3요소 모두 1차 소스 확인: (1) devclass 기사에서 Quinn Slack의 "extra work and risk" 발언과 2024-08 비공개화 확인, (2) GitHub GraphQL API 실측 archivedAt=2024-09-30T14:37:58Z·isArchived=true, (3) 기사에서 색인 약 100만 repo 유지·저스타 repo 제거·GitHub rate limit 원인 인정 확인. '공개 검색에서 이탈 중'이라는 해석도 사실관계와 정합.
+  [CONFIRMED] Sourcebot은 revisions.branches/tags glob으로 태그 고정 색인(최대 64 rev)·rev: 검색을 지원하고, MCP 서버(12개 도구, ref 파라미터)는 유료 라이선스 필요(anonymous access 시 예외)
+       note: 공식 문서 확인: revisions.branches/tags 배열·glob("v3.*.*" 예시 포함)·"limited to 64 branches and tags"·rev: 및 refs/tags/ 정규화 모두 원문 일치. MCP 문서에서 12개 도구(grep/read_file/list_tree 등)·ref 파라미터(commit/branch/tag, 기본값 default branch)·유료 플랜+license key 요구·anonymous access 활성화 시 인증 불요 예외 모두 확인. 활동성 실측도 일치: pushed_at 2026-08-07, stars 3,659, open issues 101.
+  [CONFIRMED] 무색인 ripgrep은 Linux kernel 트리 전체를 regex 포함 0.06-0.08초에 검색 — Spark급 저장소에서 무색인 rg는 성능상 충분
+       note: README 원문 실측: i9-12900K, `[A-Z]+_SUSPEND` -w 벤치에서 ripgrep 0.082s(전체)·0.063s(화이트리스트) — 0.06-0.08초 범위 정확. 단 인용 수치는 두 표를 섞은 것: git grep 0.273s는 표1, GNU grep 0.674s는 표2(--include 필터판)이고 표1의 GNU 대응치는 LC_ALL=C git grep 0.727s. 저장소 크기 실측 일치: spark 591,416 / kafka 305,007 / dbt-core 88,719 / ClickHouse 10,254,538 KB. '~75k 파일'은 README에 없는 부가 수치나 커널 규모로 타당. 결론(성능상 충분)은 유효.
+  [CONFIRMED] 버전 고정 검색의 로컬 최소해는 '풀 clone 1개 + git grep <tree-ish>' — 버전별 워킹트리 복사 불요
+       note: git 공식 문서 확인: synopsis에 [<tree>…] 인자, "Instead of searching tracked files in the working tree, search blobs in the given trees" — checkout 없이 branch/commit/tag 직접 검색 가능. 태그 수도 git ls-remote --tags로 전량 재실측해 정확히 일치: spark 304 / kafka 314 / ClickHouse 2,025 / dbt-core 343.
+  [CONFIRMED] Spark·Kafka 정본 이슈는 Apache JIRA(SPARK 58,235 / KAFKA 19,618; Spark GitHub issues 95, Kafka has_issues=false), ClickHouse 30,100·dbt-core 8,692는 GitHub
+       note: 2026-08-08 전 수치 독립 재실측, 놀랍게도 자릿수까지 전부 일치: JIRA REST total SPARK=58,235·KAFKA=19,618. GitHub search API total_count spark=95·ClickHouse=30,100·dbt-core=8,692. repos API kafka has_issues=false. 이슈 소스의 GitHub/JIRA 이원화 결론 성립. 단 수치는 살아있는 데이터라 리서치 시점과 우연히 같았을 뿐 곧 변할 값임.
+  [CONFIRMED] 이슈는 '버전 종속' 데이터가 아니다 — JIRA만 affectedVersion으로 버전 절단 가능(SPARK 4.0.0 → 5,881건), GitHub issues는 구조적 버전 축 없음, 이슈는 시점 종속
+       note: JIRA REST 재실측: jql `project=SPARK AND affectedVersion="4.0.0"` → total=5,881 정확히 일치. GitHub Issues API 스키마에는 버전 필드가 없고 milestone/labels/자유 텍스트뿐이라는 것도 사실(REST issue 객체 필드 기준). open/close·코멘트로 계속 변이하는 시점 종속 데이터라는 성격 규정도 타당 — vendor 계약의 '버전 종속' 축이 이슈에 성립하지 않는다는 결론 지지됨.
+====================================================================================================
+KEY: issues-value
+--- SUMMARY ---
+이슈 코퍼스의 가치는 상용에서 실증된다 — kapa.ai(공식 커넥터, '문서에 없는 워크어라운드가 이슈에 있다'), Dosu(LangChain·Airflow 등 5,955+ repos), Glean(issues를 1급 색인 대상) 3사 모두 GitHub issues를 색인한다. 그러나 세 가지가 사용자의 vendor 캐시 계약과 어긋난다. (1) 셋 다 '필터링된 부분집합'만 넣는다: kapa는 state/나이/라벨 필터와 라벨별 복수 소스를 계약의 일부로 삼고, 자사 RAG 모범사례에서 이슈·티켓류를 recency+authority 필터가 필요한 2급 소스로 격하한다. 중복률 10–30%(연구 종합)라는 구조적 노이즈가 그 이유다. SWE-bench도 raw 이슈가 아니라 'PR로 해결+테스트 검증' 통과분만 태스크화한다. (2) '버전별' 조직은 원천 데이터상 성립하지 않는다: GitHub API 실측으로 ClickHouse 이슈의 milestone 사용률 0.0%(30,100/30,100 무-milestone), dbt-core 16.2%. JIRA도 KAFKA affectedVersion 39.9%(Bug 61.5%), SPARK 83.9%로 프로젝트별 편차가 크고, Falessi(TOSEM 2021, Apache 212개 프로젝트 12.5만 defect)는 채워진 affected version조차 과반(51%)에서 사용 불가라고 보고한다. 즉 vendor 레이어의 '버전=git tag/디렉토리' 규약을 이슈에 적용할 수 없다 — 성립하는 조직 축은 라벨(실측 91–94% 사용)과 closed 상태다. (3) 규모: 4개 대상 기술만으로 11만+ 건이라 전량 미러는 '무색인 rg+정독' 운영 모델·유지비 예산과 충돌한다. 종합 판정 재료: 이슈는 캐시 계약 중 외부 유래·재생성 가능(REST API로 언제든 재수집, 이번 실측이 그 증명)·인간 저작물 제로는 충족하지만 '버전 종속' 축이 무너지므로, 넣는다면 버전별 미러가 아니라 '필터된 스냅샷'(closed+특정 라벨, 필요 시점 질의-수집)이라는 별도 계약이 필요하다. 참고로 상용 3사의 용도(유입 질문 1건에 과거 코퍼스 매칭하는 지원 봇/중복 탐지)는 사용자의 용도(인간+에이전트가 버전 맥락에서 브라우징·정독)와 접근 패턴이 달라, 상용 실증을 개인 KB 미러의 직접 근거로 삼기엔 한 단계 번역이 필요하다.
+--- FINDINGS ---
+[LB] kapa.ai는 GitHub Issues를 공식 데이터 소스 커넥터로 지원하며, 색인 전 필터링(open/closed 상태, 이슈 나이, 라벨 include/exclude)을 제공하고 '라벨별로 복수 소스를 만들어 필터링하라'(예: Bug 라벨은 open일 때만, Discussion은 2년 이내만)고 권고한다. 낡은 이슈는 'exclude-kapa' 같은 전용 제외 라벨로 수동 마킹하는 방식도 권장.
+     src: https://docs.kapa.ai/data-sources/github-issues (2026-08-08 접속 (문서 자체는 무일자))
+[LB] 이슈에만 있는 정보의 가치에 대한 벤더 측 실무 근거: kapa.ai 공식 문서가 '개발자들이 공식 문서에서 답을 못 찾으면 GitHub issues를 뒤지는 것이 일반적 패턴이며, 이슈에는 워크어라운드·설명·열린 논의 등 문서를 보강하는 정보가 담겨 있다'고 명시한다.
+     src: https://docs.kapa.ai/data-sources/github-issues (2026-08-08 접속)
+[LB] 같은 kapa.ai가 RAG 모범사례에서는 이슈류 콘텐츠를 2급 소스로 격하한다: 1차 소스 = 기술 문서·API 레퍼런스·릴리스 노트·검증된 지원 솔루션이고, Slack·포럼·지원 티켓류는 '나중에, recency(최근 1년)·authority 필터를 걸어' 추가하라. 'garbage in, garbage out' — 전체 덤프는 검색 품질을 망친다.
+     src: https://www.kapa.ai/blog/rag-best-practices (2026-08-08 접속)
+[LB] 버전 귀속 실측 (GitHub API 직접 호출, 2026-08-08): GitHub 이슈의 milestone 사용률은 사실상 0에 가깝다 — ClickHouse/ClickHouse 이슈 30,100건 중 milestone 없는 이슈 30,100건(사용률 0.0%), dbt-labs/dbt-core 8,692건 중 7,286건 무-milestone(사용률 16.2%). 반면 라벨 사용률은 높다 — ClickHouse 무라벨 1,839건(93.9% 라벨됨), dbt-core 무라벨 754건(91.3% 라벨됨). 즉 GitHub 이슈를 '버전별 디렉토리'로 조직하는 것은 원천 메타데이터상 성립하지 않고, 라벨 축 필터링만 성립한다.
+     src: https://api.github.com/search/issues?q=repo:ClickHouse/ClickHouse+type:issue+no:milestone (2026-08-08 실측)
+[LB] JIRA 쪽 버전 귀속 실측 (Apache JIRA REST API, 2026-08-08): affectedVersion 필드 사용률은 프로젝트별 편차가 크다 — KAFKA 전체 19,618건 중 7,834건(39.9%), Bug만은 8,946건 중 5,506건(61.5%); SPARK 전체 58,235건 중 48,848건(83.9%), Bug는 18,803건 중 16,376건(87.1%). JIRA는 GitHub milestone보다 낫지만 '전 이슈의 버전 매핑'은 어느 프로젝트에서도 성립하지 않는다.
+     src: https://issues.apache.org/jira/rest/api/2/search?jql=project%3DKAFKA%20AND%20affectedVersion%20is%20not%20EMPTY&maxResults=0 (2026-08-08 실측)
+[LB] affectedVersion 필드는 채워져 있어도 신뢰할 수 없다는 연구 근거: Falessi 등(TOSEM 2021)이 Apache 생태계 212개 프로젝트 약 125,000개 defect를 분석한 결과, 이슈 트래커의 affected versions로 결함 버전을 라벨링하는 'realistic approach'는 defect의 과반(51%)에서 사용 불가였다.
+     src: https://dl.acm.org/doi/fullHtml/10.1145/3433928 (2021 (TOSEM))
+[  ] Dosu는 OSS 저장소(LangChain, LlamaIndex, Dify, Apache Airflow, CNCF 등 5,955+ repos)에 설치되어 이슈 자동 응답·triage·중복 이슈 탐지·stale 이슈 정리를 수행한다. 저장소의 issues/PRs/discussions에 직접 접근해 프로젝트 이력에서 학습한다.
+     src: https://dosu.dev/oss (2026-08-08 접속)
+[  ] Glean의 GitHub 커넥터는 'Repositories, code, commits, issues, and pull requests'를 색인한다. 단 엔터프라이즈 사내 검색 맥락이며 사용자 권한 스코프로 동작하고, 이슈 대상 필터링 옵션은 문서에 명시되어 있지 않다.
+     src: https://docs.glean.com/connectors/native/github/ (2026-08-08 접속)
+[  ] SWE-bench(ICLR 2024)는 GitHub 이슈를 retrieval 코퍼스가 아니라 태스크 입력(problem statement)으로 쓴다: 12개 Python 저장소에서 이슈+해결 PR 쌍 2,294개를 수집하되, (1) 이슈를 해결하고 (2) 테스트를 수정한 PR만 걸러 (3) fail-to-pass 실행 검증을 통과한 것만 남긴다. 즉 이슈 원문이 LLM 태스크로 쓸 만한 품질이 되려면 'PR로 해결됨+테스트 검증'이라는 강한 필터가 필요했다는 것이 벤치마크 구조 자체의 함의다.
+     src: https://arxiv.org/abs/2310.06770 (2023-10 (ICLR 2024 게재))
+[  ] 과거 버그-수정 이력을 retrieval에 쓰면 코드 LLM 성능이 오른다는 연구: RAP-Gen(FSE 2023)은 과거 bug-fix 쌍 코퍼스에서 유사 사례를 검색해 패치 생성기에 증강, TFix 벤치마크에서 T5-large 정확도를 49.70%→54.15%로 개선. 후속 ReAPR(2025)도 동일 구조. 또한 CUPID(2023) 등 LLM 기반 중복 이슈 탐지 연구가 활발하다.
+     src: https://arxiv.org/abs/2309.06057 (2023 (FSE 2023))
+[  ] 반대 근거 — 이슈 코퍼스의 구조적 노이즈: 오픈소스 버그 트래커의 중복 리포트 비율은 연구마다 10–30%로 보고되며(Mozilla Firefox 30.9%, Eclipse 16.9%), 일부 연구는 35.8–41.6%까지 보고한다. 같은 문제를 같은 문장으로 쓰는 확률이 10–15%에 불과해 중복 탐지 자체가 어렵다.
+     src: https://thesai.org/Downloads/Volume12No1/Paper_67-A_Systematic_Study_of_Duplicate_Bug_Report.pdf (2021)
+[  ] GitHub 자신도 이슈 검색을 키워드 매칭에서 시맨틱 검색으로 교체했다(2026-01 공개 프리뷰 → 2026-04 GA, 'authentication failing on mobile' 같은 자연어 질의 지원, 자체 평가로 결과 39% 개선 주장).
+     src: https://github.blog/changelog/2026-04-02-improved-search-for-github-issues-is-now-generally-available/ (2026-04-02)
+--- UNRESOLVED ---
+ - 'affected version 11건 중 1건만 완전 정확' 인용의 출처 논문을 특정하지 못함 — 검색 요약에는 나왔으나 Herbold 2019 PDF에서 해당 구절 검증 실패. Falessi TOSEM 2021(51% 사용 불가)로 대체 검증함
+ - 벤더(kapa) 문서 외에 '문서보다 이슈 검색이 답'이라는 독립 실무자 1차 보고(서베이·블로그)를 확보하지 못함 — 정황 근거(GitHub의 이슈 시맨틱 검색 투자)만 확보
+ - 이슈를 무필터로 RAG에 넣어 품질 저하를 정량 측정한 공개 사후 보고(post-mortem)를 찾지 못함 — kapa의 모범사례 문서(2급 소스 격하)가 가장 근접한 근거
+ - 반응 수(reactions) 기반 필터의 상용 채택 여부 미확인 — kapa 공식 문서의 필터 목록에는 없음(state/나이/라벨만)
+ - Dosu가 과거 이슈 이력을 retrieval 코퍼스로 쓰는지 공식 문서에서 명시 확인 못함(제품 페이지는 기능만 서술) — 정황상 그렇게 동작하나 1차 소스 인용 불가
+ - apache/kafka·apache/spark는 GitHub Issues 미사용(JIRA 전용)이라 GitHub 쪽 milestone 실측은 ClickHouse·dbt-core 2개 저장소 표본 — 대상 기술 4종 전체를 같은 축으로 비교하지 못함
+ - 과제 (a) '버전별 코드 자체' 축은 본 과제 범위 밖으로 판단해 조사하지 않음 — 본 조사는 (b) 이슈 축 전담
+--- VERDICTS ---
+  [CONFIRMED] kapa.ai는 GitHub Issues를 공식 데이터 소스 커넥터로 지원하며, 색인 전 필터링(open/closed 상태, 이슈 나이, 라벨 include/exclude)을 제공하고 '라벨별로 복수 소스를 만들어 필터링하라'고 권고. 낡은 이슈는 'exclude-kapa' 전용 제외 
+       note: 공식 문서 재확인. 필터 4종(issue state open/closed/both, issue age, include/exclude labels) 그대로 존재. 'it makes sense to create multiple sources to be able to apply effective filtering'와 'create a new dedicated label for excluding outdated issues (e.g., exclude-kapa)' 모두 축자 확인. reactions 필터가 없다는 부속 주장도 맞음 — 문서에 반응 수 필터는 언급되지 않음.
+  [CONFIRMED] kapa.ai 공식 문서가 '개발자들이 공식 문서에서 답을 못 찾으면 GitHub issues를 뒤지는 것이 일반적 패턴이며, 이슈에는 워크어라운드·설명·열린 논의 등 문서를 보강하는 정보가 담겨 있다'고 명시.
+       note: 원문 축자 일치: 'A common pattern for developers searching for a solution is to look into the GitHub issues of a project after not finding anything in the official documentation. GitHub issues contain workarounds, explanations, open discussions and much more information helpful to augment your documentation.' 벤더 마케팅 성격이라는 자기 한정도 타당 — 이슈 색인 기능을 파는 회사의 문서임.
+  [CONFIRMED] kapa.ai RAG 모범사례 블로그: 1차 소스 = 기술 문서·API 레퍼런스·릴리스 노트·검증된 지원 솔루션, Slack·포럼·지원 티켓은 2급으로 recency(최근 1년)·authority 필터를 걸어 나중에 추가. 'garbage in, garbage out' — 전체 덤프는 
+       note: 블로그 원문 재확인. primary 목록(Technical documentation and API references / Product updates and release notes / Verified support solutions — 추가로 Knowledge base articles도 있음), secondary(Slack channels, forum discussions, and support tickets), 'filters like recency (only posts from last year) and authority (only replies from verified community members)', GIGO 인용, '100+ technical teams(Docker, CircleCI, Reddit, Monday.com)' 모두 확인. claim이 primary 목록에서 Knowle
+  [CONFIRMED] GitHub 이슈 milestone 사용률 실측: ClickHouse 30,100건 중 무-milestone 30,100건(0.0%), dbt-core 8,692건 중 무-milestone 7,286건(16.2%). 라벨은 ClickHouse 93.9%·dbt-core 91.3% 라벨됨
+       note: 2026-08-08 GitHub Search API 직접 재호출로 전 수치 동일 재현: ClickHouse 30,100/30,100 무-milestone(0.0%), dbt-core 7,286/8,692 무-milestone(milestone 사용 1,406건=16.2%), 무라벨 ClickHouse 1,839(라벨률 93.9%)·dbt-core 754(91.3%). 산술도 검산 일치. apache/kafka가 GitHub 이슈 대신 JIRA를 쓴다는 부속 주장도 JIRA KAFKA 프로젝트 19,618건 실측으로 뒷받침됨. 결론(버전 축 불성립·라벨 축 성립)은 실측이 직접 지지.
+  [CONFIRMED] JIRA affectedVersion 실측: KAFKA 전체 19,618건 중 7,834건(39.9%), Bug 8,946건 중 5,506건(61.5%); SPARK 전체 58,235건 중 48,848건(83.9%), Bug 18,803건 중 16,376건(87.1%). JIRA도 '전
+       note: 2026-08-08 Apache JIRA REST API 직접 재호출로 8개 수치 전부 자릿수까지 동일 재현(19,618/7,834/8,946/5,506/58,235/48,848/18,803/16,376). 비율 검산도 일치(39.9/61.5/83.9/87.1%). 4개 코퍼스 합계 약 116.6k건으로 '11만+' 주장도 정확. 어느 프로젝트도 100%에 못 미치므로 '전 이슈 버전 매핑 불성립' 결론 타당.
+  [CONFIRMED] Falessi 등(TOSEM 2021)이 Apache 212개 프로젝트 약 125,000개 defect를 분석, 이슈 트래커의 affected versions로 라벨링하는 'realistic approach'는 defect의 51%(과반)에서 사용 불가.
+       note: 논문 실재·인용문 실재 확인. 'results related to 212 open-source projects from the Apache ecosystem, featuring a total of about 125,000 defects, reveal that the realistic method cannot be used in the majority (51%) of defects' 축자 확인(arXiv 2011.05531 병행 검증). 'realistic approach'가 이슈 트래커의 AV 필드 사용을 뜻한다는 해석도 초록과 일치. DOI 10.1145/3433928 = ACM TOSEM(2021)으로 게재지도 맞음. 유일한 부정확: 제1저자는 Vandehei(Falessi는 제3저자)라 'Falessi 등'보다 'Vandehei 등'이 정확한 표기 — 실질에는 영향 없음.
+====================================================================================================
+KEY: issues-feasibility
+--- SUMMARY ---
+결론: (b) 이슈의 vendor 레이어 편입은 권장하지 않는다 — 비용이 아니라 계약 위반이 근거다. 실측 기준 미러 자체는 싸다(이슈 5만 저장소 최초 백필 = REST 500요청 또는 GraphQL 수백 요청·cost 1pt/100이슈, 증분은 3주에 4~11페이지). 그러나 이슈는 문서 git 미러의 'pull=완전 동기화' 모델이 성립하지 않는다: closed 이슈도 계속 변하고(ClickHouse에서 2025년 이전 closed 이슈 29건이 최근 5주 내 갱신), 삭제는 tombstone 없이 사라져 updated_at-upsert 미러에 드리프트가 조용히 누적되며, 대형 저장소 코멘트 전량은 REST 30,000건 하드 캡(page 301=422 실측) 때문에 시간창 슬라이싱이라는 별도 파이프라인이 필요하다. 즉 '재생성 가능 캐시'가 아니라 '수렴 보장 없는 동기화 서비스'가 되어 2-3주 30-45분 유지비 예산과 무색인 rg 검색 모델에 안 맞는다. 반면 온디맨드는 실측상 충분하다: gh search issues가 in:comments 코멘트 본문 검색·label·state·날짜 범위를 지원하고(라이브 테스트로 정확한 버그 이슈 반환 확인), 검색 한도 30req/min은 대화형 에이전트 사용에 여유이며, 원문 신선도가 항상 100%다. 질의당 1,000건 캡은 탐색적 질의에는 제약이 아니다. 트래커 지형: ClickHouse 30,112건·dbt-core 8,693건은 GitHub 정본, Airflow도 GitHub(14,958건), Spark(JIRA 58,235건)·Kafka(JIRA 19,618건, GitHub 이슈 비활성)는 JIRA 정본인데 ASF JIRA는 익명 REST가 열려 있고 maxResults=1000이 수용되어 온디맨드 JQL 조회도 가능하다 — 즉 JIRA 프로젝트에서도 미러 없이 성립한다. 약관상 개인 로컬 미러는 AUP의 아카이브 조항으로 허용되지만(API 수집은 scraping 아님), 이는 미러를 정당화할 뿐 필요하게 만들지는 않는다. 권장: 이슈는 온디맨드(gh search issues + gh issue view / JIRA REST)로 두고, 특정 이슈 스레드가 canon 지식의 근거가 되는 순간에만 그 스레드를 스냅샷해 canon의 archive로 승격하라 — 이는 기존 계약(외부 유래 스냅샷)과 정확히 일치한다. (a) 코드는 본 조사 범위 밖이나 참고로 ClickHouse만 repo size 약 9.8GB로 무겁다.
+--- FINDINGS ---
+[LB] ClickHouse/ClickHouse의 이슈(PR 제외)는 총 30,112건(GraphQL issues.totalCount 실측; search API로는 30,100 = open 4,916 + closed 25,184). dbt-labs/dbt-core는 8,693건(open 1,265 + closed 7,427).
+     src: https://api.github.com/search/issues?q=repo:ClickHouse/ClickHouse+type:issue (2026-08-08)
+[LB] Apache Kafka는 GitHub 이슈가 비활성(has_issues=false, GitHub 이슈 0건)이고 정본은 JIRA(KAFKA 프로젝트, 19,618건). Apache Spark는 has_issues=true지만 GitHub 이슈 95건뿐이고 정본은 JIRA(SPARK, 58,235건) — 공식 contributing 문서도 'Spark uses JIRA to track logical issues, including bugs and improvements'라고 명시. Apache Airflow는 GitHub 이슈가 정본(14,958건).
+     src: https://spark.apache.org/contributing.html (2026-08-08)
+[LB] ASF JIRA(issues.apache.org)는 익명 REST API가 열려 있어 로그인 없이 미러/조회 모두 가능하다. maxResults=1000이 그대로 수용되므로 SPARK 전량(58,235건)도 59요청, KAFKA 전량 20요청이면 본문 백필이 끝난다. 증분도 JQL 'updated >= <date>'로 동작(KAFKA 최근 3주 갱신 336건 실측).
+     src: https://issues.apache.org/jira/rest/api/2/search?jql=project%3DSPARK&maxResults=1 (2026-08-08)
+[LB] GitHub REST의 repo 전역 코멘트 endpoint(/repos/{o}/{r}/issues/comments)는 300페이지(30,000건)에서 하드 캡이다 — page 301은 422 'pagination is limited for this resource'. ClickHouse·dbt-core 모두 last=300으로 캡에 걸렸으므로, 대형 저장소의 코멘트 전량 백필은 단순 페이지네이션으로 불가능하고 since= 시간창 슬라이싱 또는 GraphQL 중첩 조회가 필요하다.
+     src: https://api.github.com/repos/ClickHouse/ClickHouse/issues/comments?per_page=100 (2026-08-08)
+[LB] 미러 산수: 인증 REST 5,000req/hr(실측)에서 이슈 5만 저장소 최초 본문 백필 = 500요청(수 분). GraphQL은 이슈 100개+각 코멘트 20개 중첩 조회가 cost 1pt(실측)여서 5,000pt/hr 안에서 전량 백필이 1시간 창 내 수백 요청으로 끝난다. 증분은 issues?since=(updated 기준)로 ClickHouse급도 3주에 1,063건=11페이지, dbt-core 362건=4페이지 — 요청 비용은 무시 가능.
+     src: https://api.github.com/rate_limit (2026-08-08)
+[LB] 온디맨드가 실측상 충분하다: gh search issues가 in:comments(코멘트 본문)·label·state·created/updated/closed 날짜 범위를 모두 지원하며, ClickHouse 실전 질의('ReplacingMergeTree deduplication in:comments' state:closed)에서 정확한 버그 이슈들을 즉시 반환했다. in:title/body/comments와 날짜·라벨 문법은 공식 문서에 명시되어 있다.
+     src: https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests (2026-08-08)
+[LB] 검색 API 한도는 인증 시 30req/min(코드 검색 제외), 미인증 10req/min이며 질의당 최대 1,000건 반환. gh CLI도 --limit 1~1000으로 강제된다. 에이전트의 대화형 사용(질의 시점 수 회 호출)에는 30/min이 충분하고, 이 한도는 '검색으로 전량 미러링'만 배제한다.
+     src: https://docs.github.com/en/rest/search/search (2026-08-08)
+[LB] 이슈는 문서 git 미러와 달리 수렴 보장이 없는 upsert 스토어다: closed 이슈도 계속 변한다(2025년 이전에 닫힌 이슈 중 최근 5주 내 갱신 — ClickHouse 29건, dbt-core 4건 실측). 증분 동기화는 updated_at 기준 upsert인데, 코멘트/이슈 삭제는 목록 API에 tombstone이 없어 미러에서 감지 불가 — 드리프트가 조용히 누적되며 주기적 전량 재동기화가 필요하다. git의 'pull=완전 동기화' 모델이 성립하지 않는다.
+     src: https://api.github.com/search/issues?q=repo:ClickHouse/ClickHouse+type:issue+state:closed+closed:%3C2025-01-01+updated:%3E=2026-07-01 (2026-08-08)
+[  ] github-to-sqlite(dogsheep)는 반쯤 유지되는 상태다: PyPI 최신 릴리스 2.9가 2023-12-10로 2년 8개월 전이지만, 저장소는 2026-07-14에 push가 있었고 archived 아님(open issues 30). issues·issue-comments 커맨드는 있으나 증분 동기화는 commits에만 문서화되어 있어 이슈/코멘트는 사실상 매회 재수집 설계다.
+     src: https://github.com/dogsheep/github-to-sqlite (2026-08-08)
+[LB] 약관: GitHub Acceptable Use Policies §7은 API를 통한 수집을 scraping 정의에서 명시적으로 제외하고('does not refer to the collection of information through our API'), 'Archivists may use public information from the Service for archival purposes'로 아카이브 목적 사용을 허용한다. 개인 로컬 미러는 허용 범위로 판단된다. 단 ToS D.5의 사용자 간 라이선스 원문은 'use, display, perform and reproduce (by forking) Your Content through the Service as permitted by GitHub's functionality'로 서비스 내 사용에 한정되므로, 이슈 텍스트의 재배포(공개 재게시)는 별도 라이선스 근거가 없다 — 로컬 사적 보관과 재배포를 구분해야 한다.
+     src: https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies (2026-08-08)
+[  ] 저장소 크기(참고, API size 필드 KB): ClickHouse 10,254,538(약 9.8GB) · spark 591,416 · airflow 687,041 · kafka 305,007 · dbt-core 88,719. (a) 코드 레이어 판단 시 ClickHouse는 full clone이 유일하게 무거운 대상이다.
+     src: https://api.github.com/repos/ClickHouse/ClickHouse (2026-08-08)
+--- UNRESOLVED ---
+ - ClickHouse의 정확한 코멘트 총수 — REST 전역 endpoint가 30,000건 캡에 걸려 미확정(>30,000만 확인). GraphQL로 합산하면 산출 가능하나 수백 요청이 필요해 생략
+ - issues.apache.org(ASF JIRA) 익명 REST의 공식 rate limit 정책 — 문서를 찾지 못함. 소량 호출은 200 확인했으나 583요청급 벌크 미러 시 차단 여부 미검증
+ - GitHub timeline API가 코멘트 삭제를 이벤트로 노출하는지 — 목록 API에 tombstone이 없는 것은 구조적으로 확인했으나 timeline 경유 삭제 감지 가능성은 미검증
+ - gh issue view N --comments의 실동작(특정 이슈 스레드 온디맨드 정독) — 표준 기능이나 이번 세션에서 라이브 테스트하지 않음
+ - GitHub 검색 인덱스의 코멘트 커버리지 완전성·색인 지연 — in:comments가 동작함은 확인했으나 모든 코멘트가 색인되는지, 오래된 이슈의 색인 누락 여부는 미검증
+ - 이슈·코멘트 텍스트가 ToS D.6(repo 라이선스 승계)의 적용 대상인지 — 'repository에 추가된 콘텐츠' 문구가 이슈를 포함하는지 법적으로 모호. 사적 보관은 AUP로 커버되나 재배포 근거는 불확실
+ - github-to-sqlite 2.9의 현행 GitHub API 대상 end-to-end 동작 — 메타데이터만 확인, 실행 테스트 안 함
+ - apache/spark의 GitHub 이슈 95건의 성격(잔존물인지 특정 용도인지) — 미확인, 판정에는 영향 없음
+--- VERDICTS ---
+  [CONFIRMED] ClickHouse 이슈 30,112건(GraphQL)/30,100건(search, open 4,916+closed 25,184), dbt-core 8,693건(open 1,265+closed 7,427)
+       note: 2026-08-08 gh api로 독립 재실측. GraphQL repository.issues.totalCount = ClickHouse 30,112 / dbt-core 8,693으로 자릿수까지 일치. search API도 ClickHouse 30,100(4,916+25,184), dbt-core 8,692(1,265+7,427)로 claim의 수치와 정확히 재현됨. 두 API 간 소량 차이(30,112 vs 30,100)도 실재하며 claim의 서술과 부합.
+  [CONFIRMED] Kafka는 GitHub 이슈 비활성(has_issues=false, 0건)·정본 JIRA 19,618건; Spark는 GitHub 이슈 95건뿐·정본 JIRA 58,235건(contributing 문서 명시); Airflow는 GitHub 이슈 정본 14,958건
+       note: 전 수치 재현: kafka has_issues=false·search 0건, spark has_issues=true·95건, airflow 14,958건. JIRA 익명 REST로 SPARK 58,235 / KAFKA 19,618 정확히 일치. spark.apache.org/contributing.html 원문 확인 — 정확한 문장은 'Generally, Spark uses JIRA to track logical issues, including bugs and improvements'로 claim 인용 앞에 'Generally,'가 생략됐으나 의미 왜곡 없음.
+  [CONFIRMED] ASF JIRA 익명 REST 개방, maxResults=1000 수용 → SPARK 전량 59요청·KAFKA 20요청, 증분은 JQL updated>= 동작(KAFKA 3주 336건)
+       note: 무인증 curl로 재현: /rest/api/2/search?jql=project=KAFKA&maxResults=1000이 실제 1,000건 반환(maxResults 필드도 1000 그대로). updated>="2026-07-18" total=336 정확히 일치. 산수도 검증됨(58,235/1000→59, 19,618/1000→20). 단 claim 스스로 밝혔듯 익명 rate limit 공식 문서는 부재하며, ASF JIRA는 인프라 정책 변경(로그인 강제 등) 이력이 있는 시스템이라 장기 의존 시 재확인 필요.
+  [CONFIRMED] repo 전역 코멘트 endpoint는 300페이지(30,000건) 하드 캡 — page 301은 422, 두 저장소 모두 last=300, 전량 백필은 since= 슬라이싱 또는 GraphQL 필요
+       note: 직접 재현: ClickHouse·dbt-core 모두 Link 헤더 rel="last" page=300, page=300은 100건 정상 반환, page=301은 HTTP 422 'pagination is limited for this resource' 원문 그대로 확인. 부수 서술의 '이슈 본문 302페이지'는 GraphQL(issues 커넥션, PR 제외) 기준으로만 성립 — REST /issues 목록은 PR을 포함하므로 페이지 수가 훨씬 많아진다는 점만 유의.
+  [CONFIRMED] 인증 REST 5,000req/hr, GraphQL 이슈100+코멘트20 중첩 = cost 1pt, 증분 3주 ClickHouse 1,063건(11페이지)/dbt-core 362건(4페이지) — 비용은 기각 사유 아님
+       note: 재실측 전부 일치: rate_limit core=5000·graphql=5000, GraphQL issues(first:100)+comments(first:20) 중첩 조회의 rateLimit.cost=1 직접 확인. updated:>=2026-07-18 → ClickHouse 1,063 / dbt-core 362 정확히 재현(ceil로 11/4페이지 성립). 유일한 유보: '이슈 5만=500요청'은 REST /issues 목록이 PR을 포함하므로 REST로는 과소추정 — GraphQL 경로로는 정확하고, '비용 무시 가능' 결론 자체는 흔들리지 않음.
+  [CONFIRMED] gh search issues가 in:comments·label·state·날짜 범위를 지원하고 실전 질의에서 정확한 버그 이슈 즉시 반환 — 문법은 공식 문서에 명시
+       note: 라이브 재현 성공: 'ReplacingMergeTree deduplication in:comments' --state closed가 관련 실버그 이슈들(#106798 등)을 즉시 반환, label:bug 필터도 정상. docs.github.com 'Searching issues and pull requests'에서 in:title/body/comments, label:, state:, created/updated/closed:(범위·비교 연산 포함) 전부 문서화 확인. 단 GitHub이 이슈 검색 백엔드를 점진 개편 중이므로 legacy 문법의 장기 안정성은 보장 밖.
+  [CONFIRMED] 검색 API 인증 30req/min(코드 검색 10/min 예외)·미인증 10req/min·질의당 최대 1,000건, gh --limit 1~1000 강제 — 대화형 사용엔 충분하고 '검색 전량 미러링'만 배제
+       note: 3중 검증 일치: (1) 공식 문서에서 'up to 30 requests per minute … except Search code(10/min)', 'up to 1,000 results for each search' 인용 확인, (2) 인증 rate_limit.search=30 실측, (3) 미인증 curl의 x-ratelimit-limit: 10 헤더 실측, (4) gh search issues --limit 1001 → '`--limit` must be between 1 and 1000' 오류 재현.
+  [CONFIRMED] 이슈는 수렴 보장 없는 upsert 스토어: closed 이슈도 계속 변함(5주 내 ClickHouse 29건·dbt-core 4건), 삭제 tombstone 부재로 드리프트 감지 불가 — 주기적 전량 재동기화 필요
+       note: churn 실측 재현: state:closed closed:<2025-01-01 updated:>=2026-07-01 → ClickHouse 29 / dbt-core 4 정확히 일치. 코멘트 목록 스키마도 직접 검사 — 필드에 minimized는 있으나 삭제 이벤트/tombstone은 없음(목록 API는 현재 상태만 반환하므로 삭제는 부재로만 나타남). timeline API의 삭제 노출 여부를 미검증으로 남긴 것도 정직한 한정. 구조적 논증(pull=완전 동기화 불성립)은 타당.
+  [CONFIRMED] AUP §7이 API 수집을 scraping에서 제외하고 아카이브 목적 사용 허용; ToS D.5의 사용자 간 라이선스는 'through the Service'로 서비스 내 한정 — 로컬 사적 보관과 재배포를 구분해야 함
+       note: github/site-policy 저장소 마크다운 원문을 직접 받아 grep으로 검증. AUP §7(Information Usage Restrictions)에 'Scraping does not refer to the collection of information through our API'와 'Archivists may use public information from the Service for archival purposes' 축자 일치. ToS D.5 원문도 'nonexclusive, worldwide license to use, display, perform and reproduce (by forking) Your Content through the Service as permitted by GitHub's functionality'로 정확 — 서비스 내 한정 독해와 '재배포는 별도 근
+====================================================================================================
+KEY: precedents-contract
+--- SUMMARY ---
+결론 재료: (a) 버전별 코드는 캐시 계약에 완전 부합 — 외부 유래·tag(→SHA)로 버전 종속·clone은 rate limit 없이 바이트 결정적 재생성·인간 저작물 제로. 실측 비용은 dbt 87MB/Kafka 298MB/Spark 578MB/ClickHouse 9.8GB(API size 필드)로, ClickHouse만 shallow/partial clone 축소가 필요한 수준. 유일 리스크는 태그 가변성(tj-actions 사건이 실증)이며 commit SHA를 vendor 메타에 고정 기록하면 방어된다. 선례도 정확히 이 경계에 있다 — Sourcebot(코드만 미러·색인, MCP로 에이전트 제공), SWE-bench(commit 고정 스냅샷=에이전트 환경), Google 모노레포 vendoring. (b) 이슈 전량 미러는 계약 4조항 중 3개와 어긋난다: ① 버전 종속이 아니라 시간 스트림이다(GH Archive가 이슈를 불변 이벤트 로그로 모델링하는 이유 — 스냅샷은 시점 절단면일 뿐 완결 산출물이 아님) ② 재생성이 API 정책에 묶인다 — ClickHouse 30,100 이슈+3만 이상 댓글은 PAT 5,000req/hr 하에 수천 요청·수 시간이고, comments endpoint가 30,000건(page 300)에서 422로 잘리는 것을 실측해 시간창 분할 엔지니어링 없이는 전량 수집 자체가 불가 ③ 재수집이 비결정적(이슈는 수정·삭제됨). 결정타로 Spark·Kafka는 JIRA가 정식 트래커라(Kafka는 has_issues=false 실측) GitHub API 미러가 대상 기술의 절반에서 성립하지 않는다. 권고 재료: 이슈는 전량 미러 대신 ① 질의 시 gh/JIRA로 조회(원격이 곧 색인) ② 버전 귀속 정보는 릴리스 노트/CHANGELOG 미러로 대체(Keep a Changelog가 정의하는 '버전별 완결 큐레이션'이라 캐시 계약에 부합) ③ 유용했던 개별 이슈는 vendor가 아니라 canon에 인용·발췌로 승격 — 선별은 저작 행위라 '인간 저작물 제로' 조항상 vendor에 둘 수 없다.
+--- FINDINGS ---
+[LB] 대상 4개 repo의 코드 미러 비용 실측: GitHub API size 필드 기준 dbt-core 약 87MB, Kafka 약 298MB, Spark 약 578MB, ClickHouse 약 9.8GB. 태그 수는 dbt-core 343, Spark 304, Kafka 314, ClickHouse 2,025개.
+     src: https://api.github.com/repos/ClickHouse/ClickHouse (2026-08-08)
+[LB] 코드 미러의 재생성은 rate limit에 묶이지 않고 바이트 단위로 결정적이다: git clone은 API rate limit 대상이 아니고, tag→commit SHA checkout은 동일 바이트를 재생성한다. 캐시 계약(재생성 가능·버전 종속)에 완전 부합.
+     src: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api (2026-08-08)
+[LB] git tag는 기술적으로 가변(mutable)이다 — 2025-03 tj-actions/changed-files 공급망 공격에서 공격자가 기존 버전 태그 전부(v1~최신)를 악성 커밋으로 재지정했고 23,000개+ repo가 영향받았다. 따라서 vendor 미러는 태그명이 아니라 commit SHA를 메타데이터에 고정 기록해야 한다.
+     src: https://unit42.paloaltonetworks.com/github-actions-supply-chain-attack/ (2025-04-02)
+[  ] GitHub는 태그 가변성 문제를 인정하고 Immutable Releases를 2025-08-26 public preview, 2025-10-28 GA로 출시했다 — 발행 후 태그 이동·삭제와 asset 변경이 잠긴다. 단 repo/org 단위 opt-in이며 기존 릴리스는 소급 적용되지 않는다.
+     src: https://github.blog/changelog/2025-10-28-immutable-releases-are-now-generally-available/ (2025-10-28)
+[LB] 이슈 전량 실측: dbt-core 8,692건, ClickHouse 30,100건 (GitHub search API type:issue total_count). 반면 Spark는 GitHub 이슈 95건뿐이고 Kafka는 has_issues=false로 GitHub 이슈가 아예 꺼져 있다 — 둘 다 Apache JIRA가 정식 트래커다. 즉 '이슈 미러'는 대상 기술 4개 중 2개에서 GitHub API로 성립하지 않고 JIRA API라는 이질 계약이 추가로 필요하다.
+     src: https://spark.apache.org/contributing.html (2026-08-08)
+[LB] 이슈 전량 재수집은 단순 루프로 불가능하다: repo 전체 comments 목록 endpoint는 300페이지(=30,000건)에서 pagination이 잘린다 — page 301 요청이 HTTP 422를 반환함을 직접 실측. 전량 수집은 since/until 시간창 분할 엔지니어링이 필요하다.
+     src: https://api.github.com/repos/dbt-labs/dbt-core/issues/comments (2026-08-08)
+[LB] 재수집 소요 산수(ClickHouse): 이슈 본문 30,100건 ≈ 302 요청(100/page), 댓글 ≥30,000건(실제 총수 미상, 10만+ 추정 시 1,000~2,000 요청) → 총 수천 요청 규모. PAT 5,000 req/hr 한도 내에서 이론상 1시간 전후지만, 2차 한도(900 points/min)·백오프·시간창 분할 코드까지 감안하면 'rm -rf 후 몇 분 만에 재생성'이 아니라 '전용 스크립트로 수 시간' 작업이다. 게다가 재수집 결과는 비결정적 — 이슈는 수정·삭제·잠금되므로 같은 바이트가 돌아오지 않는다.
+     src: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api (2026-08-08)
+[LB] 아카이브 관점에서 이슈는 '상태'가 아니라 '이벤트 스트림'이다: GH Archive는 GitHub 이슈·댓글을 mutable state가 아닌 시간순 불변 이벤트 로그(hourly archive, 15+ 이벤트 타입, 2011년부터)로 모델링한다. 즉 이슈의 정합적 스냅샷은 '시점 t의 절단면'일 뿐이며, 태그된 코드·빌드된 문서처럼 버전 축에 귀속되는 완결 산출물이 아니다.
+     src: https://www.gharchive.org/ (2026-08-08)
+[  ] 선례 1 (코드 미러+에이전트 검색): Sourcebot은 GitHub/GitLab 등 멀티 repo를 자가호스팅으로 clone·색인(Zoekt 기반)하고 MCP 서버로 코딩 에이전트(Claude Code 등)에 검색을 제공한다. 색인 대상은 코드뿐 — 이슈/PR/discussion 색인은 README에 없다. '코드는 미러, 이슈는 안 함'이라는 경계가 실제 제품에서도 같다.
+     src: https://github.com/sourcebot-dev/sourcebot (2026-08-08)
+[LB] 선례 2 (버전 고정 코드 스냅샷): SWE-bench/SWE-agent는 저장소를 특정 base commit으로 checkout한 스냅샷을 Docker 이미지로 동결해 에이전트 환경을 만든다. 이슈 텍스트는 라이브 스트림을 미러하지 않고 과제 시점에 동결된 사본으로만 쓴다 — '코드=커밋 고정 스냅샷, 이슈=시점 동결 발췌'라는 분리가 재현성 요구가 가장 높은 분야의 표준이다.
+     src: https://www.swebench.com/SWE-bench/guides/docker_setup/ (2026-08-08)
+[  ] 선례 3 (repo→LLM 텍스트): gitingest/repomix는 repo 전체를 AI 친화 단일 텍스트로 패킹하는 도구지만, 상주 미러가 아니라 필요 시 재실행하는 일회성 변환기다 — '재생성 가능하니 보관하지 않는다'는 캐시 계약의 극단형. 사용자의 rg+파일 정독 방식에는 미러 쪽이 맞고, 이들은 미러 없이도 코드 분석이 되는 반례로서 의미가 있다.
+     src: https://github.com/yamadashy/repomix (2026-08-08)
+[  ] 선례 4 (전 의존성 vendoring): Google 모노레포(CACM 2016, Potvin & Levenberg)는 소스 95%를 단일 저장소에 두고 서드파티 의존성도 트리 안에 vendoring — 20억+ 라인, 코드 전체가 로컬 검색·분석 가능한 단일 진실이 된다. '분석하려면 소스를 곁에 두라'는 대규모 조직 관행의 원형.
+     src: https://dl.acm.org/doi/10.1145/2854146 (2016-07-01)
+[  ] 선례 5 (이슈 전량 미러의 실존례): Simon Willison의 github-to-sqlite(dogsheep)는 issues·issue-comments 명령으로 repo의 이슈+댓글 전량을 SQLite로 미러하는 공개 도구다 — 개인 규모 이슈 미러가 기술적으로 가능함의 증거. 단 용도가 '개인 분석(personal analytics)'이지 버전 종속 캐시가 아니며, 증분 갱신을 전제로 한 살아있는 DB다.
+     src: https://github.com/dogsheep/github-to-sqlite (2026-08-08)
+[LB] 절충안의 근거 (릴리스 노트 대체): 이슈의 '버전 귀속' 정보는 릴리스 노트/CHANGELOG가 이미 큐레이션한 산출물이다. Keep a Changelog 정의 — "a curated, chronologically ordered list of notable changes for each version" — 가 말하듯 changelog는 버전별로 완결·동결되는 인간 소비용 문서라서, 태그된 코드와 같은 '버전 종속 산출물' 계약에 부합한다. 반면 '유용했던 이슈만 선별 보관'은 사용자의 판단이 들어간 큐레이션이므로 캐시(vendor)가 아니라 정본(canon) 성격의 산출물이 된다.
+     src: https://keepachangelog.com/en/1.1.0/ (2026-08-08)
+--- UNRESOLVED ---
+ - ClickHouse·dbt-core의 실제 댓글 총수 — comments endpoint pagination cap(30,000건) 때문에 하한만 확인, 정확한 재수집 시간 산수는 차수 추정에 그침
+ - GitHub API size 필드와 실제 clone 크기의 오차 — size는 서버측 pack 근사치로 알려져 있으나 공식 문서로 정확한 의미를 확인하지 못함
+ - Sourcebot의 정확한 동기화 방식(clone 주기·bare mirror 여부) — README에 미기재, 'clone해 mirror한다'는 서술은 서드파티 출처
+ - dbt-core의 per-release changelog 관행(changie 사용 여부) — 직접 확인하지 않음
+ - JIRA(Apache) API의 전량 수집 rate limit 정책 — GitHub만 실측했고 issues.apache.org의 제한은 미조사
+ - 태그 재작성의 정량적 빈도(연간 몇 건인지) — tj-actions·AWS action 등 사건 사례는 있으나 통계적 빈도 데이터는 찾지 못함
+--- VERDICTS ---
+  [CONFIRMED] 코드 미러 비용 실측: size 필드 dbt-core 약 87MB / Kafka 약 298MB / Spark 약 578MB / ClickHouse 약 9.8GB, 태그 수 343 / 314 / 304 / 2,025
+       note: 2026-08-08 gh api로 독립 재실측. size(KB): dbt-core 88,719 / kafka 305,007 / spark 591,416 / ClickHouse 10,254,538 — 4개 모두 claim의 원시값과 자릿수까지 일치(MiB 환산 86.6 / 297.9 / 577.6 / 9,779 ≈ 87MB/298MB/578MB/9.8GB). 태그 수도 /tags?per_page=1의 Link rel="last" 페이지 번호로 343 / 314 / 304 / 2025 전부 재현됨. size가 서버측 근사치라는 단서도 GitHub의 알려진 동작과 부합.
+  [UNCERTAIN] 코드 미러 재생성은 rate limit에 묶이지 않고(git clone은 API rate limit 비대상) tag→SHA checkout은 바이트 단위 결정적
+       note: 부분적으로만 성립. REST rate limit 문서(비인증 60/hr, PAT 5,000/hr, 2차 900pts/min)는 재확인했고 git 프로토콜은 그 문서의 적용 범위 밖인 것도 맞다. 그러나 GitHub 2025-05-08 changelog가 비인증 rate limit 강화를 'cloning repositories over HTTPS'에 명시적으로 적용한다고 밝혀 — ':git clone은 rate limit 대상이 아니다'는 축자적으로는 낡은/과장된 진술. 인증된 clone 기준으로는 실질적 제약이 없어 결론(이슈 API 대비 자유로움)은 유지되나 '완전 부합'은 인증 전제를 명시해야 함. SHA checkout의 결정성은 content-addressed 저장 특성상 타당(단, autocrlf 등 로컬 필터 설정 전제).
+  [CONFIRMED] git tag는 가변 — tj-actions/changed-files 공격에서 기존 태그 전부가 악성 커밋으로 재지정, 23,000+ repo 영향; 따라서 commit SHA 고정 기록 필요
+       note: Unit42 원문 재확인: 공격자가 기존 태그를 전부 악성 커밋 0e58ed8로 재지정한 사실, 23,000+ repo가 해당 action을 사용 중이었던 사실 모두 확인. 단 두 가지 소소한 부정확: (1) claim의 '인용문'은 축자 인용이 아니라 패러프레이즈 — 원문은 "the attacker pushed new git tags to the repository to override its existing tags, making them all point to the malicious commit". (2) '23,000+ 영향받음'은 원문 기준 '사용 중'(used by)이 정확한 표현. git-tag 공식 문서 'On Re-tagging'의 "people MUST be able to trust their tag-names" / "This is a big security issue"는 축
+  [CONFIRMED] 이슈 수 실측: dbt-core 8,692 / ClickHouse 30,100, Spark는 GitHub 이슈 95건뿐·Kafka는 has_issues=false — 2개 repo는 JIRA가 정식 트래커라 이슈 미러에 이질 계약 필요
+       note: 2026-08-08 search API 독립 재실측: dbt-core 8,692 / ClickHouse 30,100 / Spark 95 / Kafka 0 — claim 수치와 정확히 일치. repos/apache/kafka의 has_issues:false 직접 확인. Spark contributing 페이지의 "Spark uses JIRA to track logical issues... uses GitHub pull requests to manage the review and merge" 문장 축자 확인. 4개 중 2개가 JIRA 기반이라는 결론 성립.
+  [CONFIRMED] repo 전체 comments endpoint는 300페이지(30,000건)에서 pagination이 잘리고 page 301은 HTTP 422 — 전량 수집엔 시간창 분할 필요
+       note: 직접 재실측으로 재현: dbt-core /issues/comments?per_page=100&page=301 → HTTP 422 Unprocessable Entity 확인, page=1 응답의 rel="last"가 dbt-core·ClickHouse 모두 정확히 page=300에서 멈춤(=상한 30,000건). 인증 토큰으로도 동일하므로 인증 문제 아님. 이 endpoint 단독으로는 30,000건 초과분 열거 불가라는 결론과, since 등 시간창 분할이 필요하다는 귀결 모두 타당.
+  [CONFIRMED] ClickHouse 재수집 산수: 수천 요청 규모, 이론상 1시간 전후지만 실제는 전용 스크립트로 수 시간이며 결과는 비결정적
+       note: 산술의 입력값 전부 독립 확인됨: 이슈 30,100건(재실측), 100/page → 302 요청, comments 422 캡(재실측), PAT 5,000/hr·2차 900pts/min(공식 문서 재확인). 수천 요청/5,000·hr⁻¹ ≈ 1시간 전후는 정확한 산수이고, 2차 한도는 GET 1pt 기준 900/min=54,000/hr라 병목은 1차 한도라는 점도 맞음. '수 시간'은 백오프·분할 오버헤드를 감안한 합리적 추정(실측 아님). 비결정성 주장도 타당 — 이슈·댓글은 수정/삭제/잠금되는 가변 리소스라 재수집이 동일 바이트를 보장하지 않음. 단 결론부는 실측이 아닌 추론임을 유의.
+  [CONFIRMED] GH Archive는 이슈를 mutable state가 아닌 시간순 불변 이벤트 로그(hourly archive, 15+ 이벤트 타입, 2011년부터)로 모델링
+       note: gharchive.org 원문 재확인: "aggregated into hourly archives", "JSON encoded events as reported by the GitHub API", "15+ event types" 모두 실재하는 표현이고 데이터는 2011년 2월부터(2/12/2011 Timeline API → 2015부터 Events API). 사실 관계 전부 정확. '이슈는 버전 축 산출물이 아니라 이벤트 스트림'이라는 존재론적 해석은 이 사실들로부터의 저자 추론이지만 GH Archive의 설계와 정합적.
+  [CONFIRMED] SWE-bench는 특정 base commit checkout 스냅샷을 Docker로 동결하고 이슈 텍스트는 과제 시점 동결 사본만 사용 — '코드=커밋 고정, 이슈=시점 동결'이 재현성 분야 표준
+       note: 실질 내용은 1차 소스로 확인: swebench.com datasets 문서에 base_commit(checkout 대상 커밋 해시)·problem_statement(동결된 이슈 텍스트) 필드가 명시되고, docker_setup 페이지는 "Docker-based evaluation harness to ensure consistent, reproducible results"를 명시. 단 claim이 제시한 인용문 "Each SWE-bench instance pairs an issue description with a codebase snapshot checked out at a specific Git commit"은 인용된 URL(docker_setup 페이지)에 없음 — 2차 소스(해설 글)에 도는 표현으로, 출처 표기가 부정확. 내용은 참, 인용 귀속만 어긋남.
+  [CONFIRMED] 릴리스 노트/CHANGELOG는 버전별 완결·동결 산출물(Keep a Changelog 정의)이라 캐시 계약에 부합하고, '유용 이슈 선별 보관'은 큐레이션이라 정본 성격
+       note: keepachangelog.com 1.1.0에서 "a curated, chronologically ordered list of notable changes for each version" 정의를 축자 확인했고, "Using commit log diffs as changelogs is a bad idea: they're full of noise"도 원문에 실재. 외부 검증 가능한 부분은 전부 정확. 다만 후반부(선별 보관 = 저작 행위 = canon 성격, '인간 저작물 제로' 조항과의 충돌)는 외부 소스가 아니라 사용자 프로젝트 내부 계약에 대한 저자의 논증 — 논리는 일관되나 외부 사실 검증 대상은 아님.

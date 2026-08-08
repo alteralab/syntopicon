@@ -1,0 +1,270 @@
+====================================================================================================
+KEY: architecture-principle
+--- SUMMARY ---
+판정: 현행 설계(응집도별 — 각 데이터 레이어가 자기 글루를 소유, 공유 엔진만 외부)가 원칙·실증 양쪽에서 우세하다. (1) 사용자 제안 '도구 vs 데이터' 종류별 최상위 분할은 Constantine/Yourdon 위계에서 하위 2등급인 logical cohesion('종류가 같아서 묶음')의 정의 그 자체이고, package-by-layer 논쟁에서 같은 이유(변경이 모든 묶음을 관통, 경계 강제 불가)로 패배한 구도다(Simon Brown, Screaming Architecture). (2) 동거의 적극 근거는 CCP — '같은 이유·같은 시점에 바뀌는 것은 함께': 스키마 마이그레이션이 content+schema+validate 원자 커밋을 요구하는 한 도구는 데이터 곁이 맞고, change coupling 실측 연구(Tornhill/CodeScene)는 co-change 파일을 경계 너머로 벌리면 비용이 거리에 비례해 커짐을 보인다. (3) bounded context(각 컨텍스트가 자기 모델·인프라 소유)와 1인 프로젝트의 Conway 조건(팀 경계 0 → 저장소 경계 추가는 원자성 상실 비용만), 과학 컴퓨팅 실무 표준(Wilson 2017: 단일 프로젝트 루트에 data/+src/ 동거)이 이를 보강한다. — 그러나 사용자 제안은 허수아비가 아니다: Clean Architecture tension diagram이 명시하듯 CCP 우선은 프로젝트 초기 국면의 균형점이고, 성숙하면 REP('재사용 단위=릴리스 단위') 쪽으로 이동한다. 사용자 제안이 옳아지는 실증 조건: (a) 도구가 두 번째~세 번째 소비자(다른 KB, 외부 사용자)를 실제로 얻을 때(REP + rule of three — 그 전의 선제 분리는 premature abstraction), (b) 도구가 독립 릴리스·버전·CI를 필요로 할 때, (c) tools 커밋이 schema/콘텐츠와 co-change하지 않고 단독 변경 비율이 지배적으로 될 때 — 이 (c)는 플랜의 현행 신호('tools 커밋 수가 콘텐츠 상회')보다 정확한 신호이며 git log로 직접 실측 가능하다, (d) 데이터 저장소를 Frictionless Data Package류의 순수 교환 포맷으로 외부에 공개할 때. 요컨대 현행 플랜의 '글루 동거·엔진 외부 + 분리 발동 신호' 구조는 문헌과 정합하며, 개선점은 발동 신호를 커밋 수 비교에서 co-change 비율 계측으로 교체하는 것 하나다.
+--- FINDINGS ---
+[LB] Simon Brown(1차 저자)은 package by layer가 변경을 모든 레이어에 관통시키고 아키텍처 규율을 컴파일러로 강제하지 못한다는 이유로 기각하고, 관련 책임을 한 단위에 묶는 package by component를 권고한다 — '기능/컴포넌트 단위 수직 묶음'이 커뮤니티 정리의 우세안이다.
+     src: https://simonbrown.je/modular-monolith/ (2015 (원 글) / 접근 2026-08-08)
+[LB] Robert Martin의 Screaming Architecture: 최상위 디렉토리 구조는 도메인(use case)을 외쳐야 하며, 기술 종류·프레임워크를 외치면 안 된다. '도구 vs 데이터'라는 종류별 최상위 분할은 이 원칙과 정면 충돌한다.
+     src: https://blog.cleancoder.com/uncle-bob/2011/09/30/Screaming-Architecture.html (2011-09-30)
+[LB] Common Closure Principle(CCP, Clean Architecture): '같은 이유로 같은 시점에 바뀌는 것들을 한 컴포넌트에 모으고, 다른 시점·다른 이유로 바뀌는 것들은 분리하라.' 현행 설계의 동거 근거(스키마 마이그레이션 = content+schema+validate 동일 커밋)는 CCP의 교과서적 적용이다.
+     src: https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch13.xhtml (2017 (Clean Architecture ch.13))
+[LB] Constantine/Yourdon의 cohesion 위계에서 logical cohesion(수행 내용의 '종류가 같아서' 묶음)은 coincidental 바로 위의 하위 2등급으로 분류된다. '모든 도구라서 한 폴더'는 정확히 logical cohesion의 정의이며, 원전 계보에서 열등한 묶음 기준으로 판정된 방식이다.
+     src: https://en.wikipedia.org/wiki/Cohesion_(computer_science) (원전 1974/1979, 2차 소스 접근 2026-08-08)
+[LB] DDD bounded context(Fowler/Evans): 큰 시스템은 각자 통일된 모델을 갖는 컨텍스트로 나뉘고, 각 컨텍스트는 자기 모델·스키마·구현 인프라를 소유한다. core(KB 스키마 컨텍스트)와 docs-mirror(미러 캐시 컨텍스트)가 각자 PLAN·스크립트·스킬을 소유하는 현행안은 이 패턴과 일치하고, 도구를 컨텍스트 밖으로 빼면 두 컨텍스트의 도구가 한 곳에서 뒤섞인다.
+     src: https://martinfowler.com/bliki/BoundedContext.html (2014-01-15 (bliki))
+[LB] Conway의 법칙 역방향(Inverse Conway Maneuver, ThoughtWorks Tech Radar 등재): 원하는 아키텍처에 맞게 팀 구조를 바꾸라 — 즉 모듈/저장소 경계는 커뮤니케이션 경계와 상호 결정 관계다. 1인 프로젝트에는 팀 경계가 0개이므로, 저장소 경계 추가는 Conway 이득 없이 조정 비용(cross-repo 변경, atomic commit 상실)만 발생시킨다.
+     src: https://www.thoughtworks.com/radar/techniques/inverse-conway-maneuver (기원 2010-12, Radar 접근 2026-08-08)
+[LB] 실증(마케팅 아님): change coupling(temporal coupling) 연구 — 함께 커밋되는 파일들이 아키텍처 경계를 가로지르면 변경 비용이 커지며, '거리가 멀수록 악화된다.' tools/·schema/·콘텐츠가 실제로 co-change하는 한(스키마 마이그레이션 커밋이 그 증거), 이들을 다른 저장소로 벌리는 것은 실측 데이터가 경고하는 바로 그 패턴이다.
+     src: https://codescene.com/blog/software-revolution-part3/ (접근 2026-08-08)
+[  ] 1인 연구 프로젝트의 실무 표준도 코드-데이터 동거: Wilson et al. 'Good enough practices in scientific computing'(PLOS Comp Bio 2017)은 프로젝트당 단일 디렉토리에 data/·src/·doc/·results/를 함께 두라고 처방한다.
+     src: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510 (2017-06-22)
+[LB] [사용자 제안이 이기는 조건 1] REP(Reuse/Release Equivalence Principle): '재사용의 단위는 릴리스의 단위'다. 도구가 두 번째 소비자를 얻어 독립 릴리스·버전·호환성 보장이 필요해지는 순간, 분리가 원칙적으로 옳아진다. Clean Architecture의 tension diagram은 이를 명시: 세 원칙(REP·CCP·CRP)은 동시 만족 불가하고, 프로젝트 초기는 CCP(개발 용이) 쪽에서 시작해 성숙하며 REP(재사용) 쪽으로 이동한다.
+     src: https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch13.xhtml (2017 (Clean Architecture ch.13))
+[LB] [사용자 제안이 이기는 조건 2와 그 시점 판정] Rule of Three: 재사용 컴포넌트는 3개 응용에서 검증되기 전에는 충분히 일반적이지 않으며, 소비자 1개 시점의 선제 분리는 premature abstraction으로 유지비만 늘린다. 따라서 '지금 미리 나누자'는 지고, '두 번째(~세 번째) 소비자가 실재할 때 나누자'가 이긴다 — 현행 플랜의 분리 발동 신호와 동일 구조.
+     src: https://en.wikipedia.org/wiki/Rule_of_three_(computer_programming) (접근 2026-08-08)
+[  ] [사용자 제안이 이기는 조건 3] '데이터 저장소를 순수하게' 진영의 실재 근거: Frictionless Data Package 표준은 데이터+메타데이터만의 순수 패키지가 불특정 다수 도구의 소비·아카이브·FAIR 상호운용에 유리하다고 본다. 단 성립 조건은 '데이터가 자기 전용 글루가 아니라 범용 교환 포맷으로 외부 도구들에 소비될 때'다 — syntopicon의 tools/는 자기 스키마 결합 글루이므로 현재는 해당하지 않는다.
+     src: https://specs.frictionlessdata.io/ (접근 2026-08-08)
+[LB] [플랜 보완 지점] 현행 플랜의 분리 신호 중 'tools/ 커밋이 콘텐츠 커밋을 지속 상회'는 churn 신호일 뿐 co-change 신호가 아니다. change coupling 실증 기준으로는, tools가 아무리 자주 바뀌어도 schema·콘텐츠와 같은 커밋에서 함께 바뀐다면 CCP가 여전히 동거를 지지한다. 올바른 실측 신호는 'tools 커밋 중 schema/콘텐츠와 무관하게 단독으로 바뀌는 비율'이며, 이는 git log로 직접 계측 가능하다.
+     src: https://codescene.com/blog/change-coupling-visualize-the-cost-of-change (접근 2026-08-08)
+--- UNRESOLVED ---
+ - Yourdon & Constantine 'Structured Design'(1979) 원문에서 logical cohesion의 정의·순위를 축자 확인하지 못함 — archive.org 전문에 접근했으나 해당 절 추출 실패, Wikipedia 등 2차 소스의 원전 인용에 의존
+ - ThoughtWorks Tech Radar에 package-by-feature/vertical-slice-architecture 자체가 blip으로 등재됐는지 확인 실패 (Inverse Conway Maneuver 등재는 확인) — 과제 지문의 'Tech Radar' 근거 후보 중 이 부분은 미검증
+ - 1인 프로젝트에서 저장소 경계 추가 비용을 정량 측정한 연구는 찾지 못함 — 소규모 팀(3인 미만) 대상 모노레포/폴리레포 가이드의 일반론에서 유추한 것이며 벤더 콘텐츠(Nx 등) 비중이 있음
+ - Simon Brown의 원 글(codingthearchitecture.com 2015)은 simonbrown.je로 리다이렉트되어 원문 URL 사멸 — 동일 내용을 simonbrown.je/modular-monolith/에서 확인
+--- VERDICTS ---
+  [CONFIRMED] Simon Brown이 package by layer를 기각하고 package by component를 권고하며, 컴파일러 강제·수직 묶음을 명시했고 Clean Architecture 게스트 챕터로 수록됨
+       note: 원문에서 세 인용 모두 축자 확인: 'the goal of bundling all of the responsibilities related to a single coarse-grained component into a single Java package', 'we can rely on the compiler to enforce this architectural principle', OrdersController가 OrdersService를 우회해 OrdersRepository를 직접 주입받는 위반 시연. 페이지 자체에 'A version of this was also published as "The missing chapter" in Clean Architecture' 명시. 단 '커뮤니티 정리의 우세안'이
+  [CONFIRMED] Screaming Architecture(2011-09-30): 최상위 디렉토리 구조는 도메인을 외쳐야 하고 프레임워크를 외치면 안 된다
+       note: 게시일 2011-09-30 확인. 세 인용 모두 축자 일치: 'When you look at the top level directory structure... do they scream: Health Care System, or Accounting System...', 'Architectures are not (or should not) be about frameworks', 'Frameworks are tools to be used, not architectures to be conformed to'. 다만 원문은 도메인 vs 프레임워크 대비이며, '도구 vs 데이터 종류별 분할이 이와 정면 충돌'한다는 부분은 원문에 없는 적용 해석임(정합적이긴 함).
+  [CONFIRMED] CCP(Clean Architecture 13장): 같은 이유·같은 시점에 바뀌는 클래스를 한 컴포넌트에 모으고 다른 것은 분리하라 — SRP의 컴포넌트 수준 재정식화
+       note: 13장 요약 복수 소스에서 확인. 실제 원문은 'Gather into components those classes that change for the same reasons and at the same times. Separate into different components those classes that change at different times and for different reasons'로, claim의 인용은 어순이 다른 경미한 패러프레이즈(실질 동일). SRP의 컴포넌트 재정식화라는 서술도 확인. '스키마 마이그레이션 동일 커밋 = CCP 교과서적 적용'은 원리와 정합하는 적용 판단이며 원전이 직접 말한 바는 아님.
+  [CONFIRMED] Constantine/Yourdon cohesion 위계에서 logical cohesion은 coincidental 바로 위 하위 2등급이며, '종류가 같아서 묶음'이 그 정의
+       note: Wikipedia에서 위계 순서(coincidental < logical < temporal < procedural < communicational < sequential < functional) 정확히 일치. logical cohesion 정의 'grouped because they are logically categorized to do the same thing even though they are different by nature' 확인. 기원(Stevens/Myers/Constantine 1974, Yourdon & Constantine 1979)과 Constantine·Yourdon·McConnell이 하위 2개를 열등 등급으로 지목했다는 서술도 문서에 있음. 단 1974 원저 직접 대조는 아니
+  [UNCERTAIN] Fowler의 BoundedContext: 각 컨텍스트가 통일된 모델과 함께 자기 스키마·구현 인프라를 소유한다고 명시
+       note: 절반만 확인. 'DDD divides up a large system into Bounded Contexts, each of which can have a unified model'은 축자 확인(Fowler, 2014-01-15). 그러나 해당 bliki는 데이터베이스·스키마·persistence·구현 인프라 소유를 언급하지 않음 — 개념 모델과 언어(Ubiquitous Language)·인간 문화 경계만 다룸. '컨텍스트별 표현 인프라 소유를 명시', '자체 persistence store가 표준 해석'은 이 출처에 대한 과잉 귀속(그 해석은 마이크로서비스 문헌의 관행이지 인용된 글의 내용이 아님). 따라서 core/docs-mirror 도구 분리 논거로 이 글을 쓰려면 근거 문서를 바꾸거나 주장 강도를 
+  [CONFIRMED] Inverse Conway Maneuver: ThoughtWorks Tech Radar 등재, LeRoy & Simons Cutter IT Journal 2010-12 기원 — 1인 프로젝트에는 Conway 이득 없이 조정 비용만 발생
+       note: Radar 페이지에서 'evolving your team and organizational structure to promote your desired architecture' 축자 확인. 단 등재는 Trial ring, 2014-07/2015-01 에디션이며 현재 에디션에는 없음('등재'는 사실이나 역사적). Cutter IT Journal 2010-12, Jonny LeRoy & Matt Simons 기원은 Radar 페이지가 아니라 Fowler의 ConwaysLaw bliki에서 확인됨('The term "inverse Conway maneuver" was coined by Jonny LeRoy and Matt Simons...'). 1인 프로젝트 결론부는 인용 문헌이 직접 다루지 않는 추론이고 Nx 
+  [CONFIRMED] Tornhill/CodeScene: temporal coupling은 거리가 멀수록 악화되며, 경계를 가로지르는 co-change는 변경 비용을 키운다
+       note: 인용문은 실재하나 위치가 다름. 'Temporal Coupling is like bad weather - it gets worse with the distance you have to travel'과 'it's a big difference if we need to modify two files located in the same package versus modifying files in different parts of the system'은 CodeScene 공식 문서(temporal-coupling 가이드)에서 축자 확인됨. 제시된 blog software-revolution-part3 페이지는 temporal coupling을 다루지만 이 문장들은 없음 — 출처 URL 교정 필요. 또한 '실증(마케
+  [CONFIRMED] REP '재사용의 단위는 릴리스의 단위' + tension diagram: 세 원칙 동시 만족 불가, 프로젝트는 CCP에서 시작해 성숙하며 REP로 이동
+       note: 'The granule of reuse is the granule of release'는 Clean Architecture 13장의 REP 정식 문구로 복수 독립 요약에서 확인. tension diagram(REP·CCP·CRP 삼각형, 각 변 = 반대 꼭짓점 원칙 포기 비용, REP·CCP는 포함적/CRP는 배제적)도 확인. 프로젝트 초기 CCP(개발 용이) → 성숙 시 REP(재사용) 이동도 13장 내용과 정합('as the project matures... moving more towards REP'). O'Reilly 원문은 구독 장벽으로 축자 대조는 2차 요약 경유이나 서로 독립인 소스들이 일치.
+  [CONFIRMED] Rule of Three(재사용): 3개 응용 검증 전에는 충분히 일반적이지 않고, 재사용 가능화 비용은 3배 — 소비자 1개 시점 선제 분리는 premature abstraction
+       note: 실질은 확인되나 인용 출처가 틀림. 제시된 Wikipedia 'Rule of three (computer programming)' 문서(wikitext 전문 확인)에는 재사용 3응용·3배 비용 내용이 전혀 없음 — 그 문서는 중복 코드 리팩터링 규칙(Don Roberts 기원, Fowler Refactoring으로 대중화)만 다룸. 실제 출처는 Robert Glass, Facts and Fallacies of Software Engineering의 Fact 18('two rules of three in reuse': 3배 어려움 + 'tried out in three different applications before it will be sufficiently general')로, Coding Horror
+  [CONFIRMED] churn 신호와 co-change 신호는 다르며, 올바른 분리 신호는 'tools 커밋 중 schema/콘텐츠와 무관하게 단독으로 바뀌는 비율' — git log로 실측 가능
+       note: 논증 구조는 유효하고 근거 정의의 실질도 확인되나, 제시된 축자 인용 'Two modules are considered coupled in time if they are modified in the same commit'은 해당 CodeScene 페이지에 없음 — 실제 문구는 'you have change coupling when certain files/functions/modules continuously co-evolve as part of the same commit sets'(Tornhill 저)이며 의미는 동일. 즉 change coupling = 동일 커밋 집합 내 공변이라는 정의는 확인되고, 이 정의상 '자주 바뀜(churn)'과 '함께 바뀜(co-change)'의 구분 및 git log 기반
+====================================================================================================
+KEY: colocation-practices
+--- SUMMARY ---
+판정: 실증은 현행 설계(응집도별 분리 — 각 데이터 레이어가 자기 글루 도구를 소유, 공유 엔진만 외부)를 지지한다. 조사한 6개 영역 전부에서 '데이터를 검증·변환하는 도구는 그 데이터 저장소 안에 산다'가 공식 기본 구조였다: dbt(models와 macros/tests/seeds 동거를 구조로 강제), Rails db/migrate·Django migrations('모델 변경+마이그레이션 = 단일 커밋' 명시)·Alembic(마이그레이션 환경을 앱 소스 트리에 유지), GitHub Actions(.github/workflows는 대상 저장소 내부), buf(buf.yaml lint·breaking 규칙을 스키마 저장소 루트에), Google 모노레포(atomic changes·large-scale refactoring이 동거의 1차 이점; 비용인 대규모 도구 투자는 개인 규모에서 소멸), Chromium(코드 결합 tools/는 in-tree). 동거의 공통 근거는 syntopicon PLAN의 조항과 동일한 '원자적 커밋'이다. 한편 사용자 제안(종류별 분리)은 허수아비가 아니다 — 같은 생태계들이 일관되게 '복수 소비자' 시점에 도구를 분리한다: dbt packages(복수 프로젝트 공유 macro), reusable workflows(복수 repo 중복), depot_tools(Chromium·ChromiumOS 공용이라 src 밖 독립 저장소). 즉 분리 기준은 '도구냐 데이터냐'(종류)가 아니라 '소비자가 하나냐 여럿이냐'(결합)이며, 사용자 제안은 (1) skills/tools/evals가 core와 docs-mirror 양쪽을 소비하게 되거나 (2) 도구-스키마 결합이 약해져 원자적 커밋 필요가 사라지거나 (3) tools 커밋이 콘텐츠를 지속 상회할 때 옳아진다 — 이는 이미 PLAN에 적힌 분리 발동 신호와 일치하므로, 지금 선제 분리할 것이 아니라 그 신호를 감시하다 성립 시 '수렴한 공용분만' 형제로 추출하는 것이 관행에 부합한다.
+--- FINDINGS ---
+[LB] dbt 공식 구조는 데이터 정의(models)와 도구·검증(macros, tests, seeds, snapshots, analyses)을 하나의 프로젝트/저장소에 동거시키는 것이 기본이며, dbt가 이 최상위 구조를 강제한다.
+     src: https://docs.getdbt.com/docs/build/projects (2026-08-08 접속 (현행 공식 문서))
+[LB] 단, dbt는 macro/model이 '복수 프로젝트에서 공유'될 때는 별도 저장소의 standalone package로 추출하라고 명시한다 — 추출 조건 = 복수 소비자.
+     src: https://docs.getdbt.com/docs/build/packages (2026-08-08 접속)
+[LB] Django는 마이그레이션(스키마 변경 도구 산출물)을 앱 코드베이스 안에 커밋·배포하도록 설계했고, 모델 변경과 마이그레이션을 '단일 커밋'으로 묶으라고 권고한다 — 원자적 커밋이 동거의 공식 근거.
+     src: https://docs.djangoproject.com/en/5.2/topics/migrations/ (Django 5.2 문서, 2026-08-08 접속)
+[LB] Rails 마이그레이션은 앱 저장소의 db/migrate/에 살며, Alembic도 마이그레이션 환경을 앱 소스 트리 안에 두고 앱 코드와 함께 유지하는 것이 공식 구조다.
+     src: https://alembic.sqlalchemy.org/en/latest/tutorial.html (2026-08-08 접속 (Rails: https://guides.rubyonrails.org/active_record_migrations.html))
+[LB] GitHub Actions는 CI 정의(도구)를 대상 저장소 안의 .github/workflows에 두는 것이 기본 구조이고, 복수 저장소에서 중복이 생길 때만 reusable workflow로 추출하는 패턴을 공식 권고한다.
+     src: https://docs.github.com/en/actions/writing-workflows/about-workflows (2026-08-08 접속 (재사용: https://docs.github.com/en/actions/using-workflows/reusing-workflows))
+[  ] buf는 lint·breaking-change 규칙(도구 설정)인 buf.yaml을 proto 스키마 파일들과 같은 저장소 루트에 두는 것을 공식 구조로 명시한다.
+     src: https://buf.build/docs/configuration/v2/buf-yaml/ (2026-08-08 접속)
+[LB] Google 모노레포(CACM 2016, Potvin & Levenberg)는 동거의 핵심 이점으로 atomic changes와 large-scale refactoring을 들고, 대가로 상당한 도구 투자(code indexing·자동 테스트·빌드 인프라)를 명시한다.
+     src: https://dl.acm.org/doi/10.1145/2854146 (CACM 2016-07 (교차확인: https://paper.lingyunyang.com/reading-notes/journal/communications-of-the-acm/2015/why-google-stores-billions-of-lines-of-code-in-a-single-repository, https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/))
+[LB] Chromium은 코드에 결합된 글루 도구(gn 헬퍼·grit·mb·clang 스크립트 등)를 저장소 안 tools/에 두지만, 복수 프로젝트(Chromium·ChromiumOS 등)가 공유하는 엔진급 도구 depot_tools는 별도 저장소로 외부화했다 — '글루 동거·엔진 외부'의 대규모 실례.
+     src: https://www.chromium.org/developers/how-tos/depottools/ (2026-08-08 접속 (tools/: https://github.com/chromium/chromium/tree/main/tools))
+[  ] 개인 지식 베이스 실무(Obsidian)에서도 vault(데이터)와 Templater user script·자동화 스크립트(도구)를 같은 저장소에 두는 것이 널리 관찰되는 관행이다. 단 이는 공식 규범이 아닌 커뮤니티 관행 수준의 증거다.
+     src: https://github.com/ykerus/obsidian-templates (2026-08-08 접속 (보조: https://github.com/mihaiconstantin/obsidian-templater-scripts))
+[  ] 반례 방향의 관행: Emacs/org-mode 사용자는 elisp 설정(에디터=엔진 구성)을 dotfiles 저장소에, org 노트(데이터)를 별도로 두는 경우가 많다 — 그러나 분리되는 것은 데이터 비결합 '엔진 구성'이지 데이터 검증 글루가 아니다.
+     src: https://github.com/pniedzielski/dotfiles-ng (2026-08-08 접속)
+[LB] 사용자 제안(도구 vs 데이터 종류별 분리)이 옳아지는 실증 조건: (1) 같은 도구가 core와 docs-mirror 둘 다를 소비하게 될 때(두 번째 소비자 — dbt packages·reusable workflows·depot_tools 3개 관행이 공통으로 명시하는 추출 조건), (2) 도구가 스키마와 결합이 약해져 schema+tools+content 원자적 커밋 필요가 사라질 때(Django single-commit 근거의 소멸), (3) tools 커밋이 콘텐츠 커밋을 지속 상회해 이력·diff 리뷰가 오염될 때, (4) 도구를 독립 버전으로 핀/배포하고 싶을 때(depot_tools 모델).
+     src: https://docs.getdbt.com/docs/build/packages (2026-08-08 종합)
+--- UNRESOLVED ---
+ - Google CACM 논문(10.1145/2854146) 원문이 403으로 직접 접근 불가 — advantages 목록·tooling 비용 문구는 research.google 초록 + 독립 요약 2곳(검색 스니펫, paper.lingyunyang.com)으로 교차 확인했으나 verbatim 인용은 1차 소스에서 직접 재확인 못함.
+ - Django '단일 커밋' 인용문의 정확한 섹션 위치(topics/migrations 내 Version control 절로 추정)는 fetch 요약 경유라 원문 대조 재확인 권장 — 'migrations 디렉토리가 codebase의 일부로 커밋·배포되도록 설계됐다'는 핵심 문장은 확실.
+ - org-mode/Obsidian 개인 실무는 공식 규범이 없어 커뮤니티 관행(공개 repo 관찰) 수준의 증거임 — 정량 조사(비율) 없음.
+ - docs-mirror의 pull 스크립트·검색 스킬이 core 도구와 실제로 수렴할지는 실측 전 — 두 번째 소비자 신호의 성립 여부는 수용 검증 단계에서 계측 필요.
+--- VERDICTS ---
+  [CONFIRMED] dbt 공식 구조는 models·macros·tests·seeds·snapshots·analyses를 한 프로젝트에 동거시키며 dbt가 최상위 구조를 강제한다
+       note: 인용문 "By design, dbt enforces the top-level structure of a dbt project such as the dbt_project.yml file, the models directory, the snapshots directory, and so on."이 현재 문서에 축자 그대로 존재. models·snapshots·seeds·data tests·macros·docs·analysis가 모두 한 프로젝트의 리소스로 열거됨을 직접 확인. 반박 근거 없음.
+  [CONFIRMED] dbt는 macro/model이 복수 프로젝트에서 공유될 때 standalone package로 추출하라고 명시 — 추출 조건 = 복수 소비자
+       note: "dbt packages are in fact standalone dbt projects, with models, macros, and other resources..."와 가장 흔한 용도로 "Sharing models/macros to share across multiple projects" 둘 다 축자 확인. 단 주의: 문서는 이를 '가장 흔한 use-case'로 기술할 뿐 '복수 소비자일 때만 분리하라'는 명령형 규정은 아님 — '명시한다'는 표현이 서술을 규정으로 약간 격상시킨 프레이밍.
+  [CONFIRMED] Django는 마이그레이션을 앱 코드베이스 안에 커밋·배포하도록 설계했고 모델 변경과 마이그레이션의 단일 커밋을 권고
+       note: 두 인용 모두 Django 5.2 공식 문서에 축자 존재: "designed to be committed to, and distributed as part of, its codebase" 및 "commit the migration and the models change to your version control system as a single commit - that way... they'll get both the changes to your models and the accompanying migration at the same time." 과장·왜곡 없음.
+  [CONFIRMED] Rails 마이그레이션은 db/migrate/에 살고, Alembic도 마이그레이션 환경을 앱 소스 트리 안에 두는 것이 공식 구조
+       note: Rails 가이드: "Migrations are stored as files in the db/migrate directory" 및 "evolve your database schema over time in a reproducible way" 확인. Alembic 튜토리얼: "this directory lives within your application's source tree"와 "The migration environment is created just once, and is then maintained along with the application's source code itself" 축자 확인.
+  [CONFIRMED] GitHub Actions는 CI 정의를 대상 저장소의 .github/workflows에 두는 것이 기본이고, 중복 발생 시 reusable workflow 추출을 공식 권고
+       note: "Workflows are defined in the .github/workflows directory in a repository."와 재사용 문서의 "avoid duplication when creating a workflow by reusing existing workflows", 크로스 저장소 호출 구문 {owner}/{repo}/.github/workflows/{filename}@{ref} 모두 확인. 주의: reusable workflow는 동일 저장소 내 재사용도 지원하므로 '복수 저장소 중복일 때만'이라는 배타 조건은 문서의 표현이 아니라 해석임.
+  [CONFIRMED] Google 모노레포 논문(CACM 2016)은 atomic changes·large-scale refactoring을 이점으로, 상당한 도구 투자를 비용으로 명시
+       note: ACM 원문 PDF는 여전히 403(claim의 자체 고지와 일치). 대신 논문 초록(Google Research/검색 결과 경유)에서 이점 목록 — unified versioning, extensive code sharing, simplified dependency management, atomic changes, large-scale refactoring, collaboration across teams, flexible code ownership, code visibility — 과 비용(도구 구축·확장 투자, unnecessary dependencies 등 codebase complexity)을 확인. 독립 독서노트(florian/reading-notes)도 동일 목록 재확인. 결론부 "The mon
+  [CONFIRMED] Chromium은 글루 도구를 저장소 안 tools/에 두고, 다중 프로젝트 공용 depot_tools는 별도 저장소로 외부화
+       note: chromium/src의 tools/에 grit·mb·json_schema_compiler·clang 디렉토리 실존을 googlesource 리스팅에서 직접 확인. depot_tools 문서의 인용문 "Chromium uses a package of scripts, the depot_tools, to manage interaction with the Chromium source code repository"와 독립 저장소 URL(chromium/tools/depot_tools.git), Chromium OS 개발자도 depot_tools를 쓴다는 언급(수동 git pull 안내) 모두 확인. '분리 기준 = 소비자 수'는 사실에서 도출한 해석이지만 사실관계 자체는 정확.
+  [CONFIRMED] 도구 분리가 옳아지는 조건 4종(두 번째 소비자·원자적 커밋 필요 소멸·이력 오염·독립 버전 핀)과 세 생태계의 추출 조건 수렴
+       note: 근거로 삼은 세 생태계의 사실관계(dbt packages=복수 프로젝트 공유, GitHub reusable workflows=중복 회피, depot_tools=다중 프로젝트 공용만 외부화)는 전부 1차 소스에서 확인됐고, Django single-commit 근거(조건 2)도 축자 확인됨. 다만 이 claim은 사실 진술이 아니라 종합 추론임: 조건 3(tools 커밋의 이력 오염)과 조건 4는 인용 문서 어디에도 직접 근거가 없는 자체 논증이고, dbt·GitHub 문서는 '~일 때만 분리'라는 배타 조건을 쓰지 않는다. 검증 가능한 부분은 모두 사실이며 추론부는 근거와 정합적이나, 추론임을 구분해 읽어야 함. syntopicon 현재 상태(소비자 1개 등)는 웹 검증 범위 밖.
+====================================================================================================
+KEY: separation-conditions
+--- SUMMARY ---
+판정: 현행 설계(응집도별 분리)가 실증 우세이며, 사용자 제안(종류별 분리: 도구 vs 데이터)은 '도구라는 종류' 자체를 분리 축으로 지지하는 실증이 문헌에 존재하지 않는다. 사용자가 분리의 모범으로 삼을 법한 pre-commit·GitHub reusable workflows조차 분리 근거는 종류가 아니라 (1) 복수 소비자의 중복 제거였고("sharing our pre-commit hooks across projects is painful" / "avoid duplication"), pre-commit은 저장소에 결합된 스크립트는 repo: local로 동거하라고 스스로 권고한다 — syntopicon의 tools/는 정확히 이 '결합된 글루'다. 반대 방향의 실증은 두껍다: 스키마와 검증기를 소비자 밖에 두면 version skew·수동 조정으로 퇴화하고(Buf), Google은 원자적 변경과 One-Version Rule로 이를 구조적으로 봉쇄했으며(CACM 2016·SWE at Google ch.16), Notion은 스키마+검증기 동거 덕에 커밋 시점 호환성 게이트를 만들었고, 1인 규모에서는 조기 분리가 조정 비용으로 붕괴한 실무 보고가 반복된다(Losoviz 200-repo → 모노레포 회귀). 분리하면 rev 핀+주간 autoupdate+semver 릴리스 관리라는 상시 비용이 소비자·생산자 양쪽에 생기고(pre-commit.ci의 존재 이유), 스키마 마이그레이션은 원자적 커밋에서 2-PR 조정+호환성 윈도우로 격하된다. 사용자 제안이 이기는 조건(실증 도출): (a) 소비자 수 ≥2 실현 — docs-mirror가 core의 tools를 실제 import하기 시작하면 Rule of Three 경로에 진입하며, 이때는 pre-commit 모델(도구 형제 repo + 소비자 측 rev 핀)이 옳다. 현행 PLAN의 '두 번째 소비자' 발동 신호가 정확히 이 임계다. (b) 독립 라이프사이클 — tools가 KB 콘텐츠와 무관한 자체 릴리스 케이던스·자체 배포(다른 머신, 타인)를 요구할 때. (c) 신뢰·가시성 경계 — 예컨대 tools/스킬을 오픈소스로 공개하되 KB 콘텐츠는 사설로 남길 때(SWE at Google의 유일한 정당 분리 조건이자 Losoviz가 실제 분리한 시점). 결정적 변수의 서열은 실증상 신뢰 경계 > 소비자 수 > 독립 배포 필요이고, '변경 빈도 비율'(tools 커밋이 콘텐츠 커밋 상회)은 정량 실증을 찾지 못해 선행 지표 정도로만 취급해야 한다. 주의할 뉘앙스: 사용자 제안이 '우산 아래 형제 디렉토리(단일 git)'를 뜻한다면 원자적 커밋은 보존되므로 논쟁은 디렉토리 미학 수준으로 축소되지만, '별도 git repo'를 뜻한다면 스키마 마이그레이션의 원자성(content+schema+validate 동일 커밋)을 즉시 상실한다 — 이것이 현행 조항의 핵심 방어선이다.
+--- FINDINGS ---
+[LB] pre-commit이 훅을 별도 저장소로 분리한 근거는 '도구라서'가 아니라 복수 소비자였다 — 공식 문서: "As we created more libraries and projects we recognized that sharing our pre-commit hooks across projects is painful. We copied and pasted unwieldy bash scripts from project to project." 즉 분리는 이미 N개 프로젝트가 같은 훅을 복붙하던 고통에 대한 사후 대응이고, 부수 근거는 언어 격리(Ruby 린터를 node 프로젝트에서 Gemfile 없이 쓰기)다.
+     src: https://pre-commit.com/ (2026 (현행 문서))
+[LB] 분리의 원조인 pre-commit 스스로가 저장소에 결합된 스크립트는 동거하라고 권고한다 — repo: local 훅이 유용한 경우: "The scripts are tightly coupled to the repository and it makes sense to distribute the hook scripts with the repository. Hooks require state that is only present in a built artifact of your repository." syntopicon의 tools/(validate·reindex)는 정확히 이 조건(스키마에 결합, KB 상태 필요)에 해당한다.
+     src: https://pre-commit.com/ (2026 (현행 문서))
+[LB] 도구를 분리하면 소비자 쪽에 상시 버전 관리 비용이 생긴다: pre-commit은 rev를 불변 참조(tag/SHA)로 핀해야 하고("Using a branch name (or HEAD) for the value of rev is not supported"), 핀을 최신으로 유지하는 일이 상시 작업이라 전용 서비스 pre-commit.ci가 주간(월요일 16:00 UTC) autoupdate PR을 자동 발행하는 것으로 존재 이유를 삼는다.
+     src: https://pre-commit.ci/ (2026 (현행 문서))
+[LB] GitHub reusable workflows의 공식 추출 근거는 오직 중복 제거("avoid duplication when creating a workflow by reusing existing workflows")이며, 추출 후에는 보안상 SHA 핀("Using the commit SHA is the safest option for stability and security")과 릴리스 관리(semver 태그 발행 + v1/v1.1 이동 태그를 최신 커밋으로 계속 옮기기)가 도구 저장소 쪽의 지속 부담으로 명시된다.
+     src: https://docs.github.com/en/actions/sharing-automations/reusing-workflows (2026 (현행 문서))
+[LB] Google(SWE at Google 16장)의 One-Version Rule: "Developers must never have a choice of 'What version of this component should I depend upon?'" — 버전 선택을 허용하는 순간 diamond dependency·mismatched linking·lost work가 생긴다. 동시에 이 책은 분리가 정당한 유일 조건도 명시한다: "different sets of authorized developers, visibility, permissions" — 즉 비밀·법무·프라이버시·권한 경계가 다를 때만 저장소를 나눈다("if every project in your organization has the same secrecy, legal, privacy, and security requirements, a true monorepo is a fine way to go").
+     src: https://abseil.io/resources/swe-book/html/ch16.html (2020 (서적, 온라인 공개판))
+[LB] Google CACM 2016 논문(Potvin & Levenberg)의 원자적 변경 논거: 모노레포에서는 "atomic changes can be applied to many parts of the codebase at the same time"이고 대규모 리팩토링이 단순해지며, 멀티레포의 diamond dependency 문제가 제거된다. 규모: 10억 파일·20억 LOC·86TB·3,500만 커밋. 단 비용도 명시: 대규모 툴링 투자, 코드베이스 복잡화, code health에 추가 노력.
+     src: https://dl.acm.org/doi/10.1145/2854146 (2016-07)
+[LB] 스키마를 소비자와 다른 저장소에서 공유하는 방식의 실패는 업계에서 반복 보고된다 — Buf: "Protobuf does not have a native way to share dependencies, and teams feel that their only option is to copy/paste (vendor) these schemas manually"(복제 드리프트), 그리고 파괴적 변경 방지가 "code review and communication"이라는 인간 조정에만 의존하게 된다. Buf Schema Registry라는 제품 카테고리 자체가 이 실패의 실증이다.
+     src: https://buf.build/blog/why-a-protobuf-schema-registry (미상 (Buf 블로그))
+[LB] Notion은 스키마(~1,300 API 엔드포인트, ~296 큐 태스크 타입)와 그 호환성 검증기를 같은 저장소에 두고, CI가 base 브랜치의 구 스키마와 PR의 신 타입을 TypeScript assignability로 비교해 파괴적 변경을 커밋 전에 잡는다. 스키마와 검증기가 같은 repo·같은 PR에 있어야만 이 게이트가 성립한다 — 검증 기준: "A schema change is backward compatible if and only if new code can handle old data."
+     src: https://www.notion.com/blog/how-notion-catches-breaking-schema-changes (2025-2026 추정 (Notion 블로그))
+[  ] 분리 후 재연결 수단인 git submodule의 고통은 광범위하게 문서화되어 있다: 브랜치 전환 시 잔류 파일, worktree 미지원("support for submodules is incomplete" — Git 공식 문서), 부모보다 먼저 push해야 하는 순서 규율, bad reference 커밋, 서브모듈 코드가 의도치 않은 public API가 되어 소비자를 모른 채 파괴적 변경이 어려워지는 문제, diamond 중복. 저자가 허용하는 예외는 '편집하지 않을 서드파티 코드 수입'뿐이다.
+     src: https://blog.timhutt.co.uk/against-submodules/ (2023-2025 (블로그))
+[LB] 1인 프로젝트 스케일의 실증(Leonardo Losoviz, CSS-Tricks): 패키지를 200+개 repo로 나눴다가 PR마다 전 패키지의 composer.json을 개발 브랜치로 맞추는 조정 비용에 눌려 버전 관리를 포기(dev-master 고정)했고, 모노레포 전환 후 "all packages can be published with the same version... This makes pull requests very simple"로 회복했다. 그가 다시 분리한 유일한 시점은 유료 PRO 코드를 사설 repo에 둬야 하는 신뢰/가시성 경계가 생겼을 때다.
+     src: https://css-tricks.com/from-a-single-repo-to-multi-repos-to-monorepo-to-multi-monorepo/ (2021-08)
+[LB] 실무자 판정 기준(alexsergey, dev.to): "working alone, or with a small team, and the product is evolving quickly without strict requirements for backward compatibility"면 모노레포가 오버헤드를 제거하며, 분리 조건은 "as soon as multiple teams are involved, or different parts of the system need independent lifecycles"다 — 즉 결정 변수는 팀 수와 독립 라이프사이클이지 도구/데이터 종류가 아니다.
+     src: https://dev.to/alexsergey/monorepo-vs-multirepo-how-i-changed-my-mind-after-working-on-real-projects-2o97 (2024-2025 (dev.to))
+[LB] 재사용(=분리) 임계의 고전 실증 — Robert Glass, Facts and Fallacies of Software Engineering(Atwood 인용): "It is three times as difficult to build reusable components as single use components", "a reusable component should be tried out in three different applications before it will be sufficiently general." 소비자 1개짜리 도구를 범용 도구처럼 분리하면 3배 비용만 내고 일반성 검증은 못 받는다.
+     src: https://blog.codinghorror.com/rule-of-three/ (2013-07)
+[  ] Dan Luu의 멀티레포 비판: "With a monorepo, you just refactor the API and all of its callers in one commit" vs 멀티레포에서는 "making cross-repo changes is painful". 단 그는 "Monorepos aren't strictly superior to manyrepos"라고 명시해 균형을 유지한다.
+     src: https://danluu.com/monorepo/ (2015 (danluu.com))
+--- UNRESOLVED ---
+ - CACM 2016 원문 직접 열람 실패(cacm.acm.org 403) — 수치(10억 파일·20억 LOC·86TB)는 research.google 초록과 2차 노트로 교차 검증했으나 일일 커밋 수 등 세부 수치는 원문 미확인
+ - 'tools 커밋이 콘텐츠 커밋을 지속 상회하면 분리'라는 변경 빈도 비율 임계에 대한 정량 실증은 발견 못함 — 문헌이 지지하는 축은 소비자 수·독립 라이프사이클·신뢰 경계뿐이며, 커밋 비율 기준은 실증 공백으로 남는다
+ - 스키마와 검증기를 서로 다른 저장소에 둔 것이 원인으로 명시된 단일 postmortem(사고 보고서) 문서는 찾지 못함 — Buf(업계 일반화)·Notion(예방 사례)·SWE at Google(diamond dependency)로 수렴 근사
+ - pre-commit 훅 저장소 유지관리의 정량 비용(예: 소비자당 연간 autoupdate PR 수)은 공식 수치 미공개 — 주간 스케줄 존재만 확인
+--- VERDICTS ---
+  [CONFIRMED] pre-commit 분리 근거는 복수 소비자(복붙 고통)+언어 격리이며 공식 문서가 직접 진술
+       note: 인용문 축자 일치 확인 — 원문은 뒤에 "and had to manually change the hooks to work for different project structures"가 이어져 오히려 claim을 강화한다. 언어 격리 사례(scss-lint를 node 프로젝트에서 Gemfile 없이)도 원문 그대로 존재. 분리 트리거가 '복수 프로젝트 공유의 고통'이라는 해석은 원문이 직접 뒷받침한다.
+  [CONFIRMED] pre-commit 스스로 repo: local 훅으로 '저장소에 결합된 스크립트는 동거하라' 권고
+       note: 두 인용문 모두 'Repository local hooks' 섹션에서 축자 확인(둘째 문장은 원문에 "such as your app's virtualenv for pylint" 예시가 붙음). 단 'syntopicon tools/가 이 조건에 해당한다'는 후반부는 소스 검증 대상이 아닌 프로젝트 자체 해석이다 — 소스 인용 자체는 정확.
+  [CONFIRMED] 분리 시 소비자 쪽 상시 버전 관리 비용 — rev 불변 핀 강제, pre-commit.ci가 주간(월 16:00 UTC) autoupdate PR 발행
+       note: "Using a branch name (or HEAD) for the value of rev is not supported" 축자 확인, pre-commit.ci 원문 "this autoupdate is currently scheduled weekly at approximately 16:00 UTC Monday" 확인. 한 가지 과장: autoupdate를 '존재 이유'라 한 부분 — pre-commit.ci의 주 기능은 CI 훅 실행+자동 수정이고 autoupdate는 그중 한 기능이다. 다만 '핀 갱신 자동화 서비스가 존재한다=유지비 실증'이라는 논지 자체는 유효.
+  [CONFIRMED] GitHub reusable workflows의 추출 근거는 중복 제거이며, SHA 핀과 semver+이동 태그 유지가 지속 부담으로 명시
+       note: reusing-workflows에서 "avoid duplication when creating a workflow by reusing existing workflows"와 "Using the commit SHA is the safest option for stability and security" 축자 확인. semver 태그(v1.1.3 예시)와 "keeping major (v1) and minor (v1.1) tags current to the latest appropriate commit"는 두 번째 문서(releasing-and-maintaining-actions)에서 축자 확인 — claim이 밝힌 대로 2문서 분산 근거다. 미세 주의: 후자는 actions 일반 릴리스 문서이지 reusable w
+  [CONFIRMED] SWE at Google 16장의 One-Version Rule과 분리 정당 조건(비밀·법무·프라이버시·권한 경계)
+       note: 세 인용 모두 축자 확인: "Developers must never have a choice of...", manyrepo 장점으로서의 "different sets of authorized developers, visibility, permissions, and so on", 그리고 "if every project in your organization has the same secrecy, legal, privacy, and security requirements, a true monorepo is a fine way to go". diamond dependencies·lost work도 위반 결과로 명시됨. '유일 조건'이라는 표현은 약간의 해석이지만 원문이 secrecy/legal/privacy/secu
+  [CONFIRMED] Google CACM 2016의 원자적 변경 논거·규모(10억 파일·20억 LOC·86TB·3,500만 커밋)·비용 명시
+       note: CACM/dl.acm.org 직접 접근은 지금도 403 — claim의 자기 보고와 일치. 수치 4종은 florian/reading-notes와 paper.lingyunyang.com 두 독립 노트에서 교차 확인(86TB는 'excluding release branches' 단서). 원자적 변경, diamond dependency 제거('There is no diamond dependency problem'), 비용 3종(툴링 투자·코드베이스 복잡화·code health 추가 노력) 모두 양쪽 노트에서 확인. 단 "atomic changes can be applied to many parts of the codebase at the same time"는 노트의 문구로, 논문 지면 축자 여부는 미확인 — cl
+  [CONFIRMED] Buf: 스키마 저장소 간 공유는 복붙(vendor) 드리프트와 인간 조정(code review and communication) 의존으로 퇴화
+       note: 두 인용 모두 축자 확인: "Protobuf does not have a native way to share dependencies, and teams feel that their only option is to copy/paste (vendor) these schemas manually" 및 "Teams must rely on code review and communication to avoid accidentally breaking production clients...". 주의점: 벤더 자사 제품 판매용 문서이므로 문제를 부풀릴 유인은 있으나, claim이 '벤더가 직접 문서화'라고 출처 성격을 명시했으므로 왜곡 없음.
+  [CONFIRMED] Notion: 스키마(~1,300 엔드포인트·~296 태스크 타입)와 호환성 검증기를 같은 repo에 두고 TypeScript assignability로 파괴적 변경을 PR 게이트에서 차단
+       note: 수치 축자 확인("~1,300 API endpoints and ~296 queue task types"), 메커니즘 확인(base 브랜치 구 스키마 추출→PR 신 타입 로드→TS 컴파일러 API assignability 검사), 정의 축자 확인("A schema change is backward compatible if and only if new code can handle old data."). 동일 repo 여부는 allAPIs.ts/allTasks.ts 등록 구조로 뒷받침됨. 미세 부정확: '커밋 전에'보다는 'merge 전 PR CI에서'가 정확하다.
+  [CONFIRMED] Losoviz(CSS-Tricks): 200+ 패키지 멀티레포에서 dev-master 고정으로 버전 관리 포기 → 모노레포 회복 → PRO 사설 repo 필요 시에만 재분리
+       note: 네 요소 모두 원문 확인: "over 200 PHP packages", composer.json을 매 PR마다 dev 브랜치로 맞추는 부담("cumbersome and bureaucratic")과 "simply pointed every package to the dev-master version...(I was not versioning packages)", 모노레포 후 "all packages can be published with the same version... This makes pull requests very simple", PRO 유료 코드의 사설 repo 필요가 multi-monorepo 전환의 동인. 미세 주의: 원문 표현은 '200+ 패키지'이며 '200+ repo'는 멀티레포 단계 문맥
+  [CONFIRMED] 실무자 판정 기준: 결정 변수는 팀 수·독립 라이프사이클(alexsergey), Dan Luu의 멀티레포 의존성 버저닝 부담과 정합
+       note: 두 인용 모두 축자 확인: "If I'm working alone, or with a small team, and the product is evolving quickly without strict requirements for backward compatibility, I would still choose a monorepo" 및 "as soon as multiple teams are involved, or different parts of the system need independent lifecycles, I would split things...". danluu.com 원문도 확인: "you need to have some way of specifying and versioning dependenc
+  [CONFIRMED] Glass의 Rule of Three: 재사용 컴포넌트는 3배 비용, 3개 애플리케이션 검증 필요(Atwood 인용)
+       note: Coding Horror 원문에서 두 인용 모두 Glass의 fact #18 블록 인용으로 축자 확인(둘째 인용의 원문 완전형은 "...sufficiently general to accept into a reuse library"). '소비자 1개짜리 도구 분리는 3배 비용만 내고 일반성 검증은 못 받는다'는 추론과 PLAN 조항 정합성은 소스 밖의 적용 논리이지만, 인용 자체는 정확하고 추론도 원문 취지에서 벗어나지 않는다.
+====================================================================================================
+KEY: agent-skills-placement
+--- SUMMARY ---
+판정: 현행 설계(응집도별 분리 — 각 데이터 레이어가 자기 글루(tools·skills·evals)를 소유, 공유 엔진만 외부 설치·버전 핀)가 생태계 실증과 일치한다. 근거의 축은 4개. (1) Claude Code 공식 모델 자체가 종류가 아닌 scope 기반이다: project 스킬은 'This project only', 모노레포 패키지별 nested .claude/skills를 공식 지원하고, cloud/routine 세션은 클론된 repo에 커밋된 스킬만 로드하므로 스킬을 데이터 repo 밖으로 빼면 원격 실행에서 스킬이 사라지는 실측 비용이 있다. (2) 사용자가 선례로 볼 만한 dbt-agent-skills는 '도구 분리'가 아니라 '벤더가 30+ 에이전트 플랫폼이라는 불특정 다수 소비자에게 배포하는 제품' 사례다 — 그리고 그 벤더 스스로 '프로젝트 특화 스킬은 네 프로젝트 안에 추가하라'고 권장하며, dbt-core discussion에서도 실무자들이 'skills should live in repositories, versioned with code / user-level 설치는 복잡성만 추가'라고 증언한다. (3) MCP도 동일 패턴: 프로젝트 결합 서버·설정은 repo에 커밋(VS Code 공식 권장), 범용 서버만 단독 repo·패키지. (4) 단독 스킬 repo(anthropics/skills, dbt-agent-skills)의 공통 특징은 특정 데이터 무결합 + 마켓플레이스 배포 목적 — PLAN의 '두 번째 소비자' 분리 발동 신호와 정확히 같은 조건이다. 다만 사용자 제안이 이기는 조건도 실재한다: (a) 같은 스킬 집합을 core와 docs-mirror 둘 다(또는 제3 프로젝트)가 소비하게 될 때 — 이때 실무 패턴은 중앙 registry + submodule/symlink이고 Claude Code는 스킬 symlink와 --add-dir 로드를 공식 지원한다; (b) 도구가 데이터와 독립된 릴리스 주기·버전 핀을 갖는 배포물이 될 때(dbt deps식 패키지형 스킬); (c) 절충형으로, 세션을 항상 우산 루트에서 시작한다면 '우산 루트 .claude/skills = 크로스 레이어 오케스트레이션 스킬만, 각 레이어는 자기 글루 유지'라는 하이브리드가 nested-skills 공식 기능으로 성립한다. 결론적으로 사용자 제안은 '지금 틀렸다'기보다 'PLAN에 이미 적힌 분리 발동 신호(두 번째 소비자·tools 커밋 상회)가 켜지기 전에 선제 실행하는 것'이며, 그 신호 전 선제 분리를 지지하는 실증은 찾지 못했다. docs-mirror가 자체 검색 스킬을 갖게 되어 두 레이어가 스킬을 '각자' 갖는 것은 분리 신호가 아니고(각자 자기 데이터에 결합), 한 스킬이 두 레이어를 '함께' 다루기 시작하는 순간이 신호다.
+--- FINDINGS ---
+[LB] Claude Code 공식 문서는 스킬 배치를 '종류(도구냐 아니냐)'가 아니라 '적용 범위(scope)'로 구분한다: Personal(~/.claude/skills)= 'All your projects', Project(.claude/skills)= 'This project only'. 즉 특정 저장소의 데이터·워크플로에 결합된 스킬은 그 저장소 안에 두는 것이 공식 모델이다.
+     src: https://code.claude.com/docs/en/skills (2026-08 (라이브 문서))
+[LB] Cloud/Cowork 세션은 클론된 저장소의 .claude/skills/에 커밋된 project 스킬만 로드한다. 스킬을 데이터 repo 밖 형제 디렉토리로 빼면, 그 데이터 repo만 클론되는 원격 세션(routines 포함)에서 스킬이 로드되지 않는다 — 도구·데이터 분리의 실측 비용.
+     src: https://code.claude.com/docs/en/skills (2026-08 (라이브 문서))
+[LB] 형제 디렉토리 배치를 가능하게 하는 공식 메커니즘이 두 개 존재한다: (1) 스킬 엔트리는 symlink여도 되고 같은 타깃이 중복 로드되지 않으며, (2) --add-dir/​/add-dir로 추가한 디렉토리의 .claude/skills/는 자동 로드된다(단 settings.json의 additionalDirectories는 스킬을 로드하지 않음). 즉 사용자 제안(도구 형제 디렉토리)은 기술적으로 가능하지만 매 세션 --add-dir을 넘기거나 symlink 글루를 유지해야 하는 운영 비용이 붙는다.
+     src: https://code.claude.com/docs/en/skills (2026-08 (라이브 문서))
+[LB] dbt-labs/dbt-agent-skills가 별도 저장소인 것은 '도구를 데이터에서 분리한' 선례가 아니라 '벤더가 불특정 다수 소비자에게 배포하는 제품' 사례다. 소비자가 Claude Code·Codex·Cursor·Factory·Kilo Code 등 복수 에이전트 플랫폼이고, 설치도 소비자 프로젝트 안으로 들어간다(/plugin install, npx skills add, tessl install). 즉 PLAN의 '두 번째 소비자' 분리 발동 신호와 정확히 같은 조건에서만 단독 repo가 된다.
+     src: https://github.com/dbt-labs/dbt-agent-skills ()
+[LB] dbt 자신이 스킬을 3층으로 나눈다: coding agent(기반) → dbt best-practice skills(generic, 벤더 별도 repo) → project skills(조직 특화, 사용자 프로젝트 안). 별도 repo로 배포하는 당사자조차 '프로젝트 특화 스킬은 네 프로젝트에 직접 추가하라'고 권장한다 — 현행 설계(공유 엔진만 외부, 결합 글루는 동거)와 동형.
+     src: https://docs.getdbt.com/blog/dbt-agent-skills ()
+[LB] dbt-core discussion #12521(native agent skills 제안)에서 커뮤니티 실무자들은 '스킬은 코드와 함께 저장소에 살고 코드와 함께 버전되어야 하며, user-level 설치는 고유 이점 없이 복잡성만 더한다'는 입장(@gwenwindflower)과, 스킬을 framework/convention/business-context 3층으로 나누는 층위론(@rstover-fo, 485-model 프로젝트)을 제시했다. 분리가 이기는 형태는 'dbt deps로 버전 핀해서 끌어오는 패키지형 스킬' — 즉 스킬이 다수 프로젝트가 소비하는 versioned dependency가 될 때다.
+     src: https://github.com/dbt-labs/dbt-core/discussions/12521 ()
+[  ] anthropics/skills 등 단독 스킬 저장소의 공통 특징은 '특정 데이터 결합 없음 + 불특정 다수에게 마켓플레이스/API로 배포'다. 데모·레퍼런스·범용 문서 처리(PDF/DOCX/PPTX/XLSX) 스킬이며, 배포 채널이 Claude Code plugin marketplace, claude.ai, Skills API 3종이다. 스킬이 단독 repo로 사는 조건 = 제품으로서의 배포 목적.
+     src: https://github.com/anthropics/skills ()
+[  ] MCP 서버 배치 관행도 동일하게 갈린다: 특정 프로젝트에 결합된 MCP 서버/설정은 repo 안에 커밋(.vscode/mcp.json을 소스 컨트롤에 포함해 팀과 공유하라는 VS Code 공식 권장, Roo Code의 프로젝트 레벨 .roo/mcp.json), 범용 MCP 서버는 단독 repo·패키지(modelcontextprotocol/servers 레퍼런스 모음, github/github-mcp-server, pip/uvx 배포). '데이터 결합이면 동거, 범용이면 단독'이 교차 생태계에서 재현된다.
+     src: https://code.visualstudio.com/docs/agent-customization/mcp-servers ()
+[LB] 크로스 저장소 스킬 공유의 실무 패턴은 '중앙 registry repo + git submodule 또는 symlink 또는 install script/npm 배포'이며, 이 패턴이 채택되는 규모는 소비 repo가 다수일 때다(100+ repo 조직, 멀티 클라이언트 에이전시, platform engineering 팀). 사용자 제안(도구 형제 디렉토리)이 이기는 실증 조건이 바로 이것: 한 스킬 집합을 core와 docs-mirror 둘 다(또는 그 이상)가 소비하게 되는 시점.
+     src: https://medium.com/data-science-collective/how-to-add-global-claude-skills-across-multiple-repositories-in-your-organization-fbb0ced551fd ()
+[  ] Anthropic 공식 skill authoring best practices는 스킬 번들 내부에 실행 스크립트를 동거시키는 구조를 표준으로 제시한다(pdf/scripts/analyze_form.py 처럼 SKILL.md 곁에 scripts/). 또한 'Build evaluations first' — evals는 스킬 개발의 소스 오브 트루스로, 스킬과 함께 반복 개선된다. 즉 스킬·스크립트·evals는 서로 결합된 한 덩어리(글루)로 취급되고, 이 덩어리가 특정 프로젝트용이면 그 프로젝트에 산다. tools·skills·evals를 데이터에서 떼어 '도구 레이어'로 묶으라는 권고는 공식 문서 어디에도 없다.
+     src: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices ()
+[LB] 우산 폴더 구조에서 사용자 제안의 절충형이 공식 기능으로 지원된다: 세션을 우산 루트에서 시작하면 루트 .claude/skills/(크로스 레이어 오케스트레이션 스킬)가 로드되고, core/·docs-mirror/ 하위의 nested .claude/skills/는 해당 디렉토리 파일을 만질 때 directory-qualified name(core:kb-ingest 식)으로 로드된다. 즉 '루트=두 저장소를 걸치는 스킬만, 각 레이어=자기 글루'가 공식적으로 성립하는 하이브리드다.
+     src: https://code.claude.com/docs/en/skills (2026-08 (라이브 문서))
+--- UNRESOLVED ---
+ - dbt Labs가 dbt-agent-skills를 dbt-core와 별도 repo로 둔 이유의 명시적 1차 진술은 찾지 못했다 — repo README·블로그 모두 이유를 직접 서술하지 않으며, '복수 에이전트 플랫폼 소비자 + 모델 릴리스보다 빠른 진화 속도'는 정황 근거다.
+ - dbt-core discussion #12521의 @gwenwindflower 인용("Skills should live in repositories, versioned with code")은 WebFetch 요약을 통해 확보한 것으로, 원문 스레드의 축자 문구는 재검증하지 못했다.
+ - 우산 폴더가 git repo가 아닐 때 Claude Code의 parent-directory 스킬 탐색이 어디서 멈추는지(문서 문구는 'up to the repository root') — 우산 루트 .claude/skills 하이브리드를 채택하려면 로컬에서 실측 필요.
+ - per-project MCP 서버 동거의 실무 근거로 삼으려던 Tao of Mac 글(taoofmac.com/space/blog/2025/10/04/1111)은 HTTP 403으로 원문 확인 실패 — 제목·검색 스니펫만 확보.
+ - Anthropic engineering 블로그(equipping-agents-for-the-real-world)는 스킬을 '데이터 곁에 두라/떼라'에 대한 명시 지침이 없음을 확인 — 부재 자체가 확인 사항.
+--- VERDICTS ---
+  [CONFIRMED] 공식 문서는 스킬 배치를 scope로 구분 (Personal='All your projects', Project='This project only') + nested skills로 모노레포 패키지 소유 배치 지원
+       note: 문서 전문을 라인 단위로 대조: 위치 표 'Personal | ~/.claude/skills/<skill-name>/SKILL.md | All your projects' / 'Project | .claude/skills/<skill-name>/SKILL.md | This project only' 축자 일치. nested 인용문 'Skills also load from nested .claude/skills/ directories below your working directory... This lets a monorepo package provide its own skills that apply when working on that package'도 축자 일치. '저장소 결합 스킬은 저장소 안에'는 표의 s
+  [CONFIRMED] Cloud/Cowork 세션은 클론된 repo의 .claude/skills/에 커밋된 project 스킬만 로드 — 형제 디렉토리 분리 시 원격 세션(routines)에서 스킬 미로드
+       note: 인용 3건 모두 축자 일치: 'Cloud sessions additionally load project skills committed to the cloned repository's .claude/skills/', 'If a skill exists only in ~/.claude/skills/... reports that the skill was not found when a routine invokes it, because each routine run starts as a fresh remote session', 'you can instead commit the skill to the repository's .claude/skills/'. 단 '만 로드'는 약간 과장 — cloud 세션은 claude.a
+  [CONFIRMED] 형제 디렉토리 배치의 공식 메커니즘 2개: symlink 엔트리(중복 로드 방지) + --add-dir//add-dir의 .claude/skills/ 자동 로드(additionalDirectories 설정은 제외)
+       note: 두 인용 모두 축자 일치: symlink는 'can be a symlink to a directory elsewhere on disk... if the same target is reachable from more than one location, Claude Code loads the skill once', add-dir 예외는 'skills are an exception: .claude/skills/ within an added directory is loaded automatically. This exception applies only to --add-dir and /add-dir. The permissions.additionalDirectories setting... grants file acces
+  [CONFIRMED] dbt-agent-skills 별도 repo는 '도구-데이터 분리' 선례가 아니라 '벤더의 불특정 다수 배포 제품' 사례 — 설치는 소비자 프로젝트 안, 분리 이유 명시 문구 없음
+       note: repo About 설명 축자 일치, 설치 3종(/plugin install dbt@dbt-agent-marketplace, npx skills add, tessl install) README에서 확인, 스킬 내용은 전부 generic dbt practice(특정 데이터셋 결합 없음), 분리 이유 명시 문구 부재도 확인. 단 소비자 플랫폼 목록은 부정확: README가 명시하는 것은 Claude Code·Cursor·Cline·GitHub Copilot(+Vercel CLI 경유 '30+ agents')이며 Codex·Factory·Kilo Code는 README에 없다(Codex는 discussion #12521 본문에 등장). 또 npx skills add에는 --global 옵션도 존재해 '프로젝트 안
+  [CONFIRMED] dbt 자신이 3층 구분(coding agent → dbt best-practice skills → project skills)하며 '프로젝트 특화 스킬은 네 프로젝트에 직접 추가하라'고 권장
+       note: 블로그에서 인용 전부 축자 확인: 'In addition to adopting our skills, you should add some of your own', 'You can add context about your company, your data, the specific ins and outs and nuances of interacting with your systems, and expect it to augment what we provide', 'More to come soon on how we might support org level skills within dbt projects'. 3층 피라미드(Coding Agent 기반 / dbt best practice skills 중간 / Proje
+  [CONFIRMED] discussion #12521: 커뮤니티가 '스킬은 repo에 살고 코드와 버전' 입장(@gwenwindflower)과 3층론(@rstover-fo, 485-model), maintainer의 dbt deps 버전 핀 스펙 제시
+       note: GitHub GraphQL API로 원문 직접 수집. @rstover-fo: framework/convention/business-context 3층론과 '~485 models, 10 source systems, energy domain' 축자 확인. @gwenwindflower: user-level 설치 반대('dbt managing skills outside of dbt projects... doesn't add unique advantage and does add complexity'), symlink 글로벌 스토어(pnpm식) 제안, 프로젝트 특화 스킬은 프로젝트 안에 직접 — 전부 실재. @dbeatty10 스펙의 git 'revision: git tag, branch name, or SHA' 핀도
+  [CONFIRMED] 크로스 repo 스킬 공유 실무 패턴 = 중앙 registry + submodule/symlink/install script/npm, 채택 규모 = 다수 소비 repo(100+ repo, 멀티 클라이언트, platform engineering)
+       note: 패턴과 규모 조건은 복수 소스로 확인: aayushostwal 글(제목부터 '100+ Repos', 중앙 org-claude-skills repo + Submodules/install scripts/NPM, 'Small teams→Git Submodules / Polyglot→install scripts / Platform engineering teams supporting hundreds of engineers→package managers' — Substack 미러에서 확인), MindStudio 멀티 클라이언트 가이드(중앙 registry + submodule 또는 symlink, 단일 소비자 선제 분리 권장 없음 명시적 확인). 단 두 가지 결함: (1) 'For a small team, start 
+  [CONFIRMED] 우산 루트 하이브리드가 공식 지원: 루트 .claude/skills/ + 하위 nested .claude/skills/가 파일 접근 시 directory-qualified name으로 로드
+       note: 인용 전부 축자 확인: 'Project skills load from .claude/skills/ in the directory where you start Claude Code and in every parent directory up to the repository root', nested는 'They load the first time Claude reads or edits a file inside that subdirectory, and stay available for the rest of the session', qualified name 'apps/web:deploy' 및 unqualified 호출 시 '해당 디렉토리의 variant도 invoke하라'는 지시 부착(v2.1.203+ 필요). 단
+====================================================================================================
+KEY: local-audit
+--- SUMMARY ---
+결론: '도구를 core·docs-mirror와 동급 형제로 분리'하는 제안은 (1) 코드 수준에서 저지선이 세 겹이고 (2) 분리로 얻을 공유 실체가 없다. 코드 저지선: tools/syntopicon/repo.py:15가 저장소 루트를 파일 위치 기준(parents[2])으로 결정하며 주석이 '분리 시엔 시점 사본'이라는 PLAN §4.5 정책을 명시적으로 인용해 env 우회를 기각한다; evals의 skill-sets.yaml은 .agents/skills를 루트 상대로 참조하고 PLAN:219는 바로 그 이유로 스킬 정본의 in-repo를 강제한다; tools/tests가 parents[2]로 skills·evals 규약까지 한 pytest 게이트로 묶는다. 공유 실체: docs-mirror PLAN이 계획한 tools(pull·변환·상태)와 core tools 15종(전부 schema/frontmatter 결합)의 교집합은 공집합이고, docs-mirror는 스키마·lint·백업·형태소를 명시적으로 배제한다(경계 계약 §5). 유일 접점 qmd는 외부 엔진이며 core의 qmd-setup도 layout.yaml 결합이라 그대로 재사용 불가. 커밋 비율은 tools 32 vs 콘텐츠(it/) 21로 상회 중이나 구축 단계의 예상 형태이고 PLAN의 발동 신호는 '지속 상회 또는 두 번째 소비자'다 — 형제 공유 저장소를 만드는 것은 그 신호를 인위 점화하는 역전이다. 참고: validate 커밋 게이트는 현재 git 훅이 아니라 절차적(.git/hooks에 sample만 존재)이며, CLAUDE.md의 '콘텐츠 0건'은 낡았다(it/ md 45개, ingest 커밋 진행 중). 분리하더라도 PLAN이 동결한 방식은 '형제 공유'가 아니라 '시점 사본 복사 후 비동기화'다.
+--- FINDINGS ---
+[LB] tools/의 모든 CLI(15개, 2,543 LoC)는 공유 패키지 tools/syntopicon/(16모듈, 약1,530 LoC)을 import하며, 저장소 루트는 repo.py가 '자기 파일 위치의 2단계 상위'로 하드 결정한다 — tools/가 물리적으로 <저장소>/tools/에 있어야만 동작한다.
+     src: file:///Users/angyojun/workspace/syntopicon/tools/syntopicon/repo.py (2026-08-06)
+[LB] PLAN 자체가 '글루(tools·스킬·evals) 동거'를 원자적 커밋을 근거로 규정하고, 분리 시나리오도 '공유'가 아니라 '시점 사본 복사 후 동기화 안 함'으로 동결해 놓았다 — 형제 디렉토리 공유 모델은 정본 계획과 정면 충돌한다.
+     src: file:///Users/angyojun/workspace/syntopicon/PLAN.md (2026-08-07)
+[LB] evals는 저장소 루트 상대 참조가 3중으로 걸려 있고, PLAN은 바로 이것 때문에 스킬 정본이 저장소 안에 있어야 한다고 명시한다 — 스킬·evals를 밖으로 빼면 이 사슬 전체가 끊어진다.
+     src: file:///Users/angyojun/workspace/syntopicon/evals/retrieval/runner.py (2026-08-07)
+[LB] 스킬 4종(kb-ingest/query/lint/new)의 본문은 `uv run tools/*.py` 형태의 루트-상대 호출을 약 34회 포함하고, cwd=저장소 루트를 전제한다. 배포는 ~/.claude/skills → .agents/skills 심링크 4개로 확인되며, repo.py는 resolve()로 이 심링크를 풀어 저장소 루트를 찾는다.
+     src: file:///Users/angyojun/workspace/syntopicon/.agents/skills/kb-ingest/SKILL.md (2026-08-07)
+[LB] tools/tests/는 tools만 검사하지 않는다 — test_skills.py와 test_evals_conventions.py가 parents[2]로 .agents/skills/와 evals/를 검사해, 세 레이어(tools·skills·evals)의 규약을 한 pytest 게이트로 묶고 있다. 분리 시 이 테스트들이 즉시 깨진다.
+     src: file:///Users/angyojun/workspace/syntopicon/tools/tests/test_skills.py (2026-08-06)
+[LB] pyproject.toml은 tools를 저장소의 파이썬 프로젝트로 직접 묶는다: Tier A 5종 == 핀(jsonschema·referencing·markdown-it-py·pyyaml·mdit-py-plugins), dependency-groups eval(ir-measures)·index(kiwipiepy), uv.lock이 실질 핀. `uv run tools/x.py`는 cwd 기준으로 프로젝트를 해석하므로 tools가 다른 저장소로 가면 핀·락·그룹이 함께 이주해야 하고 core 쪽 호출 관례(CLAUDE.md의 `uv run tools/<이름>.py`)가 전부 무효화된다.
+     src: file:///Users/angyojun/workspace/syntopicon/pyproject.toml (2026-08-05)
+[LB] validate '커밋 게이트'는 현재 git 훅으로 설치돼 있지 않다 — .git/hooks에는 .sample만 존재. 게이트는 절차적(스킬 본문이 커밋 전 validate 통과를 지시 + PLAN 규약)으로만 작동 중이다. 따라서 분리 시 기계적으로 끊길 훅은 없지만, PLAN이 예정한 pre-commit validate(PLAN:98, 293)는 분리 후 '콘텐츠 저장소에서 다른 저장소의 검증기를 부르는' 크로스-저장소 의존이 되고, 검증기-스키마 버전 스큐가 구조적으로 생긴다.
+     src: file:///Users/angyojun/workspace/syntopicon/PLAN.md (2026-08-07)
+[LB] 커밋 비율 실측: 전체 69커밋 중 tools/ 터치 32, 콘텐츠(it/) 21, schema/ 4, evals/ 6, .agents/ 9. tools가 콘텐츠를 상회하지만 이는 구축 단계의 예상된 형태이고, PLAN의 분리 발동 신호는 '지속 상회'와 '두 번째 소비자'다 — '지속'은 수용 검증(ingest 30–50건)이 진행돼야 판정 가능하며, 최근 5커밋 중 3건이 이미 콘텐츠(it/) 커밋으로 추세가 역전 중이다.
+     src: file:///Users/angyojun/workspace/syntopicon/.git (2026-08-08)
+[LB] 크로스 레이어 공유 가능한 도구는 현재 실재하지 않는다. core tools 15종은 전부 schema/frontmatter/citekey/KB 레이아웃에 결합된 것들이고, docs-mirror PLAN이 계획한 tools는 pull(git pull --ff-only)·변환·상태뿐이며 스키마·validate·lint·형태소·백업을 명시적으로 배제한다. 교집합 = 공집합. 유일한 조건부 접점은 qmd인데 그것은 외부 엔진이지 core의 tools가 아니며, core의 qmd-setup.py도 core layout.yaml에 결합돼 그대로는 재사용 불가다.
+     src: file:///Users/angyojun/workspace/docs-mirror/PLAN.md (2026-08-08)
+[LB] 분리 시 파손 전수(8건): ① repo.py ROOT가 tools 저장소를 가리켜 layout.yaml·derived.sqlite·stats.sqlite·KB 경로 전부 오해석 ② 스키마 마이그레이션의 content+schema+validate 동일 커밋 원자성 소멸(두 저장소로 쪼개짐) ③ evals skill-sets.yaml의 .agents/skills 루트 상대 경로 + runner.py 절대경로·cwd 가정 파손 ④ 스킬 SKILL.md의 uv run tools/* 루트 상대 호출 약 34곳 + ~/.claude/skills 심링크 4개 재지정 필요 ⑤ pytest 게이트(test_skills·test_evals_conventions의 parents[2]) 파손 ⑥ uv 프로젝트 해석(cwd 기반)·Tier A 핀·uv.lock 이관 문제 ⑦ 예정된 pre-commit validate가 크로스 저장소 의존화 + 검증기-스키마 버전 스큐 ⑧ CLAUDE.md·PLAN의 도구 호출 규약 전면 개정 필요.
+     src: file:///Users/angyojun/workspace/syntopicon/tools/syntopicon/repo.py (2026-08-08)
+[LB] docs-mirror 쪽에서도 형제 공유 모델이 자기 계획과 충돌한다: 유지비 0 수렴이 존재 이유인데 공유 tools 저장소는 core 스키마 변경마다 docs-mirror가 영향권에 들어가는 결합을 만들고, tools의 '두 번째 소비자' 발동 신호를 인위적으로 점화시키는 역전이 된다(신호는 유기적 수요를 재는 계기이지 구조로 만드는 목표가 아님).
+     src: file:///Users/angyojun/workspace/docs-mirror/PLAN.md (2026-08-08)
+[  ] tools/ 인벤토리 상세: CLI 15개 = validate(247)·lint(520)·reindex(47)·rename(134)·merge(153)·kb-new(185)·snapshot(93)·citekey(122)·edges(90)·ksearch(85)·verify(113)·affected(81)·backup(221)·qmd-setup(244)·retrieval_eval(208), 합 2,543 LoC. 공유 패키지 tools/syntopicon/ 16모듈(index_db 233·morph 203·mdfile 162·synth 128·rewrite 129·relocate 120 등). 테스트 17파일 약 1,930 LoC. retrieval_eval.py는 tools에 있으면서 SYNTOPICON_ROOT seam으로 합성 코퍼스에 도구를 돌리는 유일한 예외적 사용처(retrieval_eval.py:43).
+     src: file:///Users/angyojun/workspace/syntopicon/tools (2026-08-08)
+--- UNRESOLVED ---
+ - pre-commit 훅 미설치가 의도(절차적 게이트로 충분하다는 판단)인지 수용 검증 단계의 미완 항목인지 — PLAN:98·293은 pre-commit 실행을 언급하나 .git/hooks에 실물이 없다. 분리 논의와 별개로 확인 필요.
+ - CLAUDE.md의 '콘텐츠 0건' 기술이 실측(it/ md 45개, ingest 커밋 11건)과 불일치 — 갱신 필요 여부.
+ - docs-mirror가 1단계 게이트를 통과해 'qmd 별도 컬렉션'을 도입하는 미래 시점에는 qmd-setup.py의 툴체인 핀/복구 로직 일부를 일반화해 공유할 여지가 생길 수 있으나, 현재는 core layout.yaml 결합이라 가설에 그침 — 그 시점에 재평가할 사안.
+ - evals/retrieval/runner.py:12의 절대경로 하드코딩은 분리 여부와 무관하게 이식성 결함(다른 기기 복구 런북과 충돌 소지) — 별도 수정 후보.
+--- VERDICTS ---
+  [CONFIRMED] tools/의 모든 CLI(15개, 2,543 LoC)는 공유 패키지 tools/syntopicon/(16모듈, 약1,530 LoC)을 import하며, repo.py가 저장소 루트를 자기 파일 위치의 2단계 상위로 하드 결정한다
+       note: repo.py:15 `ROOT = Path(os.environ.get("SYNTOPICON_ROOT") or Path(__file__).resolve().parents[2])`와 9–14행 주석('SYNTOPICON_ROOT는 테스트 전용 seam… 덮어쓸 이유가 없다')을 축자 확인. CLI 15개·2,543 LoC 정확, 전 CLI가 syntopicon 패키지를 import(grep -L 공집합). 파생 앵커도 실측 일치: layout.py:13 (schema/layout.yaml), index_db.py:26–27 (derived.sqlite+락), stats.py:18 (stats.sqlite). 소수 정정: 패키지 모듈은 __init__.py 포함 15개·1,528 LoC(claim의 16개는 1개
+  [CONFIRMED] PLAN이 글루(tools·스킬·evals) 동거를 원자적 커밋 근거로 규정하고, 분리 시나리오도 '시점 사본 복사 후 동기화 안 함'으로 동결했다 — 형제 공유 모델은 정본 계획과 충돌
+       note: PLAN.md:163('글루 동거·엔진 외부… 동거 근거 = 원자적 커밋(스키마 마이그레이션 = content+schema+validate 동일 커밋)'), 250('분리 시: 공유 자산(schema/·tools/)은 시점 사본으로 복사하고 이후 동기화하지 않는다'), 233(1런=1커밋+Ingest 트레일러) 전부 축자 일치. kb-new SKILL.md 46행 부근에도 동일 규정('드리프트는 사고가 아니라 의도된 결과다') 존재. PLAN:327 kb-template 불채택 행도 '저장소 분리 시엔 시점 사본 복사'로 일관 — 공유 모델을 지지하는 반례 문면은 못 찾았다.
+  [CONFIRMED] evals는 저장소 루트 상대 참조가 3중(skill-sets.yaml 12개·README·PLAN 명문)이고 runner.py는 절대경로+cwd=REPO 하드코딩 — 스킬·evals를 밖으로 빼면 사슬이 끊어진다
+       note: ① evals/scenarios/ 12개 시나리오 전부 skill-sets.yaml:8(1건은 9행)에 `skills: [.agents/skills/kb-*]` 루트 상대 경로 — 12/12 실측. ② evals/README.md:10 '실행은 저장소 루트에서 한다 — skill-sets.yaml의 스킬 경로가 루트 상대다' 축자 일치. ③ PLAN.md:219 'evals가 저장소 루트 상대로 참조하므로 저장소 내 필수', PLAN.md:399 'dbt eval 러너의 저장소 루트 상대 참조가 강제' 일치. runner.py:12 REPO 절대경로, :13 fixture가 REPO 하위, :19 cwd=REPO 확인. 소수 정정: ksearch 호출(`uv run --group index tools/kse
+  [CONFIRMED] 스킬 4종 본문은 uv run tools/*.py 루트 상대 호출 약 34회 포함·cwd=루트 전제, 배포는 ~/.claude/skills → .agents/skills 심링크 4개, repo.py는 resolve()로 심링크를 푼다
+       note: 구조는 전부 실측 일치: ~/.claude/skills/에 kb-ingest·kb-lint·kb-new·kb-query 4개가 /Users/angyojun/workspace/syntopicon/.agents/skills/* 로의 심링크(2026-08-05 생성), repo.py:9–11 주석 '심링크 해석 후의 저장소 루트' 축자 일치, kb-lint SKILL.md:4 compatibility 'syntopicon 저장소 안에서 uv와 함께 실행한다' 일치. 단 호출 횟수는 정정 필요: `uv run tools/*.py` 패턴 실측 24회(uv run 라인 25개, tools/ 언급 라인 총 30개 — kb-ingest 9·kb-lint 8·kb-new 6·kb-query 7)로 '약 34회'는 약 40%
+  [CONFIRMED] tools/tests/가 parents[2]로 .agents/skills/와 evals/를 검사해 tools·skills·evals 세 레이어를 한 pytest 게이트로 묶는다 — 분리 시 즉시 파손
+       note: test_skills.py:15 `SKILLS_DIR = Path(__file__).resolve().parents[2] / ".agents" / "skills"`, test_evals_conventions.py:17 `EVALS = Path(__file__).resolve().parents[2] / "evals"` 축자 일치. 추가 발견(claim 강화): conftest.py:20도 `REAL_ROOT = Path(__file__).resolve().parents[2]`로 같은 앵커를 쓴다. pyproject.toml:30 `testpaths = ["tools/tests"]`, :32 `pythonpath = ["tools"]` 일치 — 테스트 수집과 import 해석이 저장소 pyproject에 묶여 
+  [CONFIRMED] pyproject.toml이 tools를 저장소의 파이썬 프로젝트로 묶는다(Tier A 5종 == 핀, eval/index 그룹, uv.lock) — tools 이주 시 핀·락·그룹 동반 이주 + 호출 관례 무효화. 핀 파일은 tools 동행이나 qmd-setup은 c
+       note: pyproject.toml:8–14에 jsonschema==4.26.0·referencing==0.37.0·markdown-it-py==4.2.0·pyyaml==6.0.3·mdit-py-plugins==0.6.1 5종 == 핀과 사유 주석('uv.lock이 실질 핀이지만… 의도가 남아 있어야 한다') 축자 확인. :16–27 dev(pytest)/eval(ir-measures)/index(kiwipiepy) 그룹, uv.lock 존재 확인. backup.py:50·qmd-setup.py:37 모두 `Path(__file__).resolve().parent / "toolchain-pin.yaml"` — 핀 파일은 tools 동행. qmd-setup.py register_collections(146행~)가 la
+  [CONFIRMED] validate 커밋 게이트는 git 훅 미설치(.sample만 존재)·절차적으로만 작동, 분리 시 예정된 pre-commit validate가 크로스 저장소 의존화 + 검증기-스키마 버전 스큐
+       note: .git/hooks/ 실측: 14개 파일 전부 *.sample — 실훅 0개. PLAN.md:98 '수동 생성도 pre-commit validate 경유', :293 'validate — … pre-commit·ingest 양쪽 실행 [A]' 축자 일치. kb-query SKILL.md:103 `uv run tools/validate.py # 통과할 때까지`의 절차 게이트 확인. validate의 강제 대상이 core 잔류 파일이라는 점도 확인: migrations.py 도큐스트링이 schema/migrations.md 결번 대장을 읽고, validate.py 63행 부근이 결번 키를 schema 선언·파일 사용 양쪽과 대조한다.
+  [CONFIRMED] 커밋 비율 실측: 69커밋 중 tools/=32, it/=21, schema/=4, evals/=6, .agents/=9. it/ md 45개 존재. 분리 신호는 '지속 상회'로 아직 판정 불가하며 최근 5커밋 중 3건이 콘텐츠로 추세 역전 중
+       note: 집계 재실측 정확 일치: git rev-list 69커밋, 디렉터리 터치 tools=32·it=21·schema=4·evals=6·.agents=9. it/ 하위 md 45개 확인(CLAUDE.md '콘텐츠 0건'이 낡은 기술이라는 지적도 옳다). PLAN.md:163 발동 신호 문면('지속 상회하거나 두 번째 소비자') 일치. 단 한 가지 정정: 최근 5커밋 중 it/ 커밋은 3건이 아니라 2건이다(968bcc2·1bdf232 — 나머지는 plan 1·tools 2). 최근 8커밋으로 넓히면 it/ 4건(3f170d9·a971b0b 포함)이라 '추세 역전 중'이라는 방향 판단 자체는 성립한다.
+  [CONFIRMED] 크로스 레이어 공유 가능한 도구는 실재하지 않는다 — core tools 15종은 schema/citekey/KB 레이아웃 결합, docs-mirror 계획 tools는 pull/변환/상태뿐이며 스키마·lint·형태소·백업을 명시 배제. 유일 접점 qmd는 외부 엔진이
+       note: docs-mirror/PLAN.md 문면 전부 실측 일치: :25 'tools/ — pull/변환/상태 스크립트 (결정적, LLM 무관)', :41 tools/pull 사양(git pull --ff-only), :72 'restic·kb-lint·검증 원장 비대상. syntopicon의 스키마… 미적용', :50 '영문 원어 키워드로 변형… 한국어 형태소 불필요', :15 '백업하지 않는다', :65 1단계 조건부 'qmd 별도 컬렉션'(엔진 재사용). core측: 15개 CLI 전부 syntopicon 패키지 import(ROOT 앵커 경유)로 결합 확인. runner.py:12–14의 REPO 절대경로+`qmd://it/` 정규식 하드와이어 확인 — :56 '동형'은 방법론('syntopicon 수용 검
+  [CONFIRMED] 분리 시 파손 전수 8건: ROOT 오해석, 원자적 커밋 소멸, evals 경로 파손, 스킬 호출·심링크 재지정, pytest 게이트 파손, uv 프로젝트 해석·핀·락 이관, pre-commit 크로스 저장소화, 호출 규약 개정
+       note: 8개 항목의 근거 라인을 전부 개별 재검증해 일치를 확인했다: ① repo.py:15+layout.py:13+index_db.py:26+stats.py:18 ② PLAN.md:163·233 ③ skill-sets.yaml 12/12+runner.py:12·13·19+README.md:10 ④ SKILL.md 호출 실측(단 약 34회→실측 24회로 정정)+심링크 4개 ⑤ test_skills.py:15+test_evals_conventions.py:17(+conftest.py:20 추가) ⑥ pyproject.toml:30·32+uv.lock 존재 ⑦ PLAN.md:98·293+.git/hooks 전부 .sample ⑧ 프로젝트 CLAUDE.md의 '도구: uv run tools/<이름>.py' 관례. 파손 
+  [CONFIRMED] docs-mirror 쪽에서도 형제 공유 모델이 자기 계획과 충돌한다 — 유지비 0 수렴이 존재 이유인데 공유 tools 저장소는 결합을 만들고 '두 번째 소비자' 신호를 인위 점화하는 역전이다
+       note: docs-mirror/PLAN.md:7 '유지비 최소가 존재 이유… 정상 상태 유지비 목표는 0에 수렴', :16 원칙 6 'syntopicon → docs-mirror 방향 참조 금지' 축자 일치. syntopicon PLAN.md:163의 발동 신호 문면과 :323 ADR 불채택 행 'tools/가 별도 저장소로 추출될 때(§3 분리 신호) 그 저장소에 도입' — 미래 조건부 문면임을 직접 확인, 현재형 분리 결정은 PLAN 어디에도 없다. 신호를 '재는 계기'로 볼지 '구조로 만들 목표'로 볼지는 해석이지만, 문면상 신호가 유기적 실측 조건(지속 상회·두 번째 소비자 발생)으로 기술돼 있어 claim의 독해가 타당하다.

@@ -1,0 +1,858 @@
+====================================================================================================
+KEY: graphrag
+--- SUMMARY ---
+GraphRAG 엔진군 9종(지정 8 + 신규 발굴 Graphiti)을 GitHub API 실측과 이슈 추적으로 조사했다. 결론: 빠르게 바뀌는 벤더 문서 미러에 그래프 색인을 얹는 것은 갱신 비용 관점에서 성립하지 않는다. 근거 3축 — (1) 비용: 모든 엔진이 청크당 LLM entity 추출을 요구하며(frontier 모델 ≈ $12–19/MB, mini급 ≈ $1–2/MB), 이 비용이 월 수백 커밋의 변경분마다 재발생한다. 완전 로컬화하려면 30B급 모델이 필요해 맥북 1대 예산(A)과 충돌한다. (2) 증분의 실태: MS GraphRAG update-index는 append 전용(수정·삭제 불가, community 재계산 캐스케이드 위험), LightRAG는 증분·삭제를 지원하나 entity 중복 병합 이슈 이력이 있고 수정 = delete+reinsert 재추출이다. 진짜 실시간 증분은 Graphiti뿐이나 이는 md 코퍼스 검색이 아닌 agent memory 엔진이다. (3) 버전 인지(D): 전 엔진 부재 — VersionRAG 논문이 GraphRAG 64% 정확도로 이 공백을 실증했고, 오히려 버전이 다른 같은 문서를 넣으면 entity가 뒤섞이는 역효과까지 있다. 한국어 형태소 분석(E)도 전무하다. 존속성·활동성으로는 LightRAG·Graphiti·Cognee·RAGFlow가 살아있고 nano-graphrag·fast-graphrag는 휴면, KAG는 둔화 상태다. 종합하면 이 코퍼스에는 qmd류의 lexical+vector 증분 색인이 비용 구조상 우월하며, GraphRAG는 '안정적이고 entity가 풍부한 코퍼스에서 multi-hop 질문'이라는 별도 문제의 도구다. 굳이 그래프가 필요해지면 후보는 LightRAG(경량·활발)나 Graphiti(증분·MCP)로 좁혀지고, 버전 인지는 어느 쪽이든 메타데이터 계층 자작이 필요하다.
+--- TOOLS ---
+### Microsoft GraphRAG  [MIT]  https://github.com/microsoft/graphrag
+  - maturity: 35,318 stars, 최근 push 2026-08-05, v3.1.1 릴리스 2026-07-18, 기여자 ~51명, Microsoft Research 주도. 릴리스 케이던스 안정적.
+  - footprint: Python CLI + parquet/LanceDB 출력 — 상주 서비스 불필요. 단 색인 파이프라인 자체가 LLM 대량 호출 구조라 API 또는 강력한 로컬 모델 필수.
+  - incremental: v1.0부터 `update-index` 존재하나 append 전용 — 문서 삭제·수정 미지원(Issue #741, Discussion #1313). 신규 콘텐츠 병합 시 community summary 재계산 임계치를 넘으면 전체 재색인급 비용으로 퇴행. 색인 = 청크당 entity 추출 + community report 생성으로 LLM 호출 필수.
+  - version_support: 버전 라벨 구분 조회 없음. VersionRAG 논문 실측에서 버전 민감 질의 정확도 64%에 그침.
+  - korean: 형태소 분석 없음. 추출·요약 언어는 LLM 프롬프트에 위임, 검색은 임베딩 의존. CJK 전용 토크나이저 없음.
+  - interface: CLI(index/query: local·global·drift search). 공식 MCP 없음. query 방식이 자체 검색 파이프라인에 묶여 있어 에이전트가 저수준 검색 도구로 조합하기 어려움.
+  - strengths: 레퍼런스 구현·최대 인지도, MIT, 문서화 우수, 전역 질문(community 요약 기반 sense-making)에 강함. LazyGraphRAG(색인 비용 0.1%)가 OSS 통합 예고됨(2026 Q1–Q2 예정이었으나 v3.1.1까지 릴리스 노트에 흔적 없음).
+  - weaknesses: 색인 비용 최상위(GPT-4.1로 800KB ≈ $10–15, 벤치마크 데이터셋당 $51–389). global search 질의도 토큰 폭식. 수정·삭제 반영 불가 → 월 수백 커밋 미러에 구조적으로 부적합.
+  - fit_verdict: 부적합. append 전용 증분과 community 재계산 캐스케이드 때문에 고churn 벤더 문서 미러에서 갱신 비용이 통제되지 않고, 버전 구분 조회도 없다.
+### LightRAG (HKUDS)  [MIT]  https://github.com/HKUDS/LightRAG
+  - maturity: 38,616 stars, push 2026-08-06, v1.5.6 릴리스 2026-08-06, 기여자 ~277명, HKU 연구실(EMNLP 2025 논문). 후보군 중 가장 활발.
+  - footprint: pip 설치, 기본 저장소는 파일 기반(JSON KV + nano-vectordb + networkx) — 맥북 1대 OK. Postgres/Neo4j는 선택. 단 추출용 로컬 LLM 권장 최소가 Qwen3-30B-A3B급이라 맥북 로컬 운영 시 색인이 매우 느리거나 API 의존.
+  - incremental: 문서 단위 incremental insert + selective deletion(삭제 시 영향 entity의 KG 자동 재생성) 공식 지원. 그러나 분할 insert 간 entity 중복·병합 실패 이력(#485, #2528)과 custom chunk 미병합 버그(#3352)가 실재. 문서 '수정' = delete+reinsert이므로 변경 문서마다 청크당 1–2회 LLM 추출 재발생.
+  - version_support: 버전 라벨 구분 조회 없음. 같은 문서 v1.7/v1.8을 넣으면 entity가 뒤섞여 병합됨 — 오히려 버전 혼선 위험.
+  - korean: SUMMARY_LANGUAGE 설정으로 출력 언어 제어. 형태소 분석·CJK 토크나이저 없음 — 한영 혼용 검색은 다국어 임베딩 품질에 전적으로 의존.
+  - interface: REST API + WebUI + Ollama 호환 챗 엔드포인트. 공식 MCP는 README에 없음(커뮤니티 구현 존재). 검색은 dual-level(키워드 추출 LLM 1회 + 그래프 탐색)로 질의당 비용 저렴(<100 토큰급).
+  - strengths: MS GraphRAG 대비 색인·질의 비용 수십 배 절감(community summary 생략), 증분·삭제 API 보유, 초활발 개발, MIT, 파일 기반 저장으로 데이터 탈출 용이.
+  - weaknesses: 증분 병합 품질 이슈 이력, 수정 반영은 결국 재추출, 학술 프로젝트 특유의 빠른 API 변동(1년에 마이너 릴리스 다수), 로컬 추출 모델 요구 사양 높음.
+  - fit_verdict: GraphRAG군 중 A·C 기준 최선이지만, 버전 혼선 위험(D)과 변경 문서 재추출 비용이 남아 휘발성 문서 레이어의 기본 엔진으로는 여전히 과함.
+### Graphiti (Zep) — 신규 발굴  [Apache-2.0]  https://github.com/getzep/graphiti
+  - maturity: 29,656 stars, push 2026-08-05, v0.29.3 릴리스 2026-07-27, 기여자 ~57명, Zep(상용 agent memory 회사)이 개발 — 회사 존속에 연동된 bus factor.
+  - footprint: Neo4j 또는 FalkorDB 필요(Kuzu는 deprecated). FalkorDB 'Lite' 임베디드(py3.12+)를 쓰면 상주 서비스 0개 가능. 그 외에는 도커 그래프 DB 상주.
+  - incremental: 설계 자체가 증분 — episode 단위 실시간 통합, batch 재계산 없음(README 명시). 후보군 중 유일하게 '지속 갱신'이 1급 시민. 단 episode마다 entity/edge 추출 + 기존 edge invalidation 판단에 LLM 호출 — 갱신량에 비례한 LLM 비용은 그대로.
+  - version_support: bi-temporal 엣지(유효 기간)로 시간 기반 버전 추적은 됨 — '버전 라벨'(v1.7/v1.8) 기반 구분 조회는 아니고 시각 기반. 후보군 중 D에 가장 근접하나 의미가 다름.
+  - korean: 형태소 분석 없음. 추출은 LLM, 검색은 임베딩+BM25(영문 토크나이저) — 한국어 lexical 매칭 약함.
+  - interface: 공식 MCP 서버 동봉(Claude/Cursor 연동), Python SDK. 검색은 hybrid(BM25+임베딩+그래프) 함수 호출형 — 파이프라인 강제 아님.
+  - strengths: 실시간 증분 그래프의 최강 구현, temporal 모델, 공식 MCP, 활발한 개발. 구조화 출력만 되면 Ollama/vLLM 로컬 운영 가능.
+  - weaknesses: 그래프 DB 의존(임베디드 옵션은 최근 것), 작은 로컬 모델은 구조화 출력 실패 잦음(README 경고), 문서 코퍼스 관리 계층 없음(md 디렉토리 스캔·해시 증분 같은 것 직접 구축해야 함), agent memory 용도로 설계돼 문서 검색 용도와 결이 다름.
+  - fit_verdict: 증분(C)은 최선이나 md 코퍼스 미러링 용도가 아니라 agent memory 엔진이다. 문서 레이어로 쓰려면 ingest 오케스트레이션을 자작해야 하고 한국어 lexical 검색이 약하다.
+### HippoRAG 2 (OSU-NLP)  [MIT]  https://github.com/OSU-NLP-Group/HippoRAG
+  - maturity: 3,919 stars, push 2026-07-29(보안 패치 위주), 릴리스 v1.0.0 2025-02-27 이후 정식 릴리스 없음, 기여자 ~14명, 대학 연구실(NeurIPS'24). bus factor 낮음 — 대학원생 졸업 리스크.
+  - footprint: pip 설치, OpenIE 추출 + Personalized PageRank — 상주 서비스 불필요. vLLM/로컬 LLM 지원.
+  - incremental: 테스트 스위트가 incremental update·문서 삭제를 커버 — 연구 코드치고 증분이 실재. 색인은 passage당 OpenIE LLM 호출 필수. 논문 주장으로는 GraphRAG·LightRAG보다 오프라인 색인 자원 소모가 적음.
+  - version_support: 없음.
+  - korean: 형태소 분석 없음. 영어 벤치마크 중심 연구 코드로 한국어 검증 전무.
+  - interface: Python API만. CLI·MCP·서버 없음. passage 리스트를 직접 먹이는 연구용 인터페이스.
+  - strengths: multi-hop 연상 검색 품질(PPR)이 논문상 우수, MIT, 색인 상대적으로 저렴.
+  - weaknesses: 연구 프로토타입 — 문서 관리·서버·릴리스 체계 부재, 10–20년 지평의 존속성 최하위권.
+  - fit_verdict: 부적합. 검색 품질 연구로는 흥미롭지만 1인 장기 운영 인프라로 삼을 성숙도·존속성이 아니다.
+### Cognee  [Apache-2.0]  https://github.com/topoteretes/cognee
+  - maturity: 29,847 stars, push 2026-08-07, v1.4.1.dev 2026-08-06, 기여자 ~208명, 스타트업(Topoteretes). 개발 초활발이나 open issues 530개·dev 릴리스 난발 — API 안정성 유동적.
+  - footprint: pip 설치, 기본 SQLite + LanceDB + Kuzu(임베디드) — 도커 없이 완전 로컬 가능. Ollama로 LLM·임베딩 모두 로컬화 가능.
+  - incremental: 기존 그래프 위에 add+cognify로 누적 가능(prune 생략 시). 단 cognify는 청크마다 LLM 추출 — 변경분 재추출 비용은 동일하게 발생하고, '수정된 문서'의 diff 인지 같은 것은 없음.
+  - version_support: 없음.
+  - korean: 형태소 분석 없음. 다국어 임베딩 의존.
+  - interface: Python SDK + 공식 MCP 서버(cognee-mcp) + 다양한 search type — 에이전트가 도구를 고르는 구도에 부합.
+  - strengths: 완전 로컬 스택 기본값, .md 확장자 네이티브 인식, MCP 공식, Apache-2.0, 데이터가 SQLite/LanceDB/Kuzu 표준 저장소라 탈출구 양호.
+  - weaknesses: agent memory 플랫폼 지향이라 문서 미러 검색과 결이 다름, 빠른 API 변동, 스타트업 존속 리스크, 변경 문서 증분 diff 개념 없음.
+  - fit_verdict: GraphRAG군에서 A(로컬 풋프린트) 기준 최선급이지만 용도가 agent memory이고 버전 인지·재추출 비용 문제는 동일하다.
+### nano-graphrag  [MIT]  https://github.com/gusye1234/nano-graphrag
+  - maturity: 3,962 stars, 마지막 릴리스 v0.0.8 2024-10, 실질 커밋 2025-07 이후 setup.py 잔손질뿐 — 사실상 휴면. 개인 개발자 프로젝트(LightRAG의 모태).
+  - footprint: pip, 파일 기반 — 가볍다.
+  - incremental: insert 누적은 되나 유지·버그픽스가 멈춤.
+  - version_support: 없음.
+  - korean: 없음.
+  - interface: Python API만.
+  - strengths: GraphRAG 내부 구조를 이해하기 위한 최고의 교보재(~1,100줄).
+  - weaknesses: 휴면 상태, bus factor 1.
+  - fit_verdict: 부적합. 학습용 레퍼런스로만 가치가 있다.
+### fast-graphrag (Circlemind)  [MIT]  https://github.com/circlemind-ai/fast-graphrag
+  - maturity: 3,840 stars, 마지막 실질 커밋 2025-06, 2025-11-01 README 정리(비용 절감 문구 삭제) 후 침묵 — 사실상 중단. 기여자 ~10명, 스타트업이 상용으로 피벗한 정황.
+  - footprint: pip, PageRank 기반 — 가볍다.
+  - incremental: 증분 표방했으나 검증할 유지 주체가 없음.
+  - version_support: 없음.
+  - korean: 없음.
+  - interface: Python API.
+  - strengths: PageRank 기반 저비용 설계 아이디어.
+  - weaknesses: 9개월 이상 개발 정지 — 10–20년 지평에서 논외.
+  - fit_verdict: 부적합. 유지 활동성 소멸.
+### RAGFlow (그래프 기능)  [Apache-2.0]  https://github.com/infiniflow/ragflow
+  - maturity: 87,029 stars, push 2026-08-07, v0.26.4 2026-07-07, Infiniflow(회사) 주도 — 활동성은 최상.
+  - footprint: docker compose로 Elasticsearch/Infinity + MySQL + Redis + MinIO 상주, 최소 16GB RAM 권장 32GB — 기준 A를 정면으로 위반. 후보군 중 최중량.
+  - incremental: 문서 추가는 되지만 KB 옵션인 knowledge graph 추출(LightRAG 계열)은 ingest 시 청크당 LLM 추출 — 갱신마다 비용 재발생.
+  - version_support: 없음.
+  - korean: 중국어 중심 토크나이저 보유(CJK 일부), 한국어 형태소 분석은 없음.
+  - interface: WebUI + REST API + MCP 서버. 단 전체가 '플랫폼'이라 에이전트가 부품으로 골라 쓰는 구도가 아님.
+  - strengths: 문서 파싱(표·레이아웃) 최강, 대기업급 활동성, MCP 지원.
+  - weaknesses: 도커 클러스터 상주 — 유지비 예산(2–3주당 30–45분)과 양립 불가. md+git 미러에겐 과잉 설계.
+  - fit_verdict: 부적합. 1인 맥북 운영 기준(A)에서 탈락 — 팀·서버 환경용 플랫폼이다.
+### KAG (OpenSPG / Ant Group)  [Apache-2.0]  https://github.com/OpenSPG/KAG
+  - maturity: 8,961 stars, 마지막 커밋 2026-01-28, v0.8.0 2025-06-28 — 릴리스 케이던스 둔화. Ant Group 산하 OpenSPG 생태계, 기여자 ~23명.
+  - footprint: docker compose로 OpenSPG 서버 + MySQL + Neo4j 상주 필요 — 기준 A 위반.
+  - incremental: 논리 폼 기반 색인으로 LLM 추출 비용 높음. 증분 갱신은 1급 기능이 아님.
+  - version_support: 없음.
+  - korean: 중국어 중심. 한국어 형태소 분석 없음.
+  - interface: 제품 모드(WebUI) + 개발자 모드(Python). MCP executor 존재.
+  - strengths: 논리 추론·전문 도메인 QA 특화, 대기업 배후.
+  - weaknesses: 무거운 상주 스택, 중국 생태계 종속, 최근 활동 둔화.
+  - fit_verdict: 부적합. 풋프린트와 용도(엔터프라이즈 추론 QA) 모두 어긋난다.
+--- KEY CLAIMS ---
+[LB] Microsoft GraphRAG의 update-index는 append 전용으로 문서 삭제·수정·메타데이터 태깅을 다루지 않으며, community summary 재계산 임계치를 넘으면 일반 색인과 같은 비용으로 퇴행한다 — 월 수백 커밋(수정 포함) 미러에는 구조적으로 맞지 않는다.
+     src: https://github.com/microsoft/graphrag/discussions/1313
+[LB] GraphRAG 색인 비용 실측: GPT-4.1로 800KB 텍스트 ≈ $10–15 (약 $12–19/MB), 벤치마크 데이터셋당 GPT-4o 기준 $51–389. mini급 모델로는 30k단어 ≈ $0.34 수준까지 내려가나 여전히 변경분마다 재발생한다.
+     src: https://tao-hpu.medium.com/the-hidden-cost-of-98-accuracy-a-practical-guide-to-rag-architecture-selection-6883adc5289c
+[LB] LightRAG는 incremental insert·selective deletion을 공식 지원하나, 분할 insert 간 entity 중복(#485)·병합 의미론 질문(#2528)·custom chunk 미병합 버그(#3352)가 실재하며, 문서 수정은 delete+reinsert로 청크당 LLM 재추출을 유발한다.
+     src: https://github.com/HKUDS/LightRAG/issues/485
+[LB] VersionRAG 논문 실측: 버전 민감 질의에서 naive RAG 58%·GraphRAG 64% 정확도에 그침 — 조사한 모든 GraphRAG 엔진이 버전 라벨(v1.7/v1.8) 구분 조회를 지원하지 않으며, 버전 인지는 그래프 추출이 아니라 메타데이터 계층에서 해결해야 함을 시사한다.
+     src: https://arxiv.org/abs/2510.08109
+[LB] Graphiti(Zep)는 episode 단위 실시간 증분 통합(batch 재계산 없음)과 bi-temporal 엣지, 공식 MCP 서버를 갖춘 유일한 후보로 2025–26 신흥 강자다(29,656 stars, Apache-2.0, v0.29.3 2026-07). 단 갱신마다 LLM 추출 비용은 동일하게 발생하고 작은 로컬 모델은 구조화 출력 실패가 잦다.
+     src: https://github.com/getzep/graphiti
+[LB] LazyGraphRAG(색인 비용을 full GraphRAG의 0.1%로 낮춤)는 2026-08 현재까지 오픈소스 graphrag 라이브러리에 통합되지 않았다(v3.1.1 릴리스 노트에 부재) — 'MS GraphRAG가 곧 싸진다'에 베팅할 수 없다.
+     src: https://github.com/microsoft/graphrag/discussions/1490
+[LB] LightRAG의 로컬 추출 권장 최소 모델은 Qwen3-30B-A3B-Instruct급 — 맥북 1대에서 완전 로컬 그래프 색인은 가능하나 실용 속도가 나오지 않거나 API 비용이 필요하다.
+     src: https://github.com/HKUDS/LightRAG
+[  ] RAGFlow는 Elasticsearch/Infinity+MySQL+Redis+MinIO 도커 스택에 최소 16GB(권장 32GB) RAM을 요구한다 — 1인 맥북·유지비 30–45분/2–3주 예산과 양립 불가.
+     src: https://github.com/infiniflow/ragflow/blob/main/docker/README.md
+[  ] Cognee는 SQLite+LanceDB+Kuzu 임베디드 기본값과 Ollama 지원으로 도커 없는 완전 로컬 운영이 가능하고 .md를 네이티브 인식한다(29,847 stars, Apache-2.0, 2026-08 활발).
+     src: https://github.com/topoteretes/cognee
+[  ] nano-graphrag(마지막 릴리스 2024-10, 실질 커밋 2025-07 이후 휴면)와 fast-graphrag(2025-06 이후 실질 커밋 없음, 2025-11 README에서 비용 절감 문구 삭제 후 침묵)는 유지 활동성이 소멸해 10–20년 지평에서 탈락한다.
+     src: https://github.com/circlemind-ai/fast-graphrag
+[  ] HippoRAG 2는 incremental update·삭제를 테스트로 커버하고 vLLM 로컬 LLM을 지원하지만, 기여자 14명·정식 릴리스 1회(2025-02)의 대학 연구실 코드로 장기 운영 인프라 성숙도가 아니다.
+     src: https://github.com/OSU-NLP-Group/HippoRAG
+[  ] 질의 비용 비대칭: MS GraphRAG global search는 질의당 수십만 토큰을 소모할 수 있는 반면 LightRAG 계열은 keyword 추출 포함 100토큰급 — 그래프RAG를 쓰더라도 community summary 방식은 피해야 한다.
+     src: https://github.com/microsoft/graphrag/discussions/440
+--- UNRESOLVED ---
+ - 1MB당 비용의 공식 1차 자료 부재 — Microsoft 공식 비용 블로그(techcommunity)는 본문 fetch 실패로 2차 자료(실무 블로그·GitHub discussion 실측)로 추정했다. 정밀 수치가 필요하면 후보 엔진으로 표본 1MB 실측 색인이 필요하다.
+ - VersionRAG는 코드 공개 여부를 확인하지 못했다(arXiv 초록에 리포 링크 없음) — 아이디어(버전 그래프를 메타데이터 계층에 두고 질의 라우팅)만 차용 가능한 상태다.
+ - LazyGraphRAG의 OSS 통합 정확한 시점 — Discussion #1490 기준 '통합 진행 중'이나 v3.1.1까지 미출시. 분기별 재확인 가치 있음.
+ - Graphiti FalkorDB Lite(임베디드) 모드의 성숙도·안정성은 실측하지 못했다 — 채택 검토 시 별도 검증 필요.
+ - 각 도구의 한국어 실측 검색 품질(한영 혼용 질의)은 어떤 문서에도 벤치마크가 없어 미검증 — 전부 다국어 임베딩 의존이라는 구조적 사실만 확인했다.
+--- VERDICTS ---
+  [CONFIRMED] Microsoft GraphRAG의 update-index는 append 전용으로 문서 삭제·수정·메타데이터 태깅을 다루지 않으며, community summary 재계산 임계치를 넘으면 일반 색인과 같은 비용으로 퇴행한다 — 월 수백 커밋 미러에는 구조적으로 맞지 않는다
+       note: 핵심부는 v3.1.1 소스로 직접 확인. incremental_index.py의 get_delta_docs()는 title 문자열만으로 신규/삭제를 대조하고, load_update_documents 워크플로는 delta_documents.new_inputs만 반환 — deleted_inputs는 계산 후 전 코드베이스에서 어디서도 소비되지 않는다(코드 검색 결과 정의 파일 1곳뿐). 즉 삭제는 무시되고, 같은 제목의 수정 문서는 변경 감지 자체가 안 된다 → append 전용이 맞고, 수정 잦은 미러에 부적합하다는 결론도 성립. 단 두 가지 유의: (1) 제시된 근거 discussion #1313은 2024-10의 질문 스레드로 이 주장을 담고 있지 않다 — 실근거는 코드다. (2) '재계산 임계치를 넘으면 퇴행'은 현행 코드와 다름 — 현재 update는 delta 커뮤니티를 ID 재번호 후 
+  [CONFIRMED] GraphRAG 색인 비용 실측: GPT-4.1로 800KB ≈ $10–15 (약 $12–19/MB), GPT-4o 기준 벤치마크 데이터셋당 $51–389, mini급 모델로 30k단어 ≈ $0.34
+       note: 수치 자체는 모두 실존하나 출처가 3곳으로 갈라진다. (1) 'GPT-4.1로 800KB ≈ $10–15'는 인용된 Medium 글에 그대로 있음($12.8–19.2/MB 환산도 산술상 일치). (2) '$51–389/데이터셋'은 그 Medium 글에 없고 arXiv 2503.02922(그래프 기반 RAG 비교 논문)의 실측 — GPT-4o 가격($2.5/$10 per 1M tok) 기준 MSMARCO $51.37, Kevin Scott $63.27, Earnings $116.71, HotPotQA $389.12. (3) '30k단어 ≈ $0.34'는 Microsoft 공식 techcommunity 블로그(GraphRAG Costs Explained)의 GPT-4o-mini 추정(38,371 tok × $0.0000088)이다. 즉 숫자는 검증되나 단일 출처 귀속은 부정확하며, '변경분마다 재발
+  [CONFIRMED] LightRAG는 incremental insert·selective deletion을 공식 지원하나 entity 중복(#485)·병합 의미론 질문(#2528)·custom chunk 미병합 버그(#3352)가 실재하며, 문서 수정은 delete+reinsert로 청크당 LLM 재추출을
+       note: GitHub API로 3개 이슈 전부 실물 확인 — #485 'Inserting a multi-part document results in duplicate nodes and edges'(2024-12, closed), #2528 incremental ingestion 시 entity 충돌/중복 병합 의미론 질문(2025-12, open), #3352 'ainsert_custom_chunks runs entity extraction but never merges it into the KG'(2026-07, bug 라벨, closed). 삭제 지원은 README 2025.08 항목 'Added Document Deletion with automatic KG regeneration'으로 공식 확인. 신선도 유의: #485는 2024년 이슈로 이미 closed, #3352도 2026-07에 close
+  [CONFIRMED] VersionRAG 논문: 버전 민감 질의에서 naive RAG 58%·GraphRAG 64% — GraphRAG 엔진들이 버전 라벨 구분 조회를 지원하지 않으며, 버전 인지는 그래프 추출이 아니라 메타데이터 계층에서 해결해야 함
+       note: arXiv abstract·HTML 본문으로 확인 — naive RAG 58%, GraphRAG 64%, VersionRAG 90%가 정확히 일치. 본문이 'GraphRAG lacks explicit version modeling in the graph structure', 'version transitions are not explicitly modeled', implicit change detection에서 GraphRAG 10% 정확도를 명시하고, 결론에서 'version transitions must be modeled as first-class citizens'·'domain-specific structures should be explicitly modeled rather than hoping generic retrieval will capture them'이라 주장 취지와 부합. 색
+  [CONFIRMED] Graphiti(Zep)는 episode 단위 실시간 증분 통합(batch 재계산 없음)·bi-temporal 엣지·공식 MCP 서버를 갖춘 유일한 후보(29,656 stars, Apache-2.0, v0.29.3 2026-07). 단 갱신마다 LLM 추출 비용 발생, 작은 로컬 모델은
+       note: GitHub API 실측(2026-08-08): 29,657 stars(주장 29,656과 사실상 일치), Apache-2.0, 최신 릴리스 v0.29.3 = 2026-07-27. MCP 서버는 문서만이 아니라 별도 릴리스 태그(mcp-v1.0.2, 2026-03)와 mcp_server/ 디렉토리로 실동작 근거 확인. README가 'New data integrates immediately without batch recomputation', 'Explicit bi-temporal tracking with automatic fact invalidation'을 명시하고, 경고 블록에 'Using other services may result in incorrect output schemas and ingestion failures. This is particularly problematic whe
+  [CONFIRMED] LazyGraphRAG는 2026-08 현재 오픈소스 graphrag 라이브러리에 통합되지 않았다(v3.1.1 릴리스 노트에 부재) — 'MS GraphRAG가 곧 싸진다'에 베팅 불가
+       note: 3중으로 확인. (1) GitHub API로 최신 릴리스 = v3.1.1(2026-07-18)이며 릴리스 노트는 CosmosDB provider·의존성·로깅 수정뿐, LazyGraphRAG 언급 없음. (2) 저장소 코드 검색에서 'LazyGraphRAG'는 docs/blog_posts.md와 regex_extractor.py 주석('the extractor used in the first benchmarking of LazyGraphRAG') 단 2곳 — 구현체 부재. (3) discussion #1490에서 메인테이너의 2024-12 'next top priority' 발언 이후 2026-07까지 공식 후속 없음, 커뮤니티는 shelved 여부까지 의심. 뉘앙스 하나: LazyGraphRAG의 NLP 명사구 추출은 IndexingMethod.Fast('fast' 색인, NLP 그래프 구성)로
+  [CONFIRMED] LightRAG 로컬 추출 권장 최소 모델은 Qwen3-30B-A3B-Instruct급 — 맥북 1대 완전 로컬 색인은 가능하나 실용 속도가 안 나오거나 API 비용이 필요하다
+       note: README 실물에서 축자 확인: 추출 LLM 권장란에 'For local deployment, Qwen3-30B-A3B-Instruct is a reasonable minimum'. 트러블슈팅 절도 뒷받침 — '~50 tokens/second 이하 모델은 추출 타임아웃 가능', '로컬 배포 Qwen 모델은 무한 출력 루프에 빠지기도 함'을 명시. 다만 후반부 '실용 속도가 나오지 않는다'는 소스에 없는 추론이며 하드웨어 의존적임에 유의 — 30B-A3B는 활성 3B MoE라 상위 Apple Silicon(M3/M4 Max)에서는 50 tok/s 경계선 안팎이 나올 수 있어, '불가능'이 아니라 '경계선상(대량 색인엔 부담)'이 정확한 표현. 권장 최소 모델 주장 자체는 1차 소스로 완전 확인.
+====================================================================================================
+KEY: temporal-memory
+--- SUMMARY ---
+시간축·메모리형 지식그래프 6계보(Graphiti·Zep·Mem0·Letta·Cognee·memori)를 GitHub API 실측과 공식 문서로 조사한 결론: 이 지형 전체가 '에이전트 대화/이벤트 메모리' 도메인이며, 벤더 문서 미러의 전문 검색이라는 사용자 용도와는 구조적으로 불일치한다. (1) Graphiti의 bitemporal은 마케팅이 아닌 실구현(tx-time=created_at/expired_at 시스템 기록, valid-time=valid_at/invalid_at LLM 추출)이지만, 그 시간축은 'fact의 세계-유효기간'이지 문서 버전 축이 아니다 — v1.7/v1.8 구분은 검색엔진의 코퍼스 메타데이터 1필드로 끝나는 문제이고, git 미러가 이미 tx-time을 무료로 제공한다. 백엔드는 Neo4j 기본에 임베디드는 FalkorDB Lite 단일 경로(Kuzu deprecated). (2) 전 후보가 색인 시점에 LLM 호출을 강제한다(Graphiti는 episode당 다중 호출, LLM-free ingestion은 미해결 이슈) — 월 수백 커밋 증분에 비용 구조가 성립하지 않아 기준 C에서 전멸. (3) 기준 E(한국어)는 전 후보 미지원(Graphiti 프롬프트 영어 전용, open issue). (4) 존속성 경고 실적 2건 — Zep CE 폐기(2025-04), Mem0 OSS 그래프 메모리 회수(Platform 전용화). 판정: 휘발성 문서 레이어의 검색은 이 축에서 답이 나오지 않으며 qmd류 로컬 검색엔진 구도가 유효하다. 유일한 잔여 가치는 Cognee의 임베디드 스택(SQLite/LanceDB/Kuzu)을 '개념 관계 그래프' 보조 축으로 쓰는 실험이나, 이는 검색 레이어의 대체가 아닌 분담이다.
+--- TOOLS ---
+### Graphiti (getzep)  [Apache-2.0]  https://github.com/getzep/graphiti
+  - maturity: GitHub API 실측(2026-08-08): ~29.7k stars, open issues 460, 최근 push 2026-08-05, 최신 릴리스 v0.29.3 (2026-07-27). 개발 주체는 Zep(회사) — Zep Cloud의 엔진이라 상업적 존속 동기는 있으나 회사 의존 단일 축. 2024-08 생성으로 이력 2년.
+  - footprint: 그래프 DB 상주 필요: Neo4j 5.26(기본)·FalkorDB 1.1.2·Amazon Neptune. 임베디드 경로는 FalkorDB Lite(Python 3.12+)뿐이고, Kuzu 백엔드는 upstream 미유지로 deprecated. 공식 Docker 이미지가 6개월+ 방치돼 v0.10에 머문 전력(issue #1030) — 셀프호스팅은 라이브러리 직접 운용이 실질 경로.
+  - incremental: 증분 자체는 강점(add_episode가 배치 재계산 없이 실시간 갱신). 그러나 episode 1건마다 LLM 다중 호출이 필수 — 노드 추출→dedup(MinHash/LSH 우선, LLM fallback)→엣지 추출→모순 해소→valid_at/invalid_at 타임스탬핑까지 전부 LLM 경유(issue #1193, #1299에서 'LLM 없는 add_episode' 요청이 미해결). 월 수백 커밋 미러에 적용하면 색인 비용이 쓰기 시점에 LLM 요금으로 전가된다.
+  - version_support: bitemporal은 실제 구현이다: tx-time = created_at/expired_at(시스템이 기록·무효화한 시각, 항상 존재), valid-time = valid_at/invalid_at(LLM이 텍스트에서 추출하는 optional 필드). 단, 이 시간축은 'LLM이 추출한 fact의 세계-유효기간'이지 문서 버전 축이 아니다. dbt v1.7/v1.8 docs를 시간축으로 모델링한 공개 실사용 사례는 조사에서 발견되지 않았고, 역사 backfill조차 temporal-correctness 결함이 보고돼 있다(issue #1489).
+  - korean: 프롬프트가 전부 영어이며 다국어 지원은 미해결 open issue(#1141). BM25 측은 백엔드(Neo4j Lucene/FalkorDB) 분석기에 종속되고 한국어 형태소 지원을 Graphiti가 구성해주지 않음. FalkorDB에서 'stopword-only 토큰 쿼리 short-circuit' 같은 fulltext 땜질이 v0.29.3에도 진행 중.
+  - interface: Python 라이브러리 + MCP 서버(mcp_server/, MCP Server v1.0은 2025-11 출시, Claude Desktop/Cursor 호환). CLI는 없음. 에이전트가 도구를 고르는 구도와는 호환되지만 검색 대상이 'LLM이 추출한 fact 그래프'라 원문 md 검색이 아니다.
+  - strengths: 후보군 중 유일하게 bitemporal이 마케팅이 아닌 실구현. 증분 갱신 설계가 진지하고, MCP 서버가 공식 지원되며, Apache-2.0 + 상업 서비스 기반이라 단기 존속성은 양호.
+  - weaknesses: 색인 = LLM 호출(비용·비결정성), 그래프 DB 상주(임베디드는 FalkorDB Lite 하나), 한국어 미지원, 검색 결과가 원문이 아닌 추출된 fact — 데이터 탈출구 관점에서 색인이 죽으면 그래프는 재구축 비용이 크다(원본 md는 무사하나 그래프는 LLM 재추출 요금).
+  - fit_verdict: 용도 불일치. '누가 언제 무엇을 좋아했나'류의 fact 변천 추적용이지 벤더 문서 미러의 전문 검색용이 아니다. v1.7/v1.8 구분은 코퍼스 메타데이터 1개 필드로 끝나는 문제를 LLM 추출 그래프로 푸는 과잉 설계.
+### Zep (Community Edition)  [Apache-2.0 (저장소 잔존, 유지보수 중단)]  https://github.com/getzep/zep
+  - maturity: 2025-04-02 공식 블로그로 Community Edition 유지보수 중단 선언 — 코드는 legacy/로 이동, 업데이트·지원 없음. 오픈소스 역량은 Graphiti로 일원화, 제품은 Zep Cloud(상용)만.
+  - footprint: 해당 없음 — 셀프호스팅 경로가 공식적으로 죽었다.
+  - incremental: 해당 없음(신규 채택 불가).
+  - version_support: Graphiti와 동일 모델(Cloud에서만).
+  - korean: 미확인(평가 불필요).
+  - interface: Cloud API만 유효.
+  - strengths: 없음(신규 채택 관점).
+  - weaknesses: 10–20년 지평에서 '회사가 오픈소스 셀프호스팅 경로를 접은 전례' 그 자체가 경고 신호. Graphiti 채택 시에도 이 전례를 존속성 리스크로 계상해야 한다.
+  - fit_verdict: 탈락. 오픈소스 후보로 존재하지 않는다.
+### Mem0  [Apache-2.0 (OSS는 기능 제한 명시 — 플랫폼에 'proprietary optimizations' 유보)]  https://github.com/mem0ai/mem0
+  - maturity: GitHub API 실측: ~62.8k stars, open issues 694, 최근 push 2026-08-07, 2023-06 생성. 회사(mem0ai) 주도, 활동성 최상위.
+  - footprint: pip 라이브러리로 가볍게 시작 가능하나 LLM API 키 필수. 결정적 사실: OSS에서 그래프 스토어 드라이버(Neo4j/Memgraph/Kuzu/AGE/Neptune, ~4000줄)가 전부 제거돼 그래프 메모리는 Platform 전용이 됐다(공식 마이그레이션 문서).
+  - incremental: 메모리 add마다 LLM 1회 이상 호출('Mem0 requires an LLM to function', single-pass ADD extraction). 문서 코퍼스 증분 색인 개념 자체가 없음 — 단위가 '대화 턴'이다.
+  - version_support: 'Temporal Reasoning'을 표방하나 이는 대화 메모리의 시점 랭킹이지 문서 버전 축이 아님. 시간축 기능이 그래프 제거와 함께 사실상 Platform으로 쏠렸다.
+  - korean: 형태소/CJK 토크나이저 없음. LLM·임베딩 모델 품질에 전적으로 종속.
+  - interface: CLI(mem0 init/add/search) 있음. MCP는 README 기준 미제공(에이전트 스킬 형태 제공).
+  - strengths: 스타 수·통합 생태계 최대. 대화 개인화 메모리로는 가장 빠른 도입.
+  - weaknesses: open-core 후퇴 실적(그래프 메모리 OSS 제거)이 기준 B에 치명적 — 10–20년 지평에서 핵심 기능이 유료 플랫폼으로 이동한 전례. 문서 검색 기능 자체가 없음.
+  - fit_verdict: 용도 불일치 + 존속성 리스크. 챗봇 개인화 메모리이지 문서 미러 검색이 아니며, OSS 기능 축소 이력이 명확하다.
+### Letta (구 MemGPT)  [Apache-2.0]  https://github.com/letta-ai/letta
+  - maturity: GitHub API 실측: ~24.1k stars, open issues 45, 최근 push 2026-08-01, 2023-10 생성. 회사(letta-ai) 주도, UC Berkeley MemGPT 논문 계보.
+  - footprint: 에이전트 '플랫폼' — 셀프호스팅은 App Server 상주가 전제. 검색엔진이 아니라 상태 있는 에이전트 런타임 전체를 들이는 것.
+  - incremental: 문서 코퍼스 색인 개념 없음. 메모리는 에이전트 대화·자기수정 루프의 산물로 LLM 호출 그 자체.
+  - version_support: 지식그래프·bitemporal 없음. 메모리 블록 편집 모델.
+  - korean: 형태소/CJK 지원 없음(모델 종속).
+  - interface: SDK+CLI+서버. 에이전트 프레임워크라서 오히려 사용자의 '에이전트가 도구를 고른다' 구도와 충돌 — Letta가 에이전트 루프의 주인이 되려 한다.
+  - strengths: 장수 에이전트의 자기수정 메모리라는 본연 용도에서는 견고. 이슈 관리가 깔끔(open 45).
+  - weaknesses: 문서 검색과 접점이 없다. 채택하면 검색 레이어가 아니라 에이전트 런타임을 통째로 갈아타는 결정이 된다.
+  - fit_verdict: 용도 불일치. '문서 미러 검색' 요구의 어떤 축(C·D·E·G)도 충족하지 않는다.
+### Cognee  [Apache-2.0]  https://github.com/topoteretes/cognee
+  - maturity: GitHub API 실측: ~29.8k stars, open issues 530, 최근 push 2026-08-07, 2023-08 생성. 회사(topoteretes) 주도, 활발.
+  - footprint: 후보 중 로컬 발자국은 가장 유연: SQLite+LanceDB+Kuzu 완전 임베디드 조합을 공식 지원('no extra services to stand up'). 단 cognify 파이프라인에 LLM API 키 필수. MCP 서버는 Docker 컨테이너 경유가 기본 경로.
+  - incremental: ECL(Extract-Cognify-Load) 파이프라인이 LLM으로 그래프를 생성 — 색인 비용이 LLM 요금. 월 수백 커밋 규모 미러의 증분 재-cognify 비용·결정성은 문서상 보증이 없다.
+  - version_support: README 기준 temporal 축 없음. bitemporal 주장 자체를 하지 않는다.
+  - korean: 형태소/CJK 토크나이저 없음. 임베딩·LLM 모델 종속.
+  - interface: Python SDK + CLI + MCP 서버(HTTP/SSE/stdio). 14종 retrieval 모드 — 파이프라인 강제성은 낮은 편이나 검색 대상은 역시 LLM 생성 그래프.
+  - strengths: 임베디드 스택(SQLite/LanceDB/Kuzu)이 기준 A에 가장 근접. 사용자가 이미 언급한 '그래프 축 분담' 후보로서는 후보군 중 유일하게 문서→그래프 방향(대화 메모리가 아닌)이다.
+  - weaknesses: 여전히 색인 = LLM 호출이고, 버전 축·한국어·재현성(같은 md를 두 번 cognify하면 같은 그래프가 나오는가)이 미보증. Kuzu upstream 미유지(Graphiti 측 실측)는 Cognee 임베디드 조합의 장기 리스크이기도 하다.
+  - fit_verdict: 검색 레이어 대체재로는 부적합, 다만 '개념 관계 그래프' 보조 축으로 실험할 거면 후보군 중 유일한 생존자. 그 경우에도 qmd류 검색과 분담이지 대체가 아니다.
+### Memori (구 GibsonAI/memori → MemoriLabs)  [README는 Apache-2.0 표기, GitHub API license 필드는 'Other' — 표기 불일치 자체가 실사 필요 신호]  https://github.com/GibsonAI/memori
+  - maturity: GitHub API 실측: ~15.7k stars, open issues 26, 최근 push 2026-07-31. 2025-07 생성 — 이력 1년. 소유가 GibsonAI→MemoriLabs로 이관됐고 Memori Cloud 상용화 진행 중.
+  - footprint: SQL 기반 BYODB(TiDB 등 언급). 백그라운드 'Advanced Augmentation'이 LLM 처리를 전제.
+  - incremental: 단위가 대화 턴·tool call·에이전트 실행 기록. 문서 코퍼스 색인 개념 없음.
+  - version_support: temporal KG 아님 — 세션/프로세스/엔티티 수준 상태 추적.
+  - korean: 지원 근거 없음.
+  - interface: LLM 프레임워크에 끼워 넣는 래퍼형. MCP/독립 CLI 검색 인터페이스는 확인되지 않음.
+  - strengths: SQL-정본이라는 설계는 데이터 탈출구 관점에서 건전.
+  - weaknesses: 이력 1년 + 소유권 이관 + 라이선스 표기 불일치 + 클라우드 상용화 초기 — 10–20년 지평 기준 B에서 가장 취약.
+  - fit_verdict: 용도 불일치(에이전트 실행 메모리) + 존속성 미검증. 탈락.
+### 기타 2025–2026 temporal KG 지형 (MemoTime·ATOM·DynaGen 등)  [논문 단위 — 운영 가능한 패키지 아님]  https://arxiv.org/pdf/2510.22590
+  - maturity: 2025–2026 temporal KG 신작은 대부분 arXiv 연구 코드(MemoTime, ATOM, DynaGen 등)로, 유지보수 주체·릴리스 주기가 있는 운영급 오픈소스는 발견되지 않았다. 운영급으로 남는 것은 사실상 Graphiti 단일 계보(모방 프로젝트들이 'Graphiti/Zep pattern'을 참조 구현하는 수준).
+  - footprint: 해당 없음.
+  - incremental: 해당 없음.
+  - interface: 해당 없음.
+  - strengths: 지형 확인용 — bitemporal fact 추적이라는 문제 설정 자체가 '대화/이벤트 스트림' 도메인에서 나왔음을 방증.
+  - weaknesses: 10–20년 운영 후보가 아니다.
+  - fit_verdict: 채택 불가. 이 축에서 Graphiti 외 실운영 대안은 현재 없다.
+--- KEY CLAIMS ---
+[LB] Graphiti의 bitemporal은 실구현이다: tx-time(created_at/expired_at)은 시스템이 항상 기록하고, valid-time(valid_at/invalid_at)은 LLM 프롬프트가 텍스트에서 추출하는 optional 필드다. 즉 valid-time 축의 품질은 LLM 추출에 종속되며, 문서 버전 축과는 의미가 다르다.
+     src: https://blog.getzep.com/beyond-static-knowledge-graphs/
+[LB] Graphiti add_episode는 건마다 LLM 다중 호출(노드 추출→dedup LLM fallback→엣지 추출→모순 해소→타임스탬핑)이 필수이고, 'LLM 없는 ingestion' 요청은 미해결 이슈다 — 월 수백 커밋 미러에는 색인 비용 구조가 성립하지 않는다.
+     src: https://github.com/getzep/graphiti/issues/1299
+[LB] Graphiti 백엔드는 Neo4j 5.26 기본, FalkorDB 1.1.2(FalkorDB Lite로 임베디드 가능, Python 3.12+), Neptune이며 Kuzu는 upstream 미유지로 deprecated — 완전 임베디드 경로가 하나뿐이고 그것도 단일 벤더 종속이다.
+     src: https://github.com/getzep/graphiti/blob/main/README.md
+[LB] Zep Community Edition은 2025-04-02 공식적으로 유지보수 중단됐고 오픈소스는 Graphiti로 일원화됐다 — 같은 회사의 셀프호스팅 경로 폐기 전례는 Graphiti 채택 시에도 존속성 리스크로 계상해야 한다.
+     src: https://blog.getzep.com/announcing-a-new-direction-for-zeps-open-source-strategy/
+[LB] Mem0 OSS는 그래프 스토어 드라이버(Neo4j/Memgraph/Kuzu/AGE/Neptune, ~4000줄)를 전부 제거했고 그래프 메모리는 Mem0 Platform 전용이 됐다 — open-core 기능 회수의 실사례.
+     src: https://docs.mem0.ai/open-source/graph_memory/overview
+[LB] Graphiti 프롬프트는 전부 영어이며 다국어 지원은 미해결 open issue다 — 한국어 혼용 질의(기준 E)에 대한 지원 근거가 없다.
+     src: https://github.com/getzep/graphiti/issues/1141
+[LB] Graphiti 스스로 '대규모 정적 문서 코퍼스보다 temporal·episodic 데이터에 적합'하다고 위치를 규정하며, 벤더 문서의 v1.7/v1.8을 시간축으로 모델링한 공개 실사용 사례는 발견되지 않았다. 역사적 backfill에서 temporal-correctness 결함 3건이 보고돼 있다.
+     src: https://github.com/getzep/graphiti/issues/1489
+[  ] Graphiti는 GitHub API 실측 기준 ~29.7k stars, v0.29.3(2026-07-27), 최근 push 2026-08-05로 활발히 유지되고 있다.
+     src: https://api.github.com/repos/getzep/graphiti
+[  ] 공식 zepai/graphiti Docker 이미지가 6개월 이상 방치돼 구버전(v0.10)에 머문 전력이 있어, 셀프호스팅은 라이브러리 직접 운용이 실질 경로다.
+     src: https://github.com/getzep/graphiti/issues/1030
+[  ] Cognee는 SQLite+LanceDB+Kuzu 완전 임베디드 로컬 조합을 공식 지원하나, cognify 파이프라인에 LLM API가 필수이고 temporal 축은 없다.
+     src: https://github.com/topoteretes/cognee/blob/main/README.md
+[  ] Mem0 OSS는 'LLM 없이는 동작하지 않으며' 메모리 add마다 LLM 호출이 발생하고, 플랫폼 대비 기능 제한('proprietary optimizations' 유보)을 README에 명시한다.
+     src: https://github.com/mem0ai/mem0/blob/main/README.md
+[  ] Letta는 stateful 에이전트 플랫폼(App Server 셀프호스팅)이지 문서 검색 시스템이 아니며 지식그래프·temporal 기능이 없다.
+     src: https://github.com/letta-ai/letta/blob/main/README.md
+[  ] Memori는 2025-07 생성(이력 1년), GitHub API license 필드 'Other'로 README의 Apache-2.0 표기와 불일치하며, 대화·에이전트 실행 메모리 용도다.
+     src: https://api.github.com/repos/GibsonAI/memori
+[  ] 2025–2026 신규 temporal KG는 MemoTime·ATOM·DynaGen 등 arXiv 연구 코드 수준이며, 운영급 오픈소스 temporal KG는 Graphiti 단일 계보다.
+     src: https://arxiv.org/pdf/2510.22590
+--- UNRESOLVED ---
+ - Graphiti + FalkorDB Lite(임베디드) 조합의 실제 안정성·성능은 실측하지 못했다 — v0.29.3 릴리스 노트에 FalkorDB fulltext 땜질이 계속 등장하는 것으로 보아 성숙도가 Neo4j 경로보다 낮을 가능성이 높다.
+ - Cognee의 재현성(같은 md 코퍼스를 재-cognify했을 때 그래프 결정성)과 증분 cognify의 실비용(문서당 LLM 토큰)은 공식 수치가 없어 실측이 필요하다.
+ - Memori 라이선스 표기 불일치(API 'Other' vs README 'Apache-2.0')의 실체 — LICENSE 파일 원문을 직접 확인하지 못했다.
+ - LangMem·Memary 등 2026 리스트에 언급되는 군소 메모리 프레임워크는 문서 검색과 무관하다고 판단해 심층 조사에서 제외했다 — 필요 시 별도 확인.
+ - mem0 그래프 제거 문서의 정확한 발효 버전·일자를 특정하지 못했다(마이그레이션 가이드 존재는 확인).
+--- VERDICTS ---
+  [CONFIRMED] Graphiti bitemporal: tx-time(created_at/expired_at)은 시스템 기록, valid-time(valid_at/invalid_at)은 LLM이 텍스트에서 추출하는 optional 필드
+       note: 코드로 직접 확인. graphiti_core/edges.py의 EntityEdge에서 created_at은 필수, expired_at/valid_at/invalid_at은 전부 Optional(default=None). Zep 공식 블로그도 'valid_at and invalid_at are optional fields captured by an LLM prompt during edge processing'이라고 명시 — valid-time 품질이 LLM 추출에 종속된다는 해석과 일치. 문서 버전 축(릴리스 시점)과 의미가 다르다는 지적도 타당: valid_at은 '사실이 참이 된 시점'을 텍스트 단서로 추론하는 필드다.
+  [CONFIRMED] add_episode는 건마다 LLM 다중 호출이 필수이고 'LLM 없는 ingestion' 요청은 미해결 이슈(#1299)
+       note: graphiti_core/graphiti.py에서 extract_nodes → resolve_extracted_nodes(dedup) → extract_edges → resolve_extracted_edges(모순 해소·invalidation) 호출 체인을 코드로 확인 — 전부 LLM 경유. Issue #1299 '[Question] Option to have add_episode without LLM extraction'은 2026-03-05 개설 후 2026-08-08 현재 open 상태로 GitHub API에서 직접 확인. 이슈 본문도 'LLM extraction is overkill (slow and costly)'라며 구조화 데이터에 대한 결정론적 경로 부재를 지적. 단, '월 수백 커밋 미러에 비용 구조 불성립'은 사실이 아닌 추론(합리적이긴 함).
+  [CONFIRMED] 백엔드는 Neo4j 5.26 / FalkorDB 1.1.2(Lite 임베디드, Python 3.12+) / Neptune이고 Kuzu는 upstream 미유지로 deprecated
+       note: main 브랜치 README 원문으로 확인: 'Neo4j 5.26 / FalkorDB 1.1.2 / Amazon Neptune(+OpenSearch Serverless) / Kuzu 0.11.2 (deprecated)'. Kuzu는 'the upstream Kuzu project is no longer maintained'로 DeprecationWarning을 내며 제거 예정. falkordblite extra는 'requires Python 3.12+' 명시. 뉘앙스 하나: Kuzu 드라이버가 아직 shipping 중이므로 엄밀히는 임베디드 경로가 당장 하나만 있는 건 아니나, 비-deprecated 임베디드 경로가 FalkorDB Lite뿐이라는 결론은 정확하다.
+  [CONFIRMED] Zep Community Edition은 2025-04-02 유지보수 중단, 오픈소스는 Graphiti로 일원화
+       note: 공식 블로그(2025-04-02) 원문 확인: 'decided to stop maintaining and releasing Zep Community Edition', 'our open-source efforts will concentrate on Graphiti'. 리포는 아카이브되지 않았으나(pushed 2026-08-05) 설명이 'Zep | Examples, Integrations, & More'로 재용도화됨 — CE 제품으로서는 폐기가 맞다. 같은 회사의 셀프호스팅 경로 폐기 전례라는 리스크 평가는 사실 기반이 정확하다.
+  [CONFIRMED] Mem0 OSS는 그래프 스토어 드라이버(~4000줄)를 전부 제거했고 그래프 메모리는 Platform 전용이 됐다
+       note: 리포 실물로 확인: mem0/graphs/ 디렉토리는 현재 404이고 mem0/memory/에 graph_memory.py가 없다. 제거 커밋 a488e190(PR #4805, 2026-04-14)에서 Python 드라이버 삭제분 합산 = 테스트 제외 약 4,289줄(graph_memory.py 744, kuzu_memory.py 732, memgraph_memory.py 708, neptune 3파일 1,501, graphs/configs·tools·utils 604), 테스트 포함 5,713줄 + TypeScript OSS 쪽도 동시 삭제 — '~4000줄' 수치 정확. 공식 문서도 'The external graph store integration is removed from OSS; graph memory is now a built-in, always-on Mem0 Platform fea
+  [CONFIRMED] Graphiti 프롬프트는 전부 영어이고 다국어 지원은 미해결 open issue(#1141)
+       note: Issue #1141 'Multi-language support'는 2026-01-09 개설, 2026-08-08 현재 open(closed_at null)을 GitHub API로 확인. 본문이 'Today, prompts are all in English'라고 직접 진술하며 과거 중국어 지원 요청(#312)도 미해결로 언급. 한국어 혼용 질의에 대한 공식 지원 근거가 없다는 결론은 타당하다.
+  [REFUTED] Graphiti는 정적 문서 코퍼스보다 temporal·episodic 데이터에 적합하다고 스스로 위치를 규정하고, 역사적 backfill에서 temporal-correctness 결함 3건이 보고돼 있다
+       note: 결함 수와 현재성이 모두 틀렸다. Issue #1489 제목이 'Historical backfill exposes two temporal-correctness gaps' — 2건(MCP add_memory가 reference_time을 버림, delete_episode가 dangling 참조를 남김)이지 3건이 아니다. 더 중요하게, 두 건 모두 PR #1553(2026-06-08 머지)으로 수정되어 v0.29.2에 릴리스됐고 이슈는 2026-07-31 completed로 종결됨 — '보고돼 있다'는 현재형 서술은 2026-08-08 기준 낡은 정보다. 다만 부분적으로 살아남는 것: (a) 포지셔닝은 사실 — README 'Graphiti vs GraphRAG' 표에서 GraphRAG의 Primary Use를 'Static document summarization', 자신을 'Dynamic, e
+====================================================================================================
+KEY: rag-platforms
+--- SUMMARY ---
+판정: 풀스택 RAG/KB 플랫폼 카테고리는 이 요건(맥북 1대·1인·에이전트 소비·md 미러·유지비 2–3주당 30–45분)에 대해 전체가 과체중이며, qmd를 대체할 후보는 없다. 근거 구조: (1) 풋프린트 — Dify 16서비스, RAGFlow 16GB/5컨테이너, Onyx Standard 10GB/7서비스로 상위 3개가 기준 A에서 즉사하고, 경량인 AnythingLLM·kotaemon·Open WebUI는 검색 품질(벡터 단독·형태소 부재)과 sync·에이전트 인터페이스가 qmd의 하위 호환이다. (2) 존속성 — 10개 지정 후보 중 Verba archived, Quivr 13개월 정지, Morphik 비오픈소스+회사 피벗으로 3개가 이미 죽었거나 위험하며, 최대 스타 2개(Dify·Open WebUI)마저 라이선스를 폐쇄 방향으로 개정한 이력이 있다. 3년 만에 이 정도 사망률인 카테고리에 10–20년 지평의 레이어를 세울 수 없다. (3) 구조적 미스매치 — 이들은 모두 '문서를 플랫폼 안으로 들여와 챗으로 소비'하는 제품이라 md+git 정본 분리 원칙과 충돌하고, 버전 인지(D)는 전 카테고리 부재, 한국어 형태소(E)도 전 카테고리에서 기본 경로 밖이다. 유일한 예외적 강점 두 가지 — Onyx의 웹 커넥터 주기 sync(단 Standard 전용이라 A와 배타)와 RAGFlow의 1st-party MCP retrieval(단 16GB 스택 위)— 는 둘 다 풋프린트와 맞교환 관계다. 결론: 이 카테고리에서 얻을 것은 채택이 아니라 설계 확인이다. 미러 sync는 git pull + 증분 색인(qmd의 SHA-256 방식)으로, 버전 구분은 코퍼스/컬렉션 분리로, 에이전트 소비는 MCP retrieval 툴로 푸는 qmd의 구도가 이 지형에서 오히려 표준에 가깝다.
+--- TOOLS ---
+### RAGFlow  [Apache-2.0]  https://github.com/infiniflow/ragflow
+  - maturity: 87,029 stars, push 2026-08-07, 최근 릴리스 v0.26.4(2026-07-07). 개발 주체는 InfiniFlow(중국계 스타트업, Infinity DB 겸업). open issues 1,883개로 활동은 매우 왕성.
+  - footprint: 공식 최소 사양 CPU 4코어 / RAM 16GB / Disk 50GB, vm.max_map_count≥262144 커널 튜닝 필요. compose 스택 = Elasticsearch(또는 Infinity) + MySQL + MinIO + Redis + ragflow-server 최소 5컨테이너 상주. 맥북 1대 기준 A를 정면 위반.
+  - incremental: 업로드·커넥터 동기화(Confluence, S3, Notion, Google Drive 등) 지원. 기본 색인(DeepDoc 파싱+임베딩)은 LLM 호출 불요이나 GraphRAG/RAPTOR 옵션을 켜면 색인에 LLM 비용 발생. 로컬 md 폴더를 직접 watch하는 미러 모델은 아니고 문서를 플랫폼 안으로 '들여오는' 모델.
+  - version_support: 버전별 dataset(Knowledge Base)을 따로 만들어 dataset_ids로 스코프하는 수동 우회는 가능. 문서 버전이라는 1급 개념은 없음.
+  - korean: 기본 rag analyzer는 중국어+영어 이중언어 토크나이저. 한국어 형태소는 Infinity 엔진 선택 시 mecab 래퍼 'korean' 분석기로 가능하나 기본 경로(ES) 밖의 옵션이고, UI 한국어화도 레지스트리 누락이 있는 2급 지원.
+  - interface: 1st-party MCP server(mcp/server, ragflow_retrieval 툴)와 HTTP retrieve API로 검색 결과만 뽑아갈 수 있음 — 이 카테고리에서 에이전트 소비가 가장 1급인 축. CLI는 없음.
+  - strengths: 카테고리 내 최고 파싱 품질(DeepDoc)·hybrid 검색·1st-party MCP retrieval·Apache-2.0 순수 라이선스·활발한 개발.
+  - weaknesses: ES+MySQL+MinIO+Redis 상주가 유지비 예산(2–3주당 30–45분)을 초과할 가능성이 큼. 색인이 플랫폼 내부 소유라 md+git 정본과 이중 관리. 한국어가 기본 경로에서 2급.
+  - fit_verdict: 후보군 중 에이전트 소비 요건(F)에 가장 근접하지만, 5컨테이너·16GB 풋프린트가 기준 A를 위반해 1인 맥북 운영엔 과체중. 팀 규모라면 1순위였을 도구.
+### Dify  [수정 Apache-2.0 (multi-tenant 운영 금지 + 프런트엔드 브랜딩 유지 조항)]  https://github.com/langgenius/dify
+  - maturity: 151,708 stars, push 2026-08-07. LangGenius(회사) 주도, 카테고리 최대 커뮤니티.
+  - footprint: compose 스택 총 16서비스(api, worker, worker_beat, web, plugin_daemon, agent_backend, weaviate, postgres, redis, nginx, ssrf_proxy×2, sandbox×2 등). 공식 최소 2코어/4GiB이지만 서비스 수 자체가 기준 A를 정면 위반.
+  - incremental: Knowledge에 website crawl 소스(Firecrawl/Jina 경유)와 Notion sync 지원. 문서 갱신은 재업로드/재크롤 중심이며 git 미러의 커밋 단위 증분 개념 없음. 기본 색인은 임베딩만(LLM 불요), Q&A 분할 등 옵션은 LLM 사용.
+  - version_support: Knowledge Base 분리로 수동 우회만 가능.
+  - korean: 형태소 분석 없음. keyword 검색은 자체 토크나이저, 실질 한국어 품질은 선택한 임베딩 모델 의존.
+  - interface: 웹 UI·워크플로 빌더 중심이나, retrieval-only API(POST /datasets/{id}/retrieve)가 있어 LLM 체인 없이 chunk만 뽑는 것은 가능. 1st-party MCP 서버로 지식 검색을 노출하는 구도는 아님.
+  - strengths: 생태계 최대·retrieval-only API 존재·website crawl 내장.
+  - weaknesses: 16서비스 상주는 개인 유지비로 감당 불가. LLM 앱 빌더가 본체라 검색엔진으로 쓰면 배보다 배꼽. 라이선스에 상용 조항 부가.
+  - fit_verdict: LLM 앱 개발 플랫폼이지 문서 검색 레이어가 아니다. 기준 A에서 즉시 탈락.
+### AnythingLLM  [MIT]  https://github.com/Mintplex-Labs/anything-llm
+  - maturity: 64,462 stars, push 2026-08-06, v1.15.0(2026-06-25). Mintplex Labs(소규모 회사) 주도, 활동 지속.
+  - footprint: 카테고리 내 최경량 — 단일 앱(데스크톱) 또는 단일 docker 컨테이너, 최소 2GB RAM/2코어, LanceDB 임베디드 내장(별도 DB 서버 없음). 기준 A를 유일하게 충족.
+  - incremental: Live Document Sync는 베타·기본 꺼짐. watch 대상은 website 링크·Confluence·GitHub·YouTube이고 로컬 파일 watch는 Desktop판만(10분 주기), Docker판은 브라우저 업로드 파일 sync 불가. 앱이 켜져 있어야만 동작(백그라운드 워커 없음). 재색인은 파일 단위 재임베딩.
+  - version_support: workspace 분리로 수동 우회만 가능.
+  - korean: BM25/형태소 없음, LanceDB 벡터 검색 중심 — 한국어는 전적으로 임베딩 모델 품질에 의존. 한국어+영어 혼용 키워드 질의에 구조적 취약.
+  - interface: Developer API 있음. MCP는 AnythingLLM이 '클라이언트'로 MCP 도구를 쓰는 방향이 1st-party이고, AnythingLLM 검색을 MCP 서버로 노출하는 것은 서드파티 래퍼(raqueljezweb/anythingllm-mcp-server 등) 의존.
+  - strengths: MIT·단일 프로세스·임베디드 벡터DB — 존속성과 풋프린트는 후보군 1위.
+  - weaknesses: 검색이 벡터 단독(lexical/형태소 없음), 검색-only 소비가 2급(챗 UI가 본체), 로컬 md 폴더 미러 watch가 Docker에서 불가, MCP 서버가 3rd-party.
+  - fit_verdict: 풋프린트는 통과하나 검색 품질 구조(벡터 단독·한국어 형태소 부재)와 에이전트 인터페이스가 qmd(FTS5+RRF+1st-party MCP) 대비 하위 호환. 채택 이유 없음.
+### Onyx (구 Danswer)  [MIT (CE) + Enterprise 폴더 dual-license]  https://github.com/onyx-dot-app/onyx
+  - maturity: 31,485 stars, push 2026-08-07. Onyx(YC 스타트업) 주도, 활동 왕성.
+  - footprint: Lite 모드: 4서비스(api, web, postgres, nginx)/2GB. Standard 모드: 7+서비스(OpenSearch, 인덱싱/추론 model server 2개, worker, Redis, MinIO 포함)/10GB RAM + 색인 데이터의 2.5배 디스크. 커넥터 주기 sync는 Standard의 백그라운드 컨테이너 담당.
+  - incremental: 50+ 커넥터와 자체 웹 크롤러(+Firecrawl/Exa 연동)로 주기 sync — 문서 사이트 미러 자동화(3번 요건)는 카테고리 내 최강. 색인은 임베딩 기반, LLM 불요.
+  - version_support: 커넥터/문서셋 분리로 수동 우회.
+  - korean: 다국어 임베딩 모델 교체로 대응. OpenSearch에 nori 등 한국어 분석기를 붙이는 것은 자체 커스텀 영역, 기본 아님.
+  - interface: MCP/Actions 통합, API 존재. 다만 설계 중심은 팀용 웹 챗/검색 포털.
+  - strengths: 웹 커넥터·주기 sync가 1급, MIT 코어, 활발한 개발.
+  - weaknesses: sync가 되는 Standard 모드는 10GB RAM·7컨테이너로 기준 A 위반. Lite는 경량이나 커넥터 sync가 빠져 존재 의의 상실. 엔터프라이즈 검색 제품이라 1인 운영은 표적 사용자 밖.
+  - fit_verdict: '문서 사이트를 등록하면 알아서 sync'라는 3번 요건만 보면 최적이지만, 그 기능을 켜는 순간 풋프린트가 기준 A를 깬다. 트레이드오프가 정확히 반대 방향.
+### Khoj  [AGPL-3.0]  https://github.com/khoj-ai/khoj
+  - maturity: 36,374 stars, push 2026-08-02, 최근 릴리스 2.0.0-beta.28(2026-03-26) — 정식 릴리스가 5개월째 beta 라인. Khoj Inc.(소규모) 주도.
+  - footprint: compose 5컨테이너: pgvector(pg15), terrarium(sandbox), searxng, khoj-computer, server. 오프라인 모델 사용 시 8GB+ RAM. 중간 체급.
+  - incremental: md/org 파일이 1급 입력 — 데스크톱/Obsidian/Emacs 클라이언트가 폴더를 watch하며 변경분 push, 서버가 재임베딩. 로컬 md 미러 증분(C)과 md 네이티브(G)는 후보군 중 가장 근접. 색인에 LLM 불요.
+  - version_support: 없음. 개인 노트 second brain 모델이라 동일 문서의 버전 구분 개념 자체가 없음.
+  - korean: 형태소 분석 없음, 임베딩 의존.
+  - interface: 웹 UI·클라이언트 앱 중심. API는 있으나 1st-party MCP 없음(커뮤니티 래퍼만 확인됨). 에이전트 소비는 2급.
+  - strengths: md 폴더 watch 증분 sync가 설계의 뿌리, AGPL이지만 원본 파일이 항상 사용자 소유(데이터 탈출구 양호).
+  - weaknesses: 5컨테이너 상주, MCP 부재, 개인 노트·웹검색·에이전트 자동화로 제품 방향이 이동 중 — 기술 문서 미러 검색은 표적 용도 아님.
+  - fit_verdict: md 네이티브 증분이라는 한 축은 통과하나 인터페이스(F)·버전(D)·풋프린트에서 밀림. qmd가 이미 하는 것의 무거운 부분집합.
+### kotaemon  [Apache-2.0]  https://github.com/Cinnamon/kotaemon
+  - maturity: 25,691 stars이나 push 2026-07-14, 최근 릴리스 v0.12.0(2026-05-31)로 활동 둔화. Cinnamon(일본 AI 회사)의 사이드 프로젝트 성격 — bus factor 우려.
+  - footprint: Gradio 단일 앱(pip 또는 단일 docker)으로 경량. 기준 A는 통과.
+  - incremental: 파일 업로드 중심, 폴더 watch·웹 커넥터·주기 sync 없음. GraphRAG 옵션은 색인에 LLM 필요.
+  - version_support: 없음.
+  - korean: 형태소 없음, 임베딩 의존.
+  - interface: Gradio 웹 UI가 사실상 전부. MCP·CLI 없음, 검색-only API 미노출.
+  - strengths: 경량·Apache-2.0·인용 미리보기 UI 품질.
+  - weaknesses: '문서와 챗하기' 데모 성격, 에이전트 인터페이스 전무, 활동 둔화.
+  - fit_verdict: 요건 F(에이전트 소비)와 C(주기 sync)가 모두 없어 탈락.
+### Quivr  [NOASSERTION (표준 라이선스 미지정)]  https://github.com/QuivrHQ/quivr
+  - maturity: 39,392 stars이나 push 2025-07-09 — 13개월간 커밋 없음. 풀스택 제품에서 'opinionated RAG 라이브러리'로 축소 피벗 후 그마저 정지.
+  - footprint: 현재 형태는 python 라이브러리(quivr-core)라 상주 없음.
+  - incremental: 미러 sync 개념 없음.
+  - version_support: 없음.
+  - korean: 임베딩 의존.
+  - interface: 라이브러리 API. RAG 체인(파이프라인) 내장형.
+  - strengths: 없음(현 시점).
+  - weaknesses: 개발 정지 + 라이선스 불명확 — 10–20년 지평(B)에서 즉시 실격.
+  - fit_verdict: 사실상 사망한 프로젝트. 제외.
+### Verba  [BSD-3-Clause]  https://github.com/weaviate/Verba
+  - maturity: 7,713 stars, GitHub에서 archived=true 확정(2026-06 마지막 push). Weaviate가 공식 폐기.
+  - footprint: Weaviate 서버 의존.
+  - incremental: 해당 없음.
+  - version_support: 없음.
+  - korean: 해당 없음.
+  - interface: 웹 UI 챗.
+  - strengths: 없음(현 시점).
+  - weaknesses: archived — 벤더가 만든 RAG 프런트도 3년을 못 간다는 존속성(B) 반면교사.
+  - fit_verdict: 제외. 이 카테고리의 수명 리스크를 보여주는 표본.
+### Open WebUI (knowledge 기능)  [BSD-3 변형 + 브랜딩 유지 조항(30일 내 50 end user 이하 배포만 예외)]  https://github.com/open-webui/open-webui
+  - maturity: 148,151 stars, push 2026-08-07. 사실상 개인(Timothy Baek) 주도 프로젝트가 회사화 — 라이선스가 이미 한 번 폐쇄 방향으로 개정된 이력.
+  - footprint: 단일 컨테이너로 가볍게 시작 가능(내장 chromadb). 기준 A 통과.
+  - incremental: knowledge collection은 파일 업로드/API push 중심. 웹사이트를 소스로 등록해 주기 재크롤하는 1급 기능 없음. 색인은 임베딩만(LLM 불요).
+  - version_support: collection 분리로 수동 우회.
+  - korean: hybrid(BM25) 토글은 있으나 형태소 분석기 없음 — 한국어 lexical 검색은 공백 토큰 수준.
+  - interface: 챗 웹 UI가 본체. knowledge 관리·검색 API(/api/v1/files, search/query_knowledge_files)가 있어 LLM 체인 없이 검색 결과 추출은 부분적으로 가능하나, retrieval 품질 튜닝 표면이 챗 전제로 설계됨. MCP는 외부 도구를 '쓰는' 방향(mcpo).
+  - strengths: 경량 시작·거대 커뮤니티·API 존재.
+  - weaknesses: knowledge는 챗 UI의 부속 기능이지 검색엔진이 아님. 주기 sync 부재, 한국어 lexical 취약, 라이선스 방향성 리스크.
+  - fit_verdict: Ollama 챗 프런트로는 훌륭하나 '휘발성 문서 레이어'의 검색 백엔드로는 부적합.
+### Morphik  [BSL 1.1 (오픈소스 아님 — 월 매출 $2,000 초과 시 상용 라이선스, 2029-06-18 Apache-2.0 전환)]  https://github.com/morphik-org/morphik-core
+  - maturity: 3,704 stars, push 2026-07-23. 결정적: GitHub 설명이 'By Morphik — AI back office for skilled nursing & senior living' — 회사가 요양·시니어 리빙 버티컬로 피벗했고 retrieval 엔진은 유산 코드가 될 공산.
+  - footprint: postgres(pgvector)+Redis+서버 compose, 멀티모달(ColPali) 사용 시 GPU 권장.
+  - incremental: 업로드/API 중심. ColPali 경로는 색인에 무거운 모델 추론 필요.
+  - version_support: 메타데이터 필터로 우회 가능.
+  - korean: 임베딩 의존.
+  - interface: REST API + 1st-party MCP 있음.
+  - strengths: 멀티모달 retrieval 기술력, MCP.
+  - weaknesses: 비오픈소스 라이선스 + 회사 피벗 — 존속성(B) 기준 최악 조합.
+  - fit_verdict: 10–20년 지평에서 베팅 불가. 제외.
+### LightRAG (발굴)  [MIT]  https://github.com/HKUDS/LightRAG
+  - maturity: 38,616 stars, push 2026-08-06. HKU 데이터과학 연구실(학술) 주도 — 논문 드리븐이라 연구 종료 시 유지 리스크.
+  - footprint: 서버+WebUI 단일 프로세스로 경량 시작 가능.
+  - incremental: 치명: 색인이 LLM 기반 엔티티·관계 추출을 전제 — 월 수백 커밋 갱신되는 미러에 커밋마다 LLM 비용 발생, 기준 C 정면 위반.
+  - version_support: 없음.
+  - korean: LLM/임베딩 의존.
+  - interface: API 서버 + Ollama 호환 인터페이스, 커뮤니티 MCP.
+  - strengths: 그래프 기반 멀티홉 질의, MIT.
+  - weaknesses: 색인 = LLM 호출이라는 비용 구조가 휘발성 미러와 상극.
+  - fit_verdict: 정적 코퍼스 심층 분석용이지 고빈도 갱신 미러용 아님. 제외.
+### R2R (발굴)  [MIT]  https://github.com/SciPhi-AI/R2R
+  - maturity: 7,950 stars이나 push 2025-11-07 — 9개월 커밋 정지. SciPhi(스타트업) 방치 상태.
+  - footprint: postgres+pgvector 기반 REST 서버.
+  - incremental: API push 중심.
+  - version_support: 메타데이터 필터 우회.
+  - korean: 임베딩 의존.
+  - interface: RESTful API 1급 + MCP — 인터페이스 철학은 요건 F에 부합했었음.
+  - strengths: API-first 설계.
+  - weaknesses: 개발 정지 — 존속성(B) 실격.
+  - fit_verdict: 설계 방향은 맞았으나 죽어가는 프로젝트. 제외.
+--- KEY CLAIMS ---
+[LB] Dify self-host compose 스택은 총 16서비스(api, worker×2, web, plugin_daemon, agent_backend, weaviate, postgres, redis, nginx, ssrf_proxy×2, sandbox×2 등)로 1인 맥북 운영 기준을 정면 위반한다
+     src: https://docs.dify.ai/en/getting-started/install-self-hosted/docker-compose
+[LB] RAGFlow 공식 최소 사양은 CPU 4코어/RAM 16GB/Disk 50GB + vm.max_map_count 커널 튜닝이며 compose가 Elasticsearch·MySQL·MinIO·Redis를 상주시킨다
+     src: https://github.com/infiniflow/ragflow/blob/main/README.md
+[LB] RAGFlow는 1st-party MCP server를 제공하며 retrieve 툴로 LLM 체인 없이 chunk만 뽑아갈 수 있다 — 카테고리에서 에이전트 소비가 가장 1급
+     src: https://ragflow.io/docs/launch_mcp_server
+[LB] RAGFlow 기본 rag analyzer는 중국어+영어 이중언어 토크나이저이고, 한국어 형태소(mecab 래퍼)는 Infinity 엔진 선택 시의 별도 옵션이다 — 한국어는 기본 경로에서 2급
+     src: https://infiniflow.org/docs/search_guide
+[LB] Onyx는 커넥터 주기 sync(자체 웹 크롤러 포함 50+ 커넥터)가 Standard 모드 전용이고, Standard는 10GB RAM·OpenSearch 포함 7+서비스를 요구한다 — sync 기능과 경량 풋프린트가 상호 배타
+     src: https://docs.onyx.app/deployment/getting_started/resourcing
+[LB] AnythingLLM은 단일 앱/컨테이너·2GB RAM·임베디드 LanceDB·MIT로 카테고리 최경량이지만, 검색이 벡터 단독(형태소·BM25 없음)이다
+     src: https://docs.anythingllm.com/installation-docker/system-requirements
+[LB] AnythingLLM의 Live Document Sync는 베타·기본 꺼짐이며 Docker판은 로컬 파일 watch 불가, 앱이 켜져 있어야만 동작한다 — 로컬 md 미러 증분 요건 미충족
+     src: https://docs.anythingllm.com/beta-preview/active-features/live-document-sync
+[LB] Verba는 GitHub에서 archived=true로 공식 폐기됐다
+     src: https://api.github.com/repos/weaviate/Verba
+[LB] Quivr는 push가 2025-07-09에서 멈춰 13개월째 개발 정지 상태다
+     src: https://api.github.com/repos/QuivrHQ/quivr
+[LB] Morphik은 BSL 1.1(비오픈소스, 월 매출 $2,000 제한, 2029-06 Apache 전환)이고 회사는 'AI back office for skilled nursing & senior living'으로 피벗했다
+     src: https://github.com/morphik-org/morphik-core/blob/main/LICENSE
+[LB] Khoj는 md 폴더 watch·클라이언트 push 증분 sync가 설계의 뿌리지만 compose 5컨테이너(pgvector·terrarium·searxng·khoj-computer·server) 상주이고 1st-party MCP가 없다
+     src: https://github.com/khoj-ai/khoj/blob/master/docker-compose.yml
+[LB] LightRAG는 색인 자체가 LLM 엔티티 추출을 전제로 해 월 수백 커밋 갱신 미러에서는 커밋마다 LLM 비용이 발생한다
+     src: https://github.com/HKUDS/LightRAG
+[  ] Dify는 retrieval-only API(POST /datasets/{id}/retrieve)로 LLM 없이 chunk 검색이 가능하다
+     src: https://docs.dify.ai/api-reference/datasets/retrieve-chunks-from-a-knowledge-base
+[  ] Dify 라이선스는 수정 Apache-2.0(multi-tenant 금지+브랜딩 유지), Open WebUI는 BSD-3 변형+브랜딩 조항(50 user 초과 배포 시)으로 두 최대 스타 프로젝트 모두 순수 오픈소스가 아니다
+     src: https://github.com/langgenius/dify/blob/main/LICENSE
+[  ] R2R은 API-first retrieval 시스템으로 설계 방향은 부합했으나 push가 2025-11-07에서 멈췄다
+     src: https://github.com/SciPhi-AI/R2R
+[LB] 조사한 12개 도구 중 '같은 문서의 v1.7/v1.8 구분 조회'를 1급 개념으로 지원하는 것은 하나도 없다 — 전부 dataset/workspace/collection 분리 수동 우회뿐
+     src: https://ragflow.io/docs/mcp_tools
+--- UNRESOLVED ---
+ - 상주 메모리 수치는 각 프로젝트의 공식 문서 요구사양이지 실기기 RSS 측정이 아니다 — 최종 후보를 실제 띄워 측정하는 단계는 미수행
+ - RAGFlow+Infinity 조합의 한국어 형태소 검색 품질(qrels 대비)은 실측하지 않았다 — 문서상 mecab 래퍼 존재만 확인
+ - Onyx Lite 모드에서 웹 커넥터 등록 자체가 가능한지(수동 트리거라도) 문서가 불명확하다
+ - Khoj 2.0 정식 릴리스가 beta에 5개월째 머무는 이유(방향 전환 여부)는 추적하지 않았다
+ - Open WebUI knowledge API의 검색 엔드포인트가 hybrid(BM25+vector) 파라미터를 외부에 노출하는지 코드 수준 확인 미수행
+--- VERDICTS ---
+  [CONFIRMED] Dify self-host compose 스택은 총 16서비스로 1인 맥북 운영 기준을 정면 위반한다
+       note: docker/docker-compose.yaml(main, v1.16.1) 실측: 프로파일 없는 서비스 13개(api, worker, worker_beat, web, redis, sandbox, local_sandbox, plugin_daemon, agent_backend, ssrf_proxy, agent_ssrf_proxy, nginx, init_permissions) + .env 기본 COMPOSE_PROFILES=weaviate,postgresql,collaboration이 db_postgres·weaviate·api_websocket을 추가해 정확히 16서비스. worker×2=worker+worker_beat, sandbox×2=sandbox+local_sandbox, ssrf_proxy×2=squid 2개로 전부 실재. 단 init_permissions는 busybox 일회성이라 상주
+  [CONFIRMED] RAGFlow 공식 최소 사양은 CPU 4코어/RAM 16GB/Disk 50GB + vm.max_map_count 튜닝이며 compose가 Elasticsearch·MySQL·MinIO·Redis를 상주시킨다
+       note: README(main) 실측: CPU >= 4 cores, RAM >= 16 GB, Disk >= 50 GB, vm.max_map_count >= 262144 그대로 명시. docker-compose-base.yml에서 기본 DOC_ENGINE=elasticsearch일 때 es01·mysql·minio·redis가 프로파일 없이(또는 기본 프로파일로) 상주함을 확인. 사소한 정정: redis 서비스의 실제 이미지는 valkey:8(Redis 포크)이고 mysql은 8.0.40.
+  [UNCERTAIN] RAGFlow는 1st-party MCP server의 retrieve 툴로 LLM 체인 없이 chunk만 뽑아갈 수 있다 — 카테고리에서 에이전트 소비가 가장 1급
+       note: 사실부는 코드로 확인: 저장소 mcp/server/server.py에 ragflow_retrieval 툴이 실재하고 /retrieval API를 직접 호출해 LLM 생성 없이 chunk를 반환한다(dataset_ids/document_ids 지정 가능). compose에도 --enable-mcpserver 설정이 문서화돼 있다. 그러나 '카테고리에서 가장 1급'이라는 비교 단정은 반례 후보가 있다 — Onyx도 1st-party MCP 서버(docs.onyx.app/overview/onyx_anywhere/mcp_server)를 자가호스팅 도메인 포함으로 제공하며 지식베이스 검색 툴을 노출한다. 다만 Onyx MCP가 raw chunk를 반환하는지는 문서에 불명확. 사실 주장은 참, 순위 주장은 단정 불가.
+  [CONFIRMED] RAGFlow 기본 rag analyzer는 중국어+영어 이중언어이고, 한국어 형태소(mecab 래퍼)는 Infinity 엔진 선택 시의 별도 옵션 — 한국어는 기본 경로에서 2급
+       note: Infinity 공식 문서가 rag analyzer를 '중국어(간체·번체)+영어 이중언어 토크나이저, RAGFlow 토크나이저의 C++ 이식'으로, korean analyzer를 'mecab 래퍼(다른 한국어 사전 사용)'로 명시. infinity 저장소에 korean_analyzer.cppm/korean_analyzer_impl.cpp 실재. 단 뉘앙스 정정: RAGFlow는 DOC_ENGINE=infinity를 선택해도 conf/infinity_mapping.json에 content analyzer를 rag-coarse/rag-fine으로 하드코딩해 korean을 노출하지 않는다 — korean은 Infinity DB를 직접 쓸 때의 옵션이며, RAGFlow 내 한국어 경로는 주장보다 더 나쁘다(2급이 아니라 사실상 미노출). 결론 방향은 유지·강화됨.
+  [CONFIRMED] Onyx는 커넥터 sync가 Standard 모드 전용이고 Standard는 10GB RAM·OpenSearch 포함 7+서비스를 요구 — sync와 경량 풋프린트가 상호 배타
+       note: 공식 resourcing 문서 실측: Standard는 RAM 10GB min/16GB+ 권장, CPU 4vCPU min, Helm 기준 7서비스(api_server, background, indexing_model_server, inference_model_server, postgres, opensearch, nginx). deployment README가 Lite를 '커넥터·RAG 없이 chat만 필요한 팀용'으로 명시 — 커넥터 sync를 담당하는 background 워커와 Vector+Keyword 인덱스가 Lite에서 제외됨(Lite는 api_server, web_server, postgres, nginx 4개, 1GB 미만 메모리). 커넥터 sync ↔ 경량 스택 배타 성립.
+  [CONFIRMED] AnythingLLM은 단일 앱/컨테이너·2GB RAM·임베디드 LanceDB·MIT로 최경량이지만 검색이 벡터 단독(형태소·BM25 없음)
+       note: 공식 문서 실측: 최소 RAM 2GB/2코어/5GB, 기본 벡터DB LanceDB(내장), MIT 라이선스. 벡터 단독 주장은 저장소 이슈·PR로 교차 검증: hybrid search(BM25+vector) 기능 요청 #4338(2025-08)이 여전히 open, 구현 PR #3972는 unmerged closed, 전 프로바이더 대상 PR #5644(2026-05)도 2026-08 현재 미병합 open — BM25/형태소 검색이 본체에 없음이 역으로 입증된다.
+  [CONFIRMED] AnythingLLM Live Document Sync는 베타·기본 꺼짐이며 Docker판은 로컬 파일 watch 불가, 앱이 켜져 있어야만 동작 — 로컬 md 미러 증분 요건 미충족
+       note: 공식 문서 실측: Beta Preview 소속으로 feature preview 관리 페이지에서 수동 활성화 필요(기본 꺼짐). Docker판은 '수동 업로드 파일은 sync되지 않는다(브라우저가 로컬을 읽을 수 없으므로)'고 명시 — watch 대상은 웹링크·커넥터뿐. '앱/컨테이너를 끄면 watched 파일이 sync되지 않는다'도 명시(데스크톱 10분·일반 1시간 주기). 로컬 md 폴더 증분 미러 요건 미충족 판단은 타당.
+  [CONFIRMED] Verba는 GitHub에서 archived=true로 공식 폐기됐다
+       note: GitHub API(인증 gh CLI) 직접 조회: archived=true. 마지막 push는 2026-06-08(아카이브 처리 무렵). 2026-08-08 현재 읽기 전용 아카이브 상태 확정.
+  [CONFIRMED] Quivr는 push가 2025-07-09에서 멈춰 13개월째 개발 정지 상태다
+       note: GitHub API 직접 조회: pushed_at=2025-07-09T12:55:23Z — 날짜까지 정확히 일치, 2026-08-08 기준 만 13개월 무push. 단 archived=false이므로 공식 폐기는 아니고 사실상의 개발 정지라는 표현이 정확하다(pushed_at은 모든 브랜치 push를 포함하므로 어떤 브랜치에도 push가 없었다는 강한 근거).
+  [CONFIRMED] Morphik은 BSL 1.1(월 매출 $2,000 제한, 2029-06 Apache 전환)이고 회사는 skilled nursing & senior living으로 피벗했다
+       note: LICENSE 파일 원문 실측: Business Source License 1.1, Additional Use Grant '월 총매출 US $2,000 미만이면 프로덕션 사용 가능', Change Date 2029-06-18, Change License Apache 2.0, 'not an Open Source license' 명문. 피벗도 morphik.ai 현행 사이트에서 확인: 'AI workers for skilled nursing & senior living'(AP·billing·collections·payroll 백오피스 자동화) — 주장 문구('AI back office')와 표현만 근소하게 다르고 실질 동일. dev.morphik.ai가 별도로 남아 있는 점만 참고.
+  [CONFIRMED] Khoj는 md watch·클라이언트 push 증분 sync가 설계의 뿌리지만 compose 5컨테이너 상주이고 1st-party MCP가 없다
+       note: docker-compose.yml(master) 실측: 정확히 5서비스 — database(pgvector/pgvector:pg15), sandbox(khoj-ai/terrarium), search(searxng), computer(khoj-ai/khoj-computer), server(khoj-ai/khoj). 프로파일 없이 전부 상주. MCP는 저장소 코드로 반박 시도했으나 src/khoj/processor/tools/mcp.py는 MCPClient(외부 MCP 서버를 Khoj의 툴로 소비하는 클라이언트) 구현뿐 — Khoj 검색을 외부 에이전트에 노출하는 1st-party MCP 서버는 저장소·문서 어디서도 발견 못함. md watch·클라이언트 push는 데스크톱/Obsidian/Emacs 클라이언트의 인덱싱 push 설계로 성립.
+  [CONFIRMED] LightRAG는 색인이 LLM 엔티티 추출을 전제해 월 수백 커밋 미러에서는 커밋마다 LLM 비용이 발생한다
+       note: README(main) 실측: 'Entity-relation extraction runs on every text chunk' — EXTRACT 전용 LLM 역할이 필수이며 색인 단계마다 청크별 LLM 호출이 발생. 4개 LLM 역할(EXTRACT/QUERY/KEYWORD/VLM) 구성 자체가 색인의 LLM 의존을 보여준다. 정도 보정 하나: LightRAG는 LLM 캐시·증분 갱신을 지원해 미변경 청크 재삽입은 캐시로 흡수되므로 비용은 '커밋마다 전체'가 아니라 '커밋당 변경 청크 비례'로 읽는 것이 정확 — 그래도 잦은 갱신 미러에서 상시 LLM 비용이 발생한다는 결론은 유효.
+  [UNCERTAIN] 조사한 12개 도구 중 '같은 문서의 v1.7/v1.8 구분 조회'를 1급 개념으로 지원하는 것은 없다 — 전부 dataset/workspace/collection 분리 수동 우회뿐
+       note: 전반부(1급 버전 개념 부재)는 반례를 찾지 못했다 — RAGFlow MCP retrieval 툴 파라미터는 dataset_ids/document_ids뿐이고, 주요 도구 어디에도 문서 리비전을 1급으로 잇는 버전 개념은 확인 안 됨. 그러나 12개 전수에 대한 부정 명제는 원리상 완전 검증 불가이고, 후반부 '우회가 dataset 분리뿐'은 부정확하다: Dify는 v1.1.0부터 문서 커스텀 메타데이터 필터링(수동/자동 모드)을 지식 검색 노드에서 지원해 version=1.7 같은 태그 기반 필터 조회가 가능하고, RAGFlow도 문서 meta_fields를 갖는다 — dataset 분리보다 가벼운 메타데이터 우회 경로가 실재한다. 결론(1급 지원 없음)은 지지되나 '전부 ~뿐'이라는 서술은 과장.
+====================================================================================================
+KEY: docs-indexers
+--- SUMMARY ---
+"버전 인지 기술문서 색인기" 카테고리를 전수 조사한 결과, 성숙한 완성품은 arabold/docs-mcp-server 하나뿐이다. 실측 근거: MIT·1,620 stars·월 단위 릴리스(v2.5.0, 2026-08-06), 버전 1급 스키마(libraries→versions 병존, semver 범위 검색), ETag/mtime 증분(LLM 호출 불요, 임베딩 선택·Ollama 로컬 가능), SQLite+sqlite-vec 단일 파일 저장, CLI+MCP 겸비(파이프라인 강제 없음), file://로 md 미러 직접 투입. 기준 A·C·D·F·G를 모두 충족하고, 약점은 기준 B(bus factor 1, grounded.tools 상용화 조짐 — 단 MIT 포크 가능·색인은 파생물이라 데이터 탈출구 안전)다. 경쟁 지형은 전멸에 가깝다: Context7(60k stars)은 클라우드 색인이라 사설 미러 투입 불가, docfork는 2026-06 서비스 종료(클라우드 의존 리스크 실증), rtfmbro는 소스 비공개 호스팅형, cyberagiinc/DevDocs는 도커 4컨테이너+버전 무인지, freeCodeCamp/devdocs는 존속성 최강이나 에이전트 인터페이스·md 투입이 안 되고, 나머지는 0–200 stars 개인 프로젝트다. 핵심 판단 재료: docs-mcp-server의 검색 코어는 qmd와 동일 계열(FTS5+로컬 임베딩+RRF)이므로 채택의 순증 가치는 검색 품질이 아니라 '버전 스키마+크롤러+refresh 배관'을 공짜로 얻는 것이다. 반대로 자체 조립(git 미러+qmd)은 엔진 단일화와 완전한 통제를 얻는 대신 버전 병존 조회를 직접 설계해야 한다. 결정 분기점은 '같은 문서의 v1.7/v1.8 병존 조회'가 실사용 요구인가이며, 그렇다면 docs-mcp-server 채택(CLI 단발 모드로 상주 최소화 가능)이, 아니라면 qmd 유지가 합리적이다. 채택 시에도 원본 진실원은 사용자 git 미러로 유지해 도구 유기 시 재색인 탈출구를 보존할 것.
+--- TOOLS ---
+### arabold/docs-mcp-server (Grounded Docs)  [MIT]  https://github.com/arabold/docs-mcp-server
+  - maturity: 1,620 stars · 최근 릴리스 v2.5.0 (2026-08-06) · 2025-03 시작 후 월 1회 이상 릴리스 지속 · 개인 개발(arabold 919 커밋 vs 차순위 인간 기여자 3커밋 — bus factor 1) · homepage grounded.tools로 상용 브랜딩 조짐
+  - footprint: Node/TS 단일 프로세스. npx 단발 실행 가능(CLI만 쓰면 상주 서비스 0), MCP+웹UI 모드는 로컬 1프로세스(포트 6280). 도커 불필요. 저장소는 로컬 SQLite 파일 1개(better-sqlite3 + sqlite-vec). 텔레메트리(PostHog)는 env/flag로 opt-out
+  - incremental: ETag 기반 조건부 refresh — 웹 소스는 If-None-Match/304, 로컬 file:// 소스는 mtime의 md5를 ETag로 삼아 미변경 파일은 파이프라인 전체를 건너뜀(FileFetcher.ts 실측). `refresh <library>` 명령으로 증분 재색인. LLM 호출 불필요 — 임베딩은 '선택'이며 없으면 FTS5 단독으로 동작, 켜면 Ollama 로컬 모델 지원(OpenAI 강제 아님)
+  - version_support: 버전이 1급 스키마: libraries→versions→pages→documents 정규화 테이블. scrape 시 `--version 19.0.0` 태깅, 검색 시 `--version 19.x` semver 범위 지정, `find-version`으로 최적 버전 해소. 동일 라이브러리 복수 버전 병존 조회 가능 — 기준 D 완전 충족
+  - korean: FTS5 기본 토크나이저(unicode61 계열)로 한국어 형태소 미지원. 단 이 카테고리는 영문 벤더 문서 검색이므로 기준 E는 감점 아님(질의에 한국어를 섞으면 lex 매칭은 약해짐 — vec 검색이 보완 가능)
+  - interface: CLI(scrape/search/refresh/list, JSON·yaml 출력으로 스크립트 파싱 안전) + MCP(stdio/HTTP) + 웹UI + 번들 Agent Skills. RAG 체인 강제 없음 — 에이전트가 도구를 고르는 구도
+  - strengths: 이 카테고리 유일의 신뢰 가능한 완성품. 버전 모델·크롤러(Playwright로 JS 렌더 사이트 대응, llms.txt 탐지)·ETag 증분·하이브리드 검색(FTS5 BM25 + sqlite-vec + RRF k=60)이 모두 내장. `file://` 로컬 폴더 투입 지원 — 사용자의 git 미러 md를 크롤 없이 직접 색인 가능(기준 G 충족). 데이터 탈출구 안전: 색인은 파생물이고 원본은 사용자 git 미러에 남으므로 프로젝트가 죽어도 재색인만 하면 됨
+  - weaknesses: bus factor 1 + grounded.tools 상용화 조짐 — 10–20년 지평에서 유기 리스크 실재(MIT라 포크는 가능). 검색 엔진 아키텍처가 qmd와 동일 계열(SQLite FTS5+로컬 임베딩+RRF)이라 '검색 품질' 자체의 우위는 없음 — 우위는 버전 모델·크롤러·refresh 배관에 있음. 의존성 무겁고(LangChain·Playwright·tree-sitter) Node 생태계 업데이트 유지비 존재. file:// refresh가 mtime 기반이라 git clone/checkout 전환 시 전량 재색인될 수 있음(미실측)
+  - fit_verdict: 휘발성 문서 레이어의 기본 후보로 채택할 가치가 있는 유일한 완성품. 단 '자체 조립(git 미러+qmd)' 대비 순증 가치는 버전 스키마와 refresh 배관뿐이므로, 버전 병존 조회가 실사용 요구인지가 채택 분기점이다.
+### upstash/context7  [MIT]  https://github.com/upstash/context7
+  - maturity: 60,392 stars · push 2026-08-07 · Upstash(회사) 운영 — 스타 수는 카테고리 최대지만 오픈소스인 것은 MCP 클라이언트뿐
+  - footprint: 로컬에는 얇은 MCP 클라이언트만. 색인·검색 파이프라인은 Upstash 클라우드에 있음 — 자가 호스팅 불가
+  - incremental: 해당 없음(색인을 Upstash가 수행). 로컬 비용 0이지만 통제도 0
+  - version_support: 라이브러리 ID에 버전 포함 조회 가능하나 커버리지는 Upstash가 색인한 것에 한정 — 사용자의 사설 미러·임의 벤더 문서는 못 넣음
+  - korean: 해당 없음(영문 문서, 클라우드 검색)
+  - interface: MCP 전용
+  - strengths: 설정 0에 가까운 즉시 사용성, 방대한 커버리지
+  - weaknesses: 클라우드 의존 — 기준 A(로컬)·B(존속성: 서비스 종료 시 전부 소실, docfork 선례 참조) 정면 위배. 자기 미러를 투입할 수 없어 이번 요구와 근본적으로 불일치
+  - fit_verdict: 부적합. 이번 목적(로컬 미러의 버전 인지 색인)의 요구를 구조적으로 못 채운다. 보조 참고용 원격 도구로만 의미.
+### cyberagiinc/DevDocs  [Apache-2.0]  https://github.com/cyberagiinc/DevDocs
+  - maturity: 2,099 stars · 마지막 push 2026-02-04(약 6개월 정체) · 회사(CyberAGI) 주도
+  - footprint: 도커 컨테이너 4개(프론트엔드·백엔드 API·MCP·Crawl4AI 서비스) 상주 — 맥북 1대·유지비 30–45분/2–3주 예산에 과중
+  - incremental: 스마트 캐싱 언급은 있으나 체계적 증분 재색인 모델 미확인. 크롤 결과를 crawl_results 디렉터리에 저장
+  - version_support: 버전 모델 없음 — README에 라이브러리 버전 구분 언급 자체가 없음(기준 D 미충족)
+  - korean: 미확인(해당 카테고리에선 감점 아님)
+  - interface: 웹UI 중심 + MCP
+  - strengths: Crawl4AI 기반의 강한 크롤링(깊이 1–5, 병렬), UI로 크롤 범위 관리
+  - weaknesses: 4컨테이너 상주(기준 A 위배) + 버전 무인지(기준 D 위배) + 6개월 커밋 정체
+  - fit_verdict: 부적합. 크롤러로서는 강하지만 '버전 인지 색인기'가 아니고 운영 발자국이 예산을 초과한다.
+### marckrenn/rtfmbro-mcp  [MIT (단, 서버 소스는 미공개 — 저장소는 클라이언트/문서만)]  https://github.com/marckrenn/rtfmbro-mcp
+  - maturity: 89 stars · 마지막 push 2025-06-19(1년+ 정체) · 개인 개발 · 호스팅 엔드포인트(rtfmbro.smolosoft.dev) 의존
+  - footprint: 로컬 설치 없음 — 원격 MCP 서버 호출. 자가 호스팅 불가(소스 비공개, '오픈소스는 로드맵'에 그침)
+  - incremental: SHA 기반 최신성 검사로 서버측 캐시 갱신 — 사용자가 통제할 수 없음
+  - version_support: 개념적으로 가장 정확한 버전 모델 — lockfile 버전과 일치하는 git tag에서 저장소를 clone해 just-in-time으로 문서 제공(사전 색인 없음). Python/Node 지원, Swift 알파
+  - interface: MCP 전용, CLI 없음
+  - strengths: 버전 정합의 설계 사상(git tag = 버전 진실원)은 이 카테고리에서 가장 올바름 — 자체 조립 시 참고할 모델
+  - weaknesses: 소스 비공개 + 개인 호스팅 + 1년 커밋 정체 — 기준 B 전면 미달. 문서가 별도 repo인 프로젝트(dbt docs 등) 미지원 한계 자인
+  - fit_verdict: 채택 불가(비공개 호스팅형). 단 'git tag 기준 버전 해소' 설계는 자체 조립 경로의 설계 참조로 가치 있음.
+### langchain-ai/mcpdoc  [MIT]  https://github.com/langchain-ai/mcpdoc
+  - maturity: 1,023 stars · push 2026-07-17 · LangChain(회사) 주도
+  - footprint: 매우 가벼움 — llms.txt URL 목록을 MCP로 노출하는 얇은 fetch 프록시. 로컬 색인 자체가 없음
+  - incremental: 색인이 없으므로 해당 없음 — 매 질의 시 원격 fetch
+  - version_support: 없음 — llms.txt가 가리키는 현재 문서만. 버전 병존 조회 불가
+  - interface: MCP
+  - strengths: llms.txt 표준 위에서 유지비 0
+  - weaknesses: 색인기·검색기가 아님(전문 검색 없음), 버전 무인지, 오프라인 불가 — 이번 과제의 정의에서 벗어남
+  - fit_verdict: 부적합. '색인기'가 아니라 fetch 프록시다. llms.txt를 제공하는 벤더의 보조 채널로만 유효.
+### freeCodeCamp/devdocs (devdocs.io)  [MPL-2.0]  https://github.com/freeCodeCamp/devdocs
+  - maturity: 39,267 stars · push 2026-07-29 · freeCodeCamp 재단 소속, 2013년부터 존속 — 이 지형에서 존속성(기준 B) 최강
+  - footprint: Ruby 웹앱 1개 — thin/로컬 실행 가능하나 상주 서비스임. 도커 불요
+  - incremental: docset 단위 재생성(스크레이퍼 재실행) — 파일 단위 증분 아님. 사용자 미러를 물리려면 Ruby 스크레이퍼를 직접 작성해야 함
+  - version_support: docset 수준 버전 병존 지원(예: Python 3.11/3.12를 별개 docset으로 동시 활성) — 기준 D는 개념적으로 충족
+  - korean: UI 검색은 항목명 fuzzy 매칭 — 전문 검색이 아니어서 논외
+  - interface: 웹 브라우저 UI가 본체. MCP는 서드파티 래퍼뿐이며 전부 미성숙(elblanco2/devdocs-mcp-server 3 stars, katvito 2, jiegec 1 등) — 에이전트 인터페이스(기준 F) 사실상 부재
+  - strengths: 10–20년 지평에서 살아남을 확률이 가장 높은 프로젝트. 버전별 docset 모델 검증됨
+  - weaknesses: md 코퍼스 직접 투입 불가(소스별 Ruby 스크레이퍼 필수, 기준 G 미달), 전문 검색·에이전트 인터페이스 부재(기준 F 미달), 사설 벤더 문서(dbt·ClickHouse 특정 버전 미러) 수용 비용이 큼
+  - fit_verdict: 사람용 오프라인 열람에는 최선이나 에이전트용 검색 백엔드로는 부적합. 존속성 하나로 채택할 수 없다.
+### docfork/docfork  [MIT (CLI만 — 색인·MCP 서버는 호스팅 서비스였음)]  https://github.com/docfork/docfork
+  - maturity: 489 stars · 마지막 push 2026-06-13 · 2026-06-14 서비스 종료 공지
+  - footprint: 클라우드 의존형이었음 — mcp.docfork.com 호출
+  - incremental: 해당 없음(서비스 종료)
+  - version_support: Cabinets로 버전 핀 지원했었음
+  - interface: MCP + dgrep CLI
+  - strengths: 없음(종료)
+  - weaknesses: 출시 약 1년 만에 종료 — '클라우드 색인 의존형 문서 도구'의 존속 리스크를 실증한 사례
+  - fit_verdict: 채택 불가(종료). 기준 B에서 클라우드 의존형을 배제해야 하는 실증 근거로만 의미.
+### 군소 신생군: docshark · docpile · mcp-web-docs · ctxpeek · GroundTruth-MCP · jdocmunch-mcp  [혼재(MIT/Apache-2.0/미상)]  https://github.com/ruwadgroup/ctxpeek
+  - maturity: 전부 0–200 stars, 2025–2026년 생성, 개인 단독 개발. jdocmunch-mcp(200 stars, 라이선스 'Other')가 최대이나 미검증
+  - footprint: 대체로 Node 단일 프로세스 + SQLite FTS5 — 가볍긴 함
+  - incremental: 제각각, 대부분 미문서화
+  - version_support: ctxpeek만 'version-pinned docs from git repo'를 표방(Apache-2.0, 2 stars) — rtfmbro와 같은 git 직행 사상이나 극초기
+  - interface: MCP 중심
+  - strengths: docs-mcp-server와 같은 아키텍처 패턴(SQLite FTS5+BM25)이 이 카테고리의 사실상 표준임을 보여줌
+  - weaknesses: 10–20년 지평에서 전부 존속성 미달. docs-mcp-server 대비 기능 부분집합
+  - fit_verdict: 전수 조사 결과 채택 후보 없음 — 이 군집의 존재는 docs-mcp-server가 카테고리 내 유일한 성숙 완성품이라는 판정을 강화한다.
+--- KEY CLAIMS ---
+[LB] docs-mcp-server는 버전을 1급 스키마로 갖는다(libraries→versions→pages→documents 정규화 테이블). 같은 라이브러리의 복수 버전이 병존하며 scrape 시 --version 태깅, 검색 시 --version 19.x semver 범위 지정, find-version으로 최적 버전 해소가 된다.
+     src: https://github.com/arabold/docs-mcp-server/blob/main/docs/concepts/data-storage.md
+[LB] docs-mcp-server의 증분 색인은 ETag 조건부 요청(웹: If-None-Match/304, 로컬 file://: mtime md5)으로 미변경 페이지의 파이프라인을 전부 건너뛴다. 색인에 LLM 호출이 필요 없고 임베딩은 선택(없으면 FTS5 단독, 켜면 Ollama 로컬 지원).
+     src: https://github.com/arabold/docs-mcp-server/blob/main/src/scraper/fetcher/FileFetcher.ts
+[LB] docs-mcp-server의 검색은 SQLite FTS5 BM25 + sqlite-vec + RRF(k=60) 하이브리드 — qmd와 아키텍처적으로 동일 계열이다. 따라서 채택의 순증 가치는 검색 품질이 아니라 버전 스키마·크롤러·refresh 배관에 있다.
+     src: https://github.com/arabold/docs-mcp-server/blob/main/openspec/specs/hybrid-search/spec.md
+[LB] docs-mcp-server는 file:// URL로 로컬 폴더(md 포함)를 직접 색인한다 — 사용자의 git 미러를 크롤 없이 투입 가능(기준 G 충족).
+     src: https://github.com/arabold/docs-mcp-server/blob/main/docs/guides/basic-usage.md
+[LB] docs-mcp-server의 bus factor는 1이다: arabold 919커밋 vs 차순위 인간 기여자 3커밋(semantic-release-bot·Copilot 제외). MIT 1,620 stars, v2.5.0(2026-08-06)까지 월 단위 릴리스로 활동성은 높다.
+     src: https://api.github.com/repos/arabold/docs-mcp-server/contributors
+[LB] 색인 유실 시 데이터 탈출구는 안전하다: docs-mcp-server의 SQLite는 파생물이고 원본은 사용자 git 미러/업스트림에 남으므로 재색인으로 복구된다(기준 B의 데이터 탈출구 항목 충족).
+     src: https://github.com/arabold/docs-mcp-server/blob/main/docs/concepts/data-storage.md
+[LB] docfork는 2026-06-14 서비스를 종료했다 — 클라우드 색인 의존형 문서 도구의 존속 리스크 실증 사례로, 10–20년 지평에서는 색인 파이프라인까지 자가 호스팅되는 도구만 후보가 된다.
+     src: https://github.com/docfork/docfork
+[LB] Context7은 60k stars지만 오픈소스는 MCP 클라이언트뿐이고 색인·검색은 Upstash 클라우드에 있다 — 사설 미러 투입 불가, 자가 호스팅 불가로 이번 요구와 구조적으로 불일치.
+     src: https://github.com/upstash/context7
+[  ] rtfmbro는 lockfile 버전과 일치하는 git tag에서 clone하는 just-in-time 모델로 버전 정합 사상이 가장 올바르나, 서버 소스 비공개·개인 호스팅·1년 커밋 정체(2025-06 마지막 push)로 채택 불가.
+     src: https://github.com/marckrenn/rtfmbro-mcp
+[  ] cyberagiinc/DevDocs는 도커 컨테이너 4개(프론트·백엔드·MCP·Crawl4AI) 상주가 필요하고 버전 모델이 없으며 2026-02 이후 커밋이 정체됐다.
+     src: https://github.com/cyberagiinc/DevDocs
+[  ] docs-mcp-server는 PostHog 텔레메트리를 내장하나 URL·문서 내용·검색 질의는 수집하지 않는다고 명시하며 CLI flag/env로 opt-out된다.
+     src: https://github.com/arabold/docs-mcp-server/blob/main/docs/infrastructure/telemetry.md
+[LB] GitHub 전수 검색 결과 이 카테고리의 나머지는 전부 0–200 stars 개인 프로젝트(docshark·docpile·mcp-web-docs·ctxpeek·GroundTruth-MCP·jdocmunch 등)로, 성숙 완성품은 docs-mcp-server가 유일하다.
+     src: https://github.com/topics/context7-alternative
+--- UNRESOLVED ---
+ - docs-mcp-server의 file:// refresh가 mtime 기반이므로 git clone/브랜치 전환 시 mtime이 전량 갱신되어 실변경 없는 파일까지 재색인될 가능성 — 사용자 미러 워크플로(월 수백 커밋 pull)로 실측 필요
+ - 임베딩 없이 FTS5 단독일 때 벤더 문서(dbt·Spark·ClickHouse) 검색 품질이 충분한지 vs Ollama 로컬 임베딩을 켤 때의 색인 시간·전력 비용 — 30–50페이지 샘플로 실측 필요
+ - grounded.tools 상용화가 OSS 버전의 기능 제한(open-core화)으로 이어질지 미확인 — MIT라 포크 탈출구는 있으나 감시 필요
+ - 한국어+영어 혼용 질의 시 FTS5 unicode61 토크나이저의 한국어 낱말 매칭 열화 정도 — vec 검색 보완이 충분한지 실측 필요
+ - jgravelle/jdocmunch-mcp(200 stars, 라이선스 'Other')는 깊이 파지 않음 — 라이선스 불명으로 우선순위를 낮췄으나 재검토 여지
+ - docs-mcp-server 검색 CLI의 응답 지연(콜드 스타트 npx vs 상주 서버)이 에이전트 루프에서 허용 가능한지 미실측
+--- VERDICTS ---
+  [CONFIRMED] docs-mcp-server는 버전을 1급 스키마로 갖는다(libraries→versions→pages→documents, 복수 버전 병존, --version 태깅, 19.x semver 검색, find-version)
+       note: data-storage.md에 4개 코어 테이블 정규화 ER 다이어그램과 'Semantic version range queries' 명시. basic-usage.md에 실제 커맨드 예시 확인: 'scrape react … --version 19.0.0', "search react 'server components' --version 19.x", 'find-version <library>'. 문서만이 아니라 코드 실재도 확인: src/tools/FindVersionTool.ts, src/cli/commands/findVersion.ts. versions 테이블이 library_id FK로 복수 버전 병존 지원.
+  [CONFIRMED] 증분 색인은 ETag 조건부 요청(웹 If-None-Match/304, 로컬 mtime md5)으로 미변경 페이지 파이프라인을 전부 스킵하고, 색인에 LLM 불필요·임베딩 선택(FTS5 단독/Ollama)
+       note: 코드로 전 구성요소 확인. HttpFetcher.ts: If-None-Match 헤더 전송 + 304 응답 시 NOT_MODIFIED 반환. FileFetcher.ts: md5(mtime.toISOString())를 ETag로 사용해 일치 시 NOT_MODIFIED(내용 해시가 아닌 mtime 해시라는 점만 유의 — mtime 보존 복사 시 변경 미탐지 가능). BaseScraperStrategy.ts: NOT_MODIFIED 시 result:null로 파싱·분할·임베딩·저장 전부 스킵. README: 임베딩은 명시적으로 optional이며 Ollama 등 지원, hybrid-search spec에 임베딩 미설정 시 FTS5 단독 폴백 SHALL 조항 존재. 생성형 LLM 호출은 색인 경로에 없음.
+  [CONFIRMED] 검색은 SQLite FTS5 BM25 + sqlite-vec + RRF(k=60) 하이브리드로 qmd와 동일 계열 — 순증 가치는 버전 스키마·크롤러·refresh 배관
+       note: openspec/specs/hybrid-search/spec.md에 정확히 명시: sqlite-vec cosine + FTS5 BM25, 'rrf_score = weightVec/(k+vecRank) + weightFts/(k+ftsRank)', k=60. 임베딩 비활성 시 FTS5 단독. 검색 아키텍처가 BM25+벡터 하이브리드 계열이라는 사실 진술은 실증됨. '순증 가치가 버전 스키마·크롤러·refresh에 있다'는 부분은 사실이 아닌 평가지만, 실측된 사실들(1·2번 claim)과 정합.
+  [CONFIRMED] file:// URL로 로컬 폴더(md 포함)를 직접 색인 — git 미러를 크롤 없이 투입 가능
+       note: basic-usage.md에 'You can index documentation from your local filesystem using file:// URLs'와 디렉토리 예시(file:///Users/me/docs/my-library) 명시, 'Supports text files (HTML, Markdown, source code, etc.)'. 구현체 src/scraper/strategies/LocalFileStrategy.ts 실재하며 FileFetcher의 mtime 기반 증분 갱신도 이 경로에 적용됨. 로컬 git 미러 직접 투입 가능 판단은 타당.
+  [CONFIRMED] bus factor 1(arabold 919커밋 vs 차순위 인간 3커밋), MIT 1,620 stars, v2.5.0(2026-08-06)까지 월 단위 릴리스
+       note: GitHub API 실측(2026-08-08)과 정확히 일치: arabold 919 기여, 차순위 인간 sebastionoss 3 기여(semantic-release-bot 81·Copilot 35 제외), stars 1,620, MIT. 릴리스 이력 v2.5.0=2026-08-06 published, 2026년 2월 이후 매월 1회 이상 릴리스 확인. 수치 전부 재현됨 — bus factor 1 판단은 정당.
+  [CONFIRMED] SQLite 색인은 파생물이고 원본은 git 미러/업스트림에 남아 재색인으로 복구된다(데이터 탈출구 안전)
+       note: 결론은 아키텍처상 성립: 색인은 소스 URL(file:// 미러 포함) 스크레이프로 생성되며 원본을 DB가 유일 보관하지 않으므로, 미러가 살아있는 한 재색인으로 완전 복구. 단 인용된 data-storage.md는 '파생물·재색인 복구'를 명시적으로 서술하지 않음(export/import·recovery를 백업 관점으로만 기술) — 근거 문서와 주장 사이 직접 인용 관계는 약함. 또 웹 업스트림만 원본인 소스는 업스트림 변경 시 시점 재현 불가, 임베딩 재계산 비용 발생. 사용자 시나리오(git 미러 원본)에서는 성립.
+  [CONFIRMED] docfork는 2026-06-14 서비스 종료 — 클라우드 색인 의존형 도구의 존속 리스크 실증 사례
+       note: 리포 README에 명시: 'Docfork has shut down as of June 14, 2026. The MCP server, CLI, and all hosted endpoints are offline and will not return.' 클라우드 호스팅 색인·검색을 MCP로 제공하던 서비스였음도 확인. 날짜·성격 모두 정확.
+  [REFUTED] Context7은 60k stars지만 오픈소스는 MCP 클라이언트뿐, 색인·검색은 Upstash 클라우드 — 사설 미러 투입 불가, 자가 호스팅 불가
+       note: 절반은 맞지만 핵심 단정 두 개가 낡았다. 확인된 부분: stars 60,393(MIT), 리포 packages/는 cli·mcp·sdk 등 클라이언트뿐이고 색인 백엔드는 비공개(이슈 #59에서 메인테이너가 파서 비공개 방침 언급), 기본 서비스는 클라우드. 반박된 부분: 공식 문서 context7.com/docs/enterprise/on-premise에 유료 엔터프라이즈 온프레미스가 실재 — '전체 파싱·색인 파이프라인 + 로컬 벡터 저장 + private GitHub/GitLab repo ingestion'을 Docker/K8s로 자가 호스팅 가능하고, 이슈 #59도 이를 근거로 closed됨. 즉 '자가 호스팅 불가·사설 미러 투입 불가'는 절대 진술로는 거짓. 다만 오픈소스·무료 경로로는 불가가 맞으므로 '개인 10–20년 KB에 부적합'이라는 최종 결론 자체는 라이선스 종속(키 필요·유
+  [UNCERTAIN] 카테고리 나머지는 전부 0–200 stars 개인 프로젝트로, 성숙 완성품은 docs-mcp-server가 유일
+       note: 지명된 6개는 실측으로 확인(docshark 2·docpile 1·mcp-web-docs 1·ctxpeek 2·GroundTruth-MCP 5·jdocmunch-mcp 200 — 전부 0–200). 독립 GitHub 검색에서도 범용 자가호스팅 문서 색인기 중 docs-mcp-server(1,620)에 근접하는 것은 없었음. 그러나 (a) 인용 근거인 topics/context7-alternative 페이지는 리포 4개만 노출해 '전수 검색' 주장을 지지하지 못하고, (b) 경계 반례 존재: langchain-ai/mcpdoc 1,023 stars(llms.txt 실시간 페처 — 로컬 색인 없어 카테고리 제외 가능하나 정의에 따라 포함될 수 있음), Govcraft/rust-docs-mcp-server 290 stars(로컬 임베딩 색인 있으나 Rust 생태계 특화). '범용 성숙 완성품 유일' 
+====================================================================================================
+KEY: search-engines
+--- SUMMARY ---
+12개+발굴 후보를 GitHub API 실측(stars·릴리스·커밋 집중도·라이선스 원문·소스 코드)으로 동일 기준 평가했다. 지형은 셋으로 갈린다. (1) 완제품 turnkey: qmd만이 A(상주 0)·C(로컬 증분, LLM 비용 0)·F(CLI+MCP)·G(md 네이티브)를 글루 코드 없이 충족하지만, E에서 한국어가 형태소가 아닌 문자 단위 정규화(store.ts 실측)이고 B에서 Shopify CEO의 개인 프로젝트(커밋 89% 단독, 6주 공백, 코어 의존 sqlite-vec은 alpha·1인)라는 리스크를 안는다. (2) 완제품 서버: Meilisearch는 한국어 형태소(Lindera ko-dic)가 기본 활성인 유일한 완제품이고 회사·팀 규모로 B 최상이나, 상주 서버 1개 + md 투입 글루 자작 + 2026년 일부 BUSL化 감시가 대가다. Typesense는 한국어(ICU 수준)·GPL·RAM 상주로 열세. (3) 엔진 부품: LanceDB가 embedded+한국어 형태소 FTS+hybrid+증분을 유일하게 동시 만족하는 최강 엔진이지만 CLI/MCP/스캐너 전부 자작이라 유지비 예산과 충돌하고, txtai·SeekStorm은 1인 유지에 한국어 약해 탈락, LEANN은 vector-only+질의 시 재계산으로 부적합, bm25s·sqlite-vec·tantivy는 부품 수준. 신흥 발굴(KINDX·EverOS)에서 qmd 대체 완제품은 없었다. 결론: 휘발성 레이어는 '색인이 죽어도 원본 md 무사'가 성립하는 삭제 가능한 파생물이므로 B 기준을 정본 KB보다 완화해도 되고, 그 전제에서 qmd 유지가 종합 1위다 — 단 (a) 한국어는 기존 kiwipiepy 형태소 질의 전처리를 이 레이어에도 적용하고 임베딩을 Qwen3-Embedding-0.6B로 교체하며, (b) 버전 구분은 버전별 디렉토리+컬렉션으로 모델링하고, (c) qmd 6개월 무활동 또는 sqlite-vec 사망을 재평가 트리거로 문서화한다. 형태소 내장이 양보 불가 요건이 되면 Meilisearch(차선, 글루 자작 전제), 자작 재조립이 필요해지면 LanceDB(엔진 1위)가 승계 경로다.
+--- TOOLS ---
+### qmd (기존 사용 도구)  [MIT]  https://github.com/tobi/qmd
+  - maturity: 28,666 stars(2025-12 공개 후 6개월 만에 — 급성장이나 이력 짧음). 최근 릴리스 v2.5.3 2026-05-29, 마지막 커밋 2026-06-24(v2.6.3) 이후 6주 공백. 개발 주체 = tobi(Tobias Lütke, Shopify CEO) 개인 계정. 기여자 77명이지만 커밋 443/약 500이 tobi 단독 — bus factor 사실상 1.
+  - footprint: 상주 서비스 0(CLI 프로세스만, MCP는 stdio 또는 옵션 데몬). Bun/Node≥22 + SQLite(FTS5+sqlite-vec) 단일 파일 색인(~/.cache/qmd). GGUF 모델 3종 로컬 자동 다운로드(~2GB). 도커·DB 서버 불필요 — 기준 A 만점.
+  - incremental: 콘텐츠 해시 기반 변경 추적(indexed/updated/unchanged/removed 리포트). 색인 자체에 LLM 호출 불필요, 임베딩·질의 확장·리랭킹 전부 로컬 GGUF — API 비용 0. 월 수백 커밋 미러 갱신에 적합.
+  - version_support: 네이티브 버전 개념 없음. collections(디렉토리 스코프 + glob + git pull 훅)로 v1.7/v1.8을 별도 컬렉션 또는 경로 프리픽스로 분리 조회 가능 — MCP query에 collection 파라미터 있음. 미러가 버전별 디렉토리라면 충분.
+  - korean: 형태소 분석 없음. src/store.ts 실측: FTS5 unicode61이 CJK를 분절 못하므로 한글 run을 문자 단위로 띄어쓰기해 phrase query로 변환하는 정규화(normalizeCjkForFTS)가 전부 — 문자 단위 매칭이지 형태소가 아님. 기본 임베딩(embeddinggemma-300M)은 README 스스로 CJK 커버리지 한계를 명시, Qwen3-Embedding-0.6B 교체(QMD_EMBED_MODEL + 전체 재임베딩) 권장.
+  - interface: CLI(search/vsearch/query/get/multi-get) + MCP(stdio/HTTP) + Node SDK. 파이프라인 강제 없음 — lex/vec/hyde 서브쿼리를 에이전트가 고르는 구도. 기준 F 만점.
+  - strengths: A·C·F·G 전 기준에서 후보 중 유일하게 글루 코드 0으로 완결. RRF+리랭킹+질의확장 내장. 색인이 죽어도 원본 md 무사(색인=캐시 파생물) — 데이터 탈출구 완벽. 컬렉션별 update 훅(git pull --rebase)이 미러 갱신 워크플로와 정확히 맞음.
+  - weaknesses: B가 최대 리스크: 개인 사이드 프로젝트 + 커밋 공백 6주 + bus factor 1. E: 한국어 lexical이 문자 단위(형태소 아님) — 복합어·활용형 recall 저하, 사용자가 이미 kiwipiepy 형태소 질의 전처리를 자작해 보완 중인 이유. 임베딩 모델 교체·재임베딩은 수동.
+  - fit_verdict: 휘발성(삭제 가능한 파생) 레이어라는 전제에서 B 리스크가 할인되므로 여전히 종합 1위 — 단, 한국어는 외부 형태소 전처리 유지가 조건이고, tobi의 커밋 공백이 6개월 이상 이어지면 재평가 트리거로 삼아야 한다.
+### Meilisearch  [MIT AND BUSL-1.1 (2026 현재 LICENSE 실측 — 코어는 MIT, Enterprise Edition 부분만 BUSL-1.1)]  https://github.com/meilisearch/meilisearch
+  - maturity: 58,899 stars, v1.52.0 2026-08-03 릴리스, push 2026-08-06 — 매우 활발. 개발 주체 Meili SAS(프랑스 VC 투자 회사). 상위 기여자 Kerollmops 4,111 커밋 등 코어팀 다수 — bus factor 양호.
+  - footprint: 단일 Rust 바이너리 상주 서버 1개(도커 불필요, launchd/brew services로 가능). LMDB 저장. 메모리 상주형 아님(디스크 기반) — 맥북 1대 운용 가능하나 '상주 서비스 0' 조건은 깨진다.
+  - incremental: 문서 단위 add/update/delete 네이티브 — 전체 재색인 불필요. 단 md 파일→JSON 문서 push는 자작 글루(파일 워처 또는 갱신 스크립트) 필요. hybrid 검색용 임베딩은 로컬 HF 임베더(in-process ONNX) 또는 REST 임베더 선택 — LLM API 비용 없이 가능.
+  - version_support: 인덱스 분리 또는 filterable attributes(예: version: "1.8")로 버전 구분 조회 — 후보 중 가장 깔끔한 D 지원.
+  - korean: 후보 중 유일하게 '한국어 형태소 분절이 기본 활성인 완제품'. 실측: charabia README에 Korean = Lindera KO-dict 특화 분절 명시, meilisearch Cargo.toml default = ["meilisearch-types/all-tokenizations"]에 korean 포함 — 공식 배포 바이너리에서 피처 플래그 조작 없이 동작. 한영 혼용 질의도 스크립트 감지로 파이프라인 자동 분기.
+  - interface: REST API + 공식 SDK. CLI/MCP는 본체에 없음 — meilisearch-mcp 등 별도 계층 필요(성숙도 미실측). 검색 파이프라인 강제는 없음(lexical/hybrid를 질의별 선택).
+  - strengths: E 기준 압도적 1위(기본 활성 ko-dic 형태소). 문서 단위 증분·필터·hybrid 완비. 회사+코어팀 다수로 B 상위권. typo tolerance 등 검색 품질 기본기.
+  - weaknesses: 상주 서버 1개 추가(기준 A 감점). md 네이티브 아님 — 파일 스캔·해시 비교·push 글루를 직접 유지해야 하고 이것이 2–3주당 30–45분 예산을 잠식할 수 있음. 2026 라이선스가 MIT 단독→MIT+BUSL 혼합으로 이동한 것은 존속성 감시 항목.
+  - fit_verdict: 한국어 형태소를 엔진 내장으로 반드시 원한다면 차선 아닌 최선 — 단 md 글루 + 상주 서버 비용을 받아들일 때다. '엔진은 완제품, 투입은 자작'인 구도.
+### LanceDB  [Apache-2.0]  https://github.com/lancedb/lancedb
+  - maturity: 11,089 stars, python-v0.36.0 2026-07-28, push 2026-08-07 — 매우 활발. LanceDB Inc(VC 투자, wjones127·changhiskhan 등 다수 기여) — bus factor 양호.
+  - footprint: embedded 라이브러리(Python/JS/Rust) — 서버·도커 불필요, 프로세스 내장. Lance 컬럼 포맷 로컬 파일 저장. 기준 A에 부합하되 임베딩 모델 실행은 별도 준비.
+  - incremental: 행 추가 후 table.optimize()로 FTS·벡터 색인에 증분 병합(문서 실측: '100k row 변경 또는 20회 수정마다 optimize 권장'). 색인에 LLM 불필요, 임베딩은 로컬 모델 연결 가능.
+  - version_support: 테이블 분리 또는 스칼라 컬럼(version) + where 필터로 구분 조회 — D 우수.
+  - korean: 네이티브 FTS(BM25)가 Lindera 토크나이저로 '일본어·한국어 형태소 분석'을 공식 지원(docs.lancedb.com 실측) + ICU·jieba 옵션. 엔진 레벨 한국어 지원은 Meilisearch와 함께 최상위.
+  - interface: 라이브러리 API만 — CLI/MCP 없음. 파일 스캔·청킹·임베딩·MCP 노출 전부 자작 글루. 파이프라인 강제는 없음(쿼리 자유).
+  - strengths: embedded + 한국어 형태소 FTS + hybrid + 증분을 한 라이브러리에서 — 엔진 스펙만 보면 후보 중 최강. Apache-2.0·활발한 회사 개발로 B 상위권.
+  - weaknesses: 완제품이 아니라 부품: qmd가 하는 일(스캔·해시 증분·컬렉션·CLI·MCP·RRF·리랭킹)을 전부 자작해야 한다. 자작 글루의 10–20년 유지가 곧 유지비 — 기준 A의 시간 예산과 충돌.
+  - fit_verdict: '직접 조립할 값어치가 있는 유일한 엔진'이지만, 조립·유지 공수가 유지비 예산을 넘으므로 지금 채택보다는 qmd 승계 실패 시의 재조립 기반으로 지목해 두는 것이 합리적.
+### Typesense  [GPL-3.0]  https://github.com/typesense/typesense
+  - maturity: 26,407 stars, v30.2 2026-04-19, push 2026-08-05. Typesense Inc(부트스트랩 회사)이나 커밋이 kishorenc(2,656)에 크게 집중 — 회사 배후에도 사실상 리드 1인 구도.
+  - footprint: C++ in-memory 상주 서버 — 색인을 RAM에 상주시키는 설계라 맥북 상시 메모리 점유. 단일 바이너리로 도커는 불필요.
+  - incremental: 문서 단위 upsert/delete 네이티브. md→JSON push 글루 자작 필요(Meilisearch와 동일 구도). 임베딩은 내장 모델 또는 외부 연결.
+  - version_support: 컬렉션 분리 또는 filter_by로 버전 구분 — D 양호.
+  - korean: locale: 'ko' 지정 시 ICU 계열 분절 — 공식 포럼 자기평가로 'v0.24.0.rcn15 기준 reasonably well'. 형태소 사전 기반(Lindera류)이 아니어서 Meilisearch·LanceDB보다 한 단계 아래, 독립 벤치 부재.
+  - interface: REST API + SDK. CLI/MCP 본체 없음 — 글루 필요.
+  - strengths: 성숙한 완제품 검색 서버, typo tolerance·facet 강력, hybrid 지원.
+  - weaknesses: GPL-3.0(개인 사용엔 무해하나 조합 유연성 저하), RAM 상주 설계가 노트북 1대 운용에 불리, 한국어가 ICU 수준, md 글루 필요.
+  - fit_verdict: Meilisearch와 같은 카테고리에서 footprint(메모리 상주)·한국어·라이선스 모두 열세 — 이 사용 사례에선 채택 이유가 없다.
+### txtai  [Apache-2.0]  https://github.com/neuml/txtai
+  - maturity: 12,811 stars, v9.12.0 2026-07-30, push 2026-08-04 — 활발. 그러나 NeuML은 사실상 davidmezzetti 1인(커밋 1,965 vs 차순위 20) — 조직 명의의 1인 프로젝트, bus factor는 qmd와 동급.
+  - footprint: Python 라이브러리(embedded) — 서버 불필요, SQLite+로컬 인덱스 저장. 단 sentence-transformers/torch 의존 트리가 무겁다.
+  - incremental: upsert 네이티브(기존 색인에 추가·갱신, 전체 재빌드 불필요 — 공식 문서). 임베딩은 로컬 모델, LLM API 불필요.
+  - version_support: SQL WHERE 절 메타데이터 필터로 버전 구분 가능 — D 양호.
+  - korean: BM25 sparse 색인의 토크나이저는 형태소 미지원(단순 분절) — 한국어 lexical은 naive. dense는 다국어 임베딩 모델 선택으로 커버.
+  - interface: Python API + FastAPI 서비스 옵션. CLI/MCP 본체 없음 — 글루 필요. 프레임워크 성격이라 RAG 파이프라인 구성요소가 많지만 검색만 떼어 쓰는 것도 가능(파이프라인 강제까지는 아님).
+  - strengths: hybrid(sparse+dense+RRF)·upsert·SQL 필터를 Python 한 몸에. 문서화 우수, 6년 이력.
+  - weaknesses: 1인 유지 리스크가 qmd와 같고, 한국어 형태소·CLI/MCP 부재로 qmd 대비 글루가 늘어나는데 얻는 것이 없다. Python 의존 트리 관리 비용.
+  - fit_verdict: qmd에서 갈아탈 유인이 없다 — 같은 bus factor 리스크에 글루만 증가.
+### Chroma  [Apache-2.0]  https://github.com/chroma-core/chroma
+  - maturity: 28,974 stars, 1.5.9 2026-05-05, push 2026-08-06. Chroma Inc(VC 투자) — Rust 코어 재작성 완료, 활발.
+  - footprint: embedded(Python persistent client) 또는 경량 서버 — 로컬 단일 디렉토리 저장, 도커 불필요.
+  - incremental: 컬렉션 add/update/delete 네이티브. BM25 sparse embedding function이 로컬 실행(API 키 불필요 — 공식 문서). md 스캔·청킹 글루는 자작.
+  - version_support: 컬렉션 분리 + 메타데이터 필터 — D 양호.
+  - korean: 형태소 분절 없음 — sparse(BM25) 토크나이저는 한국어 특화 아님. dense는 임베딩 모델 의존.
+  - interface: Python/JS API + CLI 일부. 공식 MCP 서버 생태 존재하나 본 조사에서 성숙도 미실측. 파이프라인 강제 없음.
+  - strengths: 2025년 sparse vector(BM25·SPLADE) 도입으로 단일 질의 hybrid 가능, VC 회사 + 대형 커뮤니티로 B 양호.
+  - weaknesses: 한국어 lexical 약함, md 투입 글루 필요, 벡터 DB 출신이라 lexical 검색 품질 이력이 짧다.
+  - fit_verdict: 존속성은 좋으나 이 사용 사례의 결정 기준(E·G)에서 이점이 없다 — 보류.
+### SeekStorm  [Apache-2.0]  https://github.com/SeekStorm/SeekStorm
+  - maturity: 1,904 stars, v3.3.3 2026-08-03, push 2026-08-04 — 릴리스는 활발. 그러나 커밋 250/254가 wolfgarbe(SymSpell 저자) 단독 — bus factor 1.
+  - footprint: Rust in-process 라이브러리 + 선택적 멀티테넌시 서버 — embedded 사용 시 상주 없음.
+  - incremental: 실시간 증분 색인 명시(문서 즉시 검색 가능). LLM 불필요(lexical), v3부터 vector 색인도 1급 지원.
+  - version_support: 필드/facet 필터로 구분 가능하나 문서화 기준 D는 자작 모델링.
+  - korean: 형태소 없음 — CJK 분절은 중국어(UnicodeAlphanumericZH)만 구현, 한국어는 미지원. 스테밍 38개 언어에도 한국어 없음.
+  - interface: Rust crate + REST 서버(+Python 클라이언트). CLI/MCP 없음 — 글루 필요.
+  - strengths: lexical 성능 최상급, embedded 가능, Apache-2.0.
+  - weaknesses: 한국어 미지원 + 1인 개발 + Rust 글루 필요 — 이 사례의 결정 기준을 모두 비껴간다.
+  - fit_verdict: 탈락 — 한국어 부재가 결정적.
+### LEANN  [MIT]  https://github.com/StarTrail-org/LEANN
+  - maturity: 12,776 stars, v0.3.7 2026-03-08, push 2026-07-31. MLSys2026 논문 프로젝트(버클리 계열 학생 주도 → StarTrail-org 이관) — 학술 프로젝트의 장기 유지 이력 미검증.
+  - footprint: Python CLI — 상주 없음. 저장 97% 절약(그래프 보존+임베딩 미저장)이 핵심이지만, 그 대가로 질의 시 탐색 경로 노드의 임베딩을 재계산 — 맥북 CPU에서 질의 latency 비용.
+  - incremental: leann watch가 Merkle tree 스냅샷으로 파일 변경 감지 — 증분 재빌드 지향. 색인·검색에 LLM 불필요(chat 모드만 LLM).
+  - version_support: 인덱스 분리로 구분 — 메타데이터 필터는 제한적.
+  - korean: 형태소 없음(vector 전용). Qwen3-Embedding 등 다국어 모델 선택으로 dense만 커버 — lexical 축 부재.
+  - interface: CLI + 네이티브 MCP(Claude Code 통합) + Python API — F 기준 충족.
+  - strengths: MCP 네이티브·md 지원·저장 효율 — 수백만 문서급에서 빛나는 설계.
+  - weaknesses: BM25 hybrid 부재(정확 키워드·코드 심볼 검색 약함), 질의 시 임베딩 재계산 latency, 저장 절약이라는 핵심 가치가 수천 문서 규모에선 무의미, 학술팀 존속성 미지수.
+  - fit_verdict: 기술 문서 미러(정확 용어 검색이 절반)에는 vector-only 설계가 부적합 — 탈락.
+### sqlite-vec 조립 (FTS5 + sqlite-vec 자작)  [Apache-2.0]  https://github.com/asg017/sqlite-vec
+  - maturity: 7,986 stars이나 최신 릴리스가 v0.1.10-alpha.4(2026-05-18) — 정식판 미도달 alpha, open issues 201, asg017 개인 1인 유지, 커밋 빈도 저하.
+  - footprint: SQLite 확장(C) — embedded, 상주 없음. 최소 footprint.
+  - incremental: SQLite 트랜잭션 단위로 자유 — 전부 자작.
+  - version_support: 스키마 설계로 자유 — 전부 자작.
+  - korean: FTS5 기본 토크나이저는 한국어 형태소 미지원 — 외부 형태소기(kiwipiepy) 전처리 자작 필요.
+  - interface: SQL만 — CLI/MCP/스캐너/임베딩 파이프라인 전부 자작.
+  - strengths: 데이터가 SQLite 파일 하나 — 탈출구·투명성 최상.
+  - weaknesses: 이 조립을 이미 완제품으로 만든 것이 qmd다(qmd 내부가 정확히 FTS5+sqlite-vec). 코어 의존체가 alpha + 1인 유지라는 리스크는 qmd에도 전이됨.
+  - fit_verdict: 자작은 유지비 예산(2–3주당 30–45분) 초과 확정 — 채택 불가. 단 sqlite-vec의 alpha·1인 상태는 qmd의 전이 리스크로 기록해 둘 것.
+### bm25s  [MIT]  https://github.com/xhluca/bm25s
+  - maturity: 1,759 stars, 0.3.10 2026-07-22 — 꾸준. xhluca(연구자) 개인 프로젝트.
+  - footprint: Python 라이브러리(numpy/numba) — 초경량 embedded.
+  - incremental: 없음 — 색인이 정적 배열이라 갱신 = 전체 재빌드. 단 수천 문서 규모면 재빌드가 수 초라 실용상 문제 없음. LLM 불필요.
+  - version_support: 코퍼스 분리로 자작.
+  - korean: 토크나이저 주입식이라 kiwipiepy 형태소 토큰을 그대로 먹일 수 있음 — 한국어 lexical 품질만 보면 조립 후보 중 최상 경로.
+  - interface: Python API만 — CLI/MCP/스캔 글루 자작.
+  - strengths: 단순함의 극치 — 의존 얕고 이해 가능한 코드, 형태소 토큰 직접 주입.
+  - weaknesses: 검색엔진이 아니라 BM25 함수 — 벡터·하이브리드·증분·인터페이스 전부 자작.
+  - fit_verdict: 단독 채택 불가. 다만 'kiwipiepy+bm25s'는 사용자의 정본 KB 쪽 형태소 검색 실험 부품으로는 가치 있음.
+### Tantivy 계열 (tantivy / lnx)  [MIT (tantivy) / MIT (lnx)]  https://github.com/quickwit-oss/tantivy
+  - maturity: tantivy 15,654 stars, push 2026-08-07 — 라이브러리는 건재(단 모기업 Quickwit의 Datadog 인수 후 방향성 감시 필요). lnx는 1,449 stars, 최종 릴리스 0.9.0이 2022-10, push 2025-10 — 서버 제품으로는 사실상 정체.
+  - footprint: tantivy = Rust embedded 라이브러리(상주 없음). lnx = 상주 서버.
+  - incremental: tantivy 세그먼트 증분 커밋 지원. LLM 불필요(lexical 전용, 벡터는 별도).
+  - version_support: 필드 설계로 자작.
+  - korean: 본체 미지원 — lindera-tantivy(ko-dic) 외부 결합으로 가능하나 조립 난이도 높음.
+  - interface: Rust API(tantivy-py 있음) — CLI/MCP/하이브리드 전부 자작.
+  - strengths: lexical 색인 코어로서의 성숙도·성능은 검증됨(Meilisearch 계열 제외 Rust 생태 표준).
+  - weaknesses: 완제품이 아님 + 벡터 축 부재 + lnx는 유지 정체 — 조립 총량이 LanceDB보다도 많다.
+  - fit_verdict: 탈락 — 같은 조립 비용이면 hybrid·Korean FTS가 내장된 LanceDB가 우위.
+### Vectra  [MIT]  https://github.com/Stevenic/vectra
+  - maturity: 629 stars, push 2026-07-20. Stevenic(전 MS Bot Framework 개발자) 개인 프로젝트 — 소규모.
+  - footprint: 로컬 파일 기반 vector index(TS) — embedded.
+  - incremental: 아이템 단위 upsert 가능하나 인덱스 전체를 메모리 로드하는 소규모 설계.
+  - version_support: 인덱스 분리로 자작.
+  - korean: 없음(vector 전용, 임베딩 모델 의존).
+  - interface: TS API — 글루 자작.
+  - strengths: 단순한 로컬 벡터 저장이 필요할 때의 최소 부품.
+  - weaknesses: BM25 없음, 커뮤니티 규모·기능 모두 이 사례 요구에 미달.
+  - fit_verdict: 탈락 — 후보로서의 실질 경쟁력 없음.
+### Orama (발굴 후보)  [Apache-2.0 (repo API는 NOASSERTION이나 LICENSE.md 원문이 Apache-2.0 — 실측)]  https://github.com/oramasearch/orama
+  - maturity: 10,519 stars, push 2026-08-04. OramaSearch Inc — 회사 개발, 활발.
+  - footprint: TS in-memory embedded — 상주 없음이나 프로세스 재시작 시 인덱스 재구축 또는 persistence 플러그인 필요.
+  - incremental: insert/remove API는 있으나 in-memory 전제라 영속 증분 스토리는 약함.
+  - version_support: 인덱스 분리로 자작.
+  - korean: 형태소 미지원 — stemmer 목록에 한국어 없음, CJK는 기본 분절 수준.
+  - interface: JS/TS API — CLI/MCP 자작. hybrid(vector+lexical) 지원.
+  - strengths: 브라우저까지 도는 초경량 hybrid — 임베드형 문서 사이트 검색에 최적.
+  - weaknesses: 영속 코퍼스 색인 용도가 아니고 한국어 약함.
+  - fit_verdict: 용도 불일치로 탈락 — 발굴 결과 기록용.
+--- KEY CLAIMS ---
+[LB] qmd는 tobi(Tobias Lütke) 개인 계정 프로젝트로, 전체 커밋의 약 89%(443/약500)가 본인 단독이며 마지막 커밋이 2026-06-24로 6주 공백 상태다 — bus factor 1. 단 색인은 ~/.cache의 파생물이라 프로젝트가 죽어도 원본 md는 무사하다.
+     src: https://api.github.com/repos/tobi/qmd
+[LB] qmd의 한국어 lexical 처리는 형태소 분석이 아니라 FTS5 unicode61의 CJK 미분절을 우회하는 문자 단위 정규화다 — src/store.ts의 normalizeCjkForFTS가 한글 run을 글자별로 띄어 phrase query로 변환한다. 복합어·활용형 recall은 형태소 엔진 대비 구조적으로 낮다.
+     src: https://github.com/tobi/qmd/blob/main/src/store.ts
+[LB] qmd README 스스로 기본 임베딩 모델(embeddinggemma-300M)의 CJK 커버리지 한계를 명시하고, 한국어 벡터 검색에는 QMD_EMBED_MODEL=Qwen3-Embedding-0.6B로 교체 후 전체 재임베딩(qmd embed -f)을 권장한다.
+     src: https://github.com/tobi/qmd/blob/main/README.md
+[LB] qmd는 색인 단계에 LLM API 호출이 전혀 없고(파일 스캔+FTS5), 임베딩·질의확장·리랭킹 모두 로컬 GGUF(node-llama-cpp)로 실행된다 — 월 수백 커밋 증분 갱신의 한계 비용이 로컬 CPU뿐이다.
+     src: https://github.com/tobi/qmd/blob/main/README.md
+[LB] Meilisearch는 charabia 토크나이저가 Lindera KO-dict로 한국어 특화 분절을 수행하며, meilisearch 크레이트의 default feature가 all-tokenizations(korean 포함)라 공식 배포 바이너리에서 피처 플래그 조작 없이 기본 활성이다 — '피처 플래그 뒤에 숨어 있는가'라는 질문의 답은 '아니다, 기본 켜짐'.
+     src: https://github.com/meilisearch/charabia/blob/main/README.md
+[LB] Meilisearch 저장소 LICENSE는 2026 현재 'SPDX: MIT AND BUSL-1.1'로, Enterprise Edition 부분이 BUSL-1.1로 분리됐다(코어는 MIT 유지) — 10–20년 존속성 관점에서 오픈코어化 진행을 감시할 것.
+     src: https://github.com/meilisearch/meilisearch/blob/main/LICENSE
+[LB] LanceDB는 embedded 라이브러리이면서 네이티브 BM25 FTS에 Lindera 토크나이저로 한국어 형태소 분석을 공식 지원하고, 신규 행은 table.optimize() 호출로 색인에 증분 병합된다 — '한국어 형태소 + hybrid + embedded'를 동시에 만족하는 유일한 엔진.
+     src: https://docs.lancedb.com/search/full-text-search
+[LB] sqlite-vec(qmd의 벡터 저장 코어)는 2026-05-18 현재 최신 릴리스가 v0.1.10-alpha.4인 alpha 단계이고 asg017 1인 유지에 open issues 201건이다 — qmd 스택의 전이 리스크.
+     src: https://api.github.com/repos/asg017/sqlite-vec
+[  ] Typesense의 한국어는 locale:'ko' 지정 시 ICU 계열 분절이며 공식 포럼의 자기평가는 'v0.24.0.rcn15 기준 reasonably well' 수준 — 형태소 사전 기반이 아니고 독립 벤치가 없다. 또한 GPL-3.0 in-memory 상주 서버다.
+     src: https://threads.typesense.org/t/typesense-support-for-chinese-japanese-and-korean-languages/2K2f0b
+[  ] txtai는 upsert 증분과 sparse(BM25)+dense hybrid를 지원하지만, NeuML은 사실상 davidmezzetti 1인(커밋 1,965 vs 차순위 20)이다 — qmd와 동일한 bus factor 리스크에 CLI/MCP 부재.
+     src: https://api.github.com/repos/neuml/txtai
+[  ] LEANN(12.8k stars, MLSys2026)은 임베딩을 저장하지 않고 질의 시 탐색 경로 노드만 재계산하는 설계라 저장 97% 절약 대신 질의 latency를 지불하며, BM25 lexical 축이 없다 — 정확 용어 검색이 절반인 기술 문서 미러에 부적합.
+     src: https://github.com/StarTrail-org/LEANN
+[  ] SeekStorm의 CJK 분절은 중국어(UnicodeAlphanumericZH)만 구현되어 있고 한국어 형태소·스테밍이 없으며, 커밋 250/254가 wolfgarbe 단독이다.
+     src: https://github.com/SeekStorm/SeekStorm
+[  ] lnx는 최종 릴리스가 0.9.0(2022-10)으로 서버 제품으로는 정체 상태다. tantivy 본체는 활발하나(push 2026-08-07) 한국어는 lindera-tantivy 외부 결합이 필요한 순수 라이브러리다.
+     src: https://api.github.com/repos/lnx-search/lnx
+[  ] Chroma는 2025년 sparse vector(BM25·SPLADE) 지원으로 단일 질의 hybrid가 가능해졌고 BM25 임베딩 함수는 로컬 실행(API 키 불필요)이지만, 한국어 특화 토크나이저는 없다.
+     src: https://www.trychroma.com/project/sparse-vector-search
+[LB] 2025–2026 신흥 발굴 결과: KINDX(qmd 유사 구조, 0 stars)·EverOS(LanceDB 기반 agent memory 런타임) 등이 있으나 성숙도가 후보 기준에 미달했다 — qmd 카테고리('로컬 md hybrid 검색 CLI/MCP')에서 qmd를 대체할 신흥 완제품은 현재 없다.
+     src: https://github.com/ambicuity/KINDX
+--- UNRESOLVED ---
+ - Meilisearch·Chroma의 공식 MCP 서버(meilisearch-mcp, chroma-mcp)의 존재는 알려져 있으나 성숙도·유지 상태를 이번에 실측하지 못함 — Meilisearch 채택 시 선행 확인 필요
+ - Lindera KO-dict(mecab-ko-dic 계열) 사전의 최신 IT 용어(dbt·ClickHouse 등 외래 고유명사) 분절 품질 vs 사용자가 이미 쓰는 kiwipiepy의 품질 비교 실측 없음 — Meilisearch/LanceDB의 '형태소 지원'이 실전 recall로 얼마나 이어지는지는 qrels 실험이 필요
+ - qmd의 커밋 공백(2026-06-24 이후 6주)이 일시 휴지인지 유지 중단 추세인지 판단 불가 — 6개월 무활동을 재평가 트리거로 제안
+ - Typesense 한국어 품질은 공식 포럼 자기평가뿐 독립 벤치 부재
+ - SeekStorm v3 vector search의 내장 inference(임베딩 공급) 범위·모델 세부 미확인
+ - qmd의 증분 감지가 SHA-256인지 다른 콘텐츠 해시인지 README 수준에서 미확정(6-char 콘텐츠 해시 docid만 확인) — 동작상 증분 추적 자체는 확인됨
+--- VERDICTS ---
+  [CONFIRMED] qmd는 tobi 개인 계정 프로젝트, 커밋 약 89%(443/약500) 단독, 마지막 커밋 2026-06-24로 6주 공백, bus factor 1, 색인은 ~/.cache 파생물
+       note: 실질은 확인되나 비율 수치는 정정 필요. GitHub API 실측: owner=tobi(User 타입), tobi 커밋 443건 확인. 그러나 contributors 합계는 약 500이 아니라 569건 — 실제 비율은 78%(443/569)이지 89%가 아니다. 2위 기여자가 7커밋에 불과해 bus factor 1 결론 자체는 유효. 마지막 커밋 e428df7(v2.6.3 릴리스 머지) 2026-06-24T04:53Z, 오늘(2026-08-08) 기준 45일≈6.4주 공백 확인(pushed_at 일치). README에 'Index stored in: ~/.cache/qmd/index.sqlite' 명시 — 색인이 파생물이고 원본 md는 제자리 유지라는 서술도 확인.
+  [CONFIRMED] qmd의 한국어 lexical 처리는 형태소 분석이 아니라 normalizeCjkForFTS의 문자 단위 정규화(글자별 띄움→phrase query)이며 복합어·활용형 recall이 형태소 엔진 대비 구조적으로 낮다
+       note: 소스 코드 직접 확인. src/store.ts에 normalizeCjkForFTS가 \p{Script=Hangul} 포함 CJK run을 글자별로 공백 삽입(`Array.from(run).join(' ')`)하고, FTS5는 tokenize='porter unicode61', 주석에 'exact CJK queries can be translated into phrase queries' 명시 — 형태소 분석 아님 확정. 단 recall 열위 주장은 실측이 아닌 구조적 추론이며 뉘앙스가 있다: 글자 단위 phrase 매칭은 조사 부착형('검색을'에서 '검색' 질의)은 오히려 잘 잡고, 진짜 구조적 손실은 어간 변화 활용형(먹었다↔먹는다)·불규칙 활용·글자 단위 DF로 인한 랭킹 품질이다. 방향은 맞으나 '복합어 recall 낮음'은 과일반화 소지.
+  [CONFIRMED] qmd README가 기본 임베딩 모델(embeddinggemma-300M)의 CJK 한계를 명시하고 한국어에는 QMD_EMBED_MODEL=Qwen3-Embedding-0.6B 교체 후 qmd embed -f 재임베딩을 권장
+       note: README 원문 확인. 기본 모델 embeddinggemma-300M-Q8_0 명시, 'Use Qwen3-Embedding-0.6B for better multilingual (CJK) support' 및 export QMD_EMBED_MODEL='hf:Qwen/Qwen3-Embedding-0.6B-GGUF/...' 예시, 모델 변경 후 'qmd embed -f'로 전체 재임베딩 지시까지 모두 원문에 존재.
+  [CONFIRMED] qmd는 색인 단계 LLM API 호출이 없고 임베딩·질의확장·리랭킹 모두 로컬 GGUF(node-llama-cpp)로 실행 — 증분 갱신 한계 비용이 로컬 CPU뿐
+       note: 문서가 아닌 코드로 재검증. package.json에 node-llama-cpp 3.18.1 의존 확인, 저장소 코드 검색에서 node-llama-cpp 참조 19건 vs api.openai.com 0건, openai/anthropic SDK 의존성 없음. README도 'all running locally via node-llama-cpp with GGUF models' 명시. 유일한 네트워크 비용은 최초 GGUF 모델 다운로드(HuggingFace)뿐이며 이는 LLM API 호출이 아니다. '한계 비용 = 로컬 CPU' 결론 타당.
+  [CONFIRMED] Meilisearch는 charabia+Lindera KO-dict로 한국어 분절하며 default feature(all-tokenizations)에 korean이 포함돼 공식 바이너리에서 기본 활성
+       note: Cargo.toml 3단 체인을 직접 확인. (1) charabia v0.9.9의 default = [..., "korean", ...]이고 korean = ["lindera/ko-dic", "lindera/compress"] — Lindera ko-dic 사용 확정. (2) milli 크레이트에 all-tokenizations = ["charabia/default"]. (3) meilisearch 크레이트 default = ["meilisearch-types/all-tokenizations", "mini-dashboard"]. 따라서 기본 빌드(공식 배포 바이너리)에서 한국어 토크나이저가 피처 플래그 조작 없이 켜진다. 과거(구버전)에는 korean이 opt-in이었으므로 낡은 정보 주의가 맞았고, 현 시점 '기본 켜짐'이 정답.
+  [CONFIRMED] Meilisearch LICENSE는 2026 현재 'SPDX: MIT AND BUSL-1.1'로 EE 부분이 BUSL-1.1 분리, 코어는 MIT 유지
+       note: main 브랜치 LICENSE 원문 축자 확인: 'Part of this work fall under the Meilisearch Enterprise Edition (EE) and are licensed under the Business Source License 1.1' + 'The other parts ... MIT license' + 'SPDX-License-Identifier: MIT AND BUSL-1.1'. LICENSE-EE(BUSL-1.1)·LICENSE-MIT 분리 구조도 확인. 오픈코어化 감시 필요라는 판단은 라이선스 구조상 근거 있음.
+  [CONFIRMED] LanceDB는 embedded이면서 네이티브 BM25 FTS에 Lindera 한국어 형태소 분석을 공식 지원, 신규 행은 table.optimize()로 증분 병합 — 세 조건 동시 만족 유일 엔진
+       note: 문서+코드 양쪽 확인. lance 저장소에 rust/lance-index/src/scalar/inverted/tokenizer/lindera.rs 구현 실재, pylance 휠 빌드가 tokenizer-lindera 피처를 명시적으로 켜고 빌드됨(python/Cargo.toml), 공식 문서에 base_tokenizer="lindera/ko-dic"와 'python -m lance.download lindera -l ko-dic' 명시. optimize() 증분 병합도 문서 확인(미색인 행은 flat scan fallback으로 검색은 되고 optimize()가 색인에 fold). 단 두 가지 단서: (a) ko-dic 사전은 별도 다운로드 후 lindera-cli로 컴파일 필요 — 번들 아님, turnkey 아님. (b) '유일한 엔진'은 비교 판단이라 1차 소스로 입증 불가 — 반례를 찾지 
+  [CONFIRMED] sqlite-vec는 2026-05-18 현재 최신 릴리스 v0.1.10-alpha.4의 alpha 단계, asg017 1인 유지, open issues 201건 — qmd 스택 전이 리스크
+       note: GitHub API 실측: open_issues 201건 정확히 일치, owner asg017(User), 기여 분포 asg017 441건 vs 2위 5건 — 1인 유지 확정. 릴리스는 뉘앙스: v0.1.10-alpha.4(2026-05-18, prerelease=true)가 최신 태그이나 GitHub 'latest release'(안정판)는 v0.1.9(2026-03-31) — 어느 쪽이든 pre-1.0 alpha 단계라는 결론은 동일. pushed_at도 2026-05-18로 이후 약 2.7개월 커밋 공백. qmd가 실제로 sqlite-vec 0.1.9를 의존함도 package.json에서 확인 — '전이 리스크' 서술 타당.
+  [UNCERTAIN] 2025-2026 신흥 발굴: KINDX(0 stars)·EverOS(LanceDB 기반) 등이 있으나 성숙도 미달 — qmd 카테고리를 대체할 신흥 완제품은 없다
+       note: 개별 사실은 대체로 확인: ambicuity/KINDX 실재(2026-03 생성, 0 stars, 'Local-first hybrid cli search engine (BM25+Vector)... node-llama-cpp' — qmd 유사 구조·성숙도 미달 맞음). EverMind-AI/EverOS 실재, 저장소 내 lancedb 참조 250건으로 LanceDB 기반 확인. 그러나 EverOS는 11,857 stars·활발한 개발 중이라 '성숙도 미달'은 부정확한 서술 — 정확히는 카테고리 불일치(agent memory 런타임 ≠ 로컬 md hybrid 검색 CLI/MCP)가 배제 사유다. 핵심 결론인 '대체 완제품 없음'은 부존재 증명이라 원리적으로 입증 불가 — 웹 검색에서도 반례(경쟁 완제품)는 발견되지 않았고 오히려 qmd 파생 생태계(pi-qmd, ehc-io/qmd 포크, 각종 sk
+====================================================================================================
+KEY: agentic-noindex
+--- SUMMARY ---
+색인 레이어는 이 규모에서 "필수"가 아니라 "정밀도·비용 최적화"다. 실측 지형: (1) Anthropic은 Claude Code의 RAG+벡터DB를 grep 기반 agentic search로 교체했고(Cherny 직접 확인: "generally works better", staleness·보안 문제 소멸), Amazon Science AAAI 2026 논문은 rga/pdfgrep만 가진 ReAct 에이전트가 RAG 대비 faithfulness 94.5%·정답률 91.5%를 달성함을 실측, 독립 연구(arXiv 2605.15184)도 4개 하네스에서 grep이 vector retrieval을 대체로 상회함을 확인했다. 반면 Cursor는 임베딩을 폐기하지 않고 자체 모델을 훈련해 유지 — semantic search 추가가 정확도 +12.5%(6.5–23.5%)였으나 효과는 1,000+파일 대형 코드베이스에 집중(code retention +2.6% vs 전체 +0.3%). (2) grep의 miss는 "단독 사용"의 속성이다: NQ 코퍼스에서 순수 grep은 참담하나 LLM 키워드 확장으로 ~10배 개선되며, 에이전트 루프는 항상 확장을 수행한다. 낭비 읽기 정밀도는 grep 1/5 vs 하이브리드 1/8(벤더 주관 벤치마크). (3) 무색인 관행은 공식화됐다: dbt-labs의 fetching-dbt-docs 스킬은 llms.txt 인덱스→llms-full.txt 24h 캐시 grep→개별 .md fetch로, 색인·임베딩·LLM 색인 호출이 전무하다. (4) 실무 권고는 "얇은 인덱스=라우팅, 정독=파일 직접"(llms.txt 생태계, A-RAG의 도구 병렬 노출, Cursor의 grep+semantic 조합 결론). (5) 규모 경계: 관찰된 breaking point는 1M 파일(원조 grep 4초)·10M 파일 monorepo이고 임베딩 이득은 1,000+파일부터 유의미해지기 시작하나, 사용자의 수만~수십만 라인 md 미러는 ripgrep에 밀리초 영역이며 월 수백 커밋 갱신 비용이 무색인에서는 0이 된다(기준 C 완승, 버전 구분도 디렉토리 glob으로 해결=기준 D). 결론: 휘발성 문서 레이어에 무색인 rg+read는 성립하며 유지비 예산(2–3주당 30–45분)에 가장 부합한다. qmd를 전면 폐기할 근거도, 기본값으로 깔 근거도 없다 — 남는 실증 공백은 한국어 형태소 변형에서의 lexical miss율(연구 부재)로, 이 지점이 qmd(kiwipiepy) 유지의 유일한 잔존 근거이므로 한국어 패러프레이즈 질의 qrels로 rg 루프 vs qmd를 직접 실측해 결정하는 것이 옳다.
+--- TOOLS ---
+### ripgrep (무색인 에이전트 검색의 기반 프리미티브)  [Unlicense OR MIT (듀얼)]  https://github.com/BurntSushi/ripgrep
+  - maturity: 67,093 stars, 최신 릴리스 15.2.0 (2026-07-15), push 2026-08-04. 개발 주체는 개인(BurntSushi)으로 bus factor 1이나, 10년간 안정 유지되고 모든 주요 패키지 매니저·Claude Code/Codex/Gemini CLI 하네스에 내장된 사실상 표준 — 존속성 리스크는 낮음
+  - footprint: 단일 정적 바이너리, 상주 서비스 0, DB 0, 색인 파일 0. 유지비가 구조적으로 0에 수렴 — 기준 A 만점
+  - incremental: 색인이 없으므로 증분 색인 문제 자체가 소멸. 월 수백 커밋 갱신 시 git pull 즉시 최신 상태 검색. LLM 호출 불필요 — 기준 C에서 어떤 색인 도구도 이길 수 없는 구조
+  - version_support: 경로 glob(-g 'spark/3.5/**')으로 디렉토리=버전 네임스페이스. 미러의 디렉토리 구조가 곧 버전 스키마이므로 색인 스키마 설계 자체가 불필요 — 기준 D를 파일시스템이 해결
+  - korean: UTF-8 리터럴/regex 매칭은 완전하나 형태소 분석 없음. 조사·어미 변형('스파크의'/'스파크를')은 에이전트가 어간·영문 원어 변형 질의를 생성해 보완 — 이 보완의 miss율은 미실측
+  - interface: CLI. Claude Code의 Grep 도구가 곧 ripgrep. 파이프라인 강제 없음 — 에이전트가 질의를 재구성하며 반복 호출하는 ReAct 구도 자체가 인터페이스
+  - strengths: 증분·존속성·설치 발자국에서 구조적 만점. 색인이 죽을 일 자체가 없어 데이터 탈출구 문제 소멸(기준 B). Anthropic이 벡터DB를 버리고 채택한 방식이며 Amazon 실측에서 RAG 대비 91-95% attainment
+  - weaknesses: 패러프레이즈·의미 질의에서 단독 성능 낮음(LLM 확장으로 ~10배 보완되나 tool call 수·토큰 비용 증가). 낭비 읽기 1/5 수준(하이브리드 1/8 대비). 한국어 형태소 recall 미검증
+  - fit_verdict: 휘발성 문서 레이어의 기본 검색 프리미티브로 적합 — 사용자 규모(수만~수십만 라인 md)는 관찰된 성능 경계(1M+ 파일)보다 수십 배 아래이고, 월 수백 커밋 갱신 코퍼스에서 유지비 0이라는 특성이 기준 A·C와 정확히 맞는다.
+### dbt-agent-skills / fetching-dbt-docs (무색인 문서 검색 관행의 공식 표본)  [Apache-2.0]  https://github.com/dbt-labs/dbt-agent-skills
+  - maturity: 652 stars, created 2026-01-08, push 2026-08-05 (활발). 개발 주체 dbt Labs(회사) — 벤더 공식이라 해당 벤더 문서에 한해 존속성 양호
+  - footprint: SKILL.md + 셸 스크립트 1개. 상주 서비스 0. llms-full.txt를 ~/.cache에 24h 캐시하는 것이 로컬 상태의 전부
+  - incremental: 증분 개념 없음 — 24h TTL 캐시 재다운로드. LLM 호출 0. 실측 확인: 스크립트는 curl+grep으로 keyword→매칭 페이지 URL 반환 후 개별 .md를 WebFetch
+  - version_support: docs.getdbt.com의 현행 버전만 — 버전별 미러 개념 없음. 사용자가 로컬 미러에 같은 패턴을 적용하면 버전 디렉토리로 해결 가능
+  - korean: 미지원 — 영문 벤더 문서 전용. 다만 방식 자체는 언어 중립(grep 한계 동일)
+  - interface: Claude Code Skill (에이전트가 절차를 읽고 CLI 도구로 실행). 파이프라인 강제 없음
+  - strengths: 벤더가 직접 공식화한 무색인 관행이라는 실증 가치: llms.txt 인덱스(라우팅) → llms-full.txt grep(발견) → .md 정독(에이전트 직접)이라는 3단 구조가 사용자가 만들려는 레이어의 참조 설계도. 스킬 내 prompt-injection 방어 지침까지 포함
+  - weaknesses: 그대로 쓰는 도구가 아니라 패턴의 표본. 원격 fetch 의존이라 오프라인 미러 요구와는 어긋남(로컬 미러로 치환 필요). 검색은 단순 키워드 OR
+  - fit_verdict: 직접 채택할 도구는 아니고, '로컬 llms.txt식 인덱스 + rg + 파일 정독' 스킬을 자작할 때의 검증된 청사진. dbt 미러에는 이 스킬의 URL 패턴(.md 부착·llms.txt)을 미러링 소스 규약으로 재사용할 수 있다.
+### probe (buger/probe — 무색인 AST-aware 검색, 중간 지점)  [Apache-2.0]  https://github.com/buger/probe
+  - maturity: 677 stars, push 2026-07-31 (활발). 개인 주도(Leonid Bugaev) — bus factor 리스크 있음
+  - footprint: 단일 바이너리, 색인 없음(ripgrep+tree-sitter를 질의 시점에 결합), 상주 서비스 불필요
+  - incremental: 무색인이므로 증분 문제 없음. LLM 호출 불필요(선택적 AI 모드는 별도)
+  - version_support: 경로 스코프로만 — ripgrep과 동일
+  - korean: 형태소 미지원. 코드 토큰화 중심
+  - interface: CLI + MCP 서버 동시 제공 — 기준 F 충족
+  - strengths: 무색인을 유지하면서 검색 결과를 AST 블록 단위로 잘라 반환 — grep의 '라인 매치→전체 파일 읽기' 낭비를 줄이는 설계
+  - weaknesses: 코드 코퍼스 지향이라 md 문서에는 AST 이점이 거의 없음. 커뮤니티 규모 작고 10-20년 존속성 불투명
+  - fit_verdict: md 중심 문서 미러에는 이점이 약해 채택 비권장 — 다만 '무색인이되 반환 단위를 구조화'하는 설계 방향의 참고 사례로 가치.
+--- KEY CLAIMS ---
+[LB] Boris Cherny(Claude Code 창시자) 직접 확인: 초기 Claude Code는 RAG+로컬 벡터DB였으나 agentic search가 'generally works better'여서 교체했고, 보안·프라이버시·staleness·신뢰성 문제도 함께 소멸했다
+     src: https://x.com/bcherny/status/2017824286489383315
+[LB] Amazon Science AAAI 2026 논문(arXiv 2602.23368): ripgrep-all+pdfgrep만 가진 ReAct 에이전트가 6개 데이터셋에서 RAG 대비 faithfulness 94.52%·answer correctness 91.48% attainment — 벡터DB 없이 RAG급 성능이 학술 실측으로 확인됨. 단 context recall은 88.05%(최저 70.56%)이고 대형 문서에서 성능 저하를 저자들이 명시
+     src: https://arxiv.org/abs/2602.23368
+[LB] 독립 실측(arXiv 2605.15184 'Is Grep All You Need?'): Claude Code·Codex·Gemini CLI 등 4개 하네스에서 grep이 vector retrieval보다 대체로 높은 정확도 — 단 결과는 하네스와 도구 호출 방식에 강하게 의존
+     src: https://arxiv.org/abs/2605.15184
+[LB] Cursor는 임베딩을 폐기하지 않고 자체 임베딩 모델을 훈련해 유지(2025-11-06 실측 공개): semantic search 추가 시 정확도 평균 +12.5%(모델별 6.5–23.5%), 그러나 온라인 A/B에서 code retention 개선은 1,000+파일 대형 코드베이스에서 +2.6% vs 전체 +0.3% — 임베딩 이득은 코퍼스가 클수록 집중된다는 규모 경계의 직접 근거
+     src: https://cursor.com/blog/semsearch
+[LB] Nussbaum(2025-11-14) Natural Questions 실험: 순수 grep은 임베딩 대비 참담한 retrieval이지만 LLM이 질의를 키워드로 확장하면 ~10배 개선 — 패러프레이즈 miss율은 'grep 단독'의 속성이지 'LLM+grep 에이전트 루프'의 속성이 아님. 단 grep 지연은 코퍼스 크기에 선형
+     src: https://www.nuss-and-bolts.com/p/on-the-lost-nuance-of-grep-vs-semantic
+[  ] Turbopuffer의 ContextBench(50 태스크, 파일/함수명 미언급 질의): 낭비 파일 읽기 비율이 baseline 1/3, grep 단독 1/5, grep+semantic 1/8 — 하이브리드가 정밀도(토큰 비용) 최적. 단 벡터DB 벤더 주관 벤치마크라 이해상충 있음
+     src: https://www.startuphub.ai/ai-news/ai-research/2026/claude-code-benchmarking-semantic-search-vs-grep
+[LB] dbt Labs 공식 fetching-dbt-docs 스킬(실제 SKILL.md·스크립트 원문 확인): llms.txt 인덱스 우선 조회 → llms-full.txt를 24h 캐시하고 grep(curl+grep 셸 스크립트) → 개별 .md fetch. 색인·임베딩·LLM 색인 호출 전무 — 벤더 문서를 무색인으로 뒤지는 관행이 벤더 자신에 의해 공식화됨
+     src: https://github.com/dbt-labs/dbt-agent-skills/blob/main/skills/dbt/skills/fetching-dbt-docs/SKILL.md
+[LB] 규모 경계의 관찰치: 원조 grep이 1,000,000 파일 스캔에 4초+ (LlamaIndex), 문제 보고는 10M 파일 monorepo급에서 발생 — 사용자의 수만~수십만 라인 md 미러는 관찰된 어떤 breaking point보다도 수십 배 아래이며, ripgrep 기준 밀리초 영역
+     src: https://www.llamaindex.ai/blog/is-grep-all-you-need-lexical-vs-sematic-search-for-agents
+[  ] A-RAG(arXiv 2602.03442): keyword_search·semantic_search·chunk_read를 계층적 도구로 에이전트에 병렬 노출하는 구조를 실증 — '얇은 색인=발견/라우팅, 정독=에이전트가 파일 직접'이라는 하이브리드가 연구로도 뒷받침되며, 파이프라인 강제 없이 에이전트가 도구를 고르는 구도(기준 F)와 합치
+     src: https://arxiv.org/abs/2602.03442
+[  ] llms.txt 생태계의 수렴된 관행: 3,000토큰 이하의 md 인덱스로 라우팅하고 본문은 md 직접 fetch — '얇은 인덱스 + 파일 정독' 구조가 문서 제공 측의 사실상 표준이 됨
+     src: https://www.agentpatterns.ai/standards/llms-txt/
+[  ] 업계 확산 보도: Windsurf·Cline·Devin·Sourcegraph Amp가 벡터 색인을 버리고 tool-driven search로 이동, Windsurf는 전용 retrieval 모델 SWE-grep 출시 — 2차 소스 종합이라 개별 사실은 재검증 필요
+     src: https://buzzgrewal.medium.com/ai-agents-dont-need-vector-search-anymore-inside-the-agentic-search-stack-replacing-rag-in-2026-58efcabe4f6f
+--- UNRESOLVED ---
+ - 한국어 질의에 대한 grep 기반 에이전트 검색의 miss율 정량 연구가 존재하지 않는다 — 형태소 변형(조사·어미)과 한영 혼용 질의에서 'LLM이 변형 질의를 생성해 보완'하는 방식이 kiwipiepy 형태소 색인 대비 얼마나 지는지는 미실측. 사용자의 기존 qrels 26문항 스타일로 rg 루프 vs qmd를 직접 A/B 실측하는 것이 유일한 결정 경로
+ - 무색인 루프의 질의당 토큰 비용(반복 tool call + 전체 파일 읽기) vs qmd 1회 질의 비용의 정량 비교가 없다 — Turbopuffer 수치(1/5 vs 1/8 낭비 읽기)는 코드 코퍼스·벤더 주관이라 md 문서 미러에 직접 이식 불가
+ - Amazon 논문의 코퍼스는 단일~수 문서(논문·에세이·10-K) 규모라 '수만 문서 md 미러'에 대한 직접 외삽은 아님 — 91-95% attainment가 미러 규모에서 유지되는지는 미검증
+ - 'Windsurf·Cline·Devin·Amp가 벡터를 버렸다'는 확산 서사는 2차 소스(Medium 종합 글) 단계에서만 확인 — 각사 1차 발표 재검증 전에는 담론으로 취급할 것
+ - ContextBench(Turbopuffer)와 Cursor semsearch 모두 이해관계자(벡터 인프라 벤더·임베딩 유지 진영)의 자체 벤치마크 — 독립 재현 없음
+--- VERDICTS ---
+  [CONFIRMED] Boris Cherny 직접 확인: 초기 Claude Code는 RAG+로컬 벡터DB였으나 agentic search가 'generally works better'여서 교체, 보안·프라이버시·staleness·신뢰성 문제도 함께 소멸
+       note: 웹 검색으로 해당 X 포스트 원문을 축자 확인: "Early versions of Claude Code used RAG + a local vector db, but we found pretty quickly that agentic search generally works better. It is also simpler and doesn't have the same issues around security, privacy, staleness, and reliability." claim의 네 가지 문제 열거(security, privacy, staleness, reliability)와 정확히 일치. 상태 ID 2017824286489383315도 일치. Cherny가 Claude Code 창시자라는 점도 널리 확립된 사실.
+  [CONFIRMED] Amazon Science AAAI 2026 논문(arXiv 2602.23368): rga+pdfgrep ReAct 에이전트가 6개 데이터셋에서 RAG 대비 faithfulness 94.52%·answer correctness 91.48% attainment, context recall
+       note: arXiv HTML 원문에서 전 수치 축자 확인: faithfulness 94.52%, answer correctness 91.48%, context recall 88.05%(최저 70.56%는 Llama2Paper), 데이터셋 6개(PaulGrahamEssay·Llama2Paper·HistoryOfAlexnet·BlockchainSolana·LLM Survey·FinanceBench), 대형 문서 성능 저하는 limitations에 명시. Amazon 소속·AAAI 2026 게재는 amazon.science 공식 게재 페이지에서 확인(Subramanian et al., AAAI 2026). 미세 보정 1건: 에이전트 도구는 rga·pdfgrep 외에 pdfmetadata도 포함 — "~만 가진"은 엄밀히는 3종. 비교군은 Bedrock KB+Titan Embeddings V2, 동일 LLM(C
+  [CONFIRMED] arXiv 2605.15184 'Is Grep All You Need?': 4개 하네스에서 grep이 vector retrieval보다 대체로 높은 정확도, 단 결과는 하네스·도구 호출 방식에 강하게 의존
+       note: arXiv 원문에서 제목("Is Grep All You Need? How Agent Harnesses Reshape Agentic Search")과 4개 하네스 구성 확인 — 자체 하네스 Chronos + provider-native CLI 3종(Claude Code, Codex, Gemini CLI). LongMemEval 116문항 샘플에서 grep이 vector retrieval보다 높은 정확도, 그리고 "overall scores still depend strongly on which harness and tool-calling style is used"라는 결론 축자 확인. claim의 두 축(grep 우위 + 하네스 의존성) 모두 원문과 일치.
+  [CONFIRMED] Cursor는 자체 임베딩 모델을 훈련해 유지(2025-11-06): semantic search 추가 시 정확도 평균 +12.5%(6.5–23.5%), 온라인 A/B code retention은 1,000+파일에서 +2.6% vs 전체 +0.3%
+       note: Cursor 공식 블로그(2025-11-06)에서 전 수치 축자 확인: "We've trained our own embedding model", 평균 12.5%(모델별 6.5%–23.5%) 정확도 향상, code retention 전체 +0.3%·1,000파일 이상 대형 코드베이스에서 +2.6%. '임베딩 이득은 코퍼스가 클수록 집중'이라는 해석도 원문의 "This effect increases to 2.6% on large codebases"와 부합.
+  [CONFIRMED] Nussbaum(2025-11-14) NQ 실험: 순수 grep은 임베딩 대비 참담하나 LLM 키워드 확장 시 ~10배 개선 — 패러프레이즈 miss는 grep 단독의 속성. grep 지연은 코퍼스 크기에 선형
+       note: 원문(Zach Nussbaum, 2025-11-14) 확인: Natural Questions 코퍼스를 텍스트 파일로 저장해 실험, 순수 grep은 질의-문서 간 정확한 키워드 일치 시에만 매칭(패러프레이즈 miss), "using a cheap model like gpt-5-mini to return relevant keywords... nearly 10x'd performance" 축자 확인. 지연이 인덱스 크기에 선형("Latency seems to scale linearly with index size")이라는 언급도 확인. 'LLM+grep 루프에서는 miss율이 grep 단독의 속성'이라는 해석은 저자 결론("Agentic Search... offloading the learned semantics... to an LLM")과 부합.
+  [CONFIRMED] dbt Labs 공식 fetching-dbt-docs 스킬: llms.txt 인덱스 우선 → llms-full.txt 24h 캐시 후 grep(curl+grep 셸 스크립트) → 개별 .md fetch, 색인·임베딩·LLM 색인 호출 전무
+       note: GitHub raw에서 SKILL.md와 scripts/search-dbt-docs.sh 원문 직접 확인. 워크플로 축자 일치: llms.txt 인덱스 우선(Step 1) → 인덱스에 없을 때만 스크립트로 llms-full.txt 검색(Step 2, CACHE_MAX_AGE=86400=24h, --fresh로 우회) → 개별 페이지 .md fetch. 스크립트는 순수 셸로 색인·임베딩·LLM 호출 전무. 미세 보정 1건: 실제 검색 구현은 grep이 아니라 curl+awk(소문자화 후 index() 부분문자열 매칭) — '무색인 키워드 검색'이라는 본질은 맞으나 'grep 셸 스크립트'는 문자 그대로는 부정확.
+  [UNCERTAIN] 규모 경계: 원조 grep이 1,000,000 파일에 4초+(LlamaIndex), 문제 보고는 10M 파일 monorepo급 — 사용자의 md 미러는 어떤 breaking point보다 수십 배 아래, ripgrep 기준 밀리초
+       note: 절반만 확인됨. LlamaIndex 원문에서 "The original grep takes more than 4 seconds to scan 1,000,000 files"는 축자 확인. 그러나 '문제 보고는 10M 파일 monorepo급에서 발생'은 인용 소스에 없고, 오히려 Cursor 공식 블로그(fast-regex-search)는 규모를 명시하지 않은 채 "very large monorepos"에서 ripgrep 호출이 15초+ 걸린다고 보고하며, 2차 자료들은 이 문제를 1M+ 파일급으로 서술 — 10M이라는 경계 수치의 1차 근거를 찾지 못했고 실제 문제 보고 경계는 이보다 낮을 수 있다(1M+ 파일급). 다만 최종 결론 자체는 안전: 수만~수십만 라인 md(파일 수백~수천 개)는 1M 파일 대비로도 2~3자릿수 아래라 ripgrep 밀리초 영역이라는 판단은 유효.
