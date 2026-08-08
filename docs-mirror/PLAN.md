@@ -33,7 +33,8 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 ```
 
 - **버전 = 디렉토리.** `mirrors/<tech>/<version|current>/` — 검색 시 경로 glob이 곧 버전 스코프(`rg -g 'spark/3.5/**'`). 별도 버전 스키마·메타 테이블 없음. `current`는 기본 브랜치 추종, 고정 버전은 필요해질 때만 추가(선제 생성 금지).
-- **sources.yaml이 대상의 정본**: 기술별로 `repo`(clone URL) 또는 `crawl`(폴백), `subdir`(sparse-checkout 경로), `format`(md|mdx|rst|docbook), `license`, `versions`(고정 중인 태그 목록), `fallback`(공식 llms.txt·MCP 등 온디맨드 경로)을 기록. 라이선스 필드는 필수 — 재배포가 아닌 사적 미러라도 출처 명시.
+- **sources.yaml이 대상의 정본**: 기술별로 `repo`(clone URL) 또는 `crawl`(폴백), `subdir`(sparse-checkout 경로), `format`(md|mdx|rst|docbook), `license`, `versions`(고정 중인 태그 목록), `fork`(§3.5 0겹 보험 URL), `fallback`(공식 llms.txt·MCP 등 온디맨드 경로)을 기록. 라이선스 필드는 필수 — 재배포가 아닌 사적 미러라도 출처 명시.
+- **레지스트리 관리 = 3요소 패턴**(2026-08-08 확정, §8 6차 — 업계 표준형: 선언 파일=상태 + JSON Schema=계약 + 결정적 CLI 동사=연산): ⑴ `sources.schema.json` — 에디터 검증·자동완성용 스키마 ⑵ `tools/mirror` 동사: `validate`(스키마+실존 검사) · `add <repo>`(clone+fork 생성+SWH save-code-now 등록+항목 기록의 복합 연산 원자화 — §3.5 보존 계층의 실행자) · `pull`(전 미러 갱신) · `status`. **카탈로그 서비스·CRUD REST API는 불채택** — Polaris류의 전제(멀티 엔진·동시 다중 writer CAS·RBAC·credential vending) 전부 부재, Backstage조차 source of truth는 git 내 YAML(서비스는 harvest 파생 레이어), 파일→서비스 승격 4변수(동시 writer>1·신뢰 경계·전량 복사 불가 질의·네트워크 분리) 전부 미충족. 재심 트리거: 비파일 클라이언트(모바일·웹) 등장 시 — 그때도 형태는 파일 정본 유지 파사드(Obsidian Local REST API 모델).
 - **수집 방식 우선순위**: ① git clone(+sparse-checkout) ② 비-md 저장소는 clone + 결정적 변환(`_converted/`) ③ git 소스가 없는 사이트만 크롤(trafilatura, sitemap 기반) — 크롤은 최후 수단.
 
 ## 3. 갱신 운영
