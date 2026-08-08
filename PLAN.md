@@ -32,7 +32,7 @@ syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + re
 | 대용량·바이너리·기계 생성물 (스냅샷·미러·모델) | git 밖 (restic 또는 재생성 캐시) | 데이터가 git 밖에 사는 5속성 (r7) |
 | 파생 인덱스 (SQLite·qmd·임베딩) | git 밖 소모품 — lakehouse의 파생 질의 계층 | 정본에서 전량 재생성 (r7·core 원칙 4) |
 | 스키마 결합 글루 (tools·skills·evals) | **그 데이터의 레이어 안** — 동거 | 응집도·co-change 56% 실측·Iceberg 메타데이터 배치 (r4·r5) |
-| 공유 가능한 범용 엔진 (qmd·ir_measures) | 저장소 밖 외부 설치·버전 핀 | 글루 동거·엔진 외부 — Chromium depot_tools 동형 (r4) |
+| 공유 가능한 범용 엔진 (qmd·ir_measures·Airflow[도입 예정 — 다중 크롤·배치의 공유 오케스트레이터, 2026-08-08 사용자 결정]) | 저장소 밖 외부 설치·버전 핀. 오케스트레이터의 DAG는 얇은 호출자만 — 로직은 각 레이어 글루 잔류 | 글루 동거·엔진 외부 — Chromium depot_tools 동형 (r4) |
 | 스킬의 호출 표면 | `~/.claude/skills/` 심링크 = 단일 catalog | 정본은 레이어별 분산, 표면은 통합 — Iceberg catalog 동형 (r5) |
 | 두 레이어를 함께 다루는 오케스트레이션 스킬 (미래) | 우산 루트 `.claude/skills/` | nested skills 공식 지원 (r4·r5) |
 
