@@ -52,7 +52,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 
 미러 자체는 무백업이지만, "과거 시점을 다시 얻을 보장 없음"의 보험은 캐시 밖 4겹이 담당한다:
 
-- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 전용 free org(`altera520-mirrors` — 2026-08-08 결정: 개인 프로필 격리 + owner 복수 등록으로 계정 단일점 해소, 10–20년 축의 존속성 이득. fork는 public 고정이라 프라이빗 사본 안은 동기화 글루 자작·용량 한계로 배제)에 fork. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
+- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 전용 free org(`syntopicon-mirrors` — 2026-08-08 결정: 개인 프로필 격리 + owner 복수 등록으로 계정 단일점 해소, 10–20년 축의 존속성 이득. fork는 public 고정이라 프라이빗 사본 안은 동기화 글루 자작·용량 한계로 배제)에 fork. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
 - **0겹-보조 (0원) — Software Heritage**: 신규 등록 시 save-code-now API로 공공 아카이브 등록(GitHub URL 자동 승인, Vault git-bare 복원 지원).
 - **1겹 (현행 5–30GB) — core restic 타깃 편승**: core restic 원격(B2 후보)에 mirrors/ 스냅샷을 `mirror` 태그로 통합(한계비용 연 ~$2.50, 태그별 보존 정책 분리 공식 지원). **git 백업 규율**: `gc.auto=0` + 재클론 금지(fetch 증분만) + prune 금지 — packfile 재작성의 restic dedup 파괴 완화 + 삭제 브랜치 로컬 잔존 보장.
 - **1겹-보조 (0원) — 사용자 Synology NAS 제2 restic repo**: 사용자 기보유 NAS(2026-08-08 확인 — r9의 신규 구축 TCO $3,000–4,500 논거는 보유자에게 비적용, 한계비용 ~0)에 동일 스케줄·동일 git 백업 규율로 백업. **오프사이트 아님(동일 주소 — 화재·도난 동일 운명)이라 클라우드 겹의 대체가 아니라 추가**: 로컬 신속 복원 + 클라우드 계정 리스크(해지·잠김) 헤지가 역할. 접근 방식(SFTP vs rest-server 컨테이너)은 설치 시 결정. §7 중앙 미러 기각과 무관 — 캐시 동기화 허브가 아니라 보존 사본이다.
