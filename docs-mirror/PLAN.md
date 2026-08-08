@@ -40,7 +40,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 ## 3. 갱신 운영
 
 - `tools/mirror pull` 하나로 전 미러 갱신: `git pull --ff-only`(고정 버전 디렉토리는 skip), 변환 대상은 변경 시에만 재변환. 실패는 fail-loud 목록 출력 — 조용한 스킵 금지.
-- **스케줄러 = launchd**(macOS 네이티브, 주 1회) — cron 불채택: 조용한 실패가 fail-loud 계약과 충돌하고 슬립 중 스케줄을 놓친다(launchd는 웨이크 시 실행). plist 템플릿은 tools/에 커밋, 설치 1회. 갱신 주기는 규약이 아니라 운영 파라미터.
+- **스케줄러 불가지론(scheduler-agnostic).** 레이어의 진입점은 `tools/mirror pull` 하나이며 갱신 로직은 전부 레이어 글루에 산다 — 스케줄러는 이 명령을 주기 호출하는 외부자다. ⑴ 현재: launchd(macOS 네이티브, 주 1회 — cron 불채택: 조용한 실패가 fail-loud와 충돌, 슬립 중 스케줄 유실. plist는 tools/에 커밋, 설치 1회) ⑵ **Airflow 가동 시(사용자 로드맵 — 다중 크롤·배치의 공유 오케스트레이션 엔진, 2026-08-08 결정): 얇은 DAG(BashOperator → `tools/mirror pull`)로 이관.** 어느 경우든 갱신 로직의 DAG 이관 금지 — 오케스트레이터는 스케줄·재시도·가시성만 담당(글루 동거·엔진 외부 원칙, r4). 갱신 주기는 규약이 아니라 운영 파라미터.
 - **실패 가시성 3중**: ⑴ pull 실패 시 macOS 알림 + 로그 ⑵ `tools/mirror status`가 마지막 성공 시각·실패 목록·미러 나이 표시 ⑶ core 운영 캘린더(2–3주 세션)에서 status 확인 1줄 편승. 근본 완충 — 이 배치의 실패 결과는 "낡은 캐시"라 양성이며, 검색 스킬이 질의 시 미러 나이를 확인해 오래되면 pull 후 재검색한다(lazy 보정).
 - 추가 = `tools/mirror add`, 제거 = `tools/mirror remove <tech>` — 파괴 연산은 동사 경유가 기본(raw `rm -rf` 지양).
 - **삭제 게이트** (`remove`/`reset`이 실행 전 검증 — core의 클린 워킹트리 게이트와 동형): ⑴ 대상이 sources.yaml 등록 디렉토리인지 — 미등록 잔류물은 계약 밖 물건이므로 중단·목록 출력 ⑵ 각 clone의 워킹트리가 클린인지 — 로컬 수정·미추적 파일 = 인간 저작물 혼입 신호이므로 중단 ⑶ §3.5 보존 계층(fork·스냅샷) 가동 여부 — 미가동이면 "손실 예산이 upstream 소멸분까지 확대된 상태"임을 경고 후 확인 요구.
@@ -106,7 +106,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 | 버전별 코드 미러 | **보류(기각 아님)** — 근거 확보(GitHub 코드 검색은 default branch만 색인 → 버전 고정 분석은 로컬 clone 유일, 비용 경미)됐으나 수요 미실측 | r3 | 수요 반복 실측 시. 동결 규약: blobless clone 1개 + `git grep <tag>` + 정독 버전만 worktree + SHA 고정 + `.rgignore`. 채택 시 레이어명 재검토 |
 | 이슈 전량 미러 | 캐시 계약 3중 위반 — 버전 축 부재(milestone 0.0%)·재수집 비결정(코멘트 API 30k 캡·tombstone 없음)·closed 이슈도 계속 변함. Spark·Kafka는 JIRA 정본 | r3 | 없음 — 온디맨드(§4) + 유용 스레드만 core 승격이 상시 경로 |
 | 상시 동기화 중앙 미러 (S3 sync·NAS·자가 객체 스토리지) | 보존은 §3.5가 담당 — 크기 전제 반증(실측 5.25GB)·캐시 무이주 관행·중앙 복원은 이득 0에 계정 존속 리스크만 추가(AWS 해지 후 90일 뒤 삭제·MinIO 커뮤니티 붕괴·HDD 수명 6.75년). git 콘텐츠에 S3 API 불필요(fsck·SSH·증분 내장), S3 Tables는 Iceberg 표 전용이라 파일 보관 부적합 | r8·r9 | crawl 산출물 비중 증가(그 부분만 백업 경계 승격) / 다기기 동시 소비 / 종량제·극저속 회선 |
-| 워크플로 오케스트레이터 (Airflow류) | 공식 문서 실측(2026-08-08): 최소 설치 = scheduler+dag processor+API server+메타 DB(PostgreSQL/MySQL — SQLite는 "DO NOT use it in production")+권장 4GB — 주 1회 명령 1개에 상주 4컴포넌트+DB는 지배 제약 위반이고, 푸는 문제(DAG 의존성·백필·팀 가시성)가 부재. 가시성 요구는 launchd+알림+status 편승으로 충족(§3) | 직접 확인 | 배치 작업이 다수·의존 그래프화되고 두 번째 소비자가 생길 때 — 그때도 형태는 우산 글루이지 별도 프로젝트 아님(r4 준용: pull은 sources.yaml 결합 글루) |
+| Airflow를 이 레이어 **단독**을 위해 도입 | 단독 용도로는 과잉(공식 실측: 최소 설치 = scheduler+dag processor+API server+메타 DB, SQLite는 "DO NOT use in production") — 단 **시스템 공유 배치 엔진으로는 도입 예정**(사용자 로드맵: 다중 크롤·배치 워크로드, 2026-08-08 결정 — "두 번째 소비자" 조건의 계획된 충족). 계약: 갱신 로직은 레이어 글루 잔류, DAG는 얇은 호출자, 이 레이어는 스케줄러 불가지론(§3) | 직접 확인 | 해당 없음 — Airflow 가동 시 §3의 이관 조항 발동(launchd → DAG) |
 | 카탈로그 서비스·CRUD REST API | Polaris 전제(멀티 엔진·동시 writer CAS·RBAC·credential vending) 전부 부재. Backstage조차 source of truth는 git 내 YAML(서비스는 harvest 파생). 로컬 REST 선례 6종 전수가 비파일 클라이언트용 파사드 — "쓰기 규칙 집행용 1인 REST" 선례 0건. 집행점은 커밋 게이트가 표준, 메타스토어 정본화는 dual-write 자초 | r10·r11 | 비파일 클라이언트·멀티유저·git 비경유 쓰기 경로 등장 시 — 그때도 파일 정본 유지 파사드형만 |
 
 ## 8. 검증 원장 (라운드별 요약 — 전문·검증 판정·URL은 우산 `research/r*`)
