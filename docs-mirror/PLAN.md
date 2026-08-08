@@ -32,7 +32,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
     _converted/<tech>/       #   비-md 소스(rst·DocBook)의 md 변환 산출물 — 역시 재생성 가능
 ```
 
-- **버전 = 디렉토리.** `mirrors/<tech>/<version|current>/` — 경로 glob이 곧 버전 스코프(`rg -g 'spark/3.5/**'`). 별도 버전 스키마·메타 테이블 없음. 고정 버전은 필요해질 때만 추가(선제 생성 금지).
+- **버전 = 디렉토리.** `mirrors/<tech>/<version|current>/` — 경로 glob이 곧 버전 스코프(`rg -g 'spark/3.5/**'`). 별도 버전 스키마·메타 테이블 없음. `current/` = **기본 브랜치를 추종하는 본 clone**(pull 대상 — 릴리스 핀 아님, 디렉토리명은 upstream 브랜치명과 무관한 자체 규약), 버전 디렉토리 = 그 clone에서 `git worktree add <tag>`로 펼친 고정 워크트리 — 필요해질 때만 추가(선제 생성 금지). **전부 실디렉토리, 심링크 금지** — rg가 순회 중 심링크를 기본 미추적이라 버전 스코프 검색이 조용히 0건이 된다(로컬 재현 확인).
 - **sources.yaml이 대상의 정본**: 기술별 `repo`(또는 `crawl` 폴백)·`subdir`(sparse-checkout)·`format`(md|mdx|rst|docbook)·`license`(필수)·`versions`(고정 태그, 코드 미러 채택 시 commit SHA 병기)·`fork`(§3.5 0겹 URL)·`fallback`(llms.txt·공식 MCP·이슈 트래커).
 - **레지스트리 관리 = 3요소 패턴**(파일=상태 + `sources.schema.json`=계약 + CLI 동사=연산): `tools/mirror validate | add <repo> | pull | status`. `add`는 clone+fork 생성+SWH 등록+항목 기록의 복합 연산(§3.5의 실행자). 카탈로그 서비스·CRUD REST는 불채택(§7, 근거 r10·r11).
 - **수집 우선순위**: ① git clone(+sparse-checkout) ② 비-md 저장소는 clone + 결정적 변환(`_converted/`) ③ git 소스 없는 사이트만 크롤(trafilatura, sitemap) — 크롤은 최후 수단.
