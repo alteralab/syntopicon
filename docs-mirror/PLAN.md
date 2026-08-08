@@ -23,7 +23,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
   PLAN.md                    # 이 파일 — 정본 계획
   sources.yaml               # 미러 대상 레지스트리
   sources.schema.json        # 레지스트리의 계약 (에디터·CI 검증)
-  tools/                     # mirror/pull/변환/상태 스크립트 (결정적, LLM 무관)
+  tools/mirror               # 단일 CLI (결정적, LLM 무관) — 하위명령: validate·add·pull·status·remove(§2·§3)
   .agents/skills/docs-query/ # 검색 스킬 1개 (라우팅→rg→정독 절차)
   .gitignore                 # mirrors/  (`mirrors/**` 아님 — 디렉터리 표기라야 git이 프룬)
   mirrors/                   # ★ git 제외 — 전량 재생성 가능 영역. 최상위에 CACHEDIR.TAG
