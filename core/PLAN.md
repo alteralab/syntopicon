@@ -272,6 +272,8 @@ syntopicon/
 | `*/archive/` 블롭 + GGUF 3개 + qmd 타르볼 | 로컬 평문 | restic → B2 + NAS(SFTP/rest-server `--append-only`) + 외장 디스크, 평문 사본 1부. git-lfs 불채택 | `restic check --read-data-subset` 자동화 + 연 1회 전수. restic 정적 바이너리 동봉 |
 | SQLite 인덱스 | 사본(분기, qmd 버전 라벨 — 동일 버전으로만 열기) — 라이브 cp 금지, `VACUUM INTO`/Backup API만 | 재빌드 폴백: `qmd update && qmd embed` | 복원 후 `qmd status` + 테스트 검색 |
 
+**restic 채택 확정 (2026-08-09, 대조 심사 — §8)**: borg(안정판은 원격=SSH `borg serve` 전제라 B2 결격, 2.0은 베타·일정 없음)·kopia(무결성 트랙레코드 — data-loss race 수정 이력·append-only 서버 부재)·duplicacy(비OSS 사설 라이선스) 기각. restic 고유 우위 = **공개 포맷 명세 + 독립 구현체 2개**(rustic이 동일 repo를 상호 읽고 씀 — 도구 사망과 데이터 접근의 분리). **승계 트리거**: restic 12개월 무릴리스 또는 유지자 팀 해체 → rustic 승계 검토(포맷 동일이라 데이터 이동 0, 게이트 = rustic의 베타 탈출·회귀 테스트 확보).
+
 **새 기기 복구 런북**: ① Homebrew + `brew install sqlite`(시스템 SQLite는 확장 로딩 불가) ② 네이티브 arm64 Node LTS ③ 벤더링 qmd 타르볼 설치 ④ GGUF 복원 ⑤ `git clone` → qmd 컬렉션 재등록(layout.yaml 기반) ⑥ 사본 복원+검증 / 폴백 재빌드 ⑦ qmd MCP 전역 등록 + 스킬 심링크(`~/.claude/skills/`) 생성 + 사용자 레벨 훅. 툴체인 핀 갱신은 연간 항목.
 
 **배포 토폴로지**:
@@ -440,6 +442,7 @@ restic 백업은 cron 자동화 — 캘린더는 사람 작업만. **운영 임�
 | qmd 2.1.0 `bench` 하네스 결함 | [검증-실기] | 내부 store API 경로가 vector/hybrid 전 질의 0건(동일 질의 직접 CLI vsearch는 정답 1위) — 검색 실측은 CLI 러너(evals/retrieval/runner.py)로 대체, 실사용 경로라 측정 타당성도 우위. 재확인: qmd 버전 갱신 시 |
 | 고아 벡터 재실측 — 현 버전 검색 오염 0 | [검증-실기] | 통제 실험(생성→색인→삭제→update): cleanup 전에도 결과 미노출 — cleanup의 역할은 디스크 위생(vacuum). 구 "누수 실측 3회" 관측의 갱신 |
 | 합성 멀티홉 코퍼스의 정답 어휘 누수 봉인 | [검증-실기] | 정답 페이지 제목·본문에 질의 토큰({korean})이 새고 있었고 암묵 AND가 은폐 — OR 전환이 flat R@10 1.0으로 폭로. 설계 계약("질의는 시드에만")을 synth.py 생성기에서 집행, 봉인 후 확장 우위 유지 확인 |
+| restic 대조 심사 (2026-08-09 — borg·kopia·duplicacy·rustic) | [검증] | restic 0.19.1(2026-07) 활동·기여자 410·rest-server `--append-only` 요구 정합, 거버넌스는 BDFL(비재단 — 리스크 기록). borg 1.4 원격=SSH borg serve(B2 불가)·2.0 beta "not production"(b21, 2026-03). kopia 0.23.1이 race/data-loss 수정 + 2025 인덱스 비대·missing blob 이슈. duplicacy CLI 상용 $50/년 사설 라이선스. rustic 포맷 상호운용 공식 FAQ 확인·베타(회귀 테스트 부재) — 채택 아닌 승계 지명 |
 
 ## 참고 (주요 출처)
 
