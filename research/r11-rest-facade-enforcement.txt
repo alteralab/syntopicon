@@ -1,0 +1,94 @@
+====================================================================================================
+KEY: local-rest-precedents
+--- SUMMARY ---
+조사한 6개 선례(Obsidian Local REST API, Zotero 로컬 서버/local API, calibre content server, Home Assistant, Gitea, Hasura) 전부에서 REST API의 실제 동기는 ⑴ 비파일 클라이언트(브라우저 확장·모바일·원격 브라우저·프론트엔드)의 접근이거나 ⑵ 멀티유저·권한(Gitea, Hasura)이었고, ⑶ '쓰기 규칙 집행'을 위해 로컬 1인 시스템에 REST를 얹은 선례는 발견하지 못했다. 파일 정본 시스템에서 규칙 집행의 표준 패턴은 커밋 게이트(pre-commit 류, 현 validate와 동형)다. 또한 조사한 파일-위-API 선례들은 예외 없이 '파사드형'(파일/라이브러리가 정본, API는 그것을 읽고 쓸 뿐)이며, 사용자 제안처럼 메타스토어가 정본 메타데이터를 갖는 순간 dual-write problem(정합성 보장 계층 없는 2중 쓰기 → 부분 실패 시 비일관)을 자초한다. Home Assistant는 파일 구성과 UI/API 구성의 병존 유지비가 과도해 한쪽(YAML)을 공식 축소한 실증 사례다. 에이전트가 주 클라이언트라는 논거도 약하다: Anthropic 지침은 CRUD 엔드포인트 나열이 아니라 워크플로 단위 도구 통합과 파일시스템+코드 실행을 표준 표면으로 제시한다. 사용자 직관이 이기는 조건은 명확히 존재한다: (a) 비파일 클라이언트가 실제로 생길 때(모바일/브라우저에서 KB 조회, 원격 에이전트) — 단 이때도 선례가 지지하는 형태는 '파일 정본 유지 + 읽기 위주 로컬 파사드'(Obsidian/calibre/Zotero 모델)이지 메타스토어 정본화가 아니다; (b) 멀티유저·권한이 필요해질 때(Gitea 모델) — 현 시스템은 단일 작성자라 해당 없음. 결론적으로 '규칙이 늘어 관리가 안 된다'는 문제의 선례 기반 해법은 REST CRUD가 아니라 커밋 게이트 강화이고, REST를 얹더라도 파일 정본을 유지하는 파사드여야 dual-write를 피한다.
+--- FINDINGS ---
+[LB] Obsidian Local REST API 플러그인의 존재 이유는 '비파일 클라이언트'의 접근이다 — README가 명시한 대상은 "scripts, browser extensions, and AI agents"이며, API는 vault 파일을 읽고 쓰는 파사드다(파일이 정본). 활발히 유지되는 커뮤니티 플러그인(약 2.8k stars, 504 commits, MIT)이다.
+[LB] Obsidian 공식의 외부 자동화 표면은 REST API가 아니라 Obsidian URI 스킴이다. 공식 문서에 REST API 언급이 없고, Local REST API는 서드파티 커뮤니티 플러그인 영역에 있다.
+[LB] Obsidian CEO(kepano)의 'File over app' 철학: 오래 갈 디지털 산출물은 앱이 아니라 사용자가 통제하는 파일이어야 하며, 앱(자사 제품 포함)은 결국 obsolete해진다. 파일 정본 원칙의 명시적 1차 소스.
+[LB] Zotero의 내장 로컬 HTTP 서버(포트 23119)의 원래 목적은 브라우저 확장(Zotero Connector)과의 통신 — 동기는 '비파일 클라이언트 접근'이지 쓰기 규칙 집행이 아니다.
+[  ] Zotero 7.0에서 로컬 데이터 접근용 HTTP API가 추가되었다 — 'Developer-specific changes' 항목으로, 외부 도구가 Zotero 데이터를 읽기 위한 것.
+[LB] calibre content server의 존재 이유는 원격/모바일 브라우저 접근이며, calibre 라이브러리(로컬 메타데이터 DB + 파일)가 정본이고 서버는 그 위의 접근 파사드다.
+[  ] Home Assistant REST API는 웹 프론트엔드와 같은 포트에서 제공되며, 프론트엔드·외부 스크립트·원격 클라이언트를 위한 것이다(동기 ⑴).
+[LB] Home Assistant는 파일 구성(YAML)과 UI/API 구성의 '이중 표면 병존'이 유지 불가능하다고 공식 선언하고 YAML을 축소했다 — 두 기록 경로를 동시에 유지하는 비용이 과도하다는 실증 선례. 사용자 제안처럼 파일과 API 레이어를 병존시키면 이 비용을 정면으로 진다.
+[LB] Gitea가 git 위에 API·웹 서비스를 얹은 이유는 멀티유저 협업(이슈, PR, 권한, 협력자 관리)이다 — 동기 ⑵. 단일 작성자 로컬 저장소에는 해당 전제가 없다.
+[  ] Hasura류 'DB 위 자동 API'는 다수 개발자·대규모 앱 사용자를 전제로 한다("Powers millions of user experiences", "Loved by devs") — 단일 작성자·단일 에이전트 환경과 전제가 다르다.
+[LB] dual-write problem: 두 시스템(예: DB와 파일)에 정합성 보장 계층 없이 각각 쓰면, 한쪽 커밋 성공 후 다른 쪽 실패 시 비일관 상태가 되며 양쪽 순서를 바꿔도 해결되지 않는다. 해법은 '단계마다 하나의 외부 시스템에만 쓰기'(outbox+CDC, saga). 메타스토어가 정본 메타데이터를 갖고 파일도 존재하는 설계는 이 문제를 자초하고, 파사드형(파일 단일 정본, API는 파일을 읽고 쓸 뿐)은 쓰기 지점이 하나라 구조적으로 회피한다.
+[LB] 파일 정본 시스템에서 '쓰기 규칙 집행'의 업계 표준은 서버/API가 아니라 로컬 커밋 게이트다 — pre-commit 프레임워크는 서버·API 없이 git hook만으로 다언어 lint/검증을 집행하며, 이는 현 시스템의 validate 커밋 게이트와 동형이다.
+[LB] Anthropic의 에이전트 도구 설계 지침은 'API 엔드포인트 전부를 도구로 감싸지 말고 고임팩트 워크플로 단위로 통합하라'고 권고한다 — 에이전트를 위해 CRUD REST를 만들고 그것을 다시 도구로 감싸는 방향과 정반대.
+[LB] Anthropic의 'Code execution with MCP': LLM 에이전트의 표준 표면은 파일시스템+코드 실행이며("Models are great at navigating filesystems"), 도구 정의를 API처럼 나열하는 대신 코드로 다루면 예시 시나리오에서 150,000→2,000 토큰(98.7% 절감). 에이전트가 주 클라이언트라는 이유로 REST 레이어를 추가할 근거는 약하다 — 에이전트는 이미 파일 네이티브가 최적 경로다.
+--- UNRESOLVED ---
+ - WebSearch 세션 예산(200/200) 소진으로 알려진 URL의 WebFetch만 사용 — 탐색 폭이 제한되어 '쓰기 규칙 집행 목적의 로컬 1인 REST' 선례 부재는 조사 범위 내 미발견이지 완전한 부재 증명이 아님
+ - Zotero 7 local API의 읽기 전용 여부와 활성화 방법(환경설정 opt-in 여부)을 1차 소스로 확정하지 못함 — changelog는 존재만 확인, 상세는 Google Groups 링크로만 안내됨
+ - Obsidian이 공식 REST API를 만들지 않는 '명시적 이유' 문서는 찾지 못함 — 공식 표면이 URI/플러그인 API뿐이고 File over app 철학이 있다는 사실로부터의 추정임
+ - Hasura의 원래 가치 제안('instant GraphQL APIs on your data' 등) 원문은 현재 홈페이지 리뉴얼로 확보 실패 — 다중 consumer 전제는 약한 인용에 의존
+ - Obsidian Local REST API의 정확한 최근 릴리스 날짜·커뮤니티 플러그인 등록 다운로드 수 미확인(README 요약상 활발 유지로만 확인)
+--- VERDICTS ---
+  [CONFIRMED] Obsidian Local REST API 플러그인의 존재 이유는 비파일 클라이언트 접근 — README 대상은 scripts/browser extensions/AI agents, API는 vault 파일 파사드, 약 2.8k sta
+       note: README 태그라인 "Give your scripts, browser extensions, and AI agents a direct line into your Obsidian vault via a secure, authenticated REST API" 축자 일치. 2.8k stars, 504 commits(main), MIT 라이선스 확인. API는 vault 파일에 대한 read/create/update/delete/patch(headin
+  [CONFIRMED] Obsidian 공식 외부 자동화 표면은 REST API가 아니라 Obsidian URI 스킴이며, Local REST API는 서드파티 커뮤니티 플러그인 영역
+       note: 공식 도움말이 URI가 "automation and cross-app workflows"를 가능하게 한다고 명시하고 open/new/daily/unique/search/choose-vault/hook-get-address 액션을 나열함을 확인. 해당 페이지와 공식 개발자 문서(docs.obsidian.md — 확장 표면은 Plugin API·Themes뿐) 모두에서 REST API 언급 부재를 직접 확인. 전체 문서의 완전 부재는 표본 확인이지
+  [CONFIRMED] Obsidian CEO kepano의 'File over app' 철학 — 오래 갈 산출물은 사용자가 통제하는 파일이어야 하며 Obsidian 자체도 obsolete해질 것
+       note: 저자 Steph Ango가 본문에서 "I am currently CEO of the company"라고 자기 확인. 핵심 인용 "if you want to create digital artifacts that last, they must be files you can control, in formats that are easy to retrieve and read" 축자 일치. "the app will eventually become obsol
+  [CONFIRMED] Zotero 내장 HTTP 서버(포트 23119)의 원래 목적은 Zotero Connector 브라우저 확장과의 통신 — 비파일 클라이언트 접근이지 쓰기 규칙 집행이 아님
+       note: 개발 문서 인용 "Zotero has a built-in HTTP server to communicate with the Zotero Connector browser extensions" 축자 일치. 포트 23119 확인(예시 URL 127.0.0.1:23119). 기본 엔드포인트 5종 전부 /connector/ 접두(saveItems, saveSnapshot, selectItems, getTranslatorCode, ping). 쓰기 규칙 집
+  [CONFIRMED] calibre content server의 존재 이유는 원격/모바일 브라우저 접근이며 라이브러리가 정본, 서버는 접근 파사드
+       note: 매뉴얼 인용 "allows you to access your calibre libraries and read books directly in a browser on your favorite mobile phone or tablet device"와 "you do not need to install any dedicated book reading/management apps on your phone" 모두 축자 확인. 문서 전체가 서버를 로컬 라이
+  [CONFIRMED] Home Assistant가 YAML·UI 이중 구성 표면 병존이 유지 불가능하다고 공식 선언하고 integrations의 YAML을 축소 — 이중 기록 경로 비용의 실증 선례
+       note: 핵심 사실 확인: 공식 블로그가 "The amount of energy that needs to be put in can be too much and is complex"라며 기여자 demotivation을 명시하고, ADR-0010으로 신규 device/service integrations의 YAML 제거를 정당화. UI 채택 이유도 비기술 사용자 확대("not always the tech-savvy types... make it usable
+  [CONFIRMED] Gitea가 git 위에 API·웹 서비스를 얹은 이유는 멀티유저 협업(이슈·PR·권한·협력자 관리)
+       note: 태그라인 "painless, self-hosted, all-in-one software development service" 축자 확인. 이슈 추적, PR 워크플로우, "user permission management, access control lists"가 핵심 기능으로 명시됨을 확인. 단 유의: 문서가 명시한 최상위 목표 문장은 "easiest, fastest, and most painless way of setting up a self-
+  [CONFIRMED] dual-write problem — 정합성 계층 없는 2계 쓰기는 부분 실패 시 비일관 상태가 되고 순서 교체로도 해결 불가, 해법은 단계당 하나의 외부 시스템만 쓰기(outbox+CDC, saga)
+       note: 정의 인용 "A dual write describes the situation when you change data in 2 systems... without an additional layer that ensures data consistency over both services"와 실패 시나리오 "If you successfully committed the 1st transaction and the 2nd one fails... incons
+  [CONFIRMED] 파일 정본 시스템에서 쓰기 규칙 집행의 업계 표준은 서버/API가 아닌 로컬 커밋 게이트 — pre-commit이 서버 없이 git hook만으로 집행
+       note: pre-commit 사실관계 전부 확인: 태그라인 "A framework for managing and maintaining multi-language pre-commit hooks" 축자 일치, .git/hooks/pre-commit 설치·커밋 시 자동 실행, 완전 클라이언트측(중앙 집행 서버 없음, 훅 저장소만 원격에서 캐시). 단 '업계 표준'이라는 일반화는 소스에 없는 해석이며, 로컬 훅은 --no-verify로 우회 가능해 다중 사용자
+  [CONFIRMED] Anthropic 도구 설계 지침 — 'API 엔드포인트 전부를 도구로 감싸지 말고 고임팩트 워크플로 단위로 통합하라' 권고
+       note: 명제는 사실이나 근거의 따옴표 인용이 부정확함. "Rather than wrapping every API endpoint, focus on high-impact workflows"라는 축자 문장은 원문에 없음. 실제 문구는 "A common error we've observed is tools that merely wrap existing software functionality or API endpoints" + "We recommend bu
+  [CONFIRMED] Anthropic 'Code execution with MCP' — 에이전트의 표준 표면은 파일시스템+코드 실행, 150,000→2,000 토큰(98.7% 절감), 에이전트는 파일 네이티브가 최적 경로
+       note: "reduces the token usage from 150,000 tokens to 2,000 tokens—a time and cost saving of 98.7%" 축자 확인. "Models are great at navigating filesystems" 축자 확인. 제어 흐름(루프·조건문을 코드로)·필터링(실행 환경 내 처리)·프라이버시(중간 결과가 모델 컨텍스트에 미진입) 모두 코드 실행 환경 우위로 명시됨을 확인. 'REST 레이어 
+====================================================================================================
+KEY: enforcement-point
+--- SUMMARY ---
+결론: '파일 정본 + 커밋 시점 집행'은 단일~초대규모 작성자군 전반에서 실증된 표준이며, 서비스 시점(API 중개) 집행이 이기는 조건은 명확히 한정된다 — (a) 정본을 우회해 쓰는 클라이언트가 존재(k8s admission의 존재 이유), (b) 신뢰 불가한 익명 다수 writer + 즉시 거부 필요(Wikipedia AbuseFilter), (c) 고빈도 동시 경합(k8s 409 optimistic concurrency). syntopicon은 단일 작성자·에이전트도 파일 네이티브·파생 SQLite는 재생성 가능이므로 세 조건 모두 미충족. 핵심 반증 세 가지: (1) 대규모 파일 규약 시스템(MDN, Google 모노레포, dbt)은 규칙 증식을 쓰기 API가 아니라 [선언적 스키마 + pre-commit/CI 게이트 계층화 + 전수 리포트/봇의 비동기 수리]로 다루며, 이는 syntopicon의 validate(게이트)+lint(전수)+reindex(파생) 구조와 동형이다. (2) 서비스 시점 도구(Gatekeeper/Kyverno)조차 엔진을 커밋 시점으로 이식(gator/Kyverno CLI)하는 shift-left가 공식 방향이고, 다중 writer 경합도 merge queue로 커밋 시점에서 해결된다. (3) '웹 폼 클라이언트' 요구도 Decap CMS처럼 git commit으로 변환해 흡수 가능하다. 복합 쓰기 연산의 input/output 확실성은 REST CRUD가 아니라 CLI scaffold 동사(hugo new/rails generate 패턴)로 얻는 것이 파일 정본 세계의 관행이다. 사용자 제안이 유효해지는 미래 트리거: KB에 git을 경유하지 않는 제2의 쓰기 경로(모바일·타인)가 생기거나, 커밋되지 않은 중간 상태를 다른 시스템이 즉시 소비해야 할 때. 그 전까지 REST API 레이어는 admission 없는 클러스터에 webhook을 다는 격 — 방어 대상 경로가 없다.
+--- FINDINGS ---
+[LB] GitOps에서 불변식 집행은 서비스 시점(admission)과 커밋 시점(CI)의 양층 구조이며, 정책 엔진 스스로가 커밋 시점으로 이식(shift-left)되는 방향이다. Gatekeeper는 admission webhook이지만, 공식 문서가 엔진의 목적 중 하나로 'infrastructure-as-code 시스템의 source-of-truth에 대한 비준수 커밋을 감지·거부'를 명시한다 — 즉 admission 전용이 아니라 커밋 게이트로도 쓰라고 설계됐다.
+[LB] admission controller(서비스 시점)가 필요한 조건은 명확히 한정된다: git을 경유하지 않고 API 서버에 직접 쓰는 클라이언트가 존재하기 때문이다. Kubernetes API 서버는 kubectl 직접 쓰기·컨트롤러·오퍼레이터 등 다수의 비git 경로를 받으므로, 리소스 생성·수정·삭제 시마다 실행되는 webhook이 최후 방어선이 된다. 이 조건(비git 쓰기 경로)이 없으면 CI/CLI 검증만으로 동일 정책을 집행할 수 있다는 것이 Kyverno/Gatekeeper 양쪽 도구의 설계 전제다.
+[  ] dbt는 '파일 정본 + 커밋 시점 집행'의 대표 사례다: 프로젝트 규칙(테스트·SQL lint)은 PR 트리거 CI 잡이 수정된 모델만 staging schema에서 빌드·테스트하고, Git 제공자의 required check와 결합해 merge를 차단하는 방식으로 집행된다. 쓰기 API를 두지 않는다.
+[LB] 커밋 게이트는 소수~다수 작성자 모두에서 업계 표준 도구 체인이 확립돼 있다: pre-commit 프레임워크(커밋 시 자동 실행 + "pre-commit run --all-files"를 CI 단계로), husky(GitHub 1.5M+ 프로젝트에서 사용, Next.js·Angular·VSCode·Webpack 채택), GitHub required status checks("Required status checks must have a successful... status before collaborators can make changes to a protected branch").
+[LB] Google 모노레포(수만 명 작성자)조차 규칙 집행점은 커밋 시점(presubmit)이며, 단 게이트를 계층화한다: presubmit은 빠르고 신뢰성 높은 검사만("only fast, reliable ones"), 느린 검사는 postsubmit으로 미룬다. 즉 초대규모에서도 해법은 '쓰기를 서비스로 중개'가 아니라 '커밋 게이트의 계층화'였다.
+[  ] 동시 다중 writer의 경합조차 커밋 시점 기제로 해결되는 실증이 있다: GitHub merge queue는 다수 기여자의 동시 merge를 FIFO 큐 + 최신 base와의 합성 검증으로 처리해 "required checks are always satisfied"를 보장한다. 서비스 시점 집행이 다중 writer의 유일한 해법이 아니다.
+[LB] [사용자 직관이 이기는 조건 1] 진짜 동시 다중 writer가 밀리초 단위로 경합하면 서비스 시점의 optimistic concurrency가 필요하다: Kubernetes API는 resourceVersion 불일치 시 409 Conflict로 쓰기를 거부한다. 이는 git rebase로는 감당 못 하는 고빈도 경합의 해법이다. 단, 이 조건은 '다수의 자동화된 클라이언트가 같은 객체를 동시에 수정'할 때 성립하며, 단일 작성자 + 에이전트(같은 세션 내 순차 실행)에는 해당하지 않는다.
+[LB] [사용자 직관이 이기는 조건 2] 익명·불특정 다수 writer + 즉시 거부 요구에서는 서비스 시점 집행이 실제로 채택된다: Wikipedia의 AbuseFilter(edit filter)는 모든 편집을 저장 시점에 조건과 대조해 Disallow(편집 자체를 거부)·Warn·CAPTCHA 등을 즉시 실행한다. 커밋 후 리뷰로는 반달리즘을 막을 수 없기 때문이다. 이 조건(신뢰 불가한 다수 writer)이 서비스 시점 집행의 핵심 실증 사례다.
+[LB] [사용자 직관 반례] 'git을 모르는 클라이언트(웹 폼)' 조건조차 별도 메타스토어 없이 git 파일 정본 위에 흡수 가능하다: Decap CMS는 웹 UI 편집을 GitHub/GitLab/Bitbucket API 경유 commit으로 변환한다 — "a tool for content editors to make commits to your site repository without touching code or learning Git", 콘텐츠는 "stored in your Git repository alongside your code". 즉 비git 클라이언트의 존재가 자동으로 쓰기 API+DB를 요구하지는 않는다.
+[LB] '규칙이 늘수록 파일 직접 기록은 관리 불능'이라는 명제의 실증적 반박: MDN content 저장소(수천 페이지 markdown + frontmatter 규약, 수천 기여자)는 규칙 증식을 쓰기 API가 아니라 Prettier/MarkdownLint + 자동 설치되는 pre-commit hook + PR CI(실패 시 merge 불가)로 다룬다.
+[LB] 서비스 시점 시스템인 Wikipedia조차 규칙 증식 자체는 쓰기 API가 해결하지 않는다: MediaWiki API는 존재하지만 인포박스·템플릿·포맷 규약의 유지는 비동기 봇(반복 유지보수 편집: 카테고리 정리, 포맷 갱신, 템플릿 수정을 인간보다 빠르게 일괄 처리)과 edit filter가 담당한다. 즉 '규칙 관리'의 해법은 집행점과 무관하게 [선언적 규칙 + 자동 검증 + 비동기 수리]이며, CRUD API를 둔다고 규칙 관리 문제가 사라지는 것이 아니다.
+[LB] 복합 쓰기 연산('생성+ID 발급+링크+색인')의 원자화는 HTTP API가 아니라 CLI 동사/scaffold로 정형화하는 것이 파일 정본 시스템의 확립된 관행이다: Hugo는 `hugo new content`가 archetype 템플릿으로 frontmatter(날짜·draft·title)를 자동 채운 파일을 생성하고, Rails는 `rails generate scaffold`가 "model, controller, views, routes, migration, tests, helper"를 한 명령으로 정합성 있게 생성한다("save you time by freeing you from having to write repetitive boilerplate code").
+--- UNRESOLVED ---
+ - WebSearch 세션 예산(200/200) 소진으로 기지(旣知) URL의 WebFetch 검증만 수행 — 탐색적 검색(예: '규칙 증식으로 파일 기반을 포기하고 API로 전환한 실패/성공 사례담')은 못 했다. 사용자 직관을 지지하는 추가 사례가 존재할 수 있다.
+ - MDN '14,000페이지' 수치 자체는 미검증 (규약 집행 방식은 CONTRIBUTING로 확인).
+ - kubernetes/kubernetes 등 '수천 기여자의 매니페스트 저장소' 실명 단일 사례의 CI 구성 상세는 직접 확인 못 함 (kubeconform·Gatekeeper 문서의 일반 진술로 갈음).
+ - dbt model contracts(빌드 시점 스키마 계약 집행)의 상세 — dbt build 시점 집행이 커밋 게이트와 어떻게 역할 분담하는지 1차 문서 미확인.
+ - API-first CMS(Contentful 등)가 git 기반 CMS 대비 채택되는 조건의 1차 소스 미확인 — 다중 채널·다중 테넌트 조건이라는 통념을 검증 못 함.
+ - kubernetes.io api-concepts 페이지는 잘려서 resourceVersion 상세를 얻지 못해 kubernetes/community의 API Conventions 문서로 대체 확인함 (동일 프로젝트의 1차 소스).
+ - Wikipedia edit filter의 '조건 수 성능 제한(condition limit)' 상세는 페이지 발췌에서 미확인.
+--- VERDICTS ---
+  [CONFIRMED] GitOps 불변식 집행의 양층 구조 — Gatekeeper 엔진이 IaC source-of-truth 커밋 게이트 용도를 공식 명시
+       note: 공식 문서에서 축자 확인: "Gatekeeper's engine is designed to be portable, allowing administrators to detect and reject non-compliant commits to an infrastructure-as-code system's source-of-truth". gator CLI도 별도 문서로 존재하며 "a tool for evaluating Gatekeeper Constr
+  [CONFIRMED] admission controller의 존재 이유는 비git 쓰기 경로이며, 그 경로가 없으면 CI/CLI만으로 동일 정책 집행 가능
+       note: 인용 두 건 모두 축자 확인: Gatekeeper "admission controller webhooks, which are executed whenever a resource is created, updated or deleted", kubeconform README "Incorporate it into your CI, or use it locally to validate your Kubernetes configuration!" + GitHu
+  [CONFIRMED] 커밋 게이트 도구 체인 확립 — pre-commit, husky 1.5M+, GitHub required status checks
+       note: 3개 소스 모두 축자 확인: pre-commit.com "pre-commit will run automatically on git commit" 및 "adding pre-commit run --all-files as a CI step will ensure everything stays in tip-top shape"; husky 공식 사이트 "used in over 1.5M projects on GitHub" + Next.js·Angular·V
+  [CONFIRMED] Google 모노레포도 집행점은 presubmit이며 게이트를 계층화(빠른 검사만 presubmit, 나머지 postsubmit)
+       note: SWE at Google ch.23에서 축자 확인: "Our general rule of thumb is: only fast, reliable ones" 및 "You can accept some loss of coverage on presubmit, but that means you need to catch any issues that slip by on post-submit, and accept some number of rollbacks".
+  [CONFIRMED] 진짜 동시 다중 writer 경합에는 서비스 시점 optimistic concurrency 필요 — K8s resourceVersion 409 Conflict
+       note: K8s API Conventions에서 축자 확인: "When a record is about to be updated, its version is checked against a pre-saved value, and if it doesn't match, the update fails with a StatusConflict (HTTP status code 409)." 단, '단일 작성자+에이전트 순차 실행에는 해당 없음'과 'git rebase
+  [CONFIRMED] 익명·불특정 다수 writer + 즉시 거부에는 서비스 시점 집행 — Wikipedia AbuseFilter가 저장 시점에 Disallow/Warn/CAPTCHA 실행
+       note: Wikipedia:Edit filter에서 확인: "A filter automatically compares every edit made to Wikipedia against a defined set of conditions"(축자), Disallow는 편집을 통째로 거부하며 사용자에게 customizable message 표시, 액션 목록에 로깅·태그·CAPTCHA·경고·disallow 모두 실재. 평가 시점은 저장 시도 시("when an 
+  [CONFIRMED] 비git 클라이언트(웹 폼)도 별도 메타스토어 없이 git 정본 위에 흡수 가능 — Decap CMS
+       note: 공식 문서에서 세 인용 모두 축자 확인: "a tool for content editors to make commits to your site repository without touching code or learning Git", "Content is stored in your Git repository alongside your code", 그리고 아키텍처가 "an open-source React app that acts as a wrap
+  [CONFIRMED] 규칙 증식을 쓰기 API 없이 lint+pre-commit hook+PR CI로 다루는 실증 — MDN content 저장소
+       note: CONTRIBUTING/가이드에서 확인: Prettier+MarkdownLint 병용과 "with minimal reviewer intervention", "A pre-commit hook will be installed which automatically runs while making a commit", "Your pull request will not be approved and merged if there are failing tests
+  [CONFIRMED] 서비스 시점 시스템(Wikipedia)에서도 규칙 유지는 API가 아니라 비동기 봇+edit filter가 담당
+       note: Wikipedia:Bot policy에서 축자 확인: 봇은 "generally make automated changes or actions", "no further need for human decision-making" 작업 수행, "Bots are potentially capable of editing far faster than humans can". 아카이빙·카테고리 유지·포맷 갱신·템플릿 수정이 전형 작업으로 명시. 'CRUD API를
+  [CONFIRMED] 복합 쓰기 연산의 원자화는 CLI 동사/scaffold로 정형화하는 것이 파일 정본 시스템의 관행 — Hugo archetype, Rails scaffold
+       note: 양쪽 모두 축자 확인: Hugo "An archetype is a template for new content" + "The hugo new content command creates a new file in the content directory, using an archetype as a template"(기본 archetype이 date/draft/title 자동 채움까지 확인); Rails 가이드에서 scaffold가 "a full se

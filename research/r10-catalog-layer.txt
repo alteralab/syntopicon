@@ -1,0 +1,155 @@
+====================================================================================================
+KEY: catalog-prerequisites
+--- SUMMARY ---
+판정 재료 요약.
+
+(a) Polaris류 카탈로그의 실체: Apache Polaris는 Iceberg REST protocol 구현 서비스로, 존재 이유가 '다수 query engine이 같은 테이블을 안전하게 동시 read/write'하게 하는 것이다. 핵심 기능 3종 — (1) 동시 다중 writer의 원자적 metadata pointer swap(Iceberg 스펙: "An atomic swap... provides the basis for serializable isolation" + optimistic concurrency retry), (2) RBAC(다수 service principal 전제), (3) credential vending(STS 단기 자격증명을 엔진에 위임) — 은 전부 '신뢰 경계를 넘는 다수 행위자'를 전제한다. 운영 풋프린트는 Java 21+/Quarkus 상시 서버 + 프로덕션 필수 PostgreSQL. Hive Metastore·Glue·Unity Catalog도 공통 전제가 동일하다(다수 엔진·다수 사용자·동시 쓰기·접근 제어·감사).
+
+(b) 항목별 대조 — sources.yaml(1인 작성·소비자 2개·5~30항목)이 카탈로그 서비스의 전제를 공유하는가: [멀티 엔진 상호운용] 불공유 — 소비자 2개가 같은 리포의 자작 도구라 프로토콜 경계가 없다. [동시 다중 writer CAS] 불공유 — writer 1인이며 git commit이 이미 원자적·이력 보존 쓰기다(Iceberg가 catalog를 요구하는 유일한 hard 이유가 바로 이 CAS인데, 여기선 성립 조건 자체가 없음). [멀티테넌트 RBAC·감사] 불공유 — 1인, git log가 감사 이력. [credential vending] 불공유 — 미러 대상은 공개 벤더 문서 리포. 4개 전제 중 공유하는 것이 0개다.
+
+(c) 사용자 직관이 옳은 부분과 그 관행적 실현 형태: '계약의 명확성'과 '조작의 정형화'는 실재하는 요구이고 업계 표준이 있다 — 다만 CRUD API가 아니라 (1) 스키마: sources.yaml에 JSON Schema를 정의해 구조·필수 필드·타입을 선언(input 계약; SchemaStore가 보여주듯 설정 파일 스키마 검증은 에디터 통합 수준의 관행), (2) 검증 게이트: tools/validate에 스키마 검증을 편입해 커밋 게이트로(이 프로젝트의 기존 패턴과 동형), (3) 단일 소비 경로: tools/pull만 파일을 읽게 하면 output 계약은 그 도구의 인터페이스가 된다, (4) git = versioned·immutable·원자적 저장(OpenGitOps 4원칙이 이 정식화 자체). Backstage처럼 '카탈로그'를 표방하는 시스템조차 source of truth는 git 내 YAML이고 서비스는 파생 조회 레이어다.
+
+(d) 파일→서비스 승격의 실측 임계: crates.io는 index 176MiB·전 클라이언트 전량 다운로드 지경(수만 항목×수백만 소비자)에서 sparse HTTP index로, Homebrew는 수백만 사용자의 git fetch 비용 때문에 2023년에야 JSON API로 — 그마저 읽기 경로만 서비스화했고 쓰기는 여전히 git 파일+CI다. 5~30항목·소비자 2개는 이 임계의 수천~수만분의 1 규모다.
+
+결론적 판정 재료: 카탈로그 서비스의 존재 이유(동시성 CAS·다중 신뢰 경계·credential 위임)는 이 레지스트리에 하나도 성립하지 않으므로 Polaris형 승격은 전제 불일치이고, 사용자가 원하는 '확실한 input/output'은 schema + validate 커밋 게이트 + 단일 pull 소비자 + git 이력이라는 파일 기반 정식화로 얻는 것이 업계 관행이다.
+--- FINDINGS ---
+[LB] Apache Polaris는 Apache Iceberg 테이블용 catalog 구현체로, Iceberg REST protocol을 구현해 '여러 REST 호환 query engine(Spark, Flink, Trino, Doris, StarRocks, Snowflake 등)이 같은 Iceberg 테이블에 중앙화·보안 read/write 접근'을 제공하는 것이 존재 이유다. 즉 멀티 엔진 상호운용이 전제이자 목적이다.
+     src: https://polaris.apache.org/ (2026-08-08 확인 (main 브랜치 문서))
+[LB] Polaris의 핵심 기능 집합은 (1) catalog/namespace/table 계층 엔티티 관리, (2) RBAC — "Polaris uses a role-based access control (RBAC) model that lets you centrally configure access for Polaris service principals to catalogs, namespaces, and tables", (3) credential vending — 테이블 로드 시 해당 테이블 위치·연산으로 스코프된 단기 스토리지 자격증명(AWS STS AssumeRole + inline session policy)을 엔진에 발급. 전부 '다수 principal·다수 엔진·클라우드 스토리지 권한 위임'을 전제로 하는 기능이다.
+     src: https://raw.githubusercontent.com/apache/polaris/main/site/content/in-dev/unreleased/_index.md (2026-08-08 확인)
+[LB] Polaris의 운영 풋프린트: Java 21+ / Quarkus 기반 상시 서버로, Docker·Kubernetes(Helm) 배포를 상정하며, 프로덕션에는 관계형 DB(JDBC, PostgreSQL 권장)가 영속 metastore로 필수다. 기본 in-memory 백엔드는 "not suitable for production. Data will be lost when the server restarts!"라고 명시된다. 즉 '카탈로그 서비스 도입' = 상시 프로세스 + DB 운영이라는 고정비를 진다.
+     src: https://raw.githubusercontent.com/apache/polaris/main/site/content/in-dev/unreleased/metastores/_index.md (2026-08-08 확인)
+[LB] Iceberg가 catalog를 요구하는 공식 이유는 '동시 다중 writer 간 원자적 metadata pointer 교체(compare-and-swap)'다. 스펙 원문: "An atomic swap of one table metadata file for another provides the basis for serializable isolation." Writer는 optimistic concurrency로 커밋하며, 커밋 = "swapping the table's metadata file pointer from the base version to the new version"이고 stale이면 "retry the update based on the new current version". 이 CAS 지점을 제공하는 것이 catalog의 존재 이유다.
+     src: https://raw.githubusercontent.com/apache/iceberg/main/format/spec.md (2026-08-08 확인 (main))
+[LB] Iceberg reliability 문서는 catalog가 푸는 문제를 명시한다: Hive 테이블은 metastore+파일시스템 리스팅 혼합 추적이라 "This makes atomic changes to a table's contents impossible"이고, S3 같은 eventually consistent 스토어에서 파일 리스팅으로 상태를 재구성하면 "may return incorrect results". Iceberg는 "Commits replace the path of the current table metadata file using an atomic operation"으로 해결한다. 즉 서비스형 catalog의 본질 기능은 '분산 환경에서의 원자적 커밋 지점'이지 '레지스트리 CRUD 편의'가 아니다.
+     src: https://raw.githubusercontent.com/apache/iceberg/main/docs/docs/reliability.md (2026-08-08 확인 (main))
+[  ] Hive Metastore가 파일이 아닌 RDBMS 백엔드 서비스인 이유: 메타데이터에 대한 효율적 질의(queriability)와, HDFS 파일은 random update가 불가능해 "no clear way to implement an object store on top of HDFS due to lack of random updates to files"이기 때문. 배포 모드도 remote Thrift service / embedded / local 3종 — 즉 '서비스화'는 다수 클라이언트의 저지연 동시 메타데이터 접근이 전제다.
+     src: https://cwiki.apache.org/confluence/display/Hive/Design (2026-08-08 확인)
+[  ] AWS Glue Data Catalog는 "your persistent technical metadata store"인 계정/리전 단위 관리형 서비스로, 콘솔·API·CLI·CloudFormation·crawler 등 다수 경로의 다수 소비자(ETL job, Athena 등)가 전제다. Unity Catalog는 "the unified governance layer for data and AI built into Databricks"로 access control·audit log·lineage·discovery를 워크스페이스 전반에 제공 — 두 제품 모두 다수 사용자·다수 엔진·감사가 공통 전제다.
+     src: https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html (2026-08-08 확인)
+[LB] 선언적 레지스트리 파일이 'input 확실성'을 얻는 업계 표준은 스키마 언어 + 자동 검증이다: "JSON Schema is a declarative language for defining structure and constraints for JSON data"(YAML 포함 도구 생태계), 그리고 SchemaStore는 "schemas for all commonly known JSON file formats"를 모아 VS Code·IntelliJ 등 에디터가 설정 파일을 실시간 검증하게 하며 하루 1TB 이상의 스키마를 서빙한다. 즉 '계약의 명확성'은 API endpoint가 아니라 schema+validator로 실현되는 것이 관행이다.
+     src: https://json-schema.org/overview/what-is-jsonschema (2026-08-08 확인)
+[LB] 대규모 조직조차 소프트웨어 카탈로그의 source of truth를 git 내 YAML 파일로 둔다: Backstage(Spotify 발, CNCF) Software Catalog는 "The source of truth for the components in your software catalog are metadata YAML files stored in source control"이며 "built around the concept of metadata YAML files stored together with the code". 서비스(DB·UI)는 이 파일들을 수확(harvest)해 보여주는 파생 레이어일 뿐이다. 즉 '카탈로그'라는 개념 자체가 파일-레지스트리와 양립하며, 서비스는 다수 팀·다수 리포 규모에서 파일 위에 얹는 조회 레이어다.
+     src: https://backstage.io/docs/features/software-catalog/ (2026-08-08 확인)
+[  ] 파일 레지스트리의 '조작의 정형화'는 GitOps 원칙(CNCF OpenGitOps v1.0)으로 표준화돼 있다: (1) Declarative — "desired state expressed declaratively", (2) Versioned and Immutable, (3) Pulled Automatically, (4) Continuously Reconciled. 쓰기 = git commit(원자적·이력 보존), 읽기 = 도구의 pull — 이것이 'input/output이 확실한 조작'의 파일 기반 정식화다.
+     src: https://opengitops.dev/ (2026-08-08 확인)
+[LB] 파일/git 레지스트리가 HTTP 서비스로 승격된 실측 임계 (1) crates.io: git 기반 index가 비압축 176MiB, clone 시 215MiB에 달하고 "the full crate index is relatively big and slow to download... will keep growing as crates.io grows", CI가 "download the full index, use only a tiny fraction of it, and throw it away" 하는 지경이 되어서야 sparse HTTP index로 이전(RFC 2789, 2020). 수만 개 항목 × 수백만 소비자 규모의 문제다.
+     src: https://rust-lang.github.io/rfcs/2789-sparse-index.html (RFC 2020년, 2026-08-08 확인)
+[LB] 실측 임계 (2) Homebrew: 2023년 4.0에서야 "the slow git fetch of the huge homebrew/core and homebrew/cask taps' Git repositories"를 없애려 formulae.brew.sh JSON API 다운로드로 전환 — "the largest change we have made to our update process since we split Homebrew/brew and Homebrew/homebrew-core". 수천 개 formula × 수백만 사용자 규모에서, 그것도 '읽기 배포 경로'만 API화했고 쓰기(formula 정의)는 여전히 git 리포의 파일 + CI 검증이다.
+     src: https://brew.sh/2023/02/16/homebrew-4.0.0/ (2023-02-16)
+--- UNRESOLVED ---
+ - WebSearch 세션 예산(200회)이 소진돼 모든 검증을 알려진 URL의 WebFetch로 수행했다. 교차 검증용 2차 소스(예: Snowflake의 Polaris 발표 블로그, Netflix의 Iceberg 설계 배경 발표)는 확인하지 못했다.
+ - Iceberg terms 페이지의 'catalog must support atomic operations to update the current metadata pointer' 축자 문구는 페이지가 내비게이션만 렌더링돼 직접 확인 실패 — 대신 스펙(format/spec.md)의 Optimistic Concurrency 절 원문으로 동일 내용을 확보했다.
+ - crates.io RFC 시점의 정확한 crate 수와 Homebrew formula 수는 1차 소스에서 숫자로 확인하지 못했다(index 크기 176MiB만 확보). '수만 항목·수백만 소비자'는 규모 추정이다.
+ - Polaris 버전 릴리스 문서(releases/1.x)가 404라 main 브랜치 in-dev(unreleased) 문서를 사용했다 — 릴리스판과 세부 표현이 다를 수 있으나 기능 집합 자체는 안정적이다.
+ - Unity Catalog 문서는 멀티 유저·멀티 워크스페이스 전제를 명시적 문장으로 선언하지 않는다 — 기능 구성(workspace binding, audit log, cross-workspace governance)에서 구조적으로 함의될 뿐이다.
+--- VERDICTS ---
+  [CONFIRMED] Apache Polaris는 Iceberg REST protocol 구현체로, 멀티 엔진 상호운용이 존재 이유다
+       note: 공식 사이트에서 축자 확인: "Apache Polaris is an open-source, fully-featured catalog for Apache Iceberg™", "It implements Iceberg's REST API, enabling seamless multi-engine interoperability across a wide range of platforms". 문서 overview의 "catalog implementation for Apache Iceberg™ tables ... built on the open 
+  [CONFIRMED] Polaris 핵심 기능 = 엔티티 관리 + RBAC + credential vending(STS AssumeRole + inline session policy)이며 전부 다수 principal·다수 엔진 전제
+       note: 세 인용 모두 축자 확인. in-dev overview: "Polaris uses a role-based access control (RBAC) model that lets you centrally configure access for Polaris service principals to catalogs, namespaces, and tables", "Polaris vends temporary storage credentials to the query engine during query execution". vended-creden
+  [CONFIRMED] Polaris 운영 풋프린트 = Java 21+/Quarkus 상시 서버 + Docker/K8s(Helm) + 프로덕션 필수 관계형 DB(PostgreSQL 권장), in-memory는 프로덕션 부적합
+       note: README에서 "built using Gradle with Java 21+ and Docker 27+", "polaris-server - Quarkus-based server", helm/ 차트 존재 확인. metastores 문서에서 축자 확인: in-memory는 "not suitable for production", "Data will be lost when the server restarts!", "Suitable for development and testing only"; JDBC는 "Data is stored in a
+  [CONFIRMED] Iceberg catalog의 공식 존재 이유는 동시 다중 writer 간 원자적 metadata pointer CAS 교체다
+       note: 스펙 Optimistic Concurrency 절에서 세 문장 모두 축자 확인: "An atomic swap of one table metadata file for another provides the basis for serializable isolation.", "Once a writer has created an update, it commits by swapping the table's metadata file pointer from the base version to the new version.", "If the snap
+  [CONFIRMED] Iceberg reliability 문서: Hive 방식은 원자적 변경 불가·S3 리스팅은 부정확, Iceberg는 원자적 metadata 파일 교체로 해결
+       note: 세 인용 모두 축자 확인: "Hive tables track data files using both a central metastore for partitions and a file system for individual files. This makes atomic changes to a table's contents impossible", "eventually consistent stores like S3 may return incorrect results due to the use of listing files to recons
+  [CONFIRMED] 선언적 레지스트리 파일의 계약 명확성 표준 = JSON Schema + SchemaStore 자동 검증 (하루 1TB+ 서빙)
+       note: json-schema.org에서 축자 확인: "JSON Schema is a declarative language for defining structure and constraints for JSON data." schemastore.org에서 축자 확인: "The goal of this API is to include schemas for all commonly known JSON file formats", "Over 1 TB of JSON Schema files are served each day from SchemaStore.
+  [CONFIRMED] Backstage Software Catalog의 source of truth는 git 내 YAML 파일이고 서비스는 이를 harvest하는 파생 레이어다
+       note: 공식 문서에서 두 문장 모두 축자 확인: "The source of truth for the components in your software catalog are metadata YAML files stored in source control (GitHub, GitHub Enterprise, GitLab, ...)", "The catalog is built around the concept of metadata YAML files stored together with the code, which are then harvested 
+  [CONFIRMED] crates.io git index는 176MiB/215MiB 규모·CI 낭비 문제가 임계에 달해 sparse HTTP index로 이전했다 (RFC 2789, 2020)
+       note: 수치·인용 모두 원문 확인: "takes 176MiB as an uncompressed tarball ... Git clone reports downloading 215MiB", "The full crate index is relatively big and slow to download. It will keep growing as crates.io grows", "stateless CI environments, which download the full index, use only a tiny fraction of it, and t
+  [CONFIRMED] Homebrew 4.0은 거대 git tap fetch를 JSON API 다운로드로 대체했고, 이는 읽기 경로만 API화한 사상 최대 업데이트 프로세스 변경이다
+       note: 2023-02-16 릴리스 블로그에서 세 인용 모두 축자 확인: "no longer need to perform the slow git fetch of the huge homebrew/core and homebrew/cask taps' Git repositories", "Using JSON files downloaded from formulae.brew.sh for package installation rather than local homebrew/core and homebrew/cask taps", "this is the lar
+====================================================================================================
+KEY: declarative-registry-practice
+--- SUMMARY ---
+사용자 직관 중 옳은 부분 — "input/output이 확실한 계약과 정형화된 조작이 필요하다" — 은 업계에서 실제로 실현되고 있으나, 그 표준 실현형은 Polaris류 카탈로그 서비스가 아니라 3요소 패턴이다: 선언 파일(상태) + JSON Schema(계약) + 결정적 CLI 동사(연산). 실증: (1) pre-commit의 .pre-commit-config.yaml은 sources.yaml과 동형의 '외부 repo+rev 핀 레지스트리'인데 validate-config(검증)·autoupdate(update 연산)·sample-config(생성)라는 CLI 동사로 관리되고 SchemaStore에 스키마가 등재돼 있다. (2) dbt packages.yml은 git URL·revision 핀·private provider·로컬 폴백까지 sources.yaml과 항목 구성이 거의 일치하며, 공식적으로 파일+`dbt deps`+package-lock.yml로만 관리되고 API 서비스가 없다. (3) kubectl/terraform은 API 서버·원격 인프라가 실재하는 경우조차 인간 인터페이스가 선언 파일+diff/plan/apply 동사임을 보여준다(kubectl --validate 기본값 strict). (4) SchemaStore 카탈로그 실측 1,414개 스키마 + check-jsonschema의 vendored 검증 훅 16종+는 '파일+스키마=타입 있는 계약'이 생태계 표준 상용구임을 입증한다. (5) 복합 연산의 원자화도 서비스가 아니라 CLI 동사로 실현된다(gh repo fork --clone --remote = fork+clone+리모트 재배선 단일 동사). 결론: sources.yaml 규모(5~30항목·1인 작성·소비자 2개)에서 'CRUD의 확실성'을 얻는 관행은 sources.yaml에 JSON Schema를 붙이고 tools/pull을 validate/add/update/pull 동사로 정형화하는 것이며, 카탈로그 레이어 신설은 조사 범위에서 선례가 발견되지 않았다.
+--- FINDINGS ---
+[LB] pre-commit의 .pre-commit-config.yaml은 문자 그대로 '외부 repo URL + rev 핀 레지스트리 파일'이며, 스키마 검증(`pre-commit validate-config`)과 정형 CLI 동사(`autoupdate` = rev 핀 일괄 갱신, `sample-config` = 생성, `try-repo` = 등록 전 시험)를 공식 제공한다. autoupdate는 '--freeze' 옵션으로 태그명 대신 frozen hash를 rev에 기록할 수도 있다.
+     src: https://pre-commit.com/ (2026-08-08 확인)
+[LB] sources.yaml과 거의 동일한 형상(git URL + revision 핀 + private provider + 로컬 경로 폴백 + tarball)의 레지스트리인 dbt packages.yml은 파일+CLI로만 관리되며 API/서비스 관리 경로가 없다. `dbt deps`가 설치하고 package-lock.yml이 재현성을 보장하며, dbt Hub는 검색용 카탈로그일 뿐 설치는 순수 로컬 파일+CLI다.
+     src: https://docs.getdbt.com/docs/build/packages (2026-08-08 확인)
+[  ] kubectl의 선언 모델: 파일이 곧 인터페이스이고, `kubectl apply`가 선언 파일을 create/update로, `kubectl delete -f`/`--prune`이 delete로 번역한다. 변경 계산은 three-way diff이며 `kubectl diff`로 사전 미리보기가 가능하다. 핵심 함의 — API 서버가 실재하는 시스템에서조차 인간의 조작 인터페이스는 '선언 파일 + 결정적 동사'다.
+     src: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/ (2026-08-08 확인)
+[  ] kubectl apply의 스키마 검증은 기본 활성(--validate 기본값 "strict")이며, 유효하지 않은 입력은 요청 자체를 실패시킨다 — 선언 파일에 '타입 있는 계약'을 강제하는 것이 기본값인 사례.
+     src: https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/ (2026-08-08 확인)
+[  ] Terraform은 '구성 파일(원하는 상태) + state(실측 상태) + plan(diff 미리보기)/apply(실행)/validate(오프라인 계약 검사)'라는 정형 연산 집합으로 선언 파일에 input/output 확실성을 부여한다. validate는 원격 접근 없이 문법·내부 일관성만 검사하므로 에디터 post-save나 CI에 자동 실행해도 안전하다고 공식 문서가 명시한다.
+     src: https://developer.hashicorp.com/terraform/cli/run (2026-08-08 확인)
+[LB] 'YAML/JSON 설정 파일 + JSON Schema = 타입 있는 계약'은 개별 도구의 선택이 아니라 생태계 규모의 표준 관행이다. SchemaStore 카탈로그는 실측 1,414개 스키마를 등재하고 있으며(.pre-commit-config.yml, dbt Packages, Renovate, docker-compose.yml, GitHub Workflow 전부 포함), VS Code·JetBrains 전 IDE·Neovim·Emacs·Visual Studio 등이 이를 소비해 자동완성·검증·툴팁을 제공한다.
+     src: https://www.schemastore.org/api/json/catalog.json (2026-08-08 실측)
+[  ] Renovate(renovate.json — sources.yaml과 유사 규모의 도구 설정 레지스트리)의 관리 방식도 파일 + JSON Schema(에디터 실시간 검증) + 전용 검증 CLI(renovate-config-validator) + pre-commit/CI 훅이며, 설정 관리용 API 서비스는 없다.
+     src: https://docs.renovatebot.com/config-validation/ (2026-08-08 확인)
+[  ] 설정 파일의 스키마 검증은 상용구 수준으로 상품화돼 있다: check-jsonschema는 'A JSON Schema CLI and pre-commit hook'으로, SchemaStore 스키마를 vendored로 내장한 검증 훅을 16종 이상(check-compose-spec, check-github-workflows, check-gitlab-ci, check-renovate, check-dependabot류 등) 기성품으로 제공한다. 자작 sources.yaml에 스키마를 붙이는 데 필요한 도구가 이미 표준 스택에 존재한다는 뜻이다.
+     src: https://check-jsonschema.readthedocs.io/en/latest/precommit_usage.html (2026-08-08 확인)
+[  ] 복합 연산을 원자적 CLI 동사로 묶는 것이 관행이다. 사용자가 상정한 '항목 추가 시 clone+fork+등록을 한 번에'와 동형의 실례: `gh repo fork --clone --remote`는 fork 생성 + 로컬 clone + origin/upstream 리모트 재배선을 한 동사로 수행한다. 같은 계열로 `pre-commit autoupdate`(원격 최신 태그 조회 + 파일 내 rev 핀 재작성), `dbt deps`(해석 + 다운로드 + lock 파일 갱신)가 있다.
+     src: https://cli.github.com/manual/gh_repo_fork (2026-08-08 확인)
+[LB] 종합 판정 재료: 사용자 직관(계약의 명확성·조작의 정형화)은 옳으나, 그것이 업계에서 실현되는 표준형은 카탈로그 '서비스'가 아니라 3요소 패턴 — (1) 선언 파일 = 상태(단일 진실원, git으로 버전·diff·리뷰), (2) JSON Schema = 계약(에디터 자동완성 + CLI/CI 검증), (3) 결정적 CLI 동사 = 연산(validate/plan·diff/apply/update, 필요시 lock 파일로 출력 고정)이다. 조사한 동일 규모 레지스트리(pre-commit repos, dbt packages.yml, renovate.json, docker-compose.yml) 전수가 이 형태였고, API 서비스로 관리하는 사례는 발견되지 않았다. sources.yaml(항목 5~30, 작성자 1인, 소비자 2개)에 대한 'CRUD 확실성' 요구는 sources.yaml + JSON Schema + tools/pull의 동사화(validate/add/update/pull)로 충족되는 것이 관행이다.
+     src: https://pre-commit.com/ (2026-08-08 종합)
+--- UNRESOLVED ---
+ - Polaris 자체(무엇이며 어떤 조건을 전제하는가, 과제 (a))는 이 서브태스크 범위 밖이라 미조사 — 별도 검증 필요. 여기서는 '파일 레지스트리 쪽 관행'만 실측했다.
+ - 파일 레지스트리 → API 서비스 승격의 정량 임계(과제 (c))는 1차 소스에서 수치 기준을 찾지 못했다. 조사한 동일 규모 도구군에서 API 관리 사례 부재는 확인했으나, 부재의 전수 증명은 아니다(다중 테넌트·동시 쓰기·접근제어가 등장하는 사례군은 별도 조사 필요).
+ - SchemaStore의 공식 README 스키마 수치는 페이지 캡처에서 확인 실패 — 대신 catalog.json 직접 계수(1,414건, 2026-08-08)로 대체했다.
+ - pre-commit 공식 문서 자체에는 JSON Schema 언급이 없다 — .pre-commit-config.yaml의 스키마는 SchemaStore 커뮤니티가 유지하는 것(schemastore.org/pre-commit-config.json)으로, '도구 자체 검증 CLI + 커뮤니티 스키마' 이원 구조다.
+ - yamale 등 YAML 전용 스키마 검증기는 별도 확인 생략 — check-jsonschema가 더 표준적인 경로임이 확인돼 우선순위에서 제외했다.
+--- VERDICTS ---
+  [CONFIRMED] pre-commit의 .pre-commit-config.yaml은 외부 repo URL + rev 핀 레지스트리이며 validate-config/autoupdate/sample-config/try-repo CLI 동사와 autoupdate --free
+       note: 공식 문서에서 전부 실측 확인: rev = "the revision or tag to clone at", validate-config = "Validate .pre-commit-config.yaml files", autoupdate = "Auto-update pre-commit config to the latest repos' versions"(기본 = "latest tag on the default branch"), sample-config = "Produce a sample .pre-commit-config.yaml", try-
+  [CONFIRMED] dbt packages.yml은 git URL+revision 핀+private provider+로컬 경로+tarball 레지스트리로 파일+CLI로만 관리되며, dbt deps가 설치·package-lock.yml이 재현성 보장, dbt Hub는 di
+       note: 공식 문서에서 선언 형식 전수 확인: git+revision(branch·tag·40자 commit hash 명시), private+provider(github/gitlab/ado), local 상대경로, tarball URL. "Running dbt deps 'pins' each package by creating or updating the package-lock.yml" 문구와 branch→head commit, version range→latest release 고정, `dbt deps --upgrade` 동사 모두 축자 확
+  [CONFIRMED] SchemaStore 카탈로그는 1,414개 스키마를 등재(.pre-commit-config.yml, dbt Packages, Renovate, docker-compose.yml, GitHub Workflow 포함)하며 VS Code·JetBrains
+       note: 2026-08-08 catalog.json을 독립적으로 재다운로드해 jq로 계수 — 정확히 1414. 인용된 5개 항목 전부 실재하며 URL도 일치: .pre-commit-config.yml→schemastore.org/pre-commit-config.json, dbt Packages→dbt-labs/dbt-jsonschema .../packages-latest-fusion.json, Renovate→docs.renovatebot.com/renovate-schema.json, docker-compose.yml→compose-spec
+  [CONFIRMED] 업계 표준형은 카탈로그 서비스가 아니라 3요소 패턴(선언 파일=상태, JSON Schema=계약, 결정적 CLI 동사=연산+lock)이며, 조사한 동일 규모 레지스트리 전수가 이 형태였고 API 서비스 관리 사례는 미발견 — sources.yaml의 
+       note: 합성의 사실적 기둥은 전부 독립 재검증됨: pre-commit(파일 레지스트리+validate-config/autoupdate/--freeze), dbt(파일+deps+lock, 관리 API 없음), SchemaStore 1,414건 실측(인용 4개 레지스트리의 스키마 등재 확인 — '파일+스키마=계약'이 생태계 규모 관행이라는 근거 성립). 반박 시도로 '파일 레지스트리를 API 서비스로 관리하는 동급 사례'를 별도 탐색했으나 반례를 찾지 못함 — 가장 근접한 Backstage catalog-info.yaml조차 관리는 git 파
+====================================================================================================
+KEY: file-to-service-threshold
+--- SUMMARY ---
+파일 레지스트리→서비스 승격의 실측 임계를 1차 소스로 조사했다. 승격을 일으킨 변수는 사례 전반에서 4개로 수렴한다: 동시 writer >1 (Terraform remote state의 유일한 명시 근거 = 팀 동기화+락), 신뢰 경계를 넘는 다수 클라이언트 (Hive remote metastore — 커넥션 부하·DB 권한 문제), 전량 복사 불가능한 규모의 질의 (Hive queriability — 단 crates.io는 176MiB 인덱스에서도 동적 API를 '유지비가 정적 파일보다 훨씬 비싸다'며 기각하고 sparse 정적 파일을 택함), 네트워크 분리 (SQLite 공식 체크리스트). 항목 수·변경 빈도 단독은 어느 사례에서도 승격 사유가 아니었다. 역방향으로 Iceberg는 Hive 중앙 metastore를 버리고 메타데이터를 파일 트리로 되돌렸으며 서비스는 '원자적 포인터 스왑 1개'로 축소했고, PyPI(PEP 503)의 읽기 경로는 정적 파일 규격이며, GitOps는 계약 명확성을 API가 아닌 '버전 관리되는 선언 파일'로 명문화했다. 판정: 항목 5~30·writer 1인·로컬 소비자 2개인 sources.yaml은 4개 변수 전부 미충족으로 확정적 파일 측이다. 사용자 직관(계약 명확성·조작 정형화)이 옳은 부분은 실재하나, 관행상 그 실현 형태는 CRUD 서비스가 아니라 '스키마 정의 + 선언 파일 + 커밋 게이트 검증(validate)'이고, 원자성·이력은 git이 이미 제공한다. Polaris류 catalog 서비스가 전제하는 조건(다수 엔진·다수 조직·신뢰 경계)은 이 레지스트리에 부재한다.
+--- FINDINGS ---
+[LB] Terraform이 로컬 state 파일→원격 backend 승격을 권고하는 조건은 명시적으로 '팀(다수 동시 사용자)'이다: "When working with Terraform in a team, use of a local file makes Terraform usage complicated because each user must make sure they always have the latest state data before running Terraform and make sure that nobody else runs Terraform at the same time." 승격이 사는 문제는 (1) 최신본 공유 (2) 동시 실행 방지(state locking)이며, writer가 1인이면 이 두 문제가 존재하지 않는다.
+     src: https://developer.hashicorp.com/terraform/language/state/remote (2026-08-08 조회 (현행 공식 문서))
+[LB] Hive Metastore가 파일시스템 대신 중앙 RDBMS 서비스가 된 이유는 (1) 메타데이터 queriability — 대량 파티션에 대한 임의 질의, (2) HDFS가 파일의 random update를 지원하지 않아 갱신 가능한 저장소를 파일 위에 구현할 수 없었기 때문. 즉 '갱신 가능한 대량 메타데이터 + 다수 엔진의 임의 질의'가 서비스화의 원인이었고, 문서 스스로 'synchronization and scalability issues'를 단점으로 인정한다.
+     src: https://cwiki.apache.org/confluence/display/Hive/Design (2026-08-08 조회 (Apache wiki 현행판))
+[LB] Metastore가 embedded(프로세스 내장)가 아닌 remote 서비스로 운영되는 실측 조건도 명시돼 있다: "having many clients will put a burden on the backing RDBMS since each client will have its own set of connections", "every client must have read/write access to the RDBMS". 즉 다수 클라이언트의 커넥션 부하와 신뢰 경계(모든 클라이언트에게 DB 쓰기 권한을 줄 수 없음)가 서비스 분리의 조건이다. Hive 3.0부터 standalone metastore가 분리 릴리스된 이유도 'non-Hive 시스템(타 엔진) 연동'이다.
+     src: https://cwiki.apache.org/confluence/display/Hive/AdminManual+Metastore+3.0+Administration (2026-08-08 조회)
+[LB] 역방향 사례(서비스→파일 회귀): Iceberg는 Hive의 '중앙 metastore가 파티션을, 파일시스템이 파일을 추적'하는 이중 구조가 원자적 변경을 불가능하게 한다고 진단하고("Hive tables track data files using both a central metastore for partitions and a file system for individual files. This makes atomic changes to a table's contents impossible"), 메타데이터 전체를 파일의 persistent tree로 되돌렸다("Iceberg tracks the complete list of data files in each snapshot using a persistent tree structure"). 중앙 서비스의 역할은 단 하나로 축소됐다: "Commits replace the path of the current table metadata file using an atomic operation" — catalog는 원자적 포인터 스왑 하나만 하는 최소 서비스다.
+     src: https://raw.githubusercontent.com/apache/iceberg/main/docs/docs/reliability.md (2026-08-08 조회 (main 브랜치))
+[LB] 패키지 레지스트리조차 읽기 경로는 파일이다: PyPI의 Simple Repository API(PEP 503)는 정적 HTML 페이지(프로젝트당 앵커 목록)로 정의되어 정적 웹서버만으로 서빙 가능하며, 동적 서비스는 읽기 경로에 필요 없다. 서비스가 필요한 곳은 업로드·인증·검색 등 쓰기/신뢰 경계뿐이다.
+     src: https://peps.python.org/pep-0503/ (PEP 503 (2015 제정, 현행 표준))
+[LB] crates.io 인덱스는 git 저장소 안의 파일 레지스트리로 시작해 인덱스가 176MiB(전송 215MiB)에 이르는 규모에서야 프로토콜을 바꿨는데, 그때조차 동적 API가 아니라 정적 파일의 sparse HTTP fetch를 택했다. RFC의 명시적 근거: "Maintenance of a dynamic API, critical for daily use for nearly all Rust users, is much harder and more expensive than serving of static files." — 수백만 소비자 규모에서도 동적 API는 유지비 때문에 기각됐다.
+     src: https://rust-lang.github.io/rfcs/2789-sparse-index.html (RFC 2789 (2020 승인))
+[LB] GitOps는 사용자 직관(계약 명확성·조작 정형화)이 API가 아닌 선언 파일로 실현되는 현행 표준이다. OpenGitOps 4원칙: "desired state expressed declaratively", "stored in a way that enforces immutability, versioning and retains a complete version history", 에이전트가 pull·reconcile. 즉 input/output 확실성은 CRUD 엔드포인트가 아니라 '버전 관리되는 선언 파일 + 스키마 검증 + 자동 reconcile'로 얻는다.
+     src: https://opengitops.dev/ (OpenGitOps v1.0.0 (현행))
+[LB] '서버가 필요할 때까지 파일을 써라'의 정본 격언과 판정 체크리스트는 SQLite 공식 문서에 있다: "SQLite does not compete with client/server databases. SQLite competes with fopen()." 클라이언트/서버가 필요한 조건은 정확히 3개 — (1) 데이터와 앱이 네트워크로 분리, (2) 다수 동시 writer, (3) 테라바이트급 데이터 — 그 외에는 "choose SQLite!"(로컬 파일). 단일 writer는 명시적으로 파일 측 조건이다.
+     src: https://www.sqlite.org/whentouse.html (2026-08-08 조회 (현행 공식 문서))
+[  ] 조기 서비스화 비판의 대표 논거: Fowler의 MonolithFirst — 마이크로서비스는 "significant MicroservicePremium"을 부과하므로 복잡한 시스템에서만 유효하고, 경계를 미리 확정하는 것은 위험하며("any refactoring of functionality between services is much harder than it is in a monolith"), 필요가 입증된 뒤 가장자리부터 떼어내라. 레지스트리에 적용하면: 파일로 시작하고, 서비스 경계(예: 락, 인증)가 실제로 필요해진 조작만 승격하라는 처방.
+     src: https://martinfowler.com/bliki/MonolithFirst.html (2015 (현행 게시))
+[  ] 실무 통념 보강: grugbrain.dev는 서비스화가 '가장 어려운 문제(올바른 분해)에 네트워크 호출까지 얹는 것'이라 비판한다("grug wonder why big brain take hardest problem, factoring system correctly, and introduce network call too"). 1인 도구에 REST/데몬을 붙이면 상주 프로세스·기동 순서·버전 스큐·인증이라는 새 실패 모드가 생기는데, 소비자 2개(tools/pull, 검색 스킬)가 같은 파일을 직접 읽으면 이 실패 모드 전부가 부재한다.
+     src: https://grugbrain.dev/ (2022 초판, 현행 게시)
+[LB] 귀납된 판정 기준 — 사례들에서 파일→서비스 승격을 실제로 일으킨 변수는 4가지로 수렴한다: (1) 동시 writer 수 > 1 (Terraform 팀 state, SQLite 체크리스트), (2) 신뢰 경계를 넘는 클라이언트(모두에게 쓰기 권한을 줄 수 없음 — Hive remote metastore, PyPI 업로드 경로), (3) 전량 복사가 불가능한 규모의 임의 질의 필요(Hive queriability; 단 crates.io는 176MiB에서도 정적 파일로 해결), (4) 데이터와 소비자의 네트워크 분리(SQLite). '항목 수'와 '변경 빈도' 단독으로는 어떤 사례에서도 승격 사유가 아니었다. 대상 레지스트리(항목 5~30, writer 1인, 로컬 소비자 2개 프로세스)는 4개 변수 전부 미충족 — 확정적으로 파일 측이며, Iceberg 사례가 보여주듯 장래에 조정이 필요해져도 승격 단위는 'CRUD 서비스 전체'가 아니라 '원자적 커밋 지점 하나'(git이 이미 제공)다. 사용자 직관 중 옳은 부분(계약 명확성·조작 정형화)은 GitOps/PEP 503 방식 — 스키마가 정의된 선언 파일 + 커밋 게이트 검증 — 으로 실현하는 것이 관행이다.
+     src: https://www.sqlite.org/whentouse.html (2026-08-08 종합)
+--- UNRESOLVED ---
+ - npm 레지스트리의 파일→서비스 전환 시점의 정량 규모(CouchDB 시대 패키지 수·트래픽): WebSearch 예산 소진으로 1차 소스 미확인 — 다만 crates.io RFC 2789와 PEP 503이 같은 논점(패키지 레지스트리의 읽기 경로)을 더 강하게 커버한다
+ - Hive Metastore가 '파일 기반 스키마였다가 서비스가 됐다'는 연대기적 전환 서사: Design wiki는 RDBMS 선택의 근거만 제시하며, 초기 파일 기반 단계의 존재는 1차 소스로 확인하지 못함(승격 조건 자체는 확인됨)
+ - 1인 로컬 도구의 데몬/REST화 비용에 대한 정량 실측(운영 시간·장애율): 정성 논거(Fowler, grugbrain, RFC 2789의 유지비 진술)만 확보
+ - Polaris catalog 자체의 전제 조건 상세: 본 과제 범위(승격 임계) 밖이라 미조사 — (a) 담당 조사와 교차 필요
+--- VERDICTS ---
+  [CONFIRMED] Terraform의 로컬→원격 backend 승격 권고 조건은 명시적으로 '팀'이며, 승격이 사는 문제는 최신본 공유·동시 실행 방지 두 가지다
+       note: 인용문이 페이지에 축자로 존재하며, 바로 앞 문장 'By default, Terraform stores state locally in a file named terraform.tfstate.'로 로컬 파일이 기본값임도 명시. 단 한 가지 과장: 문서는 팀 동기화·동시 실행 외에 delegation(원격 state의 output 값을 다른 구성/팀과 read-only 공유)도 근거로 제시하므로 '두 가지로만 제시'는 부정확하다. 다만 delegation 역시 다수 구성/팀 전제 시나리오여서 'writer 1인이면 승격 사유 부재'라는
+  [CONFIRMED] Hive Metastore가 RDBMS 서비스가 된 이유는 메타데이터 queriability와 HDFS의 random update 불가이며, 문서가 synchronization/scalability를 단점으로 인정한다
+       note: 세 인용 모두 원문에 존재: 'queriability of metadata'가 RDBMS 선택의 핵심 근거로, 'no clear way to implement an object store on top of HDFS due to lack of random updates to files'가 HDFS 배제 이유로, 'Some disadvantages ... are synchronization and scalability issues'가 자인된 단점으로 명시돼 있다. 왜곡 없음.
+  [CONFIRMED] Metastore의 remote 운영 조건은 다수 클라이언트 커넥션 부하와 신뢰 경계(전 클라이언트 DB 쓰기 권한)이며, Hive 3.0 standalone 분리 이유는 non-Hive 시스템 연동이다
+       note: 두 인용 모두 축자 확인: 'having many clients will put a burden on the backing RDBMS since each client will have its own set of connections'와 'every client must have read/write access to the RDBMS. This makes it hard to properly secure the RDBMS.' 이어서 'embedded mode is not recommended in production with the e
+  [CONFIRMED] Iceberg는 Hive의 이중 추적 구조가 원자적 변경을 불가능하게 한다고 진단하고 메타데이터를 파일 persistent tree로 되돌렸으며, catalog 역할은 원자적 포인터 스왑 하나로 축소됐다
+       note: 세 인용 전부 현행 main 브랜치 reliability.md에 축자 존재. 'Commits replace the path of the current table metadata file using an atomic operation'이 serializable isolation의 기반이라고까지 명시한다. '역방향(서비스→파일) 사례'라는 해석도 원문 취지와 부합 — 단, catalog 서비스 자체는 여전히 필요하다는 점(최소화이지 제거가 아님)은 claim도 정확히 반영하고 있다.
+  [CONFIRMED] PEP 503의 읽기 경로는 정적 HTML 페이지로 정의되어 정적 웹서버만으로 서빙 가능하며, 동적 서비스는 읽기 경로에 불필요하다
+       note: 인용 확인: 원문은 'the root URL (/ for this PEP which represents the base URL) MUST be a valid HTML5 page with a single anchor element per project in the repository'로, claim의 인용은 괄호부만 생략한 정확한 발췌다. PEP 범위가 읽기/다운로드 경로만 다루는 것도 사실. 주의: '정적 웹서버만으로 서빙 가능'과 '서비스가 필요한 곳은 업로드·인증뿐'은 PEP에 명문화된 문장이 아니라 규격 형태에서 따라오는 추론
+  [CONFIRMED] crates.io 인덱스는 176MiB(전송 215MiB) 규모에서 프로토콜을 바꿨고, 그때도 동적 API가 아닌 정적 파일 sparse HTTP fetch를 택했으며 RFC가 동적 API를 유지비로 명시 기각했다
+       note: 수치·인용 전부 축자 확인: 'takes 176MiB as an uncompressed tarball ... Git clone reports downloading 215MiB', 'Maintenance of a dynamic API, critical for daily use for nearly all Rust users, is much harder and more expensive than serving of static files.' 해법도 CDN 서빙 가능한 정적 파일의 on-demand HTTP fetch로 명시(커스텀 서버 
+  [CONFIRMED] OpenGitOps 4원칙은 선언적 표현·불변/버전 저장·에이전트 pull·지속 reconcile이며, 계약 명확성이 API가 아닌 버전 관리되는 선언 파일로 실현됨을 명문화한다
+       note: 4원칙(v1.0.0) 원문 확인: 'must have its desired state expressed declaratively', 'stored in a way that enforces immutability, versioning and retains a complete version history', 'Software agents automatically pull the desired state declarations from the source', 'continuously observe actual system state an
+  [CONFIRMED] SQLite 공식 문서가 'SQLite competes with fopen()' 격언과 클라이언트/서버 필요조건 3개(네트워크 분리·다수 동시 writer·테라바이트급) 체크리스트를 제공하며, 그 외에는 SQLite(로컬 파일)를 권한다
+       note: 격언 축자 확인. 체크리스트는 4항목 구조로, 앞 3개(네트워크로 분리된 데이터 / many concurrent writers / big data)가 client/server 조건이고 4번째가 'Otherwise → choose SQLite!'다 — claim의 '조건 3개' 셈법과 일치. 'For device-local storage with low writer concurrency and less than a terabyte of content, SQLite is almost always a better solution'으로 단
+  [UNCERTAIN] 파일→서비스 승격 변수는 4개(동시 writer>1, 신뢰 경계 초과, 전량 복사 불가 규모의 임의 질의, 네트워크 분리)로 수렴하며 각 변수마다 최소 2개 독립 사례가 뒷받침되고, 대상 레지스트리는 4개 전부 미충족으로 확정적 파일 측이다
+       note: 귀납의 골자와 최종 판정(항목 5~30·writer 1인·로컬 소비자 2개 → 파일 측)은 검증된 8개 소스와 정합하고, '항목 수·변경 빈도 단독은 어느 사례에서도 승격 사유가 아니었다'와 'Iceberg식 승격 단위 = 원자적 커밋 지점 하나'도 소스가 지지한다. 그러나 '각 변수마다 최소 2개 독립 사례'는 과장: 변수 3(임의 질의)은 Hive 단독이고(crates.io는 오히려 반례로 인용됨), 변수 4(네트워크 분리)는 SQLite 단독이다(Terraform 원격 state를 세면 2개이나 그것은 변수 1의 사례로 이미 

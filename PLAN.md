@@ -49,6 +49,8 @@ syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + re
 | r5 | 컴퓨팅-스토리지 분리 유비·스킬 분산의 사용성 | 현행 구조가 유비의 올바른 구현 | 교훈="데이터를 엔진에 가두지 마라"·스키마 결합물은 데이터 곁·통합=catalog | research/r5 |
 | r6 | 부모-서브모듈 형식화·모노레포 통합·GitLake | 기각 — 계약 경계 너머 독립 2-저장소 유지 | 예시 OSS는 전부 단일 저장소 멀티모듈·Hadoop 재통합 교훈·크로스 원자성 0건·GitLake=git 없는 세계용 | research/r6 |
 | r7 | 지식 정본 기질 (git 파일 vs S3/DB) | **core 원칙 1 유지** — 기각 | 5속성 공유 0개·20년 상한=MDN 현 운영 규모·git 붕괴선 대비 2~3자릿수·DB화 파손 8계층·경계 기구현 실측(git 안 저작 텍스트 424KB) | research/r7 |
+| r8·r9 | 미러 중앙 저장소·보존 계층 | 상시 중앙 미러 기각 → **4겹 보존 계층 채택**(docs-mirror §3.5) | 크기 실측 5.25GB·캐시 무이주 관행·GitHub fork 생존 공식 보장·Deep Archive $0.00099/GB-월 | research/r8·r9 |
+| r10·r11 | 카탈로그 레이어·CRUD REST API | 서비스 기각 → **3요소 패턴 채택**(선언 파일+JSON Schema+CLI 동사) + pre-commit 실설치 | Polaris 전제(멀티엔진·동시 writer CAS) 부재·Backstage도 YAML in git이 정본·로컬 REST 선례 6종 전수가 비파일 클라이언트용 파사드·집행점은 커밋 게이트가 표준(Google presubmit·MDN)·dual-write 회피 | research/r10·r11 |
 
 공통 패턴: 제기된 유비들(Iceberg·역할 분리·모듈화·lakehouse)은 원리로서 옳았고, 판정은 매번 "그 원리가 이미 올바른 형태로 구현돼 있다"였다. core PLAN의 2026-08-04 "데이터 플랫폼 이식 감사"(§8 원장)가 같은 방향을 선행 심사했음도 확인됨 (r7).
 
@@ -62,6 +64,7 @@ syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + re
 | rg 루프 miss·버전 병존 조회의 실사용 pain (qrels A/B) | docs-mirror §4 — 색인 게이트 |
 | qmd 6개월 무활동 / sqlite-vec 사망 / docs-mcp-server open-core화 | 검색 승계 경로 (Meilisearch/LanceDB — r2) |
 | 멀티 에이전트 동시 ingest 도입 | git branch/worktree 격리 설계 (GitLake 패턴의 네이티브 구현 — r6) |
+| 비파일 클라이언트 등장(모바일·웹 KB 접근) / git 비경유 쓰기 경로 / 멀티유저 | r10·r11 — REST 파사드 재심 (그때도 파일 정본 유지 파사드형 — Obsidian Local REST API 모델, 메타스토어 정본화는 dual-write 금지) |
 
 ## 5. 실행 로드맵
 
