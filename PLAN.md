@@ -1,13 +1,13 @@
 # syntopicon 시스템 계획
 
-개인 지식 시스템 전체의 구성 정본. 2026-08-08 초판 — 딥 리서치 7회(78 에이전트, 적대 검증 포함)로 확정. 근거 전문은 `research/`, 요약은 §3 원장.
+개인 지식 시스템 전체의 구성 정본. 2026-08-08 초판(같은 날 정리판) — 딥 리서치 11회(98 에이전트, 적대 검증 포함)로 확정. 근거 전문은 `research/`, 요약은 §3 원장.
 
 **이 문서의 관할**: 레이어 구성·레이어 간 경계·시스템 공통 규약·재심 트리거. **각 레이어의 내부는 각자의 PLAN이 정본**이며 이 문서는 그것을 복제하지 않는다.
 
 ```
 syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + research/ 만 추적, core/·docs-mirror/ 는 ignore)
   PLAN.md                    # 이 문서 — 시스템 구성의 정본
-  research/                  # 구조 결정의 리서치 산출물 아카이브 (r1–r7)
+  research/                  # 구조 결정의 리서치 산출물 아카이브 (r1–r11)
   core/                      # [독립 git 저장소] 정본 KB — md+git=SoT, 자기 글루(schema·tools·skills·evals) 동거
   docs-mirror/               # [독립 git 저장소] 외부 문서 미러 캐시 — 글루만 git, mirrors/ 는 재생성 가능 캐시
 ```
@@ -38,7 +38,7 @@ syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + re
 
 - **이력 조회 규약**: 지식 이력 = `git -C core log --oneline -- it/` 또는 `git -C core log --grep Ingest-Run`(이벤트 저널). 도구 이력 = `git -C core log --oneline -- tools/ schema/`. 이력 혼재는 저장 문제가 아니라 뷰 문제다 (r6·co-change 실측).
 
-## 3. 확정 판정 원장 (2026-08-07 ~ 08-08)
+## 3. 확정 판정 원장 (2026-08-08)
 
 | # | 심사 | 판정 | 결정 근거 요지 | 전문 |
 |---|---|---|---|---|
@@ -50,7 +50,7 @@ syntopicon/                  # 우산 — 미니멀 git 저장소 (이 PLAN + re
 | r6 | 부모-서브모듈 형식화·모노레포 통합·GitLake | 기각 — 계약 경계 너머 독립 2-저장소 유지 | 예시 OSS는 전부 단일 저장소 멀티모듈·Hadoop 재통합 교훈·크로스 원자성 0건·GitLake=git 없는 세계용 | research/r6 |
 | r7 | 지식 정본 기질 (git 파일 vs S3/DB) | **core 원칙 1 유지** — 기각 | 5속성 공유 0개·20년 상한=MDN 현 운영 규모·git 붕괴선 대비 2~3자릿수·DB화 파손 8계층·경계 기구현 실측(git 안 저작 텍스트 424KB) | research/r7 |
 | r8·r9 | 미러 중앙 저장소·보존 계층 | 상시 중앙 미러 기각 → **4겹 보존 계층 채택**(docs-mirror §3.5) | 크기 실측 5.25GB·캐시 무이주 관행·GitHub fork 생존 공식 보장·Deep Archive $0.00099/GB-월 | research/r8·r9 |
-| r10·r11 | 카탈로그 레이어·CRUD REST API | 서비스 기각 → **3요소 패턴 채택**(선언 파일+JSON Schema+CLI 동사) + pre-commit 실설치 | Polaris 전제(멀티엔진·동시 writer CAS) 부재·Backstage도 YAML in git이 정본·로컬 REST 선례 6종 전수가 비파일 클라이언트용 파사드·집행점은 커밋 게이트가 표준(Google presubmit·MDN)·dual-write 회피 | research/r10·r11 |
+| r10·r11 | 카탈로그 레이어·CRUD REST API | 서비스 기각 → **3요소 패턴 채택**(선언 파일+JSON Schema+CLI 동사) + pre-commit 실설치 | Polaris 전제(멀티엔진·동시 writer CAS) 부재·Backstage도 YAML in git이 정본·로컬 REST 선례는 전부 비파일 클라이언트용 파사드·집행점은 커밋 게이트가 표준 | research/r10·r11 |
 
 공통 패턴: 제기된 유비들(Iceberg·역할 분리·모듈화·lakehouse)은 원리로서 옳았고, 판정은 매번 "그 원리가 이미 올바른 형태로 구현돼 있다"였다. core PLAN의 2026-08-04 "데이터 플랫폼 이식 감사"(§8 원장)가 같은 방향을 선행 심사했음도 확인됨 (r7).
 
