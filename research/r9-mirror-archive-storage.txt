@@ -1,0 +1,308 @@
+====================================================================================================
+KEY: managed-storage
+--- SUMMARY ---
+## 판정 요약 (500GB·20년, 2026-08-08 실측)
+
+**1. S3 신상품 실체**: 둘 다 docs-mirror에 부적합 확정. S3 Tables는 Apache Iceberg 테이블 전용(분석 워크로드) — table bucket에는 테이블만 저장 가능, 파일·git 보관 불가. S3 Express One Zone(directory buckets)은 단일 AZ 저지연 스토리지로 $0.110/GB-월 = Standard의 4.8배·Deep Archive의 111배 — 아카이브와 정반대 용도.
+
+**2–3. TCO 비교표 (500GB, 240개월, 보관료만, 현행가 고정)**
+
+| 저장소 | 단가 | 월 | 20년 | 제약 |
+|---|---|---|---|---|
+| S3 Deep Archive | $0.00099/GB | $0.50 | **$118.80** | 최소 180일, 복원 Bulk ≤48h($0.0025/GB), 오브젝트당 40KB 오버헤드 |
+| Scaleway Glacier | €0.00254/GB | €1.27 | **€304.80** | 복원 €0.009/GB, egress 75GB/월 무료 |
+| S3 Glacier Flexible | $0.0036/GB | $1.80 | $432 | Bulk 복원 무료(5–12h) |
+| S3 Glacier Instant | $0.004/GB | $2.00 | $480 | 최소 90일·128KB, 복원 $0.03/GB |
+| Backblaze B2 | $6.95/TB | $3.48 | **$834** | 3x egress 무료, 최소 없음, hot |
+| R2 Infrequent Access | $0.01/GB | $5.00 | $1,200 | egress 무료, 최소 30일, 복원 $0.01/GB |
+| iDrive e2 (연간, 1TB) | $59.50/TB/년 | — | ≈$1,160 | 첫해 50% 할인, 3x egress |
+| S3 Standard-IA | $0.0125/GB | $6.25 | $1,500 | 최소 30일·128KB |
+| R2 Standard | $0.015/GB | $7.50 | $1,800 | egress 완전 무료 |
+| Wasabi | $7.99/TB, 최소 1TB | $7.99 | $1,917.60 | **90일 Timed Deleted Storage 확인**, egress>저장량이면 fair-use 위반 |
+| S3 Standard | $0.023/GB | $11.50 | $2,760 | — |
+| Express One Zone | $0.110/GB | $55.00 | $13,200 | 단일 AZ — 부적합 예시 |
+| Hetzner Storage Box BX11 (1TB 정액) | EUR 미실측 | — | — | restic·rclone·rsync 네이티브, 트래픽 무제한, 스냅샷 10개 |
+
+**4. 20년 운용 리스크**: AWS는 해지 후 90일 post-closure(이전 조사 "30일"은 정정 — 30일은 재개설 시 미납 지불 기한), 90일 후 콘텐츠 영구 삭제. Backblaze ToS는 미납 시 삭제 유예 일수를 **명시하지 않음**("may delete your data") — 어떤 관리형도 결제 실패에 계약상 안전판이 약하므로 관리형은 3-2-1의 오프사이트 1벌이어야 하고 유일 사본이면 안 된다. 완화책: 멀티 결제수단 등록, 연 단위 결제 캘린더 점검(기존 2–3주 주기 유지비 안에 수렴), 자격증명·복구 절차를 패스워드 매니저+가족 접근 가능 문서로 이중화(벤더 공식 승계 프로그램은 확인 실패 — unresolved). 두 벤더 병행 비용: **Deep Archive + B2 = 월 $3.97, 20년 ≈ $953**(권장 조합) / B2 + Scaleway Glacier ≈ 20년 $1,165 / B2 + R2 IA = 20년 $2,034.
+
+**5. 적재 방식**: rclone은 성숙하나 git working tree의 파일 단위 sync는 부적합 — mtime이 오브젝트 메타데이터라 갱신에 copy/재업로드 유발, symlink·권한 미보존, git gc의 packfile 재작성 시 대량 재업로드, 비원자적 sync. **git bundle(전량 1회 + 증분) 또는 restic repo(이미 core 레이어에 계획된 스택 재사용)** 형태의 대형 불변 오브젝트로 변환해 올려야 하며, 이 방식이어야 Deep Archive의 180일 최소 보존·40KB/오브젝트 오버헤드·48h 복원과도 정합한다.
+
+**권고안**: 주 계층 = restic repo 또는 git bundle을 S3 Deep Archive에(20년 $119, 단 복원 RTO 최대 48h+egress 비용 유의), 부 계층 = B2에 동일 산출물(즉시 접근·3x 무료 egress로 검증 리스토어 무료, 20년 $834). 합계 20년 ≈ $953로 예산 내이며 벤더 이중화 충족. Hetzner BX11은 restic 네이티브 타깃으로서 유력한 B2 대체 후보지만 현행가 미실측(unresolved) 상태로 결정 보류.
+--- FINDINGS ---
+[LB] S3 Tables는 Apache Iceberg 형식의 '표 형태(tabular) 데이터' 전용 스토리지로, table bucket에는 테이블 서브리소스만 저장된다. 임의 파일·git 저장소 보관 용도가 아니며 docs-mirror 보관에 부적합하다.
+     src: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables.html (2026-08-08)
+[LB] S3 Express One Zone(directory buckets)은 단일 AZ 저지연(한 자릿수 ms) 고성능 스토리지로, 단가 $0.110/GB-월(us-east-1, Standard의 약 4.8배). AI/ML 학습·인터랙티브 분석·HPC용이며, 아카이브·백업 용도로는 부적합하다.
+     src: https://aws.amazon.com/s3/storage-classes/express-one-zone/ (2026-08-08)
+[LB] S3 us-east-1 스토리지 단가 실측($/GB-월): Standard $0.023, Standard-IA $0.0125, Glacier Instant Retrieval $0.004, Glacier Flexible Retrieval $0.0036, Deep Archive $0.00099, Express One Zone $0.110. 복원 단가: GIR $0.03/GB, Flexible(Standard tier) $0.01/GB, Deep Archive(Bulk) $0.0025/GB. 요청: PUT $0.005/1,000, GET $0.0004/1,000. 500GB 20년(보관료만): Standard $2,760 / IA $1,500 / GIR $480 / Flexible $432 / Deep Archive $118.80.
+     src: https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/s3/USD/current/s3.json (2026-08-08)
+[LB] S3 최소 보존·오브젝트 오버헤드: Standard-IA 30일 최소 보존+128KB 최소 과금, Glacier Instant 90일+128KB, Deep Archive 180일 최소 보존, Flexible/Deep Archive는 오브젝트당 40KB 추가 메타데이터 과금. 따라서 git 저장소를 수만 개 작은 파일 그대로 Glacier 계열에 넣으면 오버헤드·요청비가 폭증한다 — 아카이브 계층에는 대형 단일 오브젝트(git bundle, restic pack)만 넣어야 한다.
+     src: https://aws.amazon.com/s3/pricing/ (2026-08-08)
+[LB] 복원 시간 실측: Glacier Flexible = Expedited 1–5분 / Standard 3–5시간 / Bulk 5–12시간(Bulk 무료). Deep Archive = Standard 12시간 이내 / Bulk 48시간 이내(Expedited 없음). Deep Archive 채택 시 RTO는 최대 2일 + 다운로드 시간.
+     src: https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html (2026-08-08)
+[LB] Backblaze B2 실측: $6.95/TB/월($0.00695/GB), 월 평균 저장량의 3배까지 egress 무료(초과 $0.01/GB), 대부분의 API call 무료, 최소 파일 크기·최소 보존 기간 없음. 500GB = 월 $3.48, 20년 $834. 500GB 저장 시 월 1.5TB까지 검증 리스토어가 무료 범위.
+     src: https://www.backblaze.com/cloud-storage/pricing (2026-08-08)
+[LB] Cloudflare R2 실측: Standard $0.015/GB-월, Infrequent Access $0.01/GB-월(최소 30일 보존, retrieval $0.01/GB), egress 전면 무료, Class A $4.50/백만(IA는 $9.00), Class B $0.36/백만(IA $0.90), free tier 10GB. 500GB 20년: Standard $1,800 / IA $1,200. egress 완전 무료가 유일한 차별점이나 보관 단가는 B2의 1.4–2.2배.
+     src: https://developers.cloudflare.com/r2/pricing/ (2026-08-08)
+[LB] Wasabi 실측: $7.99/TB/월 시작 + 최소 1TB 과금 + 90일 Timed Deleted Storage(90일 전 삭제분도 잔여일 과금) + egress 무료지만 '월 egress > 저장량이면 부적합 사용'으로 서비스 제한 가능. 500GB만 저장해도 1TB 과금 → 20년 $1,917.60. 소용량 개인 아카이브에는 구조적으로 불리하다.
+     src: https://wasabi.com/pricing/faq (2026-08-08)
+[  ] iDrive e2 실측: 연간 플랜 정가 $59.50/TB/년(첫해 50% 할인), 월간 pay-as-you-go $6/TB/월(최소 1TB 과금), 3x egress 무료(초과 $0.01/GB), API 무료, 최소 보존 없음. 1TB 연간 기준 20년 ≈ $1,160(첫해 할인 반영).
+     src: https://www.idrive.com/s3-storage-e2/pricing (2026-08-08)
+[LB] Scaleway 실측: Glacier €0.00254/GB-월(조사 대상 중 관리형 콜드 최저가군), Standard Multi-AZ €0.01606/GB, One Zone €0.00803/GB. Glacier 복원 €0.009/GB, egress 월 75GB 무료 후 €0.01/GB, 요청 무료. 500GB Glacier 20년 = €304.80(≈$330), 전체 복원 1회 ≈ €4.50 + egress €4.25.
+     src: https://www.scaleway.com/en/pricing/storage/ (2026-08-08)
+[  ] Hetzner Storage Box는 BX11(1TB)–BX41(20TB) 정액제로 restic·rclone·BorgBackup·rsync/SSH·SFTP·Samba·WebDAV를 네이티브 지원하고 트래픽 무제한, 모델별 스냅샷 10–40개를 제공한다. 단, 현행 EUR 월정액 숫자는 페이지가 JS 렌더링이라 실측하지 못했다(unresolved).
+     src: https://www.hetzner.com/storage/storage-box/ (2026-08-08)
+[LB] AWS 계정 해지 약관 정정(이전 조사의 '30일 보존'은 부정확): post-closure period는 90일이며, 90일 내 재개설하면 콘텐츠 접근 가능, 90일 경과 시 계정 영구 폐쇄·콘텐츠 삭제. 단, 재개설하려면 해지일로부터 30일 내 미납 잔액 전액 지불이 조건 — '30일'은 지불 기한이다.
+     src: https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-closing.html (2026-08-08)
+[LB] Backblaze ToS는 미납 시 데이터 삭제까지의 구체 유예 일수를 명시하지 않는다: "If you stop paying… we reserve the right to suspend or terminate your account and may delete your data." 즉 B2를 유일 사본 저장소로 쓰면 결제 실패 시 삭제 시점이 계약상 보장되지 않는다 — 멀티 결제수단 등록과 3-2-1에서 '여러 사본 중 하나' 위치가 전제되어야 한다.
+     src: https://www.backblaze.com/company/policy/terms-of-service (2026-08-08)
+[LB] rclone의 파일 단위 sync는 git 저장소를 객체 스토리지에 올리는 방식으로 부적합: mtime을 오브젝트 메타데이터(X-Amz-Meta-Mtime)로 저장하며 mtime 갱신조차 server-side copy(5GB 초과·Glacier 클래스는 전체 재업로드)를 유발하고, symlink·hardlink·권한을 보존하지 않으며, git gc가 packfile을 재작성하면 대용량 재업로드가 반복된다. sync 자체가 비원자적이라 중단 시 .git이 불일치 상태로 남는다. 반면 rclone 자체는 성숙한 도구다(체크섬 비교 --checksum이 S3↔S3에서 공식 권장).
+     src: https://rclone.org/s3/ (2026-08-08)
+[LB] git bundle은 refs+objects를 단일 파일로 오프라인 전송하는 공식 메커니즘이며 prerequisite(old..new 범위)로 증분 번들을 지원한다. docs-mirror의 clone 저장소를 '전량 번들 1회 + 주기적 증분 번들'로 객체 스토리지에 적재하면 Deep Archive의 180일 최소 보존·40KB 오버헤드·복원 시간 제약과 정합한다.
+     src: https://git-scm.com/docs/git-bundle (2026-08-08)
+--- UNRESOLVED ---
+ - Hetzner Storage Box(BX11–BX41) 현행 EUR 월정액 — hetzner.com 가격이 JS 동적 로딩이라 정적 fetch로 실측 불가, WebSearch 세션 예산(200/200) 소진으로 교차 확인도 불가. 결정 전 콘솔/주문 페이지에서 직접 확인 필요
+ - AWS 인터넷 egress 단가(통상 ~$0.09/GB로 알려짐) — S3 요금 페이지 표가 렌더링되지 않았고 요금 JSON에도 Data Transfer 항목 부재. Deep Archive 전체 복원 시 지배 비용이므로 확정 필요(500GB 복원 시 복원비 $1.25 + egress ~$45 추정)
+ - Backblaze B2 미납 시 데이터 삭제까지의 실제 유예 기간 — ToS에 일수 미기재, help.backblaze.com은 403, billing 문서 URL들은 404
+ - Backblaze B2 Caps & Alerts(지출 상한·알림) 기능의 공식 문서 — 문서 URL 404로 현행 기능 여부 미확인
+ - iDrive e2 연간 플랜의 최소 구매 단위가 1TB인지(500GB만 과금 가능한지) — 요금 페이지에서 확정 못함
+ - S3 Standard-IA retrieval 단가($0.01/GB로 알려짐) — 요금 JSON 추출에 미포함
+ - 벤더별 계정 승계(사망·무능력 시 legacy access) 공식 절차 — AWS·Backblaze·Cloudflare 모두 공식 프로그램 확인 실패. 완화책은 자격증명 문서화로 대체
+ - Wasabi Reserved Capacity Storage 플랜의 별도 조건(PAYG 90일 정책과 다를 수 있음)
+--- VERDICTS ---
+  [CONFIRMED] S3 Tables는 Iceberg 표 데이터 전용, table bucket은 테이블 서브리소스만 저장, docs-mirror 보관에 부적합
+       note: 공식 문서 원문 일치: "S3 Tables are purpose-built for storing tabular data", "a table bucket, which stores tables as subresources. Table buckets support storing tables in the Apache Iceberg format". 기능 전부(Athena/Redshift/Spark 연동, 자동 compaction) 분석 워크로드용. 요금도 요금 페이지에서 실측 일치: Standard storage $0.0265/GB(첫 50TB) + object monitoring $0.025/1,000 objects + com
+  [CONFIRMED] S3 Express One Zone은 단일 AZ 저지연 고성능용, $0.110/GB-월(us-east-1, Standard의 약 4.8배), 아카이브·백업 부적합
+       note: 제품 페이지 원문 일치: "select a specific AWS Availability Zone… to store your data", "consistent single-digit millisecond data access", 대상 워크로드 AI/ML·Analytics·HPC·Media — 아카이브 포지셔닝 없음. 단가는 AWS 요금 JSON을 직접 파싱해 확인: 'Express One Zone Storage Inf per GB Mo' = 0.1100000000 (us-east-1). 0.110/0.023 = 4.78배 ≈ 4.8배. 500GB×0.110×240 = $13,200 산식도 정확. (한 요약 단계에서 $0
+  [CONFIRMED] S3 us-east-1 단가 실측(보관·복원·요청)과 500GB 20년 비용
+       note: 요금 JSON(b0.p.awsstatic.com, gzip)을 직접 내려받아 파싱: Standard 첫 50TB 0.023 / IA 0.0125 / GIR 0.004 / Glacier(Flexible) 0.0036 / Deep Archive 0.00099 / Express One Zone 0.110 — 전부 일치. 복원: 'Object Retrieval in Glacier Instant Retrieval' 0.03, 'Glacier S3 Standard Retrieval RestoreObject' 0.01, 'Fee for Bulk Retrieval… Deep Archive' 0.0025 — 일치(Flexible Bul
+  [CONFIRMED] 최소 보존·최소 과금 크기·40KB 메타데이터 오버헤드 → Glacier 계열엔 대형 단일 오브젝트만
+       note: 요금 페이지 확인: Standard-IA 128KB 최소 과금("Smaller objects may be stored but will be charged for 128 KB")+30일 최소 보존, GIR 128KB+90일, Deep Archive 180일, Flexible/DA 오브젝트당 40KB 메타데이터 과금 — 전부 일치. 참고: Flexible도 90일 최소 보존이 있는데 claim이 이를 생략했다(모순은 아니고 누락). 소형 파일 다수 시 오버헤드·요청비 폭증이라는 결론은 위 수치에서 직접 도출되며, 40KB 오버헤드는 128KB 미만 packfile류에서 지배적이 된다 — 결론 타당.
+  [CONFIRMED] 복원 시간: Flexible Expedited 1–5분/Standard 3–5h/Bulk 5–12h(무료), Deep Archive Standard ≤12h/Bulk ≤48h(Expedited 없음), RTO 최대 2일
+       note: 공식 문서 표와 정확히 일치: Flexible = 1–5 minutes / 3–5 hours / 5–12 hours, Deep Archive = Expedited 'Not available' / Within 12 hours / Within 48 hours. "Bulk retrievals are free for objects that are stored in the S3 Glacier Flexible Retrieval" 원문 확인. 보너스: Batch Operations 사용 시 DA Standard가 9–12h로 약간 단축되나 claim의 '최대 2일+다운로드' RTO 결론에는 영향 없음.
+  [CONFIRMED] Backblaze B2: $6.95/TB/월, 3배 egress 무료(초과 $0.01/GB), API 대부분 무료, 최소 크기·보존 없음, 500GB 20년 $834
+       note: 공식 요금 페이지 원문 일치: "Starts at $6.95 / TB / mo", "Free egress up to 3x storage"(초과분 $0.01/GB, CDN 파트너 경유 시 추가 무료), "No minimum file size fees", "No minimum storage duration fees". API는 Class A/B/C 무료, Class D만 $0.004/10,000(일 2,500건 무료) — '대부분 무료' 표현 정확. 산식 재계산: 500GB×$6.95/1000 = $3.475/월 ≈ $3.48, ×240 = $834. 500GB 저장 시 3배 = 월 1.5TB egress 무료도 정확.
+  [CONFIRMED] Cloudflare R2: Standard $0.015/IA $0.01(30일 최소·retrieval $0.01/GB), egress 무료, Class A $4.50/$9.00·Class B $0.36/$0.90 per M, free tier 10GB, 20년 $1,8
+       note: 공식 개발자 문서 요금 페이지에서 전 항목 일치: Standard $0.015/GB-월, IA $0.01/GB-월 + 최소 30일 보존 + retrieval $0.01/GB, egress Free, Class A $4.50(IA $9.00)/백만, Class B $0.36(IA $0.90)/백만, free tier 10GB-month(Standard만, Class A 1M·B 10M 포함). 20년 재계산: 0.015×500×240=$1,800, 0.01×500×240=$1,200 정확. B2 대비 배율도 0.01/0.00695=1.44, 0.015/0.00695=2.16으로 '1.4–2.2배' 정확.
+  [CONFIRMED] Wasabi: $7.99/TB/월 + 1TB 최소 과금 + 90일 Timed Deleted Storage + egress>저장량 시 서비스 제한 가능, 20년 $1,917.60
+       note: 공식 요금 FAQ에서 전부 확인: $7.99/TB/mo, "If you store less than 1 TB of active storage in your account, you will still be charged for 1 TB", 90일 최소 보존과 "Timed Deleted Storage charge equal to the storage charge for the remaining days", egress가 저장량 초과를 상습 반복하면 "limit or suspend your service" 유보 조항. 산식: 1TB(최소)×$7.99×240 = $1,917.60 정확. 500GB 개인 아카이브에 구조적으로 불
+  [CONFIRMED] Scaleway: Glacier €0.00254/GB, Standard Multi-AZ €0.01606, One Zone €0.00803, 복원 €0.009/GB, egress 75GB 무료 후 €0.01/GB, 요청 무료, 20년 €304.80
+       note: 공식 요금 페이지에서 수치 전부 일치(파리 리전, 세전): Glacier €0.00254/GB-월, Standard Multi-AZ €0.01606, Standard One Zone €0.00803, Restore from Glacier €0.009/GB, egress "75GB free every month then €0.01/GB", 요청 included. 재계산: 500×0.00254×240 = €304.80(환율 ~1.08 적용 시 ≈$330), 복원 500×0.009=€4.50 + egress (500−75)×0.01=€4.25 정확. 단 '관리형 콜드 최저가군'은 주의: AWS Deep Archive($0.0
+  [CONFIRMED] AWS 계정 해지: post-closure 90일(재개설 시 콘텐츠 접근 가능, 경과 시 영구 폐쇄·삭제), 미납 잔액은 해지일로부터 30일 내 전액 지불이 재개설 조건
+       note: 공식 문서 원문 일치: "The post-closure period is 90 days. During the post-closure period, you can access your content and AWS services only by reopening your account. After the post-closure period, AWS permanently closes your AWS account… AWS will also delete content and resources in your account", 재개설 조건 "we must receive full payment of any outstanding ba
+  [CONFIRMED] Backblaze ToS는 미납 시 데이터 삭제까지의 구체 유예 일수를 명시하지 않는다
+       note: ToS 원문 확인: "If you stop paying for our Service(s) or violate any of our Terms or applicable policies, we reserve the right to suspend or terminate your account and may delete your data." 삭제 시점에 대한 일수 명시는 문서 어디에도 없음 — 재량 조항만 존재. 따라서 B2를 유일 사본으로 쓰지 말고 3-2-1의 한 사본으로 두라는 결론은 계약 문면상 타당하다.
+  [CONFIRMED] rclone 파일 단위 sync는 git 저장소 업로드에 부적합(mtime 메타데이터→server-side copy/재업로드, symlink 미보존, 비원자적), rclone 자체는 성숙(--checksum 권장)
+       note: 공식 문서 인용 전부 확인: mtime은 "X-Amz-Meta-Mtime as floating point since the epoch"로 저장, mtime 갱신만 필요해도 server-side copy를 시도하고 "the object is larger than 5Gb or is in Glacier or Glacier Deep Archive… the object will be uploaded rather than copied", symlink는 "Normally rclone will ignore symlinks or junction points"(rclone.org/local), --checksum은 S3↔S3에서 "re
+  [CONFIRMED] git bundle은 refs+objects 단일 파일 오프라인 전송 공식 메커니즘, prerequisite 기반 증분 번들 지원 → Deep Archive 제약과 정합
+       note: 공식 문서 원문 일치: "Bundles are used for the 'offline' transfer of Git objects without an active 'server' sitting on the other side of the network connection", 증분 예시 "git bundle create file.bundle lastR2bundle..master"(+ git tag -f로 기준점 갱신), OBJECT PREREQUISITES 절 존재 확인(negative revision으로 기존 객체 제외, git bundle verify로 수신측 전제 검증). 대형 불변 단일 파일이므로 180일 최소 보
+====================================================================================================
+KEY: self-hosted
+--- SUMMARY ---
+## 결론 먼저: docs-mirror에 객체 스토리지 자가 호스팅은 기각. "bare git mirror + 아무 디스크 + SSH/restic"이 정답이다.
+
+### 1. MinIO 이후 오픈소스 객체 스토리지 3종 실측 (GitHub API, 2026-08-08)
+
+| 항목 | Garage | SeaweedFS | Ceph |
+|---|---|---|---|
+| 라이선스 | AGPL-3.0 | Apache-2.0 | LGPL 혼합 |
+| 최신판 | v2.3.0 (2026-04-16) | 4.41 (2026-08-06) | v21 Tentacle |
+| 12개월 커밋 | 393 | 2,901 | 8,195 |
+| bus factor | 1인+공적펀딩(NGI/NLnet 연 0.5–3 FTE) 의존 | 창시자 1인이 커밋 절대다수(10,128 vs 2위 531) | 커뮤니티 건전 |
+| 1인 1노드 적합성 | 설계가 geo-distributed 3노드·RF=3 전제. v2.3에 --single-node 모드가 생겼으나 설계 목적과 불일치 | 단일 노드 가능·활발하나 1인 유지 리스크 | OSD당 RAM 4GB+·다노드 전제 — 명백한 과잉 |
+
+셋 다 "죽은 프로젝트"는 아니지만, 20년 지평의 1인 운영에서 Garage는 펀딩 의존, SeaweedFS는 1인 의존이라는 지속성 리스크를 안고 있고, Ceph는 규모 과잉이 공식 하드웨어 문서로 확정된다. 그리고 결정적으로 — **이 데이터에는 S3 API 자체가 불필요하다(아래 3).**
+
+### 2. NAS 실측
+- **Synology**: 2025-04 서드파티 HDD 제한 → 반발·판매 타격 → **2025-10-07 DSM 7.3에서 철회**(비검증 드라이브 설치·스토리지 풀 생성 재허용, 단 M.2 풀/캐시는 여전히 HCL 강제). 정책이 18개월 새 두 번 뒤집힌 것 자체가 20년 지평의 신뢰 리스크. 공식 릴리스노트 원문은 JS 렌더로 미확인(보도 5건 교차확인).
+- **QNAP TS-464**(4-bay, N5095, 8GB): 드라이브 검증 강제 없음.
+- **TrueNAS Community Edition 25.10**: 무료, ZFS(scrub·checksum·스냅샷·replication), 최소 8GB RAM·2코어·16GB SSD 부트, ECC 권장이나 필수 아님. 미니PC 조합 시 가장 유연.
+- 디스크 실가: 신품 NAS/엔터프라이즈급 바닥 **$28–30/TB** (IronWolf Pro 16TB $450, Exos 12TB $350). Backblaze 2025 AFR 1.36%(344,196드라이브).
+- 20년이면 HDD 수명 6.75년(기존 확정) 기준 **디스크 3세대 + 본체 약 2세대** 교체. NAS 경로 20년 TCO ≈ **$3,000–4,500 + 상시 노동**(scrub 확인·DSM/OS 업데이트·고장 대응) — 500GB 데이터에는 유지비 예산(2–3주당 30–45분)을 core 백업과 나눠 써야 하는 부담이 가장 큰 비용이다.
+
+### 3. 핵심 질문의 답 — 객체 스토리지는 필요 없다 (근거 확정)
+콘텐츠의 90%+가 git repo다. git이 이미 스토리지 시스템의 3요소를 내장한다:
+- **프로토콜**: SSH remote는 인증·암호화·압축 전송을 제공 (Pro Git: "access over SSH is secure — all data transfer is encrypted and authenticated... making the data as compact as possible").
+- **무결성**: `git fsck` = "Verifies the connectivity and validity of the objects in the database" — 콘텐츠 주소화(SHA)라 bit rot이 검출된다.
+- **증분**: `git clone --mirror`는 모든 refs를 미러하고 `git remote update` 한 번으로 증분 동기화 (공식 git-clone 문서 명시).
+
+S3 API가 주는 것(HTTP API·멀티테넌시·버저닝)은 1인 git 미러에서 소비자가 없다. 오히려 S3 위에 git을 얹으면 비표준 헬퍼가 필요해 복잡도만 는다. **"아무 디스크 위의 bare repo"가 기술적으로 완전한 중앙 사본이며, NAS를 쓰더라도 그 역할은 '단순 SSH 서버 + bare mirror 디렉토리'면 충분하다** — Garage/SeaweedFS/Ceph/MinIO 대체재 논의 전체가 이 층위에서 소거된다. 나머지 10%(크롤 산출물)는 일반 파일이므로 동일 디스크에 restic/rsync로 처리.
+
+### 4. 외장 디스크 2개 로테이션 (최저기술 대안)
+20년 TCO ≈ **$900–1,100**(8TB급 2개 × 3세대, $28–30/TB 실가), 전기 0, 랜섬웨어·전기 사고에 오프라인 면역. AFR 1.36% 기준 2–3주 로테이션 주기 내 두 디스크 동시 고장 확률은 무시 가능. 주의점 1개: Backblaze 데이터는 상시가동 기준이라 cold 보관 HDD의 장기 신뢰성 1차 데이터는 없음 — 로테이션(주기적 통전+fsck)이 이 공백을 실질적으로 메운다.
+
+### 5. 자가 호스팅 임계 실측
+- **B2 $6.95/TB/월**(2026 현행, 종전 $6에서 인상), 3x 저장량 무료 egress, 최소 보존 없음 → 500GB = **월 $3.48, 20년 ≈ $834, 노동 ≈ 0**.
+- rsync.net $12/월(800GB 최소, git-annex 명시 지원). Hetzner Storage Box(1–20TB, SSH/borg/restic, 트래픽 무제한)는 정확 요금 미확인.
+- 손익분기: NAS 고정비($150–225/년 상각+전기)가 B2($83.4/TB/년)를 넘어서는 지점은 **상시 2–3TB부터(노동비 제외)**. 프라이버시 축은 공개 문서 미러라 소거, 회선 축도 500GB≈반나절 업로드라 소거. **500GB 가정에서는 관리형이 압도하고, 가정 (a)의 500GB에 실제 도달해도 겨우 임계 하단이다.**
+
+### 권고안
+1. **지금**: docs-mirror의 bare mirror(`git clone --mirror`)를 **외장 HDD 2개 로테이션**(1차 사본, ~$300 초기)에 두고, `git remote update` + `git fsck`를 로테이션 루틴에 포함.
+2. **원격 사본**: core restic 타깃과 **동일 B2 버킷 계정**에 rclone/restic으로 bare repo 디렉토리 통째 백업(월 $3.48) — 신규 인프라 0. upstream 소멸 가정 (b)의 대비는 이 3-2-1로 완성된다.
+3. **NAS는 조건부**: core restic 타깃을 어차피 NAS로 정하게 되면 docs-mirror bare repo도 같은 상자에 얹되(TrueNAS CE + 미니PC가 서드파티 제한·비용 면에서 우위), docs-mirror만을 위해 NAS를 사지는 말 것. 객체 스토리지 데몬(Garage 등)은 어떤 경로에서도 설치하지 않는다.
+--- FINDINGS ---
+[  ] Garage(Deuxfleurs)는 AGPL-3.0, 최신 안정판 v2.3.0(2026-04-16), 최근 12개월 커밋 393건. 그러나 개발이 상위 1인(Alexis211, 전체 커밋 1,482로 압도적 1위)과 NGI/NLnet 공적 펀딩(2021–2025 매년 0.5–3 FTE 지원)에 의존하는 소규모 프로젝트다.
+     src: https://git.deuxfleurs.fr/Deuxfleurs/garage/releases (2026-04-16)
+[LB] Garage는 설계상 geo-distributed 3노드·replication_factor=3이 권장 구성이다. v2.3.0에서 --single-node 모드가 추가됐지만, 공식 프로덕션 가이드는 '최소 3노드'를 명시한다 — 1인 1노드 미러 서버 목적과 설계 목적이 어긋난다.
+     src: https://garagehq.deuxfleurs.fr/documentation/cookbook/real-world/ (2026-04-16)
+[  ] SeaweedFS는 Apache-2.0, 33,952 stars, 최신 릴리스 4.41(2026-08-06), 최근 12개월 커밋 2,901건으로 매우 활발하다. 그러나 커밋의 절대다수가 창시자 1인(chrislusf 10,128건, 2위 인간 기여자는 531건)으로 bus factor ≈ 1이며 open issues 755건.
+     src: https://api.github.com/repos/seaweedfs/seaweedfs (2026-08-08)
+[LB] Ceph는 최근 12개월 커밋 8,195건(v21 Tentacle 라인)으로 가장 활발하지만, 공식 하드웨어 권장이 OSD당 RAM ≥4GB·모니터 데몬당 ≥5GB·HDD OSD당 1–3 스레드에 프로덕션은 다노드 failure-domain 설계를 전제한다. 1인·1노드·수백 GB 규모에는 명백한 과잉이다.
+     src: https://docs.ceph.com/en/latest/start/hardware-recommendations/ (2026-08-08)
+[LB] 핵심 질문의 답: git 콘텐츠 90%+에는 S3 API 계층이 불필요하다. git clone --mirror가 모든 refs를 미러하고 git remote update가 증분 갱신하며(공식 문서 명시), git fsck가 'connectivity and validity of the objects in the database'를 검증하고, SSH 프로토콜이 인증·암호화·압축 전송을 제공한다 — 객체 스토리지가 주는 것(HTTP API·멀티테넌시·오브젝트 버저닝)은 1인 git 미러에서 쓸 일이 없고, 오히려 S3 위에 git remote를 얹으려면 비표준 헬퍼가 필요해 계층만 늘어난다.
+     src: https://git-scm.com/docs/git-clone (2026-08-08)
+[LB] Synology는 2025-04 25-시리즈 Plus에서 비검증 서드파티 드라이브를 제한했다가, 2025-10-07 DSM 7.3에서 철회했다: 2025년형 Plus/Value/J 시리즈에서 비검증 드라이브의 설치·스토리지 풀 생성이 다시 허용됐다. 단 M.2 기반 스토리지 풀·캐시는 여전히 HCL 등재 드라이브만 가능하다.
+     src: https://pcper.com/2025/10/synology-supports-non-validated-3rd-party-drives-with-diskstation-manager-7-3/ (2025-10-08)
+[  ] TrueNAS Community Edition(구 SCALE, 현행 25.10)은 무료 open-core이고 ZFS의 무제한 스냅샷·self-healing checksum·RAID-Z·로컬/원격 replication을 포함한다. 최소 요구는 8GB RAM·2코어 x86_64·16GB SSD 부트 디스크이며 ECC는 권장이지만 필수가 아니다('Many TrueNAS systems operate every day without ECC RAM').
+     src: https://www.truenas.com/docs/scale/25.04/gettingstarted/scalehardwareguide/ (2026-08-08)
+[  ] NAS급 HDD 실구매가(미국 신품, 2026-08 집계): Seagate IronWolf Pro 16TB $450($28.12/TB), Seagate Exos X12 12TB $350($29.17/TB), Toshiba Enterprise 12TB $360($30.00/TB) — 신품 NAS/엔터프라이즈급 바닥가는 약 $28–30/TB.
+     src: https://diskprices.com/?locale=us&condition=new&disk_types=internal_hdd (2026-08-08)
+[  ] Backblaze 2025 Drive Stats: 344,196드라이브 기준 연간고장률(AFR) 1.36%(2024년 1.55%에서 개선, 2022년 이후 최저). 상시 가동 환경 데이터이며, 오프라인 cold 보관 HDD의 장기 신뢰성에 대한 1차 데이터는 아니다.
+     src: https://www.backblaze.com/blog/backblaze-drive-stats-for-2025/ (2026-02-01)
+[LB] Backblaze B2 현행 요금: 저장 $6.95/TB/월(2026-08 기준, 종전 $6에서 인상됨), egress는 월평균 저장량의 3배까지 무료(초과 $0.01/GB), 최소 보존 기간·최소 파일 크기 수수료 없음, 첫 10GB 무료. docs-mirror 500GB면 월 $3.48, 20년 합계 약 $834(요금 불변 가정).
+     src: https://www.backblaze.com/cloud-storage/pricing (2026-08-08)
+[  ] rsync.net은 $0.015/GB/월(0–9TB 구간)·최소 800GB 주문($12/월)·egress 무료·7일 스냅샷 포함이며, 지원 도구 목록에 'rsync / sftp / scp / borg / rclone / restic / git-annex'를 명시한다 — SSH 파일시스템이므로 bare git repo를 rsync/rclone으로 밀어넣는 용도로 쓸 수 있으나 git push(git-receive-pack) 직접 지원 여부는 미확인.
+     src: https://rsync.net/pricing.html (2026-08-08)
+[  ] Hetzner Storage Box는 BX11 1TB–BX41 20TB 요금제로 SSH/SFTP·rsync·BorgBackup·Restic·Rclone·Samba를 지원하고 트래픽 무제한·자동 스냅샷·약정 없음이다. 정확한 월 요금은 페이지 JS 렌더로 이번 조사에서 숫자 확인 실패(unresolved).
+     src: https://www.hetzner.com/storage/storage-box/ (2026-08-08)
+[  ] QNAP TS-464(4-bay, Celeron N5095, 8GB)는 서드파티 드라이브 검증 강제가 없다 — 제품 페이지는 일반 호환성 리스트만 참조하며 비검증 드라이브의 풀 생성 차단 같은 정책이 없다.
+     src: https://www.qnap.com/en-us/product/ts-464 (2026-08-08)
+[LB] 20년 TCO 실측 계산(500GB 가정): (A) B2 관리형 ≈ $834 + 노동 거의 0. (B) 외장 HDD 2개 로테이션 ≈ $900–1,100(2×8TB급 × 6.75년 수명 기준 3세대 교체, HDD $28–30/TB 실가 기반) + 전기 ≈ 0 + 로테이션 노동. (C) NAS(4-bay + 디스크 2개) ≈ $3,000–4,500(본체 2회 × ~$600 + 디스크 3세대 × ~$400 + 전기 30–40W 상시가동 20년 ≈ $800–1,500) + scrub/업데이트/고장대응 노동. 500GB에서 NAS는 B2 대비 4–5배 비싸고, 자가 호스팅이 역전하는 임계는 상시 저장 2–3TB 이상(노동비 제외 시)이다.
+     src: https://www.backblaze.com/cloud-storage/pricing (2026-08-08)
+[LB] 프라이버시 논거는 docs-mirror에 성립하지 않는다: 콘텐츠가 공개 벤더 문서의 미러이므로 자가 호스팅의 3대 임계(용량·회선·프라이버시) 중 프라이버시 축이 소거되고, 회선 축도 500GB 초기 업로드가 100Mbps 상향 기준 반나절 수준이라 소거된다. 남는 것은 용량 축뿐이며 그 임계(2–3TB+)에 아직 도달하지 않았다.
+     src: https://www.backblaze.com/cloud-storage/pricing (2026-08-08)
+--- UNRESOLVED ---
+ - Synology DS923+/DS925+, QNAP TS-464의 정확한 실구매가 — B&H 403, CDW 타임아웃으로 소매가 1차 확인 실패(MSRP 근사 ~$550–650만 보도 기반)
+ - Hetzner Storage Box BX11–BX41의 정확한 월 요금 — 공식 페이지가 JS 렌더로 숫자 미노출
+ - KEPCO 주택용(저압) 전기요금 정확 단가표 — cyber.kepco.co.kr이 online.kepco.co.kr SPA로 개편되어 크롤 불가. 전기료 계산은 120–307원/kWh 누진구간 가정치
+ - Synology DSM 7.3 공식 릴리스노트 원문의 비검증 드라이브 잔여 제한(경고 표시·건강 분석·펌웨어 업데이트 제외 여부) 세부 — 보도 5건 교차확인만, 공식 문서는 JS로 미확인
+ - rsync.net에서 표준 git push(git-receive-pack) 직접 실행 가능 여부 — git-annex 지원만 공식 명시
+ - 오프라인 cold 보관 HDD의 장기(수년) 신뢰성 1차 데이터 — Backblaze 통계는 상시가동 드라이브 한정
+ - Garage 공식 문서의 단일 노드 프로덕션 지지 여부 — v2.3.0 --single-node 모드 존재만 확인, 권장 문서는 여전히 3노드
+ - Seagate·WD 공식 스토어 HDD 정가 — 미표시/품절로 diskprices(Amazon 집계, 2차 소스) 사용
+--- VERDICTS ---
+  [CONFIRMED] Garage는 geo-distributed 3노드·replication_factor=3이 권장 구성, v2.3.0에서 --single-node 추가, 공식 가이드는 최소 3노드 권장
+       note: 공식 cookbook 원문 축자 확인: 'To run Garage in cluster mode, we recommend having at least 3 nodes... three-way replication of your data, the safest and most available mode'. 공식 저장소 릴리스에서 v2.3.0(2026-04-16) 확인, 릴리스 노트에 'allow to use garage server --single-node to autocreate a layout and get a functional cluster right away for single nodes' 명시. 다만 --single-
+  [CONFIRMED] Ceph는 최근 12개월 커밋 8,195건(v21 Tentacle)으로 가장 활발하나, OSD당 RAM ≥4GB·모니터 ≥5GB·HDD OSD당 1–3스레드 권장으로 1인 1노드에 과잉
+       note: 커밋 수 GitHub API 실측: since=2025-08-08 기준 main 브랜치 81페이지×100+95 = 정확히 8,195건 일치. docs.ceph.com 원문 확인: OSD '>= 4GB per daemon (more is better)... 2-4 GB may function but will be slow', 모니터 '>= 5 GB per daemon', HDD OSD '1 min, 3 recommended threads'. 단일노드는 'A sandbox cluster with one OSD built on a laptop with VirtualBox' 맥락으로만 언급 — 모두 claim과 일치. 단 한 
+  [CONFIRMED] git 콘텐츠에는 S3 계층 불필요: --mirror가 전체 refs 미러+remote update 증분 갱신, fsck가 객체 무결성 검증, SSH가 인증·암호화·압축 전송 제공
+       note: 인용 3건 모두 공식 문서에서 축자 확인. git-clone: '--mirror... maps all refs (including remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs are overwritten by a git remote update'. git-fsck NAME: 'Verifies the connectivity and validity of the objects in the database'. Pro Git: 'access over SSH is secure — all data tr
+  [CONFIRMED] Synology가 2025-04 서드파티 드라이브 제한을 2025-10-07 DSM 7.3에서 철회, 2025년형 Plus/Value/J에서 비검증 드라이브 설치·풀 생성 재허용, M.2 풀·캐시는 HCL 등재 필수 유지
+       note: PC Perspective 기사(2025-10-08) 재확인: 2025년형 Plus/Value/J 시리즈에서 비검증 서드파티 드라이브 설치·스토리지 풀 생성 허용, 'Creation of M.2 based storage pool and cache still requires drives on the HCL' 원문 일치, 2025-04 제한의 번복이라는 서술도 일치. 단 한계: 검색 예산 소진으로 Tom's Hardware 등 타 매체 및 Synology 공식 릴리스노트 원문은 이번 검증에서도 직접 대조하지 못함 — 2차 소스 1건 기반 확인이며, 세부 표현(어느 모델에 어느 수준까지 허용)은 공식 원문 대조 시 미세 차이
+  [CONFIRMED] Backblaze B2 현행 요금 $6.95/TB/월(종전 $6에서 인상), 3x 저장량까지 egress 무료(초과 $0.01/GB), 최소 보존·최소 파일 크기 수수료 없음, 첫 10GB 무료, 500GB 20년 ≈ $834
+       note: 공식 요금 페이지 실측: 'Starts at $6.95 / TB / mo', 'Free egress up to 3x storage'(초과 $0.01/GB), 'No minimum file size fees', 'No minimum storage duration fees', 'First 10GB storage is always free' 전부 확인. 인상 여부는 Wayback 2025-08-30 스냅샷을 curl로 직접 파싱해 'at a rate of $6/TB/30-day' 문구 확인 — $6→$6.95 인상 사실. 산수 검산: 0.5TB×$6.95×240개월=$834 정확. 유일한 뉘앙스는 공식 표기가 'Starts 
+  [CONFIRMED] 20년 TCO(500GB): B2 ≈ $834, HDD 로테이션 ≈ $900–1,100, NAS ≈ $3,000–4,500으로 NAS가 B2 대비 4–5배, 자가 호스팅 역전 임계는 2–3TB+
+       note: 검증 가능한 구성요소는 전부 실측 일치: B2 $6.95/TB/mo(공식), HDD 실가 diskprices 최저 $27–31/TB(claim의 $28–30 범위 부합), HDD 중앙수명 Backblaze 원문 'six years and nine months'(=6.75년) 확인, 전기 산수 35W×8760h≈307kWh/년으로 263–350kWh 범위 정확. AFR은 claim의 1.36% 대신 최신 Q1 2026 기준 lifetime 1.39%(분기 1.24%)로 소폭 차이 있으나 '로테이션 동시 고장 무시 가능' 결론에 영향 없음. 단 B·C 총액은 가정 조립(NAS 본체 ~$600×2 등, claim 스스로 un
+  [CONFIRMED] docs-mirror에는 프라이버시 축이 소거(공개 문서 미러)되고 회선 축도 소거(500GB 업로드 반나절)되어 용량 축만 남으며 임계(2–3TB+) 미달
+       note: 논증형 claim이나 수치 앵커는 전부 성립: 500GB @ 100Mbps 상향 = 4,000,000Mb/100Mbps ≈ 11.1시간으로 '반나절' 정확. B2 3x egress 정책 공식 확인 — 월평균 저장 500GB면 1.5TB까지 무료이므로 전량 복구 다운로드 비용 0도 성립. 용량 임계 2–3TB는 claim 6의 TCO에서 일관되게 도출됨. 유의점 하나: '콘텐츠가 전부 공개 벤더 문서'라는 전제는 이 리포지토리 자체의 전제로, 외부 소스로 검증할 대상이 아님 — 향후 비공개 자료가 섞이면 프라이버시 축은 되살아남.
+====================================================================================================
+KEY: git-native-preservation
+--- SUMMARY ---
+docs-mirror(90%+가 git repo)의 보존 축 6개를 1차 소스로 실측했다. 결론: (1) GitHub fork는 public upstream 삭제·private 전환 모두에서 살아남는 공식 보장이 있는 0원 보험이다 — 단 public 한정, 자동 sync 없음(주기 sync 필요, 대신 upstream rewrite 비전파라는 보존상 장점), 가시성 변경 불가. (2) Software Heritage save-code-now API(`POST /api/1/origin/save/git/url/...`)로 임의 공개 저장소 등록이 실제로 되며 GitHub/GitLab URL은 자동 accepted, Vault의 git-bare cooking(`/api/1/vault/git-bare/(swhid)/`)으로 clone 가능한 bare repo 복원까지 왕복이 성립한다(단 본 사이트가 봇 차단이라 rate limit·처리시간 수치는 미확정). (3) restic-git packfile 중복제거 붕괴는 공식 포럼에서 실증 확인 — 완화는 재clone 금지·fetch 증분·gc.auto=0(공식 문서 확인). (4) git bundle은 verify 내장·증분 지원·단일 불변 파일이라 '시점 스냅샷 보존' 요구에 정확히 부합하며 객체 스토리지 계층에 적합. (5) bare mirror + remote update는 prune을 켜지 않는 한 upstream에서 삭제된 branch가 로컬에 잔존한다는 것이 git 공식 문서로 확정 — 보존 미러에서는 prune 금지. (6) 크롤 산출물 쪽은 Wayback SPN2 API(S3 키 인증, 30k/일)로 렌더링본 시점 보존 요청이 가능하다. 종합하면 'fork(0원 1차 보험) + SWH 등록(공공 2차 보험) + 로컬 bare mirror(gc.auto=0, no-prune) + 주기 bundle을 restic/객체 스토리지에(시점 동결)'의 4겹 구성이 모두 공식 근거 위에서 성립한다.
+--- FINDINGS ---
+[LB] GitHub public 저장소가 삭제되어도 fork는 살아남는다 — 공식 문서: "Deleting a public repository will not delete any forks of the repository", 그리고 fork network에서는 "An active public fork becomes the new upstream repository for the network". 즉 관심 저장소를 내 계정에 fork해 두면 upstream 삭제 시에도 내 fork가 그대로 남는(그리고 활성 fork가 network의 새 root로 승계되는) 0원짜리 소멸 보험이 성립한다.
+     src: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/what-happens-to-forks-when-a-repository-is-deleted-or-changes-visibility (2026-08-08)
+[LB] upstream이 public→private으로 전환되면 기존 public fork들은 별도 network로 분리되어 public인 채 존속한다: "Its public forks stay public in a separate network." 따라서 private 전환 시나리오에서도 fork 보험은 유지된다.
+     src: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/what-happens-to-forks-when-a-repository-is-deleted-or-changes-visibility (2026-08-08)
+[LB] fork 보험의 한계 (1): private upstream이 삭제되면 private fork도 함께 삭제된다("Deleting a private repository will delete all forks of the repository"). 한계 (2): fork의 가시성은 독립 변경 불가 — "You cannot change the visibility of a fork by itself." 즉 fork 보험은 public 저장소(벤더 docs repo는 대부분 public)에만 성립하고, fork를 private으로 바꿔 숨길 수 없다.
+     src: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks (2026-08-08)
+[LB] fork 보험의 한계 (3): fork는 자동 sync되지 않는다 — 공식 syncing-a-fork 문서상 UI 'Sync fork'/gh CLI/git fetch upstream 중 하나로 수동 동기화해야 하며, fork 시점 이후의 upstream 커밋은 사용자가 주기적으로 sync하지 않으면 fork에 없다. 역으로 이 성질 때문에 upstream의 이력 rewrite(force-push)도 fork에 자동 전파되지 않는다 — fork는 마지막 sync 시점의 이력을 그대로 보존한다. 다만 fork network 내 객체 공유 caveat("Commits pushed to any repository in a network can be accessible from other repositories in that network")가 있어 network 수준에서 객체가 노출/잔존할 수 있다.
+     src: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork (2026-08-08)
+[  ] fork 유지 비용은 0원: GitHub Free(개인 계정)는 "unlimited public repositories with a full feature set"을 제공하며 public 저장소 스토리지 과금 항목이 없다.
+     src: https://docs.github.com/en/get-started/learning-about-github/githubs-plans (2026-08-08)
+[LB] Software Heritage save-code-now는 API로 임의 공개 저장소 아카이빙 요청이 실제로 된다: `POST /api/1/origin/save/(visit_type)/url/(origin_url)/`, visit_type은 bzr·cvs·git·hg·svn·tarball. 요청 상태는 accepted("for well known code hosting providers like for instance GitHub or GitLab" — 즉 GitHub/GitLab URL은 자동 승인), pending("until a manual check is done" — 기타 forge는 수동 심사), rejected(차단 URL). 로딩 task 상태는 not created/pending/scheduled/running/succeeded/failed로 추적 가능(`GET /api/1/origin/save/(request_id)/`). throttle scope는 swh_save_origin.
+     src: https://raw.githubusercontent.com/SoftwareHeritage/swh-web/master/swh/web/save_code_now/api_views.py (2026-08-08)
+[LB] Software Heritage Vault로 아카이브된 저장소를 git bare로 복원할 수 있다: `POST /api/1/vault/git-bare/(swhid)/`로 cooking 요청(revision·release·snapshot·directory 지원, 상태 new/pending/done/failed) 후 `/api/1/vault/git-bare/(swhid)/raw/`에서 tarball 다운로드, 풀면 `git clone swh:1:*.git new_repository`로 통상 clone 가능한 bare 저장소가 나온다. Vault는 "user-facing service that allows to retrieve parts of the archive as self-contained bundles"이며 cooking은 비동기(Celery)로 처리되고 완료 이메일 알림이 있다.
+     src: https://docs.softwareheritage.org/devel/swh-vault/index.html (2026-08-08)
+[LB] restic으로 git 저장소를 백업할 때 packfile이 중복제거를 깨뜨린다는 문제는 restic 공식 포럼에서 확인된다: "With respect to deduplication, you're going to have far more problems with git packfiles than you are with making a tarball of the clone" (cdhowie). 같은 스레드의 완화책: 매 백업마다 재clone하지 말 것("when you clone a repository, git is packing group of files arbitrarily, and they would probably end up different every time"), 기존 clone에 `git fetch --all`로 증분만 받아 packfile 구조를 안정시킬 것, bare clone/.git만 백업할 것 (creativeprojects).
+     src: https://forum.restic.net/t/how-to-optimize-for-deduplication/2649 (2026-08-08)
+[  ] "git gc 없이 백업" 완화책의 공식 근거: git gc는 repack(파일 리비전 압축)·prune(도달 불가 객체 제거)을 수행해 packfile을 통째로 재작성하며, 자동 gc는 `gc.auto=0`으로 완전 비활성화할 수 있다 — "Setting this to 0 disables not only automatic packing based on the number of loose objects, but also any other heuristic git gc --auto will otherwise use." 미러 저장소에 gc.auto=0을 설정하면 fetch 증분만 쌓여 restic 청크 중복제거가 보존된다.
+     src: https://git-scm.com/docs/git-gc (2026-08-08)
+[LB] git bundle은 시점 스냅샷 보존에 적합한 공식 메커니즘이다: `git bundle create`로 저장소 전체(또는 refs 선택)를 서버 없이 단일 파일로 만들고("offline transfer of Git objects without an active server"), `old..new` 범위로 증분 bundle을 만들 수 있으며(basis 커밋이 있어야 unbundle 가능), `git bundle verify`가 "checks on the bundle format itself as well as checking that the prerequisite commits exist and are fully linked"를 수행한다. bundle에서 직접 `git clone`/`git fetch`/`git ls-remote`가 된다. 단일 불변 파일이므로 객체 스토리지·아카이브 계층에 두기 좋고, 각 bundle이 생성 시점의 refs+이력을 동결하므로 upstream의 이후 rewrite와 무관하게 과거 상태를 복원할 수 있다.
+     src: https://git-scm.com/docs/git-bundle (2026-08-08)
+[LB] git clone --mirror + 주기 remote update는 refs 전체 보존의 표준 관행이다: --mirror는 "maps all refs (including remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs are overwritten by a git remote update". 그리고 upstream에서 삭제된 branch는 --prune 없이 fetch하면 로컬에 잔존한다 — "Git has a default disposition of keeping data unless it's explicitly thrown away; this extends to holding onto local references to branches on remotes that have themselves deleted those branches." 반대로 mirror refspec(refs/*:refs/*)에 --prune을 걸면 upstream에 없는 로컬 refs가 삭제된다는 공식 경고가 있으므로, '과거 문서 보장' 목적의 미러에서는 prune을 절대 켜지 말아야 한다(fetch.prune 미설정이 기본값).
+     src: https://git-scm.com/docs/git-fetch (2026-08-08)
+[LB] Wayback Machine Save Page Now 2(SPN2) API로 렌더링된 문서 사이트의 시점 보존 요청이 가능하다: `POST https://web.archive.org/save`, 인증은 archive.org S3 API 키(`Authorization: LOW accesskey:secret`), 옵션으로 capture_outlinks=1(페이지 내 링크까지 아카이브), capture_screenshot=1, if_not_archived_within(최근 캡처가 지정 기간보다 오래됐을 때만 캡처), 상태 조회 `GET /save/status/{job_id}`. 한도: 인증 사용자 7 captures/분·30,000/일·5GB/일, 익명 3/분·200/일, 동일 URL은 하루 5회까지. 단 UI 기본 저장은 "only saves a single page, not the whole site" — 사이트 전체는 outlinks 옵션이나 URL 목록 순회로 커버해야 한다.
+     src: https://docs.google.com/document/d/1Nsv52MvSjbLb2PCpHlat0gkzw0EvtSgpKHu4mk0MnrA (2026-08-08)
+--- UNRESOLVED ---
+ - Software Heritage save-code-now의 rate limit 수치와 전형적 처리 시간: archive.softwareheritage.org가 Anubis 봇 차단(Access Denied)이라 공식 API 페이지의 throttling 수치를 실측하지 못함. throttle scope 이름(swh_save_origin)만 소스에서 확인. 브라우저로 https://archive.softwareheritage.org/api/ 확인 필요.
+ - Software Heritage의 보존 '보장 수준'(SLA·영속성 약속)의 공식 문구 미확인 — 공공 아카이브라는 사실 외 계약적 보장은 없다고 추정되나 1차 소스 미확보.
+ - restic GitHub 이슈 트래커에서 git repack-dedup 전용 이슈는 검색으로 발견하지 못함(포럼 topic 2649가 확보된 유일한 실증 논의). WebSearch 예산 소진(200/200)으로 추가 교차검증 불가했음.
+ - GitHub fork network의 새 root 승계 시 '어느' fork가 선택되는지(oldest active 등 선정 기준)는 공식 문서에 명시 없음 — 'An active public fork becomes the new upstream'까지만 확정.
+ - GitHub 저장소 권장 크기 한도(문서상 권장 수 GB 수준)가 대형 docs repo fork에 실제 제약이 되는지 미실측.
+ - SPN2 문서가 Google Doc 형태(IA 직원이 유지)라 web.archive.org 도메인 내 정식 문서 대비 규범성이 한 단계 낮음 — 수치(7/분, 30k/일 등)는 이 문서 기준.
+--- VERDICTS ---
+  [CONFIRMED] GitHub public 저장소 삭제 시 fork는 살아남고, 활성 public fork가 network의 새 upstream이 된다 (fork = 0원 소멸 보험)
+       note: docs.github.com 'Deleting a repository'에서 "Deleting a public repository will not delete any forks of the repository", 'What happens to forks...' 문서에서 "An active public fork becomes the new upstream repository for the network" 둘 다 축자 확인. 단 승계 주체는 '활성(active)' public fork로 한정된다는 조건이 문서에 명시되어 있음 — 방치된 fork라도 삭제되지는 않으므로 보험 성립 자체는 유효.
+  [CONFIRMED] upstream이 public→private 전환되면 기존 public fork들은 별도 network로 분리되어 public인 채 존속한다
+       note: 공식 문서에서 "Its public forks stay public in a separate network" 축자 확인. private 전환 시나리오에서도 fork 보험이 유지된다는 결론은 문서와 일치.
+  [CONFIRMED] fork 보험 한계: private upstream 삭제 시 private fork도 삭제되고, fork의 가시성은 독립 변경 불가
+       note: 'Deleting a repository'에서 "Deleting a private repository will delete all forks of the repository", 'About forks'에서 "You cannot change the visibility of a fork by itself" 축자 확인. 'What happens to forks' 문서도 private 삭제 시 "Its private forks are also deleted"로 일치. fork 보험이 public 저장소에만 성립한다는 결론 타당.
+  [CONFIRMED] fork는 자동 sync되지 않아 수동 동기화 필요, 역으로 upstream force-push도 자동 전파 안 됨, 단 network 객체 공유 caveat 존재
+       note: syncing-a-fork 문서는 UI 'Sync fork'·gh repo sync·git fetch upstream 세 가지 수동 방법만 기술하며 자동 동기화 언급 없음 — 수동 sync 필요 확인. 객체 공유 caveat "Commits pushed to any repository in a network can be accessible from other repositories in that network, including the upstream repository" 축자 확인. force-push 비전파는 문서 축자가 아니라 fetch 의미론에서 나온 추론이지만 git 동작상 올바름.
+  [CONFIRMED] SWH save-code-now API: POST /api/1/origin/save/(visit_type)/url/(origin_url)/, visit_type 6종, 상태 accepted/pending/rejected, task 상태 6종, GET으로 추적, thro
+       note: swh-web 공식 소스(save_code_now/api_views.py) docstring에서 전부 축자 확인: visit_type은 bzr·cvs·git·hg·svn·tarball, accepted는 "well known code hosting providers like ... GitHub or GitLab", pending은 "until a manual check is done", rejected는 차단 URL, task 상태 not created/pending/scheduled/running/succeeded/failed, GET /api/1/origin/save/(request_id)/, throttle sco
+  [CONFIRMED] SWH Vault git-bare cooking으로 통상 clone 가능한 bare 저장소 복원 가능 (비동기 Celery, 이메일 알림, 상태 new/pending/done/failed)
+       note: swh-vault 공식 문서에서 "user-facing service that allows to retrieve parts of the archive as self-contained bundles" 및 Celery 비동기 cooking 확인. swh-web vault/api_views.py docstring에서 git-bare 엔드포인트(revision·release·snapshot·directory 지원), 상태 "new/pending/done/failed", /raw/ 다운로드, "tar -xf ... 후 git clone swh:1:*.git new_repository" 절차, 이메일 알림까지 전부 축자 확인.
+  [CONFIRMED] restic + git packfile 중복제거 문제와 완화책(재clone 금지, git fetch --all 증분, bare clone/.git만 백업)은 restic 공식 포럼 topic 2649에서 확인된다
+       note: 포럼 Discourse JSON(/t/2649.json)을 직접 파싱해 발언자 귀속까지 교차 검증: cdhowie가 "you're going to have far more problems with git packfiles than you are with making a tarball of the clone", creativeprojects가 "don't re-clone every time... (git fetch --all)", "git is packing group of files arbitrarily, and they would probably end up different every time", bare clone
+  [CONFIRMED] git bundle은 서버 없는 단일 파일 스냅샷 메커니즘: 증분(old..new) 지원, verify로 형식·prerequisite 검사, bundle에서 clone/fetch/ls-remote 가능, push 불가
+       note: git-scm.com/docs/git-bundle에서 전부 축자 확인: "offline transfer of Git objects without an active server", old..new 범위는 old가 존재해야 unbundle 가능, verify는 "checks on the bundle format itself as well as checking that the prerequisite commits exist and are fully linked", clone/fetch/ls-remote 모두 명시 지원, "a git push into a bundle is not supported". 불변 시점 스냅샷이라는 활
+  [CONFIRMED] git clone --mirror + remote update는 refs 전체 보존 표준이며, --prune 없이는 upstream 삭제 branch가 로컬에 잔존하고, mirror refspec에 prune을 켜면 로컬 refs가 삭제되므로 보존 미러에서는 prune
+       note: git-clone 문서 --mirror 정의("maps all refs (including remote-tracking branches, notes etc.) and sets up a refspec configuration such that all these refs are overwritten by a git remote update") 축자 확인. git-fetch PRUNING 절에서 "Git has a default disposition of keeping data unless it's explicitly thrown away; this extends to holding onto local references t
+  [CONFIRMED] Wayback SPN2 API: POST web.archive.org/save, S3 키 인증(LOW), capture_outlinks/capture_screenshot/if_not_archived_within 옵션, /save/status/{job_id}, 한도 인증
+       note: SPN2 공식 Google Doc(mobilebasic 뷰로 실측)에서 전부 확인: "SPN2 runs on https://web.archive.org/save", "Authorization: LOW myaccesskey:mysecret", 세 옵션 동작 설명, GET /save/status/{job_id}, 인증 7캡처/분·30,000/일·5GB/일, 익명 3/분·200/일(추가로 익명 2GB/일 한도도 존재), 동일 URL 하루 5회. help.archive.org에서 "this method only saves a single page, not the whole site" 및 기본 저장은 outlinks 미포함 확인
+====================================================================================================
+KEY: tiered-design
+--- SUMMARY ---
+핫 로컬 캐시 + 콜드 보존 계층 설계를 1차 소스 실측으로 확정했다. (1) 계층 수는 대체 불가능성에 차등: 3-2-1-1-0(Veeam)의 개인 번역은 docs-mirror에 core보다 얇은 계층을 주되 '0원 보험'을 깔아두는 것. (2) 콜드 경제 실측: Deep Archive $0.00099/GB-월(180일 최소)로 500GB×20년=$118.80, 전량 복원은 Bulk 48h ~$37/Standard 12h ~$46 — B2($6.95/TB, 20년 $834, 복원 무료·즉시)의 1/7, Wasabi($7.99/TB+1TB 최소과금+90일 최소+egress 공정사용 조건 → 20년 $1,918)는 탈락. '거의 안 꺼내는 시점 스냅샷' 최적 계층 = Deep Archive 확정. (3) 구조적 제약 발견: restic은 cold storage 백엔드 불가(issue #3202, 2020~open)라 Glacier에는 self-contained 파일만 갈 수 있고, git bundle이 정확히 그 형태다 — revision range 증분 + verify + 직접 clone 지원. git 이력의 append-mostly 특성상 'full 1개+월간 증분 체인'이 모든 과거 시점을 중복 없이 보존하므로 GFS식 full 다중화가 불필요(체인 손상 대비 수년 주기 re-baseline만). (4) core 타깃 공유: restic 태그+--group-by로 한 repo 안에서 mirrors/core 보존 정책 분리가 공식 지원되고, B2는 API 무료·최소기간 없음이라 한계 비용은 순수 저장량뿐. (5) 권고: 현행 5–30GB에서는 ⓐ GitHub fork(upstream 삭제 시 fork가 새 upstream으로 승격 — 공식 확인) + ⓒ core restic/B2 repo에 mirror 태그로 통합(연 $2.50, 노동 0 추가). ~100GB 돌파 시 ⓑ 월간 git bundle→Deep Archive 체인을 추가하고 restic 쪽은 유한 보존으로 전환. ⓓ NAS는 오프사이트가 아니라 단독 부적격, ⓔ 상시 동기화 풀 미러는 보존 보장 대비 운영비 과잉. 이 구성은 2–3주당 30–45분 유지비 예산 안에 든다.
+--- FINDINGS ---
+[  ] 3-2-1 규칙의 현대 확장은 3-2-1-1-0: 3 copies, 2 media, 1 off-site에 '1 immutable/air-gapped copy'와 '0 recovery errors(복구 검증)'를 추가한다. 개인 규모 적용 시 함의: 계층 수는 데이터의 대체 불가능성에 비례 배분 — docs-mirror처럼 '90%가 upstream에서 재취득 가능하나 장기적으로 보장 없는' 데이터는 core(대체 불가)보다 낮은 계층 수(오프사이트 1 + 0원 보험)로 시작하고, 가정 (b)가 현실화되는 비율만큼 계층을 올리는 차등이 정석이다.
+     src: https://www.veeam.com/blog/321-backup-rule.html (2026-08-08 fetched)
+[LB] S3 Glacier Deep Archive 저장 단가 $0.00099/GB-월($1/TB-월), 최소 저장 기간 180일. 500GB × 20년 = 500 × $0.00099 × 240 = $118.80 (연 $5.94, 월 $0.50). 현행 30GB면 20년 $7.13. '거의 안 꺼내는 시점 스냅샷'에는 이 계층이 압도적 최적 — B2의 1/7, Wasabi의 1/16 이하.
+     src: https://aws.amazon.com/s3/storage-classes/glacier/ (2026-08-08 fetched)
+[LB] Deep Archive 복원 실측: Standard 복원 12시간 이내 $0.02/GB, Bulk 복원 48시간 이내 $0.0025/GB (Expedited 없음). 인터넷 egress는 us-east-1 기준 $0.09/GB(첫 10TB 구간, 글로벌 무료 티어 초과분). 500GB 전량 복원 1회 = Bulk $1.25 + egress ~$36 ≈ $37 / Standard $10 + $36 ≈ $46. 즉 '20년에 한 번 꺼낼까 말까'인 보존층에서 복원 비용은 총비용을 뒤집지 못한다.
+     src: https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html (2026-08-08 fetched (가격은 pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3/current/us-east-1/index.json 및 AWSDataTransfer 동일 경로에서 실측))
+[LB] Backblaze B2 실측: $6.95/TB-월(2026-08 현재, 종전 $6에서 인상됨), 최소 저장 기간 없음, egress는 월평균 저장량의 3배까지 무료(초과 $0.01/GB), API 호출 무료(Class A/B/C). 500GB × 20년 = $834(연 $41.70), 복원은 무료·수 시간. 현행 30GB면 연 $2.50. Deep Archive 대비 저장은 7배 비싸지만 thaw 없이 즉시 접근 가능하고 restic 백엔드로 그대로 쓸 수 있다는 것이 차별점.
+     src: https://www.backblaze.com/cloud-storage/pricing (2026-08-08 fetched)
+[LB] Wasabi는 이 용도에서 탈락: $7.99/TB-월 + 월 최소 과금 1TB(500GB만 써도 1TB 청구 → 20년 $1,917.60) + 90일 최소 저장 기간(조기 삭제 시 잔여일 Timed Deleted Storage 과금) + '무료 egress'는 월 egress ≤ 활성 저장량이라는 공정사용 조건부(상습 초과 시 서비스 제한·정지 권리 명시). 세 축 모두에서 Deep Archive·B2에 열위.
+     src: https://wasabi.com/cloud-storage-pricing/pricing-faqs (2026-08-08 fetched (최소과금: docs.wasabi.com/docs/how-does-wasabis-monthly-minimum-storage-charge-work, 90일: docs.wasabi.com/docs/how-does-wasabis-minimum-storage-duration-policy-work))
+[LB] restic은 Glacier류 cold storage를 백엔드로 쓸 수 없다: 저장소 metadata·index를 수시로 읽어야 하는 구조라 thaw 지연·복원 과금과 충돌. 2020-12에 열린 논의(#3202)가 2026년 현재도 open이며 공식 문서의 S3 백엔드 절에도 storage class/Glacier 언급이 없다. 따라서 '⑿ restic 저장소를 통째로 Deep Archive에' 같은 설계는 불가하고, cold 계층에는 self-contained 파일(git bundle, tar)만 놓을 수 있다 — 이것이 설계안 ⓑ(bundle→cold)와 ⓒ(restic→hot)를 구조적으로 가르는 사실.
+     src: https://github.com/restic/restic/issues/3202 (2026-08-08 fetched)
+[LB] restic 보존 정책 문법은 GFS를 그대로 표현하며, 한 repo 안에서 core와 mirrors의 정책 분리가 가능하다: --keep-daily/weekly/monthly/yearly n(기간별 최신 1개 유지), --keep-within 2y5m7d3h, --keep-tag. 스냅샷은 기본적으로 host+paths로 그룹핑되어 정책이 그룹별 독립 적용되고, --group-by paths,tags로 태그 축 추가 가능. forget --tag는 콤마=AND, 반복=OR. 즉 mirrors/ 스냅샷에 태그(예: mirror)를 붙이고 별도 forget 실행(--tag mirror --keep-monthly unlimited 등)을 돌리면 같은 repo·같은 타깃에서 core와 다른 rotation을 운용할 수 있다. 한계 비용은 저장량뿐(B2는 API 무료·최소기간 없음). 완전 격리(잠금·prune 간섭, 손상 반경 분리)를 원하면 같은 버킷에 별도 repo — 이 경우 dedup만 포기.
+     src: https://restic.readthedocs.io/en/latest/060_forget.html (2026-08-08 fetched)
+[LB] git bundle은 증분 아카이브를 공식 지원한다: revision range(lastBundle..main)로 만든 번들은 좌변 객체를 전제(prerequisite)로 하는 증분이 되고, git bundle verify로 무결성·전제 충족을 검증하며, clone/fetch/ls-remote를 번들 파일에 직접 걸 수 있다. 핵심 산수: git 이력은 append-mostly이므로 'full 1개 + 월간 증분 체인'이 모든 과거 시점을 객체 중복 없이 보존한다 — 파일 스냅샷과 달리 GFS식 full 다중 보관이 불필요. 500GB 코퍼스에 월 증분을 0.5–2%로 가정하면 +2.5–10GB/월 → 20년 후 저장량 ≈ 560GB–2.9TB, Deep Archive에서 최악 케이스도 월 $3 미만. 리스크는 체인 링크 1개 손상 시 이후 전체 복원 불가 → 수년 주기 re-baseline full(개당 20년 보유 시 ~$5.94/년)로 절충.
+     src: https://git-scm.com/docs/git-bundle (2026-08-08 fetched)
+[LB] GitHub fork는 실질적 0원 보험이다: public upstream이 삭제되면 활성 public fork가 네트워크의 새 upstream으로 승격되어 살아남고, upstream이 private로 전환돼도 기존 public fork는 별도 네트워크로 분리되어 public으로 유지된다. 또한 fork는 자동 동기화되지 않으므로 upstream의 force-push/이력 rewrite가 내 fork의 기존 이력을 소급 파괴하지 못한다(단, 마지막 sync 이후의 새 이력은 sync해야 확보). 한계: 크롤 산출물(비-git 10%) 미포함, GitHub 단일 플랫폼 의존, '시점 보장'은 sync 시점 단위.
+     src: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/what-happens-to-forks-when-a-repository-is-deleted-or-changes-visibility (2026-08-08 fetched)
+[  ] GFS(grandfather-father-son)는 3개 이상의 주기(일간 son·주간 father·월간 grandfather)를 겹쳐 돌리는 고전 rotation으로, '최근 오류 방어(고빈도) + 장기 보존(저빈도 장기 보유)'의 균형이 요지이며 오프사이트 반출과 결합하는 것이 관행. 이 시스템 번역: mirrors/는 son(로컬 작업본)·father(restic 최근 N개월)·grandfather(월간 bundle 영구 보존)로 대응된다.
+     src: https://en.wikipedia.org/wiki/Backup_rotation_scheme (2026-08-08 fetched)
+[  ] 참고: Glacier Flexible Retrieval($0.0036/GB-월, 최소 90일)은 Bulk 복원이 무료·5–12시간이라 '복원 빈도가 애매한' 중간 계층 후보지만, 저장 단가가 Deep Archive의 3.6배라 '거의 안 꺼내는 시점 스냅샷'에는 여전히 Deep Archive가 우세. 20년 저장 대비 복원 1회 비용 차($1.25)가 저장 차액(20년 $317 vs $119)을 못 메운다.
+     src: https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html (2026-08-08 fetched)
+[LB] 종합 비교표(연간 비용 = 저장료 기준, 복구 시간 = 전량 기준). ⓐ GitHub fork만: 30GB $0 / 500GB $0; 노동 fork 생성+간헐 sync ~10분/월; 복구 즉시(clone); 시점 보장 = sync 시점만, 크롤 산출물 없음, 플랫폼 의존. ⓑ fork + 월간 git bundle→Deep Archive: 30GB <$1/yr / 500GB $6–12/yr(체인+re-baseline 포함 20년 총 ~$150–300); 노동 = 스크립트화 후 자동, 검증 포함 ~15분/월; 복구 12–48h + $37–46(500GB); 시점 보장 최강(append-only 체인, 모든 월간 시점). ⓒ restic에 mirrors/ 통합(B2): 30GB $2.50/yr / 500GB $41.70/yr(dedup·압축으로 실효 절감 가능); 노동 ≈ 0 추가(core 파이프라인 편승); 복구 수 시간·$0; 시점 보장 = --keep-monthly 무제한이면 동등하나 cold 단가 불가. ⓓ NAS bare mirror: 초기 HW $300–800 + 디스크, 전력·유지 노동 상시; 복구 LAN 속도로 최속; 단 오프사이트 아님 → 3-2-1의 '1'을 못 채움, 단독으론 불충분. ⓔ 풀 중앙 미러(상시 동기화): 비용·노동 최대(상시 동기화 파이프라인 유지)이며 아카이브 목적에 과잉 — 보존 보장은 ⓑ와 동일 수준인데 운영비만 높다. 권고: 현행 5–30GB = ⓐ+ⓒ(한계비용 연 $2.50, 노동 0 추가), ~100GB 돌파 시 ⓑ를 추가하고 restic 쪽은 --keep-monthly 12 등 유한 보존으로 전환. ⓓ는 NAS를 core용으로 어차피 들일 때만 부수 채택.
+     src: https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3/current/us-east-1/index.json (2026-08-08 계산)
+--- UNRESOLVED ---
+ - AWS Price List API us-east-1 파일에서 Deep Archive 저장의 자체 SKU(TimedStorage-GDA-ByteHrs)가 검출되지 않았다 — $0.00099는 공식 스토리지 클래스 페이지 문구와 Intelligent-Tiering DAA 동일 단가로 교차확인했으나, 실제 계정·리전의 최종 단가는 콘솔/계산기에서 재확인 권장
+ - AWS 인터넷 egress의 '글로벌 무료 티어'(월 100GB로 알려짐) 현행 조건을 1차 소스로 직접 확인하지 못함 — 가격표에는 'beyond the global free tier' 문구만 실측됨(복원 비용 산출의 ±$9 오차 요인)
+ - 월간 증분 bundle 크기 0.5–2%/월 가정은 실측이 아님 — 채택 시 첫 2–3개월 실제 미러 대상으로 증분 크기를 계측해 산수를 재검증할 것
+ - Wasabi $7.99/TB가 전 리전 동일가인지, B2 $6.95/TB 인상의 발효 시점·약정 옵션(B2 Reserve)은 미조사 — 단 두 값 모두 2026-08-08 공식 페이지 실측치
+ - WebSearch 예산 소진(200/200)으로 커뮤니티의 개인 규모 실무 관행(r/DataHoarder류 3-2-1 차등 적용 사례)은 방법론 문서(Veeam·Wikipedia)로만 뒷받침됨
+ - AWS 해지 후 30일 보존 약관은 이전 조사 확정값을 그대로 인용(이번 세션 재검증 안 함)
+--- VERDICTS ---
+  [CONFIRMED] S3 Glacier Deep Archive $0.00099/GB-월, 최소 180일, 500GB×20년=$118.80, B2의 1/7·Wasabi의 1/16 이하
+       note: AWS 공식 페이지에서 "$0.00099 per GB-month (or $1 per TB-month)" 축자 확인, 요금 페이지에서 "minimum storage duration of 180 days" 확인. Price List API(us-east-1) JSON을 직접 내려받아 $0.00099/GB-월(TimedStorage-INT-DAA-ByteHrs SKU) 교차확인. 산식 재계산: 500×0.00099×240=$118.80(연 $5.94·월 $0.50), 30GB→$7.128≈$7.13 정확. 비율도 $834/$118.80≈7.0배, $1,917.60/$118.80≈16.1배로 성립.
+  [CONFIRMED] Deep Archive 복원: Standard 12h $0.02/GB, Bulk 48h $0.0025/GB, Expedited 없음, egress $0.09/GB(100GB 무료 티어 초과분), 500GB 전량 Bulk ≈$37 / Standard ≈$46
+       note: AWS 복원 옵션 문서의 표에서 Deep Archive: Expedited "Not available", Standard "Within 12 hours", Bulk "Within 48 hours" 축자 확인. Price List API JSON 실측: "$0.02 per GB Standard retrieval fee from Glacier Deep Archive", "$0.0025 per GB Bulk retrieval fee", egress "$0.090 per GB - first 10 TB / month data transfer out beyond the global free tier" + "$0 for 100GB 
+  [CONFIRMED] Backblaze B2 $6.95/TB-월(종전 $6에서 인상), 최소 기간 없음, 3x 무료 egress(초과 $0.01/GB), Class A/B/C API 무료, 500GB×20년=$834
+       note: 공식 요금 페이지(2026-08)에서 "Starts at $6.95 / TB / mo", "No minimum file size or storage duration fees", "Free egress up to 3x storage", 초과 "$0.01/GB", "Class A, B, and C API calls are free"(Class D는 유료) 전부 축자 확인. 산식 0.5×6.95×240=$834(연 $41.70), 30GB→연 $2.50 정확. 유일한 미검증점: '종전 $6에서 인상' 이력은 검색 예산 소진·archive.org 차단으로 1차 소스 확인 불가 — 다만 2023-10 이후 $6/TB였던 공지 이
+  [CONFIRMED] Wasabi 탈락: $7.99/TB + 월 최소 1TB 과금 + 90일 최소 기간(Timed Deleted Storage) + egress ≤ 저장량 공정사용 조건(위반 시 제한·정지)
+       note: 요금 페이지에서 "Starting at $7.99 TB/month" 확인. 공식 Pricing FAQ에서 "minimum monthly charge associated with 1 TB of active storage", 90일 전 삭제 시 "a Timed Deleted Storage charge equal to the storage charge for the remaining days will apply", egress 공정사용 "monthly egress data transfer is less than or equal to your active storage volume" + "we reserve the right 
+  [REFUTED] restic은 Glacier류 cold storage 백엔드 불가 — #3202 미해결·공식 문서에 storage class/Glacier 언급 없음·해법(metadata-hot 등)은 논의만 되고 미구현, cold 계층엔 self-contained 파일만 가능
+       note: 핵심 근거가 낡았다. #3202가 2020-12 이후 open인 것과 030 문서 S3 절에 storage class 언급이 없는 것은 사실이나, restic 0.18.0(2025-03-27, CHANGELOG Enh #5173 "Add experimental S3 cold storage support", #3202를 직접 참조)이 metadata-hot 방식을 실제 구현했고, 현행 공식 FAQ "Are cold storages supported?" 절이 `restic backup -o s3.storage-class=GLACIER` + `RESTIC_FEATURES=s3-restore restic restore -o s
+  [CONFIRMED] restic 보존 정책: --keep-daily/weekly/monthly/yearly·--keep-within 2y5m7d3h·--keep-tag, 기본 host+paths 그룹핑, --group-by paths,tags, --tag 콤마=AND·반복=OR, unli
+       note: restic 공식 문서 060_forget에서 전 항목 축자 확인: 기간별 최신 1개 유지("keep only the most recent one for each"), 2y5m7d3h 형식, 기본 그룹핑 "by their host name and paths", --group-by paths,tags 및 '' 지원, 콤마=AND·플래그 반복=OR 의미론, "A value of unlimited will be interpreted as 'forever'" 전부 문서와 일치. 태그별 별도 forget 실행으로 같은 repo 내 rotation 분리라는 운용 결론도 문서 의미론에서 직접 도출된다. B2 API 무료·최소기간 없
+  [CONFIRMED] git bundle 증분 공식 지원(revision range=prerequisite, verify, clone/fetch/ls-remote 직접 가능), 500GB+월 0.5–2% 증분 → 20년 560GB–2.9TB, Deep Archive 최악 월 $3 미만
+       note: git 공식 문서 인용 전부 축자 확인: "A revision range such as old..new will produce a bundle file that will require the revision old ... to exist", verify는 유효성·전제 커밋 검사 + "exit code is zero for success ... nonzero if invalid", clone/fetch/ls-remote를 번들에 직접 실행 가능. 단 산수 하한에 자체 모순: 월 +2.5GB 가정이면 240개월 증분 600GB + full 500GB ≈ 1.1TB이지 560GB가 아니다(560GB는 가정과 4배 이상 어긋남
+  [CONFIRMED] GitHub fork = 0원 보험: upstream 삭제 시 활성 public fork가 새 upstream으로 승격, private 전환 시 기존 public fork는 별도 네트워크로 public 유지, 자동 sync 없어 force-push 소급 파괴 불가
+       note: GitHub 공식 문서에서 "An active public fork becomes the new upstream repository for the network"(삭제 시)와 "Its public forks stay public in a separate network"(private 전환 시) 축자 확인. 자동 미동기화는 별도 문서 'Syncing a fork'가 웹 UI/CLI/명령줄로 수동 sync해야 함을 전제로 기술 — fork ref가 자동 갱신되지 않으므로 upstream force-push가 내 fork의 기존 이력을 소급 파괴하지 못한다는 추론도 타당. claim이 '활성(active)' fork 요건과 
+  [CONFIRMED] 종합 비교표(ⓐ–ⓔ)와 권고: 현행 5–30GB = ⓐ+ⓒ, ~100GB 돌파 시 ⓑ 추가
+       note: 표의 수치 골격은 전부 실측 확인된 입력에서 정확히 산출됨: 500×0.00099×240=$118.80, 0.5×6.95×240=$834(연 $41.70, 30GB 연 $2.50), Wasabi 1TB min×$7.99×240=$1,917.60, 복구 12–48h+$37–46 모두 재계산 일치. 두 가지 승계 주의: (1) ⓒ의 'cold 단가 불가' 전제는 claim 5 반박으로 약화 — restic 0.18+ 실험 기능으로 data pack만 Glacier에 두는 하이브리드가 이론상 가능하나 alpha·메타데이터 Standard 유지라 20년 보존층 권고를 뒤집을 수준은 아님. (2) ⓑ의 '20년 총 ~$150–3
