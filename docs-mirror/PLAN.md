@@ -10,7 +10,7 @@
 
 1. **SoR은 upstream, 여기는 캐시.** 진실의 원천은 벤더의 문서 저장소/사이트. 미러는 가용성(오프라인·소실 방어)·버전 고정·검색을 위한 사본일 뿐이다.
 2. **인간 저작물 제로.** `mirrors/` 아래에 사람이 쓴 파일 금지. 메모·요약·판단이 생기면 그것은 지식이므로 core로 보낸다(§6).
-3. **수집은 git 미러 우선.** 문서 소스가 공개 git 저장소면 clone이 곧 스냅샷+이력+버전(tag)이다. `git pull` = 증분, `git diff` = 변경 감지, `git checkout <tag>` = 버전 고정.
+3. **수집은 git 미러 우선 — 단 git 가용성은 전제가 아니라 소스별 확인 사항이다.** 문서 소스가 공개 git 저장소면 clone이 곧 스냅샷+이력+버전(tag)이다(`git pull` = 증분, `git diff` = 변경 감지, `git checkout <tag>` = 버전 고정). git 공급이 없는 벤더도 흔하다 — AWS는 문서를 GitHub(awsdocs 262개 저장소)에 공개했다가 2023-06 전량 아카이브로 철수(공식 블로그 확인) — 이런 소스는 §2 수집 우선순위 ③ 크롤 경로로 들어가며, 미러 수지가 안 맞으면 원칙 7 온디맨드 전용으로 남긴다.
 4. **색인은 필요가 실측되기 전까지 만들지 않는다** (core 원칙 5의 적용 — 색인은 retrofit O(1) 파생물). 0단계는 무색인: 라우팅 → `rg` → 파일 정독(§4).
 5. **백업하지 않는다.** restic·검증 원장·lint 비대상. 이 저장소의 git은 글루(계획·스크립트·스킬)만 담고 `mirrors/`는 ignore. 단 보존 보험은 캐시 밖 계층이 담당(§3.5).
 6. **core → docs-mirror 방향 참조 금지.** 정본이 소모품을 가리키면 소모품이 소모품이 아니게 된다. 인용이 필요하면 upstream 정식 URL + 버전을 쓴다. 역방향(승격)만 허용(§6).
@@ -26,7 +26,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
   tools/mirror               # 단일 CLI (결정적, LLM 무관) — 하위명령: validate·add·pull·status·remove(§2·§3)
   .agents/skills/docs-query/ # 검색 스킬 1개 (라우팅→rg→정독 절차)
   .gitignore                 # mirrors/  (`mirrors/**` 아님 — 디렉터리 표기라야 git이 프룬)
-  mirrors/                   # ★ git 제외 — 전량 재생성 가능 영역. 최상위에 CACHEDIR.TAG
+  mirrors/                   # ★ git 제외 — upstream 생존 시 재클론으로 전량 재생성(소멸 대비는 §3.5). 최상위에 CACHEDIR.TAG
     dbt/current/             #   git clone dbt-labs/docs.getdbt.com
     spark/3.5/  spark/4.0/   #   버전 고정이 필요한 기술만 tag별 워크트리 분리
     _converted/<tech>/       #   비-md 소스(rst·DocBook)의 md 변환 산출물 — 역시 재생성 가능
@@ -43,6 +43,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 - **스케줄러 불가지론(scheduler-agnostic).** 레이어의 진입점은 `tools/mirror pull` 하나이며 갱신 로직은 전부 레이어 글루에 산다 — 스케줄러는 이 명령을 주기 호출하는 외부자다. ⑴ 현재: launchd(macOS 네이티브, 주 1회 — cron 불채택: 조용한 실패가 fail-loud와 충돌, 슬립 중 스케줄 유실. plist는 tools/에 커밋, 설치 1회) ⑵ **Airflow 가동 시(사용자 로드맵 — 다중 크롤·배치의 공유 오케스트레이션 엔진, 2026-08-08 결정): 얇은 DAG(BashOperator → `tools/mirror pull`)로 이관.** 어느 경우든 갱신 로직의 DAG 이관 금지 — 오케스트레이터는 스케줄·재시도·가시성만 담당(글루 동거·엔진 외부 원칙, r4). 갱신 주기는 규약이 아니라 운영 파라미터.
 - **실패 가시성 3중**: ⑴ pull 실패 시 macOS 알림 + 로그 ⑵ `tools/mirror status`가 마지막 성공 시각·실패 목록·미러 나이 표시 ⑶ core 운영 캘린더(2–3주 세션)에서 status 확인 1줄 편승. 근본 완충 — 이 배치의 실패 결과는 "낡은 캐시"라 양성이며, 검색 스킬이 질의 시 미러 나이를 확인해 오래되면 pull 후 재검색한다(lazy 보정).
 - 추가 = `tools/mirror add`, 제거 = `tools/mirror remove <tech>` — 파괴 연산은 동사 경유가 기본(raw `rm -rf` 지양).
+- **동시성 모델 (단일 writer 전제 — r10·r11의 동시 writer>1 부재 판정)**: 소스 간은 디렉토리 격리로 병렬 안전, 소스 내 동시 연산은 git 자체 잠금이 fail-loud 차단, `pull`은 flock 단일 인스턴스 가드(겹침 = 무해 종료). 크로스 소스 원자성은 비보장 수용(부분 실패 = 낡은 캐시, 양성). 유일한 자가 저작 쓰기인 `_converted/` 변환만 temp-dir→rename 원자 교체(lakehouse 브랜치 전략의 전제는 그 외 부재 — merge 심사 대상인 '내 저작 쓰기'가 캐시에 없음).
 - **삭제 게이트** (`remove`/`reset`이 실행 전 검증 — core의 클린 워킹트리 게이트와 동형): ⑴ 대상이 sources.yaml 등록 디렉토리인지 — 미등록 잔류물은 계약 밖 물건이므로 중단·목록 출력 ⑵ 각 clone의 워킹트리가 클린인지 — 로컬 수정·미추적 파일 = 인간 저작물 혼입 신호이므로 중단 ⑶ §3.5 보존 계층(fork·스냅샷) 가동 여부 — 미가동이면 "손실 예산이 upstream 소멸분까지 확대된 상태"임을 경고 후 확인 요구.
 - **삭제 정책 — 기본 자세는 "지우지 않는다".** 삭제 가능성은 백업 면제를 정당화하는 설계 속성이지 운영 권장이 아니다. 유지비 0 설계에서 미러를 지울 이유는 거의 없으며(수 GB — 디스크 압박 사유 아님), 정당 사유는 셋뿐: ⑴ 미러 대상 제외 결정(sources.yaml에서 항목 제거와 동반) ⑵ `git fsck` 실패 등 손상 복구(해당 미러만 재클론) ⑶ 기기 폐기. "동기화가 꼬여서" 류의 반사적 전체 삭제 금지 — 그건 pull·fsck·해당 미러 단위 재클론으로 푼다. **에이전트는 mirrors/에 대한 파괴 연산(remove·reset·rm)을 사용자의 명시 지시 없이 실행하지 않는다.** 축적된 고정 버전 워크트리·upstream 소멸분의 잔존 사본은 시간이 지날수록 가치가 커지는 상태다 — sources.yaml이 상태의 완전한 기술이라 재구축은 결정적이지만, 재구축 가능이 곧 폐기 권장은 아니다.
 - **기기 교체 = 캐시 계약의 정상 발동, 이주 대상 아님.** 새 기기에서 glue repo clone + `tools/mirror pull`이 곧 이주 절차(문서 5종 실측 5.25GB — 재클론 수 분~수십 분, r8). Migration Assistant 통째 이동도 안전(정지 상태 전체 복사; worktree는 `git worktree repair` 1회). `mirrors/`의 CACHEDIR.TAG로 restic 등 백업 도구가 무설정 제외.
@@ -51,10 +52,11 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 
 미러 자체는 무백업이지만, "과거 시점을 다시 얻을 보장 없음"의 보험은 캐시 밖 4겹이 담당한다:
 
-- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 내 계정에 fork. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
+- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 전용 free org(`altera520-mirrors` — 2026-08-08 결정: 개인 프로필 격리 + owner 복수 등록으로 계정 단일점 해소, 10–20년 축의 존속성 이득. fork는 public 고정이라 프라이빗 사본 안은 동기화 글루 자작·용량 한계로 배제)에 fork. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
 - **0겹-보조 (0원) — Software Heritage**: 신규 등록 시 save-code-now API로 공공 아카이브 등록(GitHub URL 자동 승인, Vault git-bare 복원 지원).
 - **1겹 (현행 5–30GB) — core restic 타깃 편승**: core restic 원격(B2 후보)에 mirrors/ 스냅샷을 `mirror` 태그로 통합(한계비용 연 ~$2.50, 태그별 보존 정책 분리 공식 지원). **git 백업 규율**: `gc.auto=0` + 재클론 금지(fetch 증분만) + prune 금지 — packfile 재작성의 restic dedup 파괴 완화 + 삭제 브랜치 로컬 잔존 보장.
-- **2겹 (~100GB 돌파 시) — 월간 bundle 체인 → 콜드**: `git bundle`(full 1 + 월간 증분, `verify` 필수, 수년 주기 re-baseline) → S3 Glacier Deep Archive($0.00099/GB-월, 500GB 20년 ≈$119, Bulk 복원 ≤48h). 콜드에는 self-contained 파일만(restic repo 통째 불가). 이때 restic 쪽은 유한 보존(`--keep-monthly 12`) 전환.
+- **1겹-보조 (0원) — 사용자 Synology NAS 제2 restic repo**: 사용자 기보유 NAS(2026-08-08 확인 — r9의 신규 구축 TCO $3,000–4,500 논거는 보유자에게 비적용, 한계비용 ~0)에 동일 스케줄·동일 git 백업 규율로 백업. **오프사이트 아님(동일 주소 — 화재·도난 동일 운명)이라 클라우드 겹의 대체가 아니라 추가**: 로컬 신속 복원 + 클라우드 계정 리스크(해지·잠김) 헤지가 역할. 접근 방식(SFTP vs rest-server 컨테이너)은 설치 시 결정. §7 중앙 미러 기각과 무관 — 캐시 동기화 허브가 아니라 보존 사본이다.
+- **2겹 (~100GB 돌파 시) — 월간 bundle 체인 → 콜드**: `git bundle`(full 1 + 월간 증분, `verify` 필수, 수년 주기 re-baseline) → S3 Glacier Deep Archive($0.00099/GB-월, 500GB 20년 ≈$119, Bulk 복원 ≤48h). 콜드에는 self-contained 파일만(restic repo 통째 불가). 이때 restic 쪽은 유한 보존(`--keep-monthly 12`) 전환. bundle 체인의 NAS 사본은 0원이므로 100GB 게이트 전 선행 적치 가능 — 단 콜드(오프사이트)의 대체는 아니다.
 - **크롤 산출물**: Wayback SPN2 API(인증 30,000/일)로 렌더링본 시점 보존 병행.
 
 ## 4. 검색 — 0단계는 무색인, 색인은 게이트 통과 후
@@ -74,7 +76,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 
 | 실측된 pain | 도입 | 비고 (근거 r2) |
 |---|---|---|
-| 버전 병존 조회 | **arabold/docs-mcp-server** — `file://` 미러 투입, 버전 1급 스키마(semver 검색), ETag/mtime 증분, 색인에 LLM 불요, CLI+MCP | 카테고리 유일 성숙 완성품. bus factor 1이나 색인=파생물이라 할인 |
+| 버전 병존 조회 | **arabold/docs-mcp-server (1순위 후보 — 확정 승자 아님)** — `file://` 미러 투입, 버전 1급 스키마(semver 검색), ETag/mtime 증분, 색인에 LLM 불요, CLI+MCP | 검색 코어는 qmd 동일 계열(FTS5+vec+RRF)이라 순증 가치 = 버전 스키마+refresh 배관뿐(r2 분기점). **채택 절차: 게이트 qrels로 qmd 컬렉션 분할(버전별)과 A/B 대조 + r2 미해결 2건 실측(file:// mtime 기반 증분이 git pull·워크트리 생성과 충돌해 재색인 폭풍 가능성, CLI 콜드 스타트 지연) 후 결정.** "카테고리 유일 성숙"은 r2가 UNCERTAIN 마킹(경계 반례 mcpdoc·rust-docs). bus factor 1이나 색인=파생물이라 할인 |
 | 의미 검색 miss | **qmd 별도 컬렉션** — 임베딩 Qwen3-Embedding-0.6B | 기존 스택 재사용. qmd 리스크는 §8 r2 |
 
 ## 5. core와의 경계 계약 (동결)
@@ -117,7 +119,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 - **r2** (도구 지형 전수, 12): 무색인 성립 — Claude Code의 RAG→agentic search 교체(Cherny 원문), Amazon AAAI 2026 grep 에이전트 91.5% attainment, 성능 경계(원조 grep 100만 파일 4초)는 미러 규모의 2–3자릿수 위. docs-mcp-server 실사 — 버전 1급·증분·LLM 불요·`file://`(코드 수준 확인), bus factor 1. qmd 실사(core에도 해당) — tobi 개인 프로젝트·커밋 78% 단독·sqlite-vec 의존 pre-1.0 alpha·한국어는 형태소 아닌 문자 단위 정규화(소스 확인). 미확인: 한국어 grep miss율 정량 연구 부재(게이트 A/B가 결정 경로).
 - **r3** (코드·이슈 확장, 12): 코드 미러 — GitHub 코드 검색 default branch 한정(공식), 저장소 실측 dbt-core 87MB~ClickHouse 9.8GB, 문서 저장소가 코드보다 큰 경우 5중 4 → 근거 동결·보류. 이슈 — milestone 0.0%(ClickHouse 3만 건)·코멘트 API 30k 하드 캡(422 재현)·closed 이슈 계속 변함·JIRA 이원화 → 기각, gh search/JIRA 온디맨드 충분성 실증. GitHub AUP상 API 수집·사적 아카이브 허용.
 - **r8** (중앙 저장소 1차 심사, 8): 문서 5종 실측 합계 5.25GB(5,505,102KB), 20–30개 확장 10–30GB, blobless 시 수 GB(GitLab 97% 절감 사례). 기기 교체 3안 — Migration Assistant 자동 이전·재클론 10GB≈13분(100Mbps)·중앙 복원은 이득 0. 캐시 무이주 관행 — macOS TM이 ~/Library/Caches 기본 제외(tmutil 실측)·CACHEDIR.TAG 규격.
-- **r9** (보존 공간, 8): fork 생존성 공식 확정(public 삭제 시 존속·활성 fork 승격·force-push 비전파). SWH save-code-now API 실재(origins 4.38억 실측). restic×git packfile dedup 붕괴 실증(완화: gc.auto=0·fetch 증분). git bundle 증분 체인 = 시점 동결 최적. 단가 실측 — B2 $6.95/TB-월(500GB 20년 $834)·Deep Archive $0.00099/GB-월(500GB 20년 $118.80)·Wasabi 탈락(1TB 최소과금)·S3 Tables/Express One Zone 부적합·Garage/SeaweedFS/Ceph 부적합·NAS 20년 $3,000–4,500(자가 임계 2–3TB+). **정정**: AWS 해지 후 보존은 90일(30일은 미납 지불 기한 — r8 시점 기술을 정정). restic 0.18의 S3 cold 지원은 실험(alpha)이라 불채택.
+- **r9** (보존 공간, 8): fork 생존성 공식 확정(public 삭제 시 존속·활성 fork 승격·force-push 비전파). SWH save-code-now API 실재(origins 4.38억 실측). restic×git packfile dedup 붕괴 실증(완화: gc.auto=0·fetch 증분). git bundle 증분 체인 = 시점 동결 최적. 단가 실측 — B2 $6.95/TB-월(500GB 20년 $834)·Deep Archive $0.00099/GB-월(500GB 20년 $118.80)·Wasabi 탈락(1TB 최소과금)·S3 Tables/Express One Zone 부적합·Garage/SeaweedFS/Ceph 부적합·NAS 20년 $3,000–4,500(자가 임계 2–3TB+ — 후속 2026-08-08: 사용자 Synology NAS 기보유 확인, 신규 구축 TCO 논거 비적용 → §3.5 1겹-보조 채택). **정정**: AWS 해지 후 보존은 90일(30일은 미납 지불 기한 — r8 시점 기술을 정정). restic 0.18의 S3 cold 지원은 실험(alpha)이라 불채택.
 - **r10·r11** (레지스트리 관리·REST 심사, 10): Polaris = 멀티 엔진 상호운용·동시 writer CAS·RBAC·credential vending·Java+PostgreSQL 상시 — 전제 전부 부재. Backstage: source of truth는 git 내 YAML. 파일→서비스 승격 4변수(동시 writer>1·신뢰 경계·전량 복사 불가 질의·네트워크 분리) 전부 미충족 — crates.io는 176MiB·수백만 소비자에서도 동적 API 기각. 3요소 패턴이 표준형(pre-commit `validate-config`/`autoupdate`·dbt deps+lock·SchemaStore 1,414 스키마 실측). 로컬 REST 선례 6종(Obsidian Local REST API 등) 전수 = 비파일 클라이언트용 파사드, Home Assistant는 이중 표면 유지비로 YAML 축소 실증. 집행점 — Google presubmit·MDN·dbt 전부 커밋 게이트, 서비스 시점이 이기는 조건 3개(비git 쓰기 경로·익명 다수 writer·ms 경합) 전부 부재.
 
 **재평가 트리거**: ⑴ qmd 6개월 무활동 또는 sqlite-vec 사망 → 승계(완제품 Meilisearch — 한국어 Lindera ko-dic 기본 활성 확인 / 재조립 LanceDB) ⑵ docs-mcp-server open-core화 → MIT 시점 포크 ⑶ 색인 게이트 실측 → §4 1단계 ⑷ 코드 분석 수요 실측 → §7 코드 미러 보류 해제 ⑸ crawl 비중 증가·다기기·종량제 → §7 중앙 미러 재심 ⑹ 비파일 클라이언트·멀티유저 → §7 REST 파사드 재심.
