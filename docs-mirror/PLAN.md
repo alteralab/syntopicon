@@ -43,6 +43,18 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 - 미러 추가·제거 = sources.yaml 편집 + `tools/pull`. 제거 시 잔여물 정리는 `rm -rf mirrors/<tech>` — 캐시이므로 절차 없음.
 - **기기 교체 = 캐시 계약의 정상 발동, 이주 대상 아님.** 새 기기에서 glue repo clone + `tools/pull`이 곧 이주 절차(계획 5개 기술 실측 5.25GB — 100Mbps에서 ~수 분). Migration Assistant 통째 이동도 무해(정지 상태 전체 복사 — git FAQ 인정 패턴; worktree 사용 시 `git worktree repair` 1회). `mirrors/` 최상위에 **CACHEDIR.TAG** 파일을 둔다(캐시 디렉터리 표준 규격) — restic `--exclude-caches`·백업 도구들이 무설정으로 제외.
 
+## 3.5 보존 계층 — upstream 소멸·대용량 축적 시나리오 대비 (2026-08-08 확정, §8 5차)
+
+미러 자체는 캐시(무백업)가 원칙이지만, "과거 시점 문서를 다시 얻을 보장 없음"에 대한 보험은 캐시 밖 계층이 담당한다. 4겹 — 전부 1차 소스 검증 완료:
+
+- **0겹 (상시·0원) — GitHub fork**: 미러 대상 저장소를 내 계정에 fork해 둔다. 공식 보장: public upstream 삭제 시 fork 생존(활성 fork가 network의 새 upstream으로 승격), private 전환 시에도 기존 public fork는 별도 network로 존속. fork는 자동 sync가 없어 upstream force-push가 이력을 소급 파괴하지 못한다(보존상 장점 — 간헐 수동 sync만). sources.yaml에 fork URL 기록.
+- **0겹-보조 (0원) — Software Heritage**: 신규 미러 등록 시 save-code-now API(`POST /api/1/origin/save/git/url/…`)로 공공 아카이브 등록 — GitHub/GitLab URL 자동 승인, Vault git-bare cooking으로 clone 가능한 복원 지원.
+- **1겹 (현행 규모 5–30GB) — core restic 타깃 편승**: core용으로 구축하는 restic 원격 타깃(B2 후보 — $6.95/TB-월·최소기간 없음·3× egress 무료)에 mirrors/ 스냅샷을 `mirror` 태그로 통합. 한계비용 연 ~$2.50(30GB), 노동 0 추가(같은 repo에서 태그별 보존 정책 분리 공식 지원). **git 백업 규율**: 미러에 `gc.auto=0` + 재클론 금지(fetch 증분만) + prune 금지 — packfile 재작성이 restic 중복제거를 깨는 실증 문제(restic 포럼 확인)의 완화이자, upstream 삭제 브랜치의 로컬 잔존 보장.
+- **2겹 (~100GB 돌파 시) — 월간 bundle 체인 → 콜드**: `git bundle`(full 1 + 월간 증분, `verify` 필수, 수년 주기 re-baseline) → S3 Glacier Deep Archive($0.00099/GB-월 — 500GB 20년 ≈$119, 복원 Bulk 48h ≈$37). git 이력은 append-mostly라 이 체인이 모든 월간 시점을 중복 없이 동결한다. 콜드에는 self-contained 파일만(restic repo 통째 불가 — 0.18 실험 기능은 alpha). 이때 restic 쪽은 `--keep-monthly 12` 유한 보존 전환.
+- **크롤 산출물**: Wayback SPN2 API(`POST /save`, 인증 시 3만/일)로 렌더링본 시점 보존 병행.
+
+**기각 유지 — 상시 동기화 풀 중앙 미러**(S3 sync·NAS 상주·자가 객체 스토리지): 보존 보장은 위 계층과 동일한데 운영비만 높다. 부적합 판정(§8 5차): S3 Tables(Iceberg 표 전용 — 파일 보관 불가), S3 Express One Zone($0.110/GB 저지연용), Wasabi(1TB 최소과금+90일 최소보존), Garage/SeaweedFS/Ceph(3노드 전제·1인 의존·과잉 — 근본적으로 git이 프로토콜·fsck·증분을 내장하므로 S3 API 계층 자체가 불필요). NAS는 오프사이트가 아니라 단독 부적격 — core용으로 도입할 경우에만 bare mirror를 부수 채택.
+
 ## 4. 검색 — 0단계는 무색인, 색인은 게이트 통과 후
 
 **0단계 (현행): 라우팅 → rg → 정독.**
@@ -94,7 +106,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 | llms-full.txt 통독 | 대형 프로젝트 통독 불가(dbt 10.5MB≈2M+ 토큰, 실측). Cloudflare 스스로 "오프라인 인덱싱 원료"로 규정 | 해당 없음 — 인덱스(llms.txt)+페이지 fetch는 폴백으로 채택 중 |
 | Context7 등 클라우드 문서 서비스 의존 | 무료 경로로 사설 미러 투입 불가, 색인 통제권 없음, 서비스 종료 실증(docfork 2026-06), injection 사례(ContextCrush) | 보조 참고용으로는 지금도 자유 — 레이어의 기반으로는 불가 |
 | 버전별 코드 미러 | **보류(기각 아님)** — 3차 리서치(§8)로 성립 근거는 확보됨: GitHub 코드 검색은 default branch만 색인(공식 확정)이라 버전 고정 코드 분석은 로컬 clone 외 대안 없음, 비용도 경미(문서 저장소가 코드보다 큰 경우 5중 4). 다만 수요 미실측 상태의 선제 구축은 원칙 4 위반 | 버전 고정 코드 분석 수요가 실사용에서 반복 실측될 때. 규약은 확정 상태로 대기: blobless clone 1개 + `git grep <tag>`(checkout 불요) + 정독 버전만 worktree + commit SHA를 sources.yaml에 고정(태그 가변 — tj-actions 사고 실증) + `.rgignore`(Spark 테스트·픽스처 58%). 채택 시 레이어명 재검토(docs가 부정확해짐) |
-| 미러의 중앙 저장소 (S3·NAS·MinIO) | **기각**(4차 미러 리서치, §8) — 우려의 두 전제 반증: 크기는 실측 5.25GB(30개 확장 10–30GB, blobless 시 수 GB)로 기본 SSD의 1–9%, 기기 교체는 캐시가 "옮기지 않는" 데이터라 부담 자체가 부재(재클론 ~13분 또는 Migration Assistant 자동 이전). 중앙 저장소는 같은 바이트를 같은 회선으로 받으며 계정 존속 리스크(AWS 30일 보존·MinIO 커뮤니티 붕괴 실증·NAS HDD 수명 6.75년)만 추가. upstream 소멸 방어는 공공 인프라(Software Heritage 4.4억 origins·GitHub 협약)와 승격 스냅샷(archive/+restic)이 이중 커버 | ⑴ crawl 폴백 산출물 비중 증가(재크롤 비결정적 — 그 부분만 백업 경계 승격, 중앙 캐시 아님) ⑵ 다기기 동시 소비 ⑶ 종량제·극저속 회선 |
+| 미러의 중앙 저장소 (S3·NAS·MinIO) | **재심 완료(2026-08-08, 5차) → 보존 계층(§3.5)으로 해소** — 상시 동기화 풀 미러는 기각 유지, 대신 fork(0원)+restic 편승+bundle→콜드의 4겹 채택. 이하 원 기각 근거(4차, §8) — 우려의 두 전제 반증: 크기는 실측 5.25GB(30개 확장 10–30GB, blobless 시 수 GB)로 기본 SSD의 1–9%, 기기 교체는 캐시가 "옮기지 않는" 데이터라 부담 자체가 부재(재클론 ~13분 또는 Migration Assistant 자동 이전). 중앙 저장소는 같은 바이트를 같은 회선으로 받으며 계정 존속 리스크(AWS 30일 보존·MinIO 커뮤니티 붕괴 실증·NAS HDD 수명 6.75년)만 추가. upstream 소멸 방어는 공공 인프라(Software Heritage 4.4억 origins·GitHub 협약)와 승격 스냅샷(archive/+restic)이 이중 커버 | ⑴ crawl 폴백 산출물 비중 증가(재크롤 비결정적 — 그 부분만 백업 경계 승격, 중앙 캐시 아님) ⑵ 다기기 동시 소비 ⑶ 종량제·극저속 회선 |
 | 이슈 전량 미러 | **기각** — 캐시 계약 3중 위반(전부 실측): ⑴ 버전 축 부재 — ClickHouse milestone 사용률 0.0%, JIRA affectedVersion도 채워진 것의 과반이 불신(TOSEM 2021) ⑵ 재생성이 조건부 — 코멘트 API 30,000건 하드 캡, 재수집 비결정적(수정·삭제 tombstone 없음) ⑶ closed 이슈도 계속 변해 수렴 없음. Spark·Kafka는 JIRA 정본이라 단일 수집 규약 불성립 | 해당 없음 — 대체 경로가 상시 유효(§4 폴백): 온디맨드 조회 + 유용 스레드만 canon 승격(선별은 저작 행위이므로 이 레이어에 둘 수 없음) |
 
 ## 8. 검증 원장 (요약 — 전문은 리서치 산출물)
@@ -114,5 +126,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 - **3차 리서치(2026-08-08, 12 에이전트 — 코드·이슈 확장 심사)**: 코드 미러는 성립 근거 확보 후 보류(§7 — GitHub 코드 검색 default branch 한정 공식 확정, 대상 저장소 실측 dbt-core 87MB·Kafka 298MB·Spark 578MB·ClickHouse 9.8GB, 문서 저장소가 코드보다 큰 경우 5중 4). 이슈 전량 미러는 기각(§7 — milestone 0.0%·코멘트 30k 캡·closed 이슈 5주 내 갱신 29건 등 전부 API 실측). 이슈 온디맨드 충분성 실증: gh search issues 실전 질의 재현 성공, ASF JIRA 익명 REST maxResults=1000 수용. 약관: API 수집·사적 아카이브는 GitHub AUP 명시 허용(재배포만 근거 없음).
 
 - **4차 미러 리서치(2026-08-08, 8 에이전트 — 중앙 저장소 심사)**: 크기 실측 — 계획 5개 문서 저장소 합계 5.25GB(GitHub API), 20–30개 확장 10–30GB, blobless 시 수 GB(GitLab 실측 97% 절감 사례), 코드 미러 활성 시 +11.4GB(ClickHouse 86%). 기기 교체 3안 비교 — Migration Assistant 자동 이전(git 정지 복사 안전)·재클론 10GB≈13분(100Mbps)·중앙 복원은 시간 이득 0에 비용만 추가. 캐시 무이주 관행 — macOS가 ~/Library/Caches를 TM 기본 제외(tmutil 실측)·npm/Cargo/pip/Docker 전부 재수화 표준·CACHEDIR.TAG 규격+restic --exclude-caches. 중앙 저장소 20년 리스크 — AWS 해지 후 30일 보존·Cloudflare 무사유 해지·Nirvanix 14일 파산·MinIO 커뮤니티 에디션 2025–26 붕괴(repo archived 실측)·HDD 수명 중앙값 6.75년. upstream 소멸 방어 — Software Heritage 실측(origins 4.38억·GitHub 협약·Vault git-bare 복원) + 승격 스냅샷 자체 방어선.
+
+- **5차 미러 리서치(2026-08-08, 8 에이전트 — 보존 저장소 해답 공간)**: S3 Tables=Iceberg 표 전용(부적합)·Express One Zone=$0.110/GB 저지연용(부적합)·Wasabi=1TB 최소과금(탈락)·Garage 3노드 전제·SeaweedFS 1인 의존·Ceph 과잉 — git 콘텐츠에 S3 API 불필요(fsck·SSH·증분 내장) 확정. 생존: B2 $6.95/TB-월(500GB 20년 $834)·Deep Archive $0.00099/GB-월(500GB 20년 $118.80, Bulk 복원 48h $37). **GitHub fork 생존성 공식 확정**(public 삭제 시 fork 존속·활성 fork가 새 upstream 승격·private 전환 시 public fork 분리 존속·force-push 비전파). Software Heritage save-code-now API 실재(GitHub 자동 승인·Vault git-bare 복원). restic×git packfile 중복제거 붕괴 실증(완화: gc.auto=0·fetch 증분·재클론 금지). git bundle 증분 체인 = 시점 동결 최적(verify 내장·직접 clone). NAS 20년 TCO $3,000–4,500(500GB에서 B2의 4–5배, 자가 임계 2–3TB+). **정정**: AWS 해지 후 보존은 30일이 아니라 90일(30일=미납 지불 기한). restic 0.18에 S3 cold 실험 지원 등장(alpha — 채택 안 함).
 
 **재평가 트리거**: ⑴ qmd 커밋 공백 6개월 지속 또는 sqlite-vec 사망 → 승계 경로 검토(완제품 Meilisearch — 한국어 Lindera ko-dic 기본 활성 확인 / 재조립 LanceDB) ⑵ docs-mcp-server open-core화 → MIT 시점 포크 ⑶ 색인 게이트 실측 결과 → §4 1단계 ⑷ 버전 고정 코드 분석 수요 실측 → §7 코드 미러 보류 해제(+레이어명 재검토) ⑸ crawl 산출물 비중 증가·다기기·종량제 회선 → §7 중앙 저장소 재심.
