@@ -37,20 +37,16 @@ flowchart LR
 
 ## 지식 파이프라인
 
+### 쓰기 경로 (kb-ingest, 소스당 1런 = 1커밋)
+
 ```mermaid
 sequenceDiagram
     autonumber
     participant H as 인간
-    box transparent 파이프라인
-        participant T as 결정적 도구
-        participant L as LLM
-    end
-    box transparent 저장과 파생
-        participant K as KB 저장소
-        participant S as 색인과 검색
-    end
+    participant T as 결정적 도구
+    participant L as LLM
+    participant K as KB 저장소
 
-    note over H,S: 쓰기 경로 kb-ingest (소스당 1런 = 1커밋)
     H->>T: 소스 선택 (큐레이션이 첫 게이트)
     T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
     T->>K: citekey 발급, 소스 메타 기록 (CSL)
@@ -63,16 +59,25 @@ sequenceDiagram
         T->>K: 커밋 (Ingest 트레일러)
     end
     H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
+```
 
-    note over H,S: 읽기 경로 kb-query (정확성은 여기서 조금씩)
+### 읽기 경로 (kb-query)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant H as 인간
+    participant S as 색인과 검색
+    participant K as KB 저장소
+
     K->>S: 재색인 (qmd 하이브리드, 형태소 레그)
     H->>S: 질의 (검색 4레그)
     S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
     H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
 ```
 
-기계가 쓴 claim은 격리와 라벨로 들어와서, 사람이 읽는 순간마다 조금씩 검증 등급이
-올라간다. 전수 검수 대신 이 순환이 정확성을 담당한다.
+기계가 쓴 claim은 쓰기 경로에서 격리와 라벨로 들어오고, 읽기 경로에서 사람이 읽는
+순간마다 조금씩 검증 등급이 올라간다. 전수 검수 대신 이 순환이 정확성을 담당한다.
 
 검색은 색인 파이프라인이 아니라 에이전트가 도구를 고르는 구도라서, 벤더 문서 질의는
 `/docs-query`(라우팅, rg, 정독의 무색인 절차)로 넘어간다. 스킬 다섯(`kb-query`,
