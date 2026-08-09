@@ -7,6 +7,6 @@
 | `core/` | 정본 KB (md+git=SoT, restic 대상) | `core/CLAUDE.md` + `core/PLAN.md` |
 | `docs-mirror/` | 벤더 문서 미러 캐시 (`mirrors/`는 ignore — upstream 생존 시 재생성) | `docs-mirror/PLAN.md` |
 
-규칙 요지: 레이어 내부 작업은 해당 디렉토리의 CLAUDE.md·PLAN을 따른다. **커밋 = `<레이어>/<영역>: 요지`** (예: `core/tools:`, `mirror/plan:`; 우산은 `plan:`·`research:`), 한 커밋 = 한 레이어, 게이트는 hooksPath(`core/tools/githooks`). 루트에 종류별 디렉토리(tools/·skills/) 신설 금지 — 글루는 자기 레이어 안(r4·r12). 새 구성 요소의 행선지는 PLAN §2 배치 표로 판정.
+규칙 요지: 레이어 내부 작업은 해당 디렉토리의 CLAUDE.md·PLAN을 따른다. **커밋 = `<레이어>/<영역>: 요지`** (예: `core/tools:`, `mirror/plan:`; 우산은 `plan:`·`research:`), 한 커밋 = 한 레이어, 게이트는 hooksPath(`core/tools/githooks`). 루트에 종류별 디렉토리(tools/·skills/) 신설 금지 — 글루는 자기 레이어 안(r4·r12). 새 구성 요소의 행선지는 PLAN §2 배치 표로 판정. 결정적 스크립트는 구조를 파서로 읽는다 — regex처럼 엣지 케이스마다 패턴이 무한증식하는 매칭은 greedy 경로라 지양하고, 이해 못 하는 입력은 조용히 건너뛰지 말고 실패시킨다(정본은 core PLAN §3).
 
 지식 조회·저장 = `/kb-query`, 소스 반입 = `/kb-ingest`, 점검 = `/kb-lint`, 벤더 문서 = `/docs-query` (전역 스킬 — 정본은 각 레이어 `.agents/skills`).
