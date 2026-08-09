@@ -40,7 +40,7 @@ flowchart LR
 ### 쓰기 경로 (kb-ingest, 소스당 1런 = 1커밋)
 
 ```mermaid
-%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 6}}}%%
+%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12}}}%%
 sequenceDiagram
     participant H as 인간
     participant T as 결정적 도구
@@ -64,7 +64,7 @@ sequenceDiagram
 ### 읽기 경로 (kb-query)
 
 ```mermaid
-%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 6, "actorMargin": 158}}}%%
+%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12, "actorMargin": 158}}}%%
 sequenceDiagram
     participant H as 인간
     participant S as 색인과 검색
