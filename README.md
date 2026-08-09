@@ -64,21 +64,27 @@ sequenceDiagram
     end
     T->>K: 커밋 (Ingest 트레일러)
     H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
+    T->>T: 재색인 (qmd 파생 인덱스 갱신)
 ```
 
 ### 읽기 경로 (kb-query)
 
 ```mermaid
-%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12, "actorMargin": 158}}}%%
+%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12, "actorMargin": 108}}}%%
 sequenceDiagram
     participant H as 인간
     participant S as 색인과 검색
     participant K as KB 저장소
+    participant M as docs-mirror
 
-    K->>S: 재색인 (qmd 하이브리드, 형태소 레그)
-    H->>S: 질의 (검색 4레그)
-    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
-    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
+    alt KB 질의 (개념, 소스, 판단)
+        H->>S: 질의 (검색 4레그)
+        S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
+        H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
+    else 벤더 문서 질의 (버전 종속 사용법)
+        H->>M: docs-query (라우팅, rg, 정독, 무색인)
+        M-->>H: 답은 upstream 정식 인용으로
+    end
 ```
 
 기계가 쓴 claim은 쓰기 경로에서 격리와 라벨로 들어오고, 읽기 경로에서 사람이 읽는
