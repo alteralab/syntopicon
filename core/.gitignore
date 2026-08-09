@@ -1,4 +1,4 @@
-# §3 규정 (콘텐츠 디렉터리는 kb-new가 생성 — 구축 전이라 아직 없음)
+# §3 규정 — 콘텐츠 파생·스냅샷은 git 밖(archive/는 restic 담당)
 */archive/
 *.db
 *.sqlite*
@@ -10,4 +10,3 @@ __pycache__/
 .pytest_cache/
 .claude/
 .code-review-graph/
-.DS_Store
