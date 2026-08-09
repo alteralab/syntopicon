@@ -145,7 +145,7 @@ syntopicon/
                        #   regex 파싱 금지(엣지 케이스마다 패턴 증식하는 greedy 수정 루프, §8). 예외: 문자집합
                        #   검증(슬러그·citekey — 정규 언어 그 자체)만 regex 허용. 파이썬은 pythonic 관용구 준수
   evals/               # 스킬 평가 시나리오 (runs/는 ignore)
-  .agents/skills/      # 정본 스킬 4종 — 배포는 기기별 `~/.claude/skills/` 심링크(§4.3), 저장소 내 사본 없음
+  .agents/skills/      # 정본 스킬 5종 — 배포는 기기별 `~/.claude/skills/` 심링크(§4.3), 저장소 내 사본 없음
   .gitignore           # */archive/, *.db, *.sqlite*, evals/runs/
   <kb>/                # ★ KB마다 동형. qmd 컬렉션·restic --tag·임계 경보 집계 = 이 디렉터리 단위
     overview.md        # KB 허브 진입점 (~1–2k 토큰): 한 줄 오리엔테이션 + ## Hubs(10–30, 링크+한 줄 설명) + ## Tools
@@ -187,7 +187,7 @@ syntopicon/
 - **1단 — 에이전트 링크 탐색**: top-3 시드의 k-hop 확장(2-hop k=1, 3-hop k=2)이 합성 실측에서 flat 검색을 완승(수치 §8). 심긴 체인 실험이라 상한 추정 — 실코퍼스 재측정이 판정.
 - **2단 — HippoRAG2 (불채택 상태의 검증된 비상 경로)**: md 직접 투입·증분 색인 확인(비용·기각 근거·발동 조건은 §6 표). 채택 계약: 검증 시점 커밋 SHA 핀, 발동 시 레포 펄스 재확인, git SHA 설치, 사멸 시 포크.
 
-### 4.3 스킬 4종과 도구
+### 4.3 스킬 5종과 도구
 
 판단 불필요 로직은 전부 tools/ 스크립트로, SKILL.md는 워크플로·판단 기준만. agentskills.io 코어 스펙 내에서만 작성.
 
@@ -215,6 +215,7 @@ syntopicon/
 
   **실행 전략**: 주간 실행은 **증분**(직전 실행 이후 변경 페이지만 — overlap도 1×N 비교라 규모 무관). **전쌍 overlap은 부트스트랩과 분기 전수 검사에서만**(블록 행렬곱으로 임계 초과 쌍만 보존 — 산수 근거 §8). **산출 스키마**: severity(error/warn/info)를 달아 리포트(사람·주간)와 stats DB(경보·큐)의 이원 기록.
 - **kb-new** (명시 호출 전용, KB의 유일한 생성 경로): ① **판단 게이트** — 기본 답은 "만들지 마라": 대부분의 구분 요구는 기존 KB의 디렉터리·허브로 해소된다(주제 분리는 사유 아님). KB가 0개면 게이트를 생략하고 생성으로 직행. 분리 대(對) 동거 심사 3문: ⑴ 기밀·접근 통제 경계인가? ⑵ 별도 동기화/백업 정책이 필요한가? ⑶ `type` 어휘·링크 문법의 분기가 필요한가?(새 주제·새 디렉터리는 사유 아님) — 하나라도 예면 **저장소 분리(비가역 — §4.5)**, 전부 아니오면 동거 KB 생성. ② **기계 단계** — `tools/kb-new`: **layout.yaml의 KB 골격에서 직접 생성**(비어있지-않으면-거부) + qmd 컬렉션 등록 + 루트 overview.md 라우터 갱신 + restic `--tag` 추가. **git init은 저장소 분리 경로에서만.** ③ **편입** — 운영 캘린더·KB별 임계 경보 집계 대상 포함.
+- **kb-plain** (참조 규약 — 단독 호출보다 다른 스킬·양식이 참조): 사람이 읽는 산출물의 쉬운 언어 규칙 — 적용은 리뷰 양식 필수, kb-query 답변은 `--plain` 옵션 시, 브리핑 권장. 규칙 = 금지 기호(엠대시·가운뎃점 0건)·기호 압축 금지·비승인 어휘는 lexicon.txt 대체어로(ASD-STE100 형식)·표시 텍스트는 명사구. 검사기 `tools/plaincheck.py`(markdown-it-py AST로 code·blockquote 제외, 정확 문자·문자열 대조만, 위반 시 exit 1 — 검출만, 수정은 저자). KB 본문 페이지는 비대상(§2·vocabulary.yaml 관할). 출처: 전역 humanwrite 스킬 규칙의 2026-08-10 발췌 내재화 — 외부 스킬 소멸과 무관하게 자체 완결, 증보 정본은 lexicon.txt.
 - **tools/affected [Tier B]**: 스키마 필드·type·layout 변경 전에 영향 파일·KB를 조회하는 CLI(메타 테이블 질의 래퍼). 소비자: 스키마 개정 절차(migrations.md 기록 전 실행)·리스크 표(영향 범위 망각).
 - **스킬 배포**: 정본 = `.agents/skills/`(커밋 — 크로스 클라이언트 관례, evals가 저장소 루트 상대로 참조하므로 저장소 내 필수). Claude Code 로드는 **기기별 `~/.claude/skills/<이름>` 심링크**(공식 지원, personal 스코프 = 전 프로젝트에서 `/kb-query` 가능, 같은 타깃은 1회 로드). 저장소 내 사본·복사 동기화 없음 — 커밋되는 심링크만 금지(Windows 클론 파손). 스킬의 tools/ 참조는 심링크 해석 후 저장소 루트 기준.
 - **발동 정책(공통)**: 산문 지시의 준수는 비보장 → (a) 명시 호출(`/kb-query`)이 기본 워크플로 (b) 1줄 포인터는 **사용자 레벨** `~/.claude/settings.json`의 UserPromptSubmit 훅으로 주입(전 프로젝트 발화 — 프로젝트 훅은 해당 저장소만). 암묵 발동에 의존하지 않는다(최적화 배터리 불채택 — §6). MCP 표면은 qmd 내장으로 충분(자체 서버 불채택 — §6), 전역 등록으로 셸 없는 클라이언트도 커버.
@@ -295,7 +296,7 @@ Syncthing류는 백업 아님(삭제 전파). 기기 교체 시 개선되는 것
 
 - git init, 루트 골격: `.gitignore`, `schema/`(per-type 스키마 + `layout.yaml` + `user-dict.yaml` + `migrations.md`), `SCHEMA.md`, 루트 `overview.md` 라우터 초안.
 - **tools/**: ① validate — JSON Schema + 관계 규칙 + layout 완전 분할 + 결번 키 대조, pre-commit·ingest 양쪽 실행 [A] ② lint [A] ③ rename [A] ④ kb-new [A] ⑤ affected [B] ⑥ 한국어 형태소 레그 CLI [B] ⑦ frontmatter 메타 테이블 [B] ⑧ edges + backlinks/neighbors [B] ⑨ 멀티홉 평가 하네스 4종 + ir_measures·pytest 게이트 [B].
-- 스킬 4종 → `.agents/skills/` 정본 + `~/.claude/skills/` 심링크 + 사용자 레벨 UserPromptSubmit 훅. evals 시나리오는 스킬 본문보다 먼저.
+- 스킬 5종 → `.agents/skills/` 정본 + `~/.claude/skills/` 심링크 + 사용자 레벨 UserPromptSubmit 훅. evals 시나리오는 스킬 본문보다 먼저.
 - **qmd**: 글로벌 config 컬렉션 등록(layout.yaml 파생), 임베딩 Qwen3 잠정, GGUF 벤더링+로컬 경로, 데몬 모드, 버전 핀+타르볼.
 - 백업 가동: GitHub push + NAS bare, restic init(SFTP/rest-server), bundle 스크립트, restic 정적 바이너리 동봉.
 - **완료 게이트 = kb-new 첫 실행**(첫 KB 생성 — 수용 검증의 개시이자 kb-new의 첫 실전).
