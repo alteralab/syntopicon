@@ -1,7 +1,7 @@
 ---
 name: kb-new
 description: syntopicon에 새 지식 베이스(KB)를 만들지 판단하고, 만들기로 했으면 생성한다. 새 주제 영역을 시작할 때, KB를 분리할지 물을 때, 첫 KB를 세울 때 쓴다. 기본 답은 "만들지 마라"이고, 기밀·백업·스키마 경계일 때만 만든다.
-compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. qmd 컬렉션 등록은 전역 config에 쓴다.
+compatibility: 어느 프로젝트에서든 호출 가능(본문 '저장소 위치 확정' 절이 core를 찾는다). uv 필요. qmd 컬렉션 등록은 전역 config에 쓴다.
 ---
 
 # kb-new
@@ -12,6 +12,15 @@ compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. qmd 컬
 
 **주제 분리는 사유가 아니다.** "머신러닝은 따로", "업무용은 따로"는 전부 기존 KB
 안에서 푼다.
+
+## 저장소 위치 확정 (cwd 독립 — 최초 1회)
+
+이 스킬의 `uv run tools/…` 명령은 전부 core 저장소 루트 기준이다. cwd가 core가
+아니면(다른 프로젝트에서 호출) 먼저:
+
+```sh
+cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/kb-new}")")")")"
+```
 
 ## ① 판단 게이트
 

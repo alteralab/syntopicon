@@ -1,7 +1,7 @@
 ---
 name: kb-lint
 description: syntopicon 지식 베이스의 전수 점검 리포트를 돌리고 읽는다. 주간 점검, 깨진 링크·만료 페이지·고아 페이지·모순 쌍·스냅샷 변조·inbox 적체를 확인할 때, lint 리포트를 어디부터 손댈지 판단할 때 쓴다. 검출만 하고 수정은 사람이 한다.
-compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. tools/reindex.py를 먼저 돌려야 한다.
+compatibility: 어느 프로젝트에서든 호출 가능(본문 '저장소 위치 확정' 절이 core를 찾는다). uv 필요. tools/reindex.py를 먼저 돌려야 한다.
 ---
 
 # kb-lint
@@ -10,6 +10,15 @@ compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. tools/r
 동작(모순 자동 해소·페이지 자동 병합)과 구분되지 않고, 조용히 판단을 대신한다.
 
 커밋을 막는 것은 `validate`다. lint의 종료 코드는 항상 0이다.
+
+## 저장소 위치 확정 (cwd 독립 — 최초 1회)
+
+이 스킬의 `uv run tools/…` 명령은 전부 core 저장소 루트 기준이다. cwd가 core가
+아니면(다른 프로젝트에서 호출) 먼저:
+
+```sh
+cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/kb-lint}")")")")"
+```
 
 ## 실행
 

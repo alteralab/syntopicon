@@ -1,7 +1,7 @@
 ---
 name: kb-ingest
 description: 책·논문·기술 문서를 syntopicon 지식 베이스에 들인다. 새 소스를 정리해 넣을 때, 읽은 내용을 KB에 반영할 때, 웹에서 찾은 자료를 영구 보존할 때 쓴다. 스냅샷 보존과 citekey 발급부터 개념 페이지 갱신·검역·검증·커밋까지 한 파이프라인으로 처리한다.
-compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. KB가 최소 하나 있어야 한다.
+compatibility: 어느 프로젝트에서든 호출 가능(본문 '저장소 위치 확정' 절이 core를 찾는다). uv 필요. KB가 최소 하나 있어야 한다.
 ---
 
 # kb-ingest
@@ -11,6 +11,15 @@ compatibility: syntopicon 저장소 안에서 uv와 함께 실행한다. KB가 �
 흔한 실패다 — 같은 개념이 여러 페이지에 흩어져 몇 달 뒤 overlap lint로 돌아온다.
 
 단계마다 **누가 하는 일인지**가 정해져 있다. 스크립트가 할 일을 손으로 하지 않는다.
+
+## 저장소 위치 확정 (cwd 독립 — 최초 1회)
+
+이 스킬의 `uv run tools/…` 명령은 전부 core 저장소 루트 기준이다. cwd가 core가
+아니면(다른 프로젝트에서 호출) 먼저:
+
+```sh
+cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/kb-ingest}")")")")"
+```
 
 ## 0. KB 스코프 게이트 [스크립트]
 

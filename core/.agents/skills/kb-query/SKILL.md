@@ -1,7 +1,7 @@
 ---
 name: kb-query
 description: syntopicon 지식 베이스를 조회해 답하고, 새로 알아낸 것만 골라 저장한다. KB에 쌓인 개념·소스·판단을 찾을 때, 답에 출처 라벨이 필요할 때, 웹에서 찾은 것을 KB에 남길지 판단할 때 쓴다. 검색 결과를 링크 이웃으로 확장하고 검색 공백을 계측한다.
-compatibility: syntopicon 저장소 안에서 실행한다. qmd(선택)와 uv가 있으면 검색 레그가 늘어난다.
+compatibility: 어느 프로젝트에서든 호출 가능 — 아래 ⓪이 core 저장소를 찾는다. qmd(선택)와 uv가 있으면 검색 레그가 늘어난다.
 ---
 
 # kb-query
@@ -9,7 +9,18 @@ compatibility: syntopicon 저장소 안에서 실행한다. qmd(선택)와 uv가
 **기억에서 답하지 말 것.** 모델이 이미 아는 주제여도 KB에는 사용자가 축적해 온
 판단·정오표·조건이 붙어 있다. 그것이 이 KB의 존재 이유다.
 
-아래는 체크리스트다. ①은 세션 최초 1회, ②–⑥은 매 질문, ⑦은 답한 뒤.
+아래는 체크리스트다. ⓪·①은 세션 최초 1회, ②–⑥은 매 질문, ⑦은 답한 뒤.
+
+## ⓪ 저장소 위치 확정 (최초 1회 — cwd 독립)
+
+이 스킬의 `uv run tools/…` 명령은 전부 core 저장소 루트 기준이다. cwd가 core가
+아니면(다른 프로젝트에서 호출) 먼저:
+
+```sh
+cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/kb-query}")")")")"
+```
+
+(스킬 심링크의 실경로 `core/.agents/skills/kb-query`에서 3단계 위 = core 루트.)
 
 ## ① 방향 잡기 (최초 1회)
 
@@ -28,6 +39,12 @@ rg -n "<영문 부분문자열>"                  # 영문 substring 폴백
 
 한국어 질의는 확장 없이 그대로 던진다 — 질의 확장은 영어 쪽으로 기운다.
 형태소 레그가 조사 변형·활용형을, qmd 음절 레그가 부분 일치를 맡는다.
+
+**벤더 기술 문서 질의는 KB가 아니라 docs-mirror가 담당한다** — "dbt의 이 설정",
+"Spark 이 버전의 동작"처럼 답의 정본이 벤더 문서인 질문은 docs-query 스킬
+(라우팅→rg→정독, `~/.claude/skills/docs-query`)로 라우팅한다. KB는 그 위에 쌓인
+사용자의 판단·조건·경험만 답한다. docs-mirror에서 가져온 내용의 출처는
+`[웹]`이 아니라 upstream 정식 인용(URL+버전)으로 단다.
 
 ## ③ 이웃 확장
 
