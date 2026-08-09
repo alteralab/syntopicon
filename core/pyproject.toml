@@ -1,0 +1,32 @@
+[project]
+name = "syntopicon"
+version = "0.1.0"
+requires-python = ">=3.14"
+# Tier A(md를 변경하는 도구 — validate/lint/rename/kb-new)의 의존은 최소·핀이다(PLAN §3).
+# `==`로 고정하는 이유: uv.lock이 실질 핀이지만, 10–20년 축에서 사람이 읽는 파일에
+# 의도가 남아 있어야 한다. 갱신은 연간 툴체인 핀 점검 항목(PLAN §6 운영 캘린더).
+dependencies = [
+    "jsonschema==4.26.0",   # per-type JSON Schema 검증 (Draft 2020-12)
+    "referencing==0.37.0",  # 크로스 파일 $ref 레지스트리 — jsonschema가 위임하는 계층
+    "markdown-it-py==4.2.0",# md AST — 링크 재작성·각주 정합·표 파싱. regex 파싱 금지(PLAN §3)
+    "pyyaml==6.0.3",        # frontmatter·schema/*.yaml
+    "mdit-py-plugins==0.6.1", # 각주·front matter 토큰 — GFM 부분집합의 나머지 절반
+]
+
+[dependency-groups]
+# 테스트 도구는 소모품이라 == 로 묶지 않는다 — 핀 요구는 md를 변경하는 런타임 의존에
+# 걸리는 것이고(PLAN §3 Tier A), 재현은 uv.lock이 이미 보장한다.
+dev = [
+    "pytest>=9.1.1",
+]
+eval = [
+    "ir-measures>=0.4.3",
+]
+index = [
+    "kiwipiepy>=0.23.2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tools/tests"]
+# 테스트는 도구를 서브프로세스로 부르지만, 순수 함수는 직접 import해 확인한다.
+pythonpath = ["tools"]

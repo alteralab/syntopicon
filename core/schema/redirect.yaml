@@ -1,0 +1,28 @@
+# redirect 스텁 — 개명·이동·분할·병합의 잔여물(PLAN §2.3). tools/rename이 생성한다.
+# lint 동작(체인 붕괴·경유 링크 재작성 제안)은 PLAN §4.3 표가 정본.
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "redirect.yaml"
+title: redirect
+
+type: object
+required: [type, superseded_by]
+properties:
+  type: {const: redirect}
+
+  superseded_by:
+    # 대상 지정. 동일 KB 이름이 기본이고, KB 간 이동 잔여물만 정규형
+    # `<kb>/<이름>`을 허용한다(PLAN §2.1·§2.5-3의 유일한 정규형 예외).
+    #
+    # sources/의 스텁은 슬러그가 아니라 citekey를 가리키고 citekey는 `-2` 접미를
+    # 허용하므로 네 형태를 다 받는다. 어느 형태여야 하는지는 스텁이 놓인 디렉터리가
+    # 정하며, 그 정밀도는 validate의 파이썬 관계 규칙이 맡는다(2층 설계 — PLAN §2.7).
+    anyOf:
+      - {$ref: "common.yaml#/$defs/slug"}
+      - {$ref: "common.yaml#/$defs/qualified_slug"}
+      - {$ref: "common.yaml#/$defs/citekey"}
+      - {$ref: "common.yaml#/$defs/qualified_citekey"}
+
+  title: {type: string, minLength: 1}
+  description: {type: string, minLength: 1}
+  generated: {$ref: "common.yaml#/$defs/stamp"}

@@ -1,0 +1,115 @@
+"""validate를 CLI 그대로 돌리기 위한 임시 저장소 픽스처.
+
+모듈을 import해 내부를 찌르는 대신 서브프로세스로 실행한다 — 저장소 루트가
+import 시점에 고정되는 구조라, 실제 호출 경로(pre-commit·ingest)와 같은 방식으로
+돌리는 편이 정직하고 seam도 하나면 족하다.
+"""
+
+from __future__ import annotations
+
+import os
+import shutil
+import subprocess
+import sys
+import textwrap
+from dataclasses import dataclass
+from pathlib import Path
+
+import pytest
+
+REAL_ROOT = Path(__file__).resolve().parents[2]
+VALIDATE = REAL_ROOT / "tools" / "validate.py"
+
+
+@dataclass
+class Repo:
+    """임시 저장소 하나. schema/는 실물을 복사하므로 실제 규약을 검증한다."""
+
+    root: Path
+    #: 저장소 **밖**에 둔다 — 안에 두면 validate의 루트 완전 분할 검사에 정당하게 걸린다.
+    qmd_config_dir: Path
+
+    def write(self, relative: str, content: str) -> Path:
+        path = self.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(textwrap.dedent(content).lstrip())
+        return path
+
+    def kb(self, name: str) -> None:
+        self.write(f"{name}/overview.md", f"""
+            ---
+            type: guide
+            title: {name}
+            description: 테스트 KB
+            ---
+
+            # {name}
+
+            ## Hubs
+            """)
+
+    def _git(self, *args: str) -> None:
+        subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+
+    def commit(self) -> None:
+        """rename은 깨끗한 워킹 트리를 요구한다 — 되돌릴 수 있는 상태에서만 여러 파일을 고친다."""
+        self._git("add", "-A")
+        self._git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "fixture")
+
+    def run(self, script: str, *args: str) -> subprocess.CompletedProcess[str]:
+        self._git("add", "-A")
+        return subprocess.run(
+            [sys.executable, str(REAL_ROOT / "tools" / script), *args],
+            capture_output=True, text=True,
+            # QMD_CONFIG_DIR은 qmd 자신의 테스트용 override다 — 우리가 만든 seam이 아니라
+            # qmd와 같은 파일을 보게 하는 장치라서, 실제 홈 설정을 건드리지 않는다.
+            env=os.environ | {
+                "SYNTOPICON_ROOT": str(self.root),
+                "QMD_CONFIG_DIR": str(self.qmd_config_dir),
+                # 실기기의 ~/.cache/qmd 인덱스(실제 KB 벡터)가 픽스처 검사에 새어들지
+                # 않게 캐시도 격리한다 — overlap 검사가 이 경로를 본다.
+                "XDG_CACHE_HOME": str(self.qmd_config_dir / "cache"),
+            },
+        )
+
+    def validate(self, *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("validate.py", *args)
+
+    def rename(self, old: str, new: str, *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("rename.py", old, new, *args)
+
+    def kb_new(self, name: str, title: str, description: str,
+               *args: str) -> subprocess.CompletedProcess[str]:
+        return self.run("kb-new.py", name, "--title", title,
+                        "--description", description, *args)
+
+    def read(self, relative: str) -> str:
+        return (self.root / relative).read_text()
+
+
+def _reset_router(path: Path) -> None:
+    """라우터의 KB 목록을 0개 상태로 되돌린다.
+
+    실물 overview.md를 복사해 쓰되(그 파일의 frontmatter·구조를 실제로 검증하려고),
+    KB 목록만은 임시 저장소의 실제 상태와 맞춰야 한다 — 안 그러면 KB 0개인
+    픽스처가 존재하지 않는 KB를 나열하는 라우터를 갖게 되고, 그 불일치가
+    hub-dangling 같은 검사를 조용히 가린다.
+    """
+    sys.path.insert(0, str(REAL_ROOT / "tools"))
+    from syntopicon.rewrite import replace_section_body
+
+    body = "\n<!-- 기계 소유 절: tools/kb-new가 파일시스템에서 재생성한다. -->\n\n" \
+           "아직 없다. `/kb-new`가 KB의 유일한 생성 경로다.\n\n"
+    path.write_text(replace_section_body(path.read_text(), "KBs", body).text)
+
+
+@pytest.fixture
+def repo(tmp_path: Path) -> Repo:
+    root = tmp_path / "repo"
+    root.mkdir()
+    shutil.copytree(REAL_ROOT / "schema", root / "schema")
+    for name in ("SCHEMA.md", "overview.md", ".gitignore"):
+        shutil.copy(REAL_ROOT / name, root / name)
+    _reset_router(root / "overview.md")
+    subprocess.run(["git", "-C", str(root), "init", "-q"], check=True)
+    return Repo(root=root, qmd_config_dir=tmp_path / "qmdconfig")

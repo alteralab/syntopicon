@@ -1,0 +1,116 @@
+# 저장소 경계의 정본 (PLAN §3). 동결 코어 항목 8 (PLAN §2.7).
+#
+# 책임 3가지 — 이 셋 밖의 사실은 여기에 두지 않는다:
+#   1. 공유 자산 화이트리스트  → shared_assets
+#   2. KB 골격(디렉터리↔type 정합 표) → kb
+#   3. 색인 포함/제외 패턴      → index
+#
+# 소비자: tools/validate(루트 완전 분할·디렉터리↔type 정합·typed frontmatter 범위),
+#         tools/kb-new(골격 생성·qmd 컬렉션 등록·라우터 갱신), kb-ingest 게이트,
+#         색인 CLI(형태소 레그·메타 테이블·edges), 백업 스크립트.
+#
+# KB 인스턴스 목록은 여기 없다 — 파일시스템이 정본이고 마커는 kb.marker다(PLAN §3).
+# 레지스트리 이중화 금지.
+
+shared_assets:
+  # 저장소 루트 직하에서 KB가 아닌 것 전부.
+  # validate는 루트를 `shared_assets ∪ KB`로 완전 분할하고, 어느 쪽도 아닌 항목에서
+  # fail-loud한다(오타 디렉터리 검출). .gitignore 대상은 분할 검사에서 제외 —
+  # 무엇이 저장소에 속하는지는 git이 정본이다.
+  files:
+    - PLAN.md         # 정본 계획: 결정·규약 본문 + §8 검증 원장
+    - SCHEMA.md       # 규약 설명서 (규범은 schema/ — 기계 게이트가 정본)
+    - overview.md     # 에이전트 진입점 = KB 라우터
+    - CLAUDE.md       # 훅 없는 하네스용 1줄 규칙 사본
+    - AGENTS.md       #   〃
+    - .gitignore
+    - pyproject.toml  # tools/ Tier A 의존 핀
+    - uv.lock         #   〃 (해결된 잠금 — 재현 설치)
+  dirs:
+    - schema/         # 이 파일 + per-type 스키마 + vocabulary/user-dict + migrations.md
+    - tools/          # 결정적 CLI (Tier A/B — PLAN §3)
+    - evals/          # 스킬 평가 시나리오 (runs/는 gitignore)
+    - .agents/        # 스킬 정본 (배포는 기기별 ~/.claude/skills/ 심링크)
+
+  # typed frontmatter(`type` 필수)가 적용되는 .md의 범위.
+  # PLAN §3 "예약 파일명 외 전 .md는 typed frontmatter"를 제외 목록이 아니라
+  # 포함 목록으로 표현한다 — 저장소에 파일이 늘어도 규칙이 새지 않는다.
+  # 소비자: validate.
+  typed_frontmatter:
+    - "<kb>/**/*.md"
+    - SCHEMA.md
+    - overview.md
+
+kb:
+  # KB 인스턴스 판별 마커. 이 파일이 있는 루트 직하 디렉터리 = KB(PLAN §3).
+  marker:
+    path: overview.md
+    type: guide
+
+  # 진입 문서의 절 이름 계약. 자유 md 안에서 이 두 절 이름만 기계가 붙잡는다
+  # (PLAN §3: "## Hubs 절 이름만 자체 계약"). 도구에 하드코딩하지 않는 이유는
+  # lint가 같은 이름으로 대조해야 하기 때문이다 — 코드에 숨으면 대조가 불가능하다.
+  # 소비자: kb-new(라우터·허브 절 갱신), kb-lint(Hubs↔고차수 synthesis 대조).
+  sections:
+    router: KBs      # 루트 overview.md — KB당 1줄
+    hubs: Hubs       # <kb>/overview.md — 허브 링크 10–30
+
+  # 디렉터리↔type 정합 표. 값은 type 그룹 이름이며 그룹 정의는 schema/common.yaml의
+  # $defs가 정본이다(여기서 type 값을 다시 열거하지 않는다 — 정본 이중화 금지).
+  # "디렉터리는 뷰, type 정본은 frontmatter"(PLAN §2.7-1) — 이 표는 둘의 정합만 강제한다.
+  # 소비자: validate.
+  dir_types:
+    sources:   [source, redirect]     # source = CSL 타입군(PLAN §2.2)
+    concepts:  [concept, redirect]
+    synthesis: [synthesis, redirect]
+    inbox:     [concept]              # 초안: status=draft 요구(PLAN §2.3)
+    archive:   []                     # md 아님 — 소스 원문 스냅샷, git 제외(§5)
+
+  # inbox/에 요구되는 추가 frontmatter 조건. 소비자: validate.
+  dir_constraints:
+    inbox:
+      status: draft
+
+  # kb-new가 생성하는 골격(PLAN §4.3 kb-new ②: layout.yaml에서 직접 생성).
+  # 별도 템플릿 파일을 두지 않는다 — kb-template+copier 불채택(PLAN §6): 정본 이중화 금지.
+  skeleton:
+    dirs: [sources, concepts, synthesis, inbox, archive]
+    # 빈 디렉터리는 git이 추적하지 않는다. .gitkeep 자리표시는 두지 않는다 —
+    # 콘텐츠 디렉터리에 영구 예외 파일을 만들고, 해결하는 문제(클론 시 디렉터리 부재)는
+    # retrofit O(1)이다(PLAN 원칙 5: 실측 전 선제 구축 금지). 쓰기 도구가 필요 시 생성한다.
+    files:
+      # 치환 자리: $kb $title $description $now (string.Template).
+      # `{}`가 아니라 `$`인 이유: frontmatter의 YAML 플로우 매핑 `{ by: … }`이
+      # str.format의 치환 필드와 충돌한다.
+      overview.md: |
+        ---
+        type: guide
+        title: "$title"
+        description: "$description"
+        generated: { by: "tools/kb-new", at: "$now" }
+        ---
+
+        # $title
+
+        $description
+
+        ## Hubs
+
+        <!-- 허브(synthesis) 링크 + 한 줄 설명, 10–30개. 포인터만 — 본문 발췌·수치 복제
+             금지(진입점 부패 벡터, PLAN §3). 갱신 후보는 kb-lint의 링크 차수 대조가 낸다. -->
+
+        ## Tools
+
+        - 검색: `qmd query <질의> -c $kb` / 형태소 레그 `tools/ksearch`
+        - 저장: `/kb-ingest --kb $kb` — inbox/ 경유
+        - 점검: `tools/lint --kb $kb`
+
+index:
+  # 소비자: kb-new(qmd 컬렉션 등록 — path=<repo>/<kb>, 아래 pattern·ignore를 그대로 매핑),
+  #         색인 CLI, 백업 스크립트.
+  # qmd 2.1.0 Collection 스키마에 pattern/ignore가 있음을 소스에서 확인(dist/collections.d.ts).
+  pattern: "**/*.md"
+  ignore:
+    - "archive/**"    # 소스 원문 스냅샷 — restic 담당(PLAN §5), 색인·git 모두 제외
+  # inbox/는 의도적으로 포함한다 — 미검토분을 숨기지 않고 `[unreviewed]` 라벨로
+  # 보이는 저하를 주는 것이 격리 설계의 핵심(PLAN §4.4 쓰기 정책 ①).

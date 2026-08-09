@@ -1,0 +1,88 @@
+# 소스 메타(PLAN §2.2). 계층 하나에 스키마 하나 — CSL 타입 10종을 파일로 쪼개지 않는다.
+#
+# 근거(2026-08-05 검증): CSL 공식 csl-data.json이 45개 타입을 단일 스키마 + type enum으로
+# 다루고, 타입별 required 차등을 전혀 선언하지 않으며(전역 required = [type, id]),
+# 공유 구조는 definitions + $ref로만 표현한다. PLAN §2.2가 enum을 차용한 바로 그 출처의
+# 관행이다. PLAN §2.3 표도 "소스 메타 | CSL 타입군"을 한 행으로 둔다.
+#
+# CSL과의 의도적 차이 3가지:
+#   1. `id` 없음 — citekey = 파일명이 정본이다(PLAN §2.2). frontmatter에 두면 정본 이중화.
+#   2. additionalProperties 열림 — CSL 원본은 false지만 상위 규약이 OKF unknown-key
+#      허용(PLAN §2.7)이고, 확장 필드 snapshot/snapshot_sha256 자체가 CSL 밖이다.
+#   3. 날짜가 스칼라 문자열 — CSL date-variable은 {date-parts: [[2017]]} 객체 전용이다.
+#      아래 issued 주석 참조.
+#
+# 선언하지 않은 CSL 필드(editor·container-title 외 90여 개)는 금지가 아니라 미선언이다 —
+# unknown-key로 통과한다. 다만 PLAN §2.7의 "소비자 없는 필드 도입 금지"에 따라
+# 실제로 쓰기 시작하면 여기에 선언 + 소비자 명시 + migrations.md 기록을 거친다.
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "source.yaml"
+title: source (CSL 타입군)
+
+type: object
+required: [type, title]
+properties:
+
+  type:
+    # PLAN §2.2의 1단 구조 10종. 전부 CSL 공식 enum(45종)에 실재함을 확인(2026-08-05).
+    enum:
+      - book
+      - article-journal
+      - paper-conference
+      - article            # 프리프린트
+      - webpage
+      - post-weblog
+      - speech
+      - motion_picture     # 영상
+      - standard
+      - report
+
+  title: {type: string, minLength: 1}
+  author: {$ref: "common.yaml#/$defs/name_list"}
+
+  issued:
+    # 발행 시점. CSL 원형은 객체({date-parts: [[2017]]})지만 여기서는 스칼라
+    # 문자열 한 표현으로 고정한다: 정렬 가능하고, PLAN §2.1의 "날짜 값은 반드시
+    # 따옴표 문자열" 규약과 정합하며, CSL 스펙 설명문 자체가 "EDTF string (preferred)"라
+    # 명시한다. 해상도는 소스가 가진 만큼만 적는다.
+    type: string
+    pattern: "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
+
+  accessed: {$ref: "common.yaml#/$defs/date"}
+
+  publisher: {type: string}          # arXiv 프리프린트는 publisher: "arXiv"
+  container-title: {type: string}    # 저널·블로그 등 수록 매체명
+  collection-title: {type: string}   # RFC 등 총서명
+  event-title: {type: string}        # 컨퍼런스명
+  authority: {type: string}          # RFC 발행 주체
+
+  ISBN: {type: string}
+  DOI: {type: string}
+  URL: {type: string}
+
+  number:
+    # arXiv ID·RFC 번호. 반드시 문자열 — 따옴표를 빠뜨린 "2405.14831"은 YAML에서
+    # float로 파싱돼 소스 식별자가 조용히 손상된다. 스키마가 그 실수를 fail-loud로 잡는다.
+    type: string
+
+  version: {type: string}            # 제품·소프트웨어 버전
+  edition: {type: [string, integer]} # CSL 원형이 string|number
+  dimensions: {type: string}         # 영상 러닝타임
+
+  # ── 확장 필드 3개(PLAN §2.2) ──────────────────────────────────────────────
+  snapshot:
+    # 로컬 스냅샷 루트. 디렉터리이므로 끝에 `/`를 붙이는 것이 관용이다.
+    # git 제외 대상이라 경로 실존 검사는 archive/ 존재 여부로 한다(파이썬 관계 규칙).
+    $ref: "common.yaml#/$defs/repo_path"
+
+  snapshot_sha256:
+    # ingest 시점 1회 기록(write-once). 소비자: kb-lint 변조 증거 검사.
+    type: string
+    pattern: "^[0-9a-f]{64}$"
+
+  custom:
+    # CSL 공식 확장 봉투. 현재 소비자가 있는 키는 archive-url(웨이백)뿐.
+    type: object
+    properties:
+      archive-url: {type: string}

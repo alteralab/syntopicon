@@ -1,0 +1,10 @@
+error  it/concepts/raft-read-path.md: → it/concepts/missing-page.md
+error  it: inbox 나이 P90 47일 > 30일 — 자동 머지 범위 확대를 검토하십시오(PLAN §4.4 킬 기준)
+warn   it/concepts/leader-lease.md: 2026-01-01 만료 — 재검토 큐
+warn   it/inbox/gossip-antientropy.md: 47일째 리뷰 대기
+warn   it/concepts/raft-read-path.md: sources에 ongaro2014-raft 를 선언했지만 각주가 없습니다
+info   it/concepts/lease-clock-risk.md: leader-lease 와 모순 — 해소 시 최신성 단독 판단 금지
+info   it/synthesis/distributed-consensus.md: 가리키는 페이지가 없습니다
+
+1/8개 페이지 검사(full) · 오류 2 · 경고 3 · 정보 2
+미구현 검사: page-overlap(임베딩 필요 (qmd 단계))
