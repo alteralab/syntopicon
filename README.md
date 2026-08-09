@@ -40,26 +40,33 @@ flowchart LR
 ```mermaid
 sequenceDiagram
     autonumber
-    actor H as 인간
-    participant T as 도구 (결정적)
-    participant L as LLM
-    participant K as KB 저장소
-    participant S as 색인과 검색
+    participant H as 인간
+    box transparent 파이프라인
+        participant T as 결정적 도구
+        participant L as LLM
+    end
+    box transparent 저장과 파생
+        participant K as KB 저장소
+        participant S as 색인과 검색
+    end
 
+    note over H,S: 쓰기 경로 kb-ingest (소스당 1런 = 1커밋)
     H->>T: 소스 선택 (큐레이션이 첫 게이트)
     T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
     T->>K: citekey 발급, 소스 메타 기록 (CSL)
     L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
-    note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
+    note right of K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
     T->>T: validate (pre-commit 게이트)
     alt 위반
         T-->>L: 위반 목록, 고쳐서 다시
     else 통과
-        T->>K: 1런 = 1커밋 (Ingest 트레일러)
+        T->>K: 커밋 (Ingest 트레일러)
     end
     H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
+
+    note over H,S: 읽기 경로 kb-query (정확성은 여기서 조금씩)
     K->>S: 재색인 (qmd 하이브리드, 형태소 레그)
-    H->>S: 질의 (kb-query, 검색 4레그)
+    H->>S: 질의 (검색 4레그)
     S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
     H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
 ```
