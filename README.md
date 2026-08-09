@@ -32,7 +32,7 @@ flowchart LR
             GLUE["글루: tools/mirror CLI<br/>sources.yaml + schema"]
         end
         subgraph CORE["core/ 정본 KB (md + git = SoT)"]
-            IT["it/ concepts, synthesis<br/>sources, inbox, archive"]
+            IT["&lt;kb&gt;/ concepts, synthesis<br/>sources, inbox, archive"]
             CG["글루: tools, schema<br/>skills, evals"]
         end
         PLAN["PLAN.md + research/<br/>시스템 정본, 원장 r1–r12"]
