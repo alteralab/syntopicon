@@ -26,19 +26,19 @@ flowchart LR
         SRC["책, 논문, 웹 소스"]
     end
 
-    subgraph REPO["alteralab/syntopicon (모노레포)"]
+    subgraph REPO["alteralab/syntopicon"]
         subgraph DM["docs-mirror/ 캐시 레이어"]
             MIR["mirrors/ (git 제외)<br/>클론 미러, 버전=디렉토리"]
             GLUE["글루: tools/mirror CLI<br/>sources.yaml + schema"]
         end
-        subgraph CORE["core/ 정본 KB (md + git = SoT)"]
+        subgraph CORE["core/ 정본 KB"]
             IT["&lt;kb&gt;/ concepts, synthesis<br/>sources, inbox, archive"]
             CG["글루: tools, schema<br/>skills, evals"]
         end
     end
 
     UP -- "주간 pull (launchd)" --> MIR
-    SRC -- "kb-ingest" --> IT
+    SRC -- "kb-ingest" --> CORE
     MIR -- "승격: 불변 가치만<br/>(kb-ingest 단방향)" --> IT
     CORE -. "참조 금지" .-x DM
 ```
