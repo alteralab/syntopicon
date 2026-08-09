@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!-- syntopicon 일간 백업 (PLAN §5). launchd 채택 사유 = 슬립 후 따라잡기(cron은 조용히 유실).
+     설치 1회: launchctl bootstrap gui/$(id -u) tools/com.syntopicon.backup.plist
+     해제:     launchctl bootout   gui/$(id -u)/com.syntopicon.backup -->
+<dict>
+  <key>Label</key>
+  <string>com.syntopicon.backup</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/angyojun/workspace/syntopicon/core/tools/backup-scheduled.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>21</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/Users/angyojun/Library/Logs/syntopicon-backup.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/angyojun/Library/Logs/syntopicon-backup.log</string>
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>
