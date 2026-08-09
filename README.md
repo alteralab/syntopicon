@@ -40,7 +40,7 @@ flowchart LR
 ### 쓰기 경로 (kb-ingest, 소스당 1런 = 1커밋)
 
 ```mermaid
-%%{init: {"sequence": {"width": 140, "boxMargin": 8}}}%%
+%%{init: {"sequence": {"width": 140, "boxMargin": 8, "useMaxWidth": false}}}%%
 sequenceDiagram
     autonumber
     participant H as 인간
@@ -52,7 +52,7 @@ sequenceDiagram
     T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
     T->>K: citekey 발급, 소스 메타 기록 (CSL)
     L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
-    note right of K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
+    note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
     T->>T: validate (pre-commit 게이트)
     alt 위반
         T-->>L: 위반 목록, 고쳐서 다시
@@ -65,7 +65,7 @@ sequenceDiagram
 ### 읽기 경로 (kb-query)
 
 ```mermaid
-%%{init: {"sequence": {"width": 140, "boxMargin": 8}}}%%
+%%{init: {"sequence": {"width": 140, "boxMargin": 8, "useMaxWidth": false}}}%%
 sequenceDiagram
     autonumber
     participant H as 인간
