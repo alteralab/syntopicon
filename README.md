@@ -38,19 +38,40 @@ flowchart LR
 ## 지식 파이프라인
 
 ```mermaid
-flowchart LR
-    A["소스 획득<br/>(인간 큐레이션)"] --> B["스냅샷 + sha256<br/>archive/ (git 밖)"]
-    B --> C["citekey 발급<br/>소스 메타 (CSL)"]
-    C --> D["개념 페이지 갱신<br/>(신규보다 기존 10–15p 터치)"]
-    D --> E["inbox/ 격리<br/>[unreviewed]"]
-    E --> F["validate 게이트<br/>(pre-commit 훅)"]
-    F --> G["1런 = 1커밋<br/>Ingest 트레일러"]
-    G --> H["사람 리뷰, 머지<br/>(무해성과 구조만 심사)"]
-    H --> I["재색인<br/>qmd + 형태소"]
+flowchart TB
+    subgraph WRITE["쓰기 경로 kb-ingest (소스당 1런)"]
+        direction TB
+        A["① 소스 획득 〔인간〕<br/>큐레이션이 첫 게이트"]
+        B["② 스냅샷, sha256 〔스크립트〕<br/>archive/ (git 밖) 소급 불가라 최전방"]
+        C["③ citekey 발급, 소스 메타 〔도구〕<br/>CSL 타입"]
+        D["④ 개념 페이지 갱신 〔LLM〕<br/>신규보다 기존 10–15쪽 터치가 본체"]
+        E["⑤ inbox/ 격리<br/>unreviewed 라벨로 검색에는 노출"]
+        F{"⑥ validate<br/>(pre-commit 게이트)"}
+        G["⑦ 1런 = 1커밋<br/>Ingest-Source, Ingest-Run 트레일러"]
+        H["⑧ 리뷰, 머지 〔인간〕<br/>무해성과 구조만 심사, 정확성은 이연"]
 
-    I -.-> Q["검색 4레그: qmd 하이브리드,<br/>ksearch 형태소, rg, 링크 이웃"]
-    Q -.-> R["review-on-read 승급<br/>(읽으며 검증하면 스탬프)"]
+        A --> B --> C --> D --> E --> F
+        F -- "실패: 고쳐서 다시" --> D
+        F -- "통과" --> G --> H
+    end
+
+    KB[("KB 페이지<br/>concepts, synthesis")]
+
+    subgraph READ["읽기 경로 kb-query"]
+        direction TB
+        I["⑨ 재색인<br/>qmd 하이브리드 + 형태소 레그"]
+        Q["검색 4레그<br/>qmd, ksearch, rg, 링크 이웃"]
+        V["정독과 이웃 확장<br/>공백이면 search-miss 계측"]
+        I --> Q --> V
+    end
+
+    H --> KB
+    KB --> I
+    V -- "읽으며 원문 대조로 검증하면<br/>승급 스탬프 (review-on-read)" --> KB
 ```
+
+기계가 쓴 claim은 격리와 라벨로 들어와서, 사람이 읽는 순간마다 조금씩 검증 등급이
+올라간다. 전수 검수 대신 이 순환이 정확성을 담당한다.
 
 검색은 색인 파이프라인이 아니라 에이전트가 도구를 고르는 구도라서, 벤더 문서 질의는
 `/docs-query`(라우팅, rg, 정독의 무색인 절차)로 넘어간다. 스킬 다섯(`kb-query`,
