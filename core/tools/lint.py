@@ -427,11 +427,31 @@ def check_ingest_trailers(ctx: Context):
                           f"{commit[:8]} 가 소스를 추가했는데 {', '.join(missing)} 가 없습니다")
 
 
+def check_skill_symlinks(ctx: Context):
+    # 호출 표면(~/.claude/skills/*)은 심링크라 조용히 깨진다 — 스킬이 에러 없이
+    # 그냥 안 보이게 되는 유형이라 lint가 유일한 검출 지점이다.
+    surface = Path.home() / ".claude" / "skills"
+    skills_root = ROOT / ".agents" / "skills"
+    if not skills_root.is_dir():          # 테스트 샌드박스·부분 체크아웃
+        return
+    for skill_dir in sorted(skills_root.iterdir()):
+        if not skill_dir.is_dir():
+            continue
+        link = surface / skill_dir.name
+        if not link.is_symlink():
+            yield Finding("skill-symlink", "error",
+                          f"~/.claude/skills/{skill_dir.name} 심링크 없음 — 전 프로젝트 호출 불가")
+        elif link.resolve() != skill_dir.resolve():
+            yield Finding("skill-symlink", "error",
+                          f"~/.claude/skills/{skill_dir.name} 이 정본이 아닌 {link.resolve()} 를 가리킴")
+
+
 # ── 실행 ─────────────────────────────────────────────────────────────────────
 
 GRAPH_CHECKS = (check_links, check_orphans, check_hubs, check_stale,
                 check_contradictions, check_field_usage, check_fragments,
-                check_term_drift, check_hub_size, check_overlap, check_inbox, check_ingest_trailers)
+                check_term_drift, check_hub_size, check_overlap, check_inbox,
+                check_ingest_trailers, check_skill_symlinks)
 
 
 def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str],
