@@ -21,8 +21,8 @@ syntopicon/                  # 단일 git 저장소 (모노레포 — r12) = alt
 | **core** | 지식의 source of record — 사람·LLM이 저작한 md, 대체 불가 | `core/PLAN.md` | git 3계층 + restic(archive/) | 지식의 tx-time·이벤트 저널(Ingest 트레일러) |
 | **docs-mirror** | 외부 벤더 문서의 로컬 캐시 — 전량 재생성 가능 | `docs-mirror/PLAN.md` | 글루만 git 원격, mirrors/ 는 무백업 | 글루 변경 이력만 |
 
-- **레이어 간 관계는 계약 2개가 전부다**: ⑴ 지식 이동은 승격 단방향(docs-mirror → core, kb-ingest 경유 — docs-mirror PLAN §6) ⑵ core → docs-mirror 참조 금지(docs-mirror PLAN §5). 두 레이어 사이에 원자 커밋을 요하는 변경은 존재하지 않는다(실측 0건 — r6). 이 성질은 모노레포(r12)에서도 규범으로 유지된다 — **한 커밋은 한 레이어만 만진다**(우산 PLAN·research 커밋은 예외).
-- **새 레이어 추가**는 core의 kb-new 게이트 3문(기밀·백업 정책·스키마 분기)을 준용해 심사하고, 통과 시 이 우산 아래 형제 저장소로 추가한 뒤 이 표를 갱신한다.
+- **레이어 간 관계는 계약 2개가 전부다**: ⑴ 지식 이동은 승격 단방향(docs-mirror → core, kb-ingest 경유 — docs-mirror PLAN §6) ⑵ core → docs-mirror 참조 금지(docs-mirror PLAN §5). 두 레이어 사이에 원자 커밋을 요하는 변경은 존재하지 않는다(실측 0건 — r6). 이 성질은 모노레포(r12)에서도 규범으로 유지된다 — **한 커밋은 한 레이어만 만진다**(루트 PLAN·research 커밋은 예외).
+- **새 레이어 추가**는 core의 kb-new 게이트 3문(기밀·백업 정책·스키마 분기)을 준용해 심사하고, 통과 시 레이어 디렉토리로 추가한 뒤 이 표를 갱신한다.
 
 ## 2. 시스템 공통 규약 (레이어 배치 원리)
 
@@ -36,7 +36,7 @@ syntopicon/                  # 단일 git 저장소 (모노레포 — r12) = alt
 | 스키마 결합 글루 (tools·skills·evals) | **그 데이터의 레이어 안** — 동거 | 응집도·co-change 56% 실측·Iceberg 메타데이터 배치 (r4·r5) |
 | 공유 가능한 범용 엔진 (qmd·ir_measures·Airflow[도입 예정 — 다중 크롤·배치의 공유 오케스트레이터, 2026-08-08 사용자 결정]) | 저장소 밖 외부 설치·버전 핀. 오케스트레이터의 DAG는 얇은 호출자만 — 로직은 각 레이어 글루 잔류 | 글루 동거·엔진 외부 — Chromium depot_tools 동형 (r4) |
 | 스킬의 호출 표면 | `~/.claude/skills/` 심링크 = 단일 catalog | 정본은 레이어별 분산, 표면은 통합 — Iceberg catalog 동형 (r5) |
-| 두 레이어를 함께 다루는 오케스트레이션 스킬 (미래) | 우산 루트 `.claude/skills/` | nested skills 공식 지원 (r4·r5) |
+| 두 레이어를 함께 다루는 오케스트레이션 스킬 (미래) | 저장소 루트 `.claude/skills/` | nested skills 공식 지원 (r4·r5) |
 
 - **이력 조회 규약**: 지식 이력 = `git -C core log --oneline -- it/` 또는 `git -C core log --grep Ingest-Run`(이벤트 저널). 도구 이력 = `git -C core log --oneline -- tools/ schema/`. 이력 혼재는 저장 문제가 아니라 뷰 문제다 (r6·co-change 실측).
 
@@ -79,7 +79,7 @@ syntopicon/                  # 단일 git 저장소 (모노레포 — r12) = alt
 ## 6. 저장소 규약 (r12 개정)
 
 - **단일 저장소가 시스템 전체를 추적한다.** 예외(ignore)는 재생성·파생물뿐: `docs-mirror/mirrors/`(캐시), `core/it/archive/`(restic 담당), `.venv`·인덱스류. 원격 = `alteralab/syntopicon`(private), 백업 = core 3계층(bundle이 전체 이력 포함).
-- **커밋 규약: `<레이어>/<영역>: 요지`** — 예: `core/tools: …`, `core/it: …`, `mirror/plan: …`. 우산 자체는 `plan:`·`research:`. 본문은 왜만 1–3문장(기존 core 규약 승계). 한 커밋 = 한 레이어. Ingest 트레일러 규약은 core 커밋에 그대로 적용.
+- **커밋 규약: `<레이어>/<영역>: 요지`** — 예: `core/tools: …`, `core/it: …`, `mirror/plan: …`. 루트 문서는 `plan:`·`research:`. 본문은 왜만 1–3문장(기존 core 규약 승계). 한 커밋 = 한 레이어. Ingest 트레일러 규약은 core 커밋에 그대로 적용.
 - 커밋 게이트 = `git config core.hooksPath core/tools/githooks` (기기당 1회).
 - 레이어 내부 작업은 해당 디렉토리의 CLAUDE.md·PLAN을 따른다. 새 구성 요소의 행선지는 §2 배치 표로 판정 — 대부분 레이어 안이 정답이고, 루트에 종류별 디렉토리(tools/·skills/)를 만들지 않는다(r4·r12).
 - 이 PLAN의 개정은 §3 원장에 근거를 남긴다(리서치 산출물 또는 실측). 근거 없는 구조 변경 금지 — "잘못된 구조에 주먹구구식으로 덧붙이는 것"의 반대 원칙은 "검증된 구조를 근거 없이 재편하는 것도 같은 결함"이다.

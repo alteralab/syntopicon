@@ -1,6 +1,6 @@
 # docs-mirror 계획
 
-버전 따라 변하는 벤더 기술 문서(dbt·Spark·ClickHouse 등)의 **로컬 미러 + 에이전트 검색 레이어**. 2026-08-08 초판(같은 날 정리판). 결정별 근거는 §8 검증 원장 — 전문(claim·검증 판정·URL)은 우산 `research/r*`.
+버전 따라 변하는 벤더 기술 문서(dbt·Spark·ClickHouse 등)의 **로컬 미러 + 에이전트 검색 레이어**. 2026-08-08 초판(같은 날 정리판). 결정별 근거는 §8 검증 원장 — 전문(claim·검증 판정·URL)은 루트 `research/r*`.
 
 **정체성: 이 레이어는 지식 베이스가 아니라 캐시다.** syntopicon core(md+git = source of record)와 달리, 여기의 모든 파일은 **정본이 외부(upstream)에 있는 사본**이어야 한다 — 사람이 쓴 파일, 이곳이 유일 사본인 파일이 생기는 순간 경계 위반이다. 따라서 **계약이 지켜지는 한** `mirrors/` 삭제는 안전하다(캐시 기능은 재클론으로 복구). 단 '안전'은 선언이 아니라 삭제 시점에 검증할 대상이다 — 파괴 연산은 raw `rm -rf`가 아니라 `tools/mirror remove|reset` 동사를 경유하며, 동사가 삭제 게이트(§3)를 수행한다. **단 이 계약이 upstream의 존속까지 보장하지는 않는다** — 시간이 지나 upstream이 소멸했을 때 "과거를 다시 얻을 가능성"은 캐시가 아니라 §3.5 보존 계층(fork·SWH·스냅샷·bundle)의 소관이며, 가치가 확정된 지식은 승격 시점에 core의 archive/로 이미 이탈해 있다(§6). 겹손실(캐시 소멸 ∧ upstream 소멸 ∧ 보험 미적용)에서 잃는 것은 아직 승격도 보험도 되지 않은 미래의 참조 가능성뿐 — 이것이 이 레이어가 수용하는 손실 허용 범위다.
 
@@ -52,7 +52,7 @@ docs-mirror/                 # 레이어 디렉토리 (모노레포 alteralab/sy
 
 미러 자체는 무백업이지만, "과거 시점을 다시 얻을 보장 없음"의 보험은 캐시 밖 4겹이 담당한다:
 
-- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 전용 free org(`syntopicon-mirrors`)에 fork. **배치 규칙(2026-08-09 확정): org = 소모품 public fork 전용, 저작물(글루·우산·core)은 전부 개인 계정** — org에 private 저작물이 없으므로 fork 생존성용 백업 owner 추가가 노출 충돌 없이 열려 있다(10–20년 축 존속성 옵션). fork는 public 고정이라 프라이빗 사본 안은 동기화 글루 자작·용량 한계로 배제. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
+- **0겹 (상시·0원) — GitHub fork**: 미러 대상을 전용 free org(`syntopicon-mirrors`)에 fork. **배치 규칙(2026-08-09 개정): `syntopicon-mirrors` org = 소모품 public fork 전용, 저작물은 `alteralab` org(단독 owner — 모노레포·portainer·gopass-store)** — mirrors org에 private 저작물이 없으므로 fork 생존성용 백업 owner 추가가 노출 충돌 없이 열려 있다(10–20년 축 존속성 옵션). fork는 public 고정이라 프라이빗 사본 안은 동기화 글루 자작·용량 한계로 배제. 공식 보장 — public upstream 삭제 시 fork 생존, private 전환 시에도 public fork 존속, 자동 sync 부재라 force-push가 이력을 소급 파괴하지 못함(간헐 수동 sync). fork URL은 sources.yaml에 기록.
 - **0겹-보조 (0원) — Software Heritage**: 신규 등록 시 save-code-now API로 공공 아카이브 등록(GitHub URL 자동 승인, Vault git-bare 복원 지원).
 - **1겹 (현행 5–30GB) — core restic 타깃 편승**: core restic 원격(B2 후보)에 mirrors/ 스냅샷을 `mirror` 태그로 통합(한계비용 연 ~$2.50, 태그별 보존 정책 분리 공식 지원). **git 백업 규율**: `gc.auto=0` + 재클론 금지(fetch 증분만) + prune 금지 — packfile 재작성의 restic dedup 파괴 완화 + 삭제 브랜치 로컬 잔존 보장.
 - **1겹-보조 (0원) — 사용자 Synology NAS 제2 restic repo**: 사용자 기보유 NAS(2026-08-08 확인 — r9의 신규 구축 TCO $3,000–4,500 논거는 보유자에게 비적용, 한계비용 ~0)에 동일 스케줄·동일 git 백업 규율로 백업. **오프사이트 아님(동일 주소 — 화재·도난 동일 운명)이라 클라우드 겹의 대체가 아니라 추가**: 로컬 신속 복원 + 클라우드 계정 리스크(해지·잠김) 헤지가 역할. 접근 방식(SFTP vs rest-server 컨테이너)은 설치 시 결정. §7 중앙 미러 기각과 무관 — 캐시 동기화 허브가 아니라 보존 사본이다.
@@ -111,9 +111,9 @@ docs-mirror/                 # 레이어 디렉토리 (모노레포 alteralab/sy
 | Airflow를 이 레이어 **단독**을 위해 도입 | 단독 용도로는 과잉(공식 실측: 최소 설치 = scheduler+dag processor+API server+메타 DB, SQLite는 "DO NOT use in production") — 단 **시스템 공유 배치 엔진으로는 도입 예정**(사용자 로드맵: 다중 크롤·배치 워크로드, 2026-08-08 결정 — "두 번째 소비자" 조건의 계획된 충족). 계약: 갱신 로직은 레이어 글루 잔류, DAG는 얇은 호출자, 이 레이어는 스케줄러 불가지론(§3) | 직접 확인 | 해당 없음 — Airflow 가동 시 §3의 이관 조항 발동(launchd → DAG) |
 | 카탈로그 서비스·CRUD REST API | Polaris 전제(멀티 엔진·동시 writer CAS·RBAC·credential vending) 전부 부재. Backstage조차 source of truth는 git 내 YAML(서비스는 harvest 파생). 로컬 REST 선례 6종 전수가 비파일 클라이언트용 파사드 — "쓰기 규칙 집행용 1인 REST" 선례 0건. 집행점은 커밋 게이트가 표준, 메타스토어 정본화는 dual-write 자초 | r10·r11 | 비파일 클라이언트·멀티유저·git 비경유 쓰기 경로 등장 시 — 그때도 파일 정본 유지 파사드형만 |
 
-## 8. 검증 원장 (라운드별 요약 — 전문·검증 판정·URL은 우산 `research/r*`)
+## 8. 검증 원장 (라운드별 요약 — 전문·검증 판정·URL은 루트 `research/r*`)
 
-번호는 시스템 원장(우산 PLAN §3)과 공유한다. 전부 2026-08-08, 적대 검증 포함.
+번호는 시스템 원장(루트 PLAN §3)과 공유한다. 전부 2026-08-08, 적대 검증 포함.
 
 - **r1** (레이어 분리·수집·llms.txt, 12 에이전트): DDIA SoR/derived 프레임·kb-new 게이트로 분리 확정. dbt 문서 저장소 월 200+커밋(박제 즉시 낡음). git 미러 성립 — dbt(md/MDX)·React·Spark·Kafka 확인, Airflow(rst)·PostgreSQL(DocBook)은 변환 필요, ClickHouse 미확인. 소실 방어 — Pew: 1년 내 ~8%·10년 내 38% 소실, dbt EOL 문서 제거. 버전 — llms.txt 스펙에 버전 메커니즘 없음, GitChameleon 버전 조건 정답률 48–51%(문서 공급 시 +6.7~10%p). 통독 불가 — llms-full: dbt 10.5MB·Cloudflare 56.7MB(직접 curl).
 - **r2** (도구 지형 전수, 12): 무색인 성립 — Claude Code의 RAG→agentic search 교체(Cherny 원문), Amazon AAAI 2026 grep 에이전트 91.5% attainment, 성능 경계(원조 grep 100만 파일 4초)는 미러 규모의 2–3자릿수 위. docs-mcp-server 실사 — 버전 1급·증분·LLM 불요·`file://`(코드 수준 확인), bus factor 1. qmd 실사(core에도 해당) — tobi 개인 프로젝트·커밋 78% 단독·sqlite-vec 의존 pre-1.0 alpha·한국어는 형태소 아닌 문자 단위 정규화(소스 확인). 미확인: 한국어 grep miss율 정량 연구 부재(게이트 A/B가 결정 경로).
