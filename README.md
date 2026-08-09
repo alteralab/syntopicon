@@ -38,36 +38,30 @@ flowchart LR
 ## 지식 파이프라인
 
 ```mermaid
-flowchart TB
-    subgraph WRITE["쓰기 경로 kb-ingest (소스당 1런)"]
-        direction TB
-        A["① 소스 획득 〔인간〕<br/>큐레이션이 첫 게이트"]
-        B["② 스냅샷, sha256 〔스크립트〕<br/>archive/ (git 밖) 소급 불가라 최전방"]
-        C["③ citekey 발급, 소스 메타 〔도구〕<br/>CSL 타입"]
-        D["④ 개념 페이지 갱신 〔LLM〕<br/>신규보다 기존 10–15쪽 터치가 본체"]
-        E["⑤ inbox/ 격리<br/>unreviewed 라벨로 검색에는 노출"]
-        F{"⑥ validate<br/>(pre-commit 게이트)"}
-        G["⑦ 1런 = 1커밋<br/>Ingest-Source, Ingest-Run 트레일러"]
-        H["⑧ 리뷰, 머지 〔인간〕<br/>무해성과 구조만 심사, 정확성은 이연"]
+sequenceDiagram
+    autonumber
+    actor H as 인간
+    participant T as 도구 (결정적)
+    participant L as LLM
+    participant K as KB 저장소
+    participant S as 색인과 검색
 
-        A --> B --> C --> D --> E --> F
-        F -- "실패: 고쳐서 다시" --> D
-        F -- "통과" --> G --> H
+    H->>T: 소스 선택 (큐레이션이 첫 게이트)
+    T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
+    T->>K: citekey 발급, 소스 메타 기록 (CSL)
+    L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
+    note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
+    T->>T: validate (pre-commit 게이트)
+    alt 위반
+        T-->>L: 위반 목록, 고쳐서 다시
+    else 통과
+        T->>K: 1런 = 1커밋 (Ingest 트레일러)
     end
-
-    KB[("KB 페이지<br/>concepts, synthesis")]
-
-    subgraph READ["읽기 경로 kb-query"]
-        direction TB
-        I["⑨ 재색인<br/>qmd 하이브리드 + 형태소 레그"]
-        Q["검색 4레그<br/>qmd, ksearch, rg, 링크 이웃"]
-        V["정독과 이웃 확장<br/>공백이면 search-miss 계측"]
-        I --> Q --> V
-    end
-
-    H --> KB
-    KB --> I
-    V -- "읽으며 원문 대조로 검증하면<br/>승급 스탬프 (review-on-read)" --> KB
+    H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
+    K->>S: 재색인 (qmd 하이브리드, 형태소 레그)
+    H->>S: 질의 (kb-query, 검색 4레그)
+    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
+    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
 ```
 
 기계가 쓴 claim은 격리와 라벨로 들어와서, 사람이 읽는 순간마다 조금씩 검증 등급이
