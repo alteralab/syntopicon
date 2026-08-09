@@ -14,7 +14,15 @@ CORE="$(cd "$(dirname "$0")/.." && pwd)"
 STATE="$SYNTOPICON_BACKUP_DIR/last_run.json"
 LOG="$HOME/Library/Logs/syntopicon-backup.log"
 
+MIRRORS="$CORE/../docs-mirror/mirrors"
+
 echo "=== $(date '+%F %T') backup 시작" >> "$LOG"
+# docs-mirror 1겹 편승 (docs-mirror PLAN §3.5): mirror 태그로 스냅샷 — 실패해도 core 백업은 계속
+if [ -d "$MIRRORS" ]; then
+  restic backup --quiet --tag mirror "$MIRRORS" >> "$LOG" 2>&1 \
+    || { echo "mirror 편승 실패 (비치명 — 캐시)" >> "$LOG"; \
+         osascript -e 'display notification "mirrors 스냅샷 실패 (core 백업은 별도 진행)" with title "syntopicon 백업"' || true; }
+fi
 if (cd "$CORE" && uv run tools/backup.py all) >> "$LOG" 2>&1; then
   printf '{"last_run": "%s", "ok": true}\n' "$(date '+%FT%T')" > "$STATE"
   echo "=== $(date '+%F %T') 성공" >> "$LOG"
