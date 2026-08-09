@@ -77,14 +77,13 @@ sequenceDiagram
     participant K as KB 저장소
     participant M as docs-mirror
 
-    alt KB 질의 (개념, 소스, 판단)
-        H->>S: 질의 (검색 4레그)
-        S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
-        H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
-    else 벤더 문서 질의 (버전 종속 사용법)
-        H->>M: docs-query (라우팅, rg, 정독, 무색인)
-        M-->>H: 답은 upstream 정식 인용으로
-    end
+    H->>S: 질의 (검색 4레그)
+    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
+    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
+
+    note over S,K: 벤더 문서 질의는 KB가 아니라 미러로
+    H->>M: docs-query (라우팅, rg, 정독, 무색인)
+    M-->>H: 답은 upstream 정식 인용으로
 ```
 
 기계가 쓴 claim은 쓰기 경로에서 격리와 라벨로 들어오고, 읽기 경로에서 사람이 읽는
