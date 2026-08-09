@@ -25,8 +25,8 @@ def frontmatter(skill: Path) -> dict:
     return yaml.safe_load(text.split("---\n", 2)[1])
 
 
-def test_네_종류가_다_있다():
-    assert {p.name for p in SKILLS} == {"kb-query", "kb-ingest", "kb-lint", "kb-new"}
+def test_다섯_종류가_다_있다():
+    assert {p.name for p in SKILLS} == {"kb-query", "kb-ingest", "kb-lint", "kb-new", "kb-plain"}
 
 
 @pytest.mark.parametrize("skill", SKILLS, ids=lambda p: p.name)

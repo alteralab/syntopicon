@@ -359,9 +359,22 @@ def check_page(ctx: Context, path: str, md: MdFile):
 
     if front.get("type") == "concept":
         for bullet in md.bullets:
-            if not bullet.cites and not bullet.pointer_only:
+            # 하위 열거 불릿은 부모 불릿의 각주를 상속한다(§2.1).
+            if not bullet.cites and not bullet.pointer_only and not bullet.inherits_cite:
                 yield Finding("claim-unfootnoted", "info",
                               f"{bullet.line}행: {bullet.text[:40]}…", kb, path)
+            if bullet.cites and not bullet.locator_before_cite:
+                yield Finding("locator-missing", "info",
+                              f"{bullet.line}행: 각주 앞에 locator 괄호가 없습니다 — "
+                              f"claim은 각주+locator(§4.4-4)", kb, path)
+
+    # 허브·overview 링크 불릿 문법(§2.6): 링크로 시작하는 불릿은 한 줄 설명을 진다.
+    if front.get("type") in ("synthesis", "guide"):
+        for bullet in md.bullets:
+            if bullet.link_led and bullet.pointer_only:
+                yield Finding("hub-grammar", "warn",
+                              f"{bullet.line}행: 링크 불릿에 설명이 없습니다 — "
+                              f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
 
     for text in md.texts:
         for token in EPISTEMIC_TOKEN.findall(text):
@@ -377,7 +390,13 @@ def check_page(ctx: Context, path: str, md: MdFile):
 
 
 def _has_toc(md: MdFile) -> bool:
-    """H1 뒤 첫 H2 앞에 목록이 있으면 TOC로 본다."""
+    """`**목차**:` 인라인 문단(§2.6 형식 정본) 또는 H2 앞 포인터 불릿 목록을 TOC로 본다.
+
+    2026-08-10 감사: 저작 관례는 인라인 문단형인데 검사가 불릿형만 인정해
+    13건 중 10+건이 오검출이었다 — 형식을 §2.6에 계약으로 성문하고 검사를 맞췄다.
+    """
+    if md.inline_toc_line is not None:
+        return True
     first_h2 = next((line for level, line, _ in md.headings if level == 2), md.line_count)
     return any(bullet.line < first_h2 and bullet.pointer_only for bullet in md.bullets)
 
