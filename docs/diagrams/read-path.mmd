@@ -1,0 +1,14 @@
+%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12, "actorMargin": 108}}}%%
+sequenceDiagram
+    participant H as 인간
+    participant S as 색인과 검색
+    participant K as KB 저장소
+    participant M as docs-mirror
+
+    H->>S: 질의 (검색 4레그)
+    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
+    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
+
+    note over S,K: 벤더 문서 질의는 KB가 아니라 미러로
+    H->>M: docs-query (라우팅, rg, 정독, 무색인)
+    M-->>H: 답은 upstream 정식 인용으로

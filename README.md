@@ -20,29 +20,10 @@ IT 서적, 논문, 기술 문서를 10–20년 축적하는 개인 지식 시스
 두 레이어가 한 저장소에 산다. 경계를 지키는 것은 저장소 분리가 아니라 계약이다(원장 r12).
 지식은 승격 방향으로만 흐르고, 정본(core)에서 소모품(docs-mirror)을 참조할 수 없다.
 
-```mermaid
-flowchart LR
-    subgraph EXT["외부 (Source of Record)"]
-        UP["벤더 문서 upstream<br/>(dbt, Spark, ClickHouse …)"]
-        SRC["책, 논문, 웹 소스"]
-    end
-
-    subgraph REPO["alteralab/syntopicon"]
-        subgraph DM["docs-mirror/ 캐시 레이어"]
-            MIR["mirrors/ (git 제외)<br/>클론 미러, 버전=디렉토리"]
-            GLUE["글루: tools/mirror CLI<br/>sources.yaml + schema"]
-        end
-        subgraph CORE["core/ 정본 KB"]
-            IT["&lt;kb&gt;/ concepts, synthesis<br/>sources, inbox, archive"]
-            CG["글루: tools, schema<br/>skills, evals"]
-        end
-    end
-
-    UP -- "주간 pull (launchd)" --> MIR
-    SRC -- "kb-ingest" --> CORE
-    MIR -- "승격: 불변 가치만<br/>(kb-ingest 단방향)" --> IT
-    CORE -. "참조 금지" .-x DM
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/layers-dark.svg">
+  <img alt="레이어 구조" src="docs/diagrams/layers-light.svg">
+</picture>
 
 ### 1.1 core 디렉토리 골격
 
@@ -82,22 +63,10 @@ core/
 KB 안에서 디렉토리들이 잇는 관계는 다음과 같다. 실선은 링크와 참조의 사슬이고,
 점선은 시간이 지나며 일어나는 이동이다.
 
-```mermaid
-flowchart LR
-    OV["overview.md<br/>진입 라우터"]
-    SY["synthesis/<br/>허브와 종합"]
-    CO["concepts/<br/>개념 페이지"]
-    SO["sources/<br/>소스 메타"]
-    AR["archive/<br/>원문 스냅샷 (git 밖)"]
-    IN["inbox/<br/>기계 저작물 격리"]
-
-    OV -- "Hubs 포인터" --> SY
-    SY -- "주제를 묶는 링크" --> CO
-    CO -- "각주가 citekey 참조" --> SO
-    SO -- "스냅샷 경로" --> AR
-    IN -. "리뷰와 머지 뒤 반영" .-> CO
-    CO -. "링크가 모이면 허브 후보 (lint가 대조)" .-> SY
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/kb-structure-dark.svg">
+  <img alt="KB 내부 관계" src="docs/diagrams/kb-structure-light.svg">
+</picture>
 
 ### 1.2 schema 계약
 
@@ -122,47 +91,17 @@ flowchart LR
 
 소스 하나가 1런이고, 1런이 곧 1커밋이다.
 
-```mermaid
-%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12}}}%%
-sequenceDiagram
-    participant H as 인간
-    participant T as 결정적 도구
-    participant L as LLM
-    participant K as KB 저장소
-
-    H->>T: 소스 선택 (큐레이션이 첫 게이트)
-    T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
-    T->>K: citekey 발급, 소스 메타 기록 (CSL)
-    L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
-    note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
-    T->>T: validate (pre-commit 게이트)
-    loop 위반이면 통과까지
-        T-->>L: 위반 목록
-        L-->>T: 수정 반영, 재검
-    end
-    T->>K: 커밋 (Ingest 트레일러)
-    H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
-    T->>T: 재색인 (qmd 파생 인덱스 갱신)
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/write-path-dark.svg">
+  <img alt="쓰기 경로 시퀀스" src="docs/diagrams/write-path-light.svg">
+</picture>
 
 ### 2.2 읽기 경로 (kb-query)
 
-```mermaid
-%%{init: {"sequence": {"width": 140, "messageMargin": 28, "boxMargin": 12, "actorMargin": 108}}}%%
-sequenceDiagram
-    participant H as 인간
-    participant S as 색인과 검색
-    participant K as KB 저장소
-    participant M as docs-mirror
-
-    H->>S: 질의 (검색 4레그)
-    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
-    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
-
-    note over S,K: 벤더 문서 질의는 KB가 아니라 미러로
-    H->>M: docs-query (라우팅, rg, 정독, 무색인)
-    M-->>H: 답은 upstream 정식 인용으로
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/read-path-dark.svg">
+  <img alt="읽기 경로 시퀀스" src="docs/diagrams/read-path-light.svg">
+</picture>
 
 기계가 쓴 claim은 쓰기 경로에서 격리와 라벨로 들어오고, 읽기 경로에서 사람이 읽는
 순간마다 조금씩 검증 등급이 올라간다. 전수 검수 대신 이 순환이 정확성을 담당한다.
@@ -177,25 +116,10 @@ sequenceDiagram
 백업은 데이터가 태어나는 맥북에서 돈다. NAS는 공유기 포트를 하나도 열지 않고,
 접근은 Tailscale tailnet뿐이다.
 
-```mermaid
-flowchart TB
-    subgraph MAC["MacBook 주 작업기 (데이터 출생지)"]
-        WORK["작업 사본 + 로컬 인덱스"]
-        BK["일간 백업 launchd 21:00<br/>bundle, 인덱스 사본, restic"]
-    end
-
-    subgraph NAS["Synology NAS (tailnet 한정 접근)"]
-        REST["restic rest-server<br/>--append-only"]
-    end
-
-    subgraph GH["GitHub"]
-        MONO["alteralab/syntopicon<br/>(모노레포, private)"]
-        FORK["syntopicon-mirrors org<br/>(미러 upstream의 public fork)"]
-    end
-
-    WORK -- "commit + push" --> MONO
-    BK -- "스냅샷: it, toolchain, mirror 태그" --> REST
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/topology-dark.svg">
+  <img alt="백업과 인프라 토폴로지" src="docs/diagrams/topology-light.svg">
+</picture>
 
 | 보존 겹 | 담당 | 막는 위협 |
 |---|---|---|

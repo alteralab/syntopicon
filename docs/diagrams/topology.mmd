@@ -1,0 +1,17 @@
+flowchart TB
+    subgraph MAC["MacBook 주 작업기 (데이터 출생지)"]
+        WORK["작업 사본 + 로컬 인덱스"]
+        BK["일간 백업 launchd 21:00<br/>bundle, 인덱스 사본, restic"]
+    end
+
+    subgraph NAS["Synology NAS (tailnet 한정 접근)"]
+        REST["restic rest-server<br/>--append-only"]
+    end
+
+    subgraph GH["GitHub"]
+        MONO["alteralab/syntopicon<br/>(모노레포, private)"]
+        FORK["syntopicon-mirrors org<br/>(미러 upstream의 public fork)"]
+    end
+
+    WORK -- "commit + push" --> MONO
+    BK -- "스냅샷: it, toolchain, mirror 태그" --> REST
