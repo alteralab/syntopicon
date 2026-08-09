@@ -276,7 +276,7 @@ syntopicon/
 
 **restic 채택 확정 (2026-08-09, 대조 심사 — §8)**: borg(안정판은 원격=SSH `borg serve` 전제라 B2 결격, 2.0은 베타·일정 없음)·kopia(무결성 트랙레코드 — data-loss race 수정 이력·append-only 서버 부재)·duplicacy(비OSS 사설 라이선스) 기각. restic 고유 우위 = **공개 포맷 명세 + 독립 구현체 2개**(rustic이 동일 repo를 상호 읽고 씀 — 도구 사망과 데이터 접근의 분리). **승계 트리거**: restic 12개월 무릴리스 또는 유지자 팀 해체 → rustic 승계 검토(포맷 동일이라 데이터 이동 0, 게이트 = rustic의 베타 탈출·회귀 테스트 확보).
 
-**새 기기 복구 런북**: ① Homebrew + `brew install sqlite`(시스템 SQLite는 확장 로딩 불가) ② 네이티브 arm64 Node LTS ③ 벤더링 qmd 타르볼 설치 ④ GGUF 복원 ⑤ `git clone` → qmd 컬렉션 재등록(layout.yaml 기반) ⑥ 사본 복원+검증 / 폴백 재빌드 ⑦ qmd MCP 전역 등록 + 스킬 심링크(`~/.claude/skills/`) 생성 + 사용자 레벨 훅. 툴체인 핀 갱신은 연간 항목.
+**새 기기 복구 런북**: ① Homebrew + `brew install sqlite`(시스템 SQLite는 확장 로딩 불가) ② 네이티브 arm64 Node LTS ③ 벤더링 qmd 타르볼 설치 ④ GGUF 복원 ⑤ `git clone` → qmd 컬렉션 재등록(layout.yaml 기반) ⑥ 사본 복원+검증 / 폴백 재빌드 ⑦ qmd MCP 전역 등록 + 스킬 심링크(`~/.claude/skills/`) 생성 + 사용자 레벨 훅 + `git config core.hooksPath tools/githooks`(커밋 게이트 활성). 툴체인 핀 갱신은 연간 항목.
 
 **배포 토폴로지**:
 
