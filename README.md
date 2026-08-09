@@ -55,7 +55,7 @@ core/
 ├── tools/
 ├── evals/
 ├── .agents/skills/
-└── it/
+└── <kb>/
     ├── overview.md
     ├── concepts/
     ├── synthesis/
@@ -71,13 +71,13 @@ core/
 | `tools/` | 결정적 CLI (validate, lint, reindex, backup, ksearch …) + githooks |
 | `evals/` | 검색 실측 하네스와 qrels, 스킬 evals 시나리오 |
 | `.agents/skills/` | kb-* 스킬 정본 (`~/.claude/skills` 심링크의 원본) |
-| `it/` | KB 1호 — kb-new가 생성하고 KB마다 동형이다 |
-| `it/overview.md` | 진입 라우터 (Hubs 포인터, 카탈로그 아님) |
-| `it/concepts/` | 개념 페이지 — 지식의 단위, claim은 각주 달린 불릿 |
-| `it/synthesis/` | 허브와 종합 — 링크 차수가 곧 허브 |
-| `it/sources/` | 소스 메타 (CSL, citekey가 파일명) |
-| `it/inbox/` | 기계 저작물 격리 (unreviewed 라벨, 리뷰 후 승격) |
-| `it/archive/` | 원문 스냅샷 — git 제외, restic 담당, 유일하게 대체 불가 |
+| `<kb>/` | KB 인스턴스 — kb-new만이 생성하고 KB마다 동형이다 (현재 `it/` 하나) |
+| `<kb>/overview.md` | 진입 라우터 (Hubs 포인터, 카탈로그 아님) |
+| `<kb>/concepts/` | 개념 페이지 — 지식의 단위, claim은 각주 달린 불릿 |
+| `<kb>/synthesis/` | 허브와 종합 — 링크 차수가 곧 허브 |
+| `<kb>/sources/` | 소스 메타 (CSL, citekey가 파일명) |
+| `<kb>/inbox/` | 기계 저작물 격리 (unreviewed 라벨, 리뷰 후 승격) |
+| `<kb>/archive/` | 원문 스냅샷 — git 제외, restic 담당, 유일하게 대체 불가 |
 
 ### 1.2 schema 계약
 
