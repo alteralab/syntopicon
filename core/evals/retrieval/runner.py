@@ -9,7 +9,7 @@ import json, re, subprocess, sys, time
 from collections import defaultdict
 from pathlib import Path
 
-REPO = Path("/Users/angyojun/workspace/syntopicon")
+REPO = Path(__file__).resolve().parents[2]
 FIXTURE = REPO / "evals/retrieval/dw-books-2026-08.json"
 QMD_LINE = re.compile(r"qmd://it/(\S+?\.md)")
 KS_LINE = re.compile(r"^(it/\S+?\.md)")
