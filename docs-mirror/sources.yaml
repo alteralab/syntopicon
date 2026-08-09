@@ -1,0 +1,39 @@
+# docs-mirror 소스 레지스트리 — 계약은 sources.schema.json, 연산은 tools/mirror (PLAN §2)
+# 항목 편집은 tools/mirror add 경유가 기본. 수동 편집 후에는 tools/mirror validate.
+config:
+  fork_org: syntopicon-mirrors # §3.5 0겹 — owner 복수 등록으로 계정 단일점 해소 (2026-08-08 결정)
+sources:
+  dbt:
+    repo: https://github.com/dbt-labs/docs.getdbt.com
+    subdir: null
+    format: mdx
+    license: Apache-2.0
+    versions: []
+    fork: https://github.com/syntopicon-mirrors/docs.getdbt.com
+    swh_registered: "2026-08-08T10:45:04Z"
+    fallback:
+      - https://docs.getdbt.com/llms.txt
+    added: "2026-08-08T10:44:33Z"
+  spark:
+    repo: https://github.com/apache/spark
+    subdir: docs
+    format: md
+    license: Apache-2.0
+    versions: []
+    fork: https://github.com/syntopicon-mirrors/spark
+    swh_registered: "2026-08-08T10:45:41Z"
+    fallback:
+      - https://spark.apache.org/docs/latest/
+      - https://issues.apache.org/jira/projects/SPARK
+    added: "2026-08-08T10:45:26Z"
+  clickhouse:
+    repo: https://github.com/ClickHouse/clickhouse-docs
+    subdir: null
+    format: md
+    license: NOASSERTION
+    versions: []
+    fork: https://github.com/syntopicon-mirrors/clickhouse-docs
+    swh_registered: "2026-08-08T10:46:37Z"
+    fallback:
+      - https://clickhouse.com/docs
+    added: "2026-08-08T10:45:46Z"

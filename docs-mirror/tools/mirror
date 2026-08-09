@@ -1,0 +1,321 @@
+#!/usr/bin/env python3
+"""docs-mirror 단일 CLI (PLAN §2·§3). 결정적·LLM 무관.
+
+하위명령: validate | add <tech> [repo] | pull | status | remove <tech> | reset <tech>
+
+동시성 모델 (PLAN §3): 단일 writer 전제. repo 내 잠금은 git에 위임,
+pull은 flock 단일 인스턴스 가드, 크로스 소스 원자성은 비보장(실패 = 낡은 캐시, fail-loud).
+YAML 읽기/쓰기는 yq(v4) 경유 — 주석 보존.
+"""
+import fcntl
+import json
+import os
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SOURCES = ROOT / "sources.yaml"
+MIRRORS = ROOT / "mirrors"
+LOGS = ROOT / "logs"
+STATE = LOGS / "state.json"
+CACHEDIR_SIG = "Signature: 8a477f597d28d172789f06886806bc55\n"
+SWH_API = "https://archive.softwareheritage.org/api/1/origin/save/git/url/"
+
+
+def run(cmd, check=True, capture=True, cwd=None):
+    return subprocess.run(cmd, check=check, cwd=cwd,
+                          capture_output=capture, text=True)
+
+
+def die(msg, code=1):
+    print(f"[mirror] 오류: {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def now():
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def load_registry():
+    if not SOURCES.exists():
+        die(f"{SOURCES} 없음")
+    out = run(["yq", "-o=json", ".", str(SOURCES)]).stdout
+    reg = json.loads(out)
+    if not isinstance(reg.get("sources"), dict) or not isinstance(reg.get("config"), dict):
+        die("sources.yaml 최상위에 config·sources 필요")
+    return reg
+
+
+def write_source(tech, entry):
+    env = dict(os.environ, TECH=tech, ENTRY=json.dumps(entry, ensure_ascii=False))
+    subprocess.run(
+        ["yq", "-i", '.sources[strenv(TECH)] = (strenv(ENTRY) | fromjson)', str(SOURCES)],
+        check=True, env=env)
+    subprocess.run(["yq", "-i", "-P", ".", str(SOURCES)], check=True)  # block 스타일 유지
+
+
+def ensure_cachedir_tag():
+    MIRRORS.mkdir(exist_ok=True)
+    tag = MIRRORS / "CACHEDIR.TAG"
+    if not tag.exists():
+        tag.write_text(CACHEDIR_SIG + "# docs-mirror 캐시 — 백업 도구 제외 표식 (PLAN §3)\n")
+
+
+def repo_slug(url):
+    parts = url.rstrip("/").removesuffix(".git").split("/")
+    return parts[-2], parts[-1]  # (owner, name)
+
+
+def current_dir(tech):
+    return MIRRORS / tech / "current"
+
+
+def notify(text):
+    try:
+        run(["osascript", "-e",
+             f'display notification "{text}" with title "docs-mirror"'], check=False)
+    except FileNotFoundError:
+        pass
+
+
+# ---------------------------------------------------------------- validate
+def cmd_validate(_args):
+    reg = load_registry()
+    problems, warnings = [], []
+    if not reg["config"].get("fork_org"):
+        problems.append("config.fork_org 없음")
+    for tech, e in reg["sources"].items():
+        if not e.get("repo") and not e.get("crawl"):
+            problems.append(f"{tech}: repo·crawl 둘 다 없음")
+        if e.get("repo") and e.get("crawl"):
+            problems.append(f"{tech}: repo와 crawl은 택일 (git 미러 우선, 원칙 3)")
+        if e.get("format") not in ("md", "mdx", "rst", "docbook", "html"):
+            problems.append(f"{tech}: format 값 불량: {e.get('format')}")
+        if not e.get("license"):
+            problems.append(f"{tech}: license 미기록 (필수)")
+        if e.get("repo") and not e.get("fork"):
+            warnings.append(f"{tech}: fork 미가동 — §3.5 0겹 부재. `mirror add {tech}` 재실행으로 보수")
+        if e.get("repo") and not e.get("swh_registered"):
+            warnings.append(f"{tech}: SWH 미등록 — `mirror add {tech}` 재실행으로 보수")
+        cur = current_dir(tech)
+        if e.get("repo") and not cur.is_dir():
+            warnings.append(f"{tech}: mirrors/{tech}/current 미클론 — `mirror add {tech}` 재실행")
+        for v in e.get("versions") or []:
+            if not (MIRRORS / tech / v).is_dir():
+                problems.append(f"{tech}: 등록 버전 {v}의 워크트리 없음")
+    # 미등록 잔류물 검출 (삭제 게이트 ⑴과 동형)
+    if MIRRORS.is_dir():
+        known = set(reg["sources"]) | {"CACHEDIR.TAG", "_converted"}
+        for p in MIRRORS.iterdir():
+            if p.name not in known:
+                problems.append(f"mirrors/{p.name}: 레지스트리 미등록 잔류물 — 계약 밖 물건")
+    for w in warnings:
+        print(f"[mirror] 경고: {w}")
+    if problems:
+        for p in problems:
+            print(f"[mirror] 위반: {p}", file=sys.stderr)
+        sys.exit(1)
+    print(f"[mirror] validate OK — 소스 {len(reg['sources'])}건, 경고 {len(warnings)}건")
+
+
+# ---------------------------------------------------------------- add
+def cmd_add(args):
+    if not args:
+        die("사용법: mirror add <tech> [repo-url] [--subdir D] [--format F] [--fallback URL ...]")
+    tech, rest = args[0], args[1:]
+    reg = load_registry()
+    entry = reg["sources"].get(tech) or {
+        "repo": None, "subdir": None, "format": "md", "license": None,
+        "versions": [], "fork": None, "swh_registered": None,
+        "fallback": [], "added": now(),
+    }
+    it = iter(rest)
+    for a in it:
+        if a == "--subdir":
+            entry["subdir"] = next(it)
+        elif a == "--format":
+            entry["format"] = next(it)
+        elif a == "--fallback":
+            entry.setdefault("fallback", []).append(next(it))
+        elif a.startswith("http"):
+            entry["repo"] = a.removesuffix(".git")
+        else:
+            die(f"알 수 없는 인자: {a}")
+    if not entry["repo"]:
+        die(f"{tech}: repo URL 필요 (기존 항목도 없음)")
+    owner, name = repo_slug(entry["repo"])
+
+    # ① license (미기록 시 gh api로)
+    if not entry["license"]:
+        r = run(["gh", "api", f"repos/{owner}/{name}", "--jq",
+                 '.license.spdx_id // "NOASSERTION"'], check=False)
+        entry["license"] = r.stdout.strip() if r.returncode == 0 else None
+        print(f"[mirror] {tech}: license = {entry['license']}")
+
+    # ② clone (blobless + sparse, gc.auto=0 — r9 백업 규율)
+    cur = current_dir(tech)
+    if not cur.is_dir():
+        ensure_cachedir_tag()
+        cur.parent.mkdir(parents=True, exist_ok=True)
+        cmd = ["git", "clone", "--filter=blob:none", entry["repo"] + ".git", str(cur)]
+        if entry["subdir"]:
+            cmd.insert(2, "--sparse")
+        print(f"[mirror] {tech}: clone 중…")
+        run(cmd, capture=False)
+        if entry["subdir"]:
+            run(["git", "-C", str(cur), "sparse-checkout", "set", entry["subdir"]])
+        run(["git", "-C", str(cur), "config", "gc.auto", "0"])
+        print(f"[mirror] {tech}: clone 완료 → mirrors/{tech}/current")
+    else:
+        print(f"[mirror] {tech}: clone 존재 — 건너뜀")
+
+    # ③ fork (§3.5 0겹) — org 미생성 등 실패는 fail-loud 후 계속
+    org = reg["config"]["fork_org"]
+    if not entry["fork"]:
+        if run(["gh", "api", f"orgs/{org}"], check=False).returncode != 0:
+            print(f"[mirror] 경고: org '{org}' 접근 불가 — fork 건너뜀. "
+                  f"org 생성 후 `mirror add {tech}` 재실행", file=sys.stderr)
+        else:
+            r = run(["gh", "repo", "fork", f"{owner}/{name}", "--org", org,
+                     "--clone=false"], check=False)
+            if r.returncode == 0:
+                entry["fork"] = f"https://github.com/{org}/{name}"
+                print(f"[mirror] {tech}: fork = {entry['fork']}")
+            else:
+                print(f"[mirror] 경고: fork 실패 — {r.stderr.strip()}", file=sys.stderr)
+
+    # ④ SWH save-code-now (§3.5 0겹-보조)
+    if not entry["swh_registered"]:
+        r = run(["curl", "-sf", "-X", "POST", SWH_API + entry["repo"] + "/"], check=False)
+        if r.returncode == 0:
+            entry["swh_registered"] = now()
+            print(f"[mirror] {tech}: SWH 등록 완료")
+        else:
+            print(f"[mirror] 경고: SWH 등록 실패 — `mirror add {tech}` 재실행으로 보수",
+                  file=sys.stderr)
+
+    # ⑤ 레지스트리 기록
+    write_source(tech, entry)
+    print(f"[mirror] {tech}: sources.yaml 기록 완료")
+
+
+# ---------------------------------------------------------------- pull
+def cmd_pull(_args):
+    LOGS.mkdir(exist_ok=True)
+    lock = open(LOGS / "pull.lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print("[mirror] pull 이미 실행 중 — 무해 종료")
+        return
+    reg = load_registry()
+    ok, fail = [], []
+    for tech, e in reg["sources"].items():
+        if not e.get("repo"):
+            continue  # crawl 소스는 pull 대상 아님
+        cur = current_dir(tech)
+        if not cur.is_dir():
+            fail.append((tech, "clone 없음 — `mirror add`로 보수"))
+            continue
+        r = run(["git", "-C", str(cur), "pull", "--ff-only"], check=False)
+        if r.returncode == 0:
+            ok.append(tech)
+        else:
+            fail.append((tech, r.stderr.strip().splitlines()[-1] if r.stderr else "?"))
+        # 고정 버전 워크트리는 불변이므로 skip (PLAN §3)
+    STATE.write_text(json.dumps(
+        {"last_run": now(), "ok": ok, "fail": [t for t, _ in fail]},
+        ensure_ascii=False, indent=1))
+    print(f"[mirror] pull: 성공 {len(ok)}건" + (f" — {', '.join(ok)}" if ok else ""))
+    if fail:  # fail-loud (PLAN §3): 목록 출력 + macOS 알림 + 비정상 종료
+        for tech, msg in fail:
+            print(f"[mirror] 실패: {tech} — {msg}", file=sys.stderr)
+        notify(f"pull 실패 {len(fail)}건: " + ", ".join(t for t, _ in fail))
+        sys.exit(1)
+
+
+# ---------------------------------------------------------------- status
+def cmd_status(_args):
+    reg = load_registry()
+    if STATE.exists():
+        st = json.loads(STATE.read_text())
+        line = f"[mirror] 마지막 pull: {st['last_run']} — 성공 {len(st['ok'])}건"
+        if st["fail"]:
+            line += f", 실패: {', '.join(st['fail'])}"
+        print(line)
+    else:
+        print("[mirror] pull 실행 이력 없음")
+    for tech, e in reg["sources"].items():
+        cur = current_dir(tech)
+        if e.get("repo") and cur.is_dir():
+            age = run(["git", "-C", str(cur), "log", "-1", "--format=%cr"],
+                      check=False).stdout.strip()
+            dirty = run(["git", "-C", str(cur), "status", "--porcelain"],
+                        check=False).stdout.strip()
+            vers = ", ".join(e.get("versions") or []) or "-"
+            flags = (" [fork✓]" if e.get("fork") else " [fork✗]") + \
+                    (" [SWH✓]" if e.get("swh_registered") else " [SWH✗]") + \
+                    (" [DIRTY — 인간 저작물 혼입 의심!]" if dirty else "")
+            print(f"  {tech}: HEAD {age} | 버전: {vers}{flags}")
+        elif e.get("repo"):
+            print(f"  {tech}: 미클론 — `mirror add {tech}` 재실행")
+        else:
+            print(f"  {tech}: crawl 소스 (pull 비대상)")
+
+
+# ---------------------------------------------------------------- remove / reset
+def deletion_gate(tech, reg):
+    """삭제 게이트 (PLAN §3) — 파괴 연산 전 3중 검증."""
+    if tech not in reg["sources"]:
+        die(f"{tech}: 레지스트리 미등록 — 계약 밖 물건. mirrors/ 내용:\n  " +
+            "\n  ".join(p.name for p in MIRRORS.iterdir() if p.is_dir()))
+    e = reg["sources"][tech]
+    tdir = MIRRORS / tech
+    for sub in sorted(p for p in tdir.iterdir() if p.is_dir()) if tdir.is_dir() else []:
+        if (sub / ".git").exists():
+            dirty = run(["git", "-C", str(sub), "status", "--porcelain"],
+                        check=False).stdout.strip()
+            if dirty:
+                die(f"{tech}/{sub.name}: 워킹트리 더러움 — 인간 저작물 혼입 신호, 중단:\n{dirty}")
+    if not e.get("fork") or not e.get("swh_registered"):
+        print(f"[mirror] 경고: {tech} 보존 계층 미가동(fork={e.get('fork')}, "
+              f"SWH={e.get('swh_registered')}) — 손실 예산이 upstream 소멸분까지 확대된 상태",
+              file=sys.stderr)
+    ans = input(f"[mirror] {tech} 삭제를 진행하나? [y/N] ").strip().lower()
+    if ans != "y":
+        die("중단", 0)
+
+
+def cmd_remove(args):
+    if not args:
+        die("사용법: mirror remove <tech>")
+    tech = args[0]
+    reg = load_registry()
+    deletion_gate(tech, reg)
+    subprocess.run(["rm", "-rf", str(MIRRORS / tech)], check=True)
+    env = dict(os.environ, TECH=tech)
+    subprocess.run(["yq", "-i", 'del(.sources[strenv(TECH)])', str(SOURCES)],
+                   check=True, env=env)
+    print(f"[mirror] {tech}: mirrors/ 삭제 + 레지스트리 항목 제거 완료")
+
+
+def cmd_reset(args):
+    if not args:
+        die("사용법: mirror reset <tech>")
+    tech = args[0]
+    reg = load_registry()
+    deletion_gate(tech, reg)
+    subprocess.run(["rm", "-rf", str(MIRRORS / tech)], check=True)
+    print(f"[mirror] {tech}: 삭제 완료 — 재클론 중…")
+    cmd_add([tech])
+
+
+COMMANDS = {"validate": cmd_validate, "add": cmd_add, "pull": cmd_pull,
+            "status": cmd_status, "remove": cmd_remove, "reset": cmd_reset}
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2 or sys.argv[1] not in COMMANDS:
+        die("사용법: mirror <validate|add|pull|status|remove|reset> …")
+    COMMANDS[sys.argv[1]](sys.argv[2:])
