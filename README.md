@@ -79,6 +79,26 @@ core/
 | `<kb>/inbox/` | 기계 저작물 격리 (unreviewed 라벨, 리뷰 후 승격) |
 | `<kb>/archive/` | 원문 스냅샷. git 제외, restic 담당, 유일하게 대체 불가 |
 
+KB 안에서 디렉토리들이 잇는 관계는 다음과 같다. 실선은 링크와 참조의 사슬이고,
+점선은 시간이 지나며 일어나는 이동이다.
+
+```mermaid
+flowchart LR
+    OV["overview.md<br/>진입 라우터"]
+    SY["synthesis/<br/>허브와 종합"]
+    CO["concepts/<br/>개념 페이지"]
+    SO["sources/<br/>소스 메타"]
+    AR["archive/<br/>원문 스냅샷 (git 밖)"]
+    IN["inbox/<br/>기계 저작물 격리"]
+
+    OV -- "Hubs 포인터" --> SY
+    SY -- "주제를 묶는 링크" --> CO
+    CO -- "각주가 citekey 참조" --> SO
+    SO -- "스냅샷 경로" --> AR
+    IN -. "리뷰와 머지 뒤 반영" .-> CO
+    CO -. "링크가 모이면 허브 후보 (lint가 대조)" .-> SY
+```
+
 ### 1.2 schema 계약
 
 페이지 타입마다 스키마 하나. 정본 서술은 각 파일의 헤더 주석이고, 이 표는 발췌다.
