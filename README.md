@@ -60,6 +60,21 @@ core/
     archive/           원문 스냅샷 (git 제외, restic 담당, 유일하게 대체 불가)
 ```
 
+`schema/`의 파일별 역할은 다음과 같다 (페이지 타입마다 스키마 하나, 정본 서술은 각 파일의 헤더 주석).
+
+| 파일 | 검증 대상 | 요지 |
+|---|---|---|
+| `concept.yaml` | `concepts/` 페이지 | 지식의 단위. claim은 본문의 각주 달린 불릿 |
+| `synthesis.yaml` | `synthesis/` 페이지 | 인간 저작 종합과 허브. 경계 기준은 내용이 아니라 provenance(작성 주체와 리뷰) |
+| `source.yaml` | `sources/` 메타 | CSL 타입 10종을 단일 스키마 + type enum으로 (CSL 공식 구조 준거) |
+| `guide.yaml` | overview.md, SCHEMA.md | 진입·설명 문서. 지식 계층이 아니라 sources·verified를 갖지 않는다 |
+| `redirect.yaml` | 개명·병합 잔여 스텁 | tools/rename이 생성, lint가 체인 붕괴를 감시 |
+| `common.yaml` | (직접 검증 없음) | 공유 정의 — per-type 스키마들이 `$ref`로 참조 |
+| `layout.yaml` | 저장소 경계 | KB 골격의 정본, 동결 코어. kb-new와 복구 스크립트의 입력 |
+| `vocabulary.yaml` | md 본문 (lint AST 스캔) | 인라인 폐쇄 어휘 (epistemic 토큰 등). JSON Schema 아님 |
+| `user-dict.yaml` | 한국어 형태소 색인 | Kiwi 사용자 사전 — lint의 파편화 검출이 공급원, 추측 등재 금지 |
+| `migrations.md` | (문서) | 스키마 변경 로그 — 동결 코어 변경의 유일 경로 |
+
 ## 2. 지식 파이프라인
 
 ### 2.1 쓰기 경로 (kb-ingest)
