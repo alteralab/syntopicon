@@ -35,6 +35,7 @@ properties:
   # ── 값이 생길 때만 기록. 부재 = 기본값(PLAN §2.1) ──────────────────────────
   status: {$ref: "common.yaml#/$defs/status"}
   verified: {$ref: "common.yaml#/$defs/verified"}
+  # 공표된 미래 날짜의 기록만(EOL·지원 종료 등) — 감 기반 예측 금지(PLAN 원칙 7, §8 재심).
   stale_after: {$ref: "common.yaml#/$defs/date"}
 
   superseded_by:
