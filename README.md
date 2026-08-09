@@ -53,11 +53,11 @@ sequenceDiagram
     L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
     note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
     T->>T: validate (pre-commit 게이트)
-    alt 위반
-        T-->>L: 위반 목록, 고쳐서 다시
-    else 통과
-        T->>K: 커밋 (Ingest 트레일러)
+    loop 위반이면 통과까지
+        T-->>L: 위반 목록
+        L-->>T: 수정 반영, 재검
     end
+    T->>K: 커밋 (Ingest 트레일러)
     H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
 ```
 
@@ -86,8 +86,8 @@ sequenceDiagram
 
 ## 백업, 보존, 인프라 토폴로지
 
-백업은 데이터가 태어나는 맥북에서 돌고, 상시성이 필요한 것만 상시 기계에 산다.
-NAS 서비스는 공유기 포트를 하나도 열지 않는다. 접근은 Tailscale tailnet뿐이다.
+백업은 데이터가 태어나는 맥북에서 돈다. NAS는 공유기 포트를 하나도 열지 않고,
+접근은 Tailscale tailnet뿐이다.
 
 ```mermaid
 flowchart TB
@@ -96,27 +96,17 @@ flowchart TB
         BK["일간 백업 launchd 21:00<br/>bundle, 인덱스 사본, restic"]
     end
 
-    subgraph MINI["Mac mini 상시"]
-        RUN["GitHub runner<br/>(push가 Portainer 재배포로)"]
-    end
-
-    subgraph NAS["Synology NAS (tailnet: ds923plus)"]
+    subgraph NAS["Synology NAS (tailnet 한정 접근)"]
         REST["restic rest-server<br/>--append-only"]
-        VW["vaultwarden<br/>(인간 비밀번호)"]
     end
 
     subgraph GH["GitHub"]
         MONO["alteralab/syntopicon<br/>(모노레포, private)"]
-        PORT["alteralab/portainer<br/>(스택 정본)"]
-        GS["alteralab/gopass-store<br/>(기계 비밀, age 암호문)"]
-        FORK["syntopicon-mirrors org<br/>(public fork, 보존 0겹)"]
+        FORK["syntopicon-mirrors org<br/>(미러 upstream의 public fork)"]
     end
 
     WORK -- "commit + push" --> MONO
     BK -- "스냅샷: it, toolchain, mirror 태그" --> REST
-    PORT -- "pull" --> RUN
-    RUN -- "redeploy API" --> NAS
-    FORK -.- REST
 ```
 
 | 보존 겹 | 담당 | 막는 위협 |
@@ -125,9 +115,8 @@ flowchart TB
 | 백업 3계층 | git bundle, 인덱스 사본, restic에서 NAS(append-only)로 | 로컬 소실, 랜섬웨어 |
 | 이연 (트리거: archive 성장) | B2 오프사이트 | 집 단위 재해 (지금 실노출은 archive/뿐) |
 
-비밀은 세 계층으로 나뉜다. 기계 비밀은 gopass(age와 git, exec 주입이라 값이 에이전트
-컨텍스트를 우회한다), 사람이 쓰는 비밀번호는 vaultwarden(NAS), 무인 소비분은 파일
-사본이다(launchd가 읽는 계층이라 게이트를 걸 수 없다).
+백업 자격증명 관리와 NAS 컨테이너 배포는 이 시스템이 아니라 홈랩 인프라의 소관이다
+(정본은 `alteralab/portainer` 저장소의 런북들).
 
 ## 규약 요지
 
