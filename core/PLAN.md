@@ -272,6 +272,8 @@ syntopicon/
 | `*/archive/` 블롭 + GGUF 3개 + qmd 타르볼 | 로컬 평문 | restic → B2 + NAS(SFTP/rest-server `--append-only`) + 외장 디스크, 평문 사본 1부. git-lfs 불채택 | `restic check --read-data-subset` 자동화 + 연 1회 전수. restic 정적 바이너리 동봉 |
 | SQLite 인덱스 | 사본(분기, qmd 버전 라벨 — 동일 버전으로만 열기) — 라이브 cp 금지, `VACUUM INTO`/Backup API만 | 재빌드 폴백: `qmd update && qmd embed` | 복원 후 `qmd status` + 테스트 검색 |
 
+**타깃 가동 순서 (2026-08-09 결정)**: ① NAS rest-server 컨테이너 `--append-only`(즉시 — 탈취된 클라이언트의 스냅샷 삭제 방어) ② B2(후속 — 오프사이트 공백은 첫 ingest 전 한시 수용) ③ 외장 디스크·평문 사본 1부(미보유 — 보류, 확보 시 가동). 비밀번호 파일 `~/.restic-pass`(생성 완료 — **비밀번호 관리자 + 종이 사본 등재는 사람 몫, 분실 = 전체 복구 불가**), 정적 바이너리 0.19.1 동봉 완료.
+
 **restic 채택 확정 (2026-08-09, 대조 심사 — §8)**: borg(안정판은 원격=SSH `borg serve` 전제라 B2 결격, 2.0은 베타·일정 없음)·kopia(무결성 트랙레코드 — data-loss race 수정 이력·append-only 서버 부재)·duplicacy(비OSS 사설 라이선스) 기각. restic 고유 우위 = **공개 포맷 명세 + 독립 구현체 2개**(rustic이 동일 repo를 상호 읽고 씀 — 도구 사망과 데이터 접근의 분리). **승계 트리거**: restic 12개월 무릴리스 또는 유지자 팀 해체 → rustic 승계 검토(포맷 동일이라 데이터 이동 0, 게이트 = rustic의 베타 탈출·회귀 테스트 확보).
 
 **새 기기 복구 런북**: ① Homebrew + `brew install sqlite`(시스템 SQLite는 확장 로딩 불가) ② 네이티브 arm64 Node LTS ③ 벤더링 qmd 타르볼 설치 ④ GGUF 복원 ⑤ `git clone` → qmd 컬렉션 재등록(layout.yaml 기반) ⑥ 사본 복원+검증 / 폴백 재빌드 ⑦ qmd MCP 전역 등록 + 스킬 심링크(`~/.claude/skills/`) 생성 + 사용자 레벨 훅. 툴체인 핀 갱신은 연간 항목.
