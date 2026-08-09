@@ -39,44 +39,17 @@ flowchart LR
 
 ### 쓰기 경로 (kb-ingest, 소스당 1런 = 1커밋)
 
-```mermaid
-%%{init: {"sequence": {"width": 140, "useMaxWidth": false, "messageMargin": 28, "boxMargin": 6}}}%%
-sequenceDiagram
-    autonumber
-    participant H as 인간
-    participant T as 결정적 도구
-    participant L as LLM
-    participant K as KB 저장소
-
-    H->>T: 소스 선택 (큐레이션이 첫 게이트)
-    T->>T: 스냅샷과 sha256 저장 (archive/, 소급 불가라 최전방)
-    T->>K: citekey 발급, 소스 메타 기록 (CSL)
-    L->>K: 개념 페이지 갱신 (신규보다 기존 10–15쪽 터치)
-    note over K: inbox/ 격리, unreviewed 라벨<br/>검색에는 노출된다
-    T->>T: validate (pre-commit 게이트)
-    alt 위반
-        T-->>L: 위반 목록, 고쳐서 다시
-    else 통과
-        T->>K: 커밋 (Ingest 트레일러)
-    end
-    H->>K: 리뷰와 머지 (무해성과 구조만, 정확성은 이연)
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/write-path-dark.svg">
+  <img alt="쓰기 경로 시퀀스 다이어그램" src="docs/diagrams/write-path-light.svg">
+</picture>
 
 ### 읽기 경로 (kb-query)
 
-```mermaid
-%%{init: {"sequence": {"width": 140, "useMaxWidth": false, "messageMargin": 28, "boxMargin": 6}}}%%
-sequenceDiagram
-    autonumber
-    participant H as 인간
-    participant S as 색인과 검색
-    participant K as KB 저장소
-
-    K->>S: 재색인 (qmd 하이브리드, 형태소 레그)
-    H->>S: 질의 (검색 4레그)
-    S-->>H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측)
-    H->>K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/read-path-dark.svg">
+  <img alt="읽기 경로 시퀀스 다이어그램" src="docs/diagrams/read-path-light.svg">
+</picture>
 
 기계가 쓴 claim은 쓰기 경로에서 격리와 라벨로 들어오고, 읽기 경로에서 사람이 읽는
 순간마다 조금씩 검증 등급이 올라간다. 전수 검수 대신 이 순환이 정확성을 담당한다.

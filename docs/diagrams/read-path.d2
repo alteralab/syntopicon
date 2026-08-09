@@ -1,0 +1,12 @@
+shape: sequence_diagram
+
+H: 인간
+S: 색인과 검색
+K: KB 저장소
+
+K -> S: 재색인 (qmd 하이브리드, 형태소 레그)
+H -> S: 질의 (검색 4레그)
+S -> H: 히트 정독, 링크 이웃 확장 (공백은 search-miss 계측) {
+  style.stroke-dash: 3
+}
+H -> K: 읽으며 검증한 claim에 승급 스탬프 (review-on-read)
