@@ -5,7 +5,6 @@ description: 카프카 클라이언트 2종의 역할 — 프로듀서의 파티
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 프로듀서와 컨슈머

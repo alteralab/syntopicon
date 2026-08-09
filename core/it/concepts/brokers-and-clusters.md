@@ -5,7 +5,6 @@ description: 카프카 서버 한 대와 클러스터의 역할 분담 — 컨�
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 stale_after: "2025-03-18"
 ---
 

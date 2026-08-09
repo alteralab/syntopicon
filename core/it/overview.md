@@ -18,6 +18,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [차원 모델링 기법](synthesis/dimensional-modeling-techniques.md) — Kimball 기초·기법 카탈로그
   - [Data Vault](synthesis/data-vault.md) — 모델링·아키텍처·적재
   - [DW 운영과 프로세스](synthesis/dw-operations-and-process.md) — 라이프사이클·ETL·데이터 관리
+- [카프카 기초](synthesis/kafka-basics.md) — 스트리밍 축 진입점: 발행/구독·데이터 단위·클러스터·유스케이스
 
 
 ## Tools

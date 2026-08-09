@@ -5,7 +5,6 @@ description: 카프카의 메시지 분류 단위와 그 아래의 추가 전용
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 토픽과 파티션

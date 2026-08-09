@@ -5,7 +5,6 @@ description: 링크드인의 모니터링·활동 추적 두 시스템이 어떻
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 카프카의 기원

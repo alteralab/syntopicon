@@ -5,7 +5,6 @@ description: 카프카를 데이터 생태계의 순환계로 보는 관점과 �
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 데이터 생태계와 유스케이스

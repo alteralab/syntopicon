@@ -5,7 +5,6 @@ description: 여러 발행/구독 시스템 중 카프카를 고르는 근거 6�
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 왜 카프카인가

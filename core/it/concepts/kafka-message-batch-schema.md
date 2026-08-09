@@ -5,7 +5,6 @@ description: 카프카를 분산 커밋 로그로 보는 관점과 데이터 단
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 카프카의 메시지, 배치, 스키마

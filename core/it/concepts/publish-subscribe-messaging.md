@@ -5,7 +5,6 @@ description: 발행자가 수신자를 지정하지 않고 메시지를 분류�
 generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-status: draft
 ---
 
 # 발행/구독 메시징
