@@ -40,6 +40,7 @@ flowchart LR
 ### 쓰기 경로 (kb-ingest, 소스당 1런 = 1커밋)
 
 ```mermaid
+%%{init: {"sequence": {"width": 140, "boxMargin": 8}}}%%
 sequenceDiagram
     autonumber
     participant H as 인간
@@ -64,6 +65,7 @@ sequenceDiagram
 ### 읽기 경로 (kb-query)
 
 ```mermaid
+%%{init: {"sequence": {"width": 140, "boxMargin": 8}}}%%
 sequenceDiagram
     autonumber
     participant H as 인간
