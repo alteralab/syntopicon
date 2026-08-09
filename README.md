@@ -67,17 +67,17 @@ core/
 | 경로 | 역할 |
 |---|---|
 | `PLAN.md` | KB 설계 정본 (결정, 규약, §8 검증 원장) |
-| `schema/` | frontmatter 계약과 저장소 경계 — 1.2 표 참조 |
+| `schema/` | frontmatter[^frontmatter] 계약과 저장소 경계 (1.2 표 참조) |
 | `tools/` | 결정적 CLI (validate, lint, reindex, backup, ksearch …) + githooks |
-| `evals/` | 검색 실측 하네스와 qrels, 스킬 evals 시나리오 |
+| `evals/` | 검색 실측 하네스와 qrels[^qrels], 스킬 evals 시나리오 |
 | `.agents/skills/` | kb-* 스킬 정본 (`~/.claude/skills` 심링크의 원본) |
-| `<kb>/` | KB 인스턴스 — kb-new만이 생성하고 KB마다 동형이다 (현재 `it/` 하나) |
+| `<kb>/` | KB 인스턴스. kb-new만이 생성하고 KB마다 동형이다 (현재 `it/` 하나) |
 | `<kb>/overview.md` | 진입 라우터 (Hubs 포인터, 카탈로그 아님) |
-| `<kb>/concepts/` | 개념 페이지 — 지식의 단위, claim은 각주 달린 불릿 |
-| `<kb>/synthesis/` | 허브와 종합 — 링크 차수가 곧 허브 |
-| `<kb>/sources/` | 소스 메타 (CSL, citekey가 파일명) |
+| `<kb>/concepts/` | 개념 페이지. 지식의 단위이고, claim은 각주 달린 불릿이다 |
+| `<kb>/synthesis/` | 허브와 종합. 허브는 별도 디렉토리가 아니라 링크가 많이 모인 synthesis 페이지다 |
+| `<kb>/sources/` | 소스 메타 (CSL[^csl] 형식, citekey[^citekey]가 파일명) |
 | `<kb>/inbox/` | 기계 저작물 격리 (unreviewed 라벨, 리뷰 후 승격) |
-| `<kb>/archive/` | 원문 스냅샷 — git 제외, restic 담당, 유일하게 대체 불가 |
+| `<kb>/archive/` | 원문 스냅샷. git 제외, restic 담당, 유일하게 대체 불가 |
 
 ### 1.2 schema 계약
 
@@ -86,15 +86,15 @@ core/
 | 파일 | 검증 대상 | 요지 |
 |---|---|---|
 | `concept.yaml` | `concepts/` 페이지 | 지식의 단위. claim은 본문의 각주 달린 불릿 |
-| `synthesis.yaml` | `synthesis/` 페이지 | 인간 저작 종합과 허브. 경계 기준은 내용이 아니라 provenance(작성 주체와 리뷰) |
+| `synthesis.yaml` | `synthesis/` 페이지 | 인간 저작 종합과 허브. 경계 기준은 내용이 아니라 provenance[^provenance]다 |
 | `source.yaml` | `sources/` 메타 | CSL 타입 10종을 단일 스키마 + type enum으로 (CSL 공식 구조 준거) |
-| `guide.yaml` | overview.md, SCHEMA.md | 진입·설명 문서. 지식 계층이 아니라 sources·verified를 갖지 않는다 |
-| `redirect.yaml` | 개명·병합 잔여 스텁 | tools/rename이 생성, lint가 체인 붕괴를 감시 |
-| `common.yaml` | (직접 검증 없음) | 공유 정의 — per-type 스키마들이 `$ref`로 참조 |
-| `layout.yaml` | 저장소 경계 | KB 골격의 정본, 동결 코어. kb-new와 복구 스크립트의 입력 |
-| `vocabulary.yaml` | md 본문 (lint AST 스캔) | 인라인 폐쇄 어휘 (epistemic 토큰 등). JSON Schema 아님 |
-| `user-dict.yaml` | 한국어 형태소 색인 | Kiwi 사용자 사전 — lint의 파편화 검출이 공급원, 추측 등재 금지 |
-| `migrations.md` | (문서) | 스키마 변경 로그 — 동결 코어 변경의 유일 경로 |
+| `guide.yaml` | overview.md, SCHEMA.md | 진입과 설명 문서. 지식 계층이 아니라 sources, verified를 갖지 않는다 |
+| `redirect.yaml` | 개명, 병합의 잔여 스텁 | tools/rename이 생성하고 lint가 체인 붕괴를 감시한다 |
+| `common.yaml` | (직접 검증 없음) | 공유 정의. per-type 스키마들이 `$ref`로 참조한다 |
+| `layout.yaml` | 저장소 경계 | KB 골격의 정본, 동결 코어[^frozen]. kb-new와 복구 스크립트의 입력 |
+| `vocabulary.yaml` | md 본문 (lint의 AST[^ast] 스캔) | 인라인 폐쇄 어휘 (epistemic 토큰[^epistemic] 등). JSON Schema가 아니다 |
+| `user-dict.yaml` | 한국어 형태소 색인 | Kiwi[^kiwi] 사용자 사전. lint의 파편화 검출이 공급원이고 추측 등재는 금지다 |
+| `migrations.md` | (문서) | 스키마 변경 로그. 동결 코어를 바꾸는 유일한 경로다 |
 
 ## 2. 지식 파이프라인
 
@@ -183,7 +183,7 @@ flowchart TB
 | 백업 3계층 | git bundle, 인덱스 사본, restic에서 NAS(append-only)로 | 로컬 소실, 랜섬웨어 |
 | 이연 (트리거: archive 성장) | B2 오프사이트 | 집 단위 재해 (지금 실노출은 archive/뿐) |
 
-백업 자격증명 관리와 NAS 컨테이너 배포는 이 시스템이 아니라 홈랩 인프라의 소관이다
+백업 자격증명 관리와 NAS 컨테이너 배포는 이 시스템이 아니라 홈랩 인프라가 담당한다
 (정본은 `alteralab/portainer` 저장소의 런북들).
 
 ## 4. 규약 요지
@@ -192,5 +192,15 @@ flowchart TB
 - 게이트는 `git config core.hooksPath core/tools/githooks` 한 번으로 활성화된다(기기당)
 - 글루는 자기 레이어 안에 둔다(루트에 종류별 디렉토리 금지, r4와 r12). 구조를 바꾸려면 원장에 근거부터
 - 새 기기 복구는 이 저장소를 clone한 뒤 `core/PLAN.md` §5 런북을 따른다
+
+[^frontmatter]: 마크다운 파일 머리의 YAML 메타데이터 블록. 페이지의 타입, 출처, 검증 상태를 담는다.
+[^qrels]: query relevance judgments. 검색 평가용 정답표로, "이 질의의 정답 문서는 이것"을 사람이 미리 판정해 둔 목록이다.
+[^csl]: Citation Style Language. 서지 정보(저자, 제목, 출판 연도 등)의 사실상 표준 데이터 형식이다.
+[^citekey]: 서지 인용 키. `kimball2013`처럼 소스마다 하나 발급되는 식별자로, 같은 소스는 언제나 같은 키가 된다.
+[^provenance]: 유래 정보. 이 내용을 누가(사람 또는 기계) 만들었고 누가 검토했는지의 이력이다.
+[^frozen]: 첫 파일을 넣기 전에 확정하고 이후 임의 변경을 금지한 규약 묶음. 바꾸려면 migrations.md를 거쳐야 한다.
+[^ast]: abstract syntax tree. 문서를 문자열이 아니라 구조(제목, 불릿, 링크 등의 트리)로 파싱한 결과로, 정규식 검사보다 오검출이 적다.
+[^epistemic]: 지식의 확실성 등급을 나타내는 인라인 표식. `#hypothesis`(가설), `#speculation`(추측) 같은 폐쇄 어휘만 허용된다.
+[^kiwi]: 한국어 형태소 분석기. 조사와 활용형을 분리해 "모델링을"로도 "모델링"이 검색되게 하는 색인의 기반이다.
 
 <sub>2026-08-09 기준. 세부 수치와 결정 근거는 각 PLAN과 `research/`에 있다.</sub>
