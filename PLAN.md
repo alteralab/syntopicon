@@ -81,5 +81,6 @@ syntopicon/                  # 단일 git 저장소 (모노레포 — r12) = alt
 - **단일 저장소가 시스템 전체를 추적한다.** 예외(ignore)는 재생성·파생물뿐: `docs-mirror/mirrors/`(캐시), `core/it/archive/`(restic 담당), `.venv`·인덱스류. 원격 = `alteralab/syntopicon`(private), 백업 = core 3계층(bundle이 전체 이력 포함).
 - **커밋 규약: `<레이어>/<영역>: 요지`** — 예: `core/tools: …`, `core/it: …`, `mirror/plan: …`. 루트 문서는 `plan:`·`research:`. 본문은 왜만 1–3문장(기존 core 규약 승계). 한 커밋 = 한 레이어. Ingest 트레일러 규약은 core 커밋에 그대로 적용.
 - 커밋 게이트 = `git config core.hooksPath core/tools/githooks` (기기당 1회).
+- **스키마 계약 형식은 소비자가 정한다**: 도구+사람이 읽으면 YAML 저술(주석 = 규약 근거, core/schema/), 에디터·표준 도구가 읽으면 JSON(+ 대상 파일에 modeline 연결, docs-mirror). 형식 불문 **활성 소비자 없는 계약 금지**(core "소비자 없는 필드 금지"의 파일 단위 적용).
 - 레이어 내부 작업은 해당 디렉토리의 CLAUDE.md·PLAN을 따른다. 새 구성 요소의 행선지는 §2 배치 표로 판정 — 대부분 레이어 안이 정답이고, 루트에 종류별 디렉토리(tools/·skills/)를 만들지 않는다(r4·r12).
 - 이 PLAN의 개정은 §3 원장에 근거를 남긴다(리서치 산출물 또는 실측). 근거 없는 구조 변경 금지 — "잘못된 구조에 주먹구구식으로 덧붙이는 것"의 반대 원칙은 "검증된 구조를 근거 없이 재편하는 것도 같은 결함"이다.

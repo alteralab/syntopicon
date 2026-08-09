@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=sources.schema.json
 # docs-mirror 소스 레지스트리 — 계약은 sources.schema.json, 연산은 tools/mirror (PLAN §2)
 # 항목 편집은 tools/mirror add 경유가 기본. 수동 편집 후에는 tools/mirror validate.
 config:
