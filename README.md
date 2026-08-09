@@ -35,7 +35,6 @@ flowchart LR
             IT["&lt;kb&gt;/ concepts, synthesis<br/>sources, inbox, archive"]
             CG["글루: tools, schema<br/>skills, evals"]
         end
-        PLAN["PLAN.md + research/<br/>시스템 정본, 원장 r1–r12"]
     end
 
     UP -- "주간 pull (launchd)" --> MIR
