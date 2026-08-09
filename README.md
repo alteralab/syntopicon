@@ -42,6 +42,24 @@ flowchart LR
     CORE -. "참조 금지" .-x DM
 ```
 
+core 레이어의 내부는 다음 골격이다 (정본은 `core/schema/layout.yaml`, 상세는 `core/PLAN.md` §3).
+
+```
+core/
+  PLAN.md            KB 설계 정본 (결정, 규약, §8 검증 원장)
+  schema/            frontmatter 계약 (YAML 저술 JSON Schema) + layout.yaml + migrations.md
+  tools/             결정적 CLI (validate, lint, reindex, backup, ksearch …) + githooks
+  evals/             검색 실측 하네스와 qrels, 스킬 evals 시나리오
+  .agents/skills/    kb-query, kb-ingest, kb-lint, kb-new 정본 (~/.claude/skills 심링크의 원본)
+  it/                KB 1호 — kb-new가 생성, KB마다 동형
+    overview.md        진입 라우터 (Hubs 포인터, 카탈로그 아님)
+    concepts/          개념 페이지 (지식의 단위, claim은 각주 달린 불릿)
+    synthesis/         허브와 종합 (링크 차수가 곧 허브)
+    sources/           소스 메타 (CSL, citekey가 파일명)
+    inbox/             기계 저작물 격리 (unreviewed, 리뷰 후 승격)
+    archive/           원문 스냅샷 (git 제외, restic 담당, 유일하게 대체 불가)
+```
+
 ## 2. 지식 파이프라인
 
 ### 2.1 쓰기 경로 (kb-ingest)
