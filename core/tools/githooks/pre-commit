@@ -1,6 +1,6 @@
 #!/bin/sh
 # 커밋 게이트 (PLAN §4.4) — validate 통과 없이는 커밋 불가.
-# 활성화(기기당 1회): git config core.hooksPath tools/githooks
+# 활성화(기기당 1회): git config core.hooksPath core/tools/githooks
 # 우회는 --no-verify — 도구가 우회하면 게이트가 아니라는 교훈(aider 사례)대로 기본 금지.
-cd "$(git rev-parse --show-toplevel)" || exit 1
+cd "$(git rev-parse --show-toplevel)/core" || exit 1
 exec uv run tools/validate.py

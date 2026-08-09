@@ -4,7 +4,7 @@ IT 서적·논문을 10–20년 축적하는 개인 지식 베이스. **정본 �
 
 현재 상태: **수용 검증 진행 중.** KB `it/`에 도서 2권 ingest 완료(concepts 38건), 검색 실측 1회(qrels 26문항 — §8 원장). 콘텐츠 이력은 `git log -- it/`과 `Ingest-Source:` 트레일러로 조회한다.
 다음 작업: PLAN §6 "수용 검증" 잔여 — 소스 30–50까지 ingest(논문·docs 타입 커버 필요), 검색 실측 재측정(30–50 도달 시), 복구 드릴 양방향, diff 리뷰 부하 실측, 스킬 evals 실행.
-백업 3계층 가동 중(2026-08-09 — restic 타깃 = NAS rest-server, 일간 launchd `com.syntopicon.backup`, PLAN §5). 커밋 게이트는 `git config core.hooksPath tools/githooks`로 활성(기기당 1회 — 새 기기 런북 항목).
+백업 3계층 가동 중(2026-08-09 — restic 타깃 = NAS rest-server, 일간 launchd `com.syntopicon.backup`, PLAN §5). 커밋 게이트는 `git config core.hooksPath core/tools/githooks`로 활성(기기당 1회 — 새 기기 런북 항목).
 
 도구: `uv run tools/<이름>.py` (validate=커밋 게이트·lint=전수 리포트·reindex=파생 인덱스 재생성·qmd-setup=툴체인 고정/복구·backup=3계층 백업).
 툴체인 핀은 `tools/toolchain-pin.yaml` — 갱신 시 통째로 다시 쓰지 말 것(주석이 규약의 근거를 담고 있다).

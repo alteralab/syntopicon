@@ -19,7 +19,7 @@
 ## 2. 저장 구조
 
 ```
-docs-mirror/                 # git 저장소 (글루만 커밋)
+docs-mirror/                 # 레이어 디렉토리 (모노레포 alteralab/syntopicon — 글루만 추적)
   PLAN.md                    # 이 파일 — 정본 계획
   sources.yaml               # 미러 대상 레지스트리
   sources.schema.json        # 레지스트리의 계약 (에디터·CI 검증)
@@ -46,7 +46,7 @@ docs-mirror/                 # git 저장소 (글루만 커밋)
 - **동시성 모델 (단일 writer 전제 — r10·r11의 동시 writer>1 부재 판정)**: 소스 간은 디렉토리 격리로 병렬 안전, 소스 내 동시 연산은 git 자체 잠금이 fail-loud 차단, `pull`은 flock 단일 인스턴스 가드(겹침 = 무해 종료). 크로스 소스 원자성은 비보장 수용(부분 실패 = 낡은 캐시, 양성). 유일한 자가 저작 쓰기인 `_converted/` 변환만 temp-dir→rename 원자 교체(lakehouse 브랜치 전략의 전제는 그 외 부재 — merge 심사 대상인 '내 저작 쓰기'가 캐시에 없음).
 - **삭제 게이트** (`remove`/`reset`이 실행 전 검증 — core의 클린 워킹트리 게이트와 동형): ⑴ 대상이 sources.yaml 등록 디렉토리인지 — 미등록 잔류물은 계약 밖 물건이므로 중단·목록 출력 ⑵ 각 clone의 워킹트리가 클린인지 — 로컬 수정·미추적 파일 = 인간 저작물 혼입 신호이므로 중단 ⑶ §3.5 보존 계층(fork·스냅샷) 가동 여부 — 미가동이면 "손실 예산이 upstream 소멸분까지 확대된 상태"임을 경고 후 확인 요구.
 - **삭제 정책 — 기본 자세는 "지우지 않는다".** 삭제 가능성은 백업 면제를 정당화하는 설계 속성이지 운영 권장이 아니다. 유지비 0 설계에서 미러를 지울 이유는 거의 없으며(수 GB — 디스크 압박 사유 아님), 정당 사유는 셋뿐: ⑴ 미러 대상 제외 결정(sources.yaml에서 항목 제거와 동반) ⑵ `git fsck` 실패 등 손상 복구(해당 미러만 재클론) ⑶ 기기 폐기. "동기화가 꼬여서" 류의 반사적 전체 삭제 금지 — 그건 pull·fsck·해당 미러 단위 재클론으로 푼다. **에이전트는 mirrors/에 대한 파괴 연산(remove·reset·rm)을 사용자의 명시 지시 없이 실행하지 않는다.** 축적된 고정 버전 워크트리·upstream 소멸분의 잔존 사본은 시간이 지날수록 가치가 커지는 상태다 — sources.yaml이 상태의 완전한 기술이라 재구축은 결정적이지만, 재구축 가능이 곧 폐기 권장은 아니다.
-- **기기 교체 = 캐시 계약의 정상 발동, 이주 대상 아님.** 새 기기에서 glue repo clone(원격: `Altera520/docs-mirror` private — 2026-08-09 개인 계정 이전, 커밋 시 push 동반이 규약) + `tools/mirror pull`이 곧 이주 절차(문서 5종 실측 5.25GB — 재클론 수 분~수십 분, r8). Migration Assistant 통째 이동도 안전(정지 상태 전체 복사; worktree는 `git worktree repair` 1회). `mirrors/`의 CACHEDIR.TAG로 restic 등 백업 도구가 무설정 제외.
+- **기기 교체 = 캐시 계약의 정상 발동, 이주 대상 아님.** 새 기기에서 모노레포 clone(`alteralab/syntopicon` private — r12 통합, 커밋 시 push 동반이 규약) + `tools/mirror pull`이 곧 이주 절차(문서 5종 실측 5.25GB — 재클론 수 분~수십 분, r8). Migration Assistant 통째 이동도 안전(정지 상태 전체 복사; worktree는 `git worktree repair` 1회). `mirrors/`의 CACHEDIR.TAG로 restic 등 백업 도구가 무설정 제외.
 
 ## 3.5 보존 계층 — upstream 소멸·대용량 축적 대비 (근거 r8·r9)
 
