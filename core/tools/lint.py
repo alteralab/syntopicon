@@ -326,7 +326,8 @@ def check_inbox(ctx: Context):
         if p90 > INBOX_P90_DAYS:
             yield Finding("inbox-p90", "error",
                           f"inbox 나이 P90 {p90}일 > {INBOX_P90_DAYS}일 — "
-                          "자동 머지 범위 확대를 검토하십시오(PLAN §4.4 킬 기준)", kb)
+                          "리뷰 기준을 좁히고, 그래도 밀리면 ingest를 멈추십시오"
+                          "(PLAN §4.4 역압 — 자동 승급 경로는 없다)", kb)
 
 
 

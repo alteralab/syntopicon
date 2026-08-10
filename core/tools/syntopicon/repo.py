@@ -57,7 +57,7 @@ def added_at(relative: Path | str):
     복사·개명 추적이 초안을 원본 페이지의 복사(C)로 읽고, 초안 자신의 착지 시점
     대신 **원본이 추가된 시점**을 돌려준다(테스트에서 실측). 같은 이유로 최신 추가
     커밋(재착지 시 가장 최근 것)을 쓴다 — 옛 동명 초안의 나이를 계승하면 갓 착지한
-    초안이 자동 머지 나이를 통과해 버린다.
+    초안이 P90 경보를 즉시 올린다.
     """
     from datetime import datetime, timezone
     out = subprocess.run(

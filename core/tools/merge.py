@@ -15,9 +15,9 @@ rename과 다른 연산이다. rename은 발급된 ID의 이동이라 옛 경로
 승격은 **unverified 계층으로** 간다. `status: draft`와 함께 `verified`도 벗긴다 —
 개정 초안이 원본에서 스탬프를 복사해 왔더라도 그것은 옛 내용에 대한 증언이다.
 
-나이 기반 자동 머지(PLAN §4.4 ②)는 **여기 없다** — retrofit O(1) 기능이고 필요를
-판정할 수치(diff 리뷰 분/건)가 미실측이라, 원칙 5에 따라 수용 검증의 부하 실측이
-예산 초과를 보일 때 붙인다(제거 커밋 revert로 복원).
+**사람 승인 없는 승급 경로는 없다.** 나이 기반 자동 머지는 불채택이고(PLAN §6,
+2026-08-11), 이 도구는 사람이 승인한 것만 옮긴다. 리뷰가 밀리면 여기를 자동화하는
+대신 리뷰 기준을 좁히거나 ingest를 멈춘다(역압 — PLAN §4.4).
 
     uv run tools/merge.py it/inbox/golden-source.md
     uv run tools/merge.py --kb it --all --dry-run

@@ -173,7 +173,7 @@ sources:
 
 # ── 리포트가 딸린 KB (lint 분류·임계 경보용) ─────────────────────────────────
 LINT_REPORT = """error  it/concepts/raft-read-path.md: → it/concepts/missing-page.md
-error  it: inbox 나이 P90 47일 > 30일 — 자동 머지 범위 확대를 검토하십시오(PLAN §4.4 킬 기준)
+error  it: inbox 나이 P90 47일 > 30일 — 리뷰 기준을 좁히고, 그래도 밀리면 ingest를 멈추십시오(PLAN §4.4 역압 — 자동 승급 경로는 없다)
 warn   it/concepts/leader-lease.md: 2026-01-01 만료 — 재검토 큐
 warn   it/inbox/gossip-antientropy.md: 47일째 리뷰 대기
 warn   it/concepts/raft-read-path.md: sources에 ongaro2014-raft 를 선언했지만 각주가 없습니다
