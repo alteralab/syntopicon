@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 복제 프로토콜
 description: 리더 레플리카와 팔로워 레플리카의 역할 분담, 인-싱크 판정이 만들어지는 방식과 그것이 리더 선출 자격을 정하는 이유, 선호 리더와 팔로워 읽기가 부하와 지연에 미치는 영향
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

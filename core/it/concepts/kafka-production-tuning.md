@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 프로덕션 튜닝
 description: 브로커를 프로덕션에 올리기 전에 맞춰야 하는 것들 — 스와핑과 더티 페이지를 다루는 가상 메모리 설정, 파일 디스크립터 계산과 파일시스템 선택, 네트워크 커널 튜닝, G1GC 설정, 랙 단위 장애 구역 배치
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

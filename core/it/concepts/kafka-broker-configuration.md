@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 브로커 설정
 description: 브로커 설정에서 판단이 필요한 매개변수와 그 판단 기준 — 클러스터 참여 요건, 파티션 수와 복제 팩터를 정하는 계산, 보존과 세그먼트 크기가 서로를 늘리는 관계, 메시지 크기 설정의 연쇄
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

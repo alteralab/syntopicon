@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 요청 처리
 description: 클라이언트 요청이 브로커 안에서 지나는 경로 — 네트워크 스레드와 I/O 스레드, 퍼거토리에 걸리는 요청, 메타데이터 캐시로 리더를 찾는 방식, 제로카피와 하이 워터마크가 페치 응답을 제약하는 지점
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

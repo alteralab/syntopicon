@@ -2,7 +2,6 @@
 type: concept
 title: 주키퍼와 KRaft
 description: 카프카가 클러스터 메타데이터와 컨트롤러를 관리하는 두 방식 — 주키퍼 앙상블 구성과 임시 노드 기반 컨트롤러 선출(Kafka 3.x 이하), 그리고 2판 집필 시점에 예고된 KRaft 설계와 그 교체 동기
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

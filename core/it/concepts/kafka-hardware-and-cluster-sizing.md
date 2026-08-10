@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 하드웨어와 클러스터 산정
 description: 브로커 한 대의 병목 다섯 가지와 그 판단 기준 — 디스크 처리량과 용량, 페이지 캐시가 중심인 메모리, 비대칭 네트워크 사용, 압축이 만드는 CPU 부하, 그리고 브로커 대수를 정하는 두 계산
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

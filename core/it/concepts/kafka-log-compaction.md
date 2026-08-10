@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 로그 압착
 description: 키별 최신값만 남기는 보존 정책의 동작 — 클린과 더티 영역, 클리너 스레드의 오프셋 맵과 그 메모리 산정, 삭제를 표현하는 툼스톤, 압착이 시작되는 시점을 정하는 설정
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

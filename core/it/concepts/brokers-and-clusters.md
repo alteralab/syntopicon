@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 브로커와 클러스터
-description: 카프카 서버 한 대와 클러스터의 역할 분담 — 컨트롤러·파티션 리더·팔로워, 보존과 로그 압착, 다중 클러스터와 미러메이커. 클러스터 제어 서술은 버전 종속이다
-generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
+description: 카프카 서버 한 대와 클러스터의 역할 분담 — 컨트롤러·파티션 리더·팔로워, 보존과 로그 압착, 다중 클러스터와 미러메이커. 클러스터 제어 서술은 버전 종속이며, 각 절의 상세는 전용 페이지로 갈라진다
+generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 stale_after: "2025-03-18"
@@ -18,6 +18,13 @@ stale_after: "2025-03-18"
 > 제어(컨트롤러 선출)와 클러스터 간 복제 도구는 이후 릴리스에서 역전된 영역이므로
 > 아래 각 절에 조건을 표시했다. `stale_after` 근거는 [만료 근거](#만료-근거)에 있다.
 
+> **이 페이지는 개요다.** 각 절의 기제는 전용 페이지로 갈라져 있다 —
+> [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md),
+> [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md),
+> [카프카 요청 처리](../concepts/kafka-request-processing.md),
+> [카프카 물리적 저장소](../concepts/kafka-physical-storage.md),
+> [카프카 로그 압착](../concepts/kafka-log-compaction.md).
+
 ## 브로커
 
 - 브로커(broker)는 카프카 서버 한 대를 가리킨다. 프로듀서에게서 메시지를 받아
@@ -26,6 +33,11 @@ stale_after: "2025-03-18"
   돌려준다 (1장, p.8).[^shapira2021]
 - 처리 능력: 하드웨어와 성능 특성에 따라 다르지만, **브로커 한 대가 초당 수천 개의
   파티션과 수백만 개의 메시지를 쉽게 감당한다** (1장, p.8).[^shapira2021]
+  - 상한의 실측 권고는 2장에 따로 있다 — **잘 구성된 환경에서 브로커당 파티션 레플리카
+    14,000개, 클러스터당 100만 개를 넘지 않기를 권장한다** (2장,
+    p.38).[^shapira2021] 자세한 산정은
+    [카프카 하드웨어와 클러스터 산정](../concepts/kafka-hardware-and-cluster-sizing.md)에
+    있다.
 
 ## 클러스터의 컨트롤러와 리더십
 
@@ -34,6 +46,9 @@ stale_after: "2025-03-18"
 - 클러스터 안 브로커 하나가 클러스터 컨트롤러(controller) 역할을 겸하며, **살아 있는
   멤버 중에서 자동으로 선출된다.** 컨트롤러는 파티션을 브로커에 할당하고 브로커
   장애를 감시하는 관리 작업을 맡는다 (1장, p.8).[^shapira2021]
+  - 선출의 실제 기전은 주키퍼 임시 노드 경쟁이며, 컨트롤러 에포크로 좀비 컨트롤러를
+    막는다 (6장, pp.136–137).[^shapira2021] 상세는
+    [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md)에 있다.
   - (Kafka ≤3.x 기준 서술 — 4.0부터 ZooKeeper가 제거되고 KRaft 컨트롤러 쿼럼이 이
     역할을 맡으므로, "클러스터의 살아 있는 브로커 중 선출"이라는 표현은 그대로
     성립하지 않는다. 아래 [만료 근거](#만료-근거) 참조.)
@@ -42,8 +57,17 @@ stale_after: "2025-03-18"
   (1장, p.8).[^shapira2021]
 - 복제는 파티션 메시지의 중복성을 제공한다 — 브로커 장애 시 팔로워 중 하나가
   리더십을 인계받을 수 있다 (1장, p.8).[^shapira2021]
+  - 인계 자격에는 조건이 붙는다 — **인-싱크 레플리카만이 파티션 리더로 선출될 수
+    있다** (6장, p.141).[^shapira2021] 판정 규칙은
+    [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md)에 있다.
 - 접속 규칙의 비대칭: **모든 프로듀서는 발행을 위해 리더에 접속해야 하지만, 컨슈머는
   리더나 팔로워 어느 쪽에서든 페치할 수 있다** (1장, p.8).[^shapira2021]
+  - **1장과 6장의 서술이 어긋나는 지점이다.** 6장은 "달리 설정하지 않는 한 팔로워는
+    클라이언트 요청을 처리하지 않는다"라고 적는다 (6장, p.140).[^shapira2021]
+    팔로워 읽기는 KIP-392로 추가된 **선택 기능**이며 `client.rack`과
+    `replica.selector.class` 설정을 요구하고, 기본값 `LeaderSelector`는 항상 리더에서
+    소비한다 (6장, p.140).[^shapira2021] 1장의 서술은 가능성을 말한 것이고 기본
+    동작이 아니다.
 
 ## 보존과 로그 압착
 
@@ -56,9 +80,16 @@ stale_after: "2025-03-18"
   pp.8–9).[^shapira2021]
 - 토픽마다 자기 보존 설정을 둘 수 있어 필요한 기간만큼만 저장한다 — 예: 활동 추적
   토픽은 며칠, 애플리케이션 지표는 몇 시간 (1장, p.9).[^shapira2021]
+- 설정한 기간이 곧 실제 보존 기간은 아니다 — 삭제 단위가 메시지가 아니라 세그먼트이고
+  **액티브 세그먼트는 절대 삭제되지 않기 때문에**, 보존을 하루로 잡아도 세그먼트마다
+  닷새치가 들어 있으면 실제로는 닷새를 보관하게 된다 (6장, p.153).[^shapira2021]
+  기제는 [카프카 물리적 저장소](../concepts/kafka-physical-storage.md)에 있다.
 - 로그 압착(log compaction)으로 설정된 토픽은 **특정 키에 대해 마지막으로 생산된
   메시지 하나만 보존한다.** 마지막 갱신만 의미 있는 체인지로그(changelog)형 데이터에
   유용하다 (1장, p.9).[^shapira2021]
+  - 보존 정책은 둘이 아니라 셋이다 — `delete`, `compact`, 그리고 둘을 결합한
+    `delete.and.compact` (6장, p.156).[^shapira2021] 클리너 스레드의 동작과 삭제를
+    표현하는 툼스톤은 [카프카 로그 압착](../concepts/kafka-log-compaction.md)에 있다.
 
 ## 다중 클러스터와 미러메이커
 
@@ -96,10 +127,21 @@ stale_after: "2025-03-18"
 
 ## 이어지는 페이지
 
+- [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 컨트롤러가 선출되는 실제
+  기제와 그 교체 계획
+- [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 리더·팔로워의
+  역할 분담과 인-싱크 판정
+- [카프카 요청 처리](../concepts/kafka-request-processing.md) — 브로커가 요청을
+  처리하는 내부 경로
+- [카프카 물리적 저장소](../concepts/kafka-physical-storage.md) — 보존이 세그먼트
+  단위로 집행되는 방식
+- [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 키별 최신값만 남기는 보존
+- [카프카 브로커 설정](../concepts/kafka-broker-configuration.md) — 위 성질들을 정하는
+  설정값과 판단 기준
 - [토픽과 파티션](../concepts/topics-and-partitions.md) — 리더·팔로워가 다루는 그
   단위
 - [프로듀서와 컨슈머](../concepts/producers-and-consumers.md) — 리더 접속 규칙을 받는 쪽
 - [왜 카프카인가](../concepts/why-kafka.md) — 디스크 기반 보존과 확장성이 선택 근거로
   다시 등장한다
 
-[^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka"
+[^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka" · 2장 "Installing Kafka" · 6장 "Kafka Internals"

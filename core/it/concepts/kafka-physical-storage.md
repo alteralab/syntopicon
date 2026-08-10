@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 물리적 저장소
 description: 파티션 레플리카가 디스크에 놓이는 방식 — 할당 규칙과 랙 인식, 세그먼트 단위 파일 관리가 실효 보존 기간을 늘리는 이유, 디스크 형식이 와이어 형식과 같아야 하는 이유, 인덱스와 계층화된 저장소
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

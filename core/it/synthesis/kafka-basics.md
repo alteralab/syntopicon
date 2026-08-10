@@ -1,11 +1,16 @@
 ---
 type: synthesis
-title: 카프카 기초
-description: 발행/구독 패턴부터 카프카의 데이터 단위, 저장 구조, 클라이언트, 클러스터, 선택 근거, 유스케이스, 기원까지의 진입점
-generated: { by: "human:me", at: "2026-08-10T17:30:00Z" }
+title: 카프카
+description: 발행/구독 패턴과 데이터 단위부터 브로커 내부, 설치와 운영까지 카프카 축의 부모 허브
+generated: { by: "human:me", at: "2026-08-10T19:00:00Z" }
 ---
 
-# 카프카 기초
+# 카프카
+
+## 하위 허브
+
+- [카프카 내부 구조](kafka-internals.md) — 메타데이터와 조율, 요청 처리와 물리적 저장
+- [카프카 설치와 운영](kafka-operations.md) — 설정과 산정, 프로덕션 준비
 
 ## 패턴과 데이터 단위
 
