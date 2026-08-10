@@ -6,7 +6,6 @@ generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
-contradicts: [data-lake]
 ---
 
 # 엔터프라이즈 데이터 웨어하우스(EDW)
@@ -197,12 +196,13 @@ Kleppmann은 같은 분리를 방법론이 아니라 **접근 패턴과 사용�
   보관·제공하자는 목표. 컴플라이언스 요구에서 출발한 이 아이디어가 Data Vault 발명으로
   이어졌고, Raw Data Vault에 구현된 핵심 원리다. Data Vault 기반 EDW는 단일 진실
   버전과 단일 사실 버전을 모두 제공한다 (§1.2.4, pp.22–23).[^linstedt2016]
-  - **모순 기록**: Kleppmann은 같은 컴플라이언스를 근거로 반대 방향을 말한다 —
+  - **반대편 처방**: Kleppmann은 같은 컴플라이언스를 근거로 반대 방향을 말한다 —
     저장의 비용이 청구서를 넘어 책임·평판·과징금까지 포함하므로 어떤 데이터는 아예
     저장하지 말고 지워야 한다는 데이터 최소화(data minimization)이며, 이는 GDPR과
-    맞는다 (1장, p.25).[^kleppmann2026] 두 주장은
-    [데이터 레이크](../concepts/data-lake.md)와 frontmatter `contradicts`로 상호
-    기록했고 자동 해소하지 않는다.
+    맞는다 (1장, p.25).[^kleppmann2026] 단 대상이 온전히 같지는 않다 — 이쪽은
+    감사 가능성을 위한 업무 데이터, 저쪽은 개인 데이터다. 어느 쪽이 참인지의 문제가
+    아니라 데이터 종류별 정책 판단이라 `contradicts`는 달지 않는다(PLAN §2.1).
+    상세는 [데이터 레이크](../concepts/data-lake.md).
 - 그 밖의 요구: 사명 수행에 필수(mission-critical)인 자산으로서의 품질 책임
   (§1.2.5, p.23), 데이터량·사용자 증가에 대한 확장성과 MPP(massively parallel
   processing) (§1.2.6, p.23), 볼륨·속도·다양성의 3V로 정의되는 빅데이터 수용

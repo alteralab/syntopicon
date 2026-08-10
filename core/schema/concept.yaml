@@ -44,6 +44,7 @@ properties:
 
   contradicts:
     # 모순 상호 기록(동일 KB). 소비자: kb-lint 쌍 목록. 자동 해소 금지.
+    # 대상은 사실 주장의 충돌(최대 하나만 참)뿐 — 방법론 트레이드오프는 아니다(PLAN §2.1).
     type: array
     minItems: 1
     items: {$ref: "common.yaml#/$defs/slug"}

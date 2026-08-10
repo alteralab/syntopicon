@@ -6,7 +6,6 @@ generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
-contradicts: [data-lake]
 ---
 
 # ETL 34 서브시스템
@@ -141,12 +140,15 @@ Kimball의 34 서브시스템은 **차원 웨어하우스 백룸**을 전제한 
   서로 통합돼야 하는데 현재로서는 이를 돕는 표준이 없어 상당한 수작업이 드는
   경우가 많다** (1장, p.18).[^kleppmann2026]
   ([클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md))
-- **모순 기록**: 위의 "가치는 정제·통합에서 더해진다"와 정규화 구조를 사용자
+- **반대편 처방**: 위의 "가치는 정제·통합에서 더해진다"와 정규화 구조를 사용자
   질의에서 차단하라는 Kimball의 요구는, 원시 데이터를 변환하지 않고 담아 두고
   소비자마다 자기에게 맞게 변환하라는 스시 원칙("raw data is better")과 정면으로
-  어긋난다 (1장, p.10).[^kleppmann2026] 두 주장은
-  [데이터 레이크](../concepts/data-lake.md)와 frontmatter `contradicts`로 상호
-  기록했고 자동 해소하지 않는다. 참고로
+  어긋난다 (1장, p.10).[^kleppmann2026] 변환을 적재 전에 두느냐 후에 두느냐의
+  기본값 차이이고, 소비자가 알려져 있고 안정적이면 전자가, 소비자가 다양하고
+  요구가 변하면 후자가 유리한 **방법론 트레이드오프**다. 어느 쪽이 참인지의 문제가
+  아니라 상황이 고르는 문제라 `contradicts`는 달지 않는다(PLAN §2.1) — 선택
+  기준은 [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md)가
+  담당한다. 상세는 [데이터 레이크](../concepts/data-lake.md). 참고로
   [데이터 품질 관리](../concepts/data-quality-management.md)의 "나쁜 데이터의
   가치"는 원천 보존 쪽에 선다.
 

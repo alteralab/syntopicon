@@ -5,7 +5,6 @@ description: 스키마를 강제하지 않고 파일 그대로 모으는 분석 
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
-contradicts: [enterprise-data-warehouse, etl-subsystems]
 ---
 
 # 데이터 레이크
@@ -105,10 +104,14 @@ contradicts: [enterprise-data-warehouse, etl-subsystems]
 - 데이터 최소화는 GDPR과는 맞는다: 개인 데이터는 명시된 명확한 목적으로만 수집할 수
   있고, 이후 다른 목적으로 쓸 수 없으며, 수집 목적에 필요한 기간보다 오래 보관해서는
   안 된다 (1장, p.25).[^kleppmann2026]
-- **KB 안의 모순**: [EDW](../concepts/enterprise-data-warehouse.md)의 "단일 사실
+- **반대편 처방**: [EDW](../concepts/enterprise-data-warehouse.md)의 "단일 사실
   버전"은 컴플라이언스를 근거로 **모든 원시 데이터를 항상 보관**하자고 말한다. 위의
-  데이터 최소화는 같은 컴플라이언스를 근거로 **덜 저장하고 지우자**고 말한다. 둘 다
-  frontmatter `contradicts`에 상호 기록했고, 자동 해소하지 않는다.
+  데이터 최소화는 같은 컴플라이언스를 근거로 **덜 저장하고 지우자**고 말한다. 다만
+  두 처방의 대상이 온전히 같지는 않다 — 전자는 감사 가능성을 위한 업무 데이터,
+  후자는 GDPR이 규율하는 개인 데이터다. 겹치는 구간(웨어하우스가 개인 데이터를
+  담을 때)에서만 실제로 부딪히며, 그때도 어느 쪽이 참인지가 아니라 어떤 데이터에
+  어느 정책을 걸지의 설계 판단이다. 사실 주장의 충돌이 아니므로 `contradicts`는
+  달지 않는다(PLAN §2.1).
 
 ## 이어지는 페이지
 
