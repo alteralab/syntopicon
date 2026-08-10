@@ -10,6 +10,7 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 ## 아키텍처와 프로세스
 
 - [EDW](../concepts/enterprise-data-warehouse.md) — 운영계/분석계 분리와 아키텍처 지형
+- [데이터 레이크](../concepts/data-lake.md) — 스키마를 강제하지 않는 분석 저장소
 - [Kimball DW/BI 아키텍처](../concepts/kimball-dwbi-architecture.md) — 4구획과 프레젠테이션 4원칙
 - [Kimball 라이프사이클](../concepts/kimball-lifecycle.md) — 로드맵과 실패 요인
 - [차원 설계 프로세스](../concepts/dimensional-design-process.md) — 워크숍 운영과 산출물

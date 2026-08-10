@@ -2,7 +2,6 @@
 type: concept
 title: 클라우드 네이티브 아키텍처
 description: 클라우드 서비스를 전제로 다시 설계한 데이터 시스템의 세 성질 — 서비스 위에 서비스를 쌓는 계층화, 저장과 연산의 분리, 멀티테넌시
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 마이크로서비스와 서버리스
 description: 서비스마다 자기 데이터베이스를 두는 이유와 그 대가 — 데이터 경계가 곧 API 경계라는 규칙, 그리고 서버리스가 계량 과금을 코드 실행까지 끌고 온 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }

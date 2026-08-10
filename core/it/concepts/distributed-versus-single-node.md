@@ -2,7 +2,6 @@
 type: concept
 title: 분산 시스템과 단일 노드
 description: 여러 기계로 가야 하는 아홉 가지 이유와 가지 말아야 할 이유 — 네트워크 호출의 대가, 노드를 늘려도 느려지는 경우, 그리고 슈퍼컴퓨팅과의 대비
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }

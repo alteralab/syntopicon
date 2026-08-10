@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 레이크
 description: 스키마를 강제하지 않고 파일 그대로 모으는 분석 저장소 — 웨어하우스로 감당이 안 되는 수요, "원시 데이터가 낫다"는 원칙, 그리고 그 반대편의 데이터 최소화
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }

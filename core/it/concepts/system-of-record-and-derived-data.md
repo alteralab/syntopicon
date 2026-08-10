@@ -2,7 +2,6 @@
 type: concept
 title: 기록 시스템과 파생 데이터
 description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 그리고 갱신·삭제가 여기서 어려워지는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }

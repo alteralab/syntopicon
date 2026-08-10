@@ -2,7 +2,6 @@
 type: concept
 title: 클라우드와 자체 호스팅
 description: 소프트웨어를 누가 만들고 누가 운영하는가의 스펙트럼 — 클라우드가 싼 조건과 비싼 조건, 통제권 상실의 목록, 그리고 그 선택이 운영 조직을 바꾸는 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
