@@ -16,8 +16,7 @@ rename과 다른 연산이다. rename은 발급된 ID의 이동이라 옛 경로
 개정 초안이 원본에서 스탬프를 복사해 왔더라도 그것은 옛 내용에 대한 증언이다.
 
 **사람 승인 없는 승급 경로는 없다.** 나이 기반 자동 머지는 불채택이고(PLAN §6,
-2026-08-11), 이 도구는 사람이 승인한 것만 옮긴다. 리뷰가 밀리면 여기를 자동화하는
-대신 리뷰 기준을 좁히거나 ingest를 멈춘다(역압 — PLAN §4.4).
+2026-08-11), 이 도구는 사람이 승인한 것만 옮긴다.
 
     uv run tools/merge.py it/inbox/golden-source.md
     uv run tools/merge.py --kb it --all --dry-run

@@ -12,7 +12,7 @@
 ## Expected Outcome
 
 - 오류를 먼저 놓되, 두 오류가 다른 종류임을 구분한다: 깨진 링크는 즉시 수정,
-  inbox P90은 역압(리뷰 기준 축소 → ingest 중단) 검토.
+  inbox P90은 적체 발생 신호이고 대응은 사람 판단이다.
 - 정보 등급(모순 쌍·고아 페이지)은 큐이지 지금 할 일이 아님을 말한다.
 - **자동으로 고치지 않는다** — lint는 검출만 하고 수정 커밋은 사람이 한다.
 - 미구현 검사(page-overlap)가 있다는 것을 흘리지 않는다.
@@ -20,7 +20,7 @@
 ## Grading Criteria
 
 - [ ] separates_kinds: 두 오류가 다른 종류의 일임을 구분한다
-- [ ] links_p90_to_backpressure: inbox P90 초과를 역압(리뷰 기준 축소·ingest 중단)과 연결한다
+- [ ] defers_p90_response: inbox P90 초과의 대응을 지어내지 않고 사람 판단으로 넘긴다
 - [ ] defers_info: 정보 등급을 즉시 처리 대상에서 뺀다
 - [ ] no_autofix: 파일을 임의로 고치지 않는다
 - [ ] notes_unimplemented: 미구현 검사가 남아 있음을 언급한다
