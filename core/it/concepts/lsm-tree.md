@@ -2,7 +2,6 @@
 type: concept
 title: LSM 트리
 description: 불변 파일과 메모리 버퍼로 쓰기를 순차화하는 저장 구조 — 멤테이블과 플러시, 이중 대 다중 컴포넌트, 삭제를 쓰기로 표현하는 툼스톤, 조회 시점의 병합-반복과 조정, 그리고 디스크 테이블을 이루는 SSTable
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

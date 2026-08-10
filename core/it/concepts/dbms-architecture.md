@@ -2,7 +2,6 @@
 type: concept
 title: 데이터베이스 관리 시스템의 구조
 description: 질의가 클라이언트에서 디스크까지 지나는 구성 요소들과 그 책임 — 전송·질의 처리기·최적화기·실행 엔진, 그리고 저장 엔진 안의 다섯 관리자
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

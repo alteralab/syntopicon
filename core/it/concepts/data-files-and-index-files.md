@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 파일과 인덱스 파일
 description: 데이터베이스가 평범한 파일 대신 전용 파일 조직을 쓰는 이유와 그 구획 — 힙·해시·인덱스 구조형 테이블, 주 인덱스와 보조 인덱스, 클러스터형과 비클러스터형, 그리고 주 인덱스를 간접 참조로 쓸 때의 득실
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

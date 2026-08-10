@@ -2,7 +2,6 @@
 type: concept
 title: 블룸 필터
 description: 없는 키를 확실히 배제하는 확률적 자료 구조 — 거짓 양성은 내지만 거짓 음성은 내지 않는 성질, 비트 배열과 해시 함수로 만드는 방법, 그리고 LSM 트리에서 여는 테이블 수를 줄이는 데 쓰이는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

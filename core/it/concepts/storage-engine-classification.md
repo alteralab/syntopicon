@@ -2,7 +2,6 @@
 type: concept
 title: 저장 엔진의 분류
 description: 저장 엔진을 가르는 축들 — 주 저장 매체가 메모리인가 디스크인가, 데이터를 행으로 놓는가 열로 놓는가, 그리고 모든 저장 구조를 셋으로 요약하는 버퍼링·불변성·순서
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

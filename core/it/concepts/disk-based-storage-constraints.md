@@ -2,7 +2,6 @@
 type: concept
 title: 디스크 기반 저장의 제약
 description: 회전 디스크와 SSD의 물리가 온디스크 자료 구조 설계에 거는 제약 — 블록이 최소 단위라는 사실, 지우기 블록과 플래시 변환 계층, 그리고 로그 구조 계층이 겹쳐 쌓일 때 생기는 손해
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

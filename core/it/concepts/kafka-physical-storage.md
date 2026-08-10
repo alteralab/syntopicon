@@ -1,15 +1,16 @@
 ---
 type: concept
 title: 카프카 물리적 저장소
-description: 파티션 레플리카가 디스크에 놓이는 방식 — 할당 규칙과 랙 인식, 세그먼트 단위 파일 관리가 실효 보존 기간을 늘리는 이유, 디스크 형식이 와이어 형식과 같아야 하는 이유, 인덱스와 계층화된 저장소
-generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
+description: 파티션 레플리카가 디스크에 놓이는 방식 — 할당 규칙과 랙 인식, 세그먼트 단위 파일 관리가 실효 보존 기간을 늘리는 이유, 디스크 형식이 와이어 형식과 같아야 하는 이유, 인덱스와 계층화된 저장소, 그리고 이 설계가 로그 구조 저장의 특수 사례인 지점
+generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
+  - { id: petrov2019, resource: /it/sources/petrov2019.md }
 ---
 
 # 카프카 물리적 저장소
 
-**목차**: [기본 단위와 그 상한](#기본-단위와-그-상한) · [파티션 할당](#파티션-할당) · [세그먼트 — 파일 관리](#세그먼트--파일-관리) · [파일 형식](#파일-형식) · [인덱스](#인덱스) · [계층화된 저장소](#계층화된-저장소) · [이어지는 페이지](#이어지는-페이지)
+**목차**: [기본 단위와 그 상한](#기본-단위와-그-상한) · [파티션 할당](#파티션-할당) · [세그먼트 — 파일 관리](#세그먼트--파일-관리) · [파일 형식](#파일-형식) · [인덱스](#인덱스) · [계층화된 저장소](#계층화된-저장소) · [일반형과의 관계](#일반형과의-관계) · [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **카프카는 파티션을 어느 디스크에 어떤 파일로 놓는가, 그리고 그 선택이
 무엇을 제약하는가.**
@@ -193,8 +194,46 @@ sources:
   - 즉 계층화된 저장소는 무한 저장·저비용·탄력성에 더해 **과거 읽기와 실시간 읽기 사이의
     격리**를 제공한다.
 
+## 일반형과의 관계
+
+카프카의 저장 설계는 새로 발명된 것이 아니라 **로그 구조 저장(log-structured storage, LSS)** 이라는
+일반형의 특수 사례다. 아래는 다른 소스가 서술한 그 일반형이며, 위의 카프카 서술과 대조해서 읽는다.
+
+- 많은 현대 파일시스템이 로그 구조다 — 쓰기를 메모리 세그먼트에 버퍼링하고 가득 차면 추가 전용
+  방식으로 디스크에 플러시한다. SSD도 작은 임의 쓰기를 다루고 쓰기 오버헤드를 최소화하고 마모
+  평준화를 개선하려고 로그 구조 저장을 쓴다 (7장, p.157).[^petrov2019]
+- 로그 구조 저장이 하는 일의 요약. 원문 직인용 (7장, p.162):[^petrov2019]
+
+> Log-structured storage is used everywhere: from the flash translation layer, to
+> filesystems and database systems. It helps to reduce write amplification by batching
+> small random writes together in memory. To reclaim space occupied by removed segments,
+> LSS periodically triggers garbage collection.
+
+아래 대조는 두 소스를 나란히 놓아 얻은 것이며, 어느 한 소스가 카프카와 LSM을 직접 비교한 서술은
+아니다. 각 절반의 근거만 각주로 단다. 자세한 것은 [LSM 트리](../concepts/lsm-tree.md)를 본다.
+
+- 대조점 셋:
+  - **공통** — 파일이 불변이고 추가 전용이며, 지울 공간은 나중에 별도 과정이 회수한다. 카프카의
+    세그먼트 폐기와 LSS의 가비지 컬렉션이 같은 자리에 있다.
+  - **다른 점 1** — LSM 트리의 디스크 테이블은 **키로 정렬**되지만, 카프카 세그먼트는 **오프셋 순서**로
+    쓰인 삽입 순서 로그다. LSM 계열에서 이에 가까운 것은 정렬 없는 변종(Bitcask·WiscKey)이다.
+    카프카가 오프셋→파일 위치 인덱스를 따로 두는 이유도 여기 있다 — 정렬 없는 저장은 조회를 위해
+    별도의 위치 지도를 요구한다 (7장, pp.152–154).[^petrov2019]
+  - **다른 점 2** — LSM 트리는 조회 시 여러 테이블을 읽어 **조정(reconciliation)** 하지만, 카프카
+    컨슈머는 오프셋 하나에 레코드 하나를 읽으므로 조정 단계가 없다. 그래서 카프카에는 읽기 증폭이
+    LSM 트리와 같은 방식으로 나타나지 않는다 (7장, p.144).[^petrov2019]
+- 로그 구조 층이 겹겹이 쌓일 때 생기는 손해(쓰기 증폭·단편화)는 카프카에도 그대로 걸린다 — 브로커의
+  세그먼트 로그, 파일시스템 로그, SSD의 플래시 변환 계층이 각각 자기 장부를 적기 때문이다. 자세한
+  것은 [디스크 기반 저장의 제약](../concepts/disk-based-storage-constraints.md)이 다룬다 (7장,
+  pp.157–160).[^petrov2019]
+
 ## 이어지는 페이지
 
+- [LSM 트리](../concepts/lsm-tree.md) — 이 저장 방식의 일반형
+- [디스크 기반 저장의 제약](../concepts/disk-based-storage-constraints.md) — 세그먼트와 페이지 캐시가
+  기대는 하드웨어 성질
+- [데이터 파일과 인덱스 파일](../concepts/data-files-and-index-files.md) — 오프셋 인덱스가 놓이는
+  일반적 자리
 - [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 세그먼트 위에서 키별 최신값만
   남기는 보존 정책
 - [카프카 요청 처리](../concepts/kafka-request-processing.md) — 이 파일 형식이 그대로
@@ -207,3 +246,5 @@ sources:
   디스크에 놓이는 그 배치의 개념
 
 [^shapira2021]: Shapira et al. 2021, 6장 "Kafka Internals"
+
+[^petrov2019]: Petrov 2019, 7장 "Log-Structured Storage"

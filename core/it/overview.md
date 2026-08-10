@@ -22,6 +22,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [카프카 내부 구조](synthesis/kafka-internals.md) — 메타데이터·복제·요청 처리·물리 저장
   - [카프카 설치와 운영](synthesis/kafka-operations.md) — 설정 기준·클러스터 산정·튜닝
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
+- [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조와 B-트리 대 LSM의 대비
 
 
 ## Tools

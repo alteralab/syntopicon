@@ -2,7 +2,6 @@
 type: concept
 title: LSM 컴팩션
 description: 늘어나는 디스크 테이블을 병합해 다시 쓰는 유지보수 — 컴팩션이 하는 일과 그 자원 요구, 툼스톤을 곧바로 버리지 못하는 이유, 그리고 레벨형·크기 단계별·타임 윈도우 전략이 무엇을 다르게 하는가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

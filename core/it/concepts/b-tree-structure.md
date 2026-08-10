@@ -2,7 +2,6 @@
 type: concept
 title: B-트리
 description: 이진 탐색 트리가 디스크에서 실패하는 이유와 B-트리가 그것을 어떻게 고치는가 — 팬아웃과 높이, 구분 키와 노드 계층, 조회 복잡도의 두 관점, 그리고 삽입·삭제가 부르는 노드 분할과 병합
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }

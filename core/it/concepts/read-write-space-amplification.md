@@ -2,7 +2,6 @@
 type: concept
 title: 읽기·쓰기·공간 증폭
 description: 불변 저장이 치르는 세 가지 대가와 그것을 하나의 비용 모형으로 묶는 RUM 추측 — 둘을 줄이면 셋째가 나빠진다는 주장, B-트리와 LSM 트리를 그 자에 놓았을 때의 위치, 그리고 이 모형이 담지 못하는 것
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
