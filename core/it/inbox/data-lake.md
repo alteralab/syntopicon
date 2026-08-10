@@ -1,0 +1,122 @@
+---
+type: concept
+title: 데이터 레이크
+description: 스키마를 강제하지 않고 파일 그대로 모으는 분석 저장소 — 웨어하우스로 감당이 안 되는 수요, "원시 데이터가 낫다"는 원칙, 그리고 그 반대편의 데이터 최소화
+status: draft
+generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
+sources:
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+contradicts: [enterprise-data-warehouse, etl-subsystems]
+---
+
+# 데이터 레이크
+
+**목차**: [웨어하우스가 감당하지 못한 수요](#웨어하우스가-감당하지-못한-수요) · [정의와 웨어하우스와의 차이](#정의와-웨어하우스와의-차이) · [스시 원칙 — 원시 데이터가 낫다](#스시-원칙--원시-데이터가-낫다) · [레이크 다음에 온 것들](#레이크-다음에-온-것들) · [반대 압력 — 데이터 최소화](#반대-압력--데이터-최소화) · [이어지는 페이지](#이어지는-페이지)
+
+이 페이지의 질문: **관계형 데이터 웨어하우스가 이미 있는데 왜 파일 저장소가 또
+필요해졌고, 그 선택이 무엇을 바꾸는가.**
+
+## 웨어하우스가 감당하지 못한 수요
+
+- 데이터 웨어하우스는 보통 SQL로 질의하는 **관계형** 데이터 모델을 쓰고 전용 BI
+  소프트웨어를 얹는다. 업무 분석가가 던지는 종류의 질의에는 잘 맞지만, 데이터
+  과학자가 하는 작업에는 덜 맞는다 (1장, p.9).[^kleppmann2026]
+  - ML 모델 학습용 형태로의 변환: 테이블의 행과 열을 특징(feature)이라 불리는 수치
+    벡터·행렬로 바꾸는 일이며, 학습 성능을 최대화하도록 이 변환을 수행하는 과정을
+    특징 공학(feature engineering)이라 부른다. SQL로 표현하기 어려운 커스텀 코드가
+    흔히 필요하다.
+  - 텍스트에 자연어 처리(NLP)를 적용해 구조화된 정보를 뽑는 일(예: 리뷰의 감성,
+    언급된 주제), 사진에서 컴퓨터 비전으로 정보를 뽑는 일.
+- SQL 데이터 모델에 ML 연산자를 더하려는 시도도, 관계형 기반 위에 효율적 ML
+  시스템을 짓는 시도도 있었지만, 많은 데이터 과학자는 데이터 웨어하우스 같은
+  관계형 데이터베이스 안에서 일하기를 선호하지 않는다 — Pandas·scikit-learn 같은
+  파이썬 라이브러리, R, Spark 같은 분산 분석 프레임워크를 쓴다 (1장,
+  p.9).[^kleppmann2026]
+
+## 정의와 웨어하우스와의 차이
+
+- 정의는 원문 그대로 (1장, pp.9–10):[^kleppmann2026]
+
+> The answer is a *data lake*: a centralized data repository that holds a copy
+> of any data that might be useful for analysis, obtained from operational
+> systems via ETL processes. The difference from a data warehouse is that a data
+> lake simply contains files, without imposing any particular file format, data
+> model, or schema.
+
+- 레이크 안의 파일은 Avro·Parquet 같은 파일 형식으로 인코딩된 데이터베이스 레코드
+  모음일 수도 있지만, 텍스트·이미지·비디오·센서 판독값·희소 행렬·특징 벡터·게놈
+  서열 등 **어떤 종류의 데이터든** 똑같이 담을 수 있다 (1장, p.10).[^kleppmann2026]
+- 유연성만이 아니라 값도 싸다. 오브젝트 스토어 같은 범용 파일 저장(commoditized
+  file storage)을 쓸 수 있기 때문이다 (1장, p.10).[^kleppmann2026] 그 저장 계층의
+  성질은 [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md)
+  참조.
+
+## 스시 원칙 — 원시 데이터가 낫다
+
+- ETL 프로세스는 **데이터 파이프라인(data pipeline)** 으로 일반화됐고, 어떤 경우에는
+  데이터 레이크가 운영계에서 웨어하우스로 가는 경로의 **중간 기착지**가 됐다 (1장,
+  p.10).[^kleppmann2026]
+- 데이터 레이크는 운영계가 만들어 낸 "원시(raw)" 형태의 데이터를 관계형 웨어하우스
+  스키마로 변환하지 않은 채 담는다. 그러면 데이터의 **소비자마다 자기에게 가장 맞는
+  형태로** 원시 데이터를 변환할 수 있다는 이점이 생긴다. 이를 스시 원칙(sushi
+  principle)이라 부르기도 한다 — "원시 데이터가 낫다(raw data is better)" (1장,
+  p.10).[^kleppmann2026]
+- 이 원칙은 KB 안에서 정면으로 부딪히는 자리가 있다. Kimball은 ETL의 부가가치가
+  **적재 전** 정제·통합에서 나온다고 보고, 정규화 구조를 사용자 질의에서 차단하라고
+  요구한다(→ [ETL 34 서브시스템](../concepts/etl-subsystems.md),
+  [Kimball DW/BI 아키텍처](../concepts/kimball-dwbi-architecture.md)). 반면 Linstedt의
+  Raw Data Vault는 원천 그대로의 보존을 우선한다(→
+  [데이터 품질 관리](../concepts/data-quality-management.md)의 "나쁜 데이터의 가치").
+  세 관점을 지우지 말고 병기해 둔다.
+
+## 레이크 다음에 온 것들
+
+- 분석 실무가 성숙하면서 조직은 분석 시스템과 데이터 파이프라인의 **관리·운영**에
+  점점 더 주의를 기울이게 됐고, 그것이 예컨대 DataOps 선언(DataOps Manifesto)에
+  담겼다. 이 흐름을 민 것은 부분적으로 거버넌스·프라이버시, 그리고 GDPR·CCPA 같은
+  규제 준수 문제였다 (1장, p.10).[^kleppmann2026]
+- 분석용 데이터가 파일과 관계형 테이블만이 아니라 **이벤트 스트림**으로도 제공되는
+  일이 늘고 있다. 파일 기반 분석은 데이터 변화에 대응하려면 분석을 주기적으로(예:
+  일 단위) 다시 돌려야 하지만, 스트림 처리는 분석 시스템이 **초 단위**로 이벤트에
+  반응하게 해 준다 — 예컨대 사기·악용 활동을 식별하고 차단하는 데 값어치가 있다
+  (1장, p.10).[^kleppmann2026] 운반 계층 쪽은
+  [데이터 생태계와 유스케이스](../concepts/kafka-data-ecosystem-and-use-cases.md)
+  참조.
+- 분석 시스템의 산출물을 거꾸로 운영계에 되돌리는 경우도 있고, 이를 리버스
+  ETL(reverse ETL)이라 부르기도 한다. 예: 분석 시스템에서 학습한 ML 모델을
+  프로덕션에 배포해 최종 사용자에게 추천을 내보내는 것 — TFX·Kubeflow·MLflow 같은
+  전용 도구를 쓴다 (1장, p.10).[^kleppmann2026]
+
+## 반대 압력 — 데이터 최소화
+
+- 우리가 데이터를 저장하는 이유는 그 가치가 저장 비용보다 크다고 보기 때문이다.
+  그러나 **저장의 비용은 청구서를 넘어선다** — 데이터가 유출·탈취됐을 때의 책임과
+  평판 손상, 저장·처리가 법을 어긴 것으로 판명될 때의 법적 비용과 과징금까지
+  비용편익 계산에 넣어야 한다 (1장, p.25).[^kleppmann2026]
+- 정부나 경찰이 데이터 제출을 강제할 수도 있다. 데이터가 범죄화된 행위를 드러낼 수
+  있는 곳에서는(저자들이 든 예는 여러 중동·아프리카 국가의 동성애, 미국 여러 주의
+  낙태) 그런 데이터를 저장하는 것 자체가 사용자에게 실제 안전 위험을 만든다 —
+  위치 데이터나 시간에 따른 IP 주소 로그만으로도 드러날 수 있다 (1장,
+  p.25).[^kleppmann2026]
+- 위험을 다 계산에 넣고 나면 **어떤 데이터는 아예 저장할 가치가 없고 따라서 지워야
+  한다**는 판단이 합리적일 수 있다. 이 원칙을 데이터 최소화(data minimization,
+  독일어로 Datensparsamkeit)라 부르며, 나중에 쓸모 있을지 모른다는 이유로 데이터를
+  투기적으로 잔뜩 쌓는 "빅데이터" 철학과 **정면으로 어긋난다** (1장,
+  p.25).[^kleppmann2026]
+- 데이터 최소화는 GDPR과는 맞는다: 개인 데이터는 명시된 명확한 목적으로만 수집할 수
+  있고, 이후 다른 목적으로 쓸 수 없으며, 수집 목적에 필요한 기간보다 오래 보관해서는
+  안 된다 (1장, p.25).[^kleppmann2026]
+- **KB 안의 모순**: [EDW](../concepts/enterprise-data-warehouse.md)의 "단일 사실
+  버전"은 컴플라이언스를 근거로 **모든 원시 데이터를 항상 보관**하자고 말한다. 위의
+  데이터 최소화는 같은 컴플라이언스를 근거로 **덜 저장하고 지우자**고 말한다. 둘 다
+  frontmatter `contradicts`에 상호 기록했고, 자동 해소하지 않는다.
+
+## 이어지는 페이지
+
+- [EDW](../concepts/enterprise-data-warehouse.md) — 레이크가 대체하려 한 계층
+- [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) —
+  레이크에 담긴 것이 왜 대개 파생인가
+- [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 오브젝트
+  스토리지가 레이크를 싸게 만드는 구조
+
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
