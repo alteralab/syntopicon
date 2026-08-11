@@ -2,7 +2,6 @@
 type: concept
 title: 프로듀서 파티션 배분
 description: 레코드가 어느 파티션으로 갈지 정하는 규칙 — 키가 있을 때의 해시 배분과 키가 없을 때의 스티키 라운드 로빈, 기본 파티셔너 외의 선택지, 파티션 수가 변하면 대응이 깨지는 성질, 그리고 커스텀 파티셔너를 만드는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

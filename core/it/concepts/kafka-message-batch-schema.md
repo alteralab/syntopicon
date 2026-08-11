@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 카프카의 메시지, 배치, 스키마
-description: 카프카를 분산 커밋 로그로 보는 관점과 데이터 단위 3종 — 메시지와 키, 배치가 만드는 지연·처리량 트레이드오프, 스키마를 따로 강제해야 하는 이유
-generated: { by: "claude-opus-5", at: "2026-08-10T00:00:00Z" }
+description: 카프카를 분산 커밋 로그로 보는 관점과 데이터 단위 3종 — 메시지와 키, 배치가 만드는 지연·처리량 트레이드오프, 스키마를 따로 강제해야 하는 이유와 그 권고가 클라이언트에서 실행되는 자리
+generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -41,6 +41,9 @@ p.4).[^shapira2021]
   키의 일관된 해시를 만든 뒤 그 값을 토픽의 파티션 수로 나눈 나머지로 파티션 번호를
   고르는 것으로, **파티션 수가 변하지 않는 한** 같은 키의 메시지는 항상 같은
   파티션에 쓰인다 (1장, pp.4–5).[^shapira2021]
+- 키·밸류 외에 **헤더(header)**도 붙일 수 있다 — 키/밸류 쌍 자체는 건드리지 않고
+  레코드에 메타데이터를 얹는 자리이며, 계보 표시와 라우팅·추적에 쓰인다 (3장,
+  p.71).[^shapira2021]
 
 ## 배치 — 지연과 처리량의 트레이드오프
 
@@ -72,12 +75,21 @@ p.4).[^shapira2021]
     그 다음에야 발행 애플리케이션이 새 형식을 쓸 수 있다.
   - 잘 정의된 스키마를 공용 저장소에 두면 이런 조율 없이도 카프카 안 메시지가
     이해된다.
+- 이 권고가 실제로 집행되는 자리는 **클라이언트의 시리얼라이저와 디시리얼라이저**다 —
+  스키마를 레지스트리에 저장하고 레코드에는 식별자만 담는 일까지 전부 그 안에서
+  이뤄지므로, 생산하는 코드는 다른 시리얼라이저를 쓰듯 에이브로 시리얼라이저를 쓸 뿐이다
+  (3장, pp.65–66).[^shapira2021]
 
 ## 이어지는 페이지
 
+- [카프카 직렬화와 스키마 레지스트리](../concepts/kafka-serialization-and-schema-registry.md)
+  — 위 권고의 실행 형태: 커스텀 시리얼라이저가 무너지는 지점, 에이브로의 스키마 진화,
+  스키마 레지스트리
 - [토픽과 파티션](../concepts/topics-and-partitions.md) — 키가 결정하는 그 파티션이
   무엇이고 왜 순서 보장의 경계인가
 - [프로듀서와 컨슈머](../concepts/producers-and-consumers.md) — 키와 파티셔너를
   실제로 쓰는 쪽
+- [프로듀서 설정](../concepts/kafka-producer-configuration.md) — 배치 크기·`linger.ms`·
+  압축이 위 트레이드오프를 실제로 정하는 자리
 
-[^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka"
+[^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka" · 3장 "Kafka Producers: Writing Messages to Kafka"

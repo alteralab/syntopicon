@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 클라이언트 쿼터
 description: 브로커가 클라이언트의 쓰기·읽기 속도를 제한하는 기제 — 쿼터 3종과 적용 대상, 정적 설정 대신 동적 설정을 쓰는 이유, 스로틀링이 요청 지연과 채널 뮤트로 집행되는 방식, 그리고 쿼터에 걸린 프로듀서가 버퍼를 채우고 타임아웃으로 터지는 경로
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

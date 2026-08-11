@@ -2,7 +2,6 @@
 type: concept
 title: 오프셋 커밋 전략
 description: 컨슈머가 읽은 자리를 기록하는 방식과 그 선택의 결과 — 커밋 오프셋이 어긋날 때 생기는 중복과 누락, 자동 커밋이 남기는 창, commitSync와 commitAsync의 재시도 차이, 둘을 함께 쓰는 관용 패턴, 특정 오프셋 커밋, 그리고 특정 지점으로 되감기
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

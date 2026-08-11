@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 직렬화와 스키마 레지스트리
 description: 카프카 클라이언트가 객체를 바이트로 바꾸는 방식의 선택 — 커스텀 시리얼라이저가 무너지는 지점, 에이브로의 스키마 진화가 읽는 쪽을 고치지 않게 해 주는 원리, 스키마 레지스트리가 레코드에서 스키마를 떼어 내는 구조, 그리고 컨슈머 쪽 디시리얼라이저의 대칭
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

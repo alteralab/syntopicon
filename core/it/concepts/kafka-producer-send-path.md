@@ -2,7 +2,6 @@
 type: concept
 title: 프로듀서 전송 경로
 description: ProducerRecord가 브로커 응답이 되기까지 거치는 부품들과 세 가지 전송 방식 — 직렬화·파티셔너·배치·전송 스레드, fire-and-forget과 동기·비동기 전송, 재시도 가능 에러의 경계, 그리고 그 경로에 얹는 헤더와 인터셉터
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

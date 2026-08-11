@@ -2,7 +2,6 @@
 type: concept
 title: 컨슈머 설정
 description: 컨슈머 동작을 좌우하는 설정 — 페치 크기와 대기 시간의 짝, 살아 있음을 판정하는 세션 타임아웃과 하트비트 간격, 폴 간격 백스톱, 유효 오프셋이 없을 때의 시작 지점, 파티션 할당 전략 4종, 그리고 랙 인식 페치와 오프셋 보존
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

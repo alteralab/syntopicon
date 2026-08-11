@@ -2,7 +2,6 @@
 type: concept
 title: 컨슈머 폴 루프
 description: 컨슈머 API의 심장인 폴 루프 — 컨슈머 생성과 토픽 구독(정규식 구독의 대가 포함), poll 호출이 데이터 말고도 하는 일, 폴을 멈추면 죽은 것으로 간주되는 규칙, 스레드 안전성의 1컨슈머 1스레드 원칙, 그리고 wakeup으로 루프를 빠져나오는 방법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

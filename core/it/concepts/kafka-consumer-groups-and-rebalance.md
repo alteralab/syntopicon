@@ -2,7 +2,6 @@
 type: concept
 title: 컨슈머 그룹과 리밸런스
 description: 컨슈머 그룹이 파티션 소유권을 나누고 옮기는 방식 — 그룹으로 확장할 때의 상한, 조급한 리밸런스와 협력적 리밸런스의 차이, 하트비트와 그룹 코디네이터, 그룹 리더가 파티션을 배정하는 절차, 정적 그룹 멤버십, 리밸런스 리스너, 그리고 그룹을 쓰지 않는 경우
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 프로듀서 설정
 description: 프로듀서 동작을 좌우하는 설정과 그 상호작용 — 필수 3속성, acks가 정하는 내구성, 전달 시간 예산을 나눠 갖는 타임아웃들, 배치·버퍼·압축, 인플라이트 요청이 순서를 뒤집는 조건과 멱등적 프로듀서
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
