@@ -24,6 +24,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 from pathlib import Path
+from urllib.parse import unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -350,6 +351,20 @@ def check_page(ctx: Context, path: str, md: MdFile):
 
     yield from _check_headings(kb, path, md)
 
+    # 페이지 안 앵커 링크(`](#…)`)가 실제 헤딩을 가리키는가. rename은 앵커를 재작성하지
+    # 않으므로(PLAN §2.5-2) 여기가 유일한 검출 지점이다. 클릭해도 안 움직이는 링크는
+    # 렌더도 성공하고 validate도 통과해서 조용히 남는다.
+    anchors = page_anchors(md.headings)
+    for href in md.links:
+        if not href.startswith("#"):
+            continue
+        # markdown-it이 링크 목적지를 퍼센트 인코딩한다 — 한글 앵커는 디코드해야 비교된다.
+        target = unquote(href[1:])
+        if target not in anchors:
+            yield Finding("anchor-broken", "warn",
+                          f"#{target} 가 이 페이지의 헤딩과 맞지 않습니다 — "
+                          f"구두점 주변 공백이 하이픈 둘로 남는 경우가 흔합니다", kb, path)
+
     # 각주 = 출처 귀속 전용 채널이므로, 선언한 소스가 인용되지 않으면 둘 중 하나다:
     # 죽은 소스 항목이거나, 정의가 빠져 평문이 된 각주(validate가 못 보는 그 경우).
     declared = {s["id"] for s in front.get("sources", []) if isinstance(s, dict) and "id" in s}
@@ -393,6 +408,28 @@ def check_page(ctx: Context, path: str, md: MdFile):
                           f"Obsidian 전용 문법 {match.group()} — GFM 부분집합만 씁니다", kb, path)
 
     yield from _check_snapshot(kb, path, front)
+
+
+def heading_anchor(text: str) -> str:
+    """GitHub 앵커 1개. 소문자화 → 영숫자·공백·하이픈·언더스코어 외 제거 → 공백을 하이픈으로.
+
+    구두점이 사라지면서 **양쪽 공백이 하이픈 둘로 남는 것**이 실측된 함정이다
+    (`제목 — 부제` → `제목--부제`). 손으로 쓴 목차는 하이픈을 하나만 적는다.
+    """
+    kept = "".join(c for c in text.lower() if c.isalnum() or c in " -_")
+    return kept.replace(" ", "-")
+
+
+def page_anchors(headings) -> set[str]:
+    """페이지의 실제 앵커 전부. 같은 앵커가 반복되면 GitHub은 `-1`·`-2`를 덧붙인다."""
+    seen: dict[str, int] = {}
+    anchors = set()
+    for _, _, text in headings:
+        base = heading_anchor(text)
+        n = seen.get(base, 0)
+        anchors.add(base if n == 0 else f"{base}-{n}")
+        seen[base] = n + 1
+    return anchors
 
 
 def _inline_dollar_math(text: str) -> bool:

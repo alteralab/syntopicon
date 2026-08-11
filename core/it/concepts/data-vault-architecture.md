@@ -9,7 +9,12 @@ sources:
 
 # Data Vault 2.0 아키텍처
 
-**목차**: [확장성의 차원들 (§2.1)](#확장성의-차원들-21) · [세 개의 계층](#세-개의-계층) · [Hard rule / soft rule 분리](#hard-rule-soft-rule-분리) · [선택적 Vault 확장](#선택적-vault-확장) · [관리형 셀프서비스 BI](#관리형-셀프서비스-bi) · [NoSQL·실시간 수용](#nosql실시간-수용)
+- [확장성의 차원들 (§2.1)](#확장성의-차원들-21)
+- [세 개의 계층](#세-개의-계층)
+- [Hard rule / soft rule 분리](#hard-rule--soft-rule-분리)
+- [선택적 Vault 확장](#선택적-vault-확장)
+- [관리형 셀프서비스 BI](#관리형-셀프서비스-bi)
+- [NoSQL·실시간 수용](#nosql실시간-수용)
 
 이 페이지의 질문: **Data Vault 2.0은 어떤 계층 구조와 규칙 배치로
 [전형적 2·3계층 아키텍처](enterprise-data-warehouse.md)의 확장성 한계를 푸는가.**

@@ -9,7 +9,15 @@ sources:
 
 # Data Vault Link
 
-**목차**: [다대다만 존재한다](#다대다만-존재한다) · [입도와 재입도 변경](#입도와-재입도-변경) · [엔티티 구조](#엔티티-구조) · [응용 — link-on-link는 피한다](#응용-link-on-link는-피한다) · [응용 — same-as link (SAL)](#응용-same-as-link-sal) · [응용 — hierarchical link](#응용-hierarchical-link) · [응용 — nonhistorized link (구 transactional link)](#응용-nonhistorized-link-구-transactional-link) · [응용 — nondescriptive link](#응용-nondescriptive-link) · [응용 — computed aggregate link와 exploration link](#응용-computed-aggregate-link와-exploration-link)
+- [다대다만 존재한다](#다대다만-존재한다)
+- [입도와 재입도 변경](#입도와-재입도-변경)
+- [엔티티 구조](#엔티티-구조)
+- [응용 — link-on-link는 피한다](#응용--link-on-link는-피한다)
+- [응용 — same-as link (SAL)](#응용--same-as-link-sal)
+- [응용 — hierarchical link](#응용--hierarchical-link)
+- [응용 — nonhistorized link (구 transactional link)](#응용--nonhistorized-link-구-transactional-link)
+- [응용 — nondescriptive link](#응용--nondescriptive-link)
+- [응용 — computed aggregate link와 exploration link](#응용--computed-aggregate-link와-exploration-link)
 
 Link는 [Hub](../concepts/data-vault-hub.md)들 사이의 관계·트랜잭션·계층을 담는
 [Data Vault](../concepts/data-vault-modeling.md) 엔티티다 (§4.4, pp.121–122).[^linstedt2016]
