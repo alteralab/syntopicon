@@ -384,6 +384,16 @@ def check_page(ctx: Context, path: str, md: MdFile):
                               f"{bullet.line}행: 각주 앞에 locator 괄호가 없습니다 — "
                               f"claim은 각주+locator(§4.4-4)", kb, path)
 
+        # 코드 펜스는 각주 달린 claim 아래에 있어야 한다(SCHEMA.md §3). 소스에 없는
+        # 코드를 지어내면 예제가 아니라 발명한 claim이고, 문법이 맞으면 그럴듯해
+        # 보여서 산문보다 눈에 안 띈다. 검사 대상은 소속뿐 — 코드가 정말 그 소스에서
+        # 왔는지는 기계가 못 본다(리뷰 양식이 담당).
+        for fence in md.fences:
+            if not fence.sourced:
+                yield Finding("code-unsourced", "warn",
+                              f"{fence.line}행: 코드 펜스가 각주 달린 claim 밖에 "
+                              f"있습니다 — 출처 없는 코드는 넣지 않는다(§3)", kb, path)
+
     # 허브·overview 링크 불릿 문법(§2.6): 링크로 시작하는 불릿은 한 줄 설명을 진다.
     if front.get("type") in ("synthesis", "guide"):
         for bullet in md.bullets:

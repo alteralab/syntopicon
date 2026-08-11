@@ -210,8 +210,8 @@ def sections(text: str, md):
         lines[start - 1:end] = [""] * (end - start + 1)
 
     prose = list(lines)
-    for start, end in md.fence_ranges:
-        prose[start - 1:end] = [""] * (end - start + 1)
+    for fence in md.fences:
+        prose[fence.line - 1:fence.end] = [""] * (fence.end - fence.line + 1)
 
     def cut(begin: int, finish: int | None = None):
         stop = len(lines) if finish is None else finish

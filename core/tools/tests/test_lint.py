@@ -100,6 +100,23 @@ def test_만료된_stale_after를_재검토_큐로_낸다(repo: Repo):
     assert any("2020-01-01 만료" in f for f in findings(repo, "stale"))
 
 
+def test_각주_밖_코드_펜스를_잡는다(repo: Repo):
+    """소스에 없는 코드를 지어내면 예제가 아니라 발명한 claim이다(SCHEMA §3).
+    기계가 볼 수 있는 것은 소속뿐 — 각주 단 불릿 안에 있는가. 그 안이면 각주를
+    상속하므로 통과시키고, 절 바닥에 홀로 놓인 펜스는 잡는다."""
+    base(repo)
+    fence = "  ```sql\n  SELECT 1;\n  ```\n"
+    repo.write("it/concepts/attached.md", concept(
+        body=f"\n- 각주 단 주장.[^{DDIA}]\n\n{fence}\n[^{DDIA}]: Kleppmann 2017, 5장\n"))
+    repo.write("it/concepts/orphan.md", cited() + "\n```sql\nSELECT 1;\n```\n")
+    lint(repo)
+
+    found = findings(repo, "code-unsourced")
+    assert any("orphan.md" in f for f in found), "각주 밖 펜스를 놓쳤습니다"
+    assert not any("attached.md" in f for f in found), \
+        "각주 단 불릿 안의 펜스를 잘못 잡았습니다 — 하위는 부모 각주를 상속한다"
+
+
 def test_한쪽만_적힌_모순은_오류다(repo: Repo):
     base(repo)
     repo.write("it/concepts/alpha.md", cited(contradicts=["beta"]))

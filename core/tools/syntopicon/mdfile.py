@@ -58,6 +58,16 @@ class Bullet:
 
 
 @dataclass(frozen=True)
+class Fence:
+    """코드 펜스(또는 들여쓰기 코드 블록) 하나. 두 소비자가 있다 —
+    형태소 색인의 제외 범위와, 출처 검사(SCHEMA.md §3 코드 표기)의 단위다."""
+
+    line: int      # 1-기준 시작 줄
+    end: int       # 1-기준 끝 줄(포함)
+    sourced: bool  # 각주를 단 불릿 안에 들어 있는가 — 조상 상속 포함(§2.1)
+
+
+@dataclass(frozen=True)
 class MdFile:
     path: Path                       # 저장소 루트 기준
     frontmatter: dict | None         # None = frontmatter 블록 없음
@@ -89,27 +99,33 @@ class MdFile:
     #: 아니므로 색인에서 뺀다 — 안 빼면 템플릿 주석이 모든 KB에서 거짓 히트를 낸다.
     html_ranges: tuple[tuple[int, int], ...]
 
-    #: 코드 펜스·들여쓰기 코드 블록의 줄 범위. 형태소 색인에서 빼는 데 쓴다
-    #: (SCHEMA.md §3 코드 표기). AST가 짚어 준 범위라 regex 파싱이 아니다.
-    fence_ranges: tuple[tuple[int, int], ...]
+    #: 코드 펜스. AST가 짚어 준 범위라 regex 파싱이 아니다(SCHEMA.md §3 코드 표기).
+    fences: tuple[Fence, ...]
 
     @property
     def type(self) -> str | None:
         return (self.frontmatter or {}).get("type")
 
 
-def _bullets(tokens: list[Token]) -> list[Bullet]:
-    """목록 항목의 인라인 내용을 모은다. 중첩 목록도 각각 하나로 센다.
+def _bullets_and_fences(tokens: list[Token]) -> tuple[list[Bullet], list[Fence]]:
+    """목록 항목의 인라인 내용과 코드 펜스를 한 번에 모은다. 중첩 목록도 각각 하나로 센다.
 
     중첩은 open/close 짝의 스택으로 추적한다 — 하위 불릿의 각주 상속(§2.1)은
-    조상 항목의 cites를 스택에서 읽는다.
+    조상 항목의 cites를 스택에서 읽는다. **펜스의 출처 판정도 같은 스택을 읽는다**:
+    각주를 단 불릿 안에 들어 있으면 그 각주를 상속한다(SCHEMA.md §3). 두 산출물이
+    같은 스택에 의존하므로 한 순회로 낸다 — 따로 걸으면 상속 규칙이 둘로 갈린다.
     """
     found = []
+    fences: list[Fence] = []
     cite_stack: list[bool] = []
     for index, token in enumerate(tokens):
         if token.type == "list_item_close":
             if cite_stack:
                 cite_stack.pop()
+            continue
+        if token.type in ("fence", "code_block") and token.map:
+            fences.append(Fence(line=token.map[0] + 1, end=token.map[1],
+                                sourced=any(cite_stack)))
             continue
         if token.type != "list_item_open":
             continue
@@ -132,7 +148,7 @@ def _bullets(tokens: list[Token]) -> list[Bullet]:
             locator_before_cite=_locator_before_cite(children),
         ))
         cite_stack.append(cites)
-    return found
+    return found, fences
 
 
 def _link_led(children: list[Token]) -> bool:
@@ -219,13 +235,14 @@ def read(absolute: Path, relative: Path) -> MdFile:
             inline_toc_line = (token.map or [0])[0] + 1
             break
 
+    bullets, fences = _bullets_and_fences(tokens)
     return MdFile(
         path=relative,
         frontmatter=frontmatter,
         footnote_labels=frozenset(t.meta["label"] for t in nodes if t.type == "footnote_ref"),
         links=tuple(t.attrs["href"] for t in nodes if t.type == "link_open" and "href" in t.attrs),
         headings=tuple(headings),
-        bullets=tuple(_bullets(tokens)),
+        bullets=tuple(bullets),
         texts=tuple(t.content for t in nodes if t.type == "text" and t.content.strip()),
         line_count=len(source.splitlines()),
         first_body_line=first_body_line,
@@ -233,8 +250,5 @@ def read(absolute: Path, relative: Path) -> MdFile:
         html_ranges=tuple(
             (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
         ),
-        fence_ranges=tuple(
-            (t.map[0] + 1, t.map[1]) for t in tokens
-            if t.type in ("fence", "code_block") and t.map
-        ),
+        fences=tuple(fences),
     )

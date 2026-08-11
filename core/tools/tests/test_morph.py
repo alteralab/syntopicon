@@ -130,7 +130,7 @@ def test_코드_펜스는_원문에_남고_색인에서만_빠진다(tmp_path):
     path = tmp_path / "c.md"
     path.write_text(text)
     md = read(path, P("c.md"))
-    assert md.fence_ranges, "AST가 펜스 범위를 짚지 못했습니다"
+    assert md.fences, "AST가 펜스 범위를 짚지 못했습니다"
     (_, _, section_raw, prose), = [s for s in morph.sections(text, md) if s[0] == "절"]
     assert "SELECT" in section_raw, "원문에서 코드가 사라졌습니다 — 스니펫이 비게 됩니다"
     assert "SELECT" not in prose and "customer_id" not in prose
