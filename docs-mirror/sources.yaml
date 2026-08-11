@@ -189,7 +189,7 @@ sources:
       - https://docs.aws.amazon.com/
     added: "2026-08-11T11:28:08Z"
   snowflake:
-    mode: ondemand
+    mode: snapshot
     repo: null
     crawl: null
     versions: []
@@ -202,7 +202,9 @@ sources:
     mcp: null
     fallback:
       - https://docs.snowflake.com/
+      - https://docs.snowflake.com/
     added: "2026-08-11T11:35:39Z"
+    snapshot: https://docs.snowflake.com/llms-full.txt
   databricks:
     mode: ondemand
     repo: null

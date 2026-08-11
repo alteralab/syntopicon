@@ -138,6 +138,43 @@ def _asf_release_tags(project, glob):
     return cands
 
 
+def snapshot_path(tech, entry):
+    return current_dir(tech) / entry["snapshot"].rstrip("/").rsplit("/", 1)[-1]
+
+
+def fetch_snapshot(tech, entry):
+    """단일 파일 export를 조건부 GET으로 받는다. 반환 = 갱신됐는가.
+
+    git이 아니므로 증분도 fork·SWH도 없다. 대신 벤더가 주는 ETag/Last-Modified로
+    변경 시에만 받고(-z), 교체는 temp→rename 원자 연산으로 한다(PLAN §3의
+    _converted 규율과 동형 — 부분 파일이 검색 대상이 되는 창을 만들지 않는다).
+    """
+    dst = snapshot_path(tech, entry)
+    ensure_cachedir_tag()
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dst.with_suffix(dst.suffix + ".part")
+    cmd = ["curl", "-sS", "--max-time", "600", "-o", str(tmp),
+           "-w", "%{http_code}", entry["snapshot"]]
+    if dst.exists():
+        cmd[1:1] = ["-z", str(dst)]  # If-Modified-Since = 로컬 파일 mtime
+    r = run(cmd, check=False)
+    code = r.stdout.strip()
+    if r.returncode != 0:
+        tmp.unlink(missing_ok=True)
+        raise MirrorError(f"snapshot 수신 실패 — {r.stderr.strip()}")
+    if code == "304":
+        tmp.unlink(missing_ok=True)
+        return False
+    if code != "200":
+        tmp.unlink(missing_ok=True)
+        raise MirrorError(f"snapshot 응답 {code} — 조용히 넘기지 않는다")
+    if not tmp.exists() or tmp.stat().st_size == 0:
+        tmp.unlink(missing_ok=True)
+        raise MirrorError("snapshot 본문이 비어 있음")
+    tmp.replace(dst)
+    return True
+
+
 def _tag_is_version(tag, version):
     """태그가 그 버전의 태그인가 — 접두는 벤더 자유(v3.5.9·apache-iceberg-1.11.0·4.3.1).
 
@@ -205,8 +242,21 @@ def cmd_validate(_args):
         problems.append("config.fork_org 없음")
     for tech, e in reg["sources"].items():
         mode = e.get("mode")
-        if mode not in ("mirror", "ondemand"):
-            problems.append(f"{tech}: mode 값 불량: {mode} (mirror|ondemand — PLAN §2)")
+        if mode not in ("mirror", "ondemand", "snapshot"):
+            problems.append(f"{tech}: mode 값 불량: {mode} "
+                            f"(mirror|snapshot|ondemand — PLAN §2)")
+            continue
+        if mode == "snapshot":
+            # 단일 파일 export — git이 아니므로 fork·SWH·버전 워크트리는 비대상
+            if not e.get("snapshot"):
+                problems.append(f"{tech}: snapshot인데 대상 URL 없음")
+            for k in ("repo", "crawl", "pinned", "fork", "swh_registered"):
+                if e.get(k):
+                    problems.append(f"{tech}: snapshot인데 {k} 기록됨 ({e[k]}) — git 소스가 아니다")
+            if e.get("versions"):
+                problems.append(f"{tech}: snapshot인데 versions 기록됨 — 고정 워크트리는 미러 전용")
+            if e.get("snapshot") and not snapshot_path(tech, e).is_file():
+                warnings.append(f"{tech}: 스냅샷 미수신 — `mirror pull`로 보수")
             continue
         if mode == "ondemand":
             # 사본을 두지 않는 소스 — 조회 경로만 상태로 남는다
@@ -318,6 +368,44 @@ def _add_ondemand(tech, rest, reg):
     print(f"[mirror] {tech}: 온디맨드 등록 완료 — 색인 {entry['index']}")
 
 
+def _add_snapshot(tech, rest, reg):
+    """벤더 제공 단일 파일 export를 받아 둔다 (PLAN §2 수집 ④·mode: snapshot).
+
+    전문 검색 API가 없는 소스에서 로컬 grep을 성립시키는 경로. 크롤이 아니라
+    벤더가 스스로 만든 export 하나를 조건부 GET으로 받는 것이다.
+    """
+    entry = reg["sources"].get(tech) or {}
+    entry.update({"mode": "snapshot", "repo": None, "crawl": None, "versions": [],
+                  "fork": None, "swh_registered": None, "pinned": None})
+    for k in ("snapshot", "index", "page_suffix", "search", "mcp"):
+        entry.setdefault(k, None)
+    entry.setdefault("fallback", [])
+    entry.setdefault("added", now())
+    it = iter(rest)
+    for a in it:
+        if a == "--snapshot":
+            entry["snapshot"] = next(it)
+        elif a == "--index":
+            entry["index"] = next(it)
+        elif a == "--page-suffix":
+            entry["page_suffix"] = next(it)
+        elif a == "--fallback":
+            entry["fallback"].append(next(it))
+        else:
+            die(f"알 수 없는 인자: {a}")
+    if not entry["snapshot"]:
+        die(f"{tech}: --snapshot <URL> 필요")
+    print(f"[mirror] {tech}: 스냅샷 수신 중… {entry['snapshot']}")
+    try:
+        fetch_snapshot(tech, entry)
+    except MirrorError as exc:
+        die(f"{tech}: {exc}")
+    p = snapshot_path(tech, entry)
+    write_source(tech, entry)
+    print(f"[mirror] {tech}: 스냅샷 등록 완료 — {p.relative_to(ROOT)} "
+          f"({p.stat().st_size / 1024 / 1024:.0f}MB)")
+
+
 def cmd_add(args):
     if not args:
         die("사용법: mirror add <tech> [repo-url] [--subdir D] [--format F] "
@@ -326,6 +414,8 @@ def cmd_add(args):
     reg = load_registry()
     if "--ondemand" in rest:
         return _add_ondemand(tech, rest, reg)
+    if "--snapshot" in rest:
+        return _add_snapshot(tech, rest, reg)
     entry = reg["sources"].get(tech) or {
         "mode": "mirror",
         "repo": None, "subdir": None, "format": "md", "license": None,
@@ -436,6 +526,18 @@ def cmd_pull(_args):
     reg = load_registry()
     ok, fail, moved = [], [], []
     for tech, e in reg["sources"].items():
+        if e.get("mode") == "ondemand":
+            continue  # 사본이 없는 소스
+        if e.get("mode") == "snapshot":
+            try:
+                changed = fetch_snapshot(tech, e)
+            except MirrorError as exc:
+                fail.append((tech, str(exc)))
+                continue
+            ok.append(tech)
+            if changed:
+                moved.append(f"{tech} 스냅샷 갱신")
+            continue
         if not e.get("repo"):
             continue  # crawl 소스는 pull 대상 아님
         cur = current_dir(tech)
@@ -494,6 +596,14 @@ def cmd_status(_args):
         if e.get("mode") == "ondemand":
             extra = " [MCP]" if e.get("mcp") else ""
             print(f"  {tech}: 온디맨드 (사본 없음) | 색인: {e.get('index')}{extra}")
+        elif e.get("mode") == "snapshot":
+            p = snapshot_path(tech, e)
+            if p.is_file():
+                mb = p.stat().st_size / 1024 / 1024
+                age = datetime.fromtimestamp(p.stat().st_mtime, timezone.utc)
+                print(f"  {tech}: 스냅샷 {p.name} {mb:.0f}MB | 수신 {age:%Y-%m-%d %H:%M}Z")
+            else:
+                print(f"  {tech}: 스냅샷 미수신 — `mirror pull`로 보수")
         elif e.get("repo") and cur.is_dir():
             age = run(["git", "-C", str(cur), "log", "-1", "--format=%cr"],
                       check=False).stdout.strip()

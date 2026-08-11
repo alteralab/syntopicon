@@ -34,14 +34,32 @@
                 "crawl": { "const": null },
                 "versions": { "maxItems": 0 }
               }
-            },
-            "else": { "required": ["format", "license", "release_from"] }
+            }
+          },
+          {
+            "if": { "properties": { "mode": { "const": "snapshot" } }, "required": ["mode"] },
+            "then": {
+              "required": ["snapshot"],
+              "properties": {
+                "repo": { "const": null },
+                "crawl": { "const": null },
+                "versions": { "maxItems": 0 }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "mode": { "const": "mirror" } }, "required": ["mode"] },
+            "then": { "required": ["format", "license", "release_from"] }
           }
         ],
         "properties": {
           "mode": {
-            "enum": ["mirror", "ondemand"],
-            "description": "mirror=로컬 사본을 둔다(pull·fork·SWH 대상). ondemand=사본 없이 조회 경로만 기록한다 — git 공급이 없고 버전 축도 없어 미러가 지는 소스(PLAN 원칙 7)"
+            "enum": ["mirror", "ondemand", "snapshot"],
+            "description": "mirror=git 사본(pull·fork·SWH 대상). snapshot=벤더가 제공하는 단일 파일 export를 조건부 GET으로 받아 둔다(전문 검색용, git 아님). ondemand=사본 없이 조회 경로만 기록(PLAN 원칙 7)"
+          },
+          "snapshot": {
+            "type": ["string", "null"],
+            "description": "snapshot 대상 파일 URL (예: llms-full.txt). mirrors/<tech>/current/<파일명>에 받는다"
           },
           "index": {
             "type": ["string", "null"],

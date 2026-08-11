@@ -27,6 +27,15 @@ description: docs-mirror의 벤더 기술 문서를 검색한다 (dbt·Spark 등
 4. **정독**: 히트 파일을 직접 읽는다. 요약을 mirrors/에 저장 금지(원칙 2 — 인간 저작물 제로).
 5. **폴백 (미러에 없거나 최신성 의심)**: sources.yaml의 해당 기술 `fallback` URL로
    온디맨드 조회(llms.txt 인덱스 → 페이지 fetch).
+5a. **스냅샷 소스 (`mode: snapshot` — 단일 파일 export)**: 로컬 grep이 된다. 히트를
+   원본 페이지로 되돌리려면 **역방향 최근접 `source:` 줄**을 찾는다 — 파일이 페이지마다
+   frontmatter를 담고 있다.
+   ```sh
+   F=mirrors/snowflake/current/llms-full.txt
+   rg -n -i 'auto-suspend' "$F" | head            # 히트 (줄번호 포함)
+   head -n <줄번호> "$F" | rg -o '^source: \S+' | tail -1   # 그 히트의 원본 페이지 URL
+   ```
+   최신성이 의심되면 그 URL(`page_suffix`가 있으면 붙여서)로 온디맨드 재확인.
 5b. **온디맨드 소스 (`mode: ondemand` — 사본 없음)**: 레지스트리의 `index`·`page_suffix`·
    `search`·`mcp`를 쓴다. **URL 우선, MCP는 보완**(PLAN §2).
    - AWS 예: 검색 → 색인 → 페이지 순으로 좁힌다.
