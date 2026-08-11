@@ -210,6 +210,7 @@ syntopicon/
 | 각주 없는 claim 불릿(하위는 부모 각주 상속 — §2.1) / 각주↔sources.id 정합 | KB | md AST | 리포트 |
 | claim locator 괄호 부재 (각주 직전 — §4.4-4) | KB | md AST | 리포트 |
 | 허브·overview 링크 불릿 설명 누락 (§2.6 문법) | KB | md AST | 리포트 |
+| `$…$` 인라인 수식 (SCHEMA §3 수식 표기) | KB | md AST + pandoc 판별 규칙 | 리포트 (통화 오탐 0 — 실측 §8) |
 | 원어 병기·직인용 (한국어 저작 규칙 §4.4-4) | KB | 판단 영역 — 기계 검사 없음(근사 패턴 금지 §3) | 집행점 = 승급 리뷰 템플릿 |
 | 페이지 overlap(중복) | KB | 임베딩 | compaction 후보 큐 |
 | `contradicts` 쌍 | KB | 메타 DB | 연구 과제 큐(자동 해소 금지) |

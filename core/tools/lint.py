@@ -378,6 +378,11 @@ def check_page(ctx: Context, path: str, md: MdFile):
                               f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
 
     for text in md.texts:
+        if _inline_dollar_math(text):
+            yield Finding("inline-dollar-math", "warn",
+                          "`$…$` 인라인 수식은 쓰지 않습니다 — 문장 속 기호는 유니코드 + "
+                          "이름 병기, 여러 줄은 ```math 펜스(SCHEMA.md §3). "
+                          "어느 md 스펙에도 없어 파서가 백슬래시를 먹습니다", kb, path)
         for token in EPISTEMIC_TOKEN.findall(text):
             if token not in ctx.epistemic:
                 yield Finding("epistemic-token", "warn",
@@ -388,6 +393,33 @@ def check_page(ctx: Context, path: str, md: MdFile):
                           f"Obsidian 전용 문법 {match.group()} — GFM 부분집합만 씁니다", kb, path)
 
     yield from _check_snapshot(kb, path, front)
+
+
+def _inline_dollar_math(text: str) -> bool:
+    """`$…$` 인라인 수식이 있는가. 통화(`$50`)와 가르는 것이 이 함수의 존재 이유다.
+
+    판별은 pandoc 규칙(MANUAL "Math"): 여는 `$`는 **바로 오른쪽이 공백이 아니어야**
+    하고, 닫는 `$`는 **바로 왼쪽이 공백이 아니고 바로 오른쪽이 숫자가 아니어야** 한다.
+    이 셋이 통화 오식별을 막는 유일하게 성문된 처방이고(jgm이 cmark#439에서 요구한
+    바로 그 규칙), 실측에서 이 저장소 282파일에 오탐 0건이었다.
+
+    입력은 AST의 순수 텍스트 노드다 — 코드 스팬·코드 펜스·링크 목적지는 이미 빠져
+    있으므로 여기서 다시 가르지 않는다(파서 우선, PLAN §3).
+    """
+    opens = [
+        i for i, ch in enumerate(text)
+        if ch == "$" and i + 1 < len(text) and not text[i + 1].isspace()
+    ]
+    for start in opens:
+        for end in range(start + 1, len(text)):
+            if text[end] != "$":
+                continue
+            left_ok = not text[end - 1].isspace()
+            right_ok = end + 1 >= len(text) or not text[end + 1].isdigit()
+            if left_ok and right_ok:
+                return True
+            break          # 첫 후보가 닫기 조건을 못 채우면 이 여는 기호는 버린다
+    return False
 
 
 def _has_toc(md: MdFile) -> bool:
