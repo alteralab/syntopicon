@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 객체 생존 판정
 description: 가비지 컬렉터가 무엇을 죽었다고 보는가 — 참조 카운팅이 자바에서 쓰이지 않는 이유, 도달 가능성 분석과 GC 루트, JDK 1.2에서 넷으로 갈라진 참조의 세기, finalize()의 마지막 기회, 그리고 메서드 영역 회수 조건
 generated: { by: "claude-opus-5", at: "2026-08-11T00:00:00Z" }

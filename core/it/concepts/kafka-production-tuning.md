@@ -109,6 +109,12 @@ sources:
 
 ## 가비지 컬렉터
 
+> **이 절이 왜 그런지의 기제**는 이 페이지 밖에 있다 — G1GC가 힙을 리전으로 나누고 정지
+> 시간 목표를 지키려 애쓰는 방식은 [클래식 가비지
+> 컬렉터](../concepts/hotspot-classic-collectors.md)에, 아래 두 매개 변수를 포함한 선택
+> 기준은 [적합한 가비지 컬렉터 고르기](../concepts/choosing-a-garbage-collector.md)에 있다.
+> 여기 적힌 값은 **카프카 브로커라는 특수 사례의 권고**이고 저쪽이 일반형이다.
+
 - 자바 GC 튜닝은 원래 기예에 가까웠지만 **자바 7과 G1GC(Garbage-First) 도입으로 바뀌었다.
   초기에는 불안정하다고 여겨졌으나 JDK8과 JDK11에서 뚜렷이 개선됐고, 지금은 카프카의 기본
   가비지 컬렉터로 G1GC를 쓰는 것이 권장된다** (2장, p.42).[^shapira2021]
@@ -167,5 +173,11 @@ sources:
   랙 인식 할당이 작동하는 실제 기제
 - [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 앙상블을 다른 애플리케이션과
   공유하지 말라는 프로덕션 판단
+- [클래식 가비지 컬렉터](../concepts/hotspot-classic-collectors.md) — 여기서 고른 G1GC가
+  무엇을 어떻게 하는지의 일반형
+- [적합한 가비지 컬렉터 고르기](../concepts/choosing-a-garbage-collector.md) — 처리량과
+  지연 시간 중 무엇을 볼지 정하는 판단 기준
+- [런타임 데이터 영역과 메모리 오버플로](../concepts/jvm-runtime-data-areas.md) — 여기서
+  크기를 잡는 힙이 JVM 메모리 전체에서 차지하는 자리
 
 [^shapira2021]: Shapira et al. 2021, 2장 "Installing Kafka"

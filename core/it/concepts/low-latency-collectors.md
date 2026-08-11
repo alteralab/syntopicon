@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 저지연 가비지 컬렉터
 description: 힙 크기와 무관하게 정지 시간을 10밀리초 안쪽으로 묶으려는 셰넌도어와 ZGC — 처리량·지연 시간·메모리 사용량의 불가능한 삼각 정리, 포워딩 포인터와 읽기 장벽, 컬러 포인터와 다중 매핑, 그리고 세대 구분 ZGC
 generated: { by: "claude-opus-5", at: "2026-08-11T00:00:00Z" }

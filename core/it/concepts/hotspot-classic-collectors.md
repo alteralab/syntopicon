@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 클래식 가비지 컬렉터
 description: JDK 7 업데이트 4부터 JDK 11까지 핫스팟이 담고 있던 일곱 컬렉터 — 시리얼·파뉴·패러렐 스캐빈지·시리얼 올드·패러렐 올드·CMS·G1이 각각 무엇을 최적화하고 어떻게 조합되며, G1의 리전과 정지 시간 예측 모델은 어떤 기제로 동작하는가
 generated: { by: "claude-opus-5", at: "2026-08-11T00:00:00Z" }

@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 적합한 가비지 컬렉터 고르기
 description: 컬렉터 선택을 좌우하는 세 요인과 상황별 권고 — 아무 일도 하지 않는 엡실론 컬렉터가 존재하는 이유, 오라클이 안내하는 선택 흐름, 그리고 고른 뒤 확인하는 통합 로깅 -Xlog의 문법
 generated: { by: "claude-opus-5", at: "2026-08-11T00:00:00Z" }
