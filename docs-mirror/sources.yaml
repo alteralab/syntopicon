@@ -188,3 +188,34 @@ sources:
     fallback:
       - https://docs.aws.amazon.com/
     added: "2026-08-11T11:28:08Z"
+  snowflake:
+    mode: ondemand
+    repo: null
+    crawl: null
+    versions: []
+    fork: null
+    swh_registered: null
+    pinned: null
+    index: https://docs.snowflake.com/llms.txt
+    page_suffix: .md
+    search: null
+    mcp: null
+    fallback:
+      - https://docs.snowflake.com/
+    added: "2026-08-11T11:35:39Z"
+  databricks:
+    mode: ondemand
+    repo: null
+    crawl: null
+    versions: []
+    fork: null
+    swh_registered: null
+    pinned: null
+    index: https://docs.databricks.com/llms.txt
+    page_suffix: null
+    search: null
+    mcp: null
+    fallback:
+      - https://docs.databricks.com/aws/en/llms.txt
+      - https://docs.databricks.com/
+    added: "2026-08-11T11:35:39Z"
