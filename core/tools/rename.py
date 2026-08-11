@@ -7,6 +7,11 @@ ID는 발급 후 불변이므로 손으로 mv 하면 링크가 조용히 깨진�
 heading 앵커는 재작성하지 않는다 — 어느 헤딩이 어디로 갔는지는 기계가 알 수 없다.
 lint가 깨진 앵커를 검증한다(PLAN §2.5-2).
 
+**sources/의 citekey 개명은 절반만 된다(미수정 결함 — PLAN §8).** 링크와 frontmatter
+`resource`는 고치지만 본문 각주(`[^citekey]`)와 `sources[].id`는 그대로 남고,
+validate가 그 불일치를 잡지 못한다(둘이 서로 짝을 이루므로 규칙 위반이 아니다).
+citekey를 개명하려면 그 둘을 손으로 함께 고쳐야 한다.
+
     uv run tools/rename.py it/concepts/raft.md it/concepts/raft-consensus.md
     uv run tools/rename.py it/concepts/raft.md ops/concepts/raft.md --dry-run
 """
