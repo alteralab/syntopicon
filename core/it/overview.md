@@ -20,7 +20,9 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [DW 운영과 프로세스](synthesis/dw-operations-and-process.md) — 라이프사이클·ETL·데이터 관리
 - [카프카](synthesis/kafka-basics.md) — 스트리밍 축의 부모 허브
   - [카프카 내부 구조](synthesis/kafka-internals.md) — 메타데이터·복제·요청 처리·물리 저장
+  - [카프카 클라이언트](synthesis/kafka-clients.md) — 프로듀서·컨슈머 설정, 파티션 배분, 오프셋 커밋
   - [카프카 설치와 운영](synthesis/kafka-operations.md) — 설정 기준·클러스터 산정·튜닝
+  - [카프카 신뢰성과 정확히 한 번](synthesis/kafka-reliability.md) — 보장의 경계·언클린 리더 선출·멱등적 프로듀서·트랜잭션
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조와 B-트리 대 LSM의 대비
 - [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft의 해법

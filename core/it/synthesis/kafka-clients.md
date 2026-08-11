@@ -43,3 +43,4 @@ generated: { by: "human:me", at: "2026-08-12T09:00:00Z" }
 
 - [카프카 기초](kafka-basics.md) — 이 허브의 상위. 패턴과 저장 구조
 - [카프카 내부 구조](kafka-internals.md) — 클라이언트가 보낸 요청을 브로커가 처리하는 쪽
+- [카프카 신뢰성과 정확히 한 번](kafka-reliability.md) — 이 설정들이 지키려는 보장, 그리고 멱등적 프로듀서와 트랜잭션

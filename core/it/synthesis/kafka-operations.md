@@ -19,3 +19,8 @@ generated: { by: "human:me", at: "2026-08-10T19:00:00Z" }
 ## 프로덕션 준비
 
 - [카프카 프로덕션 튜닝](../concepts/kafka-production-tuning.md) — 가상 메모리와 파일시스템, 네트워크 커널, G1GC, 랙 배치
+
+## 이어지는 허브
+
+- [카프카](kafka-basics.md) — 이 허브의 상위
+- [카프카 신뢰성과 정확히 한 번](kafka-reliability.md) — 이 설정들이 지키려는 보장과 그것이 성립하는지 재는 방법

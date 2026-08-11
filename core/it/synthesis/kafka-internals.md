@@ -22,3 +22,8 @@ generated: { by: "human:me", at: "2026-08-10T19:00:00Z" }
 - [카프카 요청 처리](../concepts/kafka-request-processing.md) — 요청이 브로커 안에서 지나는 경로, 퍼거토리와 제로카피
 - [카프카 물리적 저장소](../concepts/kafka-physical-storage.md) — 파티션 할당과 세그먼트, 파일 형식과 인덱스
 - [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 키별 최신값만 남기는 보존의 동작
+
+## 이어지는 허브
+
+- [카프카](kafka-basics.md) — 이 허브의 상위
+- [카프카 신뢰성과 정확히 한 번](kafka-reliability.md) — 인-싱크 레플리카가 없어졌을 때의 리더 선출과 트랜잭션의 브로커 쪽 구현
