@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 카프카 신뢰성 검증
-status: draft
 description: 신뢰성이 실제로 성립하는지 확인하는 세 계층 — VerifiableProducer와 VerifiableConsumer로 하는 설정 검증, 장애를 주입하는 애플리케이션 검증, 프로덕션에서 볼 클라이언트와 브로커 지표
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:

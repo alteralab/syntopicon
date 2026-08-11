@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 카프카의 신뢰성 보장
-status: draft
 description: 카프카가 문서로 약속하는 네 가지 보장과 그 경계 — 커밋의 정의, 커밋된 메시지와 커밋된 오프셋의 구분, 브로커를 아무리 잘 잡아도 프로듀서 설정 하나로 보장이 깨지는 두 시나리오
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:

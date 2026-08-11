@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 카프카 트랜잭션
-status: draft
 description: 원자적 다수 파티션 쓰기로 소비-처리-생산 사슬을 정확히 한 번으로 만드는 기제 — 트랜잭션적 프로듀서와 좀비 펜싱, read_committed와 LSO, 그리고 트랜잭션이 풀어 주지 않는 다섯 가지 상황
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:

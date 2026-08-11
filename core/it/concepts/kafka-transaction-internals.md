@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 카프카 트랜잭션의 내부 동작
-status: draft
 description: 트랜잭션이 2단계 커밋과 트랜잭션 로그로 구현되는 방식 — 마커 메시지와 __transaction_state, 트랜잭션 코디네이터가 맡는 일, API 호출이 프로토콜 요청으로 번역되는 순서, 그리고 프로듀서와 컨슈머가 지불하는 비용
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 멱등적 프로듀서
-status: draft
 description: 프로듀서 ID와 시퀀스 넘버로 재시도 중복을 걸러 내는 기제, 프로듀서 재시작과 브로커 장애에서 그 상태가 살아남는 방법, 그리고 이 기능이 잡지 못하는 중복의 범위
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:

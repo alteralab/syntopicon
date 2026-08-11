@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 언클린 리더 선출
-status: draft
 description: 인-싱크 레플리카가 하나도 남지 않았을 때 파티션을 살릴 것인가 데이터를 지킬 것인가 — unclean.leader.election.enable이 고르는 것, 그 상황에 이르는 두 경로, 아웃 오브 싱크 레플리카를 리더로 올렸을 때 컨슈머에게 생기는 불일치
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
