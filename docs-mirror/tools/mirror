@@ -220,8 +220,20 @@ def cmd_validate(_args):
         if e.get("repo") and not cur.is_dir():
             warnings.append(f"{tech}: mirrors/{tech}/current 미클론 — `mirror add {tech}` 재실행")
         for v in e.get("versions") or []:
-            if not (MIRRORS / tech / v).is_dir():
+            vdir = MIRRORS / tech / v
+            if not vdir.is_dir():
                 problems.append(f"{tech}: 등록 버전 {v}의 워크트리 없음")
+                continue
+            # 고정 워크트리는 이름이 곧 정체여야 한다 — 디렉토리명은 패치까지의
+            # 완전한 버전이고, 그 버전의 태그에 실제로 고정돼 있어야 한다.
+            tags = run(["git", "-C", str(vdir), "tag", "--points-at", "HEAD"],
+                       check=False).stdout.split()
+            if not tags:
+                problems.append(f"{tech}: 버전 워크트리 {v}가 태그에 고정되지 않음 "
+                                f"(고정 워크트리는 불변이어야 한다 — PLAN §2)")
+            elif not any(t.endswith(v) for t in tags):
+                problems.append(f"{tech}: 버전 워크트리 {v}의 실제 태그가 "
+                                f"{', '.join(tags)} — 디렉토리명과 불일치")
     # 미등록 잔류물 검출 (삭제 게이트 ⑴과 동형)
     if MIRRORS.is_dir():
         known = set(reg["sources"]) | {"CACHEDIR.TAG", "_converted"}

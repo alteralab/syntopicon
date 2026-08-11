@@ -22,7 +22,7 @@ description: docs-mirror의 벤더 기술 문서를 검색한다 (dbt·Spark 등
 3. **검색**: 질의를 **영문 원어 키워드로 변형**해서(코퍼스가 영문) rg 실행.
    버전 스코프는 경로 glob이 전부다:
    - 최신 릴리스: `rg -il 'incremental strategy' mirrors/dbt/current/`
-   - 버전 고정: `rg -il 'shuffle partitions' -g 'spark/3.5/**' mirrors/`
+   - 버전 고정: `rg -il 'shuffle partitions' -g 'spark/3.5.9/**' mirrors/`
    - 버전 대조: 같은 질의를 두 버전 디렉토리에 각각 실행 후 정독 비교.
 4. **정독**: 히트 파일을 직접 읽는다. 요약을 mirrors/에 저장 금지(원칙 2 — 인간 저작물 제로).
 5. **폴백 (미러에 없거나 최신성 의심)**: sources.yaml의 해당 기술 `fallback` URL로
@@ -43,8 +43,9 @@ description: docs-mirror의 벤더 기술 문서를 검색한다 (dbt·Spark 등
 ```sh
 cd mirrors/<tech>/current
 git tag --list 'v3.5.*' --sort=-v:refname | grep -v rc | head -3   # 그 라인의 최신 릴리스 확인
-git worktree add ../3.5 v3.5.9                                     # 디렉토리명 = 버전 라인
-# 이후 sources.yaml의 versions에 디렉토리명 기록 (tools/mirror validate가 존재 확인)
+git worktree add ../3.5.9 v3.5.9        # 디렉토리명 = 패치까지의 완전한 버전 ('3.5' 금지)
+# 이후 sources.yaml의 versions에 디렉토리명 기록
+# validate가 워크트리 HEAD의 태그와 디렉토리명 일치까지 검사한다
 ```
 
 워크트리는 본 clone의 sparse-checkout을 상속한다(cone 모드라 저장소 루트 파일은 항상 포함).

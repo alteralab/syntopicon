@@ -24,7 +24,7 @@ sources:
     format: md
     license: Apache-2.0
     versions:
-      - "3.5"
+      - 3.5.9
     fork: https://github.com/syntopicon-mirrors/spark
     swh_registered: "2026-08-08T10:45:41Z"
     fallback:

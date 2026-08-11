@@ -28,15 +28,15 @@ docs-mirror/                 # 레이어 디렉토리 (모노레포 alteralab/sy
   .gitignore                 # mirrors/  (`mirrors/**` 아님 — 디렉터리 표기라야 git이 프룬)
   mirrors/                   # ★ git 제외 — upstream 생존 시 재클론으로 전량 재생성(소멸 대비는 §3.5). 최상위에 CACHEDIR.TAG
     dbt/current/             #   git clone dbt-labs/docs.getdbt.com
-    spark/3.5/  spark/4.0/   #   버전 고정이 필요한 기술만 tag별 워크트리 분리
+    spark/3.5.9/             #   버전 고정이 필요한 기술만 tag별 워크트리 분리 (패치까지 표기)
     _converted/<tech>/       #   비-md 소스(rst·DocBook)의 md 변환 산출물 — 역시 재생성 가능
 ```
 
-- **버전 = 디렉토리.** `mirrors/<tech>/<version|current>/` — 경로 glob이 곧 버전 스코프(`rg -g 'spark/3.5/**'`). 별도 버전 스키마·메타 테이블 없음. `current/` = **최신 릴리스 태그를 체크아웃한 본 clone**(2026-08-11 개정 — 종전 "기본 브랜치 추종"), 버전 디렉토리 = 그 clone에서 `git worktree add <tag>`로 펼친 고정 워크트리 — 필요해질 때만 추가(선제 생성 금지).
+- **버전 = 디렉토리.** `mirrors/<tech>/<version|current>/` — 경로 glob이 곧 버전 스코프(`rg -g 'spark/3.5.9/**'`). 별도 버전 스키마·메타 테이블 없음. **디렉토리명은 패치까지의 완전한 버전**(`3.5`가 아니라 `3.5.9`) — 마이너 라인만 적으면 그 워크트리가 실제로 어느 시점인지 이름이 말해주지 못하고, 다음 패치가 나오면 같은 이름이 다른 것을 가리키게 된다. `validate`가 워크트리 HEAD에 붙은 태그(`git tag --points-at`) 중 하나가 디렉토리명으로 끝나는지 검사해 이름과 실체의 어긋남을 잡는다(같은 커밋에 `v3.5.9`와 `v3.5.9-rc1`이 함께 붙는 경우가 있어 `describe`가 아니라 `--points-at` 전수를 본다). `current/` = **최신 릴리스 태그를 체크아웃한 본 clone**(2026-08-11 개정 — 종전 "기본 브랜치 추종"), 버전 디렉토리 = 그 clone에서 `git worktree add <tag>`로 펼친 고정 워크트리 — 필요해질 때만 추가(선제 생성 금지).
 - **`current/`는 기본 브랜치가 아니라 최신 릴리스다** (2026-08-11 개정, 근거 §8 r13). 기본 브랜치는 대개 미출시 개발본이라 그대로 두면 캐시가 "존재하지 않는 버전의 문서"를 현행인 양 답한다 — 실측에서 미러 11건 중 6건이 그 상태였다(spark `5.0.0-SNAPSHOT`·kafka `4.4.0-SNAPSHOT`·pyarrow `26.0.0-SNAPSHOT`·airflow 3.4.0(릴리스는 3.3.0)·pydantic `2.14.0b1`·polaris `in-dev/unreleased`). 이 레이어의 존재 이유가 버전 조건 오답의 감소인데(r1) 기본값이 그 오답을 스스로 생산하고 있었다. **단 최신 릴리스도 "내가 쓰는 버전"은 아니다** — Spark는 3.5.x·4.0.x·4.1.x·4.2.0을 동시 유지한다. 최신 릴리스는 *정답*이 아니라 미출시본보다 나은 **안전한 기본값**이고, 정답 층은 `versions:`의 고정 워크트리다.
 - **릴리스 판정은 벤더의 구조화 데이터만 쓴다** — 버전 문자열의 프리릴리스 접미사를 알아맞히지 않는다(실측 표기가 `-rc6`·`rc2`·`b1`·`a1`·`.dev`로 갈려 패턴이 무한증식하는 greedy 경로다). `release_from: github`은 Releases API의 `prerelease`·`draft` 불리언(벤더 자신의 판정)과 `tag_name`을 그대로 쓰고, `asf`는 GitHub Releases를 쓰지 않는 ASF 프로젝트(spark·kafka)용으로 `projects.apache.org/json/foundation/releases.json`(정식 릴리스만 수록, RC 부재)을 쓴다. `release_glob`은 서브프로젝트 릴리스 배제용 필터일 뿐 버전 접미사 판별용이 아니다. 버전 대소 비교도 자체 파서가 아니라 git(`--sort=v:refname`)에 위임하고, 후보 0건이면 조용히 넘어가지 않고 실패시킨다. **릴리스 브랜치는 불채택** — spark `branch-4.1`이 `4.1.4-SNAPSHOT`, kafka `4.3`이 `4.3.2-SNAPSHOT`을 선언한다(그 라인의 *다음 패치* 개발본이지 릴리스 상태가 아니다).
 - **`release_from: none`** = 릴리스 축이 없거나 문서가 버전 조건을 인라인 표기하는 소스 — 기본 브랜치 추종이 정답이다. dbt가 후자의 예로, `dbt-versions.js`가 지원 버전을 선언하고 159개 파일이 `<VersionBlock>`으로 버전을 분기한다. clickhouse·langchain은 버전 축 자체가 없다. **전부 실디렉토리, 심링크 금지** — rg가 순회 중 심링크를 기본 미추적이라 버전 스코프 검색이 조용히 0건이 된다(로컬 재현 확인).
-- **sources.yaml이 대상의 정본**: 기술별 `repo`(또는 `crawl` 폴백)·`subdir`(sparse-checkout)·`format`(md|mdx|rst|docbook)·`license`(필수)·`versions`(고정 태그, 코드 미러 채택 시 commit SHA 병기)·`fork`(§3.5 0겹 URL)·`fallback`(llms.txt·공식 MCP·이슈 트래커).
+- **sources.yaml이 대상의 정본**: 기술별 `repo`(또는 `crawl` 폴백)·`subdir`(sparse-checkout)·`format`(md|mdx|rst|docbook)·`license`(필수)·`release_from`(github|asf|none)·`release_glob`·`pinned`(current/의 현재 태그)·`versions`(고정 워크트리 디렉토리명 = 패치까지의 완전한 버전, 코드 미러 채택 시 commit SHA 병기)·`fork`(§3.5 0겹 URL)·`fallback`(llms.txt·공식 MCP·이슈 트래커).
 - **레지스트리 관리 = 3요소 패턴**(파일=상태 + `sources.schema.json`=계약 + CLI 동사=연산): `tools/mirror validate | add <repo> | pull | status`. `add`는 clone+fork 생성+SWH 등록+항목 기록의 복합 연산(§3.5의 실행자). 카탈로그 서비스·CRUD REST는 불채택(§7, 근거 r10·r11).
 - **수집 우선순위**: ① git clone(+sparse-checkout) ② 비-md 저장소는 clone + 결정적 변환(`_converted/`) ③ git 소스 없는 사이트만 크롤(trafilatura, sitemap) — 크롤은 최후 수단.
 
