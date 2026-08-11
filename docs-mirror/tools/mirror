@@ -38,11 +38,26 @@ def now():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _reject_dup_keys(pairs):
+    """중복 키는 조용한 유실이므로 실패시킨다 (PLAN §3 규율).
+
+    yq는 중복 매핑 키를 거부하지 않고 JSON에 그대로 두 번 내보내며,
+    json.loads의 기본 동작은 뒤엣것만 남기고 앞엣것을 말없이 버린다 —
+    소스 하나가 경고 없이 사라지는 경로라 파싱 시점에 막는다.
+    """
+    obj = {}
+    for k, v in pairs:
+        if k in obj:
+            die(f"sources.yaml: 키 중복 '{k}' — 한쪽이 조용히 유실된다")
+        obj[k] = v
+    return obj
+
+
 def load_registry():
     if not SOURCES.exists():
         die(f"{SOURCES} 없음")
     out = run(["yq", "-o=json", ".", str(SOURCES)]).stdout
-    reg = json.loads(out)
+    reg = json.loads(out, object_pairs_hook=_reject_dup_keys)
     if not isinstance(reg.get("sources"), dict) or not isinstance(reg.get("config"), dict):
         die("sources.yaml 최상위에 config·sources 필요")
     return reg
@@ -97,6 +112,11 @@ def cmd_validate(_args):
             problems.append(f"{tech}: license 미기록 (필수)")
         if e.get("repo") and not e.get("fork"):
             warnings.append(f"{tech}: fork 미가동 — §3.5 0겹 부재. `mirror add {tech}` 재실행으로 보수")
+        if e.get("fork") and e["fork"].rstrip("/").rsplit("/", 1)[-1] != tech:
+            problems.append(
+                f"{tech}: fork 이름이 레지스트리 키와 불일치 ({e['fork']}) — "
+                f"§3.5 규약은 fork 이름 = tech 키. "
+                f"`gh repo rename {tech} --repo <org>/<현재이름>` 후 fork URL 갱신")
         if e.get("repo") and not e.get("swh_registered"):
             warnings.append(f"{tech}: SWH 미등록 — `mirror add {tech}` 재실행으로 보수")
         cur = current_dir(tech)
@@ -178,10 +198,12 @@ def cmd_add(args):
             print(f"[mirror] 경고: org '{org}' 접근 불가 — fork 건너뜀. "
                   f"org 생성 후 `mirror add {tech}` 재실행", file=sys.stderr)
         else:
+            # fork 이름 = 레지스트리 키 (§3.5) — upstream 이름을 그대로 쓰면
+            # 'docs'처럼 일반적인 이름이 org를 선점해 다음 소스와 충돌한다.
             r = run(["gh", "repo", "fork", f"{owner}/{name}", "--org", org,
-                     "--clone=false"], check=False)
+                     "--fork-name", tech, "--clone=false"], check=False)
             if r.returncode == 0:
-                entry["fork"] = f"https://github.com/{org}/{name}"
+                entry["fork"] = f"https://github.com/{org}/{tech}"
                 print(f"[mirror] {tech}: fork = {entry['fork']}")
             else:
                 print(f"[mirror] 경고: fork 실패 — {r.stderr.strip()}", file=sys.stderr)
