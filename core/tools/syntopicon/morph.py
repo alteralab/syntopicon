@@ -194,22 +194,39 @@ def sections(text: str, md):
     """페이지를 헤딩 단위로 자른다. 검색 결과가 파일이 아니라 섹션을 가리켜야
     '섹션 → 페이지 순 확장'(PLAN §4.1)이 가능하다.
 
-    HTML 블록은 비워 낸다. AST가 짚어 준 줄 범위만 지우므로 본문은 그대로다.
+    `(제목, 줄번호, 원문, 색인용 산문)` 4-튜플을 낸다. **원문과 색인 대상이 다르다:**
+
+    - HTML 블록은 **양쪽에서** 비워 낸다 — 마크업은 사람이 읽을 것도 검색될 것도 아니다.
+    - 코드 펜스는 **원문에는 남기고 색인에서만 뺀다**(SCHEMA.md §3). 결과 스니펫에는
+      코드가 보여야 하지만, 색인에 넣으면 그 절의 산문이 손해를 본다 — FTS5 BM25의
+      길이 정규화가 **행 전체 토큰 수**를 쓰기 때문이다(실측 2026-08-11: 펜스가 든
+      절 5건 전부 점수 하락, 1건은 1위를 뺏김. 컬럼 분리로는 안 고쳐지고 — `D`가
+      컬럼별이 아니다 — 색인 제외만 소수점까지 복구했다).
+
+    두 범위 모두 AST가 짚어 준 줄만 지우므로 regex 파싱이 아니다.
     """
     lines = text.splitlines()
     for start, end in md.html_ranges:
         lines[start - 1:end] = [""] * (end - start + 1)
 
+    prose = list(lines)
+    for start, end in md.fence_ranges:
+        prose[start - 1:end] = [""] * (end - start + 1)
+
+    def cut(begin: int, finish: int | None = None):
+        stop = len(lines) if finish is None else finish
+        return "\n".join(lines[begin:stop]), "\n".join(prose[begin:stop])
+
     headings, first_body_line = md.headings, md.first_body_line
     starts = [(line, title) for level, line, title in headings if level >= 2]
     if not starts:
-        yield None, first_body_line, "\n".join(lines[first_body_line - 1:])
+        yield (None, first_body_line, *cut(first_body_line - 1))
         return
     if starts[0][0] > first_body_line:
-        yield None, first_body_line, "\n".join(lines[first_body_line - 1:starts[0][0] - 1])
+        yield (None, first_body_line, *cut(first_body_line - 1, starts[0][0] - 1))
     for index, (line, title) in enumerate(starts):
         end = starts[index + 1][0] - 1 if index + 1 < len(starts) else len(lines)
-        yield title, line, "\n".join(lines[line - 1:end])
+        yield (title, line, *cut(line - 1, end))
 
 
 def anchor(title: str | None) -> str | None:

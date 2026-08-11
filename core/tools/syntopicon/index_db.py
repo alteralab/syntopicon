@@ -131,11 +131,12 @@ def build(layout: Layout) -> Counts:
 
         if with_morph:
             text = raw.decode()
-            for title, line, body in morph.sections(text, md):
-                if not body.strip():
+            # raw는 사람이 볼 스니펫(코드 포함), prose는 색인 대상(코드 제외) — morph.sections 참조
+            for title, line, section_raw, prose in morph.sections(text, md):
+                if not section_raw.strip():
                     continue
                 sections.append((str(relative), morph.anchor(title), line,
-                                 body, morph.index_text(body)))
+                                 section_raw, morph.index_text(prose)))
             fragments += [
                 (str(relative), fragment.surface, " ".join(fragment.pieces))
                 for fragment in morph.fragments(text)

@@ -89,6 +89,10 @@ class MdFile:
     #: 아니므로 색인에서 뺀다 — 안 빼면 템플릿 주석이 모든 KB에서 거짓 히트를 낸다.
     html_ranges: tuple[tuple[int, int], ...]
 
+    #: 코드 펜스·들여쓰기 코드 블록의 줄 범위. 형태소 색인에서 빼는 데 쓴다
+    #: (SCHEMA.md §3 코드 표기). AST가 짚어 준 범위라 regex 파싱이 아니다.
+    fence_ranges: tuple[tuple[int, int], ...]
+
     @property
     def type(self) -> str | None:
         return (self.frontmatter or {}).get("type")
@@ -228,5 +232,9 @@ def read(absolute: Path, relative: Path) -> MdFile:
         inline_toc_line=inline_toc_line,
         html_ranges=tuple(
             (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
+        ),
+        fence_ranges=tuple(
+            (t.map[0] + 1, t.map[1]) for t in tokens
+            if t.type in ("fence", "code_block") and t.map
         ),
     )

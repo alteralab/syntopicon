@@ -24,6 +24,44 @@ from syntopicon import index_db, morph
 
 SENTENCE = re.compile(r"(?<=[.!?。])\s+|\n{2,}")
 
+#: 이 도구의 플래그 전부. `--`를 자동 삽입하는 스캔이 이 표를 읽으므로 파서와
+#: 단일 출처여야 한다 — 플래그를 늘리면서 여기를 빠뜨리면 그 플래그가 질의로 샌다.
+FLAGS = {"--kb": "값 있음", "-n": "값 있음", "-h": "값 없음", "--help": "값 없음"}
+
+
+def split_query(argv: list[str]) -> list[str]:
+    """`-XX:+PrintGCDetails` 같은 질의를 argparse가 옵션으로 오인하는 것을 막는다.
+
+    코드 식별자는 대시로 시작하는 것이 흔한데(JVM 옵션·CLI 플래그), argparse는
+    그것을 미등록 옵션으로 보고 종료한다(실측 2026-08-11: `ksearch.py "-XX:+..."`
+    → usage 출력 후 exit 2). 사람이 `--`를 앞에 붙이는 것을 알 리 없다.
+
+    플래그 표를 순서대로 소비해 **비플래그 토큰(질의)을 뽑아낸 뒤, 플래그를 앞에
+    두고 `--` 다음에 질의를 놓도록 재배열한다.** `--` 뒤는 전부 위치 인자이므로
+    질의를 맨 뒤로 옮기지 않으면 뒤따르는 플래그가 위치 인자로 샌다(실측: 질의
+    자리에만 `--`를 끼우면 `-n 2`가 "unrecognized arguments"가 된다).
+
+    패턴 매칭이 아니라 등록된 플래그 목록을 읽는 것이라 모르는 입력을 추측하지
+    않는다. 이미 `--`가 있으면 사용자의 의도를 존중해 손대지 않는다.
+    """
+    if "--" in argv:
+        return argv
+    flags: list[str] = []
+    query: list[str] = []
+    index = 0
+    while index < len(argv):
+        token = argv[index]
+        if token in FLAGS:
+            step = 2 if FLAGS[token] == "값 있음" else 1
+            flags += argv[index:index + step]
+            index += step
+            continue
+        query.append(token)
+        index += 1
+    if not query:
+        return argv                      # 질의 없음 — argparse가 제 문구로 실패한다
+    return flags + ["--"] + query
+
 
 def snippet(raw: str, needles: list[str], limit: int = 3) -> str:
     """질의 형태소를 품은 문장 1–3개. 형태소가 아니라 원문을 보여 준다 —
@@ -38,7 +76,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("query")
     parser.add_argument("--kb", default=None, help="KB로 좁힌다 (읽기는 횡단이 기본)")
     parser.add_argument("-n", type=int, default=10)
-    args = parser.parse_args(argv)
+    args = parser.parse_args(split_query(argv))
 
     if not morph.available():
         print("kiwipiepy가 없습니다. uv sync --group index 를 먼저 실행하십시오.", file=sys.stderr)

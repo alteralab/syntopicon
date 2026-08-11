@@ -114,8 +114,28 @@ def test_섹션으로_자르고_HTML_주석은_뺀다(tmp_path):
     path.write_text(text)
     md = read(path, P("s.md"))
     got = list(morph.sections(text, md))
-    assert [(title, line) for title, line, _ in got] == [(None, 4), ("첫 절", 9), ("둘째 절", 15)]
+    assert [(title, line) for title, line, _, _ in got] == [(None, 4), ("첫 절", 9), ("둘째 절", 15)]
     assert "복제" not in got[1][2], "HTML 주석이 섹션 본문에 남았습니다"
+
+
+def test_코드_펜스는_원문에_남고_색인에서만_빠진다(tmp_path):
+    """스니펫에는 코드가 보여야 하고(사람이 복사한다), 색인에는 들어가면 안 된다 —
+    FTS5 BM25의 길이 정규화가 행 전체 토큰 수를 쓰므로 코드 토큰이 같은 절의 산문
+    점수를 깎는다(2026-08-11 실측: 펜스가 든 절 5건 전부 하락, 1건은 1위 상실).
+    HTML 블록과 달리 **원문에서는 지우지 않는다**는 것이 이 검사의 요지다."""
+    from pathlib import Path as P
+    from syntopicon.mdfile import read
+    text = ("---\ntype: concept\n---\n\n# 제목\n\n## 절\n\n복제 지연을 줄이는 설정이다.\n\n"
+            "```sql\nSELECT customer_id FROM orders WHERE paid = 1;\n```\n\n끝.\n")
+    path = tmp_path / "c.md"
+    path.write_text(text)
+    md = read(path, P("c.md"))
+    assert md.fence_ranges, "AST가 펜스 범위를 짚지 못했습니다"
+    (_, _, section_raw, prose), = [s for s in morph.sections(text, md) if s[0] == "절"]
+    assert "SELECT" in section_raw, "원문에서 코드가 사라졌습니다 — 스니펫이 비게 됩니다"
+    assert "SELECT" not in prose and "customer_id" not in prose
+    assert "복제" in prose and "복제" in section_raw
+    assert "SELECT" not in morph.index_text(prose)
 
 
 def test_앵커는_GitHub_규칙을_따른다():
