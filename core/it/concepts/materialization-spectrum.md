@@ -2,7 +2,6 @@
 type: concept
 title: 구체화 스펙트럼
 description: 변환 결과를 매번 다시 계산할 것인가 저장할 것인가 — 계산 비용을 조회 시점에 낼지 빌드 시점에 낼지로 갈리는 다섯 형태, 그리고 배포와 갱신이 같은 명령인지가 여기서 정해지는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }

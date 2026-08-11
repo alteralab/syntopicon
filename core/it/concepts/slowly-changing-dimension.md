@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 완만하게 변하는 차원(SCD)
-description: 차원 속성 값이 바뀔 때의 대응 전략 타입 0–7 — 각 타입의 구조·용도·비용, 타입 2가 기본기인 이유, 미니 차원과 하이브리드의 요지
-generated: { by: "claude-fable-5", at: "2026-08-07T00:00:00Z" }
+description: 차원 속성 값이 바뀔 때의 대응 전략 타입 0–7 — 각 타입의 구조·용도·비용, 타입 2가 기본기인 이유, 미니 차원과 하이브리드의 요지, 그리고 타입 2가 도구에서 어떤 모양이 되는가
+generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
+  - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
 ---
 
 # 완만하게 변하는 차원(SCD)
@@ -19,6 +20,7 @@ sources:
 - [타입 6: 타입 2 차원에 타입 1 속성 추가(1 + 2 + 3 = 6)](#타입-6-타입-2-차원에-타입-1-속성-추가1--2--3--6)
 - [타입 7: 이중 타입 1·타입 2 차원(dual dimensions)](#타입-7-이중-타입-1타입-2-차원dual-dimensions)
 - [요약 대조 (그림 5-17)](#요약-대조-그림-5-17)
+- [도구에서의 구현: 타입 2가 어떤 모양이 되는가](#도구에서의-구현-타입-2가-어떤-모양이-되는가)
 
 하나의 질문: **[차원 테이블](../concepts/dimension-table.md)의 속성 값이 운영계에서 바뀌면 차원 모델은 어떻게 응답해야 하는가.** 차원 속성은 비교적 정적이지만 영원히 고정은 아니다 — 제품 라인이 재편되고 고객이 이사한다. 킴벌이 1995년 도입한 완만하게 변하는 차원(slowly changing dimension, SCD)은 이 변화에 대한 대응 기법 묶음으로, 3판에서 기존 타입 1·2·3에 타입 0·4·5·6·7이 추가됐다 (5장, pp.141, 148).[^kimball2013]
 
@@ -109,4 +111,30 @@ sources:
   - 타입 6 타입 2 행에 타입 1 열 → 사건 당시 값 + 현재 값
   - 타입 7 타입 2 행 + 현재 제한 뷰 → 사건 당시 값 + 현재 값
 
+## 도구에서의 구현: 타입 2가 어떤 모양이 되는가
+
+이론이 도구에 내려앉는 자리를 한 사례로 고정해 둔다. 상세는
+[dbt 스냅샷](../concepts/dbt-snapshots.md).
+
+- dbt의 스냅샷(snapshot)은 스스로를 타입 2의 구현이라고 밝힌다 — 가변 원천 테이블
+  위에 타입 2를 구현한다 (snapshots.md, "What are
+  snapshots?").[^dbtlabs2026-materialization]
+- 관리 열이 그대로 대응한다: 스냅샷 테이블은 원천 복제본에 유효 시작·유효 종료
+  컬럼과 버전마다 생성되는 유일 키를 붙인다 — 위에서 타입 2의 전제로 요구한 유효/만료일과
+  단일 열 대리 키가 같은 자리에 있다 (snapshots.md, "Snapshot
+  meta-fields").[^dbtlabs2026-materialization]
+- 위의 만료일 권고(9999-12-31로 두어 null을 피하라)에 해당하는 설정은 **dbt Core
+  1.9부터** 제공된다. 그 전의 기본값은 null이었다 (snapshots.md, "Configuration best
+  practices").[^dbtlabs2026-materialization]
+- 이론이 주어진 것으로 둔 곳이 도구에서는 설정 항목이 된다: "속성이 바뀌면"의 판단
+  근거를 dbt는 갱신 시각 컬럼을 보는 방식과 지정 컬럼 값을 이력과 비교하는 방식
+  둘로 노출한다 (snapshots.md, "Detecting row
+  changes").[^dbtlabs2026-materialization] 웨어하우스 백룸에서 같은 문제를 떼어
+  다루는 것이 변경 데이터 캡처다 —
+  [ETL 34 서브시스템](../concepts/etl-subsystems.md)의 서브시스템 2.
+- 타입 체계에 없는 축도 하나 붙는다: 원천에서 행 자체가 사라졌을 때를 무시·무효화·
+  삭제 표시 행 추가 셋 중 하나로 다룬다(dbt v1.9부터) (snapshots.md, "Hard deletes
+  (opt-in)").[^dbtlabs2026-materialization]
+
 [^kimball2013]: Kimball & Ross 2013, 5장 "Procurement"
+[^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절

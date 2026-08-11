@@ -2,7 +2,6 @@
 type: concept
 title: dbt 스냅샷 — SCD 타입 2의 구현
 description: 덮어써지는 원천 테이블에서 이력을 만들어 내는 방법 — 변경 탐지 두 전략, 유효 구간 메타 컬럼, 삭제된 행의 처리, 그리고 킴벌의 SCD 타입 2 이론과 겹치는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }

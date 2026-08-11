@@ -2,9 +2,10 @@
 type: concept
 title: 기록 시스템과 파생 데이터
 description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 그리고 갱신·삭제가 여기서 어려워지는 이유
-generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
 ---
 
 # 기록 시스템과 파생 데이터
@@ -84,6 +85,11 @@ sources:
   커밋 로그 절과
   [ETL 34 서브시스템](../concepts/etl-subsystems.md)의 변경 데이터 캡처(2)가 그
   자리다.
+- 변환 도구 쪽에서는 이 갱신 절차가 물리 형태의 선택으로 나타난다: 뷰는 갱신 절차
+  자체가 없고(조회 시점에 다시 계산한다), 테이블은 원천의 새 레코드가 자동으로
+  반영되지 않아 다시 만들어 주어야 하며, 구체화 뷰는 그 갱신을 데이터 플랫폼에
+  맡긴다 (materializations.md, "View", "Table",
+  "Materialized View").[^dbtlabs2026-materialization]
 
 ## 삭제 요구가 부딪히는 지점
 
@@ -104,5 +110,10 @@ sources:
   넓어지는 흐름
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — 파생
   데이터가 다른 기계에 있을 때 생기는 문제
+- [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 파생 데이터를 언제
+  다시 계산하고 언제 저장하느냐의 실무 손잡이
+- [dbt 스냅샷](../concepts/dbt-snapshots.md) — 다시 만들 수 없는 파생물이 기록
+  시스템 쪽으로 넘어가는 사례
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
+[^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절

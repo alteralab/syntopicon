@@ -20,6 +20,13 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 - [ETL 서브시스템](../concepts/etl-subsystems.md) — 34종의 4그룹 압축
 - [지각 도착 데이터](../concepts/late-arriving-data.md) — 지각 팩트·차원 처리 규칙
 
+## 물리화와 증분 처리
+
+- [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 다시 계산할 것인가 저장할 것인가
+- [증분 처리와 그 대가](../concepts/incremental-processing-tradeoffs.md) — 상태·멱등성·전체 재구축
+- [증분 갱신 전략](../concepts/incremental-update-strategies.md) — 추가·병합·삭제 후 삽입·파티션 덮어쓰기
+- [dbt 스냅샷](../concepts/dbt-snapshots.md) — SCD 타입 2를 도구가 구현하는 방식
+
 ## 데이터 관리
 
 - [마스터 데이터 관리](../concepts/master-data-management.md) — 운영적 vs 분석적 MDM

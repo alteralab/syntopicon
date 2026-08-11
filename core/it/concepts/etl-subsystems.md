@@ -2,10 +2,11 @@
 type: concept
 title: ETL 34 서브시스템
 description: ETL을 추출/정제·통합/전달/관리 4그룹 34개 서브시스템으로 분해하는 이유 — 가치가 더해지는 곳과 그저 옮기는 곳의 구분, 그리고 ELT·데이터 파이프라인·리버스 ETL로 넓어진 ETL의 범위
-generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
 ---
 
 # ETL 34 서브시스템
@@ -56,6 +57,13 @@ pp.443, 449).[^kimball2013]
   로그 스크래핑·메시지 큐 감시 중 원천별로 골라야 하며, 시각 기반 추출은
   실패 재시작 시 중복·누락을 만들어 신뢰할 수 없다 (19장,
   pp.451–453).[^kimball2013]
+- 원천이 변경 이력을 주지 않을 때 이력을 만들어 내는 도구 쪽 장치가 dbt의
+  스냅샷이다. 변경 탐지는 갱신 시각 컬럼을 보는 방식과 지정 컬럼 값을 이력과
+  비교하는 방식 둘이다 (snapshots.md, "Detecting row
+  changes").[^dbtlabs2026-materialization] 상세는
+  [dbt 스냅샷](../concepts/dbt-snapshots.md).
+  - #hypothesis 이 둘은 위 다섯 방법 중 감사 컬럼과 전체 비교(diff)에 각각
+    대응한다.
 
 ## 정제·통합 (4–8): 데이터를 바꿔 가치를 더한다
 
@@ -83,7 +91,9 @@ pp.443, 449).[^kimball2013]
   - **SCD 처리기**(9): 느리게 변하는 차원(slowly changing dimension) 변경을
     타입 1(덮어쓰기)·타입 2(새 행 추가)·타입 3(새 컬럼) 등으로 체계적으로
     처리하고, 타입 2의 유효 시작/종료 시각 등 하우스키핑 컬럼을 유지한다
-    (19장, pp.464–467).[^kimball2013]
+    (19장, pp.464–467).[^kimball2013] 이론 지형은
+    [완만하게 변하는 차원(SCD)](../concepts/slowly-changing-dimension.md), 도구
+    구현 한 사례는 [dbt 스냅샷](../concepts/dbt-snapshots.md).
   - **대리 키 생성기**(10): 의미 없는 정수 키를 차원마다 독립 생성한다. 운영
     키+시각 연결(concatenation) 같은 편법은 확장에서 반드시 무너진다 (19장,
     pp.469–470).[^kimball2013]
@@ -157,5 +167,12 @@ Kimball의 34 서브시스템은 **차원 웨어하우스 백룸**을 전제한 
   [데이터 품질 관리](../concepts/data-quality-management.md)의 "나쁜 데이터의
   가치"는 원천 보존 쪽에 선다.
 
+- 변환 도구는 적재 전/후라는 순서만이 아니라 **결과를 어떤 물리 형태로 남길지**도
+  선언 항목으로 만든다 — 뷰·테이블·증분·임시·구체화 뷰가 그 축이다
+  (materializations.md, "Overview").[^dbtlabs2026-materialization] 상세는
+  [구체화 스펙트럼](../concepts/materialization-spectrum.md)과
+  [증분 처리와 그 대가](../concepts/incremental-processing-tradeoffs.md).
+
 [^kimball2013]: Kimball & Ross 2013, 19장 "ETL Subsystems and Techniques", 20장 "ETL System Design and Development Process and Tasks"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
+[^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절

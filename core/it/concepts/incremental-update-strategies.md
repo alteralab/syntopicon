@@ -2,7 +2,6 @@
 type: concept
 title: 증분 갱신 전략
 description: 새 행과 바뀐 행을 이미 만들어진 대상 테이블에 어떻게 반영할 것인가 — 추가·병합·삭제 후 삽입·파티션 덮어쓰기·시간 배치의 의미론과 선택 기준, 그리고 어디까지가 갱신이고 어디부터가 이력인가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }

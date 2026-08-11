@@ -2,7 +2,6 @@
 type: concept
 title: 증분 처리와 그 대가
 description: 전체 재계산을 포기하고 바뀐 것만 처리하기로 하면 무엇을 얻고 무엇을 떠안는가 — 상태를 갖게 되면서 깨지는 멱등성, 로직이 바뀌면 필요한 전체 재구축, 소급되지 않는 스키마 변경
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
