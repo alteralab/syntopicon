@@ -30,11 +30,28 @@ USER_DICT = ROOT / "schema" / "user-dict.yaml"
 # nori가 남기는 VX(보조용언)·VCP/VCN(지정사)은 뺐다. 기능어라 색인 가치가 없고,
 # PLAN이 말한 것은 "용언 **어간**"이다. 이 집합의 정확한 경계는 수용 검증 ①의
 # 측정 대상이다(PLAN §6) — 바꾸면 재색인이 필요하다.
+#
+# **W_* 계열에는 nori 정합 논거가 닿지 않는다**(2026-08-11 실측). Kiwi가 세종 태그셋
+# 밖에 독자 추가한 계열이라 nori의 Tag enum에 대응물 자체가 없다 — 버릴 태그도 남길
+# 태그도 아니어서, 위 교집합 검사는 이 부류를 원리적으로 검출하지 못한다. 방향도
+# 반대다: Lucene 자체 테스트(TestKoreanTokenizer#testFloatingPointNumber)에서 nori는
+# "10.1"을 10·1로 쪼개되 둘 다 SN으로 **살린다**. 침묵 폐기는 nori 정합의 결과가
+# 아니라 Kiwi 고유 기능(Match.ALL 기본값)의 부작용이었다.
+#
+# W_HASHTAG를 남기는 이유는 소비자가 실재하기 때문이다 — `#hypothesis`/`#speculation`은
+# schema/vocabulary.yaml이 정의한 이 KB의 폐쇄 어휘(PLAN §2.1)이고 14개 페이지가 쓴다.
+# Kiwi가 통짜 토큰으로 무는 탓에 알맹이 `hypothesis`조차 SL로 살아남지 못해, 태그를
+# 단 14개 전부가 형태소 레그에서 0건이었다.
+#
+# W_SERIAL(`3.9.1` 같은 일련번호)은 계속 버린다. 버전 조건에 세 자리 버전이 쓰인
+# 사례가 코퍼스 0건이라 소비자가 없고, 리터럴 조회는 `rg` 폴백이 이미 담당한다.
+# 소비자가 관측되면 그때 넣는다(재색인 필요).
 KEEP_TAGS = frozenset({
     "NNG", "NNP", "NNB", "NNBC", "NP", "NR",   # 명사류
     "SL", "SH", "SN",                          # 외국어·한자·숫자
     "VV", "VA",                                # 용언 어간
     "XR",                                      # 어근
+    "W_HASHTAG",                               # epistemic 폐쇄 어휘 — 위 주석
 })
 
 #: 연속 1음절 형태소가 이만큼 이어지면 사용자 사전 후보로 본다. 자체 상수 —

@@ -58,6 +58,8 @@ sources:
   `zookeeper.connect` 설정을 갖고, 모든 브로커가 유일한 `broker.id`를 갖는 것.** 같은
   `broker.id`로 두 브로커가 참여를 시도하면 두 번째 브로커가 오류를 남기고 시작에
   실패한다 (2장, p.38).[^shapira2021]
+  - 버전 조건: Kafka 3.9 이하 — 4.0에는 `zookeeper.connect`가 없으므로 묶는 요건이
+    이 둘이 아니다. [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) 참조.
 
 ## 저장 위치와 복구 스레드
 

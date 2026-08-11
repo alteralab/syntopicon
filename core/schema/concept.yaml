@@ -36,6 +36,10 @@ properties:
   status: {$ref: "common.yaml#/$defs/status"}
   verified: {$ref: "common.yaml#/$defs/verified"}
   # 공표된 미래 날짜의 기록만(EOL·지원 종료 등) — 감 기반 예측 금지(PLAN 원칙 7, §8 재심).
+  # **버전으로 갈리는 지식에는 달지 않는다**(2026-08-11 migrations): "3.9 이하에서는 이렇다"는
+  # 날짜가 지나도 거짓이 되지 않아 유효 기간의 끝이 없다 — 그 경계는 본문 `버전 조건`이 담고,
+  # 릴리스일은 만료일이 아니라 경계를 확인한 날이다. 여기 적을 것은 날짜가 지나면 어느 버전
+  # 관점에서도 거짓이 되는 것뿐이다.
   stale_after: {$ref: "common.yaml#/$defs/date"}
 
   superseded_by:

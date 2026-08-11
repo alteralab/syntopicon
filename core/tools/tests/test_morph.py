@@ -20,13 +20,32 @@ def test_POS_필터가_조사와_어미를_버린다():
 
 
 def test_nori_STOP_TAGS와_교집합이_없다():
-    """PLAN §4.1의 "nori STOP_TAGS 정합" — Lucene 소스에서 확인한 30개."""
+    """PLAN §4.1의 "nori STOP_TAGS 정합" — Lucene 소스에서 확인한 30개.
+
+    이 검사의 사각지대를 함께 못박아 둔다: nori에 대응물이 없는 태그(Kiwi 독자
+    W_* 계열)는 교집합에 걸릴 수 없어 **원리적으로 검출되지 않는다**. 실제로
+    W_HASHTAG 침묵 폐기가 이 검사를 통과한 채 14개 페이지를 검색 불가로 만들었다.
+    그 부류는 아래 소비자 기반 검사가 담당한다.
+    """
     nori_stop = {
         "EP", "EF", "EC", "ETN", "ETM", "IC", "JKS", "JKC", "JKG", "JKO", "JKB",
         "JKV", "JKQ", "JX", "JC", "MAG", "MAJ", "MM", "SP", "SSC", "SSO", "SC",
         "SE", "XPN", "XSA", "XSN", "XSV", "UNA", "NA", "VSV",
     }
     assert morph.KEEP_TAGS & nori_stop == set()
+    assert not any(tag.startswith("W_") for tag in nori_stop)
+
+
+def test_epistemic_폐쇄어휘가_색인에서_살아남는다():
+    """`#hypothesis`/`#speculation`은 schema/vocabulary.yaml이 정의한 폐쇄 어휘다
+    (PLAN §2.1). Kiwi가 통짜 W_HASHTAG로 무는 탓에 알맹이 `hypothesis`조차 SL로
+    떨어지지 않아, KEEP_TAGS에서 빠지면 태그를 단 페이지 전부가 검색 0건이 된다
+    (2026-08-11 실측: 14개 페이지 중 0건). 소비자가 있는 태그 부류의 회귀 방지."""
+    for token in ("#hypothesis", "#speculation"):
+        assert token in morph.analyze(f"이 주장은 {token} 이다"), \
+            f"{token}이 색인에서 빠졌습니다"
+        assert token in morph.index_text(f"근거가 얇다 {token}").split()
+        assert f'"{token}"' in morph.query_expression(token)
 
 
 def test_질의와_색인이_같은_함수를_지난다():
