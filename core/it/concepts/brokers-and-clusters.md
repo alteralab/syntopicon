@@ -1,11 +1,11 @@
 ---
 type: concept
 title: 브로커와 클러스터
-description: 카프카 서버 한 대와 클러스터의 역할 분담 — 컨트롤러·파티션 리더·팔로워, 보존과 로그 압착, 다중 클러스터와 미러메이커. 클러스터 제어 서술은 버전 종속이며, 각 절의 상세는 전용 페이지로 갈라진다
-generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
+description: 카프카 서버 한 대와 클러스터의 역할 분담 — 컨트롤러·파티션 리더·팔로워, 보존과 로그 압착, 다중 클러스터와 미러메이커. 컨트롤러 서술의 버전 조건은 4.0 문서로 해소했고 미러메이커 쪽은 아직 미해소이며, 각 절의 상세는 전용 페이지로 갈라진다
+generated: { by: "claude-opus-5", at: "2026-08-11T06:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
-stale_after: "2025-03-18"
+  - { id: kafka2025-kraft, resource: /it/sources/kafka2025-kraft.md }
 ---
 
 # 브로커와 클러스터
@@ -14,17 +14,19 @@ stale_after: "2025-03-18"
 - [클러스터의 컨트롤러와 리더십](#클러스터의-컨트롤러와-리더십)
 - [보존과 로그 압착](#보존과-로그-압착)
 - [다중 클러스터와 미러메이커](#다중-클러스터와-미러메이커)
-- [만료 근거](#만료-근거)
+- [만료 해소](#만료-해소)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **카프카 서버 한 대는 무엇을 하고, 여러 대가 모이면 무엇이 달라지는가.**
 
-> **버전 조건**: 이 페이지의 서술은 Kafka 2.8/3.0 기준 소스에 근거한다. 클러스터
-> 제어(컨트롤러 선출)와 클러스터 간 복제 도구는 이후 릴리스에서 역전된 영역이므로
-> 아래 각 절에 조건을 표시했다. `stale_after` 근거는 [만료 근거](#만료-근거)에 있다.
+> **버전 조건**: Kafka 3.9 이하. 이 페이지의 서술은 2.8/3.0 기준 소스에 근거한다.
+> 클러스터 제어(컨트롤러 선출)와 클러스터 간 복제 도구는 이후 릴리스에서 역전된
+> 영역이므로 아래 각 절에 조건을 표시했다. 옛 `stale_after`를 어떻게 처리했는지는
+> [만료 해소](#만료-해소)에 있다.
 
 > **이 페이지는 개요다.** 각 절의 기제는 전용 페이지로 갈라져 있다 —
 > [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md),
+> [KRaft 컨트롤러 쿼럼](../concepts/kraft-controller-quorum.md),
 > [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md),
 > [카프카 요청 처리](../concepts/kafka-request-processing.md),
 > [카프카 물리적 저장소](../concepts/kafka-physical-storage.md),
@@ -54,9 +56,11 @@ stale_after: "2025-03-18"
   - 선출의 실제 기전은 주키퍼 임시 노드 경쟁이며, 컨트롤러 에포크로 좀비 컨트롤러를
     막는다 (6장, pp.136–137).[^shapira2021] 상세는
     [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md)에 있다.
-  - (Kafka ≤3.x 기준 서술 — 4.0부터 ZooKeeper가 제거되고 KRaft 컨트롤러 쿼럼이 이
-    역할을 맡으므로, "클러스터의 살아 있는 브로커 중 선출"이라는 표현은 그대로
-    성립하지 않는다. 아래 [만료 근거](#만료-근거) 참조.)
+  - 버전 조건: Kafka 3.9 이하 — 4.0에서는 `process.roles`로 지정된 컨트롤러들이
+    메타데이터 쿼럼을 이루고 그중 하나가 액티브 컨트롤러가 되므로, "클러스터의 살아
+    있는 브로커 중 선출"이라는 표현이 그대로 성립하지 않는다 (kraft, "Process Roles"·
+    "Controllers").[^kafka2025-kraft] 4.0의 구성은
+    [KRaft 컨트롤러 쿼럼](../concepts/kraft-controller-quorum.md)에 있다.
 - 파티션은 클러스터 안 브로커 하나가 소유하며 그 브로커를 파티션 리더(leader)라
   한다. 복제된 파티션은 추가 브로커들에 배정되고 그것들을 팔로워(follower)라 한다
   (1장, p.8).[^shapira2021]
@@ -116,24 +120,35 @@ stale_after: "2025-03-18"
   - #hypothesis 이 서술은 미러메이커 1 기준으로 보이며, 이후 Kafka Connect 기반의
     미러메이커 2가 그 자리를 대신했을 가능성이 크다. 이 소스는 4.0 이후를 말하지
     않으므로 실제 대체 시점·범위는 후속 소스로 확인해야 한다.
+  - 이번에 들인 4.0 문서 두 쪽(`zk2kraft`·`kraft`)도 미러메이커를 다루지 않으므로 이
+    가설은 그대로 남는다. 해소하려면 4.0 문서의
+    `operations/geo-replication-cross-cluster-data-mirroring/` 쪽을 들여야 한다.
 
-## 만료 근거
+## 만료 해소
 
-- 이 페이지에 `stale_after: "2025-03-18"`을 설정한 이유는 그날 Apache Kafka 4.0.0이
-  릴리스되면서 **ZooKeeper 모드가 완전히 제거되고 KRaft가 유일한 운영 방식이
-  됐기** 때문이다. 클러스터 컨트롤러 선출과 클러스터 메타데이터 관리 서술은 그
-  시점부로 재검토 대상이다.
+- 이 페이지에는 `stale_after: "2025-03-18"`이 걸려 있었다. 그날 Apache Kafka 4.0.0이
+  릴리스되면서 **ZooKeeper 모드가 제거됐기** 때문이다.
   근거(소스 밖 공표): [Apache Kafka 4.0.0 Release Announcement](https://kafka.apache.org/blog/2025/03/18/apache-kafka-4.0.0-release-announcement/)
-- 감 기반 예측이 아니라 공표된 릴리스 날짜의 기록이며, 날짜가 이미 지났으므로 이
-  페이지는 즉시 재검토 큐에 들어간다. 해소 방법은 Kafka 4.x를 다루는 소스를 들여
-  컨트롤러 절과 미러메이커 절을 개정하는 것이다.
+- 이번 개정으로 그 만료가 해소됐다고 본다. 해소 방식은 서술을 4.0으로 갈아엎는 것이
+  아니라 **이 페이지의 적용 범위를 Kafka 3.9 이하로 못박고, 역전된 절마다 버전 조건을
+  다는 것**이었다. 컨트롤러 절은 4.0 문서로 확정했고, 4.0의 실제 구성은
+  [KRaft 컨트롤러 쿼럼](../concepts/kraft-controller-quorum.md)이 담당한다.
+- 그래서 `stale_after`를 다시 달지 않았다. **버전으로 갈리는 지식은 날짜로 낡지
+  않는다** — 3.x 클러스터를 운영하는 동안 위 서술은 계속 참이므로 유효 기간의 끝이
+  존재하지 않는다(PLAN §2 "유효성"). 4.0 문서에도 이 페이지에 걸 만한 새 EOL 날짜가
+  없다. 부재 = 만료 없음이다.
+- **미러메이커 절은 여전히 미확인이다.** 이번 소스가 그 주제를 다루지 않아 미러메이커 2
+  여부를 확인하지 못했다. 그 미확인은 해당 절의 `#hypothesis`가 담당한다 — 만료 날짜가
+  담당할 일이 아니다. 해소 조건은 클러스터 간 복제를 다루는 4.x 소스를 들이는 것이다.
 - 이 절의 사실은 이 책이 말하지 않는 내용이므로 소스 각주를 달지 않았다 — 각주는
   출처 귀속 전용 채널이다.
 
 ## 이어지는 페이지
 
-- [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 컨트롤러가 선출되는 실제
-  기제와 그 교체 계획
+- [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 컨트롤러가 선출되던 실제
+  기제(Kafka 3.9 이하)와 그 교체 동기
+- [KRaft 컨트롤러 쿼럼](../concepts/kraft-controller-quorum.md) — 4.0에서 컨트롤러가
+  놓인 새 자리와 쿼럼 운영
 - [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 리더·팔로워의
   역할 분담과 인-싱크 판정
 - [카프카 요청 처리](../concepts/kafka-request-processing.md) — 브로커가 요청을
@@ -150,3 +165,5 @@ stale_after: "2025-03-18"
   다시 등장한다
 
 [^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka" · 2장 "Installing Kafka" · 6장 "Kafka Internals"
+
+[^kafka2025-kraft]: Apache Kafka 4.0 문서, `getting-started/zk2kraft/`("KRaft vs ZooKeeper") · `operations/kraft/`("KRaft"), 2026-08-11 조회

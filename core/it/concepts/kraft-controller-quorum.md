@@ -2,7 +2,6 @@
 type: concept
 title: KRaft 컨트롤러 쿼럼
 description: 주키퍼가 사라진 Kafka 4.0에서 클러스터 메타데이터를 들고 있는 컨트롤러 쿼럼 — 프로세스 역할과 쿼럼 규모, 포맷으로 시작하는 프로비저닝, 정적 쿼럼과 동적 쿼럼의 갈림, 컨트롤러 추가·제거, 그리고 주키퍼 설정·메트릭 표면의 대체물
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-11T06:00:00Z" }
 sources:
   - { id: kafka2025-kraft, resource: /it/sources/kafka2025-kraft.md }
