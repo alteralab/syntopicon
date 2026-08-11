@@ -138,6 +138,18 @@ def _asf_release_tags(project, glob):
     return cands
 
 
+def _tag_is_version(tag, version):
+    """태그가 그 버전의 태그인가 — 접두는 벤더 자유(v3.5.9·apache-iceberg-1.11.0·4.3.1).
+
+    단순 endswith는 v13.5.9를 3.5.9로 통과시킨다. 접두가 버전의 일부가 아니려면
+    잘라낸 나머지의 끝이 숫자도 점도 아니어야 한다.
+    """
+    if not tag.endswith(version):
+        return False
+    rest = tag[:-len(version)]
+    return rest == "" or (not rest[-1].isdigit() and rest[-1] != ".")
+
+
 def resolve_release_tag(tech, entry, cur):
     """최신 릴리스 태그. release_from이 none이면 None (기본 브랜치 추종)."""
     src = entry.get("release_from") or "none"
@@ -231,7 +243,7 @@ def cmd_validate(_args):
             if not tags:
                 problems.append(f"{tech}: 버전 워크트리 {v}가 태그에 고정되지 않음 "
                                 f"(고정 워크트리는 불변이어야 한다 — PLAN §2)")
-            elif not any(t.endswith(v) for t in tags):
+            elif not any(_tag_is_version(t, v) for t in tags):
                 problems.append(f"{tech}: 버전 워크트리 {v}의 실제 태그가 "
                                 f"{', '.join(tags)} — 디렉토리명과 불일치")
     # 미등록 잔류물 검출 (삭제 게이트 ⑴과 동형)
