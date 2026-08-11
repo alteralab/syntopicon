@@ -51,8 +51,8 @@ sources:
 - `zookeeper.connect` — 브로커 메타데이터를 저장하는 주키퍼 위치이며,
   `hostname:port/path` 문자열의 세미콜론 목록이다. `/path`는 선택적 chroot 경로다 (2장,
   pp.25–26).[^shapira2021]
-  - (Kafka 3.x 이하 기준 서술 — 4.0에서 주키퍼가 제거돼 이 설정은 존재하지 않는다.
-    [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) 참조.)
+  - 버전 조건: Kafka 3.9 이하 — 4.0에서 주키퍼가 제거돼 이 설정은 존재하지 않는다.
+    [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) 참조.
   - chroot 경로가 지정됐는데 없으면 브로커가 시작할 때 만든다.
 - 여러 브로커를 하나의 클러스터로 묶는 요건은 딱 둘이다 — **모든 브로커가 같은
   `zookeeper.connect` 설정을 갖고, 모든 브로커가 유일한 `broker.id`를 갖는 것.** 같은
