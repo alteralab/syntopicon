@@ -15,18 +15,25 @@ sources:
     fallback:
       - https://docs.getdbt.com/llms.txt
     added: "2026-08-08T10:44:33Z"
+    release_from: none
+    release_glob: null
+    pinned: null
   spark:
     repo: https://github.com/apache/spark
     subdir: docs
     format: md
     license: Apache-2.0
-    versions: []
+    versions:
+      - "3.5"
     fork: https://github.com/syntopicon-mirrors/spark
     swh_registered: "2026-08-08T10:45:41Z"
     fallback:
       - https://spark.apache.org/docs/latest/
       - https://issues.apache.org/jira/projects/SPARK
     added: "2026-08-08T10:45:26Z"
+    release_from: asf
+    release_glob: spark-[0-9]*
+    pinned: v4.2.0
   clickhouse:
     repo: https://github.com/ClickHouse/clickhouse-docs
     subdir: null
@@ -38,6 +45,9 @@ sources:
     fallback:
       - https://clickhouse.com/docs
     added: "2026-08-08T10:45:46Z"
+    release_from: none
+    release_glob: null
+    pinned: null
   airflow:
     repo: https://github.com/apache/airflow
     subdir: airflow-core/docs
@@ -49,6 +59,9 @@ sources:
     fallback:
       - https://airflow.apache.org/docs/
     added: "2026-08-11T09:48:15Z"
+    release_from: github
+    release_glob: '[0-9]*'
+    pinned: 3.3.0
   kafka:
     repo: https://github.com/apache/kafka
     subdir: docs
@@ -61,6 +74,9 @@ sources:
       - https://kafka.apache.org/documentation/
       - https://issues.apache.org/jira/projects/KAFKA
     added: "2026-08-11T09:48:48Z"
+    release_from: asf
+    release_glob: kafka-[0-9]*
+    pinned: 4.3.1
   iceberg:
     repo: https://github.com/apache/iceberg
     subdir: null
@@ -72,6 +88,9 @@ sources:
     fallback:
       - https://iceberg.apache.org/docs/latest/
     added: "2026-08-11T09:49:07Z"
+    release_from: github
+    release_glob: apache-iceberg-[0-9]*
+    pinned: apache-iceberg-1.11.0
   fastmcp:
     repo: https://github.com/PrefectHQ/fastmcp
     subdir: docs
@@ -83,6 +102,9 @@ sources:
     fallback:
       - https://gofastmcp.com/llms.txt
     added: "2026-08-11T09:49:19Z"
+    release_from: github
+    release_glob: v[0-9]*
+    pinned: v3.4.7
   langchain:
     repo: https://github.com/langchain-ai/docs
     subdir: src
@@ -94,6 +116,9 @@ sources:
     fallback:
       - https://docs.langchain.com/llms.txt
     added: "2026-08-11T09:49:35Z"
+    release_from: none
+    release_glob: null
+    pinned: null
   pydantic:
     repo: https://github.com/pydantic/pydantic
     subdir: docs
@@ -105,6 +130,9 @@ sources:
     fallback:
       - https://docs.pydantic.dev/latest/
     added: "2026-08-11T09:50:55Z"
+    release_from: github
+    release_glob: v[0-9]*
+    pinned: v2.13.4
   pyarrow:
     repo: https://github.com/apache/arrow
     subdir: docs/source/python
@@ -116,6 +144,9 @@ sources:
     fallback:
       - https://arrow.apache.org/docs/python/
     added: "2026-08-11T09:51:07Z"
+    release_from: github
+    release_glob: apache-arrow-[0-9]*
+    pinned: apache-arrow-25.0.1
   polaris:
     repo: https://github.com/apache/polaris
     subdir: site
@@ -128,3 +159,6 @@ sources:
       - https://polaris.apache.org/
       - https://issues.apache.org/jira/projects/POLARIS
     added: "2026-08-11T10:10:20Z"
+    release_from: github
+    release_glob: apache-polaris-[0-9]*
+    pinned: apache-polaris-1.7.0

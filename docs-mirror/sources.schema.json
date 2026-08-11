@@ -45,6 +45,18 @@
             "type": ["string", "null"],
             "description": "SPDX id (필수 기록 — add가 gh api로 채움)"
           },
+          "release_from": {
+            "enum": ["github", "asf", "none"],
+            "description": "current/의 최신 릴리스를 어디서 판정하는가. github=Releases API의 prerelease 플래그, asf=projects.apache.org 공식 릴리스 목록, none=릴리스 축 없음(기본 브랜치 추종)"
+          },
+          "release_glob": {
+            "type": ["string", "null"],
+            "description": "릴리스 후보 필터 (github=태그명, asf=아티팩트명). 서브프로젝트 릴리스 배제용 — 버전 접미사 판별용이 아니다"
+          },
+          "pinned": {
+            "type": ["string", "null"],
+            "description": "current/가 현재 체크아웃한 릴리스 태그. pull이 기록 — 버전 이동이 git 이력에 남는다. release_from=none이면 null"
+          },
           "versions": {
             "type": "array",
             "items": { "type": "string" },

@@ -8,6 +8,7 @@ pull은 flock 단일 인스턴스 가드, 크로스 소스 원자성은 비보�
 YAML 읽기/쓰기는 yq(v4) 경유 — 주석 보존.
 """
 import fcntl
+import fnmatch
 import json
 import os
 import subprocess
@@ -22,6 +23,11 @@ LOGS = ROOT / "logs"
 STATE = LOGS / "state.json"
 CACHEDIR_SIG = "Signature: 8a477f597d28d172789f06886806bc55\n"
 SWH_API = "https://archive.softwareheritage.org/api/1/origin/save/git/url/"
+ASF_RELEASES = "https://projects.apache.org/json/foundation/releases.json"
+
+
+class MirrorError(Exception):
+    """소스 하나의 실패. 호출자가 모아서 fail-loud 하도록 die 대신 던진다."""
 
 
 def run(cmd, check=True, capture=True, cwd=None):
@@ -87,6 +93,90 @@ def current_dir(tech):
     return MIRRORS / tech / "current"
 
 
+# ------------------------------------------------- 릴리스 해석 (PLAN §2·§3)
+# current/ = 최신 릴리스 태그. 기본 브랜치는 미출시 개발본이라 그대로 두면
+# 캐시가 "존재하지 않는 버전의 문서"를 현행인 양 답하게 된다(실측: spark
+# 5.0.0-SNAPSHOT, kafka 4.4.0-SNAPSHOT 등 8건 중 6건).
+#
+# 릴리스 판정은 벤더가 이미 구조화해 둔 데이터만 쓴다 — 버전 문자열의
+# 프리릴리스 접미사를 알아맞히지 않는다(-rc6·rc2·b1·a1·.dev로 제각각이라
+# 패턴이 무한증식하는 greedy 경로다):
+#   github — Releases API의 prerelease·draft 불리언이 벤더 자신의 판정이고
+#            tag_name을 그대로 준다. 파싱 0.
+#   asf    — GitHub Releases를 쓰지 않는 ASF 프로젝트(spark·kafka)용.
+#            공식 릴리스 목록에는 RC가 애초에 실리지 않는다.
+# 버전 대소 비교도 자체 파서를 쓰지 않고 git(--sort=v:refname)에 위임한다.
+
+def _github_release_tags(owner, name, glob):
+    tags = []
+    for page in (1, 2, 3):
+        r = run(["gh", "api", f"repos/{owner}/{name}/releases?per_page=100&page={page}",
+                 "--jq", "map(select(.prerelease==false and .draft==false)) | .[].tag_name"],
+                check=False)
+        if r.returncode != 0:
+            raise MirrorError(f"GitHub Releases 조회 실패 — {r.stderr.strip()}")
+        page_tags = r.stdout.split()
+        if not page_tags:
+            break
+        tags += page_tags
+    return [t for t in tags if not glob or fnmatch.fnmatch(t, glob)]
+
+
+def _asf_release_tags(project, glob):
+    r = run(["curl", "-sf", "--max-time", "30", ASF_RELEASES], check=False)
+    if r.returncode != 0:
+        raise MirrorError(f"ASF 릴리스 메타데이터 조회 실패 — {ASF_RELEASES}")
+    data = json.loads(r.stdout).get(project)
+    if not data:
+        raise MirrorError(f"ASF 릴리스 메타데이터에 프로젝트 '{project}' 없음")
+    cands = []
+    for artifact in data:
+        if glob and not fnmatch.fnmatch(artifact, glob):
+            continue
+        ver = artifact.rsplit("-", 1)[-1]  # ASF 표기 = <아티팩트>-<버전>
+        cands += [ver, "v" + ver]  # 태그 표기 두 형태만. 그 밖은 실패시킨다
+    return cands
+
+
+def resolve_release_tag(tech, entry, cur):
+    """최신 릴리스 태그. release_from이 none이면 None (기본 브랜치 추종)."""
+    src = entry.get("release_from") or "none"
+    if src == "none":
+        return None
+    glob = entry.get("release_glob")
+    owner, name = repo_slug(entry["repo"])
+    if src == "github":
+        cands = _github_release_tags(owner, name, glob)
+    elif src == "asf":
+        cands = _asf_release_tags(name, glob)
+    else:
+        raise MirrorError(f"release_from 값 불량: {src}")
+    if not cands:
+        raise MirrorError(f"릴리스 후보 0건 (release_glob={glob}) — 판정 불가")
+    r = run(["git", "-C", str(cur), "tag", "--list", *cands, "--sort=-v:refname"],
+            check=False)
+    tags = r.stdout.split()
+    if not tags:
+        raise MirrorError(f"릴리스 {len(cands)}건 중 클론에 존재하는 태그 0건 — 판정 불가")
+    return tags[0]
+
+
+def checkout_release(tech, entry, cur):
+    """릴리스 핀 소스를 최신 릴리스로 이동. 반환 = (태그, 이동했는가)."""
+    tag = resolve_release_tag(tech, entry, cur)
+    if tag is None:
+        return None, False
+    head = run(["git", "-C", str(cur), "rev-parse", "HEAD"], check=False).stdout.strip()
+    want = run(["git", "-C", str(cur), "rev-parse", f"{tag}^{{commit}}"],
+               check=False).stdout.strip()
+    if head and head == want and entry.get("pinned") == tag:
+        return tag, False
+    r = run(["git", "-C", str(cur), "checkout", "--detach", tag], check=False)
+    if r.returncode != 0:
+        raise MirrorError(f"{tag} 체크아웃 실패 — {r.stderr.strip()}")
+    return tag, True
+
+
 def notify(text):
     try:
         run(["osascript", "-e",
@@ -112,6 +202,13 @@ def cmd_validate(_args):
             problems.append(f"{tech}: license 미기록 (필수)")
         if e.get("repo") and not e.get("fork"):
             warnings.append(f"{tech}: fork 미가동 — §3.5 0겹 부재. `mirror add {tech}` 재실행으로 보수")
+        if e.get("release_from") not in ("github", "asf", "none"):
+            problems.append(f"{tech}: release_from 값 불량: {e.get('release_from')} "
+                            f"(github|asf|none — PLAN §2)")
+        if (e.get("release_from") or "none") == "none" and e.get("pinned"):
+            problems.append(f"{tech}: release_from=none인데 pinned 기록됨 ({e['pinned']})")
+        if e.get("release_from") in ("github", "asf") and not e.get("pinned"):
+            warnings.append(f"{tech}: 릴리스 미핀 — `mirror pull`로 최신 릴리스에 고정")
         if e.get("fork") and e["fork"].rstrip("/").rsplit("/", 1)[-1] != tech:
             problems.append(
                 f"{tech}: fork 이름이 레지스트리 키와 불일치 ({e['fork']}) — "
@@ -143,11 +240,13 @@ def cmd_validate(_args):
 # ---------------------------------------------------------------- add
 def cmd_add(args):
     if not args:
-        die("사용법: mirror add <tech> [repo-url] [--subdir D] [--format F] [--fallback URL ...]")
+        die("사용법: mirror add <tech> [repo-url] [--subdir D] [--format F] "
+            "[--release-from github|asf|none] [--release-glob G] [--fallback URL ...]")
     tech, rest = args[0], args[1:]
     reg = load_registry()
     entry = reg["sources"].get(tech) or {
         "repo": None, "subdir": None, "format": "md", "license": None,
+        "release_from": None, "release_glob": None, "pinned": None,
         "versions": [], "fork": None, "swh_registered": None,
         "fallback": [], "added": now(),
     }
@@ -157,6 +256,10 @@ def cmd_add(args):
             entry["subdir"] = next(it)
         elif a == "--format":
             entry["format"] = next(it)
+        elif a == "--release-from":
+            entry["release_from"] = next(it)
+        elif a == "--release-glob":
+            entry["release_glob"] = next(it)
         elif a == "--fallback":
             entry.setdefault("fallback", []).append(next(it))
         elif a.startswith("http"):
@@ -190,6 +293,21 @@ def cmd_add(args):
         print(f"[mirror] {tech}: clone 완료 → mirrors/{tech}/current")
     else:
         print(f"[mirror] {tech}: clone 존재 — 건너뜀")
+
+    # ②-b 릴리스 핀 (PLAN §2) — 미지정이면 GitHub Releases 사용 여부로 판정.
+    # ASF 프로젝트나 서브프로젝트 혼재 저장소는 --release-from·--release-glob으로 명시.
+    if entry.get("release_from") is None:
+        has_rel = run(["gh", "api", f"repos/{owner}/{name}/releases/latest"],
+                      check=False).returncode == 0
+        entry["release_from"] = "github" if has_rel else "none"
+        print(f"[mirror] {tech}: release_from = {entry['release_from']} (자동 판정)")
+    if entry["release_from"] != "none":
+        try:
+            tag, moved = checkout_release(tech, entry, cur)
+        except MirrorError as exc:
+            die(f"{tech}: 릴리스 판정 실패 — {exc}")
+        entry["pinned"] = tag
+        print(f"[mirror] {tech}: 릴리스 핀 = {tag}" + ("" if moved else " (이미 해당 위치)"))
 
     # ③ fork (§3.5 0겹) — org 미생성 등 실패는 fail-loud 후 계속
     org = reg["config"]["fork_org"]
@@ -233,7 +351,7 @@ def cmd_pull(_args):
         print("[mirror] pull 이미 실행 중 — 무해 종료")
         return
     reg = load_registry()
-    ok, fail = [], []
+    ok, fail, moved = [], [], []
     for tech, e in reg["sources"].items():
         if not e.get("repo"):
             continue  # crawl 소스는 pull 대상 아님
@@ -241,16 +359,35 @@ def cmd_pull(_args):
         if not cur.is_dir():
             fail.append((tech, "clone 없음 — `mirror add`로 보수"))
             continue
-        r = run(["git", "-C", str(cur), "pull", "--ff-only"], check=False)
-        if r.returncode == 0:
+        if (e.get("release_from") or "none") == "none":
+            # 버전 축이 없거나 문서가 버전 조건을 인라인 표기하는 소스 — 브랜치 추종
+            r = run(["git", "-C", str(cur), "pull", "--ff-only"], check=False)
+            if r.returncode != 0:
+                fail.append((tech, r.stderr.strip().splitlines()[-1] if r.stderr else "?"))
+                continue
             ok.append(tech)
-        else:
+            continue
+        r = run(["git", "-C", str(cur), "fetch", "--tags", "--prune", "origin"], check=False)
+        if r.returncode != 0:
             fail.append((tech, r.stderr.strip().splitlines()[-1] if r.stderr else "?"))
+            continue
+        try:
+            tag, did_move = checkout_release(tech, e, cur)
+        except MirrorError as exc:
+            fail.append((tech, str(exc)))
+            continue
+        if did_move:
+            e["pinned"] = tag
+            write_source(tech, e)
+            moved.append(f"{tech} {tag}")
+        ok.append(tech)
         # 고정 버전 워크트리는 불변이므로 skip (PLAN §3)
     STATE.write_text(json.dumps(
-        {"last_run": now(), "ok": ok, "fail": [t for t, _ in fail]},
+        {"last_run": now(), "ok": ok, "fail": [t for t, _ in fail], "moved": moved},
         ensure_ascii=False, indent=1))
     print(f"[mirror] pull: 성공 {len(ok)}건" + (f" — {', '.join(ok)}" if ok else ""))
+    if moved:
+        print(f"[mirror] 릴리스 이동 {len(moved)}건 — {', '.join(moved)}")
     if fail:  # fail-loud (PLAN §3): 목록 출력 + macOS 알림 + 비정상 종료
         for tech, msg in fail:
             print(f"[mirror] 실패: {tech} — {msg}", file=sys.stderr)
@@ -277,10 +414,12 @@ def cmd_status(_args):
             dirty = run(["git", "-C", str(cur), "status", "--porcelain"],
                         check=False).stdout.strip()
             vers = ", ".join(e.get("versions") or []) or "-"
+            pin = e.get("pinned") or ("기본 브랜치" if (e.get("release_from") or "none")
+                                      == "none" else "미핀!")
             flags = (" [fork✓]" if e.get("fork") else " [fork✗]") + \
                     (" [SWH✓]" if e.get("swh_registered") else " [SWH✗]") + \
                     (" [DIRTY — 인간 저작물 혼입 의심!]" if dirty else "")
-            print(f"  {tech}: HEAD {age} | 버전: {vers}{flags}")
+            print(f"  {tech}: {pin} | HEAD {age} | 고정: {vers}{flags}")
         elif e.get("repo"):
             print(f"  {tech}: 미클론 — `mirror add {tech}` 재실행")
         else:
