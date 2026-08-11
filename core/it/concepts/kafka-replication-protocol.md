@@ -2,7 +2,7 @@
 type: concept
 title: 카프카 복제 프로토콜
 description: 리더 레플리카와 팔로워 레플리카의 역할 분담, 인-싱크 판정이 만들어지는 방식과 그것이 리더 선출 자격을 정하는 이유, 선호 리더와 팔로워 읽기가 부하와 지연에 미치는 영향
-generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -103,5 +103,7 @@ sources:
 - [카프카 브로커 설정](../concepts/kafka-broker-configuration.md) —
   `min.insync.replicas`와 복제 팩터를 정하는 기준
 - [토픽과 파티션](../concepts/topics-and-partitions.md) — 복제의 단위인 파티션
+- [Raft의 로그 복제와 로그 매칭](../concepts/raft-log-replication.md) — 여기의 ISR
+  판정과 Raft의 과반 커밋이 어떻게 다른지 적어 둔 자리
 
 [^shapira2021]: Shapira et al. 2021, 6장 "Kafka Internals"

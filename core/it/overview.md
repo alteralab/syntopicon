@@ -23,6 +23,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [카프카 설치와 운영](synthesis/kafka-operations.md) — 설정 기준·클러스터 산정·튜닝
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조와 B-트리 대 LSM의 대비
+- [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft의 해법
 - [JVM 자동 메모리 관리](synthesis/jvm-memory-management.md) — 메모리 영역·객체 생존 판정·회수 알고리즘·컬렉터 선택
 
 

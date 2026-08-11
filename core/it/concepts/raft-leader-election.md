@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: Raft의 리더 선출과 임기
 description: Raft가 리더 하나를 뽑는 방식 — 서버 상태 셋과 논리적 시계 역할을 하는 임기, 하트비트와 선출 타임아웃, 표 갈림을 무작위로 푸는 이유, 그리고 안전이 아니라 가용성이 타이밍에 걸리는 지점
 generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }

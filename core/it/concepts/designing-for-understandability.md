@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 이해 가능성을 설계 목표로 삼기
 description: Raft 논문이 Paxos에서 진단한 두 결함과 그 진단에서 나온 설계 기준 — 문제 분해와 상태 공간 축소라는 두 기법, 43명 대상 사용자 연구의 설계와 수치, 관련 연구 지형에서 Raft가 놓인 자리, 그리고 이 논문이 범위 밖으로 미룬 것
 generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }

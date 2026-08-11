@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: Raft의 안전성과 선출 제약
 description: 리더 선출과 로그 복제만으로는 부족한 이유, 그림 3의 다섯 안전성 성질, 투표에 얹히는 최신성 제약, 지난 임기 항목을 복제본 수로 커밋하면 안 되는 이유, 그리고 Leader Completeness의 모순 논증과 형식 검증의 범위
 generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }

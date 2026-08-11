@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: Raft의 로그 복제와 로그 매칭
 description: 리더가 클라이언트 명령을 로그에 붙여 복제하는 절차와 커밋의 정의, 로그 매칭 성질을 지키는 AppendEntries 일치성 검사, 어긋난 팔로워 로그를 되맞추는 nextIndex 되감기, 그리고 과반 커밋과 카프카 ISR의 대비
 generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }

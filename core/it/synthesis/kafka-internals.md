@@ -13,7 +13,7 @@ generated: { by: "human:me", at: "2026-08-10T19:00:00Z" }
 
 ## 메타데이터와 조율
 
-- [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 클러스터 메타데이터 저장과 컨트롤러 선출, 그리고 그 교체 계획
+- [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 클러스터 메타데이터 저장과 컨트롤러 선출, 그리고 그 교체 계획. KRaft가 쓰는 알고리즘은 [분산 합의](distributed-consensus.md)가 담당한다
 - [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 인싱크 판정이 리더 선출 자격을 정하는 방식과 선호 리더
 
 ## 요청과 저장

@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 주키퍼와 KRaft
-description: 카프카가 클러스터 메타데이터와 컨트롤러를 관리하는 두 방식 — 주키퍼 앙상블 구성과 임시 노드 기반 컨트롤러 선출(Kafka 3.x 이하), 그리고 2판 집필 시점에 예고된 KRaft 설계와 그 교체 동기
-generated: { by: "claude-opus-5", at: "2026-08-10T18:00:00Z" }
+description: 카프카가 클러스터 메타데이터와 컨트롤러를 관리하는 두 방식 — 주키퍼 앙상블 구성과 임시 노드 기반 컨트롤러 선출(Kafka 3.x 이하), 그리고 2판 집필 시점에 예고된 KRaft 설계와 그 교체 동기. KRaft가 쓰는 래프트의 원전으로 가는 안내 포함
+generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 stale_after: "2025-03-18"
@@ -157,6 +157,16 @@ stale_after: "2025-03-18"
 > 기반 컨트롤러와 KRaft 중 하나를 골라 돌 수 있게 될 것이라고 적혀 있다 (6장,
 > p.137).[^shapira2021] 현재 상태는 [만료 근거](#만료-근거) 참조.
 
+> **아래의 "래프트"가 무엇인지는 이 책이 설명하지 않는다.** 알고리즘의 원전은 Raft
+> 논문이며, 이 KB에서는 [복제 상태 기계와 합의](../concepts/replicated-state-machine.md),
+> [Raft의 리더 선출과 임기](../concepts/raft-leader-election.md),
+> [Raft의 로그 복제와 로그 매칭](../concepts/raft-log-replication.md),
+> [Raft의 안전성과 선출 제약](../concepts/raft-safety.md),
+> [Raft의 클러스터 멤버십 변경](../concepts/raft-membership-change.md)이 그것을 다룬다.
+> 아래 서술의 "래프트 쿼럼"과 컨트롤러 리더 선출은 그 알고리즘을 카프카에 적응시킨
+> 것이고(KIP-595), 이 페이지의 [컨트롤러 에포크](#컨트롤러-선출과-에포크)에 대응하는
+> Raft 쪽 장치는 임기(term)다.
+
 - 프로젝트 시작은 2019년이며, 목표는 주키퍼 기반 컨트롤러에서 **래프트(Raft) 기반
   컨트롤러 쿼럼**으로 옮겨가는 것이다 (6장, p.137).[^shapira2021]
 - 교체 동기 네 가지 (6장, p.138):[^shapira2021]
@@ -217,5 +227,13 @@ stale_after: "2025-03-18"
   `LeaderAndISR`·`UpdateMetadata`가 지나는 경로
 - [카프카 브로커 설정](../concepts/kafka-broker-configuration.md) —
   `zookeeper.connect`와 `broker.id`가 클러스터 참여 요건이 되는 이유
+- [Raft의 리더 선출과 임기](../concepts/raft-leader-election.md) — KRaft가 쓰는 그
+  선출 알고리즘의 원전, 그리고 에포크에 대응하는 임기
+- [Raft의 로그 복제와 로그 매칭](../concepts/raft-log-replication.md) — 메타데이터
+  이벤트 로그를 복제한다는 말의 원래 기전
+- [Raft의 클러스터 멤버십 변경](../concepts/raft-membership-change.md) — 컨트롤러
+  쿼럼의 구성원을 바꾸는 문제의 원전
+- [이해 가능성을 설계 목표로 삼기](../concepts/designing-for-understandability.md) —
+  주키퍼의 알고리즘이 놓인 합의 문헌 지형과 Paxos 진단
 
 [^shapira2021]: Shapira et al. 2021, 2장 "Installing Kafka" · 6장 "Kafka Internals"

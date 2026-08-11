@@ -1,6 +1,5 @@
 ---
 type: concept
-status: draft
 title: 복제 상태 기계와 합의
 description: 합의 알고리즘이 존재하는 이유 — 서버 여럿을 하나의 고신뢰 상태 기계처럼 보이게 하는 복제 로그 구조와, 실용 시스템이 합의 알고리즘에 요구하는 안전성·가용성·타이밍 비의존·지연 성질
 generated: { by: "claude-opus-5", at: "2026-08-11T02:00:00Z" }
