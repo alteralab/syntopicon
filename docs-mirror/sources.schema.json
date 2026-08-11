@@ -22,9 +22,43 @@
       "description": "기술명 → 소스 항목",
       "additionalProperties": {
         "type": "object",
-        "required": ["format", "license"],
+        "required": ["mode"],
         "additionalProperties": false,
+        "allOf": [
+          {
+            "if": { "properties": { "mode": { "const": "ondemand" } }, "required": ["mode"] },
+            "then": {
+              "required": ["index"],
+              "properties": {
+                "repo": { "const": null },
+                "crawl": { "const": null },
+                "versions": { "maxItems": 0 }
+              }
+            },
+            "else": { "required": ["format", "license", "release_from"] }
+          }
+        ],
         "properties": {
+          "mode": {
+            "enum": ["mirror", "ondemand"],
+            "description": "mirror=로컬 사본을 둔다(pull·fork·SWH 대상). ondemand=사본 없이 조회 경로만 기록한다 — git 공급이 없고 버전 축도 없어 미러가 지는 소스(PLAN 원칙 7)"
+          },
+          "index": {
+            "type": ["string", "null"],
+            "description": "ondemand 진입 색인 URL (llms.txt 등). 라우팅의 출발점"
+          },
+          "page_suffix": {
+            "type": ["string", "null"],
+            "description": "ondemand 페이지의 기계 판독본 규약 (예: AWS는 문서 URL 뒤 '.md')"
+          },
+          "search": {
+            "type": ["string", "null"],
+            "description": "ondemand 전문 검색 엔드포인트. 호출 형태는 스킬이 규정(상태=파일, 절차=스킬)"
+          },
+          "mcp": {
+            "type": ["string", "null"],
+            "description": "공식 원격 MCP 엔드포인트 (보완·폴백). 등록은 세션 설정이라 레이어가 강제하지 않는다"
+          },
           "repo": {
             "type": ["string", "null"],
             "description": "git 저장소 URL (수집 ①·② 경로). crawl과 택일"

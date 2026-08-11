@@ -204,6 +204,22 @@ def cmd_validate(_args):
     if not reg["config"].get("fork_org"):
         problems.append("config.fork_org 없음")
     for tech, e in reg["sources"].items():
+        mode = e.get("mode")
+        if mode not in ("mirror", "ondemand"):
+            problems.append(f"{tech}: mode 값 불량: {mode} (mirror|ondemand — PLAN §2)")
+            continue
+        if mode == "ondemand":
+            # 사본을 두지 않는 소스 — 조회 경로만 상태로 남는다
+            if not e.get("index"):
+                problems.append(f"{tech}: ondemand인데 index(진입 색인) 없음")
+            for k in ("repo", "crawl", "pinned", "fork", "swh_registered"):
+                if e.get(k):
+                    problems.append(f"{tech}: ondemand인데 {k} 기록됨 ({e[k]}) — 사본을 두지 않는 소스다")
+            if e.get("versions"):
+                problems.append(f"{tech}: ondemand인데 versions 기록됨 — 고정 워크트리는 미러 전용")
+            if (MIRRORS / tech).exists():
+                problems.append(f"{tech}: ondemand인데 mirrors/{tech} 존재 — 사본을 두지 않는 소스다")
+            continue
         if not e.get("repo") and not e.get("crawl"):
             problems.append(f"{tech}: repo·crawl 둘 다 없음")
         if e.get("repo") and e.get("crawl"):
@@ -262,13 +278,56 @@ def cmd_validate(_args):
 
 
 # ---------------------------------------------------------------- add
+def _add_ondemand(tech, rest, reg):
+    """사본 없이 조회 경로만 등록 (PLAN 원칙 7·§2).
+
+    git 공급이 없고 버전 축도 없어 미러가 지는 소스 — 매번 라우팅을 다시
+    발견하지 않도록 진입 색인·페이지 규약·검색·MCP 엔드포인트를 상태로 남긴다.
+    """
+    entry = reg["sources"].get(tech) or {}
+    entry.update({"mode": "ondemand", "repo": None, "crawl": None, "versions": [],
+                  "fork": None, "swh_registered": None, "pinned": None})
+    entry.setdefault("index", None)
+    entry.setdefault("page_suffix", None)
+    entry.setdefault("search", None)
+    entry.setdefault("mcp", None)
+    entry.setdefault("fallback", [])
+    entry.setdefault("added", now())
+    it = iter(rest)
+    for a in it:
+        if a == "--ondemand":
+            continue
+        elif a == "--index":
+            entry["index"] = next(it)
+        elif a == "--page-suffix":
+            entry["page_suffix"] = next(it)
+        elif a == "--search":
+            entry["search"] = next(it)
+        elif a == "--mcp":
+            entry["mcp"] = next(it)
+        elif a == "--fallback":
+            entry["fallback"].append(next(it))
+        else:
+            die(f"알 수 없는 인자: {a}")
+    if not entry["index"]:
+        die(f"{tech}: --index (진입 색인 URL) 필요")
+    if (MIRRORS / tech).exists():
+        die(f"{tech}: mirrors/{tech}가 이미 있다 — 미러 소스를 온디맨드로 바꾸려면 "
+            f"`mirror remove {tech}` 먼저 (파괴 연산은 사용자 지시 필요)")
+    write_source(tech, entry)
+    print(f"[mirror] {tech}: 온디맨드 등록 완료 — 색인 {entry['index']}")
+
+
 def cmd_add(args):
     if not args:
         die("사용법: mirror add <tech> [repo-url] [--subdir D] [--format F] "
             "[--release-from github|asf|none] [--release-glob G] [--fallback URL ...]")
     tech, rest = args[0], args[1:]
     reg = load_registry()
+    if "--ondemand" in rest:
+        return _add_ondemand(tech, rest, reg)
     entry = reg["sources"].get(tech) or {
+        "mode": "mirror",
         "repo": None, "subdir": None, "format": "md", "license": None,
         "release_from": None, "release_glob": None, "pinned": None,
         "versions": [], "fork": None, "swh_registered": None,
@@ -432,7 +491,10 @@ def cmd_status(_args):
         print("[mirror] pull 실행 이력 없음")
     for tech, e in reg["sources"].items():
         cur = current_dir(tech)
-        if e.get("repo") and cur.is_dir():
+        if e.get("mode") == "ondemand":
+            extra = " [MCP]" if e.get("mcp") else ""
+            print(f"  {tech}: 온디맨드 (사본 없음) | 색인: {e.get('index')}{extra}")
+        elif e.get("repo") and cur.is_dir():
             age = run(["git", "-C", str(cur), "log", "-1", "--format=%cr"],
                       check=False).stdout.strip()
             dirty = run(["git", "-C", str(cur), "status", "--porcelain"],

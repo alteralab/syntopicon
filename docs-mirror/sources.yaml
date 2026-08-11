@@ -18,6 +18,7 @@ sources:
     release_from: none
     release_glob: null
     pinned: null
+    mode: mirror
   spark:
     repo: https://github.com/apache/spark
     subdir: docs
@@ -34,6 +35,7 @@ sources:
     release_from: asf
     release_glob: spark-[0-9]*
     pinned: v4.2.0
+    mode: mirror
   clickhouse:
     repo: https://github.com/ClickHouse/clickhouse-docs
     subdir: null
@@ -48,6 +50,7 @@ sources:
     release_from: none
     release_glob: null
     pinned: null
+    mode: mirror
   airflow:
     repo: https://github.com/apache/airflow
     subdir: airflow-core/docs
@@ -62,6 +65,7 @@ sources:
     release_from: github
     release_glob: '[0-9]*'
     pinned: 3.3.0
+    mode: mirror
   kafka:
     repo: https://github.com/apache/kafka
     subdir: docs
@@ -77,6 +81,7 @@ sources:
     release_from: asf
     release_glob: kafka-[0-9]*
     pinned: 4.3.1
+    mode: mirror
   iceberg:
     repo: https://github.com/apache/iceberg
     subdir: null
@@ -91,6 +96,7 @@ sources:
     release_from: github
     release_glob: apache-iceberg-[0-9]*
     pinned: apache-iceberg-1.11.0
+    mode: mirror
   fastmcp:
     repo: https://github.com/PrefectHQ/fastmcp
     subdir: docs
@@ -105,6 +111,7 @@ sources:
     release_from: github
     release_glob: v[0-9]*
     pinned: v3.4.7
+    mode: mirror
   langchain:
     repo: https://github.com/langchain-ai/docs
     subdir: src
@@ -119,6 +126,7 @@ sources:
     release_from: none
     release_glob: null
     pinned: null
+    mode: mirror
   pydantic:
     repo: https://github.com/pydantic/pydantic
     subdir: docs
@@ -133,6 +141,7 @@ sources:
     release_from: github
     release_glob: v[0-9]*
     pinned: v2.13.4
+    mode: mirror
   pyarrow:
     repo: https://github.com/apache/arrow
     subdir: docs/source/python
@@ -147,6 +156,7 @@ sources:
     release_from: github
     release_glob: apache-arrow-[0-9]*
     pinned: apache-arrow-25.0.1
+    mode: mirror
   polaris:
     repo: https://github.com/apache/polaris
     subdir: site
@@ -162,3 +172,19 @@ sources:
     release_from: github
     release_glob: apache-polaris-[0-9]*
     pinned: apache-polaris-1.7.0
+    mode: mirror
+  aws:
+    mode: ondemand
+    repo: null
+    crawl: null
+    versions: []
+    fork: null
+    swh_registered: null
+    pinned: null
+    index: https://docs.aws.amazon.com/llms.txt
+    page_suffix: .md
+    search: https://proxy.search.docs.aws.com/search
+    mcp: https://knowledge-mcp.global.api.aws
+    fallback:
+      - https://docs.aws.amazon.com/
+    added: "2026-08-11T11:28:08Z"

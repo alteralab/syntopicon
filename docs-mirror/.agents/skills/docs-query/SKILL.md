@@ -27,6 +27,21 @@ description: docs-mirror의 벤더 기술 문서를 검색한다 (dbt·Spark 등
 4. **정독**: 히트 파일을 직접 읽는다. 요약을 mirrors/에 저장 금지(원칙 2 — 인간 저작물 제로).
 5. **폴백 (미러에 없거나 최신성 의심)**: sources.yaml의 해당 기술 `fallback` URL로
    온디맨드 조회(llms.txt 인덱스 → 페이지 fetch).
+5b. **온디맨드 소스 (`mode: ondemand` — 사본 없음)**: 레지스트리의 `index`·`page_suffix`·
+   `search`·`mcp`를 쓴다. **URL 우선, MCP는 보완**(PLAN §2).
+   - AWS 예: 검색 → 색인 → 페이지 순으로 좁힌다.
+     ```sh
+     # 전문 검색 (인증 불필요) — 결과의 .link 를 얻는다
+     curl -s -X POST https://proxy.search.docs.aws.com/search -H 'Content-Type: application/json' \
+       -d '{"textQuery":{"input":"glue job bookmark"},
+            "contextAttributes":[{"key":"domain","value":"docs.aws.amazon.com"}],
+            "acceptSuggestionBody":"RawText","locales":["en_us"]}' \
+       | jq -r '.suggestions[].textExcerptSuggestion | "\(.title)\t\(.link)"' | head
+     # 가이드 색인이 필요하면: <가이드 경로>/llms.txt
+     # 페이지 정독은 마크다운 쌍으로: <페이지 URL>.md
+     ```
+   - 검색이 실패하거나(비공식 엔드포인트) 리전 가용성·What's New처럼 문서 밖 질의면
+     `mcp` 엔드포인트로 간다. 등록 안 돼 있으면 사용자에게 등록을 제안하되 임의 설정 변경 금지.
 6. **이슈·버그 맥락은 미러 비대상 — 온디맨드 전용**:
    - GitHub: `gh search issues --repo <owner/repo> '<키워드>' ` (코멘트까지: `in:comments`)
    - Spark·Kafka는 JIRA가 정본: `https://issues.apache.org/jira/rest/api/2/search?jql=...` (익명 가능)
