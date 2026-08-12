@@ -42,10 +42,17 @@
 리뷰 시점에 잴 수 없던 것을 여기서 잰다. **리뷰 항목으로 두면 거짓말이 된다** —
 overlap은 임베딩이 있어야 하고 임베딩은 승급 후에 만들어진다.
 
+**아래 네 줄은 한 덩어리다. 커밋까지가 승급이다** — 승급하고 커밋을 미루면 다음 런의
+산출물과 한 워킹 트리에 섞이고, 그때는 사후에 갈라야 한다(2026-08-12에 두 런 연속
+그랬다. 둘 다 다음 런 에이전트가 잡았고, 겹친 허브 파일은 파일 단위로 못 갈라 뒤
+커밋으로 넘겼다). **다음 런을 띄우기 전에 워킹 트리가 비어 있는지 본다.**
+
 ```
+uv run tools/merge.py --all --kb <kb>
 uv run --group index tools/reindex.py
 qmd update && qmd embed && qmd cleanup
 uv run --group index tools/lint.py
+git add -A it/ && git commit          # 트레일러: Ingest-Run
 ```
 
 - 깨진 링크: {{승급 전 오류가 0으로 떨어졌는가 — 안 떨어졌으면 진짜 결함이다}}

@@ -188,13 +188,21 @@ git은 마지막 문단만 트레일러로 보고, 그 문단이 전부 `키: �
 금지 (review-on-read 이연, 기준을 넓히면 처리량이 0으로 수렴한다) — synthesis만
 예외다.
 
-## 9. 재색인 [자동]
+## 9. 승급·재색인·커밋 [자동] — 한 덩어리다
 
 ```
-uv run tools/reindex.py        # 메타 + edges + 형태소
-qmd update && qmd embed        # qmd 색인 (설치돼 있으면)
-qmd cleanup                    # 고아 벡터 정리 — 편집·이동마다 실제로 샌다 (실측 3회)
+uv run tools/merge.py --all --kb <kb>   # 승급
+uv run tools/reindex.py                 # 메타 + edges + 형태소
+qmd update && qmd embed                 # qmd 색인 (설치돼 있으면)
+qmd cleanup                             # 고아 벡터 정리 — 편집·이동마다 실제로 샌다 (실측 3회)
+uv run --group index tools/lint.py      # 승급 후 확인 (양식의 마지막 절)
+git add -A <kb>/ && git commit          # 트레일러: Ingest-Run
 ```
+
+**커밋까지가 승급이다.** 승급하고 커밋을 미루면 다음 런 산출물과 한 워킹 트리에
+섞이고 사후에 갈라야 한다 — 2026-08-12에 **두 런 연속** 그랬고(5장·11장) 둘 다 다음
+런 에이전트가 잡았다. 겹친 허브 파일은 파일 단위로 갈리지 않아 뒤 커밋으로 넘겼다.
+**다음 런을 띄우기 전에 워킹 트리가 비어 있는지 본다.**
 
 편집된 페이지는 청크 전량을 다시 만든다 — 옛 벡터가 남으면 조용히 오답을 낸다.
 `cleanup`을 거르면 옛 경로의 벡터가 인덱스에 남는다 — 컬렉션 제거·inbox 승격·
