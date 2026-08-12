@@ -121,8 +121,14 @@ sources:
   p.350):[^shapira2021]
 
   ```sh
-  # kafka-topics.sh --bootstrap-server kafka1.example.com:9092/kafka-cluster
-  --describe --under-replicated
+  kafka-topics.sh --bootstrap-server kafka1.example.com:9092/kafka-cluster \
+      --describe --under-replicated
+  ```
+
+  받는 출력은 이런 모양이고, 여기서 볼 것은 `Replicas`와 `Isr`의 차이다 (13장,
+  p.350):[^shapira2021]
+
+  ```text
       Topic: topicOne   Partition: 5    Leader: 1    Replicas: 1,2 Isr: 1
       Topic: topicOne   Partition: 6    Leader: 3    Replicas: 2,3 Isr: 3
       Topic: topicTwo   Partition: 3    Leader: 4    Replicas: 2,4 Isr: 4
@@ -270,4 +276,4 @@ sources:
 - [카프카 프로덕션 튜닝](../concepts/kafka-production-tuning.md) — 여기서 문제로 나타나는
   커널·파일시스템 설정을 미리 맞추는 쪽
 
-[^shapira2021]: Shapira et al. 2021, 13장 "Monitoring Kafka" §"Kafka Broker Metrics"(pp.347–354) — 인용 블록은 p.349 "The URP Alerting Trap" 상자 원문. 코드 펜스는 p.350 예제 그대로이며 원문의 `--bootstrap-server` 값에 붙은 `/kafka-cluster` 접미도 고치지 않고 보존했다(보태거나 깎은 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 13장 "Monitoring Kafka" §"Kafka Broker Metrics"(pp.347–354) — 인용 블록은 p.349 "The URP Alerting Trap" 상자 원문. p.350 예제는 **명령과 출력을 갈라** 옮겼다: 명령 펜스에서 원문의 루트 프롬프트 `#`를 덜어내고 지면 폭 때문에 접힌 두 줄을 `\`로 이었으며(토큰 동일, 보탠 인자 없음), 출력은 `text` 펜스로 분리했다. 원문의 `--bootstrap-server` 값에 붙은 `/kafka-cluster` 접미는 고치지 않고 보존했다
