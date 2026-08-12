@@ -26,6 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import langfuse_bridge
 from syntopicon import layout as layout_mod, stats
 from syntopicon.repo import ROOT, visible_files
 
@@ -123,6 +124,7 @@ def main(argv: list[str]) -> int:
             "failed_stage": failed,
             "lint": dict(lint_row) if lint_row else None,
         })
+    langfuse_bridge.nudge()   # 층 2 편승 — 활동이 있는 날에만 하루 1회 백그라운드 동기화
     if failed:
         return 1
 

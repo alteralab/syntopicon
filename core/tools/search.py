@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ksearch
+import langfuse_bridge
 from syntopicon import index_db, layout as layout_mod, morph, stats
 from syntopicon.repo import ROOT, visible_files
 
@@ -169,6 +170,8 @@ def main(argv: list[str]) -> int:
             # 스킬 시절부터 성문된 테이블을 도구가 처음으로 채운다.
             db.execute("INSERT INTO search_miss VALUES (?,?,?)",
                        (stats.now(), args.kb, args.query))
+
+    langfuse_bridge.nudge()   # 층 2 편승 — 활동이 있는 날에만 하루 1회 백그라운드 동기화
     return 0
 
 
