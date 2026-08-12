@@ -2,7 +2,6 @@
 type: concept
 title: 안전하지 않은 작업
 description: 책이 위험하다고 명시하면서도 비상용으로 적어 둔 세 가지 작업 — 주키퍼 메타데이터를 직접 건드린다는 공통 성질과 그 경고, 컨트롤러를 강제로 옮기는 법, 삭제가 걸려 버린 토픽을 풀어 주는 법, 그리고 브로커를 전부 내리고 토픽을 손으로 지우는 절차
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 파티션과 레플리카 관리
-description: 인시던트 때 쓰는 위험한 어드민 작업 넷 — 파티션 추가가 키 기반 순서 가정을 깨뜨리는 지점과 증가분이 아니라 총수를 받는 인자, 보존 정책이 법적 준수를 보장하지 못해 필요해진 레코드 삭제, 선호 리더와 언클린 리더 선출을 같은 메서드로 강제하는 법, 그리고 레플리카 배치를 손으로 정하고 진행 중인 재할당을 취소하는 법
-generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
+description: 인시던트 때 쓰는 위험한 작업들을 코드와 명령줄 양쪽에서 — 파티션 추가가 키 기반 순서 가정을 깨뜨리는 지점과 증가분이 아니라 총수를 받는 인자, 파티션을 줄일 수 없는 이유, 보존 정책이 법적 준수를 보장하지 못해 필요해진 레코드 삭제, 선호 리더와 언클린 리더 선출을 촉발하는 법, 레플리카 배치를 손으로 정하는 3단계 재할당과 스로틀링, 복제 팩터 변경, 그리고 재할당 취소가 남기는 상태
+generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -14,14 +14,21 @@ sources:
 - [레코드 삭제](#레코드-삭제)
 - [리더 선출](#리더-선출)
 - [레플리카 재할당](#레플리카-재할당)
+- [명령줄에서 파티션 늘리기](#명령줄에서-파티션-늘리기)
+- [파티션은 줄일 수 없다](#파티션은-줄일-수-없다)
+- [명령줄에서 리더 선출](#명령줄에서-리더-선출)
+- [명령줄에서 레플리카 재할당](#명령줄에서-레플리카-재할당)
+- [재할당의 부담을 줄이는 법](#재할당의-부담을-줄이는-법)
+- [복제 팩터 바꾸기](#복제-팩터-바꾸기)
+- [재할당 취소하기](#재할당-취소하기)
 - [이어지는 페이지](#이어지는-페이지)
 
-하나의 질문: **돌아가는 클러스터의 파티션·레코드·리더·레플리카를 손으로 옮겨야 할 때 무엇을
-부르고, 각각이 무엇을 깨뜨릴 수 있는가.**
+하나의 질문: **돌아가는 클러스터의 파티션·레코드·리더·레플리카를 손으로 옮겨야 할 때 코드와
+명령줄에서 각각 무엇을 부르고, 각각이 무엇을 깨뜨릴 수 있는가.**
 
-> **버전 조건**: Kafka 0.11 이상. 이 페이지의 작업은 전부
+> **버전 조건**: Kafka 0.11 이상 — **아래 API 절들**의 작업은 전부
 > [어드민 클라이언트](../concepts/kafka-adminclient.md)를 통하며, 그 API는 0.11에서
-> 추가됐다 (5장, p.113).[^shapira2021]
+> 추가됐다 (5장, p.113).[^shapira2021] 명령줄 절의 도구들에는 이 조건이 걸리지 않는다.
 
 ## 왜 한 묶음으로 다루는가
 
@@ -156,10 +163,179 @@ sources:
   - **진행 중인 재할당은 `listPartitionReassignments`로 나열할 수 있다.**
   - **새 상태를 출력할 수도 있지만, 일관된 결과를 보이기까지 시간이 걸릴 수 있음을 기억**한다.
 
+## 명령줄에서 파티션 늘리기
+
+- 명령줄 쪽에서 파티션 추가는 토픽 도구가 맡는다 — **`kafka-topics.sh`의 `--alter` 명령에
+  `--topic`과 `--partitions`를 주며**, 책의 예는 `my-topic`을 16개로 늘린 뒤 `--describe`로
+  확인한다 (12장, p.310).[^shapira2021] 여기서도 **인자는 총수**다. 이 도구를 쓰기 전에 확인할
+  것은 [카프카 명령줄 관리 도구](../concepts/kafka-cli-admin-tools.md)에 있다.
+- 늘리는 이유를 12장은 둘로 정리한다 (12장, p.310):[^shapira2021]
+  - **가장 흔한 이유는 단일 파티션의 처리량을 낮춤으로써 토픽을 더 많은 브로커에 걸쳐 수평
+    확장하는 것.**
+  - **파티션은 그룹의 단일 멤버만 소비할 수 있으므로, 컨슈머가 한 컨슈머 그룹 안에서 복제본을
+    더 많이 돌리도록 확장해야 할 때도 늘린다.** 그 제약은
+    [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md)에 있다.
+- 키 있는 토픽에 대한 경고는 12장이 상자로 따로 남겼다 — **컨슈머 관점에서 키 있는 메시지로
+  생산되는 토픽에 파티션을 추가하는 것은 매우 어려울 수 있는데, 파티션 수가 바뀌면 키에서
+  파티션으로 가는 매핑이 바뀌기 때문이다. 그래서 키 있는 메시지를 담을 토픽의 파티션 수는
+  토픽을 만들 때 한 번 정하고 크기 조정을 피하는 것이 바람직하다** (12장,
+  p.310).[^shapira2021]
+
+## 파티션은 줄일 수 없다
+
+- **토픽의 파티션 수를 줄이는 것은 불가능하다.** 이유는 둘이다 — **토픽에서 파티션을 지우면 그
+  토픽 데이터의 일부도 함께 지워지는데 이는 클라이언트 관점에서 일관되지 않고, 남은 파티션으로
+  데이터를 재분배하려는 시도는 어려울뿐더러 메시지 순서가 어긋나게 된다** (12장,
+  p.311).[^shapira2021]
+- 그래도 줄여야 한다면 — **토픽을 지우고 다시 만들거나, (삭제가 불가능하면) 기존 토픽의 새
+  버전을 만들어 모든 생산 트래픽을 새 토픽으로 옮길 것(예: `my-topic-v2`)을 권장**한다 (12장,
+  p.311).[^shapira2021]
+
+## 명령줄에서 리더 선출
+
+- 리더십 균형이 왜 관리 대상인지부터 — **파티션의 레플리카 중 언제나 하나만 리더일 수 있고 모든
+  생산·소비 작업이 그 브로커에서 일어나므로, 어느 브로커가 어느 파티션의 리더십을 갖는지의
+  균형을 유지하는 것이 전체 클러스터에 부하를 퍼뜨리는 데 필요**하다 (12장,
+  p.326).[^shapira2021]
+- 리더의 정의와 그것이 자동으로 되돌아오지 않는다는 점 (12장, p.326):[^shapira2021]
+
+  > Leadership is defined within Kafka as the first in-sync replica in the replica list.
+  > However, when a broker is stopped or loses connectivity to the rest of the cluster,
+  > leadership is transferred to another in-sync replica, and the original does not resume
+  > leadership of any partitions automatically.
+
+  - 그 결과 **자동 리더 밸런싱이 켜져 있지 않으면 전체 클러스터에 걸친 배포 뒤 균형이 심하게
+    비효율적이 될 수 있다. 그래서 이 설정을 켜 두거나 크루즈 컨트롤 같은 다른 오픈소스 도구를
+    써서 좋은 균형이 상시 유지되게 할 것을 권장**한다 (12장, p.326).[^shapira2021]
+- 균형이 나쁠 때 쓰는 것이 **선호 리더 선출**이다 — **가볍고 대체로 영향이 없는(nonimpacting)
+  절차이며, 클러스터 컨트롤러에게 파티션의 이상적인 리더를 고르라고 알린다. 클라이언트는
+  리더십 변경을 자동으로 추적하므로 리더십이 옮겨 간 새 브로커로 따라갈 수 있다** (12장,
+  p.326).[^shapira2021] 그 이상적 리더가 무엇인지는 [위의 API 절](#리더-선출)과 같다.
+- 도구는 `kafka-leader-election.sh`이고, 모든 토픽에 대해 거는 형태는
+  `--election-type PREFERRED --all-topic-partitions`다 (12장, p.326).[^shapira2021]
+  - **이 도구의 옛 버전인 `kafka-preferred-replica-election.sh`도 여전히 있지만, "preferred"와
+    "unclean" 중 선출 유형을 지정하는 것 같은 더 많은 커스터마이즈를 허용하는 새 도구를 위해
+    지원 중단됐다** (12장, p.326).[^shapira2021] 언클린 쪽이 무엇을 버리는지는
+    [언클린 리더 선출](../concepts/kafka-unclean-leader-election.md)에 있다.
+  - 범위를 좁히려면 **`--topic`에 토픽 이름을, `--partition`에 파티션을 직접 주거나, 여러
+    파티션 목록을 담은 JSON 파일을 `--path-to-json-file`로 넘긴다** (12장,
+    pp.326–327).[^shapira2021] 그 JSON은 `{"partitions": [{"partition": 1, "topic":
+    "my-topic"}, …]}` 꼴이다.
+
+## 명령줄에서 레플리카 재할당
+
+- 손으로 레플리카 배치를 바꿔야 하는 상황을 12장은 넷으로 든다 (12장, p.327):[^shapira2021]
+  - **자동 리더 분산이 제대로 처리하지 못하는, 브로커 간 불균등한 부하가 있을 때.**
+  - **브로커가 오프라인이 되어 파티션이 불완전 복제 상태일 때.**
+  - **새 브로커를 추가해 새 파티션을 그쪽으로 더 빨리 균형 잡고 싶을 때.**
+  - **토픽의 복제 팩터를 조정하고 싶을 때.**
+- 도구는 `kafka-reassign-partitions.sh`이고 **여러 단계로 이뤄진다 — 먼저 브로커 목록과 토픽
+  목록으로 이동 집합(move set) 제안을 생성하고, 다음 단계에서 그 제안을 실행하며, 마지막으로
+  같은 도구로 재할당의 진행이나 완료를 추적·검증**한다 (12장, p.327).[^shapira2021]
+- 첫 단계의 입력이 토픽 목록 JSON이다. **버전 번호는 현재 항상 1**이며, 아래가 그 형식이다.
+  `topics-to-move-json-file`로 찾는다 (12장, p.328):[^shapira2021]
+
+  ```json
+  {
+      "topics": [
+          {
+               "topic": "foo1"
+          },
+          {
+               "topic": "foo2"
+          }
+      ],
+      "version": 1
+  }
+  ```
+
+  - 그 파일로 `--topics-to-move-json-file topics.json --broker-list 5,6 --generate`를 부르면
+    **현재 할당과 제안된 재할당 설정이 함께 출력**되고, **그 둘을
+    `revert-reassignment.json`과 `expand-cluster-reassignment.json` 두 파일로 저장**한다.
+    **앞의 것은 롤백이 필요할 때 파티션을 원래 자리로 되돌리는 데 쓰고, 뒤의 것이 다음 단계에서
+    쓸 제안**이다 (12장, p.328).[^shapira2021]
+  - 제안이 완벽하지는 않다 — 예제에서 **리더십 균형이 좋지 않아 모든 리더십이 브로커 5로
+    옮겨 가는데, 책은 자동 리더 밸런싱이 켜져 있다고 보고 무시**한다 (12장,
+    p.328).[^shapira2021]
+  - **파티션을 어디로 옮길지 정확히 알고 JSON을 손으로 만들 수 있다면 첫 단계는 건너뛸 수
+    있다** (12장, p.329).[^shapira2021]
+- 실행은 `--reassignment-json-file expand-cluster-reassignment.json --execute`이고, 그때
+  내부에서 일어나는 일이 비용의 정체다 (12장, p.329):[^shapira2021]
+
+  > The cluster controller performs this reassignment action by adding the new replicas to the
+  > replica list for each partition, which will temporarily increase the replication factor of
+  > these topics. The new replicas will then copy all existing messages for each partition from
+  > the current leader. Depending on the size of the partitions on disk, this can take a
+  > significant amount of time as the data is copied across the network to the new replicas.
+  > Once replication is complete, the controller removes the old replicas from the replica list
+  > by reducing the replication factor to the original size with the old replicas removed.
+
+- 함께 쓸 만한 옵션 셋 (12장, pp.329–330):[^shapira2021]
+  - `--additional` — **기존 재할당에 덧붙여, 원래의 이동이 끝나기를 기다리지 않고 중단 없이
+    계속 수행되게 한다.**
+  - `--disable-rack-aware` — **랙 인식 설정 때문에 제안의 최종 상태가 불가능할 수 있는데,
+    필요하면 이 명령으로 그것을 덮어쓴다.**
+  - `--throttle` — **초당 바이트 단위 값이다. 파티션 재할당은 메모리 페이지 캐시를 바꾸고
+    네트워크·디스크 I/O를 쓰기 때문에 클러스터 성능에 큰 영향을 준다. 파티션 이동을
+    스로틀링하면 이 문제를 막을 수 있고, `--additional` 태그와 조합해 이미 시작돼 문제를
+    일으키고 있는 재할당 과정에 스로틀을 걸 수도 있다.**
+- 진행 확인은 `--verify`이며 **어느 재할당이 진행 중이고 완료됐고 (에러가 있었다면) 실패했는지
+  보여 준다. 이를 위해 실행 단계에서 쓴 JSON 객체 파일이 있어야** 한다 (12장,
+  p.330).[^shapira2021] 출력은
+  `Reassignment of partition [foo1,0] completed successfully` 꼴이다 (12장, p.331).
+
+## 재할당의 부담을 줄이는 법
+
+- 브로커 하나에서 파티션을 대량으로 걷어낼 때 쓰는 요령을 책이 상자로 남겼다 — **브로커를
+  클러스터에서 빼는 경우처럼 한 브로커에서 파티션을 많이 제거할 때는 먼저 그 브로커에서 모든
+  리더십을 걷어내는 것이 유용할 수 있다. 앞의 도구로 손수 하는 것은 고된 일이고, 크루즈 컨트롤
+  같은 오픈소스 도구에는 브로커에서 리더십을 안전하게 걷어내는 브로커 격하(broker demotion)
+  기능이 있어 아마 가장 단순한 방법**이다 (12장, p.330).[^shapira2021]
+- 도구가 없으면 재시작으로 대신한다 — **브로커를 그냥 재시작하는 것으로 충분하다. 브로커가
+  셧다운을 준비하면서 그 브로커의 모든 파티션 리더십이 클러스터의 다른 브로커로 옮겨 가기
+  때문이다. 이것은 복제 트래픽이 많은 브로커로 분산되므로 재할당 성능을 크게 올리고 클러스터에
+  주는 영향을 줄인다** (12장, p.330).[^shapira2021]
+  - 다만 **브로커를 튕긴 뒤 자동 리더 재할당이 켜져 있으면 리더십이 그 브로커로 되돌아올 수
+    있으므로, 그 기능을 잠시 꺼 두는 것이 이로울 수 있다** (12장, p.330).[^shapira2021]
+
+## 복제 팩터 바꾸기
+
+- 같은 도구로 **파티션의 복제 팩터(replication factor, RF)를 올리거나 내릴 수 있다.** 필요해지는
+  상황은 **파티션이 잘못된 RF로 만들어졌을 때, 클러스터를 확장하며 이중화를 늘리고 싶을 때,
+  비용 절감을 위해 이중화를 줄이고 싶을 때**다 (12장, p.331).[^shapira2021]
+- 대표 사례가 하나 명확하다 — **클러스터 RF 기본 설정을 조정해도 기존 토픽은 자동으로 올라가지
+  않는다. 이 도구로 기존 파티션의 RF를 올린다** (12장, p.331).[^shapira2021]
+- 방법은 앞의 실행 제안과 비슷한 JSON에 **레플리카 집합에 브로커 ID를 하나 더 넣는 것**이고
+  (예: `[5,6]`에 브로커 4를 더해 `[5,6,4]`), 완료 뒤에는 **`--verify` 플래그나
+  `kafka-topics.sh --describe`로 RF가 올라갔는지 확인**한다 (12장, p.331).[^shapira2021]
+
+## 재할당 취소하기
+
+- 예전 방식이 왜 위험했는지와 지금이 왜 다른지 (12장, pp.331–332):[^shapira2021]
+
+  > Canceling a replica reassignment in the past was a dangerous process that required unsafe
+  > manual manipulation of ZooKeeper nodes (or znodes) by deleting the
+  > */admin/reassign_partitions* znode. Fortunately, this is no longer the case.
+
+  - 버전 조건: z노드를 직접 지우던 그 방식이 성립하던 것은 Kafka 3.9 이하다 — 그 뒤로는 주키퍼
+    자체가 없다([주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md)). 그런 조작이 왜 위험한지는
+    [안전하지 않은 작업](../concepts/kafka-unsafe-operations.md)에 있다.
+- 지금은 **`kafka-reassign-partitions.sh` 스크립트(그리고 그것이 감싸고 있는 AdminClient)가
+  `--cancel` 옵션을 지원해 클러스터에서 진행 중인 활성 재할당을 취소**한다 (12장,
+  p.332).[^shapira2021]
+- 취소가 무해하지는 않다 — **진행 중인 파티션 이동을 멈출 때 `--cancel` 명령은 레플리카 집합을
+  재할당이 시작되기 전 상태로 복원하도록 설계돼 있다. 그래서 죽은 브로커나 과부하 걸린
+  브로커에서 레플리카를 걷어내던 중이었다면 클러스터를 바람직하지 않은 상태로 남길 수 있다.
+  또한 복원된 레플리카 집합이 이전과 같은 순서일 것이라는 보장도 없다** (12장,
+  p.332).[^shapira2021] 레플리카 목록의 순서가 왜 중요한지는 위의
+  [선호 리더의 정의](#명령줄에서-리더-선출)에 있다.
+
 ## 이어지는 페이지
 
 - [카프카 어드민 클라이언트](../concepts/kafka-adminclient.md) — 이 작업들을 실어 나르는
   클라이언트의 설계와 수명주기
+- [카프카 명령줄 관리 도구](../concepts/kafka-cli-admin-tools.md) — 여기 쓰이는 세 도구가 속한
+  모음의 전제와 경고
 - [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 선호 리더와 인-싱크
   판정이 정의되는 곳
 - [언클린 리더 선출](../concepts/kafka-unclean-leader-election.md) — 여기서 손으로 촉발하는
@@ -168,8 +344,10 @@ sources:
   키 기반 가정
 - [토픽과 파티션](../concepts/topics-and-partitions.md) — 파티션이 확장과 복제의 단위인 이유
 - [카프카 물리적 저장소](../concepts/kafka-physical-storage.md) — 세그먼트가 보존 정책을
-  미루는 곳
+  미루는 곳이자 재할당이 복사하는 그 파일들
 - [설정 관리](../concepts/kafka-config-administration.md) — 복제 스로틀링에 쓰는 쿼터를 바꾸는
   통로
+- [안전하지 않은 작업](../concepts/kafka-unsafe-operations.md) — 재할당 취소가 예전에 속해
+  있던 범주
 
-[^shapira2021]: Shapira et al. 2021, 5장 "Managing Apache Kafka Programmatically" — 인용 블록은 p.127 원문. 코드 펜스는 p.130 예제에서 원문의 주석 번호 표식을 덜어내고 지면에서 하이픈으로 끊긴 식별자를 이었다(보탠 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 5장 "Managing Apache Kafka Programmatically"(pp.127–130)와 12장 "Administering Kafka"(pp.310–332) — 인용 블록은 5장 p.127과 12장 pp.326·329·331 원문. 자바 코드 펜스는 5장 p.130 예제에서 원문의 주석 번호 표식을 덜어내고 지면에서 하이픈으로 끊긴 식별자를 이었고, JSON 펜스는 12장 p.328 원문 그대로다(둘 다 보탠 줄 없음)

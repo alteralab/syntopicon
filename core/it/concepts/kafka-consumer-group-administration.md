@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 컨슈머 그룹 관리
-description: AdminClient로 컨슈머 그룹을 밖에서 들여다보고 바꾸는 일 — 목록 조회에서 에러를 버리는 valid와 던지는 all의 차이, 그룹 설명에 빠져 있는 커밋 오프셋을 따로 구해 랙을 계산하는 절차, 오프셋 삭제 대신 리셋을 쓰는 이유, 활성 그룹의 오프셋을 카프카가 막는 이유, 그리고 상태를 가진 애플리케이션에서 리셋이 남기는 이중 집계
-generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
+description: 컨슈머 그룹을 밖에서 들여다보고 바꾸는 일을 코드와 명령줄 양쪽에서 — 목록 조회에서 에러를 버리는 valid와 던지는 all의 차이, 그룹 설명에 빠져 있는 커밋 오프셋을 따로 구해 랙을 계산하는 절차, 오프셋 삭제 대신 리셋을 쓰는 이유, 활성 그룹의 오프셋을 카프카가 막는 이유, kafka-consumer-groups.sh의 출력 필드와 그룹 삭제 조건, 그리고 오프셋을 CSV로 내보내고 다시 넣는 절차
+generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -15,14 +15,18 @@ sources:
 - [커밋 오프셋과 랙 구하기](#커밋-오프셋과-랙-구하기)
 - [그룹 수정하기](#그룹-수정하기)
 - [오프셋 리셋이 걸리는 두 곳](#오프셋-리셋이-걸리는-두-곳)
+- [명령줄에서 그룹 조회하기](#명령줄에서-그룹-조회하기)
+- [그룹 삭제하기](#그룹-삭제하기)
+- [오프셋 내보내기와 가져오기](#오프셋-내보내기와-가져오기)
 - [이어지는 페이지](#이어지는-페이지)
 
-하나의 질문: **애플리케이션 밖에서 컨슈머 그룹과 그 그룹이 커밋한 오프셋을 어떻게 조회하고
-바꾸며, 그 조작이 걸리는 곳은 어디인가.**
+하나의 질문: **애플리케이션 밖에서 컨슈머 그룹과 그 그룹이 커밋한 오프셋을 코드와 명령줄에서
+어떻게 조회하고 바꾸며, 그 조작이 걸리는 곳은 어디인가.**
 
-> **버전 조건**: Kafka 0.11 이상. 이 페이지의 작업은 전부
+> **버전 조건**: Kafka 0.11 이상 — **아래 API 절들**의 작업은 전부
 > [어드민 클라이언트](../concepts/kafka-adminclient.md)를 통하며, 그 API는 0.11에서
-> 추가됐다 (5장, p.113).[^shapira2021]
+> 추가됐다 (5장, p.113).[^shapira2021] 명령줄 절의 `kafka-consumer-groups.sh`에는 이 조건이
+> 걸리지 않는다.
 
 ## 왜 그룹을 밖에서 건드리는가
 
@@ -38,8 +42,8 @@ sources:
   장애 조치 상황에서 애플리케이션을 새 클러스터에서 돌리도록 준비하는 경우가 또
   하나**다 (5장, p.123).[^shapira2021] 두 번째 상황의 전모는
   [카프카 클러스터 장애 조치](../concepts/kafka-cluster-failover.md)에 있다.
-- 같은 작업을 하는 외부 툴은 같은 책 12장 "Administering Kafka"가 다루며 (12장,
-  p.305),[^shapira2021] 이 KB에는 아직 반입돼 있지 않다. 이 페이지는 API 각도만 담는다.
+- 같은 작업을 하는 외부 도구는 같은 책 12장이 다루며, 그 절차는
+  [아래 명령줄 절](#명령줄에서-그룹-조회하기)에 있다 (12장, p.312).[^shapira2021]
 
 ## 그룹 열거하기
 
@@ -154,18 +158,94 @@ sources:
   - **그러므로 저장된 상태도 그에 맞게 갱신해야 한다. 개발 환경에서는 보통 입력 토픽의 시작으로
     오프셋을 리셋하기 전에 상태 저장소를 통째로 삭제한다** (5장, p.126).[^shapira2021]
 
+## 명령줄에서 그룹 조회하기
+
+- 도구는 하나다 — **`kafka-consumer-groups.sh`는 클러스터에서 토픽을 소비 중인 컨슈머 그룹을
+  관리하고 그에 대한 통찰을 얻게 해 주며, 그룹 목록 조회·특정 그룹 설명·컨슈머 그룹이나 특정
+  그룹 정보 삭제·컨슈머 그룹 오프셋 정보 리셋에 쓸 수 있다** (12장, p.312).[^shapira2021]
+  이 도구를 쓰기 전에 확인할 것은
+  [카프카 명령줄 관리 도구](../concepts/kafka-cli-admin-tools.md)에 있다.
+- 옛 스크립트에 남아 있는 함정이 하나 있다 (12장, p.312):[^shapira2021]
+  - 버전 조건: Kafka 0.11.0 이상 — **옛 버전에서는 컨슈머 그룹을 주키퍼에서 관리·유지할 수
+    있었지만 그 동작은 0.11.0.* 이후 버전에서 지원 중단됐고 옛 컨슈머 그룹은 더 이상 쓰이지
+    않는다.**
+  - **제공되는 스크립트의 일부 버전은 여전히 지원 중단된 `--zookeeper` 접속 문자열 명령을 보여
+    줄 수 있지만, 나중 버전으로 업그레이드되지 않은 컨슈머 그룹이 있는 오래된 환경이 아니라면
+    쓰는 것을 권장하지 않는다** (12장, p.312).[^shapira2021] 주키퍼가 어떤 순서로 물러났는지는
+    [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md)에 있다.
+- 목록은 `--bootstrap-server`와 `--list`다. **이 스크립트를 쓰는 임시(ad hoc) 컨슈머는 목록에
+  `console-consumer-<generated_id>` 꼴로 나타난다** (12장, p.312).[^shapira2021] 그 임시
+  컨슈머의 정체는
+  [콘솔 프로듀서와 콘솔 컨슈머](../concepts/kafka-console-producer-and-consumer.md)에 있다.
+- 상세는 **`--list`를 `--describe`로 바꾸고 `--group` 매개변수를 더하는 것**이며, **그룹이
+  소비 중인 모든 토픽과 파티션, 그리고 각 토픽 파티션의 오프셋 같은 추가 정보를 나열**한다
+  (12장, p.312).[^shapira2021]
+- 출력 필드는 아홉이고 책이 표 12-1로 정의한다 (12장, p.313):[^shapira2021]
+  - `GROUP`·`TOPIC`·`PARTITION` — **컨슈머 그룹 이름, 소비 중인 토픽 이름, 소비 중인 파티션의
+    ID.**
+  - `CURRENT-OFFSET` — **이 토픽 파티션에 대해 컨슈머 그룹이 다음에 소비할 오프셋. 파티션 안
+    컨슈머의 위치다.**
+  - `LOG-END-OFFSET` — **브로커가 가진 그 토픽 파티션의 현재 하이 워터마크 오프셋. 이
+    파티션에 생산될 다음 메시지의 오프셋이다.**
+  - `LAG` — **이 토픽 파티션에 대한 컨슈머의 `CURRENT-OFFSET`과 브로커의 `LOG-END-OFFSET`의
+    차이.** 코드로 같은 값을 구하는 절차가 [위 절](#커밋-오프셋과-랙-구하기)이다.
+  - `CONSUMER-ID`·`HOST`·`CLIENT-ID` — **주어진 client-id를 바탕으로 생성된 고유
+    consumer-id, 컨슈머 그룹이 읽고 있는 호스트의 주소, 그룹에서 소비 중인 클라이언트를
+    식별하는 문자열.**
+
+## 그룹 삭제하기
+
+- **`--delete` 인자로 컨슈머 그룹을 삭제할 수 있고, 이것은 그룹이 소비 중인 모든 토픽에 대해
+  저장된 모든 오프셋을 포함해 그룹 전체를 제거**한다 (12장, p.313).[^shapira2021]
+- 조건이 하나 붙는다 — **이 작업을 하려면 그룹의 모든 컨슈머가 셧다운돼 있어야 하고 컨슈머
+  그룹에 활성 멤버가 없어야 한다. 비어 있지 않은 그룹을 지우려 하면 "The group is not empty"
+  에러가 던져지고 아무 일도 일어나지 않는다** (12장, p.313).[^shapira2021] 이 제약이 왜
+  존재하는지는 [위의 리셋 절](#오프셋-리셋이-걸리는-두-곳)과 같은 이유다.
+- 부분 삭제도 된다 — **같은 명령에 `--topic` 인자로 어느 토픽의 오프셋을 지울지 지정하면 그룹
+  전체를 지우지 않고 그룹이 소비 중인 토픽 하나의 오프셋만 삭제**할 수 있다 (12장,
+  p.313).[^shapira2021]
+
+## 오프셋 내보내기와 가져오기
+
+- 왜 필요한가 — **컨슈머 그룹의 오프셋을 표시하고 삭제하는 것 말고도 오프셋을 가져와 새
+  오프셋을 일괄로 저장하는 것이 가능하다. 메시지를 다시 읽어야 하는 문제가 생겨 오프셋을
+  리셋할 때, 또는 컨슈머가 처리하지 못하는 메시지(형식이 깨진 메시지 같은)를 건너뛰려고 오프셋을
+  앞으로 옮길 때 유용**하다 (12장, p.314).[^shapira2021]
+- 내보내기는 **`--reset-offsets` 인자와 `--dry-run` 옵션**을 함께 쓴다 — **현재 오프셋을 나중에
+  가져오거나 롤백하는 데 재사용할 수 있는 파일 형식으로 내보낼 수 있게 해 주며**, CSV 형식은
+  `<topic-name>,<partition-number>,<offset>`이다 (12장, p.314).[^shapira2021]
+  - **`--dry-run` 없이 같은 명령을 실행하면 오프셋이 완전히 리셋되므로 주의**한다 (12장,
+    p.314).[^shapira2021]
+  - 책의 예는 `--export --group my-consumer --topic my-topic --reset-offsets --to-current
+    --dry-run > offsets.csv` 꼴로 파일에 흘려보낸다 (12장, p.314).[^shapira2021]
+- 가져오기는 **내보내기의 반대로, 앞 절에서 만든 파일을 받아 컨슈머 그룹의 현재 오프셋을
+  설정**한다. **흔한 관행은 현재 오프셋을 내보내고, 백업을 위해 파일을 복사해 둔 뒤, 사본을
+  편집해 원하는 값으로 바꾸는 것**이다 (12장, pp.314–315).[^shapira2021] 실행은
+  `--reset-offsets --group my-consumer --from-file offsets.csv --execute`이고 결과는
+  `TOPIC`·`PARTITION`·`NEW-OFFSET` 표로 찍힌다 (12장, p.315).[^shapira2021]
+- 여기에도 경고 상자가 붙는데, API 쪽이 예외로 막는 그 일을 CLI에서는 조용히 잃는다는 점이
+  중요하다 (12장, p.315):[^shapira2021]
+
+  > Before performing this step, it is important that all consumers in the group are stopped.
+  > They will not read the new offsets if they are written while the consumer group is active.
+  > The consumers will just overwrite the imported offsets.
+
 ## 이어지는 페이지
 
 - [카프카 어드민 클라이언트](../concepts/kafka-adminclient.md) — 이 작업들을 실어 나르는
   클라이언트의 설계와 수명주기
+- [카프카 명령줄 관리 도구](../concepts/kafka-cli-admin-tools.md) —
+  `kafka-consumer-groups.sh`가 속한 도구 모음의 전제와 경고
 - [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) — 여기서
   설명하고 리셋하는 그 그룹의 내부 절차
 - [오프셋 커밋 전략](../concepts/kafka-offset-commit-strategies.md) — 컨슈머가 스스로 커밋하고
   되감는 쪽
 - [컨슈머 설정](../concepts/kafka-consumer-configuration.md) — `auto.offset.reset`과 파티션
   할당 전략
+- [콘솔 프로듀서와 콘솔 컨슈머](../concepts/kafka-console-producer-and-consumer.md) — 오프셋
+  토픽을 직접 열어 보는 쪽, 그리고 목록에 보이는 임시 컨슈머의 출처
 - [카프카 클러스터 장애 조치](../concepts/kafka-cluster-failover.md) — 그룹 오프셋을 손으로
   옮기게 되는 대표 상황
 - [설정 관리](../concepts/kafka-config-administration.md) — 같은 클라이언트로 하는 설정 쪽 작업
 
-[^shapira2021]: Shapira et al. 2021, 5장 "Managing Apache Kafka Programmatically"(12장 참조는 12장 "Administering Kafka" 첫 쪽) — 코드 펜스는 p.126 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 5장 "Managing Apache Kafka Programmatically"(pp.123–126)와 12장 "Administering Kafka"(pp.312–315) — 인용 블록은 p.315 경고 상자 원문. 코드 펜스는 5장 p.126 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음)

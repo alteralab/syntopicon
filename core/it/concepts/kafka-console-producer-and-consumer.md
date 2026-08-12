@@ -2,7 +2,6 @@
 type: concept
 title: 콘솔 프로듀서와 콘솔 컨슈머
 description: 애플리케이션을 쓰지 않고 토픽에 손으로 쓰고 읽어 보는 두 유틸리티 — 자바 클라이언트를 감싼 껍데기라 다른 프로그램에 파이프로 물리면 안 되는 이유, 콘솔 프로듀서의 키 구분자와 설정 전달 방식, 콘솔 컨슈머의 토픽 선택과 포매터, 그리고 내부 오프셋 토픽을 열어 보는 형태
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

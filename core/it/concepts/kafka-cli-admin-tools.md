@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 명령줄 관리 도구
 description: 카프카 배포판이 함께 주는 CLI 관리 도구를 쓰기 전에 성립하는 전제들 — 자바 클래스를 부르는 스크립트라는 실체와 그것이 못 하는 일, 기본 설정에서는 인증 없이 실행된다는 경고, 브로커와 버전을 맞춰야 하는 이유, 접속 문자열과 도구가 놓인 자리, 그리고 이 장이 이름만 대고 지나가는 나머지 도구들
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

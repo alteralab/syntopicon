@@ -2,7 +2,6 @@
 type: concept
 title: 로그 세그먼트 덤프와 레플리카 검증
 description: 소비하지 않고 브로커 디스크를 직접 들여다보는 두 도구 — 포이즌 필 메시지를 열어 보는 로그 세그먼트 덤프와 그것이 찍어 주는 배치 메타데이터, 인덱스 손상을 검사하는 두 단계 옵션, 그리고 레플리카들이 서로 같은지 확인하는 검증 도구와 그것이 클러스터에 지우는 부담
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
