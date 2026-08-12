@@ -32,10 +32,13 @@ cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.clau
 읽기는 **KB 횡단이 기본**이다. `--kb`로 좁히는 것은 사용자가 요구할 때만.
 
 ```
-qmd query "<질의>"                       # 하이브리드 (있으면 1순위)
-uv run --group index tools/ksearch.py "<질의>"   # 한국어 형태소 레그
-rg -n "<영문 부분문자열>"                  # 영문 substring 폴백
+uv run --group index tools/search.py "<질의>"    # qmd + 형태소 + 리터럴 세 갈래
 ```
+
+세 갈래를 한 번에 돌리고 질의 계측(갈래별 건수·지연·miss)을 stats.sqlite에
+자동 기록한다. 갈래가 빠지면(qmd 미설치 등) 결과에 크게 표시된다 — 조용한
+생략 없음. 한 갈래만 따로 볼 일(디버깅)이 있을 때만 `qmd query "<질의>"`나
+`tools/ksearch.py`를 직접 부른다.
 
 한국어 질의는 확장 없이 그대로 던진다 — 질의 확장은 영어 쪽으로 기운다.
 형태소 레그가 조사 변형·활용형을, qmd 음절 레그가 부분 일치를 맡는다.
@@ -62,17 +65,11 @@ uv run tools/edges.py backlinks <경로>
 ## ④ 공백 평가
 
 KB가 답하지 못하면 **그렇다고 말한다.** 없는 것을 있는 것처럼 내놓는 순간
-출처 라벨 전체가 무의미해진다. 공백은 이벤트로 남긴다 — 계측되지 않는 공백은
-영영 메워지지 않는다.
+출처 라벨 전체가 무의미해진다.
 
-```
-uv run python -c "
-import sys; sys.path.insert(0,'tools')
-from syntopicon import stats
-with stats.connect() as db:
-    db.execute('INSERT INTO search_miss VALUES (?,?,?)', (stats.now(), '<kb>', '<질의>'))
-"
-```
+공백 계측은 ②의 search.py가 자동으로 한다 — 세 갈래 모두 0건이면 search_miss에
+남는다(손 기록 시절 실측 0건이라 도구로 내렸다). 검색은 됐지만 답이 못 되는
+공백은 답변에서 그렇다고 말하는 것까지가 이 단계다.
 
 ## ⑤ 웹은 공백에 한해
 

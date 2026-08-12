@@ -221,12 +221,12 @@ git은 마지막 문단만 트레일러로 보고, 그 문단이 전부 `키: �
 
 ## 9. 승급·재색인·커밋 [자동] — 한 덩어리다
 
+한 덩어리는 코드다 — promote가 merge, reindex, qmd 색인(update·embed·cleanup),
+lint를 순서대로 돌리고 런 계측을 stats.sqlite에 남긴다. 중간이 실패하면 남은
+단계를 밝히고 멈춘다.
+
 ```
-uv run tools/merge.py --all --kb <kb>   # 승급
-uv run tools/reindex.py                 # 메타 + edges + 형태소
-qmd update && qmd embed                 # qmd 색인 (설치돼 있으면)
-qmd cleanup                             # 고아 벡터 정리 — 편집·이동마다 실제로 샌다 (실측 3회)
-uv run --group index tools/lint.py      # 승급 후 확인 (양식의 마지막 절)
+uv run --group index tools/promote.py --kb <kb>
 # it/archive/<citekey>/_progress.yaml 갱신 — covered·skipped·next
 git add -A <kb>/ && git commit          # 트레일러: Ingest-Run
 ```
@@ -240,9 +240,8 @@ git add -A <kb>/ && git commit          # 트레일러: Ingest-Run
 런 에이전트가 잡았다. 겹친 허브 파일은 파일 단위로 갈리지 않아 뒤 커밋으로 넘겼다.
 **다음 런을 띄우기 전에 워킹 트리가 비어 있는지 본다.**
 
-편집된 페이지는 청크 전량을 다시 만든다 — 옛 벡터가 남으면 조용히 오답을 낸다.
-`cleanup`을 거르면 옛 경로의 벡터가 인덱스에 남는다 — 컬렉션 제거·inbox 승격·
-페이지 수정에서 각각 관측됐다.
+옛 벡터의 정리(qmd cleanup)가 필요한 이유와 실측은 promote.py가 소유한다 —
+거를 수 있는 손 절차였을 때 세 번 샜고, 지금은 사슬에 박혀 있다.
 
 ## 역방향
 
