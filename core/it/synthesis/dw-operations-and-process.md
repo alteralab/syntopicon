@@ -19,6 +19,11 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 
 - [ETL 서브시스템](../concepts/etl-subsystems.md) — 34종의 4그룹 압축
 - [지각 도착 데이터](../concepts/late-arriving-data.md) — 지각 팩트·차원 처리 규칙
+- [데이터 파이프라인 설계 고려사항](../concepts/kafka-data-pipeline-considerations.md) — 같은 ETL·ELT 판단을 스트리밍 파이프라인 쪽에서 본 것. 적시성·신뢰성·처리량·장애 처리까지 여덟 축
+
+## 스트리밍 쪽 접점
+
+- [카프카 커넥트와 데이터 파이프라인](kafka-connect-and-pipelines.md) — 변경 데이터 캡처와 데드 레터 큐가 여기 서브시스템들과 맞물리는 허브
 
 ## 물리화와 증분 처리
 

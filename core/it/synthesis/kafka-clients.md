@@ -45,3 +45,4 @@ generated: { by: "human:me", at: "2026-08-12T09:00:00Z" }
 - [카프카 내부 구조](kafka-internals.md) — 클라이언트가 보낸 요청을 브로커가 처리하는 쪽
 - [카프카 신뢰성과 정확히 한 번](kafka-reliability.md) — 이 설정들이 지키려는 보장, 그리고 멱등적 프로듀서와 트랜잭션
 - [카프카 설치와 운영](kafka-operations.md) — 세 번째 클라이언트인 AdminClient로 하는 관리 작업이 그쪽 "프로그램으로 관리하기"에 있다
+- [카프카 커넥트와 데이터 파이프라인](kafka-connect-and-pipelines.md) — 코드를 고칠 수 없는 외부 저장소가 상대일 때 이 클라이언트들 대신 쓰는 쪽
