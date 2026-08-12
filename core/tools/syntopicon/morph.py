@@ -242,9 +242,7 @@ def sections(text: str, md):
         yield (title, line, *cut(line - 1, end))
 
 
-def anchor(title: str | None) -> str | None:
-    """GitHub 헤딩 앵커. 소문자화 + 공백→하이픈 + 영숫자·하이픈·한글만 남긴다."""
-    if title is None:
-        return None
-    slug = re.sub(r"[^\w\s-]", "", title.strip().lower(), flags=re.UNICODE)
-    return re.sub(r"\s+", "-", slug)
+# 앵커 계산은 mdfile.heading_anchor가 유일한 구현이다 — 여기 있던 사본은 `\s+`를
+# 하이픈 하나로 접어 GitHub 실동작(`제목 — 부제` → `제목--부제`)과 갈라졌고, 색인의
+# 엠대시 헤딩 앵커 전부가 무효였다(2026-08-13 실측). 색인 쪽 소비자는 index_db가
+# mdfile.anchors_by_line로 직접 계산한다.

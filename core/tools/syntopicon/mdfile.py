@@ -202,6 +202,38 @@ def _has_prose(children: list[Token]) -> bool:
     return False
 
 
+def heading_anchor(text: str) -> str:
+    """GitHub 앵커 1개. 소문자화, 영숫자·공백·하이픈·언더스코어 외 제거, 공백을 하이픈으로.
+
+    **공백은 하나씩 하이픈이 된다 — `\\s+` 접기 금지.** 구두점이 사라지면서 양쪽
+    공백이 하이픈 둘로 남는 것(`제목 — 부제` → `제목--부제`)이 GitHub 실동작이고
+    실측된 함정이다. 이 함수가 앵커 계산의 **유일한 구현**이다 — 색인(index_db)과
+    검사(checks/page)가 따로 들고 있던 시절 `\\s+` 접기 차이로 갈라져, 엠대시 헤딩
+    54개 파일의 색인 앵커가 전부 무효였다(2026-08-13 실측).
+    """
+    kept = "".join(c for c in text.lower() if c.isalnum() or c in " -_")
+    return kept.replace(" ", "-")
+
+
+def anchors_by_line(headings) -> dict[int, str]:
+    """헤딩 시작 줄 → 최종 앵커. 같은 앵커가 반복되면 GitHub은 `-1`·`-2`를 덧붙인다 —
+    그 순번은 **페이지 전체 헤딩 순서**로 매겨지므로 부분 집합(H2 이하만)으로
+    계산하면 틀린다. 소비자는 여기서 전체를 받아 자기 줄만 골라 쓴다."""
+    seen: dict[str, int] = {}
+    anchors: dict[int, str] = {}
+    for _, line, text in headings:
+        base = heading_anchor(text)
+        n = seen.get(base, 0)
+        anchors[line] = base if n == 0 else f"{base}-{n}"
+        seen[base] = n + 1
+    return anchors
+
+
+def page_anchors(headings) -> set[str]:
+    """페이지의 실제 앵커 전부 — 앵커 링크 검증(lint)의 우변."""
+    return set(anchors_by_line(headings).values())
+
+
 def read(absolute: Path, relative: Path) -> MdFile:
     # BOM은 벗겨서 파싱한다 — 앞에 붙으면 frontmatter 구분선 인식이 통째로 죽어
     # "type 없음"이라는 엉뚱한 오류가 된다(적대 배터리 실측).

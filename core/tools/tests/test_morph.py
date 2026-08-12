@@ -139,8 +139,35 @@ def test_코드_펜스는_원문에_남고_색인에서만_빠진다(tmp_path):
 
 
 def test_앵커는_GitHub_규칙을_따른다():
-    assert morph.anchor("읽기와 quorum") == "읽기와-quorum"
-    assert morph.anchor("5.4 절: 읽기 경로") == "54-절-읽기-경로"
+    """앵커 계산의 유일한 구현은 mdfile이다 — 색인과 검사가 사본을 따로 들던 시절
+    `\\s+` 접기 차이로 갈라져 엠대시 헤딩 54개 파일의 색인 앵커가 무효였다."""
+    from syntopicon.mdfile import anchors_by_line, heading_anchor, page_anchors
+
+    assert heading_anchor("읽기와 quorum") == "읽기와-quorum"
+    assert heading_anchor("5.4 절: 읽기 경로") == "54-절-읽기-경로"
+    # 구두점 양쪽 공백은 하이픈 둘로 남는다 — 접으면 GitHub과 갈라진다(실측 함정).
+    assert heading_anchor("acks — 내구성의 다이얼") == "acks--내구성의-다이얼"
+
+    headings = ((1, 1, "제목"), (2, 5, "같은 절"), (2, 9, "같은 절"))
+    assert anchors_by_line(headings) == {1: "제목", 5: "같은-절", 9: "같은-절-1"}
+    assert page_anchors(headings) == {"제목", "같은-절", "같은-절-1"}
+
+
+def test_색인_앵커도_같은_구현을_쓴다(repo: Repo):
+    """엠대시 헤딩의 색인 앵커에 하이픈 둘이 남아야 한다 — 사본 시절의 회귀 감시."""
+    import sqlite3
+
+    repo.kb_new("it", "IT 지식", "설명")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.write("it/concepts/producer-acks.md", concept(
+        body=f"\n## acks — 내구성의 다이얼\n\n응답 조건을 고른다.[^{DDIA}]\n"
+             f"\n[^{DDIA}]: 3장\n"))
+    repo.run("reindex.py")
+
+    with sqlite3.connect(repo.root / "derived.sqlite") as db:
+        anchors = {row[0] for row in db.execute(
+            "SELECT anchor FROM morph WHERE anchor IS NOT NULL")}
+    assert "acks--내구성의-다이얼" in anchors
 
 
 # ── CLI ──────────────────────────────────────────────────────────────────────

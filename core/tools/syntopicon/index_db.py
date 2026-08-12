@@ -20,7 +20,7 @@ from pathlib import Path
 
 from . import morph
 from .layout import Layout
-from .mdfile import read
+from .mdfile import anchors_by_line, read
 from .repo import ROOT, visible_files
 
 DB_PATH = ROOT / "derived.sqlite"
@@ -131,11 +131,14 @@ def build(layout: Layout) -> Counts:
 
         if with_morph:
             text = raw.decode()
+            # 앵커는 페이지 전체 헤딩 순서로 계산한다(중복 `-n` 순번이 전체 기준) —
+            # 검사(checks/page)와 같은 mdfile 단일 구현을 쓴다.
+            anchors = anchors_by_line(md.headings)
             # raw는 사람이 볼 스니펫(코드 포함), prose는 색인 대상(코드 제외) — morph.sections 참조
             for title, line, section_raw, prose in morph.sections(text, md):
                 if not section_raw.strip():
                     continue
-                sections.append((str(relative), morph.anchor(title), line,
+                sections.append((str(relative), anchors.get(line), line,
                                  section_raw, morph.index_text(prose)))
             fragments += [
                 (str(relative), fragment.surface, " ".join(fragment.pieces))

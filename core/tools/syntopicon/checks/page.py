@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 from urllib.parse import unquote
 
-from ..mdfile import MdFile
+from ..mdfile import MdFile, page_anchors
 from .base import Context, Finding, kind
 from .provenance import check_progress, check_snapshot
 
@@ -146,28 +146,6 @@ def check_page(ctx: Context, path: str, md: MdFile):
 
     yield from check_snapshot(kb, path, front)
     yield from check_progress(kb, path, front, ctx.progress_validator)
-
-
-def heading_anchor(text: str) -> str:
-    """GitHub 앵커 1개. 소문자화 → 영숫자·공백·하이픈·언더스코어 외 제거 → 공백을 하이픈으로.
-
-    구두점이 사라지면서 **양쪽 공백이 하이픈 둘로 남는 것**이 실측된 함정이다
-    (`제목 — 부제` → `제목--부제`). 손으로 쓴 목차는 하이픈을 하나만 적는다.
-    """
-    kept = "".join(c for c in text.lower() if c.isalnum() or c in " -_")
-    return kept.replace(" ", "-")
-
-
-def page_anchors(headings) -> set[str]:
-    """페이지의 실제 앵커 전부. 같은 앵커가 반복되면 GitHub은 `-1`·`-2`를 덧붙인다."""
-    seen: dict[str, int] = {}
-    anchors = set()
-    for _, _, text in headings:
-        base = heading_anchor(text)
-        n = seen.get(base, 0)
-        anchors.add(base if n == 0 else f"{base}-{n}")
-        seen[base] = n + 1
-    return anchors
 
 
 def _inline_dollar_math(text: str) -> bool:
