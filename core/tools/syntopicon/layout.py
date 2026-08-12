@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from functools import cache
 from pathlib import Path
 
 import yaml
@@ -56,8 +55,14 @@ class Layout:
         return None
 
 
-@cache
 def load() -> Layout:
+    """layout.yaml을 읽어 Layout을 만든다 — 부를 때마다 현재를 읽는다.
+
+    @cache를 두지 않는 이유는 repo.visible_files와 같은 결정이다: 상태를 묻는
+    함수의 숨은 memoization은 무효화를 잊는 쪽으로만 틀리고(같은 stale 버그 2회),
+    한 연산 안의 고정 스냅샷은 호출자가 결과를 들고 있으면 된다 — 실제로 모든
+    도구가 main에서 한 번 떠서 인자로 내린다.
+    """
     raw = yaml.safe_load(LAYOUT_PATH.read_text())
     shared, kb, index = raw["shared_assets"], raw["kb"], raw["index"]
     return Layout(

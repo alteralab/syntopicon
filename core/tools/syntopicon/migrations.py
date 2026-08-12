@@ -6,7 +6,6 @@
 
 from __future__ import annotations
 
-from functools import cache
 from pathlib import Path
 
 from markdown_it.token import Token
@@ -37,9 +36,12 @@ def _rows(tokens: list[Token], start: int) -> list[list[str]]:
     return rows
 
 
-@cache
 def retired_keys() -> frozenset[str]:
-    """결번 대장 1열의 키 이름 집합. 표가 비어 있으면 빈 집합."""
+    """결번 대장 1열의 키 이름 집합. 표가 비어 있으면 빈 집합.
+
+    부를 때마다 현재 대장을 읽는다(@cache 없음 — layout.load와 같은 결정).
+    소비자는 validate가 실행당 1회뿐이다.
+    """
     if not MIGRATIONS_PATH.is_file():
         return frozenset()
 

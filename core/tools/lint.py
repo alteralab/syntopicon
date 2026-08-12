@@ -88,6 +88,9 @@ class Context:
     overlap_full: bool = False        # 전쌍 비교 (부트스트랩·분기) — 기본은 changed×전체
     meta: dict[str, dict] = field(default_factory=dict)
     epistemic: frozenset[str] = frozenset()
+    #: `_progress.yaml` 검증기 — 스키마 적재는 실행당 1회여야 하므로(@cache 제거 후
+    #: schemas.load()는 부를 때마다 파일을 읽는다) 페이지 루프 밖에서 만들어 들고 다닌다.
+    progress_validator: Draft202012Validator | None = None
 
     def kb_of(self, path: str) -> str:
         return path.split("/", 1)[0]
@@ -425,7 +428,7 @@ def check_page(ctx: Context, path: str, md: MdFile):
                           f"Obsidian 전용 문법 {match.group()} — GFM 부분집합만 씁니다", kb, path)
 
     yield from _check_snapshot(kb, path, front)
-    yield from _check_progress(kb, path, front)
+    yield from _check_progress(kb, path, front, ctx.progress_validator)
 
 
 def heading_anchor(text: str) -> str:
@@ -522,7 +525,7 @@ UNITS_FOR = {"book": {"page", "chapter"}, "webpage": {"url"},
              "paper": {"whole"}, "paper-conference": {"whole"}}
 
 
-def _check_progress(kb: str, path: str, front: dict):
+def _check_progress(kb: str, path: str, front: dict, validator: Draft202012Validator):
     """`archive/<citekey>/_progress.yaml` — 재개점의 정본(SCHEMA·kb-ingest 4단계).
 
     validate가 아니라 lint인 이유는 `archive/`가 git 밖이라서다 — `_check_snapshot`이
@@ -543,8 +546,6 @@ def _check_progress(kb: str, path: str, front: dict):
         yield Finding("progress-invalid", "error", f"_progress.yaml 파싱 실패: {error}", kb, path)
         return
 
-    validator = Draft202012Validator({"$ref": "progress.yaml#"},
-                                     registry=schemas.load().registry)
     for error in sorted(validator.iter_errors(document), key=lambda e: list(e.path)):
         where = "/".join(str(p) for p in error.path) or "(루트)"
         yield Finding("progress-invalid", "error",
@@ -643,6 +644,8 @@ def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str
     return Context(
         layout=layout, connection=connection, files=files, changed=changed, meta=meta,
         epistemic=frozenset(vocabulary["epistemic"]["tokens"]),
+        progress_validator=Draft202012Validator(
+            {"$ref": "progress.yaml#"}, registry=schemas.load().registry),
     )
 
 

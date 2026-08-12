@@ -14,7 +14,6 @@ from __future__ import annotations
 import re
 import unicodedata
 from dataclasses import dataclass
-from functools import cache
 from pathlib import Path
 
 import yaml
@@ -78,15 +77,29 @@ def available() -> bool:
     return True
 
 
-@cache
-def _kiwi():
-    from kiwipiepy import Kiwi
+_kiwi_engine = None
 
-    kiwi = Kiwi()
-    entries = yaml.safe_load(USER_DICT.read_text()).get("entries") or []
-    for entry in entries:
-        kiwi.add_user_word(entry["form"], entry.get("pos", "NNP"), entry.get("score", 0.0))
-    return kiwi
+
+def _kiwi():
+    """형태소 엔진의 지연 생성 싱글턴 — 적재가 수백 ms라 호출마다 만들 수 없다.
+
+    @cache가 아니라 명시 전역인 이유: 숨은 memoization은 입력(user-dict.yaml)이
+    첫 호출 시점에 박제된다는 사실 자체를 감춘다. 박제는 여기 성문한다 — 사전
+    변경은 다음 프로세스(도구 재실행)부터 반영되며, CLI 단발 프로세스라 그 창은
+    한 실행 안이다. 사전을 넣고 재색인하는 절차(kb-lint의 morph-fragmentation
+    안내)가 어차피 재실행이라 실질 표류는 없다.
+    """
+    global _kiwi_engine
+    if _kiwi_engine is None:
+        from kiwipiepy import Kiwi
+
+        engine = Kiwi()
+        entries = yaml.safe_load(USER_DICT.read_text()).get("entries") or []
+        for entry in entries:
+            engine.add_user_word(entry["form"], entry.get("pos", "NNP"),
+                                 entry.get("score", 0.0))
+        _kiwi_engine = engine
+    return _kiwi_engine
 
 
 def base_tag(tag: str) -> str:

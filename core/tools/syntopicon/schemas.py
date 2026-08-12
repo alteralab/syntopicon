@@ -7,7 +7,6 @@ type 어휘의 정본은 schema/*.yaml이다. layout.yaml은 그룹 **이름**�
 from __future__ import annotations
 
 from dataclasses import dataclass
-from functools import cache
 from pathlib import Path
 
 import yaml
@@ -40,8 +39,13 @@ class Schemas:
         )
 
 
-@cache
 def load() -> Schemas:
+    """schema/*.yaml을 읽어 검증기를 만든다 — 부를 때마다 현재를 읽는다.
+
+    @cache 없음 — layout.load와 같은 결정(상태의 숨은 memoization 금지). 도구는
+    main에서 한 번 떠서 인자로 내리고, 루프 안에서 부르지 않는다(lint의 progress
+    검증기는 Context에 한 번 만들어 둔다).
+    """
     documents = {p.name: yaml.safe_load(p.read_text()) for p in SCHEMA_DIR.glob("*.yaml")}
 
     # $schema를 가진 것만 JSON Schema 리소스다. layout/vocabulary/user-dict는 설정이다.

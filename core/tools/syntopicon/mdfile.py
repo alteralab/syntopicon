@@ -7,7 +7,6 @@ regex는 문자집합 검증(정규 언어 그 자체)에만 쓴다.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from functools import cache
 from pathlib import Path
 from typing import Iterator
 
@@ -17,20 +16,23 @@ from markdown_it.token import Token
 from mdit_py_plugins.footnote import footnote_plugin
 from mdit_py_plugins.front_matter import front_matter_plugin
 
+#: 방언 = CommonMark + GFM 부분집합(테이블·각주). 그 이상은 켜지 않는다.
+#: linkify는 끈다 — 맨 URL의 자동 링크화는 규약에 없는 문법이고, 켜면
+#: 본문에 적은 URL이 edges 파싱에 링크로 섞여 든다.
+#:
+#: 모듈 상수다(@cache 아님) — 입력이 없는 불변 설정 객체라 상태가 아니고,
+#: 상태가 아닌 것은 상수 선언이 정직한 표현이다. 상태를 memoize하던 자리들
+#: (layout·schemas·migrations)과 성격이 달라 제거가 아니라 상수화로 조치했다.
+_PARSER = (
+    MarkdownIt("commonmark")
+    .enable("table")
+    .use(front_matter_plugin)
+    .use(footnote_plugin)
+)
 
-@cache
+
 def parser() -> MarkdownIt:
-    """방언 = CommonMark + GFM 부분집합(테이블·각주). 그 이상은 켜지 않는다.
-
-    linkify는 끈다 — 맨 URL의 자동 링크화는 규약에 없는 문법이고, 켜면
-    본문에 적은 URL이 edges 파싱에 링크로 섞여 든다.
-    """
-    return (
-        MarkdownIt("commonmark")
-        .enable("table")
-        .use(front_matter_plugin)
-        .use(footnote_plugin)
-    )
+    return _PARSER
 
 
 def _walk(tokens: list[Token]) -> Iterator[Token]:
