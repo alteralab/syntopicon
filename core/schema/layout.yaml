@@ -18,7 +18,8 @@ shared_assets:
   # fail-loud한다(오타 디렉터리 검출). .gitignore 대상은 분할 검사에서 제외 —
   # 무엇이 저장소에 속하는지는 git이 정본이다.
   files:
-    - PLAN.md         # 정본 계획: 결정·규약 본문 + §8 검증 원장
+    - PLAN.md         # 정본 계획: 현행 결정·규약 본문 (수렴이 정상)
+    - LEDGER.md       # 검증 원장: 판정·근거·참고 append-only (성장이 정상 — 수명 분리)
     - SCHEMA.md       # 규약 설명서 (규범은 schema/ — 기계 게이트가 정본)
     - overview.md     # 에이전트 진입점 = KB 라우터
     - CLAUDE.md       # 훅 없는 하네스용 1줄 규칙 사본
