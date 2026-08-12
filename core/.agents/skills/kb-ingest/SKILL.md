@@ -63,6 +63,13 @@ macOS가 파일명을 NFD(자모 분리)로 저장하는데 프롬프트에서 �
 
 파이프라인에서 되돌릴 수 없는 유일한 단계라 맨 앞에 있다. 원문을 먼저 고정한다.
 
+**이미 들인 소스를 다시 읽을 때는 `it/archive/<citekey>/`를 본다 — 원본 경로가 아니다.**
+같은 책의 다른 장을 반입할 때가 그렇다. 아카이브가 존재하는 이유가 이것이고,
+번역서도 함께 들어 있으면 거기 있다. 2026-08-12 실측: 반입 지시에 `~/Downloads`
+경로를 적었더니 그 파일을 못 찾아 한 장이 역어 참조 없이 들어갔다 — 같은 번역서가
+`it/archive/shapira2021/`에 298MB로 멀쩡히 있었다. **원본은 옮겨지고 사라지지만
+아카이브는 그러라고 두는 것이다.**
+
 ```
 uv run tools/snapshot.py --kb <kb> --citekey <citekey> <파일…>
 uv run tools/snapshot.py --kb <kb> --citekey <citekey> --url <URL>
