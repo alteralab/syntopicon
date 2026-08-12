@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 TLS 설정
 description: SSL·SASL_SSL 리스너에 TLS를 실제로 거는 절차와 그때 판단해야 하는 것 — 키스토어와 트러스트스토어의 역할 분담, 호스트명 검증이 막는 것, ssl.client.auth의 세 값이 만드는 주체의 차이, 인증서를 만드는 keytool 흐름, 무중단 갱신, 그리고 CPU 오버헤드부터 서비스 거부 공격까지의 고려사항
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

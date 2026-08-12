@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 암호화
 description: 전송 계층 암호화가 덮지 못하는 자리와 그것을 메우는 방법 — 저장 데이터의 디스크·볼륨 암호화, 힙 덤프와 플랫폼 관리자라는 남은 노출, 시리얼라이저와 디시리얼라이저에 암호화를 얹어 브로커가 평문을 보지 못하게 하는 종단 간 암호화, 키 교체와 압착 토픽의 재암호화, 그리고 메시지 키를 암호화할 때 깨지는 해시 등가성
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

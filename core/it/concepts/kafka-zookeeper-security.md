@@ -2,7 +2,6 @@
 type: concept
 title: 주키퍼 보안
 description: 카프카 가용성이 의존하는 메타데이터 저장소를 잠그는 법 — 주키퍼가 지원하는 인증 수단과 DIGEST-MD5를 프로덕션에서 배제하는 이유, JAAS 파일로 서버와 브로커 양쪽을 설정하는 방식, 카프카와 달리 SASL과 SSL 인증이 겹치면 주체가 여럿 결합된다는 차이, 그리고 zookeeper.set.acl이 만드는 기본 접근 권한
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

@@ -2,7 +2,7 @@
 type: concept
 title: 미러메이커
 description: 아파치 카프카가 기본으로 주는 클러스터 간 미러링 도구 — 초기 버전을 무너뜨린 리밸런스 문제, 카프카 커넥트 위에 다시 세운 미러메이커 2.0의 구조, 복제 흐름으로 토폴로지를 표현하는 설정과 접두어 규칙, 필요한 ACL, 원격 읽기와 원격 쓰기 중 무엇을 고를지, 그리고 랙 모니터링과 튜닝
-generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -181,14 +181,22 @@ sources:
   **미러메이커는 원본과 대상 양쪽에서 보안이 적용된 브로커 리스너를 쓰도록 설정돼야 하고,
   인증된 연결을 맺기 위해 각 클러스터에 대한 클라이언트 쪽 보안 옵션도 설정**돼야 한다.
   **모든 데이터센터 간 트래픽 암호화에는 SSL을 써야** 한다 (10장, p.252).[^shapira2021]
+  브로커 리스너에 걸 수 있는 보안 프로토콜이 무엇인지는
+  [카프카 보안 프로토콜](../concepts/kafka-security-protocols.md)에, SSL을 실제로 거는 절차는
+  [카프카 TLS 설정](../concepts/kafka-tls-configuration.md)에 있다.
 - 자격 증명 설정의 형태는 클러스터 별칭 접두어를 쓴 `NYC.security.protocol=SASL_SSL`,
   `NYC.sasl.mechanism=PLAIN`, `NYC.sasl.jaas.config=…`이며, 두 가지가 붙는다 — **보안
   프로토콜은 그 클러스터의 부트스트랩 서버에 해당하는 브로커 리스너와 일치해야 하고
   `SSL`이나 `SASL_SSL`이 권장**된다. **SASL을 쓰므로 자격 증명은 JAAS 설정으로 지정하며,
   SSL이라면 상호 클라이언트 인증을 쓸 때 키스토어를 지정**해야 한다 (10장,
-  p.252).[^shapira2021]
+  p.252).[^shapira2021] JAAS 설정과 SASL 메커니즘별 차이는
+  [카프카 SASL 인증](../concepts/kafka-sasl-authentication.md)과
+  [카프카 SASL 메커니즘](../concepts/kafka-sasl-mechanisms.md)에 있다.
 - **클러스터에 인가(authorization)가 설정돼 있으면 미러메이커의 주체(principal)에 원본과 대상
-  양쪽의 적절한 권한이 부여**돼야 한다. 필요한 ACL 목록 (10장, pp.252–253):[^shapira2021]
+  양쪽의 적절한 권한이 부여**돼야 한다. 아래 ACL 이름들이 각각 무엇을 여는지, 그리고 `Allow`와
+  `Deny`가 어떻게 판정되는지는
+  [카프카 인가와 ACL](../concepts/kafka-authorization-and-acl.md)에 있다. 필요한 ACL 목록
+  (10장, pp.252–253):[^shapira2021]
   - 원본 토픽을 소비하기 위한 원본 클러스터의 `Topic:Read`, 대상 토픽을 만들고 생산하기 위한
     대상 클러스터의 `Topic:Create`와 `Topic:Write`
   - 원본 토픽 설정을 얻기 위한 원본의 `Topic:DescribeConfigs`, 대상 토픽 설정을 갱신하기 위한
@@ -360,5 +368,9 @@ sources:
 - [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) — 초기 버전을
   괴롭힌 그 리밸런스
 - [브로커와 클러스터](../concepts/brokers-and-clusters.md) — 1장이 말한 초기 미러메이커
+- [카프카 인가와 ACL](../concepts/kafka-authorization-and-acl.md) — 위 ACL 목록의 이름들이
+  무엇을 여는지
+- [카프카 보안 프로토콜](../concepts/kafka-security-protocols.md) — `SASL_SSL`이 무엇의
+  조합인지
 
 [^shapira2021]: Shapira et al. 2021, 10장 "Cross-Cluster Data Mirroring" — 인용 블록은 p.247 "More about MirrorMaker" 박스 원문. 코드 펜스는 p.249 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음)

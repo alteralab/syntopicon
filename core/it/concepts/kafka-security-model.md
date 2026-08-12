@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 보안 모델
 description: 카프카 보안을 컴포넌트가 아니라 시스템 전체의 문제로 놓는 틀 — 기밀성·무결성·가용성을 세우는 보안 절차 다섯, 앨리스가 쓰고 밥이 읽는 예시 데이터 흐름의 여섯 단계, 그리고 안전한 배포가 보장해야 하는 일곱 가지와 각 보장이 어느 기능으로 내려가는지
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

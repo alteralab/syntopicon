@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 SASL 메커니즘
 description: 카프카가 기본으로 내장한 SASL 메커니즘 네 가지의 설정과 각각이 안고 있는 위험 — 케르베로스를 쓰는 GSSAPI, 비밀번호를 그대로 보내는 PLAIN, 솔트와 해시로 그것을 피하는 SCRAM, 수명 짧은 토큰을 쓰는 OAUTHBEARER, 그리고 네 경우 모두에서 반복되는 "TLS 없이는 쓰지 말라"는 결론
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

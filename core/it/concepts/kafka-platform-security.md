@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 플랫폼 보안
 description: 카프카와 주키퍼를 잠근 뒤에도 남는 것들 — 시스템 전체를 대상으로 삼는 위협 모델과 내부자 위협, 자격 증명 파일을 지키는 파일시스템 권한, 설정 파일의 평문 비밀번호를 밖으로 빼는 설정 제공자, 그리고 커스텀 제공자 없이 브로커의 민감한 설정을 암호화해 두는 방법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

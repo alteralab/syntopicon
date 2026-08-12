@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 SASL 인증
 description: SASL을 쓰는 리스너에서 인증이 성립하는 구조 — 서버 챌린지와 클라이언트 응답의 교환을 메커니즘이 정의한다는 뼈대, 리스너별로 켜는 sasl.enabled.mechanisms와 클라이언트의 sasl.mechanism, JAAS 설정을 리스너·메커니즘 접두어로 거는 방식, 그리고 기존 인증 인프라와 붙이는 콜백 핸들러 세 종류
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

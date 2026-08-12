@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 인가와 ACL
 description: 인증된 주체가 무엇을 할 수 있는지 정하는 기제 — AclAuthorizer와 ACL 바인딩을 이루는 일곱 항목, Deny 우선과 암묵적 Describe 부여라는 판정 규칙, 역할별로 필요한 ACL과 요청 대응표, 슈퍼 유저와 무조건 허용 옵션의 위험, 역할 기반 접근 제어로 확장하는 방법, 그리고 인가 결과가 남는 감사 로그
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

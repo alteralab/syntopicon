@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 재인증과 무중단 보안 갱신
 description: 인증이 연결 수립 시점에 한 번만 일어난다는 사실이 만드는 구멍과 그 대응 — connections.max.reauth.ms가 정하는 세션 수명, 재인증이 실제로 이득이 되는 네 상황, 사용자가 침해됐을 때 Deny ACL이 가장 빠른 수단인 이유, 그리고 리스너와 SASL 메커니즘을 무중단으로 바꾸는 롤링 순서
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

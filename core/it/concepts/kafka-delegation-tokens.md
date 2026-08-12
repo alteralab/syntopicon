@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 위임 토큰
 description: 키스토어나 케르베로스 키탭을 워커마다 배포하지 않고 인증을 나눠 주는 기제 — 토큰 식별자와 HMAC이라는 공유 비밀의 구성, SASL/SCRAM 위에 얹혀 사용자 이름·비밀번호 자리를 차지하는 인증 방식, 토큰을 만들 수 있는 자격의 제한, 모든 브로커가 공유하는 마스터 키와 그것을 바꿀 때 치르는 대가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 보안 프로토콜
 description: 브로커 리스너마다 고르는 보안 프로토콜 네 가지 — 전송 계층(PLAINTEXT·SSL)과 인증 계층(SSL·SASL)의 조합으로 만들어지는 PLAINTEXT·SSL·SASL_PLAINTEXT·SASL_SSL, 리스너와 브로커 간 통신을 엮는 설정, 클라이언트가 부트스트랩 서버로 리스너를 고르는 방식, 그리고 인증이 만들어 내는 KafkaPrincipal
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
