@@ -3,7 +3,6 @@ type: concept
 title: 서비스 수준 목표
 description: 카프카 같은 인프라 서비스가 클라이언트에게 약속하는 수준을 말하는 어휘 — SLI·SLO·SLA·OLA의 정의와 흔한 혼동, 좋은 지표가 갖춰야 할 객관성과 분위수 지표를 배제하는 이유, SLI 다섯 종류, 그리고 SLO 자체로 경보를 걸 수 없어 소진율을 보는 방법
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

@@ -3,7 +3,6 @@ type: concept
 title: 카프카 클라이언트 지표
 description: 프로듀서와 컨슈머가 스스로 노출하는 지표를 어떤 빈에서 어떤 이름으로 읽는가 — 빈 이름에 박히는 클라이언트 ID 규칙, 프로듀서에서 경보를 걸 두 지표와 트래픽·크기·대기 시간 지표들, 컨슈머의 무게 중심이 페치 매니저 빈에 있는 이유와 컨슈머 지표로 경보를 걸면 안 되는 이유, 그리고 그룹 동기화와 오프셋 커밋을 보는 코디네이터 지표
 generated: { by: "claude-opus-5", at: "2026-08-12T23:30:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

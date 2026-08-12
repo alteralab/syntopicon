@@ -3,7 +3,6 @@ type: concept
 title: 카프카 컨슈머 랙과 종단 간 모니터링
 description: 컨슈머가 얼마나 뒤처졌는지와 클러스터가 실제로 쓸 만한지를 브로커 밖에서 재는 두 가지 — 클라이언트의 랙 지표가 실패하는 두 지점, 외부 프로세스가 대신 보는 것, 명령줄로 랙을 재려 할 때 부딪히는 문턱값과 규모의 문제, 문턱값 없이 상태를 판정하는 버로우, 그리고 브로커마다 합성 트래픽을 흘려 쓰기·읽기 가능 여부를 답하는 종단 간 모니터링
 generated: { by: "claude-opus-5", at: "2026-08-12T23:30:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

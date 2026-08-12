@@ -3,7 +3,6 @@ type: concept
 title: 카프카 지표의 기초
 description: 지표를 어디서 얻고 무엇을 왜 모으는가 — JMX와 수집 에이전트 두 방식, 지표 출처 다섯 범주와 객관성의 사다리, 경보용과 디버깅용과 이력용이 갈리는 보존 기간, 자동화가 소비할 때와 사람이 소비할 때, 상태 검사 두 방법, 그리고 카프카 모니터링이 카프카에 기대면 안 되는 이유
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

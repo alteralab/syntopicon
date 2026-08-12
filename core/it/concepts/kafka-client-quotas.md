@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 카프카 클라이언트 쿼터
-description: 브로커가 클라이언트의 쓰기·읽기 속도를 제한하는 기제 — 쿼터 3종과 적용 대상, 정적 설정 대신 동적 설정을 쓰는 이유, 스로틀링이 요청 지연과 채널 뮤트로 집행되는 방식, 그리고 쿼터에 걸린 프로듀서가 버퍼를 채우고 타임아웃으로 터지는 경로
-generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
+description: 브로커가 클라이언트의 쓰기·읽기 속도를 제한하는 기제 — 쿼터 3종과 적용 대상, 정적 설정 대신 동적 설정을 쓰는 이유, 스로틀링이 요청 지연과 채널 뮤트로 집행되는 방식, 브로커가 스로틀링을 에러 코드로 알리지 않아 지표로만 알 수 있다는 것과 볼 지표 둘, 그리고 쿼터에 걸린 프로듀서가 버퍼를 채우고 타임아웃으로 터지는 경로
+generated: { by: "claude-opus-5", at: "2026-08-12T23:30:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -12,6 +12,7 @@ sources:
 - [쿼터 3종과 적용 대상](#쿼터-3종과-적용-대상)
 - [정적 설정과 동적 설정](#정적-설정과-동적-설정)
 - [스로틀링의 집행 방식](#스로틀링의-집행-방식)
+- [스로틀링당하고 있는지 아는 법](#스로틀링당하고-있는지-아는-법)
 - [쿼터에 걸린 프로듀서가 터지는 경로](#쿼터에-걸린-프로듀서가-터지는-경로)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -30,6 +31,13 @@ sources:
 - 적용 대상은 **기본 쿼터로 모든 클라이언트에, 또는 특정 client-id에, 또는 특정
   사용자에, 또는 둘 다에** 걸 수 있다. **사용자별 쿼터는 보안이 구성되고 클라이언트가
   인증하는 클러스터에서만 의미가 있다** (3장, p.73).[^shapira2021]
+- 13장이 같은 기능을 다시 요약하며 범위를 한 겹 더 밝힌다 — **아파치 카프카는 클라이언트
+  하나가 클러스터 전체를 압도하는 것을 막기 위해 클라이언트 요청을 스로틀링하는 능력**을
+  가지며, 그것은 **개별 클라이언트 ID에서 개별 브로커로 허용되는 트래픽의 양을 초당 바이트로
+  표현한 것**이다 (13장, p.376).[^shapira2021] 즉 한도는 클러스터 합계가 아니라
+  **클라이언트–브로커 쌍**마다 걸린다.
+- **쿼터는 카프카 브로커에서 기본으로 활성화되어 있지 않다** (13장,
+  p.376).[^shapira2021]
 
 ## 정적 설정과 동적 설정
 
@@ -85,6 +93,33 @@ sources:
     쿼터에 의한 것일 수도, 둘 다일 수도 있다.** 다른 유형의 클라이언트 요청은 요청 시간
     쿼터로만 스로틀링될 수 있으며 그 역시 비슷한 지표로 노출된다.
 
+## 스로틀링당하고 있는지 아는 법
+
+- 문제는 스로틀링이 조용하다는 데 있다 — **카프카 브로커는 클라이언트가 스로틀링되고 있다는
+  것을 나타내기 위해 응답에 에러 코드를 쓰지 않는다. 그래서 클라이언트가 스로틀링당하는 시간을
+  보여 주는 지표를 모니터링하지 않으면 애플리케이션에는 스로틀링이 일어나고 있다는 것이
+  드러나지 않는다** (13장, p.376).[^shapira2021]
+- 그래서 **반드시 모니터링해야 하는 지표**로 지목되는 것이 [위 절](#스로틀링의-집행-방식)의 그
+  스로틀링 시간 지표이며, 어느 빈의 어느 속성인지는 이렇다 (13장, p.376, 표
+  13-21):[^shapira2021]
+
+  | Client | Bean name |
+  |---|---|
+  | Consumer | bean `kafka.consumer:type=consumer-fetch-manager-metrics,client-id=CLIENTID`, attribute `fetch-throttle-time-avg` |
+  | Producer | bean `kafka.producer:type=producer-metrics,client-id=CLIENTID`, attribute `produce-throttle-time-avg` |
+
+  자리표시자 `CLIENTID`는 원문 표기이며, 이 빈들이 클라이언트 지표 전체에서 어디에 있는지는
+  [카프카 클라이언트 지표](../concepts/kafka-client-metrics.md)에 있다.
+
+- 쿼터를 안 쓰고 있어도 켜 두라는 권고가 붙는다 — **지금 쿼터를 쓰고 있든 아니든 이 지표를
+  모니터링하는 것은 안전하다. 언젠가 쿼터가 활성화될 수 있으므로 모니터링하는 것이 좋은
+  관행이고, 나중에 지표를 추가하는 것보다 처음부터 모니터링하며 시작하는 편이 더 쉽다** (13장,
+  pp.376–377).[^shapira2021]
+- 브로커 쪽에서 같은 사건을 보는 자리도 둘 있다 — 요청 지표의 throttle time 구간은
+  [카프카 브로커 지표](../concepts/kafka-broker-metrics.md)에, 쿼터 활동을 따로 떼어 낸
+  `kafka.server.ClientQuotaManager` 로거는
+  [카프카 브로커 로깅](../concepts/kafka-broker-logging.md)에 있다.
+
 ## 쿼터에 걸린 프로듀서가 터지는 경로
 
 - 비동기 `Producer.send()`를 쓰면서 **브로커가 수용할 수 있는 속도보다 빠르게 계속 보내면
@@ -114,5 +149,11 @@ sources:
   AdminClient 쪽 통로
 - [파티션과 레플리카 관리](../concepts/kafka-partition-and-replica-administration.md) —
   레플리카 재할당의 복제 트래픽을 쿼터로 스로틀링하는 자리
+- [카프카 클라이언트 지표](../concepts/kafka-client-metrics.md) — 스로틀링 시간 지표가 놓인
+  프로듀서·컨슈머 빈 전체
+- [카프카 브로커 지표](../concepts/kafka-broker-metrics.md) — 브로커 쪽 요청 지표에서
+  throttle time이 한 구간으로 잡히는 자리
+- [카프카 브로커 로깅](../concepts/kafka-broker-logging.md) — 쿼터 활동을 별도 파일로 떼어
+  내는 로거
 
-[^shapira2021]: Shapira et al. 2021, 3장 "Kafka Producers: Writing Messages to Kafka"(5장 참조는 5장 "Managing Apache Kafka Programmatically") — 코드 펜스는 p.74 예제 세 줄에서 원문의 주석 번호 표식과 지면 줄바꿈을 덜어냈다(보탠 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 3장 "Kafka Producers: Writing Messages to Kafka"(5장 참조는 5장 "Managing Apache Kafka Programmatically", 13장 참조는 13장 "Monitoring Kafka" §"Quotas" pp.376–377) — 코드 펜스는 p.74 예제 세 줄에서 원문의 주석 번호 표식과 지면 줄바꿈을 덜어냈다(보탠 줄 없음). 표 13-21의 빈·속성 이름은 원문 표기 그대로다

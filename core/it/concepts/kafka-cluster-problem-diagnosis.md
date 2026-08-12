@@ -3,7 +3,6 @@ type: concept
 title: 카프카 클러스터 문제 진단
 description: 지표를 들고 장애를 좁혀 가는 순서 — 클러스터 문제의 세 범주, 불완전 복제 파티션 값이 0이 아닐 때 읽는 법과 그것을 주 경보로 쓰지 말라는 2판의 철회, 클러스터 수준의 불균형과 자원 고갈, 그리고 호스트 하나로 좁혀졌을 때 보는 하드웨어·네트워크·프로세스 충돌·설정 차이
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

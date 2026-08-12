@@ -3,7 +3,6 @@ type: concept
 title: 카프카 브로커 로깅
 description: 브로커 로그에서 어떤 로거를 어떤 레벨로 켜는가 — 기본을 INFO로 두는 이유, 별도 파일로 떼는 컨트롤러 로거와 쿼터 매니저 로거, 지표가 없어서 로그로만 상태를 볼 수 있는 로그 압착 스레드, 그리고 필요할 때만 켜는 요청 로거의 DEBUG와 TRACE 차이
 generated: { by: "claude-opus-5", at: "2026-08-12T23:30:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

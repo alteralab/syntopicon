@@ -3,7 +3,6 @@ type: concept
 title: 카프카 JVM과 운영체제 모니터링
 description: 브로커 지표만으로는 모자란 자리에서 무엇을 보는가 — G1 가비지 컬렉션 빈 둘과 거기서 읽는 세 속성, JVM이 알려 주는 파일 디스크립터 두 값, 그리고 운영체제에서 직접 재는 CPU 부하 평균과 여덟 갈래 사용률, 메모리와 스왑, 디스크 공간과 아이노드와 입출력 통계, 유입보다 훨씬 커지는 유출 네트워크 트래픽
 generated: { by: "claude-opus-5", at: "2026-08-12T23:30:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

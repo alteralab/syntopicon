@@ -3,7 +3,6 @@ type: concept
 title: 카프카 브로커 지표
 description: 브로커에서 상시로 읽는 지표들의 이름과 의미와 경보 문턱 — 컨트롤러가 하나뿐인지 보는 두 지표, 부하의 대표값인 요청 핸들러 유휴 비율, 유입·유출·메시지 속도 지표와 속도 지표가 갖는 일곱 속성, 파티션 수와 리더 수와 오프라인 파티션, 요청 종류마다의 여덟 지표와 백분위수, 그리고 토픽별·파티션별 지표
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
