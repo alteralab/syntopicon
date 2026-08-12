@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 클러스터 장애 조치
 description: 미러링해 둔 DR 클러스터로 실제로 넘어갈 때 드는 비용 — RTO와 RPO가 무엇을 정하는지, 비동기 미러링이 남기는 유실과 불일치, 애플리케이션의 시작 오프셋을 정하는 네 가지 방법과 각각의 함정, 장애 조치가 끝난 뒤 옛 주 클러스터를 어떻게 처리하는지, 그리고 클러스터 디스커버리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T12:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

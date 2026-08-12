@@ -2,7 +2,6 @@
 type: concept
 title: 클러스터 간 데이터 미러링
 description: 카프카 클러스터 사이의 데이터 복사가 클러스터 안의 복제와 다른 이름을 갖는 이유 — 여러 클러스터를 두는 다섯 가지 동기, 데이터센터 간 통신이 지연·대역폭·비용으로 거는 제약, 그 제약에서 나온 배치 원칙 셋, 그리고 미러메이커 말고 이 문제를 푸는 다른 솔루션들
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T12:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

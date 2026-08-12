@@ -2,7 +2,6 @@
 type: concept
 title: 미러메이커
 description: 아파치 카프카가 기본으로 주는 클러스터 간 미러링 도구 — 초기 버전을 무너뜨린 리밸런스 문제, 카프카 커넥트 위에 다시 세운 미러메이커 2.0의 구조, 복제 흐름으로 토폴로지를 표현하는 설정과 접두어 규칙, 필요한 ACL, 원격 읽기와 원격 쓰기 중 무엇을 고를지, 그리고 랙 모니터링과 튜닝
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T12:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 다중 클러스터 아키텍처
 description: 여러 카프카 클러스터를 배치하는 네 가지 형태와 각각이 포기하는 것 — 지역에서 중앙으로 한 방향만 흐르는 허브-앤-스포크, 양쪽이 읽고 쓰는 대신 충돌을 떠안는 액티브-액티브, 놀리는 클러스터를 대가로 단순함을 얻는 액티브-스탠바이, 그리고 아예 클러스터 하나를 데이터센터에 걸쳐 놓는 스트레치 클러스터
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T12:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
