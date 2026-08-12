@@ -45,6 +45,9 @@ sources:
   매우 불편하다.** 그래서 특정 클라이언트에 쿼터를 적용하는 통상적 방법은
   `kafka-configs.sh`나 AdminClient API로 설정할 수 있는 **동적 설정**이다 (3장,
   p.74).[^shapira2021]
+  - AdminClient 쪽 통로는 [설정 관리](../concepts/kafka-config-administration.md)에 있다 —
+    쿼터는 브로커 설정이므로 그 API로 설명하고 갱신할 수 있다 (5장,
+    pp.129–130).[^shapira2021]
 - 동적 쿼터 설정의 실제 형태는 아래와 같다 — `kafka-configs`·`--add-config`로 찾는다
   (3장, p.74):[^shapira2021]
 
@@ -107,5 +110,9 @@ sources:
   시간이 request 쿼터의 대상이 된다
 - [카프카 브로커 설정](../concepts/kafka-broker-configuration.md) — 기본 쿼터가 놓이는
   브로커 설정 파일
+- [설정 관리](../concepts/kafka-config-administration.md) — 이 쿼터를 코드에서 읽고 바꾸는
+  AdminClient 쪽 통로
+- [파티션과 레플리카 관리](../concepts/kafka-partition-and-replica-administration.md) —
+  레플리카 재할당의 복제 트래픽을 쿼터로 스로틀링하는 자리
 
-[^shapira2021]: Shapira et al. 2021, 3장 "Kafka Producers: Writing Messages to Kafka" — 코드 펜스는 p.74 예제 세 줄에서 원문의 주석 번호 표식과 지면 줄바꿈을 덜어냈다(보탠 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 3장 "Kafka Producers: Writing Messages to Kafka"(5장 참조는 5장 "Managing Apache Kafka Programmatically") — 코드 펜스는 p.74 예제 세 줄에서 원문의 주석 번호 표식과 지면 줄바꿈을 덜어냈다(보탠 줄 없음)

@@ -2,7 +2,6 @@
 type: concept
 title: 토픽 관리
 description: AdminClient로 토픽을 다루는 네 가지 작업 — 목록 조회가 얇은 Future 래퍼인 점, 목록에서 찾는 대신 describe로 존재와 파티션 수를 함께 확인하는 이유, 없을 때 그 자리에서 만드는 관용 형태와 그때 잡는 예외, 그리고 삭제에 휴지통이 없다는 것
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

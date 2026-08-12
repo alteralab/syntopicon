@@ -2,7 +2,6 @@
 type: concept
 title: 설정 관리
 description: AdminClient가 설정을 다루는 단위인 ConfigResource와 그 3종, 기본값이 아닌 항목만 골라내는 isDefault의 판정 기준, 설정을 바꾸는 네 가지 작업 유형, 그리고 브로커 설정 파일이 깨졌을 때 남은 브로커에서 설정을 덤프해 되살린 사례
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

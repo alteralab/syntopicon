@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 어드민 클라이언트
 description: 관리 작업을 애플리케이션 코드 안에서 실행하는 AdminClient — 비동기·최종적 일관성 API라는 설계 전제, 결과가 Future로 감싸여 예외가 ExecutionException으로 오는 이유, 계층 없는 평평한 인터페이스, 상태를 바꾸는 요청과 읽는 요청이 서로 다른 브로커로 가는 점, 만들고 닫는 절차와 DNS·타임아웃 설정, 블로킹 get을 피해야 하는 경우, 그리고 목업으로 테스트하는 법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

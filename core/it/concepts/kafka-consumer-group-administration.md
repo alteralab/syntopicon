@@ -2,7 +2,6 @@
 type: concept
 title: 컨슈머 그룹 관리
 description: AdminClient로 컨슈머 그룹을 밖에서 들여다보고 바꾸는 일 — 목록 조회에서 에러를 버리는 valid와 던지는 all의 차이, 그룹 설명에 빠져 있는 커밋 오프셋을 따로 구해 랙을 계산하는 절차, 오프셋 삭제 대신 리셋을 쓰는 이유, 활성 그룹의 오프셋을 카프카가 막는 이유, 그리고 상태를 가진 애플리케이션에서 리셋이 남기는 이중 집계
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

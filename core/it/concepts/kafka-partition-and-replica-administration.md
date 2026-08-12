@@ -2,7 +2,6 @@
 type: concept
 title: 파티션과 레플리카 관리
 description: 인시던트 때 쓰는 위험한 어드민 작업 넷 — 파티션 추가가 키 기반 순서 가정을 깨뜨리는 지점과 증가분이 아니라 총수를 받는 인자, 보존 정책이 법적 준수를 보장하지 못해 필요해진 레코드 삭제, 선호 리더와 언클린 리더 선출을 같은 메서드로 강제하는 법, 그리고 레플리카 배치를 손으로 정하고 진행 중인 재할당을 취소하는 법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T15:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
