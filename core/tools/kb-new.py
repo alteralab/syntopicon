@@ -11,42 +11,27 @@
 from __future__ import annotations
 
 import argparse
-import os
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from string import Template
 
-import yaml
-
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod
-from syntopicon import schemas
+from syntopicon import qmdstore, schemas
 from syntopicon.mdfile import read
 from syntopicon.repo import ROOT
 from syntopicon.rewrite import replace_section_body
-
-
-def qmd_config() -> Path:
-    """qmd 자신의 해석 순서를 그대로 따른다 (qmd 2.1.0 dist/collections.js getConfigDir).
-
-    자체 환경변수를 만들지 않는 이유: 우리가 쓰는 파일과 qmd가 읽는 파일이 갈라지면
-    등록은 성공했는데 검색은 안 되는 상태가 조용히 생긴다.
-    """
-    if directory := os.environ.get("QMD_CONFIG_DIR"):
-        return Path(directory) / "index.yml"
-    if xdg := os.environ.get("XDG_CONFIG_HOME"):
-        return Path(xdg) / "qmd" / "index.yml"
-    return Path.home() / ".config" / "qmd" / "index.yml"
 
 
 class KbNewError(Exception):
     """만들면 경계가 어긋나는 상황. 아무것도 만들지 않고 멈춘다."""
 
 
-def check_preconditions(layout: layout_mod.Layout, sch: schemas.Schemas, name: str) -> None:
+def check_preconditions(layout: layout_mod.Layout, sch: schemas.Schemas,
+                        name: str, with_qmd: bool) -> None:
     if errors := list(sch.shared("kb_name").iter_errors(name)):
         raise KbNewError(f"KB 이름 '{name}': {errors[0].message}")
     if name in layout.shared_names:
@@ -55,6 +40,12 @@ def check_preconditions(layout: layout_mod.Layout, sch: schemas.Schemas, name: s
     target = ROOT / name
     if target.exists() and any(target.iterdir()):
         raise KbNewError(f"{name}/ 이 비어 있지 않습니다 — 기존 디렉터리를 KB로 승격하지 않습니다")
+
+    if with_qmd:
+        # 컬렉션 충돌은 예견 가능한 실패라 **스켈레톤을 만들기 전에** 본다 — 등록
+        # 단계에서 처음 발견하면 반쯤 만들어진 KB가 남는다(2026-08-13 감사 결함).
+        # 저장하지 않는 조사 실행이라 상태를 바꾸지 않는다.
+        qmdstore.upsert_collections(qmdstore.load_config(), layout, [name], overwrite=False)
 
 
 def create_skeleton(layout: layout_mod.Layout, name: str, title: str, description: str) -> list[Path]:
@@ -79,32 +70,11 @@ def create_skeleton(layout: layout_mod.Layout, name: str, title: str, descriptio
 
 
 def register_qmd(layout: layout_mod.Layout, name: str) -> str:
-    """전역 config에 컬렉션을 등록한다.
-
-    `qmd collection add`를 쓰지 않는 이유: 그 CLI에는 --ignore 플래그가 없어
-    archive/ 제외를 걸 수 없다(qmd 2.1.0 소스 확인). 전역 config는 layout.yaml에서
-    재생성 가능한 파생물이라(PLAN §5) 직접 쓰는 것이 규약에 맞는다. 다음 qmd 실행이
-    syncConfigToDb로 DB에 반영한다.
-    """
-    path = qmd_config()
-    config = yaml.safe_load(path.read_text()) if path.is_file() else None
-    config = config or {}
-    collections = config.setdefault("collections", {}) or {}
-    config["collections"] = collections
-
-    if (existing := collections.get(name)) and existing.get("path") != str(ROOT / name):
-        raise KbNewError(
-            f"qmd 컬렉션 '{name}'이 이미 다른 경로를 가리킵니다: {existing.get('path')}. "
-            "컬렉션 이름은 전역이므로 KB 이름을 바꾸거나 기존 컬렉션을 정리하십시오.")
-
-    collections[name] = {
-        "path": str(ROOT / name),
-        "pattern": layout.index_pattern,
-        "ignore": list(layout.index_ignore),
-    }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
-    return str(path)
+    """전역 config에 컬렉션을 등록한다 — 기전은 qmdstore가 소유하고(경로 해석·충돌
+    검사·직렬화의 단일 구현), 여기는 신설 정책(overwrite=False)만 고른다."""
+    config = qmdstore.load_config()
+    qmdstore.upsert_collections(config, layout, [name], overwrite=False)
+    return str(qmdstore.save_config(config))
 
 
 def router_body(layout: layout_mod.Layout) -> str:
@@ -145,8 +115,8 @@ def main(argv: list[str]) -> int:
 
     layout, sch = layout_mod.load(), schemas.load()
     try:
-        check_preconditions(layout, sch, args.name)
-    except KbNewError as error:
+        check_preconditions(layout, sch, args.name, with_qmd=not args.no_qmd)
+    except (KbNewError, qmdstore.CollectionConflict) as error:
         print(f"중단: {error}", file=sys.stderr)
         return 1
 
@@ -154,7 +124,7 @@ def main(argv: list[str]) -> int:
         print(f"{args.name}/ 생성 예정")
         print(f"  디렉터리  {', '.join(layout.skeleton_dirs)}")
         print(f"  파일      {', '.join(layout.skeleton_files)}")
-        print(f"  qmd       컬렉션 '{args.name}' → {qmd_config()}")
+        print(f"  qmd       컬렉션 '{args.name}' → {qmdstore.config_path()}")
         print(f"  라우터    overview.md의 '{layout.sections['router']}' 절 재생성")
         print("\n--dry-run — 아무것도 쓰지 않았습니다.")
         return 0
@@ -164,8 +134,16 @@ def main(argv: list[str]) -> int:
         # visible_files는 캐시하지 않으므로 방금 만든 KB가 다음 조회부터 그대로 보인다.
         registered = None if args.no_qmd else register_qmd(layout, args.name)
         router = update_router(layout)
-    except KbNewError as error:
+    except (KbNewError, qmdstore.CollectionConflict) as error:
         print(f"중단: {error}", file=sys.stderr)
+        return 1
+    except LookupError as error:
+        # 라우터 절 부재 — 스켈레톤과 qmd 등록은 이미 됐다. 침묵 traceback 대신
+        # 남은 일을 말한다(부분 실패를 침묵시키지 않는다).
+        print(f"중단: overview.md 라우터 갱신 실패 — {error}\n"
+              f"스켈레톤과 qmd 등록은 완료된 상태입니다. overview.md의 "
+              f"'{layout.sections['router']}' 절을 복원한 뒤 다시 실행하십시오.",
+              file=sys.stderr)
         return 1
 
     for path in created:

@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import os
 import shutil
 import subprocess
 import sys
@@ -31,24 +30,16 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from syntopicon import layout as layout_mod
+from syntopicon import layout as layout_mod, qmdstore
 from syntopicon.repo import ROOT
 
 PIN_PATH = Path(__file__).resolve().parent / "toolchain-pin.yaml"
 # 현재 인덱스를 만든 임베딩 모델의 sha256. qmd가 이 사실을 신뢰할 수 있게 기록하지
 # 못하므로(아래 check_embed_generation 주석) 우리가 따로 들고 있는다.
 ACTIVE_MARKER = "embed-model.sha256"
-CACHE_DIR = Path(
-    os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "qmd" / "models"
-
-
-def qmd_config_path() -> Path:
-    """qmd 자신의 해석 순서를 따른다 (kb-new와 같은 규칙)."""
-    if directory := os.environ.get("QMD_CONFIG_DIR"):
-        return Path(directory) / "index.yml"
-    if xdg := os.environ.get("XDG_CONFIG_HOME"):
-        return Path(xdg) / "qmd" / "index.yml"
-    return Path.home() / ".config" / "qmd" / "index.yml"
+# qmd 경로 해석·config 쓰기는 qmdstore가 유일한 구현이다 — 사본을 들면 충돌 검사
+# 같은 불변식이 한쪽에만 생긴다(2026-08-13 감사).
+CACHE_DIR = qmdstore.models_cache_dir()
 
 
 def digest(path: Path) -> str:
@@ -143,19 +134,6 @@ def check_embed_generation(pin: dict, vendor: Path, rebuilt: bool) -> bool:
     return True
 
 
-def register_collections(config: dict, layout: layout_mod.Layout) -> int:
-    """KB 컬렉션을 layout.yaml에서 재생성한다 — 전역 config는 파생물이다(PLAN §5)."""
-    collections = config.setdefault("collections", {}) or {}
-    config["collections"] = collections
-    for kb in layout.kbs():
-        collections[kb] = {
-            "path": str(ROOT / kb),
-            "pattern": layout.index_pattern,
-            "ignore": list(layout.index_ignore),
-        }
-    return len(layout.kbs())
-
-
 def save_tarball(pin: dict, vendor: Path) -> Path | None:
     target = vendor / pin["qmd"]["tarball"]
     if target.is_file():
@@ -203,7 +181,7 @@ def main(argv: list[str]) -> int:
         active = marker.read_text().strip() if marker.is_file() else None
         embed = pin["models"]["embed"]["sha256"]
         print(f"  임베딩 세대  {'일치' if active == embed else '불일치 — 재빌드 필요' if active else '미기록'}")
-        print(f"\nqmd config: {qmd_config_path()}")
+        print(f"\nqmd config: {qmdstore.config_path()}")
         print(f"KB 컬렉션 대상: {', '.join(layout.kbs()) or '없음 (kb-new 전)'}")
         return 0
 
@@ -219,13 +197,13 @@ def main(argv: list[str]) -> int:
 
     record_digests(pin)
 
-    config_path = qmd_config_path()
-    config = yaml.safe_load(config_path.read_text()) if config_path.is_file() else None
-    config = config or {}
+    # 복구 런북이므로 overwrite=True — 옛 기기의 경로가 남아 있는 것이 정상 전제이고,
+    # 현재 경로로 덮는 것이 재생성의 정의다(신설 경로 kb-new는 False — qmdstore 참조).
+    config = qmdstore.load_config()
     config["models"] = {role: str(vendor / spec["file"]) for role, spec in pin["models"].items()}
-    registered = register_collections(config, layout)
-    config_path.parent.mkdir(parents=True, exist_ok=True)
-    config_path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
+    qmdstore.upsert_collections(config, layout, layout.kbs(), overwrite=True)
+    registered = len(layout.kbs())
+    config_path = qmdstore.save_config(config)
 
     print(f"\nconfig  {config_path}")
     print(f"  models  로컬 경로 3개 (hf: 아님 — 리비전 고정 불가라 벤더링본을 쓴다)")

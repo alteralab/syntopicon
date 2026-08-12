@@ -44,12 +44,13 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from syntopicon import layout as layout_mod
+from syntopicon import layout as layout_mod, qmdstore
 from syntopicon.repo import ROOT
 
 PIN_PATH = Path(__file__).resolve().parent / "toolchain-pin.yaml"
-QMD_INDEX = Path(
-    os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "qmd" / "index.sqlite"
+# 인덱스 경로 해석은 qmdstore가 유일한 구현이다 — 사본이 갈라지면 "백업은 됐는데
+# 엉뚱한 인덱스"가 조용히 생긴다.
+QMD_INDEX = qmdstore.index_path()
 
 
 def destination() -> Path:

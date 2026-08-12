@@ -83,6 +83,8 @@ def test_다른_경로를_가리키는_동명_컬렉션을_거부한다(repo: Re
     assert result.returncode == 1
     assert "이미 다른 경로를 가리킵니다" in result.stderr
     assert qmd_collections(repo)["it"]["path"] == "/somewhere/else"   # 남의 설정 무손상
+    # 충돌은 사전조건이다 — 스켈레톤을 만든 뒤 발견하면 반쯤 만들어진 KB가 남는다.
+    assert not (repo.root / "it").exists()
 
 
 def test_기존_컬렉션은_보존한다(repo: Repo):
