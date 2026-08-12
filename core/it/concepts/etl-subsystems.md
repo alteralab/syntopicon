@@ -1,12 +1,13 @@
 ---
 type: concept
 title: ETL 34 서브시스템
-description: ETL을 추출/정제·통합/전달/관리 4그룹 34개 서브시스템으로 분해하는 이유 — 가치가 더해지는 곳과 그저 옮기는 곳의 구분, 그리고 ELT·데이터 파이프라인·리버스 ETL로 넓어진 ETL의 범위
-generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
+description: ETL을 추출/정제·통합/전달/관리 4그룹 34개 서브시스템으로 분해하는 이유 — 가치가 더해지는 곳과 그저 옮기는 곳의 구분, 그리고 ELT·데이터 파이프라인·리버스 ETL·스트리밍 통합으로 넓어진 ETL의 범위
+generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
+  - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
 
 # ETL 34 서브시스템
@@ -57,6 +58,16 @@ pp.443, 449).[^kimball2013]
   로그 스크래핑·메시지 큐 감시 중 원천별로 골라야 하며, 시각 기반 추출은
   실패 재시작 시 중복·누락을 만들어 신뢰할 수 없다 (19장,
   pp.451–453).[^kimball2013]
+  - 같은 판정이 스트리밍 쪽에서 실물로 나온다. 카프카의 JDBC 소스 커넥터는 **타임스탬프
+    필드나 증가하는 기본 키로 테이블을 스캔해 새 레코드를 찾는데 이것이 상대적으로
+    비효율적이고 때로는 부정확하다**고, 반면 **모든 관계형 데이터베이스가 가진 트랜잭션
+    로그(리두 로그·빈로그·WAL)를 외부 시스템이 직접 읽는 쪽이 훨씬 정확하고 효율적이며
+    그것이 변경 데이터 캡처**라고 못박는다. **대부분의 현대 ETL 시스템이 변경 데이터
+    캡처를 데이터 소스로 쓰며**, 관계형 데이터베이스에서 카프카로 스트리밍한다면
+    **디비지움(Debezium) 변경 캡처 커넥터가 강력히 권장**된다 (9장,
+    p.220).[^shapira2021] 상세는 [카프카 커넥트](../concepts/kafka-connect.md).
+    - #hypothesis 그쪽이 권하는 트랜잭션 로그 직독은 위 다섯 방법 중 **로그 스크래핑**에,
+      JDBC 커넥터의 타임스탬프 스캔은 **시각 기반 추출**에 대응한다.
 - 원천이 변경 이력을 주지 않을 때 이력을 만들어 내는 도구 쪽 장치가 dbt의
   스냅샷이다. 변경 탐지는 갱신 시각 컬럼을 보는 방식과 지정 컬럼 값을 이력과
   비교하는 방식 둘이다 (snapshots.md, "Detecting row
@@ -71,6 +82,11 @@ pp.443, 449).[^kimball2013]
   진단 필터로, 실패 시 중단/격리(suspense)/태깅 중 하나를 택하는데 가급적
   **태깅 후 통과**가 최선이다 — 격리 파일은 언제 복귀할지 불명확해 DB
   무결성을 의심스럽게 만든다 (19장, pp.457–458).[^kimball2013]
+  - 스트리밍 쪽의 대응물은 커넥트의 `error.tolerance`다 — 손상 메시지를 **조용히 버리거나
+    데드 레터 큐 토픽으로 라우팅**하는 두 선택지를 준다 (9장, p.225).[^shapira2021] 상세는
+    [단일 메시지 변환(SMT)](../concepts/kafka-single-message-transformations.md).
+    - #hypothesis 데드 레터 큐는 여기서 말하는 중단·격리·태깅 셋 중 **격리**에 해당하고,
+      **태깅에 해당하는 선택지는 커넥트 쪽에 없다.**
 - 오류 이벤트 스키마(5)는 모든 스크린 오류를 팩트 테이블(입도 = 오류 1건 =
   1행)로 중앙 기록하는 차원 모델이고, 감사 차원(audit dimension)(6)은 팩트
   행이 만들어진 순간의 메타데이터 맥락(품질 등급·ETL 버전 등)을 차원으로
@@ -140,6 +156,23 @@ Kimball의 34 서브시스템은 **차원 웨어하우스 백룸**을 전제한 
 - 추출한 데이터를 분석 친화적 스키마로 **변환한 뒤 적재**하는 것이 ETL이고,
   **변환과 적재의 순서를 바꿔 적재 후 웨어하우스 안에서 변환**하면 ELT다 (1장,
   p.7).[^kleppmann2026]
+  - 세 번째 소스가 같은 두 낱말을 **파이프라인 쪽에서** 정의한다. ETL은 **데이터가
+    지나가는 동안 데이터에 대한 수정을 데이터 파이프라인이 책임진다**는 뜻이고, ELT는
+    **파이프라인이 최소한의 변환(대부분 데이터 타입 변환)만 해서 타깃에 도착하는 데이터가
+    원천 데이터와 가능한 한 비슷하게** 만드는 것이다 (9장, p.207).[^shapira2021] 순서는
+    같지만 **판단 근거가 다르다** — 여기 34 서브시스템과 Kleppmann은 웨어하우스 적재의
+    순서 문제로 보고, 그쪽은 **파이프라인이 하류에서 무엇을 지워 버리는가**의 문제로 본다.
+    ETL의 주된 단점을 **파이프라인에서 일어난 변환이 하류에서 데이터를 더 처리하려는
+    사람들의 손을 묶는다**는 데 두고, ELT의 단점으로는 **변환이 타깃의 CPU·저장 자원을
+    쓰며 그 시스템이 비싸면 계산을 밖으로 옮기려는 강한 동기가 생긴다**는 비용 항을 든다
+    (9장, p.207).[^shapira2021] 상세는
+    [데이터 파이프라인 설계 고려사항](../concepts/kafka-data-pipeline-considerations.md).
+  - 도구 지형에 대한 판정도 붙는다 — **인포매티카·탈렌드·펜타호·아파치 나이파이·스트림셋
+    같은 GUI 기반 ETL 도구는 대개 복잡한 워크플로를 위해 만들어져 있어 단지 데이터를 넣고
+    빼려는 것뿐이면 무겁고 번거로운 해법**이며, 저자들은 **데이터 통합이 모든 조건에서
+    메시지를 충실히 전달하는 데 집중해야 하는데 대부분의 ETL 도구는 불필요한 복잡성을
+    더한다**고 보고 **카프카가 데이터 저장소만 통합하는 ETL 도구의 유효한 대체재가 될 수
+    있다**고 말한다 (9장, pp.229–230).[^shapira2021]
 - 원천이 사내 데이터베이스가 아니라 CRM·이메일 마케팅·신용카드 처리 같은 외부
   SaaS 제품일 때가 있다. 원본 데이터베이스에 직접 접근할 수 없고 벤더 API로만
   접근할 수 있어서, SaaS API용 ETL은 Fivetran·Singer·Airbyte 같은 전문 데이터
@@ -174,5 +207,6 @@ Kimball의 34 서브시스템은 **차원 웨어하우스 백룸**을 전제한 
   [증분 처리와 그 대가](../concepts/incremental-processing-tradeoffs.md).
 
 [^kimball2013]: Kimball & Ross 2013, 19장 "ETL Subsystems and Techniques", 20장 "ETL System Design and Development Process and Tasks"
+[^shapira2021]: Shapira et al. 2021, 9장 "Building Data Pipelines"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절

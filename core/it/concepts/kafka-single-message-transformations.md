@@ -2,7 +2,6 @@
 type: concept
 title: 단일 메시지 변환(SMT)
 description: 커넥트가 레코드를 복사하는 도중 코드 없이 바꾸는 무상태 변환 — 상태 있는 스트림 처리와 갈리는 경계, 아파치 카프카에 들어 있는 열한 가지 SMT, 레코드 헤더로 계보를 남기는 예, 그리고 손상 메시지를 보내는 데드 레터 큐
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }

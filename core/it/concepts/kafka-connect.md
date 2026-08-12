@@ -2,7 +2,6 @@
 type: concept
 title: 카프카 커넥트
 description: 코드를 고칠 수 없는 데이터 저장소에 카프카를 잇는 도구 — 프로듀서·컨슈머 대신 커넥트를 고르는 기준, 워커를 띄우고 설정하는 항목들, REST API로 커넥터를 만드는 두 예제, 그리고 커넥트를 쓰지 않는 다른 길들
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
@@ -191,7 +190,7 @@ sources:
 
 - 확인과 흔한 실패 — **`mysql.login` 토픽에서 데이터를 읽어 동작을 확인**한다. **토픽이
   없다거나 데이터가 보이지 않으면 커넥트 워커 로그에서 오류를 확인**하는데, 예로 든 것이
-  **`Access denied for user 'root'@'localhost' (using password: NO)`** 다. **드라이버가
+  **`Access denied for user 'root;'@'localhost' (using password: NO)`** 다. **드라이버가
   클래스패스에 있는지, 테이블을 읽을 권한이 있는지도 흔한 원인**이다. **커넥터가 돌기
   시작하면 `login` 테이블에 행을 추가할 때마다 즉시 `mysql.login` 토픽에 반영**된다 (9장,
   p.219).[^shapira2021]
@@ -275,7 +274,7 @@ sources:
   ([데이터 파이프라인 설계 고려사항](../concepts/kafka-data-pipeline-considerations.md))
   **고른 시스템이 그것을 만족하는지 확인**해야 하며, **그것으로도 충분하지 않다 — 자기 요구를
   지원하는 방식으로 쓰고 있는지 확신할 만큼 그 해법을 충분히 알아야** 한다. **카프카가 최소
-  한 번 시맨틱을 지원한다는 것만으로는 부족하고, 완전하지 않은 신뢰성으로 끝날 방식으로
+  한 번 의미론을 지원한다는 것만으로는 부족하고, 완전하지 않은 신뢰성으로 끝날 방식으로
   실수로 설정하고 있지 않은지 확인**해야 한다.
 
 ## 이어지는 페이지
@@ -292,4 +291,4 @@ sources:
   컨버터가 다루는 형식들이 클라이언트 쪽에서 사는 곳
 - [ETL 34 서브시스템](../concepts/etl-subsystems.md) — 커넥트가 대체재라고 말하는 그 ETL 도구들의 분해
 
-[^shapira2021]: Shapira et al. 2021, 9장 "Building Data Pipelines", pp.203, 210–223, 229–231. 코드 펜스는 p.219 예제 원문이며, 책의 조판이 낸 줄바꿈 하이픈만 복원했다(보탠 줄 없음)
+[^shapira2021]: Shapira et al. 2021, 9장 "Building Data Pipelines", pp.203, 210–223, 229–231. 코드 펜스는 p.219 예제 원문이며, 책의 조판이 낸 줄바꿈 하이픈만 복원했다(보탠 줄 없음). 위 오류 메시지 인용의 `'root;'`는 **원문 그대로다** — 세미콜론은 책의 오식이고 고치지 않았다(한국어판은 이것을 조용히 교정했다)
