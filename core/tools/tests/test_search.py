@@ -1,0 +1,90 @@
+"""통합 질의 래퍼. 핵심은 둘 — 갈래 실행과 **자동 계측**(이벤트·search_miss).
+
+계측이 스킬 산문에 걸려 있던 시절 search_miss가 0건이었다는 것이 이 도구의 존재
+이유이므로, 테스트도 출력이 아니라 stats.sqlite에 남은 행을 본다.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import shutil
+import sqlite3
+from pathlib import Path
+
+import pytest
+
+from conftest import Repo
+from test_validate import DDIA, SOURCE, concept
+
+pytest.importorskip("kiwipiepy", reason="Tier B — uv sync --group index")
+
+
+def bin_without_qmd(tmp_path: Path) -> str:
+    """git만 보이는 PATH — qmd 갈래의 '건너뜀' 경로를 결정적으로 만든다.
+
+    실기기 qmd는 전역 인덱스를 보므로 픽스처 검사에 끼어들면 안 된다.
+    리터럴 갈래는 순수 파이썬이라 PATH가 필요 없다.
+    """
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir(exist_ok=True)
+    binary = shutil.which("git")
+    assert binary, "git이 테스트 환경에 없습니다"
+    (bin_dir / "git").symlink_to(binary)
+    return str(bin_dir)
+
+
+def seeded(repo: Repo) -> None:
+    repo.kb_new("it", "IT 지식", "설명")
+    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.write("it/concepts/replication-lag.md",
+               concept(body="\n복제 지연은 리더와 팔로워 사이의 간격이다.[^kleppmann2017-ddia]\n\n"
+                            "[^kleppmann2017-ddia]: 5장\n"))
+    repo.commit()
+    assert repo.run("reindex.py").returncode == 0
+
+
+def events_of(repo: Repo) -> list[tuple[str, dict]]:
+    if not (repo.root / "stats.sqlite").exists():   # 조기 종료 경로 — 기록 자체가 없다
+        return []
+    with sqlite3.connect(repo.root / "stats.sqlite") as db:
+        rows = db.execute("SELECT kind, payload FROM events ORDER BY rowid").fetchall()
+    return [(kind, json.loads(payload)) for kind, payload in rows]
+
+
+def test_형태소와_rg가_잡고_이벤트가_남는다(repo: Repo, tmp_path: Path):
+    seeded(repo)
+    result = repo.run("search.py", "복제 지연",
+                      extra_env={"PATH": bin_without_qmd(tmp_path)})
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "형태소" in result.stdout and "replication-lag" in result.stdout
+    assert "qmd 갈래를 건너뜀" in result.stdout
+
+    (kind, payload), = events_of(repo)
+    assert kind == "query"
+    assert payload["legs"]["morph"]["hits"] >= 1
+    assert payload["legs"]["literal"]["hits"] >= 1
+    assert "skipped" in payload["legs"]["qmd"]
+    assert payload["miss"] is False
+
+
+def test_전갈래_0건이면_miss가_기록된다(repo: Repo, tmp_path: Path):
+    seeded(repo)
+    result = repo.run("search.py", "양자내성암호 격자환원", "--kb", "it",
+                      extra_env={"PATH": bin_without_qmd(tmp_path)})
+    assert result.returncode == 0, result.stdout + result.stderr
+
+    (_, payload), = events_of(repo)
+    assert payload["miss"] is True
+    with sqlite3.connect(repo.root / "stats.sqlite") as db:
+        misses = db.execute("SELECT kb, query FROM search_miss").fetchall()
+    assert misses == [("it", "양자내성암호 격자환원")]
+
+
+def test_없는_kb는_거부한다(repo: Repo, tmp_path: Path):
+    seeded(repo)
+    result = repo.run("search.py", "복제", "--kb", "ops",
+                      extra_env={"PATH": bin_without_qmd(tmp_path)})
+    assert result.returncode == 1
+    assert "ops" in result.stderr
+    assert events_of(repo) == []          # 실행 전 거부 — 계측도 남지 않는다

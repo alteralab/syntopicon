@@ -9,6 +9,8 @@
 
 from __future__ import annotations
 
+import json
+import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -44,10 +46,22 @@ CREATE TABLE IF NOT EXISTS lint_seen (
 );
 
 -- kb-query가 공백을 만났을 때 남기는 이벤트 (PLAN §4.3 kb-query ④).
+-- 기록자는 tools/search.py다 — 스킬 산문이 기록을 지시하던 시절 0건이 쌓였다
+-- (225런 대조 실측, 2026-08-13): 계측은 도구가 자동으로 남길 때만 산다.
 CREATE TABLE IF NOT EXISTS search_miss (
   at    TEXT NOT NULL,
   kb    TEXT,
   query TEXT NOT NULL
+);
+
+-- 파이프라인 이벤트 원장 — 질의·승급 런의 자동 계측 (append-only).
+-- payload 스키마는 기록자(도구)가 소유한다. 소비자: 임계 경보·운영 리뷰.
+-- session은 상관관계 키다 — 세션 추적(Langfuse 훅 브리지)과 조인할 때 쓴다.
+CREATE TABLE IF NOT EXISTS events (
+  at      TEXT NOT NULL,
+  kind    TEXT NOT NULL,    -- query | promote
+  session TEXT,
+  payload TEXT NOT NULL     -- JSON
 );
 """
 
@@ -66,6 +80,19 @@ def connect():
 
 def now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def record_event(connection: sqlite3.Connection, kind: str, payload: dict) -> None:
+    """이벤트 한 건을 원장에 남긴다. 세션 ID는 환경에 있으면 자동으로 붙는다.
+
+    실패해도 본 작업을 막지 않는 것은 **호출자가 정할 일이 아니다** — 여기는
+    기록만 하고, 기록 실패는 예외로 드러낸다(조용한 생략 금지, PLAN §3).
+    """
+    connection.execute(
+        "INSERT INTO events VALUES (?,?,?,?)",
+        (now(), kind, os.environ.get("CLAUDE_SESSION_ID"),
+         json.dumps(payload, ensure_ascii=False, sort_keys=True)),
+    )
 
 
 def baseline(connection: sqlite3.Connection) -> dict[str, str]:

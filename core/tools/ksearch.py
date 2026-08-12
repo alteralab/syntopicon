@@ -71,6 +71,33 @@ def snippet(raw: str, needles: list[str], limit: int = 3) -> str:
     return " ".join((hits or sentences)[:limit])[:240]
 
 
+def hits(connection, expression: str, kb: str | None, limit: int) -> list:
+    """형태소 레그 한 번 — kb 필터와 건수 상한까지 적용한 행들.
+
+    tools/search.py(통합 질의)가 같은 레그를 쓰므로 여기가 단일 경로다 —
+    두 구현이 갈라지면 단독 실행과 통합 실행이 다른 답을 낸다.
+    """
+    # unreviewed 라벨은 검역의 "보이는 저하"다(PLAN §4.4 쓰기 정책 ①) — inbox도
+    # 검색에는 나오되, 아직 리뷰를 안 지났음이 결과 줄에서 바로 보여야 한다.
+    # AfC의 실패 기전이 hiddenness였다(§8). LEFT JOIN: files에 없어도 결과는 산다.
+    rows = connection.execute("""
+        SELECT morph.path AS path, morph.anchor AS anchor, morph.line AS line,
+               morph.raw AS raw, bm25(morph) AS score, files.unreviewed AS unreviewed
+        FROM morph LEFT JOIN files ON files.path = morph.path
+        WHERE morph MATCH ? ORDER BY score LIMIT ?
+    """, (f"body : {expression}", limit * 3)).fetchall()
+    kept = [row for row in rows if not kb or row["path"].startswith(f"{kb}/")]
+    return kept[:limit]
+
+
+def render(rows, needles: list[str]) -> None:
+    for row in rows:
+        location = f"{row['path']}#{row['anchor']}" if row["anchor"] else row["path"]
+        label = "  [morph] [unreviewed]" if row["unreviewed"] else "  [morph]"
+        print(f"{location}:{row['line']}{label}")
+        print(f"    {snippet(row['raw'], needles)}\n")
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="한국어 형태소 FTS")
     parser.add_argument("query")
@@ -92,30 +119,10 @@ def main(argv: list[str]) -> int:
         return 1
 
     with index_db.connect() as connection:
-        # unreviewed 라벨은 검역의 "보이는 저하"다(PLAN §4.4 쓰기 정책 ①) — inbox도
-        # 검색에는 나오되, 아직 리뷰를 안 지났음이 결과 줄에서 바로 보여야 한다.
-        # AfC의 실패 기전이 hiddenness였다(§8). LEFT JOIN: files에 없어도 결과는 산다.
-        rows = connection.execute("""
-            SELECT morph.path AS path, morph.anchor AS anchor, morph.line AS line,
-                   morph.raw AS raw, bm25(morph) AS score, files.unreviewed AS unreviewed
-            FROM morph LEFT JOIN files ON files.path = morph.path
-            WHERE morph MATCH ? ORDER BY score LIMIT ?
-        """, (f"body : {expression}", args.n * 3)).fetchall()
+        rows = hits(connection, expression, args.kb, args.n)
 
-    needles = morph.analyze(args.query)
-    shown = 0
-    for row in rows:
-        if args.kb and not row["path"].startswith(f"{args.kb}/"):
-            continue
-        location = f"{row['path']}#{row['anchor']}" if row["anchor"] else row["path"]
-        label = "  [morph] [unreviewed]" if row["unreviewed"] else "  [morph]"
-        print(f"{location}:{row['line']}{label}")
-        print(f"    {snippet(row['raw'], needles)}\n")
-        shown += 1
-        if shown >= args.n:
-            break
-
-    print(f"{shown}건 · 분석된 질의: {expression}")
+    render(rows, morph.analyze(args.query))
+    print(f"{len(rows)}건 · 분석된 질의: {expression}")
     return 0
 
 

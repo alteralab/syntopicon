@@ -56,7 +56,8 @@ class Repo:
         self._git("add", "-A")
         self._git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "fixture")
 
-    def run(self, script: str, *args: str) -> subprocess.CompletedProcess[str]:
+    def run(self, script: str, *args: str,
+            extra_env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
         self._git("add", "-A")
         return subprocess.run(
             [sys.executable, str(REAL_ROOT / "tools" / script), *args],
@@ -69,7 +70,7 @@ class Repo:
                 # 실기기의 ~/.cache/qmd 인덱스(실제 KB 벡터)가 픽스처 검사에 새어들지
                 # 않게 캐시도 격리한다 — overlap 검사가 이 경로를 본다.
                 "XDG_CACHE_HOME": str(self.qmd_config_dir / "cache"),
-            },
+            } | (extra_env or {}),
         )
 
     def validate(self, *args: str) -> subprocess.CompletedProcess[str]:
