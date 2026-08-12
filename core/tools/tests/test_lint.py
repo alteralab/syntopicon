@@ -326,3 +326,33 @@ def test_반입_진행_파일을_검사한다(repo: Repo):
     progress()
     lint(repo)
     assert not findings(repo, "progress-suffix") and not findings(repo, "progress-unit")
+
+
+def test_결과_종류_레지스트리가_완결이다():
+    """이름·등급·지침의 정본은 Kind 레지스트리다. 지침 없는 검사는 추가 자체가
+    안 되게 여기서 강제한다 — SKILL 손 유지 목록의 안내 누락 17종이 이 테스트의
+    발단이다."""
+    from syntopicon.checks import KINDS
+
+    assert len(KINDS) == 41
+    for k in KINDS.values():
+        assert k.severity in ("error", "warn", "info"), k.name
+        assert k.doc and k.guidance, f"{k.name}: doc·guidance는 필수다"
+
+
+def test_링크_불릿은_claim이_아니다(repo: Repo):
+    """`- [제목](경로) — 설명` 꼴은 §2.6이 허브에 요구하는 포인터 문법이다. 같은 모양이
+    concept 페이지에서 각주 없는 claim으로 찍히던 것이 리포트의 84%(649/769)를 채운
+    오검출이었다 — 링크로 시작하는 불릿은 claim 검사 대상이 아니다."""
+    base(repo)
+    repo.write("it/concepts/pointer-list.md", concept(body=(
+        "\n- [개요](../overview.md) — 진입점으로 가는 포인터 설명\n")))
+    lint(repo)
+    assert findings(repo, "claim-unfootnoted") == []
+
+
+def test_explain은_레지스트리를_조회한다(repo: Repo):
+    result = repo.run("lint.py", "--explain", "broken-link")
+    assert result.returncode == 0
+    assert "broken-link" in result.stdout and "rename.py" in result.stdout
+    assert repo.run("lint.py", "--explain", "없는종류").returncode == 1
