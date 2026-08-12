@@ -16,17 +16,8 @@ sources:
 
 하나의 질문: **카프카를 쓰는 쪽은 무엇을 알아야 하고, 무엇을 카프카에 맡기는가.**
 
-> **이 페이지는 개요다.** 아래 각 절의 기제는 전용 페이지로 갈라져 있다 —
-> 프로듀서 쪽은 [프로듀서 전송 경로](../concepts/kafka-producer-send-path.md),
-> [프로듀서 설정](../concepts/kafka-producer-configuration.md),
-> [프로듀서 파티션 배분](../concepts/kafka-producer-partitioning.md),
-> [카프카 클라이언트 쿼터](../concepts/kafka-client-quotas.md),
-> 컨슈머 쪽은 [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md),
-> [컨슈머 폴 루프](../concepts/kafka-consumer-poll-loop.md),
-> [컨슈머 설정](../concepts/kafka-consumer-configuration.md),
-> [오프셋 커밋 전략](../concepts/kafka-offset-commit-strategies.md),
-> 양쪽에 걸치는 것은
-> [카프카 직렬화와 스키마 레지스트리](../concepts/kafka-serialization-and-schema-registry.md).
+> **이 페이지는 개요다.** 각 절의 기제는 전용 페이지로 갈라져 있고, 그 목록은
+> [카프카 클라이언트](../synthesis/kafka-clients.md) 허브가 담당한다.
 
 - 카프카 클라이언트는 이 시스템의 사용자이며 기본 유형은 프로듀서와 컨슈머 둘이다.
   상위 클라이언트 API로 데이터 통합용 Kafka Connect API와 스트림 처리용 Kafka
@@ -79,24 +70,8 @@ sources:
 
 ## 이어지는 페이지
 
-- [프로듀서 전송 경로](../concepts/kafka-producer-send-path.md) — `send()` 한 번이
-  거치는 부품과 세 가지 전송 방식
-- [프로듀서 설정](../concepts/kafka-producer-configuration.md) — `acks`와 전달 시간
-  예산, 배치와 멱등성
-- [프로듀서 파티션 배분](../concepts/kafka-producer-partitioning.md) — 파티셔너가
-  파티션을 고르는 규칙과 그 규칙이 깨지는 조건
-- [카프카 직렬화와 스키마 레지스트리](../concepts/kafka-serialization-and-schema-registry.md)
-  — 객체를 바이트로 바꾸는 일을 무엇에 맡길 것인가
-- [카프카 클라이언트 쿼터](../concepts/kafka-client-quotas.md) — 브로커가 클라이언트
-  속도를 제한하는 기제
-- [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) — 파티션
-  소유권이 배정되고 옮겨지는 절차
-- [컨슈머 폴 루프](../concepts/kafka-consumer-poll-loop.md) — 컨슈머가 데이터를 읽는
-  루프와 그것을 멈췄을 때 일어나는 일
-- [컨슈머 설정](../concepts/kafka-consumer-configuration.md) — 페치 크기·세션
-  타임아웃·할당 전략
-- [오프셋 커밋 전략](../concepts/kafka-offset-commit-strategies.md) — 오프셋 기록 시점의
-  선택이 남기는 중복과 누락
+- [카프카 클라이언트](../synthesis/kafka-clients.md) — 위 세 절의 기제를 편 페이지들의
+  목록. 프로듀서 쪽, 컨슈머 쪽, 양쪽에 걸리는 것으로 갈려 있다
 - [토픽과 파티션](../concepts/topics-and-partitions.md) — 소유권의 단위가 되는 그
   파티션
 - [브로커와 클러스터](../concepts/brokers-and-clusters.md) — 프로듀서가 리더에

@@ -236,7 +236,13 @@ def check_overlap(ctx: Context):
                       f"(예: {sorted(missing)[0]})")
 
     changed = None if ctx.overlap_full else ctx.changed
-    for pair in overlap.find_pairs(vectors, OVERLAP_THRESHOLD, changed):
+    pairs, examined = overlap.find_pairs(vectors, OVERLAP_THRESHOLD, changed)
+    if examined:
+        # 분모 없이 목록만 보면 "이 정도면 흔한 일"로 읽혀 오판이 난다(§8 실측).
+        yield Finding("overlap", "info",
+                      f"비교 {examined}쌍 중 {len(pairs)}건이 임계 "
+                      f"{OVERLAP_THRESHOLD} 초과 ({len(pairs) / examined:.2%})")
+    for pair in pairs:
         yield Finding("overlap", "info",
                       f"{pair.left} ↔ {pair.right}  유사도 {pair.similarity:.2f} — "
                       "compaction 후보(병합 판단은 사람)", ctx.kb_of(pair.left))

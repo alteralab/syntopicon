@@ -16,6 +16,12 @@ qmd:
 # GGUF 3개. hf: URI는 `resolve/main`을 치므로 리비전을 고정하지 못한다(소스 확인) —
 # 그래서 받아서 벤더링하고 **로컬 경로로 참조**한다. sha256이 실질 핀이다:
 # 리비전 해시보다 강하고, 파일만 있으면 자기 검증이 된다.
+# ⚠ `qmd status`의 "Models" 표시는 **실제 쓰는 모델이 아니다.** qmd가 벡터에 박는 모델
+# id가 `options?.model ?? DEFAULT_EMBED_MODEL`이라, 여기 핀한 모델을 쓰고 있어도 화면에는
+# 기본값(embeddinggemma-300M)이 뜬다. 2026-08-12에 이 표시만 보고 "핀이 깨졌다"고 판단할
+# 뻔했다. **판별은 벡터 차원으로 한다** — Qwen3-Embedding-0.6B는 1024, embeddinggemma는 768:
+#   uv run --group index python -c "import sys;sys.path.insert(0,'tools');\
+#   from syntopicon import overlap;v=overlap.load_vectors(('it',));print(next(iter(v.values())).shape[1])"
 models:
   embed:
     # PLAN §4.1: Qwen3-Embedding-0.6B 잠정. 수용 검증 A/B(vs KURE-v1) 후 확정.

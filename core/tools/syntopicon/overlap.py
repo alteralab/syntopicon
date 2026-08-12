@@ -63,21 +63,29 @@ def load_vectors(kbs: tuple[str, ...]) -> dict[str, numpy.ndarray]:
 
 
 def find_pairs(vectors: dict[str, numpy.ndarray], threshold: float,
-               changed: set[str] | None = None) -> list[Pair]:
-    """임계 초과 쌍. changed가 주어지면 한쪽이라도 바뀐 쌍만 본다(주간 1×N),
-    None이면 전쌍(부트스트랩·분기). 스코프는 KB 내부다(PLAN §4.3 표)."""
+               changed: set[str] | None = None) -> tuple[list[Pair], int]:
+    """임계 초과 쌍과 **비교한 쌍의 수**. changed가 주어지면 한쪽이라도 바뀐 쌍만
+    본다(주간 1×N), None이면 전쌍(부트스트랩·분기). 스코프는 KB 내부다(PLAN §4.3 표).
+
+    분모를 함께 내는 이유: 목록만 보면 몇 건이 많은 것인지 알 수 없어 **오판이
+    난다**(2026-08-12 실측 — 검출 12건을 보고 "구조적 오탐"이라 판정했으나 전쌍
+    6786개 중 0.18%로 분포 최상단이었다. p50 0.478·p99 0.789). 분모는 세는 데
+    비용이 들지 않으므로 항상 함께 낸다.
+    """
     paths = sorted(vectors)
     found = []
+    examined = 0
     for i, left in enumerate(paths):
         for right in paths[i + 1:]:
             if left.split("/", 1)[0] != right.split("/", 1)[0]:
                 continue
             if changed is not None and left not in changed and right not in changed:
                 continue
+            examined += 1
             similarity = float((vectors[left] @ vectors[right].T).max())
             if similarity >= threshold:
                 found.append(Pair(left, right, similarity))
-    return sorted(found, key=lambda pair: -pair.similarity)
+    return sorted(found, key=lambda pair: -pair.similarity), examined
 
 
 __all__ = ["Pair", "QmdUnavailable", "load_vectors", "find_pairs", "DIRECTORIES"]

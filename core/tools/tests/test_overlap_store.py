@@ -103,8 +103,12 @@ def test_lint_양성_경로가_종단으로_뜬다(repo: Repo):
     rows = db.execute(
         "SELECT message FROM lint_findings WHERE check_name='overlap' "
         "AND run_id=(SELECT MAX(id) FROM lint_runs)").fetchall()
-    assert len(rows) == 1, f"overlap finding 수가 다릅니다: {rows}"
-    assert "original-page" in rows[0][0] and "copied-page" in rows[0][0]
+    messages = [row[0] for row in rows]
+    # 첫 줄은 분모다 — 목록 길이만 보고 판단하지 않게 하려고 항상 낸다(§8 실측).
+    assert messages[0] == "비교 3쌍 중 1건이 임계 0.85 초과 (33.33%)", messages
+    detail = [m for m in messages if "유사도" in m]
+    assert len(detail) == 1, f"overlap 쌍 수가 다릅니다: {messages}"
+    assert "original-page" in detail[0] and "copied-page" in detail[0]
 
     skipped = db.execute(
         "SELECT message FROM lint_findings WHERE check_name='overlap-skipped' "
