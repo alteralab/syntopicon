@@ -283,3 +283,46 @@ def test_재색인_없이는_거부한다(repo: Repo):
     base(repo)
     result = repo.run("lint.py")
     assert result.returncode == 1 and "파생 인덱스가 없습니다" in result.stderr
+
+
+def test_반입_진행_파일을_검사한다(repo: Repo):
+    """`_progress.yaml`은 재개점의 정본이다(kb-ingest 4단계). 소스 메타 산문이 그 자리를
+    맡다가 아홉 런 뒤처져 재반입을 부를 뻔한 것이 이 검사의 발단이다(2026-08-12).
+
+    validate가 아니라 lint인 이유는 `archive/`가 git 밖이라서다 — 스냅샷 검사와 같은 자리.
+    """
+    import yaml as _yaml
+    base(repo)
+    repo.write("it/concepts/page.md", cited())
+    root = repo.root / "it" / "archive" / "kleppmann"
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "src.pdf").write_bytes(b"x")
+    repo.write(f"it/sources/{DDIA}.md",
+               SOURCE.replace("---\n\n#", "snapshot: /it/archive/kleppmann/\n---\n\n#"))
+
+    def progress(**over):
+        doc = {"citekey": DDIA, "unit": "page", "total": "1p-10p",
+               "contents": {"1ch": "1p-10p"}, "covered": ["1p-10p"],
+               "skipped": [], "next": None}
+        doc.update(over)
+        doc = {k: v for k, v in doc.items() if not (k == "contents" and v is None)}
+        (root / "_progress.yaml").write_text(_yaml.safe_dump(doc, allow_unicode=True))
+
+    # 없으면 경고 — 산문에 기대면 표류한다
+    lint(repo)
+    assert any(DDIA in f for f in findings(repo, "progress-missing"))
+
+    # 타입↔단위 정합: 소스는 book 인데 url 단위는 쓸 수 없다
+    progress(unit="url", contents=None, covered=["a"], total=None)
+    lint(repo)
+    assert findings(repo, "progress-unit"), "type↔unit 불일치를 놓쳤습니다"
+
+    # 접미 누락: 값만 인용되면 단위를 잃으므로 붙이게 한다
+    progress(covered=["1-10"])
+    lint(repo)
+    assert findings(repo, "progress-suffix"), "단위 접미 누락을 놓쳤습니다"
+
+    # 온전하면 조용하다
+    progress()
+    lint(repo)
+    assert not findings(repo, "progress-suffix") and not findings(repo, "progress-unit")

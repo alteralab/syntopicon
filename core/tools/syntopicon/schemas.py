@@ -69,10 +69,16 @@ def load() -> Schemas:
     )
 
 
+#: frontmatter를 규정하지 않는 스키마. 여기 키는 md 파일에 나타날 일이 없으므로 결번
+#: 대조·사용률 검사의 우변에서 뺀다 — 넣으면 `covered`·`contents` 같은 키가 "선언됐지만
+#: 쓰인 적 없음"으로 영구히 찍힌다(2026-08-12 실측: field-unused 12→19).
+NOT_FRONTMATTER = frozenset({"progress.yaml"})
+
+
 def declared_keys() -> set[str]:
     """현재 스키마가 선언한 frontmatter 키 전부 — 결번 대조의 우변."""
     return {
         key
-        for doc in load().documents.values()
+        for name, doc in load().documents.items() if name not in NOT_FRONTMATTER
         for key in doc.get("properties", {})
     }

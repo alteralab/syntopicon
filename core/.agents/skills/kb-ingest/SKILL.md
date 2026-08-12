@@ -70,6 +70,37 @@ macOS가 파일명을 NFD(자모 분리)로 저장하는데 프롬프트에서 �
 `it/archive/shapira2021/`에 298MB로 멀쩡히 있었다. **원본은 옮겨지고 사라지지만
 아카이브는 그러라고 두는 것이다.**
 
+**아직 안 읽은 원본은 `it/archive/_unread/`에 둔다.** 계약이 없는 자리이고, 반입할 때
+꺼내 `snapshot.py`에 넘기면 `<citekey>/`로 승격된다. 밑줄 접두를 쓰는 이유는 citekey
+문법이 밑줄로 시작할 수 없어서다 — **밑줄 = 우리 것, 나머지 = 원문**이고, 다이제스트
+계산도 이 규칙으로 우리 파일을 뺀다.
+
+### 재개점은 `_progress.yaml`이 정본이다
+
+`it/archive/<citekey>/_progress.yaml`이 **어디까지 읽었는지**를 답한다. 소스 메타의
+산문은 정본이 아니다 — "이번 런 범위"는 쓰는 시점의 말이라 다음 런이 오면 거짓이 되고,
+실제로 **아홉 런 뒤처져** 있었다(2026-08-12 실측: 메타는 "2장과 6장"이라 적고 있었고
+실제로는 1~14장 전부였다. 그 상태로 재개하면 이미 있는 것을 다시 넣는다).
+
+```yaml
+citekey: shapira2021
+unit: page              # page | chapter | url | whole — 소스가 나뉘는 단위
+total: "1-419"
+covered: ["1-419"]      # 읽고 반입까지 끝난 범위
+skipped:                # 읽었으나 옮기지 않은 것 — **각주로는 보이지 않는다**
+  - range: "378"
+    why: "요약이라 claim 아님"
+next: null              # 재개점. 완주면 null
+```
+
+- **쪽이 기본 단위다.** 장은 경계가 해석에 열려 있다(13장에 요약 p.378이 드는가?).
+  실측: 에이전트가 13장 중간에 죽었을 때 재개를 "pp.339–366까지, pp.366–378 남음"으로
+  이어받았지 장으로는 표현되지 않았다. 논문은 `whole`, 웹 문서는 `url`.
+- **`covered`와 `skipped`가 같은 단위여야 산수가 된다** — 남은 것 = 전체 − 둘.
+- **`skipped`가 각주 파생이 못 하는 부분이다.** 각주는 *쓴 것*만 알므로, 읽고 안 옮긴
+  것과 안 읽은 것이 구분되지 않는다. 그것을 적지 않으면 다음 세션이 다시 읽는다.
+- **런이 끝날 때 갱신한다.** 커밋과 같은 단계다(9단계 참조).
+
 ```
 uv run tools/snapshot.py --kb <kb> --citekey <citekey> <파일…>
 uv run tools/snapshot.py --kb <kb> --citekey <citekey> --url <URL>
@@ -196,8 +227,13 @@ uv run tools/reindex.py                 # 메타 + edges + 형태소
 qmd update && qmd embed                 # qmd 색인 (설치돼 있으면)
 qmd cleanup                             # 고아 벡터 정리 — 편집·이동마다 실제로 샌다 (실측 3회)
 uv run --group index tools/lint.py      # 승급 후 확인 (양식의 마지막 절)
+# it/archive/<citekey>/_progress.yaml 갱신 — covered·skipped·next
 git add -A <kb>/ && git commit          # 트레일러: Ingest-Run
 ```
+
+**`_progress.yaml` 갱신을 빼먹으면 다음 세션이 이미 넣은 것을 다시 넣는다.** 이 파일이
+재개점의 정본이고 소스 메타 산문은 아니다(4단계 참조). git 밖이라 커밋에는 안 담기지만
+같은 단계에서 손대야 잊지 않는다.
 
 **커밋까지가 승급이다.** 승급하고 커밋을 미루면 다음 런 산출물과 한 워킹 트리에
 섞이고 사후에 갈라야 한다 — 2026-08-12에 **두 런 연속** 그랬고(5장·11장) 둘 다 다음

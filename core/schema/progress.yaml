@@ -1,0 +1,79 @@
+# 반입 진행 — `<kb>/archive/<citekey>/_progress.yaml`의 구조. **재개점의 정본**이다.
+#
+# 왜 이 파일이 있는가: 소스 메타의 산문("이번 런 범위: …")이 정본 노릇을 하다가 **아홉 런
+# 뒤처졌다**(2026-08-12 실측 — 메타는 "2장과 6장"이라 적고 있었고 실제로는 1~14장 전부였다).
+# "이번 런"은 쓰는 시점의 말이라 다음 런이 오면 거짓이 된다. 필드로 바꾸고 검사를 붙인다.
+#
+# 소비자: kb-ingest 4단계(재개점 조회), lint(타입↔단위 정합·구조 검사).
+# **validate가 아니라 lint인 이유**: `archive/`는 git 밖이라 커밋 게이트의 관할이 아니다.
+# 같은 이유로 `_check_snapshot`도 lint에 있다.
+#
+# 밑줄 접두는 "우리 것"을 뜻한다 — citekey 문법이 밑줄로 시작할 수 없어 원문과 겹치지
+# 않고, 스냅샷 다이제스트도 이 접두로 우리 파일을 뺀다(tools/syntopicon/snapshot.py).
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "progress.yaml"
+title: progress
+
+type: object
+required: [citekey, unit, covered, skipped, next]
+additionalProperties: false
+
+properties:
+  citekey:
+    $ref: "common.yaml#/$defs/citekey"
+
+  # 소스가 나뉘는 단위. **소스 메타의 `type`과 맞아야 한다** — lint가 대조한다.
+  #   book            → page(기본) 또는 chapter
+  #   paper·paper-conference → whole (논문은 나눌 이유가 없다 — 2026-08-12 판단)
+  #   webpage         → url (스냅샷한 URL 하나가 한 단위)
+  # **쪽이 책의 기본인 이유**: 장은 경계가 해석에 열려 있다(13장에 요약 p.378이 드는가?).
+  # 실측 — 에이전트가 13장 중간에 죽었을 때 재개를 "pp.339–366까지, pp.366–378 남음"으로
+  # 이어받았지 장으로는 표현되지 않았다.
+  #
+  # **범위 값에는 단위 접미가 붙는다** — `1p`·`419p`(쪽), `7ch`(장). `unit`이 파일 맨 위에
+  # 한 번 있는데도 값마다 붙이는 이유는 **값이 인용될 때 단위가 떨어져 나가기 때문**이다
+  # (2026-08-12: 서브에이전트 지시에 "pp.366–378 남음"처럼 값만 떼어 쓰는 일이 실제로
+  # 반복됐다). 중복이지만 lint가 `unit`과의 일치를 검사하므로 **표류가 아니라 검증**이다 —
+  # `snapshot_sha256`이 디렉터리 내용을 중복하되 검사되므로 변조 증거가 되는 것과 같다.
+  # `url`·`whole`은 숫자 범위가 아니므로 접미가 없다.
+  unit:
+    enum: [page, chapter, url, whole]
+
+  # 본문 전체 범위. 모르면 null로 두되, 그러면 "남은 것"을 계산할 수 없다.
+  total:
+    type: [string, "null"]
+
+  # 장↔쪽 대응. **책 자신의 목차에서 옮긴다** — 소스가 아카이브에 들어올 때 한 번 적으면
+  # 그 뒤로 안 변한다. 이것이 있어야 `covered: "1-419"`를 읽고 몇 장까지인지 안다.
+  # **각주로는 못 얻는다**: 첫 진입 시점에는 claim이 0건이고, 생긴 뒤에도 각주는 우리가
+  # *쓴* 것만 알기 때문이다. `unit: page`인 책에 요구한다(lint).
+  # **키도 접미를 단다**(`13ch`). 이 표는 한 줄에 두 단위가 있다 — 키가 장, 값이 쪽이라
+  # 접미가 없으면 `13: "339-378"`의 13이 무엇의 13인지 알 수 없다.
+  contents:
+    type: object
+    propertyNames: {pattern: "^[0-9]+ch$"}
+    additionalProperties: {type: string}
+
+  # 읽고 반입까지 끝난 범위.
+  covered:
+    type: array
+    items: {type: string}
+
+  # 읽었으나 claim으로 옮기지 않은 것. **각주로는 보이지 않는 부분이라 여기가 유일한
+  # 기록이다** — 각주는 쓴 것만 알므로, 이것이 없으면 "안 읽음"과 "읽고 안 옮김"이
+  # 구분되지 않아 다음 세션이 다시 읽는다.
+  # `range`가 `covered`와 같은 단위여야 산수가 된다: 남은 것 = total − covered − skipped.
+  skipped:
+    type: array
+    items:
+      type: object
+      required: [range, why]
+      additionalProperties: false
+      properties:
+        range: {type: string}
+        why: {type: string, minLength: 1}
+
+  # 재개점. 완주면 null.
+  next:
+    type: [string, "null"]

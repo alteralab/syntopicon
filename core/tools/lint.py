@@ -29,6 +29,7 @@ from urllib.parse import unquote
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import yaml
+from jsonschema import Draft202012Validator
 
 from syntopicon import index_db, layout as layout_mod, schemas, snapshot, stats
 from syntopicon.mdfile import MdFile, read
@@ -424,6 +425,7 @@ def check_page(ctx: Context, path: str, md: MdFile):
                           f"Obsidian 전용 문법 {match.group()} — GFM 부분집합만 씁니다", kb, path)
 
     yield from _check_snapshot(kb, path, front)
+    yield from _check_progress(kb, path, front)
 
 
 def heading_anchor(text: str) -> str:
@@ -512,6 +514,68 @@ def _check_snapshot(kb: str, path: str, front: dict):
     if (recorded := front.get("snapshot_sha256")) and recorded != snapshot.digest(root):
         yield Finding("snapshot-mismatch", "error",
                       f"{declared} 의 다이제스트가 기록과 다릅니다 — 변조 증거", kb, path)
+
+
+#: 소스 타입 → `_progress.yaml`이 쓸 수 있는 단위. 소스가 나뉘는 방식이 타입마다 다르다.
+#: 논문은 나눌 이유가 없고(한 편이 한 단위), 웹 문서는 스냅샷한 URL 하나가 한 단위다.
+UNITS_FOR = {"book": {"page", "chapter"}, "webpage": {"url"},
+             "paper": {"whole"}, "paper-conference": {"whole"}}
+
+
+def _check_progress(kb: str, path: str, front: dict):
+    """`archive/<citekey>/_progress.yaml` — 재개점의 정본(SCHEMA·kb-ingest 4단계).
+
+    validate가 아니라 lint인 이유는 `archive/`가 git 밖이라서다 — `_check_snapshot`이
+    같은 자리에 있는 것과 같은 이유. 검사가 막는 실패는 하나다: **소스 메타 산문이
+    정본 노릇을 하다 아홉 런 뒤처져 재반입을 부를 뻔했다**(2026-08-12).
+    """
+    if not (declared := front.get("snapshot")):
+        return
+    progress = ROOT / declared.lstrip("/") / "_progress.yaml"
+    if not progress.is_file():
+        yield Finding("progress-missing", "warn",
+                      f"{declared}_progress.yaml 이 없습니다 — 재개점을 소스 메타 산문에 "
+                      f"기대면 표류합니다", kb, path)
+        return
+    try:
+        document = yaml.safe_load(progress.read_text())
+    except yaml.YAMLError as error:
+        yield Finding("progress-invalid", "error", f"_progress.yaml 파싱 실패: {error}", kb, path)
+        return
+
+    validator = Draft202012Validator({"$ref": "progress.yaml#"},
+                                     registry=schemas.load().registry)
+    for error in sorted(validator.iter_errors(document), key=lambda e: list(e.path)):
+        where = "/".join(str(p) for p in error.path) or "(루트)"
+        yield Finding("progress-invalid", "error",
+                      f"_progress.yaml {where}: {error.message}", kb, path)
+        return
+
+    # 타입↔단위 정합. 소스 타입은 frontmatter가 정본이다 — 경로에 인코딩하지 않는다(§3).
+    allowed = UNITS_FOR.get(front.get("type"), set())
+    if allowed and document["unit"] not in allowed:
+        yield Finding("progress-unit", "warn",
+                      f"type: {front['type']} 인데 unit: {document['unit']} — "
+                      f"쓸 수 있는 것은 {sorted(allowed)}", kb, path)
+    if document["unit"] == "page" and not document.get("contents"):
+        yield Finding("progress-contents", "warn",
+                      "unit: page 인데 contents(장↔쪽 대응)가 없습니다 — 목차에서 옮기면 "
+                      "covered 범위가 몇 장인지 읽힙니다", kb, path)
+
+    # 접미↔단위 일치. 값이 인용될 때 단위가 떨어져 나가는 것을 막으려고 값마다 붙이되,
+    # 붙인 것이 `unit`과 어긋나면 두 정본이 되므로 여기서 묶는다(schema/progress.yaml).
+    if suffix := {"page": "p", "chapter": "ch"}.get(document["unit"]):
+        ranges = [*document["covered"], *(s["range"] for s in document["skipped"]),
+                  *document.get("contents", {}).values()]
+        for value in ranges + [document.get("total"), document.get("next")]:
+            if value is None:
+                continue
+            for part in str(value).split("-"):
+                if part and not part.endswith(suffix):
+                    yield Finding("progress-suffix", "warn",
+                                  f"unit: {document['unit']} 인데 `{value}` 에 접미 "
+                                  f"`{suffix}` 가 없습니다 — 값만 인용되면 단위를 잃습니다",
+                                  kb, path)
 
 
 # ── git 검사 ─────────────────────────────────────────────────────────────────

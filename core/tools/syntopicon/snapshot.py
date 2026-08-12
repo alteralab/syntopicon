@@ -17,11 +17,21 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+#: 다이제스트에서 빼는 접두. **소스가 아니라 우리 기록**이라 뺀다 — 다이제스트가 답하는
+#: 물음은 "원문이 변했는가"이고, 우리가 쓴 파일이 변하는 것은 변조가 아니다. 2026-08-12에
+#: `_progress.yaml`을 넣자 9개 소스 전부 snapshot-mismatch가 떴다.
+#:
+#: 밑줄 접두를 규칙으로 삼은 이유는 citekey 문법(`^[a-z][a-z0-9-]*$`)이 밑줄로 시작할 수
+#: 없어서다 — `archive/_unread/`가 같은 규칙을 쓴다. **밑줄 = 우리 것, 나머지 = 원문.**
+OURS_PREFIX = "_"
+
 
 def manifest(root: Path) -> str:
     """`<sha256>  <상대 posix 경로>` 줄들. 사람이 읽고 diff할 수 있는 중간 산물이다."""
     lines = []
     for path in sorted(p for p in root.rglob("*") if p.is_file()):
+        if path.relative_to(root).parts[0].startswith(OURS_PREFIX):
+            continue
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         lines.append(f"{digest}  {path.relative_to(root).as_posix()}")
     return "\n".join(lines) + "\n" if lines else ""
