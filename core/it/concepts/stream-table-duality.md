@@ -3,7 +3,6 @@ type: concept
 title: 스트림-테이블 이중성과 조인
 description: 스트림과 테이블은 같은 것의 두 면이라는 관점과 그 사이를 오가는 두 방향(CDC와 구체화), 그리고 그 관점 위에 서는 조인 세 종류 — 스트림-테이블 조인이 외부 조회를 없애는 방식, 언제나 비윈도우인 테이블-테이블 조인, 언제나 윈도우인 스트리밍 조인
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

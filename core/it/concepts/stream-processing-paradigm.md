@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리 패러다임
 description: 무엇이 스트림 처리이고 무엇이 아닌가 — 무한한 데이터셋이라는 이벤트 스트림의 정의와 순서·불변·재생이라는 세 속성, 요청-응답과 배치 사이를 메우는 자리, 그리고 이 패러다임이 실제로 푸는 문제 세 종류
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

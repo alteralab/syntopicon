@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리의 시간 의미론
 description: 한 이벤트에 붙일 수 있는 시각이 셋인데 어느 것을 쓸 것인가 — 이벤트 시간·로그 추가 시간·처리 시간의 구분과 처리 시간을 피하라는 권고, 카프카 스트림즈가 출력 레코드에 타임스탬프를 배정하는 네 규칙, 그리고 파이프라인 전체를 한 시간대로 맞춰야 하는 이유
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

@@ -2,7 +2,7 @@
 type: concept
 title: 단일 메시지 변환(SMT)
 description: 커넥트가 레코드를 복사하는 도중 코드 없이 바꾸는 무상태 변환 — 상태 있는 스트림 처리와 갈리는 경계, 아파치 카프카에 들어 있는 열한 가지 SMT, 레코드 헤더로 계보를 남기는 예, 그리고 손상 메시지를 보내는 데드 레터 큐
-generated: { by: "claude-opus-5", at: "2026-08-12T18:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -27,8 +27,13 @@ sources:
 - **SMT는 카프카 커넥트 안에서 메시지가 복사되는 동안 그 메시지를 변환하며, 흔히 코드를
   전혀 쓰지 않고 할 수 있다.** **조인이나 집계를 수반하는 더 복잡한 변환은 상태 있는 카프카
   스트림즈 프레임워크를 요구**한다 (9장, p.223).[^shapira2021]
-  - 카프카 스트림즈는 이 책의 뒤쪽 장(14장 "Stream Processing")에서 다루며 이 KB에는 아직
-    들어와 있지 않다 — **미해소**.
+  - 그 상태 있는 쪽이 이제 이 KB에 들어와 있다 — 무상태와 상태 있음의 경계가 어디서 갈리고
+    상태를 갖는 순간 무엇이 따라오는지는
+    [스트림 처리의 상태](../concepts/stream-processing-state.md), 조인과 집계가 실제로
+    무슨 꼴을 취하는지는
+    [스트림 처리 설계 패턴](../concepts/stream-processing-design-patterns.md),
+    카프카 스트림즈로 그것을 쓰는 법은
+    [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md)이다.
 - 파이프라인 설계에서 이 경계가 왜 중요한지는
   [데이터 파이프라인 설계 고려사항](../concepts/kafka-data-pipeline-considerations.md)의
   변환 절에 있다 — 파이프라인 안에서 너무 많이 바꾸면 하류의 손을 묶는다.
@@ -112,5 +117,7 @@ sources:
 - [프로듀서 전송 경로](../concepts/kafka-producer-send-path.md) — 여기서 쓰는 레코드 헤더가
   클라이언트 쪽에서 사는 곳
 - [ETL 34 서브시스템](../concepts/etl-subsystems.md) — 나쁜 레코드 처리의 웨어하우스 쪽 선택지
+- [스트림 처리 패러다임](../concepts/stream-processing-paradigm.md) — SMT가 감당하지 못하는
+  쪽이 무엇이라 불리는가
 
 [^shapira2021]: Shapira et al. 2021, 9장 "Building Data Pipelines", pp.223–225. 코드 펜스는 pp.224–225 예제 원문에서 변환 관련 네 줄만 남기고 나머지 커넥터 설정 키와 `echo`·`curl` 감싸개를 덜어냈다(보탠 줄 없음)

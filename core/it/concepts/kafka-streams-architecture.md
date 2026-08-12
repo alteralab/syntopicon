@@ -3,7 +3,6 @@ type: concept
 title: 카프카 스트림즈 아키텍처
 description: DSL로 쓴 토폴로지가 실제로 무엇이 되어 도는가 — 프로세서로 이뤄진 토폴로지와 논리·물리·실행의 3단계, 태스크가 병렬성의 단위인 이유와 리파티셔닝이 토폴로지를 쪼개는 지점, 그리고 장애 복구 시간을 줄이는 압착 설정과 스탠바이 레플리카
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

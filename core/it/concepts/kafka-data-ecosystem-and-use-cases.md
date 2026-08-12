@@ -2,7 +2,7 @@
 type: concept
 title: 데이터 생태계와 유스케이스
 description: 카프카를 데이터 생태계의 순환계로 보는 관점과 대표 유스케이스 5종 — 활동 추적·메시지 교환·지표와 로그·커밋 로그·스트림 처리, 그리고 분석 시스템 쪽에서 같은 스트림을 보는 시각
-generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
@@ -113,6 +113,10 @@ sources:
 - 스트림 프레임워크는 카프카 메시지 위에서 도는 작은 애플리케이션을 쓰게 해준다 —
   지표 세기, 다른 애플리케이션의 효율적 처리를 위한 메시지 파티셔닝, 여러 원천의
   데이터를 사용한 메시지 변환 등 (1장, p.14).[^shapira2021]
+- 같은 책 14장이 이 절을 훨씬 정밀하게 다시 정의한다 — 여기서는 "실시간"과 "하둡 대비"로
+  갈랐지만, 그쪽의 판정 기준은 **무한한 데이터셋을 연속적으로 읽어 처리하는가**이고 하둡이
+  아니라 요청-응답·배치와 나란히 놓인다:
+  [스트림 처리 패러다임](../concepts/stream-processing-paradigm.md).
 
 ## 분석 쪽에서 본 이벤트 스트림
 
@@ -144,6 +148,8 @@ sources:
 - [카프카의 기원](../concepts/kafka-origin-at-linkedin.md) — 활동 추적과 지표 수집이
   왜 원래 유스케이스였는지의 역사
 - [데이터 레이크](../concepts/data-lake.md) — 이벤트 스트림이 착지하는 분석 저장소 쪽
+- [스트림 처리 패러다임](../concepts/stream-processing-paradigm.md) — 다섯 유스케이스 중
+  마지막 것의 정본
 
 [^shapira2021]: Shapira et al. 2021, 1장 "Meet Kafka"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"

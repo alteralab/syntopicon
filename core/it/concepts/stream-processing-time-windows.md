@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리의 시간 윈도우
 description: 무한한 스트림을 유한한 조각으로 자르는 세 가지 파라미터 — 윈도우 크기와 진행 간격과 갱신 허용 기간, 그리고 그 조합이 만드는 텀블링·호핑·세션 윈도우와 벽시계 정렬 여부
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

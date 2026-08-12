@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리 설계 패턴
 description: 스트림 처리 애플리케이션이 실제로 취하는 몇 가지 꼴 — 상태가 필요 없어 복구가 쉬운 단일 이벤트 처리, 그룹별 집계를 로컬 상태로 가능하게 하는 파티셔닝, 전역 결과를 위한 다단계 리파티셔닝, 늦게 도착한 이벤트의 인밴드 처리, 그리고 앱을 고쳤을 때의 재처리 두 방법
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

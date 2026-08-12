@@ -2,7 +2,7 @@
 type: concept
 title: 카프카 트랜잭션
 description: 원자적 다수 파티션 쓰기로 소비-처리-생산 사슬을 정확히 한 번으로 만드는 기제 — 트랜잭션적 프로듀서와 좀비 펜싱, read_committed와 LSO, 그리고 트랜잭션이 풀어 주지 않는 다섯 가지 상황
-generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -347,5 +347,9 @@ sources:
   최소 한 번 보장
 - [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) — 좀비와
   세대(generation)가 생기는 절차
+- [스트림 처리의 상태](../concepts/stream-processing-state.md) — 이 기제가 지키려는 그
+  "스트림 처리 애플리케이션의 내부 상태"가 실제로 무엇인가
+- [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md) — `processing.guarantee`를 켜는
+  그 애플리케이션을 쓰는 법
 
 [^shapira2021]: Shapira et al. 2021, 8장 "Exactly-Once Semantics" — 코드 펜스는 pp.194–195 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음). 컨슈머의 `ENABLE_AUTO_COMMIT_CONFIG` 줄이 `consumerProps`가 아니라 `props`로 시작하는 것도 원문 그대로다

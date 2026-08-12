@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리 프레임워크 고르기
 description: 쓰려는 애플리케이션의 유형이 프레임워크 선택을 가른다 — 적재·저밀리초 반응·비동기 마이크로서비스·준실시간 분석 넷과 각각이 요구하는 것, 그리고 유형과 무관하게 따지는 운영성·API 사용성·어려운 일의 대행·커뮤니티
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

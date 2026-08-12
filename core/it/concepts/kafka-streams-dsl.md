@@ -3,7 +3,6 @@ type: concept
 title: 카프카 스트림즈 DSL
 description: 카프카에 딸려 오는 스트림 처리 라이브러리로 토폴로지를 짓는 법 — 저수준 Processor API와 고수준 Streams DSL의 갈림, 모든 앱에 필요한 애플리케이션 ID와 Serde, 그리고 책의 세 예제(단어 개수·주식 시장 통계·클릭 스트림 보강)가 각각 보여 주는 것
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

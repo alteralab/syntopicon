@@ -3,7 +3,6 @@ type: concept
 title: 스트림 처리의 상태
 description: 이벤트 하나를 넘어서는 순간 생기는 것 — 로컬 상태와 외부 상태의 맞교환, 로컬 상태가 떠안는 메모리·지속성·리밸런싱 세 문제, 체인지로그 토픽으로 상태를 다시 만드는 기제, 그리고 상태 저장소를 직접 읽는 대화형 질의
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
-status: draft
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---

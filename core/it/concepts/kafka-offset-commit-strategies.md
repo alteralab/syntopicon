@@ -2,7 +2,7 @@
 type: concept
 title: 오프셋 커밋 전략
 description: 컨슈머가 읽은 자리를 기록하는 방식과 그 선택의 결과 — 커밋 오프셋이 어긋날 때 생기는 중복과 누락, 자동 커밋이 남기는 창, commitSync와 commitAsync의 재시도 차이, 둘을 함께 쓰는 관용 패턴, 특정 오프셋 커밋, 신뢰성 관점에서 지킬 원칙, 처리하지 못한 레코드를 다루는 두 패턴, 그리고 특정 지점으로 되감기
-generated: { by: "claude-opus-5", at: "2026-08-12T01:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
 ---
@@ -250,6 +250,10 @@ sources:
     다룬다 — [카프카 트랜잭션](../concepts/kafka-transactions.md) 참조.
   - 일반적으로 이것은 **꽤 복잡한 문제**이므로, **집계·조인·윈도우 등 복잡한 분석을 위한 고수준
     DSL 형식 API를 제공하는 카프카 스트림즈나 플링크 같은 라이브러리를 살펴볼 것**을 권한다.
+    - 그 DSL이 실제로 어떤 것인지는
+      [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md), 여기서 손으로 복구하려 한
+      "이동 평균의 상태"를 프레임워크가 어떻게 맡는지는
+      [스트림 처리의 상태](../concepts/stream-processing-state.md)에 있다.
 
 ## 특정 오프셋에서 읽기
 
