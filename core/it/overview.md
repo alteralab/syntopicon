@@ -25,6 +25,8 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [카프카 신뢰성과 정확히 한 번](synthesis/kafka-reliability.md) — 보장의 경계·언클린 리더 선출·멱등적 프로듀서·트랜잭션
   - [카프카 커넥트와 데이터 파이프라인](synthesis/kafka-connect-and-pipelines.md) — 파이프라인 설계 고려사항·커넥트 구조와 설정·복사 도중 변환
   - [카프카 보안](synthesis/kafka-security.md) — 인증·인가·암호화·감사·주키퍼와 플랫폼
+  - [카프카 모니터링](synthesis/kafka-monitoring.md) — 지표와 SLO·브로커와 JVM·클라이언트 지표·랙
+  - [스트림 처리](synthesis/stream-processing.md) — 패러다임의 정의·시간과 상태와 이중성·설계 패턴·카프카 스트림즈
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조와 B-트리 대 LSM의 대비
 - [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft의 해법
