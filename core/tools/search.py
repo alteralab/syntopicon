@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ksearch
 import langfuse_bridge
 from syntopicon import index_db, layout as layout_mod, morph, stats
+from syntopicon.workspace import DEFAULT
 from syntopicon.repo import ROOT, visible_files
 
 #: 질의 확장·재정렬이 로컬 모델이라 첫 호출은 모델 적재까지 포함해 느리다.
@@ -69,14 +70,14 @@ def leg_morph(query: str, kb: str | None, limit: int) -> tuple[dict, list, list[
     """형태소 레그 — ksearch와 같은 경로(hits)를 쓴다."""
     if not morph.available():
         return {"skipped": "kiwipiepy 미설치 (uv sync --group index)"}, [], []
-    if not index_db.DB_PATH.is_file():
+    if not DEFAULT.derived_db.is_file():
         return {"skipped": "파생 인덱스 없음 (tools/reindex.py)"}, [], []
     expression = morph.query_expression(query)
     if not expression:
         return {"skipped": "색인 대상 형태소가 나오지 않음"}, [], []
 
     started = time.monotonic()
-    with index_db.connect() as connection:
+    with index_db.connect(DEFAULT) as connection:
         rows = ksearch.hits(connection, expression, kb, limit)
     elapsed = int((time.monotonic() - started) * 1000)
     return {"hits": len(rows), "ms": elapsed}, rows, morph.analyze(query)
@@ -159,7 +160,7 @@ def main(argv: list[str]) -> int:
         for name, meta in legs.items())
     print(f"{summary}{'  — 세 갈래 모두 0건 (공백 기록됨)' if miss else ''}")
 
-    with stats.connect() as db:
+    with stats.connect(DEFAULT) as db:
         stats.record_event(db, "query", {
             "query": args.query, "kb": args.kb, "n": args.n,
             "legs": legs, "miss": miss,

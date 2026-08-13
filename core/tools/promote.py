@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import langfuse_bridge
 from syntopicon import layout as layout_mod, stats
+from syntopicon.workspace import DEFAULT
 from syntopicon.repo import ROOT, visible_files
 
 TOOLS = Path(__file__).resolve().parent
@@ -109,7 +110,7 @@ def main(argv: list[str]) -> int:
                       "대상 없음으로 지나갑니다).", file=sys.stderr)
             break
 
-    with stats.connect() as db:
+    with stats.connect(DEFAULT) as db:
         lint_row = db.execute(
             "SELECT errors, warnings, infos FROM lint_runs ORDER BY id DESC LIMIT 1"
         ).fetchone() if failed is None else None

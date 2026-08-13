@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import index_db
+from syntopicon.workspace import DEFAULT
 
 
 def cmd_backlinks(connection, args) -> int:
@@ -68,11 +69,12 @@ def main(argv: list[str]) -> int:
     degree.set_defaults(run=cmd_degree)
 
     args = parser.parse_args(argv)
-    if not index_db.DB_PATH.is_file():
+    ws = DEFAULT
+    if not ws.derived_db.is_file():
         print("파생 인덱스가 없습니다. tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
         return 1
 
-    with index_db.connect() as connection:
+    with index_db.connect(ws) as connection:
         try:
             return args.run(connection, args)
         except ValueError as error:

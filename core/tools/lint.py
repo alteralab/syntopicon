@@ -30,6 +30,7 @@ import yaml
 from jsonschema import Draft202012Validator
 
 from syntopicon import index_db, layout as layout_mod, schemas, stats
+from syntopicon.workspace import DEFAULT
 from syntopicon.checks import CHECKS, KINDS, Context, Finding, check_page
 from syntopicon.mdfile import read
 from syntopicon.repo import ROOT
@@ -89,14 +90,15 @@ def main(argv: list[str]) -> int:
             return 1
         return explain(args.explain or None)
 
+    ws = DEFAULT
     layout = layout_mod.load()
-    if not index_db.DB_PATH.is_file():
+    if not ws.derived_db.is_file():
         print("파생 인덱스가 없습니다. tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
         return 1
 
-    with stats.connect() as stats_db:
+    with stats.connect(ws) as stats_db:
         baseline = stats.baseline(stats_db)
-        with index_db.connect() as connection:
+        with index_db.connect(ws) as connection:
             ctx = build_context(layout, connection, baseline, args.incremental, args.kb)
             ctx.overlap_full = args.overlap_full
             findings = [f for corpus_check in CHECKS for f in corpus_check(ctx)]

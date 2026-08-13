@@ -21,6 +21,7 @@ from typing import NamedTuple
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import index_db, schemas
+from syntopicon.workspace import DEFAULT
 
 
 class Hit(NamedTuple):
@@ -58,11 +59,12 @@ def main(argv: list[str]) -> int:
         command.add_argument("--kb", default=None)
 
     args = parser.parse_args(argv)
-    if not index_db.DB_PATH.is_file():
+    ws = DEFAULT
+    if not ws.derived_db.is_file():
         print("파생 인덱스가 없습니다. tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
         return 1
 
-    with index_db.connect() as connection:
+    with index_db.connect(ws) as connection:
         match args.axis:
             case "field":
                 rows = by_field(connection, args.value)

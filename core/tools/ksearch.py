@@ -21,6 +21,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import index_db, morph
+from syntopicon.workspace import DEFAULT
 
 SENTENCE = re.compile(r"(?<=[.!?。])\s+|\n{2,}")
 
@@ -108,7 +109,8 @@ def main(argv: list[str]) -> int:
     if not morph.available():
         print("kiwipiepy가 없습니다. uv sync --group index 를 먼저 실행하십시오.", file=sys.stderr)
         return 1
-    if not index_db.DB_PATH.is_file():
+    ws = DEFAULT
+    if not ws.derived_db.is_file():
         print("파생 인덱스가 없습니다. tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
         return 1
 
@@ -118,7 +120,7 @@ def main(argv: list[str]) -> int:
               f"(유지 품사: {', '.join(sorted(morph.KEEP_TAGS))})", file=sys.stderr)
         return 1
 
-    with index_db.connect() as connection:
+    with index_db.connect(ws) as connection:
         rows = hits(connection, expression, args.kb, args.n)
 
     render(rows, morph.analyze(args.query))

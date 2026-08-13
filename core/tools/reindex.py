@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import index_db
 from syntopicon import layout as layout_mod
+from syntopicon.workspace import DEFAULT
 
 
 def main() -> int:
@@ -25,7 +26,7 @@ def main() -> int:
         return 1
 
     try:
-        with index_db.build_lock():
+        with index_db.build_lock(DEFAULT):
             counts = index_db.build(layout)
     except RuntimeError as error:
         print(f"중단: {error}", file=sys.stderr)
