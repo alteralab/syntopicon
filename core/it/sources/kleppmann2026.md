@@ -26,5 +26,5 @@ foundational 슬롯이다: 특정 제품 버전이 아니라 원리와 트레이
 카프카(shapira2021)의 개념들을 이 책이 다른 층위에서 다시 다루므로, 이 소스의
 반입은 신규 페이지보다 **기존 페이지 갱신**이 본체가 된다.
 
-이번 런 범위: **1장 Trade-offs in Data Systems Architecture**. 후속 런은
-2장(비기능 요구)과 저장·복제·합의 장들. locator의 페이지는 책 내면 기준이다.
+locator의 페이지는 책 내면 기준이다. **어디까지 읽었는지의 정본은
+`it/archive/kleppmann2026/_progress.yaml`이다** — 여기 산문으로 범위를 적지 않는다.

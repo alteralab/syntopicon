@@ -30,3 +30,4 @@ generated: { by: "human:me", at: "2026-08-11T00:00:00Z" }
 
 - [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 이 알고리즘이 카프카에서 쓰이는 자리
 - [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 정족수 대신 ISR을 쓰는 다른 선택
+- [데이터 복제](../synthesis/data-replication.md) — 합의 없이 복제하는 계열 전체의 허브
