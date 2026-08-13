@@ -55,4 +55,15 @@ restic:
   asset: restic_0.19.1_darwin_arm64.bz2
   sha256: "06582569ff2f10e1935a6f12187c76db02f0bae99e6e54098f2cdc374766d768"
 
+# 리터럴·코드 조각 검색의 폴백 레그(PLAN §4.1의 rg 자리)와 docs-mirror의 무색인
+# rg 절차가 쓰는 실물 바이너리. 2026-08-13까지 이 기기에 실물이 없었고 세션의
+# rg는 Claude Code가 셸 함수로 노출한 내장 바이너리였다 — 서브프로세스와 세션
+# 밖에서는 보이지 않아 절차가 Claude Code에 숨은 결합을 갖고 있었다(중복 감사).
+# core 도구 자체는 rg에 의존하지 않는다(search.py 리터럴 갈래는 순수 파이썬) —
+# 이 핀은 환경 도구의 기록이다. 버전 고정은 하지 않는다(rg 출력을 파싱하는
+# 소비자가 없어 판 변화에 둔감하다). 설치: brew install ripgrep.
+ripgrep:
+  installed: "15.2.0"    # 설치 시점 기록 — 핀이 아니라 관측
+  via: brew
+
 vendor_dir: ~/.local/share/syntopicon/models
