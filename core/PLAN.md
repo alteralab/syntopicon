@@ -104,7 +104,7 @@ accessed: "2026-07-31"
 4. **개념 슬러그**: 영문 소문자 kebab(`[a-z0-9-]`), ~80자 이하, 한글 파일명 금지(NFC/NFD·바이트 한도). 한국어 개념은 로마자화 금지 → **영어 개념명 번역**(확립 용어 우선). title은 한국어 유지. **충돌은 의미 한정자로 해소**(`consistency-acid` vs `consistency-eventual`) — 숫자 접미 금지(예외: citekey `-2`). **날짜/번호 접두 금지(무예외)**.
 5. **동일 기기 병렬 프로세스**: 파일명=ID인 슬러그·citekey는 도구가 **O_EXCL 생성(`open(path,'x')`) 의무** — KB 디렉터리 내 파일명 유일성은 fs 원자성이 게이트(로컬 FS 전제는 §5 토폴로지가 보장). check-then-write 금지.
 6. **기기 간**: 슬러그 충돌은 git `AA`(both added) 충돌이 감지기. citekey는 결정적 규칙으로 수렴하며 `-2` 결과는 파일에 데이터로 고정. **중앙 발급 서비스 불채택** — md+git 밖의 제2 진실 원천 금지.
-7. **ID 외 동시성**: ⓐ 재색인·`qmd update`는 단일 실행 직렬화 ⓑ 텔레메트리는 git 밖 stats DB(§3) ⓒ inbox diff는 런ID 명명 + O_EXCL ⓓ index.sqlite 사본은 §5 규약 준수(라이브 cp 금지) ⓔ rename·compaction은 클린 워킹트리 확인 후 에이전트 세션과 비동시 실행 ⓕ git push(non-ff 거부)·restic(불변 블롭)·bundle(git 일관 스냅샷)은 무처방 안전.
+7. **ID 외 동시성**: ⓐ 재색인·`qmd update`는 단일 실행 직렬화 ⓑ 텔레메트리는 git 밖 stats DB(§3) ⓒ inbox diff는 런ID 명명 + O_EXCL ⓓ index.sqlite 사본은 §5 규약 준수(라이브 cp 금지) ⓔ rename·compaction은 클린 워킹트리 확인 후 에이전트 세션과 비동시 실행 ⓕ git push(non-ff 거부)·restic(불변 블롭)·bundle(git 일관 스냅샷)은 무처방 안전 ⓖ **다중 파일 쓰기의 트랜잭션 모델 = 보상(compensation)**: 원자적 다중 쓰기 대신 클린 워킹트리 가드(`repo.ensure_clean_worktree` — ⓔ의 단일 구현) 위에서 실행하고 실패는 git으로 전량 원복한다. 스토어 간(md↔파생 인덱스) 정합도 원자화하지 않는다 — 세대 스탬프 대조(`index_db.staleness`)가 낡은 소비를 거부하고 재색인이 조정한다. 업계 동형(정본+파생+주기 조정 — Tencent·Letta·mem0·Graphiti 전수에서 스토어 간 2PC 부재, 원장 2026-08-13).
 
 ### 2.6 페이지 위생
 
