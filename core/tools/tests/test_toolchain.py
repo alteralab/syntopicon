@@ -10,6 +10,7 @@ from pathlib import Path
 import yaml
 
 from conftest import Repo
+from syntopicon import pin as pin_mod
 
 TOOLS = Path(__file__).resolve().parents[1]
 
@@ -36,10 +37,10 @@ def test_핀_갱신이_주석을_지우지_않는다(tmp_path, monkeypatch):
     comments = sum(1 for line in before.splitlines() if line.strip().startswith("#"))
     assert comments > 5, "픽스처에 주석이 없으면 이 테스트는 아무것도 재지 않는다"
 
-    monkeypatch.setattr(qmd_setup, "PIN_PATH", pin)
+    monkeypatch.setattr(pin_mod, "PIN_PATH", pin)
     data = yaml.safe_load(before)
     data["models"]["embed"]["sha256"] = "f" * 64
-    qmd_setup.record_digests(data)
+    pin_mod.record_model_shas(data)
 
     after = pin.read_text()
     assert sum(1 for line in after.splitlines() if line.strip().startswith("#")) == comments
@@ -81,8 +82,8 @@ def test_restic_핀도_주석을_지우지_않고_기록된다(tmp_path, monkeyp
     pin.write_text((TOOLS / "toolchain-pin.yaml").read_text())
     comments = sum(1 for line in pin.read_text().splitlines() if line.strip().startswith("#"))
 
-    monkeypatch.setattr(backup, "PIN_PATH", pin)
-    backup.record_restic_digest("c" * 64)
+    monkeypatch.setattr(pin_mod, "PIN_PATH", pin)
+    pin_mod.record_restic_sha("c" * 64)
 
     after = pin.read_text()
     assert sum(1 for line in after.splitlines() if line.strip().startswith("#")) == comments

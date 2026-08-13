@@ -31,6 +31,11 @@ class Kind:
 KINDS: dict[str, Kind] = {}
 
 
+# 등급의 표시 순서 — lint 리포트·--explain이 공유한다. 사전 2벌이 lint.py 안에
+# 따로 있었다(2026-08-13 상수 감사).
+SEVERITY_ORDER = {"error": 0, "warn": 1, "info": 2}
+
+
 def kind(name: str, severity: str, doc: str, guidance: str) -> None:
     """결과 종류 선언 — 검사가 사는 모듈의 머리에서, 검사 곁에서 한다."""
     if name in KINDS:

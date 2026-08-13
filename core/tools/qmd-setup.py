@@ -26,14 +26,12 @@ import sys
 import urllib.request
 from pathlib import Path
 
-import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from syntopicon import layout as layout_mod, qmdstore
+from syntopicon import layout as layout_mod, pin as pin_mod, qmdstore
 from syntopicon.repo import ROOT
 
-PIN_PATH = Path(__file__).resolve().parent / "toolchain-pin.yaml"
 # 현재 인덱스를 만든 임베딩 모델의 sha256. qmd가 이 사실을 신뢰할 수 있게 기록하지
 # 못하므로(아래 check_embed_generation 주석) 우리가 따로 들고 있는다.
 ACTIVE_MARKER = "embed-model.sha256"
@@ -83,27 +81,6 @@ def acquire(spec: dict, vendor: Path) -> tuple[Path, str]:
     partial.rename(target)                     # 반쪽 파일을 벤더 디렉터리에 남기지 않는다
     return target, digest(target)
 
-
-def record_digests(pin: dict) -> None:
-    """sha256 줄만 제자리에서 고친다.
-
-    YAML 라운드트립으로 통째로 다시 쓰면 주석이 전부 날아간다. 이 파일에서 사라지면
-    곤란한 것이 정확히 주석(왜 벤더링하는가·왜 sha256이 핀인가)이므로, 값이 바뀌는
-    줄만 바꾼다 — 저장소의 다른 도구들과 같은 규율이다(PLAN §2.1).
-    """
-    lines = PIN_PATH.read_text().splitlines(keepends=True)
-    wanted = {spec["file"]: spec["sha256"] for spec in pin["models"].values()}
-
-    current = None
-    for index, line in enumerate(lines):
-        stripped = line.strip()
-        if stripped.startswith("file:"):
-            current = stripped.split(":", 1)[1].strip()
-        elif stripped.startswith("sha256:") and current in wanted:
-            indent = line[: len(line) - len(line.lstrip())]
-            lines[index] = f'{indent}sha256: "{wanted[current]}"\n'
-            current = None
-    PIN_PATH.write_text("".join(lines))
 
 
 def check_embed_generation(pin: dict, vendor: Path, rebuilt: bool) -> bool:
@@ -158,7 +135,7 @@ def main(argv: list[str]) -> int:
                         help="blue/green 재빌드를 마쳤음을 기록한다 (qmd embed -f 이후)")
     args = parser.parse_args(argv)
 
-    pin = yaml.safe_load(PIN_PATH.read_text())
+    pin = pin_mod.load()
     vendor = Path(pin["vendor_dir"]).expanduser()
     layout = layout_mod.load()
 
@@ -195,7 +172,7 @@ def main(argv: list[str]) -> int:
         spec["sha256"] = sha
         print(f"  {role:9} {path.name}  {sha[:16]}…  {path.stat().st_size >> 20}MB")
 
-    record_digests(pin)
+    pin_mod.record_model_shas(pin)
 
     # 복구 런북이므로 overwrite=True — 옛 기기의 경로가 남아 있는 것이 정상 전제이고,
     # 현재 경로로 덮는 것이 재생성의 정의다(신설 경로 kb-new는 False — qmdstore 참조).

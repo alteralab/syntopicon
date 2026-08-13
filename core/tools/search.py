@@ -30,12 +30,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ksearch
 import langfuse_bridge
 from syntopicon import index_db, layout as layout_mod, morph, stats
+from syntopicon.layout import QMD_SCHEME
 from syntopicon.workspace import DEFAULT
 from syntopicon.repo import ROOT, visible_files
 
 #: 질의 확장·재정렬이 로컬 모델이라 첫 호출은 모델 적재까지 포함해 느리다.
 QMD_TIMEOUT = 300
-QMD_SCHEME = "qmd://"
 
 
 def leg_qmd(query: str, kb: str | None, limit: int) -> tuple[dict, list[dict]]:

@@ -13,13 +13,10 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from .layout import Layout
+from .layout import QMD_SCHEME, Layout
 from .mdfile import read
 from .repo import ROOT, visible_files
 from .rewrite import rewrite_frontmatter_path, rewrite_links
-
-QMD_SCHEME = "qmd://"
-
 
 class RelocateError(Exception):
     """진행하면 손상이 남는 상황. 아무것도 건드리지 않고 멈춘다."""

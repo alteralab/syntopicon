@@ -21,7 +21,7 @@ from pathlib import Path
 
 from . import morph
 from .db import open_db
-from .layout import Layout
+from .layout import QMD_SCHEME, Layout
 from .mdfile import anchors_by_line, read
 from .repo import ROOT, visible_files
 from .workspace import DEFAULT, Workspace
@@ -29,7 +29,6 @@ from .workspace import DEFAULT, Workspace
 # 경로 파생의 정본은 Workspace다 — 전역은 기본 인스턴스의 파생물(하위 호환).
 DB_PATH = DEFAULT.derived_db
 LOCK_PATH = DEFAULT.derived_lock
-QMD_SCHEME = "qmd://"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS files (

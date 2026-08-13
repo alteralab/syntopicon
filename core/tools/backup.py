@@ -40,14 +40,12 @@ import urllib.request
 from datetime import date
 from pathlib import Path
 
-import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from syntopicon import layout as layout_mod, qmdstore
+from syntopicon import layout as layout_mod, pin as pin_mod, qmdstore
 from syntopicon.repo import ROOT
 
-PIN_PATH = Path(__file__).resolve().parent / "toolchain-pin.yaml"
 # 인덱스 경로 해석은 qmdstore가 유일한 구현이다 — 사본이 갈라지면 "백업은 됐는데
 # 엉뚱한 인덱스"가 조용히 생긴다.
 QMD_INDEX = qmdstore.index_path()
@@ -90,7 +88,7 @@ def cmd_index(_args) -> int:
     if not QMD_INDEX.is_file():
         print(f"qmd 인덱스가 없습니다: {QMD_INDEX}", file=sys.stderr)
         return 1
-    version = yaml.safe_load(PIN_PATH.read_text())["qmd"]["version"]
+    version = pin_mod.load()["qmd"]["version"]
     target = destination() / f"qmd-index-v{version}-{date.today():%Y%m%d}.sqlite"
     if target.exists():
         target.unlink()
@@ -121,7 +119,7 @@ def cmd_restic(args) -> int:
         return 1
 
     layout = layout_mod.load()
-    pin = yaml.safe_load(PIN_PATH.read_text())
+    pin = pin_mod.load()
     vendor = Path(pin["vendor_dir"]).expanduser()
 
     failures = 0
@@ -150,22 +148,6 @@ def cmd_restic(args) -> int:
     return 1 if failures else 0
 
 
-def record_restic_digest(sha: str) -> None:
-    """`restic:` 블록의 sha256 줄만 제자리에서 고친다 — 통째로 다시 쓰면 주석이 날아간다.
-    qmd-setup.record_digests와 같은 규율이다."""
-    lines = PIN_PATH.read_text().splitlines(keepends=True)
-    in_block = False
-    for index, line in enumerate(lines):
-        if line.startswith("restic:"):
-            in_block = True
-        elif line and not line[0].isspace() and not line.startswith("#"):
-            in_block = False
-        elif in_block and line.strip().startswith("sha256:"):
-            indent = line[: len(line) - len(line.lstrip())]
-            lines[index] = f'{indent}sha256: "{sha}"\n'
-            break
-    PIN_PATH.write_text("".join(lines))
-
 
 def cmd_bootstrap(_args) -> int:
     """복구용 정적 restic 바이너리를 백업 대상 옆에 둔다 (PLAN §5).
@@ -174,7 +156,7 @@ def cmd_bootstrap(_args) -> int:
     설치하라"는 순환을 끊는 것이 이 파일 하나다. brew 사본이 아니라 공식 릴리스
     정적 바이너리를 받고, 어떤 판본인지 sha256으로 확정한다.
     """
-    pin = yaml.safe_load(PIN_PATH.read_text())
+    pin = pin_mod.load()
     spec = pin["restic"]
     target = destination() / f"restic-{spec['version']}"
 
@@ -197,7 +179,7 @@ def cmd_bootstrap(_args) -> int:
         print(f"sha256이 핀과 다릅니다\n  기록 {spec['sha256']}\n  실제 {sha}", file=sys.stderr)
         return 1
     if not spec.get("sha256"):
-        record_restic_digest(sha)
+        pin_mod.record_restic_sha(sha)
 
     version = subprocess.run([str(target), "version"], capture_output=True, text=True)
     print(f"restic  {target}  {sha[:16]}…")

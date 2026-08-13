@@ -11,6 +11,11 @@ from .repo import ROOT, top_level_entries
 
 LAYOUT_PATH = ROOT / "schema" / "layout.yaml"
 
+#: 크로스 KB 링크 스킴(PLAN §2.4). KB 경계 문법이므로 경계의 정본인 이 모듈이
+#: 소유한다 — 독립 정의 3벌(relocate·index_db·search)이 드리프트 위험으로
+#: 실측돼 단일화했다(2026-08-13 상수 감사).
+QMD_SCHEME = "qmd://"
+
 
 @dataclass(frozen=True)
 class Layout:

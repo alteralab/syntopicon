@@ -32,6 +32,7 @@ from jsonschema import Draft202012Validator
 from syntopicon import index_db, layout as layout_mod, schemas, stats
 from syntopicon.workspace import DEFAULT
 from syntopicon.checks import CHECKS, KINDS, Context, Finding, check_page
+from syntopicon.checks.base import SEVERITY_ORDER
 from syntopicon.mdfile import read
 from syntopicon.repo import ROOT
 
@@ -65,7 +66,7 @@ def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str
 
 def explain(name: str | None) -> int:
     kinds = [KINDS[name]] if name else sorted(
-        KINDS.values(), key=lambda k: ({"error": 0, "warn": 1, "info": 2}[k.severity], k.name))
+        KINDS.values(), key=lambda k: (SEVERITY_ORDER[k.severity], k.name))
     for k in kinds:
         print(f"[{k.severity}] {k.name} — {k.doc}")
         print(f"  {k.guidance}\n")
@@ -119,12 +120,11 @@ def main(argv: list[str]) -> int:
 
 
 def report(findings: list[Finding], ctx: Context, mode: str, quiet: bool) -> int:
-    order = {"error": 0, "warn": 1, "info": 2}
     grouped: dict[str, list[Finding]] = defaultdict(list)
     for finding in findings:
         grouped[finding.check].append(finding)
 
-    for name in sorted(grouped, key=lambda c: (order[KINDS[c].severity], c)):
+    for name in sorted(grouped, key=lambda c: (SEVERITY_ORDER[KINDS[c].severity], c)):
         items = grouped[name]
         if quiet and KINDS[name].severity == "info":
             continue
