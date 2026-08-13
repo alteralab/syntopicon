@@ -80,6 +80,14 @@ sources:
 - 샤딩된 데이터베이스면 **샤드마다 리더가 하나**다. 서로 다른 샤드의 리더가 서로 다른
   노드에 있을 수는 있지만, **각 샤드는 반드시 리더 노드를 하나 가져야 한다** (6장,
   p.199).[^kleppmann2026]
+  - 7장이 같은 그림을 노드 쪽에서 다시 그린다 — **한 노드가 샤드를 여럿 저장할 수 있고, 각
+    샤드의 리더가 한 노드에 배정되고 그 팔로워들은 다른 노드들에 배정된다. 각 노드는 어떤
+    샤드에 대해서는 리더이고 다른 샤드에 대해서는 팔로워일 수 있지만, 각 샤드는 여전히 리더를
+    하나만 갖는다** (7장, p.251).[^kleppmann2026]
+  - 두 축은 서로 독립이다 — **6장의 데이터베이스 복제에 관한 모든 것이 샤드의 복제에 똑같이
+    적용되고, 샤딩 스킴의 선택은 복제 스킴의 선택과 대체로 독립적이다** (7장,
+    p.253).[^kleppmann2026] 그래서 7장은 복제를 아예 무시하고 서술한다. 자르는 쪽의 선택지는
+    [샤딩의 기본](../concepts/sharding-basics.md)에 있다.
 - 이 방식은 매우 널리 쓰인다 — PostgreSQL·MySQL·Oracle Data Guard·SQL Server Always On
   가용성 그룹 같은 관계형 데이터베이스, MongoDB·DynamoDB 같은 문서 데이터베이스,
   **카프카 같은 메시지 브로커**, DRBD 같은 복제 블록 장치, 일부 네트워크 파일시스템이 이
@@ -248,5 +256,7 @@ sources:
   다섯 목적이 정리된 자리
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 복제 로그와
   스냅샷을 오브젝트 스토어에 두는 흐름
+- [샤딩의 기본](../concepts/sharding-basics.md) — 이 리더 하나가 담당하는 그 샤드를 어떻게
+  잘라 내는가
 
-[^kleppmann2026]: Kleppmann & Riccomini 2026, 6장 "Replication"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 6장 "Replication" · 7장 "Sharding"

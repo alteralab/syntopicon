@@ -93,6 +93,21 @@ sources:
 > [I]t's advisable not to rush into making a system distributed if it's possible
 > to keep it on a single machine.
 
+- 7장이 같은 권고를 샤딩에 대해 다시 적는다 — **복제는 작은 규모에서도 큰 규모에서도 유용한
+  반면 샤딩은 무거운 해법이라 대체로 큰 규모에서만 관련이 있다. 데이터 양과 쓰기 처리량을
+  기계 한 대가 감당할 수 있다면(요즘 기계 한 대는 많은 것을 할 수 있다) 샤딩을 피하고 단일
+  샤드 데이터베이스에 머무르는 편이 낫다** (7장, p.253).[^kleppmann2026]
+  - 그 반대편에서 샤딩이 맡는 자리도 명시된다 — **샤딩은 수평 확장(스케일 아웃 아키텍처)을
+    달성하는 주요 도구 중 하나**이며, 수평 확장은 **더 큰 기계로 옮기는 것이 아니라 (더 작은)
+    기계를 더 붙여 용량을 늘리는 것**이다 (7장, p.253).[^kleppmann2026] 위
+    [분산으로 가는 이유들](#분산으로-가는-이유들)의 "확장성"이 실제로 어떻게 구현되는지가
+    [샤딩의 기본](../concepts/sharding-basics.md)에 있다.
+- 기계 한 대에 머무르는 것과 샤딩하는 것이 배타적이지도 않다 — **기계 한 대 위에서도 샤딩을
+  쓰는 시스템이 있다.** 보통 **CPU 코어마다 단일 스레드 프로세스를 하나씩 돌려 CPU의 병렬성을
+  쓰거나, 어떤 메모리 뱅크가 다른 것보다 특정 CPU에 가까운 비균일 메모리 접근(NUMA)
+  아키텍처를 활용하기 위해서**이며, **레디스·VoltDB·FoundationDB가 코어당 프로세스 하나를
+  쓴다** (7장, p.254).[^kleppmann2026]
+
 ## 클라우드 컴퓨팅과 슈퍼컴퓨팅
 
 - 대규모 컴퓨팅 시스템을 짓는 길이 클라우드만은 아니다. 대안이 고성능
@@ -185,5 +200,7 @@ p.243):[^kleppmann2026]
   연산의 분리가 왜 네트워크 전송을 함의하는가
 - [카프카 하드웨어와 클러스터 산정](../concepts/kafka-hardware-and-cluster-sizing.md)
   — 노드를 몇 대 둘지의 실제 산정 사례
+- [샤딩의 기본](../concepts/sharding-basics.md) — 한 기계로 감당이 안 될 때 데이터를 쪼개는
+  쪽과 그 값어치
 
-[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 6장 "Replication" · 7장 "Sharding"
