@@ -78,6 +78,10 @@ def leg_morph(query: str, kb: str | None, limit: int) -> tuple[dict, list, list[
 
     started = time.monotonic()
     with index_db.connect(DEFAULT) as connection:
+        if reason := index_db.staleness(connection):
+            # 다른 갈래(qmd·리터럴)는 살아 있으므로 실패 대신 크게 건너뛴다 —
+            # 사유는 계측(legs)에 남아 낡은 색인의 빈도가 데이터가 된다.
+            return {"skipped": f"색인이 낡음 — {reason} (tools/reindex.py)"}, [], []
         rows = ksearch.hits(connection, expression, kb, limit)
     elapsed = int((time.monotonic() - started) * 1000)
     return {"hits": len(rows), "ms": elapsed}, rows, morph.analyze(query)

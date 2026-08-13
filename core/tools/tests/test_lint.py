@@ -327,6 +327,31 @@ def test_반입_진행_파일을_검사한다(repo: Repo):
     assert not findings(repo, "progress-suffix") and not findings(repo, "progress-unit")
 
 
+def test_낡은_색인은_소비를_거부한다(repo: Repo):
+    """색인 후 워킹 트리가 변하면 조용히 낡은 답을 내는 대신 재색인을 요구한다 —
+    증분 누락과 삭제 파일 traceback이 이 게이트의 근거다(감사 B4)."""
+    base(repo)
+    repo.write("it/concepts/first.md", cited())
+    repo.run("reindex.py")
+    assert repo.run("lint.py").returncode == 0
+
+    repo.write("it/concepts/second.md", cited())          # 색인 후 추가
+    result = repo.run("lint.py")
+    assert result.returncode == 1 and "낡았습니다" in result.stderr
+    # 추가분을 지우면 트리가 색인 시점 상태로 되돌아가 지문이 다시 일치한다 —
+    # 낡음의 기준은 "색인과 트리의 불일치"이지 "변경 이력"이 아니다.
+    (repo.root / "it/concepts/second.md").unlink()
+    assert repo.run("lint.py").returncode == 0
+
+    repo.write("it/concepts/second.md", cited())
+    repo.run("reindex.py")
+    (repo.root / "it/concepts/second.md").unlink()        # 색인에 든 파일 삭제 —
+    assert repo.run("lint.py").returncode == 1            # 구판은 traceback이었다
+
+    repo.run("reindex.py")
+    assert repo.run("lint.py").returncode == 0
+
+
 def test_결과_종류_레지스트리가_완결이다():
     """이름·등급·지침의 정본은 Kind 레지스트리다. 지침 없는 검사는 추가 자체가
     안 되게 여기서 강제한다 — SKILL 손 유지 목록의 안내 누락 17종이 이 테스트의

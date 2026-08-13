@@ -80,6 +80,22 @@ def test_전갈래_0건이면_miss가_기록된다(repo: Repo, tmp_path: Path):
     assert misses == [("it", "양자내성암호 격자환원")]
 
 
+def test_낡은_색인이면_형태소_갈래는_크게_건너뛴다(repo: Repo, tmp_path: Path):
+    """낡은 색인은 형태소 갈래만 사유와 함께 건너뛴다 — 리터럴 갈래는 디스크를
+    직접 읽으므로 검색 자체는 살아 있어야 하고, 사유는 계측에 남는다."""
+    seeded(repo)
+    repo.write("it/concepts/fresh-page.md", concept())    # 색인 후 변경 → 낡음
+
+    result = repo.run("search.py", "복제 지연",
+                      extra_env={"PATH": bin_without_qmd(tmp_path)})
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "색인이 낡음" in result.stdout
+
+    (_, payload), = events_of(repo)
+    assert "색인이 낡음" in payload["legs"]["morph"]["skipped"]
+    assert payload["legs"]["literal"]["hits"] >= 1
+
+
 def test_없는_kb는_거부한다(repo: Repo, tmp_path: Path):
     seeded(repo)
     result = repo.run("search.py", "복제", "--kb", "ops",

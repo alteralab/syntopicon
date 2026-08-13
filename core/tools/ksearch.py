@@ -121,6 +121,10 @@ def main(argv: list[str]) -> int:
         return 1
 
     with index_db.connect(ws) as connection:
+        if reason := index_db.staleness(connection):
+            print(f"파생 인덱스가 낡았습니다 — {reason}. tools/reindex.py를 먼저 실행하십시오.",
+                  file=sys.stderr)
+            return 1
         rows = hits(connection, expression, args.kb, args.n)
 
     render(rows, morph.analyze(args.query))
