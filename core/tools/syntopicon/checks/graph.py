@@ -86,9 +86,10 @@ def check_hubs(ctx):
     자동 갱신하지 않는다. 목록 자동화는 생존하지만 큐레이션 자동화는 실패한다는 것이
     판정 원장의 결론이고, 무엇을 허브로 올릴지는 사람의 선정이다.
     """
+    from ..index_db import degrees as degree_rows
+
     section = ctx.layout.sections["hubs"]
-    degrees = {row["dst"]: row["degree"] for row in ctx.connection.execute(
-        "SELECT dst, COUNT(*) AS degree FROM edges WHERE resolved = 1 GROUP BY dst")}
+    degrees = {row["path"]: row["degree"] for row in degree_rows(ctx.connection, "in")}
 
     for kb in ctx.layout.kbs():
         marker = f"{kb}/{ctx.layout.marker_path}"
@@ -121,12 +122,13 @@ def check_hub_size(ctx):
     통째로 읽히는 진입점이 예산(1–2k 토큰)을 넘게 크는 것과 훑기 불가능해지는
     것은 남는다. 분할 판단은 사람이 한다 — "주제가 갈라지면 허브를 나눈다".
     """
-    for row in ctx.connection.execute("""
-        SELECT src, COUNT(*) AS degree FROM edges WHERE resolved = 1
-        GROUP BY src HAVING degree > ?
-    """, (HUB_SPLIT_HINT,)):
-        if ctx.meta.get(row["src"], {}).get("type") == "synthesis":
+    from ..index_db import degrees as degree_rows
+
+    for row in degree_rows(ctx.connection, "out"):
+        if row["degree"] <= HUB_SPLIT_HINT:
+            break                     # degree 내림차순 — 임계 이하부터는 전부 아래다
+        if ctx.meta.get(row["path"], {}).get("type") == "synthesis":
             yield Finding("hub-split-hint",
                           f"링크 {row['degree']}개 > {HUB_SPLIT_HINT} — 허브 분할 후보 "
                           "(진입점 예산 1–2k 토큰, PLAN §3)",
-                          ctx.kb_of(row["src"]), row["src"])
+                          ctx.kb_of(row["path"]), row["path"])

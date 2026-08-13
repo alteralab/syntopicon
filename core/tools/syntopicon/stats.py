@@ -15,6 +15,7 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 
+from .db import open_db
 from .repo import ROOT
 
 DB_PATH = ROOT / "stats.sqlite"
@@ -68,9 +69,7 @@ CREATE TABLE IF NOT EXISTS events (
 
 @contextmanager
 def connect():
-    connection = sqlite3.connect(DB_PATH)
-    connection.row_factory = sqlite3.Row
-    connection.executescript(SCHEMA)
+    connection = open_db(DB_PATH, SCHEMA)
     try:
         yield connection
         connection.commit()
@@ -89,7 +88,7 @@ def record_event(connection: sqlite3.Connection, kind: str, payload: dict) -> No
     기록만 하고, 기록 실패는 예외로 드러낸다(조용한 생략 금지, PLAN §3).
     """
     connection.execute(
-        "INSERT INTO events VALUES (?,?,?,?)",
+        "INSERT INTO events (at, kind, session, payload) VALUES (?,?,?,?)",
         (now(), kind, os.environ.get("CLAUDE_SESSION_ID"),
          json.dumps(payload, ensure_ascii=False, sort_keys=True)),
     )
@@ -110,11 +109,12 @@ def record_run(connection: sqlite3.Connection, mode: str, findings, seen: dict[s
     )
     run_id = cursor.lastrowid
     connection.executemany(
-        "INSERT INTO lint_findings VALUES (?,?,?,?,?,?)",
+        "INSERT INTO lint_findings (run_id, check_name, severity, kb, path, message) "
+        "VALUES (?,?,?,?,?,?)",
         [(run_id, f.check, f.severity, f.kb, f.path, f.message) for f in findings],
     )
     connection.executemany(
-        "INSERT INTO lint_seen VALUES (?,?,?) "
+        "INSERT INTO lint_seen (path, sha256, at) VALUES (?,?,?) "
         "ON CONFLICT(path) DO UPDATE SET sha256 = excluded.sha256, at = excluded.at",
         [(path, sha, now()) for path, sha in seen.items()],
     )

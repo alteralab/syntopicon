@@ -17,7 +17,7 @@ from dataclasses import dataclass
 
 from markdown_it.token import Token
 
-from .mdfile import parser
+from .mdfile import frontmatter_span, parser
 
 
 @dataclass(frozen=True)
@@ -113,12 +113,11 @@ def rewrite_frontmatter_path(source: str, old_path: str, new_path: str) -> Rewri
     front_matter 토큰의 줄 범위 안에서 경로 문자열만 교체하고, 출현 수가 예상과
     다르면 실패한다.
     """
-    tokens = parser().parse(source)
-    block = next((t for t in tokens if t.type == "front_matter" and t.map), None)
-    if block is None:
+    span = frontmatter_span(source)
+    if span is None:
         return Rewrite(source, 0, ())
 
-    start, end = block.map
+    start, end = span
     lines = source.splitlines(keepends=True)
     span = "".join(lines[start:end])
     found = span.count(old_path)

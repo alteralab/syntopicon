@@ -16,26 +16,35 @@ import json
 import sys
 from collections import Counter
 from pathlib import Path
+from typing import NamedTuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import index_db, schemas
 
 
-def by_field(connection, key: str) -> list[tuple[str, str, str]]:
+class Hit(NamedTuple):
+    """영향 파일 한 건 — 위치 인덱스(`row[1]`) 결합은 스키마가 바뀌면 조용히 어긋난다."""
+
+    path: str
+    kb: str
+    detail: str
+
+
+def by_field(connection, key: str) -> list[Hit]:
     """그 키를 실제로 담고 있는 파일. JSON 컬럼을 훑으므로 인덱스가 없어도 충분하다."""
     return [
-        (row["path"], row["kb"], json.dumps(json.loads(row["frontmatter"])[key],
-                                            ensure_ascii=False, default=str))
+        Hit(row["path"], row["kb"], json.dumps(json.loads(row["frontmatter"])[key],
+                                               ensure_ascii=False, default=str))
         for row in connection.execute("SELECT path, kb, frontmatter FROM files")
         if key in json.loads(row["frontmatter"])
     ]
 
 
-def by_column(connection, column: str, value: str) -> list[tuple[str, str, str]]:
+def by_column(connection, column: str, value: str) -> list[Hit]:
     rows = connection.execute(
         f"SELECT path, kb, type FROM files WHERE {column} = ? ORDER BY path", (value,))
-    return [(row["path"], row["kb"], row["type"]) for row in rows]
+    return [Hit(row["path"], row["kb"], row["type"]) for row in rows]
 
 
 def main(argv: list[str]) -> int:
@@ -66,12 +75,12 @@ def main(argv: list[str]) -> int:
                 rows = by_column(connection, "directory", args.value)
 
     if args.kb:
-        rows = [row for row in rows if row[1] == args.kb]
+        rows = [row for row in rows if row.kb == args.kb]
 
-    for path, _, detail in rows:
-        print(f"{path}\t{detail}")
+    for row in rows:
+        print(f"{row.path}\t{row.detail}")
 
-    per_kb = Counter(kb for _, kb, _ in rows)
+    per_kb = Counter(row.kb for row in rows)
     summary = ", ".join(f"{kb} {count}" for kb, count in sorted(per_kb.items())) or "없음"
     print(f"\n{len(rows)}개 파일 · KB별: {summary}")
     return 0

@@ -23,7 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod
-from syntopicon.mdfile import parser, read
+from syntopicon.mdfile import frontmatter_span, read
 from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate
 
 
@@ -55,8 +55,10 @@ def promote(relative: Path, by: str) -> str:
 
     text = absolute.read_text()
     lines = text.splitlines(keepends=True)
-    block = next(t for t in parser().parse(text) if t.type == "front_matter")
-    start, end = block.map
+    span = frontmatter_span(text)
+    if span is None:              # validate 범위 밖 파일 방어 — 없는 블록에 못 새긴다
+        raise VerifyError(f"{relative}: frontmatter가 없습니다")
+    start, end = span
 
     for index in range(start, end):
         stripped = lines[index].strip()

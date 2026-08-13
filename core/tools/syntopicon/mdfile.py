@@ -202,6 +202,18 @@ def _has_prose(children: list[Token]) -> bool:
     return False
 
 
+def frontmatter_span(source: str) -> tuple[int, int] | None:
+    """front_matter 블록의 (시작줄, 끝줄) — 없으면 None.
+
+    제자리 frontmatter 편집 세 곳(merge의 검역 키 제거, verify의 스탬프,
+    rewrite의 경로 치환)이 공유하는 골격이다 — 각자 파서를 불러 블록을 찾던
+    사본을 접는다(2026-08-13 감사). 편집 자체는 각자의 규율(대상 줄만)대로.
+    """
+    tokens = parser().parse(source)
+    block = next((t for t in tokens if t.type == "front_matter" and t.map), None)
+    return (block.map[0], block.map[1]) if block else None
+
+
 def heading_anchor(text: str) -> str:
     """GitHub 앵커 1개. 소문자화, 영숫자·공백·하이픈·언더스코어 외 제거, 공백을 하이픈으로.
 

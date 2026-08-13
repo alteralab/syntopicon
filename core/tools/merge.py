@@ -31,9 +31,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod, relocate
-from syntopicon.mdfile import read
+from syntopicon.mdfile import frontmatter_span, read
 from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate, visible_files
-from syntopicon.rewrite import parser
 
 TARGET_DIR = "concepts"
 
@@ -45,11 +44,10 @@ def strip_quarantine_keys(text: str) -> str:
     verified는 기계 산출물이 달고 나올 수 있는 스탬프가 아니다 — 개정 초안이
     원본에서 복사해 온 것이라면 그것은 대치되기 전 내용에 대한 증언이다.
     """
-    tokens = parser().parse(text)
-    block = next((t for t in tokens if t.type == "front_matter" and t.map), None)
-    if block is None:
+    span = frontmatter_span(text)
+    if span is None:
         return text
-    start, end = block.map
+    start, end = span
     lines = text.splitlines(keepends=True)
     kept, in_verified = [], False
     for line in lines[start:end]:

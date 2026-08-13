@@ -43,13 +43,7 @@ def cmd_degree(connection, args) -> int:
 
     소비자: `<kb>/overview.md`의 Hubs 절 갱신 후보(kb-lint가 대조한다).
     """
-    rows = connection.execute("""
-        SELECT dst AS path, COUNT(*) AS degree
-        FROM edges
-        WHERE resolved = 1 AND (? IS NULL OR dst LIKE ? || '/%')
-        GROUP BY dst ORDER BY degree DESC, path LIMIT ?
-    """, (args.kb, args.kb, args.top)).fetchall()
-    for row in rows:
+    for row in index_db.degrees(connection, "in", kb=args.kb, top=args.top):
         print(f"{row['degree']:4}  {row['path']}")
     return 0
 

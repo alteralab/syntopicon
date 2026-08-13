@@ -19,6 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from . import morph
+from .db import open_db
 from .layout import Layout
 from .mdfile import anchors_by_line, read
 from .repo import ROOT, visible_files
@@ -93,10 +94,7 @@ def build_lock():
 
 
 def connect() -> sqlite3.Connection:
-    connection = sqlite3.connect(DB_PATH)
-    connection.row_factory = sqlite3.Row
-    connection.executescript(SCHEMA)
-    return connection
+    return open_db(DB_PATH, SCHEMA)
 
 
 def _link_target(layout: Layout, src: Path, href: str) -> tuple[str, str, str | None, bool]:
@@ -162,14 +160,20 @@ def build(layout: Layout) -> Counts:
             if kind:   # 저장소 밖(http 등)은 그래프의 간선이 아니다
                 edges.append((str(relative), dst, kind, anchor, int(resolved)))
 
+    # INSERT는 컬럼을 명명한다 — 위치 기반은 스키마 컬럼 순서에 암묵 결합돼
+    # 순서 변경이 조용한 어긋남이 된다(2026-08-13 감사).
     with connect() as connection:
         for table in ("files", "edges", "morph", "fragments"):
             connection.execute(f"DELETE FROM {table}")
-        connection.executemany("INSERT INTO files VALUES (?,?,?,?,?,?,?,?,?)", files)
-        connection.executemany("INSERT INTO edges VALUES (?,?,?,?,?)", edges)
+        connection.executemany(
+            "INSERT INTO files (path, kb, directory, type, status, stale_after, "
+            "unreviewed, sha256, frontmatter) VALUES (?,?,?,?,?,?,?,?,?)", files)
+        connection.executemany(
+            "INSERT INTO edges (src, dst, kind, anchor, resolved) VALUES (?,?,?,?,?)", edges)
         connection.executemany(
             "INSERT INTO morph (path, anchor, line, raw, body) VALUES (?,?,?,?,?)", sections)
-        connection.executemany("INSERT INTO fragments VALUES (?,?,?)", fragments)
+        connection.executemany(
+            "INSERT INTO fragments (path, surface, pieces) VALUES (?,?,?)", fragments)
 
     return Counts(
         files=len(files),
@@ -185,6 +189,21 @@ def backlinks(connection: sqlite3.Connection, path: str) -> list[sqlite3.Row]:
     return connection.execute(
         "SELECT src, kind, anchor FROM edges WHERE dst = ? ORDER BY src", (path,)
     ).fetchall()
+
+
+def degrees(connection: sqlite3.Connection, direction: str = "in",
+            kb: str | None = None, top: int | None = None) -> list[sqlite3.Row]:
+    """링크 차수 — 'in'=피링크(dst, 허브 후보), 'out'=발링크(src, 허브 크기). resolved만.
+
+    edges 질의는 이 모듈이 소유한다(backlinks·neighbors와 같은 자리) — CLI(edges)와
+    그래프 검사(checks/graph)가 같은 SQL의 사본 셋을 들고 있었다(2026-08-13 감사).
+    """
+    column = {"in": "dst", "out": "src"}[direction]
+    return connection.execute(f"""
+        SELECT {column} AS path, COUNT(*) AS degree FROM edges
+        WHERE resolved = 1 AND (:kb IS NULL OR {column} LIKE :kb || '/%')
+        GROUP BY {column} ORDER BY degree DESC, path LIMIT :top
+    """, {"kb": kb, "top": -1 if top is None else top}).fetchall()
 
 
 # 가중 탐색의 잡음 하한. 경로 가중이 이 아래로 떨어지면 확장을 멈춘다 —

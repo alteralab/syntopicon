@@ -167,7 +167,7 @@ def main(argv: list[str]) -> int:
         if miss:
             # PLAN §6의 search-miss 경보가 읽는 표준 자리 — 이벤트 원장과 별개로
             # 스킬 시절부터 성문된 테이블을 도구가 처음으로 채운다.
-            db.execute("INSERT INTO search_miss VALUES (?,?,?)",
+            db.execute("INSERT INTO search_miss (at, kb, query) VALUES (?,?,?)",
                        (stats.now(), args.kb, args.query))
 
     langfuse_bridge.nudge()   # 층 2 편승 — 활동이 있는 날에만 하루 1회 백그라운드 동기화
