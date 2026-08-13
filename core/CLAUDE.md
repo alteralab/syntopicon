@@ -2,7 +2,7 @@
 
 IT 서적·논문을 10–20년 축적하는 개인 지식 베이스 — 모노레포 `alteralab/syntopicon`의 core 레이어. **이 레이어의 정본 = 이 디렉토리의 PLAN.md**(현행 규약 — 수렴이 정상) + **LEDGER.md**(검증 원장 append-only — 성장이 정상), 시스템 구성·레이어 경계는 루트 PLAN.md.
 
-현재 상태: **수용 검증 진행 중**(목표 소스 30–50). 진행 수치는 여기 적지 않는다 — 산문 카운터는 썩는다(LEDGER 실측). 정본 조회: 소스 = `git log --grep Ingest-Source --oneline`, 페이지 수 = `uv run tools/validate.py` 출력, 런·질의 계측 = stats.sqlite events.
+현재 상태: **수용 검증 진행 중**(목표 소스 30–50). 진행 수치는 여기 적지 않는다 — 산문 카운터는 썩는다(LEDGER 실측). 정본 조회: 소스 = `git log --grep Ingest-Source --oneline`, 소스별 재개점(어디까지 읽었나) = `it/archive/<citekey>/_progress.yaml`(covered·skipped·next — 커밋 이력과 다른 정본이다), 페이지 수 = `uv run tools/validate.py` 출력, 런·질의 계측 = stats.sqlite events.
 커밋 게이트 활성화 절차는 루트 PLAN §6과 core PLAN §5 런북이 정본이다.
 
 도구: `uv run tools/<이름>.py` (validate=커밋 게이트·lint=전수 리포트(`--explain`=검사 지침 조회)·search=세 갈래 통합 질의·promote=승급 사슬·reindex=파생 인덱스 재생성·qmd-setup=툴체인 고정/복구·backup=3계층 백업·plaincheck=산출물 쉬운 언어 검사).
