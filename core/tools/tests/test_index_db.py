@@ -10,8 +10,7 @@ from test_validate import DDIA, SOURCE, concept, page
 
 def graph(repo: Repo) -> None:
     """raft ← consensus → replication, synthesis 허브가 셋 다 가리키는 작은 그래프."""
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/concepts/raft.md", concept())
     repo.write("it/concepts/replication.md", concept())
     repo.write("it/concepts/consensus.md", concept(
@@ -99,8 +98,7 @@ def test_neighbors는_방향을_무시하고_깊이를_센다(repo: Repo):
 def test_고차수_허브_경유는_강등되고_직접_링크가_이긴다(repo: Repo):
     """메가허브 고장의 회귀 방지 — 실측: 300링크 허브면 전 KB가 동급 2-hop이었다.
     차수 가중 후에는 직접 링크 경로가 허브 경유 경로를 항상 이겨야 한다."""
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/concepts/seed-page.md", concept(
         body="\n- [직접 이웃](direct-friend.md)\n"))
     repo.write("it/concepts/direct-friend.md", concept())

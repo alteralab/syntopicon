@@ -10,8 +10,7 @@ from test_validate import DDIA, SOURCE, concept, page
 
 
 def base(repo: Repo) -> None:
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
 
 
 def lint(repo: Repo, *args: str):

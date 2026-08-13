@@ -11,8 +11,7 @@ from test_validate import DDIA, SOURCE, concept
 
 
 def seeded(repo: Repo) -> None:
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/inbox/first-idea.md", concept(status="draft"))
     repo.commit()
 

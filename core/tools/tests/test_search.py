@@ -35,8 +35,7 @@ def bin_without_qmd(tmp_path: Path) -> str:
 
 
 def seeded(repo: Repo) -> None:
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/concepts/replication-lag.md",
                concept(body="\n복제 지연은 리더와 팔로워 사이의 간격이다.[^kleppmann2017-ddia]\n\n"
                             "[^kleppmann2017-ddia]: 5장\n"))

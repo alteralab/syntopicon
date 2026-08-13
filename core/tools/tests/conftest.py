@@ -87,6 +87,17 @@ class Repo:
     def read(self, relative: str) -> str:
         return (self.root / relative).read_text()
 
+    def seed_it(self) -> None:
+        """KB `it` + DDIA 소스 — 테스트 여섯 파일이 같은 두 줄을 사본으로 들던 공통 머리.
+
+        test_validate의 픽스처 상수를 지연 import한다 — conftest는 테스트 모듈보다
+        먼저 적재되므로 모듈 상단 import는 순환이 된다.
+        """
+        from test_validate import DDIA, SOURCE
+
+        self.kb_new("it", "IT 지식", "설명")
+        self.write(f"it/sources/{DDIA}.md", SOURCE)
+
 
 def _reset_router(path: Path) -> None:
     """라우터의 KB 목록을 0개 상태로 되돌린다.

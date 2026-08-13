@@ -157,8 +157,7 @@ def test_색인_앵커도_같은_구현을_쓴다(repo: Repo):
     """엠대시 헤딩의 색인 앵커에 하이픈 둘이 남아야 한다 — 사본 시절의 회귀 감시."""
     import sqlite3
 
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/concepts/producer-acks.md", concept(
         body=f"\n## acks — 내구성의 다이얼\n\n응답 조건을 고른다.[^{DDIA}]\n"
              f"\n[^{DDIA}]: 3장\n"))
@@ -173,8 +172,7 @@ def test_색인_앵커도_같은_구현을_쓴다(repo: Repo):
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
 def indexed(repo: Repo) -> None:
-    repo.kb_new("it", "IT 지식", "설명")
-    repo.write(f"it/sources/{DDIA}.md", SOURCE)
+    repo.seed_it()
     repo.write("it/concepts/replication-lag.md", concept(
         body=f"\n## 읽기 일관성\n\n복제 지연은 읽기 일관성을 깨뜨린다.[^{DDIA}]\n"
              f"\n[^{DDIA}]: Kleppmann 2017, 5장\n"))
