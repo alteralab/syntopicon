@@ -66,7 +66,8 @@ def leg_qmd(query: str, kb: str | None, limit: int) -> tuple[dict, list[dict]]:
     return {"hits": len(results), "ms": elapsed}, results
 
 
-def leg_morph(query: str, kb: str | None, limit: int) -> tuple[dict, list, list[str]]:
+def leg_morph(query: str, kb: str | None, limit: int,
+              kbs: tuple[str, ...]) -> tuple[dict, list, list[str]]:
     """형태소 레그 — ksearch와 같은 경로(hits)를 쓴다."""
     if not morph.available():
         return {"skipped": "kiwipiepy 미설치 (uv sync --group index)"}, [], []
@@ -78,7 +79,7 @@ def leg_morph(query: str, kb: str | None, limit: int) -> tuple[dict, list, list[
 
     started = time.monotonic()
     with index_db.connect(DEFAULT) as connection:
-        if reason := index_db.staleness(connection):
+        if reason := index_db.staleness(connection, kbs):
             # 다른 갈래(qmd·리터럴)는 살아 있으므로 실패 대신 크게 건너뛴다 —
             # 사유는 계측(legs)에 남아 낡은 색인의 빈도가 데이터가 된다.
             return {"skipped": f"색인이 낡음 — {reason} (tools/reindex.py)"}, [], []
@@ -134,7 +135,7 @@ def main(argv: list[str]) -> int:
     kbs = layout.kbs()
 
     qmd_meta, qmd_rows = leg_qmd(args.query, args.kb, args.n)
-    morph_meta, morph_rows, needles = leg_morph(args.query, args.kb, args.n)
+    morph_meta, morph_rows, needles = leg_morph(args.query, args.kb, args.n, kbs)
     literal_meta, literal_lines = leg_literal(args.query, args.kb, args.n, kbs)
 
     if qmd_rows:

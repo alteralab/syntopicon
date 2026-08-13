@@ -111,25 +111,29 @@ def connect(ws: Workspace | None = None) -> sqlite3.Connection:
     return open_db((ws or DEFAULT).derived_db, SCHEMA)
 
 
-def tree_fingerprint() -> str:
-    """색인이 의존하는 입력(전체 md + schema/)의 상태 지문 — stat(mtime·size) 기반.
+def tree_fingerprint(kbs: tuple[str, ...]) -> str:
+    """색인이 의존하는 입력의 상태 지문 — stat(mtime·size) 기반.
+
+    범위는 **색인의 실제 입력만**이다: KB 내부 md + schema/. 전체 md로 잡았던
+    초판은 색인에 들지 않는 문서(.agents 리뷰 등)의 커밋마다 불필요한 재색인을
+    강요했다(2026-08-13 실기 발견 — 게이트 도입 당일 첫 오탐).
 
     내용 해시가 아닌 이유: 소비 시점마다 전량 재해시는 O(N 바이트)라 조회 도구의
     상수 비용이 되고, mtime 오탐(내용 같은데 touch)의 비용은 재색인 권고 한 번이라
     수용 가능하다. git(HEAD+status) 기반이 아닌 이유: md와 무관한 커밋·미추적
-    파일이 지문을 흔든다. 신선도 관리를 polling(사람이 생각날 때)에서 변경 로그
-    대조로 올리는 것이 목적이다(LLMOps p.101의 연속선 — 원장).
+    파일이 지문을 흔든다.
     """
     lines = []
     for relative in visible_files():
-        if relative.suffix != ".md" and relative.parts[0] != "schema":
+        indexed = relative.suffix == ".md" and relative.parts[0] in kbs
+        if not indexed and relative.parts[0] != "schema":
             continue
         stat = (ROOT / relative).stat()
         lines.append(f"{relative}\t{stat.st_mtime_ns}\t{stat.st_size}")
     return hashlib.sha256("\n".join(sorted(lines)).encode()).hexdigest()
 
 
-def staleness(connection: sqlite3.Connection) -> str | None:
+def staleness(connection: sqlite3.Connection, kbs: tuple[str, ...]) -> str | None:
     """색인이 워킹 트리보다 낡았으면 사유, 최신이면 None — 소비 전에 반드시 묻는다.
 
     낡은 색인의 조용한 소비가 만든 실패 둘이 근거다: 증분 lint가 실변경 페이지를
@@ -138,7 +142,7 @@ def staleness(connection: sqlite3.Connection) -> str | None:
     row = connection.execute("SELECT value FROM meta WHERE key = 'fingerprint'").fetchone()
     if row is None:
         return "세대 스탬프가 없습니다(스탬프 도입 전 색인)"
-    if row["value"] != tree_fingerprint():
+    if row["value"] != tree_fingerprint(kbs):
         return "색인 이후 워킹 트리가 변했습니다"
     return None
 
@@ -165,7 +169,7 @@ def build(layout: Layout) -> Counts:
     kbs = layout.kbs()          # 연산당 1회 — 루프 안 kbs()는 파일당 git 서브프로세스다
     # 지문은 읽기 **시작 전에** 뜬다 — 빌드 중 파일이 변하면 다음 staleness가
     # 보수적으로(낡음 쪽으로) 판정하게 되는 방향이 안전하다.
-    fingerprint = tree_fingerprint()
+    fingerprint = tree_fingerprint(kbs)
 
     for relative in visible_files():
         if relative.suffix != ".md" or relative.parts[0] not in kbs:

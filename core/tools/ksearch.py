@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from syntopicon import index_db, morph
+from syntopicon import index_db, layout as layout_mod, morph
 from syntopicon.workspace import DEFAULT
 
 SENTENCE = re.compile(r"(?<=[.!?。])\s+|\n{2,}")
@@ -121,7 +121,7 @@ def main(argv: list[str]) -> int:
         return 1
 
     with index_db.connect(ws) as connection:
-        if reason := index_db.staleness(connection):
+        if reason := index_db.staleness(connection, layout_mod.load().kbs()):
             print(f"파생 인덱스가 낡았습니다 — {reason}. tools/reindex.py를 먼저 실행하십시오.",
                   file=sys.stderr)
             return 1

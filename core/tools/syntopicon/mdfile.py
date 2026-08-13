@@ -93,10 +93,6 @@ class MdFile:
     line_count: int
     first_body_line: int             # frontmatter 다음 줄 (1-기준)
 
-    #: 상단 인라인 TOC(`**목차**: …` 문단 — §2.6 형식 정본)의 시작 줄. 없으면 None.
-    #: H1 이외의 첫 헤딩 이전까지만 본다 — TOC는 상단에 있어야 하기 때문이다.
-    inline_toc_line: int | None
-
     #: HTML 블록의 줄 범위 (1-기준, 끝 포함). 주석은 사람에게 주는 지시지 본문이
     #: 아니므로 색인에서 뺀다 — 안 빼면 템플릿 주석이 모든 KB에서 거짓 히트를 낸다.
     html_ranges: tuple[tuple[int, int], ...]
@@ -266,21 +262,6 @@ def read(absolute: Path, relative: Path) -> MdFile:
         for index, token in enumerate(nodes) if token.type == "heading_open"
     ]
 
-    inline_toc_line = None
-    for index, token in enumerate(tokens):
-        if token.type == "heading_open" and token.tag != "h1":
-            break
-        if token.type != "paragraph_open":
-            continue
-        inline = tokens[index + 1] if index + 1 < len(tokens) else None
-        children = (inline.children or []) if inline is not None and inline.type == "inline" else []
-        # 굵은 글씨 앞에 빈 text 토큰이 끼는 경우가 있다(파서 실측) — 비어 있으면 건너뛴다.
-        meaningful = [c for c in children if not (c.type == "text" and not c.content.strip())]
-        if (len(meaningful) >= 2 and meaningful[0].type == "strong_open"
-                and meaningful[1].type == "text" and meaningful[1].content.strip() == "목차"):
-            inline_toc_line = (token.map or [0])[0] + 1
-            break
-
     bullets, fences = _bullets_and_fences(tokens)
     return MdFile(
         path=relative,
@@ -292,7 +273,6 @@ def read(absolute: Path, relative: Path) -> MdFile:
         texts=tuple(t.content for t in nodes if t.type == "text" and t.content.strip()),
         line_count=len(source.splitlines()),
         first_body_line=first_body_line,
-        inline_toc_line=inline_toc_line,
         html_ranges=tuple(
             (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
         ),

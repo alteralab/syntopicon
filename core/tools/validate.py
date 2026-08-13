@@ -14,6 +14,7 @@ lint는 "품질이 어떤가"를 묻는다. 경계를 섞으면 커밋이 품질
 
 from __future__ import annotations
 
+import re
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
@@ -30,6 +31,12 @@ from syntopicon.repo import ROOT, top_level_entries, visible_files
 
 SEVERITY_ERROR = "error"
 SEVERITY_WARN = "warn"
+
+# citekey 구조 = `저자성last연도[-슬러그]` (PLAN §2.2). 정규 언어라 regex가 정확한
+# 도구다(§3 예외). 문자집합 검증(common.yaml)은 이 구조를 못 본다 — 저자도 연도도
+# 없는 키가 통과한 실측이 집세 심사 R40의 근거였고, common.yaml 주석이 약속한
+# "파이썬 관계 규칙 층"이 여기다.
+CITEKEY_STRUCTURE = re.compile(r"[a-z][a-z._]*\d{4}(-[a-z0-9][a-z0-9._-]*)?")
 
 
 @dataclass(frozen=True)
@@ -120,6 +127,11 @@ def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
         if errors := list(sch.shared(id_kind).iter_errors(f.path.stem)):
             problems.append(Problem(
                 SEVERITY_ERROR, path, f"파일명이 {id_kind} 규칙 위반: {errors[0].message}"))
+        elif id_kind == "citekey" and not CITEKEY_STRUCTURE.fullmatch(f.path.stem):
+            problems.append(Problem(
+                SEVERITY_ERROR, path,
+                "citekey 구조 위반 — `저자성last연도[-슬러그]`여야 합니다 "
+                "(발급은 tools/citekey.py)"))
 
         # redirect 대상이 어떤 ID 문법이어야 하는지는 스텁이 놓인 디렉터리가 정한다.
         # 스키마는 네 형태를 다 받으므로(sources/는 citekey) 여기서 좁힌다.

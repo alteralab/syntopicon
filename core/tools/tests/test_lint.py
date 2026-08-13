@@ -358,7 +358,7 @@ def test_결과_종류_레지스트리가_완결이다():
     발단이다."""
     from syntopicon.checks import KINDS
 
-    assert len(KINDS) == 41
+    assert len(KINDS) == 47      # 41 + 집세 심사(08) 이관 6종
     for k in KINDS.values():
         assert k.severity in ("error", "warn", "info"), k.name
         assert k.doc and k.guidance, f"{k.name}: doc·guidance는 필수다"
@@ -373,6 +373,44 @@ def test_링크_불릿은_claim이_아니다(repo: Repo):
         "\n- [개요](../overview.md) — 진입점으로 가는 포인터 설명\n")))
     lint(repo)
     assert findings(repo, "claim-unfootnoted") == []
+
+
+def test_집세_심사로_이관된_검사들이_발화한다(repo: Repo):
+    """08 표결로 산문에서 검사로 이관된 6종 — 각 규칙을 실제로 어겨 확인한다."""
+    base(repo)
+    repo.write("it/concepts/versioned.md", concept(
+        stale_after="2099-01-01",
+        body=f"\n> 버전 조건: 4.0 이상만.\n\n- 주장.[^{DDIA}]\n\n[^{DDIA}]: 1장\n"))
+    repo.write("it/concepts/oddkey.md", concept(**{"mystery_field": "값"}))
+    repo.write("it/synthesis/cited-hub.md", page(
+        {"type": "synthesis", "title": "허브", "description": "각주를 단 허브",
+         "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}},
+        body=f"\n- 판단 서술.[^{DDIA}]\n\n[^{DDIA}]: 1장\n"))
+    repo.write("it/concepts/scored.md", concept(
+        body=f"\n- confidence: 0.9 로 적은 주장.[^{DDIA}]\n\n[^{DDIA}]: 1장\n"))
+    repo.write("it/concepts/sub/nested-page.md", cited())
+    lint(repo)
+
+    assert any("versioned" in f for f in findings(repo, "version-condition-stale"))
+    assert any("mystery_field" in f for f in findings(repo, "field-undeclared"))
+    assert any("cited-hub" in f for f in findings(repo, "synthesis-provenance"))
+    assert any("scored" in f for f in findings(repo, "numeric-confidence"))
+    assert any("nested-page" in f for f in findings(repo, "dir-nesting"))
+    # 픽스처 overview의 Hubs 절은 비어 있다 — 10 미만이 바로 걸린다
+    assert any("0개" in f for f in findings(repo, "hubs-count"))
+
+
+def test_파싱되지_않는_트레일러를_잡는다(repo: Repo):
+    """문자열 존재만 보던 시절 10건 중 5건이 파싱 불가로 통과했다(R106) — git 자신의
+    파서로 대조한다. 트레일러 뒤에 문단이 오면 마지막 문단이 아니라 파싱되지 않는다."""
+    base(repo)
+    repo.write("it/sources/badform2020.md", SOURCE)
+    repo._git("add", "-A")
+    repo._git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm",
+              "it: 형식 깨진 반입\n\nIngest-Source: badform2020\nIngest-Run: r1\n\n"
+              "트레일러 뒤에 붙은 산문 문단.")
+    lint(repo)
+    assert any("파싱되지" in f for f in findings(repo, "ingest-trailer"))
 
 
 def test_explain은_레지스트리를_조회한다(repo: Repo):

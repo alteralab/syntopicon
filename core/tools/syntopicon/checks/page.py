@@ -57,6 +57,15 @@ kind("epistemic-token", "warn", "미정의 해시 토큰",
      "(태그 체계 없음).")
 kind("wikilink", "warn", "Obsidian 전용 위키링크 문법",
      "GFM 인라인 링크로 바꾼다 — 이 저장소는 GFM 부분집합만 쓴다.")
+kind("version-condition-stale", "warn", "버전 조건과 stale_after 동시 보유",
+     "버전 조건이 시효를 대신하므로 stale_after를 뗀다(SCHEMA §3). 집세 심사 실측: "
+     "버전 조건 44페이지 중 동시 보유 0건이라 이 경고는 새 위반만 잡는다.")
+kind("synthesis-provenance", "warn", "synthesis에 sources나 각주 존재",
+     "synthesis는 포인터와 판단의 계층이다(SCHEMA §5) — 각주 달린 주장은 concept으로 "
+     "옮긴다. 사람 종합의 정당한 인용이면 리뷰에서 판단하고 넘어간다.")
+kind("numeric-confidence", "info", "숫자 신뢰도 표기 흔적",
+     "숫자 confidence는 금지다(PLAN §2.1) — 불확실성은 #hypothesis와 #speculation "
+     "토큰만 쓴다. 검사는 흔한 표기(confidence:)만 잡는 부분 검사다.")
 
 
 def check_page(ctx: Context, path: str, md: MdFile):
@@ -129,7 +138,21 @@ def check_page(ctx: Context, path: str, md: MdFile):
                               f"{bullet.line}행: 링크 불릿에 설명이 없습니다 — "
                               f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
 
+    if front.get("stale_after") and any("버전 조건" in text for text in md.texts):
+        yield Finding("version-condition-stale",
+                      "버전 조건이 있는데 stale_after도 있습니다 — 버전 조건이 시효를 "
+                      "대신합니다(SCHEMA §3)", kb, path)
+
+    if front.get("type") == "synthesis" and (front.get("sources") or md.footnote_labels):
+        yield Finding("synthesis-provenance",
+                      "synthesis에 sources 선언이나 각주가 있습니다 — 각주 달린 주장은 "
+                      "concept 소관입니다(SCHEMA §5)", kb, path)
+
     for text in md.texts:
+        if "confidence:" in text or "확신도:" in text:
+            yield Finding("numeric-confidence",
+                          "숫자 신뢰도 표기 흔적 — 불확실성은 #hypothesis 토큰만(PLAN §2.1)",
+                          kb, path)
         if _inline_dollar_math(text):
             yield Finding("inline-dollar-math",
                           "`$…$` 인라인 수식은 쓰지 않습니다 — 문장 속 기호는 유니코드 + "
@@ -176,14 +199,12 @@ def _inline_dollar_math(text: str) -> bool:
 
 
 def _has_toc(md: MdFile) -> bool:
-    """`**목차**:` 인라인 문단 또는 H2 앞 포인터 불릿 목록을 TOC로 본다.
+    """H2 앞의 포인터 불릿 목록만 TOC로 인정한다 — §2.6의 현행 정본(2026-08-11 전환).
 
-    §2.6의 현행 정본은 링크 불릿 목록이다(2026-08-11 전환). 인라인 문단형은
-    폐기됐으나 잔존 코퍼스 호환으로 아직 인정한다 — 형식 검사 강화는 규칙 집세
-    심사(P5)에서 판정한다.
+    폐기된 인라인 문단형(`**목차**: …`)은 더 이상 인정하지 않는다 — 집세 심사(R52)
+    판정. 인라인형 115줄 페이지가 검출 0건으로 통과한 실측이 근거이고, 현행
+    코퍼스는 전수 불릿형이라(110/110 실측) 이 좁힘으로 새 검출은 생기지 않는다.
     """
-    if md.inline_toc_line is not None:
-        return True
     first_h2 = next((line for level, line, _ in md.headings if level == 2), md.line_count)
     return any(bullet.line < first_h2 and bullet.pointer_only for bullet in md.bullets)
 

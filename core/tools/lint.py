@@ -101,7 +101,7 @@ def main(argv: list[str]) -> int:
         with index_db.connect(ws) as connection:
             # 낡은 색인의 조용한 소비가 이 도구의 두 실패(증분 누락·삭제 파일
             # traceback)를 만들었다 — 소비 전에 세대 스탬프를 대조한다(감사 B4).
-            if reason := index_db.staleness(connection):
+            if reason := index_db.staleness(connection, layout.kbs()):
                 print(f"파생 인덱스가 낡았습니다 — {reason}. "
                       "tools/reindex.py를 먼저 실행하십시오.", file=sys.stderr)
                 return 1

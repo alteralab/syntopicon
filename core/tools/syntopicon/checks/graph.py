@@ -35,6 +35,9 @@ kind("hub-split-hint", "info", "출차수가 임계를 넘은 허브",
      "분할은 부모-자식 패턴(옛 허브가 자식들을 가리키는 부모로 남아 링크 불파손). "
      "새 허브 이름은 현재 내용 범위만큼만 좁게 — 넓은 이름은 description을 미래에 "
      "거짓으로 만든다(SCHEMA §5).")
+kind("hubs-count", "info", "Hubs 목록이 10~30 범위 밖 (SCHEMA §5)",
+     "10 미만이면 진입점이 빈약하고 30 초과면 분할 후보를 본다. 중첩(부모-자식) "
+     "링크도 함께 센다.")
 
 
 @check
@@ -112,6 +115,21 @@ def check_hubs(ctx):
         for missing in sorted(listed - set(ctx.meta) - {marker}):
             yield Finding("hub-dangling",
                           f"{section} 절이 없는 페이지를 가리킵니다: {missing}", kb, marker)
+
+        # Hubs 목록 크기(10~30, SCHEMA §5) — 절 범위 안의 링크 불릿을 센다(중첩 포함).
+        start = next((line for _, line, text in overview.headings
+                      if text.strip() == section), None)
+        if start is not None:
+            level = next(lvl for lvl, line, text in overview.headings
+                         if text.strip() == section)
+            end = next((line for lvl, line, _ in overview.headings
+                        if line > start and lvl <= level), overview.line_count + 1)
+            count = sum(1 for b in overview.bullets
+                        if b.link_led and start < b.line < end)
+            if not 10 <= count <= 30:
+                yield Finding("hubs-count",
+                              f"{section} 절 링크 {count}개 — 10~30 범위 밖(SCHEMA §5)",
+                              kb, marker)
 
 
 @check

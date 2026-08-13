@@ -11,7 +11,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from ..repo import ROOT, added_at
+from ..repo import ROOT, added_at, visible_files
 from .base import Finding, check, kind
 
 INBOX_P90_DAYS = 30            # PLAN §6
@@ -32,6 +32,10 @@ kind("ingest-trailer", "warn", "소스 추가 커밋에 Ingest 트레일러 부�
 kind("skill-symlink", "error", "스킬 호출 표면 심링크 파손",
      "~/.claude/skills/<이름> 심링크를 정본(.agents/skills)으로 다시 건다 — "
      "기기당 1회 설치이며, 깨지면 스킬이 에러 없이 그냥 안 보인다.")
+kind("dir-nesting", "warn", "콘텐츠 디렉터리 하위 중첩 (flat 위반)",
+     "모든 콘텐츠 디렉터리는 flat이다(PLAN §3) — 선제 샤딩 금지, 상한 접근이 "
+     "실측될 때 신규 파일부터 샤딩한다. validate의 정합 검사는 중첩을 조용히 "
+     "통과시키므로 여기가 유일한 검출 지점이다.")
 
 
 @check
@@ -60,7 +64,12 @@ def check_inbox(ctx):
 
 @check
 def check_ingest_trailers(ctx):
-    """소스를 새로 들인 커밋에는 Ingest-Source:/Ingest-Run: 트레일러가 있어야 한다(§4.4-7)."""
+    """소스를 새로 들인 커밋의 Ingest-Source:/Ingest-Run: 트레일러 — 존재와 **형식**.
+
+    문자열 존재만 보던 시절 10건 중 5건이 파싱 불가 형식으로 통과했다(집세 심사
+    R106). 트레일러는 이벤트 저널이라 형식이 곧 조회 가능성이다 — git 자신의
+    파서(interpret-trailers)로 대조한다.
+    """
     pathspecs = [f"{kb}/sources" for kb in ctx.layout.kbs()]
     if not pathspecs:
         return
@@ -73,6 +82,26 @@ def check_ingest_trailers(ctx):
         if missing := [t for t in ("Ingest-Source:", "Ingest-Run:") if t not in body]:
             yield Finding("ingest-trailer",
                           f"{commit[:8]} 가 소스를 추가했는데 {', '.join(missing)} 가 없습니다")
+            continue
+        parsed = subprocess.run(["git", "-C", str(ROOT), "interpret-trailers", "--parse"],
+                                input=body, capture_output=True, text=True).stdout
+        if unparsed := [t for t in ("Ingest-Source:", "Ingest-Run:") if t not in parsed]:
+            yield Finding("ingest-trailer",
+                          f"{commit[:8]} 의 {', '.join(unparsed)} 가 트레일러로 파싱되지 "
+                          "않습니다 — 블록은 본문과 빈 줄 하나로 떼고 안에 빈 줄·산문을 "
+                          "넣지 않습니다(kb-ingest 7단계)")
+
+
+@check
+def check_dir_nesting(ctx):
+    """콘텐츠 디렉터리 flat 유지(집세 심사 R95) — 중첩 존재는 파일 시스템 사실이다."""
+    kbs = ctx.layout.kbs()
+    for relative in visible_files():
+        if (len(relative.parts) >= 4 and relative.parts[0] in kbs
+                and relative.parts[1] in ctx.layout.dir_types):
+            yield Finding("dir-nesting",
+                          f"{relative.parts[1]}/ 아래 중첩: {relative}",
+                          relative.parts[0], str(relative))
 
 
 @check

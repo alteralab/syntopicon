@@ -49,6 +49,9 @@ kind("term-drift", "info", "같은 원어의 역어 분열",
 kind("field-unused", "info", "선언됐지만 쓰인 적 없는 스키마 필드",
      "소비자 없는 필드가 쌓이는 신호다. 은퇴시키려면 tools/affected.py로 영향을 "
      "조회하고 schema/migrations.md 결번 대장에 적는다.")
+kind("field-undeclared", "warn", "스키마에 없는 frontmatter 키",
+     "확장은 custom 봉투나 x_ 접두만 허용된다(PLAN §2.7) — 오타이거나 무단 확장이다. "
+     "정식 필드로 만들려면 스키마에 소비자와 함께 선언한다.")
 
 
 @check
@@ -182,3 +185,18 @@ def check_field_usage(ctx):
     used = {key for meta in ctx.meta.values() for key in meta["frontmatter"]}
     for key in sorted(schemas.declared_keys() - used - {"type"}):
         yield Finding("field-unused", f"스키마가 선언했지만 쓰인 적 없습니다: {key}")
+
+
+@check
+def check_field_undeclared(ctx):
+    """미선언 키 검출 — field-unused의 역방향(집세 심사 R27·R28).
+
+    JSON Schema는 미선언 키를 통과시키므로(OKF unknown-key 허용) 여기서만 보인다.
+    허용 예외는 §2.7이 성문한 둘: custom 봉투와 x_ 접두.
+    """
+    declared = schemas.declared_keys() | {"custom"}
+    for path, meta in sorted(ctx.meta.items()):
+        for key in sorted(meta["frontmatter"]):
+            if key not in declared and not key.startswith("x_"):
+                yield Finding("field-undeclared",
+                              f"스키마에 없는 키: {key}", meta["kb"], path)

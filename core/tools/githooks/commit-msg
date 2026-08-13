@@ -1,0 +1,11 @@
+#!/bin/sh
+# 커밋 제목 접두 규약 (루트 CLAUDE.md: `<레이어>/<영역>: 요지`, 우산은 plan:·research:,
+# KB ingest는 `<kb>:`). 집세 심사 R113 — 규칙만 있고 검사가 없던 55건 중 하나였다.
+# fixup·squash·merge·revert는 git 관례대로 통과시킨다.
+first=$(head -n1 "$1")
+case "$first" in
+  fixup!*|squash!*|Merge*|Revert*) exit 0 ;;
+esac
+printf '%s\n' "$first" | grep -Eq '^[a-z][a-z0-9-]*(/[a-z0-9-]+)?: .+' && exit 0
+echo "커밋 제목이 접두 규약(<레이어>/<영역>: 요지)을 지키지 않습니다: $first" >&2
+exit 1
