@@ -23,9 +23,11 @@ from .db import open_db
 from .layout import Layout
 from .mdfile import anchors_by_line, read
 from .repo import ROOT, visible_files
+from .workspace import DEFAULT, Workspace
 
-DB_PATH = ROOT / "derived.sqlite"
-LOCK_PATH = ROOT / "derived.sqlite.lock"
+# 경로 파생의 정본은 Workspace다 — 전역은 기본 인스턴스의 파생물(하위 호환).
+DB_PATH = DEFAULT.derived_db
+LOCK_PATH = DEFAULT.derived_lock
 QMD_SCHEME = "qmd://"
 
 SCHEMA = """
@@ -77,24 +79,27 @@ class Counts:
 
 
 @contextmanager
-def build_lock():
+def build_lock(ws: Workspace | None = None):
     """재색인은 단일 실행으로 직렬화한다(PLAN §2.5-7ⓐ). O_EXCL이 게이트다."""
+    lock = (ws or DEFAULT).derived_lock
     try:
-        handle = os.open(LOCK_PATH, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        handle = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
     except FileExistsError:
         raise RuntimeError(
-            f"재색인이 이미 실행 중입니다 ({LOCK_PATH.name}). 죽은 프로세스가 남긴 것이라면 "
+            f"재색인이 이미 실행 중입니다 ({lock.name}). 죽은 프로세스가 남긴 것이라면 "
             "파일을 지우고 다시 실행하십시오.") from None
     try:
         os.write(handle, str(os.getpid()).encode())
         os.close(handle)
         yield
     finally:
-        LOCK_PATH.unlink(missing_ok=True)
+        lock.unlink(missing_ok=True)
 
 
-def connect() -> sqlite3.Connection:
-    return open_db(DB_PATH, SCHEMA)
+def connect(ws: Workspace | None = None) -> sqlite3.Connection:
+    """파생 DB 연결 — 주입 가능(retrieval_eval의 벤치 루트가 소비자). 주입이 생기기
+    전에는 호출자가 모듈 전역 DB_PATH를 멍키패치했다(2026-08-13 감사)."""
+    return open_db((ws or DEFAULT).derived_db, SCHEMA)
 
 
 def _link_target(layout: Layout, src: Path, href: str) -> tuple[str, str, str | None, bool]:

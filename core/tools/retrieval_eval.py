@@ -111,13 +111,14 @@ def search_expand(connection, query: str, depth: int, limit: int) -> list[str]:
 def evaluate(root: Path, questions) -> dict:
     from ir_measures import RR, R, calc_aggregate
     from syntopicon import index_db
+    from syntopicon.workspace import Workspace
 
-    index_db.DB_PATH = root / "derived.sqlite"        # 하네스 전용 루트
+    bench = Workspace(root=root)      # 하네스 전용 루트 — 주입(모듈 멍키패치 금지)
     qrels = {q.qid: {q.gold: 1} for q in questions}
     runs: dict[str, dict[str, dict[str, float]]] = {"flat": {}, "expand": {}}
     expansion_only = defaultdict(lambda: [0, 0])      # hops → [확장으로만 찾음, 전체]
 
-    with index_db.connect() as connection:
+    with index_db.connect(bench) as connection:
         for question in questions:
             flat = search_flat(connection, question.text, TOP_N)
             expand = search_expand(connection, question.text, question.hops, TOP_N)

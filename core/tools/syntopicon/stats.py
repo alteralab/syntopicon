@@ -16,9 +16,10 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 
 from .db import open_db
-from .repo import ROOT
+from .workspace import DEFAULT, Workspace
 
-DB_PATH = ROOT / "stats.sqlite"
+# 경로 파생의 정본은 Workspace다 — 전역은 기본 인스턴스의 파생물(하위 호환).
+DB_PATH = DEFAULT.stats_db
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS lint_runs (
@@ -68,8 +69,8 @@ CREATE TABLE IF NOT EXISTS events (
 
 
 @contextmanager
-def connect():
-    connection = open_db(DB_PATH, SCHEMA)
+def connect(ws: Workspace | None = None):
+    connection = open_db((ws or DEFAULT).stats_db, SCHEMA)
     try:
         yield connection
         connection.commit()

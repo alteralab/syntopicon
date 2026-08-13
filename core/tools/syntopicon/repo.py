@@ -2,18 +2,17 @@
 
 from __future__ import annotations
 
-import os
 import subprocess
 import sys
 from pathlib import Path
 
-# tools/syntopicon/repo.py → 저장소 루트. resolve()가 심링크를 먼저 푼다 —
-# 스킬은 ~/.claude/skills/ 심링크를 거쳐 tools/를 부르고, 그때 기준은
-# 심링크 해석 후의 저장소 루트다(PLAN §4.3).
-#
-# SYNTOPICON_ROOT는 테스트 전용 seam이다. 운영에서는 쓰지 않는다 — 저장소 분리 시엔
-# 그 저장소가 tools/ 시점 사본을 갖게 되므로(PLAN §4.5) 덮어쓸 이유가 없다.
-ROOT = Path(os.environ.get("SYNTOPICON_ROOT") or Path(__file__).resolve().parents[2])
+from .workspace import DEFAULT
+
+# 루트 발견의 정본은 workspace.Workspace.discover()다 — ROOT는 그 파생물로 남아
+# 하위 호환을 유지한다(직수입 15파일). SYNTOPICON_ROOT는 테스트 전용 seam이다.
+# 운영에서는 쓰지 않는다 — 저장소 분리 시엔 그 저장소가 tools/ 시점 사본을 갖게
+# 되므로(PLAN §4.5) 덮어쓸 이유가 없다.
+ROOT = DEFAULT.root
 
 
 def _git_paths(*args: str) -> set[str]:
