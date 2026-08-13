@@ -40,6 +40,11 @@ properties:
 
   title: {type: string, minLength: 1}
   author: {$ref: "common.yaml#/$defs/name_list"}
+  # 번역서 역자 (CSL 표준 creator). 원서 우선 규약(PLAN §4.4-1)에서 번역서는 역어
+  # 참조원으로만 쓰이므로 이 필드는 참조원 표기의 서지다. 소비자: 서지 표시·
+  # 역어 채택 기록. 2026-08-13 field-undeclared 검사가 zhou2024의 실사용을 찾아
+  # 선언으로 승격했다(집세 심사 R27의 첫 수확).
+  translator: {$ref: "common.yaml#/$defs/name_list"}
 
   issued:
     # 발행 시점. CSL 원형은 객체({date-parts: [[2017]]})지만 여기서는 스칼라
