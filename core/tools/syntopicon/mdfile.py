@@ -6,6 +6,7 @@ regex는 문자집합 검증(정규 언어 그 자체)에만 쓴다.
 
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator
@@ -67,6 +68,10 @@ class Fence:
     line: int      # 1-기준 시작 줄
     end: int       # 1-기준 끝 줄(포함)
     sourced: bool  # 각주를 단 불릿 안에 들어 있는가 — 조상 상속 포함(§2.1)
+    first_line: str = ""    # 펜스 본문 첫 줄 — 셸 프롬프트 잔재 검사(R74)의 입력
+    #: 소개 산문이 있는가(R78) — 든 불릿에 링크 밖 실질 텍스트가 있으면 참.
+    #: 불릿 밖 최상위 펜스는 참으로 둔다(소속 검사는 code-unsourced 소관).
+    introduced: bool = True
 
 
 @dataclass(frozen=True)
@@ -100,6 +105,12 @@ class MdFile:
     #: 코드 펜스. AST가 짚어 준 범위라 regex 파싱이 아니다(SCHEMA.md §3 코드 표기).
     fences: tuple[Fence, ...]
 
+    #: 인용 블록의 줄 범위 (1-기준, 끝 포함) — 버전 조건 자리 검사(R62)의 허용 구역.
+    blockquote_ranges: tuple[tuple[int, int], ...] = ()
+
+    #: 저장 바이트가 NFC인가(R69) — 아니면 형태소·리터럴 검색이 영원히 못 만난다.
+    nfc: bool = True
+
     @property
     def type(self) -> str | None:
         return (self.frontmatter or {}).get("type")
@@ -115,15 +126,19 @@ def _bullets_and_fences(tokens: list[Token]) -> tuple[list[Bullet], list[Fence]]
     """
     found = []
     fences: list[Fence] = []
-    cite_stack: list[bool] = []
+    stack: list[tuple[bool, bool]] = []          # (cites, has_prose) — 불릿마다
     for index, token in enumerate(tokens):
         if token.type == "list_item_close":
-            if cite_stack:
-                cite_stack.pop()
+            if stack:
+                stack.pop()
             continue
         if token.type in ("fence", "code_block") and token.map:
-            fences.append(Fence(line=token.map[0] + 1, end=token.map[1],
-                                sourced=any(cite_stack)))
+            fences.append(Fence(
+                line=token.map[0] + 1, end=token.map[1],
+                sourced=any(cites for cites, _ in stack),
+                first_line=(token.content.splitlines() or [""])[0],
+                introduced=(not stack) or stack[-1][1],
+            ))
             continue
         if token.type != "list_item_open":
             continue
@@ -132,20 +147,21 @@ def _bullets_and_fences(tokens: list[Token]) -> tuple[list[Bullet], list[Fence]]
             (t for t in tokens[index + 1:index + 4] if t.type == "inline"), None
         )
         if inline is None:
-            cite_stack.append(False)
+            stack.append((False, False))
             continue
         children = inline.children or []
         cites = any(child.type == "footnote_ref" for child in children)
+        has_prose = _has_prose(children)
         found.append(Bullet(
             line=(inline.map or [0])[0] + 1,
             text=inline.content,
             cites=cites,
-            pointer_only=not _has_prose(children),
+            pointer_only=not has_prose,
             link_led=_link_led(children),
-            inherits_cite=any(cite_stack),
+            inherits_cite=any(c for c, _ in stack),
             locator_before_cite=_locator_before_cite(children),
         ))
-        cite_stack.append(cites)
+        stack.append((cites, has_prose))
     return found, fences
 
 
@@ -276,5 +292,10 @@ def read(absolute: Path, relative: Path) -> MdFile:
         html_ranges=tuple(
             (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
         ),
+        blockquote_ranges=tuple(
+            (t.map[0] + 1, t.map[1]) for t in tokens
+            if t.type == "blockquote_open" and t.map
+        ),
+        nfc=source == unicodedata.normalize("NFC", source),
         fences=tuple(fences),
     )

@@ -358,7 +358,7 @@ def test_결과_종류_레지스트리가_완결이다():
     발단이다."""
     from syntopicon.checks import KINDS
 
-    assert len(KINDS) == 47      # 41 + 집세 심사(08) 이관 6종
+    assert len(KINDS) == 51      # 41 + 집세 심사(08) 이관 1파 6종 + 2파 4종
     for k in KINDS.values():
         assert k.severity in ("error", "warn", "info"), k.name
         assert k.doc and k.guidance, f"{k.name}: doc·guidance는 필수다"
@@ -398,6 +398,33 @@ def test_집세_심사로_이관된_검사들이_발화한다(repo: Repo):
     assert any("nested-page" in f for f in findings(repo, "dir-nesting"))
     # 픽스처 overview의 Hubs 절은 비어 있다 — 10 미만이 바로 걸린다
     assert any("0개" in f for f in findings(repo, "hubs-count"))
+    # 성문된 자리(인용 블록)의 버전 조건은 자리 검사에 걸리지 않는다
+    assert not any("versioned" in f for f in findings(repo, "version-condition-place"))
+
+
+def test_집세_심사_2파_검사들이_발화한다(repo: Repo):
+    """2파 이관 4종 — NFC, 버전 조건 자리, 셸 프롬프트, 펜스 소개 산문."""
+    import unicodedata
+
+    base(repo)
+    repo.write("it/concepts/nfd-page.md",
+               unicodedata.normalize("NFD", cited()))
+    repo.write("it/concepts/misplaced.md", concept(
+        body=f"\n버전 조건: 4.0 이상이라고 산문에 적었다.\n\n- 주장.[^{DDIA}]\n"
+             f"\n[^{DDIA}]: 1장\n"))
+    repo.write("it/concepts/prompted.md", concept(
+        body=f"\n- 명령 소개.[^{DDIA}]\n\n  ```sh\n  $ ls -al\n  ```\n"
+             f"\n[^{DDIA}]: 1장\n"))
+    repo.write("it/concepts/bare-fence.md", concept(
+        body=f"\n- [^{DDIA}]\n\n  ```sh\n  echo ok\n  ```\n\n[^{DDIA}]: 1장\n"))
+    lint(repo)
+
+    assert any("nfd-page" in f for f in findings(repo, "nfc-violation"))
+    assert any("misplaced" in f for f in findings(repo, "version-condition-place"))
+    assert any("prompted" in f for f in findings(repo, "fence-prompt"))
+    assert any("bare-fence" in f for f in findings(repo, "fence-lead-in"))
+    # 소개 산문이 있는 펜스(prompted)는 lead-in에 걸리지 않는다
+    assert not any("prompted" in f for f in findings(repo, "fence-lead-in"))
 
 
 def test_파싱되지_않는_트레일러를_잡는다(repo: Repo):

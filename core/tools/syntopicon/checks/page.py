@@ -10,6 +10,7 @@ import re
 from urllib.parse import unquote
 
 from ..mdfile import MdFile, page_anchors
+from ..repo import ROOT
 from .base import Context, Finding, kind
 from .provenance import check_progress, check_snapshot
 
@@ -63,6 +64,21 @@ kind("version-condition-stale", "warn", "버전 조건과 stale_after 동시 보
 kind("synthesis-provenance", "warn", "synthesis에 sources나 각주 존재",
      "synthesis는 포인터와 판단의 계층이다(SCHEMA §5) — 각주 달린 주장은 concept으로 "
      "옮긴다. 사람 종합의 정당한 인용이면 리뷰에서 판단하고 넘어간다.")
+kind("nfc-violation", "warn", "저장 바이트가 NFC가 아님",
+     "NFC로 재정규화해 저장한다 — NFD 본문은 바이트가 달라 형태소·리터럴 검색이 "
+     "영원히 못 만난다(색인 단계는 정규화하지만 저장 파일은 이 검사가 유일한 "
+     "검출 지점이다, R69).")
+kind("fence-prompt", "warn", "펜스 첫 줄의 셸 프롬프트 잔재",
+     "프롬프트를 지운다 — 펜스는 복사해서 돌아가야 한다(SCHEMA §3). 검사는 `$ ` "
+     "접두만 본다: 루트 프롬프트 `#`는 주석과 구분이 안 돼 기계 밖이다(R74 부분 검사).")
+kind("fence-lead-in", "info", "소개 산문 없는 펜스",
+     "펜스가 든 불릿에 한 줄 산문을 둔다 — 어디에 쓰는 것인지, 무엇으로 찾을 "
+     "것인지(SCHEMA §3, R78).")
+kind("version-condition-place", "warn", "버전 조건 선언이 성문된 자리 밖에 있음",
+     "자리는 둘뿐이다 — 페이지 전체면 목차 아래 인용 블록, claim 하나면 자식 불릿"
+     "(SCHEMA §3, R62). 검사 대상은 고정 형식 선언(`버전 조건:` 콜론 포함)뿐이다 — "
+     "조건에 관해 말하는 산문·헤딩·description은 대상이 아니다(도입 실측에서 맨 "
+     "구절 매칭이 16건 중 15건 오탐이라 좁혔다).")
 kind("numeric-confidence", "info", "숫자 신뢰도 표기 흔적",
      "숫자 confidence는 금지다(PLAN §2.1) — 불확실성은 #hypothesis와 #speculation "
      "토큰만 쓴다. 검사는 흔한 표기(confidence:)만 잡는 부분 검사이고, 표기 목록의 "
@@ -130,6 +146,10 @@ def check_page(ctx: Context, path: str, md: MdFile):
                 yield Finding("code-unsourced",
                               f"{fence.line}행: 코드 펜스가 각주 달린 claim 밖에 "
                               f"있습니다 — 출처 없는 코드는 넣지 않는다(§3)", kb, path)
+            if not fence.introduced:
+                yield Finding("fence-lead-in",
+                              f"{fence.line}행: 펜스를 소개하는 산문이 없습니다 — "
+                              f"무엇으로 찾을 것인가(§3)", kb, path)
 
     # 허브·overview 링크 불릿 문법(§2.6): 링크로 시작하는 불릿은 한 줄 설명을 진다.
     if front.get("type") in ("synthesis", "guide"):
@@ -139,7 +159,37 @@ def check_page(ctx: Context, path: str, md: MdFile):
                               f"{bullet.line}행: 링크 불릿에 설명이 없습니다 — "
                               f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
 
-    if front.get("stale_after") and any("버전 조건" in text for text in md.texts):
+    if not md.nfc:
+        yield Finding("nfc-violation",
+                      "저장 바이트가 NFC가 아닙니다 — 재정규화 저장 필요(검색 불가 원인)",
+                      kb, path)
+
+    for fence in md.fences:
+        if fence.first_line.startswith("$ "):
+            yield Finding("fence-prompt",
+                          f"{fence.line}행: 펜스 첫 줄에 셸 프롬프트 `$ ` — 복사 실행이 "
+                          "깨집니다(SCHEMA §3)", kb, path)
+
+    # 버전 조건의 자리(R62): 허용 구역은 인용 블록과 불릿(자식 불릿 포함)뿐이다.
+    # 고정 낱말의 줄 위치가 필요해 원문을 다시 읽는다 — 정확 문자열 대조라
+    # 파서 우선 규약의 예외 부류(plaincheck과 같은 방식)다.
+    if any("버전 조건:" in text for text in md.texts):
+        allowed_lines = {b.line for b in md.bullets}
+        excluded = [(f.line, f.end) for f in md.fences] + list(md.html_ranges)
+        for number, line in enumerate((ROOT / path).read_text().splitlines(), 1):
+            if "버전 조건:" not in line:
+                continue
+            if any(start <= number <= end for start, end in md.blockquote_ranges):
+                continue
+            if any(start <= number <= end for start, end in excluded):
+                continue
+            if number in allowed_lines:
+                continue
+            yield Finding("version-condition-place",
+                          f"{number}행: 버전 조건이 인용 블록도 불릿도 아닌 자리에 "
+                          "있습니다(SCHEMA §3)", kb, path)
+
+    if front.get("stale_after") and any("버전 조건:" in text for text in md.texts):
         yield Finding("version-condition-stale",
                       "버전 조건이 있는데 stale_after도 있습니다 — 버전 조건이 시효를 "
                       "대신합니다(SCHEMA §3)", kb, path)
