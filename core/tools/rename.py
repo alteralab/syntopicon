@@ -20,10 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import subprocess
 import sys
-from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -32,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from syntopicon import layout as layout_mod
 from syntopicon import relocate, schemas
 from syntopicon.mdfile import read
-from syntopicon.repo import ROOT
+from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate
 from syntopicon.relocate import RelocateError as RenameError
 from syntopicon.relocate import href_to, plan_edits
 
@@ -92,11 +89,7 @@ def check_preconditions(layout: layout_mod.Layout, sch: schemas.Schemas,
 
     if dry_run:
         return
-    if subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain"],
-                      capture_output=True, text=True, check=True).stdout.strip():
-        raise RenameError(
-            "워킹 트리가 깨끗하지 않습니다. rename은 여러 파일을 한꺼번에 고치므로 "
-            "되돌릴 수 있는 상태에서만 실행합니다 (PLAN §2.5-7ⓔ).")
+    ensure_clean_worktree("rename")
 
 
 def main(argv: list[str]) -> int:
@@ -129,10 +122,7 @@ def main(argv: list[str]) -> int:
 
     relocate.apply(new, content, edits)
     (ROOT / old).write_text(stub(old, new, title))
-
-    # 사후 링크 검사 게이트 — 재작성이 끝난 상태를 같은 규칙으로 다시 본다.
-    print(flush=True)   # validate의 출력과 섞이지 않게 먼저 비운다
-    return subprocess.run([sys.executable, str(Path(__file__).parent / "validate.py")]).returncode
+    return run_validate_gate()
 
 
 if __name__ == "__main__":

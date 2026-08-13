@@ -47,9 +47,7 @@ def main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
 
     layout, sch = layout_mod.load(), schemas.load()
-    if args.kb not in layout.kbs():
-        print(f"KB '{args.kb}'가 없습니다. kb-new를 먼저 실행하십시오.", file=sys.stderr)
-        return 1
+    layout.require(args.kb)
     if errors := list(sch.shared("citekey").iter_errors(args.citekey)):
         print(f"citekey '{args.citekey}': {errors[0].message}", file=sys.stderr)
         return 1

@@ -1,9 +1,10 @@
-"""저장소 위치와 git이 보는 파일 목록."""
+"""저장소 위치, git이 보는 파일 목록, 다중 파일 쓰기 연산의 공통 가드."""
 
 from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 # tools/syntopicon/repo.py → 저장소 루트. resolve()가 심링크를 먼저 푼다 —
@@ -72,3 +73,30 @@ def added_at(relative: Path | str):
 def top_level_entries() -> set[str]:
     """루트 직하 항목 이름 — 완전 분할 검사의 좌변."""
     return {p.parts[0] for p in visible_files()}
+
+
+def ensure_clean_worktree(operation: str) -> None:
+    """여러 파일을 한꺼번에 고치는 연산의 가드 (PLAN §2.5-7ⓔ) — 단일 구현.
+
+    이 저장소의 트랜잭션 모델은 보상이다: 다중 파일 쓰기는 원자적이지 않지만
+    깨끗한 트리에서만 실행하므로 실패 시 git으로 전량 되돌릴 수 있다. merge와
+    rename이 사본을 따로 들고 verify는 가드가 없던 것이 2026-08-13 감사의 발견
+    이고, 여기가 그 단일화다.
+    """
+    dirty = subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain"],
+                           capture_output=True, text=True, check=True).stdout.strip()
+    if dirty:
+        raise SystemExit(
+            f"워킹 트리가 깨끗하지 않습니다. {operation}은 여러 파일을 한꺼번에 고치므로 "
+            "되돌릴 수 있는 상태에서만 실행합니다 (PLAN §2.5-7ⓔ).")
+
+
+def run_validate_gate() -> int:
+    """사후 구조·링크 검사 게이트 — 다중 파일을 고친 도구의 마지막 단계(단일 구현).
+
+    validate 실물은 **코드 기준**(__file__)으로 찾는다 — ROOT는 SYNTOPICON_ROOT
+    seam으로 움직이는 검사 '대상' 저장소라, 샌드박스 저장소에는 tools/가 없다.
+    """
+    print(flush=True)   # 도구 자신의 출력과 validate 출력이 섞이지 않게 먼저 비운다
+    validate = Path(__file__).resolve().parents[1] / "validate.py"
+    return subprocess.run([sys.executable, str(validate)]).returncode

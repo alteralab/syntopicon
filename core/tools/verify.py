@@ -16,7 +16,6 @@ frontmatter에 새길 뿐이다. 수기로 두지 않는 이유: 스탬프 형�
 from __future__ import annotations
 
 import argparse
-import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod
 from syntopicon.mdfile import parser, read
-from syntopicon.repo import ROOT
+from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate
 
 
 class VerifyError(Exception):
@@ -94,6 +93,11 @@ def main(argv: list[str]) -> int:
         print(f"중단: {error}", file=sys.stderr)
         return 1
 
+    if not args.dry_run and len(results) > 1:
+        # 가드의 근거는 "여러 파일 한꺼번에"(PLAN §2.5-7ⓔ)다 — 단건 스탬프는
+        # 세션 중에도 찍을 수 있어야 하므로 면제하고, 다건만 보상 모델을 요구한다.
+        ensure_clean_worktree("verify(다건)")
+
     for relative, text in results:
         if args.dry_run:
             print(f"승급 예정  {relative}")
@@ -105,8 +109,7 @@ def main(argv: list[str]) -> int:
         print("--dry-run — 아무것도 쓰지 않았습니다.")
         return 0
 
-    print(flush=True)
-    return subprocess.run([sys.executable, str(Path(__file__).parent / "validate.py")]).returncode
+    return run_validate_gate()
 
 
 if __name__ == "__main__":

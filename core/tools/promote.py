@@ -69,9 +69,7 @@ def main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
 
     layout = layout_mod.load()
-    if args.kb not in layout.kbs():
-        print(f"KB '{args.kb}'가 없습니다.", file=sys.stderr)
-        return 1
+    layout.require(args.kb)
     drafts = drafts_of(layout, args.kb)
     if not drafts:
         print(f"{args.kb}/inbox/ 에 승급할 초안이 없습니다.", file=sys.stderr)

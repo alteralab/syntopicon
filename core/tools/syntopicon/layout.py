@@ -41,6 +41,15 @@ class Layout:
             if name not in self.shared_names and (ROOT / name / self.marker_path).is_file()
         ))
 
+    def require(self, name: str) -> None:
+        """KB 존재 게이트 — 없으면 fail-loud. 도구 셋이 같은 문구의 사본을 들고
+        있었고 하나는 목록도 안 보여줬다(2026-08-13 감사) — 단일 구현."""
+        members = self.kbs()
+        if name not in members:
+            raise SystemExit(
+                f"KB '{name}'가 없습니다 (있는 KB: {', '.join(members) or '없음'}). "
+                "kb-new를 먼저 실행하십시오.")
+
     def content_dir_of(self, relative: Path, kbs: tuple[str, ...] | None = None) -> str | None:
         """`<kb>/<dir>/...` 에서 <dir>를 돌려준다. KB 밖이면 None.
 

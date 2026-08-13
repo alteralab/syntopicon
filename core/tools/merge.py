@@ -25,7 +25,6 @@ rename과 다른 연산이다. rename은 발급된 ID의 이동이라 옛 경로
 from __future__ import annotations
 
 import argparse
-import subprocess
 import sys
 from pathlib import Path
 
@@ -33,7 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod, relocate
 from syntopicon.mdfile import read
-from syntopicon.repo import ROOT, visible_files
+from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate, visible_files
 from syntopicon.rewrite import parser
 
 TARGET_DIR = "concepts"
@@ -122,12 +121,7 @@ def main(argv: list[str]) -> int:
         return 1
 
     if not args.dry_run:
-        dirty = subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain"],
-                               capture_output=True, text=True, check=True).stdout.strip()
-        if dirty:
-            raise SystemExit(
-                "워킹 트리가 깨끗하지 않습니다. merge는 여러 파일을 한꺼번에 고치므로 "
-                "되돌릴 수 있는 상태에서만 실행합니다 (PLAN §2.5-7ⓔ).")
+        ensure_clean_worktree("merge")
 
     merged = []
     for old in targets:
@@ -144,8 +138,7 @@ def main(argv: list[str]) -> int:
 
     print("실사용에서 내용을 확인하면 verified를 붙여 승급시키십시오(review-on-read).")
     print("허브 연결은 사람이 합니다 — kb-lint의 hub-candidate 리포트를 보고 고르십시오.")
-    print(flush=True)
-    return subprocess.run([sys.executable, str(Path(__file__).parent / "validate.py")]).returncode
+    return run_validate_gate()
 
 
 if __name__ == "__main__":

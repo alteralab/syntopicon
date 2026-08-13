@@ -11,7 +11,6 @@
 from __future__ import annotations
 
 import argparse
-import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from syntopicon import layout as layout_mod
 from syntopicon import qmdstore, schemas
 from syntopicon.mdfile import read
-from syntopicon.repo import ROOT
+from syntopicon.repo import ROOT, run_validate_gate
 from syntopicon.rewrite import replace_section_body
 
 
@@ -154,9 +153,7 @@ def main(argv: list[str]) -> int:
     # restic은 백업 시점에 layout.kbs()로 --tag를 산출한다 — 여기서 등록할 상태가 없다.
     # 레지스트리를 만들면 그것이 곧 이중화다(PLAN §3).
     print(f"  백업  restic --tag {args.name} 은 백업 스크립트가 파일시스템에서 산출한다")
-
-    print(flush=True)   # validate의 출력과 섞이지 않게 먼저 비운다
-    return subprocess.run([sys.executable, str(Path(__file__).parent / "validate.py")]).returncode
+    return run_validate_gate()
 
 
 if __name__ == "__main__":

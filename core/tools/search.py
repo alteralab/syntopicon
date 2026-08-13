@@ -123,11 +123,10 @@ def main(argv: list[str]) -> int:
     parser.add_argument("-n", type=int, default=10)
     args = parser.parse_args(ksearch.split_query(argv))
 
-    kbs = layout_mod.load().kbs()
-    if args.kb and args.kb not in kbs:
-        print(f"KB '{args.kb}'가 없습니다. 있는 KB: {', '.join(kbs) or '없음'}",
-              file=sys.stderr)
-        return 1
+    layout = layout_mod.load()
+    if args.kb:
+        layout.require(args.kb)
+    kbs = layout.kbs()
 
     qmd_meta, qmd_rows = leg_qmd(args.query, args.kb, args.n)
     morph_meta, morph_rows, needles = leg_morph(args.query, args.kb, args.n)
