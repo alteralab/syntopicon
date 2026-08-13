@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import os
 import sqlite3
+import time
 from contextlib import contextmanager
 from datetime import datetime, timezone
 
@@ -80,6 +81,14 @@ def connect(ws: Workspace | None = None):
 
 def now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def elapsed_ms(started: float) -> int:
+    """`time.monotonic()` 시작점부터의 경과 ms — 계측 페이로드의 공용 시간 단위.
+
+    같은 한 줄이 네 곳(search 갈래 셋·promote 단계)에 사본으로 있었다(2026-08-13).
+    """
+    return int((time.monotonic() - started) * 1000)
 
 
 def record_event(connection: sqlite3.Connection, kind: str, payload: dict) -> None:

@@ -99,7 +99,7 @@ def main(argv: list[str]) -> int:
         print(f"\n[{index + 1}/{len(planned)}] {name}", flush=True)
         started = time.monotonic()
         code = subprocess.run(command).returncode
-        durations[name] = int((time.monotonic() - started) * 1000)
+        durations[name] = stats.elapsed_ms(started)
         if code != 0:
             failed = name
             remaining = [n for n, _ in planned[index + 1:]]

@@ -65,7 +65,8 @@ kind("synthesis-provenance", "warn", "synthesis에 sources나 각주 존재",
      "옮긴다. 사람 종합의 정당한 인용이면 리뷰에서 판단하고 넘어간다.")
 kind("numeric-confidence", "info", "숫자 신뢰도 표기 흔적",
      "숫자 confidence는 금지다(PLAN §2.1) — 불확실성은 #hypothesis와 #speculation "
-     "토큰만 쓴다. 검사는 흔한 표기(confidence:)만 잡는 부분 검사다.")
+     "토큰만 쓴다. 검사는 흔한 표기(confidence:)만 잡는 부분 검사이고, 표기 목록의 "
+     "확장은 반례마다 추가가 아니라 재심 경유다(locator 구두점 집합과 같은 규율).")
 
 
 def check_page(ctx: Context, path: str, md: MdFile):

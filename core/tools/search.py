@@ -52,7 +52,7 @@ def leg_qmd(query: str, kb: str | None, limit: int) -> tuple[dict, list[dict]]:
         proc = subprocess.run(argv, capture_output=True, text=True, timeout=QMD_TIMEOUT)
     except subprocess.TimeoutExpired:
         return {"skipped": f"{QMD_TIMEOUT}초 초과"}, []
-    elapsed = int((time.monotonic() - started) * 1000)
+    elapsed = stats.elapsed_ms(started)
 
     if proc.returncode != 0:
         return {"skipped": f"종료 {proc.returncode}: {proc.stderr.strip()[:200]}"}, []
@@ -84,7 +84,7 @@ def leg_morph(query: str, kb: str | None, limit: int,
             # 사유는 계측(legs)에 남아 낡은 색인의 빈도가 데이터가 된다.
             return {"skipped": f"색인이 낡음 — {reason} (tools/reindex.py)"}, [], []
         rows = ksearch.hits(connection, expression, kb, limit)
-    elapsed = int((time.monotonic() - started) * 1000)
+    elapsed = stats.elapsed_ms(started)
     return {"hits": len(rows), "ms": elapsed}, rows, morph.analyze(query)
 
 
@@ -118,7 +118,7 @@ def leg_literal(query: str, kb: str | None, limit: int,
                 per_file += 1
                 if per_file >= 3:              # 파일당 3건이면 존재 확인에 충분하다
                     break
-    elapsed = int((time.monotonic() - started) * 1000)
+    elapsed = stats.elapsed_ms(started)
     return {"hits": len(found), "ms": elapsed}, found[:limit]
 
 
