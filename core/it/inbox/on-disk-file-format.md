@@ -238,6 +238,8 @@ sources:
   파일들의 구획
 - [카프카 메시지 배치의 스키마](../concepts/kafka-message-batch-schema.md) — 같은 원칙이 메시지
   브로커의 온디스크 형식에서 나타나는 자리
+- [클래스 파일 형식](../concepts/class-file-format.md) — 매직 넘버·버저닝·바이트 순서·가변 길이
+  데이터라는 같은 문제를 실행 파일 형식 쪽에서 푼 사례(자바 클래스 파일의 `0xCAFEBABE`)
 
 [^petrov2019]: Petrov 2019, 3장 "File Formats" 및 4장 "Implementing B-Trees". 비트 연산 코드
     조각은 3장 p.50의 예제에서 주석과 함께 그대로 옮겼다.

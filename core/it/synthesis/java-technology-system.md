@@ -11,7 +11,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 언어를 돌리는 가상 머신 구현들, 그것들을 묶어 배포하는 JDK, 그리고 그 시스템이 지나온 시간과
 지금 가고 있는 방향 — 이 사는 자리다. 가상 머신 **안쪽**에서 메모리가 어떻게 관리되는지는
 [JVM 자동 메모리 관리](jvm-memory-management.md)가, 그 상태를 **밖에서 재는 도구**는
-[JVM 모니터링과 문제 해결 도구](jvm-troubleshooting-tools.md)가 담당한다.
+[JVM 모니터링과 문제 해결 도구](jvm-troubleshooting-tools.md)가, 가상 머신이 읽어 들이는
+**입력 형식**은 [클래스 파일과 바이트코드](class-file-and-bytecode.md)가 담당한다.
 
 ## 무엇으로 이루어져 있는가
 
@@ -45,3 +46,5 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
   방법
 - [JVM 모니터링과 문제 해결 도구](jvm-troubleshooting-tools.md) — 돌고 있는 가상 머신의 상태를
   꺼내 보는 쪽
+- [클래스 파일과 바이트코드](class-file-and-bytecode.md) — 이 가상 머신들이 유일하게 의존하는
+  입력 형식과 그 안의 명령어 집합

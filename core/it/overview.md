@@ -42,6 +42,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 구성과 제품군·판올림의 역사·가상 머신 구현들·지금의 방향
   - [JVM 자동 메모리 관리](synthesis/jvm-memory-management.md) — 메모리 영역·객체 생존 판정·회수 알고리즘·컬렉터 선택
   - [JVM 모니터링과 문제 해결 도구](synthesis/jvm-troubleshooting-tools.md) — 명령 줄 도구·JHSDB·GUI 도구·JFR과 JMC·JIT 코드 검사
+  - [클래스 파일과 바이트코드](synthesis/class-file-and-bytecode.md) — 컴파일 결과물의 저장 형식과 그 위에 실리는 명령어 집합
 
 
 ## Tools
