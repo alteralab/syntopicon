@@ -13,7 +13,9 @@ generated: { by: "human:me", at: "2026-08-11T00:00:00Z" }
 
 ## 문제
 
-- [복제 상태 기계와 합의](../concepts/replicated-state-machine.md) — 합의 알고리즘이 존재하는 이유와 실용 시스템이 요구하는 네 성질
+- [복제 상태 기계와 합의](../concepts/replicated-state-machine.md) — 합의 알고리즘이 존재하는 이유, 형식 성질 셋, 실용 시스템이 요구하는 네 성질
+- [두 장군 문제와 FLP 불가능성](../concepts/two-generals-and-flp-impossibility.md) — 비동기 시스템에서 합의가 막히는 지점과 그 실무적 독법
+- [합의 없는 리더 선출](../concepts/leader-election-algorithms.md) — 과반 없이 리더를 뽑는 계열과, 선출이 합의와 같은 문제인가라는 물음
 
 ## Raft의 네 조각
 
@@ -31,3 +33,4 @@ generated: { by: "human:me", at: "2026-08-11T00:00:00Z" }
 - [주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md) — 이 알고리즘이 카프카에서 쓰이는 자리
 - [카프카 복제 프로토콜](../concepts/kafka-replication-protocol.md) — 정족수 대신 ISR을 쓰는 다른 선택
 - [데이터 복제](../synthesis/data-replication.md) — 합의 없이 복제하는 계열 전체의 허브
+- [분산 시스템 기초](../synthesis/distributed-systems-basics.md) — 이 알고리즘들이 딛는 통신·시간·장애의 가정
