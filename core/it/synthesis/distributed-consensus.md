@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 분산 합의
-description: 서버 여럿을 하나의 고신뢰 상태 기계처럼 보이게 하는 문제, Paxos 계열과 Raft라는 두 해법, 브로드캐스트라는 사촌 문제, 그리고 선의 가정을 걷어 낸 비잔틴 계열
+description: 서버 여럿을 하나의 고신뢰 상태 기계처럼 보이게 하는 문제, Paxos 계열과 Raft라는 두 해법, 브로드캐스트라는 사촌 문제, 그것을 제품으로 파는 조율 서비스, 그리고 선의 가정을 걷어 낸 비잔틴 계열
 generated: { by: "human:me", at: "2026-08-14T15:00:00Z" }
 ---
 
@@ -45,6 +45,10 @@ generated: { by: "human:me", at: "2026-08-14T15:00:00Z" }
 
 - [비잔틴 합의와 PBFT](../concepts/byzantine-consensus-pbft.md) — `3f + 1`이라는 셈법, 뷰와
   프라이머리, 세 단계와 교차 검증
+
+## 합의를 제품으로 쓰기
+
+- [조율 서비스](../concepts/coordination-services.md) — 주키퍼·etcd·Consul이 제공하는 잠금·리스·펜싱·실패 감지·변경 알림
 
 ## 이웃 축
 
