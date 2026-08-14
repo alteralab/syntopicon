@@ -49,7 +49,7 @@ sources:
   이름이 여럿이며, 카프카에서는 그것이 파티션(partition)이다.** 같은 자리에 CockroachDB의
   range, HBase·TiDB의 region, Couchbase의 vBucket, Riak의 vnode, 카산드라의 token-range,
   Bigtable·YugabyteDB·ScyllaDB의 tablet이 열거된다 (7장, p.252).[^kleppmann2026]
-  - **파티셔닝과 샤딩을 구별되는 두 개념으로 취급하는 데이터베이스도 있다** — PostgreSQL에서
+  - **파티셔닝과 샤딩(sharding)을 구별되는 두 개념으로 취급하는 데이터베이스도 있다** — PostgreSQL에서
     파티셔닝은 **큰 테이블 하나를 같은 기계의 여러 파일로 쪼개는 일**이고 샤딩은 **여러 기계에
     걸쳐 쪼개는 일**이다. **다른 많은 시스템에서는 파티셔닝이 그냥 샤딩의 다른 말**이다 (7장,
     p.252).[^kleppmann2026] 카프카의 파티션은 뒤쪽, 즉 여러 브로커에 흩어지는 단위다.

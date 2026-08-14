@@ -18,10 +18,10 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
 
 ## 무엇이고 왜 하는가
 
-- [샤딩의 기본](../concepts/sharding-basics.md) — 샤드라는 단위와 제품마다 다른 이름들, 복제와
-  겹쳐 놓은 그림, 확장성 대신 치르는 값
-- [멀티테넌시를 위한 샤딩](../concepts/sharding-for-multitenancy.md) — 확장성이 아니라 격리를
-  목적으로 나눌 때 얻는 일곱 가지와 막히는 세 곳
+- [샤딩의 기본](../concepts/sharding-basics.md) — 샤드(shard)라는 단위와 제품마다 다른
+  이름들, 복제와 겹쳐 놓은 그림, 확장성(scalability) 대신 치르는 값
+- [멀티테넌시를 위한 샤딩](../concepts/sharding-for-multitenancy.md) — 확장성이 아니라
+  격리를 목적으로 나눌 때 얻는 일곱 가지와 막히는 세 곳
 
 ## 무엇을 기준으로 자르는가
 
@@ -34,8 +34,8 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
 
 ## 고르지 않을 때
 
-- [핫스팟과 쏠린 워크로드](../concepts/relieving-hot-spots.md) — 치우침·핫 샤드·핫 키와 두 가지
-  처방
+- [핫스팟과 쏠린 워크로드](../concepts/relieving-hot-spots.md) — 치우침(skew)·핫 샤드(hot
+  shard)·핫 키(hot key)와 두 가지 처방
 - [샤드 리밸런싱 운영](../concepts/shard-rebalancing-operations.md) — 분할과 이동을 자동에
   맡길 것인가 사람이 볼 것인가
 
@@ -43,8 +43,8 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
 
 - [요청 라우팅](../concepts/request-routing.md) — 어느 노드에 물어야 하는지 아는 세 가지 배치와
   코디네이션 서비스
-- [샤딩과 2차 색인](../concepts/sharding-and-secondary-indexes.md) — 로컬(문서 분할)과
-  글로벌(용어 분할), 각각이 비싸게 만드는 쪽
+- [샤딩과 2차 색인](../concepts/sharding-and-secondary-indexes.md) — 로컬(문서 분할,
+  document-partitioned)과 글로벌(용어 분할, term-partitioned), 각각이 비싸게 만드는 쪽
 
 ## 이웃 축
 
@@ -54,5 +54,5 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
   대응이 제품 수준에서 나타나는 자리
 - [파티션과 레플리카 관리](../concepts/kafka-partition-and-replica-administration.md) — 샤드
   이동을 손으로 하는 실제 절차
-- [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — 샤딩을 피하라는
-  권고가 놓인 자리
+- [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) —
+  샤딩(sharding)을 피하라는 권고가 놓인 자리

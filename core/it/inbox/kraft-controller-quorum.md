@@ -57,7 +57,7 @@ sources:
   "Controllers").[^kafka2025-kraft]
 - 같은 규칙의 일반형: **N개의 동시 장애를 견디려면 컨트롤러 클러스터에 2N + 1개의
   컨트롤러가 있어야 한다** (kraft, "Deploying Considerations").[^kafka2025-kraft]
-  - 이것은 주키퍼 앙상블의 홀수 권고와 같은 자리에 있는 과반 규칙이고, 원전은
+  - 이것은 주키퍼 앙상블(ensemble)의 홀수 권고와 같은 자리에 있는 과반 규칙이고, 원전은
     [Raft의 리더 선출과 임기](../concepts/raft-leader-election.md)의 과반 득표
     조건이다.
 - 클러스터의 모든 서버는 `controller.quorum.bootstrap.servers` 속성으로 액티브
@@ -65,8 +65,9 @@ sources:
   `host`와 `port`로 식별된다. **브로커와 컨트롤러 전부가 이 속성을 설정해야 한다**
   (kraft, "Controllers").[^kafka2025-kraft]
 - 이 쿼럼이 바깥에서 무슨 문제를 푸는 것으로 보이는지는 일반 문헌이 한 줄로 적는다 —
-  **카프카·YugabyteDB·TiDB·ScyllaDB는 샤드를 노드에 배정하는 코디네이션 기능을 수행하는 데
-  Raft 합의 프로토콜의 내장 구현을 쓴다** (7장, p.267).[^kleppmann2026] 같은 기능을 외부
+  **카프카·YugabyteDB·TiDB·ScyllaDB는 샤드(shard)를 노드에 배정하는 코디네이션 기능을
+  수행하는 데 Raft 합의(consensus) 프로토콜의 내장 구현을 쓴다** (7장,
+  p.267).[^kleppmann2026] 같은 기능을 외부
   서비스에 맡기는 쪽(주키퍼·etcd)과 대비되는 자리이며, 그 지형은
   [요청 라우팅](../concepts/request-routing.md)에 있다.
 - 자원 요구: 컨트롤러는 클러스터의 모든 메타데이터를 **메모리와 디스크 양쪽에**

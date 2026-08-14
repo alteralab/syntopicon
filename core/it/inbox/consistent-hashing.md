@@ -19,7 +19,7 @@ sources:
 
 ## 정의 — 두 성질
 
-- **일관 해싱(consistent hashing) 알고리즘은 키를 지정된 개수의 샤드에 대응시키는 해시
+- **일관 해싱(consistent hashing) 알고리즘은 키를 지정된 개수의 샤드(shard)에 대응시키는 해시
   함수로, 두 성질을 만족하는 것**이다. 정의이므로 원문 직인용 (7장,
   p.263):[^kleppmann2026]
 
@@ -27,7 +27,8 @@ sources:
 > - When the number of shards changes, as few keys as possible are moved from one shard to
 >   another.
 
-- 둘째 성질이 [해시 샤딩](../concepts/hash-sharding.md)의 모듈로 N 방식이 실패하는 바로 그
+- 둘째 성질이 [해시 샤딩](../concepts/hash-sharding.md)의 모듈로(modulo) N 방식이 실패하는
+  바로 그
   자리다 — 그쪽은 노드 수가 바뀌면 대부분의 키가 움직인다 (7장, p.259).[^kleppmann2026]
 
 ## 여기서 "일관"은 무슨 뜻이 아닌가
@@ -38,7 +39,8 @@ sources:
 
 ## 알고리즘 계열
 
-- **카산드라와 ScyllaDB가 쓰는 샤딩 알고리즘은 일관 해싱의 원래 정의와 비슷하다** (7장,
+- **카산드라와 ScyllaDB가 쓰는 샤딩(sharding) 알고리즘은 일관 해싱의 원래 정의와 비슷하다**
+  (7장,
   p.263).[^kleppmann2026] 그 방식의 실제 동작(노드당 범위 여러 개, 무작위 경계)은
   [해시 샤딩](../concepts/hash-sharding.md)에 있다.
 - **다른 일관 해싱 알고리즘들도 제안돼 있다 — 랑데부 해싱(rendezvous hashing)이라고도 하는
