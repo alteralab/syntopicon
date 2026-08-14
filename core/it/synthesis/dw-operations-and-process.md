@@ -14,6 +14,7 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 - [Kimball DW/BI 아키텍처](../concepts/kimball-dwbi-architecture.md) — 4구획과 프레젠테이션 4원칙
 - [Kimball 라이프사이클](../concepts/kimball-lifecycle.md) — 로드맵과 실패 요인
 - [차원 설계 프로세스](../concepts/dimensional-design-process.md) — 워크숍 운영과 산출물
+- [빅데이터 분석 실무 지침](../concepts/big-data-analytics-practices.md) — 두 아키텍처 대조, 지연 계층 데이터 하이웨이, 관리·모델링·거버넌스 지침
 
 ## ETL
 

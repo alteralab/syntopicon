@@ -3,9 +3,10 @@ type: concept
 title: 데이터 레이크
 status: draft
 description: 스키마를 강제하지 않고 파일 그대로 모으는 분석 저장소 — 웨어하우스로 감당이 안 되는 수요, "원시 데이터가 낫다"는 원칙, 그 선택을 부르는 이름인 읽기 스키마, 한 덩어리였던 웨어하우스가 질의 엔진·저장 형식·테이블 형식·데이터 카탈로그로 쪼개진 결과, 그리고 그 반대편의 데이터 최소화
-generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: kimball2013, resource: /it/sources/kimball2013.md }
 ---
 
 # 데이터 레이크
@@ -74,6 +75,14 @@ sources:
   Raw Data Vault는 원천 그대로의 보존을 우선한다(→
   [데이터 품질 관리](../concepts/data-quality-management.md)의 "나쁜 데이터의 가치").
   세 관점을 지우지 말고 병기해 둔다.
+  - 다만 Kimball 쪽의 대립각은 겉보기보다 좁다. 같은 저자들이 빅데이터를 다룰 때는
+    **분석 시점까지 데이터 구조를 선언하지 않는 데 익숙해지라**고 요구하며 그 이점 넷을
+    스시 원칙과 같은 논거로 든다 — 적재 시점에 구조를 이해하지 못했을 수 있고, 내용이
+    가변적이며, 자원 집약적 단계를 피할 수 있고, **서로 다른 분석가가 같은 데이터를
+    정당하게 다르게 볼 수 있다** (21장, p.540).[^kimball2013] 갈리는 것은 원시 보존
+    여부가 아니라 **무엇을 언제 붙이는가**다: Kimball은 구조 선언은 미루되 내구 대리 키와
+    차원 부착은 최초 추출 단계에서 하라고 요구한다 (21장, pp.535, 539, 541).[^kimball2013]
+    전문은 [빅데이터 분석 실무 지침](../concepts/big-data-analytics-practices.md).
 
 ## 이 선택의 이름 — 읽기 스키마
 
@@ -215,4 +224,5 @@ sources:
 - [질의 실행 — 컴파일과 벡터화](../concepts/query-execution-compilation-and-vectorization.md) —
   질의 엔진이 그 파일을 훑는 방식
 
+[^kimball2013]: Kimball & Ross 2013, 21장 "Big Data Analytics"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 3장 "Data Models and Query Languages" · 4장 "Storage and Retrieval" · 14장 "Doing the Right Thing"

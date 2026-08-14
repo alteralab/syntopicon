@@ -13,6 +13,7 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 - [팩트 테이블](../concepts/fact-table.md) — 측정 이벤트 1:1·grain·합산 가능성
 - [차원 테이블](../concepts/dimension-table.md) — 속성이 곧 분석력, 대리 키
 - [4단계 설계](../concepts/four-step-dimensional-design.md) — 프로세스→grain→차원→팩트
+- [설계 리뷰](../concepts/dimensional-design-review.md) — 흔한 설계 결함 체크리스트와 리뷰 운영
 
 ## 팩트 기법
 
