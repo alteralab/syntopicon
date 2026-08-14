@@ -1,12 +1,20 @@
 # 검색 실측 (PLAN §6 검색 실측 8종의 자산)
 
-- `dw-books-2026-08.json` — qrels 26문항(클래스 5종: exact 조사·활용·복합명사 /
-  alias 원어 / semantic 패러프레이즈 / topical / cross-domain). 정답은 본문 대조로
-  확정. **단서: 단일 도메인(DW)·도서 2권 표본** — 수치는 [예비] 등급.
-- `runner.py` — 4레그(qmd search·vsearch·query + ksearch)를 **CLI 실사용 경로**로
-  측정(R@5·MRR·레이턴시). `qmd bench`(내부 API)는 2.1.0에서 vector/hybrid 전건
-  0을 내는 결함이 실측돼 쓰지 않는다(직접 vsearch는 동일 질의 정답 1위).
-- `results-2026-08-07.json` — 첫 실측 스냅샷(OR 전환 직후, 질의 캐시 웜 상태).
+- `qrels/<이름>.yaml` — 질문지 조각, **소스당 한 파일**(성장 모델: ingest마다 그
+  소스의 조각을 추가 — 리뷰 템플릿 승급 후 확인 항목). 단일 고정 파일이던 초판은
+  DW 2권 시절에 멈춰 신규 도메인 커버 0이 됐다(2026-08-14 실측) — 조각 분할이
+  그 교정이다. 클래스 5종: exact(조사·활용·복합명사) / alias(원어) /
+  semantic(패러프레이즈) / topical / cross-domain. 스키마는 runner가 fail-loud로
+  집행한다(모르는 키·중복 id는 죽는다).
+- `runner.py` — 레그별 **CLI 실사용 경로** 측정(R@5·MRR·레이턴시). `--legs fast`
+  (결정적 3레그: bm25·vector·morph)는 promote 사슬이 승급마다 자동 실행하고
+  stats.sqlite `retrieval_eval` 이벤트로 남긴다(`--record`). `--legs all`은
+  hybrid(qmd query)를 더하되 LLM 확장이 껴 비결정 — 단발 비교 금지(러너 머리말).
+  회귀 경보 바닥은 러너 상수(FLOORS, 근거 주석). `qmd bench`(내부 API)는 2.1.0에서
+  vector/hybrid 전건 0을 내는 결함이 실측돼 쓰지 않는다.
+- `results-2026-08-07.json` — 첫 실측 스냅샷(OR 전환 직후, 26문항 시절). 이후
+  실행분은 `evals/runs/`(git 밖)와 stats 이벤트가 담당한다.
+- 수시 측정 진입점은 `/kb-eval` 스킬(추세 비교·공백 점검 절차 포함).
 
 ## 2026-08-07 실측 요지 (26문항)
 

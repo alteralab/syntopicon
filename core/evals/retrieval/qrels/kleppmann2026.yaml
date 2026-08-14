@@ -1,0 +1,66 @@
+# 질문지 조각 — DDIA 2판 6·7·8장 승급 배치(2026-08-14, 런 2026-08-13-01/02·14-01).
+# 성장 규약의 첫 실행: ingest마다 그 소스의 조각 파일을 더한다 — 정답 페이지를
+# 방금 저작한 시점이 정답 확정이 가장 싼 시점이다.
+# alias 문항 셋은 병기 조문(SCHEMA)의 회귀 지점이다 — 병기 정정(3494f8e) 전에는
+# failover 질의가 이 페이지들을 못 잡았다(2026-08-13 실측).
+source: kleppmann2026
+added: 2026-08-14
+queries:
+  - id: ddia-alias-1
+    query: "failover"
+    type: alias
+    description: "원어 질의 — 병기 회귀 지점(정정 전 미검색 실측)"
+    expected_files: ["concepts/single-leader-replication.md"]
+    expected_in_top_k: 5
+  - id: ddia-alias-2
+    query: "WAL shipping"
+    type: alias
+    description: "원어 질의 — 병기 전 코퍼스에 shipping 0회였던 자리"
+    expected_files: ["concepts/replication-log-implementations.md"]
+    expected_in_top_k: 5
+  - id: ddia-alias-3
+    query: "leaderless"
+    type: alias
+    description: "원어 질의 — 자기 페이지가 자기 원어에 안 잡히던 자리"
+    expected_files: ["concepts/leaderless-replication.md"]
+    expected_in_top_k: 5
+  - id: ddia-conj-1
+    query: "쓰기 충돌을 자동으로 해소하는 방법"
+    type: exact
+    description: "활용형(해소하는) — 형태소 문맥 민감성"
+    expected_files: ["concepts/write-conflict-resolution.md"]
+    expected_in_top_k: 5
+  - id: ddia-comp-1
+    query: "버전 벡터"
+    type: exact
+    description: "복합명사"
+    expected_files: ["concepts/detecting-concurrent-writes.md"]
+    expected_in_top_k: 5
+  - id: ddia-sem-1
+    query: "리더 없이 여러 노드에 쓰면서 일관된 값을 읽으려면"
+    type: semantic
+    description: "패러프레이즈 — 리더리스와 정족수 어휘 불사용"
+    expected_files: ["concepts/leaderless-replication.md", "concepts/quorum-reads-and-writes.md"]
+    expected_in_top_k: 5
+  - id: ddia-sem-2
+    query: "두 사람이 같은 값을 동시에 고치면 한쪽 수정이 사라지는 문제"
+    type: semantic
+    description: "패러프레이즈 — lost update 어휘 불사용"
+    expected_files: ["concepts/preventing-lost-updates.md", "concepts/write-conflict-resolution.md"]
+    expected_in_top_k: 5
+  - id: ddia-top-1
+    query: "스냅샷 격리"
+    type: topical
+    expected_files: ["concepts/snapshot-isolation-and-mvcc.md"]
+    expected_in_top_k: 5
+  - id: ddia-top-2
+    query: "2단계 커밋"
+    type: topical
+    expected_files: ["concepts/two-phase-commit.md"]
+    expected_in_top_k: 5
+  - id: ddia-x-1
+    query: "카프카 파티션과 샤딩은 같은 개념인가"
+    type: cross-domain
+    description: "이번 배치가 만든 이름 대응(파티션=샤드) 절을 겨냥"
+    expected_files: ["concepts/topics-and-partitions.md"]
+    expected_in_top_k: 5
