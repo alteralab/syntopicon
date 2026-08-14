@@ -34,3 +34,8 @@ C와 C++ 개발자가 손으로 하던 일을 가상 머신이 대신 맡을 때
 ## 고르고 확인하기
 
 - [적합한 가비지 컬렉터 고르기](../concepts/choosing-a-garbage-collector.md) — 선택을 좌우하는 세 요인과 -Xlog 읽는 법
+
+## 이어지는 허브
+
+- [JVM 모니터링과 문제 해결 도구](jvm-troubleshooting-tools.md) — 여기서 정한 값이 실제로 어떻게 나오고 있는지 꺼내 보는 도구들
+- [자바 기술 시스템](java-technology-system.md) — 이 메모리 관리를 수행하는 가상 머신과 JDK 자체

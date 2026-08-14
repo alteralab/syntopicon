@@ -39,7 +39,9 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [레플리카 일관성](synthesis/replica-consistency.md) — 사본이 여럿일 때의 가시성 계약과 수렴 장치
 - [데이터 샤딩](synthesis/data-sharding.md) — 데이터셋을 노드로 쪼개는 기준·쏠림·라우팅·색인
 - [데이터베이스 트랜잭션](synthesis/database-transactions.md) — ACID·격리 수준·직렬성 구현·분산 원자적 커밋
-- [JVM 자동 메모리 관리](synthesis/jvm-memory-management.md) — 메모리 영역·객체 생존 판정·회수 알고리즘·컬렉터 선택
+- [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 구성과 제품군·판올림의 역사·가상 머신 구현들·지금의 방향
+  - [JVM 자동 메모리 관리](synthesis/jvm-memory-management.md) — 메모리 영역·객체 생존 판정·회수 알고리즘·컬렉터 선택
+  - [JVM 모니터링과 문제 해결 도구](synthesis/jvm-troubleshooting-tools.md) — 명령 줄 도구·JHSDB·GUI 도구·JFR과 JMC·JIT 코드 검사
 
 
 ## Tools
