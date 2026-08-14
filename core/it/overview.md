@@ -28,6 +28,8 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [카프카 모니터링](synthesis/kafka-monitoring.md) — 지표와 SLO·브로커와 JVM·클라이언트 지표·랙
   - [스트림 처리](synthesis/stream-processing.md) — 패러다임의 정의·시간과 상태와 이중성·설계 패턴·카프카 스트림즈
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
+- [비기능 요건](synthesis/nonfunctional-requirements.md) — 성능·신뢰성·확장성·유지보수성을 정의하는 어휘
+- [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조와 B-트리 대 LSM의 대비
 - [분산 시스템 기초](synthesis/distributed-systems-basics.md) — 통신·시간·장애의 가정과 그 위의 실패 감지·리더 선출
 - [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft의 해법

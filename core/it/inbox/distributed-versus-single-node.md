@@ -13,6 +13,7 @@ sources:
 
 - [분산으로 가는 이유들](#분산으로-가는-이유들)
 - [수직 확장과 수평 확장](#수직-확장과-수평-확장)
+- [하드웨어 중복이 아니라 소프트웨어 내결함성](#하드웨어-중복이-아니라-소프트웨어-내결함성)
 - [분산의 대가](#분산의-대가)
 - [무엇이 근본적으로 다른가 — 동시성](#무엇이-근본적으로-다른가--동시성)
 - [공유 상태를 도입해도 풀리지 않는다](#공유-상태를-도입해도-풀리지-않는다)
@@ -88,6 +89,32 @@ sources:
     서술은 **단일 기계 성능 향상과 DuckDB·SQLite 계열의 등장으로 단일 노드로 감당되는 워크로드가
     늘었다**는 것을 적는다 (1장, p.21).[^kleppmann2026] 뒤 소스가 앞 소스를 뒤집는 것이 아니라
     7년 사이 단일 노드 쪽 선택지가 넓어졌다고 읽는 것이 두 진술을 모두 살린다. #hypothesis
+- 같은 책 2장이 이 두 낱말을 세 아키텍처로 세분한다 — **수직 확장은 같은 기계에서 여러
+  프로세스·스레드가 같은 RAM에 접근하는 공유 메모리 아키텍처(shared-memory architecture)이고,
+  여러 기계가 독립적 CPU·RAM을 갖되 디스크 배열을 공유하는 것이 공유 디스크
+  아키텍처(shared-disk architecture)이며, 각 노드가 자기 CPU·RAM·디스크를 갖고 조율을 전부
+  소프트웨어 수준의 네트워크로 하는 것이 무공유 아키텍처(shared-nothing architecture, 수평
+  확장·스케일 아웃이라고도 한다)다** (2장, p.51).[^kleppmann2026] 세 아키텍처의 장단과
+  클라우드가 더한 네 번째 형태는 [확장성과 부하](../concepts/scalability-and-load.md)에 있다.
+
+## 하드웨어 중복이 아니라 소프트웨어 내결함성
+
+위 [분산으로 가는 이유들](#분산으로-가는-이유들)의 "내결함성" 이유가 실제로 어느 층에서
+구현되는지를 2장이 명시한다.
+
+- 층위의 이동 — **하드웨어 중복은 기계 한 대의 가동 시간을 늘린다. 그러나 분산 시스템을 쓰면
+  데이터센터 하나의 완전한 중단을 견딜 수 있다는 이점이 있다. 이 때문에 클라우드 시스템은 개별
+  기계의 신뢰성에는 덜 집중하고, 대신 소프트웨어 수준에서 결함 있는 노드를 견딤으로써 서비스를
+  고가용으로 만드는 것을 겨냥하는 경향이 있다** (2장, p.45).[^kleppmann2026]
+- 그 전제가 흔들리는 지점도 적혀 있다 — **중복은 부품 결함이 독립적일 때 가장 효과적인데, 경험은
+  부품 고장 사이에 유의한 상관을 보여 왔다. 서버 랙 전체나 데이터센터 전체의 불가용은 우리가
+  바라는 것보다 여전히 자주 일어난다** (2장, p.45).[^kleppmann2026] 그래서 **클라우드 제공자는
+  어떤 자원이 물리적으로 함께 놓여 있는지 식별하기 위해 가용 영역을 쓴다** (2장,
+  p.46).[^kleppmann2026] — 아래 [리전과 가용 영역](#리전과-가용-영역)의 그 단위다.
+- 운영상의 배당금 — **기계 전체의 상실을 견딜 수 있는 시스템은 운영상의 이점도 갖는다. 단일 서버
+  시스템은 기계를 재부팅해야 하면 계획된 다운타임이 필요한 반면, 다중 노드 내결함성 시스템은 한
+  번에 한 노드씩 재시작함으로써 사용자에 대한 서비스에 영향을 주지 않고 패치할 수 있다. 이를
+  롤링 업그레이드(rolling upgrade)라 한다** (2장, p.46).[^kleppmann2026]
 
 ## 분산의 대가
 
@@ -402,6 +429,12 @@ p.243):[^kleppmann2026]
   쪽과 그 값어치
 - [분산 컴퓨팅의 오류](../concepts/fallacies-of-distributed-computing.md) — 위 대가를 가정 목록으로
   전부 펼친 것
+- [확장성과 부하](../concepts/scalability-and-load.md) — 무공유로 갈 때 부하를 어떻게 재고 어떤
+  원칙을 따르는가
+- [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 여기서 이유로만 세어진
+  내결함성의 정의
+- [하드웨어·소프트웨어·사람의 결함](../concepts/hardware-software-and-human-faults.md) — 중복이
+  견디려는 그 결함들의 실제 발생률
 - [장애 모델과 시스템 동기성](../concepts/failure-models-and-synchrony.md) — 여기서 이름만 든
   동기성과 장애 모델의 전문
 - [링크 추상과 메시지 전달 보장](../concepts/link-abstractions-and-message-delivery.md) —
@@ -411,5 +444,5 @@ p.243):[^kleppmann2026]
   · [Paxos](../concepts/paxos.md) — 위 여섯 갈래 각각의 전문
 - [일관성 모델](../concepts/consistency-models.md) — 이 알고리즘들이 구현하려는 계약들
 
-[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 6장 "Replication" · 7장 "Sharding" · 8장 "Transactions"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 2장 "Defining Nonfunctional Requirements" · 6장 "Replication" · 7장 "Sharding" · 8장 "Transactions"
 [^petrov2019]: Petrov 2019, Part II 도입 "Distributed Systems" · 8장 "Introduction and Overview" · Part II 결론"
