@@ -58,6 +58,14 @@ def stages(kb: str, with_qmd: bool) -> list[tuple[str, list[str]]]:
             ("qmd-cleanup", ["qmd", "cleanup"]),
         ]
     planned.append(("lint", [sys.executable, str(TOOLS / "lint.py")]))
+    # 검색 실측 — 손 절차였을 때 첫 실행 후 코퍼스가 3배 되도록 안 돌았다(2026-08-14
+    # 감사). qmd cleanup과 같은 처방: 사슬에 박는다. 결정적 레그만이라 분 단위이고,
+    # 회귀는 경보이지 게이트가 아니다(러너가 항상 0으로 끝난다). qrels 조각이 있는
+    # 루트에서만 돈다 — 없는 루트(샌드박스 등)에서는 잴 것이 없다.
+    if any((ROOT / "evals" / "retrieval" / "qrels").glob("*.yaml")):
+        planned.append(("retrieval-eval", [
+            sys.executable, str(TOOLS.parent / "evals" / "retrieval" / "runner.py"),
+            "--legs", "fast", "--record"]))
     return planned
 
 

@@ -71,5 +71,16 @@ def test_dry_run은_계획만_말한다(repo: Repo):
     result = repo.run("promote.py", "--kb", "it", "--dry-run", "--skip-qmd")
     assert result.returncode == 0, result.stdout + result.stderr
     assert "first-idea" in result.stdout and "실행 계획" in result.stdout
+    assert "retrieval-eval" not in result.stdout   # qrels 없는 루트 — 잴 것이 없다
     assert (repo.root / "it/inbox/first-idea.md").exists()
     assert promote_events(repo) == []
+
+
+def test_qrels가_있으면_검색_실측이_사슬에_든다(repo: Repo):
+    seeded(repo)
+    qrels = repo.root / "evals" / "retrieval" / "qrels"
+    qrels.mkdir(parents=True)
+    (qrels / "seed.yaml").write_text("source: seed\nqueries: []\n")
+    result = repo.run("promote.py", "--kb", "it", "--dry-run", "--skip-qmd")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "retrieval-eval" in result.stdout
