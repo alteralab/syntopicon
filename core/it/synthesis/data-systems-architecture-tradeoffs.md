@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 데이터 시스템 아키텍처 트레이드오프
-description: 운영계와 분석계, 클라우드와 자체 호스팅, 분산과 단일 노드 사이의 선택을 모으는 허브
+description: 운영계와 분석계, 클라우드와 자체 호스팅, 분산과 단일 노드, 그리고 사업의 요구와 사용자의 요구 사이의 선택을 모으는 허브
 generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 ---
 
@@ -25,3 +25,18 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — 여러 기계로 갈 아홉 가지 이유와 가지 말아야 할 이유
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 서비스마다 자기 데이터베이스를 두는 이유와 그 대가
+
+## 사업의 요구와 사용자의 요구
+
+데이터를 더 모을수록 얻는 것이 있고, 그 데이터의 대상이 되는 사람이 잃는 것이 있다.
+이 축은 성능이 아니라 사람을 저울에 올린다.
+
+- [공학 윤리와 책임](../concepts/engineering-ethics-and-responsibility.md) — 시스템을 만드는 사람이 그 결과에 지는 책임과 윤리가 체크리스트가 아닌 이유
+- [예측 분석과 알고리즘의 해악](../concepts/predictive-analytics-and-algorithmic-harm.md) — 데이터로 사람에 대한 결정을 자동화할 때의 편향·책무·피드백 루프
+- [감시와 동의](../concepts/surveillance-and-consent.md) — 행동 추적이 감시가 되는 지점과 "안 쓰면 된다"가 성립하지 않는 이유
+- [결정권으로서의 프라이버시](../concepts/privacy-as-a-decision-right.md) — 프라이버시가 비밀 유지가 아니라 선택권이라는 정의와 그 권리의 이전
+- [위험 자산으로서의 데이터](../concepts/data-as-a-hazardous-asset.md) — 쌓아 둔 개인 데이터가 지는 위험, 산업혁명 비유, 데이터 최소화와 규제
+
+## 이어지는 허브
+
+- [데이터플로 아키텍처](dataflow-architecture.md) — 여러 시스템을 이어 붙이기로 했을 때의 그다음 선택들

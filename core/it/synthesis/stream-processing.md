@@ -64,6 +64,7 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 
 ## 이어지는 허브
 
+- [데이터플로 아키텍처](dataflow-architecture.md) — 이 처리 계열 위에 시스템 전체를 짓는 철학
 - [배치 처리](batch-processing.md) — 입력이 유한할 때의 같은 문제들
 - [카프카](kafka-basics.md) — 이 허브의 상위
 - [카프카 클라이언트](kafka-clients.md) — 스트림즈가 안에서 쓰는 프로듀서·컨슈머

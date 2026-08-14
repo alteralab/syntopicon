@@ -182,8 +182,25 @@ sources:
   담을 때)에서만 실제로 부딪히며, 그때도 어느 쪽이 참인지가 아니라 어떤 데이터에
   어느 정책을 걸지의 설계 판단이다. 사실 주장의 충돌이 아니므로 `contradicts`는
   달지 않는다(PLAN §2.1).
+- 같은 책 14장이 이 원칙을 규제 조문으로 되받고 그 대립을 명시한다 — **GDPR은 개인 데이터가
+  "구체적이고 명시적이며 정당한 목적을 위해 수집되고 그 목적과 양립할 수 없는 방식으로 추가
+  처리되지 않아야" 하며 "처리되는 목적과 관련해 적절하고 관련성 있으며 필요한 것으로 제한되어야"
+  한다고 규정한다** (14장, p.596).[^kleppmann2026] 그리고 **이 데이터 최소화 원칙은 빅데이터의
+  철학 — 데이터 수집을 최대화하고, 수집된 데이터를 다른 데이터셋과 결합하고, 새로운 통찰을 생성하기
+  위해 실험하고 탐색하는 것 — 과 정면으로 어긋난다. 탐색은 예견되지 않은 목적으로 데이터를 쓰는
+  것을 뜻하는데, GDPR은 그것이 데이터가 수집됐어야 하는 "구체적이고 명시적인" 목적의 반대라고
+  규정한다** (14장, p.596).[^kleppmann2026] 레이크의 "일단 원시 데이터를 다 모아 두고 나중에
+  해석한다"는 전제가 바로 그 탐색이다.
+- 14장은 실행 지침도 한 줄 더 준다 — **첫걸음으로 우리는 데이터를 영원히 보관하지 말고 더 이상
+  필요 없어지는 즉시 파기하며 애초에 수집하는 것을 최소화해야 한다. 여러분이 갖고 있지 않은
+  데이터는 유출되거나, 도난당하거나, 정부에 의해 넘기도록 강제될 수 없는 데이터다** (14장,
+  p.597).[^kleppmann2026] 그 논거의 전문은
+  [위험 자산으로서의 데이터](../concepts/data-as-a-hazardous-asset.md)에 있다.
 
 ## 이어지는 페이지
+
+- [위험 자산으로서의 데이터](../concepts/data-as-a-hazardous-asset.md) — 데이터 최소화가
+  놓이는 더 큰 논거
 
 - [EDW](../concepts/enterprise-data-warehouse.md) — 레이크가 대체하려 한 계층
 - [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) —
@@ -198,4 +215,4 @@ sources:
 - [질의 실행 — 컴파일과 벡터화](../concepts/query-execution-compilation-and-vectorization.md) —
   질의 엔진이 그 파일을 훑는 방식
 
-[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 3장 "Data Models and Query Languages" · 4장 "Storage and Retrieval"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 3장 "Data Models and Query Languages" · 4장 "Storage and Retrieval" · 14장 "Doing the Right Thing"

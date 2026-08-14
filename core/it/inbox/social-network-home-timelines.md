@@ -132,9 +132,19 @@ sources:
 - 부하를 서술하는 지표의 예로도 쓰인다 — **"초당 글 수"와 "초당 타임라인 쓰기 수"는 처리량
   지표이고, "홈 타임라인을 불러오는 데 걸리는 시간"과 "글이 팔로워에게 배달되기까지의 시간"은
   응답 시간 지표다** (2장, p.37).[^kleppmann2026]
+- 그리고 13장이 이 사례로 책을 닫는다 — **쓰기 경로와 읽기 경로에서 하는 일 사이의 경계를 옮기는
+  것이 사실 "사례 연구: 소셜 네트워크 홈 타임라인"의 소셜 네트워킹 예의 주제였다. 그 예에서 우리는
+  또한 쓰기 경로와 읽기 경로 사이의 경계가 유명인과 일반 사용자에 대해 다르게 그어질 수 있음을
+  보았다. 500쪽을 지나 우리는 한 바퀴를 돌아 제자리로 왔다!** (13장,
+  p.557).[^kleppmann2026] 위 [읽을 때 조인하는 방식](#읽을-때-조인하는-방식)과
+  [쓸 때 미리 만드는 방식 — 팬아웃](#쓸-때-미리-만드는-방식--팬아웃)의 대비가 그 경계 이동이고,
+  [극단 사용자 둘](#극단-사용자-둘)이 경계를 사용자별로 다르게 긋는 자리다. 그 관점의 정본은
+  [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md)에 있다.
 
 ## 이어지는 페이지
 
+- [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md) — 이 사례가 옮긴 그 경계의
+  일반형
 - [응답 시간과 처리량](../concepts/response-time-and-throughput.md) — 이 사례에서 나온 두
   지표 계열의 정의
 - [확장성과 부하](../concepts/scalability-and-load.md) — "부하가 두 배가 되면 어떻게 되는가"를
@@ -150,4 +160,4 @@ sources:
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 같은 선택이 분석 도구의 설정
   옵션으로 나타난 모습
 
-[^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements" · 3장 "Data Models and Query Languages"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements" · 3장 "Data Models and Query Languages" · 13장 "A Philosophy of Streaming Systems"

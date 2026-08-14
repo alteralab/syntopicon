@@ -65,6 +65,7 @@ generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
 ## 이어지는 허브
 
 - [스트림 처리](stream-processing.md) — 입력이 무한할 때 무엇이 달라지는가
+- [데이터플로 아키텍처](dataflow-architecture.md) — 재처리가 시스템 진화의 기제가 되는 자리
 - [DW 운영과 프로세스](dw-operations-and-process.md) — 같은 소재를 웨어하우스 절차로 본 쪽
 - [저장 엔진](storage-engines.md) — 정렬과 병합이라는 같은 원리의 본가
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 운영계와
