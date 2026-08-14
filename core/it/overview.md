@@ -27,6 +27,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [카프카 보안](synthesis/kafka-security.md) — 인증·인가·암호화·감사·주키퍼와 플랫폼
   - [카프카 모니터링](synthesis/kafka-monitoring.md) — 지표와 SLO·브로커와 JVM·클라이언트 지표·랙
   - [스트림 처리](synthesis/stream-processing.md) — 패러다임의 정의·시간과 상태와 이중성·설계 패턴·카프카 스트림즈
+- [배치 처리](synthesis/batch-processing.md) — 유한한 입력을 통째로 읽어 출력을 다시 만드는 쪽: 저장·오케스트레이션·연산 세 계층과 그 쓰임새
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
 - [비기능 요건](synthesis/nonfunctional-requirements.md) — 성능·신뢰성·확장성·유지보수성을 정의하는 어휘
 - [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들

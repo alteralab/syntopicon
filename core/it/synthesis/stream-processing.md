@@ -18,6 +18,14 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 ## 무엇을 스트림 처리라 부르는가
 
 - [스트림 처리 패러다임](../concepts/stream-processing-paradigm.md) — 무한한 데이터셋이라는 이벤트 스트림의 정의와 세 속성, 요청-응답·배치와 갈리는 자리, 그리고 어디에 쓰는가
+- [복잡 이벤트 처리와 스트림 검색](../concepts/complex-event-processing-and-stream-search.md) — 질의를 저장하고 데이터를 흘려보내는 계열과 액터 프레임워크가 갈리는 이유
+
+## 이벤트를 나르는 층
+
+- [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — 브로커를 두는 근거, 백프레셔와 내구성이라는 두 질문, 확인 응답과 재전달
+- [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 메시지를 지우지 않는 브로커가 얻는 것과 잃는 것
+- [변경 데이터 캡처](../concepts/change-data-capture.md) — 데이터베이스의 쓰기를 스트림으로 만드는 기제와 이중 쓰기가 깨지는 이유
+- [상태·스트림·불변성](../concepts/state-streams-and-immutability.md) — 가변 상태와 불변 로그가 같은 동전의 두 면인 이유와 그 한계
 
 ## 개념 셋
 
@@ -29,6 +37,8 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 ## 어떻게 조립하는가
 
 - [스트림 처리 설계 패턴](../concepts/stream-processing-design-patterns.md) — 단일 이벤트 처리, 로컬 상태 처리, 다단계 리파티셔닝, 비순차 이벤트, 재처리
+- [스트림 처리의 결함 내성](../concepts/stream-processing-fault-tolerance.md) — 마이크로배칭·체크포인팅·원자적 커밋·멱등성과 실패 후 상태 재구축
+- [증분 뷰 유지](../concepts/incremental-view-maintenance.md) — 구체화 뷰를 재계산이 아니라 갱신으로 유지하는 기법
 
 ## 카프카 스트림즈
 
@@ -54,6 +64,7 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 
 ## 이어지는 허브
 
+- [배치 처리](batch-processing.md) — 입력이 유한할 때의 같은 문제들
 - [카프카](kafka-basics.md) — 이 허브의 상위
 - [카프카 클라이언트](kafka-clients.md) — 스트림즈가 안에서 쓰는 프로듀서·컨슈머
 - [카프카 신뢰성과 정확히 한 번](kafka-reliability.md) — `processing.guarantee`가 기대는 보장
