@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 저장 엔진
-description: 데이터를 디스크에 놓는 구조와 그 선택이 치르는 값 — 온디스크 형식과 페이지 배치, B-트리 계열과 LSM 계열의 대비, 그리고 메모리와 디스크를 잇는 페이지 캐시
+description: 데이터를 디스크에 놓는 구조와 그 선택이 치르는 값 — 온디스크 형식과 페이지 배치, B-트리 계열과 LSM 계열의 대비, 메모리와 디스크를 잇는 페이지 캐시, 분석용 열 지향 저장과 질의 실행, 그리고 단일 키 범위를 넘는 색인들
 generated: { by: "human:me", at: "2026-08-10T23:00:00Z" }
 ---
 
@@ -41,6 +41,19 @@ generated: { by: "human:me", at: "2026-08-10T23:00:00Z" }
 
 - [페이지 캐시와 축출](../concepts/page-cache-and-eviction.md) — 페이지 인·더티·플러시·축출, 핀, 그리고 FIFO에서 TinyLFU까지의 교체 전략
 
+## 분석 쪽 저장과 질의
+
+- [열 지향 저장](../concepts/column-oriented-storage.md) — 열을 붙여 두는 배치, 비트맵 인코딩과 런렝스, 정렬 순서, 열 파일에 쓰기
+- [질의 실행 — 컴파일과 벡터화](../concepts/query-execution-compilation-and-vectorization.md) — 분석 질의의 CPU 병목과 그 두 처방
+- [데이터 큐브와 구체화 뷰](../concepts/data-cubes-and-materialized-views.md) — 집계를 미리 계산해 두는 쪽과 그 유연성의 대가
+
+## 단일 키 범위를 넘는 색인
+
+- [다차원 색인](../concepts/multidimensional-indexes.md) — 연결 색인의 한계, 공간 채움 곡선과 R-트리
+- [전문 검색 색인](../concepts/full-text-search-indexes.md) — 역색인과 포스팅 리스트, n-그램과 편집 거리
+- [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 의미 검색과 Flat·IVF·HNSW
+
 ## 값을 재는 자
 
 - [읽기·쓰기·공간 증폭](../concepts/read-write-space-amplification.md) — 둘을 줄이면 셋째가 나빠진다는 RUM 추측
+- [B-트리와 LSM 트리 견주기](../concepts/comparing-b-trees-and-lsm-trees.md) — 읽기 경로·범위 질의·순차 대 임의 쓰기로 두 계열을 견주는 자리
