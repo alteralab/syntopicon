@@ -2,10 +2,11 @@
 type: concept
 title: 주키퍼와 KRaft
 description: 카프카가 클러스터 메타데이터와 컨트롤러를 관리하던 주키퍼 방식(Kafka 3.9 이하) — 앙상블 구성과 임시 노드 기반 컨트롤러 선출, 컨트롤러 에포크, 그리고 그 방식을 버린 동기. 4.0에서 이 표면이 어떻게 사라졌는지와 KRaft의 실제 동작으로 가는 안내 포함
-generated: { by: "claude-opus-5", at: "2026-08-11T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-13T17:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kafka2025-kraft, resource: /it/sources/kafka2025-kraft.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # 주키퍼와 KRaft
@@ -47,13 +48,25 @@ sources:
   기록했으나, 커뮤니티가 이를 그만두고 전용 카프카 토픽에 저장하기로 하면서
   `OffsetCommitRequest`·`OffsetFetchRequest`·`ListOffsetsRequest`가 프로토콜에
   추가됐다 (6장, p.148).[^shapira2021]
+- 카프카만의 선택이 아니었다는 점을 일반 문헌이 확인해 준다 — **많은 분산 데이터 시스템이
+  샤드(shard) 배정을 추적하는 데 주키퍼나 etcd 같은 별도의 코디네이션 서비스에 의존하며,
+  이들은 합의(consensus) 알고리즘을 써서 내결함성(fault tolerance)과 스플릿 브레인 방지를
+  제공한다. 각 노드가 주키퍼에 자기를 등록하고 주키퍼가 샤드에서 노드로 가는 권위 있는 매핑을
+  유지하며, 라우팅 계층이나 샤딩(sharding)을 아는
+  클라이언트가 그 정보를 구독한다** (7장, p.267).[^kleppmann2026] 위
+  [클러스터 멤버십](#클러스터-멤버십--임시-노드)의 `/brokers/ids` 등록과 구독이 바로 이
+  구조다.
+  - 같은 자리의 실물 목록 — **HBase와 SolrCloud는 샤드 배정 관리에 주키퍼를 쓰고, 쿠버네티스는
+    어느 서비스 인스턴스가 어디서 돌고 있는지 추적하는 데 etcd를 쓰며, MongoDB는 자체 config
+    server 구현과 라우팅 계층 역할의 `mongos` 데몬에 의존한다** (7장,
+    p.267).[^kleppmann2026]
 - 2.8.0 시점의 방향은 명확했다 — 주키퍼 의존은 계속 줄어드는 중이었고, 관리 도구는
   클러스터에 직접 접속하는 쪽으로 옮겨가 CLI의 `--zookeeper` 플래그가
   `--bootstrap-server`로 대체됐다 (2장, p.45).[^shapira2021]
 
 ## 앙상블과 쿼럼
 
-- 주키퍼는 고가용성을 위해 **앙상블(ensemble)이라 불리는 클러스터 단위**로 작동하도록
+- 주키퍼는 고가용성(high availability)을 위해 **앙상블(ensemble)이라 불리는 클러스터 단위**로 작동하도록
   설계됐다 (2장, p.21).[^shapira2021]
 - 홀수 서버가 권장되는 이유는 응답 조건이 과반이기 때문이다. 원문 직인용 (2장,
   p.21):[^shapira2021]
@@ -80,7 +93,7 @@ sources:
   pp.22–23).[^shapira2021]
 - 포트는 셋으로 나뉜다 — 클라이언트는 `clientPort`만 있으면 되지만, **앙상블 멤버끼리는
   세 포트 모두로 통신할 수 있어야 한다.** `peerPort`는 서버 간 통신, `leaderPort`는
-  리더 선출용이다 (2장, pp.22–23).[^shapira2021]
+  리더 선출(leader election)용이다 (2장, pp.22–23).[^shapira2021]
 - 카프카 쪽 접속 설정 `zookeeper.connect`는 `hostname:port/path` 목록이며, `/path`는
   선택적 chroot 경로다 (2장, pp.25–26).[^shapira2021]
 - **chroot 경로를 쓰는 것이 좋은 관행**이다 — 다른 애플리케이션이나 다른 카프카
@@ -118,7 +131,7 @@ sources:
     Roles").[^kafka2025-kraft] 상세는
     [KRaft 컨트롤러 쿼럼](../concepts/kraft-controller-quorum.md)에 있다.
 - 컨트롤러가 멈추거나 주키퍼와 끊기면(주키퍼 클라이언트가 `zookeeper.session.
-  timeout.ms`보다 오래 하트비트를 못 보낸 경우 포함) 임시 노드가 사라지고, 다른
+  timeout.ms`보다 오래 하트비트(heartbeat)를 못 보낸 경우 포함) 임시 노드가 사라지고, 다른
   브로커들이 노드 생성을 경쟁해 가장 먼저 성공한 쪽이 다음 컨트롤러가 된다 (6장,
   p.136).[^shapira2021]
 - 선출될 때마다 컨트롤러는 주키퍼의 조건부 증가 연산으로 **더 큰 컨트롤러
@@ -160,7 +173,7 @@ sources:
   - 버전 조건: Kafka 3.9 이하 — 4.0에는 공유할 앙상블 자체가 없다.
 - 반대 방향의 판단은 단호하다 — **카프카 클러스터끼리 공유하는 것은 괜찮지만, 다른
   애플리케이션과 앙상블을 공유하는 것은 권장하지 않는다** (2장,
-  pp.45–46).[^shapira2021] 근거는 연쇄 장애다:
+  pp.45–46).[^shapira2021] 근거는 연쇄 장애(cascading failure)다:
   - 카프카는 주키퍼 지연과 타임아웃에 민감하고, 통신이 끊기면 브로커가 예측 불가능하게
     작동한다.
   - 다수 브로커가 동시에 주키퍼 연결을 잃고 오프라인이 되면 파티션들이 함께 죽는다.
@@ -253,7 +266,7 @@ sources:
   않는다. `process.roles`로 지정된 컨트롤러들이 메타데이터 쿼럼을 이루고, 그 안에서
   액티브 컨트롤러 하나와 핫 스탠바이들이 정해진다 (kraft, "Process Roles"·
   "Controllers").[^kafka2025-kraft]
-- **이행 경로** — 주키퍼 모드 클러스터를 KRaft로 옮기려면 브리지 릴리스를 거쳐야 하고,
+- **이행 경로** — 주키퍼 모드 클러스터를 KRaft로 옮기려면 브리지 릴리스(bridge release)를 거쳐야 하고,
   **마지막 브리지 릴리스는 Kafka 3.9다** (kraft, "ZooKeeper to KRaft
   Migration").[^kafka2025-kraft] 이 페이지가 서술하는 구성으로 운영 중이라면 이행의
   출발점이 3.9라는 뜻이다.
@@ -294,7 +307,11 @@ sources:
   쿼럼의 구성원을 바꾸는 문제의 원전
 - [이해 가능성을 설계 목표로 삼기](../concepts/designing-for-understandability.md) —
   주키퍼의 알고리즘이 놓인 합의 문헌 지형과 Paxos 진단
+- [요청 라우팅](../concepts/request-routing.md) — 주키퍼가 맡던 그 역할의 일반형과 다른
+  시스템들의 선택
 
 [^shapira2021]: Shapira et al. 2021, 2장 "Installing Kafka" · 6장 "Kafka Internals"
+
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 7장 "Sharding"
 
 [^kafka2025-kraft]: Apache Kafka 4.0 문서, `getting-started/zk2kraft/`("KRaft vs ZooKeeper") · `operations/kraft/`("KRaft"), 2026-08-11 조회

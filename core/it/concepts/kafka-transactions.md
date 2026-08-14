@@ -5,6 +5,7 @@ description: 원자적 다수 파티션 쓰기로 소비-처리-생산 사슬을
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # 카프카 트랜잭션
@@ -17,6 +18,7 @@ sources:
 - [트랜잭션이 풀지 않는 문제들](#트랜잭션이-풀지-않는-문제들)
 - [쓰는 법](#쓰는-법)
 - [트랜잭션 ID와 펜싱](#트랜잭션-id와-펜싱)
+- [데이터베이스 쪽에서 본 같은 문제](#데이터베이스-쪽에서-본-같은-문제)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **카프카 트랜잭션은 무엇을 원자적으로 만들고 무엇은 만들지 못하는가.**
@@ -334,10 +336,46 @@ sources:
     더 새로운 세대에서 온 것이므로 통과하고, 이제 좀비가 된 프로듀서 A의 트랜잭션은 컨슈머
     그룹의 옛 세대를 보이므로 펜싱**된다.
 
+## 데이터베이스 쪽에서 본 같은 문제
+
+- 먼저 이름 충돌 하나를 갈라 둔다. **카프카의 `isolation.level=read_committed`는 "성공적으로
+  커밋된 트랜잭션에 속한 메시지이거나 애초에 트랜잭션 없이 쓰인 메시지만 반환"하는 컨슈머
+  설정**이고 (8장, p.190),[^shapira2021] **데이터베이스의 read committed 격리 수준은 "읽을 때
+  커밋된 데이터만 보인다(더티 읽기 없음)"와 "쓸 때 커밋된 데이터만 덮어쓴다(더티 쓰기 없음)"
+  두 가지를 보장하는 격리 수준**이다 (8장, p.290).[^kleppmann2026] 앞의 절반은 겹치지만
+  **더티 쓰기 쪽 보장은 카프카 설정이 말하는 바가 아니다** — 두 이름은 같고 범위는 다르다.
+- 데이터베이스 문헌은 이 기제를 **분산 트랜잭션(distributed transaction)** 의 한 사례로 놓는다.
+  **참여하는 모든 노드가 같은 소프트웨어를 돌리는 같은 시스템 안의 분산 트랜잭션을 데이터베이스
+  내부 분산 트랜잭션(database-internal distributed transaction)이라 하고, 서로 다른 벤더의
+  기술이 참여하는 것을 이종 분산 트랜잭션(heterogeneous distributed transaction)이라 하는데,
+  카프카는 앞쪽의 예로 명시적으로 꼽힌다** (8장, p.333).[^kleppmann2026]
+  - 그 구분이 중요한 이유 — **데이터베이스 내부 트랜잭션은 다른 어떤 기술과도 인터페이스할
+    필요가 없으므로 최소 공통분모 함정을 피하고, 더 신뢰할 수 있고 더 빠른 프로토콜을 자유롭게
+    쓸 수 있다** (8장, pp.329, 333).[^kleppmann2026] 위의 "트랜잭션이 풀지 않는 문제들"이
+    열거하는 것들은 대부분 **경계를 넘는 순간**, 즉 이종 쪽으로 넘어가는 순간에 나타난다.
+- **"정확히 한 번"이 무엇을 요구하는가에 대해서는 두 소스의 프레이밍이 다르다.** 카프카 쪽은
+  **소비-처리-생산 사슬 안에서 원자적 다수 파티션 쓰기와 좀비 펜싱으로 그 보장을 얻는다**고
+  서술한다 (8장, p.188).[^shapira2021] DDIA는 **메시지 브로커와 데이터베이스에 걸친 원자적
+  커밋 없이도, 처리된 메시지 ID를 데이터베이스에 기록해 처리를 멱등적(idempotent)으로 만들면
+  정확히 한 번 처리를 얻을 수 있다**고 판정한다 (8장,
+  pp.334–335).[^kleppmann2026]
+  - **사실 수준에서 둘은 어긋나지 않는다.** 카프카 쪽도 **외부 데이터베이스로의 쓰기와 카프카
+    오프셋 커밋을 하나의 트랜잭션으로 묶는 기제는 없으며, 대신 오프셋을 데이터베이스에서 관리해
+    데이터와 오프셋을 하나의 데이터베이스 트랜잭션으로 커밋하라**고 권한다 (8장,
+    pp.191–192).[^shapira2021] 이는 DDIA의 메시지 ID 테이블 접근과 같은 구조다.
+  - **DDIA는 카프카 스트림즈가 정확히 한 번을 얻는 방식을 그 멱등적 접근과 "비슷한 접근"이라고
+    부른다** (8장, p.335).[^kleppmann2026] 자세한 대조는
+    [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md)에 있다.
+
 ## 이어지는 페이지
 
 - [카프카 트랜잭션의 내부 동작](../concepts/kafka-transaction-internals.md) — 위 API 호출들이
   브로커 안에서 무엇으로 번역되는가
+- [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 트랜잭션 없이
+  멱등성으로 같은 것을 얻는 길
+- [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md) — 카프카가 속하지 않는
+  쪽의 분산 트랜잭션과 그 문제
+- [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md) — 원자적 커밋 문제의 일반형
 - [멱등적 프로듀서](../concepts/kafka-idempotent-producer.md) — 정확히 한 번의 나머지 절반
 - [컨슈머 설정](../concepts/kafka-consumer-configuration.md) — `isolation.level`이 놓이는
   자리
@@ -352,4 +390,5 @@ sources:
 - [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md) — `processing.guarantee`를 켜는
   그 애플리케이션을 쓰는 법
 
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"
 [^shapira2021]: Shapira et al. 2021, 8장 "Exactly-Once Semantics" — 코드 펜스는 pp.194–195 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음). 컨슈머의 `ENABLE_AUTO_COMMIT_CONFIG` 줄이 `consumerProps`가 아니라 `props`로 시작하는 것도 원문 그대로다

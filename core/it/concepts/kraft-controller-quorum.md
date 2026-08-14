@@ -2,9 +2,10 @@
 type: concept
 title: KRaft 컨트롤러 쿼럼
 description: 주키퍼가 사라진 Kafka 4.0에서 클러스터 메타데이터를 들고 있는 컨트롤러 쿼럼 — 프로세스 역할과 쿼럼 규모, 포맷으로 시작하는 프로비저닝, 정적 쿼럼과 동적 쿼럼의 갈림, 컨트롤러 추가·제거, 그리고 주키퍼 설정·메트릭 표면의 대체물
-generated: { by: "claude-opus-5", at: "2026-08-11T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-13T17:00:00Z" }
 sources:
   - { id: kafka2025-kraft, resource: /it/sources/kafka2025-kraft.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # KRaft 컨트롤러 쿼럼
@@ -55,13 +56,19 @@ sources:
   "Controllers").[^kafka2025-kraft]
 - 같은 규칙의 일반형: **N개의 동시 장애를 견디려면 컨트롤러 클러스터에 2N + 1개의
   컨트롤러가 있어야 한다** (kraft, "Deploying Considerations").[^kafka2025-kraft]
-  - 이것은 주키퍼 앙상블의 홀수 권고와 같은 자리에 있는 과반 규칙이고, 원전은
+  - 이것은 주키퍼 앙상블(ensemble)의 홀수 권고와 같은 자리에 있는 과반 규칙이고, 원전은
     [Raft의 리더 선출과 임기](../concepts/raft-leader-election.md)의 과반 득표
     조건이다.
 - 클러스터의 모든 서버는 `controller.quorum.bootstrap.servers` 속성으로 액티브
   컨트롤러를 찾는다. **모든 컨트롤러를 이 속성에 열거해야 하며**, 각 컨트롤러는
   `host`와 `port`로 식별된다. **브로커와 컨트롤러 전부가 이 속성을 설정해야 한다**
   (kraft, "Controllers").[^kafka2025-kraft]
+- 이 쿼럼이 바깥에서 무슨 문제를 푸는 것으로 보이는지는 일반 문헌이 한 줄로 적는다 —
+  **카프카·YugabyteDB·TiDB·ScyllaDB는 샤드(shard)를 노드에 배정하는 코디네이션 기능을
+  수행하는 데 Raft 합의(consensus) 프로토콜의 내장 구현을 쓴다** (7장,
+  p.267).[^kleppmann2026] 같은 기능을 외부
+  서비스에 맡기는 쪽(주키퍼·etcd)과 대비되는 자리이며, 그 지형은
+  [요청 라우팅](../concepts/request-routing.md)에 있다.
 - 자원 요구: 컨트롤러는 클러스터의 모든 메타데이터를 **메모리와 디스크 양쪽에**
   저장한다. 전형적인 카프카 클러스터라면 주 메모리 5GB와 메타데이터 로그 디렉터리의
   디스크 5GB로 충분하다고 문서는 본다 (kraft, "Deploying
@@ -239,5 +246,8 @@ sources:
   복제한다는 말이 놓인 자리
 - [카프카 브로커 설정](../concepts/kafka-broker-configuration.md) — 여기서 사라진
   `zookeeper.connect`가 있던 설정 목록
+- [요청 라우팅](../concepts/request-routing.md) — 컨트롤러 쿼럼이 대신 맡은 그 기능의 일반형
 
 [^kafka2025-kraft]: Apache Kafka 4.0 문서, `getting-started/zk2kraft/`("KRaft vs ZooKeeper") · `operations/kraft/`("KRaft"), 2026-08-11 조회
+
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 7장 "Sharding"

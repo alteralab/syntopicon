@@ -5,6 +5,7 @@ description: 이진 탐색 트리가 디스크에서 실패하는 이유와 B-�
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # B-트리
@@ -18,6 +19,7 @@ sources:
 - [조회 알고리즘](#조회-알고리즘)
 - [노드 분할](#노드-분할)
 - [노드 병합](#노드-병합)
+- [쓰기 시 복사 변형](#쓰기-시-복사-변형)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **B-트리는 어떤 구조이며, 왜 그 모양이라야 디스크에서 쓸 만한가.**
@@ -219,6 +221,25 @@ sources:
 - 분할과 병합의 횟수를 줄이려고 B-트리에 흔히 구현되는 기법이 재균형(rebalancing)이다 (2장,
   p.42).[^petrov2019]
 
+## 쓰기 시 복사 변형
+
+- 위의 분할·병합은 페이지를 제자리에서 고치는 것을 전제한다. **불변(immutable) 즉 쓰기 시
+  복사(copy-on-write) 변형**은 그러지 않는다 — **페이지가 갱신될 때 트리의 페이지를 덮어쓰지
+  않고 수정된 각 페이지의 새 사본을 만든다. 트리 루트까지의 부모 페이지들이 복사되어 자식
+  페이지의 새 버전을 가리키도록 갱신된다. 쓰기에 영향받지 않는 페이지는 복사할 필요가 없고 새
+  트리와 공유될 수 있다. 카우치DB(CouchDB)·데이토믹(Datomic)·LMDB가 이 방식을 쓴다** (8장,
+  p.298).[^kleppmann2026]
+- 이 변형이 사는 이유는 스냅샷이 공짜로 나온다는 것이다 — **모든 쓰기 트랜잭션(또는 트랜잭션
+  배치)이 새 B-트리 루트를 만들고, 특정 루트가 그것이 만들어진 시점의 데이터베이스의 일관된
+  스냅샷이다. 뒤이은 쓰기가 기존 B-트리를 수정할 수 없고 새 트리 루트만 만들 수 있으므로
+  트랜잭션 ID로 행을 걸러 낼 필요가 없다. 다만 이 접근법도 컴팩션과 가비지 컬렉션을 위한 배경
+  프로세스를 요구한다** (8장, p.298).[^kleppmann2026]
+- 제자리 갱신 쪽이 크래시를 견디는 방법도 명시된다 — **데이터베이스는 대개 쓰기 전
+  로그(write-ahead log)나 비슷한 기능을 갖춰 쓰기 도중 크래시가 나도 복구할 수 있게 한다. 많은
+  데이터베이스(MySQL·MongoDB·PostgreSQL 등)가 데이터를 체크섬과 함께 저장해 손상되거나 불완전한
+  로그 항목을 탐지하고 크래시 후 일관된 스냅샷으로 복원하는 데 쓴다** (8장,
+  p.282).[^kleppmann2026]
+
 ## 이어지는 페이지
 
 - [디스크 기반 저장의 제약](../concepts/disk-based-storage-constraints.md) — 팬아웃과 낮은 높이라는 요구가 나오는 곳
@@ -226,5 +247,7 @@ sources:
 - [읽기·쓰기·공간 증폭](../concepts/read-write-space-amplification.md) — 두 구조의 비용을 같은 자에 놓는 모형
 - [저장 엔진의 분류](../concepts/storage-engine-classification.md) — B-트리가 가변·순서 있는 구조로 분류되는 자리
 - [데이터 파일과 인덱스 파일](../concepts/data-files-and-index-files.md) — B-트리가 인덱스 파일로 쓰이는 자리
+- [스냅샷 격리와 MVCC](../concepts/snapshot-isolation-and-mvcc.md) — 쓰기 시 복사 B-트리가 답하는 그 요구
 
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"
 [^petrov2019]: Petrov 2019, 2장 "B-Tree Basics"

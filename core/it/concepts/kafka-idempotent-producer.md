@@ -5,6 +5,7 @@ description: 프로듀서 ID와 시퀀스 넘버로 재시도 중복을 걸러 �
 generated: { by: "claude-opus-5", at: "2026-08-12T00:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # 멱등적 프로듀서
@@ -17,6 +18,7 @@ sources:
 - [브로커 장애](#브로커-장애)
 - [멱등적 프로듀서의 한계](#멱등적-프로듀서의-한계)
 - [켜면 무엇이 바뀌는가](#켜면-무엇이-바뀌는가)
+- [멱등성이 원자적 커밋을 대신하는 자리](#멱등성이-원자적-커밋을-대신하는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **멱등적 프로듀서는 어떤 중복을 어떻게 막고, 어디까지만 막는가.**
@@ -162,10 +164,28 @@ sources:
   사람이 예외를 처리해 **그 레코드들을 건너뛸지, 중복과 재정렬 위험을 감수하고 재시도할지
   결정**한다 (8장, p.186).[^shapira2021]
 
+## 멱등성이 원자적 커밋을 대신하는 자리
+
+- 여기서 프로듀서 ID와 시퀀스 넘버가 하는 일 — **재시도가 부수 효과를 중복시키지 않게 만드는
+  것** — 은 데이터베이스 문헌에서 더 일반적인 이름으로 나온다. **멱등성(idempotence)은 서로
+  다른 저장 기술에 걸친 원자적 커밋을 요구하지 않고도 정확히 한 번 의미론(exactly-once
+  semantics)을 보장할 수 있다** (8장, p.337).[^kleppmann2026]
+- 같은 착상의 데이터베이스판 — **모든 메시지가 유일한 ID를 갖는다고 가정하고 처리된 메시지
+  ID들의 테이블을 데이터베이스에 두면, 메시지 처리가 멱등적이 되어 부수 효과를 중복시키지 않고
+  안전하게 재시도될 수 있다. 이때 필요한 것은 데이터베이스 안의 트랜잭션뿐이고 데이터베이스와
+  메시지 브로커에 걸친 원자성은 필요하지 않다** (8장,
+  pp.334–335).[^kleppmann2026]
+- 여기서 층위가 갈린다 — 카프카의 멱등적 프로듀서는 **프로듀서 자신의 재시도가 만든 중복만**
+  막고 (8장, p.185),[^shapira2021] 위의 메시지 ID 테이블은 **처리 단계 전체**를 멱등적으로
+  만든다. 둘은 같은 원리를 다른 경계에 적용한 것이다 — 자세한 대조는
+  [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md)에 있다.
+
 ## 이어지는 페이지
 
 - [카프카 트랜잭션](../concepts/kafka-transactions.md) — 멱등적 프로듀서가 막지 못하는
   중복을 다루는 나머지 절반
+- [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 멱등성으로
+  정확히 한 번을 얻는 데이터베이스 쪽 절차
 - [프로듀서 설정](../concepts/kafka-producer-configuration.md) — `enable.idempotence`를
   켜기 위한 전제 조건과 순서 보장이 걸리는 자리
 - [카프카의 신뢰성 보장](../concepts/kafka-reliability-guarantees.md) — 최소 한 번이 무엇을
@@ -178,3 +198,4 @@ sources:
   승격되는 절차
 
 [^shapira2021]: Shapira et al. 2021, 8장 "Exactly-Once Semantics"
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"

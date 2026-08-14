@@ -5,6 +5,7 @@ description: 질의가 클라이언트에서 디스크까지 지나는 구성 �
 generated: { by: "claude-opus-5", at: "2026-08-10T22:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # 데이터베이스 관리 시스템의 구조
@@ -62,6 +63,22 @@ sources:
   데이터 무결성을 보장하면서 동시 연산이 가능한 한 효율적으로 수행되게 한다 (1장,
   p.10).[^petrov2019]
 
+## 동시성 제어가 실제로 무엇을 고르는가
+
+- 위에서 한 줄로 정리된 동시성 제어(concurrency control)는 실제로는 선택지가 여럿인 자리다.
+  **동시성 제어는 단일 노드 데이터베이스와 분산 데이터베이스 양쪽에 관련된다** (8장,
+  p.278).[^kleppmann2026]
+- **오늘날 직렬성(serializability)을 제공하는 대부분의 데이터베이스는 세 기법 중 하나를 쓴다 —
+  직렬 순서로 문자 그대로 트랜잭션을 실행하기, 2단계 잠금(two-phase locking), 그리고 직렬성
+  스냅샷 격리(serializable snapshot isolation) 같은 낙관적 동시성 제어(optimistic concurrency
+  control) 기법** (8장, p.309).[^kleppmann2026] 잠금 관리자가 전면에 나서는 것은 그중 둘째
+  뿐이다.
+- 위의 잠금 관리자와 복구 관리자가 결합하는 지점도 명시된다 — **단일 노드 트랜잭션에서 원자성은
+  흔히 저장 엔진이 구현한다. 데이터베이스는 트랜잭션의 쓰기를 내구적으로 만들고(보통 쓰기 전
+  로그에) 디스크의 로그에 커밋 레코드를 덧붙인다. 커밋 레코드가 크래시 전에 디스크에 성공적으로
+  쓰였으면 트랜잭션은 커밋된 것으로 간주되고, 아니면 그 트랜잭션의 쓰기는 롤백된다** (8장,
+  p.323).[^kleppmann2026]
+
 ## 왜 이 해부가 필요한가
 
 - 이 책 1부의 관심사는 저장과 인덱싱 구조다. 그래서 상위 수준의 데이터 조직 방식과 데이터
@@ -81,5 +98,10 @@ sources:
 - [B-트리](../concepts/b-tree-structure.md) — 가변 저장 구조의 대표
 - [LSM 트리](../concepts/lsm-tree.md) — 불변 저장 구조의 대표
 - [EDW](../concepts/enterprise-data-warehouse.md) — OLTP와 OLAP를 가르는 이유가 웨어하우스 쪽에서 서술되는 자리
+- [트랜잭션과 ACID](../concepts/acid-transactions.md) — 트랜잭션 관리자가 지키려는 그 네 가지
+- [2단계 잠금](../concepts/two-phase-locking.md) — 잠금 관리자를 직렬성까지 밀어붙인 형태
+- [격리 수준과 이상 현상](../concepts/isolation-levels-and-anomalies.md) — 동시성 제어가 무엇을
+  막는지의 지도
 
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"
 [^petrov2019]: Petrov 2019, 1장 "Introduction and Overview"
