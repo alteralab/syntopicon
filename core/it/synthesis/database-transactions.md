@@ -1,8 +1,8 @@
 ---
 type: synthesis
 title: 데이터베이스 트랜잭션
-description: 읽기와 쓰기 여럿을 하나의 논리 단위로 묶는 문제 — ACID가 약속하는 네 가지, 동시 실행이 낳는 이상 현상과 그것을 막는 격리 수준, 직렬성을 얻는 세 가지 구현, 저장 엔진이 그 아래에서 하는 일(로그와 복구, 래치), 그리고 노드 여러 대에 걸칠 때의 원자적 커밋
-generated: { by: "claude-opus-5", at: "2026-08-14T00:00:00Z" }
+description: 읽기와 쓰기 여럿을 하나의 논리 단위로 묶는 문제 — ACID가 약속하는 네 가지, 동시 실행이 낳는 이상 현상과 그것을 막는 격리 수준, 직렬성을 얻는 세 가지 구현, 저장 엔진이 그 아래에서 하는 일(로그와 복구, 래치), 그리고 노드 여러 대에 걸칠 때의 원자적 커밋과 그 조율 비용을 줄이는 설계들
+generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
 ---
 
 # 데이터베이스 트랜잭션
@@ -59,6 +59,12 @@ generated: { by: "claude-opus-5", at: "2026-08-14T00:00:00Z" }
   때의 표준과 그 한계, 데이터베이스 내부 구현과의 대비
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 분산 트랜잭션
   없이 멱등성으로 같은 것을 얻는 길
+- [Calvin과 Spanner](../concepts/calvin-and-spanner.md) — 실행 순서를 먼저 합의하는 쪽과 샤드마다
+  합의 그룹을 두는 쪽
+- [Percolator 트랜잭션](../concepts/percolator-transactions.md) — 기존 분산 스토어 위에 스냅샷
+  격리와 2PC를 얹는 길
+- [조정 회피](../concepts/coordination-avoidance.md) — 불변식 합류성(I-Confluence)과 RAMP의
+  read atomic 격리
 
 ## 이웃 축
 
@@ -70,3 +76,5 @@ generated: { by: "claude-opus-5", at: "2026-08-14T00:00:00Z" }
   다른 일관성
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — 분산으로 갈 때
   치르는 값
+- [분산 합의](../synthesis/distributed-consensus.md) — 코디네이터를 대체하는 결함 내성 프로토콜
+- [레플리카 일관성](../synthesis/replica-consistency.md) — 이름은 같지만 축이 다른 일관성 전체

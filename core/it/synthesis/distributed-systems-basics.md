@@ -1,8 +1,8 @@
 ---
 type: synthesis
 title: 분산 시스템 기초
-description: 복제·합의·샤딩이 딛고 서는 바닥 — 네트워크와 시간에 대한 틀린 가정, 메시지 전달 추상, 불가능성 결과, 타이밍·장애 모델, 그리고 그 위의 첫 두 장치인 실패 감지와 리더 선출
-generated: { by: "claude-opus-5", at: "2026-08-14T12:00:00Z" }
+description: 복제·합의·샤딩이 딛고 서는 바닥 — 네트워크와 시간에 대한 틀린 가정, 메시지 전달 추상, 불가능성 결과, 타이밍·장애 모델, 그리고 그 위의 첫 장치들인 실패 감지·리더 선출·가십 전파
+generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
 ---
 
 # 분산 시스템 기초
@@ -34,9 +34,11 @@ generated: { by: "claude-opus-5", at: "2026-08-14T12:00:00Z" }
 
 - [실패 감지](../concepts/failure-detection.md) — 하트비트·핑·phi-accrual·가십·FUSE와 정확성 대 효율
 - [합의 없는 리더 선출](../concepts/leader-election-algorithms.md) — 불리·링·초대 알고리즘과 스플릿 브레인
+- [가십 전파](../concepts/gossip-dissemination.md) — 감염 모형, 팬아웃(fanout)과 중복성, 오버레이 네트워크와 부분 뷰
 
 ## 이웃 축
 
 - [분산 합의](../synthesis/distributed-consensus.md) — 과반 득표로 이 한계를 넘는 쪽
 - [데이터 복제](../synthesis/data-replication.md) — 이 바닥 위에 얹히는 복제 계열 전체
 - [데이터 샤딩](../synthesis/data-sharding.md) — 같은 바닥 위의 분할 계열
+- [레플리카 일관성](../synthesis/replica-consistency.md) — 이 가정 위에서 무엇을 약속할 수 있는가

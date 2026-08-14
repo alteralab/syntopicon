@@ -16,6 +16,9 @@ generated: { by: "human:me", at: "2026-08-13T00:00:00Z" }
 [데이터 샤딩](../synthesis/data-sharding.md)에 있다. 둘은 대체로 독립적으로 고를 수 있고
 실제 시스템은 보통 겹쳐 쓴다.
 
+사본이 어긋났을 때 무엇을 약속하고 어떻게 되돌리는가는 형제 허브인
+[레플리카 일관성](../synthesis/replica-consistency.md)에 있다.
+
 합의 알고리즘으로 리더를 뽑는 쪽은 형제 허브인
 [분산 합의](../synthesis/distributed-consensus.md)에, 카프카 제품 수준의 복제는
 [카프카 내부 구조](../synthesis/kafka-internals.md)와
@@ -47,6 +50,8 @@ generated: { by: "human:me", at: "2026-08-13T00:00:00Z" }
 - [정족수 읽기와 쓰기](../concepts/quorum-reads-and-writes.md) — `w + r > n`의 근거와 그 조건이 흔들리는 자리
 - [동시 쓰기 판정](../concepts/detecting-concurrent-writes.md) — happens-before 관계, 버전
   번호와 버전 벡터(version vector)
+- [안티 엔트로피 기전](../concepts/anti-entropy-mechanisms.md) — 읽기 복구·힌티드 핸드오프·
+  머클 트리(Merkle tree)·비트맵 버전 벡터
 
 ## 이웃 축
 
@@ -57,3 +62,6 @@ generated: { by: "human:me", at: "2026-08-13T00:00:00Z" }
   액티브-액티브(active-active)라는 이름의 다중 리더
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 복제 자체를
   오브젝트 스토리지(object storage)에 맡기는 흐름
+- [레플리카 일관성](../synthesis/replica-consistency.md) — 사본이 갈라졌을 때의 계약과 수렴 장치
+- [가십 전파](../concepts/gossip-dissemination.md) — 데이터가 아니라 클러스터 메타데이터를
+  실어 나르는 쪽
