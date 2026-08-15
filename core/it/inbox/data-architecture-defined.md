@@ -250,6 +250,8 @@ pp.72–73).[^reis2022] 왜곡을 피하려 원문을 직인용한다.
   스트림을 합치려는 두 제안
 - [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md) — 장치가 데이터를 만드는 쪽
 - [데이터 메시](../concepts/data-mesh.md) — 도메인 소유권을 뒤집는 쪽
+- [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md) —
+  같은 목록을 시간 순으로 세 세대로 끊고 그 공통 가정을 진단하는 쪽
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이벤트 기반 아키텍처가 놓인 자리
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture"
