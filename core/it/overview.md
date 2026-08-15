@@ -30,6 +30,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [데이터 엔지니어링 수명 주기](synthesis/data-engineering-lifecycle.md) — 원시 데이터가 소비 가능한 산물이 되기까지의 다섯 단계(생성·저장·반입·변환·서빙)와 여섯 저류
 - [배치 처리](synthesis/batch-processing.md) — 유한한 입력을 통째로 읽어 출력을 다시 만드는 쪽: 저장·오케스트레이션·연산 세 계층과 그 쓰임새
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
+- [데이터 메시 원칙](synthesis/data-mesh-principles.md) — 중앙집중 분석 플랫폼을 도메인 소유권으로 뒤집는 제안의 네 원칙
 - [비기능 요건](synthesis/nonfunctional-requirements.md) — 성능·신뢰성·확장성·유지보수성을 정의하는 어휘
 - [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조, B-트리 대 LSM의 대비, 분석용 열 저장과 색인들

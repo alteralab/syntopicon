@@ -20,7 +20,7 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 ## 아키텍처의 유형들
 
 - [람다 아키텍처와 카파 아키텍처](../concepts/lambda-and-kappa-architecture.md) — 배치와 스트림을 합치려는 두 제안과 그 뒤를 이은 데이터플로 모델
-- [데이터 메시](../concepts/data-mesh.md) — 중앙집중 플랫폼을 도메인 소유권으로 뒤집는 제안(개관)
+- [데이터 메시](../concepts/data-mesh.md) — 중앙집중 플랫폼을 도메인 소유권으로 뒤집는 제안(개관). 원칙별 깊이는 [데이터 메시 원칙](data-mesh-principles.md) 허브가 받는다
 - [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md) — 사람이 아니라 장치가 데이터를 만드는 쪽
 
 ## 운영계와 분석계
@@ -53,3 +53,4 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 ## 이어지는 허브
 
 - [데이터플로 아키텍처](dataflow-architecture.md) — 여러 시스템을 이어 붙이기로 했을 때의 그다음 선택들
+- [데이터 메시 원칙](data-mesh-principles.md) — 위 유형 중 하나를 원전 수준으로 펼친 쪽
