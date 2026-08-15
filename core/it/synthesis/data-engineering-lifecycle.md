@@ -42,6 +42,28 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 - [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md) — 분석·ML·역방향 ETL, 그리고
   허영 프로젝트라는 실패 양식
 
+### 생성 단계를 파고들면
+
+- [원천으로서의 로그](../concepts/logs-as-a-data-source.md) — 로그의 세 인코딩, 해상도와 로그
+  레벨, 데이터베이스 로그가 CDC의 재료가 되는 경로
+- [CRUD와 삽입 전용 패턴](../concepts/crud-and-insert-only-patterns.md) — 애플리케이션이 상태를
+  적는 두 방식과 그것이 이력 확보에 거는 조건
+- [데이터 공유와 서드파티 소스](../concepts/data-sharing-and-third-party-sources.md) — 멀티테넌시
+  위에 서는 공유와 데이터 마켓플레이스
+- [시계열 데이터베이스](../concepts/time-series-databases.md) — 원천 데이터베이스 여섯 갈래 중
+  시간이 1차 축인 것
+
+### 저장 단계를 파고들면
+
+- [데이터 저장의 원료](../concepts/storage-raw-ingredients.md) — HDD·SSD·RAM의 수치, 직렬화와
+  압축, 지연·대역폭·가격을 한 줄에 세운 캐시 계층
+- [파일 저장과 블록 저장](../concepts/file-and-block-storage.md) — 파일을 규정하는 세 특성,
+  NAS·SAN·클라우드 가상화 블록 저장·로컬 인스턴스 볼륨
+- [오브젝트 스토어](../concepts/object-stores.md) — 클라우드 분석 저장의 기본값이 된 이유와
+  일관성·버저닝·저장 클래스
+- [컴퓨트와 저장의 분리](../concepts/compute-storage-separation.md) — 코로케이션에서 분리로,
+  그리고 실무가 다시 섞는 두 방식
+
 ## 여섯 저류
 
 저류(undercurrents)는 단계가 아니라 모든 단계를 가로지르는 기반이다 — 이것 없이는 수명 주기의
