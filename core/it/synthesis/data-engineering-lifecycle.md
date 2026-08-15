@@ -64,6 +64,22 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 - [컴퓨트와 저장의 분리](../concepts/compute-storage-separation.md) — 코로케이션에서 분리로,
   그리고 실무가 다시 섞는 두 방식
 
+### 서빙 단계를 파고들면
+
+- [데이터를 서빙하는 방식](../concepts/data-serving-methods.md) — 파일 교환·데이터베이스·스트리밍·
+  질의 페더레이션·데이터 공유·노트북이라는 여섯 경로
+- [데이터 프로덕트](../concepts/data-products.md) — 서빙의 산출물을 제품으로 볼 때 따라오는 질문들과
+  셀프서비스가 실패하는 이유
+- [시맨틱 계층과 메트릭 계층](../concepts/semantic-and-metrics-layers.md) — 업무 정의와 로직을 한
+  자리에 모아 "이 숫자가 맞는가"에 답하는 계층
+- [서비스 수준 목표](../concepts/service-level-objectives.md) — 서빙되는 데이터에 거는 약속의 어휘
+
+## 이 수명 주기의 다음
+
+- [라이브 데이터 스택](../concepts/live-data-stack.md) — 2022년 시점 저자들이 모던 데이터 스택
+  다음으로 지목한 것(전망이지 관측이 아니다)
+- [데이터 엔지니어의 진화](../concepts/data-engineer-evolution.md) — 같은 전망의 직업·역할 쪽
+
 ## 여섯 저류
 
 저류(undercurrents)는 단계가 아니라 모든 단계를 가로지르는 기반이다 — 이것 없이는 수명 주기의
