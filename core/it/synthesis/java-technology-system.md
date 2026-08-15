@@ -51,3 +51,5 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
   꺼내 보는 쪽
 - [클래스 파일과 바이트코드](class-file-and-bytecode.md) — 이 가상 머신들이 유일하게 의존하는
   입력 형식과 그 안의 명령어 집합
+- [백엔드 컴파일과 최적화](backend-compilation-and-optimization.md) — 그 입력을 네이티브 코드로
+  바꾸는 JIT·AOT 컴파일러와 그랄

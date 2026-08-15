@@ -44,6 +44,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [JVM 모니터링과 문제 해결 도구](synthesis/jvm-troubleshooting-tools.md) — 명령 줄 도구·JHSDB·GUI 도구·JFR과 JMC·JIT 코드 검사
   - [클래스 파일과 바이트코드](synthesis/class-file-and-bytecode.md) — 컴파일 결과물의 저장 형식과 그 위에 실리는 명령어 집합
   - [클래스 로딩](synthesis/class-loading.md) — 클래스 파일이 살아 있는 타입이 되는 절차와 로더 계층
+  - [백엔드 컴파일과 최적화](synthesis/backend-compilation-and-optimization.md) — 바이트코드가 네이티브 코드가 되는 구간: JIT·AOT·최적화 기법·그랄
 
 
 ## Tools

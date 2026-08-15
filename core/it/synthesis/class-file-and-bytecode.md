@@ -9,7 +9,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T13:00:00Z" }
 
 **이름의 범위가 곧 이 허브의 범위다.** 여기는 컴파일 결과물의 **저장 형식**, 그 안에 실리는
 **명령어 집합**, 그 명령어를 돌리는 **실행 엔진**, 그리고 그 결과물을 만들어 내는 **프런트엔드
-컴파일러**가 산다. 그 파일을 읽어 들이는
+컴파일러**가 산다. 그 명령어를 네이티브 코드로 바꾸는 **백 엔드**는 형제 허브
+[백엔드 컴파일과 최적화](backend-compilation-and-optimization.md)가 다룬다. 그 파일을 읽어 들이는
 절차(클래스 로딩)는 형제 허브 [클래스 로딩](class-loading.md)이 다룬다. 가상 머신 자체와 그 판올림은
 [자바 기술 시스템](java-technology-system.md)이, 실행 중 메모리는
 [JVM 자동 메모리 관리](jvm-memory-management.md)가 담당한다.
@@ -77,6 +78,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T13:00:00Z" }
 
 ## 이어지는 허브
 
+- [백엔드 컴파일과 최적화](backend-compilation-and-optimization.md) — 여기 실린 바이트코드가
+  네이티브 코드로 바뀌는 뒤쪽 절반
 - [자바 기술 시스템](java-technology-system.md) — 이 형식을 읽는 가상 머신과 JDK 자체
 - [JVM 자동 메모리 관리](jvm-memory-management.md) — 이 명령어들이 실행될 때의 메모리
 - [JVM 모니터링과 문제 해결 도구](jvm-troubleshooting-tools.md) — javap를 포함한 JDK 도구들

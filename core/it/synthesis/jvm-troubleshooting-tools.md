@@ -49,4 +49,6 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 
 - [JVM 자동 메모리 관리](jvm-memory-management.md) — 여기서 읽는 숫자가 무엇을 뜻하는지
 - [자바 기술 시스템](java-technology-system.md) — 도구가 붙는 가상 머신과 JDK 쪽
+- [백엔드 컴파일과 최적화](backend-compilation-and-optimization.md) — JIT 코드 검사 도구가
+  들여다보는 그 컴파일러들
 - [카프카 모니터링](kafka-monitoring.md) — 제품 하나를 실제로 감시하는 지표 체계
