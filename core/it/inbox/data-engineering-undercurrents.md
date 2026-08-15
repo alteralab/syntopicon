@@ -12,6 +12,9 @@ sources:
 
 - [저류라는 범주](#저류라는-범주)
 - [보안](#보안)
+- [단단한 경계에서 제로 트러스트로](#단단한-경계에서-제로-트러스트로)
+- [공유 책임 모델](#공유-책임-모델)
+- [데이터 엔지니어는 보안 엔지니어다](#데이터-엔지니어는-보안-엔지니어다)
 - [데이터 아키텍처](#데이터-아키텍처)
 - [소프트웨어 엔지니어링](#소프트웨어-엔지니어링)
 - [이어지는 페이지](#이어지는-페이지)
@@ -57,8 +60,70 @@ sources:
   때문이다. 사용자·아이덴티티 접근 관리(IAM) 역할, 정책, 그룹, 네트워크 보안, 비밀번호 정책,
   암호화에 대한 지식이 시작하기 좋은 자리다** (2장, p.50).[^reis2022]
 
+## 단단한 경계에서 제로 트러스트로
+
+3장이 같은 저류를 아키텍처 원칙("보안을 우선한다")으로 다시 놓고 두 모델을 든다 — **제로 트러스트
+보안(zero-trust security)과 공유 책임 보안 모델(shared responsibility security model)이며, 이
+둘은 클라우드 네이티브 아키텍처에 밀접히 정렬된다** (3장, p.84).[^reis2022]
+
+- 먼저 옛 모델을 이해해야 한다 — Google Cloud의 다섯 원칙이 서술하는 전통적 모델의 한계를 인용한다
+  (3장, p.84):[^reis2022]
+
+> Traditional architectures place a lot of faith in perimeter security, crudely a hard‐
+> ened network perimeter with "trusted things" inside and "untrusted things" outside.
+> Unfortunately, this approach has always been vulnerable to insider attacks, as well as
+> external threats such as spear phishing.
+
+- 저자들이 드는 비유 — **1996년 영화 〈미션 임파서블〉이 단단한 경계 보안 모델과 그 한계의 완벽한
+  예를 보여 준다. 영화에서 CIA는 극도로 엄격한 물리 보안을 갖춘 방 안의 저장 시스템에 고도로 민감한
+  데이터를 둔다. 이선 헌트는 CIA 본부에 잠입해 인간 표적을 이용해 저장 시스템에 물리적으로 접근한다.
+  일단 보안 구역 안에 들어가면 그는 비교적 쉽게 데이터를 유출한다** (3장, p.84).[^reis2022]
+- 그것이 현실의 패턴이다 — **적어도 10년 동안 놀라운 언론 보도들이 강화된 조직 보안 경계 안의 인간
+  표적을 악용하는 보안 침해의 커져 가는 위협을 알려 왔다. 직원들이 고도로 안전한 기업 네트워크에서
+  일하는 와중에도 그들은 이메일과 모바일 기기를 통해 바깥 세계와 연결된 채로 남는다. 외부 위협이
+  사실상 내부 위협이 된다** (3장, p.84).[^reis2022]
+- 클라우드에서는 더 무너진다 — **클라우드 네이티브 환경에서 강화된 경계라는 관념은 더욱 침식된다.
+  모든 자산이 어느 정도는 바깥 세계에 연결돼 있다. 가상 사설 클라우드(VPC) 네트워크는 외부 연결
+  없이 정의될 수 있지만, 엔지니어가 이 네트워크를 정의하는 데 쓰는 API 제어 평면(control plane)은
+  여전히 인터넷을 마주한다** (3장, p.84).[^reis2022]
+
+## 공유 책임 모델
+
+- **아마존은 공유 책임 모델을 강조하는데, 이는 보안을 클라우드의(of the cloud) 보안과 클라우드
+  안의(in the cloud) 보안으로 나눈다** (3장, p.84).[^reis2022] 양쪽의 분담은 원문을 직인용한다
+  (3장, pp.84–85):[^reis2022]
+
+> AWS is responsible for protecting the infrastructure that runs AWS services in the
+> AWS Cloud. AWS also provides you with services that you can use securely.
+>
+> Your responsibility is determined by the AWS service that you use. You are also
+> responsible for other factors including the sensitivity of your data, your organization's
+> requirements, and applicable laws and regulations.
+
+- 일반화 — **일반적으로 모든 클라우드 제공자는 어떤 형태로든 이 공유 책임 모델로 운영된다. 그들은
+  발행된 명세에 따라 자기 서비스를 보안한다. 그럼에도 애플리케이션과 데이터를 위한 보안 모델을
+  설계하고 그 모델을 실현하기 위해 클라우드 능력을 활용하는 것은 궁극적으로 사용자의 책임이다**
+  (3장, p.85).[^reis2022] 이 모델이 얹히는 계층 구조는
+  [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md)에 있다.
+
+## 데이터 엔지니어는 보안 엔지니어다
+
+- 책임이 이동했다 — **오늘날 기업 세계에서 보안에 대한 명령-통제식 접근은 꽤 흔하며, 여기서 보안·
+  네트워킹 팀이 경계와 일반 보안 실무를 관리한다. 클라우드는 이 책임을 명시적으로 보안 역할에 있지
+  않은 엔지니어에게 밀어낸다. 이 책임 때문에, 그리고 단단한 보안 경계의 더 일반적인 침식과 함께,
+  모든 데이터 엔지니어는 자신을 보안 엔지니어로 여겨야 한다** (3장, p.85).[^reis2022]
+- 결과가 구체적이다 — **이 새로운 암묵적 책임을 떠맡지 못하면 끔찍한 결과로 이어질 수 있다. 수많은
+  데이터 침해가 Amazon S3 버킷을 공개 접근으로 설정한 단순한 실수에서 비롯됐다. 데이터를 다루는
+  이들은 자신이 궁극적으로 그것을 보안할 책임이 있다고 가정해야 한다** (3장, p.85).[^reis2022] 위
+  [보안](#보안) 절의 최소 권한 원칙이 실제로 위반되는 자리다.
+
 ## 데이터 아키텍처
 
+- 3장이 이 저류의 자리를 다시 명시한다 — **데이터 엔지니어링 수명 주기의 저류가 데이터 성숙도의
+  어느 단계에 있는 회사에나 좋은 데이터 아키텍처의 토대를 이룬다** (3장, p.77).[^reis2022] 그
+  아키텍처의 정의와 원칙은
+  [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md)와
+  [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md)에 있다.
 - 정의 — **데이터 아키텍처는 조직의 장기 데이터 필요와 전략을 뒷받침하는 데이터 시스템의 현재와
   미래 상태를 반영한다. 조직의 데이터 요구사항은 빠르게 바뀔 것이고 새 도구와 실무가 거의 매일
   도착하는 것처럼 보이므로, 데이터 엔지니어는 좋은 데이터 아키텍처를 이해해야 한다** (2장,
@@ -131,8 +196,11 @@ sources:
   다섯 단계
 - [데이터 관리](../concepts/data-management-discipline.md) — 저류 중 가장 넓은 하나
 - [DataOps](../concepts/dataops.md) — 자동화·관측·사고 대응이라는 세 기둥
+- [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 아키텍처 저류의 본체
+- [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md) — 보안이
+  원칙 8로 놓이는 자리
 - [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) — 오케스트레이션 저류의 본체
 - [스트림 처리의 시간 의미론](../concepts/stream-processing-time-semantics.md) — 위 윈도잉이 실제로
   푸는 문제
 
-[^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle"
+[^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle" · 3장 "Designing Good Data Architecture"

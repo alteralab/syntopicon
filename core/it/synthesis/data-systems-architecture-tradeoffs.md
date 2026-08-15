@@ -10,6 +10,19 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 정답이 하나가 아닌 선택들을 모은다. 각 페이지가 한 축을 맡고, 그 축의
 장단점과 언제 어느 쪽을 고르는지를 다룬다.
 
+## 무엇을 아키텍처라 부르는가
+
+- [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 엔터프라이즈 아키텍처의 부분집합이라는 위치, 일방통행문과 양방향문, 운영 아키텍처와 기술 아키텍처
+- [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md) — 공통 구성 요소·실패 계획·확장성·리더십·되돌릴 수 있는 결정·보안·FinOps
+- [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 아키텍처가 정해진 뒤 도구를 고르는 열 가지 축과 벤치마크 비판
+- [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — TCO·TOCO·capex와 opex, 그리고 지출을 운영으로 다루는 실무
+
+## 아키텍처의 유형들
+
+- [람다 아키텍처와 카파 아키텍처](../concepts/lambda-and-kappa-architecture.md) — 배치와 스트림을 합치려는 두 제안과 그 뒤를 이은 데이터플로 모델
+- [데이터 메시](../concepts/data-mesh.md) — 중앙집중 플랫폼을 도메인 소유권으로 뒤집는 제안(개관)
+- [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md) — 사람이 아니라 장치가 데이터를 만드는 쪽
+
 ## 운영계와 분석계
 
 - [EDW](../concepts/enterprise-data-warehouse.md) — 운영계와 분석계를 왜 가르며 어떤 아키텍처들이 그 요구를 감당했나

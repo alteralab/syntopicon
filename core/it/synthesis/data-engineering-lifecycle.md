@@ -52,6 +52,19 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 - [데이터 관리](../concepts/data-management-discipline.md) — DMBOK 정의와 그 아래 여덟 갈래
 - [DataOps](../concepts/dataops.md) — 애자일·데브옵스·통계적 공정 관리를 데이터에 옮긴 것
 
+## 아키텍처와 기술 선택
+
+수명 주기를 실제 시스템으로 만들 때 먼저 그리는 것과 나중에 고르는 것이다.
+
+- [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 무엇을 데이터
+  아키텍처라 부르고 무엇이 그것을 "좋다"고 만드는가
+- [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md) —
+  그 판단을 쪼갠 조문들
+- [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 아키텍처가 먼저,
+  기술이 나중인 이유와 그 나중을 정하는 축들
+- [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 그 선택에 붙는
+  비용의 어휘
+
 ## 닿는 페이지
 
 - [데이터 웨어하우스 모델링](data-warehouse-modeling.md) — 변환·서빙 단계가 실제로 무엇을
