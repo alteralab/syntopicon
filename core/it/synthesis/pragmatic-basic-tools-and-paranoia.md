@@ -20,8 +20,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2장은 형제 허브인
 [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에, 5·6장은
 [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에, 7장은
-[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는 아직
-반입되지 않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
+[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는
+[실용주의 프로젝트와 맺음말](pragmatic-projects-and-postface.md)에 있다.
 
 **형제 허브를 새로 세운 이유**: 1·2장이 **개발자의 태도와 설계 원칙**이라면 3·4장은 **매일의
 작업 환경과 코드에 심는 방어**다. 질문의 종류가 다르고(무엇을 믿을 것인가 대 무엇으로 작업할
@@ -38,22 +38,22 @@ Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2
 쥐는 연장(에디터), 그다음 안전망(버전 관리)과 진단(디버깅), 마지막에 접착제(텍스트 조작)와
 기록(일지)이다.
 
-- [평문의 힘](../inbox/power-of-plain-text.md) — **먼저 읽는다.** 이 장의 재료 정의이자 나머지
+- [평문의 힘](../concepts/power-of-plain-text.md) — **먼저 읽는다.** 이 장의 재료 정의이자 나머지
   도구가 성립하는 전제. 이진 형식이 데이터에서 맥락을 떼어 놓는다는 진단, 구식화 보험·기존 도구의
   지렛대·쉬운 테스트라는 세 이득, 사람이 읽을 수 있음과 사람이 이해할 수 있음의 구분
-- [셸과 에디터 — 도구의 유창함](../inbox/tool-fluency-shell-and-editor.md) — Topic 17과 18을
+- [셸과 에디터 — 도구의 유창함](../concepts/tool-fluency-shell-and-editor.md) — Topic 17과 18을
   한 페이지에 둔 자리(둘 다 "기본 도구를 손의 연장으로 만든다"는 같은 질문이다). GUI가 설계자가
   의도한 능력에서 멈춘다는 진단(WYSIAYG), 셸을 자기 것으로 만드는 손질, 에디터 유창함의 판정
   목록과 그 진짜 이득이 시간 절약이 아니라는 주장
-- [버전 관리](../inbox/version-control-practice.md) — "거대한 되돌리기 키"로만 쓰면 무엇을
+- [버전 관리](../concepts/version-control-practice.md) — "거대한 되돌리기 키"로만 쓰면 무엇을
   놓치는가. 모든 것을 넣으라는 조문의 범위, 공유 디렉토리가 버전 관리가 아닌 이유, 브랜치 워크플로
   조언에 대한 저자들의 유보
-- [디버깅](../inbox/debugging-practice.md) — 심리(탓이 아니라 문제)와 절차(고치기 전에 실패하는
+- [디버깅](../concepts/debugging-practice.md) — 심리(탓이 아니라 문제)와 절차(고치기 전에 실패하는
   테스트, 이진 절단, 로깅·추적, 고무 오리, 소거법)를 가르는 자리. 놀라움이 신뢰의 크기에
   비례한다는 관찰
-- [텍스트 조작 언어](../inbox/text-manipulation-languages.md) — 기본 도구가 손대지 못하는 변환의
+- [텍스트 조작 언어](../concepts/text-manipulation-languages.md) — 기본 도구가 손대지 못하는 변환의
   자리. 배수가 실험의 가능 여부를 가른다는 논증과 이 책 자신의 제작 파이프라인
-- [엔지니어링 일지](../inbox/engineering-daybook.md) — 하드웨어 엔지니어의 훈련에서 온 습관.
+- [엔지니어링 일지](../concepts/engineering-daybook.md) — 하드웨어 엔지니어의 훈련에서 온 습관.
   기억보다 믿을 만하고, 착상을 내려놓을 자리를 주고, 고무 오리 노릇을 한다
 
 ## 편집증 — 자기 실수에 대한 방어 (4장)
@@ -61,36 +61,36 @@ Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2
 4장은 하나의 조문에서 출발한다 — **You Can't Write Perfect Software**. 그리고 방어적 코딩에서
 한 걸음 더 간다: 실용주의 프로그래머는 **자기 자신도 신뢰하지 않는다.**
 
-- [계약에 의한 설계](../inbox/design-by-contract.md) — 첫 방어책. 선행 조건·후행 조건·불변식과
+- [계약에 의한 설계](../concepts/design-by-contract.md) — 첫 방어책. 선행 조건·후행 조건·불변식과
   그 셋을 묶는 계약문, 계약 위반이 버그이므로 입력 검증이 아니라는 귀결, 단정문으로 흉내 낼 때 남는
   네 구멍, 그리고 정책과 구분되는 의미 불변식
-- [죽은 프로그램은 거짓말하지 않는다](../inbox/dead-programs-tell-no-lies.md) — "일어날 수 없다"는
+- [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — "일어날 수 없다"는
   사고방식을 겨냥한 자리. 모든 예외를 잡아 다시 던지는 코드가 결합을 늘린다는 판정, 일찍 죽으라는
   조문과 얼랭의 수퍼바이저 트리
-- [단정적 프로그래밍](../inbox/assertive-programming.md) — 불가능을 코드 안에서 검사하는 장치.
+- [단정적 프로그래밍](../concepts/assertive-programming.md) — 불가능을 코드 안에서 검사하는 장치.
   조건식의 부작용이 만드는 하이젠버그, 그리고 프로덕션에서 단정문을 끄지 말라는 처방과 두 가지 틀린
   가정
-- [리소스 균형 맞추기](../inbox/balancing-resources.md) — 할당한 것을 반드시 해제하게 만드는
+- [리소스 균형 맞추기](../concepts/balancing-resources.md) — 할당한 것을 반드시 해제하게 만드는
   규약. 범위를 좁히는 것, 중첩 할당의 두 규칙, 예외 환경의 안티패턴, 균형을 검사하는 법
-- [헤드라이트를 앞지르지 마라](../inbox/dont-outrun-your-headlights.md) — 4장의 맺음이자 가장
+- [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 4장의 맺음이자 가장
   넓은 조문. 피드백이 도달하는 거리가 속도 제한이고, "너무 큰 작업"이란 점을 쳐야 하는 작업이며,
   예측 대신 교체 가능성으로 물러설 수 있다
 
 ## 기존 페이지에 합류한 것
 
-- [기술 선택의 기준](../inbox/technology-selection-criteria.md) — Topic 27의 "미래 기술 가용성
+- [기술 선택의 기준](../concepts/technology-selection-criteria.md) — Topic 27의 "미래 기술 가용성
   추측 = 점치기" 판정이 합류한 자리. 그쪽 소스는 무엇이 오래 갈지 고르는 리트머스(린디 효과)를
   주고, 이 책은 그 질문에 답하려 들지 말고 교체 가능하게 만들라고 한다 — 되돌리는 비용이 다른
   두 층
-- [데이터 품질 강제 패턴](../inbox/data-quality-enforcement-patterns.md) — Topic 23의 "선행
+- [데이터 품질 강제 패턴](../concepts/data-quality-enforcement-patterns.md) — Topic 23의 "선행
   조건은 호출자의 책임" 판정이 합류한 자리. 검증 책임이 생산자 쪽으로 가는 같은 이동을 한쪽은
   올바른 배치로, 다른 쪽은 위임의 대가로 적는다
 
 이 밖에 새 페이지 안에서 나란히 놓은 자리가 둘 더 있다 —
-[평문의 힘](../inbox/power-of-plain-text.md)이 [데이터 인코딩 형식](../inbox/data-encoding-formats.md)의
+[평문의 힘](../concepts/power-of-plain-text.md)이 [데이터 인코딩 형식](../concepts/data-encoding-formats.md)의
 판정과 조건을 갈라 놓은 절, 그리고
-[죽은 프로그램은 거짓말하지 않는다](../inbox/dead-programs-tell-no-lies.md)가
-[신뢰성과 내결함성](../inbox/reliability-and-fault-tolerance.md)과 강조점의 방향을 맞춰 본 절이다.
+[죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md)가
+[신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md)과 강조점의 방향을 맞춰 본 절이다.
 
 ## 이 두 층이 서로를 부르는 자리
 

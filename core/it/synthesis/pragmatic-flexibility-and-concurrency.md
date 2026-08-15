@@ -21,8 +21,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
 Bend, or Break(Topic 28–32)와 6장 Concurrency(Topic 33–36)** 다. 1·2장은
 [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에, 3·4장은
 [실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md)에, 7장은
-[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는 아직
-반입되지 않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
+[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는
+[실용주의 프로젝트와 맺음말](pragmatic-projects-and-postface.md)에 있다.
 
 **셋째 허브를 세운 이유**: 앞의 두 허브가 **개발자의 태도·설계 원칙**(1·2장)과 **작업 환경·코드에
 심는 방어**(3·4장)라면, 5·6장은 **코드의 구조를 바꾸는 처방**이다. 앞의 둘이 "무엇을 믿고 무엇으로
@@ -45,19 +45,19 @@ RxJs 실행 화면 둘, 타입 계층 다이어그램, 도도 삽화, 피냐 콜
 그리고 Topic 11 가역성이 "되돌릴 수 없는 결정의 위험"을 말했다면 이 장은 **되돌릴 수 있는 결정을
 만드는 법**을 말한다.
 
-- [결합 끊기](../inbox/decoupling.md) — **먼저 읽는다.** 이 장의 진단이자 나머지 넷의 근거.
+- [결합 끊기](../concepts/decoupling.md) — **먼저 읽는다.** 이 장의 진단이자 나머지 넷의 근거.
   결합이 전이적이라는 성질, 결합의 네 증상, 기차 사고와 Tell Don't Ask, 저자들이 20년 만에 물린
   디미터 법칙과 그 자리에 놓은 점 하나 규칙, 싱글턴과 외부 자원까지 포함하는 전역 데이터
-- [현실 세계 다루기](../inbox/juggling-the-real-world.md) — 이벤트에 반응하는 네 전략(유한 상태
+- [현실 세계 다루기](../concepts/juggling-the-real-world.md) — 이벤트에 반응하는 네 전략(유한 상태
   기계·관찰자 패턴·발행/구독·반응형 스트림). 넷은 대안이 아니라 결합과 가시성의 교환 곡선 위의
   네 점이다
-- [변환 프로그래밍](../inbox/transforming-programming.md) — 기차 사고 대신 파이프라인을 놓는 자리.
+- [변환 프로그래밍](../concepts/transforming-programming.md) — 기차 사고 대신 파이프라인을 놓는 자리.
   유닉스 파이프가 이미 그것이라는 관찰, 파이프 연산자가 문법 설탕 이상인 이유, 상태를 쌓지 말고
   흘려보내라는 조문, 원시값 대신 유효성을 담은 래퍼를 흘리는 오류 처리
-- [상속세](../inbox/inheritance-tax.md) — 결합 끊기가 미룬 셋째 결합원. 상속의 두 갈래 역사와
+- [상속세](../concepts/inheritance-tax.md) — 결합 끊기가 미룬 셋째 결합원. 상속의 두 갈래 역사와
   각각의 오용, 부모의 이름 변경이 자식과 그 사용자를 조용히 깨뜨리는 실물, 그리고 세 대안
   (인터페이스·위임·믹스인)과 각각을 고르는 기준
-- [외부 설정](../inbox/external-configuration.md) — 코드를 **덜 쓰는** 쪽의 유연성. 설정 자료
+- [외부 설정](../concepts/external-configuration.md) — 코드를 **덜 쓰는** 쪽의 유연성. 설정 자료
   구조를 전역으로 만들지 말고 얇은 API 뒤로 감싸라는 처방, 서비스로서의 설정과 동적 갱신,
   그리고 설정 과잉을 경고하는 저자들 자신의 정정(4만 개 설정 변수)
 
@@ -67,34 +67,34 @@ RxJs 실행 화면 둘, 타입 계층 다이어그램, 도도 삽화, 피냐 콜
 주범을 지목한다: **공유 상태**. 장의 맺음말이 이 축의 지위를 정한다 — **동시적·병렬적 코드는
 예전에는 이국적인 것이었다. 이제 그것은 필수다.**
 
-- [시간적 결합 끊기](../inbox/breaking-temporal-coupling.md) — 문제를 푸는 데 필요하지 않은
+- [시간적 결합 끊기](../concepts/breaking-temporal-coupling.md) — 문제를 푸는 데 필요하지 않은
   순서를 코드가 강요하는 것이 시간적 결합이다. 활동 다이어그램으로 "될 수 있는 것"과 "해야 하는
   것"을 가르는 절차, **코드 안이 아니라 코드 밖에서 시간을 쓰는 활동**이 동시성의 기회라는 판별
   기준, 쪼개고 합치는 병렬성의 공통 패턴
-- [공유 상태는 틀린 상태](../inbox/shared-state-is-incorrect-state.md) — 마지막 파이 한 조각이
+- [공유 상태는 틀린 상태](../concepts/shared-state-is-incorrect-state.md) — 마지막 파이 한 조각이
   두 손님에게 약속되는 이야기. 문제가 같은 메모리에 쓰는 것이 아니라 **자기 시야가 일관되다고
   보장할 수 없다는 것**이라는 판정, 세마포어가 규약에 의존해 무너지는 자리, 자원을 트랜잭션적으로
   만드는 세 걸음, 그리고 파일·현재 디렉토리처럼 아무도 자원이라 부르지 않는 것
-- [액터와 프로세스](../inbox/actors-and-processes.md) — 공유 상태 없이 동시성을 얻는 첫째 대안.
+- [액터와 프로세스](../concepts/actors-and-processes.md) — 공유 상태 없이 동시성을 얻는 첫째 대안.
   정의에서 **발견되지 않는 것 넷**으로 모델을 규정하는 방식, 동시성 코드를 쓸 필요가 없고 기저
   아키텍처가 언급되지 않는다는 귀결, 얼랭의 수퍼비전과 핫코드 로딩
-- [칠판](../inbox/blackboards.md) — 둘째 대안이자 이 장의 맺음. 참여자가 서로의 존재조차 모르는
+- [칠판](../concepts/blackboards.md) — 둘째 대안이자 이 장의 맺음. 참여자가 서로의 존재조차 모르는
   자유방임 동시성, 린다·자바스페이스의 계보와 그것이 뜨지 못한 이유에 대한 추정, 도착 순서를
   통제할 수 없는 워크플로에서 칠판과 규칙 엔진이 워크플로 시스템보다 나은 근거, 그리고 간접성이
   낳는 대가
 
 ## 기존 페이지에 합류한 것
 
-- [데이터플로 중심 애플리케이션 설계](../inbox/dataflow-application-design.md) — Topic 29의 반응형
+- [데이터플로 중심 애플리케이션 설계](../concepts/dataflow-application-design.md) — Topic 29의 반응형
   프로그래밍이 합류한 자리. **같은 스프레드시트 비유에서 출발해 반대 방향으로 간다** — 그쪽은
   자동 재계산을 데이터 시스템 수준에서 얻으려 하고, 이 책은 한 프로세스 안의 프로그래밍 모델로
   얻으려 한다. 그래서 이 책의 "시간을 관리할 필요가 없다"는 주장은 한 프로세스의 수명 안에서만
   성립한다
-- [스레드 안전성 구현 수단](../inbox/thread-safety-implementation.md) — Topic 34의 판정이 합류한
+- [스레드 안전성 구현 수단](../concepts/thread-safety-implementation.md) — Topic 34의 판정이 합류한
   자리. 그쪽이 세 갈래(상호 배제·논블로킹·공유 없애기)를 **기제**로 나란히 놓는다면, 이 책은
   같은 셋을 **설계 판단**으로 놓고 셋째를 기본값으로 삼으라고 한다 — 락은 규약에 의존하는데
   규약은 사람이 지키기 때문이다
-- [분산 액터 프레임워크](../inbox/distributed-actor-frameworks.md) — Topic 35의 정의와 얼랭
+- [분산 액터 프레임워크](../concepts/distributed-actor-frameworks.md) — Topic 35의 정의와 얼랭
   런타임이 합류한 자리. 그쪽이 한 줄로 든 Erlang/OTP가 무엇을 더 주는지(수퍼비전·핫코드 로딩)와,
   **핫코드 로딩이 호환성 요구를 없애는 것이 아니라 더 조인다**는 귀결
 
@@ -116,17 +116,17 @@ RxJs 실행 화면 둘, 타입 계층 다이어그램, 도도 삽화, 피냐 콜
 ## 이 축이 앞선 두 허브와 만나는 자리
 
 - **ETC와 직교성이 이 축의 상위 근거다.** 저자들이 5·6장의 거의 모든 Topic에서 관련 절로 Topic
-  8(좋은 설계의 본질)과 Topic 10(직교성)을 지목한다. [직교성](../inbox/orthogonality.md)의
-  "수줍은 코드"가 [결합 끊기](../inbox/decoupling.md)의 맺음말로 돌아온다
-- **계약과 파이프라인이 만난다.** [계약에 의한 설계](../inbox/design-by-contract.md)의 "게으른
-  코드"(적게 받고 적게 약속하라)가 [변환 프로그래밍](../inbox/transforming-programming.md)의
+  8(좋은 설계의 본질)과 Topic 10(직교성)을 지목한다. [직교성](../concepts/orthogonality.md)의
+  "수줍은 코드"가 [결합 끊기](../concepts/decoupling.md)의 맺음말로 돌아온다
+- **계약과 파이프라인이 만난다.** [계약에 의한 설계](../concepts/design-by-contract.md)의 "게으른
+  코드"(적게 받고 적게 약속하라)가 [변환 프로그래밍](../concepts/transforming-programming.md)의
   변환 함수 규약(값과 유효성을 함께 감싼 것만 주고받는다)과 같은 요구다
-- **일찍 죽기가 액터에서 안전해진다.** [죽은 프로그램은 거짓말하지 않는다](../inbox/dead-programs-tell-no-lies.md)가
+- **일찍 죽기가 액터에서 안전해진다.** [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md)가
   얼랭 수퍼비전 트리를 실물로 들었는데, 그것이 성립하는 이유를
-  [액터와 프로세스](../inbox/actors-and-processes.md)가 준다 — 공유 상태가 없으면 죽은 액터가
+  [액터와 프로세스](../concepts/actors-and-processes.md)가 준다 — 공유 상태가 없으면 죽은 액터가
   남길 반쯤 갱신된 상태가 없다
-- **리소스 균형이 동시성에서 되풀이된다.** [리소스 균형 맞추기](../inbox/balancing-resources.md)의
-  "할당한 것을 반드시 해제하라"가 [공유 상태는 틀린 상태](../inbox/shared-state-is-incorrect-state.md)에서
+- **리소스 균형이 동시성에서 되풀이된다.** [리소스 균형 맞추기](../concepts/balancing-resources.md)의
+  "할당한 것을 반드시 해제하라"가 [공유 상태는 틀린 상태](../concepts/shared-state-is-incorrect-state.md)에서
   "잠근 것을 예외에도 반드시 풀어라"로 돌아온다
 
 ## 이웃 허브

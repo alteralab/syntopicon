@@ -22,8 +22,8 @@ Pragmatic Approach(Topic 8–15)** 뿐이다. **3·4장(도구·실용주의 편
 [실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md)에, 5·6장(유연성·동시성)은
 [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에, 7장(코딩 중)은
 [코딩하는 동안](pragmatic-coding-practice.md)에 있고**, 그 뒤의
-장(프로젝트 이전·프로젝트)은 아직 반입되지 않았다 — 재개점은
-`it/archive/thomas2020/_progress.yaml`이 정본이다.
+장(프로젝트 이전·프로젝트·맺음말)은
+[실용주의 프로젝트와 맺음말](pragmatic-projects-and-postface.md)에 있다.
 
 **이 KB에서 새 축이다.** 지금까지 쌓인 것은 시스템 지식(데이터베이스·스트리밍·JVM·
 데이터 아키텍처)이었고, 이 축은 **개별 개발자의 실천 지식**이다. 두 축은 대립하지 않고
@@ -36,43 +36,43 @@ Pragmatic Approach(Topic 8–15)** 뿐이다. **3·4장(도구·실용주의 편
 
 ## 철학 — 개발자의 태도와 책임 (1장)
 
-- [개발자의 주체성과 책임](../inbox/developer-agency-and-responsibility.md) — 이 책이 가장
+- [개발자의 주체성과 책임](../concepts/developer-agency-and-responsibility.md) — 이 책이 가장
   중요하다고 못 박은 팁("You Have Agency")과 그 뒷면인 책임의 좁은 정의: 책임은 능동적으로
   동의하는 것이고 떠맡지 않을 권리도 있으며, 틀어졌을 때는 변명이 아니라 선택지를 내놓는다
-- [소프트웨어 엔트로피와 깨진 창문](../inbox/software-entropy-and-broken-windows.md) —
+- [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) —
   코드가 썩는 이유를 물리가 아니라 심리로 설명하는 자리. "기술 부채"라는 낙관적 이름에 대한
   저자들의 판정과, 방치가 다른 어떤 요인보다 부패를 가속한다는 진단
-- [변화의 촉매와 삶긴 개구리](../inbox/catalyst-for-change-and-boiled-frog.md) — 점진적
+- [변화의 촉매와 삶긴 개구리](../concepts/catalyst-for-change-and-boiled-frog.md) — 점진적
   변화를 쓰는 쪽(돌멩이 수프)과 당하는 쪽(삶긴 개구리). 저자들이 깨진 창문과 명시적으로
   구분한 두 번째 실패 기제 — 의지의 상실이 아니라 지각의 실패
-- [충분히 좋은 소프트웨어](../inbox/good-enough-software.md) — 품질을 요구사항 항목으로
+- [충분히 좋은 소프트웨어](../concepts/good-enough-software.md) — 품질을 요구사항 항목으로
   다루자는 주장, 그 범위를 좁히는 예외(심박 조율기·자동 조종·널리 배포되는 라이브러리),
   그리고 언제 멈출지 아는 문제
-- [지식 포트폴리오](../inbox/knowledge-portfolio.md) — 지식을 만료 자산으로 보고 금융
+- [지식 포트폴리오](../concepts/knowledge-portfolio.md) — 지식을 만료 자산으로 보고 금융
   포트폴리오처럼 관리하는 다섯 지침과 실행 목록, 그리고 읽은 것을 거르는 비판적 사고의
   다섯 질문
-- [개발자의 소통](../inbox/developer-communication.md) — 자연어를 또 하나의 프로그래밍
+- [개발자의 소통](../concepts/developer-communication.md) — 자연어를 또 하나의 프로그래밍
   언어로 다루는 여덟 항목의 체크리스트, 그리고 문서를 코드 안에 심으라는 규칙과 "모든
   함수에 주석"이 DRY 위반인 이유
 
 ## 접근 — 설계와 개발의 기본 원칙 (2장)
 
-- [ETC — 바꾸기 쉬운 것이 좋은 설계](../inbox/etc-easier-to-change.md) — **먼저 읽는다.**
+- [ETC — 바꾸기 쉬운 것이 좋은 설계](../concepts/etc-easier-to-change.md) — **먼저 읽는다.**
   2판이 새로 세운 뿌리 원칙으로, 저자들은 바깥의 모든 설계 원칙이 이것의 특수 사례라고
   주장한다. 아래 세 페이지가 그 특수 사례들이다
-- [DRY 원칙](../inbox/dry-principle.md) — 지식의 중복을 다루는 원칙. 초판이 "복사·붙여넣기
+- [DRY 원칙](../concepts/dry-principle.md) — 지식의 중복을 다루는 원칙. 초판이 "복사·붙여넣기
   하지 마라"로 오해된 것을 저자들이 직접 바로잡으며, 중복이 나타나는 네 자리(코드·문서·자료
   구조·표현)와 코드가 같아도 지식은 다를 수 있다는 반례를 함께 놓는다
-- [직교성](../inbox/orthogonality.md) — 한쪽의 변화가 다른 쪽에 영향을 주지 않는 성질.
+- [직교성](../concepts/orthogonality.md) — 한쪽의 변화가 다른 쪽에 영향을 주지 않는 성질.
   헬리콥터 조종간이 보여 주는 비직교의 대가, 두 이득(생산성·위험 감소), 설계·라이브러리·
   코딩·테스트·문서에 각각 적용하는 법, 그리고 DRY와 축이 다른 이유
-- [트레이서 탄환과 프로토타입](../inbox/tracer-bullets-and-prototypes.md) — 불확실한 것을
+- [트레이서 탄환과 프로토타입](../concepts/tracer-bullets-and-prototypes.md) — 불확실한 것을
   코드로 먼저 만져 보는 두 방법과 저자들이 그은 경계: 트레이서 코드는 얇지만 완성품의
   뼈대로 남고 프로토타입은 버린다
-- [도메인 언어](../inbox/domain-languages.md) — 내부 DSL과 외부 DSL의 구분, 호스트 언어의
+- [도메인 언어](../concepts/domain-languages.md) — 내부 DSL과 외부 DSL의 구분, 호스트 언어의
   힘을 공짜로 얻는 쪽과 문법 제약이 없는 대신 파서를 져야 하는 쪽, 그리고 "아낄 것보다 더
   쓰지 마라"는 판정 기준
-- [추정](../inbox/estimating.md) — 답의 단위가 정확도를 암시한다는 규칙과 그 환산표, 모델을
+- [추정](../concepts/estimating.md) — 답의 단위가 정확도를 암시한다는 규칙과 그 환산표, 모델을
   세워 매개변수에 값을 주는 절차, PERT에 대한 저자들의 유보, 그리고 일정을 코드와 함께
   반복해 다듬는 방법
 
@@ -84,14 +84,14 @@ Pragmatic Approach(Topic 8–15)** 뿐이다. **3·4장(도구·실용주의 편
 이 축이 기존 시스템 지식과 실제로 만나는 자리는 셋이다. 각각은 새 페이지가 아니라 기존
 페이지의 절로 들어갔다.
 
-- [유지보수성](../inbox/maintainability.md) — Topic 11 Reversibility가 셋째 소스로 합류한
+- [유지보수성](../concepts/maintainability.md) — Topic 11 Reversibility가 셋째 소스로 합류한
   자리. 같은 진단(되돌릴 수 없음이 변경을 어렵게 만든다)이 Kleppmann에서는 **시스템
   속성**으로, Reis & Housley에서는 **아키텍트의 임무**로, 이 책에서는 **개별 개발자가 매일
   내리는 결정의 규칙**("There Are No Final Decisions")으로 놓인다
-- [정규화와 비정규화](../inbox/normalization-and-denormalization.md) — DRY의 자료 구조 절이
+- [정규화와 비정규화](../concepts/normalization-and-denormalization.md) — DRY의 자료 구조 절이
   합류한 자리. 계산 필드 대 저장된 필드의 선택이 조인 대 비정규화와 같은 판단이며, 두 소스가
   같은 조건에 이른다 — 중복 자체가 금지가 아니라 중복을 아는 코드의 범위를 좁히는 것이 조건
-- [기록 시스템과 파생 데이터](../inbox/system-of-record-and-derived-data.md) — DRY의 정의와
+- [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) — DRY의 정의와
   기록 시스템의 정의가 같은 낱말을 쓰는 자리("각 사실은 정확히 한 번 표현된다" ↔ "단일하고
   명확하며 권위 있는 표현"). 파생 데이터는 방향이 정해져 있어 허용되는 중복이다
 

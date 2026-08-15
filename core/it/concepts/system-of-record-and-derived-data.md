@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 기록 시스템과 파생 데이터
-description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 갱신·삭제가 여기서 어려워지는 이유, 그리고 이 구분을 데이터 모델로 밀어붙였을 때 나오는 비정규화와 이벤트 소싱
+description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 갱신·삭제가 여기서 어려워지는 이유, 이 구분을 데이터 모델로 밀어붙였을 때 나오는 비정규화와 이벤트 소싱, 그리고 같은 규칙(각 사실은 정확히 한 번 표현된다)이 코드 쪽에서 DRY 원칙으로 세워지는 자리
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
+  - { id: thomas2020, resource: /it/sources/thomas2020.md }
 ---
 
 # 기록 시스템과 파생 데이터
@@ -17,6 +18,7 @@ sources:
 - [삭제 요구가 부딪히는 지점](#삭제-요구가-부딪히는-지점)
 - [이 구분을 데이터 모델로 밀어붙이면](#이-구분을-데이터-모델로-밀어붙이면)
 - [13장이 이 구분을 아키텍처로 밀어붙인다](#13장이-이-구분을-아키텍처로-밀어붙인다)
+- [코드 쪽의 같은 규칙 — DRY](#코드-쪽의-같은-규칙--dry)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **한 조직의 여러 데이터 저장소 중에서 무엇이 정본이고 무엇이
@@ -152,6 +154,34 @@ sources:
   다시 유도하면 된다. 마찬가지로 무언가 잘못되면 코드를 고치고 데이터를 재처리해 복구할 수 있다**
   (13장, p.579).[^kleppmann2026]
 
+## 코드 쪽의 같은 규칙 — DRY
+
+기록 시스템의 정의는 "각 사실은 정확히 한 번 표현된다"에 걸려 있다. 소프트웨어 실천 쪽 소스가
+같은 문장을 데이터 저장소가 아니라 **시스템 전체**를 대상으로 세운 것이 DRY 원칙이다. 전문은
+[DRY 원칙](../concepts/dry-principle.md)에 있고, 이 구분과 맞물리는 대목만 여기 남긴다.
+
+- 원칙 (Topic 9):[^thomas2020]
+
+> Every piece of knowledge must have a single, unambiguous, authoritative
+> representation within a system.
+
+- 두 정의가 같은 낱말을 쓴다 — 위 [두 정의](#두-정의)의 기록 시스템은 **권위 있는(authoritative)
+  또는 정본(canonical) 판본**을 갖고 **각 사실이 정확히 한 번 표현되는** 곳이며, DRY는 지식 조각
+  하나가 **단일하고 명확하며 권위 있는 표현**을 가질 것을 요구한다. 곧 이 페이지의 구분은 DRY를
+  저장소 층에서 실행한 결과로 읽을 수 있다 — 파생 데이터는 **허용된 중복**이고, 그것을 허용할 수
+  있는 이유는 방향이 정해져 있어 언제든 다시 만들 수 있기 때문이다 (Topic 9).[^thomas2020]
+- 이 책도 성능을 위한 중복을 금지하지 않고 조건을 단다 — **개발 과정에서 나중에 성능을 이유로 DRY
+  원칙을 어기기로 선택할 수 있다. 비싼 연산의 반복을 피하려고 데이터를 캐시해야 할 때 흔히 그렇다.
+  요령은 영향을 국지화하는 것이다. 위반이 바깥 세계에 노출되지 않고, 클래스 안의 메서드만 앞뒤를
+  맞추는 걱정을 하면 된다** (Topic 9).[^thomas2020]
+  - 위 [갱신이 어려운 지점](#갱신이-어려운-지점)이 데이터 층에서 요구하는 것과 같은 조건이다 —
+    **누가 그 사본을 갱신할 책임을 지는지가 한 자리에 정해져 있어야** 중복이 안전해진다.
+- 그리고 바깥 시스템과의 경계에서는 중복이 불가피하다고 못 박는다 — **당신의 코드는 그 외부의
+  것에도 존재하는 지식을 가져야 한다. API를, 또는 스키마를, 또는 오류 코드의 의미를 알아야 한다.
+  한쪽 끝에서 그것을 바꾸면 다른 쪽 끝이 깨진다** (Topic 9).[^thomas2020] 이 페이지가 다루는
+  파생 파이프라인은 그 "양 끝"이 실제로 깨지는 자리이며, 완화책도 같은 종류다 — 스키마를 정본
+  한 곳에서 읽어 코드를 생성하는 것이다.
+
 ## 이어지는 페이지
 
 - [데이터 통합](../concepts/data-integration.md) — 이 구분을 여러 저장 시스템에 걸쳐 실제로
@@ -162,6 +192,7 @@ sources:
   삼았을 때의 이점과 함정
 - [정규화와 비정규화](../concepts/normalization-and-denormalization.md) — 비정규화가 파생
   데이터로 읽히는 자리
+- [DRY 원칙](../concepts/dry-principle.md) — 같은 규칙의 코드·문서·API 판
 - [소셜 네트워크 홈 타임라인 사례](../concepts/social-network-home-timelines.md) — 파생 데이터
   갱신 절차의 가장 구체적인 실물
 - [EDW](../concepts/enterprise-data-warehouse.md) — 운영계/분석계 분리라는 다른 축
@@ -176,3 +207,5 @@ sources:
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 3장 "Data Models and Query Languages" · 13장 "A Philosophy of Streaming Systems"
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절
+
+[^thomas2020]: Thomas & Hunt 2020, Topic 9 "DRY—The Evils of Duplication"

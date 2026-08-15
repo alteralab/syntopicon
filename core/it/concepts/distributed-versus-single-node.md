@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
+  - { id: reis2022, resource: /it/sources/reis2022.md }
 ---
 
 # 분산 시스템과 단일 노드
@@ -479,6 +480,21 @@ p.243):[^kleppmann2026]
   데이터베이스가 샤딩과 합의 프로토콜을 결합해 규모에서 강한 ACID 보장을 제공한다** (8장,
   p.279).[^kleppmann2026]
 
+## 저장 쪽에서 같은 갈림을 말하면
+
+- 언제 분산으로 가는가 — **데이터 저장과 접근 패턴이 더 복잡해지고 단일 서버의 유용성을 넘어
+  자라면서 데이터를 하나 넘는 서버로 분산하는 것이 필요해진다. 데이터는 여러 서버에 저장될 수
+  있으며 이를 분산 저장(distributed storage)이라 한다. 이는 데이터를 분산된 방식으로 저장하는
+  것이 목적인 분산 시스템이다** (6장, p.198).[^reis2022]
+- 무엇을 조율하는가 — **분산 저장은 데이터를 더 빠르게 더 큰 규모로 저장·회수·처리하기 위해
+  여러 서버의 활동을 조율하며, 서버가 이용 불가능해질 경우를 대비한 중복성도 제공한다. 분산 저장은
+  대량의 데이터에 대한 내장 중복성과 확장성을 원하는 아키텍처에서 흔하다. 예컨대 오브젝트 저장,
+  Apache Spark, 클라우드 데이터 웨어하우스가 분산 저장 아키텍처에 의존한다** (6장,
+  p.198).[^reis2022]
+- 그리고 따라오는 조건 — **데이터 엔지니어는 자기가 쓰는 분산 시스템의 일관성 패러다임을 늘
+  알고 있어야 한다** (6장, p.198).[^reis2022] 그 패러다임은
+  [일관성 모델](../concepts/consistency-models.md)에 있다.
+
 ## 이어지는 페이지
 
 - [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md) — 그 원자성을 실제로 얻는
@@ -513,3 +529,4 @@ p.243):[^kleppmann2026]
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 2장 "Defining Nonfunctional Requirements" · 6장 "Replication" · 7장 "Sharding" · 8장 "Transactions"
 [^petrov2019]: Petrov 2019, Part II 도입 "Distributed Systems" · 8장 "Introduction and Overview" · Part II 결론"
+[^reis2022]: Reis & Housley 2022, 6장 "Storage"

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 스트림 처리의 결함 내성
-description: 끝나지 않는 잡에서 실패한 태스크의 부분 출력을 어떻게 버리는가 — 배치가 쓰던 "끝날 때까지 출력을 감춘다"가 무한 스트림에서 성립하지 않는 이유, 스트림을 작은 배치로 자르는 마이크로배칭과 배리어로 스냅샷을 뜨는 체크포인팅, 프레임워크 바깥으로 출력이 나가는 순간 그 둘이 부족해지는 지점, 좁은 환경에서만 되는 원자적 커밋, 그리고 멱등성이 요구하는 전제 넷
+description: 끝나지 않는 잡에서 실패한 태스크의 부분 출력을 어떻게 버리는가 — 배치가 쓰던 "끝날 때까지 출력을 감춘다"가 무한 스트림에서 성립하지 않는 이유, 스트림을 작은 배치로 자르는 마이크로배칭과 배리어로 스냅샷을 뜨는 체크포인팅, 프레임워크 바깥으로 출력이 나가는 순간 그 둘이 부족해지는 지점, 좁은 환경에서만 되는 원자적 커밋, 멱등성이 요구하는 전제 넷, 그리고 그 기제를 패턴으로 세운 Checkpointer — 무엇을 어디에 기록하는가의 두 갈래, 지연과 보장의 맞교환, 체크포인트 위치가 정하는 세 전달 모드
 generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
 ---
 
 # 스트림 처리의 결함 내성
@@ -15,6 +16,7 @@ sources:
 - [원자적 커밋 다시](#원자적-커밋-다시)
 - [멱등성](#멱등성)
 - [실패 후 상태 다시 만들기](#실패-후-상태-다시-만들기)
+- [체크포인팅을 패턴으로 세우면 — Checkpointer](#체크포인팅을-패턴으로-세우면--checkpointer)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **잡이 끝나지 않는데 실패한 태스크의 부분 출력을 어떻게 버리는가.**
@@ -126,10 +128,103 @@ sources:
   보편적으로 이상적인 해법은 없으며, 로컬 상태 대 원격 상태의 우열도 저장과 네트워킹 기술이 진화하면서
   바뀔 수 있다** (12장, p.529).[^kleppmann2026]
 
+## 체크포인팅을 패턴으로 세우면 — Checkpointer
+
+위 절들이 체크포인팅을 **결함 내성의 한 기제**로 놓았다면, Konieczny는 그것을 오류 관리
+카탈로그의 마지막 패턴으로 놓고 **무엇을 어디에 기록하며 그 대가가 무엇인지**를 정리한다.
+
+- 왜 스트림에서 특히 중요한가 — **치명적 오류는 스트림 처리에서 특히 결정적이다. 이 애플리케이션들은
+  흔히 추가 전용 로그에 저장되는, 연속적으로 도착하는 이벤트 위에서 작동한다. 다르게 말해 배치
+  파이프라인처럼 그냥 재시작할 수 없다. 데이터셋이 다음에 무엇을 처리할지 알아내게 도와줄 파티션
+  같은 특정한 조직 구조를 갖고 있지 않기 때문이다** (3장, p.74).[^konieczny2025]
+- 무엇을 추적하는가 — **과거 데이터의 재처리를 피하려면 잡이 소비된 데이터 원천에서의 가장 최근
+  위치와 계산된 상태를 추적해야 한다. Checkpointer 패턴이 이 추적 기제를 구현한다** (3장,
+  p.74).[^konieczny2025] **위치만이 아니라 상태도 대상**이라는 점이 이 패턴의 범위다.
+- 정의 — **체크포인팅은 데이터 처리 과정을, 재시작하면 바뀔 수 있는 잡의 환경보다 더 영속적인
+  저장에 기록하는 것으로 구성된다** (3장, p.75).[^konieczny2025]
+- 어디에 기록하는가는 컨슈머 로직에 달렸고 두 갈래다 (3장, p.75):[^konieczny2025]
+  - **데이터 처리 프레임워크 기반** — **프레임워크 자신이 관리하는 환경에 진행 정보가 기록될 수
+    있다. Apache Spark Structured Streaming과 Apache Flink가 훌륭한 예다. 완전한 진행 추적
+    관리와 함께 복원력 있는 오브젝트 저장에 진행 메타데이터를 저장한다.**
+  - **데이터 저장 기반** — **데이터 저장 SDK를 쓴다면 체크포인트 정보를 위해 데이터 저장 계층과
+    상호작용할 수 있다. 한 예가 체크포인트 데이터를 Apache Kafka 토픽(`__consumer_offsets`)에
+    영속화하는 Apache Kafka SDK, 또는 Amazon DynamoDB 테이블에 체크포인트를 쓰는 Amazon Kinesis
+    Client Library(KCL)다.** 카프카 쪽 실물은
+    [오프셋 커밋 전략](../concepts/kafka-offset-commit-strategies.md)에 있다.
+- 체크포인팅 연산 자체의 구현도 둘이다 (3장, p.75):[^konieczny2025]
+  - **설정 주도** — **체크포인팅 빈도만 설정하고 실행은 라이브러리에 위임한다. Apache Spark
+    Structured Streaming과 Apache Flink가 그렇게 작동한다.**
+  - **의도적 체크포인팅** — **코드에서의 의도적 체크포인팅 액션에 의존한다. 레코드를 읽고 처리한
+    뒤 다음 실행에서 같은 데이터를 받지 않도록 이 연산을 확인하는 것이 당신 책임이다. 커밋
+    메서드를 가진 Apache Kafka 커스텀 컨슈머가 그 예다.**
+- 대가 ① **전달 보장 대 지연 맞교환** — **위치 추적은 지연 면에서 비싼 연산이 아니다. 각 입력
+  파티션에 대해 메모리에 숫자 몇 개를 누적하고 가끔 영속 저장에 그것들을 영속화할 뿐이다. 그러나
+  패턴은 사용자 세션 같은 상태 있는 애플리케이션의 경우 상태에도 적용된다. 상태를 추적하는 것은
+  더 큰 지연 영향을 가질 수 있다. 상태가 그 숫자 위치들보다 여러 배 클 것이기 때문이다** (3장,
+  p.75).[^konieczny2025]
+  - 균형점 — **체크포인트가 잦을수록 체크포인트 생성 오버헤드 때문에 잡이 느려진다. 덜 잦은
+    체크포인트를 택하면 잡은 메타데이터를 다루는 데 시간을 덜 쓰지만, 실패 시 재처리할 데이터가
+    더 많아질 수 있다** (3장, pp.75–76).[^konieczny2025]
+- 대가 ② **정확히 한 번이라는 느낌** — 이 항목이 위
+  [효과적으로 한 번](#효과적으로-한-번) 절과 정면으로 맞물린다 (3장,
+  p.76):[^konieczny2025]
+
+  > The pattern gives you the exactly-once delivery feeling, but it's just an impression.
+  > The first reason for this is the distributed character of the job. There could be
+  > multiple tasks working in parallel and in an asynchronous manner. If one of them fails
+  > in the middle of the work before triggering the checkpoint, the restart will involve
+  > retries and reprocessing of the already successful records.
+
+  - 그래서 저자의 결론 — **정확히 한 번 전달을 달성하려면 다음 장에 제시된 멱등성 패턴 중 하나를
+    적용해야 한다. 체크포인팅만으로는 충분하지 않을 것이다** (3장, p.76).[^konieczny2025]
+- 체크포인트의 **위치가 전달 모드를 정한다**는 것이 저자의 세 모드 정리다 (3장,
+  p.76):[^konieczny2025]
+
+  | 모드 | 체크포인트를 언제 뜨는가 | 결과 |
+  |---|---|---|
+  | 정확히 한 번(exactly once) | — | **생산자가 레코드를 데이터 저장에 한 번만 전달하는 전달 모드. 4장의 멱등성 패턴으로 달성할 수 있는 완벽한 시나리오** |
+  | 최소 한 번(at least once) | **처리(따라서 쓰기) 뒤** | **재시도의 경우 중복을 생성할 수 있다** |
+  | 최대 한 번(at most once) | **처리 전** | **처리 실패의 경우 데이터를 잃는 것을 수반한다** |
+
+- 구현 — Spark Structured Streaming은 `checkpointLocation` 속성으로 체크포인트 저장을 정의하고
+  **잡 시작 뒤 처리된 모든 오프셋을 그 아래 메타데이터 파일에 쓴다. 쓰인 파일은 실행된 잡 반복마다
+  이름이 붙는다** (3장, p.76).[^konieczny2025] 파일 내용은
+  `{"visits":{"1":1276,"0":1224}}` 같은 파티션별 오프셋이다 (3장,
+  p.77).[^konieczny2025]
+  - **Spark는 잡 반복마다 오프셋을 쓴다. 이 규칙성은 오버헤드를 더하지만 더 강한 보장을 제공하고
+    재시작 시 중복 처리 위험을 줄인다. 또 다른 스트림 처리 프레임워크인 Apache Flink는 조금 다르게
+    작동한다. 잡 반복의 모드를 따르지 않고 대신 시간에 기반한다** (3장,
+    p.77).[^konieczny2025]
+  - Flink 설정이 이 패턴의 대표 코드다 (3장, p.77):[^konieczny2025]
+
+    ```python
+    checkpoint_interval_30_sec = 30000
+    env.enable_checkpointing(checkpoint_interval_30_sec, mode=EXACTLY_ONCE)
+
+    (env.get_checkpoint_config().enable_externalized_checkpoints(RETAIN_ON_CANCELLATION))
+    ```
+
+    - `RETAIN_ON_CANCELLATION`은 **Flink에게 잡 실패 뒤에도 체크포인트된 파일을 유지하라고
+      요청한다. 기본적으로 체크포인트 위치는 잡 인스턴스에 묶여 있고 Flink는 잡이 재시작될
+      때마다 그것을 제거한다** (3장, p.77).[^konieczny2025]
+    - `EXACTLY_ONCE` 체크포인트 모드는 **윈도 카운터 같은 상태 있는 연산에 영향을 준다. 스니펫의
+      설정은 각 입력 레코드가 상태에 한 번 반영됨을 보장한다. 카운터의 경우 어떤 재시작도 원소를
+      두 번 세는 것으로 이어지지 않는다는 뜻이다** (3장, p.77).[^konieczny2025]
+- 비동기 체크포인트 — **Apache Spark 3.4.0이 마이크로배치와 동기화되지 않는 비동기 체크포인트
+  지원을 도입했다. 이 책을 쓰는 시점(2024)에 그 기능은 여전히 실험적이고, 오픈 소스 버전은 상태
+  저장을 지원하지 않는다** (3장, p.77).[^konieczny2025]
+  - 버전 조건: Spark 3.4.0 이상 — 그 아래 릴리스에는 비동기 체크포인트 자체가 없다.
+  - #hypothesis "실험적·상태 저장 미지원"은 2024년 시점의 관측이므로 이후 릴리스에서 바뀌었을 수
+    있다. 확인 경로는 Structured Streaming 릴리스 노트다.
+
 ## 이어지는 페이지
 
-- [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 이름과 보장의 층위를
-  가르는 논의
+- [늦은 데이터 통합](../concepts/late-data-integration.md) — 같은 장의 앞 계열이자, 체크포인트가 지키는 그
+  상태를 늦은 데이터가 다시 여는 문제
+- [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 중복 제거 패턴이 붙은 자리
+- [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 같은 장의 첫 계열
+- [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 패턴이
+  속한 카탈로그
 - [카프카 트랜잭션](../concepts/kafka-transactions.md) — "좁은 환경의 원자적 커밋" 중 하나의 실물
 - [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md) — 그 반대편
 - [멱등적 프로듀서](../concepts/kafka-idempotent-producer.md) — 같은 멱등성을 프로듀서 쪽에서
@@ -140,3 +235,6 @@ sources:
   제공하는 쪽
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
+
+[^konieczny2025]: Konieczny 2025, 3장 "Error Management Design Patterns" — "Fault
+Tolerance"(pp.74–77). 코드 펜스는 예제 3-27을 조판 줄바꿈만 정돈한 것이다.
