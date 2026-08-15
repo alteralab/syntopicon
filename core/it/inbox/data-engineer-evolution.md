@@ -3,7 +3,7 @@ type: concept
 title: 데이터 엔지니어의 진화
 status: draft
 description: "데이터 웨어하우징(1980–2000)에서 빅데이터(2000–2010년대)를 거쳐 수명 주기 엔지니어링(2020년대)에 이르는 40년 — 빅데이터라는 낱말이 왜 유물이 됐는가, 무엇이 남았는가, 그리고 2022년의 저자들이 내다본 역할의 다음 변형(도구 단순화·엔터프라이지화·직함의 융합)"
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T06:40:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
@@ -275,6 +275,28 @@ p.6).[^reis2022]
   [도메인 소유권 원칙](../concepts/domain-ownership-principle.md)과
   [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md)에 있다.
 
+### 같은 저자가 16장에서 내놓는 행선지
+
+위 진단이 **어디로 가는가**까지 적히는 것이 이 소스의 마지막 장이다. 예측이 아니라 배치표다.
+
+- 데이터 전문가의 자리 — **데이터 전문가 — 데이터 엔지니어나 데이터 과학자 — 다수가 도메인 교차
+  기능 팀에 합류할 것이다. 그들은 종단 결과를 전달하는 스트림 정렬 팀에서 일할 것이다. **그들은
+  더 이상 하나의 고립된 단계에서 일하지 않는다.** 이것은 소프트웨어 공학 실무·기술을 써서 더
+  긴밀한 협업과 통합을 뜻한다. 교육 프로그램은 데이터 전문가가 코딩·테스팅·지속적 전달 같은
+  소프트웨어 공학 실무를 배우도록 도와야 한다** (16장, p.329).[^dehghani2022]
+- 기대치의 상한이 양쪽에 명시된다 — **데이터 메시는 사람들이 데이터 전문가가 되기를 기대하지
+  않지만, **자기 데이터의 전문가**가 되기를 기대한다. (…) 비슷하게 **데이터 전문가가 소프트웨어
+  엔지니어와 나란히, 그리고 흐름 안에서 일하며** 데이터를 관리하고·적용하고·공유할 때 소프트웨어
+  공학의 에버그린 실무를 익히기를 기대한다** (16장, p.328).[^dehghani2022]
+- **소멸하는 역할도 명시된다** — 데이터 커스터디언(data custodian)에 대해 **이 역할은
+  폐지(deprecated)되고 도메인의 데이터 프로덕트 개발자 역할로 옮겨진다**고 적고, 데이터
+  스튜어드는 **도메인의 데이터 프로덕트 소유자**가 되거나 **플랫폼으로 옮겨 데이터 품질 테스트·
+  관측 가능성·복구를 자동화하는 전문가**가 된다고 적는다 (16장, p.326).[^dehghani2022]
+- 위 Reis·Housley의 "데이터 엔지니어가 가치 사슬의 더 높은 곳으로 옮긴다"와 대조하면, Dehghani
+  쪽은 **위가 아니라 옆으로** 옮긴다 — 전문성의 계층이 올라가는 것이 아니라 도메인 팀 안으로
+  분산된다. 역할 전체의 지도는
+  [데이터 메시의 역할과 역량](../concepts/data-mesh-roles-and-skills.md)에 있다.
+
 ## 이어지는 페이지
 
 - [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md) —
@@ -294,4 +316,4 @@ p.6).[^reis2022]
 [^reis2022]: Reis & Housley 2022, 1장 "Data Engineering Described" · 11장 "The Future of Data
     Engineering"
 
-[^dehghani2022]: Dehghani 2022, 8장 "Before the Inflection Point"
+[^dehghani2022]: Dehghani 2022, 8장 "Before the Inflection Point" · 16장 "Organization and Culture"

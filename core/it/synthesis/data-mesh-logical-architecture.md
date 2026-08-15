@@ -74,6 +74,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T23:50:00Z" }
 - [데이터 프로덕트 아키텍처](data-product-architecture.md) — 이 아키텍처의 구성 요소 안쪽을
   어포던스별로 설계하는 쪽(4부)
 - [데이터 메시 원칙](data-mesh-principles.md) — 이 아키텍처가 형태를 따르는 기능 쪽
+- [데이터 메시 실행과 조직](data-mesh-execution-and-organization.md) — 이 아키텍처를 실제
+  조직에서 세워 나가는 층(5부)
 - [데이터플로 아키텍처](dataflow-architecture.md) — 같은 분산을 이벤트 로그로 잇는 쪽
 - [데이터 엔지니어링 수명 주기](data-engineering-lifecycle.md) — 이 아키텍처가 데이터 프로덕트
   안으로 감추는 단계들

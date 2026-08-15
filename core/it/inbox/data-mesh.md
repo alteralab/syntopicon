@@ -463,6 +463,10 @@ sources:
 - [데이터 메시 원칙](../synthesis/data-mesh-principles.md) — 네 원칙 전용 페이지를 모은 허브
 - [데이터 메시 논리 아키텍처](../synthesis/data-mesh-logical-architecture.md) — 이 원칙들이
   아키텍처 구성 요소가 되는 층(3부)을 모은 형제 허브
+- [데이터 프로덕트 아키텍처](../synthesis/data-product-architecture.md) — 데이터 프로덕트
+  내부를 여덟 어포던스로 설계하는 층(4부)을 모은 형제 허브
+- [데이터 메시 실행과 조직](../synthesis/data-mesh-execution-and-organization.md) — 이 전부를
+  실제 조직에서 굴리는 층(5부)을 모은 형제 허브 — 채택 심사·진화 단계·적합성 함수·팀 토폴로지
 - [데이터 퀀텀](../concepts/data-quantum.md) — 여기서 개관만 적은 아키텍처 단위의 전용 페이지
 - [분석 데이터 관리의 변곡점](../concepts/data-mesh-inflection-point.md) — "왜 지금인가"의
   다섯 거시 동인

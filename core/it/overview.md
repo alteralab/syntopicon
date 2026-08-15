@@ -32,6 +32,8 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
 - [데이터 메시 원칙](synthesis/data-mesh-principles.md) — 중앙집중 분석 플랫폼을 도메인 소유권으로 뒤집는 제안의 네 원칙
 - [데이터 메시 논리 아키텍처](synthesis/data-mesh-logical-architecture.md) — 그 원칙을 구성 요소로 옮긴 층: 데이터 퀀텀과 그 포트, 세 플레인 플랫폼
+- [데이터 프로덕트 아키텍처](synthesis/data-product-architecture.md) — 데이터 프로덕트 내부를 여덟 어포던스로 설계하는 층
+- [데이터 메시 실행과 조직](synthesis/data-mesh-execution-and-organization.md) — 그 전부를 실제 조직에서 굴리는 층: 채택 심사·진화 단계·적합성 함수·팀 토폴로지
 - [비기능 요건](synthesis/nonfunctional-requirements.md) — 성능·신뢰성·확장성·유지보수성을 정의하는 어휘
 - [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조, B-트리 대 LSM의 대비, 분석용 열 저장과 색인들

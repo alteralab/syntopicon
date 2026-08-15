@@ -100,6 +100,8 @@ generated: { by: "claude-opus-5", at: "2026-08-16T04:05:00Z" }
 
 - [데이터 메시 논리 아키텍처](data-mesh-logical-architecture.md) — 이 설계가 채우는 구성 요소들
 - [데이터 메시 원칙](data-mesh-principles.md) — 이 설계가 형태를 따르는 기능 쪽
+- [데이터 메시 실행과 조직](data-mesh-execution-and-organization.md) — 이 데이터 프로덕트를
+  실제로 만들 팀과 그 경계를 정하는 층(5부)
 - [데이터 엔지니어링 수명 주기](data-engineering-lifecycle.md) — 이 설계가 데이터 프로덕트 안으로
   감추는 단계들
 - [차원 모델링 기법](dimensional-modeling-techniques.md) — 조합과 이력화에서 정면으로 갈리는 계열

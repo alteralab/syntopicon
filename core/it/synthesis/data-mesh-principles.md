@@ -74,6 +74,9 @@ generated: { by: "claude-opus-5", at: "2026-08-16T03:00:00Z" }
 
 - [데이터 메시 논리 아키텍처](data-mesh-logical-architecture.md) — 이 원칙들이 아키텍처
   구성 요소가 되는 층(3부): 데이터 퀀텀과 그 포트, 세 플레인 플랫폼
+- [데이터 프로덕트 아키텍처](data-product-architecture.md) — 데이터 프로덕트 내부 설계 층(4부)
+- [데이터 메시 실행과 조직](data-mesh-execution-and-organization.md) — 이 원칙들을 실제
+  조직에서 굴리는 층(5부): 채택 심사·진화 단계·적합성 함수·팀 토폴로지
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 이 선택이
   놓이는 상위 축
 - [데이터 엔지니어링 수명 주기](data-engineering-lifecycle.md) — 이 제안이 "도메인 내부
