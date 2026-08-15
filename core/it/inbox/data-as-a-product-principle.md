@@ -344,7 +344,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [데이터 메시](../concepts/data-mesh.md) — 네 원칙 전체의 개관, 데이터 퀀텀의 정의
+- [데이터 메시](../concepts/data-mesh.md) — 네 원칙 전체의 개관
+- [데이터 퀀텀](../concepts/data-quantum.md) — 이 원칙이 아키텍처 단위가 되는 자리(9장)
+- [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md) — 여덟
+  사용성 속성이 실제 인터페이스로 내려오는 자리
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md) — 이 원칙이 답하는 부작용을
   낳는 첫째 원칙
 - [데이터 프로덕트](../concepts/data-products.md) — 같은 낱말을 서빙 단계의 산출물로 보는 쪽

@@ -195,6 +195,8 @@ Reis & Housley는 같은 문제를 웨어하우스 절차가 아니라 데이터
 - [마스터 데이터 관리](../concepts/master-data-management.md) — 골든 레코드가 품질 문제에 답하는 자리
 - [제품으로서의 데이터 원칙](../concepts/data-as-a-product-principle.md) — 품질을 제공자의
   공표 계약(SLO)으로 만드는 쪽
+- [데이터 퀀텀](../concepts/data-quantum.md) — 정화를 하류 파이프라인 단계가 아니라 상류의
+  책임으로 옮기는 쪽. 처방이 갈리며, 조건은 상류가 데이터 프로덕트로서 품질을 보증하는가다
 
 [^linstedt2016]: Linstedt & Olschimke 2016, 13장 "Implementing Data Quality"
 

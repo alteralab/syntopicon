@@ -870,6 +870,8 @@ sources:
 ## 이어지는 페이지
 
 - [데이터 메시](../concepts/data-mesh.md) — 네 원칙 전체의 개관과 이 원칙의 자리
+- [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md) — 이 원칙의
+  정책이 실제로 실행되는 자리(사이드카·제어 포트)와 그 아키텍처
 - [셀프서브 데이터 플랫폼 원칙](../concepts/self-serve-data-platform-principle.md) — 이 원칙의
   정책을 실제로 실행하는 셋째 원칙
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md) — 이 거버넌스가 균형을 잡아야

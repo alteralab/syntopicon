@@ -120,7 +120,9 @@ sources:
 - 둘째 원칙은 새 논리 아키텍처 단위도 도입한다 — **제품으로서의 데이터는 데이터 퀀텀(data
   quantum)이라는 새 논리 아키텍처 단위를 도입한다. 이것은 데이터를 제품으로 공유하는 데
   필요한 모든 구조적 구성 요소 — 데이터·메타데이터·코드·정책·인프라 의존성 선언 — 를 자율적으로
-  통제하고 캡슐화한다** (1장, p.7).[^dehghani2022]
+  통제하고 캡슐화한다** (1장, p.7).[^dehghani2022] 원전이 9장 한 장으로 이 단위를 정의하므로
+  깊이는 [데이터 퀀텀](../concepts/data-quantum.md)이 받는다 — 여기 남는 것은 1장·프롤로그의
+  개관뿐이다.
   - 그 단위의 성질은 **아키텍처 퀀텀**(architecture quantum) — **독립적으로 배포될 수 있으면서
     자기 일을 하는 데 필요한 구조적 구성 요소를 전부 갖춘, 아키텍처의 가장 작은 단위**
     (프롤로그, p.xxxv).[^dehghani2022] 확장 방식은 이 정의에서 바로 따라 나온다 — **동등한
@@ -459,6 +461,9 @@ sources:
 - [연합 컴퓨테이셔널 거버넌스 원칙](../concepts/federated-computational-governance-principle.md) —
   넷째 원칙. 중앙 관문 없이 전역의 보안·법규·상호운용성을 어떻게 보증하는가
 - [데이터 메시 원칙](../synthesis/data-mesh-principles.md) — 네 원칙 전용 페이지를 모은 허브
+- [데이터 메시 논리 아키텍처](../synthesis/data-mesh-logical-architecture.md) — 이 원칙들이
+  아키텍처 구성 요소가 되는 층(3부)을 모은 형제 허브
+- [데이터 퀀텀](../concepts/data-quantum.md) — 여기서 개관만 적은 아키텍처 단위의 전용 페이지
 - [분석 데이터 관리의 변곡점](../concepts/data-mesh-inflection-point.md) — "왜 지금인가"의
   다섯 거시 동인
 - [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md) —

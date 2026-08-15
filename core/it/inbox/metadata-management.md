@@ -241,6 +241,8 @@ Data Vault 2.0의 3종 분류와 층위가 다른 분류가 하나 더 있다. R
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 메타데이터가 "모든 절을 떠받친다"고 말해지는 그 수명 주기
 - [제품으로서의 데이터 원칙](../concepts/data-as-a-product-principle.md) — 발견 가능성 정보를
   데이터 프로덕트가 스스로 내놓게 하는 쪽
+- [데이터 퀀텀](../concepts/data-quantum.md) — 저자가 metadata라는 낱말 자체를 기피하고 그
+  범주를 데이터 프로덕트 인터페이스 계약으로 흩는 자리(9장)
 
 [^linstedt2016]: Linstedt & Olschimke 2016, 10장 "Metadata Management" · 8장 "Physical Data Warehouse Design"
 
