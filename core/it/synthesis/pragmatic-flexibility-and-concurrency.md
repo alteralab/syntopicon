@@ -20,7 +20,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
 여기 모인 것은 Dave Thomas & Andy Hunt, *The Pragmatic Programmer* 20주년 기념판의 **5장
 Bend, or Break(Topic 28–32)와 6장 Concurrency(Topic 33–36)** 다. 1·2장은
 [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에, 3·4장은
-[실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md)에 있고, 7장 이후는 아직
+[실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md)에, 7장은
+[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는 아직
 반입되지 않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
 
 **셋째 허브를 세운 이유**: 앞의 두 허브가 **개발자의 태도·설계 원칙**(1·2장)과 **작업 환경·코드에
@@ -134,6 +135,8 @@ RxJs 실행 화면 둘, 타입 계층 다이어그램, 도도 삽화, 피냐 콜
   원칙 층
 - [실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md) — 같은 소스의 3·4장.
   작업 환경과 코드에 심는 방어
+- [코딩하는 동안](pragmatic-coding-practice.md) — 같은 소스의 7장. 이 허브의 결합 끊기를 실제로
+  실행하는 절차(리팩터링)와, 결합을 재는 새 계측기(테스트 가능성)가 거기 있다
 - [자바 메모리 모델과 동시성](java-memory-model-and-concurrency.md) — 6장의 처방이 딛고 서는
   기제 층. 이 축이 "무엇을 고를 것인가"라면 그쪽은 "그것이 어떻게 동작하는가"다
 - [스트림 처리](stream-processing.md) — Topic 29의 스트림과 Topic 36의 칠판이 인프라 규모로

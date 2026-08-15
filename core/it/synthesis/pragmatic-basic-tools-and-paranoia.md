@@ -19,7 +19,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 여기 모인 것은 Dave Thomas & Andy Hunt, *The Pragmatic Programmer* 20주년 기념판의 **3장 The
 Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2장은 형제 허브인
 [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에, 5·6장은
-[실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에 있고, 7장 이후는 아직
+[실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에, 7장은
+[코딩하는 동안](pragmatic-coding-practice.md)에 있고, 8장 이후는 아직
 반입되지 않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
 
 **형제 허브를 새로 세운 이유**: 1·2장이 **개발자의 태도와 설계 원칙**이라면 3·4장은 **매일의
@@ -111,6 +112,9 @@ Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2
   원칙 층
 - [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md) — 같은 소스의 5·6장.
   이 허브의 방어(계약·일찍 죽기·리소스 균형)가 결합 끊기와 동시성 처방으로 이어지는 자리
+- [코딩하는 동안](pragmatic-coding-practice.md) — 같은 소스의 7장. 이 허브의 계약과 단정문이
+  거기서 테스트의 대상이 되고(계약에 대한 테스트·속성), 이 허브의 디버깅이 거기서 "가정하지 말고
+  증명하라"로 되돌아온다
 - [비기능 요건](nonfunctional-requirements.md) — 신뢰성·유지보수성을 시스템 속성의 어휘로 정의하는
   축. 4장의 편집증이 개별 코드에서 하는 일을 시스템 수준에서 정의한다
 - [인코딩과 진화](encoding-and-evolution.md) — 평문 대 이진의 선택이 시스템 사이 인코딩 문제로

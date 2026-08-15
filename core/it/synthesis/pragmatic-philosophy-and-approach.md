@@ -20,8 +20,9 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 20주년 기념판(Addison-Wesley, 2020)의 **1장 A Pragmatic Philosophy(Topic 1–7)와 2장 A
 Pragmatic Approach(Topic 8–15)** 뿐이다. **3·4장(도구·실용주의 편집증)은 형제 허브인
 [실용주의의 기본 도구와 편집증](pragmatic-basic-tools-and-paranoia.md)에, 5·6장(유연성·동시성)은
-[실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에 있고**, 그 뒤의
-장(코딩 중·프로젝트 이전·프로젝트)은 아직 반입되지 않았다 — 재개점은
+[실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에, 7장(코딩 중)은
+[코딩하는 동안](pragmatic-coding-practice.md)에 있고**, 그 뒤의
+장(프로젝트 이전·프로젝트)은 아직 반입되지 않았다 — 재개점은
 `it/archive/thomas2020/_progress.yaml`이 정본이다.
 
 **이 KB에서 새 축이다.** 지금까지 쌓인 것은 시스템 지식(데이터베이스·스트리밍·JVM·
@@ -116,6 +117,8 @@ Pragmatic Approach(Topic 8–15)** 뿐이다. **3·4장(도구·실용주의 편
   심는 방어(계약·일찍 죽기·단정문·리소스 균형·작은 걸음)다
 - [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md) — 같은 소스의 5·6장.
   이 허브의 원칙(ETC·직교성·가역성)이 구체적인 코드 구조 처방으로 바뀌는 자리
+- [코딩하는 동안](pragmatic-coding-practice.md) — 같은 소스의 7장. 이 허브의 ETC가 이름 짓기의
+  최종 심급으로, 지식 포트폴리오와 소통이 테스트·용어집으로 되돌아오는 자리
 - [비기능 요건](nonfunctional-requirements.md) — 같은 목표(유지보수성·진화성)를 시스템
   속성의 어휘로 정의하는 축
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 되돌릴 수
