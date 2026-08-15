@@ -8,6 +8,7 @@ sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
 ---
 
 # 서비스 수준 목표
@@ -18,6 +19,7 @@ sources:
 - [SLO로 경보를 거는 법](#slo로-경보를-거는-법)
 - [같은 어휘를 백분위로 쓰는 서술](#같은-어휘를-백분위로-쓰는-서술)
 - [데이터 제품에 거는 세 번째 서술](#데이터-제품에-거는-세-번째-서술)
+- [데이터 파이프라인에서 SLA를 재는 두 시계](#데이터-파이프라인에서-sla를-재는-두-시계)
 - [장애의 정의가 SLO에 기대는 자리](#장애의-정의가-slo에-기대는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -206,6 +208,36 @@ sources:
   사실이 충돌하지 않으므로 `contradicts`를 달지 않는다(PLAN §2.1). 데이터 제품 쪽 맥락은
   [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md)에 있다.
 
+## 데이터 파이프라인에서 SLA를 재는 두 시계
+
+위 두 절이 SLA를 **어휘**로 다뤘다면, 데이터 파이프라인에서 그것을 **무엇으로 재는가**는 또 다른
+문제다. 카탈로그 쪽 소스가 그 측정을 SLA Misses Detector라는 이름으로 적는다.
+
+- 무엇을 단언하는가 — 이 패턴은 **주어진 워크플로의 실행 시간을 직접 단언하는 SLA 기반 해법**이고,
+  구현은 **처리 시간을 재어 허용된 최대 실행 시간과 비교하는 것**으로 이뤄진다. 배치 잡에서는
+  **끝난 시각과 시작 시각의 차이가 정의된 SLA 임계값보다 크면 그 실행이 SLA 미스로 표시된다**
+  (10장, pp.317–318).[^konieczny2025]
+- **재는 시계가 둘이고, 둘은 같은 땅을 덮지 않는다** — **처리 시각이 SLA 미스를 계산하는 흔한
+  측정 단위이자 가장 단순한 것이기는 하지만 유일한 것은 아니다. 이벤트 시각을 써서 데이터 생성과
+  처리 사이의 종단 간 지연을 파악할 수도 있다. (…) 그러나 실무에서 이벤트 시각을 다룰 때마다 늦은
+  데이터를 다룰 위험을 지는데, 그것은 SLA 관점에서는 당신 잘못이 아닐 수 있다** (10장,
+  p.319).[^konieczny2025]
+  - 그래서 저자의 처방은 분리다 — **처리 시각과 이벤트 시각 측면은 같은 땅을 덮지 않으며, SLA를
+    관측할 때 그 둘을 분리하는 것이 좋다** (10장, p.319).[^konieczny2025] 실무 수식으로는 처리
+    시각 SLA가 **레코드의 읽는 시각과 쓰는 시각의 차이**, 이벤트 시각 SLA가 **레코드 쓰기 시각에서
+    레코드 생성 시각을 뺀 것**이다.
+  - **이것이 위 [무엇이 좋은 SLI인가](#무엇이-좋은-sli인가)의 객관성 요구를 데이터 쪽에서 다시
+    말한 것이다** — 이벤트 시각 SLA는 상류 전달 사고까지 자기 지표에 넣으므로, 내 시스템의 신뢰성
+    지표로는 처리 시각 쪽이 더 정직하다. 대신 사용자가 체감하는 종단 간 신선도는 이벤트 시각 쪽만
+    답한다.
+- **SLA를 지켰다는 것이 뒤처지지 않았다는 뜻이 아니다** — 저자가 랙 측정과의 관계를 못 박는다:
+  **소비자가 언제나 같은 볼륨의 데이터를 처리하도록 처리량 제한 기제를 구현하면 잡은 SLA를 지킬
+  것이다. 그러나 치우친 파티션의 데이터가 들어오는 대로 처리되지 않으므로 랙은 계속 늘어날 것이다**
+  (10장, p.318).[^konieczny2025] 반대 방향도 마찬가지여서, 일간 상류를 받는 배치 잡은 **시작
+  시점에 랙이 없지만 완료에 너무 오래 걸리면 여전히 SLA를 놓칠 수 있다.**
+  - 두 측정의 전문과 나머지 두 탐지 패턴은
+    [관측 탐지 패턴](observability-detector-patterns.md)에 있다.
+
 ## 장애의 정의가 SLO에 기대는 자리
 
 - SLO는 모니터링만의 어휘가 아니다 — **장애(failure)는 시스템 전체가 사용자에게 요구되는 서비스
@@ -230,7 +262,11 @@ sources:
 - [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md) — 같은 어휘를 데이터 제품에
   거는 자리
 - [데이터 프로덕트](../concepts/data-products.md) — SLA가 걸리는 그 산출물
+- [관측 탐지 패턴](observability-detector-patterns.md) — 이 약속이 깨졌는지를 재는 네 탐지
+  패턴과, 랙과 SLA가 서로를 대신하지 못하는 이유
 
+[^konieczny2025]: Konieczny 2025, 10장 "Data Observability Design Patterns" —
+"Pattern: SLA Misses Detector"(pp.317–320)
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements"
 [^reis2022]: Reis & Housley 2022, 9장 "Serving Data for Analytics, Machine Learning, and Reverse ETL"
 [^shapira2021]: Shapira et al. 2021, 13장 "Monitoring Kafka" §"Service-Level Objectives"(pp.343–346) — 인용 블록은 pp.343–344 정의 문단 원문

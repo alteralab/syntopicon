@@ -208,6 +208,8 @@ Konieczny 9장의 마지막 범주인 **품질 관측**(Quality Observation)은 
   Parallel Split·Local Sequencer와 `all_done` 트리거 규칙
 - [스트림 처리의 결함 내성](stream-processing-fault-tolerance.md) — 지연 탐지가 읽는 그 체크포인트
 - [서비스 수준 목표](service-level-objectives.md) — 관측된 수치를 약속으로 바꾸는 쪽
+- [관측 탐지 패턴](observability-detector-patterns.md) — 다음 장. 여기 두 관측자가 SLA 지표를
+  모으는 수단으로 다시 불리고, 관측을 감사로 승격시키는 Skew Detector가 나오는 자리
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 두 패턴이
   속한 카탈로그
 
