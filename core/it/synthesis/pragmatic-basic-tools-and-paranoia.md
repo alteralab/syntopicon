@@ -12,14 +12,15 @@ generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 - [편집증 — 자기 실수에 대한 방어](#편집증--자기-실수에-대한-방어-4장) — 4장, Topic 23–27의 다섯 페이지
 - [기존 페이지에 합류한 것](#기존-페이지에-합류한-것) — 새 페이지가 아니라 절로 들어간 둘
 - [이 두 층이 서로를 부르는 자리](#이-두-층이-서로를-부르는-자리) — 책 자신이 그은 연결선
-- [이웃 허브](#이웃-허브)
+- [이웃 허브](#이웃-허브) — 이 두 층이 얹히는 형제·시스템 쪽 허브들
 
 ## 이 허브의 범위
 
 여기 모인 것은 Dave Thomas & Andy Hunt, *The Pragmatic Programmer* 20주년 기념판의 **3장 The
 Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2장은 형제 허브인
-[실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에 있고, 5장 이후는 아직 반입되지
-않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
+[실용주의 철학과 접근](pragmatic-philosophy-and-approach.md)에, 5·6장은
+[실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)에 있고, 7장 이후는 아직
+반입되지 않았다 — 재개점은 `it/archive/thomas2020/_progress.yaml`이 정본이다.
 
 **형제 허브를 새로 세운 이유**: 1·2장이 **개발자의 태도와 설계 원칙**이라면 3·4장은 **매일의
 작업 환경과 코드에 심는 방어**다. 질문의 종류가 다르고(무엇을 믿을 것인가 대 무엇으로 작업할
@@ -108,6 +109,8 @@ Basic Tools(Topic 16–22)와 4장 Pragmatic Paranoia(Topic 23–27)** 다. 1·2
 
 - [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md) — 같은 소스의 1·2장. 태도와 설계
   원칙 층
+- [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md) — 같은 소스의 5·6장.
+  이 허브의 방어(계약·일찍 죽기·리소스 균형)가 결합 끊기와 동시성 처방으로 이어지는 자리
 - [비기능 요건](nonfunctional-requirements.md) — 신뢰성·유지보수성을 시스템 속성의 어휘로 정의하는
   축. 4장의 편집증이 개별 코드에서 하는 일을 시스템 수준에서 정의한다
 - [인코딩과 진화](encoding-and-evolution.md) — 평문 대 이진의 선택이 시스템 사이 인코딩 문제로
