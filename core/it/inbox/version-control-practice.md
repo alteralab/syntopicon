@@ -145,6 +145,8 @@ sources:
   자체를 저장소에 넣는 자리
 - [유지보수성](maintainability.md) — 가역성(Topic 11)이 시스템 속성·아키텍트의 임무·개발자의
   일상 규칙 셋으로 놓인 자리
+- [실용주의 스타터 킷](pragmatic-starter-kit.md) — 같은 책 9장이 이 Topic을 프로젝트 층으로 옮기는
+  자리. 거기서 버전 관리는 이력 도구가 아니라 빌드·릴리스를 모는 트리거이며 세 다리의 첫째다
 - [실용주의의 기본 도구와 편집증](../synthesis/pragmatic-basic-tools-and-paranoia.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 19 "Version Control". 공유 디렉토리 곁글("Shared

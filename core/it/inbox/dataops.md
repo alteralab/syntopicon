@@ -150,5 +150,9 @@ sources:
 - [데이터 관리](../concepts/data-management-discipline.md) — 품질·계보가 DataOps와 만나는 자리
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 저류가 걸리는 다섯
   단계
+- [실용주의 스타터 킷](pragmatic-starter-kit.md) — 소프트웨어 쪽에서 같은 요구를 세 다리(버전
+  관리·회귀 테스트·전체 자동화)로 배열한 자리. 자동화 하나만 겹치고, 이쪽이 관측 가능성과 사고
+  대응을 둔 자리에 저쪽은 테스팅을 둔다 — 데이터는 입력을 통제할 수 없어 검사가 런타임으로 옮겨
+  간다는 차이다
 
 [^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle"

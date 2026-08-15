@@ -322,6 +322,8 @@ sources:
 ## 이어지는 페이지
 
 - [속성 기반 테스트](property-based-testing.md) — 이 Topic이 미룬 문제(내 편향이 테스트에도 들어간다)의 해법
+- [실용주의 스타터 킷](pragmatic-starter-kit.md) — 이 페이지가 범위 밖으로 미뤄 둔 "가차 없는
+  지속적 테스팅"(9장)의 회수처. 같은 테스트가 설계 피드백에서 프로젝트 기반 설비로 다시 세워진다
 - [계약에 의한 설계](design-by-contract.md) — 단위 테스트가 대상으로 삼는 계약의 어휘
 - [리팩터링](refactoring.md) — 테스트를 담보로 잡는 활동
 - [디버깅](debugging-practice.md) — 임시 테스트를 형식화하는 자리
