@@ -1,0 +1,60 @@
+# 질문지 조각 — Building a Scalable Data Warehouse with Data Vault 2.0 소스별
+# 조각 신설(2026-08-16). kimball2013과 마찬가지로 초판 dw-books.yaml에 섞여 있었을 뿐
+# 자기 조각이 없었다. 문항은 dw-books가 이미 덮은 자리(허브·새틀라이트·링크·업무 키·
+# 해시·스테이징·PIT·적재 패턴)를 피해, 이 소스의 방법론·운영·품질 쪽 페이지로 잡았다.
+source: linstedt2016
+added: 2026-08-16
+queries:
+  - id: dv-exact-1
+    query: "참조 테이블"
+    type: exact
+    description: "복합명사 — 코드·분류를 허브 밖에 두는 자리"
+    expected_files: ["concepts/reference-table.md"]
+    expected_in_top_k: 5
+  - id: dv-exact-2
+    query: "환경을 둘로 두고 무중단으로 바꿔 다는 배포"
+    type: exact
+    description: "활용형(바꿔 다는) — 블루그린 절"
+    expected_files: ["concepts/physical-data-warehouse-design.md"]
+    expected_in_top_k: 5
+  - id: dv-alias-1
+    query: "CMMI"
+    type: alias
+    description: "영문 약어 — 방법론이 섞어 쓰는 다섯 출처 중 하나"
+    expected_files: ["concepts/data-vault-methodology.md"]
+    expected_in_top_k: 5
+  - id: dv-alias-2
+    query: "computed satellite"
+    type: alias
+    description: "원어 유지 용어 — soft rule의 중간 결과가 사는 자리"
+    expected_files: ["concepts/business-vault.md"]
+    expected_in_top_k: 5
+  - id: dv-sem-1
+    query: "어느 시스템의 고객 기록이 진짜인지 회사 전체가 하나로 합의하는 일"
+    type: semantic
+    description: "패러프레이즈 — 마스터·골든 레코드 어휘 불사용"
+    expected_files: ["concepts/master-data-management.md"]
+    expected_in_top_k: 5
+  - id: dv-sem-2
+    query: "틀린 값을 반입에서 막지 않고 나중에 고치는 전략"
+    type: semantic
+    description: "패러프레이즈 — 품질·soft rule 어휘 불사용"
+    expected_files: ["concepts/data-quality-management.md"]
+    expected_in_top_k: 5
+  - id: dv-top-1
+    query: "웨어하우스 메타데이터를 어떤 범주로 나눠 관리하나"
+    type: topical
+    expected_files: ["concepts/metadata-management.md"]
+    expected_in_top_k: 5
+  - id: dv-top-2
+    query: "집계를 미리 계산해 격자로 두는 구조"
+    type: topical
+    description: "데이터 큐브와 구체화 뷰"
+    expected_files: ["concepts/data-cubes-and-materialized-views.md"]
+    expected_in_top_k: 5
+  - id: dv-x-1
+    query: "표준 차원과 Same-As Link는 같은 문제를 푸는가"
+    type: cross-domain
+    description: "두 방법론이 같은 문제(같은 실체의 여러 키)를 각자 다르게 푼 자리"
+    expected_files: ["concepts/conformed-dimension.md", "concepts/data-vault-link.md"]
+    expected_in_top_k: 5

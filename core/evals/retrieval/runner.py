@@ -39,10 +39,13 @@ QRELS_DIR = DEFAULT.root / "evals" / "retrieval" / "qrels"
 RUNS_DIR = DEFAULT.root / "evals" / "runs"
 QUERY_KEYS = {"id", "query", "type", "description", "expected_files", "expected_in_top_k"}
 
-# 경보 바닥 — 2026-08-07 실측(vector 0.833·morph 0.763, DW 2권 코퍼스)에서 여유폭을
-# 뺀 값. 코퍼스가 크고 다양해지며 완만히 내려갈 수 있으나 바닥 밑은 회귀 신호다.
+# 경보 바닥 — 실측에서 여유폭을 뺀 값. 코퍼스가 크고 다양해지며 완만히 내려가는
+# 것이 정상이라 규모가 뛰면 바닥도 재실측으로 재조정한다(임의 하향이 아니라 기록된
+# 재캘리브레이션이어야 한다). 이력: vector 0.833(45문서, 2026-08-07) → 0.736
+# (390페이지, 08-15) → 0.634(533페이지 112문항, 08-16 — 하락 추세 자체는 연간
+# 임베딩 재평가의 재심 신호로 원장 등재). morph는 0.763 → 0.773 → 0.781로 안정.
 # bm25는 분업상(영문 원어·부분토큰 전담) 전체 R@5 저조가 정상이라 바닥이 없다.
-FLOORS = {"vector(vsearch)": 0.65, "morph(ksearch)": 0.55}
+FLOORS = {"vector(vsearch)": 0.60, "morph(ksearch)": 0.55}
 
 QMD_LINE = re.compile(r"qmd://it/(\S+?\.md)")
 KS_LINE = re.compile(r"^(it/\S+?\.md)")

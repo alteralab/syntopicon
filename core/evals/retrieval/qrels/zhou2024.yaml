@@ -1,0 +1,66 @@
+# 질문지 조각 — 『深入理解Java虚拟机』(zhou2024) 공백 메움(2026-08-16).
+# 코퍼스 최대 소스(개념 페이지 60여)인데 조각이 0이었다. 이 소스는 원서가 중국어라
+# 한국어 역어가 먼저 자리를 잡고 영어 원어가 본문에서 빠지기 쉽다 — jvm-alias-1은
+# 정확히 그 자리다(escape-analysis.md 본문에 "escape analysis" 원어가 없다,
+# 2026-08-16 실측). 실패하면 병기 정정 대상이지 질문 오류가 아니다.
+source: zhou2024
+added: 2026-08-16
+queries:
+  - id: jvm-exact-1
+    query: "상수 풀 인덱스는 왜 0이 아니라 1부터 세나"
+    type: exact
+    description: "활용·조사 변형 — 0번을 비워 둔 이유"
+    expected_files: ["concepts/class-file-constant-pool.md"]
+    expected_in_top_k: 5
+  - id: jvm-exact-2
+    query: "부모 위임 모델"
+    type: exact
+    description: "복합명사 — 클래스 로더 3계층"
+    expected_files: ["concepts/class-loaders-and-parent-delegation.md"]
+    expected_in_top_k: 5
+  - id: jvm-alias-1
+    query: "escape analysis"
+    type: alias
+    description: "원어 병기 회귀 지점 — 정답 페이지 본문에 이 원어가 없다(옵션 이름 PrintEscapeAnalysis만 존재)"
+    expected_files: ["concepts/escape-analysis.md"]
+    expected_in_top_k: 5
+  - id: jvm-alias-2
+    query: "invokedynamic"
+    type: alias
+    description: "원어 유지 용어 — 20여 년 만에 추가된 단 하나의 바이트코드"
+    expected_files: ["concepts/method-handles-and-invokedynamic.md"]
+    expected_in_top_k: 5
+  - id: jvm-alias-3
+    query: "colored pointer"
+    type: alias
+    description: "원어 병기 — 컬러 포인터, ZGC의 기제"
+    expected_files: ["concepts/low-latency-collectors.md"]
+    expected_in_top_k: 5
+  - id: jvm-sem-1
+    query: "한 스레드가 고친 값을 다른 스레드가 곧바로 보게만 하고 싶을 때"
+    type: semantic
+    description: "패러프레이즈 — volatile·가시성 어휘 불사용"
+    expected_files: ["concepts/volatile-variables.md"]
+    expected_in_top_k: 5
+  - id: jvm-sem-2
+    query: "오래 도는 반복문을 끝나기 전에 빠른 코드로 갈아 끼우는 일"
+    type: semantic
+    description: "패러프레이즈 — 온스택 치환·OSR 어휘 불사용"
+    expected_files: ["concepts/hotspot-detection-and-osr.md"]
+    expected_in_top_k: 5
+  - id: jvm-top-1
+    query: "어떤 가비지 컬렉터를 고를 것인가"
+    type: topical
+    expected_files: ["concepts/choosing-a-garbage-collector.md"]
+    expected_in_top_k: 5
+  - id: jvm-top-2
+    query: "객체가 죽었는지 살았는지 판정하는 방법"
+    type: topical
+    expected_files: ["concepts/object-liveness-determination.md"]
+    expected_in_top_k: 5
+  - id: jvm-x-1
+    query: "카프카 브로커를 운영할 때 JVM은 무엇을 보고 무엇을 맞추나"
+    type: cross-domain
+    description: "이 소스가 카프카 운영 페이지에 기여한 자리 — GC 선택과 JVM 모니터링의 합류"
+    expected_files: ["concepts/kafka-jvm-and-os-monitoring.md", "concepts/choosing-a-garbage-collector.md"]
+    expected_in_top_k: 5

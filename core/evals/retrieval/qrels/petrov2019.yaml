@@ -1,0 +1,66 @@
+# 질문지 조각 — Database Internals(petrov2019) 공백 메움(2026-08-16).
+# 이 소스는 코퍼스에서 페이지 수가 가장 많은 축인데도 질문지 조각이 0이었다 —
+# 초판 26문항이 DW 2권 시절에 멈춘 결과(README 2026-08-14 실측). 저장 엔진 내부와
+# 분산 합의 두 반쪽을 모두 건드리도록 문항을 갈랐다.
+source: petrov2019
+added: 2026-08-16
+queries:
+  - id: dbint-exact-1
+    query: "슬롯 페이지"
+    type: exact
+    description: "복합명사 — 가변 크기 레코드를 고정 페이지에 놓는 형식"
+    expected_files: ["concepts/slotted-pages.md"]
+    expected_in_top_k: 5
+  - id: dbint-exact-2
+    query: "삭제가 남긴 자리를 배경 프로세스가 어떻게 되쓰나"
+    type: exact
+    description: "활용형(되쓰나) — 배큠·단편화 절"
+    expected_files: ["concepts/b-tree-vacuum-and-maintenance.md"]
+    expected_in_top_k: 5
+  - id: dbint-alias-1
+    query: "latch crabbing"
+    type: alias
+    description: "원어 유지 용어 — 래치 크래빙, 코퍼스에 이 원어를 가진 페이지가 하나뿐"
+    expected_files: ["concepts/latches-and-b-tree-concurrency.md"]
+    expected_in_top_k: 5
+  - id: dbint-alias-2
+    query: "RUM conjecture"
+    type: alias
+    description: "원어 병기 — 읽기·쓰기·공간 증폭의 비용 모형"
+    expected_files: ["concepts/read-write-space-amplification.md"]
+    expected_in_top_k: 5
+  - id: dbint-alias-3
+    query: "Plumtree"
+    type: alias
+    description: "원어 고유명사 — 트리와 가십을 섞는 프로토콜"
+    expected_files: ["concepts/gossip-dissemination.md"]
+    expected_in_top_k: 5
+  - id: dbint-sem-1
+    query: "복제본끼리 값이 갈라졌을 때 사람 손 대지 않고 다시 맞추는 장치들"
+    type: semantic
+    description: "패러프레이즈 — 안티 엔트로피·읽기 복구 어휘 불사용"
+    expected_files: ["concepts/anti-entropy-mechanisms.md"]
+    expected_in_top_k: 5
+  - id: dbint-sem-2
+    query: "시계가 없고 하나만 멈춰도 다 같이 결정을 못 내린다는 증명"
+    type: semantic
+    description: "패러프레이즈 — FLP·두 장군 어휘 불사용"
+    expected_files: ["concepts/two-generals-and-flp-impossibility.md"]
+    expected_in_top_k: 5
+  - id: dbint-top-1
+    query: "제안 번호와 두 국면으로 합의에 이르는 알고리즘"
+    type: topical
+    expected_files: ["concepts/paxos.md"]
+    expected_in_top_k: 5
+  - id: dbint-top-2
+    query: "메모리에 올린 페이지를 언제 내보내나"
+    type: topical
+    description: "페이지 캐시·축출 전략"
+    expected_files: ["concepts/page-cache-and-eviction.md"]
+    expected_in_top_k: 5
+  - id: dbint-x-1
+    query: "카프카 로그 압착과 LSM 컴팩션은 같은 일을 하나"
+    type: cross-domain
+    description: "두 소스가 합류한 자리 — 저장 엔진의 컴팩션(이 소스)과 브로커의 압착"
+    expected_files: ["concepts/lsm-compaction.md", "concepts/kafka-log-compaction.md"]
+    expected_in_top_k: 5

@@ -1,0 +1,60 @@
+# 질문지 조각 — Data Engineering Design Patterns 승급 배치(2026-08-16, 2차 배치).
+# 패턴 이름이 전부 원어 고유명사(Compactor·Bin Pack Orderer·Z-order)라 alias 레그의
+# 부담이 큰 소스다 — 그 원어가 검색 키로 사는지, 그리고 패턴 이름을 모르는 사람이
+# 증상만 말했을 때(semantic) 같은 페이지에 닿는지를 함께 잰다.
+source: konieczny2025
+added: 2026-08-16
+queries:
+  - id: dpat-exact-1
+    query: "작은 파일 문제"
+    type: exact
+    description: "복합명사 — 하둡 시대부터 이어진 문제 이름"
+    expected_files: ["concepts/small-files-and-compaction.md"]
+    expected_in_top_k: 5
+  - id: dpat-exact-2
+    query: "같은 잡을 다시 돌려도 결과가 같아지게 하려면"
+    type: exact
+    description: "활용형(돌려도·같아지게) — 멱등성 어휘의 조사 변형"
+    expected_files: ["concepts/idempotent-write-patterns.md"]
+    expected_in_top_k: 5
+  - id: dpat-alias-1
+    query: "poison pill"
+    type: alias
+    description: "원어 병기 — 비일시적 오류 레코드의 원어"
+    expected_files: ["concepts/dead-letter-and-dropped-records.md"]
+    expected_in_top_k: 5
+  - id: dpat-alias-2
+    query: "Z-order"
+    type: alias
+    description: "원어 유지 용어 — 사전식 정렬이 다차원 술어에서 지는 자리"
+    expected_files: ["concepts/data-storage-layout-patterns.md"]
+    expected_in_top_k: 5
+  - id: dpat-sem-1
+    query: "흩어진 이벤트를 방문자 한 명의 활동 한 덩어리로 이어 붙이는 방법"
+    type: semantic
+    description: "패러프레이즈 — 세션·세션화 어휘 불사용"
+    expected_files: ["concepts/sessionization-patterns.md"]
+    expected_in_top_k: 5
+  - id: dpat-sem-2
+    query: "잡은 성공했다고 나오는데 결과가 이상할 때 그것을 알아채는 장치"
+    type: semantic
+    description: "패러프레이즈 — 관측·탐지 어휘 불사용"
+    expected_files: ["concepts/observability-detector-patterns.md", "concepts/quality-observation-patterns.md"]
+    expected_in_top_k: 5
+  - id: dpat-top-1
+    query: "데이터 계보를 어디까지 추적할 수 있나"
+    type: topical
+    expected_files: ["concepts/data-lineage-tracking-patterns.md"]
+    expected_in_top_k: 5
+  - id: dpat-top-2
+    query: "디자인 패턴을 어떤 형식으로 기술하나"
+    type: topical
+    description: "패턴 카탈로그의 형식 자체를 묻는 질의"
+    expected_files: ["concepts/design-pattern-anatomy.md"]
+    expected_in_top_k: 5
+  - id: dpat-x-1
+    query: "늦게 도착한 데이터를 파이프라인과 차원 모델은 각각 어떻게 되돌려 넣나"
+    type: cross-domain
+    description: "같은 문제의 두 층 — 워터마크·룩백(이 소스)과 지각 도착 팩트(kimball2013)"
+    expected_files: ["concepts/late-data-integration.md", "concepts/late-arriving-data.md"]
+    expected_in_top_k: 5

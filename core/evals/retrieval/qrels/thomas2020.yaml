@@ -1,0 +1,66 @@
+# 질문지 조각 — The Pragmatic Programmer 2판 승급 배치(2026-08-16, 2차 배치).
+# 코퍼스에서 유일한 비(非)데이터 도메인이다 — 다른 소스와 어휘가 거의 겹치지 않아
+# 오답이 조용히 섞이기 쉽다. alias 문항 셋은 이 책이 만든 표어(ETC·Tell, Don't Ask·
+# cargo cult)가 원어로 살아 있는지를, cross-domain은 DRY가 데이터 층에서 다시
+# 나타나는 자리를 겨냥한다.
+source: thomas2020
+added: 2026-08-16
+queries:
+  - id: prag-exact-1
+    query: "좋은 설계는 나쁜 설계보다 바꾸기 쉽다"
+    type: exact
+    description: "활용형(쉽다) — 2판이 새로 세운 원칙의 한 줄"
+    expected_files: ["concepts/etc-easier-to-change.md"]
+    expected_in_top_k: 5
+  - id: prag-exact-2
+    query: "지식 포트폴리오"
+    type: exact
+    description: "복합명사 — 만료 자산 비유"
+    expected_files: ["concepts/knowledge-portfolio.md"]
+    expected_in_top_k: 5
+  - id: prag-alias-1
+    query: "property-based testing"
+    type: alias
+    description: "원어 병기 — 역어(속성 기반 테스트)가 흔들려도 원어가 불변 키"
+    expected_files: ["concepts/property-based-testing.md"]
+    expected_in_top_k: 5
+  - id: prag-alias-2
+    query: "Tell, Don't Ask"
+    type: alias
+    description: "원어 유지 표어 — 기차 사고의 처방"
+    expected_files: ["concepts/decoupling.md"]
+    expected_in_top_k: 5
+  - id: prag-alias-3
+    query: "cargo cult"
+    type: alias
+    description: "원어 병기 — 화물 숭배로 옮긴 역어와 짝"
+    expected_files: ["concepts/coconuts-dont-cut-it.md"]
+    expected_in_top_k: 5
+  - id: prag-sem-1
+    query: "왜 되는지 모르는 채 일단 돌아가는 코드에 기대는 습관"
+    type: semantic
+    description: "패러프레이즈 — 우연·의도적 어휘 불사용"
+    expected_files: ["concepts/programming-by-coincidence.md"]
+    expected_in_top_k: 5
+  - id: prag-sem-2
+    query: "고치지 않고 놔둔 흠 하나가 팀 전체의 기준을 무너뜨린다"
+    type: semantic
+    description: "패러프레이즈 — 깨진 창문·엔트로피 어휘 불사용"
+    expected_files: ["concepts/software-entropy-and-broken-windows.md"]
+    expected_in_top_k: 5
+  - id: prag-top-1
+    query: "한쪽을 바꿔도 다른 쪽이 영향받지 않는 성질"
+    type: topical
+    expected_files: ["concepts/orthogonality.md"]
+    expected_in_top_k: 5
+  - id: prag-top-2
+    query: "막힌 문제를 푸는 절차"
+    type: topical
+    expected_files: ["concepts/solving-impossible-puzzles.md"]
+    expected_in_top_k: 5
+  - id: prag-x-1
+    query: "같은 지식이 여러 곳에 중복될 때 코드와 데이터는 각각 어떻게 다루나"
+    type: cross-domain
+    description: "DRY의 두 층 — 코드 쪽 원칙(이 소스)과 저장 쪽 정규화(reis2022·이 소스 공동)"
+    expected_files: ["concepts/dry-principle.md", "concepts/normalization-and-denormalization.md"]
+    expected_in_top_k: 5

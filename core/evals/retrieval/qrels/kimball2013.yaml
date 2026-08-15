@@ -1,0 +1,59 @@
+# 질문지 조각 — Kimball DW/BI Toolkit(kimball2013) 소스별 조각 신설(2026-08-16).
+# 이 소스는 초판 dw-books.yaml에 섞여 있었을 뿐 자기 조각이 없었다 — 성장 모델은
+# 소스당 한 파일이므로 여기서 갈라 세운다. 문항은 dw-books가 이미 덮은 자리
+# (SCD·표준 차원·정크 차원·브리지·4단계·ETL 34)를 피해 아직 재지 않은 페이지로 잡았다.
+source: kimball2013
+added: 2026-08-16
+queries:
+  - id: kim-exact-1
+    query: "누적 스냅샷 팩트 테이블"
+    type: exact
+    description: "복합명사 — 세 팩트 테이블 유형 중 하나"
+    expected_files: ["concepts/snapshot-fact-tables.md"]
+    expected_in_top_k: 5
+  - id: kim-exact-2
+    query: "날짜 차원 하나가 한 팩트에 여러 번 붙을 때"
+    type: exact
+    description: "활용·조사 변형 — 뷰·별칭으로 역할을 나누는 패턴"
+    expected_files: ["concepts/role-playing-dimension.md"]
+    expected_in_top_k: 5
+  - id: kim-alias-1
+    query: "degenerate dimension"
+    type: alias
+    description: "원어 병기 — 확정 역어(퇴화 차원)의 원어로 검색"
+    expected_files: ["concepts/degenerate-dimension.md"]
+    expected_in_top_k: 5
+  - id: kim-alias-2
+    query: "drill-across"
+    type: alias
+    description: "원어 유지 용어 — 통합 팩트 테이블과의 맞교환"
+    expected_files: ["concepts/consolidated-fact-table.md"]
+    expected_in_top_k: 5
+  - id: kim-sem-1
+    query: "상품 종류마다 재는 항목이 달라 한 테이블에 다 담기지 않을 때"
+    type: semantic
+    description: "패러프레이즈 — 슈퍼타입·서브타입 어휘 불사용"
+    expected_files: ["concepts/supertype-subtype-schema.md"]
+    expected_in_top_k: 5
+  - id: kim-sem-2
+    query: "이미 그려 놓은 모델의 결함을 무엇으로 판정하나"
+    type: semantic
+    description: "패러프레이즈 — 리뷰·체크리스트 어휘 불사용"
+    expected_files: ["concepts/dimensional-design-review.md"]
+    expected_in_top_k: 5
+  - id: kim-top-1
+    query: "웹 사이트 방문 기록을 팩트로 다루는 규칙"
+    type: topical
+    expected_files: ["concepts/clickstream-facts.md"]
+    expected_in_top_k: 5
+  - id: kim-top-2
+    query: "웨어하우스 실무자가 하둡을 만났을 때의 지침"
+    type: topical
+    expected_files: ["concepts/big-data-analytics-practices.md"]
+    expected_in_top_k: 5
+  - id: kim-x-1
+    query: "웹 로그를 방문 단위로 묶는 일을 차원 모델과 파이프라인 패턴은 각각 어떻게 하나"
+    type: cross-domain
+    description: "두 소스가 합류한 자리 — 클릭스트림 세션 grain(이 소스)과 세션화 패턴(konieczny2025)"
+    expected_files: ["concepts/clickstream-facts.md", "concepts/sessionization-patterns.md"]
+    expected_in_top_k: 5
