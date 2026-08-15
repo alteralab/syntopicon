@@ -38,7 +38,7 @@ uv run --group index evals/retrieval/runner.py --legs all     # hybrid 포함, �
 uv run python -c "
 import json, sqlite3
 db = sqlite3.connect('stats.sqlite'); db.row_factory = sqlite3.Row
-for r in db.execute(\"SELECT at, payload FROM events WHERE kind='retrieval_eval' ORDER BY id DESC LIMIT 5\"):
+for r in db.execute(\"SELECT at, payload FROM events WHERE kind='retrieval_eval' ORDER BY rowid DESC LIMIT 5\"):
     p = json.loads(r['payload'])
     legs = {k.split('(')[0]: v['R@5'] for k, v in p['summary'].items()}
     print(r['at'][:16], p['n_queries'], '문항', legs, '경보:', list(p['breaches']) or '없음')"

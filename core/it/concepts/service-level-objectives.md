@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 서비스 수준 목표
-description: 카프카 같은 인프라 서비스가 클라이언트에게 약속하는 수준을 말하는 어휘 — SLI·SLO·SLA·OLA의 정의와 흔한 혼동, 좋은 지표가 갖춰야 할 객관성과 분위수 지표를 배제하는 이유, SLI 다섯 종류, 그리고 SLO 자체로 경보를 걸 수 없어 소진율을 보는 방법
-generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
+description: 카프카 같은 인프라 서비스가 클라이언트에게 약속하는 수준을 말하는 어휘 — SLI·SLO·SLA·OLA의 정의와 흔한 혼동, 좋은 지표가 갖춰야 할 객관성과 분위수 지표를 배제하는 이유, SLI 다섯 종류, SLO 자체로 경보를 걸 수 없어 소진율을 보는 방법, 그리고 같은 어휘를 백분위로 쓰는 다른 소스의 서술과 그 관계
+generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
+  - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
 
 # 서비스 수준 목표
@@ -13,6 +14,8 @@ sources:
 - [네 낱말의 정의](#네-낱말의-정의)
 - [무엇이 좋은 SLI인가](#무엇이-좋은-sli인가)
 - [SLO로 경보를 거는 법](#slo로-경보를-거는-법)
+- [같은 어휘를 백분위로 쓰는 서술](#같은-어휘를-백분위로-쓰는-서술)
+- [장애의 정의가 SLO에 기대는 자리](#장애의-정의가-slo에-기대는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **서비스가 클라이언트에게 약속하는 수준을 어떤 어휘로 말하고, 그것으로
@@ -144,8 +147,43 @@ sources:
   Engineering』과 『The Site Reliability Workbook』(O'Reilly)** 이다 (13장,
   p.346).[^shapira2021]
 
+## 같은 어휘를 백분위로 쓰는 서술
+
+다른 소스가 같은 두 낱말을 정의하는데, 정의는 위와 어긋나지 않고 **지표의 형태**에 대한 처방만
+갈린다.
+
+- 정의 — **백분위는 서비스의 기대 성능과 가용성을 정의하는 방법으로 서비스 수준 목표(service
+  level objectives, SLO)와 서비스 수준 협약(service level agreements, SLA)에 자주 쓰인다.
+  예컨대 SLO는 서비스가 200ms 미만의 중앙값 응답 시간과 1초 미만의 99번째 백분위를 갖는다는
+  목표, 그리고 유효한 요청의 최소 99.9%가 오류가 아닌 응답을 낸다는 목표를 세울 수 있다. SLA는
+  SLO가 충족되지 않으면 무슨 일이 일어나는지를 특정하는 계약이다(예: 고객이 환불을 받을 자격이
+  생긴다)** (2장, p.42).[^kleppmann2026]
+- 그리고 같은 문단이 이 일이 쉽지 않다고 덧붙인다 — **적어도 기본 발상은 그렇고, 실무에서 SLO와
+  SLA를 위한 좋은 가용성 지표를 정의하는 일은 단순하지 않다** (2장, p.42).[^kleppmann2026]
+- 위 [무엇이 좋은 SLI인가](#무엇이-좋은-sli인가)는 **분위수 지표를 좋은 SLI에서 배제**하는데,
+  그 근거는 **분위수가 이벤트의 90%가 어떤 값 아래였다는 것만 알려 줄 뿐 그 값을 통제하게 해
+  주지 않는다**는 것이었다 (13장, p.345).[^shapira2021] 두 서술은 사실 수준에서 충돌하지 않는다
+  — Kleppmann은 **목표를 표현하는 형식**으로 백분위가 널리 쓰인다는 관찰을 적고, Shapira는
+  **경보를 계산할 지표**로는 카운터가 낫다는 처방을 적는다. 겹치는 구간(백분위로 목표를 적을 수
+  있는가)에서는 둘 다 같은 답을 준다. 그래서 `contradicts`를 달지 않는다(PLAN §2.1).
+- 백분위를 실제로 계산할 때의 함정도 같은 소스가 적어 둔다 — **백분위를 평균 내는 것(시간
+  해상도를 낮추거나 여러 기계의 데이터를 결합하기 위해)은 수학적으로 무의미하다. 응답 시간
+  데이터를 집계하는 올바른 방법은 히스토그램을 더하는 것이다** (2장, p.42).[^kleppmann2026]
+  전문은 [지연의 백분위](../concepts/latency-percentiles.md)에 있다.
+
+## 장애의 정의가 SLO에 기대는 자리
+
+- SLO는 모니터링만의 어휘가 아니다 — **장애(failure)는 시스템 전체가 사용자에게 요구되는 서비스
+  제공을 멈출 때 일어난다. 다시 말해 그것이 SLO를 충족하지 못할 때다** (2장,
+  p.43).[^kleppmann2026] 즉 **무엇이 결함이고 무엇이 장애인지의 경계 자체가 SLO를 어떻게
+  적었는지에 달려 있다.** 그 구분의 전문은
+  [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md)에 있다.
+
 ## 이어지는 페이지
 
+- [지연의 백분위](../concepts/latency-percentiles.md) — 백분위로 목표를 적을 때의 어휘와 계산
+- [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — SLO가 장애의 정의를
+  떠받치는 자리
 - [카프카 지표의 기초](../concepts/kafka-metrics-basics.md) — SLI로 쓸 지표를 어디서
   얻는지, 그리고 왜 객관성이 출처에 따라 갈리는지
 - [카프카 클러스터 문제 진단](../concepts/kafka-cluster-problem-diagnosis.md) — SLO 경보가
@@ -155,4 +193,5 @@ sources:
 - [카프카 브로커 지표](../concepts/kafka-broker-metrics.md) — 여기서 분위수 지표를
   SLI에서 배제한 그 백분위수들이 실제로 나오는 자리
 
+[^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements"
 [^shapira2021]: Shapira et al. 2021, 13장 "Monitoring Kafka" §"Service-Level Objectives"(pp.343–346) — 인용 블록은 pp.343–344 정의 문단 원문

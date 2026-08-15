@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 지각 도착 데이터
-description: 팩트와 차원 맥락이 함께 도착한다는 가정이 깨질 때의 처리 규칙 — 지각 팩트는 과거 키를 찾고, 지각 차원은 더미 행으로 버틴다
-generated: { by: "claude-fable-5", at: "2026-08-07T00:00:00Z" }
+description: 팩트와 차원 맥락이 함께 도착한다는 가정이 깨질 때의 처리 규칙 — 지각 팩트는 과거 키를 찾고, 지각 차원은 더미 행으로 버틴다, 그리고 이것이 예외가 아니라 지배적 처리 방식이 되는 업종
+generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
 ---
@@ -72,4 +72,18 @@ sources:
   고쳐야 할 때 정정 행을 먼저 삽입하고 옛 행을 나중에 지우는 2단계 처리가
   가능해진다 (19장, p.474).[^kimball2013]
 
-[^kimball2013]: Kimball & Ross 2013, 19장 "ETL Subsystems and Techniques", 20장 "ETL System Design and Development Process and Tasks"
+## 예외가 아니라 지배적 처리 방식이 될 때
+
+- 이 페이지의 규칙들은 이상적 가정이 깨지는 **예외 상황**의 정비 절차로 서술돼 있지만, 14장은
+  그 전제를 뒤집는 업종을 지목한다 — **의료 산업에서는 특히 레거시 운영 시스템과 함께
+  몇 주·몇 달 전에 적재됐어야 할 지각 데이터를 상시로 상대해야 한다.** 몇 주 전에 일어난
+  환자 시술 데이터가 지금 들어오거나, 몇 달 전 발효로 소급된 환자 프로파일 갱신이 온다.
+  **들어오는 레코드가 늦을수록 ETL 처리가 어려워진다** (14장, pp.351–352).[^kimball2013]
+- 판정: **이런 패턴이 의료 DW/BI 환경에서는 흔하며, 실은 이상치 사례를 위한 특수 기법이
+  아니라 지배적 처리 방식(dominant modes of processing)일 수 있다** (14장,
+  p.352).[^kimball2013] 즉 이 페이지의 절차를 예외 경로가 아니라 **기본 경로로 설계해야
+  하는 도메인이 있다.**
+- 완화 전망은 원천 쪽에 있다 — **더 효과적인 원천 데이터 캡처 시스템이 결국 이 지각 도착
+  이상 현상의 빈도를 줄일 것**이다 (14장, p.352).[^kimball2013]
+
+[^kimball2013]: Kimball & Ross 2013, 14장 "Healthcare", 19장 "ETL Subsystems and Techniques", 20장 "ETL System Design and Development Process and Tasks"

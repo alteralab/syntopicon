@@ -5,6 +5,7 @@ description: 서로 다른 리더·레플리카에 동시에 들어온 쓰기를
 generated: { by: "claude-opus-5", at: "2026-08-13T00:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: petrov2019, resource: /it/sources/petrov2019.md }
 ---
 
 # 쓰기 충돌 해소
@@ -156,6 +157,14 @@ sources:
   엔터프라이즈·Riak·애저 코스모스 DB 같은 분산 데이터베이스에서 찾을 수 있다. JSON 데이터용 싱크
   엔진은 CRDT(Automerge·Yjs)로도 OT(ShareDB)로도 구현할 수 있다** (6장,
   p.228).[^kleppmann2026]
+- 다른 소스는 CRDT를 일관성 모델의 항으로 자리매김한다 — **CRDT는 충돌의 존재를 원천 배제하고 이
+  데이터 타입에 대한 연산이 결과를 바꾸지 않으면서 어느 순서로든 적용될 수 있게 하는 특수화된 데이터
+  구조다**(11장, p.238), 그리고 이것이 **강한 최종 일관성(strong eventual consistency)**, 곧
+  **갱신이 서버에 늦게 또는 순서 없이 전파되는 것이 허용되지만 모든 갱신이 마침내 대상 노드에
+  전파되면 그것들 사이의 충돌이 해소되고 병합되어 같은 유효한 상태를 낼 수 있는** 모델을 사 온다
+  (11장, p.238).[^petrov2019] 이 계열의 실제 자료 구조들(증가 전용 카운터·PN 카운터·LWW 레지스터·
+  G-Set·JSON CRDT)과 그것들이 만족해야 하는 조건은
+  [강한 최종 일관성과 CRDT](../concepts/crdt-and-strong-eventual-consistency.md)에 있다.
 
 ## 충돌의 종류
 
@@ -210,5 +219,10 @@ sources:
   나오는 자리
 - [카프카 다중 클러스터 아키텍처](../concepts/kafka-multicluster-architectures.md) —
   액티브-액티브가 "충돌은 반드시 생긴다"고 말하는 자리
+- [강한 최종 일관성과 CRDT](../concepts/crdt-and-strong-eventual-consistency.md) — 위 CRDT
+  계열의 자료 구조 카탈로그와 가환성 조건
+- [일관성 모델](../concepts/consistency-models.md) — 자동 해소가 어느 일관성 계약을 사 오는가
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 6장 "Replication" · 8장 "Transactions"
+
+[^petrov2019]: Petrov 2019, 11장 "Replication and Consistency"

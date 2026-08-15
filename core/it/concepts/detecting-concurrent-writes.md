@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 동시 쓰기 판정
-description: 두 쓰기가 동시인지 무엇으로 판정하는가 — 시각이 아니라 인지 여부로 정의되는 happens-before 관계, 버전 번호로 형제 값을 가려내는 단일 레플리카 알고리즘, 그리고 레플리카가 여럿일 때 필요한 버전 벡터
-generated: { by: "claude-opus-5", at: "2026-08-13T00:00:00Z" }
+description: 두 쓰기가 동시인지 무엇으로 판정하는가 — 시각이 아니라 인지 여부로 정의되는 happens-before 관계, 버전 번호로 형제 값을 가려내는 단일 레플리카 알고리즘, 레플리카가 여럿일 때 필요한 버전 벡터, 그리고 이 구조로 갈라진 이력을 재구성하는 대가와 그것을 포기한 시스템들
+generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: petrov2019, resource: /it/sources/petrov2019.md }
 ---
 
 # 동시 쓰기 판정
@@ -15,6 +16,7 @@ sources:
 - [버전 번호로 관계를 포착하기](#버전-번호로-관계를-포착하기)
 - [장바구니 예](#장바구니-예)
 - [버전 벡터](#버전-벡터)
+- [이 구조가 사 오는 것과 그 값](#이-구조가-사-오는-것과-그-값)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **두 쓰기가 동시인지 아니면 한쪽이 다른 쪽을 덮어써야 하는지를 무엇으로
@@ -153,6 +155,39 @@ sources:
   미묘하다 — 요컨대 레플리카의 상태를 비교할 때는 버전 벡터가 올바른 자료 구조다** (6장,
   p.242).[^kleppmann2026]
 
+## 이 구조가 사 오는 것과 그 값
+
+다른 소스가 같은 자료 구조를 인과 일관성을 구현하는 장치로 서술하며, 무엇을 사고 무엇을
+치르는지를 명시한다.
+
+- 무엇을 사는가 — **인과 순서를 세우면 메시지가 순서 없이 전달되더라도 시스템이 사건의 계열을
+  재구성하고, 메시지 사이의 빈 곳을 메우고, 일부 메시지가 아직 빠져 있으면 연산 결과 발행을 피할 수
+  있다. 예컨대 각자 의존 관계를 특정하는 메시지 `{M1(∅, t1), M2(M1, t2), M3(M2, t3)}`가 인과
+  관계에 있고 순서 없이 전파됐다면, 프로세스는 모든 연산 의존 관계를 모아 인과 순서를 복원할 수 있을
+  때까지 그것들을 버퍼링한다. 많은 데이터베이스, 예컨대 Dynamo와 Riak이 인과 순서를 세우는 데 벡터
+  클록을 쓴다** (11장, p.232).[^petrov2019]
+- 왜 이력이 갈라지도록 두는가 — **같은 메모리 위치에 대한 쓰기 연산만 순서 지어져야 하므로, 값들이
+  독립적이면 쓰기 충돌이 있는 상황에 빠질 수 없다. 우리가 가용성과 성능을 개선하는 일관성 모델을 찾고
+  있으므로, 레플리카가 낡은 읽기를 제공하는 것뿐 아니라 잠재적으로 충돌하는 쓰기를 받는 것으로도
+  갈라지도록 허용해야 하고, 그래서 시스템은 독립적인 사건 사슬 둘을 만드는 것이 허용된다. 그림 11-9가
+  그런 갈라짐을 보여 준다 — 한 레플리카의 관점에서 이력은 1, 5, 7, 8이고 다른 레플리카는 1, 5, 3을
+  보고한다. Riak은 사용자가 갈라진 이력을 보고 해소하도록 허용한다** (11장,
+  p.232).[^petrov2019] 위 [장바구니 예](#장바구니-예)의 형제 값이 그 갈라짐의 실물이다.
+- 그 값 — 저자가 상자로 정리한다. 원문 직인용 (11장, p.233):[^petrov2019]
+
+  > To implement causal consistency, we have to store causal history, add garbage collection, and
+  > ask the user to reconcile divergent histories in case of a conflict. Vector clocks can tell
+  > you that the conflict has occurred, but do not propose exactly how to resolve it, since
+  > resolution semantics are often application-specific. Because of that, some eventually
+  > consistent databases, for example, Apache Cassandra, do not order operations causally and use
+  > the last-write-wins rule for conflict resolution instead.
+
+- 이 진술은 위 [버전 벡터](#버전-벡터) 절과 어긋나지 않는다 — DDIA는 **버전 벡터가 무엇을 구분하게
+  해 주는가**를 서술하고, 이쪽은 **그 구분을 얻으려면 무엇을 치러야 하며 어떤 시스템이 그 값을 치르지
+  않기로 했는가**를 서술한다. 카산드라·ScyllaDB가 실시간 시계 타임스탬프로 판정한다는 사실은
+  [정족수 읽기와 쓰기](../concepts/quorum-reads-and-writes.md)의 엣지 케이스 절에도 같은 형태로
+  적혀 있다.
+
 ## 이어지는 페이지
 
 - [쓰기 충돌 해소](../concepts/write-conflict-resolution.md) — 동시로 판정된 쓰기를 실제로
@@ -164,5 +199,12 @@ sources:
   해법으로 언급되는 자리
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 인과성 위반의 사용자
   쪽 증상
+- [일관성 모델](../concepts/consistency-models.md) — 인과 일관성이라는 이름과 그 서열상의 위치
+- [강한 최종 일관성과 CRDT](../concepts/crdt-and-strong-eventual-consistency.md) — 사람에게 묻지
+  않고 갈라진 이력을 합치는 쪽
+- [안티 엔트로피 기전](../concepts/anti-entropy-mechanisms.md) — 같은 점(dot) 표현을 복구에 쓰는
+  비트맵 버전 벡터
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 6장 "Replication"
+
+[^petrov2019]: Petrov 2019, 11장 "Replication and Consistency"

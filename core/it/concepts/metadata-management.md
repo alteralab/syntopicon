@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 메타데이터 관리
-description: 데이터 웨어하우스 메타데이터를 business/technical/process execution 3종으로 분류하고, Meta Mart·Metrics Vault·Metrics Mart·Error Mart가 각각 무엇을 재서 어디에 두는지 역할을 구분한다
-generated: { by: "claude-fable-5", at: "2026-08-07T00:00:00Z" }
+description: 데이터 웨어하우스 메타데이터를 business/technical/process execution 3종으로 분류하고, Meta Mart·Metrics Vault·Metrics Mart·Error Mart가 각각 무엇을 재서 어디에 두는지, 그리고 Meta Mart가 실제로 무엇을 담고 왜 재구축 불가능한 마트인지를 구분한다
+generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
 ---
@@ -59,6 +59,10 @@ sources:
 - Meta Mart는 Data Vault 2.0 아키텍처에서 비즈니스·기술 메타데이터 수집의 중심이다. Raw Data Vault에서 조달되지 않는 독립 정보 마트이므로 가상 Meta Mart의 원천이 될 Meta Vault는 존재하지 않는다 — 메타데이터를 실제로 저장하므로 항상 실체화된다 (§10.2, p.321).[^linstedt2016]
 - 다른 정보 마트처럼 비즈니스가 가장 잘 쓸 수 있는 형태로 모델링한다: 차원 모델일 수도, 3정규형일 수도 있고, 메타데이터 도구가 있으면 그 도구의 백엔드 데이터베이스가 Meta Mart가 된다. 관계형일 필요도 없다 — 상용 모델링·ETL 도구의 메타데이터 모델을 확장해 Data Vault용 리니지(허브·링크·새틀라이트의 원천 테이블 정의 등)를 담을 수도 있다 (§10.2, p.321).[^linstedt2016]
 
+- 물리 설계 장이 이 마트의 내용 목록을 다시 준다. 최종 사용자(대개 관리자·파워 유저·웨어하우스 이니셔티브 팀원)에게 제시되는 것은 일곱 항목이다: **전 계층의 데이터·정보에 관한 메타데이터**, **프로세스에 관한 메타데이터**(주로, 그러나 ETL 적재 프로세스에 한정되지 않는다), **수행된 백업에 관한 메타데이터**, **원천 시스템과 타 시스템 인터페이스**(정보 소비자 등)**에 관한 메타데이터**, **하드·소프트 업무 규칙의 정의**, **접근 제어 목록(ACL) 등 보안 조치의 정의**, **프라이버시 관련 데이터의 보존 기간 정의**. 이 목록은 완결적이지 않다 — Meta Mart는 업무 사용자가 직접 쓰지는 않지만 **어떤 데이터·정보가 있는지, 어디서 왔는지, 어떻게 처리되는지, 누가 무슨 목적으로 쓰는지**를 기술하는 모든 정보를 접근 가능하게 만든다. 더 정교한 환경에서는 Meta Mart가 메타데이터 웨어하우스 솔루션으로 대체되기도 한다 (§8.6.4, p.257).[^linstedt2016]
+- 이 마트를 **OLAP 도구로 질의한다면 차원 모델이 이 마트를 모델링하는 최선의 접근**이다 (§8.6.4, p.257).[^linstedt2016] 위 §10.2의 "차원 모델일 수도, 3정규형일 수도"를 소비 도구 기준으로 좁힌 진술이다.
+- Meta Mart와 Error Mart는 **재구축할 수 없는 마트**다. Metrics Mart가 Metrics Vault에서 조달되는 것과 달리 이 둘은 데이터의 단일 지점이므로, 신뢰성 요구가 다른 정보 마트보다 높고 Raw Data Vault 계층에 준한다. 백업에도 반드시 포함해야 하며 Metrics Mart의 백업만 선택이다 (§8.6.4.1, pp.257–258).[^linstedt2016] 계층별 물리 설계는 [Data Vault 아키텍처](../concepts/data-vault-architecture.md)와 [물리 데이터 웨어하우스 설계](../concepts/physical-data-warehouse-design.md) 참조.
+
 ### Metrics Vault
 
 - Metrics Vault는 ETL 제어·데이터 흐름의 프로세스 지표를 캡처한다. 선택적 구성 요소지만 오류 검사(ETL 재기동에 필요한 오류·원인 식별), 근본 원인 분석(같은 오류의 재발 방지), 성능 지표(데이터 크기·성장률을 관찰해 부정적 추세를 장애 전에 대응)에 유용하다 (§10.3, p.351).[^linstedt2016]
@@ -88,4 +92,4 @@ sources:
 - [마스터 데이터 관리](../concepts/master-data-management.md) — 온톨로지·택소노미 등 비즈니스 메타데이터가 저장되는 MDM 시스템
 - [데이터 볼트 새틀라이트](../concepts/data-vault-satellite.md) — 명명 규약(원천 시스템 약어, 변경률 분할)이 적용되는 대표 엔터티
 
-[^linstedt2016]: Linstedt & Olschimke 2016, 10장 "Metadata Management"
+[^linstedt2016]: Linstedt & Olschimke 2016, 10장 "Metadata Management" · 8장 "Physical Data Warehouse Design"

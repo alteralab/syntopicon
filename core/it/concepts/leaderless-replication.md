@@ -5,6 +5,7 @@ description: 리더 개념을 버리고 어느 레플리카든 쓰기를 받게 
 generated: { by: "claude-opus-5", at: "2026-08-13T00:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: petrov2019, resource: /it/sources/petrov2019.md }
 ---
 
 # 리더리스 복제
@@ -82,6 +83,17 @@ sources:
     찾아 빠진 데이터를 한 레플리카에서 다른 레플리카로 복사한다. 리더 기반 복제의 복제 로그와 달리 이
     안티 엔트로피 프로세스는 특정 순서로 쓰기를 복사하지 않으며, 데이터가 복사되기까지 상당한 지연이
     있을 수 있다.**
+- 다른 소스가 이 셋을 두 축으로 다시 가른다 — **안티 엔트로피는 노드를 동기 상태로 유지하기 위해
+  백그라운드 또는 포그라운드 프로세스를 촉발한다. 백그라운드 안티 엔트로피 프로세스는 머클 트리와 갱신
+  로그 같은 보조 구조를 써서 갈라짐을 식별한다. 포그라운드 안티 엔트로피 프로세스는 읽기나 쓰기 요청에
+  업혀 간다 — 힌티드 핸드오프, 읽기 복구 따위다** (12장, p.244).[^petrov2019] 즉 위 목록의 셋째
+  항목("안티 엔트로피")은 이 분류에서 **백그라운드 갈래의 이름**이고, 앞의 둘은 포그라운드 갈래다.
+  네 기전 각각의 전문은 [안티 엔트로피 기전](../concepts/anti-entropy-mechanisms.md)에 있다.
+- 느슨한 정족수와 힌트의 관계도 같은 소스가 명시한다 — **일부 데이터베이스, 예컨대 Riak은 느슨한
+  정족수(sloppy quorum)를 힌티드 핸드오프와 함께 쓴다. 느슨한 정족수에서는 레플리카 장애의 경우 쓰기
+  연산이 노드 목록의 추가 건강한 노드를 쓸 수 있고, 이 노드들은 실행되는 연산의 대상 레플리카일 필요가
+  없다.** 그리고 그 대가는 명료하다 — **느슨한 정족수는 일관성을 대가로 가용성을 개선한다** (12장,
+  pp.246–247).[^petrov2019]
 
 ## 낡음 모니터링
 
@@ -195,5 +207,11 @@ sources:
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 읽기 확장과 최종 일관성의
   원본 서술
 - [요청 라우팅](../concepts/request-routing.md) — 가십 대신 합의로 샤드 배정을 관리하는 쪽
+- [안티 엔트로피 기전](../concepts/anti-entropy-mechanisms.md) — 위 세 기전의 전문과 머클 트리·
+  비트맵 버전 벡터
+- [가십 전파](../concepts/gossip-dissemination.md) — 클러스터 상태를 퍼뜨리는 그 프로토콜의 전문
+- [CAP과 PACELC](../concepts/cap-and-pacelc.md) — 이 계열이 스펙트럼의 어느 쪽에 서는가
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 6장 "Replication" · 7장 "Sharding" · 8장 "Transactions"
+
+[^petrov2019]: Petrov 2019, 12장 "Anti-Entropy and Dissemination"
