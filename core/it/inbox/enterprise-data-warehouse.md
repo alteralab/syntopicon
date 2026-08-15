@@ -23,6 +23,7 @@ sources:
 - [ETL과 ELT](#etl과-elt)
 - [클라우드 데이터 웨어하우스](#클라우드-데이터-웨어하우스)
 - [데이터 마트](#데이터-마트)
+- [제3자가 보는 인몬 — 데이터 모델링 접근으로서의 EDW](#제3자가-보는-인몬--데이터-모델링-접근으로서의-edw)
 
 이 페이지의 질문: **EDW란 무엇이고, 왜 운영계와 분리하며, 어떤 아키텍처들이
 그 요구를 감당해 왔는가.**
@@ -444,7 +445,77 @@ Kleppmann은 같은 분리를 방법론이 아니라 **접근 패턴과 사용�
   성능을 유의하게 개선할 수 있다. 변환 프로세스가 라이브 질의의 성능을 개선하기 위해 조인·집계된
   데이터로 데이터 마트를 채울 수 있다** (3장, p.101).[^reis2022]
 
-[^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture" · 5장 "Data Generation in Source Systems"
+## 제3자가 보는 인몬 — 데이터 모델링 접근으로서의 EDW
+
+3장이 데이터 웨어하우스를 **아키텍처 유형**으로 다뤘다면, 같은 책 8장은 인몬을 **세 데이터
+모델링 접근의 하나**로 다시 소개한다. 여기서는 인몬 자신의 정의가 직인용으로 실린다.
+
+- 창시의 동기 — **데이터 웨어하우스의 아버지 Bill Inmon은 1989년 자신의 데이터 모델링 접근을
+  만들었다. 데이터 웨어하우스 이전에는 분석이 흔히 원천 시스템 자체에서 직접 일어났고, 그 뻔한
+  귀결로 오래 도는 질의가 프로덕션 트랜잭션 데이터베이스를 수렁에 빠뜨렸다. 데이터 웨어하우스의
+  목표는 원천 시스템을 분석 시스템에서 분리하는 것이었다** (8장, p.295).[^reis2022]
+  - 이 동기는 위 [왜 운영계와 분리하는가](#왜-운영계와-분리하는가) 절과 같은 것을 말한다 —
+    다만 여기서는 그것이 **인몬 개인의 문제의식**으로 귀속된다.
+- 인몬의 정의 — 직인용한다 (8장, p.295, Inmon, *Building the Data Warehouse*
+  인용):[^reis2022]
+
+  > A data warehouse is a subject-oriented, integrated, nonvolatile, and time-variant
+  > collection of data in support of management's decisions. The data warehouse contains
+  > granular corporate data. Data in the data warehouse is able to be used for many different
+  > purposes, including sitting and waiting for future requirements which are unknown today.
+
+- 네 성질의 뜻 (8장, p.295):[^reis2022]
+  - **주제 지향(subject-oriented) — 데이터 웨어하우스는 판매나 마케팅 같은 특정 주제 영역에
+    초점을 맞춘다.**
+  - **통합(integrated) — 이질적 원천의 데이터가 통합되고 정규화된다.**
+  - **비휘발(nonvolatile) — 데이터 웨어하우스에 저장된 뒤 데이터는 바뀌지 않은 채 남는다.**
+  - **시변(time-variant) — 다양한 시간 범위를 질의할 수 있다.**
+- 각 성질이 모델에 미치는 영향 — **먼저 논리 모델은 특정 영역에 초점을 맞춰야 한다. 예컨대
+  주제 지향이 "판매"라면 논리 모델은 판매와 관련된 모든 세부 — 업무 키·관계·속성 등 — 를 담는다.
+  다음으로 이 세부들이 통합된 고도로 정규화된 데이터 모델로 통합된다. 마지막으로 데이터는 비휘발적
+  이고 시변적인 방식으로 바뀌지 않은 채 저장되며, 이는 저장 이력이 허락하는 한 이론적으로 원본
+  데이터를 질의할 수 있다는 뜻이다. 인몬 데이터 웨어하우스는 경영진의 결정을 지원하기 위해 이 네
+  결정적 부분 전부를 엄격히 지켜야 한다. 이는 미묘한 지점이지만 데이터 웨어하우스를 OLTP가 아니라
+  분석을 위해 자리매김한다** (8장, pp.295–296).[^reis2022]
+- 둘째 인용 — 통합이 가장 중요하다 (8장, p.296, Inmon 인용):[^reis2022]
+
+  > The second salient characteristic of the data warehouse is that it is integrated. Of all
+  > the aspects of a data warehouse, integration is the most important. Data is fed from
+  > multiple, disparate sources into the data warehouse. As the data is fed, it is converted,
+  > reformatted, resequenced, summarized, etc. The result is that data—once it resides in the
+  > data warehouse—has a single physical corporate image.
+
+- 3NF와 그 논거 — **인몬 데이터 웨어하우스에서 데이터는 조직 전역에서 세밀하고 고도로 정규화된
+  ER 모델로 통합되며 ETL에 대한 집요한 강조가 따른다. 데이터 웨어하우스의 주제 지향적 성격 때문에
+  인몬 데이터 웨어하우스는 조직에서 쓰이는 핵심 원천 데이터베이스와 정보 시스템으로 이뤄진다.
+  핵심 업무 원천 시스템의 데이터가 반입되어 고도로 정규화된(3NF) 데이터 웨어하우스로 통합되는데,
+  이 데이터 웨어하우스는 흔히 원천 시스템 자체의 정규화 구조와 아주 닮아 있다. 데이터는 우선순위가
+  가장 높은 업무 영역부터 시작해 점진적으로 들여온다. 엄격한 정규화 요구는 데이터 중복을 가능한
+  한 적게 보장하고, 이는 데이터가 갈라지거나 중복으로 고통받지 않으므로 하류 분석 오류를 줄인다.
+  데이터 웨어하우스는 전체 업무의 정보 요구를 지원하는 "단일 진실의 원천"을 나타낸다. 데이터는
+  하류 리포트와 분석을 위해 업무별·부서별 데이터 마트를 통해 제시되며, 이 마트는 비정규화돼
+  있을 수도 있다** (8장, p.296).[^reis2022]
+  - **"원천 시스템 자체의 정규화 구조와 닮는다"**는 이 서술이 인몬 접근의 실무적 특징을
+    한 줄로 요약한다. 위 [아키텍처 지형: 2계층과 3계층](#아키텍처-지형-2계층과-3계층)이
+    말하는 스테이징·통합 계층의 분리와 같은 그림이다.
+- 이커머스 예 — **업무 원천 시스템은 주문·재고·마케팅이다. 이 원천 시스템의 데이터가 데이터
+  웨어하우스로 ETL되어 3NF로 저장된다. 이상적으로 데이터 웨어하우스는 업무의 정보를 총체적으로
+  포괄한다. 부서별 정보 요청에 데이터를 서빙하기 위해 ETL 프로세스가 데이터 웨어하우스에서 데이터를
+  가져와 변환하고 하류 데이터 마트에 두어 리포트에서 보게 한다** (8장, p.296).[^reis2022]
+  - **데이터 마트에서 데이터를 모델링하는 인기 있는 선택지가 스타 스키마(다음 절의 킴벌에서
+    논한다)이지만, 쉽게 접근 가능한 정보를 제공하는 어떤 데이터 모델도 적합하다. 앞의 예에서
+    판매·마케팅·구매는 각자의 스타 스키마를 가지며, 데이터 웨어하우스의 세밀한 데이터에서
+    상류로 공급받는다. 이는 각 부서가 자기 필요에 고유하고 최적화된 자기 데이터 구조를 갖게
+    한다** (8장, pp.296–297).[^reis2022]
+    - 즉 **인몬 접근이 스타 스키마를 배제하지 않는다.** 갈리는 것은 스키마의 종류가 아니라
+      **그것이 놓이는 계층**이다 — 인몬은 마트에, 킴벌은 웨어하우스 자체에 둔다. 킴벌 쪽
+      제3자 서술은 [차원 모델링](../concepts/dimensional-modeling.md)에 있다.
+- 인몬은 현재도 움직이고 있다 — **인몬은 데이터 웨어하우스 공간에서 계속 혁신하고 있으며 현재
+  데이터 웨어하우스에서의 텍스트 ETL에 초점을 맞추고 있다. 그는 또한 다작하는 저술가이자 사상가로
+  60권 넘는 책과 무수한 논문을 썼다** (8장, pp.296–297).[^reis2022]
+
+[^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture" · 5장 "Data Generation in
+Source Systems" · 8장 "Queries, Modeling, and Transformation"
 
 [^linstedt2016]: Linstedt & Olschimke 2016, 1장 "Introduction to Data Warehousing" · 8장 "Physical Data Warehouse Design"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
