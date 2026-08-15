@@ -88,6 +88,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [제네릭과 타입 소거](../concepts/java-generics-and-type-erasure.md) — 발할라가 갚으려는 기술
+  부채가 무엇이며 `value`·`primitive` 키워드가 어디까지 왔는가
 - [JDK 판올림의 역사](../concepts/jdk-release-history.md) — 6개월 주기와 미리 보기 제도가
   생긴 경위
 - [자바 기술 시스템의 구성과 제품군](../concepts/java-platform-editions.md) — 언어가 기술

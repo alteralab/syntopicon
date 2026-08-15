@@ -25,6 +25,9 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
   6개월 릴리스와 LTS 정책, OpenJDK와 오라클 JDK의 라이선스가 갈린 자리
 - [자바 가상 머신 제품군](../concepts/java-virtual-machine-family.md) — 클래식·이그잭트·
   핫스팟·JRockit·J9·징, 그리고 자바 가상 머신이 아닌 도전자들
+- [JDK 신기능의 다섯 범주와 백포트](../concepts/jdk-feature-categories-and-backporting.md) —
+  신기능이 라이브러리·컴파일러·바이트코드·JDK 구조·가상 머신 중 어디서 구현되는지가 곧 옛 JDK로
+  되돌릴 수 있는가의 경계인 이유
 
 ## 지금 어디로 가는가
 

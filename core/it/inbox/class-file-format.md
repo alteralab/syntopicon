@@ -2,7 +2,7 @@
 type: concept
 title: 클래스 파일 형식
 status: draft
-description: 자바 가상 머신이 유일하게 의존하는 바이너리 형식의 뼈대 — 구분 기호 없이 조밀하게 나열되는 빅 엔디언 이진 스트림, 부호 없는 숫자와 테이블이라는 두 가지 데이터 타입, ClassFile 구조의 순서, 0xCAFEBABE라는 매직 넘버와 버전 번호가 정하는 호환 범위, 그리고 이 형식이 20년 넘게 추가만으로 확장되어 온 방식
+description: 자바 가상 머신이 유일하게 의존하는 바이너리 형식의 뼈대 — 구분 기호 없이 조밀하게 나열되는 빅 엔디언 이진 스트림, 부호 없는 숫자와 테이블이라는 두 가지 데이터 타입, ClassFile 구조의 순서, 0xCAFEBABE라는 매직 넘버와 버전 번호가 정하는 호환 범위, 이 형식이 20년 넘게 추가만으로 확장되어 온 방식, 그리고 이 형식을 런타임에 직접 만들어 내는 동적 프락시
 generated: { by: "claude-opus-5", at: "2026-08-15T13:00:00Z" }
 sources:
   - { id: zhou2024, resource: /it/sources/zhou2024.md }
@@ -12,6 +12,7 @@ sources:
 
 - [왜 이 형식이 안정적이어야 했는가](#왜-이-형식이-안정적이어야-했는가)
 - [파일이 아니어도 되는 '파일 형식'](#파일이-아니어도-되는-파일-형식)
+- [런타임에 만들어지는 클래스 — 동적 프락시](#런타임에-만들어지는-클래스--동적-프락시)
 - [두 가지 데이터 타입뿐인 의사 구조](#두-가지-데이터-타입뿐인-의사-구조)
 - [ClassFile 구조](#classfile-구조)
 - [매직 넘버](#매직-넘버)
@@ -59,6 +60,68 @@ sources:
     이용하는 대표적인 아키텍처**이고, **파워(Power), AArch64, RISC-V 등 대부분의 주류
     프로세서는 엔디언 방식을 변환할 수 있는 바이 엔디언(Bi Endian) 명령어 집합 아키텍처**다
     (6장, p.291, 각주 3).
+
+## 런타임에 만들어지는 클래스 — 동적 프락시
+
+'동적으로 생성하여 클래스 로더에 직접 제공한다'는 앞 절의 단서가 실제로 쓰이는 자리다.
+
+- 저자는 이 기술의 문턱부터 낮춘다 — **'바이트코드 생성'은 고급 기술이 아니니 안심하자. (…)
+  JDK에 포함된 javac 컴파일러는 바이트코드 생성 기술의 '조상'에 해당하며 이 역시 자바로 작성되었다**
+  (9장, p.456).[^zhou2024] 쓰이는 자리는 넓다 — **웹 서버의 JSP 컴파일러, 컴파일타임에 코드를
+  변경해 주는 AOP 프레임워크가 있다. 동적 프락시 기술에서도 흔히 쓰인다. 리플렉션을 사용할 때도
+  가상 머신은 실행 속도를 개선하기 위해 런타임에 바이트코드를 생성하기도 한다** (9장, pp.456–457).
+- 동적 프락시에서 '동적'이 뜻하는 것과 그 이득이 분리되어 있다 — **동적 프락시의 장점은 프락시
+  클래스를 작성하는 코드 양을 줄여 주는 게 아니다. 원래의 클래스와 인터페이스가 무엇인지 알 수 없는
+  상태에서 프락시가 행위를 대신 결정할 수 있다는 점이 장점이다. 이처럼 프락시 클래스가 원래 클래스와
+  직접 연결되어 있지 않다면 다양한 애플리케이션 시나리오에서 유연하게 재사용할 수 있다** (9장,
+  p.457).[^zhou2024]
+- 사용자 코드가 하는 일은 두 가지뿐이다 — 대신 실행할 인스턴스를 묶고(`bind`), 가로챈 호출을
+  처리하는 것이다 (9장, pp.457–458, 코드 9-1 발췌):[^zhou2024]
+
+  ```java
+  static class DynamicProxy implements InvocationHandler {
+      Object originalObj;
+
+      Object bind(Object originalObj) {
+          this.originalObj = originalObj;
+          return Proxy.newProxyInstance(
+              originalObj.getClass().getClassLoader(),
+              originalObj.getClass().getInterfaces(), this);
+      }
+
+      @Override
+      public Object invoke(Object proxy, Method method, Object[] args)
+          throws Throwable {
+          System.out.println("Welcome");
+          return method.invoke(originalObj, args);
+      }
+  }
+  ```
+
+- 블랙박스는 한 군데뿐이고, 그 안에서 클래스가 만들어진다 — **코드에서 유일한 블랙박스는
+  `Proxy::newProxyInstance()` 메서드이며 특별한 것은 없다. (…) 이 메서드의 소스 코드를 추적하면
+  프로그램이 검증, 최적화, 캐싱, 동기화, 바이트코드 생성, 명시적 클래스 로딩 같은 작업을 수행했음을
+  알 수 있다. (…) 최종적으로 `sun.misc.ProxyGenerator::generateProxyClass()` 메서드를 호출하여
+  바이트코드 생성을 완료한다. 이 메서드는 런타임에 프락시 클래스에 해당하는 바이트코드를 생성해
+  `byte[]` 배열로 반환한다** (9장, p.458).[^zhou2024]
+  - 결과물을 눈으로 볼 수 있다 — `main()` 첫 줄에서
+    `System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true")`를 실행하면
+    **`$Proxy0.class` 파일이 생성된다. 바로 프락시 클래스의 클래스 파일이다** (9장, pp.458–459).
+    옮긴이 각주는 같은 효과를 내는 가상 머신 매개 변수를 적어 둔다 —
+    **`-Djdk.proxy.ProxyGenerator.saveGeneratedFiles=true`** (9장, p.458, 옮긴이 각주 7).
+- 만들어진 클래스의 모양은 단순하고 규칙적이다 — 디컴파일하면 **`final class $Proxy0 extends Proxy
+  implements DynamicProxyTest$IHello`** 이며, **`Object`에서 상속된 `equals()`, `hashCode()`,
+  `toString()` 메서드와 인터페이스에서 정의한 각 메서드에 대응하는 구현이 생성되었다. 그리고 메서드
+  본문을 구현할 때는 항상 `InvocationHandler` 객체의 `invoke()` 메서드를 호출한다. (…) 메서드별
+  차이점은 전달되는 매개 변수와 메서드 객체가 다르다는 것뿐이다. 따라서 동적 프락시의 어떤 메서드가
+  호출되든 실제로는 `InvocationHandler::invoke()`에서 프락시 로직을 실행하게 된다** (9장,
+  pp.459–460).[^zhou2024] 메서드 객체들(`m0`~`m3`)은 정적 초기화 블록에서 `Class.forName()`과
+  `getMethod()`로 한 번만 얻어 둔다 (9장, p.459, 코드 9-2).
+- 그러나 손으로 바이트를 쌓는 것은 실무의 방식이 아니다 — **일반적인 생성 과정은 클래스 파일의 형식
+  명세에 맞춰 바이트코드를 구성하면 된다. 하지만 실제 개발에서는 바이트코드를 바이트 단위로 직접
+  구성하는 경우는 드물다. 그런 식으로는 일부 고도로 형식화된 코드만 생성할 수 있다. 사용자 프로그램의
+  코드는, 특히 생성할 바이트코드양이 많은 경우라면 JDK에 동봉된 바이트코드 클래스 라이브러리를
+  사용하는 편이 좋다** (9장, p.460).[^zhou2024]
 
 ## 두 가지 데이터 타입뿐인 의사 구조
 
@@ -202,8 +265,18 @@ sources:
 - [온디스크 파일 형식](../concepts/on-disk-file-format.md) — 같은 문제(매직 넘버·버저닝·바이트 순서·가변
   길이 데이터)를 저장 엔진 쪽에서 푸는 방식
 
+- [런타임 스택 프레임 구조](../concepts/stack-frame-structure.md) — 이렇게 만들어진 메서드가
+  실제로 호출될 때 쌓이는 것
+
 [^zhou2024]: 저우즈밍 2024(한국어판), 6장 "클래스 파일 구조" §6.3 서두·§6.3.1(pp.290–295)과
-    §6.6(p.351). `ClassFile` 구조는 원문 구조 정의 6-1을 옮긴 것이며, 이 소스의 PDF가 OCR
+    §6.6(p.351), 9장 "클래스 로딩과 실행 서브시스템, 사례와 실전" §9.2.3 "바이트코드 생성 기술과
+    동적 프락시 구현"(pp.456–460). 코드 9-1은 `InvocationHandler` 구현부만 발췌했고(`IHello`
+    인터페이스와 `Hello` 구현, `main()`은 본문 서술로 대신했다), 디컴파일 결과인 코드 9-2는
+    OCR 훼손이 심해(`new Class[0]`이 "new Class [이"·"new Class[0]"으로, `super.h`가 "super.우"로,
+    `(Class<?>[])`가 "(Class<?>【])"로) 펜스로 옮기지 않고 본문 서술로 대신했다. 코드 9-1
+    구간에서 복원한 OCR 훼손은 `getClassLoader()`가 "getClassLoaderf)"로, `getInterfaces()`가
+    "getlnterfaces()"로, `Object[] args`가 "Object!] args"로, `println`이 "p rintIn"으로,
+    `@Override`가 "^Override"로 깨진 것이다. `ClassFile` 구조는 원문 구조 정의 6-1을 옮긴 것이며, 이 소스의 PDF가 OCR
     텍스트라 식별자가 훼손되어 있어(`major_version`이 "majo reversion"으로, `method_info`가
     "method,info"로, `constant_pool_count`가 "constant_pool_co나nt"로) 실표기로 복원했다.
     명세의 의사 구조는 실행 코드가 아니므로 `text` 펜스에 담았다. 버전 번호 표는 원문 표 6-1에서
