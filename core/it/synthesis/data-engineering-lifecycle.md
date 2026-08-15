@@ -105,6 +105,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 
 ## 닿는 페이지
 
+- [데이터 엔지니어링 디자인 패턴](data-engineering-design-patterns.md) — 이 수명 주기와 같은
+  순서로 배열되되 각 단계의 해법에 **이름과 결과 목록**을 붙인 카탈로그 축
 - [데이터 웨어하우스 모델링](data-warehouse-modeling.md) — 변환·서빙 단계가 실제로 무엇을
   만드는지의 방법론 축
 - [배치 처리](batch-processing.md) · [스트림 처리](stream-processing.md) — 반입·변환의 두 양식

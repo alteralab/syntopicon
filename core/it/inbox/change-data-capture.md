@@ -2,11 +2,12 @@
 type: concept
 title: 변경 데이터 캡처
 status: draft
-description: 같은 데이터가 여러 시스템에 나타날 때 그것을 어긋나지 않게 유지하는 방법 — 이중 쓰기가 조용히 깨지는 두 경로(경쟁 조건과 부분 실패), 한 데이터베이스를 리더로 만들고 나머지를 팔로워로 만든다는 CDC의 정체, 구현 도구와 초기 스냅샷 문제, 로그 압착이 스냅샷을 대신하는 방식, 상류 스키마가 공개 API가 되는 함정과 아웃박스, 그리고 데이터 엔지니어링 쪽이 이것을 원천 시스템 추출 방식으로 세우는 관점
+description: 같은 데이터가 여러 시스템에 나타날 때 그것을 어긋나지 않게 유지하는 방법 — 이중 쓰기가 조용히 깨지는 두 경로(경쟁 조건과 부분 실패), 한 데이터베이스를 리더로 만들고 나머지를 팔로워로 만든다는 CDC의 정체, 구현 도구와 초기 스냅샷 문제, 로그 압착이 스냅샷을 대신하는 방식, 상류 스키마가 공개 API가 되는 함정과 아웃박스, 데이터 엔지니어링 쪽이 이것을 원천 시스템 추출 방식으로 세우는 관점, 그리고 반입 패턴 카탈로그에서 이것을 증분 로더 대신 고르는 판정 조건과 네 가지 대가
 generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
 ---
 
 # 변경 데이터 캡처
@@ -21,6 +22,7 @@ sources:
 - [로그 압착이 스냅샷을 대신한다](#로그-압착이-스냅샷을-대신한다)
 - [변경 스트림이 일급 인터페이스가 되다](#변경-스트림이-일급-인터페이스가-되다)
 - [상류 스키마가 공개 API가 된다](#상류-스키마가-공개-api가-된다)
+- [반입 패턴으로서의 CDC — 언제 이것을 고르는가](#반입-패턴으로서의-cdc--언제-이것을-고르는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **같은 데이터가 여러 시스템에 사본으로 존재할 때 그것들을 어떻게 어긋나지 않게
@@ -297,6 +299,84 @@ sources:
   카프카 쪽에서 같은 패턴이 어떻게 서술되는지는
   [카프카 트랜잭션](../concepts/kafka-transactions.md)의 아웃박스 항이다.
 
+## 반입 패턴으로서의 CDC — 언제 이것을 고르는가
+
+앞 절들이 CDC가 **무엇인지**를 세웠다면, Konieczny는 반입 패턴 카탈로그 안에서 CDC를 **언제
+다른 반입 패턴 대신 고르는지**와 **그 대가가 무엇인지**로 다룬다. 겨루는 상대는 증분
+로더([배치 반입 패턴](batch-ingestion-patterns.md)의 Incremental Loader)다.
+
+- 판정 조건은 두 가지뿐이다 — **증분 로더가 모든 사용 사례에서 작동하지는 않는다. 더 낮은 반입
+  지연이 필요하거나 물리적 삭제(physical deletes)에 대한 내장 지원이 필요할 때 다음 패턴이 더
+  나은 선택이 된다** (2장, p.16).[^konieczny2025]
+  - 저자의 문제 서술이 그 지연을 수치로 못 박는다 — **반입 잡은 테이블의 각 변경을 30초 안에
+    포착해 중앙 토픽에서 다른 소비자들이 쓸 수 있게 해야 한다** (2장, p.16).[^konieczny2025]
+    그리고 **지연 요구가 증분 로더를 쓰는 것을 불가능하게 만든다 — 그 패턴에는 기대 지연에
+    닿기 어렵게 만드는 잡 스케줄링과 질의 실행 오버헤드가 있다** (2장, p.17).[^konieczny2025]
+- 왜 더 빠른가 — **패턴은 내부 데이터베이스 커밋 로그(commit log)에서 직접 모든 수정된 행을
+  연속적으로 반입하는 것으로 구성된다. 이는 어떤 고수준 질의나 처리 태스크와 비교해도 더 낮은
+  수준의 더 빠른 레코드 접근을 허용한다** (2장, p.17).[^konieczny2025]
+  - 커밋 로그의 정의 — **커밋 로그는 추가 전용(append-only) 구조다. 로그 파일 끝에 기존 행에
+    대한 모든 연산을 기록한다** (2장, p.17).[^konieczny2025] 그 로그의 실제 형식 넷은
+    [복제 로그의 구현 방식](../concepts/replication-log-implementations.md)에 있다.
+- 삭제 문제의 해소 — **지연 보장 외에도 CDC는 하드 삭제를 포함해 모든 유형의 데이터 연산을
+  가로챈다. 따라서 데이터 제거를 위해 데이터 생산자에게 소프트 삭제를 쓰라고 요청할 필요가
+  없다** (2장, p.17).[^konieczny2025] 증분 로더 쪽에서 생산자 규약으로 밀어냈던 부담이 여기서
+  사라진다.
+- 결과 ① **복잡성** — **CDC 패턴은 앞의 두 패턴과 달라서 다른 셋업 기술을 요구한다. Full
+  Loader와 Incremental Loader는 요구되는 컴퓨트·오케스트레이션 계층만 있으면 데이터 엔지니어
+  혼자 구현할 수 있다. CDC 패턴은 예컨대 서버에서 커밋 로그를 켜기 위해 운영 팀의 도움을 필요로
+  할 수 있다** (2장, p.17).[^konieczny2025]
+- 결과 ② **데이터 범위(data scope)** — **클라이언트의 구현에 따라 클라이언트 프로세스를 시작한
+  이후에 이뤄진 변경만 얻게 될 수 있다. 이전 변경에도 관심이 있다면 CDC를 이 장의 다른 데이터
+  반입 패턴과 조합해야 한다** (2장, p.17).[^konieczny2025]
+  - 위 [초기 스냅샷](#초기-스냅샷) 절이 같은 문제를 CDC 도구 내부에서 푸는 방식을 서술한다.
+    Konieczny의 처방은 그 바깥, **패턴 조합**이다 — Full Loader로 한 번 채우고 CDC로 잇는 식.
+- 결과 ③ **페이로드(payload)** — **지연 외에 CDC와 증분 로더의 또 다른 차이는 페이로드다. CDC는
+  연산 유형(갱신·삽입·삭제)·수정 시각·컬럼 타입 같은 추가 메타데이터를 레코드와 함께 가져온다.
+  이 데이터의 소비자로서 무관한 속성을 무시하도록 처리 로직을 적응시켜야 할 수 있다** (2장,
+  p.17).[^konieczny2025]
+- 결과 ④ **데이터 의미론** — 이것이 이 절에서 가장 미묘한 항목이다 (2장,
+  p.18):[^konieczny2025]
+
+  > Don't get this wrong; the pattern ingests data at rest. As a side effect, these static
+  > rows become data in motion. Why is this worth emphasizing? Data in motion has different
+  > processing semantics for many operations that appear to be trivial in the data-at-rest
+  > world.
+
+  - 저자가 든 실물이 `JOIN`이다 — **데이터 오케스트레이션 계층에서 조율된 정적 테이블에 대해
+    수행했는데 결과가 없다면 그것은 일치하는 데이터가 없기 때문이다. 그러나 두 동적 스트리밍
+    원천에 대해 질의를 돌렸는데 일치를 얻지 못했다면 그것은 데이터가 **아직** 없기 때문일 수
+    있다. 한 스트림이 다른 것보다 그저 늦을 수 있고 `JOIN` 연산은 미래에 결국 성공할 수 있다.
+    그런 이유로 CDC 컨슈머에서 반입된 데이터를 정적 데이터로 간주해서는 안 된다** (2장,
+    p.18).[^konieczny2025]
+  - 이 결과가 CDC를 "반입 방식 선택"이 아니라 **하류 처리 의미론의 변경**으로 만든다. 스트림
+    조인의 시간 의미론은
+    [스트림 처리의 시간 의미론](stream-processing-time-semantics.md)이 받는다.
+- 구현 — **가장 인기 있는 오픈 소스 해법 중 하나가 Debezium이다. 프레임워크는 많은 관계형·NoSQL
+  데이터베이스를 지원하고 정지 데이터와 이동 데이터 세계 사이의 다리로 Kafka Connect를 쓴다.
+  셋업은 대부분 설정 주도다** (2장, p.18).[^konieczny2025] PostgreSQL이라면
+  `io.debezium.connector.postgresql.PostgresConnector` 커넥터 클래스에 감시할 스키마
+  목록(`schema.include.list`)과 토픽 접두(`topic.prefix`)를 준다 — `dedp_schema.events` 테이블이
+  있으면 커넥터는 모든 변경을 `dedp.dedp_schema.events` 토픽에 쓴다 (2장,
+  p.18).[^konieczny2025]
+  - 사전 준비가 남아 있다 — **PostgreSQL은 `pgoutput` 플러그인으로 켜진 논리 복제 스트림과 모든
+    필요한 권한을 가진 사용자를 기대한다** (2장, p.19).[^konieczny2025] 결과 ①의 "운영 팀의
+    도움"이 실물로는 이것이다. Debezium은 Kafka Connect 외에 **Debezium Embedded Engine과
+    Debezium Server라는 두 구현**도 갖는다 (2장, p.18 각주 2).[^konieczny2025] 커넥터가 사는
+    자리는 [카프카 커넥트](../concepts/kafka-connect.md)에 있다.
+- 레이크 쪽에는 더 간단한 길이 있다 — **레이크 네이티브 형식이 CDC를 더 단순하게 지원한다.
+  Delta Lake는 바뀐 행을 스트리밍하는 내장 변경 데이터 피드(change data feed, CDF) 기능을 갖고,
+  전역 세션 속성으로 켜거나 `readChangeFeed` 옵션으로 지역 테이블 속성으로 켤 수 있다** (2장,
+  p.19).[^konieczny2025] 처리량 한계는 `maxFilesPerTrigger`·`maxBytesPerTrigger`로 걸고,
+  테이블이 시간 여행을 지원하므로 특정 버전부터 읽기 시작할 수 있다 (2장,
+  p.19).[^konieczny2025]
+  - 반환되는 데이터셋이 다르다 — CDF 테이블은 고전적 테이블에 없는 `_change_type`·
+    `_commit_version`·`_commit_timestamp` 컬럼을 갖는다. **밑줄로 시작하는 이 여분 컬럼들은
+    각각 행이 어떻게 바뀌었는지, 어느 버전에서, 언제인지를 뜻한다** (2장,
+    p.20).[^konieczny2025] 추가 전용 테이블이면 `insert`만 보이지만 **`UPDATE` 같은 제자리
+    연산을 적용하면 변경 피드는 갱신 전·후 버전 양쪽의 행을 담고, `update_preimage`와
+    `update_postimage` 타입으로 식별할 수 있다** (2장, p.20).[^konieczny2025]
+
 ## 이어지는 페이지
 
 - [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) — CDC가 무엇을
@@ -319,7 +399,14 @@ sources:
   반입 수단 카탈로그
 - [수명 주기의 반입 단계](../concepts/ingestion-in-the-lifecycle.md) — 푸시·풀·폴 축에서 CDC가
   갈리는 자리
+- [배치 반입 패턴](batch-ingestion-patterns.md) — CDC가 겨루는 상대인 Full Loader·Incremental
+  Loader, 그리고 CDC와 조합해야 하는 이유
+- [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — CDC가 한
+  패턴으로 등록된 카탈로그
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
 
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems" · 7장 "Ingestion"
+
+[^konieczny2025]: Konieczny 2025, 2장 "Data Ingestion Design Patterns" — "Pattern: Change Data
+Capture"(pp.16–20). 그림 2-3(Debezium 구조)은 도식이므로 본문이 서술한 내용만 옮겼다.
