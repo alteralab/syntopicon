@@ -107,11 +107,23 @@ def check_hubs(ctx):
                           f"'{section}' 절이 없습니다 (layout.yaml의 절 계약)", kb, marker)
             continue
 
+        # 부모-자식 계층 인지: overview 는 상위 축만 나열한다(2026-08-16 재편 —
+        # 39개가 상한을 넘어 부모-전용으로 접음). listed 에 오른 부모 허브가
+        # 링크하는 synthesis 는 진입 가능하므로 후보에서 뺀다(1단계만 — 손자는
+        # 여전히 후보로 떠서 계층이 두 단을 넘으면 재론된다).
+        reachable = set(listed)
+        for hub_path in listed:
+            if (hub := ctx.files.get(hub_path)) is not None:
+                reachable |= {
+                    str(Path(hub_path).parent / href.partition("#")[0])
+                    for href in hub.links if "://" not in href
+                }
         for path, meta in ctx.meta.items():
             if (meta["kb"] == kb and meta["type"] == "synthesis"
-                    and degrees.get(path, 0) >= HUB_DEGREE and path not in listed):
+                    and degrees.get(path, 0) >= HUB_DEGREE and path not in reachable):
                 yield Finding("hub-candidate",
-                              f"피링크 {degrees[path]}회인데 {section} 절에 없습니다", kb, path)
+                              f"피링크 {degrees[path]}회인데 {section} 절에도, 절에 오른 "
+                              "부모 허브에도 없습니다", kb, path)
         for missing in sorted(listed - set(ctx.meta) - {marker}):
             yield Finding("hub-dangling",
                           f"{section} 절이 없는 페이지를 가리킵니다: {missing}", kb, marker)

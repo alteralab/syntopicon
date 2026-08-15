@@ -88,8 +88,12 @@ def check_progress(kb: str, path: str, front: dict, validator):
     # 접미↔단위 일치. 값이 인용될 때 단위가 떨어져 나가는 것을 막으려고 값마다 붙이되,
     # 붙인 것이 `unit`과 어긋나면 두 정본이 되므로 여기서 묶는다(schema/progress.yaml).
     if suffix := {"page": "p", "chapter": "ch"}.get(document["unit"]):
-        ranges = [*document["covered"], *(s["range"] for s in document["skipped"]),
-                  *document.get("contents", {}).values()]
+        ranges = [*document["covered"], *(s["range"] for s in document["skipped"])]
+        # contents 는 재개 단위의 **지도**다 — unit: page 면 값도 쪽이라 같은 접미를
+        # 요구하지만, unit: chapter 면 값이 하위 단위(Topic 등)라 접미 강제가
+        # 성립하지 않는다(2026-08-16 thomas2020 리플로 전자책 실측 — 오탐 19건).
+        if document["unit"] == "page":
+            ranges += document.get("contents", {}).values()
         for value in ranges + [document.get("total"), document.get("next")]:
             if value is None:
                 continue

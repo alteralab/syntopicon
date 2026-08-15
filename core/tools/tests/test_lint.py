@@ -87,7 +87,7 @@ def test_고차수_synthesis를_Hubs_후보로_낸다(repo: Repo):
         repo.write(f"it/concepts/{name}.md",
                    cited() + "\n- [분산](../synthesis/distributed.md)\n")
     lint(repo)
-    assert any("Hubs 절에 없습니다" in f for f in findings(repo, "hub-candidate"))
+    assert any("distributed" in f for f in findings(repo, "hub-candidate"))
 
 
 # ── 메타 ─────────────────────────────────────────────────────────────────────
@@ -321,6 +321,13 @@ def test_반입_진행_파일을_검사한다(repo: Repo):
     lint(repo)
     assert findings(repo, "progress-suffix"), "단위 접미 누락을 놓쳤습니다"
 
+    # unit: chapter 의 contents 는 하위 단위 지도(Topic 등)라 접미를 강제하지 않는다
+    # (2026-08-16 thomas2020 리플로 전자책 실측 — 오탐 19건의 재발 방지)
+    progress(unit="chapter", total="1ch-2ch", covered=["1ch"],
+             contents={"1ch": "Topic 1-7", "2ch": "Topic 8-15"}, next="2ch")
+    lint(repo)
+    assert not findings(repo, "progress-suffix"), "chapter 단위 contents 에 접미를 강제했습니다"
+
     # 온전하면 조용하다
     progress()
     lint(repo)
@@ -445,3 +452,17 @@ def test_explain은_레지스트리를_조회한다(repo: Repo):
     assert result.returncode == 0
     assert "broken-link" in result.stdout and "rename.py" in result.stdout
     assert repo.run("lint.py", "--explain", "없는종류").returncode == 1
+
+
+def test_허브는_toc_검사를_면제받는다(repo: Repo):
+    """hub-grammar 가 링크 불릿에 설명을 요구해 pointer_only 기준 TOC 와 상호
+    배제된다(2026-08-16 실측: 허브 5개가 둘을 동시에 만족 불가) — synthesis 면제."""
+    base(repo)
+    body = "\n" + "\n".join(
+        f"- [페이지{i}](../concepts/p{i}.md) — 설명이 붙은 허브 불릿 {i}" for i in range(60))
+    repo.write("it/synthesis/big-hub.md", page({
+        "type": "synthesis", "title": "큰 허브", "description": "면제 확인",
+        "generated": {"by": "test", "at": "2026-08-16T00:00:00Z"}}, body=body * 2))
+    lint(repo)
+    assert not any("big-hub" in f for f in findings(repo, "toc-missing")), \
+        "synthesis 가 toc-missing 에 걸렸습니다"

@@ -95,7 +95,12 @@ def check_page(ctx: Context, path: str, md: MdFile):
         yield Finding("page-too-long",
                       f"{md.line_count}줄 — 분할 판단은 목적 기준으로(§2.6). "
                       "1차 완화책은 분할이 아니라 TOC + 섹션 앵커", kb, path)
-    if md.line_count > TOC_REQUIRED_ABOVE and not _has_toc(md):
+    # 허브(synthesis)는 면제 — 본문 자체가 링크 목록이고, hub-grammar 가 링크
+    # 불릿에 설명을 요구해 pointer_only 기준의 TOC 와 상호 배제된다(2026-08-16
+    # 실측: 허브 5개가 두 검사를 동시에 만족할 수 없었다). 허브의 목차 역할은
+    # 절 구조가 대신한다.
+    if front.get("type") != "synthesis" and (
+            md.line_count > TOC_REQUIRED_ABOVE and not _has_toc(md)):
         yield Finding("toc-missing", f"{md.line_count}줄인데 상단 TOC가 없습니다", kb, path)
 
     yield from _check_headings(kb, path, md)

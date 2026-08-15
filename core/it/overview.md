@@ -12,48 +12,31 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 ## Hubs
 
 <!-- 허브(synthesis) 링크 + 한 줄 설명, 10–30개. 포인터만 — 본문 발췌·수치 복제
-     금지(진입점 부패 벡터, PLAN §3). 갱신 후보는 kb-lint의 링크 차수 대조가 낸다. -->
+     금지(진입점 부패 벡터, PLAN §3). **상위 축만 나열한다** — 자식 허브는 부모 허브
+     본문이 안내한다(2026-08-16 재편: 39개가 상한을 넘어 부모-전용으로 접음).
+     갱신 후보는 kb-lint의 링크 차수 대조가 낸다. -->
 
-- [데이터 웨어하우스 모델링](synthesis/data-warehouse-modeling.md) — DW 축의 부모 허브
-  - [차원 모델링 기법](synthesis/dimensional-modeling-techniques.md) — Kimball 기초·기법 카탈로그
-  - [Data Vault](synthesis/data-vault.md) — 모델링·아키텍처·적재
-  - [DW 운영과 프로세스](synthesis/dw-operations-and-process.md) — 라이프사이클·ETL·데이터 관리
-- [카프카](synthesis/kafka-basics.md) — 스트리밍 축의 부모 허브
-  - [카프카 내부 구조](synthesis/kafka-internals.md) — 메타데이터·복제·요청 처리·물리 저장
-  - [카프카 클라이언트](synthesis/kafka-clients.md) — 프로듀서·컨슈머 설정, 파티션 배분, 오프셋 커밋
-  - [카프카 설치와 운영](synthesis/kafka-operations.md) — 설정 기준·클러스터 산정·튜닝
-  - [카프카 신뢰성과 정확히 한 번](synthesis/kafka-reliability.md) — 보장의 경계·언클린 리더 선출·멱등적 프로듀서·트랜잭션
-  - [카프카 커넥트와 데이터 파이프라인](synthesis/kafka-connect-and-pipelines.md) — 파이프라인 설계 고려사항·커넥트 구조와 설정·복사 도중 변환
-  - [카프카 보안](synthesis/kafka-security.md) — 인증·인가·암호화·감사·주키퍼와 플랫폼
-  - [카프카 모니터링](synthesis/kafka-monitoring.md) — 지표와 SLO·브로커와 JVM·클라이언트 지표·랙
-  - [스트림 처리](synthesis/stream-processing.md) — 패러다임의 정의·시간과 상태와 이중성·설계 패턴·카프카 스트림즈
-- [데이터 엔지니어링 수명 주기](synthesis/data-engineering-lifecycle.md) — 원시 데이터가 소비 가능한 산물이 되기까지의 다섯 단계(생성·저장·반입·변환·서빙)와 여섯 저류
-  - [데이터 엔지니어링 디자인 패턴](synthesis/data-engineering-design-patterns.md) — 같은 순서로 배열된 이름 붙은 패턴 카탈로그: 반입·오류 관리부터 관측성까지, 패턴마다 문제·해법·결과
-- [배치 처리](synthesis/batch-processing.md) — 유한한 입력을 통째로 읽어 출력을 다시 만드는 쪽: 저장·오케스트레이션·연산 세 계층과 그 쓰임새
-- [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축의 허브
-- [데이터 메시 원칙](synthesis/data-mesh-principles.md) — 중앙집중 분석 플랫폼을 도메인 소유권으로 뒤집는 제안의 네 원칙
-- [데이터 메시 논리 아키텍처](synthesis/data-mesh-logical-architecture.md) — 그 원칙을 구성 요소로 옮긴 층: 데이터 퀀텀과 그 포트, 세 플레인 플랫폼
-- [데이터 프로덕트 아키텍처](synthesis/data-product-architecture.md) — 데이터 프로덕트 내부를 여덟 어포던스로 설계하는 층
-- [데이터 메시 실행과 조직](synthesis/data-mesh-execution-and-organization.md) — 그 전부를 실제 조직에서 굴리는 층: 채택 심사·진화 단계·적합성 함수·팀 토폴로지
+- [데이터 웨어하우스 모델링](synthesis/data-warehouse-modeling.md) — DW 축의 부모 허브: 차원 모델링·Data Vault·운영과 프로세스
+- [카프카](synthesis/kafka-basics.md) — 스트리밍 축의 부모 허브: 내부 구조·클라이언트·운영·신뢰성·파이프라인·보안·모니터링·스트림 처리
+- [데이터 엔지니어링 수명 주기](synthesis/data-engineering-lifecycle.md) — 생성부터 서빙까지의 단계와 저류
+- [데이터 엔지니어링 디자인 패턴](synthesis/data-engineering-design-patterns.md) — 원리 서술 위에 얹힌 이름 층: 반입·멱등성·품질·보안·관측 패턴 카탈로그
+- [배치 처리](synthesis/batch-processing.md) — 유한한 입력을 통째로 읽어 출력을 다시 만드는 쪽: 저장·오케스트레이션·연산
+- [스트림 처리](synthesis/stream-processing.md) — 끝나지 않는 입력의 처리: 브로커·시간·상태·이중성
+- [데이터플로 아키텍처](synthesis/dataflow-architecture.md) — 데이터 통합·언번들드 DB·쓰기 경로와 읽기 경로·종단 간 논증
+- [데이터 시스템 아키텍처 트레이드오프](synthesis/data-systems-architecture-tradeoffs.md) — 운영/분석·클라우드·분산 선택 축과 사업·사용자의 요구
+- [데이터 메시 원칙](synthesis/data-mesh-principles.md) — 데이터 메시 축의 부모 허브: 네 원칙과 논증, 논리 아키텍처·프로덕트 설계·실행과 조직으로 이어짐
 - [비기능 요건](synthesis/nonfunctional-requirements.md) — 성능·신뢰성·확장성·유지보수성을 정의하는 어휘
 - [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들
-- [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조, B-트리 대 LSM의 대비, 분석용 열 저장과 색인들
+- [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조, B-트리 대 LSM, 분석용 열 저장과 색인들
 - [인코딩과 진화](synthesis/encoding-and-evolution.md) — 데이터를 바이트로 바꾸는 형식과 버전을 넘어 살아남는 방법
 - [분산 시스템 기초](synthesis/distributed-systems-basics.md) — 통신·시간·장애의 가정과 그 위의 실패 감지·리더 선출
-- [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft의 해법
+- [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft·Paxos 계열의 해법
 - [데이터 복제](synthesis/data-replication.md) — 리더 하나·여럿·없음의 세 갈래와 각각이 낳는 문제
 - [레플리카 일관성](synthesis/replica-consistency.md) — 사본이 여럿일 때의 가시성 계약과 수렴 장치
 - [데이터 샤딩](synthesis/data-sharding.md) — 데이터셋을 노드로 쪼개는 기준·쏠림·라우팅·색인
 - [데이터베이스 트랜잭션](synthesis/database-transactions.md) — ACID·격리 수준·직렬성 구현·분산 원자적 커밋
-- [실용주의 철학과 접근](synthesis/pragmatic-philosophy-and-approach.md) — 소프트웨어 실천 축의 첫 허브: 개발자의 태도·책임과 ETC·DRY·직교성 같은 설계 원칙
-- [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 구성과 제품군·판올림의 역사·가상 머신 구현들·지금의 방향
-  - [JVM 자동 메모리 관리](synthesis/jvm-memory-management.md) — 메모리 영역·객체 생존 판정·회수 알고리즘·컬렉터 선택
-  - [JVM 모니터링과 문제 해결 도구](synthesis/jvm-troubleshooting-tools.md) — 명령 줄 도구·JHSDB·GUI 도구·JFR과 JMC·JIT 코드 검사
-  - [클래스 파일과 바이트코드](synthesis/class-file-and-bytecode.md) — 컴파일 결과물의 저장 형식과 그 위에 실리는 명령어 집합
-  - [클래스 로딩](synthesis/class-loading.md) — 클래스 파일이 살아 있는 타입이 되는 절차와 로더 계층
-  - [백엔드 컴파일과 최적화](synthesis/backend-compilation-and-optimization.md) — 바이트코드가 네이티브 코드가 되는 구간: JIT·AOT·최적화 기법·그랄
-  - [자바 메모리 모델과 동시성](synthesis/java-memory-model-and-concurrency.md) — 메모리 모델·선 발생 원칙·스레드 구현과 가상 스레드·스레드 안전성·락 최적화
-
+- [실용주의 프로그래머](synthesis/pragmatic-programmer.md) — 소프트웨어 실천 축의 부모 허브: 철학·도구·유연성·코딩·프로젝트 다섯 갈래
+- [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 메모리·도구·클래스 파일과 로딩·컴파일·동시성
 
 ## Tools
 
