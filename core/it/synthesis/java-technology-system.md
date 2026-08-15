@@ -53,3 +53,5 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
   입력 형식과 그 안의 명령어 집합
 - [백엔드 컴파일과 최적화](backend-compilation-and-optimization.md) — 그 입력을 네이티브 코드로
   바꾸는 JIT·AOT 컴파일러와 그랄
+- [자바 메모리 모델과 동시성](java-memory-model-and-concurrency.md) — 여러 스레드가 데이터를 공유할
+  때의 보장과, 스레드 구현·스레드 안전성·락 최적화

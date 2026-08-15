@@ -45,6 +45,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
   - [클래스 파일과 바이트코드](synthesis/class-file-and-bytecode.md) — 컴파일 결과물의 저장 형식과 그 위에 실리는 명령어 집합
   - [클래스 로딩](synthesis/class-loading.md) — 클래스 파일이 살아 있는 타입이 되는 절차와 로더 계층
   - [백엔드 컴파일과 최적화](synthesis/backend-compilation-and-optimization.md) — 바이트코드가 네이티브 코드가 되는 구간: JIT·AOT·최적화 기법·그랄
+  - [자바 메모리 모델과 동시성](synthesis/java-memory-model-and-concurrency.md) — 메모리 모델·선 발생 원칙·스레드 구현과 가상 스레드·스레드 안전성·락 최적화
 
 
 ## Tools
