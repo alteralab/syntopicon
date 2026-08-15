@@ -437,6 +437,12 @@ sources:
 - [결정권으로서의 프라이버시](../concepts/privacy-as-a-decision-right.md) — 보안이 봉사하는 권리
 - [공학 윤리와 책임](../concepts/engineering-ethics-and-responsibility.md) — "우려를 제기하라"의 근거
 - [카프카 플랫폼 보안](../concepts/kafka-platform-security.md) — 같은 원칙이 한 시스템에서 구현된 실물
+- [세밀한 접근과 자격 증명 패턴](fine-grained-access-and-credential-patterns.md) — 위 최소 권한의
+  원칙을 열·행·클라우드 자원 입도로 내리는 패턴들, 그리고 자격 증명을 코드 밖에 두는 두 방법
+- [암호화와 익명화 패턴](data-encryption-and-anonymization-patterns.md) — 위 "암호화·토큰화·데이터
+  마스킹·난독화" 한 줄이 파이프라인 패턴으로 펼쳐지는 자리
+- [개인 데이터 제거 패턴](personal-data-removal-patterns.md) — 프라이버시 법령이 요구하는 삭제
+  요청을 실제로 이행하는 두 패턴
 
 [^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle" · 3장 "Designing Good Data
     Architecture" · 10장 "Security and Privacy"

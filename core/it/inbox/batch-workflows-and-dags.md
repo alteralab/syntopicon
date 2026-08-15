@@ -227,6 +227,9 @@ Reis & Housley는 같은 층을 데이터 엔지니어링 수명 주기의 **저
   단일 기계판
 - [배치 처리의 유스케이스](../concepts/batch-use-cases.md) — 이 스케줄러가 실제로 굴리는 것
 - [데이터플로 엔진](../concepts/dataflow-engines.md) — 워크플로 전체를 한 잡으로 다루는 쪽
+- [데이터 흐름 의존 패턴](data-flow-dependency-patterns.md) — 이 층 위에 얹히는 이름 층. 태스크
+  경계를 어디에 그을지(재시작 경계), 분기를 어떻게 합류·분기시킬지, 파이프라인을 몇 개나 동시에
+  돌릴지를 여덟 패턴으로 가른다
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 11장 "Batch Processing"
 
