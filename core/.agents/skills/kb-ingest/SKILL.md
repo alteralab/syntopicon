@@ -108,6 +108,12 @@ uv run tools/snapshot.py --kb <kb> --citekey <citekey> --url <URL>
 
 출력된 `snapshot` / `snapshot_sha256` / `accessed` 세 줄을 3단계 소스 메타에 그대로 넣는다.
 
+**PDF면 스냅샷이 텍스트 레이어 판정도 출력한다**(`--group ingest`로 실행 시 —
+pdf-inspector). 그 판정을 `_progress.yaml` 머리말에 옮겨 적어라: image_based나
+OCR 필요 판정이면 "직인용은 훼손 없는 구간만·식별자 실표기 복원"이 그 소스의
+표준 지침이 되고(zhou2024 실측 규약), 파싱 거부면 변환판 의심이라 쪽 오프셋
+실측을 건너뛸 수 없다(thomas2020 실측).
+
 ## 3. 소스 메타 [LLM 제안 + 스크립트 발급]
 
 citekey는 손으로 짓지 않는다 — 발급은 O_EXCL이어야 하고, 규칙은 결정적이다.
@@ -136,6 +142,9 @@ uv run tools/edges.py neighbors <관련페이지> --depth 2
   확립 용어(TTA·국어원) 우선, 미확립이면 원어 유지.
 - **정의·정리·수치는 번역하지 말고 원문 직인용**(인용 블록). 의미는 원문이,
   해설은 한국어가 담당한다.
+- 비전 읽기가 콘텐츠 필터 오탐에 반복 차단되면 그 구간은
+  `uv run --group ingest tools/pdftext.py <pdf> <시작쪽> <끝쪽>` 추출본으로
+  우회한다(도판 누락은 각주에 기록).
 - **코드는 소스에 있는 것만.** 짧은 조각은 인라인 백틱, 복사해 쓸 것은 펜스로
   개념당 하나까지(SCHEMA.md §3). **지어내지 않는다** — 소스에 없는 코드는 예제가
   아니라 발명한 claim이고, 코드는 그럴듯해 보여서 산문보다 위험하다. 문맥
