@@ -2,7 +2,6 @@
 type: concept
 title: 추론 배칭
 description: 비용을 줄이는 가장 쉬운 서비스 수준 기법과 그 세 형태 — 자리가 다 찰 때까지 기다리는 정적 배칭, 시간 창을 두는 동적 배칭, 그리고 끝난 응답을 즉시 돌려주고 그 자리에 새 요청을 넣는 연속 배칭, 그 사이의 지연·컴퓨트 효율 맞바꿈
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

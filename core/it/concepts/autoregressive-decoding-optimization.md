@@ -2,7 +2,6 @@
 type: concept
 title: 자기회귀 디코딩 최적화
 description: 한 번에 토큰 하나씩이라는 병목을 깨려는 세 갈래 — 약한 초안 모델이 먼저 뽑고 대상 모델이 병렬로 검증하는 speculative decoding과 그것이 통하는 세 통찰, 입력에서 초안 토큰을 베껴 오는 참조 기반 추론, 그리고 순차 의존 자체를 끊는 병렬 디코딩(Lookahead·Medusa)과 그 검증 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

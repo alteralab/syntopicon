@@ -2,7 +2,6 @@
 type: concept
 title: 모델 압축과 프루닝
 description: 모델을 작게 만드는 세 갈래를 한자리에 놓고 견준다 — 양자화와 증류가 이미 다뤄진 자리, 증류의 물음이 낳는 프루닝이라는 착상, 프루닝이 가진 두 가지 뜻과 90% 넘는 파라미터를 지웠다는 결과, 그럼에도 실무에서 덜 쓰이는 세 이유, 그리고 가중치 전용 양자화가 압도적으로 인기 있는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

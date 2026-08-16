@@ -2,7 +2,6 @@
 type: concept
 title: 추론 성능의 지연 지표
 description: 자기회귀 생성의 지연이 하나의 수가 아니라 여러 지표로 쪼개진다는 것 — 프리필에 대응하는 TTFT와 디코드에 대응하는 TPOT, 토큰 사이 시간의 두 이름, 총지연이 그 둘로 조립되는 식, 같은 총지연에서 갈리는 사용자 경험, 모델이 보는 첫 토큰과 사용자가 보는 첫 토큰이 다른 자리, 그리고 평균 대신 백분위를 보는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

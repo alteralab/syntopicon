@@ -2,7 +2,6 @@
 type: concept
 title: KV 캐시와 어텐션 최적화
 description: 어텐션이 추론에서 만드는 병목과 그것을 세 갈래로 다루는 법 — 이전 토큰의 키·값 벡터를 다시 계산하지 않으려고 두는 KV 캐시와 그 크기 산식, 500B 모델에서 3TB가 되는 실측, 어텐션을 다시 설계하는 쪽(local windowed·cross-layer·multi-query·grouped-query), KV 캐시 관리를 고치는 쪽(PagedAttention), 그리고 계산 자체를 커널로 고치는 쪽(FlashAttention)
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

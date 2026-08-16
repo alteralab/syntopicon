@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 양자화
-description: 값당 비트를 줄이는 것이 왜 메모리 발자국을 줄이는 가장 싸고 효과적인 방법인가 — 무엇을 언제 양자화할지의 두 질문, 사후 훈련 양자화가 압도적으로 흔한 이유, 8비트와 4비트를 지나 1비트까지 간 시도들과 BitNet b1.58의 실측, 속도 이득과 그 대가, 그리고 훈련 중 양자화(QAT·혼합 정밀도)
-generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
+description: 값당 비트를 줄이는 것이 왜 메모리 발자국을 줄이는 가장 싸고 효과적인 방법인가 — 무엇을 언제 양자화할지의 두 질문, 사후 훈련 양자화가 압도적으로 흔한 이유, 8비트와 4비트를 지나 1비트까지 간 시도들과 BitNet b1.58의 실측, 속도 이득과 그 대가, 서빙에서 대역폭까지 아낀다는 관점, 그리고 훈련 중 양자화(QAT·혼합 정밀도)
+generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -17,6 +17,7 @@ sources:
 - [추론 양자화](#추론-양자화)
 - [1비트까지 간 시도들](#1비트까지-간-시도들)
 - [속도 이득과 그 대가](#속도-이득과-그-대가)
+- [서빙 관점 — 메모리만이 아니라 대역폭](#서빙-관점--메모리만이-아니라-대역폭)
 - [훈련 중 양자화](#훈련-중-양자화)
 - [혼합 정밀도](#혼합-정밀도)
 - [이어지는 페이지](#이어지는-페이지)
@@ -35,7 +36,7 @@ sources:
      혼합 정밀도로 이뤄지는데, 어떤 연산은 더 높은 정밀도(예: 32비트)로, 어떤 연산은 더 낮은
      정밀도(예: 16비트나 8비트)로 한다.**
   - 앞의 세 항목(메모리 병목·훈련 가능 파라미터·PEFT)은
-    [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md)가 담았다.
+    [훈련 가능 파라미터와 역전파](../concepts/trainable-parameters-and-backpropagation.md)가 담았다.
 
 ## 무엇을 얻는가
 
@@ -134,6 +135,22 @@ sources:
 - 엣지 쪽 — **어떤 엣지 기기는 양자화된 추론만 지원한다. 따라서 TensorFlow Lite와 PyTorch Mobile
   같은 온디바이스 추론 프레임워크도 PTQ를 제공한다** (7장, p.331).[^huyen2025]
 
+## 서빙 관점 — 메모리만이 아니라 대역폭
+
+- 9장이 붙이는 다른 이유 — 추론의 대역폭 이용률(MBU)을 계산하는 자리에서 저자는 **이것이 양자화
+  (7장에서 논의)의 중요성을 강조한다. 파라미터당 바이트가 적을수록 모델이 소비하는 귀중한 대역폭이
+  줄어든다**고 적는다 (9장, p.417).[^huyen2025] 디코드가 메모리 대역폭 바운드라는 것이 그
+  전제이고, 그 셈은
+  [추론의 처리량과 이용률](../concepts/inference-throughput-and-utilization.md)에 있다.
+- 요약이 놓는 자리 — **모델 수준 기법에는 양자화와 증류 같은 모델 불가지론적(model-agnostic) 기법이
+  포함된다** (9장, p.448).[^huyen2025] 그리고 **다양한 유스케이스에 걸쳐 가장 영향이 큰 기법은 통상
+  양자화(일반적으로 모델을 넘어 잘 통한다), 텐서 병렬화, 복제 병렬화, 그리고 어텐션 메커니즘
+  최적화다** (9장, p.448).[^huyen2025]
+- 모델을 작게 만드는 다른 길들과 견줬을 때 왜 이것이 압도적으로 인기 있는지는
+  [모델 압축과 프루닝](../concepts/model-compression-and-pruning.md)이 담았다 — 9장은 그 자리에서
+  가중치 전용 양자화를 꼽고, 값당 1비트라는 한계에 가까워지고 있다고 적는다 (9장,
+  p.427).[^huyen2025]
+
 ## 훈련 중 양자화
 
 - **훈련 중 양자화는 아직 PTQ만큼 흔하지 않지만 힘을 얻고 있다. 훈련 양자화에는 뚜렷이 다른 두
@@ -185,7 +202,7 @@ sources:
 
 - [수치 형식](../concepts/numerical-formats.md) — 양자화가 오가는 형식들의 정의
 - [모델 메모리 산수](../concepts/model-memory-math.md) — 값당 바이트가 곱해지는 자리
-- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 훈련이
+- [훈련 가능 파라미터와 역전파](../concepts/trainable-parameters-and-backpropagation.md) — 훈련이
   정밀도에 민감한 이유의 구조
 - [LoRA](../concepts/lora.md) — 양자화와 어댑터를 겹쳐 쓰는 QLoRA가 사는 자리
 - [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 같은 병목을 파라미터
@@ -196,9 +213,18 @@ sources:
   방식으로 흔든다는 경고
 - [모델 개발 층](../concepts/ai-model-development-layer.md) — 양자화가 추론 최적화의 이름으로
   열거되는 자리
+- [모델 압축과 프루닝](../concepts/model-compression-and-pruning.md) — 모델을 작게 만드는 세 길을
+  견주는 자리
+- [추론의 처리량과 이용률](../concepts/inference-throughput-and-utilization.md) — 파라미터당 바이트가
+  MBU의 분자로 들어가는 자리
+- [KV 캐시와 어텐션 최적화](../concepts/kv-cache-and-attention-optimization.md) — 각주가 9장으로
+  미룬 셋째 메모리 기여자
+- [AI 가속기](../concepts/ai-accelerators.md) — 정밀도마다 FLOP/s가 달라지는 실물
 
-[^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "Memory Bottlenecks" 절의
-    "Quantization"(pp.328–332)과 같은 절의 요점 상자(p.320) 중 뒤 세 항목을 담았다. Table 7-4
+[^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362)과 9장 "Inference Optimization"
+    (책 pp.405–448). 이 페이지는 7장 "Memory Bottlenecks" 절의
+    "Quantization"(pp.328–332)과 같은 절의 요점 상자(p.320) 중 뒤 세 항목을 담고, 9장이 서빙
+    관점에서 양자화에 붙이는 대목(pp.417·427·448)을 덧붙였다. Table 7-4
     (p.330)는 원문 표기를 그대로 옮겼다. 이 구간에는 그 밖의 도판이 없다. Dettmers et
     al.(2022·2023)·Apple(2024)·NVIDIA Blackwell·Courbariaux et al.(2015)·Rastegari et al.(2016)·
     Wang et al.(2023)·Ma et al.(2024)·Touvron et al.(2023)·Hubara et al.(2016)·Jacob et

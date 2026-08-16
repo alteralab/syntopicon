@@ -2,7 +2,6 @@
 type: concept
 title: 커널과 컴파일러
 description: 모델 코드가 실제 칩 위에서 도는 마지막 구간 — 특정 가속기에 맞춰 쓰인 커널과 그것을 쓰려면 알아야 하는 것, 소수의 흑마법에서 AI 엔지니어의 관심사로 넘어온 경위, 벡터화·병렬화·루프 타일링·연산자 융합이라는 네 기법, 하드웨어가 바뀌면 커널도 다시 써야 한다는 사실, lowering과 컴파일러, 그리고 네 단계를 겹쳐 쌓은 PyTorch의 처리량 실측
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

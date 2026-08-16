@@ -2,7 +2,6 @@
 type: concept
 title: 추론 병렬화
 description: 가속기를 여러 개 쓰는 방식이 갈리는 자리 — 모델을 통째로 여러 벌 두는 복제 병렬화와 그것이 낳는 빈 패킹 문제, 모델 자체를 쪼개는 텐서 병렬화와 파이프라인 병렬화의 이득과 대가, 그리고 긴 입력 시퀀스를 위해 따로 나온 컨텍스트 병렬화와 시퀀스 병렬화
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

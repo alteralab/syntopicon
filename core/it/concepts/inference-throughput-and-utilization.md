@@ -2,7 +2,6 @@
 type: concept
 title: 추론의 처리량과 이용률
 description: 비용을 정하는 쪽의 지표들 — 입력과 출력을 따로 세는 처리량과 그것을 돈으로 바꾸는 계산, 지연과 처리량의 맞바꿈, SLO를 만족한 요청만 세는 굿풋, nvidia-smi의 GPU 이용률이 왜 쓸모가 적은가, 그리고 컴퓨트와 대역폭 각각을 재는 MFU와 MBU
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

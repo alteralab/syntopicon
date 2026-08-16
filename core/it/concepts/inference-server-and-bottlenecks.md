@@ -2,7 +2,6 @@
 type: concept
 title: 추론 서버와 계산 병목
 description: 최적화가 겨누는 대상을 먼저 정의한다 — 추론 서버와 그것을 감싸는 추론 서비스, 컴퓨트 바운드와 메모리 대역폭 바운드라는 두 병목과 그 용어가 흔들리는 자리, 산술 강도로 둘을 가르는 루프라인, 그리고 프리필은 컴퓨트 바운드이고 디코드는 메모리 대역폭 바운드라는 언어 모델 추론의 비대칭
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

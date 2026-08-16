@@ -2,7 +2,6 @@
 type: concept
 title: AI 가속기
 description: 모델이 얼마나 빠르고 싼가를 아래에서 정하는 하드웨어 — 모델과 하드웨어가 얽혀 온 내력, CPU와 GPU를 가르는 코어 설계와 행렬 곱, 훈련용 칩과 추론용 칩이 갈리는 이유, 스칼라·벡터·텐서라는 컴퓨트 프리미티브, 정밀도마다 달라지는 FLOP/s, CPU DRAM에서 GPU SRAM까지의 세 층 메모리 계층, 그리고 전력이 컴퓨트 확장의 병목이 되는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

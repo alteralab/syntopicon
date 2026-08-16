@@ -2,7 +2,6 @@
 type: concept
 title: 프리필과 디코드의 분리
 description: 계산 프로파일이 다른 두 단계를 같은 기계에 두면 서로의 자원을 빼앗는다는 관찰과 그 처방 — 프리필 잡 하나가 디코딩 잡의 TPOT를 늦추는 기전, 두 연산을 다른 인스턴스에 배정한 실측, 통신 오버헤드가 문제가 되지 않는 조건, 그리고 워크로드와 목표가 정하는 인스턴스 비율
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

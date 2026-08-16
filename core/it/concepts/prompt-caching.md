@@ -2,7 +2,6 @@
 type: concept
 title: 프롬프트 캐싱
 description: 프롬프트마다 겹치는 조각을 한 번만 처리하게 만드는 캐시 — 시스템 프롬프트와 긴 문서와 다중 턴 대화라는 세 쓰임, 하루 10억 개의 반복 입력 토큰을 아끼는 규모의 산수, 캐시 크기와 구현 비용이라는 대가, 그리고 모델 API가 붙인 할인율과 저장 요금
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

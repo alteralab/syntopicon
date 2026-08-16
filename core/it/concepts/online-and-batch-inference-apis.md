@@ -2,7 +2,6 @@
 type: concept
 title: 온라인 API와 배치 API
 description: 같은 추론 서비스가 지연과 비용으로 갈리는 두 창구 — 도착 즉시 처리하는 온라인 API와 절반 값에 시간 단위 회신을 주는 배치 API, 배치 쪽이 어울리는 유스케이스, 첫 토큰을 앞당기는 스트리밍 모드와 그 대가, 그리고 전통 ML의 배치 추론과 이름만 같고 다른 것이라는 경고
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

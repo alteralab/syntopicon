@@ -2,7 +2,7 @@
 type: concept
 title: 모델 API와 자체 호스팅
 description: 모델을 직접 호스팅할 것인가 모델 API를 쓸 것인가를 가르는 일곱 축 — 추론 서비스와 모델 API의 정의, 데이터 프라이버시와 삼성 유출 사건, 데이터 계보와 저작권 그리고 진화 중인 IP 법, MMLU에서 좁혀지는 성능 격차와 그럼에도 오픈 소스가 뒤처질 것이라는 유인 구조, 기능과 logprobs 제약, API 비용 대 엔지니어링 비용, 통제와 투명성, 온디바이스 배포
-generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -51,6 +51,10 @@ sources:
   OpenAI와 Azure API 양쪽을 통해 이용 가능하다. 서로 다른 API가 이 모델을 최적화하는 데 서로 다른
   기법을 쓸 수 있으므로 서로 다른 API를 통해 제공되는 같은 모델의 성능에는 약간의 차이가 있을 수 있다.
   따라서 모델 API를 바꿀 때는 반드시 철저한 테스트를 돌려라** (4장, pp.183–184).[^huyen2025]
+- 9장이 이 진술에 실측을 붙인다 — **추론 서비스 제공자가 모델의 행동을 바꿀 수 있는 최적화 기법을 쓸
+  수 있고, 이는 제공자마다 약간의 모델 품질 차이를 갖게 만든다** (9장, p.426, Figure 9-8
+  설명).[^huyen2025] 그 실험이 무엇을 어떻게 견줬는지는
+  [추론 최적화의 세 수준](../concepts/inference-optimization-levels.md)에 있다.
 
 ## 누구의 경쟁 우위인가
 
@@ -284,9 +288,10 @@ sources:
   자리
 - [파운데이션 모델](../concepts/foundation-models.md) — 여기서 고르는 대상
 
-[^huyen2025]: Huyen 2025, 4장 "Evaluate AI Systems" (책 pp.159–210). 이 페이지는 "Model Selection"
+[^huyen2025]: Huyen 2025, 4장 "Evaluate AI Systems" (책 pp.159–210)과 9장 "Inference
+    Optimization" (책 pp.405–448). 이 페이지는 4장 "Model Selection"
     절의 하위 절 "Model Build Versus Buy" 안의 "Open source models versus model APIs"(pp.183–191)를
-    담았다. Table 4-4는 원문 표기를 그대로 옮겼고, 원문이 기울임꼴로 표시한 단점을 이 표에서도
+    담고, 제공자마다 모델 품질이 갈린다는 9장의 실측 한 줄(p.426)을 덧붙였다. Table 4-4는 원문 표기를 그대로 옮겼고, 원문이 기울임꼴로 표시한 단점을 이 표에서도
     기울임꼴로 유지했다(한 셀에 여러 항목이 있으면 `/`로 갈랐다). Figure 4-8(a16z 2024 조사의 누적
     막대, p.189)은 막대에 비율이 인쇄돼 있어 값을 표로 옮겼다. 도판 Figure 4-6(추론 서비스와 모델
     API의 도식, p.183)·Figure 4-7(MMLU 5-shot에서 폐쇄 소스와 오픈 웨이트 모델의 격차 산점도,

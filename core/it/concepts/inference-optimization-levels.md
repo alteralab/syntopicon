@@ -2,7 +2,6 @@
 type: concept
 title: 추론 최적화의 세 수준
 description: 모델을 더 낫게 만드는 일에서 더 빠르고 싸게 만드는 일로 넘어가는 장의 틀 — 훈련과 추론의 구분, 느리거나 비싸면 모델이 쓸모를 잃는다는 전제, 모델·하드웨어·서비스로 갈리는 최적화의 세 자리와 활쏘기 비유, 최적화가 품질을 바꿀 수 있다는 실측, 그리고 워크로드가 기법을 정한다는 결론
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
