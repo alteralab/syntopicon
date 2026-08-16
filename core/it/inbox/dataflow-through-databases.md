@@ -137,7 +137,7 @@ sources:
 
 - [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — 이 흐름에 걸리는 두
   방향의 정의
-- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) —
+- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) —
   *Shared Database*가 놓인 자리와 그 앞뒤 스타일
 - [Avro의 기록자 스키마와 독자 스키마](../concepts/avro-writer-and-reader-schema.md) — 스키마 버전이
   섞인 레코드를 실제로 읽는 기제

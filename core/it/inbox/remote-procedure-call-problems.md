@@ -146,9 +146,9 @@ sources:
   일반형
 - [링크 추상화와 메시지 전달](../concepts/link-abstractions-and-message-delivery.md) — 네트워크가
   실제로 무엇을 보장하지 않는가
-- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — RPI가
+- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — RPI가
   네 스타일 중 어디에 놓이고 무엇이 그것을 대체하는가
-- [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) —
+- [통합의 도전과 느슨한 결합](integration-challenges-and-loose-coupling.md) —
   Waldo 인용이 놓인 자리와 결합을 가정의 수로 재는 자
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 5장 "Encoding and Evolution"
