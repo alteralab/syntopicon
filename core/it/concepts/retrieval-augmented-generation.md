@@ -149,6 +149,8 @@ sources:
 - [검색 품질 평가](../concepts/retrieval-evaluation.md) — 검색기가 좋은지 재는 자리
 - [텍스트 너머의 RAG](../concepts/rag-beyond-text.md) — 외부 소스가 이미지·표일 때
 - [에이전트란 무엇인가](../concepts/agents-defined.md) — RAG를 특수 사례로 품는 더 넓은 패턴
+- [파인 튜닝과 RAG](../concepts/finetuning-versus-rag.md) — 7장이 RAG와 파인 튜닝 중 무엇을 먼저 할지를
+  실패 유형으로 가르는 자리
 - [프롬프트에 맥락 주기](../concepts/providing-context-in-prompts.md) — 5장이 이 장으로 넘긴 자리
 - [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md) — 긴 컨텍스트
   논쟁의 실측 근거

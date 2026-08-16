@@ -1,7 +1,6 @@
 ---
 type: concept
 title: LoRA 어댑터 서빙
-status: draft
 description: LoRA의 모듈성이 파인 튜닝이 아니라 서빙에서 갚는 것 — 어댑터를 미리 병합할지 따로 둘지의 두 방식, 고객 100명에게 모델 100개를 주는 시나리오에서 1.68B와 23.3M으로 갈리는 저장량, 과제 전환이 빨라지는 이유, 그리고 공개된 어댑터를 사전 훈련 모델처럼 가져다 쓰는 관행
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -76,13 +75,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [LoRA](../inbox/lora.md) — 이 어댑터가 무엇이고 왜 통하는가
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 어댑터가 추론 지연을
+- [LoRA](../concepts/lora.md) — 이 어댑터가 무엇이고 왜 통하는가
+- [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 어댑터가 추론 지연을
   더한다는 원래 문제
-- [모델 병합](../inbox/model-merging.md) — 어댑터를 하나로 합치는 다른 길
-- [양자화](../inbox/quantization.md) — Apple이 온디바이스로 내리는 데 함께 쓴 기법
+- [모델 병합](../concepts/model-merging.md) — 어댑터를 하나로 합치는 다른 길
+- [양자화](../concepts/quantization.md) — Apple이 온디바이스로 내리는 데 함께 쓴 기법
 - [모델 API와 자체 호스팅](../concepts/model-api-versus-self-hosting.md) — 서빙 주체를 정하는 축
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 서빙 부담이 결정으로 되돌아오는 자리
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 서빙 부담이 결정으로 되돌아오는 자리
 
 [^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "LoRA" 절의
     "Serving LoRA adapters"(pp.343–345)를 담았다. Figure 7-12(멀티-LoRA 서빙에서 어댑터를 따로

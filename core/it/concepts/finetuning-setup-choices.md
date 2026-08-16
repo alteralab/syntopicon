@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파인 튜닝의 세 선택
-status: draft
 description: 실제로 파인 튜닝을 시작할 때 정해야 하는 것은 베이스 모델·파인 튜닝 방법·프레임워크 셋뿐이다 — 가장 강한 모델에서 시작하는 이유, OpenAI 문서가 드는 진행 경로와 증류 경로, 데이터 양이 전체 파인 튜닝과 LoRA를 가르는 자리, 그리고 API와 자체 프레임워크의 맞바꿈
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -93,13 +92,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [파인 튜닝 하이퍼파라미터](../inbox/finetuning-hyperparameters.md) — 프레임워크를 고른 다음
+- [파인 튜닝 하이퍼파라미터](../concepts/finetuning-hyperparameters.md) — 프레임워크를 고른 다음
   돌리는 손잡이들
-- [LoRA](../inbox/lora.md) — 방법 선택에서 기본값이 되는 기법
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 전체 파인 튜닝과 PEFT의
+- [LoRA](lora.md) — 방법 선택에서 기본값이 되는 기법
+- [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md) — 전체 파인 튜닝과 PEFT의
   경계
-- [LoRA 어댑터 서빙](../inbox/serving-lora-adapters.md) — 서빙 계획이 방법 선택으로 되돌아오는 자리
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 이 셋을 고르기 전에 서는 결정
+- [LoRA 어댑터 서빙](serving-lora-adapters.md) — 서빙 계획이 방법 선택으로 되돌아오는 자리
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 이 셋을 고르기 전에 서는 결정
 - [모델 API와 자체 호스팅](../concepts/model-api-versus-self-hosting.md) — API와 직접 굴리기의
   맞바꿈이 모델 선택 축에서 서술되는 자리
 - [모델 선택 워크플로](../concepts/model-selection-workflow.md) — 4장이 다룬 베이스 모델 고르기

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파인 튜닝의 갈래
-status: draft
 description: 사전 훈련 뒤에 오는 모든 훈련이 파인 튜닝이라면 그 아래에 무엇이 있는가 — 자기지도 파인 튜닝(연속 사전 훈련)·지도 파인 튜닝·인필링·선호·롱컨텍스트, Code Llama가 이 갈래들로 만들어진 경로, 그리고 모델 개발자가 하는 것과 애플리케이션 개발자가 하는 것의 차이
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -119,13 +118,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [전이 학습](../inbox/transfer-learning.md) — 파인 튜닝이 속한 더 넓은 범주
+- [전이 학습](../concepts/transfer-learning.md) — 파인 튜닝이 속한 더 넓은 범주
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 사전 훈련·파인 튜닝·사후 훈련이라는
   낱말들의 경계와 프롬프트 기반 기법과의 갈림
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — SFT가 실제로 하는 일
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — 비교 데이터와 RLHF
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 이 갈래들 중 무엇도 공짜가 아닌 이유
-- [파인 튜닝과 RAG](../inbox/finetuning-versus-rag.md) — 파인 튜닝이 아니라 검색이 답인 실패 유형
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 이 갈래들 중 무엇도 공짜가 아닌 이유
+- [파인 튜닝과 RAG](../concepts/finetuning-versus-rag.md) — 파인 튜닝이 아니라 검색이 답인 실패 유형
 - [언어 모델과 토큰](../concepts/language-models-and-tokens.md) — 자기회귀와 마스크드의 갈림
 - [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md) — 롱컨텍스트 파인
   튜닝이 늘리려는 것

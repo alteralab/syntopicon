@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파인 튜닝 하이퍼파라미터
-status: draft
 description: 파인 튜닝을 돌릴 때 자주 나오는 손잡이 넷 — 보편 최적값이 없는 학습률과 손실 곡선이 주는 힌트, 배치 크기가 하드웨어에 묶이는 자리와 기울기 누적, 데이터셋 크기에 따라 갈리는 에포크 수와 과적합의 신호, 그리고 프롬프트와 응답 중 무엇에서 배울지를 정하는 프롬프트 손실 가중치
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -97,16 +96,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [파인 튜닝의 세 선택](../inbox/finetuning-setup-choices.md) — 이 손잡이들을 노출하는 프레임워크
+- [파인 튜닝의 세 선택](finetuning-setup-choices.md) — 이 손잡이들을 노출하는 프레임워크
   고르기
-- [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md) — 학습률과
+- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 학습률과
   옵티마이저가 사는 기제
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 배치 크기가 메모리에 묶이는 이유
+- [모델 메모리 산수](model-memory-math.md) — 배치 크기가 메모리에 묶이는 이유
 - [스케일링 법칙](../concepts/scaling-laws.md) — 하이퍼파라미터와 파라미터의 구분, 그리고 훈련
   토큰과 에포크의 관계
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 프롬프트 손실 가중치가 걸리는 (프롬프트,
   응답) 데이터
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 이 손잡이들을 이해해야 한다는 요구가
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 이 손잡이들을 이해해야 한다는 요구가
   선투자로 세어지는 자리
 
 [^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "Finetuning Tactics" 절의

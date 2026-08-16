@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 도메인 특화 모델
-description: 범용 모델이 못 하는 일이 남는 이유는 그 데이터가 인터넷에 없기 때문이다 — C4의 도메인 분포, 비전 데이터 분포 분석의 공백, CLIP 계열의 벤치마크 차이, 그리고 AlphaFold·BioNeMo·Med-PaLM2가 서 있는 자리
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+description: 범용 모델이 못 하는 일이 남는 이유는 그 데이터가 인터넷에 없기 때문이다 — C4의 도메인 분포, 비전 데이터 분포 분석의 공백, CLIP 계열의 벤치마크 차이, AlphaFold·BioNeMo·Med-PaLM2가 서 있는 자리, 그리고 같은 저자가 7장에서 이 논변에 붙이는 경고와 BloombergGPT의 실물
+generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -13,6 +13,8 @@ sources:
 - [비전 데이터의 도메인 분포는 덜 알려져 있다](#비전-데이터의-도메인-분포는-덜-알려져-있다)
 - [범용 모델이 못 하는 일](#범용-모델이-못-하는-일)
 - [실물들](#실물들)
+- [7장이 이 논변에 붙이는 경고](#7장이-이-논변에-붙이는-경고)
+- [BloombergGPT](#bloomberggpt)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **범용 파운데이션 모델이 있는데도 도메인 특화 모델이 남는 이유는 무엇인가.**
@@ -94,8 +96,47 @@ sources:
   더 잘 도울 수 있고, 공장 도면으로 훈련된 모델이 ChatGPT 같은 일반 모델보다 제조 공정에 훨씬
   잘 최적화될 수 있다** (2장, p.57).[^huyen2025]
 
+## 7장이 이 논변에 붙이는 경고
+
+- 같은 저자가 7장에서 상자로 떼어 둔 경고다 (7장, p.314):[^huyen2025]
+
+  > Beware of the argument that general-purpose models don't work well for domain-specific tasks,
+  > and, therefore, you must finetune or train models for your specific tasks. As general-purpose
+  > models become more capable, they also become better at domain-specific tasks and can outperform
+  > the domain-specific models.
+
+## BloombergGPT
+
+- 저자가 든 초기 실물 — **흥미로운 초기 특화 모델 하나가 BloombergGPT로, 2023년 3월 블룸버그가
+  내놓았다. 당시 시장에서 가장 강한 모델은 전부 독점이었고, 블룸버그는 금융 과제에서 잘 수행하고
+  민감한 데이터를 다루는 유스케이스를 위해 사내에서 호스팅할 수 있는 중간 크기 모델을 원했다. 500억
+  파라미터인 이 모델은 훈련에 A100 GPU 시간 130만을 요구했다. 컴퓨트의 추정 비용은 데이터 비용을
+  빼고 130만 달러에서 260만 달러 사이였다(Wu et al., 2023)** (7장, p.314).[^huyen2025]
+- 같은 달에 벌어진 일 — **같은 달 OpenAI가 GPT-4-0314를 공개했다. Li et al.(2023)의 연구는
+  GPT-4-0314가 여러 금융 벤치마크에서 BloombergGPT를 유의미하게 능가함을 보였다** (7장,
+  p.314).[^huyen2025]
+  - 각주의 표기 규칙 — **0314는 이 GPT-4 버전이 나온 날짜를 나타내며, 버전마다 성능이 크게 다르기
+    때문에 구체적 날짜 표기가 중요하다** (7장, p.314 각주 4).[^huyen2025]
+    - #hypothesis 각주는 이 날짜를 "March 14, 2024"로 적지만 본문은 BloombergGPT가 나온 "같은
+      달"(2023년 3월)이라고 말한다 — 둘 중 하나가 오식이며 책 안에는 어느 쪽인지 가릴 근거가 없다.
+- 저자가 든 두 벤치마크다. 원문 표기를 그대로 옮겼다 (7장, p.315, Table 7-1):[^huyen2025]
+
+  | Model | FiQA sentiment analysis (weighted F1) | ConvFinQA (accuracy) |
+  |---|---|---|
+  | GPT-4-0314 (zero-shot) | 87.15 | 76.48 |
+  | BloombergGPT | 75.07 | 43.41 |
+
+- 그 뒤로 — **그 뒤로 GPT-4에 필적하는 성능의 중간 크기 모델이 여럿 공개되었는데 Claude 3.5
+  Sonnet(70B 파라미터), Llama 3-70B-Instruct, Qwen2-72B-Instruct가 그것이다. 뒤의 둘은 오픈 웨이트라
+  자체 호스팅할 수 있다** (7장, p.315).[^huyen2025]
+- 저자가 균형을 잡는 자리 — **벤치마크가 실세계 성능을 포착하기에 불충분하므로 BloombergGPT가 블룸버그의
+  구체적 유스케이스에서는 잘 통할 가능성도 있다. 블룸버그 팀은 이 모델을 훈련하면서 분명히 값을 매길
+  수 없는 경험을 얻었고, 이는 그들이 미래의 모델을 더 잘 개발하고 운영하게 해 줄 수 있다** (7장,
+  p.315).[^huyen2025]
+
 ## 이어지는 페이지
 
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 이 경고가 놓여 있는 결정
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 도메인 큐레이션이 나오게 된
   데이터 출처의 문제
 - [다국어 모델](../concepts/multilingual-models.md) — 같은 논리의 언어 판
@@ -104,7 +145,9 @@ sources:
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 범용 모델 위에 도메인을 얹는
   기법들
 
-[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112). 이 페이지는
-    "Domain-Specific Models" 절(pp.56–57)을 담았다. Figure 2-3(C4 도메인 분포 원그래프, p.56)은
-    그림을 옮기지 않고 표시된 수치만 표로 옮겼다. Table 2-3(p.57)은 원문 표기를 그대로 옮겼다.
-    《워싱턴 포스트》 2023년 분석은 huyen2025를 통한 전언이다.
+[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112)의
+    "Domain-Specific Models" 절(pp.56–57)과 7장 "Finetuning" (책 pp.307–362)의 상자 "Finetuning
+    Domain-Specific Tasks"(pp.314–315). Figure 2-3(C4 도메인 분포 원그래프, p.56)은 그림을 옮기지
+    않고 표시된 수치만 표로 옮겼다. Table 2-3(p.57)과 Table 7-1(p.315)은 원문 표기를 그대로
+    옮겼다. 7장 상자에는 도판이 없다. 《워싱턴 포스트》 2023년 분석과 Wu et al.(2023)·Li et
+    al.(2023)은 huyen2025를 통한 전언이다.

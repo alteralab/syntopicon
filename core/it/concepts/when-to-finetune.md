@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 언제 파인 튜닝하는가
-status: draft
 description: 파인 튜닝을 할 이유와 하지 않을 이유가 각각 무엇인가 — 품질·형식·편향 완화라는 이유들과 작은 모델 쪽이 더 흔한 사정, 다른 과제가 나빠지는 정렬세, 데이터·ML 지식·서빙·유지보수라는 네 겹의 선투자, 그리고 프롬프트 실험이 부실했을 뿐인 흔한 이야기
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -94,7 +93,7 @@ sources:
   대해 모델을 파인 튜닝할 수 있다. 모든 과제에서 잘하는 모델 하나를 얻지 못하겠거든 과제별로 별도
   모델을 쓰는 것을 고려하라. 이 별도 모델들을 하나로 합쳐 서빙을 쉽게 하고 싶다면 이 장 뒤에서 논하는
   대로 병합하는 것도 고려할 수 있다** (7장, p.313).[^huyen2025] 그 길은
-  [모델 병합](../inbox/model-merging.md)이 맡는다.
+  [모델 병합](../concepts/model-merging.md)이 맡는다.
 
 ## 네 겹의 선투자
 
@@ -157,13 +156,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [파인 튜닝과 RAG](../inbox/finetuning-versus-rag.md) — 파인 튜닝을 하기로 했더라도 그 전에
+- [파인 튜닝과 RAG](../concepts/finetuning-versus-rag.md) — 파인 튜닝을 하기로 했더라도 그 전에
   갈리는 자리
-- [파인 튜닝의 갈래](../inbox/types-of-finetuning.md) — 무엇을 하기로 하는 것인가
+- [파인 튜닝의 갈래](../concepts/types-of-finetuning.md) — 무엇을 하기로 하는 것인가
 - [도메인 특화 모델](../concepts/domain-specific-models.md) — 도메인 특화 과제에는 도메인 특화
   모델이 필요하다는 논변에 저자가 붙이는 경고
-- [모델 병합](../inbox/model-merging.md) — 과제별 모델을 나눈 뒤 다시 합치는 길
-- [파인 튜닝의 메모리 병목](../inbox/trainable-parameters-and-backpropagation.md) — 파인 튜닝이
+- [모델 병합](../concepts/model-merging.md) — 과제별 모델을 나눈 뒤 다시 합치는 길
+- [파인 튜닝의 메모리 병목](../concepts/trainable-parameters-and-backpropagation.md) — 파인 튜닝이
   비싼 첫째 이유
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 프롬프팅에서 파인 튜닝으로 가는
   순서의 근거

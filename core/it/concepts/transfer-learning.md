@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 전이 학습
-status: draft
 description: 파인 튜닝이 처음부터 훈련하는 것보다 적은 데이터로 되는 이유 — 1976년에 이름을 얻은 전이 학습, 포르투갈어–스페인어 예가 없이도 번역한 구글의 다국어 시스템, 표본 효율, 파인 튜닝을 "이미 있는 능력을 여는 일"로 보는 관점, 그리고 전이의 다른 갈래인 특징 기반 전이
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -86,11 +85,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [파인 튜닝의 갈래](../inbox/types-of-finetuning.md) — 전이의 방식이 실제로 어떤 이름들로 나뉘는가
+- [파인 튜닝의 갈래](types-of-finetuning.md) — 전이의 방식이 실제로 어떤 이름들로 나뉘는가
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 가중치를 고치는가로 갈리는 두 범주
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 사후 훈련의 첫 단계
 - [파운데이션 모델](../concepts/foundation-models.md) — 전이의 출발점이 되는 범용 모델
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 전이가 값싸다는 것이 곧 하라는 뜻은
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 전이가 값싸다는 것이 곧 하라는 뜻은
   아닌 이유
 - [자기지도와 모델 규모](../concepts/self-supervision-and-model-scale.md) — 데이터가 풍부한 과제가
   풍부해진 경위

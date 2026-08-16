@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 모델 병합의 접근들
-status: draft
 description: 구성 모델의 파라미터를 실제로 합치는 세 갈래 — 값을 더하는 합산(선형 결합과 SLERP), 층을 쌓는 레이어 스태킹, 그리고 이어 붙이는 연결, 그 사이에 놓인 태스크 벡터와 태스크 산술, 병합 전에 중복 파라미터를 쳐 내는 TIES와 DARE, 프랑켄머징과 MoE 업사이클링, 깊이 방향 확장
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -201,9 +200,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [모델 병합](../inbox/model-merging.md) — 왜 합치는가, 그리고 앙상블과의 차이
-- [LoRA](../inbox/lora.md) — 태스크 벡터의 재료가 되는 어댑터와 rank
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 어댑터 계열의 전모
+- [모델 병합](model-merging.md) — 왜 합치는가, 그리고 앙상블과의 차이
+- [LoRA](../concepts/lora.md) — 태스크 벡터의 재료가 되는 어댑터와 rank
+- [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md) — 어댑터 계열의 전모
 - [대안 모델 구조](../concepts/alternative-model-architectures.md) — MoE가 구조 축에서 서술되는
   자리
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 희소 모델과 전문가 혼합의 파라미터

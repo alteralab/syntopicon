@@ -381,3 +381,52 @@ queries:
     description: "에이전트 축과 저장 축의 경계"
     expected_files: ["concepts/agent-memory.md"]
     expected_in_top_k: 5
+  # ---- 7장 배치 (런 2026-08-16-14) ----
+  - id: aie7-alias-1
+    query: "LoRA"
+    type: alias
+    description: "원어 질의 — LoRA 페이지 (원전 Hu 2021 착지 예정지)"
+    expected_files: ["concepts/lora.md"]
+    expected_in_top_k: 5
+  - id: aie7-alias-2
+    query: "quantization"
+    type: alias
+    description: "원어 질의 — 양자화 페이지"
+    expected_files: ["concepts/quantization.md"]
+    expected_in_top_k: 5
+  - id: aie7-exact-1
+    query: "파인 튜닝과 RAG 중 무엇을 먼저"
+    type: exact
+    description: "결정 프레임 페이지 직격"
+    expected_files: ["concepts/finetuning-versus-rag.md"]
+    expected_in_top_k: 5
+  - id: aie7-exact-2
+    query: "모델 메모리 계산"
+    type: exact
+    description: "메모리 산수 페이지"
+    expected_files: ["concepts/model-memory-math.md"]
+    expected_in_top_k: 5
+  - id: aie7-sem-1
+    query: "가중치 일부만 훈련해서 비용을 줄이는 방법"
+    type: semantic
+    description: "PEFT를 이름 없이"
+    expected_files: ["concepts/parameter-efficient-finetuning.md", "concepts/lora.md"]
+    expected_in_top_k: 5
+  - id: aie7-sem-2
+    query: "훈련 없이 두 모델을 합치는 방법"
+    type: semantic
+    description: "모델 병합을 이름 없이"
+    expected_files: ["concepts/model-merging.md", "concepts/model-merging-approaches.md"]
+    expected_in_top_k: 5
+  - id: aie7-top-1
+    query: "파인 튜닝 학습률과 에폭"
+    type: topical
+    description: "하이퍼파라미터 페이지"
+    expected_files: ["concepts/finetuning-hyperparameters.md"]
+    expected_in_top_k: 5
+  - id: aie7-x-1
+    query: "BF16과 FP32의 차이"
+    type: cross-domain
+    description: "수치 형식 — 서빙 축(9장 예정)과의 경계"
+    expected_files: ["concepts/numerical-formats.md"]
+    expected_in_top_k: 5

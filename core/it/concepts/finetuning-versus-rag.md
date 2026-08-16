@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파인 튜닝과 RAG
-status: draft
 description: 프롬프팅으로 한계에 닿았을 때 다음이 검색인지 파인 튜닝인지를 실패 유형이 가른다 — 정보 기반 실패와 행동 기반 실패의 구분, Ovadia et al.의 실측, "파인 튜닝은 형식을 위한 것이고 RAG는 사실을 위한 것"이라는 규정, 그리고 프롬프팅에서 시작해 둘을 합치는 데까지의 다섯 단계
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -154,7 +153,7 @@ sources:
 ## 이어지는 페이지
 
 - [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG 쪽의 구조와 근거
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 파인 튜닝 자체의 비용과 이유
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 파인 튜닝 자체의 비용과 이유
 - [용어 기반 검색](../concepts/term-based-retrieval.md) — 다섯 단계의 3단계가 가리키는 출발선
 - [임베딩 기반 검색](../concepts/embedding-based-retrieval.md) — 4단계의 진보된 RAG
 - [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 도판이 말하는 "복잡한

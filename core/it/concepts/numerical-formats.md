@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 수치 형식
-status: draft
 description: 신경망의 값 하나가 몇 비트를 차지하고 그 비트가 어떻게 나뉘는가 — FP32·FP64·FP16의 IEEE 계보와 BF16·TF32라는 AI 전용 형식, 정수 형식, 범위 비트와 정밀 비트의 맞바꿈, FP32 값을 낮은 정밀도로 옮겼을 때 실제로 어떤 값이 되는가, 그리고 형식을 잘못 적재해 모델이 망가진 실물
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -136,9 +135,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [양자화](../inbox/quantization.md) — 이 형식들 사이를 실제로 옮겨 다니는 기법
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 값당 바이트가 곱해지는 자리
-- [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md) — 값의
+- [양자화](quantization.md) — 이 형식들 사이를 실제로 옮겨 다니는 기법
+- [모델 메모리 산수](../concepts/model-memory-math.md) — 값당 바이트가 곱해지는 자리
+- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 값의
   개수를 정하는 다른 축
 - [언어 모델링 지표](../concepts/language-modeling-metrics.md) — 정밀도 감소가 퍼플렉시티를 흔든다는
   경고가 서 있는 자리

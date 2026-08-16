@@ -2,7 +2,7 @@
 type: concept
 title: 지도 파인 튜닝
 description: 사후 훈련의 첫 단계가 완성 기계를 대화 상대로 바꾸는 방식 — 사후 훈련이 푸는 두 문제와 그 두 단계, 시연 데이터와 행동 복제, 좋은 레이블러가 비싼 이유와 실제 단가, 자원봉사·휴리스틱·합성 데이터라는 대안, 그리고 사전 훈련을 건너뛰지 않는 이유
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -127,6 +127,9 @@ sources:
   | Read the following text and answer the three questions at the end.<br><br>[OMITTED FOR LENGTH - Article about Justice Ruth Bader Ginsburg, Champion Of Gender Equality, Dies At 87]<br><br>1. …<br>2. …<br>3. Why will Ginsburg's death have profound consequences for the court and the country? | 1. …<br>2. …<br>3. Ruth Bader Ginsburg was the leader of the liberal wing, and because the court is about to open a new term, the chief justice no longer holds the controlling vote in contested cases. |
   | ELI5: What's the cause of the "anxiety lump" in our chest during stressful or disheartening experiences? | The anxiety lump in your throat is caused by muscular tension keeping your glottis dilated to maximize airflow. The clenched chest or heartache feeling is caused by the vagus nerve which tells the organs to pump blood faster, stop digesting, and produce adrenaline and cortisol. |
 
+- 7장이 같은 비용에 붙이는 조건절 — **고품질 지시 데이터는 만들기 어렵고 비쌀 수 있는데, 특히 사실
+  일관성·도메인 전문성·정치적 올바름을 요구하는 지시가 그렇다** (7장, p.310).[^huyen2025] 그 데이터를
+  어떻게 얻는지는 8장의 몫이다 (7장, p.310).[^huyen2025]
 - 그래서 학력이 올라간다 — **따라서 기업은 시연 데이터를 만드는 데 고학력 레이블러를 쓰는 일이
   많다. InstructGPT용 시연 데이터를 레이블한 사람 중 약 90%가 최소 학사 학위를 가졌고 3분의 1
   이상이 석사 학위를 가졌다** (2장, p.82).[^huyen2025]
@@ -172,8 +175,15 @@ sources:
 - [자기지도와 모델 규모](../concepts/self-supervision-and-model-scale.md) — 레이블링 비용이 어디서
   터지는지의 1장 판
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 사전 훈련 데이터의 품질 문제
+- [파인 튜닝의 갈래](types-of-finetuning.md) — 7장이 SFT를 인필링·롱컨텍스트와 나란히
+  놓고 애플리케이션 개발자 관점에서 다시 세우는 자리
+- [파인 튜닝 하이퍼파라미터](../concepts/finetuning-hyperparameters.md) — (프롬프트, 응답) 중 무엇에서
+  배울지를 정하는 손잡이
+- [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 전체 파인 튜닝이 요구하는
+  데이터 양이 문제가 되는 자리
 
-[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112). 이 페이지는
+[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112)와 7장
+    "Finetuning"의 지도 파인 튜닝 재서술(책 p.310). 이 페이지는
     "Post-Training" 절 도입(pp.78–80)과 "Supervised Finetuning"(pp.80–83)을 담았다. Table 2-6
     (p.82)과 DeepMind 휴리스틱 형식(p.83)은 원문 표기를 그대로 옮겼다. Figure 2-12(InstructGPT
     프롬프트 분포 도넛 차트, p.81)는 그림을 옮기지 않고 표시된 수치만 표로 옮겼다. 도판

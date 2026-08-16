@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 양자화
-status: draft
 description: 값당 비트를 줄이는 것이 왜 메모리 발자국을 줄이는 가장 싸고 효과적인 방법인가 — 무엇을 언제 양자화할지의 두 질문, 사후 훈련 양자화가 압도적으로 흔한 이유, 8비트와 4비트를 지나 1비트까지 간 시도들과 BitNet b1.58의 실측, 속도 이득과 그 대가, 그리고 훈련 중 양자화(QAT·혼합 정밀도)
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -36,7 +35,7 @@ sources:
      혼합 정밀도로 이뤄지는데, 어떤 연산은 더 높은 정밀도(예: 32비트)로, 어떤 연산은 더 낮은
      정밀도(예: 16비트나 8비트)로 한다.**
   - 앞의 세 항목(메모리 병목·훈련 가능 파라미터·PEFT)은
-    [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md)가 담았다.
+    [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md)가 담았다.
 
 ## 무엇을 얻는가
 
@@ -184,12 +183,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [수치 형식](../inbox/numerical-formats.md) — 양자화가 오가는 형식들의 정의
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 값당 바이트가 곱해지는 자리
-- [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md) — 훈련이
+- [수치 형식](../concepts/numerical-formats.md) — 양자화가 오가는 형식들의 정의
+- [모델 메모리 산수](../concepts/model-memory-math.md) — 값당 바이트가 곱해지는 자리
+- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 훈련이
   정밀도에 민감한 이유의 구조
-- [LoRA](../inbox/lora.md) — 양자화와 어댑터를 겹쳐 쓰는 QLoRA가 사는 자리
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 같은 병목을 파라미터
+- [LoRA](../concepts/lora.md) — 양자화와 어댑터를 겹쳐 쓰는 QLoRA가 사는 자리
+- [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 같은 병목을 파라미터
   수 쪽에서 푸는 계열
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 양자화가 가중치를 바꾸지만 훈련은
   아니라는 경계

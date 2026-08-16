@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 모델 적응 기법
-description: 남이 훈련한 모델을 내 과제에 맞추는 기법들이 가중치를 고치는가로 갈린다 — 프롬프트 기반 기법과 파인 튜닝이 각각 요구하는 데이터와 얻는 것, 그리고 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말들이 실제로 가리키는 서로 다른 단계
-generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
+description: 남이 훈련한 모델을 내 과제에 맞추는 기법들이 가중치를 고치는가로 갈린다 — 프롬프트 기반 기법과 파인 튜닝이 각각 요구하는 데이터와 얻는 것, 7장이 파인 튜닝에 붙이는 실무 규정, 그리고 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말들이 실제로 가리키는 서로 다른 단계
+generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -70,6 +70,18 @@ sources:
   p.40).[^huyen2025]
 - 가중치를 고쳐야만 되는 일이 있다 — **가중치를 바꾸지 않고는 가능하지 않은 것이 많다. 훈련 중에 노출되지
   않은 새 과제에 모델을 적응시키는 것 같은 것이다** (1장, p.40).[^huyen2025]
+- 7장이 같은 대비를 다시 세우는 규정 (7장, p.307):[^huyen2025]
+
+  > Finetuning is the process of adapting a model to a specific task by further training the whole
+  > model or part of the model.
+
+  - **5장과 6장은 지시·맥락·도구를 주어 모델을 적응시키는 프롬프트 기반 방법을 논한다. 파인 튜닝은
+    가중치를 조정해 모델을 적응시킨다** (7장, p.307).[^huyen2025] 여기서 "모델의 일부"라는 단서가
+    붙는 이유는 7장의 기법 대부분이 훈련 가능 파라미터를 줄이는 쪽으로 가기 때문이다 —
+    [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md)이 그 계열이고, 그 아래로
+    갈리는 갈래들은 [파인 튜닝의 갈래](types-of-finetuning.md)가 담는다.
+  - 파인 튜닝을 더 넓은 범주 안에 놓는 자리도 7장이다 — **파인 튜닝은 전이 학습을 하는 한 방식이다**
+    (7장, p.308).[^huyen2025] 그 계보는 [전이 학습](transfer-learning.md)이 담는다.
 
 ## 훈련이라는 낱말이 가리키는 단계들
 
@@ -140,9 +152,14 @@ sources:
   견줘지는 실물
 - [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 프롬프트 기반 기법이 자기 축으로 서는 자리
 - [인컨텍스트 학습](../concepts/in-context-learning.md) — 가중치 갱신 없이 배운다는 것의 기제
+- [전이 학습](transfer-learning.md) — 파인 튜닝을 품는 더 넓은 범주
+- [파인 튜닝의 갈래](types-of-finetuning.md) — 가중치를 고치는 쪽이 실제로 나뉘는 이름들
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 두 범주 사이에서 순서를 정하는 기준
+- [양자화](quantization.md) — 가중치를 바꾸지만 훈련은 아닌 것의 실물
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
     (책 pp.1–48)과 2장 "Understanding Foundation Models"의 사후 훈련 도입(책 p.78). 훈련 용어
     구분은 pp.41–42의 사이드바 "On the Differences Among Training, Pre-Training, Finetuning,
     and Post-Training"에서 왔다. 프롬프트 기반 기법에 대한 5장의 규정은 그 장 도입(책 p.211)에서
-    왔다. 이 절들에는 도판이 없다.
+    왔고, 파인 튜닝에 대한 7장 "Finetuning"의 규정은 그 장 도입(책 pp.307–308)에서 왔다. 이
+    절들에는 도판이 없다.

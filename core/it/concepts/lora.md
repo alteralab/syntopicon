@@ -1,7 +1,6 @@
 ---
 type: concept
 title: LoRA
-status: draft
 description: 가중치 행렬을 두 작은 행렬의 곱으로 분해해 그 둘만 갱신하는 어댑터 기법 — 추론 지연을 늘리지 않는 이유, 저차원 인수분해라는 오래된 발상과 GPT-3에서 0.0027%의 파라미터로 붙은 성능, 왜 이것이 통하는가에 대한 내재 차원 가설, 어느 행렬에 얼마의 rank로 적용할지의 선택, 그리고 양자화를 겹친 QLoRA
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -253,22 +252,22 @@ sources:
 
 ## 이어지는 페이지
 
-- [LoRA 어댑터 서빙](../inbox/serving-lora-adapters.md) — 모듈성이 서빙에서 갚는 것
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — LoRA가 속한 계열과 그
+- [LoRA 어댑터 서빙](serving-lora-adapters.md) — 모듈성이 서빙에서 갚는 것
+- [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md) — LoRA가 속한 계열과 그
   형제들
-- [양자화](../inbox/quantization.md) — QLoRA가 딛는 정밀도 감소의 전모
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 훈련 가능 파라미터가 메모리로 바뀌는 공식
-- [모델 병합의 접근들](../inbox/model-merging-approaches.md) — LoRA 어댑터가 병합의 재료가 되는
+- [양자화](quantization.md) — QLoRA가 딛는 정밀도 감소의 전모
+- [모델 메모리 산수](model-memory-math.md) — 훈련 가능 파라미터가 메모리로 바뀌는 공식
+- [모델 병합의 접근들](model-merging-approaches.md) — LoRA 어댑터가 병합의 재료가 되는
   자리
 - [트랜스포머 구조](../concepts/transformer-architecture.md) — 질의·키·값·출력 사영 행렬이
   사는 곳
-- [파인 튜닝의 세 선택](../inbox/finetuning-setup-choices.md) — LoRA를 택할지 전체 파인 튜닝을
+- [파인 튜닝의 세 선택](../concepts/finetuning-setup-choices.md) — LoRA를 택할지 전체 파인 튜닝을
   택할지의 실무 기준
 - [비교 평가](../concepts/comparative-evaluation.md) — Elo 등급이 매겨지는 방식
 
 [^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "Finetuning Techniques"
     절의 "LoRA"(pp.338–343)와 그 하위 절 "Quantized LoRA"(pp.345–347)를 담았다. 같은 절의
-    "Serving LoRA adapters"(pp.343–345)는 [LoRA 어댑터 서빙](../inbox/serving-lora-adapters.md)이
+    "Serving LoRA adapters"(pp.343–345)는 [LoRA 어댑터 서빙](serving-lora-adapters.md)이
     담았다. Table 7-5(p.343)·Table 7-6(p.345)·Table 7-7(p.346)은 원문 표기를 그대로 옮겼다 —
     Table 7-5에서 원문이 굵게 표시한 최고값(WikiSQL의 73.7 둘, MultiNLI의 91.7)의 강조는 마크다운
     표에서 재현하지 않았다. Figure 7-11(가중치 행렬 분해 도식, p.339)은 그림을 옮기지 않고 본문의

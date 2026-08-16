@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 훈련 가능 파라미터와 역전파
-status: draft
 description: 파인 튜닝이 추론보다 훨씬 많은 메모리를 먹는 이유가 훈련되는 방식 자체에 있다 — 훈련 가능 파라미터와 동결 파라미터의 구분, 순전파와 역전파의 두 국면, 손실·기울기·옵티마이저, 그리고 훈련 가능 파라미터마다 기울기와 옵티마이저 상태가 따라붙는다는 사실
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -42,7 +41,7 @@ sources:
      튜닝의 메모리 요구를 줄일 수 있다. 훈련 가능 파라미터 수를 줄이는 것이 PEFT, 즉 파라미터 효율
      파인 튜닝의 동기다.**
   - 나머지 요점 셋(양자화·추론 비트 수·훈련의 정밀도 민감성)은
-    [양자화](../inbox/quantization.md)가 담았다.
+    [양자화](../concepts/quantization.md)가 담았다.
 
 ## 훈련 가능 파라미터와 동결 파라미터
 
@@ -101,14 +100,14 @@ sources:
 
 ## 이어지는 페이지
 
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 이 구조가 실제 GB 수치로 바뀌는 자리
-- [수치 형식](../inbox/numerical-formats.md) — 값 하나가 몇 바이트인가라는 다른 축
-- [양자화](../inbox/quantization.md) — 값당 비트를 줄여 같은 병목을 푸는 쪽
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 훈련 가능 파라미터 수를
+- [모델 메모리 산수](../concepts/model-memory-math.md) — 이 구조가 실제 GB 수치로 바뀌는 자리
+- [수치 형식](../concepts/numerical-formats.md) — 값 하나가 몇 바이트인가라는 다른 축
+- [양자화](../concepts/quantization.md) — 값당 비트를 줄여 같은 병목을 푸는 쪽
+- [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 훈련 가능 파라미터 수를
   줄이는 쪽
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 파라미터 수가 재어지는 자리
 - [스케일링 법칙](../concepts/scaling-laws.md) — 하이퍼파라미터와 파라미터의 구분이 서는 자리
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 이 비용이 결정으로 되돌아오는 자리
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 이 비용이 결정으로 되돌아오는 자리
 
 [^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "Memory Bottlenecks" 절
     도입(pp.319–320), 그 안의 상자 "Key Takeaways for Understanding Memory Bottlenecks"(p.320)의

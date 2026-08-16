@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 모델 병합
-status: draft
 description: 모델 하나를 고치는 대신 여러 모델을 합쳐 맞춤 모델을 만드는 접근 — GPU 없이도 된다는 점이 여는 자리, 성능과 메모리 양쪽에서 나오는 덧붙는 가치, 멀티태스크 파인 튜닝의 세 접근과 순차 파인 튜닝이 걸리는 파국적 망각, 온디바이스 배포와 연합 학습, 그리고 앙상블과 무엇이 다른가
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -102,11 +101,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [모델 병합의 접근들](../inbox/model-merging-approaches.md) — 파라미터를 실제로 합치는 방법들
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 병합의 재료가 되는
+- [모델 병합의 접근들](../concepts/model-merging-approaches.md) — 파라미터를 실제로 합치는 방법들
+- [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md) — 병합의 재료가 되는
   어댑터들이 나오는 자리
-- [LoRA 어댑터 서빙](../inbox/serving-lora-adapters.md) — 합치지 않고 여러 모델을 굴리는 대안
-- [언제 파인 튜닝하는가](../inbox/when-to-finetune.md) — 과제 하나를 파인 튜닝하면 다른 과제가
+- [LoRA 어댑터 서빙](serving-lora-adapters.md) — 합치지 않고 여러 모델을 굴리는 대안
+- [언제 파인 튜닝하는가](when-to-finetune.md) — 과제 하나를 파인 튜닝하면 다른 과제가
   나빠진다는 문제가 병합을 부르는 자리
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 여러 출력을 만들어 고르는 앙상블적
   전략이 서 있는 자리

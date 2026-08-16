@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 모델 메모리 산수
-status: draft
 description: 어떤 하드웨어가 필요한지를 봉투 뒷면에서 어림하는 공식 — 추론은 파라미터 수 곱하기 값당 바이트에 활성화 몫 20%를 얹고, 훈련은 거기에 기울기와 옵티마이저 상태를 더한다, 13B와 70B의 실제 GB, 활성화가 가중치를 압도하는 경우와 기울기 체크포인팅
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -99,11 +98,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md) — 이 산수의
+- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 이 산수의
   항들이 어디서 나오는가
-- [수치 형식](../inbox/numerical-formats.md) — 공식의 M(값당 바이트)을 정하는 것
-- [양자화](../inbox/quantization.md) — M을 줄여 전체를 줄이는 쪽
-- [파라미터 효율 파인 튜닝](../inbox/parameter-efficient-finetuning.md) — 훈련 가능 파라미터 수를
+- [수치 형식](numerical-formats.md) — 공식의 M(값당 바이트)을 정하는 것
+- [양자화](quantization.md) — M을 줄여 전체를 줄이는 쪽
+- [파라미터 효율 파인 튜닝](parameter-efficient-finetuning.md) — 훈련 가능 파라미터 수를
   줄여 78 GB를 6 GB로 만드는 쪽
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 파라미터 수·훈련 토큰·FLOP
 - [대용량 메모리 기기의 배포 전략](../concepts/large-memory-deployment-strategies.md) — 메모리

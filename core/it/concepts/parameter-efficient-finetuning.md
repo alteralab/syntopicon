@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파라미터 효율 파인 튜닝
-status: draft
 description: 전체 파인 튜닝이 감당 불가능해진 뒤 나온 계열 — 7B 모델에 56 GB가 드는 산수, 층을 얼려 보아도 파라미터 비효율인 부분 파인 튜닝, 어댑터를 끼워 3%의 파라미터로 전체 파인 튜닝에 0.4% 안까지 붙은 Houlsby et al.의 결과, 그리고 PEFT가 갈리는 두 갈래인 어댑터 기반과 소프트 프롬프트 기반
 generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
 sources:
@@ -161,15 +160,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [LoRA](../inbox/lora.md) — 이 계열에서 압도적으로 많이 쓰이는 기법의 전모
-- [모델 메모리 산수](../inbox/model-memory-math.md) — 56 GB가 나오는 공식
-- [훈련 가능 파라미터와 역전파](../inbox/trainable-parameters-and-backpropagation.md) — 훈련 가능
+- [LoRA](../concepts/lora.md) — 이 계열에서 압도적으로 많이 쓰이는 기법의 전모
+- [모델 메모리 산수](../concepts/model-memory-math.md) — 56 GB가 나오는 공식
+- [훈련 가능 파라미터와 역전파](trainable-parameters-and-backpropagation.md) — 훈련 가능
   파라미터가 메모리로 바뀌는 기제
-- [양자화](../inbox/quantization.md) — 같은 병목을 값당 비트 쪽에서 푸는 계열
-- [모델 병합](../inbox/model-merging.md) — 저자가 이 절에 함께 넣은 보완 접근
+- [양자화](quantization.md) — 같은 병목을 값당 비트 쪽에서 푸는 계열
+- [모델 병합](../concepts/model-merging.md) — 저자가 이 절에 함께 넣은 보완 접근
 - [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 하드 프롬프트가 사는 자리
 - [트랜스포머 구조](../concepts/transformer-architecture.md) — 어댑터가 끼워지는 블록의 구조
-- [전이 학습](../inbox/transfer-learning.md) — 표본 효율이라는 낱말이 나온 자리
+- [전이 학습](transfer-learning.md) — 표본 효율이라는 낱말이 나온 자리
 
 [^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "Finetuning Techniques"
     절 도입(p.332)과 "Parameter-Efficient Finetuning"(pp.332–338)을 담았다. Figure 7-7(부분 파인
