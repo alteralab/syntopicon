@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 기능적 정확성
-status: draft
 description: 모호함 없는 판정이 나오는 평가와 그렇지 않은 평가를 가르는 선, 그리고 시스템이 의도한 기능을 실제로 수행했는가로 재는 궁극의 지표 — 코드 생성에서 실행 정확도가 되는 자리, 단위 테스트라는 오래된 관행과 HumanEval·MBPP·text-to-SQL 벤치마크, k개 표본 중 하나만 통과하면 되는 pass@k, 그리고 측정 가능한 목적을 가진 과제까지의 확장
 generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:

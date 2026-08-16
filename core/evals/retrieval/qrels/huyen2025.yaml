@@ -143,3 +143,58 @@ queries:
     description: "다국어 모델과 언어 모델 기초의 경계 질의"
     expected_files: ["concepts/multilingual-models.md", "concepts/language-models-and-tokens.md"]
     expected_in_top_k: 5
+  # ---- 3장 배치 (런 2026-08-16-10) ----
+  - id: aie3-alias-1
+    query: "perplexity"
+    type: alias
+    description: "원어 질의 — 퍼플렉시티 음차 병기의 회귀 지점"
+    expected_files: ["concepts/language-modeling-metrics.md"]
+    expected_in_top_k: 5
+  - id: aie3-alias-2
+    query: "AI as a judge"
+    type: alias
+    description: "원어 질의 — AI 판정자 페이지"
+    expected_files: ["concepts/ai-as-a-judge.md"]
+    expected_in_top_k: 5
+  - id: aie3-alias-3
+    query: "pass@k"
+    type: alias
+    description: "원어 유지 용어 — 기능적 정확성 페이지"
+    expected_files: ["concepts/functional-correctness.md"]
+    expected_in_top_k: 5
+  - id: aie3-exact-1
+    query: "비교 평가와 Elo 순위"
+    type: exact
+    description: "비교 평가 페이지 직격"
+    expected_files: ["concepts/comparative-evaluation.md"]
+    expected_in_top_k: 5
+  - id: aie3-sem-1
+    query: "모델 심판이 내리는 판정을 얼마나 믿을 수 있나"
+    type: semantic
+    description: "판정자 한계를 이름 없이 묻는 질의"
+    expected_files: ["concepts/ai-judge-limitations.md"]
+    expected_in_top_k: 5
+  - id: aie3-sem-2
+    query: "생성된 답과 정답 문장이 얼마나 비슷한지 재는 방법"
+    type: semantic
+    description: "유사도 측정을 이름 없이"
+    expected_files: ["concepts/similarity-measurements-against-reference-data.md"]
+    expected_in_top_k: 5
+  - id: aie3-top-1
+    query: "파운데이션 모델 평가가 어려운 이유"
+    type: topical
+    description: "난제 페이지"
+    expected_files: ["concepts/evaluating-foundation-models-challenges.md"]
+    expected_in_top_k: 5
+  - id: aie3-top-2
+    query: "판정자 모델 고르기"
+    type: topical
+    description: "판정자 선택 페이지"
+    expected_files: ["concepts/ai-judge-selection.md"]
+    expected_in_top_k: 5
+  - id: aie3-x-1
+    query: "임베딩 품질 평가 벤치마크"
+    type: cross-domain
+    description: "MTEB가 들어간 벡터 색인 페이지와 평가 축의 경계"
+    expected_files: ["concepts/vector-indexes-and-embeddings.md", "concepts/similarity-measurements-against-reference-data.md"]
+    expected_in_top_k: 5

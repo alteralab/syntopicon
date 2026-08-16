@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 벡터 색인과 임베딩
-description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 멀티모달 임베딩 모델이 생성형 모델의 뼈대가 되는 계보, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 세 가지 벡터 색인(Flat·IVF·HNSW)과 각각이 정확도와 속도를 맞바꾸는 지점
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 실제 벡터의 크기와 임베딩 품질을 재는 방법, 여러 양식을 한 공간에 넣는 결합 임베딩과 그것이 생성형 모델의 뼈대가 되는 계보, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 세 가지 벡터 색인(Flat·IVF·HNSW)과 각각이 정확도와 속도를 맞바꾸는 지점
+generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
@@ -12,7 +12,10 @@ sources:
 
 - [의미 검색이 풀려는 것](#의미-검색이-풀려는-것)
 - [벡터 임베딩](#벡터-임베딩)
+- [임베딩 벡터의 크기](#임베딩-벡터의-크기)
 - [거리와 모델](#거리와-모델)
+- [임베딩의 품질을 어떻게 재는가](#임베딩의-품질을-어떻게-재는가)
+- [결합 임베딩 공간](#결합-임베딩-공간)
 - [벡터 색인 세 가지](#벡터-색인-세-가지)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -45,7 +48,42 @@ sources:
   같다. 우리는 개별 숫자가 무엇을 뜻하는지 이해하려 하지 않는다 — 그것들은 그저 모델이 추상적인
   다차원 공간의 한 위치를 가리키는 방법일 뿐이다** (4장, p.148).[^kleppmann2026]
 - 다른 소스가 같은 대상을 한 줄로 정의한다 — **임베딩은 원 데이터의 의미를 포착하려는 벡터로 생각할
-  수 있다** (1장, p.10).[^huyen2025]
+  수 있다** (1장, p.10).[^huyen2025] 같은 저자가 3장에서 이탤릭으로 다시 못 박는다 (3장,
+  p.134):[^huyen2025]
+
+  > An *embedding is a numerical representation that aims to capture the meaning of the original
+  > data.*
+
+  - 왜 애초에 필요한가 — **컴퓨터는 숫자로 작업하므로 모델은 자기 입력을 컴퓨터가 처리할 수 있는
+    수치 표현으로 변환해야 한다** (3장, p.134).[^huyen2025]
+
+## 임베딩 벡터의 크기
+
+- 실제 크기의 범위 — **임베딩은 벡터다. 예컨대 문장 "the cat sits on a mat"은 `[0.11, 0.02, 0.54]`
+  같은 임베딩 벡터로 표현될 수 있다. 여기서는 작은 벡터를 예로 썼다. 실제로 임베딩 벡터의 크기(임베딩
+  벡터의 원소 수)는 통상 100과 10,000 사이다** (3장, p.134).[^huyen2025]
+  - 각주의 관점 — **10,000 원소 벡터 공간이 고차원처럼 보이지만 그것은 원 데이터의 차원보다 훨씬
+    낮다. 따라서 임베딩은 복잡한 데이터를 더 낮은 차원의 공간에 나타낸 표현으로 여겨진다** (3장,
+    p.134 각주 13).[^huyen2025]
+- 어떤 모델이 임베딩을 만드는가 — **임베딩을 생성하도록 특별히 훈련된 모델에는 오픈 소스 모델
+  BERT·CLIP(Contrastive Language–Image Pre-training)·Sentence Transformers가 있다. API로 제공되는
+  독점 임베딩 모델도 있다** (3장, p.134).[^huyen2025]
+  - 각주가 가르는 다른 계열 — **문서 임베딩과 달리 낱말 임베딩(word embeddings)을 생성하는 모델도
+    있는데, word2vec(Mikolov et al., 2013)과 GloVe(Pennington et al., 2014) 같은 것들이다** (3장,
+    p.134 각주 14).[^huyen2025]
+- 인기 모델의 임베딩 크기다. 원문 표기를 그대로 옮겼다 (3장, p.134, Table 3-2):[^huyen2025]
+
+  | 모델 | 임베딩 크기 |
+  |---|---|
+  | Google's BERT | BERT base: 768 / BERT large: 1024 |
+  | OpenAI's CLIP | Image: 512 / Text: 512 |
+  | OpenAI Embeddings API | text-embedding-3-small: 1536 / text-embedding-3-large: 3072 |
+  | Cohere's Embed v3 | embed-english-v3.0: 1024 / embed-english-light-3.0: 384 |
+
+- 생성 모델의 중간 층에서 꺼내는 길 — **모델은 통상 자기 입력이 먼저 벡터 표현으로 변환되기를
+  요구하므로 GPT와 Llama를 포함한 많은 ML 모델도 임베딩을 생성하는 단계를 포함한다. 이 모델들의
+  중간 층에 접근할 수 있다면 그것으로 임베딩을 추출할 수 있다. 그러나 이 임베딩의 품질은 특화된
+  임베딩 모델이 생성한 임베딩만큼 좋지 않을 수 있다** (3장, p.134).[^huyen2025]
 
 ## 거리와 모델
 
@@ -72,6 +110,43 @@ sources:
   찾아야 한다** (4장, p.148).[^kleppmann2026]
 - **벡터 색인은 문서 모음의 벡터 임베딩을 저장한다. 색인에 질의하려면 질의의 벡터 임베딩을 넘기고,
   색인은 벡터가 질의 벡터에 가장 가까운 문서를 돌려준다** (4장, p.148).[^kleppmann2026]
+
+## 임베딩의 품질을 어떻게 재는가
+
+- 검증 자체가 문제다 — **임베딩 알고리즘의 목표는 원 데이터의 핵심을 포착하는 임베딩을 만드는 것이다.
+  그것을 어떻게 검증하는가? 임베딩 벡터 `[0.11, 0.02, 0.54]`는 원 텍스트 "the cat sits on a mat"과
+  전혀 닮지 않았다** (3장, p.135).[^huyen2025]
+- 높은 수준의 기준 — **높은 수준에서, 더 비슷한 텍스트가 더 가까운 임베딩을 가지면 임베딩 알고리즘이
+  좋다고 여겨지며 이는 코사인 유사도나 관련 지표로 측정된다. 문장 "the cat sits on a mat"의 임베딩은
+  "AI research is super fun"의 임베딩보다 "the dog plays on the grass"의 임베딩에 더 가까워야 한다**
+  (3장, p.135).[^huyen2025]
+- 유용성으로 재는 쪽 — **자기 과제에 대한 유용성에 근거해 임베딩의 품질을 평가할 수도 있다. 임베딩은
+  분류·토픽 모델링·추천 시스템·RAG를 포함한 많은 과제에 쓰인다. 여러 과제에 걸쳐 임베딩 품질을 재는
+  벤치마크의 예가 MTEB(Massive Text Embedding Benchmark, Muennighoff et al., 2023)다** (3장,
+  p.135).[^huyen2025]
+- 텍스트 밖에도 있다 — **저자는 텍스트를 예로 들지만 어떤 데이터든 임베딩 표현을 가질 수 있다. 예컨대
+  Criteo와 Coveo 같은 이커머스 솔루션은 제품에 대한 임베딩을 갖는다. Pinterest는 이미지·그래프·질의,
+  나아가 사용자에 대한 임베딩을 갖는다** (3장, p.135).[^huyen2025]
+
+## 결합 임베딩 공간
+
+- 새 개척지 — **새 개척지는 서로 다른 양식의 데이터에 대한 결합 임베딩(joint embeddings)을 만드는
+  것이다. CLIP(Radford et al., 2021)은 서로 다른 양식의 데이터, 곧 텍스트와 이미지를 하나의 결합 임베딩
+  공간에 사상할 수 있었던 첫 주요 모델 중 하나였다. ULIP(unified representation of language, images,
+  and point clouds, Xue et al., 2022)은 텍스트·이미지·3D 점군의 통합 표현을 만드는 것을 목표로 한다.
+  ImageBind(Girdhar et al., 2023)는 텍스트·이미지·오디오를 포함한 여섯 가지 서로 다른 양식에 걸친 결합
+  임베딩을 학습한다** (3장, p.135).[^huyen2025]
+- CLIP이 훈련되는 방식 — **CLIP은 (이미지, 텍스트) 쌍으로 훈련된다. 어떤 이미지에 대응하는 텍스트는
+  그 이미지에 딸린 캡션이나 댓글일 수 있다. 각 (이미지, 텍스트) 쌍에 대해 CLIP은 텍스트 인코더로
+  텍스트를 텍스트 임베딩으로, 이미지 인코더로 이미지를 이미지 임베딩으로 변환한다. 그런 다음 이 두
+  임베딩을 결합 임베딩 공간으로 투영한다. 훈련 목표는 이 결합 공간에서 어떤 이미지의 임베딩이 대응하는
+  텍스트의 임베딩에 가까워지게 하는 것이다** (3장, p.135, Figure 3-6).[^huyen2025]
+- 이름과 그 쓸모 — **서로 다른 양식의 데이터를 나타낼 수 있는 결합 임베딩 공간이 멀티모달 임베딩
+  공간(multimodal embedding space)이다. 텍스트–이미지 결합 임베딩 공간에서 낚시하는 남자 이미지의
+  임베딩은 텍스트 "fashion show"의 임베딩보다 텍스트 "a fisherman"의 임베딩에 더 가까워야 한다. 이
+  결합 임베딩 공간은 서로 다른 양식의 임베딩이 비교되고 결합될 수 있게 한다. 예컨대 이는 텍스트 기반
+  이미지 검색을 가능하게 한다. 텍스트가 주어지면 그 텍스트에 가장 가까운 이미지를 찾도록 도와준다**
+  (3장, p.136).[^huyen2025]
 
 ## 벡터 색인 세 가지
 
@@ -109,7 +184,17 @@ sources:
   되는 계보
 - [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 이 검색이 맥락 구성으로
   쓰이는 자리
+- [참조 데이터 대비 유사도 측정](../concepts/similarity-measurements-against-reference-data.md) —
+  같은 코사인 유사도가 생성 응답을 채점하는 데 쓰이는 자리
+- [비교 평가의 난제](../concepts/comparative-evaluation-challenges.md) — 검색 능력이 생성 능력과
+  갈려서 공개 리더보드가 RAG를 대변하지 못하는 지점
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 4장 "Storage and Retrieval"
 
-[^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
+[^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation
+    Models"(책 pp.1–48)과 3장 "Evaluation Methodology"(책 pp.113–158). 3장에서는
+    "Introduction to Embedding" 절(pp.134–136)을 담았다. Table 3-2는 원문 표기를 그대로 옮겼다.
+    도판 Figure 3-6(CLIP 구조 도식, p.136)은 옮기지 않았고 본문이 서술한 훈련 절차만 담았다.
+    MTEB(Muennighoff et al., 2023)·CLIP(Radford et al., 2021)·ULIP(Xue et al., 2022)·
+    ImageBind(Girdhar et al., 2023)·word2vec(Mikolov et al., 2013)·GloVe(Pennington et al., 2014)는
+    huyen2025를 통한 전언이다.

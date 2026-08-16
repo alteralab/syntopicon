@@ -1,7 +1,6 @@
 ---
 type: concept
 title: AI 판정자의 한계
-status: draft
 description: AI로 AI를 평가하는 접근이 신뢰를 얻지 못하는 네 가지 이유 — 같은 판정자가 같은 입력에 다른 점수를 내는 비일관성과 일관성이 정확성이 아니라는 단서, 도구마다 뜻이 다른 faithfulness가 보여 주는 기준 모호성과 판정자가 바뀌면 지표가 무너진다는 문제, API 호출이 배로 느는 비용과 응답 전 판정이 더하는 지연, 그리고 자기 편향·첫 위치 편향·장황함 편향
 generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:

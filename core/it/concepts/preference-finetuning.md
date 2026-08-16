@@ -2,7 +2,7 @@
 type: concept
 title: 선호 파인 튜닝
 description: 대화할 줄 아는 모델에게 어떤 대화를 해야 하는지 가르치는 단계 — 보편적 인간 선호를 가정하는 목표의 무리함, RLHF의 두 부분, 점별 평가 대신 비교 데이터를 쓰는 이유와 그 단가, 보상 모델의 손실 함수, 그리고 강화 학습을 아예 건너뛰는 선택지
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -126,7 +126,8 @@ sources:
 - 강함의 요건에 대한 이견 — **어떤 사람은 보상 모델이 파운데이션 모델의 응답에 점수를 매길 수
   있으려면 최소한 그 파운데이션 모델만큼 강력해야 한다고 믿는다. 그러나 평가에서 보게 되듯 약한
   모델이 더 강한 모델을 판정할 수 있는데, 판정하는 것이 생성하는 것보다 쉽다고 여겨지기 때문이다**
-  (2장, p.87).[^huyen2025]
+  (2장, p.87).[^huyen2025] 그 논거와 그에 반하는 실측은
+  [판정자 모델 고르기](../concepts/ai-judge-selection.md)에 있다.
 
 ## 보상 모델로 파인 튜닝하기
 
@@ -154,6 +155,10 @@ sources:
 
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 사후 훈련의 첫 단계와 시연 데이터
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — best of N 전략이 실제로 작동하는 방식
+- [판정자 모델 고르기](../concepts/ai-judge-selection.md) — 보상 모델이 특화 AI 판정자로 다시
+  등장하는 자리
+- [비교 평가](../concepts/comparative-evaluation.md) — 같은 비교 신호가 모델 순위를 내는 데
+  쓰이는 쪽
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 사후 훈련과 파인 튜닝이 갈리는 자리
 - [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — RLHF가 환각에 미치는 영향의
   엇갈린 증거

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 비교 평가
-status: draft
 description: 모델마다 점수를 매겨 줄 세우는 대신 서로 붙여 이기고 지는 것으로 순위를 내는 방식 — 점별 평가와의 대비, 선호로 답해서는 안 되는 질문과 A/B 테스트와의 구별, 매치와 승률, 스포츠에서 빌려 온 Elo·Bradley–Terry·TrueSkill, 그리고 순위의 옳음을 미래 매치 결과의 예측력으로 정의하는 관점
 generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:

@@ -2,7 +2,7 @@
 type: concept
 title: 애플리케이션 개발 층
 description: 모두가 같은 모델을 쓰는 세계에서 차별점이 만들어지는 층 — 개방형 출력 탓에 정답 목록을 만들 수 없어 커진 평가 문제와 그것을 드러낸 Gemini 벤치마크 사건, 가중치를 건드리지 않고 행동을 끌어내는 프롬프트 엔지니어링과 맥락 구성, 그리고 독립 제품에서 플러그인까지 넓어진 AI 인터페이스
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -61,6 +61,14 @@ sources:
   | Grok 1 | 73.0% 5-shot | |
   | Llama-2 | 68.0% | |
 
+- 이 한 절이 여는 축의 전모는 3장이 맡는다 —
+  [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md)가 여기서
+  요약된 어려움의 다섯 갈래를, [언어 모델링 지표](../concepts/language-modeling-metrics.md)·
+  [기능적 정확성](../concepts/functional-correctness.md)·
+  [참조 데이터 대비 유사도 측정](../concepts/similarity-measurements-against-reference-data.md)·
+  [AI 판정자](../concepts/ai-as-a-judge.md)·[비교 평가](../concepts/comparative-evaluation.md)가
+  실제 방법들을 담는다.
+
 ## 프롬프트 엔지니어링과 맥락 구성
 
 - 정의 (1장, p.45):[^huyen2025]
@@ -117,6 +125,9 @@ sources:
 
 ## 이어지는 페이지
 
+- [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md) — 여기 한 절로
+  요약된 평가가 그 자체의 축으로 서는 자리
+- [AI 판정자](../concepts/ai-as-a-judge.md) — 개방형 출력의 평가를 자동화하는 접근
 - [AI 엔지니어링 스택](../concepts/ai-engineering-stack.md) — 이 층이 놓인 자리
 - [모델 개발 층](../concepts/ai-model-development-layer.md) — 그 아래 층의 세 책임
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 프롬프트 엔지니어링이 속한 분류
