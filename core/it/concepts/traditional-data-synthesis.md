@@ -2,7 +2,6 @@
 type: concept
 title: 전통적 데이터 합성 기법
 description: AI 이전부터 있던 두 갈래 — 템플릿과 난수로 채우는 규칙 기반 생성, 뒤집기·자르기·단어 치환 같은 절차적 변환과 편향 완화, 픽셀 하나로 분류를 뒤집는 섭동, 그리고 실험을 가상으로 돌리는 시뮬레이션
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

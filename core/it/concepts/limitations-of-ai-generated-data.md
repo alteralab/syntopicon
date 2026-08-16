@@ -2,7 +2,6 @@
 type: concept
 title: AI 생성 데이터의 한계
 description: 합성 데이터가 사람 데이터를 완전히 대체하지 못하는 네 이유 — 품질 관리, 스타일만 흉내 내다 환각을 배우는 피상적 모방, 재귀 훈련이 되돌릴 수 없는 결함을 남긴다는 모델 붕괴와 그 반론, 그리고 계보가 흐려지면서 생기는 저작권·오염 위험
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

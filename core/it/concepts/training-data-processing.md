@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 처리
 description: 모은 데이터를 쓸 수 있게 만드는 단계의 순서와 첫 일 — 무엇을 먼저 돌릴지 정하는 기준과 원본을 제자리에서 고치지 말라는 규칙, 그리고 통계와 분포로 데이터를 들여다보는 절차부터 주석자 간 불일치까지
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

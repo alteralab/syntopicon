@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 확보와 주석
 description: 데이터를 어디서 얻고 누가 이름을 붙이는가 — 자기 애플리케이션 데이터가 가장 좋은 이유와 데이터 플라이휠, 공개 데이터셋을 절대 전적으로 믿지 말라는 단서, 예제 1만 개가 1만 1천 개가 되는 여섯 단계, 그리고 주석보다 주석 지침이 더 어렵다는 관찰
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

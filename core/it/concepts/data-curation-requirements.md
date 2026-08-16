@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 큐레이션의 요구 조건
 description: 어떤 데이터가 필요한지는 무엇을 가르치려는지가 정한다 — 훈련 방식마다 달라지는 데이터 형식, 사고 사슬과 도구 사용이 유독 주석하기 어려운 이유, 단일 턴과 다중 턴의 갈림, 나쁜 행동을 지우려고 데이터를 빼는 쪽, 그리고 품질·커버리지·수량이라는 세 기준
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

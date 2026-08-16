@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 커버리지
 description: 데이터가 사용자가 실제로 던질 문제의 범위를 덮는가 — 다양성이 애플리케이션마다 다른 축으로 요구되는 이유, 이질적 데이터를 더 넣어 성능이 나빠진 사례, Llama 3의 훈련 단계별 도메인 배합 수치, 그리고 배합을 스케일링 법칙 실험으로 고르는 방법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

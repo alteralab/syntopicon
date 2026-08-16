@@ -2,7 +2,6 @@
 type: concept
 title: 데이터셋 엔지니어링이란
 description: 예산 안에서 최선의 모델을 훈련할 수 있는 데이터셋을 만드는 일 — 데이터 노력이 GPT-3에서 GPT-4로 가며 두 명에서 여든 명으로 늘어난 실물, 데이터가 곁일에서 전담 직무로 옮겨 간 경위, 모델 중심 AI와 데이터 중심 AI의 갈림, 그리고 이 장이 사후 훈련 데이터를 고르는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 데이터 증강과 합성
 description: 증강은 진짜에서 파생되고 합성은 진짜를 흉내 낸다 — 두 낱말의 경계와 저자가 그것을 섞어 쓰는 이유, 소프트웨어 테스트의 가짜 데이터에서 온 계보, 그리고 수량·커버리지·품질·프라이버시·증류라는 다섯 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

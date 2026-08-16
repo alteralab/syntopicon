@@ -2,7 +2,6 @@
 type: concept
 title: AI 기반 데이터 합성
 description: 모델이 데이터를 만드는 방법들 — API와 사람을 흉내 내는 시뮬레이션과 자가 대국, 재구성·번역·역번역, 지시 데이터를 합성하는 씨앗 방식과 역방향 지시, 롱컨텍스트 데이터를 만드는 절차, 그리고 Llama 3의 코딩 데이터 합성 파이프라인
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

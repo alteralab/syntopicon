@@ -2,7 +2,7 @@
 type: concept
 title: 지도 파인 튜닝
 description: 사후 훈련의 첫 단계가 완성 기계를 대화 상대로 바꾸는 방식 — 사후 훈련이 푸는 두 문제와 그 두 단계, 시연 데이터와 행동 복제, 좋은 레이블러가 비싼 이유와 실제 단가, 자원봉사·휴리스틱·합성 데이터라는 대안, 그리고 사전 훈련을 건너뛰지 않는 이유
-generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -129,7 +129,11 @@ sources:
 
 - 7장이 같은 비용에 붙이는 조건절 — **고품질 지시 데이터는 만들기 어렵고 비쌀 수 있는데, 특히 사실
   일관성·도메인 전문성·정치적 올바름을 요구하는 지시가 그렇다** (7장, p.310).[^huyen2025] 그 데이터를
-  어떻게 얻는지는 8장의 몫이다 (7장, p.310).[^huyen2025]
+  어떻게 얻는지는 8장의 몫이다 (7장, p.310).[^huyen2025] 8장은 그것을 앱 개발자 쪽에서 다시 세운다 —
+  지시 파인 튜닝에는 **(instruction, response) 형식의 데이터가 필요하다** (8장,
+  p.365).[^huyen2025] 그 요구 조건은
+  [데이터 큐레이션의 요구 조건](../concepts/data-curation-requirements.md)에, 확보 경로는
+  [데이터 확보와 주석](../concepts/data-acquisition-and-annotation.md)에 있다.
 - 그래서 학력이 올라간다 — **따라서 기업은 시연 데이터를 만드는 데 고학력 레이블러를 쓰는 일이
   많다. InstructGPT용 시연 데이터를 레이블한 사람 중 약 90%가 최소 학사 학위를 가졌고 3분의 1
   이상이 석사 학위를 가졌다** (2장, p.82).[^huyen2025]
@@ -160,7 +164,8 @@ sources:
   ```
 
 - AI 생성 데이터 — **고품질 인간 주석 데이터에 대한 의존을 줄이려고 많은 팀이 AI 생성 데이터로
-  돌아서고 있다** (2장, p.83).[^huyen2025]
+  돌아서고 있다** (2장, p.83).[^huyen2025] 그 갈래 전체는
+  [데이터 증강과 합성](../concepts/data-augmentation-and-synthesis.md)에 있다.
 - 사전 훈련을 건너뛸 수 있는가 — **기술적으로는 사전 훈련된 모델을 파인 튜닝하는 대신 시연
   데이터로 모델을 처음부터 훈련해 자기지도 사전 훈련 단계를 사실상 없앨 수 있다. 그러나 사전 훈련
   접근이 우월한 결과를 되돌려 주었다** (2장, p.83).[^huyen2025]
@@ -181,9 +186,14 @@ sources:
   배울지를 정하는 손잡이
 - [파라미터 효율 파인 튜닝](../concepts/parameter-efficient-finetuning.md) — 전체 파인 튜닝이 요구하는
   데이터 양이 문제가 되는 자리
+- [데이터 큐레이션의 요구 조건](../concepts/data-curation-requirements.md) — 이 데이터를 앱 개발자가
+  직접 만들 때의 요구
+- [데이터 확보와 주석](../concepts/data-acquisition-and-annotation.md) — 주석 지침이 주석보다 어렵다는
+  8장의 관찰
 
 [^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112)와 7장
-    "Finetuning"의 지도 파인 튜닝 재서술(책 p.310). 이 페이지는
+    "Finetuning"의 지도 파인 튜닝 재서술(책 p.310), 8장 "Dataset Engineering"의 데이터 형식
+    대목(책 p.365). 이 페이지는
     "Post-Training" 절 도입(pp.78–80)과 "Supervised Finetuning"(pp.80–83)을 담았다. Table 2-6
     (p.82)과 DeepMind 휴리스틱 형식(p.83)은 원문 표기를 그대로 옮겼다. Figure 2-12(InstructGPT
     프롬프트 분포 도넛 차트, p.81)는 그림을 옮기지 않고 표시된 수치만 표로 옮겼다. 도판

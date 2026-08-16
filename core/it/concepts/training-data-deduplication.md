@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 중복 제거
 description: 중복이 분포를 비틀고 테스트 세트를 오염시키는 방식 — 0.1%를 100번 반복해 8억 파라미터 모델이 4억 파라미터 수준으로 떨어진 실측, 중복의 세 형태와 무엇을 중복으로 볼지의 정의 문제, 그리고 쌍대 비교·해싱·차원 축소라는 세 수단
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

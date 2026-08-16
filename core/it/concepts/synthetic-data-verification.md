@@ -2,7 +2,6 @@
 type: concept
 title: 합성 데이터 검증
 description: 만든 데이터를 믿을지 정하는 단계 — 기능적 정확성과 AI 판정자라는 두 자, 검증할 수 있는 데이터를 합성하게 되는 경향, 진짜와 구별되는지로 품질을 재는 뒤집힌 방법, 그리고 Self-Instruct가 쓴 휴리스틱 거르개
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

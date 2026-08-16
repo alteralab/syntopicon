@@ -430,3 +430,52 @@ queries:
     description: "수치 형식 — 서빙 축(9장 예정)과의 경계"
     expected_files: ["concepts/numerical-formats.md"]
     expected_in_top_k: 5
+  # ---- 8장 배치 (런 2026-08-16-15) ----
+  - id: aie8-alias-1
+    query: "synthetic data"
+    type: alias
+    description: "원어 질의 — 데이터 증강과 합성 페이지"
+    expected_files: ["concepts/data-augmentation-and-synthesis.md", "concepts/ai-powered-data-synthesis.md"]
+    expected_in_top_k: 5
+  - id: aie8-alias-2
+    query: "model collapse"
+    type: alias
+    description: "원어 질의 — AI 생성 데이터의 한계 페이지"
+    expected_files: ["concepts/limitations-of-ai-generated-data.md"]
+    expected_in_top_k: 5
+  - id: aie8-exact-1
+    query: "훈련 데이터 품질의 특성"
+    type: exact
+    description: "품질 페이지 직격"
+    expected_files: ["concepts/training-data-quality.md"]
+    expected_in_top_k: 5
+  - id: aie8-exact-2
+    query: "모델 증류"
+    type: exact
+    description: "증류 페이지 — 이후 Hinton 원전 착지 예정지"
+    expected_files: ["concepts/model-distillation.md"]
+    expected_in_top_k: 5
+  - id: aie8-sem-1
+    query: "훈련 데이터가 얼마나 있어야 하나"
+    type: semantic
+    description: "수량 페이지를 이름 없이"
+    expected_files: ["concepts/training-data-quantity.md"]
+    expected_in_top_k: 5
+  - id: aie8-sem-2
+    query: "모델이 만든 데이터로 모델을 훈련하면 생기는 문제"
+    type: semantic
+    description: "모델 붕괴를 이름 없이"
+    expected_files: ["concepts/limitations-of-ai-generated-data.md"]
+    expected_in_top_k: 5
+  - id: aie8-top-1
+    query: "훈련 데이터 중복 제거"
+    type: topical
+    description: "중복 제거 페이지 (기존 스트림 축과 슬러그 구분 회귀 지점)"
+    expected_files: ["concepts/training-data-deduplication.md"]
+    expected_in_top_k: 5
+  - id: aie8-x-1
+    query: "데이터 중심 AI"
+    type: cross-domain
+    description: "데이터셋 엔지니어링 규정 — 기존 데이터 엔지니어링 축과의 경계"
+    expected_files: ["concepts/dataset-engineering-defined.md"]
+    expected_in_top_k: 5

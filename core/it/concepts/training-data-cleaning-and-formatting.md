@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 정제와 형식
 description: 잉여 토큰을 걷어 내고 규정에 맞추고 남길 것을 고르는 단계와 그 뒤의 형식 맞추기 — 마크다운과 HTML 토큰을 지워 정확도가 오른 실측, 주석 세션 후반의 품질 저하, 능동 학습과 중요도 표집, 그리고 파인 튜닝 데이터 형식이 프롬프트와 어긋날 때 생기는 문제
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

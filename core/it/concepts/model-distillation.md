@@ -2,7 +2,6 @@
 type: concept
 title: 모델 증류
 description: 작은 학생이 큰 교사를 흉내 내도록 훈련하는 방법 — DistilBERT와 Alpaca의 수치, 많은 라이선스가 이것을 금지한다는 단서, 합성 데이터로 훈련하는 것이 곧 증류는 아니라는 구분, 그리고 학생이 교사보다 커진 Nemotron-4의 사례
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

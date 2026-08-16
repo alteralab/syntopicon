@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 수량
 description: 얼마나 필요한지에 정해진 답이 없는 이유와 그럼에도 정할 수 있는 것들 — 예제 하나부터 수백만까지, 파인 튜닝이 처음부터 훈련하는 것보다 나빠지는 골화 현상, 기법·과제 복잡도·베이스 모델이라는 세 요인, 작은 데이터셋으로 기울기를 먼저 재는 절차, 그리고 수확 체감과 예산
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

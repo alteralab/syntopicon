@@ -2,7 +2,6 @@
 type: concept
 title: 훈련 데이터 품질
 description: 적은 고품질이 많은 잡음을 이긴다는 실측과 그 대가 — Yi의 1만 개와 LIMA의 1천 개, 사람이 만든 데이터가 오히려 더 틀린다는 Llama 3의 관찰, 품질을 단일 정의로 좁히지 않고 여섯 특성으로 푸는 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

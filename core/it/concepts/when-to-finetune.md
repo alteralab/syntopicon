@@ -2,7 +2,7 @@
 type: concept
 title: 언제 파인 튜닝하는가
 description: 파인 튜닝을 할 이유와 하지 않을 이유가 각각 무엇인가 — 품질·형식·편향 완화라는 이유들과 작은 모델 쪽이 더 흔한 사정, 다른 과제가 나빠지는 정렬세, 데이터·ML 지식·서빙·유지보수라는 네 겹의 선투자, 그리고 프롬프트 실험이 부실했을 뿐인 흔한 이야기
-generated: { by: "claude-opus-5", at: "2026-08-17T05:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -62,7 +62,9 @@ sources:
   빠르다** (7장, p.312).[^huyen2025]
 - 흔한 접근 하나 — **큰 모델이 생성한 데이터를 써서 작은 모델이 큰 모델의 행동을 흉내 내도록 파인
   튜닝하는 것이 흔한 접근이다. 이 접근은 큰 모델의 지식을 작은 모델로 증류하므로 증류(distillation)
-  라 불린다. 이는 다른 데이터 합성 기법과 함께 8장에서 논의된다** (7장, p.312).[^huyen2025]
+  라 불린다. 이는 다른 데이터 합성 기법과 함께 8장에서 논의된다** (7장, p.312).[^huyen2025] 8장이
+  붙이는 정의는 **작은 모델(학생)이 더 큰 모델(교사)을 흉내 내도록 훈련되는 방법**이고 (8장,
+  p.395),[^huyen2025] 그 전체는 [모델 증류](../concepts/model-distillation.md)에 있다.
 - 작은 모델이 큰 기성 모델을 이긴 실물 — **구체적 과제에 파인 튜닝된 작은 모델이 그 과제에서 훨씬 큰
   기성 모델을 능가할 수 있다. 예컨대 Grammarly는 자기들이 파인 튜닝한 Flan-T5 모델(Chung et al.,
   2022)이 60배 작은데도 넓은 범위의 텍스트 편집 과제에서 텍스트 편집에 특화된 GPT-3 변종을
@@ -171,8 +173,12 @@ sources:
   모델 선택에 걸리는 자리
 - [AI 제품의 기대치와 유지보수](../concepts/ai-product-expectations-and-maintenance.md) — 빠른
   변화 위에서의 유지보수라는 같은 문제
+- [모델 증류](../concepts/model-distillation.md) — 큰 모델의 출력으로 작은 모델을 파인 튜닝하는 쪽
+- [훈련 데이터 수량](../concepts/training-data-quantity.md) — 파인 튜닝에 데이터가 얼마나 드는지의
+  선투자 계산
 
-[^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362). 이 페이지는 "When to Finetune" 절의
+[^huyen2025]: Huyen 2025, 7장 "Finetuning" (책 pp.307–362)과 8장 "Dataset Engineering"의 증류
+    정의(책 p.395). 이 페이지는 "When to Finetune" 절의
     "Reasons to Finetune"(pp.311–312)과 "Reasons Not to Finetune"(pp.312–315)을 담았다. 같은
     구간의 상자 "Finetuning Domain-Specific Tasks"(pp.314–315)와 그 Table 7-1은
     [도메인 특화 모델](../concepts/domain-specific-models.md)이 담았다. Figure 7-2(프롬프팅과

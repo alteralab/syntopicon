@@ -2,7 +2,7 @@
 type: concept
 title: 훈련 데이터 큐레이션
 description: 모델의 능력과 한계는 훈련된 데이터가 정한다 — Common Crawl과 C4가 실제로 담고 있는 것, 공개를 그만둔 개발사들, "원하는 것이 아니라 가진 것을 쓴다"가 낳는 결과, 그리고 저품질 대량보다 고품질 소량이 이기는 실측
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -90,6 +90,12 @@ sources:
 - 데이터의 세 목표 — **이 절이 데이터의 규모에 초점을 맞추지만 중요한 것은 양만이 아니다. 데이터
   품질과 데이터 다양성도 중요하다. 양·품질·다양성이 훈련 데이터의 세 황금 목표다** (2장,
   p.70).[^huyen2025]
+  - 8장이 같은 셋을 사후 훈련 데이터 쪽에서 다시 부른다 — **높은 층위에서 데이터 큐레이션은 세 기준을
+    따른다: 데이터 품질·데이터 커버리지·데이터 수량** (8장, p.367).[^huyen2025] 다양성은 커버리지가
+    요구하는 것이므로 두 목록은 겹친다 (8장, p.370).[^huyen2025] 그 세 기준의 전개는
+    [훈련 데이터 품질](../concepts/training-data-quality.md)·
+    [훈련 데이터 커버리지](../concepts/training-data-coverage.md)·
+    [훈련 데이터 수량](../concepts/training-data-quantity.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -102,8 +108,11 @@ sources:
   책임으로 정의되는 곳
 - [자기지도와 모델 규모](../concepts/self-supervision-and-model-scale.md) — 이 방대한 텍스트를
   레이블 없이 쓸 수 있게 한 훈련 방식
+- [데이터셋 엔지니어링이란](../concepts/dataset-engineering-defined.md) — 같은 문제를 앱 개발자의
+  사후 훈련 데이터 쪽에서 다시 세우는 장
 
-[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112). 이 페이지는
+[^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112)와 8장 "Dataset
+    Engineering"의 세 기준 대목(책 pp.367, 370). 이 페이지는
     2장 도입부와 "Training Data" 절 도입(pp.49–51), 그리고 데이터의 세 황금 목표를 말하는
     p.70의 노트를 담았다. 이 구간에는 도판이 없다. Gunasekar et al.(2023)·워싱턴 포스트 연구는
     huyen2025를 통한 전언이다.

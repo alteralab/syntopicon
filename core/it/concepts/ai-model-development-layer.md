@@ -2,7 +2,7 @@
 type: concept
 title: 모델 개발 층
 description: AI 엔지니어링 스택의 가운데 층이 지는 세 책임 — 모델링과 훈련에서 ML 지식이 필수에서 있으면 좋은 것으로 내려앉고, 데이터셋 엔지니어링이 특징 공학에서 중복 제거·토큰화·맥락 검색·품질 관리로 옮겨 가며, 자기회귀 생성 탓에 추론 최적화가 한층 더 중요해지는 자리
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -74,6 +74,13 @@ sources:
 - 데이터를 아는 것의 다른 값 — **얼마나 많은 데이터가 필요하든, 모델을 살펴볼 때 데이터에 대한 전문성이
   유용하다. 그 훈련 데이터가 그 모델의 강점과 약점에 대한 중요한 실마리를 주기 때문이다** (1장,
   p.43).[^huyen2025]
+- 여기서 이름만 정의된 이 책임을 8장이 통째로 펼친다 — 그 장이 세우는 목표는
+  **예산 안에서 최선의 모델을 훈련할 수 있는 데이터셋을 만드는 것**이고 (8장, p.363),[^huyen2025]
+  큐레이션·합성·처리 세 덩어리로 나뉜다 (8장, p.364).[^huyen2025] 그 전체는
+  [데이터셋 엔지니어링이란](../concepts/dataset-engineering-defined.md)에 있고, 여기 열거된 중복
+  제거·품질 관리의 실물은 각각
+  [훈련 데이터 중복 제거](../concepts/training-data-deduplication.md)와
+  [훈련 데이터 품질](../concepts/training-data-quality.md)이 맡는다.
 
 ## 추론 최적화
 
@@ -126,7 +133,10 @@ sources:
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 규모 결정이 컴퓨트 비용으로
   환산되는 자리
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 데이터셋 엔지니어링의 사전 훈련 쪽
+- [데이터셋 엔지니어링이란](../concepts/dataset-engineering-defined.md) — 이 층의 둘째 책임이 한 장으로
+  펼쳐지는 자리
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
     (책 pp.1–48)과 2장 "Understanding Foundation Models"(책 pp.49–112) 중 모델링 도입(p.58)·
-    프리필과 디코드(p.60) 대목. Table 1-4는 원문 표기를 그대로 옮겼다. 이 절에는 도판이 없다.
+    프리필과 디코드(p.60) 대목, 그리고 8장 "Dataset Engineering"의 목표와 구성(pp.363–364).
+    Table 1-4는 원문 표기를 그대로 옮겼다. 이 절에는 도판이 없다.
