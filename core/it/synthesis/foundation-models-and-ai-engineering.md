@@ -66,6 +66,11 @@ generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
 - [AI 엔지니어링과 ML 엔지니어링](../concepts/ai-engineering-versus-ml-engineering.md) — 두 일의 차이
   세 가지와 뒤집힌 작업 순서
 
+## 이 축에서 갈라져 나간 허브
+
+- [AI 평가](ai-evaluation.md) — 열린 출력을 재는 방법론 전체. 애플리케이션 개발 층의 평가 책임이
+  독립한 축
+
 ## 다른 축에서 여기로 이어지는 자리
 
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 임베딩 모델과 그 색인이
