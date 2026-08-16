@@ -1,8 +1,8 @@
 ---
 type: synthesis
 title: 메시징 패턴
-description: 비동기 메시징으로 애플리케이션을 통합할 때 쓰는 이름 층의 진입점 — 통합 스타일 넷 중 메시징을 고르는 판단, 결합을 가정의 수로 재는 자, 채널·메시지·파이프와 필터·라우터·변환기·엔드포인트 여섯 뿌리 패턴이 각각 어느 장으로 자라는가의 지도, 뿌리마다 붙는 패턴 묶음(채널 설계·메시지 구성·라우팅·변환), 그리고 이 KB의 스트리밍·데이터 엔지니어링 서술이 이미 빌려 쓰고 있던 이름들의 원천 대조
-generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
+description: 비동기 메시징으로 애플리케이션을 통합할 때 쓰는 이름 층의 진입점 — 통합 스타일 넷 중 메시징을 고르는 판단, 결합을 가정의 수로 재는 자, 채널·메시지·파이프와 필터·라우터·변환기·엔드포인트 여섯 뿌리 패턴이 각각 어느 장으로 자라는가의 지도, 뿌리마다 붙는 패턴 묶음(채널 설계·메시지 구성·라우팅·변환), 카탈로그를 닫는 두 장(실제 시스템에 패턴을 댄 사례와 패턴이 표준으로 굳을 때의 전망), 그리고 이 KB의 스트리밍·데이터 엔지니어링 서술이 이미 빌려 쓰고 있던 이름들의 원천 대조 — 원전 각주가 합류한 페이지와 어휘만 이웃한 페이지를 갈라서
+generated: { by: "claude-opus-5", at: "2026-08-16T13:30:00Z" }
 ---
 
 # 메시징 패턴
@@ -10,8 +10,10 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
 - [이름이 좁은 이유](#이름이-좁은-이유) — 무엇이 이 카탈로그에 들어오고 무엇이 안 들어오는가
 - [먼저 읽는 순서](#먼저-읽는-순서) — 스타일 선택 → 결합의 자 → 뿌리 어휘
 - [뿌리에서 자란 장들](#뿌리에서-자란-장들) — 뿌리마다 붙는 패턴 묶음
+- [뿌리를 갖지 않는 두 장 — 사례와 맺음](#뿌리를-갖지-않는-두-장--사례와-맺음) — 카탈로그를 닫는 쪽
 - [여섯 뿌리와 그 가지](#여섯-뿌리와-그-가지) — 뿌리마다 장이 하나씩 붙는 골격
-- [이 KB가 이미 쓰고 있던 이름들](#이-kb가-이미-쓰고-있던-이름들) — 어휘를 빌려 쓰던 자리들
+- [원전 층이 합류한 기존 페이지](#원전-층이-합류한-기존-페이지) — 이 소스의 각주가 붙은 자리 전부
+- [각주 없이 이웃한 페이지](#각주-없이-이웃한-페이지) — 어휘만 겹치는 자리들
 - [이웃 허브](#이웃-허브) — 이 이름 층이 얹히는 원리 쪽 허브들
 
 ## 이름이 좁은 이유
@@ -66,6 +68,21 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
   대신 들여다보는 여덟 — Control Bus·Detour·Wire Tap·Message History·Message Store·Smart Proxy·
   Test Message·Channel Purger
 
+## 뿌리를 갖지 않는 두 장 — 사례와 맺음
+
+카탈로그를 닫는 두 장은 패턴을 정의하지 않는다. 하나는 패턴을 **쓰는** 이야기이고 다른 하나는
+패턴이라는 형식이 **어디로 가는가**의 이야기다. 둘 다 저자들이 아니라 초청 저자가 썼다.
+
+- [패턴을 실제로 적용할 때](../inbox/pattern-application-in-practice.md) — 13장(Jonathan Simon).
+  실제 채권 가격 산정 시스템에 카탈로그를 대면서 내려진 판단들 — 통합 스타일을 요구사항으로 하나씩
+  기각하는 절차, 기술이 아닌 힘이 패턴을 기각하는 자리, 패턴으로 패턴을 구현하고 패턴의 맥락을
+  바꿔 쓰는 조합, 채널 세밀도와 로직의 위치, 방향마다 채널 종류를 따로 고르는 설계, 데드레터 큐가
+  서버를 무너뜨린 사고, 그리고 천 개의 패턴으로도 못 고치는 것. **도메인 서사는 걸렀다**
+- [패턴과 표준](../inbox/patterns-and-standards.md) — 14장(Sean Neville). 패턴의 구현 전략이
+  표준으로 굳을 때 패턴에 무슨 일이 일어나는가 — 나이테 논증, 같은 패턴이 여러 층에 재귀적으로
+  있다는 관찰, 표준을 패턴의 목록으로 읽는 독법, 네 가지 전달 보장, 롤백이 아니라 보상으로 푸는
+  오래 사는 프로세스. **2003년 시점의 전망이라는 장르를 명시했고 규격의 흥망은 채점하지 않는다**
+
 ## 여섯 뿌리와 그 가지
 
 저자들이 **뿌리 패턴(root patterns)** 이라 부르는 여섯이 있고, 각 뿌리마다 장이 하나씩 붙는다.
@@ -85,34 +102,44 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
 흐름을 들여다보는 패턴들(*Control Bus*·*Detour*·*Wire Tap*·*Message History*·*Message Store*·
 *Smart Proxy*·*Test Message*·*Channel Purger*)이 거기 모인다.
 
-## 이 KB가 이미 쓰고 있던 이름들
+## 원전 층이 합류한 기존 페이지
 
-이 소스의 정체는 **기존 서술의 이름 원천**이다. 아래는 그 어휘가 이미 쓰이고 있던 자리다 —
-각 페이지가 무엇을 다루는지는 그 페이지가 말한다.
+이 소스의 정체는 **기존 서술의 이름 원천**이다. 아래는 이 카탈로그의 원전 층이 실제로 기존 페이지
+안으로 들어간 자리 전부이고, 판정 기준은 그 페이지에 `[^hohpe2004]` 각주가 있는가다. 각 페이지가
+무엇을 다루는지는 그 페이지가 말한다.
 
-- [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — 큐와 토픽이라는 두 분배 패턴,
-  브로커와 데이터베이스의 차이, 확인 응답과 재전달
-- [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 처리 못 한
-  레코드를 어디에 두는가와 그 대가
-- [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 중복을 수신 쪽에서
-  흡수하는 쪽. *Idempotent Receiver*의 원전 층이 여기 합류했다
-- [데이터 계보 추적 패턴](../concepts/data-lineage-tracking-patterns.md) — 레코드가 자기 경로를
-  들고 다니는 배치. *Message History*의 원전 층이 여기 합류했다
+| 페이지 | 무엇이 합류했는가 | 원전의 자리 |
+|---|---|---|
+| [데이터베이스를 거치는 데이터플로](../concepts/dataflow-through-databases.md) | *Shared Database* 통합 스타일의 정의와 그 대가 | 2장 |
+| [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) | *Remote Procedure Invocation*의 원전 서술과 20년 뒤의 채점 | 2장 |
+| [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) | 채널 어휘의 원전 — 점대점과 발행-구독이 갈리는 자리 | 3·4장 |
+| [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) | *Invalid Message Channel*·*Dead Letter Channel*의 원전 정의와 현대 용법의 경계 이동, 그리고 데드레터 큐가 서버를 무너뜨린 사고 | 4·13장 |
+| [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) | *Resequencer* — 예방이냐 교정이냐의 판정 | 7장 |
+| [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) | *Routing Slip*·*Process Manager*가 오케스트레이션의 선조인 자리 | 7장 |
+| [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) | *Content Enricher*·*Envelope Wrapper*의 이름 계보 | 8장 |
+| [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) | *Idempotent Receiver*가 멱등성 4층 대조표에 들어간 자리 | 10장 |
+| [데이터 계보 추적 패턴](../concepts/data-lineage-tracking-patterns.md) | *Message History* — 레코드가 자기 경로를 들고 다니는 배치 | 11장 |
+| [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) | 패턴이라는 형식 자체에 대한 세 판정 — 일반적이라서 붙잡기 어렵다·표준화되어도 나이테처럼 자란다·부실한 사전 설계는 보완하지 못한다 | 13·14장 |
+
+## 각주 없이 이웃한 페이지
+
+아래는 어휘가 겹치거나 같은 사태를 다른 층에서 다루지만 **원전 층이 합류하지는 않은** 자리다.
+위 표와 갈라 두는 이유: 이 소스를 인용하려면 위쪽으로 가야 한다.
+
 - [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 채널을 지워지는 큐가
   아니라 남는 로그로 구현했을 때 달라지는 것
-- [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) — 병렬 처리가 순서를 깨뜨린
-  뒤의 복구. *Resequencer*의 원전 층이 여기 합류했다
-- [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) —
-  *Content Enricher*·*Envelope Wrapper*의 이름을 물려받은 현재형 파이프라인 쪽
-- [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) — *Routing Slip*·*Process
-  Manager*가 오케스트레이션이라는 이름으로 다시 선 자리
 - [배치 조인과 그룹핑](../concepts/batch-joins-and-grouping.md) — *Aggregator*의 배치 판
 - [카프카 단일 메시지 변환](../concepts/kafka-single-message-transformations.md) — 변환을
   파이프라인 안에 두는 실물
 - [카프카 커넥트와 파이프라인](kafka-connect-and-pipelines.md) — 애플리케이션을
-  스트리밍 시스템에 붙이는 어댑터 층
+  스트리밍 시스템에 붙이는 어댑터 층. *Channel Adapter*의 현재형
 - [링크 추상과 메시지 전달 보장](../concepts/link-abstractions-and-message-delivery.md) —
   "성공할 때까지 전달을 다시 시도한다"가 서 있는 보장의 사다리
+- [토픽과 파티션](../concepts/topics-and-partitions.md) — 채널 세밀도의 현재형 한계
+- [느슨하게 해석되는 제약](../concepts/loosely-interpreted-constraints.md) — 롤백 대신 보상으로
+  푸는 축
+- [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 회사 표준·조직 결정이 기술
+  선택에 들어오는 축
 
 ## 이웃 허브
 
