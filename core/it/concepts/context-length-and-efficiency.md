@@ -3,7 +3,6 @@ type: concept
 title: 컨텍스트 길이와 컨텍스트 효율
 description: 프롬프트에 넣을 수 있는 양의 한계와 그 안에서 어디에 넣는가의 문제 — 5년 만에 1K에서 2M으로 2,000배가 된 컨텍스트 길이 경쟁과 그 크기의 실감, 프롬프트의 부분이 균등하지 않다는 실측, 그리고 중간에 넣은 정보를 모델이 못 찾는지 보는 건초 더미 속 바늘 시험과 RULER
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

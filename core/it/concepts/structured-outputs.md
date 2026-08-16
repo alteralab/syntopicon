@@ -2,7 +2,7 @@
 type: concept
 title: 구조화 출력
 description: 확률적 모델에게 형식을 지키게 만드는 네 가지 자리 — 구조화 출력이 필요한 두 시나리오, 프롬프팅과 후처리라는 값싼 반창고, 로짓을 걸러 내는 제약 샘플링과 그 문법 비용, 분류기 헤드를 붙이는 파인 튜닝, 그리고 이 기법들이 언젠가 덜 중요해질 것이라는 저자의 예상
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -94,6 +94,9 @@ sources:
   수 없다** (2장, p.102).[^huyen2025]
   - 각주의 실측 — **집필 시점 기준 애플리케이션과 모델에 따라 올바르게 생성된 JSON 객체의 비율이
     0%에서 90%대 후반까지 걸치는 것을 저자는 보아 왔다** (2장, p.102 각주 33).[^huyen2025]
+- 5장이 이 자리에 붙이는 관행 — JSON을 원하면 키가 무엇이어야 하는지 지정하고, 구조화 출력을 기대하는
+  과제에는 입력의 끝을 표시하는 마커를 두라는 것이다 (5장, p.223).[^huyen2025] 그 관행의 자리는
+  [명확하고 명시적인 지시](../concepts/clear-and-explicit-instructions.md)다.
 - AI로 AI를 검사하기 — **유효한 출력의 비율을 높이려고 어떤 사람은 AI를 써서 원래 프롬프트의
   출력을 검증하거나 교정한다. 이는 AI 심판(AI as a judge) 접근의 한 예다. 이는 출력마다 최소 두
   번의 모델 질의가 있다는 뜻이다: 하나는 출력을 생성하고 하나는 검증한다. 추가된 검증 층이 출력의
@@ -170,10 +173,15 @@ sources:
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 프롬프팅과 파인 튜닝을 가르는 축
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 형식을 가르치는 데이터가 만들어지는 쪽
 - [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — 형식이 흔들리는 근본 원인
+- [명확하고 명시적인 지시](../concepts/clear-and-explicit-instructions.md) — 프롬프팅 층에서 형식을
+  지정하는 관행
+- [프롬프트 엔지니어링 도구](../concepts/prompt-engineering-tools.md) — Guidance·Outlines·Instructor가
+  다시 등장하는 자리
 
 [^huyen2025]: Huyen 2025, 2장 "Understanding Foundation Models" (책 pp.49–112). 이 페이지는
     "Structured Outputs" 절(pp.99–104)을 담았다. text-to-regex 예(p.100)는 원문 표기를 그대로
     옮겼고, GPT-4o를 "GTP-4o"로 쓴 마지막 라벨의 오식도 원문 그대로다. 도판 Figure 2-20
     (guidance로 제약 출력을 생성하는 코드 예 두 개, p.101)·Figure 2-21(제약 샘플링의 로짓 필터,
-    p.103)·Figure 2-22(분류기 헤드를 붙인 구조, p.104)는 옮기지 않았다. Bottaro and
+    p.103)·Figure 2-22(분류기 헤드를 붙인 구조, p.104)는 옮기지 않았다. 프롬프팅 절에 더해진 한
+    줄은 5장 "Prompt Engineering"의 "Specify the output format"(책 p.223)에서 왔다. Bottaro and
     Ramgopal(2020)·Brandon T. Willard(2024)는 huyen2025를 통한 전언이다.

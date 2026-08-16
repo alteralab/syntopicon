@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트 추출
 description: 남의 시스템 프롬프트를 캐내는 공격과 그 반대편의 판단 — 프롬프트가 자산으로 거래되는 시장과 특허 논쟁, 앞의 지시를 무시하라는 소박한 수법에서 시작한 역프롬프트 엔지니어링, 추출된 프롬프트가 진짜인지 검증할 수 없다는 문제, 시스템 프롬프트만이 아니라 컨텍스트도 새어 나온다는 실물, 그리고 독점 프롬프트는 경쟁 우위가 아니라 부채라는 결론
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

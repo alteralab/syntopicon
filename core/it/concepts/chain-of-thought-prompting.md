@@ -3,7 +3,6 @@ type: concept
 title: 사고 사슬 프롬프팅
 description: 모델에게 생각할 시간을 주는 두 관행 — 단계적으로 생각하라고 명시적으로 요청하는 사고 사슬과 그것을 도입한 2022년 논문, 모델 크기별로 성능을 끌어올린 실측과 환각이 준다는 보고, 지시 한 줄부터 예시까지 걸치는 네 가지 변형, 자기 출력을 검사하게 하는 자기 비평, 그리고 둘 다 사용자가 체감하는 지연을 늘린다는 대가
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

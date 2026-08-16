@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트 엔지니어링 도구
 description: 프롬프트 찾기를 자동화하는 도구들과 그것을 쓸 때 알아야 할 것 — 전체 워크플로를 자동화하는 최적화 도구와 autoML과의 닮음, AI에게 프롬프트를 쓰게 하는 접근과 진화 전략을 쓰는 Promptbreeder, 그리고 숨은 API 호출로 비용이 폭발하는 방식과 도구 개발자도 실수한다는 실물
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

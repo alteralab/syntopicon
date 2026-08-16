@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트 공격 방어
 description: 프롬프트 공격을 막는 일이 실제로 놓이는 세 수준 — 취약점을 먼저 알아야 한다는 순서와 적대적 공격 벤치마크·레드 티밍, 위반율과 거짓 거절률이라는 두 지표가 함께 필요한 이유, 시스템 프롬프트를 우선하도록 훈련하는 지시 계층, 프롬프트를 두 번 쓰는 것 같은 프롬프트 수준의 수, 그리고 격리와 승인과 가드레일이라는 시스템 수준의 수
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

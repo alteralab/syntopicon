@@ -3,7 +3,6 @@ type: concept
 title: 방어적 프롬프트 엔지니어링
 description: 애플리케이션을 프롬프트 공격에서 지키는 일의 지형도 — 프롬프트 추출·탈옥과 프롬프트 주입·정보 추출이라는 세 가지 공격 유형, 그 공격이 실제로 만들어 내는 원격 코드 실행부터 브랜드 위험까지의 여섯 가지 위험, 그리고 어떤 보안 조치도 완벽할 수 없다는 규정
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

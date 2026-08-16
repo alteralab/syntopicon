@@ -2,7 +2,7 @@
 type: concept
 title: 모델 적응 기법
 description: 남이 훈련한 모델을 내 과제에 맞추는 기법들이 가중치를 고치는가로 갈린다 — 프롬프트 기반 기법과 파인 튜닝이 각각 요구하는 데이터와 얻는 것, 그리고 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말들이 실제로 가리키는 서로 다른 단계
-generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -49,6 +49,15 @@ sources:
   잘 맞는 모델을 찾을 확률을 높인다** (1장, p.40).[^huyen2025]
 - 한계 — **그러나 프롬프트 엔지니어링은 복잡한 과제나 엄격한 성능 요건을 가진 애플리케이션에는 충분하지
   않을 수 있다** (1장, p.40).[^huyen2025]
+- 5장이 이 분류 안에서 프롬프트 엔지니어링에 붙이는 자리 (5장, p.211):[^huyen2025]
+
+  > Prompt engineering is the easiest and most common model adaptation technique. Unlike finetuning,
+  > prompt engineering guides a model's behavior without changing the model's weights.
+
+  - 그래서 순서가 나온다 — **파운데이션 모델의 강한 기반 역량 덕분에 많은 사람이 프롬프트 엔지니어링
+    만으로 모델을 자기 애플리케이션에 성공적으로 적응시켰다. 파인 튜닝 같은 더 자원 집약적인 기법으로
+    넘어가기 전에 프롬프팅에서 최대한을 뽑아내야 한다** (5장, p.211).[^huyen2025] 그 기법의 전모는
+    [프롬프팅의 기본](../concepts/prompting-fundamentals.md)에서 시작한다.
 
 ## 파인 튜닝
 
@@ -129,8 +138,11 @@ sources:
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — 둘째 단계와 RLHF
 - [구조화 출력](../concepts/structured-outputs.md) — 프롬프팅과 파인 튜닝이 같은 목표를 놓고
   견줘지는 실물
+- [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 프롬프트 기반 기법이 자기 축으로 서는 자리
+- [인컨텍스트 학습](../concepts/in-context-learning.md) — 가중치 갱신 없이 배운다는 것의 기제
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
     (책 pp.1–48)과 2장 "Understanding Foundation Models"의 사후 훈련 도입(책 p.78). 훈련 용어
     구분은 pp.41–42의 사이드바 "On the Differences Among Training, Pre-Training, Finetuning,
-    and Post-Training"에서 왔다. 이 절에는 도판이 없다.
+    and Post-Training"에서 왔다. 프롬프트 기반 기법에 대한 5장의 규정은 그 장 도입(책 p.211)에서
+    왔다. 이 절들에는 도판이 없다.

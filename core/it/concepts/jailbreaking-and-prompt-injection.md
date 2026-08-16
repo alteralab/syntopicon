@@ -3,7 +3,6 @@ type: concept
 title: 탈옥과 프롬프트 주입
 description: 모델이 나쁜 일을 하게 만드는 공격의 계보 — 안전 장치를 뒤엎는 탈옥과 사용자 프롬프트에 악의적 지시를 심는 주입의 구분, 지시를 잘 따르도록 훈련된 것이 곧 공격 표면이라는 규정, 난독화에서 형식 조작과 롤플레잉까지의 수동 해킹, 알고리즘과 공격자 AI로 넘어간 자동화, 그리고 모델이 쓰는 도구 쪽에 지시를 심는 간접 프롬프트 주입
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

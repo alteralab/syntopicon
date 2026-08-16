@@ -3,7 +3,6 @@ type: concept
 title: 시스템 프롬프트와 사용자 프롬프트
 description: 프롬프트를 둘로 가르는 API 관례와 그 아래에서 실제로 일어나는 일 — 과제 서술과 과제라는 역할 분담, 모델마다 다르고 버전마다 바뀌는 채팅 템플릿과 그것을 틀리면 조용히 성능이 무너진다는 실측, 시스템 프롬프트가 성능을 올린다는 통설과 둘이 결국 하나로 이어 붙여진다는 사실, 그리고 그 차이를 훈련으로 만든 지시 계층
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

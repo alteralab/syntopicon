@@ -3,7 +3,6 @@ type: concept
 title: 인컨텍스트 학습
 description: 가중치를 고치지 않고 프롬프트 안 예시로 배우는 학습 — GPT-3 논문이 이름 붙인 개념과 그것이 지식 마감일을 넘게 해 주는 연속 학습이라는 성격, 샷이라는 단위와 제로샷·퓨샷의 갈림, 예시 수가 늘어 얻는 것과 잃는 것, 모델이 강해지면서 퓨샷의 이득이 줄었다는 실측과 그 예외, 그리고 프롬프트와 컨텍스트라는 낱말이 서로 다른 것을 가리키는 문제
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

@@ -2,7 +2,7 @@
 type: concept
 title: 애플리케이션 개발 층
 description: 모두가 같은 모델을 쓰는 세계에서 차별점이 만들어지는 층 — 개방형 출력 탓에 정답 목록을 만들 수 없어 커진 평가 문제와 그것을 드러낸 Gemini 벤치마크 사건, 가중치를 건드리지 않고 행동을 끌어내는 프롬프트 엔지니어링과 맥락 구성, 그리고 독립 제품에서 플러그인까지 넓어진 AI 인터페이스
-generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -84,6 +84,14 @@ sources:
   하라고 말하는 것만이 아니다. 주어진 과제를 하는 데 필요한 맥락과 도구를 모델에게 주는 일이기도 하다.
   긴 맥락을 가진 복잡한 과제에는 모델이 자기 이력을 추적할 수 있도록 메모리 관리 시스템을 제공해야 할
   수도 있다** (1장, p.45).[^huyen2025]
+- 이 한 절이 여는 축의 전모는 5장이 맡는다 — [프롬프팅의 기본](../concepts/prompting-fundamentals.md)이
+  프롬프트의 해부를, [인컨텍스트 학습](../concepts/in-context-learning.md)·
+  [명확하고 명시적인 지시](../concepts/clear-and-explicit-instructions.md)·
+  [프롬프트에 맥락 주기](../concepts/providing-context-in-prompts.md)·
+  [프롬프트 분해](../concepts/prompt-decomposition.md)·
+  [사고 사슬 프롬프팅](../concepts/chain-of-thought-prompting.md)이 실제 관행을,
+  [방어적 프롬프트 엔지니어링](../concepts/defensive-prompt-engineering.md)이 그 반대편의 공격과
+  방어를 담는다.
 
 ## AI 인터페이스
 
@@ -134,6 +142,9 @@ sources:
 - [AI 제품의 기대치와 유지보수](../concepts/ai-product-expectations-and-maintenance.md) — 평가가 재는
   품질 지표가 사업 지표와 만나는 자리
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 맥락 검색이 기대는 색인
+- [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 이 층의 둘째 책임이 자기 축으로 서는 자리
+- [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md) — 맥락 구성이 부딪히는
+  한계
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
     (책 pp.1–48). Table 1-5는 원문의 가로 표(모델이 열)를 세로로 돌려 옮겼고 값은 원문 표기를 그대로

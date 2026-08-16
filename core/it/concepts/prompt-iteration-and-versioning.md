@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트 반복과 버전 관리
 description: 프롬프트를 실험 대상이자 관리 대상 산출물로 다루는 법 — 모델을 알아 가며 프롬프트를 고쳐 가는 반복과 모델마다 다른 특이성, 체계적으로 시험하고 전체 시스템 맥락에서 평가하라는 규율, 프롬프트를 코드에서 떼어 파일로 두는 관행과 그 네 가지 이점, 그리고 git 버전 관리의 한계에서 나온 프롬프트 카탈로그
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

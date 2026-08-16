@@ -3,7 +3,6 @@ type: concept
 title: 명확하고 명시적인 지시
 description: 프롬프트 모범 관행의 첫 갈래인 지시 쓰기 — 낡는 요령과 남는 기법을 가르는 기준, 모호함을 없앤다는 것이 실제로 무엇인지, 페르소나가 관점을 바꾸어 점수를 바꾸는 실물, 예시가 애매함을 줄이되 토큰을 먹는다는 거래, 그리고 출력 형식을 지정하고 입력의 끝을 표시하는 마커
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

@@ -3,7 +3,6 @@ type: concept
 title: 정보 추출 공격
 description: 모델에게서 훈련 데이터와 사적 정보를 캐내는 공격 — 데이터 절도·프라이버시 침해·저작권 침해라는 세 목적, 모델이 무엇을 아는지 캐묻는 사실 탐침에서 출발한 기법, 맥락을 알아야 한다는 한계를 깬 발산 공격과 1퍼센트라는 암기율 추정, 큰 모델일수록 더 많이 암기한다는 경향, 그리고 공격 없이도 일어나는 저작권 반추와 그것을 재기 어려운 이유
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

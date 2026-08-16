@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트 분해
 description: 하나의 거대한 프롬프트를 작은 프롬프트의 사슬로 나누는 관행 — 고객 지원 챗봇을 의도 분류와 응답 생성으로 가르는 실물, 얼마나 잘게 나눌지를 정하는 것이 무엇인지, 성능 외에 얻는 감시·디버깅·병렬화·수고의 이득, 그리고 지연과 질의 수라는 대가와 1,500 토큰으로 부푼 프롬프트를 나눈 실측
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

@@ -2,7 +2,7 @@
 type: concept
 title: 지시 따르기 역량
 description: 모델이 내가 준 지시를 얼마나 잘 따르는가를 재는 자리 — 지시를 못 따르면 지시가 아무리 좋아도 소용없다는 규정과 도메인 역량과 뒤섞이는 정의의 어려움, 자동 검증 가능한 지시로 좁힌 IFEval과 예/아니오 기준 목록으로 넓힌 INFOBench, 벤치마크가 놓치는 지시와 자기 벤치마크를 만들라는 조언, 그리고 실세계 지시의 큰 갈래인 롤플레잉과 그 평가
-generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -27,6 +27,10 @@ sources:
 - 규정 — **지시 따르기 측정은 이 질문을 묻는다: 이 모델은 당신이 주는 지시를 따르는 데 얼마나 좋은가?
   모델이 지시를 따르는 데 나쁘면 당신의 지시가 아무리 좋아도 출력은 나쁠 것이다** (4장,
   p.172).[^huyen2025]
+- 5장이 프롬프팅 쪽에서 같은 것을 전제로 세운다 — **프롬프팅이 통하려면 모델이 지시를 따를 수 있어야
+  한다** (5장, pp.212–213).[^huyen2025] 그 자리는
+  [프롬프팅의 기본](../concepts/prompting-fundamentals.md)이고, 같은 절이 견고성을 지시 따르기 역량과
+  나란히 놓는다 — **모델의 견고성은 그 전반적 역량과 강하게 상관된다** (5장, p.213).[^huyen2025]
 - 핵심 요건이다 — **지시를 따를 수 있는 것은 파운데이션 모델의 핵심 요건이며 대부분의 파운데이션 모델이
   그렇게 하도록 훈련된다. ChatGPT의 전신 InstructGPT는 지시를 따르도록 파인 튜닝되었기 때문에 그렇게
   이름 붙었다. 더 강력한 모델은 일반적으로 지시를 따르는 데 더 낫다. GPT-4는 대부분의 지시를 따르는 데
@@ -215,6 +219,9 @@ sources:
   리더보드 개편에 들어가는 자리
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — InstructGPT가 지시를 따르도록 훈련되는 쪽
 - [비교 평가](../concepts/comparative-evaluation.md) — Chatbot Arena 대화가 나오는 자리
+- [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 이 역량이 프롬프팅의 전제로 놓이는 자리
+- [탈옥과 프롬프트 주입](../concepts/jailbreaking-and-prompt-injection.md) — 이 역량이 그대로 공격
+  표면이 되는 자리
 
 [^huyen2025]: Huyen 2025, 4장 "Evaluate AI Systems" (책 pp.159–210). 이 페이지는 "Evaluation
     Criteria" 절의 하위 절 "Instruction-Following Capability"(pp.172–177)와 그 아래
@@ -224,4 +231,5 @@ sources:
     작은따옴표 인용 부호도 그대로다. Figure 4-4(LMSYS 100만 대화의 상위 10개 클러스터 막대,
     p.176)는 막대에 비율이 인쇄돼 있어 라벨과 값을 표로 옮겼다. IFEval(Zhou et al., 2023)·
     INFOBench(Qin et al., 2024)·RoleLLM(Wang et al., 2023)·CharacterEval(Tu et al., 2024)·
-    LMSYS(Zheng et al., 2023)·Ello는 huyen2025를 통한 전언이다.
+    LMSYS(Zheng et al., 2023)·Ello는 huyen2025를 통한 전언이다. 프롬프팅 쪽 전제 두 줄은 5장
+    "Prompt Engineering"의 "Introduction to Prompting"(책 pp.212–213)에서 왔다.

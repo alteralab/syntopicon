@@ -3,7 +3,6 @@ type: concept
 title: 프롬프트에 맥락 주기
 description: 지시만으로는 안 되고 정보가 있어야 하는 자리 — 시험에 참고 자료를 주는 것과 같은 효과, 맥락이 환각을 완화하는 기제, 맥락을 모아 오는 일에 붙은 이름인 맥락 구성, 그리고 모델의 지식을 준 맥락으로만 가두는 것이 왜 어려운가
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
