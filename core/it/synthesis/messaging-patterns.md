@@ -1,8 +1,8 @@
 ---
 type: synthesis
 title: 메시징 패턴
-description: 비동기 메시징으로 애플리케이션을 통합할 때 쓰는 이름 층의 진입점 — 통합 스타일 넷 중 메시징을 고르는 판단, 결합을 가정의 수로 재는 자, 채널·메시지·파이프와 필터·라우터·변환기·엔드포인트 여섯 뿌리 패턴이 각각 어느 장으로 자라는가의 지도, 뿌리마다 붙는 패턴 묶음(채널 설계와 메시지 구성), 그리고 이 KB의 스트리밍·데이터 엔지니어링 서술이 이미 빌려 쓰고 있던 이름들의 원천 대조
-generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
+description: 비동기 메시징으로 애플리케이션을 통합할 때 쓰는 이름 층의 진입점 — 통합 스타일 넷 중 메시징을 고르는 판단, 결합을 가정의 수로 재는 자, 채널·메시지·파이프와 필터·라우터·변환기·엔드포인트 여섯 뿌리 패턴이 각각 어느 장으로 자라는가의 지도, 뿌리마다 붙는 패턴 묶음(채널 설계·메시지 구성·라우팅·변환), 그리고 이 KB의 스트리밍·데이터 엔지니어링 서술이 이미 빌려 쓰고 있던 이름들의 원천 대조
+generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
 ---
 
 # 메시징 패턴
@@ -46,6 +46,16 @@ generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
 - [메시지 구성 패턴](../inbox/message-construction-patterns.md) — *Message*의 장. 발신자의
   의도로 갈리는 세 메시지, Request-Reply와 그 짝(Return Address·Correlation Identifier),
   Message Sequence·Message Expiration·Format Indicator
+- [메시지 라우팅 패턴](../inbox/message-routing-patterns.md) — *Message Router*의 장, 앞쪽.
+  열두 패턴의 분류와 개수를 바꾸지 않는 라우터 넷 — Content-Based Router·Message Filter·
+  Dynamic Router·Recipient List
+- [분할·집계·재정렬 패턴](../inbox/splitter-aggregator-resequencer-patterns.md) — 같은 장,
+  개수와 순서를 바꾸는 셋. Splitter·Aggregator·Resequencer. 이 KB가 어휘를 가장 많이 빌려 쓴 자리
+- [복합 라우팅 패턴](../inbox/composed-routing-patterns.md) — 같은 장, 뒤쪽. 단순 라우터를 조합한
+  넷(Composed Message Processor·Scatter-Gather·Routing Slip·Process Manager)과 그 위의 아키텍처
+  패턴 Message Broker
+- [메시지 변환 패턴](../inbox/message-transformation-patterns.md) — *Message Translator*의 장.
+  Envelope Wrapper·Content Enricher·Content Filter·Claim Check·Normalizer·Canonical Data Model
 
 ## 여섯 뿌리와 그 가지
 
@@ -80,7 +90,12 @@ generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
 - [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 채널을 지워지는 큐가
   아니라 남는 로그로 구현했을 때 달라지는 것
 - [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) — 병렬 처리가 순서를 깨뜨린
-  뒤의 복구
+  뒤의 복구. *Resequencer*의 원전 층이 여기 합류했다
+- [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) —
+  *Content Enricher*·*Envelope Wrapper*의 이름을 물려받은 현재형 파이프라인 쪽
+- [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) — *Routing Slip*·*Process
+  Manager*가 오케스트레이션이라는 이름으로 다시 선 자리
+- [배치 조인과 그룹핑](../concepts/batch-joins-and-grouping.md) — *Aggregator*의 배치 판
 - [카프카 단일 메시지 변환](../concepts/kafka-single-message-transformations.md) — 변환을
   파이프라인 안에 두는 실물
 - [카프카 커넥트와 파이프라인](kafka-connect-and-pipelines.md) — 애플리케이션을
