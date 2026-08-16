@@ -11,8 +11,11 @@ compatibility: macOS + Google Chrome. 어느 프로젝트에서든 호출 가능
 글을 넣을지는 사람이 고른다 — **일괄 수집·리딩리스트 동기화는 하지 않는다.**
 
 왜 브라우저 경유인가: Medium은 Cloudflare가 비브라우저 요청을 TLS 지문 수준에서
-차단한다(쿠키·헤더 무관 403). 로그인 세션이 있는 실제 Chrome만 통과한다 — 근거
-실측과 절단본 판정 원리는 `tools/medium_fetch.py` 독스트링이 정본이다.
+차단하고(쿠키·헤더 무관 403), headless Chrome도 챌린지로 막는다(UA를 덮어도 통과
+못 함 — 2026-08-16 실측). 그래서 도구는 **화면 밖(-32000,-32000)에 헤드풀 창**을
+스스로 띄웠다 정리한다 — 사용자가 창을 보거나 만질 일이 없고, 탐지 회피 패치가
+아니라 위치만 옮긴 진짜 브라우저다. 근거 실측·절단본 판정은 `tools/medium_fetch.py`
+독스트링이 정본이다.
 
 ## 저장소 위치 확정 (cwd 독립 — 최초 1회)
 
@@ -20,28 +23,9 @@ compatibility: macOS + Google Chrome. 어느 프로젝트에서든 호출 가능
 cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/medium-fetch}")")")")"
 ```
 
-## 1. 디버그 Chrome [스크립트 + 최초 1회 사람]
+## 1. 취득 [스크립트]
 
-```sh
-lsof -i :9222 >/dev/null 2>&1 && echo PORT_BUSY || echo PORT_FREE
-```
-
-PORT_FREE면 (run_in_background로):
-
-```sh
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --remote-debugging-port=9222 \
-  --user-data-dir=$HOME/.claude/ui-observe-chrome-profile \
-  --no-first-run "https://medium.com" >/dev/null 2>&1
-```
-
-- 프로필은 **ui-observe와 공유**한다 — 라이브 브라우저 작업의 로그인 상태가
-  한 프로필에 모인다. **최초 1회** 사용자에게 그 창에서 Medium 로그인을 요청한다.
-  이후에는 세션이 프로필에 유지돼 로그인 없이 동작한다.
-- PORT_BUSY인데 `curl -s http://localhost:9222/json/version`이 정상이면 그대로 재사용.
-- ⚠ localhost 호출은 샌드박스가 막을 수 있다 → 해당 호출만 dangerouslyDisableSandbox.
-
-## 2. 취득 [스크립트]
+브라우저 기동·정리는 도구가 알아서 한다 — 손으로 Chrome을 띄우지 않는다.
 
 ```sh
 uv run --group ingest tools/medium_fetch.py --kb it <URL> [<URL>…]
@@ -58,10 +42,21 @@ uv run --group ingest tools/medium_fetch.py --kb it <URL> [<URL>…]
 
 | 메시지 | 대응 |
 |---|---|
-| 디버그 Chrome이 응답하지 않습니다 | 1단계로 |
-| 절단본(미리보기)입니다 | 프로필 창에서 Medium 로그인·멤버십 확인 후 재실행 |
-| Cloudflare 챌린지 | 열린 창에서 사람이 통과시킨 뒤 재실행 |
+| 절단본(미리보기)입니다 | 세션 없음·만료 — `--login` 후 재실행(아래) |
+| Cloudflare 챌린지 | `--login`으로 창을 띄워 사람이 통과시킨 뒤 재실행 |
 | 구조를 이해하지 못했습니다 | Medium 개편 신호 — 임기 패치 말고 `medium_fetch.py`의 판정을 갱신 |
+
+## 2. 로그인 [사람 — 연 1회 수준]
+
+절단본으로 실패하면 세션이 없거나 만료된 것이다(`sid` 쿠키 수명 약 1년):
+
+```sh
+uv run --group ingest tools/medium_fetch.py --kb it --login
+```
+
+보이는 Chrome 창이 Medium 로그인 페이지로 뜬다 — **Sign in with Google**로 한 번
+로그인하면 세션이 프로필(ui-observe와 공유)에 저장되고, 창은 닫아도 된다. 이후
+취득은 다시 화면 밖에서 조용히 동작한다. 이 한 번이 유일한 수동 단계다.
 
 ## 3. 이후 — 반입은 kb-ingest
 
