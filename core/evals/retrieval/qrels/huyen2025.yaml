@@ -253,3 +253,58 @@ queries:
     description: "안전성 평가 — 이후 보안 축(W군 원전)과 이어질 경계"
     expected_files: ["concepts/ai-safety-evaluation.md"]
     expected_in_top_k: 5
+  # ---- 5장 배치 (런 2026-08-16-12) ----
+  - id: aie5-alias-1
+    query: "chain of thought"
+    type: alias
+    description: "원어 질의 — 사고 연쇄 페이지"
+    expected_files: ["concepts/chain-of-thought-prompting.md"]
+    expected_in_top_k: 5
+  - id: aie5-alias-2
+    query: "prompt injection"
+    type: alias
+    description: "원어 질의 — 탈옥과 주입 페이지"
+    expected_files: ["concepts/jailbreaking-and-prompt-injection.md"]
+    expected_in_top_k: 5
+  - id: aie5-alias-3
+    query: "few-shot"
+    type: alias
+    description: "원어 질의 — 인컨텍스트 학습 페이지"
+    expected_files: ["concepts/in-context-learning.md"]
+    expected_in_top_k: 5
+  - id: aie5-exact-1
+    query: "시스템 프롬프트와 사용자 프롬프트"
+    type: exact
+    description: "채팅 템플릿 페이지 직격"
+    expected_files: ["concepts/system-prompt-and-user-prompt.md"]
+    expected_in_top_k: 5
+  - id: aie5-exact-2
+    query: "프롬프트 버전 관리"
+    type: exact
+    description: "산출물 규율 페이지"
+    expected_files: ["concepts/prompt-iteration-and-versioning.md"]
+    expected_in_top_k: 5
+  - id: aie5-sem-1
+    query: "모델에게 단계별로 생각하게 시키는 방법"
+    type: semantic
+    description: "CoT를 이름 없이"
+    expected_files: ["concepts/chain-of-thought-prompting.md"]
+    expected_in_top_k: 5
+  - id: aie5-sem-2
+    query: "시스템 프롬프트를 빼내려는 시도"
+    type: semantic
+    description: "프롬프트 추출을 이름 없이"
+    expected_files: ["concepts/prompt-extraction.md"]
+    expected_in_top_k: 5
+  - id: aie5-top-1
+    query: "긴 컨텍스트에서 정보 위치와 성능"
+    type: topical
+    description: "컨텍스트 길이 페이지 (lost in the middle)"
+    expected_files: ["concepts/context-length-and-efficiency.md"]
+    expected_in_top_k: 5
+  - id: aie5-x-1
+    query: "프롬프트 공격을 막는 방법"
+    type: cross-domain
+    description: "방어 페이지 — 이후 보안 원전(W군)의 착지 경계"
+    expected_files: ["concepts/defenses-against-prompt-attacks.md", "concepts/defensive-prompt-engineering.md"]
+    expected_in_top_k: 5
