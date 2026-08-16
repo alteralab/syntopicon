@@ -3,7 +3,6 @@ type: concept
 title: 파운데이션 모델
 description: 언어 모델이 텍스트 밖의 양식을 받아들이면서 얻은 이름 — 멀티모달 모델과 LMM, 자기지도를 이미지에 옮긴 CLIP의 자연어 지도, 과제 특화 모델에서 범용 모델로의 전환, 그리고 그 위에서 사거나 짓거나를 고르는 자리
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

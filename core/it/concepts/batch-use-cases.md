@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 배치 처리의 유스케이스
-description: 데이터가 많고 신선도가 중요하지 않은 자리라면 어디든 배치가 있다 — 회계 대사부터 미국 은행망까지의 실물 목록, ETL이 배치와 잘 맞는 두 가지 성질과 파이프라인 소유권이 한 팀에서 조직 전체로 열린 흐름, 레이크하우스 위의 사전 집계 질의와 애드혹 질의, 그리고 특징 공학·모델 훈련·배치 추론과 LLM 데이터 준비
-generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
+description: 데이터가 많고 신선도가 중요하지 않은 자리라면 어디든 배치가 있다 — 회계 대사부터 미국 은행망까지의 실물 목록, ETL이 배치와 잘 맞는 두 가지 성질과 파이프라인 소유권이 한 팀에서 조직 전체로 열린 흐름, 레이크하우스 위의 사전 집계 질의와 애드혹 질의, 그리고 특징 공학·모델 훈련·배치 추론과 LLM 데이터 준비 및 그 파인 튜닝이 가리키는 훈련 단계
+generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
 
 # 배치 처리의 유스케이스
@@ -102,11 +103,21 @@ sources:
   단계로 **HTML에서 평문을 뽑고 잘못된 형식의 텍스트를 고치는 것**, **저품질·무관·중복 문서를 감지해
   제거하는 것**, **텍스트를 토큰화(단어로 쪼개기)하고 임베딩, 즉 각 단어의 수치 표현으로 변환하는 것**이
   꼽힌다 (11장, p.479).[^kleppmann2026]
+  - 같은 전처리 목록을 AI 엔지니어링 쪽에서는 하나의 책임으로 묶어 부른다 — **AI 엔지니어링에서 데이터
+    조작은 중복 제거(deduplication)·토큰화·맥락 검색(context retrieval)·품질 관리 쪽에 더 가깝고, 품질
+    관리에는 민감 정보와 유해 데이터의 제거가 포함된다** (1장, pp.42–43).[^huyen2025] 그 이름은
+    데이터셋 엔지니어링(dataset engineering)이고, 자리는
+    [모델 개발 층](../concepts/ai-model-development-layer.md)이다.
 - 그 워크로드 전용 프레임워크가 따로 있다 — **Kubeflow·Flyte·Ray 같은 배치 처리 프레임워크가 그런
   워크로드를 위해 특별히 만들어졌다. 예컨대 OpenAI는 ChatGPT 훈련 과정의 일부로 Ray를 쓴다. 이
   프레임워크들은 PyTorch·TensorFlow·XGBoost 등 LLM·AI 라이브러리를 위한 내장 통합을 갖는다. 그들은 또한
   특징 공학·모델 훈련·배치 추론·파인 튜닝(기반 모델을 특정 유스케이스에 맞게 조정하는 것)에 대한 내장
   지원을 제공한다** (11장, p.479).[^kleppmann2026]
+  - 여기서 말하는 기반 모델(foundation model)과 파인 튜닝(finetuning)의 경계는 다른 소스가 더 좁게
+    정의한다 — **파인 튜닝은 이전에 훈련된 모델을 계속 훈련하는 것을 뜻한다. 모델 가중치는 앞선 훈련
+    과정에서 얻어진다. 모델이 사전 훈련에서 이미 어떤 지식을 갖고 있기 때문에 파인 튜닝은 통상 사전
+    훈련보다 적은 자원(예: 데이터와 컴퓨트)을 요구한다** (1장, p.42).[^huyen2025] 사전 훈련·파인
+    튜닝·사후 훈련의 구분은 [모델 적응 기법](../concepts/model-adaptation-techniques.md)에 있다.
 - 마지막으로 노트북 — **데이터 과학자는 흔히 Jupyter나 Hex 같은 대화형 노트북에서 데이터를 실험한다.
   노트북은 마크다운·파이썬·SQL의 작은 덩어리인 셀로 이뤄진다. 셀은 순차적으로 실행돼 스프레드시트·그래프·
   데이터를 만든다. 많은 노트북이 DataFrame API를 통해 배치 처리를 쓰거나 SQL로 그런 시스템에 질의한다**
@@ -123,5 +134,9 @@ sources:
 - [그래프 데이터 모델](../concepts/graph-data-models.md) — BSP가 처리하는 대상
 - [데이터프레임과 배열](../concepts/dataframes-and-arrays.md) — 노트북과 ML이 쓰는 모델
 - [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) — 이 잡들을 굴리는 스케줄러
+- [모델 개발 층](../concepts/ai-model-development-layer.md) — 이 전처리가 하나의 책임으로 묶이는 자리
+- [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 여기 나오는 파인 튜닝의 정의
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 11장 "Batch Processing"
+
+[^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"

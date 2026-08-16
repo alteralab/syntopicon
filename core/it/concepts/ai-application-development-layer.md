@@ -3,7 +3,6 @@ type: concept
 title: 애플리케이션 개발 층
 description: 모두가 같은 모델을 쓰는 세계에서 차별점이 만들어지는 층 — 개방형 출력 탓에 정답 목록을 만들 수 없어 커진 평가 문제와 그것을 드러낸 Gemini 벤치마크 사건, 가중치를 건드리지 않고 행동을 끌어내는 프롬프트 엔지니어링과 맥락 구성, 그리고 독립 제품에서 플러그인까지 넓어진 AI 인터페이스
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

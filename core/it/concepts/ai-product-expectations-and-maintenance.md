@@ -3,7 +3,6 @@ type: concept
 title: AI 제품의 기대치와 유지보수
 description: 만들기로 정한 뒤에 재야 할 것과 그 뒤에 오는 것 — 사업 지표와 유용성 임계, 품질·지연·비용의 지표군, 데모에서 제품까지의 라스트 마일 문제, 그리고 좋은 변화조차 마찰을 만드는 빠른 변화 위에서 제품을 유지하는 일
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

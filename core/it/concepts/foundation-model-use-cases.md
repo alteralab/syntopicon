@@ -3,7 +3,6 @@ type: concept
 title: 파운데이션 모델의 유스케이스
 description: 파운데이션 모델이 실제로 어디에 쓰이는가 — 조사기관마다 다른 분류와 직업 노출도 연구, 저자가 오픈소스 205개를 세어 만든 여덟 범주와 그 분포, 기업이 외부 대면보다 내부 대면을 먼저 배포하는 경향, 그리고 코딩부터 워크플로 자동화까지 범주별 실물과 수치
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

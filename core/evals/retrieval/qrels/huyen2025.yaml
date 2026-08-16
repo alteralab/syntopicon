@@ -1,0 +1,78 @@
+# 질문지 조각 — huyen2025 1장 승급 배치(2026-08-16, 런 2026-08-16-08).
+# LLM 축 첫 반입 — 신설 축이라 기존 문항이 하나도 이 페이지들을 겨누지 않는다.
+# alias 문항은 병기 조문의 회귀 지점(원어 질의가 한국어 페이지를 잡는가)이다.
+source: huyen2025
+added: 2026-08-16
+queries:
+  - id: aie-alias-1
+    query: "foundation model"
+    type: alias
+    description: "원어 질의 — 파운데이션 모델 페이지의 병기 검색 키"
+    expected_files: ["concepts/foundation-models.md"]
+    expected_in_top_k: 5
+  - id: aie-alias-2
+    query: "self-supervision"
+    type: alias
+    description: "원어 질의 — 자기지도 병기"
+    expected_files: ["concepts/self-supervision-and-model-scale.md"]
+    expected_in_top_k: 5
+  - id: aie-alias-3
+    query: "post-training"
+    type: alias
+    description: "원어 질의 — 사후 훈련 역어 채택(사전 학습 아닌 훈련 계열)의 회귀 지점"
+    expected_files: ["concepts/model-adaptation-techniques.md"]
+    expected_in_top_k: 5
+  - id: aie-exact-1
+    query: "AI 엔지니어링과 ML 엔지니어링의 차이"
+    type: exact
+    description: "대비 페이지 직격 질의"
+    expected_files: ["concepts/ai-engineering-versus-ml-engineering.md"]
+    expected_in_top_k: 5
+  - id: aie-exact-2
+    query: "토큰과 어휘"
+    type: exact
+    description: "언어 모델 기초 페이지의 핵심 명사"
+    expected_files: ["concepts/language-models-and-tokens.md"]
+    expected_in_top_k: 5
+  - id: aie-sem-1
+    query: "레이블 없이 대량의 데이터로 모델을 훈련하는 방법"
+    type: semantic
+    description: "자기지도를 이름 없이 묻는 의미 질의"
+    expected_files: ["concepts/self-supervision-and-model-scale.md"]
+    expected_in_top_k: 5
+  - id: aie-sem-2
+    query: "모델 가중치를 바꾸지 않고 동작을 조정하는 방법"
+    type: semantic
+    description: "프롬프트 기반 적응을 이름 없이 묻는 질의"
+    expected_files: ["concepts/model-adaptation-techniques.md"]
+    expected_in_top_k: 5
+  - id: aie-top-1
+    query: "AI 애플리케이션을 만들기 전에 확인할 것"
+    type: topical
+    description: "유스케이스 평가 페이지의 주제 질의"
+    expected_files: ["concepts/ai-use-case-evaluation.md"]
+    expected_in_top_k: 5
+  - id: aie-top-2
+    query: "AI 제품의 지연시간 지표"
+    type: topical
+    description: "TTFT·TPOT가 있는 기대치 페이지"
+    expected_files: ["concepts/ai-product-expectations-and-maintenance.md"]
+    expected_in_top_k: 5
+  - id: aie-top-3
+    query: "AI 엔지니어링 스택의 층"
+    type: topical
+    description: "스택 개관 페이지"
+    expected_files: ["concepts/ai-engineering-stack.md"]
+    expected_in_top_k: 5
+  - id: aie-x-1
+    query: "멀티모달 임베딩 모델"
+    type: cross-domain
+    description: "저장 엔진 축(벡터 색인)과 LLM 축(파운데이션 모델)의 경계 질의 — 두 페이지 중 하나면 정답"
+    expected_files: ["concepts/vector-indexes-and-embeddings.md", "concepts/foundation-models.md"]
+    expected_in_top_k: 5
+  - id: aie-x-2
+    query: "LLM 훈련 데이터 준비"
+    type: cross-domain
+    description: "배치 축과 모델 개발 층의 경계 질의"
+    expected_files: ["concepts/ai-model-development-layer.md", "concepts/batch-use-cases.md"]
+    expected_in_top_k: 5

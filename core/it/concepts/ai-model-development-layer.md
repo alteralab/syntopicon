@@ -3,7 +3,6 @@ type: concept
 title: 모델 개발 층
 description: AI 엔지니어링 스택의 가운데 층이 지는 세 책임 — 모델링과 훈련에서 ML 지식이 필수에서 있으면 좋은 것으로 내려앉고, 데이터셋 엔지니어링이 특징 공학에서 중복 제거·토큰화·맥락 검색·품질 관리로 옮겨 가며, 자기회귀 생성 탓에 추론 최적화가 한층 더 중요해지는 자리
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

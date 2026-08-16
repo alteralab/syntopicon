@@ -3,7 +3,6 @@ type: concept
 title: AI 유스케이스 평가
 description: 만들 수 있다는 것과 만들어야 한다는 것 사이에서 묻는 질문들 — 위험과 기회로 본 세 단계의 이유, 애플리케이션에서 AI가 임계인가 보완인가 반응인가 선제인가를 가르는 축, 사람의 개입 수준을 올리는 순서, 그리고 진입 장벽이 낮은 제품이 갖는 해자의 종류
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

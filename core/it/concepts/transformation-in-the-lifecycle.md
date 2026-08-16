@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 수명 주기의 변환 단계
-description: "데이터가 하류 소비를 위해 가치를 만들기 시작하는 자리 — 반입 직후의 기본 변환에서 대규모 집계까지의 층위, 변환이 다른 단계에 얽혀 있다는 현실, 업무 로직이라는 주된 동인, ML 피처화"
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+description: "데이터가 하류 소비를 위해 가치를 만들기 시작하는 자리 — 반입 직후의 기본 변환에서 대규모 집계까지의 층위, 변환이 다른 단계에 얽혀 있다는 현실, 업무 로직이라는 주된 동인, ML 피처화와 그 무게가 파운데이션 모델 쪽에서 옮겨 가는 지점"
+generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
 
 # 수명 주기의 변환 단계
@@ -87,6 +88,12 @@ sources:
 - 데이터 엔지니어의 몫 — **이 책에서 요점은, 데이터 과학자가 데이터를 어떻게 피처화할지
   정하고 나면 피처화 프로세스는 데이터 파이프라인의 변환 단계에서 데이터 엔지니어가
   자동화할 수 있다는 것이다** (2장, p.44).[^reis2022]
+- 대상 모델이 바뀌면 이 단계의 무게도 옮겨 간다 — **전통적 ML 엔지니어링이 표 형식
+  데이터(tabular data)와 더 일하는 반면 파운데이션 모델(foundation model)은 비정형 데이터와
+  일한다** (1장, pp.42–43).[^huyen2025] 그래서 같은 자리의 일이 **특징 공학에 관한 것이 덜하고
+  데이터 중복 제거·토큰화·맥락 검색·품질 관리에 관한 것이 더 많은** 쪽으로 옮겨 간다 (1장,
+  p.43).[^huyen2025] 그 이름은 데이터셋 엔지니어링이고 자리는
+  [모델 개발 층](../concepts/ai-model-development-layer.md)이다.
 
 ## 변환은 질의와 무엇이 다른가
 
@@ -533,6 +540,10 @@ sources:
   열거한 것
 - [배치 처리](../synthesis/batch-processing.md) · [스트림 처리](../synthesis/stream-processing.md) —
   변환이 실행되는 두 양식
+- [모델 개발 층](../concepts/ai-model-development-layer.md) — 피처화가 데이터셋 엔지니어링으로
+  이름과 무게를 바꾸는 자리
 
 [^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle" · 8장 "Queries, Modeling,
 and Transformation"
+
+[^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"

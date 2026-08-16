@@ -3,7 +3,6 @@ type: concept
 title: AI 엔지니어링 스택
 description: 매일 바뀌는 도구 대신 붙잡을 세 층 — 애플리케이션 개발·모델 개발·인프라가 각각 무엇을 맡고 어디서부터 내려가는지, 리포지토리 수로 본 층별 성장의 비대칭, 그리고 파운데이션 모델이 와도 그대로인 원리들
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

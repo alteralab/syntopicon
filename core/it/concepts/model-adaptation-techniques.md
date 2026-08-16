@@ -3,7 +3,6 @@ type: concept
 title: 모델 적응 기법
 description: 남이 훈련한 모델을 내 과제에 맞추는 기법들이 가중치를 고치는가로 갈린다 — 프롬프트 기반 기법과 파인 튜닝이 각각 요구하는 데이터와 얻는 것, 그리고 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말들이 실제로 가리키는 서로 다른 단계
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

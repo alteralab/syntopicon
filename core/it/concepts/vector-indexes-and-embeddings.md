@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 벡터 색인과 임베딩
-description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 세 가지 벡터 색인(Flat·IVF·HNSW)과 각각이 정확도와 속도를 맞바꾸는 지점
-generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
+description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 멀티모달 임베딩 모델이 생성형 모델의 뼈대가 되는 계보, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 세 가지 벡터 색인(Flat·IVF·HNSW)과 각각이 정확도와 속도를 맞바꾸는 지점
+generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
 
 # 벡터 색인과 임베딩
@@ -43,6 +44,8 @@ sources:
 - 실제 규모와 해석의 태도 — **임베딩 모델은 훨씬 큰 벡터를 쓰지만(흔히 1,000개가 넘는 숫자) 원리는
   같다. 우리는 개별 숫자가 무엇을 뜻하는지 이해하려 하지 않는다 — 그것들은 그저 모델이 추상적인
   다차원 공간의 한 위치를 가리키는 방법일 뿐이다** (4장, p.148).[^kleppmann2026]
+- 다른 소스가 같은 대상을 한 줄로 정의한다 — **임베딩은 원 데이터의 의미를 포착하려는 벡터로 생각할
+  수 있다** (1장, p.10).[^huyen2025]
 
 ## 거리와 모델
 
@@ -54,6 +57,15 @@ sources:
   구현된다. 연구자들은 비디오·오디오·이미지용 임베딩 모델도 만들었다. 더 최근에는 모델 구조가
   멀티모달(multimodal)이 되어, 단일 모델이 텍스트와 이미지 같은 여러 양식에 대한 벡터 임베딩을
   생성할 수 있다** (4장, p.148).[^kleppmann2026]
+  - 그 멀티모달 임베딩 모델의 실물 하나 — **OpenAI는 자기지도의 한 변형인 자연어 지도(natural
+    language supervision)를 써서 언어–이미지 모델 CLIP(OpenAI, 2021)을 훈련했다. 각 이미지에 레이블을
+    손으로 만드는 대신 인터넷에서 함께 나타난 (이미지, 텍스트) 쌍을 찾아냈고, 그렇게 만든 (이미지,
+    텍스트) 쌍 4억 개의 데이터셋은 ImageNet보다 400배 크면서 수작업 레이블링 비용이 들지 않았다** (1장,
+    p.10).[^huyen2025]
+  - 임베딩 모델과 생성 모델의 관계 — **CLIP은 개방형 출력을 생성하도록 훈련되지 않았다. CLIP은
+    텍스트와 이미지 양쪽의 결합 임베딩을 만들도록 훈련된 임베딩 모델이다. CLIP 같은 멀티모달 임베딩
+    모델은 Flamingo·LLaVA·Gemini(옛 Bard) 같은 생성형 멀티모달 모델의 뼈대다** (1장,
+    p.10).[^huyen2025] 그 생성 쪽 계보는 [파운데이션 모델](../concepts/foundation-models.md)에 있다.
 - 질의 경로 — **의미 검색 엔진은 사용자가 질의를 입력하면 임베딩 모델로 벡터 임베딩을 생성한다.
   사용자의 질의와 관련 맥락(사용자의 위치 같은)이 임베딩 모델에 입력된다. 임베딩 모델이 질의의 벡터
   임베딩을 생성하면 검색 엔진은 벡터 색인(vector index)을 써서 비슷한 벡터 임베딩을 가진 문서를
@@ -93,5 +105,11 @@ sources:
 - [질의 실행 — 컴파일과 벡터화](../concepts/query-execution-compilation-and-vectorization.md) —
   "벡터"가 전혀 다른 뜻으로 쓰이는 자리
 - [데이터 모델의 층](../concepts/data-model-layers.md) — 이 색인이 답하는 질의가 어느 층에 속하는가
+- [파운데이션 모델](../concepts/foundation-models.md) — 여기 나온 임베딩 모델이 생성 모델의 뼈대가
+  되는 계보
+- [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 이 검색이 맥락 구성으로
+  쓰이는 자리
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 4장 "Storage and Retrieval"
+
+[^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"

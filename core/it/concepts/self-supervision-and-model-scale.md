@@ -3,7 +3,6 @@ type: concept
 title: 자기지도와 모델 규모
 description: 언어 모델만 규모를 키울 수 있었던 이유는 레이블링 병목을 우회했기 때문이다 — 지도 학습의 레이블 비용이 어디서 폭발하는지, 언어 모델링이 왜 그 자체로 자기지도인지, 그리고 "large"의 기준이 되는 파라미터 수가 왜 계속 옮겨 가는지
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

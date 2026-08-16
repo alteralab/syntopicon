@@ -3,7 +3,6 @@ type: concept
 title: AI 엔지니어링이란
 description: 파운데이션 모델 위에 애플리케이션을 짓는 과정에 붙은 이름과 그것이 지금 급성장하는 세 가지 조건 — 범용 능력이 수요를 키우고, 투자가 몰리고, 서비스로서의 모델이 진입 장벽을 낮췄다는 것, 그리고 여러 후보 중 왜 이 용어가 선택되었는지
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

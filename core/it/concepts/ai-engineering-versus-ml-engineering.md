@@ -3,7 +3,6 @@ type: concept
 title: AI 엔지니어링과 ML 엔지니어링
 description: 같은 계보에서 갈라진 두 일의 차이 세 가지 — 모델을 훈련하는 대신 남이 훈련한 모델을 적응시키고, 더 크고 느린 모델이 효율에 압력을 걸며, 개방형 출력이 평가를 훨씬 큰 문제로 만든다는 것, 그리고 작업 순서가 데이터에서 제품으로가 아니라 제품에서 데이터로 뒤집히는 자리
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---

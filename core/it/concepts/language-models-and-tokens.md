@@ -3,7 +3,6 @@ type: concept
 title: 언어 모델과 토큰
 description: 언어 모델이 담는 것은 낱말이 어떤 맥락에 나타날 확률이고, 그 기본 단위는 낱말이 아니라 토큰이다 — 토큰화와 어휘 크기, 앞뒤를 다 보는 마스크드 모델과 앞만 보는 자기회귀 모델의 갈림, 그리고 번역도 분류도 완성 과제로 흡수하는 완성 기계라는 관점
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
