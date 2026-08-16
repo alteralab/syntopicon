@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 지시 따르기 역량
-status: draft
 description: 모델이 내가 준 지시를 얼마나 잘 따르는가를 재는 자리 — 지시를 못 따르면 지시가 아무리 좋아도 소용없다는 규정과 도메인 역량과 뒤섞이는 정의의 어려움, 자동 검증 가능한 지시로 좁힌 IFEval과 예/아니오 기준 목록으로 넓힌 INFOBench, 벤치마크가 놓치는 지시와 자기 벤치마크를 만들라는 조언, 그리고 실세계 지시의 큰 갈래인 롤플레잉과 그 평가
 generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
 sources:

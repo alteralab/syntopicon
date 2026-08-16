@@ -251,6 +251,12 @@ sources:
 - [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md) — 이 지표만으로
   부족한 이유
 - [기능적 정확성](../concepts/functional-correctness.md) — 다운스트림 성능을 직접 재는 쪽의 시작
+- [데이터 오염](../concepts/data-contamination.md) — 퍼플렉시티가 오염 탐지 휴리스틱으로 쓰일 때
+  n-그램 중첩과 맞바꾸는 것
+- [평가 방법과 데이터](../concepts/evaluation-methods-and-data.md) — logprobs가 확신도와 유창성
+  측정에 쓰이는 자리
+- [모델 API와 자체 호스팅](../concepts/model-api-versus-self-hosting.md) — 상용 API가 logprobs를
+  노출하지 않는 이유
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 시퀀스의 로그 확률로 출력을 고르는 쪽
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 퍼플렉시티를 올리는 사후 훈련 단계
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — RLHF가 놓인 자리

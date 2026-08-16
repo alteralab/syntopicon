@@ -133,6 +133,12 @@ sources:
 - [AI 판정자](../concepts/ai-as-a-judge.md) — 여기서 "주관적"이라 분류된 접근이 실제로 어떻게 서는지
 - [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md) — 개방형
   출력이 정답 대조를 무너뜨린 자리
+- [도메인 특화 역량 평가](../concepts/domain-specific-capability-evaluation.md) — 코딩에서 정확성
+  다음에 오는 효율성과 가독성, 그리고 BIRD-SQL이 실행 시간까지 재는 자리
+- [평가 주도 개발](../concepts/evaluation-driven-development.md) — 코딩이 흔한 생성 AI 유스케이스가
+  되는 이유가 기능적 정확성이라는 자리
+- [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — "의도한 기능을 했는가"가 과제
+  단위 평가로 확장되는 쪽
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — pass@k의 k가 표본 수로 등장하는 쪽,
   그리고 유효한 SQL이 나올 때까지 계속 생성하는 접근
 - [언어 모델링 지표](../concepts/language-modeling-metrics.md) — 다운스트림 성능의 대리 지표 쪽

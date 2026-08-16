@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 사실 일관성
-status: draft
 description: 모델 출력이 사실과 어긋나지 않는지를 재는 자리 — 주어진 맥락에 대한 지역 일관성과 열린 지식에 대한 전역 일관성, 무엇이 사실인가를 정하는 것이 가장 어렵다는 진단과 없음의 증거 오류, 모델이 설득력의 근거로 무엇을 보는가에 대한 실측, AI 판정자와 SelfCheckGPT의 자기 검증과 SAFE의 지식 증강 검증, 텍스트 함의로 틀을 바꾸는 길과 특화 채점기, 그리고 TruthfulQA
 generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
 sources:

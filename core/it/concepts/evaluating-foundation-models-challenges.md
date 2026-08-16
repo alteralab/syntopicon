@@ -162,6 +162,13 @@ sources:
   정답 목록을 만들 수 없다는 난제를 참조 응답으로 우회하는 쪽
 - [AI 판정자](../concepts/ai-as-a-judge.md) — 사람 평가의 느림과 비용을 자동화로 푸는 접근
 - [비교 평가](../concepts/comparative-evaluation.md) — 포화되지 않는 평가를 얻는 다른 길
+- [데이터 오염](../concepts/data-contamination.md) — 벤치마크가 그토록 빨리 포화되는 기제
+- [공개 벤치마크와 리더보드](../concepts/public-benchmarks-and-leaderboards.md) — 포화된 벤치마크가
+  실제로 교체되는 현장
+- [평가 주도 개발](../concepts/evaluation-driven-development.md) — 평가가 최대 병목이라는 진단이
+  개발 순서로 뒤집히는 자리
+- [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 임기응변 프롬프트 집합을
+  대신하는 것
 - [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 평가가 이 층의 세 책임
   중 하나로 놓이는 자리
 - [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — 평가가 잡으려는 실패의 성질

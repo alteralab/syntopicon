@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 모델 API와 자체 호스팅
-status: draft
 description: 모델을 직접 호스팅할 것인가 모델 API를 쓸 것인가를 가르는 일곱 축 — 추론 서비스와 모델 API의 정의, 데이터 프라이버시와 삼성 유출 사건, 데이터 계보와 저작권 그리고 진화 중인 IP 법, MMLU에서 좁혀지는 성능 격차와 그럼에도 오픈 소스가 뒤처질 것이라는 유인 구조, 기능과 logprobs 제약, API 비용 대 엔지니어링 비용, 통제와 투명성, 온디바이스 배포
 generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
 sources:

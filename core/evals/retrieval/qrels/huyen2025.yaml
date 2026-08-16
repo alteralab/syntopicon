@@ -198,3 +198,58 @@ queries:
     description: "MTEB가 들어간 벡터 색인 페이지와 평가 축의 경계"
     expected_files: ["concepts/vector-indexes-and-embeddings.md", "concepts/similarity-measurements-against-reference-data.md"]
     expected_in_top_k: 5
+  # ---- 4장 배치 (런 2026-08-16-11) ----
+  - id: aie4-alias-1
+    query: "data contamination"
+    type: alias
+    description: "원어 질의 — 데이터 오염 페이지"
+    expected_files: ["concepts/data-contamination.md"]
+    expected_in_top_k: 5
+  - id: aie4-alias-2
+    query: "IFEval"
+    type: alias
+    description: "원어 고유명 — 지시 따르기 페이지"
+    expected_files: ["concepts/instruction-following-capability.md"]
+    expected_in_top_k: 5
+  - id: aie4-exact-1
+    query: "모델 API와 자체 호스팅 비교"
+    type: exact
+    description: "일곱 축 비교 페이지 직격"
+    expected_files: ["concepts/model-api-versus-self-hosting.md"]
+    expected_in_top_k: 5
+  - id: aie4-exact-2
+    query: "사실 일관성 검증"
+    type: exact
+    description: "지역·전역 일관성 페이지"
+    expected_files: ["concepts/factual-consistency.md"]
+    expected_in_top_k: 5
+  - id: aie4-sem-1
+    query: "벤치마크 점수가 좋은데 실제로는 못하는 모델"
+    type: semantic
+    description: "오염을 이름 없이 묻는 질의"
+    expected_files: ["concepts/data-contamination.md", "concepts/public-benchmarks-and-leaderboards.md"]
+    expected_in_top_k: 5
+  - id: aie4-sem-2
+    query: "어떤 모델을 쓸지 고르는 절차"
+    type: semantic
+    description: "모델 선택 워크플로를 이름 없이"
+    expected_files: ["concepts/model-selection-workflow.md"]
+    expected_in_top_k: 5
+  - id: aie4-top-1
+    query: "오픈 웨이트 모델 라이선스"
+    type: topical
+    description: "오픈 소스 모델 페이지"
+    expected_files: ["concepts/open-source-models-and-licenses.md"]
+    expected_in_top_k: 5
+  - id: aie4-top-2
+    query: "평가 파이프라인 설계"
+    type: topical
+    description: "파이프라인 설계 페이지 직격"
+    expected_files: ["concepts/evaluation-pipeline-design.md"]
+    expected_in_top_k: 5
+  - id: aie4-x-1
+    query: "LLM 독성 평가"
+    type: cross-domain
+    description: "안전성 평가 — 이후 보안 축(W군 원전)과 이어질 경계"
+    expected_files: ["concepts/ai-safety-evaluation.md"]
+    expected_in_top_k: 5

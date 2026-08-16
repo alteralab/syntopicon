@@ -1,7 +1,6 @@
 ---
 type: concept
 title: AI 안전성 평가
-status: draft
 description: 모델 출력이 해를 끼칠 수 있는 방식을 재는 자리 — 안전성 해법마다 다른 분류 체계와 저자가 정리한 여섯 범주, 훈련에 따라 모델이 정치적 편향을 품는다는 실측, 범용 AI 판정자와 사람 텍스트용으로 만들어진 특화 독성 탐지 모델의 분업, 그리고 RealToxicityPrompts와 BOLD
 generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
 sources:

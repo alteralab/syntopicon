@@ -192,6 +192,11 @@ sources:
 
 ## 이어지는 페이지
 
+- [사실 일관성](../concepts/factual-consistency.md) — "사람들은 시도해 왔다"가 이어지는 자리 —
+  환각을 실제로 탐지하고 측정하는 기법들
+- [생성 역량 평가](../concepts/generation-capability-evaluation.md) — 환각이 창작에는 바람직하고
+  사실성 과제에는 아니라고 갈리는 자리
+- [AI 안전성 평가](../concepts/ai-safety-evaluation.md) — RealToxicity가 독성 벤치마크로 서술되는 쪽
 - [샘플링 전략](../concepts/sampling-strategies.md) — 이 확률적 성격이 나오는 기제
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — RLHF와 보상 모델이 무엇을 하는지
 - [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 레이블러의 지식이 들어오는 자리
