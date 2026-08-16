@@ -39,6 +39,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 메모리·도구·클래스 파일과 로딩·컴파일·동시성
 - [파운데이션 모델과 AI 엔지니어링](synthesis/foundation-models-and-ai-engineering.md) — 언어 모델에서 파운데이션 모델까지의 계보와 그 위에 선 공학 분야: 유스케이스·계획·스택
 - [AI 평가](synthesis/ai-evaluation.md) — 열린 출력을 재는 방법론: 언어 모델링 지표·정확 평가·AI 판정자·비교 평가
+- [프롬프트 엔지니어링](synthesis/prompt-engineering.md) — 가중치를 바꾸지 않는 적응 기법: 인컨텍스트 학습·쓰기 관행·버전 관리·공격과 방어
 
 ## Tools
 
