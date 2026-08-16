@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 파운데이션 모델과 AI 엔지니어링
-description: 언어 모델에서 파운데이션 모델까지의 계보와 그 위에 선 공학 분야 — 모델이 규모를 얻은 방식, 그 능력이 만든 유스케이스, 짓기 전에 던지는 질문, 그리고 애플리케이션 개발·모델 개발·인프라의 세 층
+description: 언어 모델에서 파운데이션 모델까지의 계보와 그 위에 선 공학 분야 — 모델이 규모를 얻은 방식, 모델을 만드는 설계 결정(데이터·구조·규모·사후 훈련)과 출력을 고르는 샘플링, 그 능력이 만든 유스케이스, 짓기 전에 던지는 질문, 그리고 애플리케이션 개발·모델 개발·인프라의 세 층
 generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
 ---
 
@@ -19,6 +19,25 @@ generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
   훈련 방식과 계속 옮겨 가는 "large"의 기준
 - [파운데이션 모델](../concepts/foundation-models.md) — 텍스트 밖의 양식, 멀티모달 모델과 LMM,
   과제 특화에서 범용으로
+
+## 모델을 만드는 설계 결정
+
+- [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 데이터 출처와 품질, 가진 것을 쓴다는 접근의 결과
+- [다국어 모델](../concepts/multilingual-models.md) — 언어별 데이터 편중이 성능·지연·요금으로 넘어오는 자리
+- [도메인 특화 모델](../concepts/domain-specific-models.md) — 인터넷에 없는 데이터를 위해 따로 만드는 모델
+- [트랜스포머 구조](../concepts/transformer-architecture.md) — 어텐션과 트랜스포머 블록, 프리필과 디코드
+- [대안 모델 구조](../concepts/alternative-model-architectures.md) — RWKV·SSM·Mamba·Jamba와 새 구조의 문턱
+- [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 파라미터·훈련 토큰·FLOP과 희소 모델
+- [스케일링 법칙](../concepts/scaling-laws.md) — 컴퓨트 예산 안의 배분과 데이터·전기 병목
+- [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 완성 기계를 대화 상대로 바꾸는 첫 단계
+- [선호 파인 튜닝](../concepts/preference-finetuning.md) — 보상 모델과 RLHF
+
+## 모델이 출력을 고르는 방식
+
+- [샘플링 전략](../concepts/sampling-strategies.md) — 로짓·소프트맥스·온도·top-k·top-p와 정지 조건
+- [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 여러 출력을 뽑아 고르는 전략과 그 한계
+- [구조화 출력](../concepts/structured-outputs.md) — 형식을 지키게 만드는 네 자리
+- [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — 비일관성과 환각, 그 두 가설
 
 ## 분야와 그 수요
 
