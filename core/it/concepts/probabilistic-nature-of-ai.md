@@ -1,7 +1,6 @@
 ---
 type: concept
 title: AI의 확률적 성격
-status: draft
 description: 샘플링이 만드는 확률적 성격이 창의성과 골칫거리를 동시에 낳는다 — 비일관성의 두 시나리오와 변수를 고정해도 남는 하드웨어 변수, 환각의 정의와 그 역사, 자기 망상과 지식 불일치라는 두 가설, 그리고 RLHF가 환각에 미치는 엇갈린 증거
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

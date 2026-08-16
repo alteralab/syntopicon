@@ -2,7 +2,7 @@
 type: concept
 title: 모델 적응 기법
 description: 남이 훈련한 모델을 내 과제에 맞추는 기법들이 가중치를 고치는가로 갈린다 — 프롬프트 기반 기법과 파인 튜닝이 각각 요구하는 데이터와 얻는 것, 그리고 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말들이 실제로 가리키는 서로 다른 단계
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -94,6 +94,10 @@ sources:
   모델을 공개하기 전에 지시를 더 잘 따르도록 사후 훈련할 수 있다. 애플리케이션 개발자가 하면 파인
   튜닝이다. 예컨대 당신은 (그 자체로 사후 훈련되었을 수 있는) OpenAI 모델을 당신의 필요에 맞게 파인
   튜닝할 수 있다** (1장, p.42).[^huyen2025]
+  - 사후 훈련이 실제로 무엇으로 이뤄지는지는 2장이 채운다 — **일반적으로 사후 훈련은 두 단계로
+    이뤄진다: 지도 파인 튜닝(SFT)과 선호 파인 튜닝** (2장, p.78).[^huyen2025] 각각
+    [지도 파인 튜닝](../concepts/supervised-finetuning.md)과
+    [선호 파인 튜닝](../concepts/preference-finetuning.md)이 맡는다.
 - 둘은 스펙트럼이다 — **사전 훈련과 사후 훈련은 하나의 스펙트럼을 이룬다. 그 과정과 도구는 매우
   비슷하다** (1장, p.42).[^huyen2025]
   - 각주에 붙은 저자의 불평 — **"pre-training"과 "post-training"이라는 용어에 상상력이 부족하다고
@@ -121,7 +125,12 @@ sources:
 - [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 프롬프트 엔지니어링과 맥락
   구성이 사는 층
 - [언어 모델과 토큰](../concepts/language-models-and-tokens.md) — 사전 훈련이 목표로 삼는 텍스트 완성
+- [지도 파인 튜닝](../concepts/supervised-finetuning.md) — 사후 훈련의 첫 단계가 실제로 하는 일
+- [선호 파인 튜닝](../concepts/preference-finetuning.md) — 둘째 단계와 RLHF
+- [구조화 출력](../concepts/structured-outputs.md) — 프롬프팅과 파인 튜닝이 같은 목표를 놓고
+  견줘지는 실물
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
-    (책 pp.1–48). 훈련 용어 구분은 pp.41–42의 사이드바 "On the Differences Among Training,
-    Pre-Training, Finetuning, and Post-Training"에서 왔다. 이 절에는 도판이 없다.
+    (책 pp.1–48)과 2장 "Understanding Foundation Models"의 사후 훈련 도입(책 p.78). 훈련 용어
+    구분은 pp.41–42의 사이드바 "On the Differences Among Training, Pre-Training, Finetuning,
+    and Post-Training"에서 왔다. 이 절에는 도판이 없다.

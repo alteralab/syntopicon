@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 샘플링 전략
-status: draft
 description: 모델이 다음 토큰을 어떻게 고르는가 — 로짓과 소프트맥스가 확률을 만드는 경로, 탐욕 샘플링이 지루한 이유, 온도가 분포를 다시 흩뜨리는 방식과 그 실측 수치, 로그 확률을 쓰는 이유와 공개가 제한되는 이유, top-k와 top-p의 갈림, 그리고 언제 멈출지 정하는 조건
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

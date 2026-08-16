@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 테스트 시점 컴퓨트
-status: draft
 description: 출력 하나 대신 여러 개를 뽑아 그중 고르는 전략 — best of N과 빔 서치, 다양성이 효과를 키우는 이유와 두 배로 드는 비용, 평균 로그 확률·보상 모델·검증기라는 세 가지 선택법, 표본 수를 늘려도 성능이 꺾이는 지점, 그리고 지연과 견고성 쪽의 쓰임
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

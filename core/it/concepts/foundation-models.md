@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 파운데이션 모델
-description: 언어 모델이 텍스트 밖의 양식을 받아들이면서 얻은 이름 — 멀티모달 모델과 LMM, 자기지도를 이미지에 옮긴 CLIP의 자연어 지도, 과제 특화 모델에서 범용 모델로의 전환, 그리고 그 위에서 사거나 짓거나를 고르는 자리
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+description: 언어 모델이 텍스트 밖의 양식을 받아들이면서 얻은 이름 — 멀티모달 모델과 LMM, 자기지도를 이미지에 옮긴 CLIP의 자연어 지도, 과제 특화 모델에서 범용 모델로의 전환, 그 위에서 사거나 짓거나를 고르는 자리, 그리고 모델들 사이의 차이가 되짚어지는 세 가지 설계 결정
+generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -15,6 +15,7 @@ sources:
 - [CLIP과 자연어 지도](#clip과-자연어-지도)
 - [과제 특화에서 범용으로](#과제-특화에서-범용으로)
 - [사거나 짓거나](#사거나-짓거나)
+- [모델들을 가르는 세 가지 설계 결정](#모델들을-가르는-세-가지-설계-결정)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **언어 모델이 파운데이션 모델(foundation model)이라는 다른 이름을 얻는 지점은
@@ -111,6 +112,33 @@ sources:
 - 그래서 남는 결정 — **자기 모델을 만들 것인가 기존 모델을 활용할 것인가는 팀이 스스로 답해야 하는
   고전적인 사거나 짓거나(buy-or-build) 질문이다** (1장, p.12).[^huyen2025]
 
+## 모델들을 가르는 세 가지 설계 결정
+
+- 모델을 쓰는 쪽이 무엇을 알아야 하는가 — **파운데이션 모델로 애플리케이션을 만들려면 먼저
+  파운데이션 모델이 필요하다. 모델을 쓰려고 모델 개발법을 알아야 하는 것은 아니지만, 높은 수준의
+  이해는 어떤 모델을 쓸지, 그것을 어떻게 필요에 맞게 적응시킬지 결정하는 데 도움이 된다** (2장,
+  p.49).[^huyen2025]
+- 그 이해가 걸리는 축 (2장, p.49):[^huyen2025]
+
+  > With the growing lack of transparency in the training process of foundation models, it's
+  > difficult to know all the design decisions that go into making a model. In general, however,
+  > differences in foundation models can be traced back to decisions about training data, model
+  > architecture and size, and how they are post-trained to align with human preferences.
+
+- 세 축은 각각 다음 페이지가 맡는다.
+  - 훈련 데이터 — [훈련 데이터 큐레이션](../concepts/training-data-curation.md),
+    [다국어 모델](../concepts/multilingual-models.md),
+    [도메인 특화 모델](../concepts/domain-specific-models.md)
+  - 모델 구조와 크기 — [트랜스포머 구조](../concepts/transformer-architecture.md),
+    [대안 모델 구조](../concepts/alternative-model-architectures.md),
+    [모델 규모의 세 수치](../concepts/model-size-and-scale.md),
+    [스케일링 법칙](../concepts/scaling-laws.md)
+  - 사후 훈련 — [지도 파인 튜닝](../concepts/supervised-finetuning.md),
+    [선호 파인 튜닝](../concepts/preference-finetuning.md)
+- 저자가 이 축들에 덧붙이는 네 번째 관심사가 샘플링이다 — **대부분의 사람이 훈련이 모델 성능에
+  미치는 영향은 이해하지만 샘플링의 영향은 흔히 간과된다** (2장, p.50).[^huyen2025] 그쪽은
+  [샘플링 전략](../concepts/sampling-strategies.md)이 맡는다.
+
 ## 이어지는 페이지
 
 - [언어 모델과 토큰](../concepts/language-models-and-tokens.md) — 이 모델의 출발점이 된 텍스트
@@ -123,7 +151,10 @@ sources:
   튜닝을 가르는 축
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — CLIP이 속한 임베딩 모델의
   계보와 그 색인
+- [트랜스포머 구조](../concepts/transformer-architecture.md) — 이 모델들이 실제로 어떤 모양으로
+  지어져 있는가
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
-    (책 pp.1–48). 도판 Figure 1-3(멀티모달 모델의 다음 토큰 생성)과 Figure 1-4
-    (Super-NaturalInstructions 벤치마크의 과제 분포 — Wang et al., 2022)는 옮기지 않았다.
+    (책 pp.1–48)과 2장 "Understanding Foundation Models" 도입부(책 pp.49–50). 도판 Figure 1-3
+    (멀티모달 모델의 다음 토큰 생성)과 Figure 1-4(Super-NaturalInstructions 벤치마크의 과제
+    분포 — Wang et al., 2022)는 옮기지 않았다.

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 도메인 특화 모델
-status: draft
 description: 범용 모델이 못 하는 일이 남는 이유는 그 데이터가 인터넷에 없기 때문이다 — C4의 도메인 분포, 비전 데이터 분포 분석의 공백, CLIP 계열의 벤치마크 차이, 그리고 AlphaFold·BioNeMo·Med-PaLM2가 서 있는 자리
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

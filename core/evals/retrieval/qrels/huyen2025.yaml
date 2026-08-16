@@ -76,3 +76,70 @@ queries:
     description: "배치 축과 모델 개발 층의 경계 질의"
     expected_files: ["concepts/ai-model-development-layer.md", "concepts/batch-use-cases.md"]
     expected_in_top_k: 5
+  # ---- 2장 배치 (런 2026-08-16-09) ----
+  - id: aie2-alias-1
+    query: "RLHF"
+    type: alias
+    description: "원어 질의 — 선호 파인 튜닝 페이지의 병기 검색 키"
+    expected_files: ["concepts/preference-finetuning.md"]
+    expected_in_top_k: 5
+  - id: aie2-alias-2
+    query: "top-p sampling"
+    type: alias
+    description: "원어 유지 채택 용어의 검색 회귀 지점"
+    expected_files: ["concepts/sampling-strategies.md"]
+    expected_in_top_k: 5
+  - id: aie2-alias-3
+    query: "Mamba"
+    type: alias
+    description: "원어 고유명 — 대안 구조 페이지"
+    expected_files: ["concepts/alternative-model-architectures.md"]
+    expected_in_top_k: 5
+  - id: aie2-exact-1
+    query: "스케일링 법칙과 친칠라"
+    type: exact
+    description: "스케일링 법칙 페이지 직격"
+    expected_files: ["concepts/scaling-laws.md"]
+    expected_in_top_k: 5
+  - id: aie2-exact-2
+    query: "트랜스포머 어텐션의 쿼리 키 밸류"
+    type: exact
+    description: "구조 페이지의 핵심 명사"
+    expected_files: ["concepts/transformer-architecture.md"]
+    expected_in_top_k: 5
+  - id: aie2-sem-1
+    query: "모델이 그럴듯한 거짓을 지어내는 이유"
+    type: semantic
+    description: "환각을 이름 없이 묻는 의미 질의"
+    expected_files: ["concepts/probabilistic-nature-of-ai.md"]
+    expected_in_top_k: 5
+  - id: aie2-sem-2
+    query: "출력 여러 개를 뽑아 가장 좋은 것을 고르는 방법"
+    type: semantic
+    description: "테스트 시점 컴퓨트를 이름 없이"
+    expected_files: ["concepts/test-time-compute.md"]
+    expected_in_top_k: 5
+  - id: aie2-top-1
+    query: "온도가 모델 출력에 미치는 영향"
+    type: topical
+    description: "샘플링 전략 페이지"
+    expected_files: ["concepts/sampling-strategies.md"]
+    expected_in_top_k: 5
+  - id: aie2-top-2
+    query: "지도 파인 튜닝의 시연 데이터"
+    type: topical
+    description: "SFT 페이지"
+    expected_files: ["concepts/supervised-finetuning.md"]
+    expected_in_top_k: 5
+  - id: aie2-x-1
+    query: "JSON 형식을 강제하는 방법"
+    type: cross-domain
+    description: "구조화 출력 — 응용 층과 샘플링 층의 경계"
+    expected_files: ["concepts/structured-outputs.md"]
+    expected_in_top_k: 5
+  - id: aie2-x-2
+    query: "토큰화가 언어마다 다른 비용"
+    type: cross-domain
+    description: "다국어 모델과 언어 모델 기초의 경계 질의"
+    expected_files: ["concepts/multilingual-models.md", "concepts/language-models-and-tokens.md"]
+    expected_in_top_k: 5

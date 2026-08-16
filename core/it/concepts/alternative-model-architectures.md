@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 대안 모델 구조
-status: draft
 description: 트랜스포머를 대체하려는 시도가 왜 어려운지와 그럼에도 자리를 얻고 있는 것들 — 유행이 오간 구조들의 연표, 새 구조가 넘어야 하는 규모와 하드웨어의 문턱, RNN 기반 RWKV, 상태 공간 모델의 S4·H3·Mamba, 그리고 트랜스포머와 엮은 Jamba
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

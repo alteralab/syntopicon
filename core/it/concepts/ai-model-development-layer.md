@@ -2,7 +2,7 @@
 type: concept
 title: 모델 개발 층
 description: AI 엔지니어링 스택의 가운데 층이 지는 세 책임 — 모델링과 훈련에서 ML 지식이 필수에서 있으면 좋은 것으로 내려앉고, 데이터셋 엔지니어링이 특징 공학에서 중복 제거·토큰화·맥락 검색·품질 관리로 옮겨 가며, 자기회귀 생성 탓에 추론 최적화가 한층 더 중요해지는 자리
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -44,6 +44,12 @@ sources:
   작동하지 않을 때 문제 해결을 돕기 때문이다** (1장, p.41).[^huyen2025]
 - 이 층에서 훈련·사전 훈련·파인 튜닝·사후 훈련이라는 낱말이 각각 무엇을 가리키는지는
   [모델 적응 기법](../concepts/model-adaptation-techniques.md)이 맡는다.
+- 여기서 말하는 구조를 정하는 일이 구체적으로 무엇인지도 2장이 채운다 — **모델을 훈련하기 전에
+  개발자는 모델이 어떤 모습이어야 하는지 정해야 한다. 어떤 구조를 따를 것인가? 파라미터를 몇 개나
+  가져야 하는가?** (2장, p.58).[^huyen2025] 그 두 결정은 각각
+  [트랜스포머 구조](../concepts/transformer-architecture.md)와
+  [모델 규모의 세 수치](../concepts/model-size-and-scale.md)가 맡고, 예산 안에서 둘을 나누는
+  규칙은 [스케일링 법칙](../concepts/scaling-laws.md)에 있다.
 
 ## 데이터셋 엔지니어링
 
@@ -86,6 +92,13 @@ sources:
   난제다. 추론 최적화는 산업과 학계 양쪽에서 활발한 하위 분야가 되었다** (1장, p.43).[^huyen2025]
 - 기법의 이름들 — **양자화(quantization)·증류(distillation)·병렬화(parallelism)를 포함한 추론 최적화
   기법이 있다** (1장, p.44).[^huyen2025]
+- 그 순차성이 구조의 어디서 오는지는 2장이 짚는다 — 트랜스포머는 입력의 순차 병목을 없앴지만
+  **트랜스포머 기반 자기회귀 언어 모델은 여전히 순차적 출력 병목을 갖고**, 그래서 추론이 병렬로 도는
+  프리필과 한 토큰씩 도는 디코드로 갈린다 (2장, p.60).[^huyen2025] 그 구분은
+  [트랜스포머 구조](../concepts/transformer-architecture.md)에 있다.
+- 데이터셋 엔지니어링의 사전 훈련 쪽 실물 — 어떤 데이터가 실제로 쓰이고 왜 그것이 문제인지는
+  [훈련 데이터 큐레이션](../concepts/training-data-curation.md)이, 주석 데이터를 만드는 일의 단가는
+  [지도 파인 튜닝](../concepts/supervised-finetuning.md)이 맡는다.
 
 ## 세 책임이 어떻게 옮겨 갔는가
 
@@ -109,6 +122,11 @@ sources:
   요약하는 차이의 전체
 - [변환 단계](../concepts/transformation-in-the-lifecycle.md) — 특징 공학이 데이터 파이프라인에서
   자동화되던 쪽
+- [트랜스포머 구조](../concepts/transformer-architecture.md) — 이 층이 정하는 구조의 실물
+- [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 규모 결정이 컴퓨트 비용으로
+  환산되는 자리
+- [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 데이터셋 엔지니어링의 사전 훈련 쪽
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
-    (책 pp.1–48). Table 1-4는 원문 표기를 그대로 옮겼다. 이 절에는 도판이 없다.
+    (책 pp.1–48)과 2장 "Understanding Foundation Models"(책 pp.49–112) 중 모델링 도입(p.58)·
+    프리필과 디코드(p.60) 대목. Table 1-4는 원문 표기를 그대로 옮겼다. 이 절에는 도판이 없다.

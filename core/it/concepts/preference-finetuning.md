@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 선호 파인 튜닝
-status: draft
 description: 대화할 줄 아는 모델에게 어떤 대화를 해야 하는지 가르치는 단계 — 보편적 인간 선호를 가정하는 목표의 무리함, RLHF의 두 부분, 점별 평가 대신 비교 데이터를 쓰는 이유와 그 단가, 보상 모델의 손실 함수, 그리고 강화 학습을 아예 건너뛰는 선택지
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

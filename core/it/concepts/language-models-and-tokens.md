@@ -2,7 +2,7 @@
 type: concept
 title: 언어 모델과 토큰
 description: 언어 모델이 담는 것은 낱말이 어떤 맥락에 나타날 확률이고, 그 기본 단위는 낱말이 아니라 토큰이다 — 토큰화와 어휘 크기, 앞뒤를 다 보는 마스크드 모델과 앞만 보는 자기회귀 모델의 갈림, 그리고 번역도 분류도 완성 과제로 흡수하는 완성 기계라는 관점
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -56,6 +56,9 @@ sources:
   많은 낱말을 만들 수 있듯, 적은 수의 토큰으로 서로 다른 낱말을 많이 만들 수 있다. Mixtral 8x7B
   모델의 어휘 크기는 32,000이고 GPT-4의 어휘 크기는 100,256이다. 토큰화 방법과 어휘 크기는 모델
   개발자가 정한다** (1장, p.3).[^huyen2025]
+- 토큰화 효율은 언어마다 크게 갈리고 그것이 곧 지연과 요금이 된다 — **MASSIVE 데이터셋에서 중앙값
+  토큰 길이는 영어가 7인데 힌디어는 32, 버마어는 72다** (2장, p.55).[^huyen2025] 그 대가의 전모는
+  [다국어 모델](../concepts/multilingual-models.md)에 있다.
 
 ## 왜 낱말이 아니라 토큰인가
 
@@ -109,6 +112,11 @@ sources:
   p.5).[^huyen2025]
 - 경고가 곧바로 따라온다 — **완성은 예측이고 확률에 근거하며 옳다는 보장이 없다. 언어 모델의 이
   확률적 성질이 그것을 쓰는 일을 그토록 신나면서도 답답하게 만든다** (1장, p.5).[^huyen2025]
+  - 이 확률이 실제로 만들어지고 소비되는 경로는 2장이 연다 — **언어 모델에서 다음 토큰을
+    생성하려면 모델은 먼저 어휘 안의 모든 토큰에 대한 확률 분포를 계산한다** (2장,
+    p.89).[^huyen2025] 그 분포에서 토큰 하나를 뽑는 방법은
+    [샘플링 전략](../concepts/sampling-strategies.md)이, 그 확률성이 낳는 비일관성과 환각은
+    [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md)이 맡는다.
 - 완성이라는 틀이 삼키는 것 — **번역·요약·코딩·수학 문제 풀이를 포함한 많은 과제가 완성 과제로
   틀 지어질 수 있다. 예컨대 프롬프트 "How are you in French is …"가 주어지면 언어 모델은
   "Comment ça va"로 완성해 사실상 한 언어에서 다른 언어로 번역하게 된다** (1장,
@@ -131,7 +139,12 @@ sources:
   훈련 단계와 적응 기법
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 같은 토큰을 수치 벡터로
   옮기는 쪽
+- [샘플링 전략](../concepts/sampling-strategies.md) — 어휘 위의 확률 분포에서 실제 토큰이 뽑히는
+  과정
+- [트랜스포머 구조](../concepts/transformer-architecture.md) — 이 토큰들이 처리되는 구조
+- [다국어 모델](../concepts/multilingual-models.md) — 토큰화 효율이 언어마다 갈리는 자리
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
-    (책 pp.1–48). 이 절의 도판 Figure 1-1(GPT-4의 토큰화 예)과 Figure 1-2(자기회귀·마스크드 모델
-    대비 그림)는 옮기지 않았고 본문 서술만 담았다.
+    (책 pp.1–48)과 2장 "Understanding Foundation Models"(책 pp.49–112) 중 토큰화 효율(p.55)·
+    다음 토큰 확률 분포(p.89) 대목. 이 절의 도판 Figure 1-1(GPT-4의 토큰화 예)과 Figure 1-2
+    (자기회귀·마스크드 모델 대비 그림)는 옮기지 않았고 본문 서술만 담았다.

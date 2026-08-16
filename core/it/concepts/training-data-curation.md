@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 훈련 데이터 큐레이션
-status: draft
 description: 모델의 능력과 한계는 훈련된 데이터가 정한다 — Common Crawl과 C4가 실제로 담고 있는 것, 공개를 그만둔 개발사들, "원하는 것이 아니라 가진 것을 쓴다"가 낳는 결과, 그리고 저품질 대량보다 고품질 소량이 이기는 실측
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 다국어 모델
-status: draft
 description: 인터넷이 영어로 기울어 있어 모델도 기울어 있다 — Common Crawl의 언어 분포와 과소 대표 비율, 벤치마크에서 갈리는 성능, 영어로 번역해 우회하는 길이 잃는 것, 그리고 토큰화 효율 차이가 지연과 요금으로 넘어오는 자리
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

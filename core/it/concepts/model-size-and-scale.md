@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 모델 규모의 세 수치
-status: draft
 description: 모델의 규모는 파라미터 수 하나로 말할 수 없다 — 희소 모델과 전문가 혼합이 그 수를 어긋나게 만드는 방식, 데이터셋 크기를 토큰으로 재는 이유, 컴퓨트를 재는 FLOP과 FLOP/s의 혼동, 실제 훈련 비용 계산, 그리고 큰 모델이 오히려 나빠지는 역스케일링
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:

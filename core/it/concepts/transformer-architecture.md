@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 트랜스포머 구조
-status: draft
 description: 트랜스포머가 무엇을 고치려고 나왔는지부터 되짚는다 — seq2seq의 두 병목, 그것을 푸는 어텐션 메커니즘과 질의·키·값 벡터, 프리필과 디코드로 갈리는 추론, 트랜스포머 블록의 구성, 그리고 모델 크기를 정하는 차원 값들
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
