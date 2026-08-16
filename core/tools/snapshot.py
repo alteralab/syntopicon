@@ -38,6 +38,40 @@ def fetch(url: str, destination: Path) -> None:
         destination.write_bytes(response.read())
 
 
+def judge_pdfs(root: Path) -> None:
+    """보존된 PDF의 텍스트 레이어 판정 — 추출 경로를 첫 런 전에 정한다.
+
+    zhou2024의 OCR 훼손은 첫 런이 아니라 런 중반에 발견돼 직인용 회피 규약이
+    사후에 세워졌다(2026-08-15 실측). 판정을 스냅샷 시점으로 당기면 그 규약이
+    _progress 머리말에 처음부터 실린다(kb-ingest 2단계). 변환판(thomas2020류)은
+    파서가 거부하는데 그것도 판정이다 — 쪽 지도 실측 필수 신호.
+    """
+    pdfs = sorted(root.rglob("*.pdf"))
+    if not pdfs:
+        return
+    try:
+        import pdf_inspector
+    except ImportError:
+        print("\n주의: PDF 판정 건너뜀 — pdf-inspector 미설치. "
+              "`uv run --group ingest tools/snapshot.py …` 로 다시 돌리면 판정이 붙습니다. "
+              "판정 없이 반입하면 텍스트 레이어 훼손(zhou2024형)을 런 중반에야 발견합니다.")
+        return
+    print()
+    for pdf in pdfs:
+        try:
+            verdict = pdf_inspector.classify_pdf(str(pdf))
+        except (ValueError, RuntimeError) as error:
+            print(f"판정  {pdf.name}: 파싱 거부 ({str(error)[:80]}) — 변환판 의심"
+                  "(리플로·비정상 trailer). 쪽수 지도 실측이 필수입니다.")
+            continue
+        ocr = len(verdict.pages_needing_ocr)
+        note = ("텍스트 레이어 신뢰 가능" if verdict.pdf_type == "text_based" and ocr == 0
+                else "텍스트 레이어 불신 — 직인용은 훼손 없는 구간만, 식별자 실표기 복원")
+        print(f"판정  {pdf.name}: {verdict.pdf_type} (신뢰도 {verdict.confidence:.2f}, "
+              f"OCR 필요 {ocr}/{verdict.page_count}쪽) — {note}")
+    print("판정을 _progress.yaml 머리말에 옮겨 적으십시오(kb-ingest 2단계).")
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="소스 원문을 archive/에 고정한다")
     parser.add_argument("files", nargs="*", type=Path, help="보존할 로컬 파일·디렉터리")
@@ -83,6 +117,7 @@ def main(argv: list[str]) -> int:
     print(f"snapshot: /{args.kb}/archive/{args.citekey}/")
     print(f'snapshot_sha256: "{digest}"')
     print(f'accessed: "{date.today().isoformat()}"')
+    judge_pdfs(root)
     print("\narchive/는 git에서 제외되고 restic이 담당합니다(PLAN §5).")
     return 0
 

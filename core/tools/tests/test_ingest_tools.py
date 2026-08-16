@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
+
+import pytest
 
 from conftest import Repo
 
@@ -111,3 +114,50 @@ def test_dry_run은_예약하지_않는다(repo: Repo):
                       "--year", "2014", "--dry-run")
     assert result.returncode == 0 and "ongaro2014" in result.stdout
     assert not (repo.root / "it/sources/ongaro2014.md").exists()
+
+
+# ── pdf 판정·추출 (pdf-inspector — 원장 2026-08-16) ──────────────────────────
+
+def _build_pdf(text: str) -> bytes:
+    """오프셋을 계산해 만드는 유효 최소 PDF — 외부 기록기 의존 없이 fixture를 만든다."""
+    header = b"%PDF-1.4\n"
+    stream = f"BT /F1 18 Tf 72 720 Td ({text}) Tj ET".encode()
+    bodies = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R "
+        b"/Resources << /Font << /F1 5 0 R >> >> >>",
+        b"<< /Length " + str(len(stream)).encode() + b" >>\nstream\n" + stream + b"\nendstream",
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    ]
+    out, offsets = header, []
+    for i, body in enumerate(bodies, 1):
+        offsets.append(len(out))
+        out += f"{i} 0 obj\n".encode() + body + b"\nendobj\n"
+    xref_at = len(out)
+    out += b"xref\n0 6\n0000000000 65535 f \n"
+    for off in offsets:
+        out += f"{off:010d} 00000 n \n".encode()
+    return out + (b"trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n"
+                  + str(xref_at).encode() + b"\n%%EOF\n")
+
+
+def test_스냅샷이_pdf_판정_경로를_밟는다(repo: Repo, tmp_path: Path):
+    """판정 실행(의존 있음) 또는 크게 고지(의존 없음) — 조용한 생략은 없다."""
+    kb(repo)
+    source = tmp_path / "book.pdf"
+    source.write_bytes(_build_pdf("Hello snapshot fixture"))
+    result = repo.run("snapshot.py", "--kb", "it", "--citekey", "x2020", str(source))
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "판정  book.pdf" in result.stdout or "판정 건너뜀" in result.stdout
+
+
+def test_pdftext가_구간을_추출한다(tmp_path: Path):
+    pytest.importorskip("pdf_inspector")
+    import pdftext
+    pdf = tmp_path / "b.pdf"
+    pdf.write_bytes(_build_pdf("Hello extract"))
+    out = tmp_path / "o.md"
+    assert pdftext.main([str(pdf), "1", "1", "-o", str(out)]) == 0
+    body = out.read_text()
+    assert "Hello extract" in body and "=== PDF 1쪽 ===" in body

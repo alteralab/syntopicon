@@ -25,6 +25,11 @@ eval = [
 index = [
     "kiwipiepy>=0.23.2",
 ]
+ingest = [
+    # PDF 텍스트 레이어 판정·구간 추출(스냅샷 판정 + 필터 차단 우회 — 원장 2026-08-16).
+    # 신생(2026-02)이라 == 핀. 사멸 시 보조 경로(판정·우회)만 죽고 본선 무손.
+    "pdf-inspector==1.14.2",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tools/tests"]
