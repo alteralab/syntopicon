@@ -1,0 +1,63 @@
+# 질문지 조각 — EIP 원전 배치(2026-08-16, 런 2026-08-16-02~07).
+# alias 문항이 회귀선의 본체다: 이 소스의 반입 동기가 원전 어휘였으므로,
+# 원전 이름 질의가 해당 페이지를 못 찾으면 병기·합류가 무너진 신호다.
+source: hohpe2004
+added: 2026-08-16
+queries:
+  - id: eip-alias-1
+    query: "Competing Consumers"
+    type: alias
+    description: "컨슈머 그룹의 원전 이름"
+    expected_files: ["concepts/message-consumer-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-alias-2
+    query: "Idempotent Receiver"
+    type: alias
+    description: "멱등성 4층 대조의 원전 축"
+    expected_files: ["concepts/exactly-once-message-processing.md"]
+    expected_in_top_k: 5
+  - id: eip-alias-3
+    query: "Scatter-Gather"
+    type: alias
+    expected_files: ["concepts/composed-routing-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-alias-4
+    query: "Claim Check"
+    type: alias
+    expected_files: ["concepts/message-transformation-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-exact-1
+    query: "죽은 메시지와 무효 메시지를 가르는 기준"
+    type: exact
+    description: "활용형 — Dead Letter 원전 구분"
+    expected_files: ["concepts/dead-letter-and-dropped-records.md"]
+    expected_in_top_k: 5
+  - id: eip-exact-2
+    query: "정규 데이터 모델"
+    type: exact
+    description: "복합명사 — Canonical Data Model"
+    expected_files: ["concepts/message-transformation-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-sem-1
+    query: "받는 쪽이 여럿일 때 메시지를 조각내 보내고 답을 다시 모으는 방법"
+    type: semantic
+    description: "Splitter·Aggregator 어휘 불사용 패러프레이즈"
+    expected_files: ["concepts/splitter-aggregator-resequencer-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-sem-2
+    query: "돌고 있는 메시지 흐름을 멈추지 않고 들여다보는 방법"
+    type: semantic
+    description: "Wire Tap·관리 패턴 어휘 불사용"
+    expected_files: ["concepts/system-management-patterns.md"]
+    expected_in_top_k: 5
+  - id: eip-top-1
+    query: "통합 스타일"
+    type: topical
+    expected_files: ["concepts/application-integration-styles.md"]
+    expected_in_top_k: 5
+  - id: eip-x-1
+    query: "카프카 컨슈머 그룹은 어느 메시징 패턴의 구현인가"
+    type: cross-domain
+    description: "원전-실물 합류 자리를 겨냥"
+    expected_files: ["concepts/message-consumer-patterns.md", "concepts/kafka-consumer-groups-and-rebalance.md"]
+    expected_in_top_k: 5
