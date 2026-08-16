@@ -32,7 +32,8 @@ import yaml
 CODE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(CODE_ROOT / "tools"))
 
-from syntopicon import stats  # noqa: E402
+import ksearch  # noqa: E402
+from syntopicon import index_db, morph, scope, stats  # noqa: E402
 from syntopicon.workspace import DEFAULT  # noqa: E402
 
 QRELS_DIR = DEFAULT.root / "evals" / "retrieval" / "qrels"
@@ -97,14 +98,36 @@ def files_ksearch(out):
     return ordered
 
 
+def leg_scoped(query: str) -> list[str]:
+    """스코프 벡터 레그 — search.py leg_scoped_vector와 같은 규칙(scope 모듈 공유).
+
+    형태소 씨앗·이웃 계산은 라이브러리 직행이다 — CLI 실사용 경로 원칙의 예외인데,
+    씨앗 규칙의 정본이 scope 모듈이라 여기서 재구현하면 두 정본이 된다.
+    """
+    if not morph.available():
+        return []
+    expression = morph.query_expression(query)
+    if not expression:
+        return []
+    with index_db.connect() as connection:
+        rows = ksearch.hits(connection, expression, None, 10)
+        seeds = scope.seeds_from_rows(rows)
+        if not seeds:
+            return []
+        pool = scope.neighborhood(connection, seeds)
+    found = files_qmd(run(["qmd", "vsearch", query, "-n", "50"]))
+    return [f for f in found if f"it/{f}" in pool]
+
+
 LEGS = {
     "bm25(search)": lambda q: files_qmd(run(["qmd", "search", q, "-n", "10"])),
     "vector(vsearch)": lambda q: files_qmd(run(["qmd", "vsearch", q, "-n", "10"])),
     "morph(ksearch)": lambda q: files_ksearch(run(
         ["uv", "run", "--group", "index", "tools/ksearch.py", q, "-n", "10"])),
+    "scoped(vsearch)": leg_scoped,
     "hybrid(query)": lambda q: files_qmd(run(["qmd", "query", q, "-n", "10"])),
 }
-FAST_LEGS = ("bm25(search)", "vector(vsearch)", "morph(ksearch)")
+FAST_LEGS = ("bm25(search)", "vector(vsearch)", "morph(ksearch)", "scoped(vsearch)")
 
 
 def score(found, gold, k=5):

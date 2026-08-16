@@ -103,3 +103,31 @@ def test_없는_kb는_거부한다(repo: Repo, tmp_path: Path):
     assert result.returncode == 1
     assert "ops" in result.stderr
     assert events_of(repo) == []          # 실행 전 거부 — 계측도 남지 않는다
+
+
+def test_스코프_이웃은_무방향_2홉이다(repo: Repo):
+    """scope.neighborhood — 씨앗에서 링크 그래프를 무방향으로 걷는다(원장 2026-08-16)."""
+    import sqlite3
+    seeded(repo)
+    page = (repo.root / "it/concepts/kafka-basics-test.md").read_text() \
+        if (repo.root / "it/concepts/kafka-basics-test.md").exists() else None
+    body = "\n- 서술이다.[^shapira2021]\n\n[^shapira2021]: 1장, p.3\n"
+    def concept(name, extra=""):
+        repo.write(f"it/concepts/{name}.md",
+                   "---\ntype: concept\ntitle: " + name +
+                   "\ndescription: 테스트\nsources: [shapira2021]\n" +
+                   'generated: { by: "human:me", at: "2026-08-16T00:00:00Z" }\n---\n\n# '
+                   + name + "\n" + body + extra)
+    concept("a", "- [b](b.md) 로 간다.\n")
+    concept("b", "- [c](c.md) 로 간다.\n")
+    concept("c")
+    concept("d", "- [a](a.md) 를 가리킨다.\n")
+    repo.run("reindex.py")
+    from syntopicon import scope
+    db = sqlite3.connect(repo.root / "derived.sqlite")
+    db.row_factory = sqlite3.Row
+    hop1 = scope.neighborhood(db, ["it/concepts/a.md"], hops=1)
+    assert "it/concepts/b.md" in hop1 and "it/concepts/d.md" in hop1   # 무방향
+    assert "it/concepts/c.md" not in hop1
+    hop2 = scope.neighborhood(db, ["it/concepts/a.md"], hops=2)
+    assert "it/concepts/c.md" in hop2

@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ksearch
 import langfuse_bridge
-from syntopicon import index_db, layout as layout_mod, morph, stats
+from syntopicon import index_db, layout as layout_mod, morph, scope, stats
 from syntopicon.layout import QMD_SCHEME
 from syntopicon.workspace import DEFAULT
 from syntopicon.repo import ROOT, visible_files
@@ -122,6 +122,47 @@ def leg_literal(query: str, kb: str | None, limit: int,
     return {"hits": len(found), "ms": elapsed}, found[:limit]
 
 
+def leg_scoped_vector(query: str, kb: str | None, limit: int,
+                      morph_rows, kbs: tuple[str, ...]) -> tuple[dict, list[str]]:
+    """스코프 벡터 레그 — 형태소 씨앗의 허브 이웃으로 vsearch 후보를 거른다.
+
+    천장 실험(원장 2026-08-16: 완벽 라우팅이 R@5 +0.161, semantic 2배)의 실전판.
+    형태소가 0건이면 씨앗이 없어 크게 건너뛴다 — 그 경우 도메인 지목 자체가
+    실패한 것이라 스코프가 성립하지 않는다.
+    """
+    binary = shutil.which("qmd")
+    if binary is None:
+        return {"skipped": "qmd가 PATH에 없습니다"}, []
+    if not morph_rows:
+        return {"skipped": "스코프 씨앗 없음 — 형태소 레그 0건"}, []
+
+    seeds = scope.seeds_from_rows(morph_rows)
+    started = time.monotonic()
+    with index_db.connect(DEFAULT) as connection:
+        if reason := index_db.staleness(connection, kbs):
+            return {"skipped": f"색인이 낡음 — {reason} (tools/reindex.py)"}, []
+        pool = scope.neighborhood(connection, seeds)
+
+    argv = [binary, "vsearch", query, "-n", "50"]
+    if kb:
+        argv += ["-c", kb]
+    try:
+        proc = subprocess.run(argv, capture_output=True, text=True, timeout=QMD_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        return {"skipped": f"{QMD_TIMEOUT}초 초과"}, []
+    elapsed = stats.elapsed_ms(started)
+
+    found: list[str] = []
+    for token in proc.stdout.split():
+        if token.startswith(QMD_SCHEME):
+            path = token.removeprefix(QMD_SCHEME).partition("#")[0].rstrip(":0123456789")
+            path = path[:-1] if path.endswith(":") else path
+            if path.endswith(".md") and path not in found and path in pool:
+                found.append(path)
+    return {"hits": len(found[:limit]), "ms": elapsed, "seeds": seeds,
+            "pool": len(pool)}, found[:limit]
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="세 갈래 횡단 질의 (+ 자동 계측)")
     parser.add_argument("query")
@@ -137,6 +178,8 @@ def main(argv: list[str]) -> int:
     qmd_meta, qmd_rows = leg_qmd(args.query, args.kb, args.n)
     morph_meta, morph_rows, needles = leg_morph(args.query, args.kb, args.n, kbs)
     literal_meta, literal_lines = leg_literal(args.query, args.kb, args.n, kbs)
+    scoped_meta, scoped_paths = leg_scoped_vector(
+        args.query, args.kb, args.n, morph_rows, kbs)
 
     if qmd_rows:
         print(f"── qmd ({qmd_meta['hits']}건) ──")
@@ -147,13 +190,20 @@ def main(argv: list[str]) -> int:
     if morph_rows:
         print(f"── 형태소 ({morph_meta['hits']}건) ──")
         ksearch.render(morph_rows, needles)
+    if scoped_paths:
+        print(f"── 벡터[스코프] ({scoped_meta['hits']}건 · 씨앗 "
+              f"{', '.join(Path(s).stem for s in scoped_meta['seeds'])}) ──")
+        for path in scoped_paths:
+            print(f"  {path}")
+        print()
     if literal_lines:
         print(f"── 리터럴 ({literal_meta['hits']}건) ──")
         for line in literal_lines:
             print(f"  {line[:160]}")
         print()
 
-    legs = {"qmd": qmd_meta, "morph": morph_meta, "literal": literal_meta}
+    legs = {"qmd": qmd_meta, "morph": morph_meta, "scoped": scoped_meta,
+            "literal": literal_meta}
     executed = [meta for meta in legs.values() if "hits" in meta]
     miss = bool(executed) and all(meta["hits"] == 0 for meta in executed)
 
