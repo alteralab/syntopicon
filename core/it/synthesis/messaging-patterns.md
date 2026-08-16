@@ -56,6 +56,15 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
   패턴 Message Broker
 - [메시지 변환 패턴](../inbox/message-transformation-patterns.md) — *Message Translator*의 장.
   Envelope Wrapper·Content Enricher·Content Filter·Claim Check·Normalizer·Canonical Data Model
+- [메시징 엔드포인트 패턴](../inbox/messaging-endpoint-patterns.md) — *Message Endpoint*의 장,
+  앞쪽. 소비자 패턴을 양자택일의 짝으로 세운 서두와 송수신 양쪽에 걸리는 셋 — Messaging Gateway·
+  Messaging Mapper·Transactional Client
+- [메시지 소비자 패턴](../inbox/message-consumer-patterns.md) — 같은 장, 받는 쪽. Polling
+  Consumer·Event-Driven Consumer·Competing Consumers·Message Dispatcher·Selective Consumer·
+  Durable Subscriber·Service Activator
+- [시스템 관리 패턴](../inbox/system-management-patterns.md) — 뿌리를 갖지 않는 장. 흐름을 만드는
+  대신 들여다보는 여덟 — Control Bus·Detour·Wire Tap·Message History·Message Store·Smart Proxy·
+  Test Message·Channel Purger
 
 ## 여섯 뿌리와 그 가지
 
@@ -73,8 +82,8 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
 | *Message Endpoint* | 애플리케이션이 어떻게 붙는가 — 메시징 시스템의 클라이언트 | 10장 Messaging Endpoints |
 
 여기에 뿌리를 갖지 않는 한 장이 더 있다 — 11장 System Management. 흐름을 만드는 패턴이 아니라
-흐름을 들여다보는 패턴들(*Control Bus*·*Wire Tap*·*Message History*·*Message Store*·
-*Smart Proxy*·*Test Message*)이 거기 모인다.
+흐름을 들여다보는 패턴들(*Control Bus*·*Detour*·*Wire Tap*·*Message History*·*Message Store*·
+*Smart Proxy*·*Test Message*·*Channel Purger*)이 거기 모인다.
 
 ## 이 KB가 이미 쓰고 있던 이름들
 
@@ -86,7 +95,9 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:55:00Z" }
 - [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 처리 못 한
   레코드를 어디에 두는가와 그 대가
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 중복을 수신 쪽에서
-  흡수하는 쪽
+  흡수하는 쪽. *Idempotent Receiver*의 원전 층이 여기 합류했다
+- [데이터 계보 추적 패턴](../concepts/data-lineage-tracking-patterns.md) — 레코드가 자기 경로를
+  들고 다니는 배치. *Message History*의 원전 층이 여기 합류했다
 - [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 채널을 지워지는 큐가
   아니라 남는 로그로 구현했을 때 달라지는 것
 - [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) — 병렬 처리가 순서를 깨뜨린
