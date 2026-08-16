@@ -43,6 +43,42 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
 - [비교 평가의 난점](../concepts/comparative-evaluation-challenges.md) — 확장성, 표준화,
   절대 성능의 부재, 그래도 남는 이점
 
+## 평가 기준
+
+- [평가 주도 개발](../concepts/evaluation-driven-development.md) — 만들기 전에 기준을 정한다,
+  그리고 기준을 나누는 네 갈래
+- [도메인 특화 역량 평가](../concepts/domain-specific-capability-evaluation.md) — 벤치마크와
+  객관식, 그리고 객관식이 분류만 잰다는 한계
+- [생성 역량 평가](../concepts/generation-capability-evaluation.md) — NLG에서 온 유창성·일관성·
+  충실성과 그것을 대신한 새 문제들
+- [사실 일관성](../concepts/factual-consistency.md) — 지역과 전역, 자기 검증과 지식 증강 검증,
+  텍스트 함의와 TruthfulQA
+- [AI 안전성 평가](../concepts/ai-safety-evaluation.md) — 해악의 여섯 범주, 특화 독성 탐지 모델과
+  독성 벤치마크
+- [지시 따르기 역량](../concepts/instruction-following-capability.md) — IFEval과 INFOBench,
+  그리고 롤플레잉
+- [비용과 지연 평가](../concepts/cost-and-latency-criteria.md) — 파레토 최적화, 지연 지표,
+  토큰 과금과 컴퓨트 비용
+
+## 모델 선택
+
+- [모델 선택 워크플로](../concepts/model-selection-workflow.md) — 하드 속성과 소프트 속성,
+  걸러 내기에서 모니터링까지 네 단계
+- [오픈 소스 모델과 라이선스](../concepts/open-source-models-and-licenses.md) — 오픈 웨이트와
+  오픈 모델, 반드시 물어야 할 세 질문
+- [모델 API와 자체 호스팅](../concepts/model-api-versus-self-hosting.md) — 프라이버시·계보·성능·
+  기능·비용·통제·온디바이스라는 일곱 축
+- [공개 벤치마크와 리더보드](../concepts/public-benchmarks-and-leaderboards.md) — 벤치마크 선택과
+  집계, 상관, 그리고 리더보드로 알 수 없는 것
+- [데이터 오염](../concepts/data-contamination.md) — 벤치마크 점수가 실력이 아니라 기억일 때
+
+## 평가 파이프라인
+
+- [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 구성 요소별 평가, 턴과 과제,
+  평가 지침과 비즈니스 지표
+- [평가 방법과 데이터](../concepts/evaluation-methods-and-data.md) — 방법 고르기와 데이터 슬라이싱,
+  평가 집합의 크기, 그리고 파이프라인 자신의 평가
+
 ## 다른 축에서 여기로 이어지는 자리
 
 - [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 1장이 평가를 스택의
@@ -51,3 +87,4 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
   임베딩과 그 품질 측정(MTEB)
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 검증기와 보상 모델이 출력 선택에
   쓰이는 쪽
+- [구조화 출력](../concepts/structured-outputs.md) — 지시 따르기 역량이 형식으로 나타나는 쪽
