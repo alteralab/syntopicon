@@ -29,6 +29,9 @@ ingest = [
     # PDF 텍스트 레이어 판정·구간 추출(스냅샷 판정 + 필터 차단 우회 — 원장 2026-08-16).
     # 신생(2026-02)이라 == 핀. 사멸 시 보조 경로(판정·우회)만 죽고 본선 무손.
     "pdf-inspector==1.14.2",
+    # medium_fetch의 CDP 세션(라이브 Chrome) — Cloudflare가 비브라우저 TLS를 막아
+    # 브라우저 경유가 본선(2026-08-16 실측). 성숙 라이브러리지만 그룹 관례대로 == 핀.
+    "websocket-client==1.9.0",
 ]
 
 [tool.pytest.ini_options]
