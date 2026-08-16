@@ -56,3 +56,5 @@ generated: { by: "claude-fable-5", at: "2026-08-17T04:00:00Z" }
 - [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — 정보의 실패를 맡는 대안
 - [도메인 특화 모델](../concepts/domain-specific-models.md) — 범용 대 특화 논쟁이 파인 튜닝 결정에
   얹히는 자리
+- [데이터셋 엔지니어링이란](../concepts/dataset-engineering-defined.md) — 파인 튜닝 데이터의 형식과
+  수량이 넘어가는 축
