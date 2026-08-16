@@ -3,7 +3,6 @@ type: concept
 title: 복합 라우팅 패턴
 description: "단순 라우터를 조합해 만드는 넷과 그 위의 아키텍처 하나 — 쪼개고·라우팅하고·다시 모아 밖에서는 필터 하나로 보이는 Composed Message Processor, 같은 메시지를 뿌리고 응답을 모으는 Scatter-Gather의 두 변종(분배형·경매형), 순차 라우팅에서 다섯 대안을 기각하고 경로를 메시지에 붙이는 Routing Slip과 그 두 한계, 중간 결과로 다음 단계를 정하는 Process Manager와 프로세스 정의·인스턴스·상관, 그리고 통합 스파게티를 허브 앤 스포크로 접는 Message Broker와 위버브로커를 피하는 브로커 계층"
 generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---

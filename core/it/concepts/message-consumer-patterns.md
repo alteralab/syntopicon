@@ -3,7 +3,6 @@ type: concept
 title: 메시지 소비자 패턴
 description: "메시지를 받는 쪽의 여섯 패턴과 그 짝 구조 — 애플리케이션이 준비됐을 때 가지러 가는 Polling Consumer와 배달받는 Event-Driven Consumer, 한 채널에 소비자를 여럿 두어 동시 처리량을 늘리는 Competing Consumers와 그것이 트랜잭션 클라이언트를 망가뜨리는 자리, 짝짓기를 애플리케이션이 직접 하는 Message Dispatcher와 그것이 Reactor 패턴의 메시징판이라는 계보, 선택 값으로 자기 몫만 고르는 Selective Consumer와 그것이 Message Filter·Content-Based Router와 갈리는 세 지점, 연결이 끊긴 동안의 메시지를 잃지 않는 Durable Subscriber와 구독의 셋째 상태 inactive, 그리고 같은 서비스를 동기·비동기 양쪽으로 노출하는 Service Activator"
 generated: { by: "claude-opus-5", at: "2026-08-17T03:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---

@@ -3,7 +3,6 @@ type: concept
 title: 패턴과 표준
 description: "패턴의 구현 전략이 표준으로 굳을 때 패턴에 무슨 일이 일어나는가에 대한 저자 판단 — 패턴은 강화되되 거의 변하지 않고 구현 전략만 빠르게 진화한다는 명제, 표준화가 패턴을 대체하는 것이 아니라 나이테처럼 넓혀 준다는 논증, 같은 패턴이 애플리케이션·서버·컨테이너 층에 재귀적으로 존재한다는 관찰, 표준이 패턴의 적용 층을 올려 준다는 전망, 표준을 패턴의 목록으로 읽는 독법, 그리고 관용구가 아니라 패턴이 중요하며 미성숙한 표준은 무시해도 된다는 맺음"
 generated: { by: "claude-opus-5", at: "2026-08-16T12:30:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -100,7 +99,7 @@ sources:
   p.626).[^hohpe2004]
   - 이 관찰은 13장의 사례가 실물로 확인한 것이기도 하다 — 그 장의 요약은 패턴들이 서드파티
     제품·레거시 컴포넌트·메시징 시스템 안에 **이미 존재하고 있었다**고 맺는다
-    ([패턴을 실제로 적용할 때](pattern-application-in-practice.md)).
+    ([패턴을 실제로 적용할 때](../concepts/pattern-application-in-practice.md)).
   - 그래서 "이 시스템은 파이프와 필터를 쓰는가"라는 질문은 층을 지정하지 않으면 답이 없다. 카탈로그가
     말하는 아키텍처 스타일은 배타적 선택이 아니라 **어느 층에서 보느냐의 문제**다.
 
@@ -215,7 +214,7 @@ sources:
   타입을 위한 *Datatype Channel*(111)과 아주 비슷하다. 밑에 깔린 컨테이너 구현에 따라 컨테이너는
   **캡슐화와 내장된 협업 의미론이 더해진 *Shared Database*(47) 통합 스타일의 관점**에서 볼 수도
   있다; 컨테이너는 별개의 서비스들이 쓰는 공유 데이터 저장소다** (14장, p.635).[^hohpe2004]
-  - 마지막 판정이 흥미롭다. [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md)이
+  - 마지막 판정이 흥미롭다. [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md)이
     기각한 공유 데이터베이스가, 캡슐화가 붙으면 프로세스 표준의 내부 기제로 되돌아온다.
 - **JBI** — **[JSR-207의 프로세스 컴포넌트를 호스팅할] 그 머신은 자기 형식과 프로토콜 동작을 JBI를
   통해 노출해 통합 환경과 올바로 통합되도록 보장하기 위해 *Message Translator*(85)·
@@ -318,11 +317,11 @@ sources:
 ## 이어지는 페이지
 
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
-- [패턴을 실제로 적용할 때](pattern-application-in-practice.md) — 같은 책의 사례 장. 패턴을 실물
+- [패턴을 실제로 적용할 때](../concepts/pattern-application-in-practice.md) — 같은 책의 사례 장. 패턴을 실물
   시스템에 댈 때의 판단들과 그 한계
 - [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 패턴이라는 형식 자체. 이 장의
   명제(표준화되어도 패턴은 시들지 않는다)가 그 페이지의 수명 논증과 만나는 자리
-- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 기각된 *Shared
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 기각된 *Shared
   Database*가 프로세스 표준의 내부 기제로 되돌아오는 대조
 - [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) — *Resequencer*가 규격의
   순번 메커니즘으로 서는 자리

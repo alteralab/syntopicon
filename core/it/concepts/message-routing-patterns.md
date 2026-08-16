@@ -3,7 +3,6 @@ type: concept
 title: 메시지 라우팅 패턴
 description: "목적지를 누가 어떻게 정하는가를 네 개의 라우터로 가른 것 — 열두 패턴을 단순·복합·아키텍처 셋으로 묶은 저자들의 분류와 소비·발행 메시지 수로 배열한 표, 메시지 내용으로 목적지를 고르는 Content-Based Router와 예측 라우팅 대 반응 필터링의 맞교환, 원치 않는 메시지를 버리는 Message Filter와 그것이 Selective Consumer와 갈리는 지점, 목적지가 제어 채널로 스스로를 알리는 Dynamic Router와 규칙 충돌 세 전략, 그리고 메시지마다 수신자 목록을 정하는 Recipient List와 하나 받고 여럿 보내기를 원자적으로 만드는 세 방법"
 generated: { by: "claude-opus-5", at: "2026-08-16T22:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -49,7 +48,7 @@ sources:
 - 이 페이지가 담는 것은 첫째 무리 중 **메시지의 개수를 바꾸지 않는 넷**이다. 개수와 순서를 바꾸는
   셋(*Splitter*·*Aggregator*·*Resequencer*)은
   [분할·집계·재정렬 패턴](splitter-aggregator-resequencer-patterns.md)에, 둘째·셋째 무리는
-  [복합 라우팅 패턴](composed-routing-patterns.md)에 있다.
+  [복합 라우팅 패턴](../concepts/composed-routing-patterns.md)에 있다.
 - 무리를 가르는 축이 하나 더 있다 — ***Composed Message Processor*(294)와 *Scatter-Gather*(297)는
   단일 메시지를 여러 참여자에게 동시에 라우팅하고 응답을 단일 메시지로 재조립한다. 우리는 이
   패턴들이 메시지의 *병렬 라우팅(parallel routing)* 을 관리한다고 말할 수 있다. 두 개의 추가
@@ -469,7 +468,7 @@ p.227).[^hohpe2004]
 
 - [분할·집계·재정렬 패턴](splitter-aggregator-resequencer-patterns.md) — 같은 무리의 나머지 셋.
   메시지의 개수(*Splitter*·*Aggregator*)와 순서(*Resequencer*)를 바꾸는 쪽
-- [복합 라우팅 패턴](composed-routing-patterns.md) — 이 일곱을 조합해 만드는 넷(*Composed Message
+- [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — 이 일곱을 조합해 만드는 넷(*Composed Message
   Processor*·*Scatter-Gather*·*Routing Slip*·*Process Manager*)과 아키텍처 패턴 *Message Broker*
 - [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md) — 이 장이 자라 나온 뿌리(*Message
   Router*)가 정의된 자리

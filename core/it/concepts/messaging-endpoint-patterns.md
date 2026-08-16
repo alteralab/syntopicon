@@ -3,7 +3,6 @@ type: concept
 title: 메시징 엔드포인트 패턴
 description: "애플리케이션이 메시징 시스템에 붙는 자리의 설계 — 소비 속도를 스스로 조절하는 스로틀링이 소비자 패턴 전체를 관통하는 주제라는 것, 소비자 패턴이 양자택일의 짝으로 오고 한 엔드포인트가 여러 패턴을 겹쳐 구현한다는 조합 원리, 메시징 코드를 도메인 메서드 뒤로 감추는 Messaging Gateway와 그것을 블로킹으로 만들 것인가 콜백으로 만들 것인가, 도메인 객체와 메시지 사이의 매핑 코드를 양쪽 다 모르는 제3의 클래스로 빼는 Messaging Mapper, 그리고 클라이언트가 메시징 시스템의 트랜잭션 경계를 직접 긋는 Transactional Client와 그것이 네 시나리오에서 요구하는 트랜잭션의 종류"
 generated: { by: "claude-opus-5", at: "2026-08-17T02:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -165,7 +164,7 @@ p.463).[^hohpe2004]
   p.466).[^hohpe2004]
   - 오늘날 카프카 컨슈머 그룹의 리밸런싱·`enable.auto.commit=false`·수동 커밋 조합이 서 있는
     자리가 여기다. 카프카 쪽 서술은 [카프카 트랜잭션](../concepts/kafka-transactions.md)과
-    [카프카 컨슈머](../concepts/kafka-consumers.md)에 있다.
+    [카프카 컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md)에 있다.
 
 ## 한 엔드포인트가 여러 패턴을 겹쳐 입는다
 
@@ -270,7 +269,7 @@ p.463).[^hohpe2004]
 - 그 편의의 대가가 명시된다 — **ACT를 지원하는 것은 애플리케이션에 아주 편리한 기능이지만,
   *Messaging Gateway*가 어떤 객체에 대한 참조를 유지하는데 기대한 응답 메시지가 결코 도착하지
   않으면 메모리 누수의 위험을 도입한다** (10장, p.472).[^hohpe2004]
-  - 이 위험이 [메시지 구성 패턴](message-construction-patterns.md)의 *Message Expiration*이
+  - 이 위험이 [메시지 구성 패턴](../concepts/message-construction-patterns.md)의 *Message Expiration*이
     필요해지는 자리다. 응답이 영원히 안 오는 경우를 시간으로 끊지 않으면 게이트웨이의
     상관 표가 무한히 자란다.
 
@@ -508,7 +507,7 @@ p.463).[^hohpe2004]
   격리되어야 한다** (10장, pp.484–485).[^hohpe2004]
   - 여기서 원자성의 근거가 특이하다 — 메시지가 원자적인 이유는 트랜잭션 기제 때문이 아니라
     **메시지가 정의상 나눌 수 없는 단위이기 때문**이다. 영속성만이 채널의 품질(*Guaranteed
-    Delivery*)에 달려 있다. [메시징 채널 패턴](messaging-channel-patterns.md)의
+    Delivery*)에 달려 있다. [메시징 채널 패턴](../concepts/messaging-channel-patterns.md)의
     *Guaranteed Delivery*가 여기서 ACID의 D로 다시 나타난다.
 
 ### 외부 트랜잭션이 필요해지는 네 시나리오
@@ -562,7 +561,7 @@ p.463).[^hohpe2004]
   - 이것이 오늘날 "수동 커밋"·"처리 후 오프셋 커밋"이라 불리는 것의 원전 서술이다. 마지막 문장이
     적어도 한 번(at-least-once) 대 최대 한 번(at-most-once)의 경계를 그대로 말한다 — 커밋을
     처리 뒤로 미루면 중복이, 앞으로 당기면 유실이 생긴다. 카프카 쪽 실물은
-    [카프카 컨슈머](../concepts/kafka-consumers.md)에 있다.
+    [오프셋 커밋 전략](../concepts/kafka-offset-commit-strategies.md)에 있다.
 
 ### 시나리오마다 트랜잭션의 종류가 달라진다
 
@@ -635,11 +634,11 @@ p.463).[^hohpe2004]
 
 - [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md) — 이 장이 자라 나온 뿌리
   (*Message Endpoint*)가 정의된 자리
-- [메시징 채널 패턴](messaging-channel-patterns.md) — 엔드포인트가 붙는 채널 쪽의 설계 결정.
+- [메시징 채널 패턴](../concepts/messaging-channel-patterns.md) — 엔드포인트가 붙는 채널 쪽의 설계 결정.
   *Guaranteed Delivery*가 이 페이지의 ACID 중 D로 다시 나타난다
-- [메시지 구성 패턴](message-construction-patterns.md) — 게이트웨이가 감추는 *Request-Reply*와
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — 게이트웨이가 감추는 *Request-Reply*와
   ACT의 메모리 누수를 끊는 *Message Expiration*이 있는 자리
-- [메시지 변환 패턴](message-transformation-patterns.md) — *Messaging Mapper*와 짝이 되는
+- [메시지 변환 패턴](../concepts/message-transformation-patterns.md) — *Messaging Mapper*와 짝이 되는
   *Message Translator*·*Canonical Data Model*이 정의된 자리
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — 트랜잭션이 순서를 지켜 주지
   않는다는 이 페이지의 마지막 진술이 이어지는 자리

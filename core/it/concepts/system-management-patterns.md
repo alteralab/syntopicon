@@ -3,7 +3,6 @@ type: concept
 title: 시스템 관리 패턴
 description: "느슨하게 결합된 메시징 해법을 운영하고 디버깅하는 여덟 패턴 — 아키텍트의 꿈이 개발자의 악몽이 되는 이유와 시스템 관리가 업무 활동 모니터링과 갈리는 선, 애플리케이션 흐름과 같은 기제를 쓰되 채널을 분리하는 Control Bus와 그것이 나르는 여섯 종류의 메시지, 검증·로깅 단계를 중앙에서 켜고 끄는 Detour, 흐름을 바꾸지 않고 메시지를 복제해 관측하는 Wire Tap과 그 대가, 메시지에 자기가 지나온 컴포넌트 목록을 붙이는 Message History와 그것이 중앙 데이터베이스 대신 메시지 자신을 쓰는 이유, 중앙에 메시지를 남기는 Message Store, 응답 주소를 바꿔치기해 요청-응답 서비스를 계측하는 Smart Proxy, 능동 모니터링으로 컴포넌트의 건강을 확인하는 Test Message, 그리고 채널에 남은 메시지를 치우는 Channel Purger"
 generated: { by: "claude-opus-5", at: "2026-08-17T04:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -53,7 +52,7 @@ sources:
   developer's nightmare)" 증상이라 부른다. 느슨한 결합과 간접의 아키텍처 원리는 시스템이 서로에
   대해 세우는 가정을 줄이고 따라서 유연성을 제공한다. 그러나 메시지 생산자가 그 메시지의 소비자가
   누구인지 알지 못하는 시스템을 테스트하는 것은 도전적일 수 있다** (11장, p.537).[^hohpe2004]
-  - 이것이 [통합의 도전과 느슨한 결합](integration-challenges-and-loose-coupling.md)에서 결합을
+  - 이것이 [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md)에서 결합을
     "두 당사자가 서로에 대해 세우는 가정의 수"로 정의한 것의 청구서다. **가정을 줄일수록 관측 가능성이
     줄어든다** — 이 장은 그 손실을 되사는 값이다.
 - 시간의 축도 문제를 더한다 — **거기에 메시징의 비동기적·시간적 측면을 더하면 상황은 더 복잡해진다.
@@ -209,7 +208,7 @@ sources:
   메시지를 받는다. 아웃바운드 데이터 인터페이스는 처리된 메시지를 아웃바운드 채널로 보낸다. 제어
   인터페이스는 *Control Bus*로부터, 그리고 *Control Bus*로 제어 메시지를 보내고 받는다** (11장,
   p.543).[^hohpe2004]
-  - 이 셋 중 앞의 둘이 [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md)의
+  - 이 셋 중 앞의 둘이 [메시징의 여섯 뿌리 패턴](../concepts/messaging-root-patterns.md)의
     *Pipes and Filters*가 정의한 것이고, 셋째가 이 장이 더한 것이다.
 
 ## Detour — 중간 단계를 켜고 끈다
@@ -628,7 +627,7 @@ sources:
   잠재적 트랜잭션성에도 불구하고 메시지가 그 채널에 끼여 앞서 서술한 증상을 일으킨다** (11장,
   pp.573–574).[^hohpe2004]
   - **트랜잭션이 지키는 것은 원자성이지 로직의 정확성이 아니다.** 이 진술이
-    [메시징 엔드포인트 패턴](messaging-endpoint-patterns.md)의 *Transactional Client*가
+    [메시징 엔드포인트 패턴](../concepts/messaging-endpoint-patterns.md)의 *Transactional Client*가
     무엇을 보장하고 무엇을 보장하지 않는지의 경계를 밖에서 다시 그어 준다.
 - 해법 — ***Channel Purger*를 써서 채널에서 원치 않는 메시지를 제거하라** (11장,
   p.574).[^hohpe2004]
@@ -646,14 +645,14 @@ sources:
 
 ## 이어지는 페이지
 
-- [메시징 엔드포인트 패턴](messaging-endpoint-patterns.md) — *Transactional Client*가 무엇을
+- [메시징 엔드포인트 패턴](../concepts/messaging-endpoint-patterns.md) — *Transactional Client*가 무엇을
   보장하는가. 이 페이지의 마지막 절이 그 경계를 밖에서 다시 긋는다
-- [메시지 소비자 패턴](message-consumer-patterns.md) — 같은 장 계열의 소비자 쪽
-- [통합의 도전과 느슨한 결합](integration-challenges-and-loose-coupling.md) — 이 장이 청구서를
+- [메시지 소비자 패턴](../concepts/message-consumer-patterns.md) — 같은 장 계열의 소비자 쪽
+- [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) — 이 장이 청구서를
   받는 그 이점이 정의된 자리
-- [메시지 라우팅 패턴](message-routing-patterns.md) — *Detour*·*Wire Tap*이 재사용하는
+- [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — *Detour*·*Wire Tap*이 재사용하는
   *Content-Based Router*·*Recipient List*
-- [메시지 구성 패턴](message-construction-patterns.md) — *Smart Proxy*가 바꿔치기하는
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Smart Proxy*가 바꿔치기하는
   *Return Address*·*Correlation Identifier*가 정의된 자리
 - [데이터 계보 추적 패턴](../concepts/data-lineage-tracking-patterns.md) — *Message History*가
   데이터 파이프라인 쪽에서 같은 문제로 서는 자리

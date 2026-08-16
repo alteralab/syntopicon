@@ -30,41 +30,41 @@ generated: { by: "claude-opus-5", at: "2026-08-16T13:30:00Z" }
 
 ## 먼저 읽는 순서
 
-- [애플리케이션 통합의 네 가지 스타일](../inbox/application-integration-styles.md) — 카탈로그
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 카탈로그
   앞에 놓인 선택. 통합 여부부터 묻는 첫 판단, 여덟 기준, 파일 전송·공유 데이터베이스·원격 프로시저
   호출·메시징이 앞의 것의 결핍을 하나씩 메우며 정교해지는 계승 관계, 그리고 메시징을 고른 근거
-- [통합의 도전과 느슨한 결합](../inbox/integration-challenges-and-loose-coupling.md) —
+- [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) —
   카탈로그의 잣대. 결합을 "두 당사자가 서로에 대해 세우는 가정의 수"로 정의하고, 열 줄짜리 TCP/IP
   통합이 드러내는 네 가정(플랫폼·위치·시간·데이터 형식)을 채널·큐잉·메시지·변환기가 하나씩 떼는
   경로. 이후 모든 패턴이 이 경로 위의 장치다
-- [메시징의 여섯 뿌리 패턴](../inbox/messaging-root-patterns.md) — 카탈로그의 어휘. 나머지
+- [메시징의 여섯 뿌리 패턴](../concepts/messaging-root-patterns.md) — 카탈로그의 어휘. 나머지
   패턴은 전부 이 여섯 중 하나에서 자란다
 
 ## 뿌리에서 자란 장들
 
-- [메시징 채널 패턴](../inbox/messaging-channel-patterns.md) — *Message Channel*의 장. 채널
+- [메시징 채널 패턴](../concepts/messaging-channel-patterns.md) — *Message Channel*의 장. 채널
   집합이 배포 시점에 고정되는 성질과 여섯 설계 결정, Datatype Channel·Guaranteed Delivery·
   Channel Adapter·Messaging Bridge·Message Bus
-- [메시지 구성 패턴](../inbox/message-construction-patterns.md) — *Message*의 장. 발신자의
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Message*의 장. 발신자의
   의도로 갈리는 세 메시지, Request-Reply와 그 짝(Return Address·Correlation Identifier),
   Message Sequence·Message Expiration·Format Indicator
-- [메시지 라우팅 패턴](../inbox/message-routing-patterns.md) — *Message Router*의 장, 앞쪽.
+- [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — *Message Router*의 장, 앞쪽.
   열두 패턴의 분류와 개수를 바꾸지 않는 라우터 넷 — Content-Based Router·Message Filter·
   Dynamic Router·Recipient List
-- [분할·집계·재정렬 패턴](../inbox/splitter-aggregator-resequencer-patterns.md) — 같은 장,
+- [분할·집계·재정렬 패턴](../concepts/splitter-aggregator-resequencer-patterns.md) — 같은 장,
   개수와 순서를 바꾸는 셋. Splitter·Aggregator·Resequencer. 이 KB가 어휘를 가장 많이 빌려 쓴 자리
-- [복합 라우팅 패턴](../inbox/composed-routing-patterns.md) — 같은 장, 뒤쪽. 단순 라우터를 조합한
+- [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — 같은 장, 뒤쪽. 단순 라우터를 조합한
   넷(Composed Message Processor·Scatter-Gather·Routing Slip·Process Manager)과 그 위의 아키텍처
   패턴 Message Broker
-- [메시지 변환 패턴](../inbox/message-transformation-patterns.md) — *Message Translator*의 장.
+- [메시지 변환 패턴](../concepts/message-transformation-patterns.md) — *Message Translator*의 장.
   Envelope Wrapper·Content Enricher·Content Filter·Claim Check·Normalizer·Canonical Data Model
-- [메시징 엔드포인트 패턴](../inbox/messaging-endpoint-patterns.md) — *Message Endpoint*의 장,
+- [메시징 엔드포인트 패턴](../concepts/messaging-endpoint-patterns.md) — *Message Endpoint*의 장,
   앞쪽. 소비자 패턴을 양자택일의 짝으로 세운 서두와 송수신 양쪽에 걸리는 셋 — Messaging Gateway·
   Messaging Mapper·Transactional Client
-- [메시지 소비자 패턴](../inbox/message-consumer-patterns.md) — 같은 장, 받는 쪽. Polling
+- [메시지 소비자 패턴](../concepts/message-consumer-patterns.md) — 같은 장, 받는 쪽. Polling
   Consumer·Event-Driven Consumer·Competing Consumers·Message Dispatcher·Selective Consumer·
   Durable Subscriber·Service Activator
-- [시스템 관리 패턴](../inbox/system-management-patterns.md) — 뿌리를 갖지 않는 장. 흐름을 만드는
+- [시스템 관리 패턴](../concepts/system-management-patterns.md) — 뿌리를 갖지 않는 장. 흐름을 만드는
   대신 들여다보는 여덟 — Control Bus·Detour·Wire Tap·Message History·Message Store·Smart Proxy·
   Test Message·Channel Purger
 
@@ -73,12 +73,12 @@ generated: { by: "claude-opus-5", at: "2026-08-16T13:30:00Z" }
 카탈로그를 닫는 두 장은 패턴을 정의하지 않는다. 하나는 패턴을 **쓰는** 이야기이고 다른 하나는
 패턴이라는 형식이 **어디로 가는가**의 이야기다. 둘 다 저자들이 아니라 초청 저자가 썼다.
 
-- [패턴을 실제로 적용할 때](../inbox/pattern-application-in-practice.md) — 13장(Jonathan Simon).
+- [패턴을 실제로 적용할 때](../concepts/pattern-application-in-practice.md) — 13장(Jonathan Simon).
   실제 채권 가격 산정 시스템에 카탈로그를 대면서 내려진 판단들 — 통합 스타일을 요구사항으로 하나씩
   기각하는 절차, 기술이 아닌 힘이 패턴을 기각하는 자리, 패턴으로 패턴을 구현하고 패턴의 맥락을
   바꿔 쓰는 조합, 채널 세밀도와 로직의 위치, 방향마다 채널 종류를 따로 고르는 설계, 데드레터 큐가
   서버를 무너뜨린 사고, 그리고 천 개의 패턴으로도 못 고치는 것. **도메인 서사는 걸렀다**
-- [패턴과 표준](../inbox/patterns-and-standards.md) — 14장(Sean Neville). 패턴의 구현 전략이
+- [패턴과 표준](../concepts/patterns-and-standards.md) — 14장(Sean Neville). 패턴의 구현 전략이
   표준으로 굳을 때 패턴에 무슨 일이 일어나는가 — 나이테 논증, 같은 패턴이 여러 층에 재귀적으로
   있다는 관찰, 표준을 패턴의 목록으로 읽는 독법, 네 가지 전달 보장, 롤백이 아니라 보상으로 푸는
   오래 사는 프로세스. **2003년 시점의 전망이라는 장르를 명시했고 규격의 흥망은 채점하지 않는다**
@@ -86,7 +86,7 @@ generated: { by: "claude-opus-5", at: "2026-08-16T13:30:00Z" }
 ## 여섯 뿌리와 그 가지
 
 저자들이 **뿌리 패턴(root patterns)** 이라 부르는 여섯이 있고, 각 뿌리마다 장이 하나씩 붙는다.
-정의는 [메시징의 여섯 뿌리 패턴](../inbox/messaging-root-patterns.md)에 있고, 여기서는 무엇이
+정의는 [메시징의 여섯 뿌리 패턴](../concepts/messaging-root-patterns.md)에 있고, 여기서는 무엇이
 어디로 자라는지의 골격만 둔다.
 
 | 뿌리 | 무엇을 정하는가 | 자라는 장 |

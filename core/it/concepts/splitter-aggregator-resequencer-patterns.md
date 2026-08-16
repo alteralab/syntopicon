@@ -3,7 +3,6 @@ type: concept
 title: 분할·집계·재정렬 패턴
 description: "메시지의 개수와 순서를 바꾸는 세 라우터 — 복합 메시지를 자기 완결적인 자식 메시지로 쪼개는 Splitter와 그 두 갈래(반복·정적), 상관·완료 조건·집계 알고리즘 셋을 정해야 하는 상태 있는 Aggregator와 완료 조건 다섯 전략·집계 알고리즘 세 전략·닫힌 집합체의 정리 문제, 그리고 병렬 처리가 깨뜨린 순서를 버퍼에 모아 되돌리는 Resequencer와 연속 순번·버퍼 오버런 대책"
 generated: { by: "claude-opus-5", at: "2026-08-17T00:10:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -29,7 +28,7 @@ sources:
 
 ## 개수를 바꾸는 라우터들
 
-[메시지 라우팅 패턴](message-routing-patterns.md)의 넷은 전부 메시지 하나를 받아 **어느 채널로
+[메시지 라우팅 패턴](../concepts/message-routing-patterns.md)의 넷은 전부 메시지 하나를 받아 **어느 채널로
 보낼지**만 정했다. 이 페이지의 셋은 메시지의 **개수**(Splitter·Aggregator)나 **순서**(Resequencer)를
 바꾸고, 그중 둘은 그러기 위해 상태를 갖는다.
 
@@ -270,7 +269,7 @@ sources:
     않을 수 있다** (7장, p.274).[^hohpe2004]
 - 짝이 정해져 있다 — ***Aggregator*는 흔히 *Splitter*(259)나 *Recipient List*(249)와 짝지어져 복합
   패턴을 형성한다** (7장, p.274).[^hohpe2004] 그 복합 패턴이
-  [복합 라우팅 패턴](composed-routing-patterns.md)이다.
+  [복합 라우팅 패턴](../concepts/composed-routing-patterns.md)이다.
 - 예제 하나가 개념을 말한다 — **Aggregator를 누락 메시지 탐지기로 쓰기**(Joe Walnes의 사용례). 시스템이
   신뢰할 수 없는 컴포넌트 사슬을 통과하는데 **시스템 자체가 전형적으로 메시지를 소비한 뒤에
   실패하기 때문에 *Guaranteed Delivery*(122)를 써도 이 문제는 고쳐지지 않는다. 애플리케이션이
@@ -377,12 +376,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [메시지 라우팅 패턴](message-routing-patterns.md) — 같은 장의 앞쪽. 개수를 바꾸지 않는 라우터
+- [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — 같은 장의 앞쪽. 개수를 바꾸지 않는 라우터
   넷(Content-Based Router·Message Filter·Dynamic Router·Recipient List)
-- [복합 라우팅 패턴](composed-routing-patterns.md) — 이 셋을 조합해 만드는 것. *Splitter*와
+- [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — 이 셋을 조합해 만드는 것. *Splitter*와
   *Aggregator*를 한 필터로 묶은 *Composed Message Processor*, 브로드캐스트와 *Aggregator*를 묶은
   *Scatter-Gather*
-- [메시지 구성 패턴](message-construction-patterns.md) — *Correlation Identifier*·*Message
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Correlation Identifier*·*Message
   Sequence*·*Message Expiration*이 정의된 자리. 이 페이지의 상관·순번·정리가 전부 거기서 온다
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — *Resequencer*가 푸는 문제를
   현재형 데이터 파이프라인 쪽에서 예방으로 다시 세운 자리
@@ -395,7 +394,7 @@ sources:
 - [세션화 패턴](../concepts/sessionization-patterns.md) — 완료 조건이 비활동 간격으로 놓였을 때
 - [데이터 흐름 의존 패턴](../concepts/data-flow-dependency-patterns.md) — 쪼개기와 모으기가
   태스크 그래프 층에서 Parallel Split·Aligned Fan-In으로 사는 자리
-- [메시지 변환 패턴](message-transformation-patterns.md) — 정적 *Splitter*와 기능적으로 등가인
+- [메시지 변환 패턴](../concepts/message-transformation-patterns.md) — 정적 *Splitter*와 기능적으로 등가인
   *Content Filter* 집합이 정의된 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
 

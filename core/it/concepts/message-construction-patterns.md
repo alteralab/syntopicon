@@ -3,7 +3,6 @@ type: concept
 title: 메시지 구성 패턴
 description: "메시지를 만들 때 무엇을 정해야 하는가 — 발신자의 의도로 갈리는 세 메시지(호출을 담는 Command Message·데이터를 넘기는 Document Message·변화를 알리는 Event Message)와 문서와 이벤트를 가르는 축(내용이냐 시점이냐), 단방향 채널 둘로 양방향 대화를 만드는 Request-Reply와 요청자의 두 수신 방식(동기 블록·비동기 콜백), 응답 채널을 요청이 들고 가는 Return Address, 응답을 요청에 되맞추는 Correlation Identifier의 여섯 부분과 업무 객체 ID 변형·응답 사슬, 한 메시지에 안 들어가는 데이터를 세 식별 필드로 쪼개는 Message Sequence, 언제부터 무의미해지는지를 발신자가 적는 Message Expiration, 그리고 형식 변경을 같은 채널에서 견디게 하는 Format Indicator의 세 구현(버전 번호·외래 키·형식 문서)"
 generated: { by: "claude-opus-5", at: "2026-08-16T18:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -510,7 +509,7 @@ sources:
   헤더와 바디로 정의된 자리
 - [메시징 채널 패턴](messaging-channel-patterns.md) — 이 메시지들이 실릴 채널을 설계하는 쪽.
   *Datatype Channel*이 *Format Indicator*를 부르는 자리이기도 하다
-- [데드레터와 빠져나가는 레코드](dead-letter-and-dropped-records.md) — *Message Expiration*이
+- [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — *Message Expiration*이
   만료된 메시지를 보내는 그 채널
 - [발행/구독 메시징](publish-subscribe-messaging.md) — *Event Message*가 기본으로 타는 채널
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — *Request-Reply*의 SOAP·WSDL 판이

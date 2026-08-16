@@ -3,7 +3,6 @@ type: concept
 title: 패턴을 실제로 적용할 때
 description: "카탈로그를 실물 시스템에 대는 순간 드러나는 판단들 — 통합 스타일을 요구사항으로 하나씩 기각하는 절차, 수신자 수를 모를 때 원격 프로시저 호출이 무너지는 자리, 기술이 아닌 힘이 패턴을 기각하는 실물, 패턴으로 패턴을 구현하고 패턴의 맥락을 바꿔 쓰는 조합, 채널 세밀도가 플랫폼의 경제성에 달렸다는 것과 채널 수를 늘릴 유일한 이유가 로직의 위치라는 판정, 방향마다 채널 종류를 따로 고르는 설계, 유량을 줄이는 두 패턴이 데이터 무결성과 처리량으로 갈리는 축, 흐름을 제어하는 쪽이 병목이어야 한다는 규칙, 그리고 천 개의 패턴으로도 못 고치는 것"
 generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -65,7 +64,7 @@ sources:
 
 ## 통합 스타일을 요구사항으로 하나씩 기각한다
 
-[애플리케이션 통합의 네 가지 스타일](application-integration-styles.md)이 목록이라면, 여기서는 그
+[애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md)이 목록이라면, 여기서는 그
 목록이 실제로 어떻게 소진되는지가 보인다. **네 스타일을 하나씩 요구사항에 대 보고 기각하는
 절차**다.
 
@@ -189,7 +188,7 @@ sources:
   참조된다. 그러면 TIBCO 서버가 단일 메시지 흐름을 주제로 걸러 각 고유 주제를 단일 가상 채널로
   보낸다. 그 결과가 아주 가벼운 메시지 채널이다** (13장, p.610).[^hohpe2004]
   - **"채널이 비싸다"는 전제가 제품마다 다르다**는 것이 일반화다. 채널 집합이 배포 시점에
-    고정된다는 원전의 서술([메시징 채널 패턴](messaging-channel-patterns.md))은 채널이 관리자가
+    고정된다는 원전의 서술([메시징 채널 패턴](../concepts/messaging-channel-patterns.md))은 채널이 관리자가
     만드는 무거운 자원일 때의 이야기이고, 주제 이름으로 가상 채널이 생기는 구현에서는 같은 설계가
     다른 값을 갖는다. 오늘날 같은 축이 서는 자리는 토픽·파티션의 개수 한계다 —
     [토픽과 파티션](../concepts/topics-and-partitions.md).
@@ -220,7 +219,7 @@ sources:
   필터를 구현할 것인가 TIBCO에 내장된 채널 필터링을 활용할 것인가**다** (13장,
   p.611).[^hohpe2004]
   - 판단의 재구성이 요점이다. 겉으로는 "채널이 너무 많다"로 보이는 설계가 실제로는 **필터를
-    누가 구현하는가**의 결정이었다. [메시지 소비자 패턴](message-consumer-patterns.md)이
+    누가 구현하는가**의 결정이었다. [메시지 소비자 패턴](../concepts/message-consumer-patterns.md)이
     *Selective Consumer*와 *Message Dispatcher* 사이에서 반복하는 그 질문 — 메시징 시스템에
     맡길 것인가 직접 구현할 것인가 — 이 채널 층에서도 같은 모양으로 선다.
 - 채널을 재사용하면 무엇이 깨지는지도 명시된다 — **애널리틱스가 채권 가격을 수정하는 것은
@@ -304,7 +303,7 @@ sources:
   서버→클라이언트 통신은 발행-구독으로 구현될 것이다. 이 *Message Channel*(60) 조합을 쓰면
   시스템은 점대점 메시징을 쓰는 서버 컴포넌트와의 직접 통신과 발행-구독의 멀티캐스트 성질을
   **어느 쪽의 단점도 없이** 누린다** (13장, p.617).[^hohpe2004]
-  - 채널이 단방향이라는 원전의 성질([메시징 채널 패턴](messaging-channel-patterns.md)의
+  - 채널이 단방향이라는 원전의 성질([메시징 채널 패턴](../concepts/messaging-channel-patterns.md)의
     "채널은 단방향이다")이 여기서 **설계 자유도**로 바뀐다. 왕복 대화에 채널이 두 개 필요하다는
     사실은 제약처럼 보이지만, 그 둘이 같은 종류일 필요가 없다는 뜻이기도 하다.
 
@@ -380,7 +379,7 @@ sources:
   개시함으로써 이를 쉽게 구현할 수 있다. *Aggregator*(268)는 클라이언트가 처리할 갱신된 필드
   집합을 담은 *Document Message*(147)로 응답할 것이다** (13장, p.620).[^hohpe2004]
   - **일반화: 흐름 제어의 손잡이는 병목이 있는 쪽에 있어야 한다.** 소비자 패턴을 양자택일의 짝으로
-    세운 서두([메시징 엔드포인트 패턴](messaging-endpoint-patterns.md))가 말한 그 선택 —
+    세운 서두([메시징 엔드포인트 패턴](../concepts/messaging-endpoint-patterns.md))가 말한 그 선택 —
     폴링이냐 이벤트 구동이냐 — 이 여기서 성능 문제의 해법으로 다시 선다. 카프카에서 같은 손잡이가
     서는 자리는 [카프카 폴 루프](../concepts/kafka-consumer-poll-loop.md)다.
 
@@ -400,7 +399,7 @@ sources:
   만료된다** (13장, p.621).[^hohpe2004]
   - 데드레터 저장이 **오류 보관소이자 계기(instrument)** 라는 것이 이 사고의 교훈이다. 거기 쌓인
     것의 종류가 어느 층이 밀리고 있는지를 가리킨다. 그 서술의 자리는
-    [데드레터와 빠져나가는 레코드](dead-letter-and-dropped-records.md)다.
+    [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md)다.
 - 이번에도 후보를 하나씩 기각한다 (13장, p.621):[^hohpe2004]
   - ***Aggregator*(268)** — **시스템 설계가 클라이언트 애플리케이션이 시장 데이터 갱신 메시지를
     즉시 거래소로 전달하는 데 의존한다. 이는 시스템이 메시지를 모아 집계하기를 기다릴 수 없다는
@@ -449,15 +448,15 @@ sources:
 
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
 - [패턴과 표준](patterns-and-standards.md) — 같은 책의 맺음. 패턴이 표준으로 굳을 때 어떻게 되는가
-- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 이 장이 소거법으로
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 이 장이 소거법으로
   소진한 그 목록이 정의된 자리
-- [메시징 채널 패턴](messaging-channel-patterns.md) — 채널 설계의 여섯 결정과 채널의 단방향성
-- [메시지 소비자 패턴](message-consumer-patterns.md) — *Polling Consumer*·*Message Dispatcher*·
+- [메시징 채널 패턴](../concepts/messaging-channel-patterns.md) — 채널 설계의 여섯 결정과 채널의 단방향성
+- [메시지 소비자 패턴](../concepts/message-consumer-patterns.md) — *Polling Consumer*·*Message Dispatcher*·
   *Competing Consumers*가 정의된 자리
-- [메시지 라우팅 패턴](message-routing-patterns.md) — *Message Filter*·*Content-Based Router*의 정의
+- [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — *Message Filter*·*Content-Based Router*의 정의
 - [분할·집계·재정렬 패턴](splitter-aggregator-resequencer-patterns.md) — *Aggregator*의 완성
   전략들이 서술된 자리
-- [데드레터와 빠져나가는 레코드](dead-letter-and-dropped-records.md) — 이 장의 프로덕션 크래시가
+- [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 이 장의 프로덕션 크래시가
   합류한 자리
 - [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 패턴이라는 형식 자체를 다루는 쪽
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 회사 표준·조직 결정이 기술

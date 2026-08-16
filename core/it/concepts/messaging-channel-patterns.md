@@ -3,7 +3,6 @@ type: concept
 title: 메시징 채널 패턴
 description: "채널을 설계할 때 무엇을 정해야 하는가 — 채널 집합이 배포 시점에 고정되고 단방향으로 굳는 성질, 누가 채널을 정하는가의 반복적 답, 여섯 가지 설계 결정(일대일/일대다·데이터 타입·무효와 죽은 메시지·크래시 내성·비메시징 클라이언트·통신 백본), 한 채널에는 한 타입만 실으라는 Datatype Channel과 서비스 수준으로 채널을 가르는 Quality-of-Service Channel, 메시지를 디스크에 영속화하는 Guaranteed Delivery와 그것이 100% 보장이 아닌 이유, 애플리케이션의 세 계층(UI·업무 로직·데이터베이스)에 붙는 Channel Adapter와 그 한계, 메시징 시스템끼리 잇는 Messaging Bridge, 그리고 공통 데이터 모델·공통 명령 집합·공통 인프라 셋으로 이뤄지는 Message Bus"
 generated: { by: "claude-opus-5", at: "2026-08-16T18:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -91,7 +90,7 @@ Channel*(60)을 가져야 한다. 그냥 채널 몇 개를 때려 넣는 것으�
   p.100).[^hohpe2004]
 - 귀결 — **그래서 모든 실용적 목적에서 채널은 단방향이다. 그 결과 두 애플리케이션이 양방향 대화를
   하려면 각 방향에 하나씩 두 개의 채널이 필요하다** (4장, p.100).[^hohpe2004] 그 짝이
-  [메시지 구성 패턴](message-construction-patterns.md)의 *Request-Reply*다.
+  [메시지 구성 패턴](../concepts/message-construction-patterns.md)의 *Request-Reply*다.
 
 ## 방향마다 채널 종류를 따로 고를 수 있다
 
@@ -139,7 +138,7 @@ Channel*(60)을 가져야 한다. 그냥 채널 몇 개를 때려 넣는 것으�
   전달되는 것은 보장할 수 있지만 수신자가 그것으로 무엇을 할지 알 것임은 보장할 수 없다. 수신자는
   데이터의 타입과 의미에 대해 기대를 갖는다. 이 기대를 충족하지 못하는 메시지를 받으면 할 수 있는
   일이 별로 없다** (4장, p.101).[^hohpe2004] 그 자리가
-  [데드레터와 빠져나가는 레코드](dead-letter-and-dropped-records.md)다.
+  [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md)다.
 - **④ 크래시 내성(crash proof)** — **메시징 시스템이 크래시하거나 유지보수를 위해 내려가면 그
   메시지에 무슨 일이 벌어지는가? 다시 올라와 돌기 시작하면 메시지가 여전히 채널에 있을 것인가?
   기본적으로 아니다. 채널은 메시지를 메모리에 저장한다. 그러나 *Guaranteed Delivery*(122)가 채널을
@@ -195,7 +194,7 @@ Channel*(60)을 가져야 한다. 그냥 채널 몇 개를 때려 넣는 것으�
   채널을 쓰는 것은 메시지 채널의 **비표준 용법(nonstandard use)** 이라는 점을 유념하는 것이
   중요하다** (13장, p.611).[^hohpe2004] 다만 그 사례에서 실제 결정은 **우리 자신의 필터를 구현할
   것인가 [플랫폼]에 내장된 채널 필터링을 활용할 것인가**였다 (13장, p.611).[^hohpe2004] —
-  [메시지 소비자 패턴](message-consumer-patterns.md)이 *Selective Consumer*와
+  [메시지 소비자 패턴](../concepts/message-consumer-patterns.md)이 *Selective Consumer*와
   *Message Dispatcher* 사이에서 반복하는 그 질문이 채널 층에서 다시 서는 것이다.
 
 ## Datatype Channel — 한 채널에 한 타입
@@ -536,11 +535,11 @@ Channel*(60)을 가져야 한다. 그냥 채널 몇 개를 때려 넣는 것으�
 
 - [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md) — 이 장이 자라 나온 뿌리(*Message
   Channel*)가 정의된 자리
-- [메시지 구성 패턴](message-construction-patterns.md) — 채널이 정해진 뒤 그 위에 실릴 메시지를
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — 채널이 정해진 뒤 그 위에 실릴 메시지를
   설계하는 쪽. *Message Expiration*이 *Guaranteed Delivery*의 디스크 소비를 끊는 자리이기도 하다
 - [발행/구독 메시징](publish-subscribe-messaging.md) — 첫째 결정(일대일인가 일대다인가)의 두 답이
   정의된 자리
-- [데드레터와 빠져나가는 레코드](dead-letter-and-dropped-records.md) — 셋째 결정(무효한 메시지와
+- [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 셋째 결정(무효한 메시지와
   죽은 메시지)의 답이 정의된 자리
 - [카프카의 신뢰성 보장](../concepts/kafka-reliability-guarantees.md) — *Guaranteed Delivery*가
   현재형 브로커에서 복제와 확인 응답의 조합으로 다시 세워진 자리
@@ -548,7 +547,7 @@ Channel*(60)을 가져야 한다. 그냥 채널 몇 개를 때려 넣는 것으�
   아니라 아키텍처 자체가 됐을 때
 - [카프카 커넥트와 파이프라인](../synthesis/kafka-connect-and-pipelines.md) — *Channel Adapter*의
   현재형 실물. 소스·싱크 커넥터가 애플리케이션과 브로커 사이에 서는 그 자리
-- [데이터베이스를 통한 데이터플로](dataflow-through-databases.md) — 데이터베이스 어댑터가
+- [데이터베이스를 통한 데이터플로](../concepts/dataflow-through-databases.md) — 데이터베이스 어댑터가
   헤집는 그 통합 스타일이 원래 무엇이었는가
 - [엔터프라이즈 데이터 웨어하우스 버스 아키텍처](../concepts/enterprise-bus-architecture.md) —
   같은 "버스" 은유가 데이터 웨어하우스 쪽에서 공유 차원의 표준 인터페이스를 가리키는 자리

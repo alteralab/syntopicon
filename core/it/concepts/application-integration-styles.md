@@ -3,7 +3,6 @@ type: concept
 title: 애플리케이션 통합의 네 가지 스타일
 description: "따로 만들어진 애플리케이션들을 함께 일하게 만드는 방식이 왜 넷으로 갈리는가 — 통합 여부부터 묻는 첫 판단과 그다음 여덟 기준(결합·침습성·기술 선택·데이터 형식·적시성·데이터냐 기능이냐·원격 통신·신뢰성), 파일 전송(File Transfer)·공유 데이터베이스(Shared Database)·원격 프로시저 호출(Remote Procedure Invocation)·메시징(Messaging)이 앞의 것의 결핍을 하나씩 메우며 정교해지는 계승 관계와 그 대가로 늘어나는 복잡도, 의미 불협화음(semantic dissonance)에 네 스타일이 각각 취하는 태도, 그리고 저자들이 메시징을 골라 나머지 책 전체를 거기 쓴 이유"
 generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---

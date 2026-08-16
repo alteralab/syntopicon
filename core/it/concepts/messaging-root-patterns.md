@@ -3,7 +3,6 @@ type: concept
 title: 메시징의 여섯 뿌리 패턴
 description: "65개 메시징 패턴이 자라 나오는 뿌리 여섯 — 논리 주소이자 배포 시점에 고정되는 Message Channel과 그것을 부르는 낱말들(sender/receiver·producer/consumer·publisher/subscriber·requester/provider), 헤더와 바디로 이뤄지고 마샬링으로 사본을 옮기는 Message, 처리 단계를 채널로 이어 붙여 조합·병렬·테스트 가능하게 만드는 Pipes and Filters와 그 대가, 내용을 바꾸지 않고 목적지만 정하는 Message Router와 예측적 라우팅 대 반응적 필터링, 네 계층(전송·표현·타입·구조)으로 나뉘는 Message Translator, 애플리케이션을 메시징 시스템의 클라이언트로 만드는 Message Endpoint, 그리고 이 여섯이 곧바로 이루는 조합(Composed Message Processor·Wire Tap·Claim Check·Process Manager)"
 generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -517,9 +516,9 @@ patterns)** 이라 부르고, 각 뿌리마다 장 하나를 붙였다.
 
 ## 이어지는 페이지
 
-- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 이 여섯을 여는 네
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 이 여섯을 여는 네
   질문이 놓인 자리
-- [통합의 도전과 느슨한 결합](integration-challenges-and-loose-coupling.md) — 채널·메시지·변환기가
+- [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) — 채널·메시지·변환기가
   가정을 하나씩 떼는 장치로 먼저 도출되는 자리
 - [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — *Message Channel*의 두 갈래
   중 하나가 현재형 브로커에서 어떻게 구현되는가

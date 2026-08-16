@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 데이터 강화와 장식 패턴
-description: "원시 레코드에 정보를 더해 값을 올리는 네 패턴 — 정지 참조 데이터셋을 조인으로 붙이고 SCD로 시간까지 맞추는 Static Joiner, 두 스트림의 지연 차를 버퍼와 GC 워터마크로 흡수하는 Dynamic Joiner, 계산한 값을 원본과 분리해 봉투에 담는 Wrapper와 그것이 낳는 도메인 분할, 그리고 기술 맥락을 소비자에게 숨기려고 메타데이터 계층에 넣는 Metadata Decorator"
-generated: { by: "claude-opus-5", at: "2026-08-15T15:00:00Z" }
+description: "원시 레코드에 정보를 더해 값을 올리는 네 패턴 — 정지 참조 데이터셋을 조인으로 붙이고 SCD로 시간까지 맞추는 Static Joiner, 두 스트림의 지연 차를 버퍼와 GC 워터마크로 흡수하는 Dynamic Joiner, 계산한 값을 원본과 분리해 봉투에 담는 Wrapper와 그것이 낳는 도메인 분할, 기술 맥락을 소비자에게 숨기려고 메타데이터 계층에 넣는 Metadata Decorator, 그리고 이 이름들의 20년 앞선 원전(Content Enricher·Envelope Wrapper)과 거기서 갈라지는 지점"
+generated: { by: "claude-opus-5", at: "2026-08-16T23:35:00Z" }
 sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
+  - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
 
 # 데이터 강화와 장식 패턴
@@ -19,6 +20,10 @@ sources:
 - [감싸기의 두 가지 대가](#감싸기의-두-가지-대가)
 - [Metadata Decorator — 소비자에게 숨긴다](#metadata-decorator--소비자에게-숨긴다)
 - [장식의 두 가지 대가](#장식의-두-가지-대가)
+- [이 이름들의 원전 — Content Enricher와 Envelope Wrapper](#이-이름들의-원전--content-enricher와-envelope-wrapper)
+- [원전이 세운 세 가지 정보 출처](#원전이-세운-세-가지-정보-출처)
+- [원전이 기각한 것 — 강화를 어디에 두는가](#원전이-기각한-것--강화를-어디에-두는가)
+- [Wrapper라는 낱말이 두 카탈로그에서 다른 것](#wrapper라는-낱말이-두-카탈로그에서-다른-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **반입만으로는 빈약한 레코드에 무엇을 어떻게 더해야 값이 오르는가.**
@@ -27,7 +32,7 @@ Konieczny의 5장은 값을 올리는 길을 **정보를 더하는 쪽**과 **�
 페이지는 앞쪽 — **데이터 강화**(Data Enrichment, 다른 데이터셋을 붙인다)와 **데이터 장식**
 (Data Decoration, 계산한 속성을 얹는다) — 네 패턴을 다룬다. 줄이는 쪽은
 [배치 조인과 그룹핑](../concepts/batch-joins-and-grouping.md)의 집계 두 패턴과
-[세션화 패턴](sessionization-patterns.md)이 맡는다.
+[세션화 패턴](../concepts/sessionization-patterns.md)이 맡는다.
 
 ## 반입된 데이터는 자산이 아니다
 
@@ -124,12 +129,12 @@ Konieczny의 5장은 값을 올리는 길을 **정보를 더하는 쪽**과 **�
 - 대가 ① **늦은 데이터와 일관성** — **이상적인 시나리오라면 사용자는 이벤트가 생성되는 것과 같은
   속도로 진화할 것이다(즉 사용자가 프로필을 바꾸고 곧바로 내비게이션 액션을 하면 처리된 방문은 가장
   최근 변경을 포함해야 한다). 불행히도 이 시나리오는 일어나지 않을 수 있다** (5장,
-  p.119).[^konieczny2025] 그 이유는 [늦은 데이터 통합](late-data-integration.md)에 있다.
+  p.119).[^konieczny2025] 그 이유는 [늦은 데이터 통합](../concepts/late-data-integration.md)에 있다.
   - 완화책이 갈린다 — **스트리밍 파이프라인의 지연 이슈를 완화하려면 다음에 제시하는 Dynamic
     Joiner 패턴을 쓸 수 있다. 배치 파이프라인에서는 더 단순한데, 강화 데이터셋이 존재하기를
     기다리도록 오케스트레이션에 의존할 수 있기 때문이다(예컨대 Readiness Marker 패턴을 활용해서)**
     (5장, p.119).[^konieczny2025] 그 마커는
-    [반입 트리거 패턴](ingestion-triggering-patterns.md)에 있다.
+    [반입 트리거 패턴](../concepts/ingestion-triggering-patterns.md)에 있다.
 - 대가 ② **멱등성** — **일관성 외에 멱등성도 고려해야 한다. 배치 파이프라인을 백필한다면 그 결과가
   강화 데이터셋에 대해 멱등적이어야 하는지 스스로 물어야 한다. 그렇고 데이터 제공자가 시간 기반
   질의를 전혀 허용하지 않는다면, 조인하기 전에 시간 측면을 통제하기 위해 강화 데이터셋을 당신의
@@ -349,26 +354,141 @@ Konieczny의 5장은 값을 올리는 길을 **정보를 더하는 쪽**과 **�
   사용자든 주로 그 문장 둘째 부분의 데이터에 관심을 가질 것이다** (5장,
   p.131).[^konieczny2025]
 
+## 이 이름들의 원전 — Content Enricher와 Envelope Wrapper
+
+이 장의 **강화(enrichment)** 와 **감싸기(wrapping)** 는 새 낱말이 아니다. 2004년의 기업 통합 패턴
+카탈로그가 *Content Enricher*와 *Envelope Wrapper*라는 이름으로 같은 두 동작을 이미 정의했고,
+그때는 데이터 파이프라인이 아니라 메시지 하나가 단위였다. 계열 전체는
+[메시지 변환 패턴](message-transformation-patterns.md)에 있고, 여기서는 이 페이지의 네 패턴과
+직접 겹치는 대목만 옮긴다.
+
+- *Content Enricher*의 문제 — **메시지 발신자가 요구되는 데이터 항목을 전부 갖고 있지 않다면 다른
+  시스템과 어떻게 통신하는가?** (8장, p.336).[^hohpe2004]
+- **단순한 형식 변환과 갈리는 지점이 명시된다** — ***Message Translator*(85)의 서술은 수신
+  애플리케이션이 필요로 하는 데이터가 형식은 틀렸을지언정 이미 들어오는 메시지에 담겨 있다고
+  가정했다. 이 새로운 경우에는 필드를 재배열하는 단순한 문제가 아니다. 우리는 실제로 메시지에 추가
+  정보를 주입해야 한다** (8장, p.336).[^hohpe2004]
+- 해법 — **특화된 변환기인 *Content Enricher*를 써서 외부 데이터 소스에 접근해 없는 정보로 메시지를
+  증강하라** (8장, p.338).[^hohpe2004]
+- 기제는 위 Static Joiner·Dynamic Joiner와 같은 구조다 — ***Content Enricher*는 들어오는 메시지
+  안의 정보(예: 키 필드)를 써서 외부 소스에서 데이터를 회수한다. *Content Enricher*가 필요한
+  데이터를 자원에서 회수한 뒤 그 데이터를 메시지에 덧붙인다. 들어오는 메시지의 원래 정보는 결과
+  메시지로 넘어갈 수도 있고 수신 애플리케이션의 구체적 필요에 따라 더 이상 필요 없을 수도 있다**
+  (8장, p.339).[^hohpe2004]
+
+### 원전이 세운 세 가지 정보 출처
+
+이 페이지의 두 조이너는 **다른 데이터셋**만을 출처로 다룬다. 원전은 출처를 셋으로 갈랐고, 그중
+둘은 이 페이지에 대응 항목이 없다.
+
+- **① 계산(Computation)** — ***Content Enricher*가 없는 정보를 계산할 수 있다. 이 경우 알고리즘이
+  추가 정보를 통합한다. (…) 이 형태의 *Content Enricher*는 외부 데이터 소스가 필요 없으므로 기본
+  *Message Translator*(85)와 아주 비슷하다** (8장, p.339).[^hohpe2004] 이 페이지에서는 계산 결과를
+  붙이는 것이 강화가 아니라 **장식(Wrapper)** 으로 분류된다 — 두 카탈로그의 절단면이 다르다.
+- **② 환경(Environment)** — ***Content Enricher*가 운영 환경에서 추가 데이터를 회수할 수 있다.
+  가장 흔한 예는 타임스탬프다** (8장, p.339).[^hohpe2004] 이 페이지의 Metadata Decorator가
+  잡 버전·배치 번호를 붙이는 것이 정확히 이 갈래다.
+- **③ 다른 시스템(Another System)** — **이 선택지가 가장 흔하다. *Content Enricher*는 다른
+  시스템에서 없는 데이터를 회수해야 한다. 이 데이터 자원은 데이터베이스·파일·LDAP 디렉터리·
+  애플리케이션, 또는 없는 데이터를 수동으로 입력하는 사용자를 포함해 여러 형태를 취할 수 있다**
+  (8장, p.339).[^hohpe2004] 위 Static Joiner와 Dynamic Joiner가 이 갈래를 정지/움직이는 참조
+  데이터로 다시 나눈 것이다.
+- **여기서는 느슨한 결합이 목표가 아니라는 판단이 명시된다** — ***Content Enricher*와 데이터 소스
+  사이의 상호작용은 정의상 동기적이므로(*Content Enricher*는 데이터 소스가 요청된 데이터를 반환할
+  때까지 강화된 메시지를 보낼 수 없다) 동기 프로토콜(예: HTTP나 데이터베이스로의 ODBC 연결)이 비동기
+  메시징을 쓰는 것보다 나은 성능을 낼 수 있다. *Content Enricher*와 데이터 소스는 본질적으로
+  단단히 결합돼 있으므로 *Message Channel*(60)을 통해 느슨한 결합을 달성하는 것은 그만큼 중요하지
+  않다** (8장, p.340).[^hohpe2004] 이 페이지의 Static Joiner가 참조 데이터셋을 브로드캐스트로
+  들고 다니는 선택과 같은 판단이다 — 조회 상대와의 결합은 어차피 끊을 수 없으므로 성능으로 고른다.
+
+### 원전이 기각한 것 — 강화를 어디에 두는가
+
+이 페이지가 "강화를 파이프라인 단계로 둔다"를 전제하고 시작하는 데 반해, 원전은 **그 배치 자체를
+논증한다**. 네 대안을 세우고 전부 기각한 뒤에야 별도 컴포넌트에 도달한다.
+
+- **발신 쪽을 고쳐 정보를 저장하게 한다(A)** — 기각 근거는 **우리가 다른 시스템의 구체적 필요에
+  기반해 그 시스템을 바꾸고 있다**는 것이다 (8장, p.337).[^hohpe2004]
+- **발신 쪽이 보내기 직전에 조회한다(B)** — **느슨하게 결합된 시스템에서 우리는 한 시스템이 다음
+  시스템에게 무엇을 하라고 지시하는 것을 원하지 않는다. (…) 게다가 이 해법은 일정 시스템을 고객
+  관리 시스템에 더 단단히 결합시킨다 — 일정 시스템이 이제 없는 데이터를 어디서 가져올지 알아야
+  하기 때문이다** (8장, p.338).[^hohpe2004]
+- **데이터를 가진 쪽을 먼저 거치게 한다(C)** — **이제 우리는 (…) 업무 규칙을 고객 관리 시스템 안에
+  구현하게 된다. (…) 어떤 필드가 다른 시스템에서 회수돼야 한다면 우리는 시작한 곳과 비슷한 상황에
+  있게 된다** (8장, p.338).[^hohpe2004]
+- **수신 쪽이 스스로 회수하게 고친다(D)** — **첫째, 이제 회계 시스템을 고객 관리 시스템에 결합시킨다.
+  둘째, 이 선택지는 다시 우리가 회계 시스템에 대한 통제를 갖는다고 전제한다** (8장,
+  p.338).[^hohpe2004]
+- 남는 판단: **강화를 생산자에도 소비자에도 두지 않고 사이의 별도 단계에 둔다.** 그것이 이 페이지의
+  Static/Dynamic Joiner가 파이프라인 안의 독립 단계로 서 있는 이유의 논증이고, 이 페이지 자체는
+  그 논증을 생략한 채 결론만 물려받았다.
+- 참조로 보내고 나중에 복원하는 맞교환도 원전이 세워 둔다 — **참조의 사용이 성능을 개선하는지는
+  얼마나 많은 컴포넌트가 참조만으로 단순히 작동할 수 있는가 대 얼마나 많은 컴포넌트가 원본 메시지
+  내용 일부를 복원하기 위해 *Content Enricher*를 써야 하는가에 의존한다. 예컨대 메시지가 최종
+  수신자에 도달하기 전에 긴 중개자 목록을 통과하면 객체 참조를 쓰는 것이 메시지 트래픽을 크게 줄일
+  수 있다. 우리는 최종 수신자 직전의 마지막 단계로 *Content Enricher*를 삽입해 없는 정보를 메시지에
+  적재할 수 있다** (8장, p.341).[^hohpe2004] 강화 단계를 **파이프라인의 어느 지점에 놓을
+  것인가**를 성능으로 판단하는 자리다.
+
+### Wrapper라는 낱말이 두 카탈로그에서 다른 것
+
+같은 이름이지만 감싸는 목적이 다르다. 판정은 충돌이 아니라 **다른 대상**이다.
+
+- 원전의 *Envelope Wrapper*가 푸는 문제 — **메시지 헤더 필드나 암호화 같은 구체적 요구를 메시지
+  형식에 부과하는 메시징 교환에 기존 시스템이 어떻게 참여할 수 있는가?** (8장,
+  p.330).[^hohpe2004] 곧 **인프라 규약에 맞추기 위한** 감싸기다.
+- 이 페이지의 Wrapper는 **계산한 비즈니스·기술 속성을 원본과 가르기 위한** 감싸기다. 저자가 스스로
+  Metadata Decorator와 대비하며 **Wrapper는 기술 속성에 더해 비즈니스 속성을 장식하려는 의도**라고
+  적었다 (5장, p.131).[^konieczny2025]
+- 그런데 원전도 봉투가 정보를 더한다는 것을 인정하고, **어디까지가 강화인지의 선을 긋는다** —
+  **래퍼가 원시 메시지에 정보를 더하는 것은 전형적이다. (…) 그런 의미에서 래퍼는 *Content
+  Enricher*(336)의 어떤 측면을 통합한다. **그러나 래퍼는 실제 정보 내용을 강화하지 않고, 메시지의
+  라우팅·추적·처리에 필요한 정보를 더한다**** (8장, p.332).[^hohpe2004] 이 구분선은 이 페이지가
+  Metadata Decorator에 그은 선(**메타데이터는 정의상 데이터에 대한 서술이므로 비즈니스 사용자에게
+  공개적으로 노출되면 안 된다**, 5장 p.131)과 같은 자리에 있다.
+- **승격(promotion)이라는 이름이 여기 있다** — **데이터가 원래 메시지 바디에 담겨 있다가 래퍼에
+  의해 메시지 헤더로 갈라질 수도 있다(예: 원시 메시지에 담긴 키 필드). 이 마지막 선택지는 때로
+  *승격(promotion)* 이라 불린다 — 특정 필드가 바디 안에 숨어 있던 상태에서 헤더에 두드러지게 보이는
+  상태로 "승격"되기 때문이다** (8장, p.332).[^hohpe2004] 이 페이지의 Metadata Decorator가 카프카
+  헤더에 값을 쓰는 것이 그 반대 방향(강등)의 실물이다 — 같은 헤더/바디 경계를 양쪽에서 쓴다.
+- 정리하면 이름 계보는 이렇다.
+
+  | 이 페이지(2025) | 원전(2004) | 무엇이 달라졌는가 |
+  |---|---|---|
+  | Static Joiner · Dynamic Joiner | *Content Enricher* | 단위가 메시지에서 데이터셋·스트림으로. 참조 데이터가 정지인가 움직이는가로 갈림 |
+  | Wrapper | *Envelope Wrapper* | 감싸는 목적이 인프라 적합에서 계산값 분리로 |
+  | Metadata Decorator | *Envelope Wrapper*의 헤더 부분 | 숨기는 것이 목적이 됨. 원전은 라우팅·추적이 목적 |
+  | (없음) | *Content Filter* · *Claim Check* | 정보를 덜어 내는 쪽. 이 카탈로그에서는 5장 집계 계열과 4장 보안 계열로 흩어짐 |
+
 ## 이어지는 페이지
 
+- [메시지 변환 패턴](message-transformation-patterns.md) — *Content Enricher*·*Envelope
+  Wrapper*·*Content Filter*·*Claim Check*가 정의된 자리
 - [배치 조인과 그룹핑](../concepts/batch-joins-and-grouping.md) — 같은 장의 집계 두 패턴
   (Distributed Aggregator·Local Aggregator), 즉 정보를 줄이는 쪽
-- [세션화 패턴](sessionization-patterns.md) — 같은 장의 세션 두 패턴
-- [순서 보장 전달 패턴](ordered-delivery-patterns.md) — 같은 장의 순서 두 패턴
+- [세션화 패턴](../concepts/sessionization-patterns.md) — 같은 장의 세션 두 패턴
+- [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — 같은 장의 순서 두 패턴
 - [완만하게 변하는 차원](../concepts/slowly-changing-dimension.md) — Static Joiner가 시간
   조건을 걸 때 기대는 그 모델링
-- [늦은 데이터 통합](late-data-integration.md) — 두 조이너가 100%를 보장하지 못하게 만드는 원인과
+- [늦은 데이터 통합](../concepts/late-data-integration.md) — 두 조이너가 100%를 보장하지 못하게 만드는 원인과
   그 대응
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — Dynamic Joiner의 강화 스트림이 생기는 자리
-- [반입 트리거 패턴](ingestion-triggering-patterns.md) — 배치 쪽 완화책인 Readiness Marker
+- [반입 트리거 패턴](../concepts/ingestion-triggering-patterns.md) — 배치 쪽 완화책인 Readiness Marker
 - [스트림 처리의 시간 의미론](../concepts/stream-processing-time-semantics.md) — GC 워터마크가
   기대는 시간 축
 - [컬럼 지향 저장](../concepts/column-oriented-storage.md) — Wrapper의 크기 대가를 프로젝션으로
   덜어 내는 쪽
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 네
   패턴이 속한 카탈로그
+- [메시징 패턴](../synthesis/messaging-patterns.md) — 원전 이름들이 속한 카탈로그
 
 [^konieczny2025]: Konieczny 2025, 5장 "Data Value Design Patterns" — "Data
 Enrichment"(pp.116–125) · "Data Decoration"(pp.125–133). 그림 5-1·5-2·5-3·5-4는 도식이므로
 본문이 서술한 내용만 옮겼다. 표는 원서 그림 5-1과 본문 목록을 표로 정돈한 것이고, 코드 펜스는
 예제 5-2·5-5·5-9·5-10을 조판 줄바꿈만 정돈한 것이다.
+
+[^hohpe2004]: Hohpe & Woolf 2004, 8장 "Message Transformation" — "Envelope
+Wrapper"(pp.330–334) · "Content Enricher"(pp.336–341). 도해(래퍼 사슬의 계층 봉투 p.332,
+Enricher 문제의 세 해법 p.337)는 도판이므로 본문이 서술한 내용만 옮겼다. 각 절 끝의 "Example:"
+소절(SOAP Message Format·TCP/IP·The Postal System pp.332–335, Communication with External
+Parties p.341)은 반입 전략에 따라 걸렀다. 위 계보 표는 두 소스의 패턴 이름을 대조한 것으로
+어느 저자도 하지 않은 대응이므로 이 KB의 판단이다.

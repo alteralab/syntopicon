@@ -3,7 +3,6 @@ type: concept
 title: 통합의 도전과 느슨한 결합
 description: "기업 통합이 왜 기술 문제로 끝나지 않는가와 결합을 무엇으로 재는가 — 콘웨이 법칙의 연장선에 놓인 조직 정치·바꿀 수 없는 레거시·표준의 파편화·운영 기술의 분산이라는 도전, 통합이 실제로 나타나는 여섯 모양(정보 포털·데이터 복제·공유 업무 기능·SOA·분산 업무 프로세스·B2B), 느슨한 결합(loose coupling)을 '두 당사자가 서로에 대해 세우는 가정의 수'로 정의하는 관점, TCP/IP 열 줄짜리 통합이 드러내는 네 가정(플랫폼·위치·시간·데이터 형식)과 채널·큐잉·메시지·변환기가 그것을 하나씩 떼는 경로, 그 대가인 복잡도, 미들웨어를 이루는 여섯 요소, 그리고 인터페이스 세밀도의 맞교환"
 generated: { by: "claude-opus-5", at: "2026-08-16T12:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -299,7 +298,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 이 페이지가 세운
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 이 페이지가 세운
   자로 네 스타일을 재는 자리
 - [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md) — "네 가정을 하나씩 떼기"에서 도출된
   채널·메시지·변환기가 정식 패턴이 되는 자리

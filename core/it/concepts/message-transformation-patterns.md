@@ -3,7 +3,6 @@ type: concept
 title: 메시지 변환 패턴
 description: "형식 차이를 어디서 흡수하는가를 여섯 패턴으로 가른 것 — 메타데이터가 데이터와 나란히 흐르는 두 번째 시스템이라는 관점, 원시 메시지를 인프라 규약에 맞는 봉투에 싸는 Envelope Wrapper와 승격·터널링, 외부 소스를 조회해 빠진 정보를 채우는 Content Enricher와 네 대안의 기각, 필요 없는 것을 덜어 내고 계층을 평탄화하는 Content Filter, 데이터를 맡기고 키만 들려 보내는 Claim Check와 키 선택·정리 정책, 형식이 다른 동등 메시지를 라우터+번역기 쌍으로 모으는 Normalizer, 그리고 번역기 수를 제곱에서 선형으로 낮추는 Canonical Data Model과 이중 번역의 대가"
 generated: { by: "claude-opus-5", at: "2026-08-16T23:00:00Z" }
-status: draft
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
 ---
@@ -91,7 +90,7 @@ Translator*(85)에 서술했듯 메시징 시스템으로 통합돼야 하는 �
   *Remote Procedure Invocation*(50)은 애플리케이션의 내부 형식이 다르더라도 호출될 서비스가 지정한
   데이터 형식으로 요청을 해야 한다. 이는 전형적으로 호출하는 애플리케이션이 데이터 변환을 수행할
   것을 요구한다** (8장, p.329).[^hohpe2004] 네 통합 스타일은
-  [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md)에 있다.
+  [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md)에 있다.
 - **ETL이 여기서 대비된다** — **가장 정교한 변환 엔진 일부는 Informatica나 DataMirror 같은
   ETL(extract, transform, load) 도구에 통합돼 있다. 이 도구들은 전형적으로 개별 메시지를 변환하는
   대신 큰 데이터 집합을 한 번에 변환한다** (8장, p.329).[^hohpe2004]
@@ -580,7 +579,7 @@ Translator*(85)에 서술했듯 메시징 시스템으로 통합돼야 하는 �
   p.359).[^hohpe2004]
 - **정규 모델도 변한다** — **늘 그렇듯 유일한 상수는 변화다. 그러므로 *Canonical Data Model*에
   부합하는 메시지는 *Format Indicator*(180)를 지정해야 한다** (8장, p.359).[^hohpe2004]
-  *Format Indicator*는 [메시지 구성 패턴](message-construction-patterns.md)에 있고, 같은 문제의
+  *Format Indicator*는 [메시지 구성 패턴](../concepts/message-construction-patterns.md)에 있고, 같은 문제의
   현재형이 [하위·상위 호환성](../concepts/backward-and-forward-compatibility.md)이다.
 - 예제가 개념을 말한 대목 — **WSDL이 사실상 Canonical Data Model이다.** **애플리케이션에서 외부
   서비스에 접근할 때 그 서비스가 이미 쓸 *Canonical Data Model*을 지정하고 있을 수 있다. XML 웹
@@ -593,15 +592,15 @@ Translator*(85)에 서술했듯 메시징 시스템으로 통합돼야 하는 �
 
 - [메시징의 여섯 뿌리 패턴](messaging-root-patterns.md) — *Message Translator*가 정의되고 변환의
   네 계층이 배열된 자리. 이 여섯이 전부 그 하나의 정련이다
-- [메시지 라우팅 패턴](message-routing-patterns.md) — *Normalizer* 안에 들어가는 *Message
+- [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — *Normalizer* 안에 들어가는 *Message
   Router*가 정의된 자리
 - [분할·집계·재정렬 패턴](splitter-aggregator-resequencer-patterns.md) — *Content Filter* 집합과
   기능적으로 등가인 정적 *Splitter*가 정의된 자리
-- [복합 라우팅 패턴](composed-routing-patterns.md) — *Message Broker*가 N제곱 문제를 피하려
+- [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — *Message Broker*가 N제곱 문제를 피하려
   *Canonical Data Model*을 안에 두는 자리, 그리고 *Process Manager*가 *Claim Check* 역할을 하는 자리
 - [메시징 채널 패턴](messaging-channel-patterns.md) — *Channel Adapter*가 메타데이터도 추출하는
   자리, *Datatype Channel*이 형식마다 채널을 가르는 자리
-- [메시지 구성 패턴](message-construction-patterns.md) — *Format Indicator*가 정의된 자리
+- [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Format Indicator*가 정의된 자리
 - [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) —
   *Content Enricher*가 현재형 데이터 파이프라인에서 Static Joiner·Dynamic Joiner·Wrapper·
   Metadata Decorator로 갈라진 자리
