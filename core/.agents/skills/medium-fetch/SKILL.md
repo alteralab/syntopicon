@@ -1,10 +1,10 @@
 ---
-name: medium-dl
-description: Medium 글을 사용자의 로그인된 라이브 Chrome(CDP)으로 받아 KB의 _unread에 착지시킨다. 유료(member-only) 글을 전문으로 보존하고 싶을 때, Medium 글을 kb-ingest에 넘길 원문으로 확보할 때 쓴다. 절단본(미리보기)은 저장하지 않고 실패시키고, 반입 자체는 kb-ingest가 한다. 트리거 /medium-dl <URL>
+name: medium-fetch
+description: Medium 글을 사용자의 로그인된 라이브 Chrome(CDP)으로 받아 KB의 _unread에 착지시킨다. 유료(member-only) 글을 전문으로 보존하고 싶을 때, Medium 글을 kb-ingest에 넘길 원문으로 확보할 때 쓴다. 절단본(미리보기)은 저장하지 않고 실패시키고, 반입 자체는 kb-ingest가 한다. 트리거 /medium-fetch <URL>
 compatibility: macOS + Google Chrome. 어느 프로젝트에서든 호출 가능(본문 '저장소 위치 확정' 절이 core를 찾는다). uv 필요.
 ---
 
-# medium-dl — Medium 글 취득
+# medium-fetch — Medium 글 취득
 
 **취득 전용이다.** libgen-dl(책)·paper-search(논문 후보)와 같은 계열 — 원문 파일을
 확보해 `it/archive/_unread/`에 두는 데서 끝나고, 반입은 kb-ingest가 한다. 어떤
@@ -17,7 +17,7 @@ compatibility: macOS + Google Chrome. 어느 프로젝트에서든 호출 가능
 ## 저장소 위치 확정 (cwd 독립 — 최초 1회)
 
 ```sh
-cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/medium-dl}")")")")"
+cd "$(dirname "$(dirname "$(dirname "$(realpath "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/medium-fetch}")")")")"
 ```
 
 ## 1. 디버그 Chrome [스크립트 + 최초 1회 사람]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Medium 글을 로그인된 라이브 Chrome(CDP)에서 받아 _unread에 착지시킨다 (medium-dl 스킬).
+"""Medium 글을 로그인된 라이브 Chrome(CDP)에서 받아 _unread에 착지시킨다 (medium-fetch 스킬).
 
 **왜 브라우저인가**: Medium은 Cloudflare가 TLS 지문 수준에서 비브라우저 요청을
 차단한다(2026-08-16 실측 — curl·urllib은 쿠키·헤더와 무관하게 403). 사용자의
@@ -21,7 +21,7 @@
 
     uv run --group ingest tools/medium_fetch.py --kb it <URL> [<URL>…]
 
-디버그 Chrome이 없으면 안내를 내고 실패한다(기동은 medium-dl SKILL.md 절차).
+디버그 Chrome이 없으면 안내를 내고 실패한다(기동은 medium-fetch SKILL.md 절차).
 """
 
 from __future__ import annotations
