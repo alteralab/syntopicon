@@ -2,7 +2,6 @@
 type: concept
 title: 계획 생성
 description: 모델을 계획 생성기로 만드는 가장 단순한 길인 프롬프트 엔지니어링과 그 뒤의 문제들 — 행동 시퀀스뿐 아니라 파라미터까지 모델이 지어내므로 환각이 두 갈래로 나타나는 자리, 계획을 더 잘하게 만드는 다섯 가지, 정확한 함수 이름 대신 자연어로 계획하게 해서 도구 API 변경에 견디게 만드는 세분도 조정, 그리고 순차·병렬·조건·반복이라는 네 가지 제어 흐름
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

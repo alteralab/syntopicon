@@ -2,7 +2,6 @@
 type: concept
 title: 검색 품질 평가
 description: 검색기가 좋은지 무엇으로 재는가 — 어휘 갈래와 임베딩 갈래가 속도·성능·비용에서 갈리는 지점, 검색된 문서로 재는 컨텍스트 정밀도와 컨텍스트 재현율, 순위까지 보는 NDCG·MAP·MRR과 임베딩 자체를 재는 MTEB·BEIR, 색인과 질의 사이의 맞바꿈을 재는 ANN-Benchmarks 네 지표, 그리고 검색 솔루션을 고를 때 던지는 질문
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

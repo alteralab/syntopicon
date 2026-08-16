@@ -2,7 +2,6 @@
 type: concept
 title: 쿼리 재작성
 description: 대화 맥락 없이는 뜻이 서지 않는 질의를 홀로 서는 질의로 고쳐 쓰는 전술 — 재구성·정규화·확장이라는 다른 이름들, 전통적 검색 엔진의 휴리스틱과 AI 애플리케이션의 프롬프트가 갈리는 자리, 그리고 신원 해소가 끼어들 때 재작성 모델이 환각하는 대신 못 푼다고 말해야 하는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 벡터 색인과 임베딩
-description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 실제 벡터의 크기와 임베딩 품질을 재는 방법, 여러 양식을 한 공간에 넣는 결합 임베딩과 그것이 생성형 모델의 뼈대가 되는 계보, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 세 가지 벡터 색인(Flat·IVF·HNSW)과 각각이 정확도와 속도를 맞바꾸는 지점
-generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
+description: 낱말이 겹치지 않아도 뜻이 가까우면 찾아내는 의미 검색의 장치 — 문서를 다차원 공간의 한 점으로 옮기는 임베딩 모델과 그 거리 함수, 실제 벡터의 크기와 임베딩 품질을 재는 방법, 여러 양식을 한 공간에 넣는 결합 임베딩과 그것이 생성형 모델의 뼈대가 되는 계보, 그리고 R-트리가 듣지 않는 고차원에서 쓰는 벡터 색인들(Flat·IVF·HNSW·LSH·곱 양자화·Annoy)과 각각이 정확도와 속도를 맞바꾸는 지점
+generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
@@ -17,6 +17,7 @@ sources:
 - [임베딩의 품질을 어떻게 재는가](#임베딩의-품질을-어떻게-재는가)
 - [결합 임베딩 공간](#결합-임베딩-공간)
 - [벡터 색인 세 가지](#벡터-색인-세-가지)
+- [벡터 검색 알고리즘의 목록](#벡터-검색-알고리즘의-목록)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **질의와 문서가 완전히 다른 낱말을 쓰는데도 뜻이 가깝다는 이유로 찾아 주려면
@@ -123,7 +124,8 @@ sources:
 - 유용성으로 재는 쪽 — **자기 과제에 대한 유용성에 근거해 임베딩의 품질을 평가할 수도 있다. 임베딩은
   분류·토픽 모델링·추천 시스템·RAG를 포함한 많은 과제에 쓰인다. 여러 과제에 걸쳐 임베딩 품질을 재는
   벤치마크의 예가 MTEB(Massive Text Embedding Benchmark, Muennighoff et al., 2023)다** (3장,
-  p.135).[^huyen2025]
+  p.135).[^huyen2025] 검색기 전체를 재는 자리는
+  [검색 품질 평가](../concepts/retrieval-evaluation.md)에 있다.
 - 텍스트 밖에도 있다 — **저자는 텍스트를 예로 들지만 어떤 데이터든 임베딩 표현을 가질 수 있다. 예컨대
   Criteo와 Coveo 같은 이커머스 솔루션은 제품에 대한 임베딩을 갖는다. Pinterest는 이미지·그래프·질의,
   나아가 사용자에 대한 임베딩을 갖는다** (3장, p.135).[^huyen2025]
@@ -146,7 +148,8 @@ sources:
   임베딩은 텍스트 "fashion show"의 임베딩보다 텍스트 "a fisherman"의 임베딩에 더 가까워야 한다. 이
   결합 임베딩 공간은 서로 다른 양식의 임베딩이 비교되고 결합될 수 있게 한다. 예컨대 이는 텍스트 기반
   이미지 검색을 가능하게 한다. 텍스트가 주어지면 그 텍스트에 가장 가까운 이미지를 찾도록 도와준다**
-  (3장, p.136).[^huyen2025]
+  (3장, p.136).[^huyen2025] 그 검색이 RAG 파이프라인에 놓이는 자리는
+  [텍스트 너머의 RAG](../concepts/rag-beyond-text.md)에 있다.
 
 ## 벡터 색인 세 가지
 
@@ -172,6 +175,45 @@ sources:
   알고리즘의 전체 세부는 이 책의 범위를 넘지만 그 논문들이 훌륭한 자료다** (4장,
   p.149).[^kleppmann2026]
 
+## 벡터 검색 알고리즘의 목록
+
+다른 소스가 같은 대상을 더 넓게 열거하면서 각각의 원전을 밝힌다. **위의 플랫 색인에 해당하는 것을
+그쪽은 k-최근접 이웃(k-NN)의 순진한 해법이라 부르고, 큰 데이터셋에서는 근사 최근접 이웃(approximate
+nearest neighbor, ANN) 알고리즘을 쓴다고 적는다** (6장, p.262).[^huyen2025] 그 파이프라인 관점은
+[임베딩 기반 검색](../concepts/embedding-based-retrieval.md)에 있다.
+
+- 알고리즘이 갈리는 축 — **일반적으로 벡터 데이터베이스는 벡터를 버킷·트리·그래프로 조직한다. 벡터
+  검색 알고리즘은 비슷한 벡터가 서로 가까이 있을 가능성을 높이려고 쓰는 휴리스틱에 따라 달라진다.
+  벡터는 양자화(정밀도를 낮춤)되거나 희소화될 수도 있는데, 양자화되고 희소한 벡터가 작업하기에 계산
+  집약도가 덜하기 때문이다** (6장, p.262).[^huyen2025]
+- 유의미한 알고리즘 다섯이 열거된다 (6장, p.263):[^huyen2025]
+  - **LSH(locality-sensitive hashing)(Indyk and Motwani, 1999)** — **벡터만이 아니라 그보다 많은
+    것에 통하는 강력하고 다재다능한 알고리즘이다. 유사도 검색을 빠르게 하려고 비슷한 벡터를 같은
+    버킷으로 해싱하는 것을 수반하며, 효율을 위해 얼마간의 정확도를 맞바꾼다. FAISS와 Annoy에
+    구현돼 있다.**
+  - **HNSW(Hierarchical Navigable Small World)(Malkov and Yashunin, 2016)** — **HNSW는 노드가
+    벡터를 나타내고 간선이 비슷한 벡터를 잇는 다층 그래프를 구성해, 그래프 간선을 따라가며 최근접
+    이웃 탐색을 하게 한다. 저자들의 구현은 오픈 소스이며 FAISS와 Milvus에도 구현돼 있다.**
+  - **곱 양자화(Product Quantization)(Jégou et al., 2011)** — **각 벡터를 여러 부분 벡터로 분해해
+    훨씬 단순하고 저차원인 표현으로 줄임으로써 작동한다. 그다음 거리는 이 저차원 표현으로 계산되며
+    이는 작업하기에 훨씬 빠르다. 곱 양자화는 FAISS의 핵심 구성 요소이고 거의 모든 인기 벡터 검색
+    라이브러리가 지원한다.**
+  - **IVF(inverted file index)(Sivic and Zisserman, 2003)** — **IVF는 K-평균 군집화를 써서 비슷한
+    벡터를 같은 클러스터로 조직한다. 데이터베이스 안 벡터 수에 따라 다르지만, 평균적으로 각
+    클러스터에 100개에서 10,000개의 벡터가 들도록 클러스터 수를 잡는 것이 통상적이다. 질의 시
+    IVF는 질의 임베딩에 가장 가까운 클러스터 중심을 찾고, 이 클러스터의 벡터가 후보 이웃이 된다.
+    곱 양자화와 함께 IVF는 FAISS의 뼈대를 이룬다.**
+  - **Annoy(Approximate Nearest Neighbors Oh Yeah)(Bernhardsson, 2013)** — **Annoy는 트리 기반
+    접근이다. 여러 이진 트리를 짓는데, 각 트리는 무작위로 선을 긋고 그 선으로 벡터를 두 가지로
+    나누는 것 같은 무작위 기준을 써서 벡터를 클러스터로 쪼갠다. 탐색 중에는 이 트리들을 순회해
+    후보 이웃을 모은다. 스포티파이가 그 구현을 오픈 소스로 공개했다.**
+- 그 밖에 — **마이크로소프트의 SPTAG(Space Partition Tree And Graph)와 FLANN(Fast Library for
+  Approximate Nearest Neighbors) 같은 다른 알고리즘도 있다** (6장, p.263).[^huyen2025]
+- 색인 쪽과 질의 쪽의 맞바꿈 — **일반적으로 HNSW 같은 상세한 색인은 높은 정확도와 빠른 질의 시간을
+  제공하지만 짓는 데 상당한 시간과 메모리를 요구한다. 반대로 LSH 같은 더 단순한 색인은 만들기가 더
+  빠르고 메모리 집약도가 덜하지만 질의가 더 느리고 덜 정확하다** (6장, p.266).[^huyen2025] 그 맞바꿈을
+  재는 네 지표는 [검색 품질 평가](../concepts/retrieval-evaluation.md)에 있다.
+
 ## 이어지는 페이지
 
 - [전문 검색 색인](../concepts/full-text-search-indexes.md) — 낱말 일치로 같은 문제를 푸는 쪽,
@@ -184,6 +226,11 @@ sources:
   되는 계보
 - [애플리케이션 개발 층](../concepts/ai-application-development-layer.md) — 이 검색이 맥락 구성으로
   쓰이는 자리
+- [임베딩 기반 검색](../concepts/embedding-based-retrieval.md) — 이 색인이 RAG 파이프라인에서 서는
+  자리
+- [검색 증강 생성(RAG)](../concepts/retrieval-augmented-generation.md) — 그 파이프라인 전체
+- [검색 품질 평가](../concepts/retrieval-evaluation.md) — 색인과 질의의 맞바꿈을 재는 네 지표
+- [텍스트 너머의 RAG](../concepts/rag-beyond-text.md) — CLIP 결합 임베딩으로 이미지를 검색하는 자리
 - [참조 데이터 대비 유사도 측정](../concepts/similarity-measurements-against-reference-data.md) —
   같은 코사인 유사도가 생성 응답을 채점하는 데 쓰이는 자리
 - [비교 평가의 난제](../concepts/comparative-evaluation-challenges.md) — 검색 능력이 생성 능력과
@@ -192,9 +239,13 @@ sources:
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 4장 "Storage and Retrieval"
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation
-    Models"(책 pp.1–48)과 3장 "Evaluation Methodology"(책 pp.113–158). 3장에서는
-    "Introduction to Embedding" 절(pp.134–136)을 담았다. Table 3-2는 원문 표기를 그대로 옮겼다.
-    도판 Figure 3-6(CLIP 구조 도식, p.136)은 옮기지 않았고 본문이 서술한 훈련 절차만 담았다.
+    Models"(책 pp.1–48)·3장 "Evaluation Methodology"(책 pp.113–158)·6장 "RAG and Agents"(책
+    pp.253–306). 3장에서는 "Introduction to Embedding" 절(pp.134–136)을, 6장에서는
+    "Embedding-based retrieval" 절의 벡터 검색 알고리즘 목록(pp.262–263)과 색인/질의 맞바꿈
+    진술(p.266)을 담았다. Table 3-2는 원문 표기를 그대로 옮겼다. 도판 Figure 3-6(CLIP 구조 도식,
+    p.136)은 옮기지 않았고 본문이 서술한 훈련 절차만 담았다.
     MTEB(Muennighoff et al., 2023)·CLIP(Radford et al., 2021)·ULIP(Xue et al., 2022)·
-    ImageBind(Girdhar et al., 2023)·word2vec(Mikolov et al., 2013)·GloVe(Pennington et al., 2014)는
-    huyen2025를 통한 전언이다.
+    ImageBind(Girdhar et al., 2023)·word2vec(Mikolov et al., 2013)·GloVe(Pennington et al., 2014)·
+    LSH(Indyk and Motwani, 1999)·HNSW(Malkov and Yashunin, 2016)·곱 양자화(Jégou et al., 2011)·
+    IVF(Sivic and Zisserman, 2003)·Annoy(Bernhardsson, 2013)·SPTAG·FLANN은 huyen2025를 통한
+    전언이다.

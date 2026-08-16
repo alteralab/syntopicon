@@ -2,7 +2,6 @@
 type: concept
 title: 컨텍스트 증강 검색
 description: 청크가 검색되기 쉽도록 청크 쪽에 맥락을 덧붙이는 전술 — 태그·키워드·리뷰 같은 메타데이터와 임베딩이 흐려 버린 오류 코드를 되살리는 자리, 그 청크가 답할 수 있는 질문을 미리 붙여 두는 방식, 그리고 쪼개면서 잃은 원문 맥락을 모델에게 50–100 토큰으로 써 달라고 시키는 앤트로픽의 절차와 그 프롬프트 전문
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

@@ -2,7 +2,6 @@
 type: concept
 title: 함수 호출
 description: 모델 제공자가 도구 사용을 지원하며 모델을 사실상 에이전트로 만드는 기전 — 도구는 함수이고 도구를 부르는 것이 함수 호출이라는 규정, 도구 목록을 선언하고 질의마다 쓸 도구를 지정하는 두 단계와 required·none·auto 설정, 모델이 어떤 도구를 어떤 파라미터로 부를지 스스로 생성한다는 것, 그리고 유효한 함수는 보장돼도 올바른 파라미터 값은 보장되지 않는다는 경계
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

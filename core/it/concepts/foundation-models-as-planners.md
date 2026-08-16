@@ -2,7 +2,6 @@
 type: concept
 title: 파운데이션 모델은 계획할 수 있는가
 description: 자기회귀 언어 모델이 계획할 수 없다는 주장과 그 반론 — 르쿤과 캄밤파티가 내세우는 근거, 계획을 탐색 문제로 보면 필요해지는 백트래킹과 자기회귀 모델이 그것을 못 한다는 통념의 반박, 행동의 결과 상태를 모르면 계획할 수 없다는 진단과 세계 모델로 그것을 예측하려는 시도, 그리고 AI가 계획하지 못해도 플래너의 일부일 수는 있다는 정리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

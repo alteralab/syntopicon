@@ -2,7 +2,6 @@
 type: concept
 title: 에이전트란 무엇인가
 description: 환경을 감지하고 그 환경에 작용하는 것이라는 오래된 정의가 파운데이션 모델 위에서 되살아나는 자리 — 에이전트를 규정하는 두 축인 환경과 행동 집합, 도구가 행동 집합을 넓히고 환경이 도구를 제한하는 상호 의존, ChatGPT와 RAG 시스템도 에이전트라는 판정, 그리고 단계가 쌓일수록 정확도가 무너지는 복합 오류와 판돈이 커진다는 두 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

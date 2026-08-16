@@ -2,7 +2,6 @@
 type: concept
 title: 텍스트 너머의 RAG
 description: 외부 데이터 소스가 문서가 아닐 때의 RAG — 이미지·비디오·오디오를 맥락에 넣는 멀티모달 RAG와 메타데이터로 찾는 길, 그리고 결합 임베딩 공간에서 찾는 길, 표 데이터를 쓰려면 검색 대신 텍스트-투-SQL·SQL 실행·생성의 세 단계가 서는 자리, 그리고 그 실행기가 도구라는 관찰이 에이전트로 넘어가는 지점
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

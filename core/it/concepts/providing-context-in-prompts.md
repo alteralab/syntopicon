@@ -2,7 +2,7 @@
 type: concept
 title: 프롬프트에 맥락 주기
 description: 지시만으로는 안 되고 정보가 있어야 하는 자리 — 시험에 참고 자료를 주는 것과 같은 효과, 맥락이 환각을 완화하는 기제, 맥락을 모아 오는 일에 붙은 이름인 맥락 구성, 그리고 모델의 지식을 준 맥락으로만 가두는 것이 왜 어려운가
-generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -38,7 +38,9 @@ sources:
 - 두 길 — **모델에게 필요한 맥락을 제공하거나, 맥락을 모아 올 도구를 줄 수 있다. 주어진 질의에 필요한
   맥락을 모으는 과정을 맥락 구성(context construction)이라 부른다. 맥락 구성 도구에는 RAG
   파이프라인에서와 같은 데이터 검색과 웹 검색이 있다** (5장, p.224).[^huyen2025] 그 도구들은 6장의
-  몫이다 (5장, p.224).[^huyen2025]
+  몫이다 (5장, p.224)[^huyen2025] — 두 갈래는
+  [검색 증강 생성(RAG)](../concepts/retrieval-augmented-generation.md)과
+  [에이전트란 무엇인가](../concepts/agents-defined.md)로 이어진다.
 
 ## 모델의 지식을 맥락으로만 가두기
 
@@ -58,11 +60,14 @@ sources:
 
 ## 이어지는 페이지
 
+- [검색 증강 생성(RAG)](../concepts/retrieval-augmented-generation.md) — 맥락 구성의 첫째 패턴
+- [에이전트란 무엇인가](../concepts/agents-defined.md) — 둘째 패턴, 그리고 맥락 구성을 넘어서는 쪽
 - [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md) — 맥락에 넣을 수 있는
   양과 그 안의 위치 효과
 - [명확하고 명시적인 지시](../concepts/clear-and-explicit-instructions.md) — 같은 절의 앞 관행
 - [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — 환각이 일어나는 이유
 - [사실 일관성](../concepts/factual-consistency.md) — 맥락에 근거한 답인지 재는 자리
+- [에이전트의 메모리](../concepts/agent-memory.md) — 컨텍스트를 단기 기억으로 다시 읽는 자리
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 검색으로 맥락을 모아 오는 쪽이
   기대는 색인
 - [인컨텍스트 학습](../concepts/in-context-learning.md) — 컨텍스트라는 낱말의 다른 쓰임

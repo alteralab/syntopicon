@@ -2,7 +2,6 @@
 type: concept
 title: 임베딩 기반 검색
 description: 낱말이 아니라 뜻이 가까운 문서를 꺼내 오는 검색 파이프라인 — 어휘 층에서 재는 것이 왜 엉뚱한 문서를 부르는지, 색인에 임베딩 변환이라는 단계가 하나 더 붙고 질의가 두 단계가 되는 구조, 벡터 데이터베이스에서 어려운 것은 저장이 아니라 탐색이라는 지적, 그리고 k-최근접 이웃의 순진한 해가 감당되지 않아 근사 최근접 이웃으로 넘어가는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

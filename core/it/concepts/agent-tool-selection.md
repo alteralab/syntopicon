@@ -2,7 +2,6 @@
 type: concept
 title: 도구 선택
 description: 무엇을 몇 개나 줄지에 정답이 없는 문제를 실험으로 좁히는 절차 — 다섯 개를 파인 튜닝한 Toolformer부터 1,645개 API 중에서 고르게 한 Gorilla까지 벌어진 문헌의 폭, 삭제 실험과 도구 호출 분포처럼 결정을 도울 네 가지 실측, 과제와 모델에 따라 도구 사용 패턴이 갈린다는 관찰, 그리고 에이전트가 도구를 조합해 새 도구를 만드는 쪽의 시도
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

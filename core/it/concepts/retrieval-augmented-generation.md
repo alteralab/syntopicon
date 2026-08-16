@@ -2,7 +2,6 @@
 type: concept
 title: 검색 증강 생성(RAG)
 description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 그리고 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

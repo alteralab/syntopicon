@@ -2,7 +2,6 @@
 type: concept
 title: 에이전트의 메모리
 description: 모델의 컨텍스트를 넘는 정보를 붙들기 위한 기전 셋 — 훈련으로 들어가 있는 내부 지식, 과제를 넘지 못하는 단기 기억인 컨텍스트, 검색으로 닿는 외부 데이터인 장기 기억, 그 셋을 쓰임 빈도로 나누는 기준과 메모리 시스템이 주는 네 가지 이득, 그리고 무엇을 더하고 지울지 정하는 FIFO·중복 제거·요약·반성 전략
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

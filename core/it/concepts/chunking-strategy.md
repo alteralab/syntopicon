@@ -2,7 +2,6 @@
 type: concept
 title: 청킹 전략
 description: 문서를 검색 단위로 쪼개는 방식이 검색 성능을 좌우하는 자리 — 문자·낱말·문장·문단 같은 균등 단위와 점점 작은 단위로 내려가는 재귀 분할, 경계에서 뜻이 잘리는 것을 막는 겹침, 생성 모델과 임베딩 모델이 각각 거는 크기 상한, 토큰을 단위로 삼을 때 따라오는 재색인 부담, 그리고 청크를 작게 할 때 얻는 것과 잃는 것
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

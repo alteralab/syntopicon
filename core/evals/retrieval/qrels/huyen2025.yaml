@@ -308,3 +308,76 @@ queries:
     description: "방어 페이지 — 이후 보안 원전(W군)의 착지 경계"
     expected_files: ["concepts/defenses-against-prompt-attacks.md", "concepts/defensive-prompt-engineering.md"]
     expected_in_top_k: 5
+  # ---- 6장 배치 (런 2026-08-16-13) ----
+  - id: aie6-alias-1
+    query: "RAG"
+    type: alias
+    description: "실측 공백이었던 축의 정답 페이지 회귀 지점 — 이 질의가 0건이던 것이 반입의 출발점이었다"
+    expected_files: ["concepts/retrieval-augmented-generation.md"]
+    expected_in_top_k: 5
+  - id: aie6-alias-2
+    query: "BM25"
+    type: alias
+    description: "원어 질의 — 용어 기반 검색 페이지 (KB 전체에 미등장이던 용어)"
+    expected_files: ["concepts/term-based-retrieval.md"]
+    expected_in_top_k: 5
+  - id: aie6-alias-3
+    query: "reranking"
+    type: alias
+    description: "원어 질의 — 하이브리드와 리랭킹 페이지"
+    expected_files: ["concepts/hybrid-search-and-reranking.md"]
+    expected_in_top_k: 5
+  - id: aie6-alias-4
+    query: "function calling"
+    type: alias
+    description: "원어 질의 — 함수 호출 페이지"
+    expected_files: ["concepts/function-calling.md"]
+    expected_in_top_k: 5
+  - id: aie6-exact-1
+    query: "청킹 전략"
+    type: exact
+    description: "청킹 페이지 직격"
+    expected_files: ["concepts/chunking-strategy.md"]
+    expected_in_top_k: 5
+  - id: aie6-exact-2
+    query: "에이전트의 계획과 실행 분리"
+    type: exact
+    description: "계획 페이지"
+    expected_files: ["concepts/agent-planning.md"]
+    expected_in_top_k: 5
+  - id: aie6-sem-1
+    query: "문서를 검색해 프롬프트에 넣어 환각을 줄이는 패턴"
+    type: semantic
+    description: "RAG를 이름 없이"
+    expected_files: ["concepts/retrieval-augmented-generation.md"]
+    expected_in_top_k: 5
+  - id: aie6-sem-2
+    query: "모델이 스스로 한 일을 되돌아보고 고치는 루프"
+    type: semantic
+    description: "반성·오류 교정을 이름 없이"
+    expected_files: ["concepts/agent-reflection-and-error-correction.md"]
+    expected_in_top_k: 5
+  - id: aie6-top-1
+    query: "에이전트가 실패하는 방식"
+    type: topical
+    description: "실패 모드 페이지"
+    expected_files: ["concepts/agent-failure-modes.md"]
+    expected_in_top_k: 5
+  - id: aie6-top-2
+    query: "검색기 품질을 재는 지표"
+    type: topical
+    description: "검색 평가 페이지 — kb-eval 실무와 닿는 자리"
+    expected_files: ["concepts/retrieval-evaluation.md"]
+    expected_in_top_k: 5
+  - id: aie6-x-1
+    query: "역색인과 랭킹 함수"
+    type: cross-domain
+    description: "저장 엔진 축(전문 검색 색인)과 RAG 축(용어 기반 검색)의 경계 — 축 경계 판정의 회귀 지점"
+    expected_files: ["concepts/full-text-search-indexes.md", "concepts/term-based-retrieval.md"]
+    expected_in_top_k: 5
+  - id: aie6-x-2
+    query: "에이전트 기억과 외부 저장"
+    type: cross-domain
+    description: "에이전트 축과 저장 축의 경계"
+    expected_files: ["concepts/agent-memory.md"]
+    expected_in_top_k: 5

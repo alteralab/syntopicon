@@ -2,7 +2,6 @@
 type: concept
 title: 하이브리드 검색과 리랭킹
 description: 검색 알고리즘 하나로 끝내지 않는 프로덕션의 관행 — 싼 검색기로 후보를 모으고 비싼 기전으로 다시 줄 세우는 순차 결합, 여러 검색기를 동시에 돌려 순위를 합치는 병렬 앙상블과 그 합산 규칙인 역순위 융합(RRF), 그리고 컨텍스트를 위한 리랭킹이 검색 순위와 달리 정확한 자리보다 포함 여부에 무게를 두는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

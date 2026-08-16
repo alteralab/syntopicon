@@ -2,7 +2,6 @@
 type: concept
 title: 어휘 기반 검색
 description: 낱말이 겹치는 문서를 골라 순위를 매기는 검색 — 검색이 RAG보다 백 년 앞선다는 배치, 희소 대 조밀이라는 문헌의 구분을 저자가 어휘 대 임베딩으로 바꿔 부르는 이유, 용어 빈도와 역문서 빈도를 곱해 점수를 내는 TF-IDF와 문서 길이를 정규화한 BM25의 계보, 그리고 토큰화가 뜻을 부수는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

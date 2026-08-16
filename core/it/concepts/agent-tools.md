@@ -2,7 +2,6 @@
 type: concept
 title: 에이전트의 도구
 description: 모델 하나로는 행동이 하나뿐인 시스템에 능력을 붙이는 세 범주 — 외부 정보를 끌어오는 지식 증강과 웹 브라우징, 계산기·코드 인터프리터·캡셔너처럼 모델의 약점을 메우는 능력 확장, 그리고 데이터 소스를 바꾸는 쓰기 행동과 거기 붙는 두려움, 도구가 프롬프팅이나 파인 튜닝보다 성능을 크게 올린 실측
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

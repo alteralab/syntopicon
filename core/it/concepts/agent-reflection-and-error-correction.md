@@ -2,7 +2,6 @@
 type: concept
 title: 반성과 오류 교정
 description: 계획이 아니라 계획의 결과를 평가해 다음 계획을 고치는 기전 — 반성이 유용한 네 자리, 추론과 행동을 번갈아 놓아 에이전트의 흔한 패턴이 된 ReAct의 형식, 평가자와 자기 반성 모듈을 갈라 새 궤적을 제안하는 Reflexion, 그리고 구현이 쉽고 성능 향상이 놀랍지만 토큰과 지연을 대가로 낸다는 셈
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

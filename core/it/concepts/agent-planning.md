@@ -2,7 +2,6 @@
 type: concept
 title: 에이전트 계획
 description: 목표와 제약으로 정의된 과제를 단계의 로드맵으로 바꾸는 일 — 계획을 실행과 분리해 검증 뒤에만 실행하는 구조와 그것이 낳는 세 부품·다중 에이전트, 의도 분류가 계획과 도구 선택을 앞서는 자리, 사람이 계획·검증·실행 어느 단계에나 끼어들 수 있다는 자동화 수준의 문제, 그리고 파운데이션 모델 플래너와 강화 학습 플래너의 차이
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

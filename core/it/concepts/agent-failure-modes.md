@@ -2,7 +2,6 @@
 type: concept
 title: 에이전트의 실패 모드
 description: 평가란 실패를 검출하는 일이라는 전제 위에서 에이전트에만 있는 실패를 갈라 세는 법 — 유효하지 않은 도구·유효하지 않은 파라미터·틀린 파라미터 값으로 나뉘는 계획 실패와 목표 실패, 시간이라는 자주 빠뜨리는 제약, 완수하지도 않고 완수했다고 우기게 만드는 반성 오류, 도구 자체의 실패와 빠진 도구, 그리고 유효한 계획이 비효율일 때 재는 것
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
