@@ -8,6 +8,7 @@ contradicts: [why-write-comments]
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 코드의 나쁜 냄새
@@ -358,6 +359,27 @@ sources:
     구조다. 그런 결과 레코드의 핵심 특성은 그것이 (적어도 실제로는) 불변이라는 것이다. 불변
     필드는 캡슐화될 필요가 없고, 불변 데이터에서 파생된 정보는 게터 메서드가 아니라 필드로
     표현될 수 있다** (3장 §"Data Class", p.83).[^fowler2018]
+  - **이 항목만 파이썬 쪽 소스가 통째로 되받는다.** *Fluent Python* 5장이 데이터 클래스
+    빌더 셋을 소개한 뒤 마지막 절을 이 냄새에 쓰고, 그 안에서 **파울러의 글 "Code Smell"을
+    허락받아 전문 재수록한다** (5장 §"Data class as a code smell").[^ramalho2022]
+    전문은 [코드 냄새로서의 데이터 클래스](data-class-as-code-smell.md)에 있고, 여기서는
+    이 항목에 직접 걸리는 둘만 적는다.
+    - **되받는 쪽이 이 항목의 근거를 다시 진술한다** — **객체 지향 프로그래밍의 주된 생각은
+      행동과 데이터를 같은 코드 단위, 즉 클래스에 함께 놓는 것이다. 어떤 클래스가 널리
+      쓰이는데 자기 자신의 유의미한 행동이 없다면, 그 인스턴스를 다루는 코드가 시스템 전체의
+      메서드와 함수에 흩어져 있고 심지어 중복돼 있을 가능성이 있다 — 유지보수 두통의
+      처방전이다. 그래서 파울러가 데이터 클래스를 다루는 리팩터링들이 책임을 그 안으로
+      되가져오는 것이다** (5장 §"Data class as a code smell").[^ramalho2022]
+    - **그리고 정당한 경우를 둘로 이름 붙인다** — **비계(scaffolding)**, 즉 새 모듈을
+      띄우는 초기 구현이라 시간이 지나면 자기 메서드를 가져야 하는 경우와,
+      **중간 표현(intermediate representation)**, 즉 JSON 같은 교환 형식으로 오가거나
+      시스템 경계를 막 넘어온 데이터를 담는 경우다 (5장 §"Data class as scaffolding"·
+      §"Data class as intermediate representation").[^ramalho2022] 뒤쪽에 붙는 단서가
+      **이 항목의 예외와 같은 것**이다 — **이 시나리오에서 데이터 클래스 인스턴스는 불변
+      객체로 다뤄져야 한다.** 이 항목이 "결과 레코드의 핵심 특성은 그것이 불변이라는
+      것"이라 적은 자리와 겹친다.
+    - 그래서 **모순으로 판정하지 않았다.** 근거와 대조는 아래 [설계 잣대를 세운 소스와
+      갈리는 자리](#설계-잣대를-세운-소스와-갈리는-자리)에 있다.
 - **Refused Bequest** — **서브클래스는 부모의 메서드와 데이터를 물려받는다. 그런데 그들이
   받은 것을 원하지도 필요로 하지도 않는다면?** (3장 §"Refused Bequest",
   p.83).[^fowler2018]
@@ -457,7 +479,8 @@ sources:
 
 이 축에는 [A Philosophy of Software Design](../sources/ousterhout2021.md)이 먼저 들어와
 있고, 그쪽과 이 장이 **두 자리에서 정면으로 만난다.** 둘 중 하나는 관점 차이로, 다른 하나는
-같은 명제의 참거짓이 갈리는 모순으로 판정했다.
+같은 명제의 참거짓이 갈리는 모순으로 판정했다. 그 뒤에 들어온
+[Fluent Python](../sources/ramalho2022.md)과도 한 자리에서 만나는데, 그쪽은 모순이 아니다.
 
 ### 함수 크기 — 관점 차이다
 
@@ -498,6 +521,30 @@ sources:
   해소하지 않고 양쪽에 `contradicts`로 남긴다 — 상대는
   [주석을 왜 쓰는가](why-write-comments.md)다.
 
+### 데이터 클래스 — 모순이 아니다
+
+겉보기에는 부딪힌다. 이 장은 *Data Class*를 냄새 목록에 올리고, *Fluent Python* 5장은
+데이터 클래스를 만드는 도구 셋을 소개하며 그 사용을 권한다. **실측 판정은 모순이 아니다.**
+근거 셋이다.
+
+- **① 그쪽이 이 항목을 인용하고 지지한다.** 반박이 아니라 재수록이다 — 파울러의 글
+  "Code Smell" 전문이 그 절에 실려 있고, 저자는 **그래서 파울러가 데이터 클래스를 다루는
+  리팩터링들이 책임을 그 안으로 되가져오는 것이다**라고 처방까지 승인한다
+  (5장 §"Data class as a code smell").[^ramalho2022] 장 요약도 같은 말을 다시 한다 —
+  **논리가 없는 클래스는 잘못 놓인 로직의 신호일 수 있다** (5장 §"Chapter
+  Summary").[^ramalho2022]
+- **② 예외가 서로 같은 것을 가리킨다.** 이 항목이 인정하는 예외는 **별개의 함수 호출에서
+  나온 결과 레코드**이고 그 핵심 특성이 **불변**이다(위 참조). 그쪽이 드는 둘째 시나리오가
+  **중간 표현**이고 거기 붙는 단서가 **이 시나리오에서 데이터 클래스 인스턴스는 불변 객체로
+  다뤄져야 한다**(5장 §"Data class as intermediate representation")[^ramalho2022]이다.
+  범위도 단서도 일치한다.
+- **③ 갈리는 것은 명제가 아니라 대상이다.** 이 항목이 겨냥하는 것은 **널리 쓰이면서 행동이
+  없는 도메인 클래스**이고, 그쪽이 권하는 것은 **보일러플레이트를 대신 써 주는 도구**다.
+  도구가 만든 클래스가 냄새인지는 그 클래스가 무엇으로 쓰이느냐가 정하고, 그 판정 기준을
+  그쪽이 이 항목에서 그대로 빌려 온다.
+- 그래서 `contradicts`를 걸지 않고 서로 가리키게만 두었다. 위 [주석](#주석--모순으로-판정했다)
+  자리와 대비된다 — 거기서는 같은 명제의 참거짓이 갈렸고, 여기서는 갈리지 않는다.
+
 ## 이어지는 페이지
 
 - [리팩터링](refactoring.md) — 이 냄새들이 부르는 활동의 정의
@@ -516,6 +563,9 @@ sources:
   사는 곳
 - [상속 다루기 리팩터링](refactoring-inheritance.md) — 12장. *Push Down Method*와 위임 교체 둘이
   사는 곳
+- [코드 냄새로서의 데이터 클래스](data-class-as-code-smell.md) — *Data Class* 항목을
+  파이썬 쪽에서 되받은 자리. 파울러의 "Code Smell" 글 전문과 정당한 두 경우
+- [데이터 클래스 빌더](data-class-builders.md) — 그 냄새를 만들어 내는 도구 셋의 비교
 - [주석을 왜 쓰는가](why-write-comments.md) — **`contradicts` 상대.** 주석 냄새의 반대편
 - [합칠 것인가 나눌 것인가](better-together-or-better-apart.md) — 함수 크기 쟁점의 반대편
 - [DRY 원칙](dry-principle.md) — Duplicated Code의 원리 쪽 정본
@@ -533,3 +583,11 @@ sources:
     원어로 옮기고 절차는 옮기지 않는다.
 
 [^ousterhout2021]: Ousterhout 2021, 9장 §9.7–§9.8 · 12장 §12.1. 쪽은 인쇄판 쪽 번호.
+
+[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders" 중 §"Data class as a code
+    smell"(안에 전문 재수록된 Martin Fowler, "Code Smell" 포함) · §"Data class as
+    scaffolding" · §"Data class as intermediate representation" · §"Chapter Summary".
+    **이 소스의 locator는 장 + 절 제목이다** — 인쇄판 쪽 앵커가 없다. **이 스냅샷은
+    Early Release 판이라 절 제목이 정식 출간본 표기(§"Data Class as a Code Smell")와
+    대소문자가 다르다.** 검증 절차와 근거는 `it/archive/ramalho2022/_progress.yaml`
+    머리말이 정본이다.

@@ -1,17 +1,19 @@
 ---
 type: concept
 title: 값 객체와 엔티티
-description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 그리고 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각
+description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 그리고 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
 status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 값 객체와 엔티티
 
 - [구분의 기준은 정체성이다](#구분의-기준은-정체성이다)
 - [값 객체 — dataclass가 잘 맞는 이유](#값-객체--dataclass가-잘-맞는-이유)
+- [세 재료 중 무엇을 고르는가](#세-재료-중-무엇을-고르는가)
 - [값 객체에도 행동이 있을 수 있다](#값-객체에도-행동이-있을-수-있다)
 - [엔티티 — 값이 바뀌어도 같은 것](#엔티티--값이-바뀌어도-같은-것)
 - [동등성과 해시를 어디에 어떻게 다는가](#동등성과-해시를-어디에-어떻게-다는가)
@@ -90,6 +92,57 @@ sources:
   어떻게 작동하는지에 대한 우리의 현실 세계 직관과 들어맞는다. 우리가 어느 10파운드
   지폐를 말하는지는 중요하지 않다. 다 같은 값을 갖기 때문이다**
   (1장 §"Dataclasses Are Great for Value Objects").[^percival2020]
+
+## 세 재료 중 무엇을 고르는가
+
+위 조각은 세 표기를 나란히 보이기만 하고 무엇을 왜 고르는지는 말하지 않는다. 그 선택
+근거를 파이썬 관용 참조 쪽 소스가 댄다. 전문은
+[데이터 클래스 빌더](data-class-builders.md)에 있고, 여기서는 값 객체에 걸리는 것만
+추린다. 두 소스가 서로를 참조한 적은 없다.
+
+- **불변성이 첫째 갈림이다** — **`collections.namedtuple`과 `typing.NamedTuple`은 `tuple`
+  하위 클래스를 지으므로 인스턴스가 불변이다. 기본적으로 `@dataclass`는 가변 클래스를
+  생산한다** (5장 §"Mutable instances").[^ramalho2022] 즉 네임드튜플 둘은 불변이 기본값이고
+  데이터클래스는 `frozen=True`를 **적어야** 불변이 된다. 위 조각의 `Money`·`Line`이
+  `frozen` 없이도 값 객체인 이유가 그것이다.
+- **⚠ 그런데 `frozen=True`가 진짜 불변은 아니다.** `@dataclass`는
+  **`dataclass.FrozenInstanceError`(`AttributeError`의 하위 클래스)를 일으키는
+  `__setattr__`과 `__delattr__`을 생성해 불변성을 흉내 낸다**(5장 §"More about @dataclass"
+  표 5-2 각주 a)이고, 인스턴스는 **우발적 변경으로부터 합리적으로 안전하지만 정말로 불변인
+  것은 아니다**.[^ramalho2022] 저자의 실무 판정이 그 뒤에 붙는다 — **파이썬 객체의 동적
+  성격을 생각하면 참견하기 좋아하는 프로그래머가 `frozen=True`가 주는 보호를 우회하기가
+  그리 어렵지 않다. 그러나 그러려면 필요한 요령들이 코드 리뷰에서 쉽게 눈에 띄어야 한다**
+  (5장 §"More about @dataclass").[^ramalho2022]
+  - **이 페이지의 규칙과 맞물리는 자리다.** 위 [동등성과 해시를 어디에 어떻게
+    다는가](#동등성과-해시를-어디에-어떻게-다는가)가 "값 객체는 불변이어야 하고 해시는 모든
+    값 속성에 근거해야 한다"고 요구하는데, 그 요구는 `frozen`으로 **완전히** 채워지지 않는다.
+    `frozen`이 사는 것은 강제가 아니라 **의도 표시와 사고 방지**다.
+- **해시 가능성이 두 옵션에 걸린다** — **`eq`와 `frozen` 인자가 둘 다 `True`이면
+  `@dataclass`가 적절한 `__hash__` 메서드를 생산하므로 인스턴스가 해시 가능해진다. (…)
+  `frozen=False`(기본값)이면 `@dataclass`는 `__hash__`를 `None`으로 설정해 인스턴스가 해시
+  불가능함을 알리고, 어떤 상위 클래스의 `__hash__`든 덮어쓴다**
+  (5장 §"More about @dataclass").[^ramalho2022]
+  - 이것이 이 페이지의 두 규칙이 한 줄로 실현되는 자리다. 값 객체는
+    `@dataclass(frozen=True)`로 해시를 얻고, 엔티티는 데코레이터 기본값(`frozen=False`)만으로
+    이미 **해시 불가능**이 된다 — 이 페이지가 "엔티티에서는 가장 단순한 선택지가 해시를
+    `None`이라 말하는 것"이라고 적은 그 상태가 파이썬의 기본값이다. #hypothesis 두 소스가
+    그렇게 대응시키지는 않았다.
+- **클래스 문장을 쓸 수 있는가가 셋째 갈림이다** — **`typing.NamedTuple`과 `dataclass`만이
+  보통의 클래스 문장 문법을 지원해, 만들고 있는 클래스에 메서드와 독스트링을 더하기 쉽게
+  만든다** (5장 §"Class statement syntax").[^ramalho2022] `collections.namedtuple`에
+  메서드를 붙이는 것은 함수를 클래스 속성에 대입하는 **해킹**이고, 저자는
+  **가독성과 앞으로의 유지보수를 위해서는 클래스 문장 안에서 메서드를 코딩하는 편이 훨씬
+  낫다**고 적는다 (5장 §"Classic Named Tuples").[^ramalho2022]
+  - **그래서 아래 [값 객체에도 행동이 있을 수 있다](#값-객체에도-행동이-있을-수-있다)가
+    재료 선택에 되먹임된다.** 화폐 예제처럼 값 객체에 연산을 달 작정이라면
+    `collections.namedtuple`은 제외된다. 남는 것은 `typing.NamedTuple`과
+    `@dataclass(frozen=True)` 둘이다.
+- **부적합 사유도 명시돼 있다.** 저자가 PEP 557의 Rationale를 인용한다 —
+  **튜플이나 딕셔너리와의 API 호환이 요구될 때**, 그리고 **PEP 484·526이 제공하는 것 이상의
+  타입 검증이나 값 검증·변환이 필요할 때**는 데이터 클래스를 쓸 자리가 아니다
+  (5장 §"Further Reading").[^ramalho2022] 뒤쪽이 도메인 모델에서 실제로 자주 걸린다 —
+  값 객체에 불변식 검증을 걸고 싶어지는 순간이 그것이고, 그때는 `__post_init__`으로 손수
+  짜거나 `attrs` 같은 외부 도구로 간다.
 
 ## 값 객체에도 행동이 있을 수 있다
 
@@ -180,8 +233,14 @@ sources:
 - [리포지터리 패턴](repository-pattern.md) — 이 객체들을 저장하고 되살리는 층
 - [데이터 조직하기](organizing-data.md) — 같은 값·참조 구분을 리팩터링 카탈로그가
   *Change Reference to Value*와 그 역으로 부르는 자리
+- [데이터 클래스 빌더](data-class-builders.md) — 위 세 재료의 전면 비교와 선택 기준,
+  그리고 `@dataclass`의 나머지 옵션들
+- [코드 냄새로서의 데이터 클래스](data-class-as-code-smell.md) — "정체성이 없다"와
+  "행동이 없다"를 혼동하면 걸리는 냄새
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
+- [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
+  이 재료들의 언어 쪽 근거가 모인 허브
 
 [^percival2020]: Percival & Gregory 2020, 1장 "Domain Modeling"(§"Dataclasses Are Great
     for Value Objects"·§"Value Objects and Entities", 곁글 "More Types for More Type
@@ -192,3 +251,10 @@ sources:
     조판용 번호 표지 이미지를 제거했고, 원문이 세 예제를 나눠 실은 것을 한 펜스로 이었다
     (임포트는 원문 그대로다 — 이 예제는 저자들이 임포트를 생략하지 않은 몇 안 되는
     목록 중 하나다).
+
+[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders"(§"Mutable instances" ·
+    §"Class statement syntax" · §"Classic Named Tuples" · §"More about @dataclass"와
+    그 표 5-2 · §"Further Reading"). **이 소스의 locator는 장 + 절 제목이다** — 인쇄판
+    쪽 앵커가 없다. 검증 절차와 근거, 그리고 **이 스냅샷이 Early Release 판이라는 사실**은
+    `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 이 소스에서 온 코드 펜스는
+    이 페이지에 없다 — 전문은 [데이터 클래스 빌더](data-class-builders.md)에 있다.
