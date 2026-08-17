@@ -402,6 +402,15 @@ sources:
   - **`numbers` ABC는 구스 타이핑에는 괜찮지만 정적 타이핑에는 부적합하다.**
   - **수치 정적 프로토콜 `SupportsComplex`·`SupportsFloat` 등은 정적 타이핑에는 잘
     동작하지만, 복소수가 얽히면 구스 타이핑에는 신뢰할 수 없다.**
+- **같은 판단이 요구되는 다른 자리 하나** — 일반 함수(generic function)의 특수화를 등록할 때다.
+  9장이 같은 지침을 되풀이한다 — **가능하면 `int`나 `list` 같은 구체 구현이 아니라
+  `numbers.Integral`이나 `abc.MutableSequence` 같은 ABC(추상 클래스)를 다루도록 특수화된
+  함수를 등록하라. 그러면 코드가 더 다양한 호환 타입을 지원할 수 있다**
+  (9장 §"Function singledispatch", p.327).[^ramalho2022] 이유도 이 페이지의 어휘 그대로다 —
+  **`@singledispatch`와 함께 ABC나 `typing.Protocol`을 쓰면 그 ABC의 실제 또는 가상 하위
+  클래스이거나 그 프로토콜을 구현하는 기존·미래의 클래스를 코드가 지원할 수 있다**
+  (9장 §"Function singledispatch", p.328).[^ramalho2022] 그 기능 전체는
+  [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md)가 갖는다.
 - **이 페이지가 이 KB의 다른 축과 만나는 자리**: 단일 메서드 프로토콜 지침은
   [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 잣대를 **인터페이스 선언 자체에**
   적용한 것으로 읽힌다 — 기능은 구현이 갖고 선언은 최소로 줄인다. #hypothesis 저자가
@@ -411,6 +420,10 @@ sources:
 
 - [파이썬 데이터 모델](python-data-model.md) — 여기서 말하는 "동적 프로토콜"이 무엇으로
   이루어져 있는가
+- [점진적 타이핑](gradual-typing-in-python.md) — 이 네 사분면이 놓이는 타입 체계 자체.
+  덕/명목 대비의 정의와 `Any`·`consistent-with`, 그리고 정적 타이핑의 한계 목록
+- [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) — 같은
+  판단(구체 타입이냐 ABC·프로토콜이냐)이 일반 함수 등록에서 다시 요구되는 자리
 - [데이터 클래스 빌더](data-class-builders.md) — 같은 소스가 타입 힌트의 다른 쪽 끝
   (런타임에 효과가 없다는 사실)을 다루는 자리
 - [의존성 역전 원칙](dependency-inversion-principle.md) — 포트를 ABC로 둘지 덕 타이핑으로
@@ -439,7 +452,9 @@ sources:
     §"Limitations of Runtime Protocol Checks" pp.471–472·§"Designing a Static Protocol"
     pp.474–476·§"Best Practices for Protocol Design" pp.476–477·§"Extending a Protocol"
     pp.477–478·§"The numbers ABCs and Numeric Protocols" pp.478–481 · §"Chapter Summary"
-    pp.481–482 · §"Soapbox" 곁글 pp.484–486 · 각주 6 p.444).
+    pp.481–482 · §"Soapbox" 곁글 pp.484–486 · 각주 6 p.444). 9장 인용 두 건은
+    §"Function singledispatch" pp.327–328이고, 그 절의 전문은
+    [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md)가 갖는다.
     **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그 오프셋 실측과
     판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다.
     Figure 13-1(Typing Map)·13-2·13-3·13-4(`collections.abc` UML)·13-5(Tombola UML)·

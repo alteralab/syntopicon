@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 디자인 패턴의 해부
-description: "데이터 엔지니어링 디자인 패턴이라는 형식 자체 — 레시피 비유가 정의하는 다섯 성질(미리 정의된 템플릿·맥락화·재사용성·결과·시간 절약과 공통 어휘), GoF 23개로는 왜 부족한가, 카탈로그가 범주와 패턴의 2층으로 조직된 이유, 패턴 하나가 문제·해법·결과·예제 네 절로 쓰이는 규약, 이 책의 모든 문제 서술이 놓이는 블로그 분석 플랫폼 사례 연구와 메달리온 3계층, 그리고 GoF와 이 카탈로그 사이에 놓인 기업 통합 패턴이 같은 형식에 대해 내놓은 세 판정 — 패턴은 붙잡기 어렵다·표준화되어도 시들지 않고 나이테처럼 자란다·부실한 사전 설계는 보완하지 못한다 그리고 패턴 형식에 대한 셋째 판정 — 최대 위험은 과잉 적용이며 성공한 패턴일수록 맞지 않는 자리에도 쓰인다는 것, 게터와 세터가 그 실물이라는 것, 그리고 같은 형식의 다른 판인 리팩터링 카탈로그 — 항목이 다섯 부분으로 쓰이되 결과 절이 없고 맞교환이 동기 절에 들어 있다는 대비, 그리고 널 객체·명령·State·Strategy·Visitor가 리팩터링의 도착점이나 규칙의 예외로 등장하는 자리들"
+description: "데이터 엔지니어링 디자인 패턴이라는 형식 자체 — 그리고 형식에 대한 넷째 판정 — 패턴은 언어에 의존하며 원저 자신이 그것을 서문에 적어 두었다는 것, 동적 언어에서 23개 중 16개가 더 단순해지거나 보이지 않게 된다는 Norvig의 셈, 공저자 Ralph Johnson이 20년 뒤 든 원저의 실패 — 패턴을 설계 과정의 단계가 아니라 종점으로 보게 만든 것 — 레시피 비유가 정의하는 다섯 성질(미리 정의된 템플릿·맥락화·재사용성·결과·시간 절약과 공통 어휘), GoF 23개로는 왜 부족한가, 카탈로그가 범주와 패턴의 2층으로 조직된 이유, 패턴 하나가 문제·해법·결과·예제 네 절로 쓰이는 규약, 이 책의 모든 문제 서술이 놓이는 블로그 분석 플랫폼 사례 연구와 메달리온 3계층, 그리고 GoF와 이 카탈로그 사이에 놓인 기업 통합 패턴이 같은 형식에 대해 내놓은 세 판정 — 패턴은 붙잡기 어렵다·표준화되어도 시들지 않고 나이테처럼 자란다·부실한 사전 설계는 보완하지 못한다 그리고 패턴 형식에 대한 셋째 판정 — 최대 위험은 과잉 적용이며 성공한 패턴일수록 맞지 않는 자리에도 쓰인다는 것, 게터와 세터가 그 실물이라는 것, 그리고 같은 형식의 다른 판인 리팩터링 카탈로그 — 항목이 다섯 부분으로 쓰이되 결과 절이 없고 맞교환이 동기 절에 들어 있다는 대비, 그리고 널 객체·명령·State·Strategy·Visitor가 리팩터링의 도착점이나 규칙의 예외로 등장하는 자리들"
 generated: { by: "claude-opus-5", at: "2026-08-17T20:00:00Z" }
 status: draft
 sources:
@@ -9,6 +9,7 @@ sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 디자인 패턴의 해부
@@ -28,6 +29,7 @@ sources:
 - [같은 패턴이 여러 층에 재귀적으로 있다](#같은-패턴이-여러-층에-재귀적으로-있다)
 - [형식의 한계 — 패턴이 보완하지 못하는 것](#형식의-한계--패턴이-보완하지-못하는-것)
 - [과잉 적용이 최대 위험이라는 판정](#과잉-적용이-최대-위험이라는-판정)
+- [넷째 판정 — 패턴은 언어에 의존한다](#넷째-판정--패턴은-언어에-의존한다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **"패턴"이라는 형식이 데이터 엔지니어링에서 무엇을 약속하는가.**
@@ -412,6 +414,49 @@ KB의 [메시징 패턴](../synthesis/messaging-patterns.md) 허브가 그것을
   ([코드의 일관성](consistency-in-code.md), 17장 §17.3).
 - 이 소스가 다른 두 소스를 참조한 적은 없다.
 
+## 넷째 판정 — 패턴은 언어에 의존한다
+
+앞의 세 판정이 **패턴을 익히는 비용**·**패턴이 못 하는 일**·**잘 될 때의 이차 위험**을
+말했다면, 넷째 판정은 카탈로그의 **적용 범위 자체**를 문제 삼는다. 그리고 이번에는 근거가
+원저 자신의 서문에 있다.
+
+- **GoF가 자기 카탈로그의 언어 의존성을 스스로 밝혀 두었다** (10장 도입,
+  pp.341–342):[^ramalho2022]
+
+  > The choice of programming language is important because it influences one's point of
+  > view. Our patterns assume Smalltalk/C++-level language features, and that choice
+  > determines what can and cannot be implemented easily. If we assumed procedural
+  > languages, we might have included design patterns called "Inheritance,"
+  > "Encapsulation," and "Polymorphism."
+
+  - **상속·캡슐화·다형성이 패턴 이름이 될 뻔했다는 진술이 이 문단의 핵심이다.** 무엇이
+    "패턴"이 되는가는 그 언어가 무엇을 이미 주느냐의 잔여물이다.
+- 그래서 카탈로그 항목의 지위가 언어마다 달라진다 — **패턴이 언어 독립적이라는 말이 모든
+  패턴이 모든 언어에 적용된다는 뜻은 아니다** (10장 도입, p.341).[^ramalho2022] 파이썬에서
+  이터레이터 패턴이 그 실물이다 — **그 패턴이 언어에 박혀 제너레이터의 형태로 바로 쓸 수 있게
+  돼 있어서, 고전 레시피를 흉내 내는 것은 말이 되지 않는다** (10장 도입, p.341).[^ramalho2022]
+- 규모의 셈도 인용된다. Peter Norvig의 1996년 발표에서 — **23개 패턴 중 16개가 각 패턴의
+  적어도 일부 쓰임에 대해 C++보다 Lisp나 Dylan에서 질적으로 더 단순한 구현을 갖는다**
+  (10장 §"Chapter Summary", p.357).[^ramalho2022] 그가 다시 생각할 것을 제안한 패턴은
+  **Strategy·Command·Template Method·Visitor**다 (10장 도입, p.342).[^ramalho2022]
+  - 다만 그 짝짓기는 확정적이지 않다 — 다중 메서드에 대해 Norvig은 Builder가 단순해진다고
+    보고 GoF는 Visitor의 필요가 줄어든다고 보았다는 대조를 들며 **디자인 패턴을 언어 기능에
+    짝지우는 것은 정확한 과학이 아니다**라고 적힌다 (10장 곁글 "Soapbox",
+    p.359).[^ramalho2022] #hypothesis
+- **그리고 공저자 자신의 회고가 이 형식에 대한 가장 무거운 자기 비판이다.** *Design Patterns*
+  20주년을 돌아보며 Ralph Johnson이 든 그 책의 실패 하나가 **패턴을 설계 과정의 단계가 아니라
+  종점으로 보는 데 너무 많은 강조를 둔 것**이다 (10장 §"Chapter Summary",
+  p.357).[^ramalho2022] 같은 사람이 장 머리의 제사에서 더 짧게 말한다 — **패턴에 부합하는
+  것은 좋음의 척도가 아니다** (10장 제사, p.341).[^ramalho2022]
+- **네 판정을 나란히 두면 이 형식의 지형이 완성된다.** 붙잡기 어렵고(비용), 부실한 사전 설계를
+  보완하지 못하며(범위), 잘 될수록 과잉 적용되고(이차 위험), 어떤 언어에서는 애초에 문제가
+  아니다(적용 범위). 넷 중 마지막 둘이 같은 처방을 낳는다 — **패턴 이름을 찾기 전에 이 언어가
+  이미 무엇을 주는지를 본다.** 파이썬에서 그 처방이 실제로 굴러가는 것을 끝까지 따라간 자리가
+  [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md)이다.
+- 이 소스가 다른 세 소스를 참조한 적은 없다. Ousterhout의 과잉 적용 판정과 이 판정이 같은
+  방향을 가리키지만, 겨냥은 다르다 — 저쪽은 **맞지 않는 문제에 패턴을 밀어 넣는 것**을,
+  이쪽은 **그 패턴이 이 언어에서는 문제 자체가 아닐 수 있다는 것**을 말한다.
+
 ## 이어지는 페이지
 
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이
@@ -430,6 +475,8 @@ KB의 [메시징 패턴](../synthesis/messaging-patterns.md) 허브가 그것을
   다섯 부분으로 쓰이고 결과 절이 없는 카탈로그
 - [코드의 나쁜 냄새](code-smells.md) — 그 카탈로그의 반대 방향 색인이자 Strategy·Visitor가
   규칙의 예외로 등장하는 자리
+- [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md) —
+  "패턴은 언어에 의존한다"는 판정이 한 언어에서 실제로 무엇을 무너뜨리는지 끝까지 따라간 자리
 
 [^konieczny2025]: Konieczny 2025, 서문 "The Structure of This Book"(pp.x–xi) · 1장 "Introducing
 Data Engineering Design Patterns"(pp.1–6) · "Afterword"(p.331). 그림 1-1(블로그 분석 플랫폼)은
@@ -453,3 +500,11 @@ Neville, "Emerging Standards and Futures in Enterprise Integration"(pp.625–627
     규약이며 근거는 `it/archive/fowler2018/_progress.yaml` 머리말에 있다. 이 페이지에는 카탈로그라는
     **형식 자체**에 대한 진술과 패턴이 리팩터링의 도착점으로 등장하는 자리만 합류시켰고, 각 항목의
     내용은 장별 페이지가 갖는다.
+
+[^ramalho2022]: Ramalho 2022, 10장 "Design Patterns with First-Class Functions" — 제사·도입
+    (pp.341–342) · §"Chapter Summary"(p.357) · 곁글 "Soapbox"(p.359). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 30). 이 페이지에는 패턴이라는 **형식 자체**에 대한 진술만 합류시켰고, 전략·명령
+    패턴의 실제 리팩터링은
+    [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md)이 갖는다.
+    GoF 서문 인용은 이 소스가 옮긴 것을 재인용한 것이다 — 이 KB는 *Design Patterns* 원서를
+    들이지 않았다.

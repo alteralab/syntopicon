@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 부수 효과 없는 함수
@@ -16,6 +17,7 @@ sources:
 - [함수의 정의](#함수의-정의)
 - [두 가지 완화책](#두-가지-완화책)
 - [조항](#조항)
+- [이 조항이 사 오는 것 — 기억해 둘 수 있는 연산](#이-조항이-사-오는-것--기억해-둘-수-있는-연산)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **연산을 부르고 나서 무슨 일이 일어났는지 어떻게 예측 가능하게 만드는가.**
@@ -118,6 +120,27 @@ sources:
   객체를 바꾸는 대신 **새 색을 표상하는 새 `Pigment Color` 객체를 낳는다** (10장,
   p.253).[^evans2003]
 
+## 이 조항이 사 오는 것 — 기억해 둘 수 있는 연산
+
+위 [함수의 정의](#함수의-정의)가 말한 **"여러 번 호출될 수 있고 매번 같은 값을 돌려준다"**는
+성질에는 이 소스가 세지 않은 값어치가 하나 더 붙는다. 그런 연산만이 **결과를 기억해 두고 다시
+계산하지 않을 수 있다.**
+
+- 메모이제이션(memoization)의 규정 — **비싼 함수의 이전 호출 결과를 저장해서 이전에 쓰인
+  인자에 대한 반복 계산을 피하는 최적화 기법** (9장 §"Memoization with functools.cache",
+  p.320).[^ramalho2022]
+- 그 저장의 열쇠가 무엇인지도 명시돼 있다 — **바탕의 `lru_cache`가 결과를 저장하는 데
+  `dict`를 쓰고, 그 키는 호출에 쓰인 위치 인자와 키워드 인자로 만들어진다**
+  (9장 §"Memoization with functools.cache", p.323).[^ramalho2022]
+- **여기서부터는 이 KB의 읽기다.** 키가 인자에서만 만들어진다는 것은, 결과가 인자 말고 다른
+  것 — 시스템 상태 — 에 달려 있으면 그 의존을 키로 표현할 방법이 없다는 뜻이다. 즉 **이
+  조항을 지킨 연산만 안전하게 캐시할 수 있고, 명령과 뒤섞인 연산에 캐시를 얹으면 캐시는
+  바깥이 변한 것을 알 길이 없다.** 두 소스 중 어느 쪽도 이 결론을 문장으로 적지는 않았다.
+- 파이썬 쪽 캐시의 적용 조건과 그 위험(경계 없이 자라는 `@cache`, 저자가 그은 적용 범위)은
+  [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md)가 정본이다.
+  이 저장소의 도구 구현 헌장에 있는 **"상태를 읽는 함수에 숨은 memoization 금지"** 조항이
+  기대는 자리도 거기다.
+
 ## 이어지는 페이지
 
 - [의도를 드러내는 인터페이스](intention-revealing-interfaces.md) — 같은 장의 앞 패턴.
@@ -132,6 +155,10 @@ sources:
   "최소 놀람의 원칙"이 어떻게 깨지는가의 실물
 - [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 표준 라이브러리가 명령과
   질의를 반환값으로 표시하는 관례(`list.sort`가 `None`을 돌려주는 자리)
+- [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) — 이 조항을
+  지킨 연산만 캐시할 수 있다는 조건이 파이썬 실물로 나타나는 자리
+- [클로저와 데코레이터](closures-and-decorators.md) — "함수는 불투명해야 한다"는 같은 요구가
+  언어의 범위 규칙 선택으로 나타나는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 10장 "Supple Design" §SIDE-EFFECT-FREE FUNCTIONS(pp.250–255).
@@ -142,3 +169,8 @@ sources:
     서술했다 — 펜스는 [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)가
     쓰고 있다. 클래스 다이어그램(Figure 10.4·10.6)과 부수 효과 도해(Figure 10.5)는
     도판이라 그 판정만 옮겼다.
+
+[^ramalho2022]: Ramalho 2022, 9장 "Decorators and Closures" §"Memoization with
+    functools.cache"(pp.320–323). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 30). 이 페이지에는 이 조항이
+    무엇을 사 오는가에 해당하는 두 문장만 합류시켰고, `@cache`·`@lru_cache`의 적용 조건 전부는
+    [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md)가 갖는다.

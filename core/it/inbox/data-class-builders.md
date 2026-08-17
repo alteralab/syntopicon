@@ -377,6 +377,8 @@ unsafe_hash=False, frozen=False)`이고, 별표 때문에 **나머지 매개변�
   무엇인가
 - [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md) — 같은 소스가 타입 힌트의
   다른 쪽 끝(구조적 타이핑)을 다루는 자리
+- [점진적 타이핑](gradual-typing-in-python.md) — 여기 쓰이는 타입 힌트가 어떤 종류의 타입
+  체계에 속하는가. **런타임에 효과가 없다는 사실이 그 체계의 정의에 들어 있는 자리**
 - [데이터 조직화 리팩터링](organizing-data.md) — 같은 값·참조 구분을 카탈로그가
   *Change Reference to Value*로 부르는 자리
 - [기본형 집착과 데이터 뭉치](code-smells.md) — 왜 딕셔너리·튜플 대신 구조체를 쓰는가의
