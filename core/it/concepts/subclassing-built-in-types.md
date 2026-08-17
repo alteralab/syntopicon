@@ -3,7 +3,6 @@ type: concept
 title: 내장 타입을 상속할 때의 함정
 description: C로 쓰인 내장 타입의 메서드가 하위 클래스의 오버라이드를 대체로 무시한다는 사실과 그것이 객체 지향의 기본 규칙(늦은 바인딩)을 어기는 자리 — 규칙 없음이 공식 입장이라는 문서, 인스턴스 안팎 두 갈래로 나타나는 증상, collections의 User 계열이라는 처방과 그 실측 비용, 그리고 이 예외가 버그가 아니라 성능을 위한 의도된 교환이라는 저자의 판정
 generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
-status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---

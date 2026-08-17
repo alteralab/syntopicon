@@ -37,7 +37,7 @@ Software*(Addison-Wesley, 2003)이다. 업계에서 **파란 책**이라 부르�
 
 ## 말 — 유비쿼터스 언어
 
-- [유비쿼터스 언어](../inbox/ubiquitous-language.md) — **먼저 읽는다.** 이 소스의 나머지가
+- [유비쿼터스 언어](../concepts/ubiquitous-language.md) — **먼저 읽는다.** 이 소스의 나머지가
   이 패턴의 적용이다. 번역이 무는 비용 셋, 이 공용어의 어휘가 업무 용어 일반이 아니라
   **클래스와 두드러진 연산의 이름**이라는 규정, 언어를 바꾸는 것이 모델을 바꾸는 것이라는
   조항, 소리 내어 말해 모델의 거친 모서리를 듣는 부칙과 세 판본의 판정, 도메인 전문가가
@@ -128,7 +128,7 @@ Entity·Value Object·Aggregate·Repository·Service·Factory의 원 정의는 �
 패턴을 파이썬 실물로 다루는 쪽이다. 이 소스의 원 정의는 그 페이지들에 직인용과 출처 각주로
 붙어 있다.
 
-- [값 객체와 엔티티](../inbox/value-objects-and-entities.md) — 정체성으로 가르는 원 정의
+- [값 객체와 엔티티](../concepts/value-objects-and-entities.md) — 정체성으로 가르는 원 정의
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 군집과
   루트, 불변식의 원 정의
 - [리포지터리 패턴](../concepts/repository-pattern.md) — 메모리 안 컬렉션이라는 착시의 원 정의

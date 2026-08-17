@@ -3,7 +3,6 @@ type: concept
 title: yield from과 고전 코루틴
 description: 제너레이터가 다른 제너레이터에 일을 넘기는 문법과 그것이 만드는 세 자리(클라이언트·위임 제너레이터·부제너레이터), 재귀 순회가 중첩 루프를 대체하는 자리, 그리고 같은 물건을 반대 방향으로 쓰는 고전 코루틴 — 시동·send·close의 규약, 반환값이 예외에 실려 나오는 기괴한 핵, 손으로 몰면 안 된다는 저자의 기각, 그리고 Generator 타입의 세 매개변수가 공변과 반변으로 갈리는 이유
 generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
-status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---

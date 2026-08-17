@@ -3,7 +3,6 @@ type: concept
 title: 주석을 먼저 써라
 description: 주석을 코드 뒤가 아니라 앞에 놓아 설계 과정의 일부로 삼자는 조문 — 미룬 주석이 왜 반드시 나쁜 주석이 되는가의 경로, 클래스 주석부터 시작해 메서드 본문으로 내려가는 여섯 단계 절차, 주석이 복잡성의 탄광 카나리아가 되어 추상의 깊이를 재는 계측기로 쓰이는 자리와 서술하기 어렵다는 붉은 깃발, 계측기가 성립하려면 주석이 완전하고 명료해야 한다는 단서, 그리고 미루면 아낄 수 있다는 주장을 봉투 뒷면 계산으로 반박하는 절
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
-status: draft
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
 ---
@@ -185,13 +184,13 @@ sources:
 - [인터페이스 문서화](../concepts/interface-documentation.md) — 이 절차가 첫 단계에서 쓰는 바로 그 주석
 - [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md) — 무엇을
   적을지의 규칙
-- [주석을 왜 쓰는가](why-write-comments.md) — "시간이 없다"는 변명에 대한 앞선 반박
+- [주석을 왜 쓰는가](../concepts/why-write-comments.md) — "시간이 없다"는 변명에 대한 앞선 반박
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 이 장이 재는 대상
 - [두 번 설계하라](../concepts/design-it-twice.md) — 코드를 쓰기 전에 설계를 시험하는 다른 절차
 - [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md) — 이
   장이 전제하는 태도
 - [이름 짓기](../concepts/naming-things.md) — "이름 고르기가 어렵다"는 같은 형태의 붉은 깃발
-- [테스트가 코딩을 이끈다](test-to-code.md) — 같은 논증을 테스트로 하는 다른 소스
+- [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 같은 논증을 테스트로 하는 다른 소스
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브
 
 [^ousterhout2021]: Ousterhout 2021, 15장 "Write The Comments First (Use Comments As Part Of

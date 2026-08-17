@@ -3,7 +3,6 @@ type: concept
 title: 정리 열다섯 가지
 description: Tidy First? I부의 정리(tidying) 목록 열다섯 개를 원어 이름과 요지로 훑고, 각 정리가 다음 정리를 부르는 연쇄(chaining) 대응표를 함께 둔 자리 — 개별 항목은 얇게, 대신 어느 정리가 어느 정리로 이어지는지와 왜 그 연쇄를 스스로 끊어야 하는지에 무게를 둔다
 generated: { by: "claude-opus-5", at: "2026-08-17T22:00:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
 ---
@@ -23,7 +22,7 @@ sources:
 **항목 하나에 페이지 하나를 대응시키지 않는다** — 각 장이 두세 쪽이고 "이런 코드를 보면
 저렇게 바꿔라" 한 줄로 요약되므로 항목별 페이지는 전부 스텁이 된다. 대신 **이름은
 원어로 둔다**. 저자가 붙인 고유명이고 그 자체가 검색 키다. 정리라는 낱말 자체의 정의와
-경계는 [정리 — tidying](tidying.md)에 있다.
+경계는 [정리 — tidying](../concepts/tidying.md)에 있다.
 
 ## 목록
 
@@ -218,9 +217,9 @@ Extract Helper와 New Interface뿐이고, 둘 다 **기존 코드를 옮겨 담�
 
 ## 이어지는 페이지
 
-- [정리 — tidying](tidying.md) — 이 목록이 무엇의 목록인가
+- [정리 — tidying](../concepts/tidying.md) — 이 목록이 무엇의 목록인가
 - [언제 정리하는가](when-to-tidy.md) — 목록에서 고른 뒤의 물음
-- [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — 연쇄를 몇 개씩 묶어 내보내는가
+- [정리의 묶음 크기와 리듬](../concepts/tidying-batch-and-rhythm.md) — 연쇄를 몇 개씩 묶어 내보내는가
 - [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md) — 팬아웃과 연쇄의 이론
 - [응집도](../concepts/better-together-or-better-apart.md) — Cohesion order와 One Pile의 이론
 - [기본 리팩터링](../concepts/basic-refactorings.md) — Extract Helper의 상위 항목 *Extract Function*

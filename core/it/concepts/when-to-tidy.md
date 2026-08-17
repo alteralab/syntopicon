@@ -3,7 +3,6 @@ type: concept
 title: 언제 정리하는가 — 먼저·나중·이따가·안 함
 description: Tidy First?의 제목이 던진 물음에 대한 저자 자신의 답 — 네 시점(never·later·after·first)의 각 성립 조건, "안 함"이 정당한 유일한 경우, 이따가 정리하기의 전제가 시간이 아니라 시간에 대한 믿음이라는 진단과 Fun List, 나중에 정리할 조건 셋과 먼저 정리할 조건 넷, 그리고 답이 "그때그때 다르다"인 것이 회피가 아니라 이 책의 결론인 이유
 generated: { by: "claude-opus-5", at: "2026-08-17T22:00:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
 ---
@@ -25,7 +24,7 @@ sources:
 
 이 페이지의 원어는 **먼저 정리(tidy first)**·**나중에 정리(tidy after)**·**이따가 정리
 (tidy later)**·**안 정리(tidy never)**다. 정리(tidying)라는 낱말 자체는
-[정리 — tidying](tidying.md)이 정의한다.
+[정리 — tidying](../concepts/tidying.md)이 정의한다.
 
 ## 네 시점
 
@@ -35,7 +34,7 @@ sources:
   돌아와 정리할까? 아니면 아예 정리하지 말까?** (21장).[^beck2023]
 - 저자는 **뒤에서부터**(never → later → after → first) 다룬다. 이 순서가 우연이 아니다 —
   가장 조건이 좁은 것부터 가장 흔한 것으로 온다.
-- 이 판정이 [정리의 묶음 크기](tidying-batch-and-rhythm.md)와 다른 축이다. 그쪽은
+- 이 판정이 [정리의 묶음 크기](../concepts/tidying-batch-and-rhythm.md)와 다른 축이다. 그쪽은
   "한 번에 몇 개"이고 이쪽은 "행동 변경에 대해 언제"다.
 
 ## 안 함 — 유일하게 정당한 조건
@@ -105,7 +104,7 @@ sources:
   - **정리 비용이 행동 변경 비용에 대략 비례한다.**
 - 요약 절이 조건 하나를 더 준다 — **정리하지 않으면 완결감을 느끼지 못할 때**
   (21장 §"Summary").[^beck2023] 심리적 조건을 판정 목록에 넣는 것이 이 소스의 일관된
-  태도다([정리 — tidying](tidying.md) 참조).
+  태도다([정리 — tidying](../concepts/tidying.md) 참조).
 
 ## 먼저 — 판정 질문 넷
 
@@ -129,7 +128,7 @@ sources:
   깊이 생각할 필요가 없도록 정확히 작게 만들어져 있다. 정리했는데 회수가 안 돼도 큰일이
   아니다. 정리 쪽으로의 편향은 비용이 크지 않아야 하고, 대개는 회수될 것이다**
   (21장 §"First").[^beck2023]
-  - **이 문단이 [정리](tidying.md)의 크기 규정과 판정 규칙을 잇는다** — 항목을 작게
+  - **이 문단이 [정리](../concepts/tidying.md)의 크기 규정과 판정 규칙을 잇는다** — 항목을 작게
     만든 것이 바로 이 기본값을 감당 가능하게 하려는 설계다. 판정이 틀려도 손해가 작아야
     "일단 먼저"가 합리적 기본값이 된다.
 
@@ -197,13 +196,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [정리 — tidying](tidying.md) — 이 판정의 대상이 무엇인가
-- [정리 열다섯 가지](tidyings-catalog.md) — "무엇을 정리할지 안다"의 목록
-- [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — "몇 개씩"이라는 다른 축
+- [정리 — tidying](../concepts/tidying.md) — 이 판정의 대상이 무엇인가
+- [정리 열다섯 가지](../concepts/tidyings-catalog.md) — "무엇을 정리할지 안다"의 목록
+- [정리의 묶음 크기와 리듬](../concepts/tidying-batch-and-rhythm.md) — "몇 개씩"이라는 다른 축
 - [정리와 설계의 경제학](../concepts/software-design-economics.md) — 비용·수익 인자의 이론
 - [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md) — 결합도 인자의 이론
-- [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 이 판정이 전제하는 구분
-- [언제 리팩터링하는가](when-to-refactor.md) — 같은 물음에 대한 원전 쪽의 여섯 계기
+- [구조 변경과 행동 변경](../concepts/structure-versus-behavior-change.md) — 이 판정이 전제하는 구분
+- [언제 리팩터링하는가](../concepts/when-to-refactor.md) — 같은 물음에 대한 원전 쪽의 여섯 계기
 - [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 같은 물음에 "고칠 때마다"로 답하는 쪽
 - [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md) —
   같은 물음에 "예산 10~20%"로 답하는 쪽. **이 소스가 그쪽을 명시적으로 겨냥한다**

@@ -3,7 +3,6 @@ type: concept
 title: 높은 기어와 낮은 기어의 TDD
 description: 테스트를 어느 계층에 쓸 것인가를 결합과 설계 피드백의 절충으로 푸는 규정 — 테스트 한 줄이 시스템을 특정 모양에 붙드는 접착제라는 진단, API 테스트에서 도메인 테스트로 가는 스펙트럼의 양 끝이 각각 무엇을 주고 무엇을 잃는가, 자전거 기어라는 비유와 언제 기어를 내리는가, 도메인 테스트가 살아 있는 문서로 작용한다는 관찰, 그리고 테스트 종류별 어림 규칙 넷
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
-status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
 ---

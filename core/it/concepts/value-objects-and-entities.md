@@ -3,7 +3,6 @@ type: concept
 title: 값 객체와 엔티티
 description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각, 그리고 이 구분의 원 정의와 정체성이 대상이 아니라 모델이 정하는 것이라는 원전의 못 박기
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
-status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }

@@ -3,7 +3,6 @@ type: concept
 title: 정리 — tidying
 description: 리팩터링을 만든 사람이 그 말이 망가진 뒤에 새로 세운 좁은 낱말 — tidying의 정의(리팩터링의 부분집합인, 작고 되돌릴 수 있고 아무도 반대할 수 없는 구조 변경), "refactoring"이 행동 보존 조항을 잃고 기능 개발 중단을 뜻하게 된 경위, 낱말을 일부러 작게 고른 이유가 가역성이라는 경제적 사실이라는 것, 정리가 자기 돌봄이자 관문 리팩터링이라는 규정, 그리고 이것이 아직 팀이 아니라 혼자 하는 설계라는 범위 한정
 generated: { by: "claude-opus-5", at: "2026-08-17T22:00:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
@@ -203,8 +202,8 @@ sources:
 
 - [정리 열다섯 가지](tidyings-catalog.md) — 목록과 그것들이 서로를 부르는 연쇄
 - [언제 정리하는가](when-to-tidy.md) — 먼저·나중·이따가·안 함의 판정
-- [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — PR 분리, 한 묶음의 크기, 주기
-- [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 이 구분이 이 책의 뿌리
+- [정리의 묶음 크기와 리듬](../concepts/tidying-batch-and-rhythm.md) — PR 분리, 한 묶음의 크기, 주기
+- [구조 변경과 행동 변경](../concepts/structure-versus-behavior-change.md) — 이 구분이 이 책의 뿌리
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 이름이 작아야 하는 이유
 - [요소를 이롭게 관계 짓기](../concepts/beneficially-relating-elements.md) — 저자의 소프트웨어 설계 정의
 - [리팩터링](../concepts/refactoring.md) — 상위 낱말의 원전 정의와 그 계보

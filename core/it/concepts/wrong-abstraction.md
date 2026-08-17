@@ -3,7 +3,6 @@ type: concept
 title: 잘못된 추상
 description: 중복이 잘못된 추상보다 싸다는 명제와 그것을 뒷받침하는 여덟 단계 서사 — 추상이 만들어지고 매개변수와 조건문이 쌓여 이해 불가능해지는 경로, 그 코드를 버리지 못하게 만드는 매몰 비용 오류, 잘못된 추상을 알아보는 징후, 인라인으로 중복을 되살리는 세 걸음 처방, 그리고 이 명제가 DRY 최대주의와 실제로 어디까지 갈리는가에 대한 판정
 generated: { by: "claude-opus-5", at: "2026-08-18T05:00:00Z" }
-status: draft
 sources:
   - { id: metz2016-wrong-abstraction, resource: /it/sources/metz2016-wrong-abstraction.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
@@ -182,7 +181,7 @@ sources:
   중복 제거를 합칠 사유로 인정하면서도, 쪼개기가 실패했을 때의 붉은 깃발을 함께 둔다.
   **그쪽은 뽑아내기가 실패하는 조건을 사전에 판정하려 하고, 이 페이지는 사후에 되돌리는
   절차를 준다.** 두 접근이 배타적이지 않다.
-- **Fowler의 삼진 규칙** — [언제 리팩터링하는가](when-to-refactor.md)의 **세 번째로 비슷한
+- **Fowler의 삼진 규칙** — [언제 리팩터링하는가](../concepts/when-to-refactor.md)의 **세 번째로 비슷한
   것을 할 때 리팩터링한다**가 같은 문제의 예방 쪽 답이다. 두 번째까지 중복을 그냥 두는
   근거가 **아직 무엇이 공통 지식인지 모른다**는 것이므로 이 페이지의 전제와 같다.
 - **Thomas & Hunt의 반례** — [DRY 원칙](../concepts/dry-principle.md)의 **코드가 같아도 지식이 다르면
@@ -198,7 +197,7 @@ sources:
   맡는다
 - [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md) — 뽑아내기 실패를 사전에
   판정하려는 쪽
-- [언제 리팩터링하는가](when-to-refactor.md) — 삼진 규칙. 같은 문제의 예방 쪽 답
+- [언제 리팩터링하는가](../concepts/when-to-refactor.md) — 삼진 규칙. 같은 문제의 예방 쪽 답
 - [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md) — `G5`의 최대주의와 `G15`의 수렴이
   함께 있는 자리
 - [작은 함수](../concepts/small-functions.md) — "중복은 만악의 근원"이 나오는 장

@@ -3,7 +3,6 @@ type: concept
 title: 언제 리팩터링하는가
 description: 리팩터링을 일정에 올리는 대신 다른 작업에 얹어 하는 기회주의적 실천으로 규정하는 장 — 삼진 규칙, 기능을 붙이기 전에 길을 닦는 준비 리팩터링, 머릿속 이해를 코드로 옮기는 이해 리팩터링, 지나가며 줍는 쓰레기 줍기 리팩터링, 계획된 리팩터링이 드물어야 하는 이유와 그래도 정당한 경우, 몇 주짜리 장기 리팩터링을 추상화 분기로 나눠 미는 법, 코드 리뷰 안에서의 리팩터링, 관리자에게 무엇을 말할 것인가라는 물음에 대한 두 갈래 답, 그리고 리팩터링하지 말아야 할 두 경우
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
-status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: beck2023, resource: /it/sources/beck2023.md }
@@ -142,7 +141,7 @@ sources:
   자기에게 맞는 것을 찾도록 실험해야 한다; 다만 리팩터링 커밋을 분리하는 것이 자명한 원칙이
   아니라는 점만 기억하라 — 그것은 삶을 더 쉽게 만들 때만 가치가 있다** (2장 §"Planned and
   Opportunistic Refactoring", p.53).[^fowler2018] 커밋 단위에 관한 이 KB의 다른 판단은
-  [버전 관리 실천](version-control-practice.md)에 있다.
+  [버전 관리 실천](../concepts/version-control-practice.md)에 있다.
 
 ## 장기 리팩터링 — 추상화 분기
 
@@ -245,7 +244,7 @@ sources:
     선택지다.
 - **#hypothesis 두 소스가 이 대응을 서로에 대해 논한 적은 없다.** 다만 저쪽 저자는 이
   페이지 원전의 정의를 그대로 받아들이고 그 위에서 좁힌 낱말을 쓴다 —
-  [정리 — tidying](tidying.md) 참조.
+  [정리 — tidying](../concepts/tidying.md) 참조.
 
 ## 이어지는 페이지
 

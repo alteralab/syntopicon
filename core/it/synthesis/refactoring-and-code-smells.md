@@ -55,7 +55,7 @@ PDF 쪽 − 22로 실측했다. 워터마크 문자열 `ptg26261585`가 본문�
   - 이 페이지에는 실용주의 쪽(Topic 40)과 복잡성 쪽(3장·16장·19장)의 서술이 이미 합류해
     있었다. 원전이 들어오면서 **앞머리 여섯 절이 원전의 것이 됐고**, 실용주의 쪽이 옮긴
     정의 문구가 원전 2판과 다르다는 것이 대조돼 기록됐다.
-- [yagni와 진화적 아키텍처](../inbox/yagni-and-evolutionary-architecture.md) — 이 실천이
+- [yagni와 진화적 아키텍처](../concepts/yagni-and-evolutionary-architecture.md) — 이 실천이
   아키텍처 전제를 바꿔 놓은 자리. 요구사항을 미리 알 수 있다는 가정의 기각, 유연성 기제가
   대체로 변경 대응을 오히려 느리게 만드는 두 이유, 그것을 넣을지 판정하는 단 하나의 질문
   ("나중에 리팩터링하는 것이 상당히 더 어려울까"), yagni가 아키텍처 사고의 포기가 아니라
@@ -79,7 +79,7 @@ PDF 쪽 − 22로 실측했다. 워터마크 문자열 `ptg26261585`가 본문�
 
 ## 언제 하는가
 
-- [언제 리팩터링하는가](../inbox/when-to-refactor.md) — 작업 흐름 쪽의 계기. 삼진 규칙,
+- [언제 리팩터링하는가](../concepts/when-to-refactor.md) — 작업 흐름 쪽의 계기. 삼진 규칙,
   기능을 붙이기 전에 길을 닦는 준비 리팩터링, 머릿속 이해를 코드로 옮기는 이해 리팩터링,
   지나가며 줍는 쓰레기 줍기 리팩터링, 계획된 리팩터링이 드물어야 하는 이유와 그래도 정당한
   경우, 몇 주짜리 장기 리팩터링을 추상화 분기로 나눠 미는 법, 코드 리뷰 안에서의 리팩터링과
@@ -144,7 +144,7 @@ PDF 쪽 − 22로 실측했다. 워터마크 문자열 `ptg26261585`가 본문�
 
 새 페이지가 아니라 기존 페이지의 절로 들어간 것들이다.
 
-- [잘못된 추상](../inbox/wrong-abstraction.md) — **이 축에 들어온 반대 극**(Metz 2016).
+- [잘못된 추상](../concepts/wrong-abstraction.md) — **이 축에 들어온 반대 극**(Metz 2016).
   중복이 잘못된 추상보다 싸다는 명제와, 이미 뽑아낸 추상이 틀어졌을 때 인라인으로 중복을
   되살리는 세 걸음 처방. 이 허브의 카탈로그가 뽑아내는 조작을 다룬다면 그쪽은 되돌리는
   조작을 다룬다
@@ -155,15 +155,15 @@ PDF 쪽 − 22로 실측했다. 워터마크 문자열 `ptg26261585`가 본문�
 - [결합 끊기](../concepts/decoupling.md) — 같은 결합 형태들이 냄새 이름을 얻는 자리
   (Message Chains·Global Data·Feature Envy·Insider Trading), 그리고 세 소스가 결합을 재는
   눈금이 각각 다르다는 대조
-- [테스트가 코딩을 이끈다](../inbox/test-to-code.md) — 테스트를 리팩터링의 담보로 두는
+- [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 테스트를 리팩터링의 담보로 두는
   자리, 그리고 위험 주도로 테스트 범위를 고르라는 명시적 기준
 - [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md) — 함수 크기에 대해
   반대 방향의 사전 확률을 가진 소스와의 대조, 그리고 중간 단계로 일부러 크게 만드는 전술
-- [주석을 왜 쓰는가](../inbox/why-write-comments.md) — **이 KB의 첫 `contradicts`가 달린
+- [주석을 왜 쓰는가](../concepts/why-write-comments.md) — **이 KB의 첫 `contradicts`가 달린
   자리.** 좋은 이름을 가진 선언이 인터페이스 주석을 대신할 수 있는가
 - [성능을 위한 설계](../concepts/designing-for-performance.md) — 빠른 소프트웨어를 쓰는 세
   접근, 잘 인수분해된 코드가 성능 작업에 주는 두 이득, 그리고 추측하지 말고 재라는 곁글 사례
-- [버전 관리 실천](../inbox/version-control-practice.md) — 브랜치 유보에 기제를 붙인 자리
+- [버전 관리 실천](../concepts/version-control-practice.md) — 브랜치 유보에 기제를 붙인 자리
   (의미적 병합 충돌), 그리고 커밋 단위에 대한 판정
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) —
   같은 야영 격언에 이르되 도덕적 논증을 명시적으로 배격하는 자리
@@ -198,7 +198,7 @@ PDF 쪽 − 22로 실측했다. 워터마크 문자열 `ptg26261585`가 본문�
 
 | 쟁점 | 판정 | 어디에 |
 |---|---|---|
-| 좋은 이름을 가진 선언이 인터페이스 주석을 대신할 수 있는가 | **모순** | [코드의 나쁜 냄새](../concepts/code-smells.md) ↔ [주석을 왜 쓰는가](../inbox/why-write-comments.md) |
+| 좋은 이름을 가진 선언이 인터페이스 주석을 대신할 수 있는가 | **모순** | [코드의 나쁜 냄새](../concepts/code-smells.md) ↔ [주석을 왜 쓰는가](../concepts/why-write-comments.md) |
 | 함수를 공격적으로 쪼개야 하는가 | 관점 차이(같은 잣대, 반대 사전 확률) | [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md) |
 | 리팩터링을 무엇으로 정당화하는가 | 관점 차이(겨냥하는 상대가 다르다) | [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) |
 

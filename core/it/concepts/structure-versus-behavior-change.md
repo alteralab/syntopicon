@@ -3,7 +3,6 @@ type: concept
 title: 구조 변경과 행동 변경
 description: Tidy First? 전체가 딛고 선 구분 — 소프트웨어가 값을 만드는 두 경로(오늘 하는 일과 내일 하게 될 수 있는 일), 구조는 행동에 무관하되 옵션을 만든다는 규정, 구조 변경이 행동 변경만큼 읽히지 않아서 생기는 판단 마비, 두 변경을 같은 diff에 섞지 말라는 조문과 그 학습 단계 넷, 그리고 뒤엉킨 작업을 푸는 세 선택지와 저자가 권하는 것
 generated: { by: "claude-opus-5", at: "2026-08-17T22:00:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
 ---

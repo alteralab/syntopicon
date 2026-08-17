@@ -3,7 +3,6 @@ type: concept
 title: 정리의 묶음 크기와 리듬
 description: 통합·배포 전에 정리를 몇 개나 묶을지의 절충 공간 — 묶음이 커질 때 오르는 비용 셋(충돌·상호작용·투기)과 묶음이 작아질 때 오르는 비용 하나(리뷰), 그 곡선이 물리 법칙이 아니라 팀이 바꿀 수 있는 것이라는 판정, 그리고 구조 변경과 행동 변경이 갈마드는 주기가 분에서 한 시간이라는 규정과 그 근거가 되는 길 닦기 경향
 generated: { by: "claude-opus-5", at: "2026-08-17T22:00:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
 ---
@@ -94,7 +93,7 @@ sources:
   신뢰 수준에 이르는 것은 몇 달의 일이다. 연습하라. 실험하라. 오류를 함께 리뷰하라**
   (18장).[^beck2023]
 - 같은 처방이 16장에도 있다 — 정리 PR에 리뷰를 요구하지 않는 실험. 전문은
-  [구조 변경과 행동 변경](structure-versus-behavior-change.md)에
+  [구조 변경과 행동 변경](../concepts/structure-versus-behavior-change.md)에
   있다. **두 장이 같은 결론에 다른 경로로 도착한다** — 16장은 리뷰 지연의 강화 루프에서,
   18장은 리뷰 고정 비용의 절충 곡선에서.
 
@@ -141,7 +140,7 @@ sources:
 - [정리 — tidying](tidying.md) — 묶는 단위가 무엇인가
 - [정리 열다섯 가지](tidyings-catalog.md) — 연쇄가 묶음을 부풀리는 경로
 - [언제 정리하는가](when-to-tidy.md) — 행동 변경에 대한 시점 판정
-- [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 묶기 전에 갈라야 하는 것
+- [구조 변경과 행동 변경](../concepts/structure-versus-behavior-change.md) — 묶기 전에 갈라야 하는 것
 - [콘스탄틴의 등가](../concepts/constantines-equivalence.md) — 변경 비용의 멱법칙 분포
 - [버전 관리 실천](version-control-practice.md) — 커밋 단위에 대한 이 KB의 다른 판정
 - [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 같은 낱말을 더 작은 규모에 쓰는 원전

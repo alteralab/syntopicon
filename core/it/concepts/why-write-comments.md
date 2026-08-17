@@ -3,7 +3,6 @@ type: concept
 title: 주석을 왜 쓰는가
 description: 주석이 코드로 대체될 수 없는 이유를 네 변명에 대한 반박으로 세우는 장 — 코드가 형식적으로 담을 수 있는 것은 인터페이스의 일부뿐이라는 진단, 주석 없이는 추상이 성립하지 않는다는 논증과 부분 문자열 예제, 시간이 없다는 변명에 맞서는 10퍼센트 셈법, 낡는다는 변명의 실제 크기, 주석이 복잡성의 세 증상 중 어느 둘을 덜어 주는가, 그리고 "주석은 실패다"라는 클린 코드의 반대 의견과 그에 대한 조목별 반박
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
-status: draft
 contradicts: [code-smells, comments-as-failure]
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }

@@ -3,7 +3,6 @@ type: concept
 title: yagni와 진화적 아키텍처
 description: 리팩터링이 가능해지자 아키텍처를 미리 확정한다는 전제가 무너졌다는 논증 — 요구사항을 미리 알 수 있다는 가정이 왜 대개 달성 불가능한지, 미래를 대비해 넣는 유연성 기제가 왜 대체로 변경 대응을 오히려 느리게 만드는지, 유연성 기제를 넣을지 판정하는 단 하나의 질문, yagni가 아키텍처 사고의 포기가 아니라 시점 이동이라는 규정, 그리고 자기 테스트 코드·지속적 통합·리팩터링 세 실천이 서로를 떠받쳐 yagni를 가능하게 하는 구조
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
-status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
 ---
@@ -163,7 +162,7 @@ sources:
 
 - [리팩터링](../concepts/refactoring.md) — 이 전제 전환을 가능하게 한 활동
 - [코드의 나쁜 냄새](../concepts/code-smells.md) — Speculative Generality가 사는 자리
-- [자기 테스트 코드](../concepts/self-testing-code.md) · [버전 관리 실천](version-control-practice.md)
+- [자기 테스트 코드](../concepts/self-testing-code.md) · [버전 관리 실천](../concepts/version-control-practice.md)
   — 세 실천 중 나머지 둘
 - [애자일의 본질](../concepts/essence-of-agility.md) — "이름만 애자일"이라는 진단의 다른 소스
 - [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 반대로 보이는 처방

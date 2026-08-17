@@ -3,7 +3,6 @@ type: concept
 title: 텍스트와 바이트의 경계
 description: 문자 하나가 바이트 하나가 아니라는 사실이 코드에 강제하는 것들 — 코드 포인트와 인코딩의 분리, 이진 시퀀스 타입이 str과 다르게 구는 자리, 디코딩은 입력에서 인코딩은 출력에서 하라는 유니코드 샌드위치, 인코딩 기본값에 기대면 안 되는 이유와 그 기본값들의 출처, 그리고 같은 글자를 여러 코드 포인트로 쓸 수 있으므로 비교 전에 정규화해야 한다는 조항
 generated: { by: "claude-opus-5", at: "2026-08-18T05:00:00Z" }
-status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---

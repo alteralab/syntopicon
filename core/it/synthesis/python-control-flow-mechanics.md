@@ -57,7 +57,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
   아끼는 것과 저자가 자기 앞선 구현을 스스로 기각하는 자리, 제너레이터 식과 제너레이터
   함수 사이의 엄지 규칙, 그리고 `Iterator[T]`가 `Generator[T, None, None]`의 축약이라는
   대응
-- [yield from과 고전 코루틴](../inbox/yield-from-and-classic-coroutines.md) — 같은 장의
+- [yield from과 고전 코루틴](../concepts/yield-from-and-classic-coroutines.md) — 같은 장의
   뒷부분. 위임 제너레이터·부제너레이터·클라이언트 코드 세 자리와 값이 위임자를 건너뛰고
   통과한다는 성질, 중첩 루프가 재귀로 접히는 트리 순회와 기저 사례가 `for`에 숨어 있다는
   관찰, 같은 물건을 데이터를 받는 쪽으로 쓰는 고전 코루틴과 Beazley의 "섞지 마라",

@@ -3,7 +3,6 @@ type: concept
 title: 작업 단위 패턴
 description: 원자적 연산 위에 씌우는 추상과 그것을 파이썬 컨텍스트 매니저로 표현하는 판단 — 리포지터리와 서비스 레이어를 잇는 마지막 조각이라는 자리매김, UoW가 주는 세 가지(안정된 스냅샷·한꺼번에 영속·리포지터리를 얻는 자리), with 블록이 원자 구간을 눈에 보이게 만든다는 이득, 명시적 커밋과 암묵적 커밋 중 명시를 고르는 이유와 기본값이 안전해야 한다는 논리, ORM이 이미 같은 패턴을 갖고 있는데도 한 겹을 더 씌우는 이유, 그리고 이 패턴의 대가
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
-status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
 ---

@@ -97,14 +97,14 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 
 **② 주석이 담는 정보를 코드가 담을 수 있는가**
 [주석은 실패다](../concepts/comments-as-failure.md) ↔
-[주석을 왜 쓰는가](../inbox/why-write-comments.md).
+[주석을 왜 쓰는가](../concepts/why-write-comments.md).
 **두 저자가 서로를 지명해 반박한 유일한 자리다.** 한쪽은 "진실은 코드 한 곳에만
 있다"에서 "주석은 언제나 실패다"로 간다. 다른 쪽은 그 문단을 통째로 인용하고 조목별로
 반박하며, 반박의 마지막은 문화에 대한 우려다.
 
 **셋째 꼭짓점이 있다.** 이 KB의 첫 `contradicts`였던
 [코드의 나쁜 냄새](../concepts/code-smells.md) ↔
-[주석을 왜 쓰는가](../inbox/why-write-comments.md)는 ②와 같은 쟁점의 다른 변이다 —
+[주석을 왜 쓰는가](../concepts/why-write-comments.md)는 ②와 같은 쟁점의 다른 변이다 —
 fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소스의 조문을 이어받은 것이다.
 세 페이지가 한 쟁점의 세 꼭짓점이므로 각각의 `contradicts`를 그대로 두고 서로를 가리키게
 했다.
@@ -117,7 +117,7 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
 - **`switch` 대 다형성** — 이 소스 6장과 17장 `G23` 사이의 긴장이지만 **한 저자 안의
   긴장**이고 저자가 스스로 판정을 내렸다. KB 페이지 사이의 모순이 아니다.
 - **"언제나 깨끗하게"** — 1장의 마감 압박 문단은 동기 부여 산문이고 이 책 어디에도 그
-  양을 계량하는 자리가 없다. [정리는 언제 하는가](../inbox/when-to-tidy.md)와 대질할
+  양을 계량하는 자리가 없다. [정리는 언제 하는가](../concepts/when-to-tidy.md)와 대질할
   명제가 성립하지 않는다.
 - **게터·세터** — 이 소스 6장과 ousterhout2021 19.6은 오히려 **일치한다.**
 
@@ -136,7 +136,7 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
   근거를 대는 자리
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 모순 상대편으로
   세워진 자리
-- [주석을 왜 쓰는가](../inbox/why-write-comments.md) — 인용의 원문과 대조된 자리
+- [주석을 왜 쓰는가](../concepts/why-write-comments.md) — 인용의 원문과 대조된 자리
 - [클린 코드라는 말의 정의](../concepts/clean-code-defined.md) — 책 자신의 유보가 방어가
   되는지를 2차 문헌과 함께 다루는 자리
 
