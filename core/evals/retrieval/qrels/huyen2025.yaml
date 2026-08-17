@@ -571,3 +571,28 @@ queries:
     description: "퇴화 루프 — 피드백 축과 훈련 축의 경계"
     expected_files: ["concepts/degenerate-feedback-loop.md"]
     expected_in_top_k: 5
+  # ---- 논문 배치 1 (런 2026-08-17-01) — 원전 이중화 회귀 문항 ----
+  - id: rag1-alias-1
+    query: "in-batch negatives"
+    type: alias
+    description: "DPR 원전만이 준 개념 — 임베딩 검색 페이지"
+    expected_files: ["concepts/embedding-based-retrieval.md"]
+    expected_in_top_k: 5
+  - id: rag1-alias-2
+    query: "RAG-Token"
+    type: alias
+    description: "Lewis 원전의 두 방식 구분"
+    expected_files: ["concepts/retrieval-augmented-generation.md"]
+    expected_in_top_k: 5
+  - id: rag1-sem-1
+    query: "그래프를 층으로 쌓아 가까운 이웃을 빠르게 찾는 색인"
+    type: semantic
+    description: "HNSW 기제를 이름 없이"
+    expected_files: ["concepts/vector-indexes-and-embeddings.md"]
+    expected_in_top_k: 5
+  - id: rag1-sem-2
+    query: "문장 두 개를 각각 임베딩해서 코사인으로 비교하는 구조"
+    type: semantic
+    description: "SBERT 샴 구조를 이름 없이"
+    expected_files: ["concepts/vector-indexes-and-embeddings.md", "concepts/embedding-based-retrieval.md"]
+    expected_in_top_k: 5

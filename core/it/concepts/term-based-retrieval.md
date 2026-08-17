@@ -1,10 +1,12 @@
 ---
 type: concept
 title: 어휘 기반 검색
-description: 낱말이 겹치는 문서를 골라 순위를 매기는 검색 — 검색이 RAG보다 백 년 앞선다는 배치, 희소 대 조밀이라는 문헌의 구분을 저자가 어휘 대 임베딩으로 바꿔 부르는 이유, 용어 빈도와 역문서 빈도를 곱해 점수를 내는 TF-IDF와 문서 길이를 정규화한 BM25의 계보, 그리고 토큰화가 뜻을 부수는 자리
-generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
+description: 낱말이 겹치는 문서를 골라 순위를 매기는 검색 — 검색이 RAG보다 백 년 앞선다는 배치, 희소 대 조밀이라는 문헌의 구분을 저자가 어휘 대 임베딩으로 바꿔 부르는 이유, 용어 빈도와 역문서 빈도를 곱해 점수를 내는 TF-IDF와 문서 길이를 정규화한 BM25의 계보, 토큰화가 뜻을 부수는 자리, 그리고 조밀 검색 원전들이 BM25를 기준선으로 잰 수치와 어휘 갈래가 여전히 이기는 곳
+generated: { by: "claude-opus-5", at: "2026-08-17T03:20:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: karpukhin2020-dpr, resource: /it/sources/karpukhin2020-dpr.md }
+  - { id: lewis2020-rag, resource: /it/sources/lewis2020-rag.md }
 ---
 
 # 어휘 기반 검색
@@ -15,6 +17,8 @@ sources:
 - [TF-IDF](#tf-idf)
 - [역색인과 그 위의 실물](#역색인과-그-위의-실물)
 - [BM25](#bm25)
+- [원전이 잰 BM25의 자리](#원전이-잰-bm25의-자리)
+- [어휘 갈래가 이기는 곳](#어휘-갈래가-이기는-곳)
 - [토큰화가 뜻을 부수는 자리](#토큰화가-뜻을-부수는-자리)
 - [n-그램 겹침으로 검색할 수 있는가](#n-그램-겹침으로-검색할-수-있는가)
 - [이어지는 페이지](#이어지는-페이지)
@@ -62,6 +66,18 @@ sources:
 - 저자가 구분을 바꾼 이유 — **희소 대 조밀이라는 구분은 SPLADE를 어휘 기반 알고리즘과 한데 묶게
   만드는데, SPLADE의 연산·강점·약점은 어휘 기반 검색보다 조밀 임베딩 검색의 그것에 훨씬 가깝다.
   어휘 기반 대 임베딩 기반 구분은 이 오분류를 피한다** (6장, p.258).[^huyen2025]
+- 원전이 실제로 쓰는 어휘는 희소 대 조밀이다 (초록, p.1):[^karpukhin2020-dpr]
+
+  > Open-domain question answering relies on efficient passage retrieval to select candidate
+  > contexts, where traditional sparse vector space models, such as TF-IDF or BM25, are the de
+  > facto method.
+
+  저자들은 그 표현이 무엇인지도 명시한다 —
+  **개방 도메인 QA의 검색은 보통 TF-IDF나 BM25로 구현되는데, 이는 역색인으로 키워드를 효율적으로
+  일치시키며 질문과 맥락을 (가중치가 붙은) 고차원 희소 벡터로 표현하는 것으로 볼 수 있다** (1절,
+  p.1).[^karpukhin2020-dpr] 곧 huyen2025가 갈아 끼운 "어휘 대 임베딩"과 원전의 "희소 대 조밀"은
+  같은 두 갈래를 다르게 잘라 부르는 이름이며, 어느 쪽이 참인가의 문제가 아니라 SPLADE 같은 경계
+  사례를 어디에 놓을 것인가의 문제다.
 
 ## 키워드로 찾을 때의 두 문제
 
@@ -114,6 +130,11 @@ sources:
   | learning | 3 | (1, 5), (38, 7), (42, 5) |
   | … | … | … |
 
+- 역색인이 싸다는 것의 실측 — **2,100만 구절에 대해 루씬으로 역색인을 짓는 것은 훨씬 싸서 전부
+  합쳐 30분 정도 걸린다. 같은 코퍼스에 대해 조밀 임베딩을 계산하는 데는 GPU 8장에서 약 8.8시간,
+  그 위에 FAISS 색인을 짓는 데 단일 서버에서 8.5시간이 걸린다** (5.4절,
+  p.7).[^karpukhin2020-dpr] 색인 구축 비용에서 두 갈래가 갈리는 배수가 이 자리에서 실측된다.
+
 ## BM25
 
 - 이름과 계보 — **Okapi BM25는 Best Matching 알고리즘의 25번째 세대로, 1980년대에 Robertson et al.이
@@ -125,9 +146,41 @@ sources:
     and Trends in Information Retrieval* 3 No. 4, 2009)를 권한다** (6장, p.260 각주 6).[^huyen2025]
 - 오늘의 위치 — **BM25와 그 변형(BM25+·BM25F)은 산업에서 여전히 널리 쓰이며, 임베딩 기반 검색 같은
   현대적이고 더 정교한 검색 알고리즘과 겨루는 만만찮은 기준선(baseline) 노릇을 한다** (6장,
-  p.260).[^huyen2025]
+  p.260).[^huyen2025][^karpukhin2020-dpr]
   - 각주의 한 마디 — **퍼플렉시티의 CEO 아라빈드 스리니바스(Aravind Srinivas)는 "BM25나 전문 검색을
     진짜로 개선하는 것은 어렵다"고 트윗했다** (6장, p.260 각주 7).[^huyen2025]
+
+## 원전이 잰 BM25의 자리
+
+- 기준선이 어떻게 세팅되었는가 — **루씬 구현을 썼고, BM25 파라미터 `b = 0.4`(문서 길이 정규화)와
+  `k₁ = 0.9`(용어 빈도 스케일링)를 개발 집합으로 튜닝했다** (5절, p.5 각주
+  9).[^karpukhin2020-dpr] 곧 원전의 BM25는 기본값 그대로가 아니라 튜닝된 기준선이다.
+- 그 기준선이 낸 상위 20개 검색 정확도 (5.1절, p.5, Table 2):[^karpukhin2020-dpr]
+  **Natural Questions 59.1 · TriviaQA 66.9 · WebQuestions 55.0 · CuratedTREC 70.9 · SQuAD 68.8.**
+  조밀 쪽(DPR)은 SQuAD를 뺀 전부에서 이를 앞선다 — **`k`가 작을 때 격차가 특히 크다(예: Natural
+  Questions 상위 20개 정확도 78.4% 대 59.1%)** (5.1절, p.5).[^karpukhin2020-dpr]
+- 그러나 지지 않는 자리가 있다 — **DPR은 SQuAD에서 BM25에 진다(상위 20 기준 63.2 대 68.8).
+  저자들이 추정하는 이유는 둘이다. 주석자가 구절을 본 뒤 질문을 써서 구절과 질문 사이 어휘 겹침이
+  크고, 데이터가 500여 개 위키백과 문서에서만 수집되어 훈련 예시 분포가 극도로 편향돼 있다**
+  (5.1절, p.5).[^karpukhin2020-dpr] 어휘 겹침이 클수록 낱말 일치가 유리하다는 것이 이 표의 읽는
+  법이다.
+
+## 어휘 갈래가 이기는 곳
+
+- 사실 검증 과제 — **RAG의 조밀 검색기를 낱말 겹침 기반 BM25 검색기로 바꾸는 절제 실험에서,
+  FEVER에서는 BM25가 가장 좋다 — FEVER의 주장이 개체 중심(entity-centric)이라 낱말 겹침 기반
+  검색에 잘 맞기 때문일 것이다. 미분 가능한 검색은 다른 모든 과제, 특히 결정적인 개방 도메인 QA의
+  결과를 개선한다** (4.5절, p.7, Table 6).[^lewis2020-rag] 곧 어휘 갈래가 이기는 조건은 데이터셋의
+  성질(개체 중심·어휘 겹침이 큼)이지 알고리즘의 세대가 아니다.
+- 드문 고유 표현 — **BM25 같은 어휘 일치 방법은 매우 선택적인 키워드와 구절에 민감한 반면 조밀
+  검색기는 드물게 나타나는 두드러진 구절을 표현할 능력이 모자랄 수 있다** (부록 C,
+  p.12).[^karpukhin2020-dpr] 저자들이 든 예에서 BM25는 "Thoros of Myr"라는 결정적 고유 표현을 잡아
+  정답 구절을 가져오지만 DPR은 그러지 못한다 (부록 C, pp.12–13,
+  Table 7).[^karpukhin2020-dpr]
+- 어려운 음성 표본의 공급원 — 어휘 검색은 조밀 검색기의 경쟁자이면서 동시에 그 훈련 재료다.
+  **DPR의 최선 모델은 BM25 점수가 높지만 답을 담지 않는 구절을 "어려운" 음성 표본으로 하나 섞어
+  쓴다** (3.2절, p.3).[^karpukhin2020-dpr] 그 훈련법 자체는
+  [임베딩 기반 검색](../concepts/embedding-based-retrieval.md)에 있다.
 
 ## 토큰화가 뜻을 부수는 자리
 
@@ -171,4 +224,19 @@ sources:
     TF-IDF 수식은 원문의 수학 표기를 인라인 코드로 옮긴 것이다. Chen 등 다른 인용과 마찬가지로
     Sanderson and Croft(2012)·Formal et al.(2021, SPLADE)·Shay Banon(2010, 엘라스틱서치)·
     Robertson et al.(1980년대, Okapi BM25)·Robertson and Zaragoza(2009)·아라빈드 스리니바스의 트윗은
-    huyen2025를 통한 전언이다.
+    huyen2025를 통한 전언이다. BM25가 만만찮은 기준선이라는 진술은 아래 원전 각주로 이중화했다.
+
+[^karpukhin2020-dpr]: Karpukhin et al. 2020, "Dense Passage Retrieval for Open-Domain Question
+    Answering", EMNLP 2020 (논문 13쪽). 쪽 번호는 스냅샷한 PDF의 쪽이다. 이 페이지는 초록·1절
+    Introduction·3.2절 Training·5절 Experiments: Passage Retrieval(5.1·5.4)·부록 C를 담았다.
+    Table 2의 상위 20 행만 본문 서술로 옮겼고 표 자체는
+    [임베딩 기반 검색](../concepts/embedding-based-retrieval.md)에 있다. Table 7(BM25/DPR 검색 예시,
+    pp.12–13)은 옮기지 않았고 본문이 서술한 것만 담았다.
+    BM25(Robertson and Zaragoza, 2009)·루씬·FAISS(Johnson et al., 2017)는 karpukhin2020-dpr을 통한
+    전언이다.
+
+[^lewis2020-rag]: Lewis et al. 2020, "Retrieval-Augmented Generation for Knowledge-Intensive NLP
+    Tasks", NeurIPS 2020 (논문 16쪽). 쪽 번호는 스냅샷한 PDF의 쪽이다. 이 페이지는 4.5절
+    Additional Results의 검색 절제(Retrieval Ablations) 항목만 담았다. Table 6의 수치는 옮기지
+    않았고 본문이 서술한 우열만 담았다. FEVER(Thorne et al., 2018)·BM25(Robertson and Zaragoza,
+    2009)는 lewis2020-rag를 통한 전언이다.
