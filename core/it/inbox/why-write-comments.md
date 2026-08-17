@@ -9,6 +9,7 @@ sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 주석을 왜 쓰는가
@@ -24,6 +25,7 @@ sources:
 - [반대 의견 — 주석은 실패다](#반대-의견--주석은-실패다)
 - [모순 — 좋은 이름이 주석을 대신할 수 있는가](#모순--좋은-이름이-주석을-대신할-수-있는가)
 - [반대 의견의 원전이 이 KB에 들어왔다](#반대-의견의-원전이-이-kb에-들어왔다)
+- [두 저자가 직접 맞붙었을 때 어디까지 좁혀졌는가](#두-저자가-직접-맞붙었을-때-어디까지-좁혀졌는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **코드가 이미 있는데 주석이 왜 따로 필요하며, 안 쓰는 사람들의 이유는 어디서
@@ -281,9 +283,52 @@ sources:
   표현 능력의 실패를 느끼라**고 적는다 (4장 도입, p.54).[^martin2008] 이 페이지가 걱정하는
   태도가 그 문장이다.
 
+## 두 저자가 직접 맞붙었을 때 어디까지 좁혀졌는가
+
+**이 페이지의 저자와 상대 페이지의 저자가 2024년 9월–2025년 2월에 공개 대담을 했다.**
+이 KB의 모순 판정이 두 책의 문장 대조로 세워졌던 것이 여기서 양측 진술로 확인된다.
+전문은 [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
+
+- **양측이 잣대에는 합의한다.** 상대가 이 페이지 저자의 복잡성 잣대에 **당신 접근에
+  동의한다**고 답하고, 우리가 돕고 싶은 프로그래머는 저자가 아니라 **다른 사람이 쓴 코드를
+  읽고 이해해야 하는 프로그래머**라고 덧붙인다 (§"Introductions",
+  UB 발언).[^ousterhout2024-aposd] **잣대가 같은데 처방이 갈리는 구조**이므로 층위 차이로
+  무마할 수 없다.
+- **모순의 최종 경계가 확정된다** (§"Comments Summary", JOHN 발언):[^ousterhout2024-aposd]
+
+> I believe that it is not possible to define interfaces and create abstractions without a
+> lot of comments. You agree for public APIs, but see little need to comment interfaces
+> that are internal to the team.
+
+  - **위 [모순](#모순--좋은-이름이-주석을-대신할-수-있는가) 절이 "모든 메서드에 인터페이스
+    주석"으로 잡아 둔 범위가 여기서 "팀 내부 인터페이스"로 좁혀진다.** 공개 API에 대해서는
+    양측이 합의한다.
+- **상대가 세 자리에서 물러섰다** — 시그니처가 불완전한 추상일 때 주석이 필요하다는 것,
+  정밀함이 주석으로 더 잘 표현되는 때가 있다는 것, 그리고 코드는 가능한 한 이해하기 쉬워야
+  한다는 것 (§"Comments", UB 발언).[^ousterhout2024-aposd]
+- **그래도 합의는 얇다** (§"Comments Summary", JOHN 발언):[^ousterhout2024-aposd]
+
+> Overall, we struggled to find areas of agreement on this topic.
+
+- **계량 진술 셋이 이 페이지 저자 쪽에서 나온다** — 같은 코드에 대해 **상대보다 5–10배
+  많은 줄의 주석**을 쓸 것이라는 것, 주석이 제대로 달렸다면 뻔했을 것을 알아내려 코드를
+  헤매는 데 **개발 시간의 50–80퍼센트**를 쓰는 일이 드물지 않다는 것, **빠진 주석의 비용이
+  틀린 주석의 비용의 10–100배**라는 것이다 (§"Comments"·§"Comments Summary",
+  JOHN 발언).[^ousterhout2024-aposd] #speculation 어느 쪽도 이 수치의 출처를 대지 않는다 —
+  개인 경험의 어림이다.
+- **손익의 방향이 반대라는 것이 조문화된다** — **나는 빠진 주석이 틀렸거나 도움 안 되는
+  주석보다 훨씬 큰 생산성 손실 원인이라고 믿는다; 당신은 일반적으로 실천되는 대로의 주석이
+  순손실이라고 믿는다** (§"Comments Summary", JOHN 발언).[^ousterhout2024-aposd]
+- **합의도 하나 명시된다** — **구현 코드는 그 코드가 뻔하지 않을 때만 주석이 필요하다는 데
+  우리는 동의한다** (§"Comments Summary", JOHN 발언).[^ousterhout2024-aposd] 이 KB가
+  [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md)를 합의
+  자리로 적어 둔 것과 일치한다.
+
 ## 이어지는 페이지
 - [주석은 실패다](comments-as-failure.md) — **`contradicts` 상대이자 반대 의견의 원전.**
   진실은 코드에만 있다는 쪽
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+  두 저자가 직접 맞붙어 경계를 확정한 자리
 - [코드의 나쁜 냄새](code-smells.md) — **`contradicts` 상대.** 주석을 리팩터링으로 없애라는 쪽
 
 - [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md) — 그래서
@@ -300,6 +345,11 @@ sources:
   덜어 주는 하나
 - [개발자의 소통](developer-communication.md) — 같은 문제를 실용주의 쪽에서 다루는 자리
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^fowler2018]: Fowler 2018, 3장 §"Long Function"(p.73) · §"Comments"(p.84). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크
     문자열 `ptg26261585`를 제거했다 — 이 소스의 표준 규약이며 근거는

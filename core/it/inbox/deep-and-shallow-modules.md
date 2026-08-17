@@ -10,6 +10,7 @@ sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 깊은 모듈과 얕은 모듈
@@ -27,6 +28,7 @@ sources:
 - [인터페이스를 좁힌다 — 같은 잣대의 다른 말](#인터페이스를-좁힌다--같은-잣대의-다른-말)
 - [선언 자체를 좁힌다 — 단일 메서드 프로토콜](#선언-자체를-좁힌다--단일-메서드-프로토콜)
 - [모순 — 이 장이 인용해 기각하는 규칙의 원산지](#모순--이-장이-인용해-기각하는-규칙의-원산지)
+- [얽힘 — 저자가 대담에서 더한 둘째 기제](#얽힘--저자가-대담에서-더한-둘째-기제)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모듈을 잘 쪼갰는지를 무엇으로 판정하는가.**
@@ -406,9 +408,41 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
   `G8`, p.291)[^martin2008], 이것은 이 장의 [깊이](#깊이--비용-대-이득) 정의와 같은
   말이다. **갈리는 것은 그 좁힘의 수단이 쪼개기인가다.**
 
+## 얽힘 — 저자가 대담에서 더한 둘째 기제
+
+이 장은 과잉 분해의 해악을 **얕음** 하나로 설명한다(인터페이스가 기능에 비해 커진다).
+저자가 2024–2025년 공개 대담에서 **둘째 기제**를 더했다 — 이 KB에 아직 없던 개념이다.
+
+- 정의 (§"Method Length", JOHN 발언):[^ousterhout2024-aposd]
+
+> Two methods are entangled (or "conjoined" in APOSD terminology) if, in order to
+> understand how one of them works internally, you also need to read the code of the
+> other. If you've ever found yourself flipping back and forth between the
+> implementations of two methods as you read code, that's a red flag that the methods
+> might be entangled.
+
+- 처방 — **얽힌 메서드는 대개 모든 코드가 한 자리에 있도록 합쳐서 개선할 수 있다**
+  (§"Method Length", JOHN 발언).[^ousterhout2024-aposd]
+- **얕음과 얽힘은 손해의 자리가 다르다.** 얕음은 인터페이스 쪽 손해다 — 위
+  [깊이](#깊이--비용-대-이득) 절의 비율에서 분모가 커진다. 얽힘은 **독자의 작업 기억**
+  쪽 손해다 — 정보가 줄어들지 않고 흩어지기만 한다. 저자의 표현으로
+  **`isNot...`을 세 메서드로 쪼개는 것은 당신이 머리에 담아야 하는 정보의 양을 줄이지
+  않는다. 그것을 펼쳐 놓을 뿐이어서, 세 메서드를 함께 읽어야 한다는 것이 덜 뻔해진다**
+  (§"Method Length", JOHN 발언).[^ousterhout2024-aposd]
+- **이 개념이 모순의 무게를 옮긴다.** 상대 소스의 저자는 얽힘의 존재 자체는 부정하지
+  않고 **분해의 이득이 얽힘의 문제를 벌충할 수 있다**고 보며, 이 장의 저자는 못 한다고
+  본다 (§"Method Length Summary").[^ousterhout2024-aposd] 두 사람의 최종 진단이
+  **두 값의 상대적 가중치에 대한 불일치**다.
+- 그리고 **양쪽이 합의한 것도 기록된다** — 모듈형 설계가 좋다는 것, 과잉 분해가
+  가능하다는 것, 그리고 문제의 예제(`PrimeGenerator`)의 내부 메서드 분해가 문제라는
+  것 (§"Method Length Summary").[^ousterhout2024-aposd] 전문은
+  [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
+
 ## 이어지는 페이지
 
 - [작은 함수](small-functions.md) — **`contradicts` 상대.** 쪼갤 수 있으면 아직 크다는 쪽
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+  얽힘 개념이 나온 자리
 - [정보 은닉과 정보 누출](information-hiding-and-leakage.md) — 모듈을 깊게 만드는 첫째
   기법. 그쪽이 이 페이지의 "무엇을 숨길 것인가"에 답한다
 - [리포지터리 패턴](repository-pattern.md) — 이 잣대를 영속 저장소에 적용한 실물
@@ -426,6 +460,11 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
 - [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md) — 인터페이스 선언 자체를
   최소로 두는 지침과 그것을 적는 네 가지 방식
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^ousterhout2021]: Ousterhout 2021, 4장 "Modules Should Be Deep" · 15장 §15.3 · 19장
     §19.1과 §19.6 · 20장 §20.1 · 21장 §21.4. 쪽은 인쇄판 쪽 번호.

@@ -8,6 +8,7 @@ contradicts: [why-write-comments]
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 주석은 실패다
@@ -21,6 +22,7 @@ sources:
 - [나쁜 주석](#나쁜-주석)
 - [17장이 이 장을 다섯 항목으로 압축한다](#17장이-이-장을-다섯-항목으로-압축한다)
 - [모순 — 주석이 담는 정보를 코드가 담을 수 있는가](#모순--주석이-담는-정보를-코드가-담을-수-있는가)
+- [저자가 대담에서 밝힌 동기와 좁힌 범위](#저자가-대담에서-밝힌-동기와-좁힌-범위)
 - [인용 대조 — 상대가 옮긴 문구와 원문의 차이](#인용-대조--상대가-옮긴-문구와-원문의-차이)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -226,6 +228,65 @@ pp.53–54):[^martin2008]
 - **두 저자가 이 쟁점으로 직접 맞붙은 공개 문서가 존재한다** —
   [클린 코드](../synthesis/clean-code.md) 허브가 그 1차 사료의 자리를 가리킨다.
 
+## 저자가 대담에서 밝힌 동기와 좁힌 범위
+
+> **버전 조건**: 이 페이지는 *Clean Code* **초판(2008)** 기준이다. 저자는 2024–2025년
+> 공개 대담에서 메서드 길이에 대해서는 2판에서 균형을 조정했다고 밝혔으나, **주석에
+> 대해서는 입장을 바꿨다고 말하지 않았다.** 그래서 이 페이지의 조문은 그대로 두되 아래
+> 좁힘을 함께 읽는다.
+
+전문은 [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있고, 여기서는
+이 페이지의 조문에 직접 걸리는 것만 든다.
+
+- **저자가 이 장의 역사적 동기를 밝힌다** (§"Comments", UB 발언):[^ousterhout2024-aposd]
+
+> You and I likely both survived through a time when comments were absolutely necessary.
+> In the '70s and '80s I was an assembly language programmer. I also wrote a bit of
+> FORTRAN. Programs in those languages that had no comments were impenetrable.
+>
+> As a result it became conventional wisdom to write comments by default. And, indeed,
+> computer science students were taught to write comments uncritically. Comments became
+> _pure good_.
+>
+> In _Clean Code_ I decided to fight that mindset.
+
+  - **이 장을 읽는 데 중요한 맥락이다.** 세기의 목표가 무주석이 아니라 **무비판적 주석
+    관행에 대한 반작용**이었다는 저자 본인의 진술이다. 위 [조문](#조문)은 그대로 남지만
+    의도의 범위가 좁아진다.
+- **저자가 대상을 좁힌다** — **나는 주석 일반에 적대적이지 않다. 나는 불필요한(gratuitous)
+  주석에 아주 적대적이다** (§"Comments", UB 발언).[^ousterhout2024-aposd]
+- **"실패"의 뜻도 좁혀진다** — 코드로 표현할 수 없는 정보가 있다는 데 동의하면서
+  **그것이 실패다. 우리 언어의 실패, 또는 그것을 써서 우리를 표현하는 능력의 실패다**라고
+  적고, 반사실로 못 박는다 — **완벽한 프로그래밍 언어가 있다면 우리는 다시는 주석을 쓰지
+  않을 것이다** (§"Comments", UB 발언).[^ousterhout2024-aposd]
+  - **이것이 모순이 해소되지 않는 이유의 핵심이다.** 저자에게 주석은 언어의 결함을 메우는
+    임시방편이고, 상대에게는 코드가 원리적으로 담을 수 없는 정보의 자리다.
+- **그럼에도 세 자리에서 물러선다.**
+  - **① 인터페이스 주석이 필요한 경우가 있다** (§"Comments", UB 발언):[^ousterhout2024-aposd]
+
+> Yes, there are times when the signature of a method is an incomplete abstraction and a
+> comment is required.  This is especially true when the interface is part of a public
+> API, or an API intended for use by a separate team of developers.  Within a single
+> development team, however, long descriptive comments on interfaces are often more of an
+> impediment than a help.
+
+  - 이것이 아래 모순 절의 **최종 경계**다. 다투는 것은 "주석이 필요한가"가 아니라
+    **팀 내부 인터페이스에도 필요한가**다. 위 [그럼에도 좋다고 인정되는
+    주석들](#그럼에도-좋다고-인정되는-주석들) 절의 공개 API 항목이 이 좁힘의 씨앗이다.
+  - **② 주석이 코드보다 정밀할 때가 있다** — **정당한 지적이다. 정밀함이 주석으로 더 잘
+    표현되는 때가 있다** (§"Comments", UB 발언).[^ousterhout2024-aposd]
+  - **③ 코드는 뻔해야 한다는 원칙에 동의한다** — **당신의 정서에 반대하지 않는다. 좋은
+    깨끗한 코드는 가능한 한 이해하기 쉬워야 한다** (§"Comments",
+    UB 발언).[^ousterhout2024-aposd]
+- **저자의 주석 읽기 원칙이 여기서 처음 명문화된다** — 이 장에는 없던 것이다
+  (§"Comments", UB 발언):[^ousterhout2024-aposd]
+
+> I look at every comment as potential misinformation.  At best they are a way to
+> crosscheck the author's intent against the code.
+
+  - 좋은 주석의 기준도 따라온다 — **가장 좋은 주석은 코드에 대해 놀랍고 검증 가능한
+    무언가를 말해 주는 것이다** (§"Comments", UB 발언).[^ousterhout2024-aposd]
+
 ## 인용 대조 — 상대가 옮긴 문구와 원문의 차이
 
 **이 소스를 들이고 나서야 가능해진 대조다.** 상대 페이지는 이 문단을 상대 소스의 인용을
@@ -236,6 +297,13 @@ pp.53–54):[^martin2008]
 | 첫 문단 | `express ourselves in code` | `express ourself in code` |
 | 첫 문단 | `we can't always figure out` | `we cannot always figure out` |
 | 문단 구성 | 두 문단을 한 인용 블록으로 합침 | 원문은 `Note that I used the word failure. I meant it.` 두 문장이 사이에 있다 |
+
+**셋째 판본이 생겼다.** 두 저자의 공개 대담에서 오스터하우트가 같은 문단을 `page 54`로
+인용하는데, 그 표기는 `express ourselves`·`we cannot always figure out`·
+`Note that I use the word failure`다 (§"Comments", JOHN 발언).[^ousterhout2024-aposd]
+즉 세 판본이 `used`/`use`와 `ourself`/`ourselves`에서 갈린다. **논지에는 영향이 없고,
+어느 것도 이 스냅샷을 대체하지 못한다** — 이 페이지의 직인용은 이 KB가 보존한 스냅샷
+그대로 두고 단서를 여기 남긴다.
 
 - `ourself`는 **이 스냅샷(Calibre 변환 EPUB)의 표기**이고 인쇄판의 오식인지 변환
   잡음인지 이 스냅샷만으로는 가릴 수 없다. #hypothesis 상대 소스가 `ourselves`로 옮긴
@@ -249,6 +317,8 @@ pp.53–54):[^martin2008]
 
 - [주석을 왜 쓰는가](why-write-comments.md) — **`contradicts` 상대.** 주석 없이는 추상이
   성립하지 않는다는 쪽
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+  저자가 동기를 밝히고 세 자리에서 물러선 곳
 - [코드의 나쁜 냄새](code-smells.md) — 같은 쟁점의 셋째 꼭짓점. 주석을 리팩터링으로
   없애라는 쪽
 - [작은 함수](small-functions.md) — 같은 소스의 앞 장. 주석을 없애는 수단이 함수
@@ -263,6 +333,11 @@ pp.53–54):[^martin2008]
   다루는 자리
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 상대 쪽 허브
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^martin2008]: Martin 2008, 4장 "Comments"(제사 p.53 · 도입 pp.53–54 · §"Comments Do
     Not Make Up for Bad Code" p.55 · §"Explain Yourself in Code" p.55 · §"Good Comments"

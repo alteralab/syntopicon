@@ -9,6 +9,7 @@ sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: qntm2020, resource: /it/sources/qntm2020.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 작은 함수
@@ -28,6 +29,7 @@ sources:
 - [중복하지 마라](#중복하지-마라)
 - [이렇게 쓰는 것이 아니라 이렇게 고친다](#이렇게-쓰는-것이-아니라-이렇게-고친다)
 - [2차 문헌이 이 장의 예제를 이 장의 규칙과 대질한다](#2차-문헌이-이-장의-예제를-이-장의-규칙과-대질한다)
+- [저자 본인이 나중에 좁힌 것](#저자-본인이-나중에-좁힌-것)
 - [모순 — 함수를 쪼개면 복잡성이 주는가](#모순--함수를-쪼개면-복잡성이-주는가)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -336,6 +338,44 @@ sources:
   다른 답을 하는 것이 아니라 원전을 평가한다. 전문과 이 KB가 그것을 쓰는 방식은
   [클린 코드 비판](clean-code-criticism.md)에 있다.
 
+## 저자 본인이 나중에 좁힌 것
+
+> **버전 조건**: 이 페이지는 *Clean Code* **초판(2008)** 기준이다. 저자가 2판에서 메서드
+> 길이 지침의 균형을 조정했다고 밝혔으므로, **분해를 어디서 멈출 것인가에 관한 이
+> 페이지의 claim은 2판에 그대로 적용된다고 볼 수 없다.** 2판은 이 KB에 아직 반입돼
+> 있지 않다.
+
+2024년 9월부터 2025년 2월 사이에 두 저자가 공개 대담을 했고, 그 자리에서 저자가 이 장의
+주장을 세 자리에서 좁혔다. 전문은 [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에
+있고, 여기서는 이 페이지의 어느 절이 영향을 받는지만 적는다.
+
+- **위 [얼마나 작은가 — 수치](#얼마나-작은가--수치) 절에 대해** — 저자는 그 수치가 규정이
+  아니었다고 말한다 (§"Method Length", UB 발언):[^ousterhout2024-aposd]
+
+> While I do strongly recommend very short functions, I don't think it's fair to say that
+> the book sets arbitrary numerical limits. The 2-4 line functions that you referred to on
+> page 34 were part of the _Sparkle_ applet that Kent Beck and I wrote together in 1999 as
+> an exercise for learning TDD.
+
+  - **이 페이지의 기록과 어긋나지 않는다** — 위 절이 그 대목을 이미 일화로 적었다.
+    **다만 "함수가 20줄인 경우도 거의 없어야 한다"(p.34)와 "블록은 한 줄"(p.35)은 일화가
+    아니라 서술문이고, 저자는 그 둘에 대해서는 해명하지 않았다.**
+- **위 [한 가지만 하라](#한-가지만-하라--조작적-정의) 절에 대해** — 저자는 과잉 분해가
+  가능함을 인정하고, `void doSomething() {doTheThing()}`을 그 예로 든다. 그리고 책에
+  판단 지침이 부족하다는 것을 인정한다 (§"Method Length", UB 발언):[^ousterhout2024-aposd]
+
+> You make a good point that I don't talk much, in the book, about how to make the
+> judgement call. Back in 2008 my concern was breaking the habit of the very large
+> functions that were common in those early days of the web. I have been more balanced in
+> the 2d ed.
+
+- **그러나 기본값은 바뀌지 않았다** — **그래도 틀려야 한다면 나는 분해하는 쪽으로
+  틀리겠다** (§"Method Length", UB 발언).[^ousterhout2024-aposd] **아래 모순 절이
+  해소되지 않는 이유가 이 한 문장이다.**
+- **저자가 자기 예제의 난독성도 인정한다** — `PrimeGenerator`를 두고 **며칠 전 그
+  알고리즘으로 처음 돌아왔을 때 나는 그 이름들과 구조와 씨름했다**고 적는다
+  (§"Method Length", UB 발언).[^ousterhout2024-aposd]
+
 ## 모순 — 함수를 쪼개면 복잡성이 주는가
 
 이 KB에서 **`contradicts`가 발화한 둘째 자리다.** 상대는
@@ -381,14 +421,20 @@ sources:
 - **해소하지 않는다.** 최신성만으로 판단하지 않는다 — 상대가 13년 뒤 책이지만 그것이
   근거가 되지 않는다. 양쪽 페이지에 `contradicts`를 달아 두고, 해소는 사람이 근거와
   날짜를 남기며 한다.
-- **두 저자가 이 쟁점으로 직접 맞붙은 문서가 존재한다.** 이 페이지가 대질하는 두 명제는
-  추론이 아니라 두 저자가 서로에게 실제로 제기한 것이다 —
-  [클린 코드](../synthesis/clean-code.md) 허브가 그 1차 사료의 자리를 가리킨다.
+- **두 저자가 이 쟁점으로 직접 맞붙은 문서가 이 KB에 있다.** 이 페이지가 대질하는 두
+  명제는 추론이 아니라 두 저자가 서로에게 실제로 제기한 것이고, 두 사람이 그것을 자기들의
+  불합의 목록으로 조문화했다 — [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md).
+  그 자리에서 마틴이 내린 최종 진단이 **분해와 얽힘이라는 두 값의 상대적 가중치에 대한
+  불일치**다 (§"Method Length Summary", UB 발언).[^ousterhout2024-aposd] 잣대가 달라서가
+  아니라 같은 잣대에 반대 가중치를 걸어서 갈린다 — 층위 차이로 무마할 수 없는 이유가
+  양측 진술로 확인된다.
 
 ## 이어지는 페이지
 
 - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — **`contradicts` 상대.** 쪼개면
   얕아진다는 쪽
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+  저자가 이 장의 주장을 세 자리에서 좁힌 자리
 - [클린 코드 비판](clean-code-criticism.md) — 이 장의 예제를 이 장의 규칙과 대질하는 2차 문헌
 - [주석은 실패다](comments-as-failure.md) — 같은 소스의 다음 장. "긴 이름이 긴 주석보다
   낫다"가 거기서 "주석은 실패다"가 된다
@@ -406,6 +452,11 @@ sources:
   `G31`이 만나는 실용주의 쪽 자리
 - [코드의 나쁜 냄새](code-smells.md) — 긴 함수를 냄새로 다루는 셋째 소스
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
     **절 번호는 이 KB가 매긴 것이다** — 규약은

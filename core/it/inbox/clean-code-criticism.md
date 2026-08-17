@@ -7,6 +7,7 @@ status: draft
 sources:
   - { id: qntm2020, resource: /it/sources/qntm2020.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 클린 코드 비판 — 예제 코드가 그 책의 규칙을 어긴다
@@ -19,7 +20,7 @@ sources:
 - [9장 — 같은 코드로 정반대 교훈을](#9장--같은-코드로-정반대-교훈을)
 - [TDD의 빠진 0단계](#tdd의-빠진-0단계)
 - [6장 — 자료 구조라는 말의 용법](#6장--자료-구조라는-말의-용법)
-- [8장 소수 생성기](#8장-소수-생성기)
+- [소수 생성기 예제 — 그리고 장 표기 정정](#소수-생성기-예제--그리고-장-표기-정정)
 - [총평 — 무엇이 낡았는가](#총평--무엇이-낡았는가)
 - [대신 추천하는 책](#대신-추천하는-책)
 - [후기 — "문자 그대로 받아들이지 마라"라는 방어](#후기--문자-그대로-받아들이지-마라라는-방어)
@@ -206,8 +207,16 @@ sources:
     하는가**이고, 이 KB의 규약(원어 병기·확립 용어 우선, SCHEMA §3)이 이미 그것을
     요구한다.
 
-## 8장 소수 생성기
+## 소수 생성기 예제 — 그리고 장 표기 정정
 
+- **먼저 이 소스의 장 표기를 정정한다.** 이 소스는 이 코드가 **8장에서 왔다**고 적는데
+  (§5)[^qntm2020], **오류다.** 두 저자의 공개 대담이 이 코드를 **Listing 10-8, pp.145–146**
+  으로 지목하고[^ousterhout2024-aposd] martin2008 스냅샷 실측이 그것을 확인한다 —
+  **10장 Classes**, pp.145–146이다.[^martin2008] 마틴 본인이 그 장의 교훈을 밝힌다 —
+  **그 장에서 나는 그 함수에서 세 클래스를 뽑아냈다. … 그 장의 교훈은 아주 큰 메서드가
+  흔히 독립된 클래스로 분해하는 편이 나은 여러 구획을 담는다는 것이다**
+  (§"Method Length", UB 발언).[^ousterhout2024-aposd] **비판의 논지에는 영향이 없다** —
+  코드도 지적 내용도 같고 장 번호만 틀렸다.
 - 마지막 예제로 `PrimeGenerator`를 든다. 저자의 반응 — **이 코드는 대체 뭔가? 이
   알고리즘은 뭔가? 이 메서드 이름들은 뭔가?** 그리고 **더 앞에서 우리는 메서드가 무언가를
   하는 명령이거나 무언가에 답하는 질의여야 하고 둘 다여서는 안 된다고 조언받았다. 이것은
@@ -225,6 +234,10 @@ sources:
   ([주석은 실패다](comments-as-failure.md)의 모순 절). 두 비판자가 서로를 참조하지 않고
   같은 예제를 골랐다. #hypothesis 이 식별자가 그 자체로 잘 알려진 사례가 됐을 가능성이
   있다 — 어느 쪽도 상대를 인용하지 않는다.
+  - **덧붙여 표기가 갈린다.** martin2008 스냅샷 p.145의 원문은
+    `isLeastRelevantMultipleOfNextLargerPrimeFactor`(Next 포함)이고[^martin2008] 이 소스와
+    ousterhout2021 12장은 그와 일치하는데, 두 저자의 공개 대담이 옮긴 코드에는
+    `Next`가 빠져 있다.[^ousterhout2024-aposd] **대담 쪽의 전사 누락으로 판정했다.**
 
 ## 총평 — 무엇이 낡았는가
 
@@ -305,6 +318,14 @@ sources:
 
 ## 이 KB가 이 소스를 어떻게 쓰는가
 
+- **이 소스의 논점 하나가 1차 사료로 확인됐다.** 이 소스는 예제 코드가 책 자신의 규칙을
+  어긴다고 논증하는데, 두 저자의 공개 대담에서 마틴 본인이 `PrimeGenerator`에 대해
+  **며칠 전 그 알고리즘으로 처음 돌아왔을 때 나는 그 이름들과 구조와 씨름했다**고 적고
+  (§"Method Length", UB 발언)[^ousterhout2024-aposd], 요약 절은
+  **`PrimeGenerator`를 메서드로 내부 분해한 것은 문제가 있다**를 **양측 합의 항목**으로
+  올린다 (§"Method Length Summary").[^ousterhout2024-aposd] 이 소스의 가장 센 예제
+  비판이 저자 본인에게 부분적으로 수용된 셈이다. 전문은
+  [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
 - **이 소스는 `contradicts`를 새로 만들지 않는다.** 자격 기준(검증 가능한 사실·처방의
   정면 충돌)에 비추어 판정한 결과다.
   - 이 페이지의 claim 대부분은 **원전에 대한 사실 주장**(예제 코드가 이러이러하다)이지
@@ -332,7 +353,14 @@ sources:
   결론에 독립적으로 도달한 자리
 - [클린 코드라는 말의 정의](clean-code-defined.md) — 책 자신의 유보가 사는 자리
 - [클린 코드의 발견법 목록](clean-code-heuristics.md) — 낡았다고 지목된 항목들
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — 이 비판의 논점 일부가
+  저자 본인에게 수용된 1차 사료. 이 페이지의 장 표기 정정도 거기서 왔다
 - [클린 코드](../synthesis/clean-code.md) — 이 축의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code"
     (도입 · §1 · §2 · §3 · §4 · §5 · §6 · Update, 2020-12-19 · Afterword, 2022-03-21).

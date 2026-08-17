@@ -9,6 +9,7 @@ sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: qntm2020, resource: /it/sources/qntm2020.md }
+  - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
 ---
 
 # 자기 테스트 코드
@@ -24,6 +25,7 @@ sources:
 - [얼마나 테스트하면 충분한가](#얼마나-테스트하면-충분한가)
 - [테스트에도 층이 있고 층마다 굳히는 것이 다르다](#테스트에도-층이-있고-층마다-굳히는-것이-다르다)
 - [셋째 소스가 더하는 것 — TDD 세 법칙과 F.I.R.S.T.](#셋째-소스가-더하는-것--tdd-세-법칙과-first)
+- [번들링 — TDD의 대안에 이름이 붙다](#번들링--tdd의-대안에-이름이-붙다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **리팩터링(refactoring)이 담보로 잡는 그 테스트는 구체적으로 어떤 성질을
@@ -399,11 +401,66 @@ p.91).[^fowler2018]
     — **둘 다 같은 책 2장과 3장이 금지한 것**이라는 내적 일관성 논증이다. 전문은
     [클린 코드 비판](clean-code-criticism.md)에 있다.
 
+## 번들링 — TDD의 대안에 이름이 붙다
+
+두 저자의 공개 대담 셋째 주제가 TDD였고, 거기서 **TDD가 아닌 방식에 이름이 붙었다.**
+이 KB에 그 이름이 없었다. 전문은
+[오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
+
+- **오스터하우트가 대안을 규정한다** — 개발자가 TDD보다 다소 큰 단위, **아마 메서드 몇
+  개나 클래스 하나**로 작업하며 **먼저 코드를 얼마간(수십 줄에서 수백 줄까지) 쓰고 그
+  코드에 대한 단위 테스트를 쓴다.** 그리고 **TDD와 마찬가지로, 포괄적인 단위 테스트를
+  갖추기 전까지 그 코드는 "동작한다"고 치지 않는다** (§"Test-Driven Development",
+  JOHN 발언).[^ousterhout2024-aposd]
+  - **"코드 다 짜고 나중에 테스트"와 다르다는 점을 양측이 확인한다** — 그 방식은 개발자가
+    흥미를 잃어 테스트를 실제로 쓰지 않게 되므로 나쁘다는 데 **완전히 동의한다**고 적는다
+    (§"Test-Driven Development", JOHN 발언).[^ousterhout2024-aposd]
+- **이름은 마틴이 제안한다** (§"Test-Driven Development", UB 발언):[^ousterhout2024-aposd]
+
+> How about if we call this technique "bundling" for purposes of this document?  This is
+> the term I use in _Clean Code 2d ed._
+
+- **그리고 마틴이 번들링의 동등성을 상당 부분 인정한다** (§"Test-Driven Development",
+  UB 발언):[^ousterhout2024-aposd]
+
+> It seems to me that working in small units, and then immediately writing after the fact
+> tests, can give you all the above advantages, so long as you are very careful to test
+> every aspect of the code you just wrote.  I think a disciplined programmer could
+> effectively work that way.  Indeed, I think such a programmer would produce code that I
+> could not distinguish from code written by another programmer following TDD.
+
+- **갈리는 것은 설계 사고의 자리다** — 오스터하우트는 **더 큰 단위로 작업하는 이유는 설계
+  사고를 북돋우기 위해서**라고 적고 (§"Test-Driven Development",
+  JOHN 발언)[^ousterhout2024-aposd], 마틴은 **설계는 전략적 사고에서 오고 그것은 TDD든
+  번들링이든 전술적 행동과 무관하다**고 본다 (§"Test-Driven Development",
+  UB 발언).[^ousterhout2024-aposd]
+- **오스터하우트가 자기 책의 오류를 인정한다** — 마틴이 *A Philosophy of Software Design*
+  p.157의 TDD 서술이 부정확하다고 지적하자 (§"Test-Driven Development",
+  JOHN 발언):[^ousterhout2024-aposd]
+
+> Oops! I plead "guilty as charged" to inaccurately describing TDD. I will fix this in the
+> next revision of APOSD. That said, your definition of TDD does not change my concerns.
+
+  - **이 KB에 ousterhout2021의 TDD 서술이 반입돼 있다면 이 단서가 붙어야 한다** — 저자
+    본인이 부정확하다고 인정했고 다음 개정에서 고치겠다고 밝힌 대목이다.
+- **합의와 불합의가 조문화된다** (§"TDD Summary"):[^ousterhout2024-aposd] 단위 테스트가
+  필수라는 것과 TDD로 좋은 설계를 낼 수 있다는 것에는 합의하고, TDD가 설계를 저해하는가와
+  평균·최악의 결과가 어느 쪽이 나쁜가에서 갈린다. 그리고 **어느 쪽도 실증 데이터를 대지
+  못한다** — 오스터하우트가 **그러려면 TDD의 좋고 나쁜 결과의 빈도에 대한 실증 데이터가
+  필요할 텐데 나는 그런 데이터를 알지 못한다**고 적는다 (§"TDD Summary",
+  JOHN 발언).[^ousterhout2024-aposd]
+- **이것은 `contradicts`가 아니다.** 이 KB에 TDD를 "해야 한다"고 세운 페이지와 "하지 말라"고
+  세운 페이지가 나란히 있지 않고, 양측이 실증 데이터의 부재를 함께 인정하므로 검증 가능한
+  명제의 정면 충돌이 성립하지 않는다. [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md)가
+  이미 같은 절충을 다루고 있다.
+
 ## 이어지는 페이지
 
 - [클린 코드라는 말의 정의](clean-code-defined.md) — "테스트 없는 코드는 깨끗하지
   않다"와 단순 설계 규칙 1이 사는 자리
 - [클린 코드 비판](clean-code-criticism.md) — 9장 예제와 TDD 0단계에 유보를 다는 2차 문헌
+- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — 번들링이라는 이름이
+  붙은 자리이자 TDD 쟁점의 1차 사료
 - [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
   둘 것인가의 절충
@@ -414,6 +471,11 @@ p.91).[^fowler2018]
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 경계 찔러 보기를 자동화하는 쪽
 - [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md) — 단정문의 정본
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
+
+[^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
+    vs Clean Code". **대담이므로 locator에 발언자를 함께 적는다** — `JOHN`은 John
+    Ousterhout, `UB`는 Robert C. Martin이다. 규약과 스냅샷 취득 경로는
+    `it/archive/ousterhout2024-aposd/_progress.yaml` 머리말이 정본이다.
 
 [^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
     **절 번호는 이 KB가 매긴 것이다** — 규약은
