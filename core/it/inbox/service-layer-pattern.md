@@ -74,7 +74,7 @@ sources:
   된다 — 필요하면 **자기 데이터베이스 트랜잭션을 시작**하는 단계가 앞에 붙고
   **선행 조건 검사**가 따로 선다 (Epilogue §"Separating Entangled
   Responsibilities").[^percival2020] 그쪽 전문은
-  [있는 시스템에 이 구조 들이기](adopting-architecture-incrementally.md)에 있다.
+  [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md)에 있다.
 - 마지막 단계가 4장 시점에는 불만족스럽다고 저자들이 적는다 — **그 마지막 단계는 지금은
   좀 만족스럽지 않은데, 우리 서비스 레이어가 데이터베이스 계층에 단단히 결합돼 있기
   때문이다. 6장에서 작업 단위 패턴으로 그것을 개선할 것이다**
@@ -140,7 +140,7 @@ sources:
 
 ## DIP의 실물
 
-- 서비스 함수의 시그니처 한 줄이 [의존성 역전 원칙](dependency-inversion-principle.md)의
+- 서비스 함수의 시그니처 한 줄이 [의존성 역전 원칙](../concepts/dependency-inversion-principle.md)의
   둘째 조항("세부가 추상에 의존한다")에 대한 답이다 — **우리 서비스 레이어 함수에 대해 한
   가지 더 눈여겨보라** (4장 §"Depend on Abstractions" 곁글).[^percival2020]
 
@@ -179,7 +179,7 @@ sources:
 - 부록 B가 이 구조의 완성판을 담고 있다 — `src/` 레이아웃과 설치 가능한 패키지, Dockerfile과
   docker-compose, Makefile, 그리고 단위·통합·E2E로 나뉜 테스트 트리다
   (Appendix B).[^percival2020] 그쪽 요지는
-  [있는 시스템에 이 구조 들이기](adopting-architecture-incrementally.md)에 있다.
+  [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md)에 있다.
 
 ## 비용 — 빈혈 도메인이라는 반대 방향
 
@@ -198,7 +198,7 @@ sources:
   유일한 처방이다.
 - 이 형식이 이 책의 서명이다 —
   [리포지터리 패턴](repository-pattern.md)·[작업 단위 패턴](unit-of-work-pattern.md)·
-  [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md)가 전부 같은
+  [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)가 전부 같은
   장단점 표로 끝난다.
 - 4장이 남긴 어색함 둘도 명시돼 있다 (4장 §"Wrap-Up"):[^percival2020]
   - **서비스 레이어가 여전히 도메인에 단단히 결합돼 있는데, 그 API가 `OrderLine` 객체의
@@ -211,9 +211,9 @@ sources:
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 이 층이 생기고 나서
   테스트를 어느 수준에 둘 것인가
 - [리포지터리 패턴](repository-pattern.md) — 이 층이 의존하는 추상
-- [도메인 모델 패턴](domain-model-pattern.md) — 이 층이 부르는 대상
-- [의존성 역전 원칙](dependency-inversion-principle.md) — 이 층의 시그니처가 구현하는 원리
-- [있는 시스템에 이 구조 들이기](adopting-architecture-incrementally.md) — 레거시에서
+- [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 층이 부르는 대상
+- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 층의 시그니처가 구현하는 원리
+- [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — 레거시에서
   이 층을 먼저 만들라는 권고
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브

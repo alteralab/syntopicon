@@ -148,7 +148,7 @@ sources:
   p.56).[^fowler2018] 위 절의 "깨진 창을 알아보라"는 요구가 학습 가능한 기술임을 명시한다.
 
 ## 이어지는 페이지
-- [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 정당화를 경제로 두라는 쪽
+- [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 정당화를 경제로 두라는 쪽
 - [언제 리팩터링하는가](when-to-refactor.md) — 야영 격언이 실천으로 놓이는 자리
 
 - [변화의 촉매와 삶긴 개구리](../concepts/catalyst-for-change-and-boiled-frog.md) — 같은 저자들이 이

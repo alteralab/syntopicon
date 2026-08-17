@@ -205,15 +205,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md) — 같은 장의
+- [이터레이터 프로토콜과 제너레이터](../concepts/iterator-protocol-and-generators.md) — 같은 장의
   앞부분. 여기서 위임하는 그 제너레이터가 무엇이고 어떻게 도는가
-- [동시 실행기와 asyncio](concurrent-executors-and-asyncio.md) — `yield from`이 `await`가
+- [동시 실행기와 asyncio](../concepts/concurrent-executors-and-asyncio.md) — `yield from`이 `await`가
   되고 고전 코루틴이 네이티브 코루틴이 되는 자리
-- [컨텍스트 매니저 프로토콜](context-manager-protocol.md) — `yield` 하나가 함수 몸통을
+- [컨텍스트 매니저 프로토콜](../concepts/context-manager-protocol.md) — `yield` 하나가 함수 몸통을
   진입과 정리로 가르는 또 하나의 자리
-- [클로저와 데코레이터](closures-and-decorators.md) — 코루틴이 대신하는 그 상태 보관
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — 코루틴이 대신하는 그 상태 보관
   수단(클로저와 `nonlocal`)의 정본
-- [심화 타입 힌트와 그 한계](advanced-type-hints-in-python.md) — 여기 쓰인 공변·반변과
+- [심화 타입 힌트와 그 한계](../concepts/advanced-type-hints-in-python.md) — 여기 쓰인 공변·반변과
   변성 엄지 규칙의 정본
 - [파이썬의 제어 흐름 기제](../synthesis/python-control-flow-mechanics.md) — 이 축의 허브
 

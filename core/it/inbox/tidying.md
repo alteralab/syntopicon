@@ -209,7 +209,7 @@ sources:
 - [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — PR 분리, 한 묶음의 크기, 주기
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 이 구분이 이 책의 뿌리
 - [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 이름이 작아야 하는 이유
-- [요소를 이롭게 관계 짓기](beneficially-relating-elements.md) — 저자의 소프트웨어 설계 정의
+- [요소를 이롭게 관계 짓기](../concepts/beneficially-relating-elements.md) — 저자의 소프트웨어 설계 정의
 - [리팩터링](refactoring.md) — 상위 낱말의 원전 정의와 그 계보
 - [언제 리팩터링하는가](when-to-refactor.md) — 같은 물음에 대한 원전 쪽의 답
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브

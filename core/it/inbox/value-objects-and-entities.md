@@ -99,7 +99,7 @@ sources:
 
 위 조각은 세 표기를 나란히 보이기만 하고 무엇을 왜 고르는지는 말하지 않는다. 그 선택
 근거를 파이썬 관용 참조 쪽 소스가 댄다. 전문은
-[데이터 클래스 빌더](data-class-builders.md)에 있고, 여기서는 값 객체에 걸리는 것만
+[데이터 클래스 빌더](../concepts/data-class-builders.md)에 있고, 여기서는 값 객체에 걸리는 것만
 추린다. 두 소스가 서로를 참조한 적은 없다.
 
 - **불변성이 첫째 갈림이다** — **`collections.namedtuple`과 `typing.NamedTuple`은 `tuple`
@@ -155,7 +155,7 @@ sources:
   있으며, **다른 통화를 더하면 `ValueError`가 나고** `Money`끼리 곱하면 `TypeError`가
   난다 (1장 §"Dataclasses Are Great for Value Objects").[^percival2020]
   - 즉 값 객체는 "데이터 홀더"가 아니다. **정체성이 없다는 것과 행동이 없다는 것은 다른
-    말이다.** 이 구분이 [도메인 모델 패턴](domain-model-pattern.md)의 "무엇이든 객체일
+    말이다.** 이 구분이 [도메인 모델 패턴](../concepts/domain-model-pattern.md)의 "무엇이든 객체일
     필요는 없다"와 짝을 이룬다 — 그쪽은 행동을 함수로 빼는 판단이고 이쪽은 값에 행동을
     남기는 판단이다.
 
@@ -207,7 +207,7 @@ sources:
   **끔찍하다. 제발, 제발 이것을 하지 마라. — Harry** (1장 §"More Types for More Type
   Hints" 곁글 및 각주 4).[^percival2020]
   - 저자 둘의 판단이 갈리는 것을 그대로 인쇄한 자리다. 이 책에는 이런 자리가 여럿이며
-    ([의존성 주입과 부트스트랩](dependency-injection-and-bootstrap.md)의 "과잉 설계"
+    ([의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md)의 "과잉 설계"
     공방이 다른 예다), 그 자체가 이 소스의 지위를 규정한다 — **합의된 규범이 아니라
     두 실무자의 판단이다.**
 
@@ -256,26 +256,26 @@ sources:
 
 ## 이어지는 페이지
 
-- [도메인 모델 패턴](domain-model-pattern.md) — 이 객체들이 사는 층
-- [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — "무엇인지"와
+- [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 객체들이 사는 층
+- [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — "무엇인지"와
   "어느 것인지"의 구분이 이름 짓기 물음과 만나는 자리
 - [부수 효과 없는 함수](side-effect-free-functions.md) — 값 객체의 불변성이 봉사하는 조항
-- [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 엔티티 중
+- [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 엔티티 중
   일부를 "공개" 진입점으로 올리는 셋째 구분
-- [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md) — 값 객체가
+- [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md) — 값 객체가
   이벤트·명령으로 쓰이는 자리
 - [리포지터리 패턴](repository-pattern.md) — 이 객체들을 저장하고 되살리는 층
-- [데이터 조직하기](organizing-data.md) — 같은 값·참조 구분을 리팩터링 카탈로그가
+- [데이터 조직하기](../concepts/organizing-data.md) — 같은 값·참조 구분을 리팩터링 카탈로그가
   *Change Reference to Value*와 그 역으로 부르는 자리
-- [데이터 클래스 빌더](data-class-builders.md) — 위 세 재료의 전면 비교와 선택 기준,
+- [데이터 클래스 빌더](../concepts/data-class-builders.md) — 위 세 재료의 전면 비교와 선택 기준,
   그리고 `@dataclass`의 나머지 옵션들
-- [코드 냄새로서의 데이터 클래스](data-class-as-code-smell.md) — "정체성이 없다"와
+- [코드 냄새로서의 데이터 클래스](../concepts/data-class-as-code-smell.md) — "정체성이 없다"와
   "행동이 없다"를 혼동하면 걸리는 냄새
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
-- [딕셔너리와 집합](dictionaries-and-sets.md) — "해시는 모든 값 속성에 근거해야 한다"가
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — "해시는 모든 값 속성에 근거해야 한다"가
   취향이 아니라 **해시 테이블이 깨지지 않기 위한 조건**임을 언어 쪽에서 말하는 자리
-- [객체 참조와 가변성](object-references-and-mutability.md) — 아무것도 하지 않으면 모든
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 아무것도 하지 않으면 모든
   사용자 정의 클래스가 정체성으로 비교되어 사실상 엔티티가 되는 자리
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 재료들의 언어 쪽 근거가 모인 허브
@@ -304,4 +304,4 @@ sources:
     §"More About @dataclass" pp.179–180과 그 표 5-2 p.179 · §"Further Reading" p.196).
     **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그 오프셋 실측과
     판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 이 소스에서 온 코드 펜스는
-    이 페이지에 없다 — 전문은 [데이터 클래스 빌더](data-class-builders.md)에 있다.
+    이 페이지에 없다 — 전문은 [데이터 클래스 빌더](../concepts/data-class-builders.md)에 있다.

@@ -28,23 +28,23 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 **이름이 이것인 이유**: 논쟁의 대상이 책의 표제어 그 자체이기 때문이다. 다투는 것은
 어떤 기법의 세부가 아니라 "깨끗한 코드"라는 말이 무엇을 가리키는가다.
 
-- [클린 코드라는 말의 정의](../inbox/clean-code-defined.md) — 1장·12장. 저자가 정의를
+- [클린 코드라는 말의 정의](../concepts/clean-code-defined.md) — 1장·12장. 저자가 정의를
   스스로 내리지 않고 여섯 명에게 물어 나란히 싣는 구성, 어질러짐의 총 소유 비용,
   보이스카우트 규칙, 켄트 벡의 단순 설계 네 규칙
 - [작은 함수](../inbox/small-functions.md) — 3장. **논쟁 핵심 ①.** 함수는 작아야 하고
   그보다 더 작아야 한다는 규칙과 그 수치, "한 가지만 하라"의 조작적 정의, 인수 서열
-- [주석은 실패다](../inbox/comments-as-failure.md) — 4장. **논쟁 핵심 ②.** 주석을
+- [주석은 실패다](../concepts/comments-as-failure.md) — 4장. **논쟁 핵심 ②.** 주석을
   필요악으로 규정하는 조문과 그럼에도 인정되는 좋은 주석 여덟 종
-- [객체와 자료 구조](../inbox/objects-versus-data-structures.md) — 6장. 객체와 자료
+- [객체와 자료 구조](../concepts/objects-versus-data-structures.md) — 6장. 객체와 자료
   구조의 반대칭, 디미터 법칙, 잡종 구조, DTO와 액티브 레코드
-- [클린 코드의 발견법 목록](../inbox/clean-code-heuristics.md) — 17장. 규칙 전체가
+- [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md) — 17장. 규칙 전체가
   식별자 예순여섯 개로 압축된 자리와 파울러의 냄새 목록과의 대조표
 
 **그리고 이 책을 둘러싼 논쟁의 2차 문헌.**
 
-- [클린 코드 비판](../inbox/clean-code-criticism.md) — qntm 2020. 이 비판의 대표 문헌.
+- [클린 코드 비판](../concepts/clean-code-criticism.md) — qntm 2020. 이 비판의 대표 문헌.
   취향 진술이 아니라 **책의 예제 코드가 책 자신의 규칙을 어긴다**는 내적 일관성 논증
-- [오스터하우트–마틴 공개 대담](../inbox/aposd-vs-clean-code-dialogue.md) —
+- [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md) —
   **이 논쟁의 1차 사료.** 두 저자가 2024년 9월–2025년 2월에 직접 맞붙어 메서드 길이·주석·
   TDD를 다투고, 합의와 불합의를 스스로 조문화한 문서
 
@@ -67,7 +67,7 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 
 **① 합의 영역 — 얇게, 기존 페이지에 각주 보강으로.**
 2장 이름, 9장 단위 테스트, 12장 단순 설계 네 규칙은 이 KB의 다른 원전과 방향이 같다.
-새 페이지를 만들지 않고 [이름 짓기](../inbox/naming-things.md)와
+새 페이지를 만들지 않고 [이름 짓기](../concepts/naming-things.md)와
 [자기 테스트 코드](../inbox/self-testing-code.md)에 합류시켰다.
 
 **② 논쟁 핵심 — 두껍게, 반드시 대비 구조로.**
@@ -76,7 +76,7 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 
 **③ 실증이 기각한 부분 — 각주에 표기만.**
 함수 길이와 결함률의 관계 같은 것은 이 KB에 실증 소스가 아직 없다. 본문 주장으로 쓰지
-않고 [클린 코드의 발견법 목록](../inbox/clean-code-heuristics.md)의 마지막 절에
+않고 [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md)의 마지막 절에
 "실증 대질 후보"로 표시만 해 두었다.
 
 **반입하지 않은 장**: 5장 Formatting, 7장 Error Handling, 8장 Boundaries, 10장 Classes,
@@ -90,20 +90,20 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 
 **① 함수를 쪼개면 복잡성이 주는가**
 [작은 함수](../inbox/small-functions.md) ↔
-[깊은 모듈과 얕은 모듈](../inbox/deep-and-shallow-modules.md).
+[깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md).
 한쪽은 스무 줄·들여쓰기 두 단계·블록 한 줄이라는 수치를 두고 "더 뽑아낼 수 있으면 아직
 크다"로 판정한다. 다른 쪽은 그 "N줄 규칙"을 인용해 기각하며 "인터페이스가 기능에 비해
 크면 이미 얕다"로 판정한다. 같은 조작에 한쪽은 개선, 다른 쪽은 악화로 채점한다.
 
 **② 주석이 담는 정보를 코드가 담을 수 있는가**
-[주석은 실패다](../inbox/comments-as-failure.md) ↔
+[주석은 실패다](../concepts/comments-as-failure.md) ↔
 [주석을 왜 쓰는가](../inbox/why-write-comments.md).
 **두 저자가 서로를 지명해 반박한 유일한 자리다.** 한쪽은 "진실은 코드 한 곳에만
 있다"에서 "주석은 언제나 실패다"로 간다. 다른 쪽은 그 문단을 통째로 인용하고 조목별로
 반박하며, 반박의 마지막은 문화에 대한 우려다.
 
 **셋째 꼭짓점이 있다.** 이 KB의 첫 `contradicts`였던
-[코드의 나쁜 냄새](../inbox/code-smells.md) ↔
+[코드의 나쁜 냄새](../concepts/code-smells.md) ↔
 [주석을 왜 쓰는가](../inbox/why-write-comments.md)는 ②와 같은 쟁점의 다른 변이다 —
 fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소스의 조문을 이어받은 것이다.
 세 페이지가 한 쟁점의 세 꼭짓점이므로 각각의 `contradicts`를 그대로 두고 서로를 가리키게
@@ -125,19 +125,19 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
 
 새 페이지가 아니라 절이나 각주로 들어간 자리들이다.
 
-- [이름 짓기](../inbox/naming-things.md) — 2장과 17장 `N1`–`N7`. 이름 규칙 열여섯 개가
+- [이름 짓기](../concepts/naming-things.md) — 2장과 17장 `N1`–`N7`. 이름 규칙 열여섯 개가
   기존 두 소스와 대체로 일치하는 자리
 - [자기 테스트 코드](../inbox/self-testing-code.md) — 9장. TDD 세 법칙, F.I.R.S.T.,
   단정 하나 규칙에 대한 저자의 실제 입장
-- [DRY 원칙](../inbox/dry-principle.md) — 3장과 17장 `G5`. "중복은 만악의 근원"이라는
+- [DRY 원칙](../concepts/dry-principle.md) — 3장과 17장 `G5`. "중복은 만악의 근원"이라는
   최대주의가 이 축의 한쪽 극으로 서는 자리
-- [코드의 나쁜 냄새](../inbox/code-smells.md) — 17장의 경쟁 목록이 대조되는 자리
-- [코드 냄새로서의 데이터 클래스](../inbox/data-class-as-code-smell.md) — 6장이 셋째
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — 17장의 경쟁 목록이 대조되는 자리
+- [코드 냄새로서의 데이터 클래스](../concepts/data-class-as-code-smell.md) — 6장이 셋째
   근거를 대는 자리
-- [깊은 모듈과 얕은 모듈](../inbox/deep-and-shallow-modules.md) — 모순 상대편으로
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 모순 상대편으로
   세워진 자리
 - [주석을 왜 쓰는가](../inbox/why-write-comments.md) — 인용의 원문과 대조된 자리
-- [클린 코드라는 말의 정의](../inbox/clean-code-defined.md) — 책 자신의 유보가 방어가
+- [클린 코드라는 말의 정의](../concepts/clean-code-defined.md) — 책 자신의 유보가 방어가
   되는지를 2차 문헌과 함께 다루는 자리
 
 ## 2차 문헌이 이 지형에 더하는 것
@@ -161,13 +161,13 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
   인용하지 않는다.
 - **2차 문헌은 `contradicts`를 만들지 않는다.** 원전과 같은 물음에 다른 답을 하는 것이
   아니라 원전을 **평가**하기 때문이다 — 범주가 다르다. 판정 근거는
-  [클린 코드 비판](../inbox/clean-code-criticism.md)의 마지막 절이 갖는다.
+  [클린 코드 비판](../concepts/clean-code-criticism.md)의 마지막 절이 갖는다.
 
 ## 1차 사료가 확정한 것
 
 **이 KB의 모순 둘은 두 책의 문장만 대조해 세워졌는데, 두 저자가 직접 맞붙은 문서가
 그 판정을 양측 진술로 확인해 준다.** 전문은
-[오스터하우트–마틴 공개 대담](../inbox/aposd-vs-clean-code-dialogue.md)에 있다.
+[오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md)에 있다.
 
 - **① 두 사람이 다투는 주제가 이 KB의 모순 둘과 정확히 같다.** 대담의 세 주제 중 둘이
   메서드 길이와 주석이고, 두 사람이 그것을 스스로 "우리의 불합의 영역"이라 부르며 합의·

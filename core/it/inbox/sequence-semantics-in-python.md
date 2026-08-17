@@ -60,12 +60,12 @@ sources:
 - 그리고 이 두 축이 뒤에서 함정을 예고한다 — 장 요약이 그것을 못 박는다: **불행히도 파이썬에는
   완전히 안전한 불변 컨테이너 시퀀스 타입이 없다. "불변"인 튜플조차 리스트나 사용자 정의
   객체 같은 가변 항목을 담으면 그 값이 바뀔 수 있다** (2장 §"Chapter Summary",
-  p.70).[^ramalho2022] 전문은 [객체 참조와 가변성](object-references-and-mutability.md)에 있다.
+  p.70).[^ramalho2022] 전문은 [객체 참조와 가변성](../concepts/object-references-and-mutability.md)에 있다.
 - 구상 타입이 ABC를 상속하지는 않는다는 사실도 여기서 나온다 — **내장 구상 시퀀스 타입들은
   실제로 `Sequence`와 `MutableSequence` 추상 기반 클래스를 상속하지 않고, 그 ABC에 등록된
   가상 하위 클래스(virtual subclasses)다** (2장 §"Overview of Built-In Sequences",
   p.24).[^ramalho2022] 그래서 `issubclass(tuple, abc.Sequence)`가 `True`다. 그 기제는
-  [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md)가 다룬다.
+  [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md)가 다룬다.
 
 ## 컴프리헨션 — 의도를 명시하는 문법
 
@@ -82,7 +82,7 @@ sources:
   (2장 §"List Comprehensions and Readability", p.26).[^ramalho2022]
   - 그 뒤에 붙는 한 줄이 이 KB의 다른 조항들과 같은 성격이다 — **최선의 판단을 써라:
     파이썬에서도 영어에서와 마찬가지로, 명료한 글쓰기에 딱 부러지는 규칙은 없다**
-    (같은 절, p.26). [코드 냄새](code-smells.md)가 "임계값이 아니라 냄새"라고 말하는 것과
+    (같은 절, p.26). [코드 냄새](../concepts/code-smells.md)가 "임계값이 아니라 냄새"라고 말하는 것과
     같은 자리다. #hypothesis 저자가 그렇게 연결하지는 않았다.
 - **지역 스코프가 생겼다는 것이 파이썬 3의 변화다** — **파이썬 3에서 리스트 컴프리헨션,
   제너레이터 표현식, 그 형제인 집합·딕셔너리 컴프리헨션은 `for` 절에서 대입된 변수를 담을
@@ -124,7 +124,7 @@ sources:
   - 그리고 클래스를 만들지 않아도 되는 조건이 붙는다 — **필드 이름을 붙이자고 클래스를 만드는
     수고를 들일 필요가 없는 경우가 흔하다. 특히 언패킹을 활용하고 필드 접근에 색인을 쓰지
     않는다면 그렇다** (2장 §"Tuples as Records", p.32).[^ramalho2022] 이름이 필요해지는
-    순간의 답이 [데이터 클래스 빌더](data-class-builders.md)다.
+    순간의 답이 [데이터 클래스 빌더](../concepts/data-class-builders.md)다.
 - **② 불변 리스트로서** — 이득이 둘로 계상된다 (2장 §"Tuples as Immutable Lists",
   p.32):[^ramalho2022]
   - **명료성(Clarity)** — **코드에서 튜플을 보면 그 길이가 결코 바뀌지 않는다는 것을 안다.**
@@ -141,7 +141,7 @@ sources:
     적용된다. 튜플 안의 참조는 삭제되거나 교체될 수 없다. 그러나 그 참조 중 하나가 가변
     객체를 가리키고 그 객체가 바뀌면, 튜플의 값이 바뀐다**
     (2장 §"Tuples as Immutable Lists", p.32).[^ramalho2022] 판정 방법은 `hash(t)`이고,
-    자세한 것은 [객체 참조와 가변성](object-references-and-mutability.md)에 있다.
+    자세한 것은 [객체 참조와 가변성](../concepts/object-references-and-mutability.md)에 있다.
 
 ## 언패킹이 색인을 대신한다
 
@@ -180,7 +180,7 @@ sources:
 - `a:b:c` 표기는 `[]` 안에서만 유효하고 **`slice(a, b, c)` 객체를 만든다**
   (2장 §"Slice Objects", p.48).[^ramalho2022] `seq[start:stop:step]`을 평가하려고 파이썬은
   `seq.__getitem__(slice(start, stop, step))`을 부른다 —
-  [파이썬 데이터 모델](python-data-model.md)의 던더가 여기서도 바닥이다.
+  [파이썬 데이터 모델](../concepts/python-data-model.md)의 던더가 여기서도 바닥이다.
 - **그래서 슬라이스에 이름을 붙일 수 있다.** 저자의 표현이 그 값을 정확히 짚는다 — **자기
   시퀀스 타입을 구현하지 않더라도 슬라이스 객체를 아는 것은 유용하다. 스프레드시트가 셀
   범위에 이름을 붙이게 해 주듯 슬라이스에 이름을 붙일 수 있게 해 주기 때문이다**
@@ -199,7 +199,7 @@ sources:
       print(item[UNIT_PRICE], item[DESCRIPTION])
   ```
 
-  - 이것이 [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)가 말하는 것의
+  - 이것이 [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md)가 말하는 것의
     아주 작은 실물이다 — `item[40:52]`가 `item[UNIT_PRICE]`가 되면 읽는 사람이 코드를
     거슬러 올라갈 필요가 없어진다. #hypothesis 저자가 그렇게 연결하지는 않았다.
 - 슬라이스는 **쓰기 쪽에서도 쓰인다** — **가변 시퀀스는 대입문의 왼쪽이나 `del` 문장의
@@ -303,7 +303,7 @@ sources:
   my_collection`) `my_collection`에 집합을 쓰는 것을 고려하라. 특히 많은 항목을 담고
   있다면. 집합은 빠른 멤버십 검사에 최적화돼 있다**
   (2장 §"When a List Is Not the Answer", p.59).[^ramalho2022] 자세한 것은
-  [딕셔너리와 집합](dictionaries-and-sets.md)에 있다.
+  [딕셔너리와 집합](../concepts/dictionaries-and-sets.md)에 있다.
 - 그 밖의 큐 구현들도 열거된다 (2장 §"Deques and Other Queues", p.69):[^ramalho2022]
   `queue`(스레드 간 통신용 동기화 클래스들 — **가득 차면 항목을 버리는 대신 삽입이
   블록되고, 그것이 살아 있는 스레드 수를 조절하는 데 유용하다**), `multiprocessing`(프로세스
@@ -312,19 +312,19 @@ sources:
 
 ## 이어지는 페이지
 
-- [객체 참조와 가변성](object-references-and-mutability.md) — **같은 부의 마지막 장.**
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — **같은 부의 마지막 장.**
   위 함정들(`[[]] * 3`·`+=` 수수께끼·튜플의 상대적 불변성)의 기제가 전부 그쪽에 있다
-- [딕셔너리와 집합](dictionaries-and-sets.md) — 순서 없는 컬렉션 쪽. 해시 가능성이라는
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 순서 없는 컬렉션 쪽. 해시 가능성이라는
   요구가 여기의 "튜플에 가변 항목을 넣지 마라"와 만난다
 - [텍스트와 바이트의 경계](text-versus-bytes.md) — `str`과 `bytes`라는 평면 시퀀스 둘의
   특수 사정, 그리고 문자열을 제대로 정렬하는 법
-- [데이터 클래스 빌더](data-class-builders.md) — 튜플을 레코드로 쓰다가 필드에 이름이
+- [데이터 클래스 빌더](../concepts/data-class-builders.md) — 튜플을 레코드로 쓰다가 필드에 이름이
   필요해졌을 때
-- [파이썬 데이터 모델](python-data-model.md) — 슬라이싱·반복·`in`이 어떤 특수 메서드로
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — 슬라이싱·반복·`in`이 어떤 특수 메서드로
   받쳐지는가
 - [부수 효과 없는 함수](side-effect-free-functions.md) — `sort`가 `None`을 돌려주는
   관례의 원리 쪽
-- [알고리즘 속도](algorithm-speed.md) — 자료 구조 선택이 복잡도에 걸리는 자리
+- [알고리즘 속도](../concepts/algorithm-speed.md) — 자료 구조 선택이 복잡도에 걸리는 자리
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 

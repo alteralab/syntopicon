@@ -29,8 +29,8 @@ sources:
 
 원어는 **시간 가치(time value)**와 **옵션성(optionality)**이고, 이 페이지가 다루는 것은
 [언제 정리하는가](when-to-tidy.md)의 판정 인자 가운데 **비용과 수익** 두 항의 이론이다.
-결합도·응집도 쪽 이론은 [변경에 대한 결합도](coupling-with-respect-to-change.md)와
-[콘스탄틴의 등가](constantines-equivalence.md)가 맡는다.
+결합도·응집도 쪽 이론은 [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md)와
+[콘스탄틴의 등가](../concepts/constantines-equivalence.md)가 맡는다.
 
 ## 왜 3부의 마지막 힘이 돈인가
 
@@ -259,7 +259,7 @@ sources:
 - [언제 정리하는가](when-to-tidy.md) — 이 이론이 답하는 실무 판정
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 옵션을 만드는 것이 구조라는 규정
 - [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 투자 규모를 정하는 다른 축
-- [콘스탄틴의 등가](constantines-equivalence.md) — 비용 쪽 이론의 전문
+- [콘스탄틴의 등가](../concepts/constantines-equivalence.md) — 비용 쪽 이론의 전문
 - [정리 — tidying](tidying.md) — 이 경제학이 값매기는 대상
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 같은 물음에 비율로 답하는 소스
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브

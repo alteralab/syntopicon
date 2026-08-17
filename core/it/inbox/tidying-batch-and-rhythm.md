@@ -132,7 +132,7 @@ sources:
     편중되므로 정리도 같은 자리에 편중되고, 손대지 않은 코드가 대부분으로 남아도 체감
     상태는 "정돈된 코드베이스"가 된다.
   - 같은 편중이 3부에서 비용의 멱법칙 분포로 다시 나온다 —
-    [콘스탄틴의 등가](constantines-equivalence.md) 참조.
+    [콘스탄틴의 등가](../concepts/constantines-equivalence.md) 참조.
 - 그래서 저자가 결론을 되풀이한다 — **그래서 나는 정리가 분에서 한 시간짜리 활동이라고
   자신 있게 말한다. 그렇다, 가끔은 더 길어지지만 오래 그렇지는 않다** (19장).[^beck2023]
 
@@ -142,9 +142,9 @@ sources:
 - [정리 열다섯 가지](tidyings-catalog.md) — 연쇄가 묶음을 부풀리는 경로
 - [언제 정리하는가](when-to-tidy.md) — 행동 변경에 대한 시점 판정
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 묶기 전에 갈라야 하는 것
-- [콘스탄틴의 등가](constantines-equivalence.md) — 변경 비용의 멱법칙 분포
+- [콘스탄틴의 등가](../concepts/constantines-equivalence.md) — 변경 비용의 멱법칙 분포
 - [버전 관리 실천](version-control-practice.md) — 커밋 단위에 대한 이 KB의 다른 판정
-- [리팩터링의 리듬](refactoring-rhythm.md) — 같은 낱말을 더 작은 규모에 쓰는 원전
+- [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 같은 낱말을 더 작은 규모에 쓰는 원전
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 
 [^beck2023]: Beck 2023, 18장 "Batch Sizes" · 19장 "Rhythm". **이 소스의 locator는 장

@@ -124,7 +124,7 @@ sources:
 > ostensibly invoked a shared abstraction, the code they were running was fairly unique.
 
   - **이것이 "중복처럼 보였던 것이 중복이 아니었다"의 실물이다.** 이 KB의
-    [DRY 원칙](dry-principle.md)이 thomas2020에서 옮긴 **코드가 같아도 지식이 다르면
+    [DRY 원칙](../concepts/dry-principle.md)이 thomas2020에서 옮긴 **코드가 같아도 지식이 다르면
     중복이 아니다**라는 반례와 같은 관찰을, 이쪽은 **사후에** 확인하는 절차로 얻는다.
 - 저자가 관찰한 결과의 변화 — 관점이 **"이 코드에 대한 우리 투자를 지켜야 한다"에서
   "이 코드는 한동안 말이 됐지만, 어쩌면 우리가 배울 수 있는 건 다 배웠는지도 모른다"로
@@ -140,7 +140,7 @@ sources:
 
 ## DRY 최대주의와 어디까지 갈리는가
 
-이 KB의 [DRY 원칙](dry-principle.md) 축에는 이미 네 소스가 있고, 그중
+이 KB의 [DRY 원칙](../concepts/dry-principle.md) 축에는 이미 네 소스가 있고, 그중
 [Clean Code](../sources/martin2008.md)가 최대주의 극에 선다 — **중복은 소프트웨어 만악의
 근원일지 모른다**(3장 §"Don't Repeat Yourself", p.48), **찾을 수 있는 곳마다 중복을 찾아
 없애라**(17장 `G5`, p.290), 그리고 **코드에서 중복을 볼 때마다 그것은 놓친 추상의 기회를
@@ -166,9 +166,9 @@ sources:
 - **④ 그럼에도 실질적 대비는 남고, 그것이 기본값의 차이다.** Clean Code는 중복 쪽에
   **의심을 기본값으로** 두고("모든 중복은 놓친 추상의 기회"), 이 페이지는 잘못된 추상 쪽에
   의심을 기본값으로 둔다. 같은 상황에서 어느 쪽 위험을 먼저 떠올리느냐가 갈린다. **이
-  KB는 그 대비를 [DRY 원칙](dry-principle.md)의 두 절로 나란히 보존한다.**
+  KB는 그 대비를 [DRY 원칙](../concepts/dry-principle.md)의 두 절로 나란히 보존한다.**
 - **⑤ 한 자리는 실제로 갈린다 — 다만 이 소스가 아니라 이 소스를 인용한 2차 문헌 쪽이다.**
-  [클린 코드 비판](clean-code-criticism.md)이 Clean Code의 DRY 대목을 두고 **더 최근에
+  [클린 코드 비판](../concepts/clean-code-criticism.md)이 Clean Code의 DRY 대목을 두고 **더 최근에
   우리는 대체로 약간의 중복이 세상에서 가장 나쁜 것은 아니라고 이해한다; 그것이 더
   명확할 수 있고, 잘못된 추상보다 쌀 수 있다**고 적으며 이 페이지의 명제를 인용한다.
   그것은 시대 구분 주장이지 이 페이지의 주장이 아니다.
@@ -178,14 +178,14 @@ sources:
 **이 축에서 이 페이지와 같은 편에 서는 소스가 이미 둘 있다.** 셋 다 서로를 참조한 적이
 없다.
 
-- **Ousterhout의 붉은 깃발** — [합칠 것인가 나눌 것인가](better-together-or-better-apart.md)가
+- **Ousterhout의 붉은 깃발** — [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md)가
   중복 제거를 합칠 사유로 인정하면서도, 쪼개기가 실패했을 때의 붉은 깃발을 함께 둔다.
   **그쪽은 뽑아내기가 실패하는 조건을 사전에 판정하려 하고, 이 페이지는 사후에 되돌리는
   절차를 준다.** 두 접근이 배타적이지 않다.
 - **Fowler의 삼진 규칙** — [언제 리팩터링하는가](when-to-refactor.md)의 **세 번째로 비슷한
   것을 할 때 리팩터링한다**가 같은 문제의 예방 쪽 답이다. 두 번째까지 중복을 그냥 두는
   근거가 **아직 무엇이 공통 지식인지 모른다**는 것이므로 이 페이지의 전제와 같다.
-- **Thomas & Hunt의 반례** — [DRY 원칙](dry-principle.md)의 **코드가 같아도 지식이 다르면
+- **Thomas & Hunt의 반례** — [DRY 원칙](../concepts/dry-principle.md)의 **코드가 같아도 지식이 다르면
   중복이 아니다**가 같은 관찰의 사전 판정판이다.
 - **그래서 이 축의 지형이 이렇게 정리된다.** 뽑아낼 것인가를 **사전에** 판정하는 셋
   (지식 동일성·삼진 규칙·붉은 깃발)과, 이미 뽑았는데 틀렸을 때 **사후에** 되돌리는 하나
@@ -194,17 +194,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [DRY 원칙](dry-principle.md) — 이 축의 정본. 네 소스가 이미 있고 이 페이지가 반대 극을
+- [DRY 원칙](../concepts/dry-principle.md) — 이 축의 정본. 네 소스가 이미 있고 이 페이지가 반대 극을
   맡는다
-- [합칠 것인가 나눌 것인가](better-together-or-better-apart.md) — 뽑아내기 실패를 사전에
+- [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md) — 뽑아내기 실패를 사전에
   판정하려는 쪽
 - [언제 리팩터링하는가](when-to-refactor.md) — 삼진 규칙. 같은 문제의 예방 쪽 답
-- [클린 코드의 발견법 목록](clean-code-heuristics.md) — `G5`의 최대주의와 `G15`의 수렴이
+- [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md) — `G5`의 최대주의와 `G15`의 수렴이
   함께 있는 자리
 - [작은 함수](small-functions.md) — "중복은 만악의 근원"이 나오는 장
-- [클린 코드 비판](clean-code-criticism.md) — 이 페이지의 명제를 인용해 시대 구분을
+- [클린 코드 비판](../concepts/clean-code-criticism.md) — 이 페이지의 명제를 인용해 시대 구분을
   주장하는 2차 문헌
-- [기본 리팩터링](basic-refactorings.md) — 인라인이 이름 붙은 조작으로 있는 자리
+- [기본 리팩터링](../concepts/basic-refactorings.md) — 인라인이 이름 붙은 조작으로 있는 자리
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^metz2016-wrong-abstraction]: Metz 2016, "The Wrong Abstraction". **절 이름은 이 KB가

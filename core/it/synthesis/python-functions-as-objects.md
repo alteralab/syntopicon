@@ -48,7 +48,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 ## 바닥 — 함수가 일급이라는 것
 
-- [파이썬의 일급 함수](../inbox/first-class-functions-in-python.md) — 7장. **먼저 읽는다.**
+- [파이썬의 일급 함수](../concepts/first-class-functions-in-python.md) — 7장. **먼저 읽는다.**
   일급 객체의 네 조건과 파이썬에서는 모든 함수가 일급이라는 단서, 고차 함수의 정의와
   `map`·`filter`·`reduce`가 컴프리헨션에 자리를 내준 경위, 람다가 순수 식으로 제한되는 이유와
   읽기 어려운 람다를 이름 있는 함수로 되돌리는 네 단계 절차, 호출 가능한 것 아홉 갈래와
@@ -61,7 +61,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 9장 하나가 두 페이지로 갈렸다. 앞쪽이 기제를 세우고 뒤쪽이 표준 라이브러리가 이미 만들어 둔
 것들의 적용 조건을 다루는데, 둘 다 자립 가능한 질문에 답한다.
 
-- [클로저와 데코레이터](../inbox/closures-and-decorators.md) — **이 반입의 본체.**
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — **이 반입의 본체.**
   데코레이터가 함수를 다른 함수로 갈아치운다는 정의와 그것이 모듈을 읽는 순간 실행된다는 사실,
   대입이 있으면 그 변수는 지역이라는 컴파일 시점 판정과 그것이 일으키는 `UnboundLocalError`,
   자유 변수의 규정과 클로저가 보관하는 것이 값이 아니라 바인딩이라는 것, 불변 타입을 다시 묶을
@@ -84,7 +84,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 두 장이 한 쌍이다. 저자 자신이 뒤엣것을 앞엣것의 **속편**이라 부른다. 둘 다 **얇게** 들였고
 같은 이유다 — 이 축의 타입 서술은 판마다 바뀌는 지형이라 이 KB의 L3 원칙상 개념만 남긴다.
 
-- [점진적 타이핑](../inbox/gradual-typing-in-python.md) — 8장. **얇다.** 이 장의 절반 이상이
+- [점진적 타이핑](../concepts/gradual-typing-in-python.md) — 8장. **얇다.** 이 장의 절반 이상이
   타입 카탈로그라 옮기지 않았고, 판이 바뀌어도 남는 개념만 남겼다. 점진적 타입 체계의 세
   성질(선택적·런타임 강제 없음·성능 이득 없음)과 100퍼센트 적용을 좇지 말라는 경고, 타입을
   지원되는 연산의 집합으로 보는 규정, 덕 타이핑과 명목 타이핑의 대비, 와일드카드 타입 `Any`와
@@ -92,7 +92,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   기둥이 될 수 없다는 판정과 그 근거 목록
   - **버전 조건과 재심 트리거가 페이지 앞머리에 붙어 있다** — 이 장의 도구 지형 서술은
     2021년 7월 시점의 실측이다
-- [심화 타입 힌트와 그 한계](../inbox/advanced-type-hints-in-python.md) — 15장. **얇다.**
+- [심화 타입 힌트와 그 한계](../concepts/advanced-type-hints-in-python.md) — 15장. **얇다.**
   같은 원칙으로 문법과 예제는 전부 걸러 내고 판단만 남겼다. 유연한 API일수록 시그니처
   애노테이션이 길어진다는 교환(내장 `max` 하나에 오버로드 여섯 개, `typeshed`의 내장 스텁에
   186개), `TypedDict`가 데이터 클래스 빌더처럼 보이지만 **정적 검사기만을 위한 것이고
@@ -104,11 +104,11 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
     가능성이 높다"고 적은 미결 상태를 가리킨다**
   - **이 장의 마지막 절만은 다른 축에 속한다** — 정적 프로토콜을 제네릭으로 키우는 자리이고,
     그 정본은 형제 허브의
-    [인터페이스·프로토콜·ABC](../inbox/interfaces-protocols-and-abcs.md)에 있다
+    [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md)에 있다
 
 ## 패턴을 무너뜨리는 자리
 
-- [일급 함수로 다시 쓰는 디자인 패턴](../inbox/design-patterns-with-first-class-functions.md) —
+- [일급 함수로 다시 쓰는 디자인 패턴](../concepts/design-patterns-with-first-class-functions.md) —
   10장. GoF 자신이 구현 언어가 어떤 패턴이 유의미한지를 정한다고 밝힌 자리와 Norvig의 23개 중
   16개 판정, 전략 패턴의 구체 전략이 상태 없는 단일 메서드 클래스라는 관찰과 그것을 함수로
   바꾸는 리팩터링, 플라이웨이트를 덧대라는 GoF의 권고가 왜 줄 수만 늘리는가, 최선의 전략을
@@ -121,18 +121,18 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 새 페이지가 아니라 기존 페이지의 절로 들어간 것들이다.
 
-- [디자인 패턴의 해부](../inbox/design-pattern-anatomy.md) — 패턴이라는 형식에 대한 넷째
+- [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 패턴이라는 형식에 대한 넷째
   판정이 합류했다. 패턴이 언어에 의존한다는 것과, 패턴을 설계 과정의 단계가 아니라 종점으로
   본 것이 원저의 실패라는 공저자 자신의 회고
-- [파이썬 데이터 모델](../inbox/python-data-model.md) — 클래스를 부르는 것도, 인스턴스를
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — 클래스를 부르는 것도, 인스턴스를
   부르는 것도 특수 메서드를 거친다는 사실이 합류했다
-- [객체 참조와 가변성](../inbox/object-references-and-mutability.md) — 이름을 다시 묶는 것과
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 이름을 다시 묶는 것과
   객체를 바꾸는 것의 구분이 클로저에서 어떻게 다시 나타나는지가 합류했다
 - [복잡성의 정의와 증상](../inbox/software-complexity-defined.md) — "모르는 줄도 모르는 것"의
   파이썬 실물 하나로 데코레이터가 이름을 갈아치우는 자리가 합류했다
 - [부수 효과 없는 함수](../inbox/side-effect-free-functions.md) — 결과가 인자에만 달려 있어야
   기억해 둘 수 있다는 조건이 합류했다
-- [인터페이스·프로토콜·ABC](../inbox/interfaces-protocols-and-abcs.md) — 일반 함수의 특수화를
+- [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — 일반 함수의 특수화를
   구체 타입이 아니라 ABC나 프로토콜에 등록하라는 지침이 합류했다
 
 ## 이 소스를 읽는 법

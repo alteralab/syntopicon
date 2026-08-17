@@ -25,7 +25,7 @@ sources:
 하나의 질문: **`functools`가 데코레이터로 내주는 기능들은 무엇을 사고 무엇을 지불하는가.**
 
 기제 쪽 — 데코레이터가 왜 함수를 갈아치우고 클로저가 어떻게 그것을 떠받치는가 — 는
-[클로저와 데코레이터](closures-and-decorators.md)가 갖는다. 이 페이지는 **표준 라이브러리가
+[클로저와 데코레이터](../concepts/closures-and-decorators.md)가 갖는다. 이 페이지는 **표준 라이브러리가
 이미 만들어 둔 것들**과 그 적용 조건만 다룬다.
 
 ## 버전 조건
@@ -96,7 +96,7 @@ sources:
 - 두 가지가 여기서 동시에 따라 나온다.
   - **요구 조건** — 인자가 해시 가능(hashable)해야 한다. 리스트나 딕셔너리를 인자로 받는 함수는
     그대로는 캐시할 수 없다. 해시 가능성의 계약이 무엇인지는
-    [딕셔너리와 집합](dictionaries-and-sets.md)이 정본이다.
+    [딕셔너리와 집합](../concepts/dictionaries-and-sets.md)이 정본이다.
   - **범위의 한계** — 키는 **호출에 쓰인 위치 인자와 키워드 인자로만** 만들어진다. 위 정의도
     같은 말을 다른 쪽에서 한다: 메모이제이션이 피하는 것은 **이전에 쓰인 인자에 대한 반복
     계산**이다.
@@ -195,7 +195,7 @@ sources:
     실제 또는 가상 하위 클래스이거나 그 프로토콜을 구현하는 기존·미래의 클래스를 코드가 지원할
     수 있다** (9장 §"Function singledispatch", p.328).[^ramalho2022] 무엇이 ABC이고 무엇이
     `Protocol`인가의 판단은
-    [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md)가 정본이다.
+    [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md)가 정본이다.
 - 확장성의 실물 — **`singledispatch` 기제의 눈에 띄는 성질은 특수화된 함수를 시스템 어디에나,
   어느 모듈에나 등록할 수 있다는 것이다. 나중에 새 사용자 정의 타입을 가진 모듈을 추가하면
   그 타입을 다룰 새 맞춤 함수를 쉽게 제공할 수 있다. 그리고 당신이 쓰지 않았고 바꿀 수 없는
@@ -244,7 +244,7 @@ sources:
   이름이다. `@cached_property` 데코레이터는 완전한 프로퍼티를 만들지 않고 비오버라이딩
   디스크립터를 만든다** (22장 §"Step 5: Caching Properties with functools",
   p.855).[^ramalho2022] 그 정체의 정본은
-  [속성 디스크립터](attribute-descriptors.md)에 있다.
+  [속성 디스크립터](../concepts/attribute-descriptors.md)에 있다.
 - 한계 셋 (같은 절, p.856):[^ramalho2022]
   - **장식되는 메서드가 같은 이름의 인스턴스 속성에 이미 의존한다면 `@property`의 드롭인
     대체로 쓸 수 없다.**
@@ -266,17 +266,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [클로저와 데코레이터](closures-and-decorators.md) — 같은 장의 앞부분. 이 데코레이터들이
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — 같은 장의 앞부분. 이 데코레이터들이
   무슨 기제 위에 서 있는가
-- [동적 속성과 프로퍼티](dynamic-attributes-and-properties.md) — 인스턴스 단위 캐시가
+- [동적 속성과 프로퍼티](../concepts/dynamic-attributes-and-properties.md) — 인스턴스 단위 캐시가
   나오는 그 장의 정본
-- [속성 디스크립터](attribute-descriptors.md) — `@cached_property`가 실제로 무엇인가
+- [속성 디스크립터](../concepts/attribute-descriptors.md) — `@cached_property`가 실제로 무엇인가
 - [__slots__와 인스턴스 메모리](slots-and-instance-memory.md) — 여기 한계 둘이 걸리는
   그 클래스 속성과 키 공유 최적화
-- [딕셔너리와 집합](dictionaries-and-sets.md) — 캐시가 요구하는 해시 가능성의 계약
-- [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md) — `singledispatch`에 무엇을
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 캐시가 요구하는 해시 가능성의 계약
+- [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — `singledispatch`에 무엇을
   등록할 것인가의 판단이 기대는 자리
-- [파이썬의 일급 함수](first-class-functions-in-python.md) — `functools`의 나머지 고차 함수들
+- [파이썬의 일급 함수](../concepts/first-class-functions-in-python.md) — `functools`의 나머지 고차 함수들
 - [부수 효과 없는 함수](side-effect-free-functions.md) — 결과가 인자에만 달려 있어야 한다는
   요구를 설계 조항으로 말하는 쪽
 - [복잡성의 정의와 증상](software-complexity-defined.md) — 한 코드 단위에 책임을 몰아넣는 것의

@@ -46,7 +46,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 두 장이 한 쌍이다. 뒤엣것이 앞엣것을 일반화하고, 저자 자신이 앞 장 끝에서 그 예고를 한다 —
 반복이 보이면 추상하라, 그 추상의 더 유연한 형태가 디스크립터다.
 
-- [동적 속성과 프로퍼티](../inbox/dynamic-attributes-and-properties.md) — 22장. **중간
+- [동적 속성과 프로퍼티](../concepts/dynamic-attributes-and-properties.md) — 22장. **중간
   두께.** Meyer의 균일 접근 원칙과 **저자가 거기 단 유보**(추상이 실행 비용에 대한 추론을
   어렵게 만든다), 동적 속성과 가상 속성의 규정, `__getattr__`이 통상 조회가 실패한 뒤에만
   불린다는 발동 조건과 동적 속성 이름이 반드시 만나는 문제(예약어와 비식별자),
@@ -56,7 +56,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
   `cached_property`가 실은 프로퍼티가 아님)과 `@property`+`@cache` 처방, 검증을 프로퍼티로
   옮기는 이유와 자바식 게터/세터에 대한 대비, 클로저로 접는 프로퍼티 팩토리와 그것이 못
   푸는 것, 속성을 다루는 API 지도, 그리고 **공개 속성으로 시작해도 된다**는 판단
-- [속성 디스크립터](../inbox/attribute-descriptors.md) — 23장. **중간 두께.** 디스크립터
+- [속성 디스크립터](../concepts/attribute-descriptors.md) — 23장. **중간 두께.** 디스크립터
   프로토콜의 정의와 부분 구현이 허용된다는 것, 이 주제를 말하는 데 필요한 **여섯 낱말**,
   `__set_name__`이 없앤 이름 중복과 그것을 부르는 것이 `type.__new__`라는 사실,
   **오버라이딩과 비오버라이딩의 갈림**이 읽기·쓰기 규칙의 비대칭에서 나온다는 것과 그
@@ -68,7 +68,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 
 ## 클래스가 만들어지는 순간
 
-- [클래스 메타프로그래밍과 메타클래스](../inbox/class-metaprogramming-and-metaclasses.md) —
+- [클래스 메타프로그래밍과 메타클래스](../concepts/class-metaprogramming-and-metaclasses.md) —
   24장. **중간 두께.** 클래스가 갖는 표준 속성들과 `type`이 세 인자짜리 클래스 팩토리라는
   것, `class` 문이 그 호출로 번역되는 대응, `__init_subclass__`가 **전형적인 클래스
   메서드가 아닌** 이유(첫 인자가 새 하위 클래스다), 클래스 데코레이터를 고르는 사유와
@@ -115,16 +115,16 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 - [__slots__와 인스턴스 메모리](../inbox/slots-and-instance-memory.md) — 그 클래스 속성이
   **실행 중에 설정되려면 메타클래스여야 한다**는 것과, `@cached_property`가 `__slots__`를
   쓰는 클래스에서 못 산다는 것이 합류했다
-- [시퀀스 프로토콜의 점진 구현](../inbox/implementing-the-sequence-protocol.md) —
+- [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) —
   `__getattr__`을 구현하면 `__setattr__`도 함께 써야 한다는 그 페이지의 조항에, 속성
   처리 특수 메서드 다섯의 전체 지도와 **`__getattribute__`·`__setattr__`이 더 쓰기
   어렵다**는 판정이 합류했다
-- [파이썬다운 객체 만들기](../inbox/building-pythonic-objects.md) — 읽기 전용 프로퍼티가
+- [파이썬다운 객체 만들기](../concepts/building-pythonic-objects.md) — 읽기 전용 프로퍼티가
   왜 인스턴스 속성을 이기는가의 기제가 합류했다. 그 페이지가 불변성을 사는 수단으로 고른
   것이 오버라이딩 디스크립터의 실물이다
-- [인터페이스·프로토콜·ABC](../inbox/interfaces-protocols-and-abcs.md) — `abc.ABCMeta`가
+- [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — `abc.ABCMeta`가
   메타클래스라는 것과, 그것이 메타클래스 충돌의 가장 흔한 원인이라는 사실이 합류했다
-- [디자인 패턴의 해부](../inbox/design-pattern-anatomy.md) — 디스크립터 계층에서
+- [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 디스크립터 계층에서
   템플릿 메서드가 쓰이는 자리와 Martelli가 그것을 자기 위임이라 부른다는 것이 합류했다
 
 ## 이 소스를 읽는 법

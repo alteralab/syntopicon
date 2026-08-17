@@ -29,7 +29,7 @@ sources:
 (2장 "When Should We Refactor?", p.50).[^fowler2018] 이 장의 나머지는 그 "매 시간"이
 실제로 어떤 모양인지를 여섯 가지로 나눠 보인 것이다. 정의와 두 모자는
 [리팩터링](refactoring.md)에, 무엇을 보고 알아채는가는
-[코드의 나쁜 냄새](code-smells.md)에 있다.
+[코드의 나쁜 냄새](../concepts/code-smells.md)에 있다.
 
 ## 삼진 규칙
 
@@ -40,7 +40,7 @@ sources:
 
 > Three strikes, then you refactor.
 
-- 삼진 규칙(rule of three)이 중복을 **한 번은 허용한다**는 점이 [DRY 원칙](dry-principle.md)의
+- 삼진 규칙(rule of three)이 중복을 **한 번은 허용한다**는 점이 [DRY 원칙](../concepts/dry-principle.md)의
   무조건 금지와 나란히 놓인다. 두 번째까지는 아직 무엇이 공통인지 모른다는 판단이 깔려
   있다. #hypothesis 저자가 그 근거를 명시하지는 않았다.
 
@@ -81,7 +81,7 @@ sources:
 - 근거가 되는 저장 매체 비유는 Ward Cunningham의 것이다 — **리팩터링함으로써 나는 이해를
   내 머리에서 코드 자체로 옮긴다. 그런 다음 소프트웨어를 돌려 여전히 동작하는지 봄으로써 그
   이해를 시험한다** (2장 §"Comprehension Refactoring", p.52).[^fowler2018] 같은 비유가
-  1장의 첫 추출에도 쓰였다 — 전문은 [리팩터링의 리듬](refactoring-rhythm.md)에 있다.
+  1장의 첫 추출에도 쓰였다 — 전문은 [리팩터링의 리듬](../concepts/refactoring-rhythm.md)에 있다.
 - 이득이 이해 자체를 키운다 — **초기에 나는 작은 세부에 대해 이해 리팩터링을 한다. (…) 그러다
   코드가 명료해지면서 전에는 볼 수 없던 설계에 관한 것들을 볼 수 있게 된다. 코드를 바꾸지
   않았다면 아마 그것들을 결코 보지 못했을 텐데, 나는 그 모든 변경을 머릿속에서 그려 볼 만큼
@@ -165,7 +165,7 @@ sources:
   - 같은 모양의 절차가 이 KB의 데이터 쪽에도 있다 — 옛 경로와 새 경로를 나란히 두고 읽는
     쪽을 옮기는 [재처리와 점진적 마이그레이션](../concepts/reprocessing-and-gradual-migration.md)이다.
     2장의 데이터베이스 절이 그 둘을 잇는다 — 전문은
-    [리팩터링을 가로막는 것들](obstacles-to-refactoring.md)에 있다.
+    [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md)에 있다.
 
 ## 코드 리뷰 안에서의 리팩터링
 
@@ -251,11 +251,11 @@ sources:
 
 - [리팩터링](refactoring.md) — 정의·두 모자·왜 하는가. 이 페이지의 부모
 - [언제 정리하는가](when-to-tidy.md) — 같은 물음에 네 시점으로 답하는 자리
-- [코드의 나쁜 냄새](code-smells.md) — 무엇을 보고 알아채는가
-- [리팩터링의 리듬](refactoring-rhythm.md) — 시작한 뒤의 걸음 크기
-- [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 하려는데 안 될 때
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — 무엇을 보고 알아채는가
+- [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 시작한 뒤의 걸음 크기
+- [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 하려는데 안 될 때
 - [자기 테스트 코드](self-testing-code.md) — 시작 전에 있어야 할 것
-- [기존 코드를 수정할 때](modifying-existing-code.md) — 같은 계기를 다른 소스가 다루는 자리
+- [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 같은 계기를 다른 소스가 다루는 자리
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 2장 "Principles in Refactoring" 중 "When Should We Refactor?"

@@ -247,7 +247,7 @@ p.91).[^fowler2018]
   어려운 실패를 일으킬 수 있다면, 나는 *Introduce Assertion*으로 빨리 실패하게 할 수도 있다.
   나는 그런 단정 실패를 잡는 테스트를 더하지 않는데, 그것들 자체가 일종의 테스트이기 때문이다**
   (4장 §"Probing the Boundaries", p.98).[^fowler2018] 같은 계열의 판정이
-  [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md)에 있다.
+  [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md)에 있다.
 
 ## 얼마나 테스트하면 충분한가
 
@@ -339,7 +339,7 @@ p.91).[^fowler2018]
     코드가 *함께* 쓰이며, 테스트가 프로덕션 코드보다 몇 초 앞선다** (9장, p.123).[^martin2008]
   - 이 KB에서 그 주기를 다루는 자리는
     [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md)와
-    [리팩터링의 리듬](refactoring-rhythm.md)이다. **그쪽들은 기어를 바꾸라고 하고 이
+    [리팩터링의 리듬](../concepts/refactoring-rhythm.md)이다. **그쪽들은 기어를 바꾸라고 하고 이
     소스는 단일 주기를 조문으로 둔다** — 강도의 차이지 명제의 충돌이 아니다.
 - **테스트 코드의 지위** — **이야기의 교훈은 단순하다: 테스트 코드는 프로덕션 코드만큼
   중요하다. 그것은 이등 시민이 아니다. 그것은 생각과 설계와 돌봄을 요구한다. 그것은
@@ -399,13 +399,13 @@ p.91).[^fowler2018]
     (§2).[^qntm2020] 근거는 새 메서드 이름 `wayTooCold`가 형용사구라 무엇을 하는지
     불분명하고, 안에서 `controller.tic()`을 부르는 부수 효과를 추측할 수 없다는 것이다
     — **둘 다 같은 책 2장과 3장이 금지한 것**이라는 내적 일관성 논증이다. 전문은
-    [클린 코드 비판](clean-code-criticism.md)에 있다.
+    [클린 코드 비판](../concepts/clean-code-criticism.md)에 있다.
 
 ## 번들링 — TDD의 대안에 이름이 붙다
 
 두 저자의 공개 대담 셋째 주제가 TDD였고, 거기서 **TDD가 아닌 방식에 이름이 붙었다.**
 이 KB에 그 이름이 없었다. 전문은
-[오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
+[오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md)에 있다.
 
 - **오스터하우트가 대안을 규정한다** — 개발자가 TDD보다 다소 큰 단위, **아마 메서드 몇
   개나 클래스 하나**로 작업하며 **먼저 코드를 얼마간(수십 줄에서 수백 줄까지) 쓰고 그
@@ -456,20 +456,20 @@ p.91).[^fowler2018]
 
 ## 이어지는 페이지
 
-- [클린 코드라는 말의 정의](clean-code-defined.md) — "테스트 없는 코드는 깨끗하지
+- [클린 코드라는 말의 정의](../concepts/clean-code-defined.md) — "테스트 없는 코드는 깨끗하지
   않다"와 단순 설계 규칙 1이 사는 자리
-- [클린 코드 비판](clean-code-criticism.md) — 9장 예제와 TDD 0단계에 유보를 다는 2차 문헌
-- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — 번들링이라는 이름이
+- [클린 코드 비판](../concepts/clean-code-criticism.md) — 9장 예제와 TDD 0단계에 유보를 다는 2차 문헌
+- [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md) — 번들링이라는 이름이
   붙은 자리이자 TDD 쟁점의 1차 사료
 - [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
   둘 것인가의 절충
-- [가짜와 목](fakes-versus-mocks.md) — 테스트 대역을 무엇으로 세울 것인가
-- [리팩터링의 리듬](refactoring-rhythm.md) — 테스트를 얼마나 자주 돌리는가
-- [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 테스트가 없는 레거시 코드
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 테스트 대역을 무엇으로 세울 것인가
+- [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 테스트를 얼마나 자주 돌리는가
+- [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 테스트가 없는 레거시 코드
 - [테스트가 코딩을 이끈다](test-to-code.md) — 같은 실천을 다른 소스가 다루는 자리
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 경계 찔러 보기를 자동화하는 쪽
-- [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md) — 단정문의 정본
+- [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — 단정문의 정본
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design

@@ -48,7 +48,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 뒤쪽이 그 기제를 겹쳐 쓰거나 방향을 뒤집을 때 무엇이 필요한지를 다루는데, 둘 다 자립
 가능한 질문에 답한다.
 
-- [이터레이터 프로토콜과 제너레이터](../inbox/iterator-protocol-and-generators.md) —
+- [이터레이터 프로토콜과 제너레이터](../concepts/iterator-protocol-and-generators.md) —
   **먼저 읽는다. 두껍다.** `iter()` 내장의 세 단계와 하위 호환으로 남은 `__getitem__`
   폴백, 그것이 덕 타이핑의 극단이라는 규정과 검사 방법이 이터러블·이터레이터에서 서로
   반대라는 사실, 이터러블과 이터레이터를 가르는 정의와 그 둘을 한 객체로 합치는 것이
@@ -70,14 +70,14 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 18장 하나가 두 페이지로 갈렸다. 저자가 이 장에 묶어 둔 세 문법 중 앞의 하나가 나머지
 둘보다 훨씬 무겁게 다뤄지고, 이 KB에서도 그 무게를 따랐다.
 
-- [컨텍스트 매니저 프로토콜](../inbox/context-manager-protocol.md) — **두껍다.**
+- [컨텍스트 매니저 프로토콜](../concepts/context-manager-protocol.md) — **두껍다.**
   `with`가 `try/finally`의 흔한 쓰임을 단순화하려 설계됐다는 의도와 `__enter__`/`__exit__`
   두 메서드의 계약, **컨텍스트 매니저 객체와 `as`가 묶는 값이 다른 것**이라는 미묘한
   지점과 나가는 쪽은 언제나 매니저라는 규칙, `__exit__`의 세 인자와 참을 돌려주면 예외가
   삼켜진다는 규칙, `contextlib`이 이미 만들어 둔 일곱, 제너레이터 하나로 매니저를 만드는
   데코레이터와 그것이 요구하는 `try/finally`가 **불가피한 대가**인 이유, 그리고 이 문법이
   자원 관리를 넘어 **서브루틴의 보완**이라는 Hettinger의 주장
-- [패턴 매칭과 else 블록](../inbox/pattern-matching-and-else-blocks.md) — 같은 장의
+- [패턴 매칭과 else 블록](../concepts/pattern-matching-and-else-blocks.md) — 같은 장의
   뒷부분. 언어의 문법을 시퀀스 패턴으로 적을 수 있다는 관찰과 그것이 `match`/`case`를
   언어 처리기에 맞는 도구로 만드는 이유, OR 패턴의 규칙과 `case` 문맥의 `|`가 `__or__`를
   발동시키지 않는다는 단서, 가드가 필수인 자리, **예약어가 왜 필요한가**에 대한 인터프리터
@@ -92,7 +92,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 조건과 재심 트리거가 붙어 있다 — asyncio 주변은 판마다 바뀌는 지형이라 이 KB의 L3
 원칙상 얇게 둔다.
 
-- [파이썬의 동시성 모델](../inbox/concurrency-models-in-python.md) — 19장. **중간
+- [파이썬의 동시성 모델](../concepts/concurrency-models-in-python.md) — 19장. **중간
   두께.** Pike의 동시성·병렬성 구분(구조 대 실행)과 대부분의 컴퓨팅이 병렬이 아니라는
   실측, 스레드나 프로세스를 시작하기는 쉬워도 추적하기가 어렵다는 진단, 실행 단위
   셋과 큐·락·경합의 정의, **선점적 멀티태스킹과 협력적 멀티태스킹**이 각각 보장하는 것과
@@ -101,7 +101,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
   코루틴이 기본적으로 중단으로부터 보호되므로 락 대신 정의상 동기화된다는 판정, 멀티코어
   세계에서 파이썬이 살아남은 세 방식과 웹 스케일 선망 경고, 그리고 **복잡성을 다루려면
   제약이 필요하다**는 곁글 — 스레드·락 모델의 무제약 셋과 액터 모델의 제약 넷
-- [동시 실행기와 asyncio](../inbox/concurrent-executors-and-asyncio.md) — 20·21장.
+- [동시 실행기와 asyncio](../concepts/concurrent-executors-and-asyncio.md) — 20·21장.
   **얇다.** 실행기가 스레드·프로세스·큐를 인프라로 감춘다는 규정과 저자의 스레드 회피
   입장, **future는 우리가 만드는 것이 아니라 프레임워크가 만든다**는 소유권 조문,
   `map`과 `submit`+`as_completed`의 교환(순서 보존 대 완료 순), 코루틴 세 갈래와
@@ -116,21 +116,21 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 
 새 페이지가 아니라 기존 페이지의 절로 들어간 것들이다.
 
-- [리소스 균형 맞추기](../inbox/balancing-resources.md) — 그 페이지의 조문("시작한 것을
+- [리소스 균형 맞추기](../concepts/balancing-resources.md) — 그 페이지의 조문("시작한 것을
   끝내라"·"범위를 줄여라"·예외 안티패턴)이 파이썬에서 무엇으로 실현되는가가 합류했다.
   한 자리가 어긋나 보이는데 그것도 그대로 적었다 — `with` 블록은 새 범위를 만들지 않으므로
   보장되는 것은 이름의 소멸이 아니라 정리의 실행이다
-- [파이썬 데이터 모델](../inbox/python-data-model.md) — `for`와 `with`가 각각 어떤 특수
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — `for`와 `with`가 각각 어떤 특수
   메서드를 부르는지가 그 페이지의 "특수 메서드를 부르는 것은 인터프리터다"라는 규칙의
   실물로 합류했다
-- [디자인 패턴의 해부](../inbox/design-pattern-anatomy.md) — 이터레이터 패턴이 언어에
+- [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 이터레이터 패턴이 언어에
   흡수되어 **손으로 짠 고전 이터레이터는 교육용 예제 말고 실용적 쓸모가 없다**는 저자의
   판정이 합류했다
 - [파이썬 시퀀스의 의미론](../inbox/sequence-semantics-in-python.md) — 제너레이터 식이
   메모리를 아낀다는 그 페이지의 claim이 근거하는 프로토콜이 어디 있는지가 표시됐다
-- [시퀀스 프로토콜의 점진 구현](../inbox/implementing-the-sequence-protocol.md) —
+- [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) —
   `__getitem__` 하나로 순회가 되는 폴백이 언제까지 유효한가가 합류했다
-- [클로저와 데코레이터](../inbox/closures-and-decorators.md) — `@contextmanager`가
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — `@contextmanager`가
   데코레이터·제너레이터·`with`를 한자리에 모은다는 것과, Scheme의 `set!`이 `nonlocal`의
   대응물이라는 대비가 합류했다
 

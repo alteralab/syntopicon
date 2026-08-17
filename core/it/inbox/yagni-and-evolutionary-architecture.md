@@ -58,7 +58,7 @@ sources:
   바뀌는 요구가 내가 예상한 대로 되지 않았거나 내 기제 설계가 결함이 있었기 때문이다.
   그 모두를 고려하면 대부분의 경우 내 유연성 기제는 실제로는 변경에 반응하는 내 능력을
   *느리게* 만든다** (2장 §"Refactoring, Architecture, and Yagni", p.62).[^fowler2018]
-  - 이것이 [코드의 나쁜 냄새](code-smells.md)의 **Speculative Generality**와 같은 판정을
+  - 이것이 [코드의 나쁜 냄새](../concepts/code-smells.md)의 **Speculative Generality**와 같은 판정을
     설계 층에서 편 것이다. 그쪽은 코드에서 그것을 알아보는 신호(유일한 사용자가 테스트
     케이스)를 주고, 이쪽은 애초에 넣지 않을 근거를 준다.
 - 대안이 전략 교체다 — **리팩터링이 있으면 나는 다른 전략을 쓸 수 있다. 미래에 어떤 유연성이
@@ -113,7 +113,7 @@ sources:
   프로젝트가 그 이름만 쓴다. 정말로 애자일하게 움직이려면 팀이 유능하고 열정적인 리팩터러여야
   하고, 그러기 위해 그들 과정의 많은 측면이 리팩터링을 일상 작업의 정규 부분으로 만드는 데
   정렬돼야 한다** (2장 §"Refactoring and the Wider Software Development Process",
-  p.63).[^fowler2018] 같은 계열의 진단이 [애자일의 본질](essence-of-agility.md)에 있다.
+  p.63).[^fowler2018] 같은 계열의 진단이 [애자일의 본질](../concepts/essence-of-agility.md)에 있다.
 - 순서가 있다. **첫째 기초는 자기 테스트 코드다** — **리팩터링의 첫째 기초는 자기 테스트
   코드다** (2장 §"Refactoring and the Wider Software Development Process",
   p.63).[^fowler2018] 둘째는 지속적 통합(Continuous Integration, CI)이다 — **팀에서 리팩터링하려면 각 구성원이 다른
@@ -141,7 +141,7 @@ sources:
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **범용성에 대한 처방이 반대 방향으로 보인다.**
-  [범용 모듈이 더 깊다](general-purpose-modules.md)는 과잉 특수화가 복잡성의 단일 최대
+  [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md)는 과잉 특수화가 복잡성의 단일 최대
   원인일 수 있다고 하고 "다소 범용"을 최적점으로 놓는다. 이 절은 유연성 기제를 넣지 말라고
   한다. **충돌하지 않는다** — 그쪽이 요구하는 범용성은 **오늘의 기능에 대해 더 넓은
   인터페이스**이지 오늘 쓰이지 않는 매개변수가 아니고, 이쪽이 금지하는 것은 **미래의 쓰임을
@@ -149,7 +149,7 @@ sources:
   - 다만 경계가 흐릿한 구간이 있다. "지금 넣지 않으면 나중에 상당히 더 어려운가"라는 이
     페이지의 판정 질문과 "인터페이스를 오늘 필요보다 조금 넓게"라는 그쪽의 조언은 같은
     사례에서 반대 답을 낼 수 있다. #hypothesis 어느 쪽도 그 경계를 다루지 않는다.
-- **되돌릴 수 있는 결정이라는 상위 개념**이 [유지보수성](maintainability.md)에 세 소스로
+- **되돌릴 수 있는 결정이라는 상위 개념**이 [유지보수성](../concepts/maintainability.md)에 세 소스로
   이미 있다. 이 절은 그 개념의 아키텍처 판이다 — 리팩터링이 되돌리기를 싸게 만들었기 때문에
   결정을 미룰 수 있다.
 - **전략적 프로그래밍과의 관계**가 미묘하다.
@@ -162,12 +162,12 @@ sources:
 ## 이어지는 페이지
 
 - [리팩터링](refactoring.md) — 이 전제 전환을 가능하게 한 활동
-- [코드의 나쁜 냄새](code-smells.md) — Speculative Generality가 사는 자리
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — Speculative Generality가 사는 자리
 - [자기 테스트 코드](self-testing-code.md) · [버전 관리 실천](version-control-practice.md)
   — 세 실천 중 나머지 둘
-- [애자일의 본질](essence-of-agility.md) — "이름만 애자일"이라는 진단의 다른 소스
-- [범용 모듈이 더 깊다](general-purpose-modules.md) — 반대로 보이는 처방
-- [유지보수성](maintainability.md) — 되돌릴 수 있는 결정의 상위 자리
+- [애자일의 본질](../concepts/essence-of-agility.md) — "이름만 애자일"이라는 진단의 다른 소스
+- [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 반대로 보이는 처방
+- [유지보수성](../concepts/maintainability.md) — 되돌릴 수 있는 결정의 상위 자리
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 2장 "Principles in Refactoring" 중 "Refactoring, Architecture,

@@ -177,7 +177,7 @@ Layer?"):[^percival2020]
 ## 이어지는 페이지
 
 - [서비스 레이어](service-layer-pattern.md) — 이 절충이 가능해지는 조건
-- [가짜와 목](fakes-versus-mocks.md) — 이 층의 테스트가 I/O를 다루는 방법
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 이 층의 테스트가 I/O를 다루는 방법
 - [자기 테스트 코드](self-testing-code.md) — 테스트 모음이 갖춰야 할 성질을 다루는 소스
 - [테스트가 코딩을 이끈다](test-to-code.md) — 테스트가 설계를 이끈다는 같은 주장
 - [리포지터리 패턴](repository-pattern.md) — 어느 테스트를 남기고 버릴지의 다른 사례

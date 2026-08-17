@@ -110,7 +110,7 @@ sources:
 > operations. When a FUNCTION is presented through an INTENTION-REVEALING INTERFACE, a
 > developer can use it without understanding the detail of its implementation.
 
-  - **두 조항이 각각 절반씩 맡는다.** [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)가
+  - **두 조항이 각각 절반씩 맡는다.** [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md)가
     이름으로 무엇을 하는지 알려 주고, 이 조항이 그 이름이 약속한 것 말고는 아무 일도 일어나지
     않음을 보장한다. 둘 중 하나만 있으면 클라이언트는 여전히 구현을 읽어야 한다.
 - 페인트 혼합 예제에서 이 조항이 적용되는 방식은 색을 별도 값 객체(`Pigment Color`)로 뽑아
@@ -143,21 +143,21 @@ sources:
 
 ## 이어지는 페이지
 
-- [의도를 드러내는 인터페이스](intention-revealing-interfaces.md) — 같은 장의 앞 패턴.
+- [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md) — 같은 장의 앞 패턴.
   이 조항과 짝을 이룬다
 - [값 객체와 엔티티](value-objects-and-entities.md) — 이 조항이 기대는 구분
-- [모델 주도 설계](model-driven-design.md) — 이 패턴들이 봉사하는 상위 조항
-- [코드는 뻔해야 한다](obvious-code.md) — 예측 가능성을 읽는 사람 쪽에서 정의하는 자리
+- [모델 주도 설계](../concepts/model-driven-design.md) — 이 패턴들이 봉사하는 상위 조항
+- [코드는 뻔해야 한다](../concepts/obvious-code.md) — 예측 가능성을 읽는 사람 쪽에서 정의하는 자리
 - [작은 함수](small-functions.md) — 부수 효과를 이름으로 감추지 말라는 같은 요구가 있는 자리
-- [파이썬 데이터 모델](python-data-model.md) — 불변 값을 파이썬에서 만드는 재료
-- [객체 참조와 가변성](object-references-and-mutability.md) — 이 조항이 파이썬에서 걸리는
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — 불변 값을 파이썬에서 만드는 재료
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 이 조항이 파이썬에서 걸리는
   더 좁은 처방. **받은 가변 인자를 별칭하지 말고 복사하라**는 규칙과, 그것을 어겼을 때
   "최소 놀람의 원칙"이 어떻게 깨지는가의 실물
 - [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 표준 라이브러리가 명령과
   질의를 반환값으로 표시하는 관례(`list.sort`가 `None`을 돌려주는 자리)
 - [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) — 이 조항을
   지킨 연산만 캐시할 수 있다는 조건이 파이썬 실물로 나타나는 자리
-- [클로저와 데코레이터](closures-and-decorators.md) — "함수는 불투명해야 한다"는 같은 요구가
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — "함수는 불투명해야 한다"는 같은 요구가
   언어의 범위 규칙 선택으로 나타나는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
@@ -166,7 +166,7 @@ sources:
     관례를 직인용에서 유지했다. 저자가 밝힌 앞선 출처는 명령·질의 분리에 Meyer 1988,
     수정과 질의를 가르는 리팩터링에 Fowler 1999 p.279다. 페인트 혼합 예제의 Java 코드
     (pp.252–255)는 앞 절의 같은 예제를 이어받은 전후 대비 쌍이라 펜스로 옮기지 않고 산문으로
-    서술했다 — 펜스는 [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)가
+    서술했다 — 펜스는 [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md)가
     쓰고 있다. 클래스 다이어그램(Figure 10.4·10.6)과 부수 효과 도해(Figure 10.5)는
     도판이라 그 판정만 옮겼다.
 

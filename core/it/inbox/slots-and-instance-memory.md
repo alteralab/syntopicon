@@ -23,7 +23,7 @@ sources:
 무엇을 잃는가.**
 
 이 소스가 `__slots__`를 다루는 자리는 이 장 하나뿐이다. 데이터 클래스 쪽에서 같은 이름의
-옵션을 찾는다면 [데이터 클래스 빌더](data-class-builders.md)의 버전 조건 블록이 그 관계를
+옵션을 찾는다면 [데이터 클래스 빌더](../concepts/data-class-builders.md)의 버전 조건 블록이 그 관계를
 적어 둔다.
 
 ## 기본 저장 모델과 그 대안
@@ -32,7 +32,7 @@ sources:
   `dict`에 저장한다** (11장 §"Saving Memory with `__slots__`", p.384).[^ramalho2022]
   그 대가가 이미 앞 장에서 계량돼 있다 — **`dict`은 상당한 메모리 오버헤드를 갖는다 — 그
   절에서 언급된 최적화가 있어도 그렇다** (같은 절, p.384).[^ramalho2022] 여기서 가리키는
-  최적화가 키 공유 배치이고, 그 서술은 [딕셔너리와 집합](dictionaries-and-sets.md)에 있다.
+  최적화가 키 공유 배치이고, 그 서술은 [딕셔너리와 집합](../concepts/dictionaries-and-sets.md)에 있다.
 - 대안의 규정 (11장 §"Saving Memory with `__slots__`", p.384):[^ramalho2022]
 
 > But if you define a class attribute named `__slots__` holding a sequence of attribute
@@ -163,7 +163,7 @@ pp.385–386).[^ramalho2022]
   두 조건을 다 만족하지 않으면 위 네 단서가 사 오는 복잡성만 남는다.
 - 이 장 전체의 마무리도 같은 방향이다 — **객체는 요구사항이 지시하는 만큼만 단순해야 하고,
   언어 기능의 행진이 되어서는 안 된다** (11장 §"Chapter Summary", p.391).[^ramalho2022]
-  이 조문의 전문과 그 문맥은 [파이썬다운 객체 만들기](building-pythonic-objects.md)에 있다.
+  이 조문의 전문과 그 문맥은 [파이썬다운 객체 만들기](../concepts/building-pythonic-objects.md)에 있다.
 
 ## 실행 중에 설정하려면 메타클래스여야 한다
 
@@ -181,7 +181,7 @@ pp.385–386).[^ramalho2022]
   `type.__new__`의 마지막 인자로 넘어가는 클래스 네임스페이스를 직접 지어야 한다. 그러려면
   클래스 팩토리 함수를 쓰거나, 핵폭탄 선택지를 택해 메타클래스를 구현할 수 있다** (같은
   절, p.921).[^ramalho2022] 그 판단의 정본이
-  [클래스 메타프로그래밍과 메타클래스](class-metaprogramming-and-metaclasses.md)에 있다.
+  [클래스 메타프로그래밍과 메타클래스](../concepts/class-metaprogramming-and-metaclasses.md)에 있다.
 - 그리고 이 클래스 속성을 쓰면 **같은 이름의 클래스 속성과 인스턴스 속성을 함께 가질 수
   없다**는 제약이 디스크립터 설계까지 바꾼다 — **각 디스크립터 인스턴스가 클래스 속성이므로,
   이제 인스턴스별 별도 저장 속성이 필요하다** (24장 §"A Metaclass Solution for Checked",
@@ -195,18 +195,18 @@ pp.385–386).[^ramalho2022]
 
 ## 이어지는 페이지
 
-- [파이썬다운 객체 만들기](building-pythonic-objects.md) — 같은 장의 본체. `__slots__`가
+- [파이썬다운 객체 만들기](../concepts/building-pythonic-objects.md) — 같은 장의 본체. `__slots__`가
   붙는 그 `Vector2d`가 어떻게 지어졌는가
-- [딕셔너리와 집합](dictionaries-and-sets.md) — 여기서 대체되는 `__dict__`가 무엇이고 그
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 여기서 대체되는 `__dict__`가 무엇이고 그
   오버헤드가 어디서 오는가. 키 공유 최적화와 `__init__` 밖 속성 금지 조항이 그쪽에 있다
-- [객체 참조와 가변성](object-references-and-mutability.md) — 약한 참조와 가비지 수집이
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 약한 참조와 가비지 수집이
   나오는 자리
-- [데이터 클래스 빌더](data-class-builders.md) — 같은 이름의 데코레이터 옵션과 이 언어
+- [데이터 클래스 빌더](../concepts/data-class-builders.md) — 같은 이름의 데코레이터 옵션과 이 언어
   기능의 판본 관계
-- [시퀀스 프로토콜의 점진 구현](implementing-the-sequence-protocol.md) — `__slots__`를 속성
+- [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) — `__slots__`를 속성
   봉인 용도로 쓰지 말라는 기각이 실제로 나오는 자리
-- [성능을 위한 설계](designing-for-performance.md) — 최적화를 언제 시작할 것인가의 원리 쪽
-- [클래스 메타프로그래밍과 메타클래스](class-metaprogramming-and-metaclasses.md) — 이 클래스
+- [성능을 위한 설계](../concepts/designing-for-performance.md) — 최적화를 언제 시작할 것인가의 원리 쪽
+- [클래스 메타프로그래밍과 메타클래스](../concepts/class-metaprogramming-and-metaclasses.md) — 이 클래스
   속성을 실행 중에 설정하려 할 때 유일하게 남는 길
 - [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) —
   `@cached_property`가 이 클래스 속성과 못 사는 사유가 정리된 자리

@@ -76,7 +76,7 @@ sources:
   많이 밟는 것을 보는 사람들에게 비효율적으로 보일 수 있다. 더 큰 한 걸음이면 될 텐데.
   그러나 작은 걸음은 내가 더 빨리 가게 해 준다. 그것들이 아주 잘 합성되기 때문이고, 결정적으로
   내가 디버깅에 아무 시간도 쓰지 않기 때문이다** (2장 §"Defining Refactoring",
-  p.46).[^fowler2018] 이 리듬의 실물은 [리팩터링의 리듬](refactoring-rhythm.md)에 있다.
+  p.46).[^fowler2018] 이 리듬의 실물은 [리팩터링의 리듬](../concepts/refactoring-rhythm.md)에 있다.
 
 ## 관찰 가능한 동작이라는 느슨한 말
 
@@ -98,7 +98,7 @@ sources:
   수도 낮출 수도 있다. 성능 최적화에서 나는 프로그램의 속도를 높이는 것만 신경 쓰고, 그
   개선이 정말 필요하다면 작업하기 더 어려운 코드로 끝나는 것을 감수할 준비가 돼 있다**
   (2장 §"Defining Refactoring", p.46).[^fowler2018] 둘의 실무적 관계는
-  [성능을 위한 설계](designing-for-performance.md)에 있다.
+  [성능을 위한 설계](../concepts/designing-for-performance.md)에 있다.
 - 이 규정에 테스트 설계상의 경계가 하나 따라온다 — 관찰 가능성 바깥의 오류는 테스트로
   고정하지 않는다. 전문은 [자기 테스트 코드](self-testing-code.md)에 있다.
 
@@ -238,7 +238,7 @@ sources:
 - **다만 저쪽에서 "리팩터링"이라는 낱말의 자리가 옮겨진다.** 맺음 장의 규모 표에서 정리는
   **당신 혼자, 분에서 시간**이고 리팩터링은 **프로그래머 동료들과 함께, 날에서 주**다
   (33장).[^beck2023] 이 페이지의 원전에는 그런 사회적 범위 구분이 없다 — 여기서 리팩터링은
-  혼자서 몇 분 만에 하는 것도 포함한다([리팩터링의 리듬](refactoring-rhythm.md) 참조).
+  혼자서 몇 분 만에 하는 것도 포함한다([리팩터링의 리듬](../concepts/refactoring-rhythm.md) 참조).
   - #hypothesis 두 소스가 이 낱말 범위 차이를 서로에 대해 논한 적은 없다. 같은 낱말을
     다른 눈금으로 쓰고 있으므로, 두 소스를 같이 읽을 때는 **누가 쓴 "리팩터링"인지**를
     먼저 보아야 한다는 것이 이 KB의 판정이다.
@@ -483,7 +483,7 @@ sources:
   없애자**고 한다. 두 소스가 서로를 참조한 적은 없다. 전문은
   [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md)에 있다.
 - 그쪽은 리팩터링의 반대편 짝인 능동 투자에도 절차를 준다 —
-  [두 번 설계하라](design-it-twice.md)가 그것이다.
+  [두 번 설계하라](../concepts/design-it-twice.md)가 그것이다.
 
 ## 고칠 때마다 조금씩 개선하라는 쪽
 
@@ -506,7 +506,7 @@ sources:
 - 조직 층위의 요구까지 간다 — **모든 개발 조직은 총 노력의 작은 비율을 정리와 리팩터링에
   쓰도록 계획해야 한다; 이 일은 장기적으로 스스로를 갚을 것이다** (16장 §16.1,
   pp.138–139).[^ousterhout2021] 전문은
-  [기존 코드를 수정할 때](modifying-existing-code.md)에 있다.
+  [기존 코드를 수정할 때](../concepts/modifying-existing-code.md)에 있다.
 - **전제 조건에 대한 판정이 이 Topic과 같다** — 위에서 리팩터링의 전제로 테스트를 드는 것과
   같은 논증이 그쪽에도 있다 — **테스트 스위트가 없으면 시스템에 주요 구조 변경을 하는 것이
   위험하다. … 개발자는 좋은 테스트 스위트가 없는 시스템에서 리팩터링을 피한다; 그들은 새
@@ -522,12 +522,12 @@ sources:
 **원전에서 갈라진 페이지들**
 
 - [언제 리팩터링하는가](when-to-refactor.md) — 삼진 규칙·준비·이해·쓰레기 줍기·장기 리팩터링
-- [코드의 나쁜 냄새](code-smells.md) — 무엇을 보고 알아채는가. 어휘 스물넷
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — 무엇을 보고 알아채는가. 어휘 스물넷
 - [자기 테스트 코드](self-testing-code.md) — 담보로 잡히는 것의 구체적 성질
-- [리팩터링의 리듬](refactoring-rhythm.md) — 한 걸음의 크기와 컴파일-테스트-커밋
-- [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 소유권·브랜치·레거시·데이터베이스
+- [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 한 걸음의 크기와 컴파일-테스트-커밋
+- [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 소유권·브랜치·레거시·데이터베이스
 - [yagni와 진화적 아키텍처](yagni-and-evolutionary-architecture.md) — 아키텍처 전제의 전환
-- [성능을 위한 설계](designing-for-performance.md) — 잘 인수분해된 코드와 성능의 관계
+- [성능을 위한 설계](../concepts/designing-for-performance.md) — 잘 인수분해된 코드와 성능의 관계
 
 **나란히 놓인 다른 소스들**
 
@@ -539,7 +539,7 @@ sources:
 - [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 작은 걸음 규칙의 정본
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 같은
   활동을 개발 시간의 10~20%라는 예산으로 옮긴 자리
-- [두 번 설계하라](design-it-twice.md) — 반응 투자의 짝인 능동 투자의 절차
+- [두 번 설계하라](../concepts/design-it-twice.md) — 반응 투자의 짝인 능동 투자의 절차
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 실용주의 축의 허브
 - [정리 — tidying](tidying.md) — 이 낱말을 버리고 세운 좁은 낱말과 그 정의
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 원전 축의 허브

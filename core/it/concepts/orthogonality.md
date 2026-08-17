@@ -2,9 +2,10 @@
 type: concept
 title: 직교성
 description: 기하학에서 빌려 온 낱말이 소프트웨어에서 뜻하는 것 — 한쪽의 변화가 다른 쪽에 영향을 주지 않는 성질, 헬리콥터 조종간이 보여 주는 비직교 시스템의 대가, 생산성과 위험 감소라는 두 이득, 설계·라이브러리·코딩·테스트·문서에 각각 적용하는 법, 그리고 DRY와 짝을 이루되 축이 다른 이유
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
+  - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
 ---
 
 # 직교성
@@ -16,6 +17,7 @@ sources:
 - [서드파티 도구에 적용하기](#서드파티-도구에-적용하기)
 - [코딩·테스트·문서에 적용하기](#코딩테스트문서에-적용하기)
 - [DRY와 무엇이 다른가](#dry와-무엇이-다른가)
+- [같은 요구를 다른 눈금으로 재는 소스](#같은-요구를-다른-눈금으로-재는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **여기를 바꾸면 저기가 깨지는 일을 없애려면 무엇을 설계에 넣어야 하는가.**
@@ -176,8 +178,41 @@ sources:
   잘못되는 것 같은 프로젝트에 투입됐다면 헬리콥터의 악몽을 기억하라. 그 프로젝트는 아마
   직교적으로 설계되고 코딩되지 않았다. 리팩터링할 때다** (Topic 10).[^thomas2020]
 
+## 같은 요구를 다른 눈금으로 재는 소스
+
+위 [판정 시험](#설계에-적용하기)은 독립성을 **영향받는 모듈의 수**로 잰다("요구사항을
+극적으로 바꾸면 몇 개의 모듈이 영향을 받는가? 답은 하나여야 한다"). 소프트웨어 설계 쪽
+소스는 같은 요구를 다른 눈금으로 잰다.
+
+- 그쪽의 목표 진술은 이 Topic과 사실상 같다 (4장 §4.1, pp.19–20):[^ousterhout2021]
+
+> The goal of modular design is to minimize the dependencies between modules.
+
+- **그러나 이상이 달성 불가능함을 먼저 못 박는다** — **이상적 세계에서 각 모듈은 다른
+  모듈과 완전히 독립적일 것이다. (…) 불행히도 이 이상은 달성 가능하지 않다. 모듈은 서로의
+  함수나 메서드를 호출해 함께 일해야 한다** (4장 §4.1, p.19).[^ousterhout2021] 그래서
+  그쪽은 **의존을 0으로 만드는 것이 아니라 남는 의존을 단순하고 뻔하게 만드는 것**을
+  목표로 놓는다 (2장 §2.3, p.9).[^ousterhout2021]
+- **눈금이 다르다.** 위 판정 시험은 변경을 한 번 겪어 봐야 값이 나오지만, 그쪽의 눈금은
+  코드를 보면 바로 잰다 — **모듈의 인터페이스가 그 구현보다 얼마나 단순한가**(깊이).
+  **최고의 모듈은 인터페이스가 구현보다 훨씬 단순한 것들이다** (4장 §4.1,
+  p.20).[^ousterhout2021] 전문은 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)에
+  있다.
+- 위 [설계에 적용하기](#설계에-적용하기)의 계층 논의도 그쪽에서 규칙 하나로 굳는다 —
+  **잘 설계된 시스템에서 각 계층은 그 위아래 계층과 다른 추상을 제공한다. (…) 시스템에
+  비슷한 추상을 가진 이웃 계층이 있다면 이것은 클래스 분해에 문제가 있음을 시사하는 붉은
+  깃발이다** (7장 도입, p.51).[^ousterhout2021] 이 Topic이 계층화를 **직교성을 얻는
+  방법**으로 권한다면 그쪽은 계층 사이의 추상 차이를 **직교성을 검사하는 시험**으로
+  쓴다. 전문은
+  [계층이 다르면 추상도 달라야 한다](../concepts/different-layer-different-abstraction.md)에 있다.
+- 대립은 없다. 두 소스가 서로를 참조한 적은 없고, #hypothesis 이 대비는 이 KB의 종합이다.
+
 ## 이어지는 페이지
 
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 같은 독립성 요구를 인터페이스의
+  크기로 재는 자리
+- [정보 은닉과 정보 누출](../concepts/information-hiding-and-leakage.md) — "수줍은 코드"를 조작적
+  규약으로 옮긴 다른 소스
 - [DRY 원칙](../concepts/dry-principle.md) — 저자들이 짝으로 놓는 다른 축(중복 최소화)
 - [ETC — 바꾸기 쉬운 것이 좋은 설계](../concepts/etc-easier-to-change.md) — 직교성이 그 특수 사례인
   상위 가치
@@ -189,3 +224,6 @@ sources:
 - [실용주의 철학과 접근](../synthesis/pragmatic-philosophy-and-approach.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 10 "Orthogonality"
+
+[^ousterhout2021]: Ousterhout 2021, 2장 "The Nature of Complexity" · 4장 "Modules Should
+    Be Deep" · 7장 "Different Layer, Different Abstraction". 쪽은 인쇄판 쪽 번호.

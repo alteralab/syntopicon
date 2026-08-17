@@ -59,7 +59,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 ## 바닥 — 데이터 모델
 
-- [파이썬 데이터 모델](../inbox/python-data-model.md) — **먼저 읽는다.** 요지 수준이다.
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — **먼저 읽는다.** 요지 수준이다.
   데이터 모델을 "프레임워크로서의 파이썬"이라 규정하는 정의와 특수 메서드(던더 메서드)라는
   이름의 유래, 특수 메서드를 부르는 것은 내가 아니라 인터프리터라는 규칙과 그 유일한 예외,
   `__len__`과 `__getitem__` 둘만 구현한 클래스가 색인·슬라이싱·반복·`in`·정렬·
@@ -78,7 +78,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   이유, 슬라이스에 이름을 붙이는 법, `[[]] * 3` 함정과 증강 대입이 원자적이지 않다는
   사실, 제자리 변경 메서드가 `None`을 돌려주는 API 관례, 그리고 리스트가 답이 아닐 때의
   대안 셋(`array`·`deque`·`set`)
-- [딕셔너리와 집합](../inbox/dictionaries-and-sets.md) — 3장. `dict`이 언어 자신의
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 3장. `dict`이 언어 자신의
   구현이라는 사실, 해시 가능성의 계약(`__hash__`와 `__eq__`가 변하지 않는 속성만
   봐야 한다), 없는 키를 다루는 네 갈래(`get`·`setdefault`·`defaultdict`·`__missing__`)와
   각각의 대가, 맞춤 매핑을 `dict`이 아니라 `UserDict`에서 만들어야 하는 이유, 읽기 전용
@@ -95,7 +95,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 5장 하나가 두 페이지로 갈렸다. 앞부분이 도구를 놓고 뒷부분이 그 도구의 남용을 경고하는데,
 둘 다 자립 가능한 질문에 답한다.
 
-- [데이터 클래스 빌더](../inbox/data-class-builders.md) — **이 반입의 본체.**
+- [데이터 클래스 빌더](../concepts/data-class-builders.md) — **이 반입의 본체.**
   `collections.namedtuple`·`typing.NamedTuple`·`@dataclass` 셋의 기능 비교표와 선택 기준,
   셋 다 상속으로 일하지 않는다는 공통점과 `typing.NamedTuple`이 상위 클래스가 아니라는 함정,
   타입 힌트가 런타임에 아무 효과가 없으면서도 클래스 생성에는 쓰인다는 구조, 같은 세 줄이
@@ -103,7 +103,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   불변이 아니라는 단서와 해시 가능성이 `eq`·`frozen` 둘에 걸린다는 규칙, 가변 기본값을
   거부하는 것이 부분적 해결책일 뿐이라는 경고, 초기화 후 처리와 필드가 아닌 변수 둘
   (`ClassVar`·`InitVar`), 그리고 저자 자신이 이 기능에 남긴 유보 둘
-- [코드 냄새로서의 데이터 클래스](../inbox/data-class-as-code-smell.md) — 같은 장의
+- [코드 냄새로서의 데이터 클래스](../concepts/data-class-as-code-smell.md) — 같은 장의
   뒷부분. 저자가 마틴 파울러의 글 "Code Smell"을 허락받아 전문 재수록한 자리다. 냄새가
   문제 자체가 아니라 표면 징후라는 정의와 "코를 킁킁댈 수 있는" 것이어야 한다는 조건,
   데이터와 행동을 같은 코드 단위에 두는 것이 객체 지향의 주된 생각이라는 근거, 진단의 대상이
@@ -113,7 +113,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 ## 이름과 객체 — 이 부의 바닥
 
-- [객체 참조와 가변성](../inbox/object-references-and-mutability.md) — 6장. **1부를 닫는
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 6장. **1부를 닫는
   장이자 위 네 페이지의 함정들이 전부 모이는 자리.** 변수가 상자가 아니라 이름표라는 심상,
   정체성·값·별칭의 구분과 `is`를 쓸 자리가 사실상 `None` 검사뿐이라는 판정, 튜플의
   불변성이 참조에만 걸린다는 사실, 복사가 기본적으로 얕다는 것과 깊은 복사의 단서,
@@ -123,7 +123,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 ## 인터페이스를 규정하는 네 방식
 
-- [인터페이스·프로토콜·ABC](../inbox/interfaces-protocols-and-abcs.md) — 13장. 타이핑
+- [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — 13장. 타이핑
   지도의 두 축(런타임인가 정적인가 · 구조인가 이름인가)과 그것이 만드는 네 사분면, 프로토콜이라는
   낱말의 두 뜻(암묵적 동적 프로토콜과 `typing.Protocol`)과 그 둘의 핵심 차이 둘, 인터프리터가
   부분 구현을 어디까지 메꿔 주는가와 몽키패칭으로 런타임에 프로토콜을 붙이는 예, 타입 검사
@@ -133,7 +133,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   단서, `__subclasshook__`이 구조적 타이핑을 가능하게 하지만 내 ABC에는 넣지 말라는 기각,
   Go에서 온 단일 메서드 프로토콜 지침과 프로토콜 이름 규약, 그리고 언제 ABC이고 언제
   `Protocol`인가의 판단들
-- [심화 타입 힌트와 그 한계](../inbox/advanced-type-hints-in-python.md) — 15장. **얇다.**
+- [심화 타입 힌트와 그 한계](../concepts/advanced-type-hints-in-python.md) — 15장. **얇다.**
   이 축에서는 그 장의 마지막 절만 직접 이어진다 — 위 정적 프로토콜을 제네릭으로 키우는
   자리다. 페이지 자체는 형제 허브
   [파이썬의 함수를 객체로 다루기](python-functions-as-objects.md)의 타입 절에 있다
@@ -143,7 +143,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 3부의 나머지다. 세 장이 같은 예제(2차원 벡터에서 N차원 벡터로)를 이어받으며 **1장이 세운
 어휘를 실제로 손으로 쓰면 무엇이 필요한가**를 보인다.
 
-- [파이썬다운 객체 만들기](../inbox/building-pythonic-objects.md) — 11장. **두껍다.**
+- [파이썬다운 객체 만들기](../concepts/building-pythonic-objects.md) — 11장. **두껍다.**
   "파이썬답다"의 정의와 그 대상이 애플리케이션이 아니라 라이브러리라는 전제, 개발자용 표현과
   사용자용 표현을 가르는 `repr()`·`str()`과 표현을 위한 특수 메서드 넷, 대안 생성자를
   클래스 메서드로 두는 관례와 `staticmethod`에 대한 저자의 기각(그리고 그 기각에 대한 검토자의
@@ -159,14 +159,14 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   절반만 상속된다는 반직관, 천만 인스턴스 실측(1.55GiB → 551MiB), 네 가지 단서와 "부주의한
   최적화가 성급한 최적화보다 나쁘다"는 조문, 그리고 백만 단위가 아니면 치를 만한 대가가
   아니라는 경계
-- [시퀀스 프로토콜의 점진 구현](../inbox/implementing-the-sequence-protocol.md) — 12장.
+- [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) — 12장.
   프로토콜을 문서에만 있고 코드에는 없는 비형식 인터페이스로 규정하는 자리와 그것이 스몰토크에서
   온 낱말이라는 계보, 프로토콜을 일부만 구현해도 되는 이유와 정적 프로토콜에서는 그것이 허용되지
   않는다는 대비, 상속이 아니라 합성으로 컬렉션을 짓는 선택과 시퀀스 생성자의 관례, 슬라이스가
   제 타입을 돌려주게 만드는 `__getitem__`과 `operator.index`가 `int`와 다른 이유,
   `__getattr__`을 구현하면 `__setattr__`도 함께 써야 하는 이유와 그 일반형, 그리고 집계 해시를
   map-reduce로 짓는 자리와 `reduce`에 초깃값을 주라는 조항
-- [파이썬의 연산자 오버로딩](../inbox/operator-overloading-in-python.md) — 16장.
+- [파이썬의 연산자 오버로딩](../concepts/operator-overloading-in-python.md) — 16장.
   파이썬이 이 기능에 그은 제한 셋과 그것이 사 오는 것, 연산자가 피연산자를 바꾸지 않고 새
   객체를 돌려준다는 불변식과 그 규칙을 지켰는데도 `x != +x`가 되는 두 사례, **다룰 수 없는
   피연산자를 예외가 아니라 `NotImplemented`로 알려야 한다는 조문**과 정방향·역방향 디스패치
@@ -182,24 +182,24 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   재료로 고른 세 표기(`frozen` 데이터클래스·`NamedTuple`·`namedtuple`)의 선택 근거가
   합류했다. 그리고 "해시는 모든 값 속성에 근거하고 객체는 불변이어야 한다"는 규칙이 파이썬에서
   `eq`와 `frozen` 두 옵션으로 실현된다는 대응이 붙었다
-- [코드 냄새](../inbox/code-smells.md) — *Data Class* 항목에 같은 냄새를 파이썬 쪽에서
+- [코드 냄새](../concepts/code-smells.md) — *Data Class* 항목에 같은 냄새를 파이썬 쪽에서
   다룬 소스가 나란히 섰다. 파울러 자신의 예외(불변 결과 레코드)와 라말류의 예외 둘이 같은
   것을 가리킨다는 대조가 합류했고, **모순으로 판정하지 않은 근거**가 그 자리에 적혀 있다
-- [추상화 고르기](../inbox/choosing-abstractions.md) — "무엇을 추상으로 삼는가"의 파이썬 쪽
+- [추상화 고르기](../concepts/choosing-abstractions.md) — "무엇을 추상으로 삼는가"의 파이썬 쪽
   재료 목록이 합류했다. 그 페이지가 ABC를 필수가 아니라고 판정한 자리에 네 번째 선택지
   (정적 프로토콜)와 최소주의 설계 지침이 붙었다
-- [깊은 모듈과 얕은 모듈](../inbox/deep-and-shallow-modules.md) — 단일 메서드 프로토콜
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 단일 메서드 프로토콜
   지침이 같은 잣대를 인터페이스 선언 자체에 적용한 사례로 합류했다
 - [부수 효과 없는 함수](../inbox/side-effect-free-functions.md) — 그 조항이 파이썬에서
   걸리는 더 좁은 처방("받은 가변 인자를 복사하라")과, 표준 라이브러리가 명령과 질의를
   반환값으로 표시하는 관례가 합류했다
 - [복잡성의 정의와 증상](../inbox/software-complexity-defined.md) — "모르는 줄도 모르는
   것"의 파이썬 실물 하나로 가변 기본값과 별칭이 합류했다
-- [정보 은닉과 정보 누출](../inbox/information-hiding-and-leakage.md) — 접근 제어 수식자가
+- [정보 은닉과 정보 누출](../concepts/information-hiding-and-leakage.md) — 접근 제어 수식자가
   안전 장치이지 보안 장치가 아니라는 넷째 소스의 서술이 합류했다. 그쪽 첫째 소스가
   "`private`은 불충분하다"고 말한 자리에 "`private`은 다른 종류의 보증이다"가 붙었고,
   **두 주장이 겹치지 않아 `contradicts`로 판정하지 않은 근거**가 그 자리에 적혀 있다
-- [데이터 클래스 빌더](../inbox/data-class-builders.md) — 버전 조건 블록이 최종 실측으로
+- [데이터 클래스 빌더](../concepts/data-class-builders.md) — 버전 조건 블록이 최종 실측으로
   갱신됐다. 이 소스에서 `slots` 옵션에 대해 더 얻을 것이 없다는 것과, 그래서 파이썬 3.10의
   `@dataclass(slots=True)`가 이 KB에 아직 출처 없는 채로 남는다는 것이 명시됐다
 

@@ -53,7 +53,7 @@ sources:
   특정한 경우일 뿐이지만, 이 경우를 부각시키기를 좋아하는데 그 훈련이 놀랄 만큼 좋은 값어치를
   하는 것을 자주 발견했기 때문이다** (10장 §"Decompose Conditional", p.261).[^fowler2018]
 - 3장 Long Function이 뽑아낼 덩어리를 찾는 신호로 조건문을 들면서 이 항목을 지목한다 —
-  [코드의 나쁜 냄새](code-smells.md) 참조.
+  [코드의 나쁜 냄새](../concepts/code-smells.md) 참조.
 
 ## Consolidate Conditional Expression — 합치는 이유가 곧 합치지 않을 이유다
 
@@ -125,7 +125,7 @@ sources:
 
   - 3장의 반복되는 switch(Repeated Switches) 냄새가 같은 거리 두기를 초판 판정의 철회로
     적는다 — 초판에는 "switch statements"라는 냄새가 있었고 2판에서 표적을 좁혔다.
-    [코드의 나쁜 냄새](code-smells.md) 참조.
+    [코드의 나쁜 냄새](../concepts/code-smells.md) 참조.
 - 수순의 요지 (10장 §"Replace Conditional with Polymorphism", p.273):[^fowler2018]
   1. 다형 행동을 담을 클래스가 없으면 **올바른 인스턴스를 반환하는 팩터리 함수와 함께** 만들고
      호출 코드에서 그 팩터리 함수를 쓴다.
@@ -136,7 +136,7 @@ sources:
   4. **상위 클래스 메서드에는 기본 경우를 남긴다.** 상위 클래스가 추상이어야 하면 그 메서드를
      추상으로 선언하거나 하위 클래스의 책임임을 보이려고 오류를 던진다.
 - 12장의 *Replace Type Code with Subclasses*(p.362)가 이 항목의 전제 조건을 만드는 항목이다 —
-  [상속 다루기 리팩터링](refactoring-inheritance.md) 참조.
+  [상속 다루기 리팩터링](../concepts/refactoring-inheritance.md) 참조.
 
 ## Introduce Special Case — 널 객체를 일반화한 항목
 
@@ -159,7 +159,7 @@ sources:
 > like to say that Null Object is a special case of Special Case.
 
   - 패턴이 리팩터링의 목적지로 등장하는 자리이고, 같은 형식에 대한 다른 계보의 판정은
-    [디자인 패턴의 해부](design-pattern-anatomy.md)에 있다.
+    [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md)에 있다.
 
 ## Introduce Assertion — 오류 탐지보다 소통
 
@@ -187,17 +187,17 @@ sources:
   소통을 위해 단언을 좋아한다** (10장 §"Introduce Assertion", p.302).[^fowler2018]
   담보 쪽 정본은 [자기 테스트 코드](self-testing-code.md)다.
 - 3장 주석(Comments) 냄새가 **시스템의 요구되는 상태에 대한 규칙을 진술해야 하면** 이 항목을
-  처방으로 지목한다 — [코드의 나쁜 냄새](code-smells.md) 참조.
+  처방으로 지목한다 — [코드의 나쁜 냄새](../concepts/code-smells.md) 참조.
 
 ## 이어지는 페이지
 
-- [데이터 조직화 리팩터링](organizing-data.md) — 앞 장(9장)
-- [API 리팩터링](refactoring-apis.md) — 다음 장(11장)
-- [상속 다루기 리팩터링](refactoring-inheritance.md) — 다형성으로 가는 전제를 만드는 장(12장)
-- [기본 리팩터링](basic-refactorings.md) — 이 장의 여러 항목이 부품으로 쓰는 *Extract Function*의 정본
-- [코드의 나쁜 냄새](code-smells.md) — 반복되는 switch·긴 함수가 이 장을 지목한다
+- [데이터 조직화 리팩터링](../concepts/organizing-data.md) — 앞 장(9장)
+- [API 리팩터링](../concepts/refactoring-apis.md) — 다음 장(11장)
+- [상속 다루기 리팩터링](../concepts/refactoring-inheritance.md) — 다형성으로 가는 전제를 만드는 장(12장)
+- [기본 리팩터링](../concepts/basic-refactorings.md) — 이 장의 여러 항목이 부품으로 쓰는 *Extract Function*의 정본
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — 반복되는 switch·긴 함수가 이 장을 지목한다
 - [자기 테스트 코드](self-testing-code.md) — 단언과 단위 테스트의 분업
-- [디자인 패턴의 해부](design-pattern-anatomy.md) — 패턴이 리팩터링의 목적지로 등장하는 형식
+- [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 패턴이 리팩터링의 목적지로 등장하는 형식
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 10장 "Simplifying Conditional Logic"(pp.259–304). 쪽은 인쇄판 쪽

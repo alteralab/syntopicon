@@ -75,7 +75,7 @@ sources:
 - **이 함정이 앞 장의 미해결 문제와 같은 뿌리라고 저자가 밝힌다** — 표준 라이브러리의
   `__missing__` 사용이 일관되지 않은 것이 여기서 비롯한다 (14장 §"Subclassing Built-In
   Types Is Tricky", p.492).[^ramalho2022] 그 서술은
-  [딕셔너리와 집합](dictionaries-and-sets.md)에 있다.
+  [딕셔너리와 집합](../concepts/dictionaries-and-sets.md)에 있다.
 
 ## 처방 — collections의 User 계열
 
@@ -129,15 +129,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [협력적 다중 상속과 MRO](cooperative-multiple-inheritance.md) — 같은 장의 본체. 이
+- [협력적 다중 상속과 MRO](../concepts/cooperative-multiple-inheritance.md) — 같은 장의 본체. 이
   함정이 `super()`와 믹스인을 다루는 자리로 이어진다
-- [딕셔너리와 집합](dictionaries-and-sets.md) — `UserDict`에서 맞춤 매핑을 만들어야 하는
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — `UserDict`에서 맞춤 매핑을 만들어야 하는
   이유가 원래 서술된 자리, 그리고 `__missing__`의 비일관성
-- [상속세](inheritance-tax.md) — 상속이 곧 결합이라는 진단의 원리 쪽. 이 함정은 그 결합이
+- [상속세](../concepts/inheritance-tax.md) — 상속이 곧 결합이라는 진단의 원리 쪽. 이 함정은 그 결합이
   **언어 구현 층**에서 새는 실물이다
-- [정보 은닉과 정보 누출](information-hiding-and-leakage.md) — 하위 클래스가 상위 클래스의
+- [정보 은닉과 정보 누출](../concepts/information-hiding-and-leakage.md) — 하위 클래스가 상위 클래스의
   구현 세부에 의존하게 되는 일반형
-- [파이썬 데이터 모델](python-data-model.md) — 특수 메서드를 부르는 것이 인터프리터라는
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — 특수 메서드를 부르는 것이 인터프리터라는
   규칙과, 그 규칙이 내장 타입 안에서는 다르게 적용되는 자리
 - [파이썬의 상속 기제](../synthesis/python-inheritance-mechanics.md) — 이 축의 허브
 

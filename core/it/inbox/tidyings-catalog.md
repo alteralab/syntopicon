@@ -80,7 +80,7 @@ I부의 열다섯 장이 그대로 열다섯 개의 정리다 (1~15장).[^beck20
   `cost(decoupling) + cost(change) < cost(coupling) + cost(change)` (6장).[^beck2023]
   결합을 못 끊는 사유 셋도 열거된다 — **지적 여력**(방법을 모른다), **시간·돈 여력**
   (지금은 그 시간을 못 낸다), **관계의 여력**(팀이 지금 감당할 수 있는 변화를 이미 다
-  받았다). 전문은 [결합 끊기](decoupling.md)에 있다.
+  받았다). 전문은 [결합 끊기](../concepts/decoupling.md)에 있다.
 - **Move Declaration and Initialization Together** — 이유가 이름과 초기화의 상호
   보강이다 — **변수의 이름은 계산에서의 역할에 대한 힌트를 준다. 그러나 초기화가 그
   이름의 메시지를 강화한다** (7장).[^beck2023] 제약도 명시된다 — **데이터 의존을 손으로
@@ -112,7 +112,7 @@ I부의 열다섯 장이 그대로 열다섯 개의 정리다 (1~15장).[^beck20
   *더 어려워지는*** 경우가 있고, 그때는 **먼저 뭉개야 새롭고 더 이해하기 쉬운 부분을
   뽑을 수 있다.** 징후 넷이 열거된다 — 길고 반복되는 인자 목록, 반복되는 코드(특히
   반복되는 조건문), 헬퍼 루틴의 나쁜 이름, 공유된 가변 자료 구조. 같은 전술이
-  [합칠 것인가 나눌 것인가](better-together-or-better-apart.md)에도 있다.
+  [합칠 것인가 나눌 것인가](../concepts/better-together-or-better-apart.md)에도 있다.
 - **Explaining Comments** — 기준이 하나다 — **코드에서 자명하지 *않았던* 것만 적어라**
   (14장).[^beck2023] 상대를 특정하라는 요구가 붙는다 — **당신과 별로 닮지 않았더라도
   구체적인 누군가에게 써라. 컴퓨터 과학자 팀에서 유일한 생물학자인가? 그렇다면 당신에게는
@@ -155,7 +155,7 @@ I부의 열다섯 장이 그대로 열다섯 개의 정리다 (1~15장).[^beck20
   정리가 여러 개를 낳고, 그 각각이 또 여러 개를 낳을 때다(결합도와 멱법칙을 이야기할 때
   이것에 대해 훨씬 더 다룬다)** (17장).[^beck2023] 즉 연쇄 자체가 3부의 결합도 이론이
   1부에서 미리 보이는 자리다. 전문은
-  [변경에 대한 결합도](coupling-with-respect-to-change.md)에 있다.
+  [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md)에 있다.
 - **Cohesion order와 Explicit parameters의 다음 수는 "정리가 아니다"라고 명시된다** —
   헬퍼 객체를 만드는 것, 매개변수를 객체로 묶는 것은 **정리의 범위 밖**이다 (17장).[^beck2023]
   그래도 **정리하면서 드러나는 새 추상을 눈여겨보라**고 한다 — **당신이 발견할 가장
@@ -211,7 +211,7 @@ Extract Helper와 New Interface뿐이고, 둘 다 **기존 코드를 옮겨 담�
   다른 요소들을 통해 소통하는 것의 한계를 탐색하게 해 준다** (17장).[^beck2023]
 - **이 자리가 이 KB의 주석 논쟁과 만난다.** 같은 물음(좋은 코드가 주석을 대신할 수
   있는가)에서 이 KB에는 이미 `contradicts` 한 쌍이 서 있다 —
-  [코드의 나쁜 냄새](code-smells.md) ↔ [주석을 왜 쓰는가](why-write-comments.md).
+  [코드의 나쁜 냄새](../concepts/code-smells.md) ↔ [주석을 왜 쓰는가](why-write-comments.md).
   이 소스는 **어느 쪽에도 서지 않는다**: 주석을 잉여로 만드는 것을 지향하되(전자 쪽),
   자명하지 않은 것은 반드시 적으라 하고 잉여의 판정을 "절대적으로, 완전히"로 좁힌다
   (후자 쪽). **셋째 입장이라 모순을 늘리지 않는다.**
@@ -221,11 +221,11 @@ Extract Helper와 New Interface뿐이고, 둘 다 **기존 코드를 옮겨 담�
 - [정리 — tidying](tidying.md) — 이 목록이 무엇의 목록인가
 - [언제 정리하는가](when-to-tidy.md) — 목록에서 고른 뒤의 물음
 - [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — 연쇄를 몇 개씩 묶어 내보내는가
-- [변경에 대한 결합도](coupling-with-respect-to-change.md) — 팬아웃과 연쇄의 이론
-- [응집도](better-together-or-better-apart.md) — Cohesion order와 One Pile의 이론
-- [기본 리팩터링](basic-refactorings.md) — Extract Helper의 상위 항목 *Extract Function*
+- [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md) — 팬아웃과 연쇄의 이론
+- [응집도](../concepts/better-together-or-better-apart.md) — Cohesion order와 One Pile의 이론
+- [기본 리팩터링](../concepts/basic-refactorings.md) — Extract Helper의 상위 항목 *Extract Function*
 - [조건부 로직 단순화 리팩터링](simplifying-conditional-logic.md) — Guard Clauses의 상위 항목
-- [설명 주석](comments-describe-the-nonobvious.md) — 14장이 겨냥한 것의 다른 소스
+- [설명 주석](../concepts/comments-describe-the-nonobvious.md) — 14장이 겨냥한 것의 다른 소스
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 
 [^beck2023]: Beck 2023, 1장 "Guard Clauses" ~ 15장 "Delete Redundant Comments"(I부

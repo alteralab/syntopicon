@@ -136,7 +136,7 @@ sources:
 - 그리고 문제의 소재가 되돌리기 비용에 놓인다 — **문제는 결정적 결정이 쉽게 되돌려지지
   않는다는 것이다. 이 벤더의 데이터베이스를, 또는 저 아키텍처 패턴을, 또는 어떤 배포 모델을
   쓰기로 결정하고 나면 당신은 큰 비용을 치르지 않고는 취소할 수 없는 행동 경로에 묶인다**
-  (Topic 11).[^thomas2020] 전문은 [유지보수성](maintainability.md)에 있다.
+  (Topic 11).[^thomas2020] 전문은 [유지보수성](../concepts/maintainability.md)에 있다.
 - **차이는 무엇을 되돌리는가다.** 저쪽은 **기술 선택**(데이터베이스·클라우드 벤더)을
   되돌릴 수 있게 두라고 하고, 이쪽은 **코드 구조 변경**이 이미 되돌릴 수 있다는 사실에서
   검토 비용을 깎아 낸다. #hypothesis 두 소스가 서로를 참조한 적은 없다 — 이 KB의 대조다.
@@ -147,12 +147,12 @@ sources:
 - [정리 — tidying](tidying.md) — 이름이 작아야 하는 이유의 귀착점
 - [설계의 경제학 — 시간 가치와 옵션성](software-design-economics.md) — 투자 규모를 정하는 다른 축
 - [언제 정리하는가](when-to-tidy.md) — 비가역 결정에서 빠져나올 때의 시점 배분
-- [유지보수성](maintainability.md) — 같은 성질을 아키텍처 규모에 놓은 소스
-- [결합 끊기](decoupling.md) — 되돌릴 수 있게 만드는 수단 쪽
+- [유지보수성](../concepts/maintainability.md) — 같은 성질을 아키텍처 규모에 놓은 소스
+- [결합 끊기](../concepts/decoupling.md) — 되돌릴 수 있게 만드는 수단 쪽
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 
 [^beck2023]: Beck 2023, 28장 "Reversible Structure Changes". **이 소스의 locator는 장
     단위다** — 검증 절차와 근거는 `it/archive/beck2023/_progress.yaml` 머리말이 정본이다.
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 11 "Reversibility". 쪽 표기와 판본은
-    [유지보수성](maintainability.md)의 각주가 정본이다.
+    [유지보수성](../concepts/maintainability.md)의 각주가 정본이다.

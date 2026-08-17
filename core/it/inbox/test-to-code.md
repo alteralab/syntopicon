@@ -368,7 +368,7 @@ sources:
   [임시 테스트를 버리지 마라](#임시-테스트를-버리지-마라)와 같은 처방이고, 근거도 같다 —
   테스트 자체가 유효한지를 실패로 확인한다는 것.
 - 두 소스가 서로를 참조한 적은 없다. 그쪽의 여섯 유행 평가 전문은
-  [소프트웨어 유행을 잣대로 재기](evaluating-software-trends.md)에 있다.
+  [소프트웨어 유행을 잣대로 재기](../concepts/evaluating-software-trends.md)에 있다.
 
 ## 테스트를 리팩터링의 담보로 두는 소스
 
@@ -439,11 +439,11 @@ sources:
   이야기를 감추는 설정 코드에 압도된다** (3장 §"Why Not Just Patch It
   Out?").[^percival2020] 위 [테스트는 코드의 첫 사용자다](#테스트는-코드의-첫-사용자다)가
   테스트를 사용자로 본다면, 이쪽은 그 사용자가 무엇을 읽게 되는지를 본다. 전문은
-  [가짜와 목](fakes-versus-mocks.md)에 있다.
+  [가짜와 목](../concepts/fakes-versus-mocks.md)에 있다.
 
 ## 이어지는 페이지
 - [자기 테스트 코드](self-testing-code.md) — 리팩터링의 담보로서의 테스트 전문
-- [가짜와 목](fakes-versus-mocks.md) — 테스트 대역 선택이 설계를 바꾼다는 주장의 전문
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 테스트 대역 선택이 설계를 바꾼다는 주장의 전문
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 그 테스트를 어느 층에
   둘 것인가
 - [리팩터링](refactoring.md) — 그 담보가 쓰이는 활동

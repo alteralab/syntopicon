@@ -154,7 +154,7 @@ sources:
   그것을 볼 수 없다면 용인될 수 있다는 것이다. 물론 모든 상황은 고유하고, 내가 그 규칙의
   일부 이상을 어기는 때도 있다** (3장 §"Switch Statements", pp.38–39).[^martin2008]
   - 같은 책 안에서 이 처방이 **6장과 긴장한다는 것을 저자 자신이 지목한다** —
-    [객체와 자료 구조](objects-versus-data-structures.md)의 마지막 절이 그 자리다.
+    [객체와 자료 구조](../concepts/objects-versus-data-structures.md)의 마지막 절이 그 자리다.
 
 ## 서술적인 이름을 쓰라
 
@@ -166,13 +166,13 @@ sources:
 > enigmatic name. A long descriptive name is better than a long descriptive comment.
 
   - **마지막 문장이 4장으로 이어지는 다리다** — 긴 이름이 긴 주석보다 낫다는 명제가
-    [주석은 실패다](comments-as-failure.md)의 전제이고, 상대 소스는 바로 그 귀결로
+    [주석은 실패다](../concepts/comments-as-failure.md)의 전제이고, 상대 소스는 바로 그 귀결로
     나온 이름(`isLeastRelevantMultipleOfNextLargerPrimeFactor`)을 반례로 든다.
 - 이름 고르기가 설계를 바꾼다는 관찰 — **서술적인 이름을 고르는 것은 모듈의 설계를 당신
   마음속에서 명료하게 하고 그것을 개선하도록 돕는다. 좋은 이름을 찾다가 코드의 유리한
   재구조화로 이어지는 일은 전혀 드물지 않다** (3장 §"Use Descriptive Names",
   p.40).[^martin2008]
-  - 이 관찰은 다른 두 소스와 **일치한다** — [이름 짓기](naming-things.md)의 "이름이
+  - 이 관찰은 다른 두 소스와 **일치한다** — [이름 짓기](../concepts/naming-things.md)의 "이름이
     안 떠오르는 것이 진단이다" 절이 그 자리다.
 
 ## 인수 — 0이 최선이라는 서열
@@ -194,7 +194,7 @@ sources:
   - #hypothesis 이 조작은 인수를 숨은 상태로 바꾸는 것이므로 인터페이스의 형식적 부분을
     줄이는 대신 비형식적 부분(호출 순서 의존)을 늘린다. 저자가 그렇게 정식화하지는
     않는다. 상대 소스는 그 비형식적 부분도 인터페이스로 센다 —
-    [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 "인터페이스에 무엇이 들어
+    [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의 "인터페이스에 무엇이 들어
     있는가" 절.
 - 인수가 셋 이상 필요해 보이면 **그중 일부를 자기 클래스로 감싸야 할 가능성이 높다**
   (3장 §"Argument Objects", p.43).[^martin2008] `makeCircle(double x, double y, double
@@ -268,7 +268,7 @@ sources:
   새 오류를 더하기 싫어해 옛 오류 코드를 재사용한다** (3장 §"The Error.java Dependency
   Magnet", pp.47–48).[^martin2008]
   - 오류를 아예 없애는 셋째 입장이 이 KB에 있다 —
-    [오류를 존재하지 않게 정의하라](define-errors-out-of-existence.md). 그쪽은 예외를
+    [오류를 존재하지 않게 정의하라](../concepts/define-errors-out-of-existence.md). 그쪽은 예외를
     던지는 것 자체를 인터페이스 복잡성으로 계상하므로 이 절과 층위가 다르다(이 절은
     오류를 신호하는 **수단**을, 그쪽은 오류의 **개수**를 다룬다).
 
@@ -288,7 +288,7 @@ sources:
     **찾을 수 있는 곳마다 중복을 찾아 없애라** (17장 `G5`, p.290).[^martin2008]
   - **이 최대주의가 DRY 축의 한쪽 극이다.** 반대 극([잘못된 추상](wrong-abstraction.md))이
     이 KB에 있고, 두 극의 대비와 그것이 왜 `contradicts`가 아닌지는
-    [DRY 원칙](dry-principle.md)의 두 절이 갖는다.
+    [DRY 원칙](../concepts/dry-principle.md)의 두 절이 갖는다.
 - 구조적 프로그래밍의 단일 출구 규칙은 상대화된다 — **구조적 프로그래밍의 목표와 규율에
   공감하지만, 함수가 아주 작을 때 그 규칙들은 이득이 거의 없다. 그런 규칙이 유의미한
   이득을 주는 것은 더 큰 함수에서뿐이다** (3장 §"Structured Programming",
@@ -337,7 +337,7 @@ sources:
   적는다 (§1).[^qntm2020]
 - **이 비판은 이 페이지의 모순 판정을 바꾸지 않는다.** 2차 문헌이므로 원전과 같은 물음에
   다른 답을 하는 것이 아니라 원전을 평가한다. 전문과 이 KB가 그것을 쓰는 방식은
-  [클린 코드 비판](clean-code-criticism.md)에 있다.
+  [클린 코드 비판](../concepts/clean-code-criticism.md)에 있다.
 
 ## 저자 본인이 나중에 좁힌 것
 
@@ -347,7 +347,7 @@ sources:
 > 있지 않다.
 
 2024년 9월부터 2025년 2월 사이에 두 저자가 공개 대담을 했고, 그 자리에서 저자가 이 장의
-주장을 세 자리에서 좁혔다. 전문은 [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에
+주장을 세 자리에서 좁혔다. 전문은 [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md)에
 있고, 여기서는 이 페이지의 어느 절이 영향을 받는지만 적는다.
 
 - **위 [얼마나 작은가 — 수치](#얼마나-작은가--수치) 절에 대해** — 저자는 그 수치가 규정이
@@ -380,7 +380,7 @@ sources:
 ## 모순 — 함수를 쪼개면 복잡성이 주는가
 
 이 KB에서 **`contradicts`가 발화한 둘째 자리다.** 상대는
-[깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)이고, 갈리는 명제는 하나다 —
+[깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)이고, 갈리는 명제는 하나다 —
 **이름 붙일 수 있는 블록을 함수로 뽑는 조작이 시스템 복잡성을 줄이는가 늘리는가.**
 
 - **이 페이지의 주장.** ① 함수는 스무 줄이면 거의 언제나 너무 길다 ② 제어문 안쪽 블록은
@@ -416,7 +416,7 @@ sources:
     개선, 다른 쪽은 악화로 채점한다.
 - **겹치는 구간은 인정한다.** 둘 다 ⓐ 추상화 수준이 섞이는 것을 결함으로 보고
   (이 페이지의 "함수당 추상화 수준 하나" ↔ 상대의
-  [계층이 다르면 추상도 달라야 한다](different-layer-different-abstraction.md))
+  [계층이 다르면 추상도 달라야 한다](../concepts/different-layer-different-abstraction.md))
   ⓑ 좋은 이름이 중요하다고 보며 ⓒ 인수를 줄이라고 한다. 그래서 모순은 위 한 명제로
   좁혀진다.
 - **해소하지 않는다.** 최신성만으로 판단하지 않는다 — 상대가 13년 뒤 책이지만 그것이
@@ -424,7 +424,7 @@ sources:
   날짜를 남기며 한다.
 - **두 저자가 이 쟁점으로 직접 맞붙은 문서가 이 KB에 있다.** 이 페이지가 대질하는 두
   명제는 추론이 아니라 두 저자가 서로에게 실제로 제기한 것이고, 두 사람이 그것을 자기들의
-  불합의 목록으로 조문화했다 — [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md).
+  불합의 목록으로 조문화했다 — [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md).
   그 자리에서 마틴이 내린 최종 진단이 **분해와 얽힘이라는 두 값의 상대적 가중치에 대한
   불일치**다 (§"Method Length Summary", UB 발언).[^ousterhout2024-aposd] 잣대가 달라서가
   아니라 같은 잣대에 반대 가중치를 걸어서 갈린다 — 층위 차이로 무마할 수 없는 이유가
@@ -432,26 +432,26 @@ sources:
 
 ## 이어지는 페이지
 
-- [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — **`contradicts` 상대.** 쪼개면
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — **`contradicts` 상대.** 쪼개면
   얕아진다는 쪽
-- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+- [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
   저자가 이 장의 주장을 세 자리에서 좁힌 자리
-- [클린 코드 비판](clean-code-criticism.md) — 이 장의 예제를 이 장의 규칙과 대질하는 2차 문헌
-- [주석은 실패다](comments-as-failure.md) — 같은 소스의 다음 장. "긴 이름이 긴 주석보다
+- [클린 코드 비판](../concepts/clean-code-criticism.md) — 이 장의 예제를 이 장의 규칙과 대질하는 2차 문헌
+- [주석은 실패다](../concepts/comments-as-failure.md) — 같은 소스의 다음 장. "긴 이름이 긴 주석보다
   낫다"가 거기서 "주석은 실패다"가 된다
-- [객체와 자료 구조](objects-versus-data-structures.md) — 같은 소스 6장. 이 장의
+- [객체와 자료 구조](../concepts/objects-versus-data-structures.md) — 같은 소스 6장. 이 장의
   `switch` 처방과 저자 스스로 인정하는 긴장이 있는 자리
-- [클린 코드의 발견법 목록](clean-code-heuristics.md) — 이 장의 규칙들이 식별자로
+- [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md) — 이 장의 규칙들이 식별자로
   압축돼 다시 실리는 자리(`F1`–`F3`·`G15`·`G30`·`G31`·`G34`)
-- [DRY 원칙](dry-principle.md) — "중복은 만악의 근원"이라는 최대주의가 놓이는 축
-- [이름 짓기](naming-things.md) — 이 장이 서술적 이름에 거는 무게가 다른 두 소스와
+- [DRY 원칙](../concepts/dry-principle.md) — "중복은 만악의 근원"이라는 최대주의가 놓이는 축
+- [이름 짓기](../concepts/naming-things.md) — 이 장이 서술적 이름에 거는 무게가 다른 두 소스와
   만나는 자리
 - [리팩터링](refactoring.md) — 이 장의 규칙이 작성 규칙이 아니라 도착 상태임을 저자가
   밝힌 뒤 남는 절차 층
 - [자기 테스트 코드](self-testing-code.md) — 그 이행의 담보
 - [시간적 결합을 깨기](../concepts/breaking-temporal-coupling.md) — 부수 효과 절과
   `G31`이 만나는 실용주의 쪽 자리
-- [코드의 나쁜 냄새](code-smells.md) — 긴 함수를 냄새로 다루는 셋째 소스
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — 긴 함수를 냄새로 다루는 셋째 소스
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
 
 [^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design

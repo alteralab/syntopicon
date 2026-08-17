@@ -141,7 +141,7 @@ sources:
   아니다; 그것은 우리가 이벤트와 메시지 버스로 작업하는 데 도움을 줄 수 있다**
   (6장 §"Wrap-Up").[^percival2020] 실제로 8장에서 UoW가 커밋 뒤 이벤트를 발행하는 자리가
   되고, 그 전문은
-  [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md)에 있다.
+  [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md)에 있다.
 
 ## ORM이 이미 갖고 있는데 왜 또 씌우는가
 
@@ -194,7 +194,7 @@ sources:
   - **SQLAlchemy가 이미 이 패턴을 구현한다.** **우리는 ORM과 우리 코드 사이의 인터페이스를
     "좁히려고" SQLAlchemy `Session` 객체 위에 더 단순한 추상을 하나 더 들인다. 이것이
     우리를 느슨하게 결합된 채로 유지하는 데 도움을 준다.**
-  - **"인터페이스를 좁힌다"는 표현이 [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의
+  - **"인터페이스를 좁힌다"는 표현이 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의
     깊이 정의와 정확히 같은 잣대다** — 기능은 그대로 두고 인터페이스만 줄이면 모듈이
     깊어진다. #hypothesis 두 소스가 서로를 참조한 적은 없다.
 
@@ -202,10 +202,10 @@ sources:
 
 - [리포지터리 패턴](repository-pattern.md) — UoW가 담고 있는 것
 - [서비스 레이어](service-layer-pattern.md) — UoW를 여닫는 층
-- [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 한 UoW 안에서
+- [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 한 UoW 안에서
   무엇을 바꿔야 하는가의 규칙
-- [가짜와 목](fakes-versus-mocks.md) — 세션 대신 UoW를 가짜로 만드는 이유
-- [의존성 역전 원칙](dependency-inversion-principle.md) — 이 패턴이 구현하는 원리
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 세션 대신 UoW를 가짜로 만드는 이유
+- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 구현하는 원리
 - [데이터베이스 트랜잭션](../synthesis/database-transactions.md) — 이 추상이 감싸는
   아래층(원자성·격리 수준)의 축
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —

@@ -161,9 +161,9 @@ sources:
   "변경을 하고 나서 버그가 나타나기 전까지는 그것을 알지 못한다" — 가 그대로 적용된다.
   `functools.wraps`가 덜어 주는 것은 그중 이름과 독스트링뿐이고, **어느 함수가 갈아치워졌는가**는
   여전히 호출 지점에서 보이지 않는다.
-- 기제 전체는 [클로저와 데코레이터](closures-and-decorators.md)가 갖는다. 같은 소스에서 온
+- 기제 전체는 [클로저와 데코레이터](../concepts/closures-and-decorators.md)가 갖는다. 같은 소스에서 온
   다른 실물 — 가변 기본값과 별칭이 만드는 보이지 않는 상태 — 는
-  [객체 참조와 가변성](object-references-and-mutability.md)에 있다.
+  [객체 참조와 가변성](../concepts/object-references-and-mutability.md)에 있다.
 
 ## 코드 줄 수는 척도가 아니다
 
@@ -262,7 +262,7 @@ sources:
   모듈형 설계에서 소프트웨어 시스템은 객체 지향 언어의 클래스 같은 모듈로 나뉜다. 모듈은
   서로 비교적 독립적이도록 설계되어, 프로그래머가 다른 모듈의 세부를 이해하지 않고도 한
   모듈에서 작업할 수 있다** (1장, p.2).[^ousterhout2021] 그 갈래의 전문은
-  [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)에 있다.
+  [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)에 있다.
 - 도구로는 한계가 있다는 단서가 붙는다 — **좋은 개발 도구는 복잡성을 다루는 데 도움이
   되고 지난 수십 년간 훌륭한 도구가 많이 만들어졌다. 그러나 도구만으로 할 수 있는 일에는
   한계가 있다. 소프트웨어를 쓰기 더 쉽게 만들고 싶다면 소프트웨어를 더 단순하게 만들 방법을
@@ -314,19 +314,19 @@ sources:
 - **② 불명료를 코드 층위에서 직접 겨냥하는 장**(18장) — **불명료는 §2.3에서 서술한 복잡성의
   두 주요 원인 중 하나다. … 불명료 문제의 해법은 코드를 뻔하게 만드는 방식으로 쓰는 것이다**
   (18장, p.147).[^ousterhout2021] 그 장이 뻔함을 조작적으로 정의하고 그것을 만드는 것과
-  깨뜨리는 것을 열거한다 ([코드는 뻔해야 한다](obvious-code.md)).
+  깨뜨리는 것을 열거한다 ([코드는 뻔해야 한다](../concepts/obvious-code.md)).
 - **③ 유행을 재는 유일한 잣대**(19장) — **각 유행에 대해 나는 그 유행이 이 책의 원칙과 어떻게
   관련되는지 서술하고, 그 원칙을 써서 그 유행이 소프트웨어 복잡성에 맞서 지렛대를 제공하는지
   평가할 것이다** (19장, p.153).[^ousterhout2021] 그리고 새 패러다임 일반에 대한 물음으로
   일반화된다 — **새 소프트웨어 개발 패러다임의 제안을 만날 때마다 복잡성의 관점에서 그것에
   도전하라: 그 제안이 정말 큰 소프트웨어 시스템의 복잡성을 최소화하는 데 도움이 되는가?**
   (19장 §19.7, p.159).[^ousterhout2021] 전문은
-  [소프트웨어 유행을 잣대로 재기](evaluating-software-trends.md)에 있다.
+  [소프트웨어 유행을 잣대로 재기](../concepts/evaluating-software-trends.md)에 있다.
 - **④ 두 종류의 설계 실수가 각각 어느 증상을 낳는가**(21.4) — 너무 많은 것을 중요하게 다루면
   **인지 부하**가 오르고, 중요한 것을 알아보지 못하면 **모르는 줄도 모르는 것**으로 이어진다
   (21장 §21.4, p.173).[^ousterhout2021] 이 페이지가 셋째 증상을 최악으로 놓았으므로 두
   실수의 대가는 비대칭이다. 전문은
-  [무엇이 중요한지 정하라](decide-what-matters.md)에 있다.
+  [무엇이 중요한지 정하라](../concepts/decide-what-matters.md)에 있다.
 - **그리고 22장이 이 정의를 책의 유일한 주제로 재확인한다** — 뿌리 원인이 의존과 불명료라는
   것, 붉은 깃발이 불필요한 복잡성을 식별하는 장치라는 것, 그리고 그것을 감당하는 태도가 투자
   사고방식이라는 것이 두 쪽짜리 맺음에 다시 정리된다 (22장, pp.175–176).[^ousterhout2021]
@@ -334,20 +334,20 @@ sources:
 
 ## 이어지는 페이지
 
-- [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 복잡성을 캡슐화하는 쪽의 잣대
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 복잡성을 캡슐화하는 쪽의 잣대
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) —
   점진적 축적에 대응하는 무관용 철학
-- [정보 은닉과 정보 누출](information-hiding-and-leakage.md) — 의존을 줄이는 첫째 기법
-- [오류를 존재에서 없애기](define-errors-out-of-existence.md) — 특수 사례가 복잡성의
+- [정보 은닉과 정보 누출](../concepts/information-hiding-and-leakage.md) — 의존을 줄이는 첫째 기법
+- [오류를 존재에서 없애기](../concepts/define-errors-out-of-existence.md) — 특수 사례가 복잡성의
   주요 원천으로 다시 다뤄지는 자리
 - [유지보수성](../concepts/maintainability.md) — 같은 복잡성을 시스템 수준의 비기능
   요건으로 놓은 자리. 그쪽은 단순성의 객관적 기준이 없다고 하고, 이 책은 조작적 정의를
   세워 그 자리를 메운다
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) —
   같은 점진적 축적을 심리로 설명하는 쪽
-- [객체 참조와 가변성](object-references-and-mutability.md) — "모르는 줄도 모르는 것"의
+- [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — "모르는 줄도 모르는 것"의
   파이썬 실물 하나. 가변 기본값과 별칭이 만드는 상태가 코드 어디에도 보이지 않는 자리
-- [클로저와 데코레이터](closures-and-decorators.md) — 같은 증상의 다른 실물. 이름이 가리키는
+- [클로저와 데코레이터](../concepts/closures-and-decorators.md) — 같은 증상의 다른 실물. 이름이 가리키는
   것을 갈아치우는 기제의 전문
 - [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) — 한 코드
   단위에 책임을 몰아넣는 것의 대가가 한 언어 기능의 사용 지침으로 나타나는 자리
@@ -363,5 +363,5 @@ sources:
 [^ramalho2022]: Ramalho 2022, 9장 "Decorators and Closures" §"Decorators 101"(pp.304–306) ·
     §"How It Works"(p.318) · §"Implementing a Simple Decorator"(p.319). 쪽은 인쇄판 쪽
     번호(PDF 쪽 − 30). 이 페이지에는 셋째 증상의 실물에 해당하는 세 문장만 합류시켰고,
-    데코레이터의 기제 전부는 [클로저와 데코레이터](closures-and-decorators.md)가 갖는다.
+    데코레이터의 기제 전부는 [클로저와 데코레이터](../concepts/closures-and-decorators.md)가 갖는다.
     이 소스는 위 복잡성의 정의를 참조한 적이 없다 — 증상에 대한 배정은 이 KB의 판정이다.

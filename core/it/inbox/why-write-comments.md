@@ -40,8 +40,8 @@ sources:
   반대로, 좋은 소프트웨어 설계는 문서화가 부실하면 가치의 많은 부분을 잃는다** (12장,
   p.95).[^ousterhout2021]
   - 세 역할이 각각 다른 장으로 이어진다 — 이해를 돕는 역할은
-    [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md),
-    추상을 정의하는 역할은 [인터페이스 문서화](interface-documentation.md), 설계를 개선하는
+    [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md),
+    추상을 정의하는 역할은 [인터페이스 문서화](../concepts/interface-documentation.md), 설계를 개선하는
     역할은 [주석을 먼저 써라](write-the-comments-first.md)가 받는다.
 - 실태 진단 — **이 견해가 보편적으로 공유되지는 않는다. 프로덕션 코드의 상당 부분이 사실상
   주석을 담고 있지 않다. 많은 개발자가 주석을 시간 낭비라고 생각한다; 다른 이들은 주석의
@@ -67,7 +67,7 @@ sources:
   불행히도 그것은 그저 사실이 아니다** (12장 §12.1, p.96).[^ousterhout2021]
 - 부분적으로는 옳다 — **확실히, 코드를 쓸 때 주석의 필요를 줄이려고 할 수 있는 일들이 있다.
   좋은 변수 이름을 고르는 것 같은 것이다(14장을 보라)** (12장 §12.1,
-  p.96).[^ousterhout2021] 그 전문은 [이름 짓기](naming-things.md)에 있다.
+  p.96).[^ousterhout2021] 그 전문은 [이름 짓기](../concepts/naming-things.md)에 있다.
 - **그럼에도 코드가 형식적으로 담을 수 있는 것에는 한계가 있다** — **그럼에도 코드로 표현될 수
   없는 설계 정보가 여전히 상당량 있다. 예컨대 클래스 인터페이스의 작은 일부, 이를테면
   메서드의 시그니처만이 코드에서 형식적으로 명시될 수 있다. 인터페이스의 비형식적 측면,
@@ -87,7 +87,7 @@ sources:
     만들지도 않는다: 최상위 메서드의 동작을 이해하려면 독자는 아마 중첩된 메서드들의 동작을
     이해해야 할 것이다. 큰 시스템에서 사용자가 동작을 알아내려고 코드를 읽는 것은 실용적이지
     않다.**
-  - 이 진단이 [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 클래스염과 같은 대상을
+  - 이 진단이 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의 클래스염과 같은 대상을
     다른 입구에서 가리킨다 — 그쪽은 "클래스는 작아야 한다"는 통념이, 이쪽은 "코드를 읽으면
     된다"는 통념이 같은 얕은 쪼개기를 부른다.
 
@@ -145,7 +145,7 @@ sources:
 - 처방의 자리 — **16장은 코드 수정 후에도 가능한 한 쉽게 갱신할 수 있도록 문서화를 조직하는
   법을 논한다(핵심 발상은 중복된 문서화를 피하고 문서화를 대응하는 코드 가까이 두는 것이다)**
   (12장 §12.3, p.98).[^ousterhout2021] 전문은
-  [기존 코드를 수정할 때](modifying-existing-code.md)에 있다.
+  [기존 코드를 수정할 때](../concepts/modifying-existing-code.md)에 있다.
 - 그리고 검출 장치가 따로 있다 — **코드 리뷰는 낡은 주석을 검출하고 고치는 훌륭한 기제를
   제공한다** (12장 §12.3, p.98).[^ousterhout2021]
 
@@ -214,17 +214,17 @@ sources:
   p.100).[^ousterhout2021]
 - 맺음 — **잘 쓴 주석은 실패가 아니다. 그것은 코드의 가치를 높이며 추상을 정의하고 시스템
   복잡성을 관리하는 데 근본적인 역할을 한다** (12장 §12.6, p.100).[^ousterhout2021]
-- **이 KB에 이미 있는 반대 축과의 관계**: [개발자의 소통](developer-communication.md)의
+- **이 KB에 이미 있는 반대 축과의 관계**: [개발자의 소통](../concepts/developer-communication.md)의
   실용주의 쪽은 "모든 함수에 주석"을 DRY 위반으로 보고 이 장은 "모든 메서드에 인터페이스
   주석"을 요구한다. 둘은 층이 다르다 — 그쪽이 겨냥하는 것은 코드를 되풀이하는 주석이고
   이쪽이 요구하는 것은 코드가 담을 수 없는 인터페이스 서술이다. 코드를 되풀이하는 주석에
-  대한 판정은 두 소스가 같다([주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md)의
+  대한 판정은 두 소스가 같다([주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md)의
   붉은 깃발).
 
 ## 모순 — 좋은 이름이 주석을 대신할 수 있는가
 
 이 KB에서 **`contradicts`가 실제로 발화한 첫 자리다.** 상대는
-[코드의 나쁜 냄새](code-smells.md)이고, 갈리는 명제는 하나다 — **좋은 이름을 가진 선언이
+[코드의 나쁜 냄새](../concepts/code-smells.md)이고, 갈리는 명제는 하나다 — **좋은 이름을 가진 선언이
 인터페이스 주석을 대신할 수 있는가.**
 
 - **상대 쪽의 주장** — **작은 함수를 이해하기 쉽게 만드는 진짜 열쇠는 좋은 이름이다. 함수에
@@ -260,7 +260,7 @@ sources:
 
 위 [반대 의견 — 주석은 실패다](#반대-의견--주석은-실패다) 절은 이 페이지의 소스가 옮긴
 인용으로 세워져 있었다. **이제 그 원전이 이 KB에 직접 들어와
-[주석은 실패다](comments-as-failure.md)가 됐고, 그쪽에 `contradicts`가 걸렸다** — 이
+[주석은 실패다](../concepts/comments-as-failure.md)가 됐고, 그쪽에 `contradicts`가 걸렸다** — 이
 페이지의 둘째 모순 상대다.
 
 - **모순의 명제는 이 페이지가 이미 다투던 것보다 강하다.** [code-smells와의
@@ -269,13 +269,13 @@ sources:
   담을 수 있는가**를 다툰다. 원전의 전제는 **진실은 한 곳에서만 찾을 수 있다: 코드다**이고,
   이 페이지의 전제는 코드가 담을 수 없는 정보가 인터페이스의 비형식적 부분이라는 것이다.
 - **세 페이지가 한 쟁점의 세 꼭짓점이다.** 원전(martin2008 4장)이 조문을 세우고,
-  [코드의 나쁜 냄새](code-smells.md)(fowler2018 3장)가 그 처방을 리팩터링 어휘로
+  [코드의 나쁜 냄새](../concepts/code-smells.md)(fowler2018 3장)가 그 처방을 리팩터링 어휘로
   이어받고, 이 페이지가 둘 다에 반박한다. 각각의 `contradicts`를 그대로 두고 서로를
   가리키게 한다 — 하나로 합치면 갈리는 명제가 뭉개진다.
 - **인용 대조에서 차이 셋이 나왔고 논지에는 영향이 없다.** 이 페이지가 위 절에 실은
   인용문과 원전 스냅샷의 표기가 세 자리에서 다르다(`ourselves`/`ourself`,
   `can't`/`cannot`, 두 문단을 한 블록으로 합침). 대조표와 그 단서는
-  [주석은 실패다](comments-as-failure.md)의 인용 대조 절이 정본이다. **이 페이지의 인용은
+  [주석은 실패다](../concepts/comments-as-failure.md)의 인용 대조 절이 정본이다. **이 페이지의 인용은
   이 페이지 소스가 옮긴 그대로 두었다** — 이 페이지가 인용하는 것은 원전이 아니라 이
   페이지 소스의 인용이기 때문이다.
 - 원전이 생략 없이 읽히면 **반박 ③(문화에 대한 우려)의 대상이 더 분명해진다.** 원전은
@@ -287,7 +287,7 @@ sources:
 
 **이 페이지의 저자와 상대 페이지의 저자가 2024년 9월–2025년 2월에 공개 대담을 했다.**
 이 KB의 모순 판정이 두 책의 문장 대조로 세워졌던 것이 여기서 양측 진술로 확인된다.
-전문은 [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md)에 있다.
+전문은 [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md)에 있다.
 
 - **양측이 잣대에는 합의한다.** 상대가 이 페이지 저자의 복잡성 잣대에 **당신 접근에
   동의한다**고 답하고, 우리가 돕고 싶은 프로그래머는 저자가 아니라 **다른 사람이 쓴 코드를
@@ -321,29 +321,29 @@ sources:
   순손실이라고 믿는다** (§"Comments Summary", JOHN 발언).[^ousterhout2024-aposd]
 - **합의도 하나 명시된다** — **구현 코드는 그 코드가 뻔하지 않을 때만 주석이 필요하다는 데
   우리는 동의한다** (§"Comments Summary", JOHN 발언).[^ousterhout2024-aposd] 이 KB가
-  [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md)를 합의
+  [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md)를 합의
   자리로 적어 둔 것과 일치한다.
 
 ## 이어지는 페이지
-- [주석은 실패다](comments-as-failure.md) — **`contradicts` 상대이자 반대 의견의 원전.**
+- [주석은 실패다](../concepts/comments-as-failure.md) — **`contradicts` 상대이자 반대 의견의 원전.**
   진실은 코드에만 있다는 쪽
-- [오스터하우트–마틴 공개 대담](aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
+- [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md) — **이 모순의 1차 사료.**
   두 저자가 직접 맞붙어 경계를 확정한 자리
-- [코드의 나쁜 냄새](code-smells.md) — **`contradicts` 상대.** 주석을 리팩터링으로 없애라는 쪽
+- [코드의 나쁜 냄새](../concepts/code-smells.md) — **`contradicts` 상대.** 주석을 리팩터링으로 없애라는 쪽
 
-- [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md) — 그래서
+- [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md) — 그래서
   무엇을 적는가에 답하는 다음 장
-- [인터페이스 문서화](interface-documentation.md) — "주석 없이는 추상이 없다"를 실제 문서로
+- [인터페이스 문서화](../concepts/interface-documentation.md) — "주석 없이는 추상이 없다"를 실제 문서로
   옮기는 자리
 - [주석을 먼저 써라](write-the-comments-first.md) — 주석이 설계를 개선한다는 셋째 역할의 전문
-- [기존 코드를 수정할 때](modifying-existing-code.md) — 낡는다는 변명에 대한 처방의 자리
-- [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — "코드를 읽으면 된다"는 기대가 낳는
+- [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 낡는다는 변명에 대한 처방의 자리
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — "코드를 읽으면 된다"는 기대가 낳는
   얕은 메서드
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 투자
   사고방식의 전문
 - [복잡성의 정의와 증상](software-complexity-defined.md) — 주석이 덜어 주는 두 증상과 못
   덜어 주는 하나
-- [개발자의 소통](developer-communication.md) — 같은 문제를 실용주의 쪽에서 다루는 자리
+- [개발자의 소통](../concepts/developer-communication.md) — 같은 문제를 실용주의 쪽에서 다루는 자리
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브
 
 [^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design

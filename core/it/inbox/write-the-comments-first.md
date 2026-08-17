@@ -62,7 +62,7 @@ sources:
   주석이 코드를 되풀이한다. 코드에서 뻔하지 않은 설계 발상을 재구성하려 해도 기억나지 않는
   것들이 있을 것이다. 따라서 주석은 그것이 서술해야 할 가장 중요한 것 일부를 빠뜨린다**
   (15장 §15.1, p.132).[^ousterhout2021]
-  - [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md)의
+  - [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md)의
     "코드를 되풀이하지 마라"가 규칙이라면, 이 절은 **그 규칙이 깨지는 기제**를 시간 축에서
     설명한다.
 
@@ -113,7 +113,7 @@ sources:
   그 메서드는 얕다. 같은 발상이 변수에도 적용된다: 어떤 변수를 온전히 서술하는 데 긴 주석이
   든다면, 그것은 당신이 옳은 변수 분해를 고르지 않았을 수 있다는 붉은 깃발이다** (15장 §15.3,
   p.133).[^ousterhout2021]
-  - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 깊이는 "기능 대 인터페이스"라는
+  - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의 깊이는 "기능 대 인터페이스"라는
     비율이라 눈으로 재기 어려운데, 이 절이 **그것을 종이 위에서 잴 수 있는 물건(주석의
     길이)으로 바꾼다.** 이 책에서 깊이가 실측 가능한 형태를 얻는 몇 안 되는 자리다.
 - 요약 — **전체적으로, 주석을 쓰는 행위는 설계 결정을 일찍 평가하게 해 주어서 문제를 발견하고
@@ -129,7 +129,7 @@ sources:
 > find it difficult to write such a comment, that's an indicator that there may be a problem
 > with the design of the thing you are describing.
 
-- 이 깃발은 [이름 짓기](naming-things.md)의 "이름 고르기가 어렵다"(Hard to Pick Name)와 같은
+- 이 깃발은 [이름 짓기](../concepts/naming-things.md)의 "이름 고르기가 어렵다"(Hard to Pick Name)와 같은
   형태의 논증이다 — **표현이 안 되는 것은 표현의 문제가 아니라 대상의 문제**라는 재분류이고,
   이 책이 반복해 쓰는 진단 형식이다.
 
@@ -182,15 +182,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [인터페이스 문서화](interface-documentation.md) — 이 절차가 첫 단계에서 쓰는 바로 그 주석
-- [주석은 코드에서 뻔하지 않은 것을 서술한다](comments-describe-the-nonobvious.md) — 무엇을
+- [인터페이스 문서화](../concepts/interface-documentation.md) — 이 절차가 첫 단계에서 쓰는 바로 그 주석
+- [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md) — 무엇을
   적을지의 규칙
 - [주석을 왜 쓰는가](why-write-comments.md) — "시간이 없다"는 변명에 대한 앞선 반박
-- [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 이 장이 재는 대상
-- [두 번 설계하라](design-it-twice.md) — 코드를 쓰기 전에 설계를 시험하는 다른 절차
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 이 장이 재는 대상
+- [두 번 설계하라](../concepts/design-it-twice.md) — 코드를 쓰기 전에 설계를 시험하는 다른 절차
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 이
   장이 전제하는 태도
-- [이름 짓기](naming-things.md) — "이름 고르기가 어렵다"는 같은 형태의 붉은 깃발
+- [이름 짓기](../concepts/naming-things.md) — "이름 고르기가 어렵다"는 같은 형태의 붉은 깃발
 - [테스트가 코딩을 이끈다](test-to-code.md) — 같은 논증을 테스트로 하는 다른 소스
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브
 

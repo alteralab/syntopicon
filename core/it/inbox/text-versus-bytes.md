@@ -219,11 +219,11 @@ sources:
 
 - [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — `str`과 `bytes`가 그
   분류에서 어디에 놓이는가(평면 시퀀스), 그리고 정렬 경고의 원산지
-- [딕셔너리와 집합](dictionaries-and-sets.md) — 정규화되지 않은 문자열을 키로 쓰면
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 정규화되지 않은 문자열을 키로 쓰면
   해시가 갈라지는 자리
-- [외부 설정](external-configuration.md) — 인코딩처럼 환경에 따라 갈리는 값을 어디에
+- [외부 설정](../concepts/external-configuration.md) — 인코딩처럼 환경에 따라 갈리는 값을 어디에
   명시할 것인가의 원리 쪽
-- [파이썬 데이터 모델](python-data-model.md) — `bytes`가 `str` 메서드를 공유하는 것이
+- [파이썬 데이터 모델](../concepts/python-data-model.md) — `bytes`가 `str` 메서드를 공유하는 것이
   어떤 규약 위에 서는가
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브

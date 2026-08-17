@@ -30,13 +30,13 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 (SCHEMA §5).
 
 **이 허브가 담지 않는 것이 하나 있고 그것이 중요하다.** *상속을 쓸 것인가*의 판단은 여기
-없다. 이 KB에는 그 물음의 정본이 이미 있고([상속세](../inbox/inheritance-tax.md)) 이 장의
+없다. 이 KB에는 그 물음의 정본이 이미 있고([상속세](../concepts/inheritance-tax.md)) 이 장의
 지침들은 그 페이지에 **넷째 입장**으로 합류했다. 여기 있는 것은 그 판단을 내린 뒤에 필요한
 것 — 상속을 쓰기로 했거나 쓸 수밖에 없을 때 알아야 하는 기제다.
 
 ## 기제
 
-- [협력적 다중 상속과 MRO](../inbox/cooperative-multiple-inheritance.md) — **이 반입의
+- [협력적 다중 상속과 MRO](../concepts/cooperative-multiple-inheritance.md) — **이 반입의
   본체.** `super()`를 쓰라는 두 가지 이유(기반 클래스를 하드코딩하지 않는 것과 다중 상속
   논리)와 그 두 인자가 각각 무엇인가, `super()`가 돌려주는 것이 동적 프록시 객체라는 규정,
   메서드 결정 순서가 C3 알고리즘으로 계산되며 상속 그래프뿐 아니라 **선언에 나열된 순서**에도
@@ -60,20 +60,20 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 
 새 페이지가 아니라 기존 페이지의 절로 들어간 것들이다.
 
-- [상속세](../inbox/inheritance-tax.md) — **이 장의 판단 전부가 그쪽에 넷째 입장으로 있다.**
+- [상속세](../concepts/inheritance-tax.md) — **이 장의 판단 전부가 그쪽에 넷째 입장으로 있다.**
   상속을 다루는 일곱 지침(합성 선호·상속의 이유를 구분하기·ABC로 인터페이스를 명시하기·
   명시적 믹스인·집합 클래스 제공·서브클래싱을 위해 설계된 클래스만 상속하기·구상 클래스
   상속 피하기), 상속에 대한 일반 이론이 아직 없다는 인정, Go를 근거로 든 상속 거부의 현대
   흐름, 그리고 **네 소스를 나란히 놓고 `contradicts`로 판정하지 않은 근거**가 그 자리에 적혀
   있다
-- [인터페이스·프로토콜·ABC](../inbox/interfaces-protocols-and-abcs.md) — 인터페이스라면
+- [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — 인터페이스라면
   명시적 ABC이거나 `typing.Protocol` 하위 클래스여야 한다는 이 장의 규범이 합류했다
-- [디자인 패턴의 해부](../inbox/design-pattern-anatomy.md) — 장고의 디스패치 기제가 템플릿
+- [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 장고의 디스패치 기제가 템플릿
   메서드 패턴의 **동적** 변형이라는 관찰이 합류했다. 언어 기능이 패턴을 없애기만 하는 것이
   아니라 같은 이름 아래 다른 구현을 낳기도 한다는 사례다
-- [정보 은닉과 정보 누출](../inbox/information-hiding-and-leakage.md) — 하위 클래스가 상위
+- [정보 은닉과 정보 누출](../concepts/information-hiding-and-leakage.md) — 하위 클래스가 상위
   클래스의 구현 세부에 묶이는 누출이 언어 구현 층에서 나타나는 자리로 연결됐다
-- [딕셔너리와 집합](../inbox/dictionaries-and-sets.md) — 맞춤 매핑을 `dict`이 아니라
+- [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 맞춤 매핑을 `dict`이 아니라
   `UserDict`에서 만들라는 그 페이지의 지침이 왜 그런지가 이 축에서 밝혀진다
 
 ## 이 소스를 읽는 법

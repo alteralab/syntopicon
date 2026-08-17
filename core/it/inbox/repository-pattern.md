@@ -85,7 +85,7 @@ sources:
   남는다** (2장 §"Inverting the Dependency: ORM Depends on Model").[^percival2020]
   - 이 성질이 뒤에 값을 한다. 13장의 부트스트랩 스크립트에서 `start_orm` 인수로
     ORM 시작 여부를 켜고 끄는 것이 그 예다 —
-    [의존성 주입과 부트스트랩](dependency-injection-and-bootstrap.md)에 있다.
+    [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md)에 있다.
 - 완전한 승리가 아니라는 단서도 붙는다 — **도메인 모델에서 무엇을 하고 있는가에 따라,
   특히 OO 패러다임에서 멀리 벗어난다면, ORM이 필요한 정확한 행동을 내게 만들기가 점점
   어려워질 수 있고 도메인 모델을 수정해야 할 수도 있다. 아키텍처 결정에서 흔히 그렇듯
@@ -129,8 +129,8 @@ sources:
     말한 것이 6장의 "가진 적 없는 것을 목하지 마라" 곁글이다 — 세션 인터페이스에 결합하면
     **SQLAlchemy의 모든 복잡성에 결합하기로 고르는 것**이고, 그래서 더 단순한 추상을
     골라 책임을 명확히 가른다 (6장 §"Don't Mock What You Don't Own" 곁글).[^percival2020]
-    그 판정의 전문은 [가짜와 목](fakes-versus-mocks.md)에 있다.
-- 이 논리를 [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 잣대로 읽으면
+    그 판정의 전문은 [가짜와 목](../concepts/fakes-versus-mocks.md)에 있다.
+- 이 논리를 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의 잣대로 읽으면
   리포지터리는 **깊은 모듈**이다 — 인터페이스는 메서드 둘, 구현은 ORM 설정·세션·질의
   전부. #hypothesis 두 소스가 서로를 참조한 적은 없다.
 - 그리고 SQLAlchemy 추상을 우리 추상으로 **바꾸는 것**이지 없애는 것이 아니라는 규정 —
@@ -237,17 +237,17 @@ sources:
   주어, 이제 클라이언트가 단순하고 의도를 드러내는 인터페이스에 대고 모델의 관점에서 필요한
   것을 요청할 수 있게 한다. 이 모든 것을 지원하려면 많은 복잡한 기술 인프라가 필요하지만
   인터페이스는 단순하고 개념적으로 도메인 모델에 연결되어 있다** (6장, p.151).[^evans2003]
-  이 문장이 기대는 조항은 [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)다.
+  이 문장이 기대는 조항은 [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md)다.
 
 ## 이어지는 페이지
 
 - [작업 단위 패턴](unit-of-work-pattern.md) — 이 리포지터리를 담는 원자적 경계
 - [서비스 레이어](service-layer-pattern.md) — 이 리포지터리를 부르는 층
-- [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 리포지터리
+- [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 리포지터리
   하나가 무엇을 돌려줘야 하는가를 정하는 규칙
-- [의존성 역전 원칙](dependency-inversion-principle.md) — 이 패턴이 구현하는 원리
-- [가짜와 목](fakes-versus-mocks.md) — `FakeRepository`가 왜 목이 아닌가
-- [있는 시스템에 이 구조 들이기](adopting-architecture-incrementally.md) — 저장소를
+- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 구현하는 원리
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — `FakeRepository`가 왜 목이 아닌가
+- [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — 저장소를
   CSV로 통째로 바꿔 이 추상을 시험하는 부록
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
