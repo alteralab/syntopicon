@@ -2,7 +2,6 @@
 type: concept
 title: AI 시스템의 관측성
 description: 뒤늦게 붙이는 것이 아니라 설계에 통합되어야 하는 관측성 — 모니터링의 목표가 평가의 목표와 같다는 규정, 데브옵스에서 온 MTTD·MTTR·CFR 세 지표, 평가와 모니터링이 서로를 먹여야 한다는 요구, 그리고 외부 출력에서 내부 상태를 추론할 수 있다는 가정으로 모니터링과 갈리는 관측성의 정의
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

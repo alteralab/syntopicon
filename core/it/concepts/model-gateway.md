@@ -2,7 +2,6 @@
 type: concept
 title: 모델 게이트웨이
 description: 조직이 여러 모델과 하나의 인터페이스로 만나게 해 주는 중간 층 — 모델 API가 바뀌어도 게이트웨이만 고치면 되는 유지보수 이득, 조직 토큰을 나눠 주지 않는 접근 제어와 비용 관리, 요금 한도와 API 실패에 대비하는 폴백 정책, 요청이 이미 지나가는 자리라서 얹히는 로드 밸런싱·로깅·캐싱·가드레일, 그리고 기성 게이트웨이 목록
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

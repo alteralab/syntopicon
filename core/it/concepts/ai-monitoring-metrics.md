@@ -2,7 +2,6 @@
 type: concept
 title: AI 시스템의 모니터링 지표
 description: 지표 자체가 목표가 아니라 실패 모드에서 거꾸로 설계되는 것이라는 순서 — 형식 실패부터 개방형 생성과 안전까지의 품질 지표, 대화 신호로 모델 품질을 추론하는 다섯 가지, 구성 요소마다 따로 있는 지표와 북극성 지표와의 상관, 지연과 비용의 지표, 스팟 체크와 전수 체크, 그리고 지표를 쪼개 볼 축들
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

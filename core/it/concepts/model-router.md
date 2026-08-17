@@ -2,7 +2,6 @@
 type: concept
 title: 모델 라우터
 description: 질의마다 다른 해법을 고르게 해 주는 층 — 특화 모델과 비용 절감이라는 두 이득, 라우터의 본체인 의도 분류기와 그것이 막는 범위 밖 대화·애매한 질의, 에이전트의 다음 행동 예측기, 라우터를 무엇으로 만들고 얼마나 빠르고 싸야 하는가, 컨텍스트 한계가 다를 때의 처리, 그리고 라우팅이 검색 앞에 오는 흔한 패턴
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

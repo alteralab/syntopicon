@@ -2,7 +2,6 @@
 type: concept
 title: AI 애플리케이션 아키텍처의 단계적 확장
 description: 가장 단순한 아키텍처에서 시작해 필요가 생길 때마다 부품을 더해 가는 다섯 단계의 순서 — 질의와 모델 API뿐인 출발점, 맥락 강화·가드레일·라우터와 게이트웨이·캐시·에이전트 패턴이라는 확장의 차례, 쓰기 행동이 여는 능력과 위험, 부품마다 늘어나는 실패 모드, 그리고 구성 요소의 경계가 유동적이라는 규정
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

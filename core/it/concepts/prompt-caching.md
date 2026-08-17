@@ -2,7 +2,7 @@
 type: concept
 title: 프롬프트 캐싱
 description: 프롬프트마다 겹치는 조각을 한 번만 처리하게 만드는 캐시 — 시스템 프롬프트와 긴 문서와 다중 턴 대화라는 세 쓰임, 하루 10억 개의 반복 입력 토큰을 아끼는 규모의 산수, 캐시 크기와 구현 비용이라는 대가, 그리고 모델 API가 붙인 할인율과 저장 요금
-generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -94,6 +94,8 @@ sources:
 - [에이전트의 메모리](../concepts/agent-memory.md) — 긴 대화의 앞부분을 어떻게 다룰 것인가의 다른 답
 - [추론 최적화의 세 수준](../concepts/inference-optimization-levels.md) — 요약이 이 기법을 가장
   영향이 큰 축에 놓는 자리
+- [정확 캐싱과 의미 캐싱](../concepts/exact-and-semantic-caching.md) — 10장이 이 추론 캐시와 구분해
+  두는 시스템 캐시, 그리고 이 캐시가 아키텍처 그림에서 모델 API 상자 안으로 들어가는 자리
 
 [^huyen2025]: Huyen 2025, 9장 "Inference Optimization" (책 pp.405–448). 이 페이지는 "Inference
     Service Optimization" 절의 하위 절 "Prompt caching"(pp.443–444)을 담았다. Table 9-3(p.444)은

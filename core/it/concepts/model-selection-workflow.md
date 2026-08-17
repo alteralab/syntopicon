@@ -2,7 +2,7 @@
 type: concept
 title: 모델 선택 워크플로
 description: 최고의 모델이 아니라 내 애플리케이션에 최고인 모델을 고르는 절차 — 적응 기법을 바꿀 때마다 선택을 반복하게 되는 구조, 바꿀 수 없는 하드 속성과 개선할 수 있는 소프트 속성의 구분과 그 경계가 유스케이스에 따라 움직인다는 사실, 그리고 하드 속성 필터링에서 공개 벤치마크와 사적 실험을 거쳐 프로덕션 모니터링에 이르는 네 단계
-generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -106,6 +106,11 @@ sources:
 - [모델 적응 기법](../concepts/model-adaptation-techniques.md) — 프롬프트 엔지니어링과 파인 튜닝이
   갈리는 축
 - [모델 크기와 규모](../concepts/model-size-and-scale.md) — 하드웨어 제약이 모델 크기를 가두는 자리
+- [AI 시스템의 관측성](../concepts/ai-observability.md) — 넷째 단계인 모니터링이 10장에서 다뤄지는
+  자리
+- [데이터로서의 사용자 피드백](../concepts/user-feedback-as-data.md) — 함께 미뤄 두었던 사용자 피드백
+  수집
+- [모델 라우터](../concepts/model-router.md) — 하나가 아니라 질의마다 다른 모델을 고르게 되는 자리
 
 [^huyen2025]: Huyen 2025, 4장 "Evaluate AI Systems" (책 pp.159–210). 이 페이지는 "Model Selection"
     절의 도입부(p.179)와 하위 절 "Model Selection Workflow"(pp.179–181)를 담았다. 도판 Figure

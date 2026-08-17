@@ -2,7 +2,6 @@
 type: concept
 title: 사용자 피드백의 편향
 description: 다른 데이터와 마찬가지로 편향을 갖는 사용자 피드백의 네 갈래 — 갈등을 피하려 후하게 매기는 관대성 편향과 우버 평점의 실측, 동기가 없어 아무거나 고르는 무작위성, 첫 번째 선택지가 유리한 위치 편향과 그 완화, 그리고 긴 답과 나중에 본 답을 선호하는 편향
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

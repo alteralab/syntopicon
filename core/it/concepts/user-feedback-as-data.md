@@ -2,7 +2,6 @@
 type: concept
 title: 데이터로서의 사용자 피드백
 description: 소프트웨어에서는 제품 개발의 안내였고 AI에서는 데이터가 되는 사용자 피드백 — 독점 데이터가 경쟁 우위라는 전제와 데이터 플라이휠, 피드백도 사용자 데이터라는 사실, 명시적 피드백과 암묵적 피드백의 구분, 대화 인터페이스가 성능과 선호를 함께 드러내는 방식, 평가·개발·개인화라는 세 쓰임, 그리고 챗GPT 이전부터 있던 연구 계보
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

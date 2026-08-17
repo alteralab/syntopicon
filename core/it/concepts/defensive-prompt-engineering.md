@@ -2,7 +2,7 @@
 type: concept
 title: 방어적 프롬프트 엔지니어링
 description: 애플리케이션을 프롬프트 공격에서 지키는 일의 지형도 — 프롬프트 추출·탈옥과 프롬프트 주입·정보 추출이라는 세 가지 공격 유형, 그 공격이 실제로 만들어 내는 원격 코드 실행부터 브랜드 위험까지의 여섯 가지 위험, 그리고 어떤 보안 조치도 완벽할 수 없다는 규정
-generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -83,6 +83,8 @@ sources:
   수준의 방어와 그 지표
 - [AI 안전성 평가](../concepts/ai-safety-evaluation.md) — 브랜드 위험과 독성 출력을 재는 자리
 - [프롬프팅의 기본](../concepts/prompting-fundamentals.md) — 같은 장의 앞절이 세우는 프롬프트의 해부
+- [AI 애플리케이션의 가드레일](../concepts/ai-application-guardrails.md) — 이 위험들이 아키텍처에서
+  가로막히는 자리와, 10장이 같은 규정을 되풀이하는 대목
 
 [^huyen2025]: Huyen 2025, 5장 "Prompt Engineering" (책 pp.211–252). 이 페이지는 "Defensive Prompt
     Engineering" 절의 도입(pp.235–236)과 그 축을 닫는 "Summary"의 보안 문단(pp.251–252)을 담았다.

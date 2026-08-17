@@ -2,7 +2,7 @@
 type: concept
 title: 평가 방법과 데이터
 description: 평가 파이프라인의 셋째 단계와 파이프라인 자신에 대한 평가 — 기준마다 다른 방법을 고르고 싼 신호와 비싼 신호를 섞는 법, logprobs와 사람 평가가 서는 자리, 평가 데이터의 주석과 슬라이싱 그리고 심슨의 역설, 평가 집합이 몇 개면 되는가를 부트스트랩으로 확인하는 법과 차이 검출에 필요한 표본 수, 파이프라인 자신에게 물어야 할 네 질문, 그리고 반복
-generated: { by: "claude-opus-5", at: "2026-08-16T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -222,6 +222,11 @@ sources:
 - [평가 주도 개발](../concepts/evaluation-driven-development.md) — 이 파이프라인이 실현하는 접근
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 평가 데이터가 훈련 데이터로 다시
   쓰이는 쪽
+- [데이터로서의 사용자 피드백](../concepts/user-feedback-as-data.md) — 프로덕션 평가가 기다리던
+  사용자 피드백이 10장에서 다뤄지는 자리
+- [AI 시스템의 모니터링 지표](../concepts/ai-monitoring-metrics.md) — 이 평가 방법이 프로덕션 지표로
+  옮겨 가는 자리
+- [AI 시스템의 관측성](../concepts/ai-observability.md) — 프로덕션 평가가 놓인 더 큰 틀
 
 [^huyen2025]: Huyen 2025, 4장 "Evaluate AI Systems" (책 pp.159–210). 이 페이지는 "Design Your
     Evaluation Pipeline" 절의 "Step 3. Define Evaluation Methods and Data"(pp.204–207)와 그 아래

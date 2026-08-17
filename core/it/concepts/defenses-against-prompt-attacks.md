@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 프롬프트 공격 방어
-description: 프롬프트 공격을 막는 일이 실제로 놓이는 세 수준 — 취약점을 먼저 알아야 한다는 순서와 적대적 공격 벤치마크·레드 티밍, 위반율과 거짓 거절률이라는 두 지표가 함께 필요한 이유, 시스템 프롬프트를 우선하도록 훈련하는 지시 계층, 프롬프트를 두 번 쓰는 것 같은 프롬프트 수준의 수, 그리고 격리와 승인과 가드레일이라는 시스템 수준의 수
-generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
+description: 프롬프트 공격을 막는 일이 실제로 놓이는 세 수준 — 취약점을 먼저 알아야 한다는 순서와 적대적 공격 벤치마크·레드 티밍, 위반율과 거짓 거절률이라는 두 지표가 함께 필요한 이유, 시스템 프롬프트를 우선하도록 훈련하는 지시 계층, 프롬프트를 두 번 쓰는 것 같은 프롬프트 수준의 수, 격리와 승인과 가드레일이라는 시스템 수준의 수, 그리고 그 가드레일이 모델 제공자·애플리케이션 개발자·게이트웨이 중 어디에 놓이는가
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -15,6 +15,7 @@ sources:
 - [경계 요청까지 훈련한다](#경계-요청까지-훈련한다)
 - [프롬프트 수준 방어](#프롬프트-수준-방어)
 - [시스템 수준 방어](#시스템-수준-방어)
+- [가드레일이 놓이는 수준](#가드레일이-놓이는-수준)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프롬프트 공격을 막는 수는 어느 층에 놓이고, 막았다는 것을 무엇으로 재는가.**
@@ -139,6 +140,20 @@ sources:
   어떤 사용자가 짧은 시간 안에 비슷해 보이는 요청을 많이 보내는 것처럼 보인다면, 이 사용자는 안전
   필터를 뚫는 프롬프트를 찾고 있는 것일 수 있다** (5장, p.251).[^huyen2025]
 
+## 가드레일이 놓이는 수준
+
+- 10장이 이어받는 자리다. 모델 제공자 쪽 — **애플리케이션이 실패할 수 있는 자리가 많다는 것을 감안하면
+  가드레일은 아주 여러 수준에서 구현될 수 있다. 모델 제공자는 자기 모델을 더 낫고 더 안전하게 만들려고
+  모델에 가드레일을 붙인다. 그러나 모델 제공자는 안전성과 유연성의 균형을 잡아야 한다. 제약은 모델을 더
+  안전하게 만들 수 있지만 특정 유스케이스에는 덜 쓸모 있게 만들 수도 있다** (10장,
+  p.455).[^huyen2025]
+- 애플리케이션 개발자 쪽과 기성 솔루션 — **가드레일은 애플리케이션 개발자가 구현할 수도 있다. 많은 기법이
+  248쪽 "Defenses Against Prompt Attacks"에서 논의된다. 상자에서 꺼내 바로 쓸 수 있는 가드레일 솔루션에는
+  Meta의 Purple Llama, NVIDIA의 NeMo Guardrails, Azure의 PyRIT, Azure의 AI content filters,
+  Perspective API, 그리고 OpenAI의 content moderation API가 있다. 입력과 출력의 위험이 겹치기 때문에
+  하나의 가드레일 솔루션이 입력과 출력 양쪽에 대한 보호를 제공할 가능성이 높다. 어떤 모델 게이트웨이는
+  가드레일 기능도 제공한다** (10장, p.455).[^huyen2025]
+
 ## 이어지는 페이지
 
 - [방어적 프롬프트 엔지니어링](../concepts/defensive-prompt-engineering.md) — 막아야 할 공격의 지형도
@@ -152,12 +167,21 @@ sources:
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — 안전성을 훈련 쪽에서 다루는 자리
 - [프롬프트 엔지니어링 도구](../concepts/prompt-engineering-tools.md) — 기본 템플릿을 검사하라는 조언이
   나온 자리
+- [AI 애플리케이션의 가드레일](../concepts/ai-application-guardrails.md) — 10장이 이어받은 가드레일
+  자체
+- [모델 게이트웨이](../concepts/model-gateway.md) — 가드레일이 대신 놓일 수 있는 자리
 
-[^huyen2025]: Huyen 2025, 5장 "Prompt Engineering" (책 pp.211–252). 이 페이지는 "Defenses Against
+[^huyen2025]: Huyen 2025, 5장 "Prompt Engineering" (책 pp.211–252)과 10장 "AI Engineering
+    Architecture and User Feedback" (책 pp.449–496). 이 페이지는 "Defenses Against
     Prompt Attacks" 절(pp.248–251)과 그 하위 절 "Model-level defense"·"Prompt-level defense"·
     "System-level defense"를 담았다. Figure 5-16(지시 계층의 네 수준과 권한 표, p.249, Wallace et
     al. 2024 — 원문 도판 설명은 "tion hierarchy proposed by…"로 앞이 잘려 인쇄되어 있다)은 수준과
     권한 라벨만 옮겼고 예시 대화는 옮기지 않았다. 시스템 프롬프트 중복 예와 공격 대비 예는 원문
     표기를 그대로 옮겼다. Advbench(Chen et al., 2022)·PromptRobust(Zhu et al., 2023)·Azure/PyRIT·
     leondz/garak·greshake/llm-security·CHATS-lab/persuasive_jailbreaker·마이크로소프트의 레드 티밍
-    글·Wallace et al.(2024)·Pedro et al.(2023)은 huyen2025를 통한 전언이다.
+    글·Wallace et al.(2024)·Pedro et al.(2023)은 huyen2025를 통한 전언이다. "가드레일이 놓이는
+    수준" 절은 10장 "Step 2. Put in Guardrails"(pp.452·455)에서 왔고, Meta Purple Llama·NVIDIA
+    NeMo Guardrails·Azure PyRIT·Azure AI content filters·Perspective API·OpenAI content
+    moderation API도 huyen2025를 통한 전언이다. 10장이 같은 자리에서 되풀이하는 "위험은 완전히
+    제거될 수 없다"는 규정은 이 페이지가 아니라
+    [AI 애플리케이션의 가드레일](../concepts/ai-application-guardrails.md)이 담았다.

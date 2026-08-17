@@ -2,7 +2,6 @@
 type: concept
 title: AI 애플리케이션의 가드레일
 description: 위험에 노출되는 자리마다 놓이는 입력과 출력의 두 가드레일 — 외부 API로 사적 정보가 새는 세 경로와 가역 PII 사상, 출력 가드레일의 두 기능과 품질·보안으로 갈리는 실패 목록, 재시도와 병렬 호출과 사람 이관, 신뢰성과 지연의 맞바꿈, 스트리밍 모드에서 생기는 구멍, 그리고 모델 제공자·애플리케이션 개발자·게이트웨이로 갈리는 구현 수준
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

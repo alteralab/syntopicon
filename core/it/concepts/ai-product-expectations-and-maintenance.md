@@ -2,7 +2,7 @@
 type: concept
 title: AI 제품의 기대치와 유지보수
 description: 만들기로 정한 뒤에 재야 할 것과 그 뒤에 오는 것 — 사업 지표와 유용성 임계, 품질·지연·비용의 지표군, 데모에서 제품까지의 라스트 마일 문제, 그리고 좋은 변화조차 마찰을 만드는 빠른 변화 위에서 제품을 유지하는 일
-generated: { by: "claude-opus-5", at: "2026-08-16T15:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -114,6 +114,11 @@ sources:
 - [모델 개발 층](../concepts/ai-model-development-layer.md) — 지연과 비용 지표를 움직이는 추론 최적화가
   사는 곳
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지연 지표를 계약으로 쓰는 일반 어휘
+- [드리프트 탐지](../concepts/drift-detection.md) — 기저 모델이 조용히 갈아 끼워지는 것을 프로덕션에서
+  잡는 쪽
+- [AI 시스템의 관측성](../concepts/ai-observability.md) — 유지보수가 기대는 계측
+- [데이터로서의 사용자 피드백](../concepts/user-feedback-as-data.md) — 고객 만족과 피드백 추적이 자기
+  축으로 서는 자리
 
 [^huyen2025]: Huyen 2025, 1장 "Introduction to Building AI Applications with Foundation Models"
     (책 pp.1–48). 도판 Figure 1-11(2022~2024년 MMLU 정확도 대비 100만 토큰당 비용 산점도)은 옮기지

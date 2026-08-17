@@ -2,7 +2,6 @@
 type: concept
 title: 정확 캐싱과 의미 캐싱
 description: 추론 캐시와 구분되는 시스템 캐시의 두 기제 — 똑같은 항목만 재사용하는 정확 캐싱과 그 저장소·축출 정책·보관 기간, 사용자별 응답이 남의 것으로 돌아가는 데이터 유출, 임베딩 유사도로 비슷한 질의까지 재사용하는 의미 캐싱과 그 세 단계, 그리고 구성 요소마다 실패에 취약해 값어치가 더 미심쩍다는 판정
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

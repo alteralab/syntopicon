@@ -2,7 +2,6 @@
 type: concept
 title: AI 파이프라인 오케스트레이션
 description: 여러 모델과 데이터베이스와 도구를 하나의 종단 간 파이프라인으로 잇는 층 — 구성 요소 정의와 체이닝이라는 두 단계, 함수 합성으로서의 체인과 여섯 단계 예, 데이터 흐름이 끊길 때 알려야 한다는 책임, 지연이 빠듯할 때의 병렬화, 일반 워크플로 오케스트레이터와의 구분, 먼저 없이 시작하라는 권고, 그리고 고를 때 보는 세 측면
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

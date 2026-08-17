@@ -2,7 +2,6 @@
 type: concept
 title: 로그와 트레이스
 description: 집계된 지표가 답하지 못하는 "무슨 일이 있었나"를 맡는 두 기록 — 5분 전 스파이크를 로그로 되짚는 디버깅 순서와 로그 지연이 대응 속도를 정한다는 사실, 설정부터 중간 출력까지 전부 로그하라는 규칙과 태그·ID, 사람이 매일 프로덕션 데이터를 들여다볼 때 프롬프트와 평가가 함께 바뀐다는 실측, 그리고 흩어진 사건을 하나의 타임라인으로 잇는 트레이스
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

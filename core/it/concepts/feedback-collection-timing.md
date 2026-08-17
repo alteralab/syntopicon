@@ -2,7 +2,6 @@
 type: concept
 title: 피드백을 언제 수집하는가
 description: 사용자 여정 어디에서 피드백이 특히 값진가 — 처음에 애플리케이션을 사용자에게 맞추는 보정과 마찰을 만들지 않기, 무언가 잘못됐을 때 신고하고 그래도 과제를 끝내게 하는 협업과 인페인팅, 모델의 확신이 낮을 때 나란히 놓고 고르게 하는 비교 신호와 전체·부분 응답의 미결 논쟁, 그리고 좋은 일에 피드백을 물을 것인가라는 엇갈린 조언
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

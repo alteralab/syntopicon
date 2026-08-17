@@ -2,7 +2,6 @@
 type: concept
 title: 퇴화 피드백 루프
 description: 예측이 피드백에 영향을 주고 그 피드백이 다음 모델을 바꾸어 초기 편향을 증폭하는 고리 — 보여 준 것에만 피드백이 생긴다는 불완전성, 인기 있는 영상이 계속 인기 있는 이유와 노출 편향·인기 편향·필터 버블, 제품의 초점과 사용자층까지 바꾸는 힘, 그리고 사람 피드백으로 훈련된 모델이 아첨으로 기우는 실측
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

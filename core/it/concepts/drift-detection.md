@@ -2,7 +2,6 @@
 type: concept
 title: 드리프트 탐지
 description: 부품이 많아질수록 바뀔 것도 많아진다는 전제 아래 AI 애플리케이션에서 몰래 바뀌는 세 가지 — 남이 고친 프롬프트 템플릿과 오타 수정으로 바뀌는 시스템 프롬프트, 기술에 적응해 질의 방식을 바꾸는 사용자 행동과 그 완만한 하락, 그리고 API는 그대로인데 갈아 끼워지는 기저 모델과 그 버전차 실측
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

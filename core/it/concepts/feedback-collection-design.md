@@ -2,7 +2,6 @@
 type: concept
 title: 피드백을 어떻게 수집하는가
 description: 워크플로에 매끄럽게 스며들어야 하는 피드백 수집의 설계 — 미드저니의 네 이미지와 세 선택지, 탭 한 번으로 수락과 거절이 갈리는 깃허브 코파일럿, 워크플로 밖에 선 독립 앱의 난점, 맥락을 함께 받으려면 필요한 동의, 사용자가 답할 수 없는 것을 묻지 말라는 규칙과 모호한 설계가 만든 별점 사고, 그리고 신호를 공개할 것인가라는 결정
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

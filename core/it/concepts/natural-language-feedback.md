@@ -2,7 +2,6 @@
 type: concept
 title: 대화에서 오는 자연어 피드백
 description: 사용자 메시지의 내용에서 뽑아내는 신호들 — 생성을 중간에 끊는 조기 종료, "아니 내 말은"으로 시작하는 오류 정정과 재표현·행동 교정·확인 요구, 선호 데이터가 되는 사용자 편집, 여덟 무리로 자동 군집된 불평의 분포, 감정의 궤적, 그리고 모델의 거절률
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }

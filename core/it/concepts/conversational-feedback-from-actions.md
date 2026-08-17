@@ -2,7 +2,6 @@
 type: concept
 title: 행동에서 오는 대화 피드백
 description: 메시지가 아니라 사용자의 행동에서 이끌어 내는 신호들 — 재생성이 뜻하는 것과 과금 방식에 따라 달라지는 세기, 삭제와 이름 바꾸기가 갈리는 대화 정리, 애플리케이션에 따라 부호가 뒤집히는 대화 길이, 루프에 갇힌 것을 드러내는 대화 다양성, 그리고 명시적 피드백과 암묵적 피드백의 맞바꿈
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
