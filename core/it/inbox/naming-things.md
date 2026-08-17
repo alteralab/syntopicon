@@ -8,6 +8,7 @@ sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: martin2008, resource: /it/sources/martin2008.md }
 ---
 
 # 이름 짓기
@@ -30,6 +31,7 @@ sources:
 - [반대 의견 — Go의 짧은 이름](#반대-의견--go의-짧은-이름)
 - [두 소스가 이름 짓기를 배치하는 방식](#두-소스가-이름-짓기를-배치하는-방식)
 - [이름이 안 떠오르는 것이 진단이라는 셋째 소스](#이름이-안-떠오르는-것이-진단이라는-셋째-소스)
+- [넷째 소스 — 규칙 열여섯 개의 목록](#넷째-소스--규칙-열여섯-개의-목록)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **이름은 무엇을 하고, 이름이 틀렸다는 것을 어떻게 알며, 왜 그것을 못 고치는가.**
@@ -500,7 +502,72 @@ sources:
   이름 지어라")은 별도의 쟁점을 낳는다 — [코드의 나쁜 냄새](code-smells.md)의 마지막 절과
   [주석을 왜 쓰는가](why-write-comments.md)를 보라.
 
+## 넷째 소스 — 규칙 열여섯 개의 목록
+
+논쟁 중인 소스([소스 메타](../sources/martin2008.md))의 2장이 이름 규칙을 목록으로 낸다
+(그 장의 필자는 저자가 아니라 Tim Ottinger다). **이 자리는 이 KB의 다른 소스들과 갈리지
+않는다** — 이 소스에서 논쟁이 걸린 것은 3장과 4장이고, 이름에 관해서는 세 소스가 대체로
+같은 방향이다. 그래서 여기서는 이 페이지에 없던 것만 든다.
+
+- **출발 명제가 이 페이지의 [이름이 드러내는 것](#이름이-드러내는-것) 절과 같다** — **변수·
+  함수·클래스의 이름은 모든 큰 질문에 답해야 한다. 그것은 왜 존재하는지, 무엇을 하는지,
+  어떻게 쓰이는지를 말해 주어야 한다** (2장 §"Use Intention-Revealing Names",
+  p.18).[^martin2008] 그리고 조문 (2장 §"Use Intention-Revealing Names",
+  p.18):[^martin2008]
+
+> If a name requires a comment, then the name does not reveal its intent.
+
+  - **이 한 줄이 이 소스의 3·4장으로 이어지는 다리다.** 이름과 주석을 대체 관계로 놓는
+    전제가 여기 이미 있다 — 그 귀결에 대한 대질은
+    [주석은 실패다](comments-as-failure.md)와 [주석을 왜 쓰는가](why-write-comments.md)에
+    있다. **이 페이지에서 그 다리를 다루지 않는 이유는 이름 규칙 자체는 갈리지 않기
+    때문이다.**
+- **이 페이지에 없던 규칙들.**
+  - **오정보를 피하라(Avoid Disinformation)** — **프로그래머는 코드의 뜻을 흐리는 거짓
+    단서를 남기는 것을 피해야 한다** (2장, p.19).[^martin2008] 실제 List가 아닌 것을
+    `accountList`라 부르지 말라는 것이 예다. 그리고 **비슷한 개념을 비슷하게 철자하는
+    것이 *정보*다. 일관되지 않은 철자는 *오정보*다** (2장, p.20).[^martin2008]
+  - **의미 있는 구분을 하라(Make Meaningful Distinctions)** — **이름이 달라야 한다면
+    그것들은 또한 무언가 다른 것을 뜻해야 한다** (2장, p.20).[^martin2008] `Product`와
+    `ProductInfo`·`ProductData`처럼 **뜻을 다르게 만들지 않은 채 이름만 다르게 만든**
+    잡음 낱말이 대상이다 (2장, p.21).[^martin2008]
+  - **발음할 수 있는 이름을 쓰라(Use Pronounceable Names)** — **발음할 수 없으면 바보처럼
+    들리지 않고서는 그것에 대해 논의할 수 없다** (2장, p.22).[^martin2008] 이 페이지의 다른
+    소스에 없는 근거다 — 이름의 소비처가 읽기만이 아니라 **말하기**라는 관찰.
+  - **검색할 수 있는 이름을 쓰라(Use Searchable Names)** — **한 글자 이름과 숫자 상수는
+    본문 전체에서 찾기 쉽지 않다는 특유의 문제가 있다** (2장, p.22).[^martin2008]
+    - **이 KB의 원어 병기 규약과 같은 문제 의식이다**(SCHEMA §3) — 이름을 검색 키로 보는
+      관점. 위 [이 KB의 어휘 관리와 나란히](#이-kb의-어휘-관리와-나란히) 절이 같은 자리다.
+  - **한 개념에 한 낱말(Pick One Word per Concept)** — **하나의 추상 개념에 한 낱말을
+    고르고 그것을 고수하라. 예컨대 서로 다른 클래스의 동등한 메서드에 fetch·retrieve·get을
+    쓰는 것은 혼란스럽다** (2장, p.26).[^martin2008] 이 페이지의
+    [일관성 — 팀의 어휘](#일관성--팀의-어휘) 절과 같은 처방이다.
+  - **말장난하지 마라(Don't Pun)** — 앞 규칙의 반대 방향 제동이다. **같은 낱말을 두 목적에
+    쓰는 것을 피하라. 서로 다른 두 생각에 같은 용어를 쓰는 것은 본질적으로 말장난이다**
+    (2장, p.26).[^martin2008] 의미가 다르면 `insert`나 `append`를 쓰라는 것.
+  - **범위에 비례하는 길이** — 17장 `N5`가 조문으로 둔다 — **이름의 길이는 범위의 길이에
+    관계돼야 한다. 아주 작은 범위에는 아주 짧은 변수 이름을 쓸 수 있지만, 큰 범위에는 더
+    긴 이름을 써야 한다** (17장 `N5`, p.312).[^martin2008]
+    - **이것이 이 페이지의 [반대 의견 — Go의 짧은 이름](#반대-의견--go의-짧은-이름) 절과
+      같은 결론이다.** 두 소스가 서로를 참조한 적은 없고, Go 쪽 견해와 이 소스가 같은
+      규칙에 도달했다는 점은 그 절의 판정을 강화한다.
+- **인코딩과 헝가리안 표기법에 대한 판정도 이 페이지의 다른 소스와 같다** — **자바
+  프로그래머는 타입 인코딩이 필요 없다. … 오늘날 HN과 다른 형태의 타입 인코딩은 그저
+  방해물이다** (2장 §"Hungarian Notation", p.24)[^martin2008], **더 이상 멤버 변수에 `m_`을
+  붙일 필요도 없다** (2장 §"Member Prefixes", p.24).[^martin2008] 17장 `N6`이 같은 것을
+  한 줄로 줄인다 — **이름을 헝가리안 오염에서 자유롭게 유지하라** (17장 `N6`,
+  p.313).[^martin2008]
+- **이 소스에만 있는 항목 하나** — 17장 `N7` **Names Should Describe Side-Effects**.
+  **이름은 함수·변수·클래스가 무엇이거나 무엇을 하는지 전부를 서술해야 한다. 부수 효과를
+  이름으로 감추지 마라** (17장 `N7`, p.313).[^martin2008] 없으면 만드는 `getOos()`는
+  `createOrReturnOos`여야 한다는 것이다. 이 KB에서 그 부수 효과 자체를 다루는 자리는
+  [작은 함수](small-functions.md)의 해당 절이다.
+- **맺음이 이 페이지의 전제를 다시 말한다** — **좋은 이름을 고르는 데 가장 어려운 점은
+  그것이 좋은 서술 능력과 공유된 문화적 배경을 요구한다는 것이다. 이것은 기술이나 사업이나
+  관리의 문제라기보다 가르침의 문제다** (2장 §"Final Words", p.30).[^martin2008]
+
 ## 이어지는 페이지
+- [클린 코드의 발견법 목록](clean-code-heuristics.md) — `N1`–`N7`이 사는 자리
 - [코드의 나쁜 냄새](code-smells.md) — Mysterious Name이 사는 자리
 
 - [리팩터링](refactoring.md) — 개명을 값싸게 만드는 활동. 저자들이 이 Topic의 관련 절로 지목한 자리
@@ -520,6 +587,18 @@ sources:
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 소스 쪽의 허브
 
+
+[^martin2008]: Martin 2008, 2장 "Meaningful Names"(§"Use Intention-Revealing Names"
+    p.18 · §"Avoid Disinformation" pp.19–20 · §"Make Meaningful Distinctions" pp.20–21 ·
+    §"Use Pronounceable Names" p.22 · §"Use Searchable Names" p.22 · §"Avoid Encodings"
+    p.23 · §"Hungarian Notation" pp.23–24 · §"Member Prefixes" p.24 · §"Pick One Word per
+    Concept" p.26 · §"Don't Pun" p.26 · §"Final Words" p.30) · 17장 `N5`(p.312) ·
+    `N6`·`N7`(p.313). **2장의 필자는 저자가 아니라 Tim Ottinger다.** **논쟁 중인 소스다**
+    — 지위와 반입 규약은 `it/sources/martin2008.md`가 정본이다. 쪽은 인쇄판 쪽 번호이며
+    복원 절차는 `it/archive/martin2008/_progress.yaml` 머리말이 정본이다. 직인용에서 문장
+    끝에 붙은 각주 번호를 뗐다. 2장에는 Listing 2-1·2-2가 있으나 펜스로 옮기지 않았다 —
+    이 페이지의 펜스 예산은 이미 다른 소스가 쓰고 있고, 두 리스팅은 문맥 추가 전후의 대비
+    쌍이라 둘 다 실어야 뜻이 성립한다. 도판은 없다.
 [^fowler2018]: Fowler 2018, 3장 §"Mysterious Name"(p.72). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크
     문자열 `ptg26261585`를 제거했다 — 이 소스의 표준 규약이며 근거는
     `it/archive/fowler2018/_progress.yaml` 머리말에 있다.

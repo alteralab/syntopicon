@@ -8,6 +8,7 @@ sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: martin2008, resource: /it/sources/martin2008.md }
 ---
 
 # DRY 원칙
@@ -22,6 +23,7 @@ sources:
 - [개발자 사이의 중복](#개발자-사이의-중복)
 - [중복이 무엇을 일으키는가 — 다른 소스의 증상 이름](#중복이-무엇을-일으키는가--다른-소스의-증상-이름)
 - [원칙이 아니라 읽기 비용으로 논증하는 소스](#원칙이-아니라-읽기-비용으로-논증하는-소스)
+- [이 축의 최대주의 극 — 중복은 만악의 근원](#이-축의-최대주의-극--중복은-만악의-근원)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **무엇을 중복이라 부르며, 왜 그것이 코드 줄의 문제가 아니라 지식의
@@ -253,8 +255,52 @@ sources:
   기반 클래스의 서브클래스들에 있으면 *Pull Up Method*다 (3장 §"Duplicated Code",
   p.72).[^fowler2018] 전문과 나머지 냄새들은 [코드의 나쁜 냄새](code-smells.md)에 있다.
 
+## 이 축의 최대주의 극 — 중복은 만악의 근원
+
+논쟁 중인 소스([소스 메타](../sources/martin2008.md))가 이 축의 한쪽 끝에 선다. **이
+페이지의 다른 세 소스는 모두 중복 제거에 조건이나 유보를 붙이는데, 이 소스만 붙이지
+않는다.**
+
+- 3장의 일반화 (3장 §"Don't Repeat Yourself", p.48):[^martin2008]
+
+> Duplication may be the root of all evil in software. Many principles and practices have
+> been created for the purpose of controlling or eliminating it.
+
+- 그 근거로 드는 것이 소프트웨어 역사 전체다 — Codd의 데이터베이스 정규형, 객체 지향,
+  구조적 프로그래밍, 관점 지향, 컴포넌트 지향이 **전부 부분적으로는 중복을 없애는
+  전략**이고, **서브루틴의 발명 이래 소프트웨어 개발의 혁신은 소스 코드에서 중복을 없애려는
+  계속된 시도였던 것으로 보인다** (3장 §"Don't Repeat Yourself", p.48).[^martin2008]
+- 17장이 처방으로 못 박는다 — **이것은 이 책에서 가장 중요한 규칙 중 하나이고 당신은
+  그것을 아주 진지하게 받아들여야 한다** (17장 `G5`, p.289)[^martin2008], 그리고
+  (17장 `G5`, p.290):[^martin2008]
+
+> I think the point has been made. Find and eliminate duplication wherever you can.
+
+- **중복의 세 층위를 구분한다는 점은 이 페이지의 다른 소스와 같다** — 똑같은 코드 덩어리
+  (메서드로 대체), 되풀이되는 `switch`/`if-else` 연쇄(다형성으로 대체), 그리고 **비슷한
+  알고리즘이되 비슷한 코드 줄을 공유하지 않는 모듈**(TEMPLATE METHOD나 STRATEGY로 대체)
+  (17장 `G5`, p.290).[^martin2008] 셋째 층위는 이 페이지 위쪽의 "코드가 같지 않아도 지식은
+  같을 수 있다"와 같은 관찰이다.
+- **중복을 추상의 기회로 읽는 인식이 여기서 나온다** — **코드에서 중복을 볼 때마다 그것은
+  놓친 추상의 기회를 나타낸다. 그 중복은 아마 서브루틴이나 아예 다른 클래스가 될 수 있을
+  것이다. 그 중복을 그런 추상으로 접어 넣음으로써 당신은 설계 언어의 어휘를 늘린다**
+  (17장 `G5`, pp.289–290).[^martin2008]
+- **어디에도 "언제 뽑아낼 것인가"나 "뽑아내지 말아야 할 때"가 없다.** 이 페이지의 다른
+  소스들이 각각 제동을 갖는 것과 대조된다.
+  - thomas2020 — 코드가 같아도 지식이 다르면 중복이 아니다(위
+    [코드의 중복](#코드의-중복--그리고-중복이-아닌-것) 절).
+  - fowler2018 — 삼진 규칙. 두 번째까지는 중복을 그냥 둔다(위 절).
+  - ousterhout2021 — 뽑아내기가 실패했을 때의 붉은 깃발
+    ([합칠 것인가 나눌 것인가](better-together-or-better-apart.md)).
+- **`contradicts`를 걸지 않는다.** 이 소스가 "중복을 절대 남기지 마라"를 검증 가능한
+  처방으로 못 박은 자리가 없고("가능한 곳마다"는 조건절이다), 세 소스의 제동도 이 소스의
+  명제를 부정하는 것이 아니라 적용 시점을 늦추는 것이다. **다만 이 자리는 이 축의 대비가
+  가장 선명한 곳이므로 반대 극이 되는 소스가 들어오면 이 절이 갱신 대상이다.**
+
 ## 이어지는 페이지
 
+- [클린 코드의 발견법 목록](clean-code-heuristics.md) — `G5`가 사는 자리
+- [작은 함수](small-functions.md) — "중복은 만악의 근원"이 나오는 장
 - [코드의 나쁜 냄새](code-smells.md) — Duplicated Code가 사는 자리
 - [언제 리팩터링하는가](when-to-refactor.md) — 삼진 규칙의 정본
 - [복잡성의 정의와 증상](software-complexity-defined.md) — 중복이 변경 증폭이라는 증상으로
@@ -277,6 +323,11 @@ sources:
     Design of Software"(p.47) · 2장 §"The Rule of Three"(p.50). 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 22). 직인용에서 워터마크 문자열 `ptg26261585`를 제거했다 — 이 소스의 표준
     규약이며 근거는 `it/archive/fowler2018/_progress.yaml` 머리말에 있다.
+
+[^martin2008]: Martin 2008, 3장 §"Don't Repeat Yourself"(p.48) · 17장 `G5`(pp.289–290).
+    **논쟁 중인 소스다** — 지위와 반입 규약은 `it/sources/martin2008.md`가 정본이다.
+    쪽은 인쇄판 쪽 번호이며 복원 절차는 `it/archive/martin2008/_progress.yaml` 머리말이
+    정본이다.
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 9 "DRY—The Evils of Duplication"
 

@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
+  - { id: martin2008, resource: /it/sources/martin2008.md }
 ---
 
 # 코드 냄새로서의 데이터 클래스
@@ -15,6 +16,7 @@ sources:
 - [왜 데이터만 있는 클래스가 문제인가](#왜-데이터만-있는-클래스가-문제인가)
 - [정당한 두 경우](#정당한-두-경우)
 - [파울러의 냄새 항목과 갈리는가 — 갈리지 않는다](#파울러의-냄새-항목과-갈리는가--갈리지-않는다)
+- [셋째 소스가 대는 일반 조건](#셋째-소스가-대는-일반-조건)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **필드만 담고 행동이 없는 클래스를 만들었다. 이것은 언제 문제이고 언제
@@ -141,7 +143,44 @@ sources:
     데이터클래스로 만들어지지만 화폐 연산 같은 행동을 갖는다. 즉 데이터 클래스 빌더로 만든
     것이 곧 "데이터 클래스 냄새"인 것은 아니다.
 
+## 셋째 소스가 대는 일반 조건
+
+논쟁 중인 소스([소스 메타](../sources/martin2008.md))의 6장이 이 물음에 셋째 근거를
+댄다. **위 판정을 뒤집지 않고 그 정당성의 일반 조건을 준다.**
+
+- 그쪽의 정의는 객체와 자료 구조를 **서로의 반대**로 놓는다 — **객체는 데이터를 추상 뒤에
+  감추고 그 데이터에 작용하는 함수를 노출한다. 자료 구조는 데이터를 노출하고 의미 있는
+  함수를 갖지 않는다** (6장 §"Data/Object Anti-Symmetry", p.95).[^martin2008]
+- 그리고 그 반대칭이 변경 용이성의 교환으로 정식화된다 (6장 §"Data/Object Anti-Symmetry",
+  p.97):[^martin2008]
+
+> Procedural code (code using data structures) makes it easy to add new functions without
+> changing the existing data structures. OO code, on the other hand, makes it easy to add
+> new classes without changing existing functions.
+
+- **그래서 판단 기준이 나온다** — 새 데이터 타입을 더하는 일이 잦은 부분에서는 객체가,
+  **새 함수를 더하는 일이 잦은 부분에서는 절차적 코드와 자료 구조가 더 적절하다** (6장
+  §"Data/Object Anti-Symmetry", p.97).[^martin2008] 그리고 조문 (6장, p.97):[^martin2008]
+
+> Mature programmers know that the idea that everything is an object *is a myth*.
+
+- **위 [정당한 두 경우](#정당한-두-경우)와의 관계.** 그쪽이 "비계"와 "중간 표현"이라는
+  **용례**로 정당성을 좁혔다면, 이 소스는 **변경 축의 방향**이라는 일반 조건을 댄다. 두
+  설명이 어긋나지 않는다 — 중간 표현은 새 함수(파싱·변환·직렬화)가 새 타입보다 자주 붙는
+  자리다.
+- 그리고 **이름 붙은 실물 둘**을 더한다 — DTO(**공개 변수를 갖고 함수가 없는 클래스**,
+  6장 §"Data Transfer Objects", p.100)와 액티브 레코드(**save·find 같은 항해 메서드를 가진
+  자료 구조**, 6장 §"Active Record", p.101).[^martin2008]
+- **잡종에 대한 판정은 세 소스가 같다** — **그런 잡종은 새 함수를 더하기도 어렵게 만들고
+  새 자료 구조를 더하기도 어렵게 만든다. 그것들은 두 세계의 최악이다. 만들지 마라** (6장
+  §"Hybrids", p.99).[^martin2008] 이 페이지가 냄새로 보는 것과 같은 대상이다.
+- **`contradicts`를 걸지 않는다.** 어느 소스도 "모든 데이터 클래스는 나쁘다"나 "모든
+  데이터 클래스는 좋다"는 전칭 주장을 하지 않는다. 전문은
+  [객체와 자료 구조](objects-versus-data-structures.md)에 있다.
+
 ## 이어지는 페이지
+
+- [객체와 자료 구조](objects-versus-data-structures.md) — 셋째 소스의 전문
 
 - [데이터 클래스 빌더](data-class-builders.md) — **같은 장의 앞부분.** 이 경고가 겨냥하는
   도구 셋의 비교와 선택
@@ -156,6 +195,12 @@ sources:
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
+
+[^martin2008]: Martin 2008, 6장 "Objects and Data Structures"(§"Data/Object
+    Anti-Symmetry" pp.95–97 · §"Hybrids" p.99 · §"Data Transfer Objects" p.100 ·
+    §"Active Record" p.101). **논쟁 중인 소스다** — 지위와 반입 규약은
+    `it/sources/martin2008.md`가 정본이다. 쪽은 인쇄판 쪽 번호이며 복원 절차는
+    `it/archive/martin2008/_progress.yaml` 머리말이 정본이다.
 [^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders" 중 제사 · §"Data class as a code
     smell"(안에 전문 재수록된 Martin Fowler, "Code Smell" 포함) · §"Data class as
     scaffolding" · §"Data class as intermediate representation" · §"Chapter Summary" ·

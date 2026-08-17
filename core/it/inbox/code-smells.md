@@ -9,6 +9,7 @@ sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
+  - { id: martin2008, resource: /it/sources/martin2008.md }
 ---
 
 # 코드의 나쁜 냄새
@@ -26,6 +27,7 @@ sources:
 - [주석 — 탈취제로 쓰이는 냄새](#주석--탈취제로-쓰이는-냄새)
 - [냄새에서 카탈로그로 — 처방 대응표](#냄새에서-카탈로그로--처방-대응표)
 - [설계 잣대를 세운 소스와 갈리는 자리](#설계-잣대를-세운-소스와-갈리는-자리)
+- [독립적으로 만들어진 경쟁 목록](#독립적으로-만들어진-경쟁-목록)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **리팩터링(refactoring)할 때가 됐다는 것을 코드의 어떤 모양으로 알아채는가.**
@@ -545,6 +547,33 @@ sources:
 - 그래서 `contradicts`를 걸지 않고 서로 가리키게만 두었다. 위 [주석](#주석--모순으로-판정했다)
   자리와 대비된다 — 거기서는 같은 명제의 참거짓이 갈렸고, 여기서는 갈리지 않는다.
 
+## 독립적으로 만들어진 경쟁 목록
+
+이 KB에 [Clean Code](../sources/martin2008.md)가 들어오면서, **같은 일을 하는 목록이 둘이
+됐다.** 그쪽 17장이 규칙 전체를 식별자 예순여섯 개로 압축하는데, 그것이 이 장의 냄새 어휘와
+독립적으로 만들어졌고 크게 겹친다. 지도와 대조표는
+[클린 코드의 발견법 목록](clean-code-heuristics.md)이 갖고, 여기서는 이 장 쪽에서 본 세
+가지만 적는다.
+
+- **그쪽이 이 장을 인용한다.** `G14` Feature Envy를 **마틴 파울러의 코드 냄새 중
+  하나**라고 명시하고, 6장 각주에서 잡종 구조를 **[Refactoring]의 Feature Envy라 불리기도
+  한다**고 적는다.[^martin2008] 즉 두 목록은 완전히 독립적이지는 않고 한 방향의 참조가
+  있다.
+- **겹치는 여덟 자리.** `F1`↔Long Parameter List · `G5`↔Duplicated Code ·
+  `G14`↔Feature Envy · `G23`↔Repeated Switches · `G30`↔Long Function ·
+  `G36`↔Message Chains · `C1`–`C5`↔Comments · `G9`는 이 장에서 Speculative Generality와
+  Lazy Element로 흩어져 있다.
+- **이 장에 없고 그쪽에만 있는 갈래가 셋이다** — 환경(빌드·테스트가 한 단계여야 한다),
+  테스트(아홉 항목), 언어 특정(자바 세 항목). 이 장의 냄새는 코드에만 걸리고 빌드나 테스트
+  스위트에는 걸리지 않는다.
+- **[함수 크기](#설계-잣대를-세운-소스와-갈리는-자리) 판정이 이 소스로 확인된다.** 위 절이
+  ousterhout2021이 **명시적으로 반박하는 상대는 이 책이 아니라 *Clean Code*다**라고 적어
+  두었는데, 이제 그 상대가 KB에 있고 `contradicts`가 그쪽에 걸렸다
+  ([작은 함수](small-functions.md) ↔ [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)).
+  **이 장의 판정은 바뀌지 않는다** — 이 장은 수치 상한을 두지 않고 의미적 거리를 기준으로
+  삼으므로 관점 차이로 남고, 수치를 명시한 쪽이 모순 상대가 된다. 세 소스의 위치가 이제
+  분명해졌다는 것이 이 반입의 소득이다.
+
 ## 이어지는 페이지
 
 - [리팩터링](refactoring.md) — 이 냄새들이 부르는 활동의 정의
@@ -567,6 +596,8 @@ sources:
   파이썬 쪽에서 되받은 자리. 파울러의 "Code Smell" 글 전문과 정당한 두 경우
 - [데이터 클래스 빌더](data-class-builders.md) — 그 냄새를 만들어 내는 도구 셋의 비교
 - [주석을 왜 쓰는가](why-write-comments.md) — **`contradicts` 상대.** 주석 냄새의 반대편
+- [클린 코드의 발견법 목록](clean-code-heuristics.md) — 독립적으로 만들어진 경쟁 목록
+- [작은 함수](small-functions.md) — 함수 크기에서 수치를 명시해 모순 상대가 된 쪽
 - [합칠 것인가 나눌 것인가](better-together-or-better-apart.md) — 함수 크기 쟁점의 반대편
 - [DRY 원칙](dry-principle.md) — Duplicated Code의 원리 쪽 정본
 - [이름 짓기](naming-things.md) — Mysterious Name의 정본
@@ -575,6 +606,12 @@ sources:
 - [상속세](inheritance-tax.md) — 상속 포기·내부자 거래의 상속 쪽 판정
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
+
+[^martin2008]: Martin 2008, 17장 "Smells and Heuristics"(`G14` p.293) · 6장 각주 4
+    (p.99). **논쟁 중인 소스다** — 지위와 반입 규약은 `it/sources/martin2008.md`가
+    정본이다. 이 페이지에서는 그쪽 항목의 **이름과 식별자**만 대조에 썼고 claim의 전문은
+    [클린 코드의 발견법 목록](clean-code-heuristics.md)이 갖는다. 쪽은 인쇄판 쪽 번호이며
+    복원 절차는 `it/archive/martin2008/_progress.yaml` 머리말이 정본이다.
 [^fowler2018]: Fowler 2018, 3장 "Bad Smells in Code"(Kent Beck 공저, pp.71–84) 전체.
     2장의 인용 한 줄은 §"Refactoring Improves the Design of Software"(p.47)에서 왔다.
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크 문자열 `ptg26261585`를 제거했다 —

@@ -7,6 +7,7 @@ status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
+  - { id: martin2008, resource: /it/sources/martin2008.md }
 ---
 
 # 자기 테스트 코드
@@ -21,6 +22,7 @@ sources:
 - [실패와 오류는 다르다](#실패와-오류는-다르다)
 - [얼마나 테스트하면 충분한가](#얼마나-테스트하면-충분한가)
 - [테스트에도 층이 있고 층마다 굳히는 것이 다르다](#테스트에도-층이-있고-층마다-굳히는-것이-다르다)
+- [셋째 소스가 더하는 것 — TDD 세 법칙과 F.I.R.S.T.](#셋째-소스가-더하는-것--tdd-세-법칙과-first)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **리팩터링(refactoring)이 담보로 잡는 그 테스트는 구체적으로 어떤 성질을
@@ -312,8 +314,81 @@ p.91).[^fowler2018]
   (5장 §"Should Domain Layer Tests Move to the Service Layer?").[^percival2020]
   두 기준이 같은 것을 다르게 말한 것이다.
 
+## 셋째 소스가 더하는 것 — TDD 세 법칙과 F.I.R.S.T.
+
+논쟁 중인 소스([소스 메타](../sources/martin2008.md))의 9장이 같은 실천을 다루는데,
+**이 자리는 이 KB의 다른 소스들과 갈리지 않는다.** 더하는 것은 규율의 입자와 두 개의
+기억 장치다.
+
+- **TDD 세 법칙** — 이 소스가 TDD를 30초 주기로 조문화한다 (9장 §"The Three Laws of
+  TDD", p.122):[^martin2008]
+
+> **First Law** You may not write production code until you have written a failing unit
+> test.
+>
+> **Second Law** You may not write more of a unit test than is sufficient to fail, and
+> not compiling is failing.
+>
+> **Third Law** You may not write more production code than is sufficient to pass the
+> currently failing test.
+
+  - 귀결 — **이 세 법칙은 당신을 아마 30초쯤 되는 주기 안에 가둔다. 테스트와 프로덕션
+    코드가 *함께* 쓰이며, 테스트가 프로덕션 코드보다 몇 초 앞선다** (9장, p.123).[^martin2008]
+  - 이 KB에서 그 주기를 다루는 자리는
+    [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md)와
+    [리팩터링의 리듬](refactoring-rhythm.md)이다. **그쪽들은 기어를 바꾸라고 하고 이
+    소스는 단일 주기를 조문으로 둔다** — 강도의 차이지 명제의 충돌이 아니다.
+- **테스트 코드의 지위** — **이야기의 교훈은 단순하다: 테스트 코드는 프로덕션 코드만큼
+  중요하다. 그것은 이등 시민이 아니다. 그것은 생각과 설계와 돌봄을 요구한다. 그것은
+  프로덕션 코드만큼 깨끗하게 유지돼야 한다** (9장 §"Keeping Tests Clean",
+  p.124).[^martin2008] 그리고 반대 사례의 진단 — **더러운 테스트를 갖는 것은 테스트가
+  없는 것과 같거나 더 나쁘다** (9장 §"Keeping Tests Clean", p.123).[^martin2008]
+- **테스트가 변경을 가능하게 한다** — **당신의 코드를 유연하고 유지보수 가능하고 재사용
+  가능하게 유지하는 것은 *단위 테스트*다. … 테스트가 변경을 가능하게 하므로 테스트가 모든
+  -ility를 가능하게 한다** (9장 §"Tests Enable the -ilities", p.124).[^martin2008]
+  이 페이지의 [정의와 이 장의 지위](#정의와-이-장의-지위) 절이 세운 것과 같은 명제다.
+- **깨끗한 테스트의 조건이 하나로 좁혀진다** — **무엇이 깨끗한 테스트를 만드는가? 세
+  가지다. 가독성, 가독성, 그리고 가독성** (9장 §"Clean Tests", p.124).[^martin2008]
+  그리고 이중 기준이 명시된다 — 테스트 코드는 **여전히 단순하고 간결하고 표현력 있어야
+  하지만 프로덕션 코드만큼 효율적일 필요는 없다** (9장 §"A Dual Standard",
+  p.127).[^martin2008]
+- **단정 하나 규칙에 대한 저자의 실제 입장** — 흔히 이 책의 주장으로 인용되는 것과 달리
+  저자는 그것을 규칙이 아니라 지침으로 둔다 (9장 §"One Assert per Test",
+  p.131):[^martin2008]
+
+> I think the single assert rule is a good guideline. I usually try to create a
+> domain-specific testing language that supports it, as in Listing 9-5. But I am not
+> afraid to put more than one assert in a test. I think the best thing we can say is that
+> the number of asserts in a test ought to be minimized.
+
+  - 그리고 더 나은 규칙으로 옮겨 간다 — **아마 가장 좋은 규칙은 개념당 단정 수를
+    최소화하고 테스트 함수당 한 개념만 테스트하라는 것이다** (9장 §"Single Concept per
+    Test", p.132).[^martin2008]
+- **F.I.R.S.T.** — 깨끗한 테스트의 다섯 성질 (9장 §"F.I.R.S.T.",
+  pp.132–133):[^martin2008]
+
+  | 글자 | 조문 |
+  |---|---|
+  | **F**ast | **테스트는 빨라야 한다. 느리게 돌면 자주 돌리고 싶지 않을 것이다** |
+  | **I**ndependent | **테스트는 서로에게 의존해서는 안 된다. 한 테스트가 다음 테스트의 조건을 준비해서는 안 된다** |
+  | **R**epeatable | **테스트는 어느 환경에서든 반복 가능해야 한다** — 프로덕션·QA·네트워크 없는 기차 안 노트북 |
+  | **S**elf-Validating | **테스트는 불리언 출력을 가져야 한다. 통과하거나 실패하거나다. 로그 파일을 읽어 판단해서는 안 된다** |
+  | **T**imely | **단위 테스트는 그것을 통과시키는 프로덕션 코드 *직전에* 쓰여야 한다** |
+
+  - **Independent와 Repeatable이 이 페이지의
+    [픽스처는 매번 새로 만든다](#픽스처는-매번-새로-만든다) 절과 같은 처방이다.**
+    두 소스가 서로를 참조한 적은 없다. Fast는 17장 `T9`로 다시 나온다 — **느린 테스트는
+    돌지 않는 테스트다** (17장 `T9`, p.314).[^martin2008]
+- **얼마나 테스트하면 충분한가**에 대한 답도 이 페이지의 해당 절과 성격이 같다(주관적
+  기준) — **테스트 스위트는 깨질 수 있는 모든 것을 테스트해야 한다** (17장 `T1`,
+  p.313)[^martin2008], 그리고 커버리지 도구를 쓰라는 것(`T2`)이 유일한 계측 처방이다.
+- **갈리는 자리는 없다.** 이 소스가 테스트에 대해 말하는 것은 이 KB의 fowler2018·
+  percival2020 쪽과 방향이 같고, 논쟁이 걸린 것은 이 소스의 3장·4장이다.
+
 ## 이어지는 페이지
 
+- [클린 코드라는 말의 정의](clean-code-defined.md) — "테스트 없는 코드는 깨끗하지
+  않다"와 단순 설계 규칙 1이 사는 자리
 - [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
   둘 것인가의 절충
@@ -333,6 +408,19 @@ p.91).[^fowler2018]
     옮기되 책이 지면 폭 때문에 접어 놓은 줄을 폈다. 책이 반례로 든 판(바깥 스코프 상수,
     "DON'T DO THIS")은 복사해 쓸 것이 아니라 옮기지 않고 산문으로 서술했다. 4장의 UI
     화면 도판과 콘솔 출력 도판은 이미지라 옮기지 않았다.
+
+[^martin2008]: Martin 2008, 9장 "Unit Tests"(§"The Three Laws of TDD" pp.122–123 ·
+    §"Keeping Tests Clean" pp.123–124 · §"Tests Enable the -ilities" p.124 · §"Clean
+    Tests" p.124 · §"A Dual Standard" p.127 · §"One Assert per Test" pp.130–131 ·
+    §"Single Concept per Test" pp.131–132 · §"F.I.R.S.T." pp.132–133) · 17장 `T1`·`T2`
+    (p.313) · `T9`(p.314). **논쟁 중인 소스다** — 지위와 반입 규약은
+    `it/sources/martin2008.md`가 정본이다. 쪽은 인쇄판 쪽 번호이며 복원 절차는
+    `it/archive/martin2008/_progress.yaml` 머리말이 정본이다. 직인용에서 문장 끝에 붙은
+    각주 번호를 뗐다(`three laws:1` → `three laws:`, `good guideline.7` →
+    `good guideline.`). 9장에는 Listing 9-1부터 9-8까지 여덟 리스팅이 있으나 펜스로
+    옮기지 않았다 — 이 페이지의 펜스 예산은 fowler2018의 `beforeEach` 판이 쓰고 있고,
+    9장 리스팅은 전부 FitNesse·환경 제어기 예제 문맥에 묶여 복사해 돌아가지 않는다.
+    도판은 없다. 이 스냅샷에서 9장 p.121(장 도비라)은 본문이 비어 있어 p.122부터 읽었다.
 
 [^percival2020]: Percival & Gregory 2020, 5장 §"Should Domain Layer Tests Move to the
     Service Layer?"와 곁글 "Recap: Rules of Thumb for Different Types of Test" ·
