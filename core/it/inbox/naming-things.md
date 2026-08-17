@@ -1,14 +1,15 @@
 ---
 type: concept
 title: 이름 짓기
-description: 이름이 의도와 믿음을 드러낸다는 전제 위의 실천 — 역할에 따라 이름 짓기와 "내가 이것을 만드는 동기는 무엇인가"라는 질문, 스트룹 효과가 대는 근거, 이름을 고쳐 세 예제가 드러내는 것, 언어 문화를 존중하라는 유보, 팀 어휘의 일관성과 프로젝트 용어집, 무의미한 이름보다 나쁜 오도하는 이름과 개명이 어려운 코드가 곧 ETC 위반이라는 판정, 그리고 이름 짓기에 장 하나를 쓰는 소프트웨어 설계 쪽 — 이름 하나가 만든 여섯 달짜리 버그, 이름이 추상이라는 재분류, 정밀함과 일관성이라는 두 성질과 일관성의 세 요건, 모호한 이름·고르기 어려운 이름이라는 붉은 깃발 둘, 불필요한 낱말과 헝가리안 표기법에 대한 판정, 짧은 이름을 옹호하는 Go 쪽 견해와 그에 대한 응답, 그리고 두 소스가 처음 고르기와 나중에 고치기로 무게를 갈라 싣는 자리
-generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
+description: 이름이 의도와 믿음을 드러낸다는 전제 위의 실천 — 역할에 따라 이름 짓기와 "내가 이것을 만드는 동기는 무엇인가"라는 질문, 스트룹 효과가 대는 근거, 이름을 고쳐 세 예제가 드러내는 것, 언어 문화를 존중하라는 유보, 팀 어휘의 일관성과 프로젝트 용어집, 무의미한 이름보다 나쁜 오도하는 이름과 개명이 어려운 코드가 곧 ETC 위반이라는 판정, 그리고 이름 짓기에 장 하나를 쓰는 소프트웨어 설계 쪽 — 이름 하나가 만든 여섯 달짜리 버그, 이름이 추상이라는 재분류, 정밀함과 일관성이라는 두 성질과 일관성의 세 요건, 모호한 이름·고르기 어려운 이름이라는 붉은 깃발 둘, 불필요한 낱말과 헝가리안 표기법에 대한 판정, 짧은 이름을 옹호하는 Go 쪽 견해와 그에 대한 응답, 두 소스가 처음 고르기와 나중에 고치기로 무게를 갈라 싣는 자리, 그리고 이름의 정본을 모델에 두어 개명을 모델 갱신 절차로 만드는 다섯째 소스
+generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
 
 # 이름 짓기
@@ -32,6 +33,7 @@ sources:
 - [두 소스가 이름 짓기를 배치하는 방식](#두-소스가-이름-짓기를-배치하는-방식)
 - [이름이 안 떠오르는 것이 진단이라는 셋째 소스](#이름이-안-떠오르는-것이-진단이라는-셋째-소스)
 - [넷째 소스 — 규칙 열여섯 개의 목록](#넷째-소스--규칙-열여섯-개의-목록)
+- [다섯째 소스 — 이름의 정본이 모델이라는 쪽](#다섯째-소스--이름의-정본이-모델이라는-쪽)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **이름은 무엇을 하고, 이름이 틀렸다는 것을 어떻게 알며, 왜 그것을 못 고치는가.**
@@ -566,6 +568,54 @@ sources:
   그것이 좋은 서술 능력과 공유된 문화적 배경을 요구한다는 것이다. 이것은 기술이나 사업이나
   관리의 문제라기보다 가르침의 문제다** (2장 §"Final Words", p.30).[^martin2008]
 
+## 다섯째 소스 — 이름의 정본이 모델이라는 쪽
+
+앞의 네 소스는 이름을 **읽는 사람**의 문제(스트룹 효과·인지 부하)나 **팀 어휘**의 문제로
+다룬다. 도메인 주도 설계 쪽 원전은 이름을 **모델의 일부**로 놓는다. 그래서 이 소스에서는
+이름이 틀렸다는 것이 읽기 불편하다는 뜻이 아니라 **모델이 틀렸다**는 뜻이 된다.
+
+- 이름의 정본이 지정된다 — 클래스와 연산의 이름은 **팀원이 그 의미를 빠르게 유추할 수 있도록
+  유비쿼터스 언어(ubiquitous language)를 따라야 한다** (10장, p.247).[^evans2003]
+  그리고 그 언어의 어휘가 무엇으로 이루어지는지가 앞서 규정돼 있다 — **그 유비쿼터스 언어의
+  어휘는 클래스와 두드러진 연산의 이름을 포함한다** (2장, p.25).[^evans2003]
+  - **이름 짓기가 개인의 기술에서 팀의 합의로 옮겨진다.** 위
+    [일관성 — 팀의 어휘](#일관성--팀의-어휘)의 프로젝트 용어집이 비형식적 문서였다면, 이
+    소스에서는 그 용어집이 **모델 자체**이고 강제 수단은 코드와 대화 양쪽이다. 전문은
+    [유비쿼터스 언어](ubiquitous-language.md)에 있다.
+- 무엇을 이름에서 빼야 하는지가 조문으로 있다 (10장, p.247):[^evans2003]
+
+> Name classes and operations to describe their effect and purpose, without reference to the
+> means by which they do what they promise.
+
+  - 위 [이름을 고쳐 보는 세 예제](#이름을-고쳐-보는-세-예제)의 둘째 예제(`deductPercent` →
+    `applyDiscount`)가 정확히 이 조문의 실행이다. 실용주의 쪽이 "무엇을 하는가가 아니라 왜
+    하는가"로 말한 것을 이 소스는 "수단이 아니라 효과와 목적"으로 말한다. 두 소스가 서로를
+    참조한 적은 없다. 전문은
+    [의도를 드러내는 인터페이스](intention-revealing-interfaces.md)에 있다.
+- **개명에 대한 판정이 위 두 절과 다른 근거에서 나온다.** 이 소스는 개명을 정리 작업이 아니라
+  모델 갱신 절차로 놓는다 — 팀이 언어의 어색함을 실험으로 다듬고 나면 **코드를 리팩터링해
+  클래스·메서드·모듈의 이름을 새 모델에 맞게 바꾼다**는 것이 조항의 일부다 (2장,
+  pp.26–27).[^evans2003] 그리고 한 줄 판정이 붙는다 (2장, p.27):[^evans2003]
+
+> Recognize that a change in the UBIQUITOUS LANGUAGE is a change to the model.
+
+  - 위 [고칠 수 없는 이름은 ETC 위반이다](#고칠-수-없는-이름은-etc-위반이다)와 결론은 같고
+    근거가 다르다. 실용주의 쪽은 이름을 못 고치는 것을 **바꾸기 어려움**의 증거로 읽고, 이
+    소스는 그것을 **모델이 코드에 묶여 있지 않다**는 증거로 읽는다. 후자의 조문이 이것이다
+    (3장, p.49).[^evans2003]
+
+> The code becomes an expression of the model, so a change to the code may be a change to the
+> model.
+
+- **그리고 이 소스가 이 페이지에 더하는 경계가 하나 더 있다.** 이 소스의 요구는 **도메인
+  용어를 이름에 쓰라**는 쪽이고, 그 반대 방향의 금지("도메인 사실을 이름에 박지 마라")는 이
+  책에 조문으로 없다. 다만 저자가 자기 예제에서 그 선을 두 번 긋는다 — 이름 규약으로 개별
+  사실을 유추하던 스크립트를 개념을 명시한 모델로 바꾸고 그 유추를 팩토리 한 자리로 격리한
+  것(3장, pp.53–56)[^evans2003], 그리고 값 객체를 **그것이 무엇인지에 대해서만 관심 있고
+  누구인지 어느 것인지에는 관심 없는** 것으로 규정한 것(5장, p.98)[^evans2003]이다. 두 요구를
+  섞지 않고 갈라 적은 자리가
+  [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md)이다.
+
 ## 이어지는 페이지
 - [클린 코드의 발견법 목록](clean-code-heuristics.md) — `N1`–`N7`이 사는 자리
 - [코드의 나쁜 냄새](code-smells.md) — Mysterious Name이 사는 자리
@@ -584,8 +634,14 @@ sources:
 - [주석을 먼저 써라](write-the-comments-first.md) — "서술하기 어렵다"는 같은 형태의 붉은 깃발
 - [무엇이 중요한지 정하라](decide-what-matters.md) — 몇 낱말로 가장 많은 정보를 전달한다는
   문제의 일반형
+- [유비쿼터스 언어](ubiquitous-language.md) — 이름의 정본을 모델에 두는 쪽
+- [의도를 드러내는 인터페이스](intention-revealing-interfaces.md) — 이름이 수단을 말하지
+  않는다는 조문의 전문
+- [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — 이름에 담을 것이
+  개념까지인가 사실까지인가의 경계
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 소스 쪽의 허브
+- [도메인 주도 설계](../synthesis/domain-driven-design.md) — 다섯째 소스 쪽의 허브
 
 
 [^martin2008]: Martin 2008, 2장 "Meaningful Names"(§"Use Intention-Revealing Names"
@@ -609,6 +665,14 @@ sources:
     이미지(`images/stroop_color.png`)는 유실돼 직인용 대상에서 제외했다. 저자들이 이 Topic의
     관련 절로 지목한 것은 Topic 3, Topic 40, Topic 45다. 끝의 CHALLENGES 네 항목은 독자
     과제라 반입하지 않았다.
+
+[^evans2003]: Evans 2003, 2장 §UBIQUITOUS LANGUAGE(pp.25–27) · 3장 §MODEL-DRIVEN
+    DESIGN(p.49) · §Modeling Paradigms and Tool Support(pp.53–56) · 5장 §VALUE OBJECTS
+    (p.98) · 10장 §INTENTION-REVEALING INTERFACES(p.247). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33,
+    실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절은
+    이 소스가 이 페이지에 더하는 것만 든다 — 각 조항의 전문은
+    [유비쿼터스 언어](ubiquitous-language.md)·[의도를 드러내는 인터페이스](intention-revealing-interfaces.md)·[모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md)에
+    있다.
 
 [^ousterhout2021]: Ousterhout 2021, 2장 "The Nature of Complexity"와 14장 "Choosing Names"
     전체. 쪽은 인쇄판 쪽 번호. 14장의 코드 예제는 전부 **나쁜 이름의 반례와 그 고침 쌍**이라

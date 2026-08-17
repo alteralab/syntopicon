@@ -42,6 +42,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [리팩터링과 코드 냄새](synthesis/refactoring-and-code-smells.md) — 같은 축의 이행 절차 쪽: 행동 보존 소단계의 정의와 리듬, 언제 하는가의 계기, 냄새 어휘, 담보가 되는 테스트, 막는 것들
 - [클린 코드](synthesis/clean-code.md) — 같은 축의 **논쟁 중인 소스**(Martin 2008): 규칙 목록과 그 지위, 삼급 경사로 읽는 법, 이 KB의 `contradicts` 셋 중 둘이 나온 자리
 - [도메인 모델과 애플리케이션 계층](synthesis/domain-model-and-application-layers.md) — 같은 축의 파이썬 구체화: 의존 역전과 그 위의 네 패턴(리포지터리·서비스 레이어·작업 단위·애그리게이트), 테스트 층 선택, 부트스트랩
+- [도메인 주도 설계](synthesis/domain-driven-design.md) — 같은 축의 모델 쪽 원전(Evans 2003): 이름의 정본을 모델에 두는 유비쿼터스 언어, 모델과 코드의 결속, 이름에 개념까지 담고 사실은 담지 않는다는 경계, 그리고 모델이 통하는 범위를 긋는 경계 컨텍스트
 - [파이썬 데이터 모델과 프로토콜](synthesis/python-data-model-and-protocols.md) — 같은 축의 파이썬 관용 참조: 특수 메서드라는 바닥, 데이터 클래스 빌더 셋과 그것이 냄새가 되는 경계, 인터페이스를 규정하는 네 방식
 
 ## Tools

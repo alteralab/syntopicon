@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 값 객체와 엔티티
-description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 그리고 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각
-generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
+description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각, 그리고 이 구분의 원 정의와 정체성이 대상이 아니라 모델이 정하는 것이라는 원전의 못 박기
+generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
+  - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
 
 # 값 객체와 엔티티
@@ -19,6 +20,7 @@ sources:
 - [동등성과 해시를 어디에 어떻게 다는가](#동등성과-해시를-어디에-어떻게-다는가)
 - [원시 타입 감싸기에 대한 저자의 기각](#원시-타입-감싸기에-대한-저자의-기각)
 - [이벤트도 값 객체다](#이벤트도-값-객체다)
+- [이 구분의 원 정의](#이-구분의-원-정의)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 객체 둘이 "같다"는 말은 무슨 뜻이고, 그 답이 갈리는 지점에서 코드가
@@ -223,9 +225,41 @@ sources:
   그것은 유지보수 비용을 갖는다. 하나에 필드를 더하는 것은 보통 다른 것 중 적어도 하나에도
   필드를 더한다는 뜻이다** (9장 §"Why Have We Achieved?").[^percival2020]
 
+## 이 구분의 원 정의
+
+이 구분은 이 소스가 만든 것이 아니라 도메인 주도 설계 쪽 원전에서 왔다. 원 정의 둘을
+여기 둔다 — 이 페이지가 옮긴 파이썬 판정과 어긋나지 않는지 대조할 자리다.
+
+- 값 객체(value object)의 원 정의 — **개념적 정체성이 없이 도메인의 서술적 측면을 표상하는
+  객체를 값 객체라 부른다** (5장, p.98).[^evans2003] 그 존재 이유가 이어지는 한 줄에 있다
+  (5장, p.98):[^evans2003]
+
+> VALUE OBJECTS are instantiated to represent elements of the design that we care about only
+> for what they are, not who or which they are.
+
+- 엔티티(entity)의 원 정의는 처방 문단에 있다 — **객체가 속성이 아니라 그 정체성으로 구별될
+  때, 모델에서 그것을 정의의 일차 요소로 삼아라. 클래스 정의를 단순하게, 생애 주기의 연속성과
+  정체성에 집중해 유지하라. 그 형태나 이력과 무관하게 각 객체를 구별하는 수단을 정의하라**
+  (5장, p.92).[^evans2003]
+- **원전은 정체성이 사물에 내재한 성질이 아니라고 못 박는다** — **정체성은 세상의 사물에
+  내재하지 않는다; 그것은 쓸모 있기 때문에 덧씌워진 의미다. 사실 현실 세계의 같은 사물이
+  도메인 모델에서 엔티티로 표상될 수도 있고 아닐 수도 있다** (5장, p.93).[^evans2003]
+  - 위 [구분의 기준은 정체성이다](#구분의-기준은-정체성이다)의 "속성 하나를 바꿔 보는 시험"이
+    이 규정의 실무판이다. **어느 쪽인지는 대상이 아니라 모델이 정한다**는 것이 원전의
+    입장이고, 그래서 같은 `Address`가 우편 서비스 소프트웨어에서는 엔티티이고 배송
+    소프트웨어에서는 값 객체일 수 있다는 예가 붙는다 (5장 §VALUE OBJECTS 곁글,
+  pp.97–98).[^evans2003]
+- 불변성의 근거도 원전이 다른 자리에서 댄다 — **값 객체는 불변이며, 이는 생성 중에만 호출되는
+  초기화자를 제외하면 그것의 모든 연산이 함수라는 것을 함의한다. 값 객체는 함수처럼 쓰기에 더
+  안전하고 테스트하기 더 쉽다** (10장, p.251).[^evans2003] 그 맥락은
+  [부수 효과 없는 함수](side-effect-free-functions.md)에 있다.
+
 ## 이어지는 페이지
 
 - [도메인 모델 패턴](domain-model-pattern.md) — 이 객체들이 사는 층
+- [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — "무엇인지"와
+  "어느 것인지"의 구분이 이름 짓기 물음과 만나는 자리
+- [부수 효과 없는 함수](side-effect-free-functions.md) — 값 객체의 불변성이 봉사하는 조항
 - [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 엔티티 중
   일부를 "공개" 진입점으로 올리는 셋째 구분
 - [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md) — 값 객체가
@@ -251,6 +285,15 @@ sources:
     조판용 번호 표지 이미지를 제거했고, 원문이 세 예제를 나눠 실은 것을 한 펜스로 이었다
     (임포트는 원문 그대로다 — 이 예제는 저자들이 임포트를 생략하지 않은 몇 안 되는
     목록 중 하나다).
+
+[^evans2003]: Evans 2003, 5장 "A Model Expressed in Software"(§ENTITIES pp.89–96 ·
+    §VALUE OBJECTS pp.97–99, 곁글 "Is Address a VALUE OBJECT?" pp.97–98 포함) ·
+    10장 §SIDE-EFFECT-FREE FUNCTIONS(p.251).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는
+    관례를 직인용에서 유지했다. **이 절은 원 정의만 든다** — 두 패턴의 설계 지침
+    (§Modeling ENTITIES pp.93–94 · §Designing the Identity Operation pp.94–96 ·
+    §Designing VALUE OBJECTS pp.99–102 이하)은 이 페이지의 물음(둘이 "같다"는 것이 무슨
+    뜻인가) 밖이다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.
 
 [^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders"(§"Mutable instances" ·
     §"Class statement syntax" · §"Classic Named Tuples" · §"More about @dataclass"와
