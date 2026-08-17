@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: qntm2020, resource: /it/sources/qntm2020.md }
 ---
 
 # 클린 코드라는 말의 정의
@@ -16,6 +17,7 @@ sources:
 - [하늘의 대개편](#하늘의-대개편)
 - [읽기 대 쓰기 10대 1](#읽기-대-쓰기-10대-1)
 - [보이스카우트 규칙](#보이스카우트-규칙)
+- [책 자신의 유보와 그것이 방어가 되는가](#책-자신의-유보와-그것이-방어가-되는가)
 - [단순 설계 네 규칙 — 우선순위가 붙은 목록](#단순-설계-네-규칙--우선순위가-붙은-목록)
 - [네 규칙에 대한 저자의 해설](#네-규칙에-대한-저자의-해설)
 - [이어지는 페이지](#이어지는-페이지)
@@ -166,6 +168,29 @@ sources:
     [소프트웨어 엔트로피와 깨진 유리창](../concepts/software-entropy-and-broken-windows.md)(실용주의).
     **네 소스가 같은 처방에 도달한 드문 자리다.**
 
+## 책 자신의 유보와 그것이 방어가 되는가
+
+1장이 자기 권위를 스스로 제한하는 문단을 둔다 (1장 §"Schools of Thought",
+p.13):[^martin2008]
+
+> Indeed, many of the recommendations in this book are controversial. You will probably
+> not agree with all of them. You might violently disagree with some of them. That's fine.
+> We can't claim final authority.
+
+- 앞뒤 문맥도 같은 방향이다 — **우리가 어떤 절대적 의미에서 "옳다"고 생각하는 실수를 하지
+  마라. 우리만큼 전문성을 주장할 자격이 있는 다른 학파와 다른 대가들이 있다** (1장
+  §"Schools of Thought", pp.12–13).[^martin2008]
+- **이 KB가 이 소스를 논쟁 중인 소스로 다루는 것은 이 문단과 어긋나지 않는다.** 책 자신이
+  최종 권위를 주장하지 않는다고 적었고, 이 KB의 반입 규약이 하는 일이 정확히 그 문단을
+  진지하게 받아들이는 것이다.
+- **그러나 이 문단이 책에 대한 방어가 되는가는 별개 문제다.** 2차 문헌이 그 방어를 정면으로
+  다룬다 — 조언을 문자 그대로 받지 말라는 것이 가장 흔한 방어인데, **나는 이것이 애초에
+  나쁜 조언과 나쁜 예제 코드를 담은 책에 대한 특별히 설득력 있는 방어라고 생각하지
+  않는다** (Afterword, 2022-03-21).[^qntm2020] 근거는 독자층이다 — **경험 없는
+  프로그래머는 좋은 조언과 나쁜 조언을 구별하지 못할 것이고, 예제 코드가 나쁘며 흉내
+  내서는 안 된다는 것을 보지 못할 것이다** (Afterword).[^qntm2020] 전문은
+  [클린 코드 비판](clean-code-criticism.md)에 있다.
+
 ## 단순 설계 네 규칙 — 우선순위가 붙은 목록
 
 12장이 Kent Beck의 규칙을 우선순위와 함께 싣는다 (12장, p.172):[^martin2008]
@@ -228,6 +253,7 @@ sources:
 
 ## 이어지는 페이지
 
+- [클린 코드 비판](clean-code-criticism.md) — 이 책의 자기 유보가 방어가 되는지 다루는 2차 문헌
 - [작은 함수](small-functions.md) — 이 정의에서 파생된 처방이자 모순 축 하나
 - [주석은 실패다](comments-as-failure.md) — 모순 축 둘. Dave Thomas의 정의가 이미
   방향이 다른 자리
@@ -244,6 +270,10 @@ sources:
 - [소프트웨어 엔트로피와 깨진 유리창](../concepts/software-entropy-and-broken-windows.md) —
   어질러짐의 누적을 다른 소스가 다루는 자리
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
+    **절 번호는 이 KB가 매긴 것이다** — 규약은
+    `it/archive/qntm2020/_progress.yaml` 머리말이 정본이다.
 
 [^martin2008]: Martin 2008, 1장 "Clean Code"(§"Bad Code" p.4 · §"The Total Cost of
     Owning a Mess" p.4 · §"The Grand Redesign in the Sky" p.5 · §"The Primal Conundrum"

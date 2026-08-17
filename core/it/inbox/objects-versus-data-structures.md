@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: qntm2020, resource: /it/sources/qntm2020.md }
 ---
 
 # 객체와 자료 구조
@@ -20,6 +21,7 @@ sources:
 - [DTO와 액티브 레코드](#dto와-액티브-레코드)
 - [같은 책 3장과의 긴장을 저자가 지목한다](#같은-책-3장과의-긴장을-저자가-지목한다)
 - [이 KB의 데이터 클래스 판정과 어떻게 만나는가](#이-kb의-데이터-클래스-판정과-어떻게-만나는가)
+- [2차 문헌의 지적 — 이 장의 "자료 구조"는 통용 의미가 아니다](#2차-문헌의-지적--이-장의-자료-구조는-통용-의미가-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **객체와 자료 구조는 무엇이 다르며, 그 차이가 어떤 설계 판단을 낳는가.**
@@ -232,8 +234,34 @@ ramalho2022의 유보를 대질해 **모순이 아니라고** 판정한 자리�
   행동을 끌어당겨야 할 때를 냄새로 본다. 어느 쪽도 "모든 데이터 클래스는 나쁘다"거나
   "모든 데이터 클래스는 좋다"고 하지 않는다. 그래서 `contradicts`를 걸지 않는다.
 
+## 2차 문헌의 지적 — 이 장의 "자료 구조"는 통용 의미가 아니다
+
+- 지적 (§4):[^qntm2020]
+
+> Martin's definition of "data structure" disagrees with the definition everybody else
+> uses. This is a very strange choice of definition, though Martin does at least define
+> his term clearly.
+
+- **가치는 인정한다** — **객체를 멍청한 데이터로 보는 것과 메서드를 가진 정교한 추상으로
+  보는 것 사이에 명확한 구분을 긋는 것은 정당하고 쓸모 있다** (§4).[^qntm2020]
+- 둘째 지적은 부재에 대한 것이다 — **대부분의 우리가 진짜 자료 구조라고 여기는 것,
+  즉 배열·연결 리스트·해시 맵·이진 트리·그래프·스택·큐 등을 써서 깨끗하게 코딩하는 것에
+  대한 내용이 이 책에 전혀 없다** (§4).[^qntm2020]
+- **이 페이지가 그 지적에 대응하는 방식.** 이 페이지는 이 장의 용어를 그대로 옮기되
+  원어를 병기해 두었다(자료 구조/data structure) — 이 KB의 규약이 확립 용어 우선이고
+  원어 병기를 요구하기 때문이다(SCHEMA §3). **그러나 이 장의 `data structure`는 자료
+  구조의 통용 의미(배열·리스트·트리 등 자료의 조직 방식)가 아니라 "데이터를 노출하고
+  의미 있는 함수가 없는 코드 단위"라는 좁은 조작적 정의다.** 이 페이지에서 그 낱말을
+  읽을 때는 그 정의로만 읽는다. 통용 의미의 자료 구조는 이 KB의 다른 축이 담당한다 —
+  [B 트리 구조](../concepts/b-tree-structure.md)·[블룸 필터](../concepts/bloom-filter.md)
+  같은 페이지들이다.
+- **`contradicts`가 아니다.** 이 지적은 명제의 참거짓 다툼이 아니라 용어 사용에 대한
+  것이고, 이 장이 자기 용어를 명시적으로 정의한다는 점은 비판자도 인정한다. 전문은
+  [클린 코드 비판](clean-code-criticism.md)에 있다.
+
 ## 이어지는 페이지
 
+- [클린 코드 비판](clean-code-criticism.md) — 이 장의 용어 선택을 지적하는 2차 문헌
 - [코드 냄새로서의 데이터 클래스](data-class-as-code-smell.md) — 같은 물음의 다른 두
   소스. 이 장이 셋째 근거를 대는 자리
 - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 게터·세터에 대한 판정이
@@ -249,6 +277,10 @@ ramalho2022의 유보를 대질해 **모순이 아니라고** 판정한 자리�
 - [작은 함수](small-functions.md) — 같은 소스 3장. `switch` 처방의 긴장이 시작되는 자리
 - [클린 코드의 발견법 목록](clean-code-heuristics.md) — `G23`·`G36`의 자리
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
+    **절 번호는 이 KB가 매긴 것이다** — 규약은
+    `it/archive/qntm2020/_progress.yaml` 머리말이 정본이다.
 
 [^martin2008]: Martin 2008, 6장 "Objects and Data Structures"(§"Data Abstraction"
     pp.94–95 · §"Data/Object Anti-Symmetry" pp.95–97 · 각주 1 p.96 · §"The Law of

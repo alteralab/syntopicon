@@ -9,6 +9,7 @@ sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: qntm2020, resource: /it/sources/qntm2020.md }
 ---
 
 # DRY 원칙
@@ -294,8 +295,12 @@ sources:
     ([합칠 것인가 나눌 것인가](better-together-or-better-apart.md)).
 - **`contradicts`를 걸지 않는다.** 이 소스가 "중복을 절대 남기지 마라"를 검증 가능한
   처방으로 못 박은 자리가 없고("가능한 곳마다"는 조건절이다), 세 소스의 제동도 이 소스의
-  명제를 부정하는 것이 아니라 적용 시점을 늦추는 것이다. **다만 이 자리는 이 축의 대비가
-  가장 선명한 곳이므로 반대 극이 되는 소스가 들어오면 이 절이 갱신 대상이다.**
+  명제를 부정하는 것이 아니라 적용 시점을 늦추는 것이다.
+- **2차 문헌이 이 자리를 시대 구분으로 읽는다** — **당시에 이것은 꽤 표준적인 조언이었다.
+  그러나 더 최근에 우리는 대체로 약간의 중복이 세상에서 가장 나쁜 것은 아니라고 이해한다;
+  그것이 더 명확할 수 있고, 잘못된 추상보다 쌀 수 있다** (§1).[^qntm2020] 즉 이 최대주의를
+  틀린 것이 아니라 **2008년 시점의 표준**으로 위치시키고, 그 뒤에 반대 극이 생겼다고
+  적는다. 이 KB에 그 반대 극을 명시적으로 세운 소스가 아직 없다면 이 절이 갱신 대상이다.
 
 ## 이어지는 페이지
 
@@ -318,6 +323,10 @@ sources:
 - [ETC — 바꾸기 쉬운 것이 좋은 설계](etc-easier-to-change.md) — DRY가 그 특수 사례인 상위 가치
 - [개발자의 소통](../concepts/developer-communication.md) — 주석과 코드의 중복을 다루는 규약
 - [실용주의 철학과 접근](../synthesis/pragmatic-philosophy-and-approach.md) — 이 축의 허브
+
+[^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
+    **절 번호는 이 KB가 매긴 것이다** — 규약은
+    `it/archive/qntm2020/_progress.yaml` 머리말이 정본이다.
 
 [^fowler2018]: Fowler 2018, 3장 §"Duplicated Code"(p.72) · 2장 §"Refactoring Improves the
     Design of Software"(p.47) · 2장 §"The Rule of Three"(p.50). 쪽은 인쇄판 쪽 번호

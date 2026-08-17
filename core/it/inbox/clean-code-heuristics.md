@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: qntm2020, resource: /it/sources/qntm2020.md }
 ---
 
 # 클린 코드의 발견법 목록
@@ -180,17 +181,26 @@ p.314):[^martin2008]
   패키지에서 쓴다면 `import package.*;`로 패키지 전체를 임포트하라. … 와일드카드 임포트를
   쓰는 것이 특정 임포트보다 일반적으로 여전히 낫다** (17장 `J1`, p.307).[^martin2008]
   근거는 **특정 임포트는 하드 의존이지만 와일드카드 임포트는 그렇지 않다**는 것이다.
-  - #speculation 오늘날 주요 자바 스타일 가이드와 IDE 기본값은 반대 방향이다. 이 KB에
-    그 판정을 담은 소스가 아직 없다.
+  - 이 KB에 들어온 2차 문헌은 이 항목을 논증 대상으로 삼지 않고 **논외로 치운다** —
+    3장 예제 코드를 분석하기 전에 **와일드카드 임포트는 무시하자**고 적는다
+    (§1).[^qntm2020] 즉 비판자에게도 이미 변호할 가치가 없는 항목으로 취급된다.
+    #speculation 오늘날 주요 자바 스타일 가이드와 IDE 기본값이 반대 방향이라는 판정을
+    담은 소스는 이 KB에 아직 없다.
 - `G5`의 **"찾을 수 있는 곳마다 중복을 찾아 없애라"** — 반대 극을 세우는 소스가 이
   KB에 들어오면 [DRY 원칙](dry-principle.md)의 대비 절이 그 자리다.
 - 3장의 함수 크기 수치 — **실증 대질 후보.** 저자 스스로 이를 뒷받침하는 연구를 댈 수
   없다고 밝혔고(3장 §"Small!", p.34), 이 KB에는 함수 길이와 결함률의 관계를 다룬 실증
   연구가 아직 반입돼 있지 않다. 반입되면 [작은 함수](small-functions.md)의 모순 절이
   갱신 대상이다.
+- **사례 연구 장들과 서식 장** — 2차 문헌이 같은 판정을 내린다. 사례 연구 장들은
+  **기본적으로 채움**이고, 서식 장은 **요즘은 한 문장으로 줄어든다: "합리적인 표준 서식을
+  고르고, 자동화 도구가 그것을 강제하도록 설정하고, 그 다음엔 이 주제를 다시는 생각하지
+  마라"** (§2).[^qntm2020] 이 KB가 그 장들을 `skipped`로 처리한 사유와 일치한다
+  (`it/archive/martin2008/_progress.yaml`).
 
 ## 이어지는 페이지
 
+- [클린 코드 비판](clean-code-criticism.md) — 이 목록의 낡은 항목을 지목하는 2차 문헌
 - [작은 함수](small-functions.md) — `F1`–`F3`·`G30`·`G34`의 전문이자 이 소스의 모순 축 하나
 - [주석은 실패다](comments-as-failure.md) — `C1`–`C5`의 전문이자 모순 축 둘
 - [객체와 자료 구조](objects-versus-data-structures.md) — `G23`·`G36`의 전문
@@ -203,6 +213,10 @@ p.314):[^martin2008]
   다른 소스 쪽 자리
 - [외부 설정](external-configuration.md) — `G35`의 다른 소스 쪽 자리
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
+    **절 번호는 이 KB가 매긴 것이다** — 규약은
+    `it/archive/qntm2020/_progress.yaml` 머리말이 정본이다.
 
 [^martin2008]: Martin 2008, 17장 "Smells and Heuristics"(도입 p.286 · `C1`–`C5`
     pp.286–287 · `E1`–`E2` p.287 · `F1`–`F4` p.288 · `G5` pp.289–290 · `G6` pp.290–291 ·

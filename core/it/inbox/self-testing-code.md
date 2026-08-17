@@ -8,6 +8,7 @@ sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
+  - { id: qntm2020, resource: /it/sources/qntm2020.md }
 ---
 
 # 자기 테스트 코드
@@ -384,11 +385,25 @@ p.91).[^fowler2018]
   p.313)[^martin2008], 그리고 커버리지 도구를 쓰라는 것(`T2`)이 유일한 계측 처방이다.
 - **갈리는 자리는 없다.** 이 소스가 테스트에 대해 말하는 것은 이 KB의 fowler2018·
   percival2020 쪽과 방향이 같고, 논쟁이 걸린 것은 이 소스의 3장·4장이다.
+- **다만 2차 문헌이 이 장에 유보 둘을 단다.**
+  - **TDD의 빠진 0단계** — **그러나 책은 그 과정에서 빠진 0단계를 인정하지 않는다: 눈앞의
+    프로그래밍 과제를 어떻게 쪼개서 30초짜리 한 입을 떼어낼 수 있게 만드느냐는 것이다.
+    그것은 많은 경우 대단히 시간이 걸리고, 흔히 명백히 쓸모없으며, 흔히 불가능하다**
+    (§3).[^qntm2020] 이 KB에서 같은 문제를 다루는 자리가
+    [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md)다.
+  - **도메인 특화 테스트 언어 예제** — 이 장이 단정 다섯 줄을
+    `assertEquals("HBchL", hw.getState())` 한 줄로 리팩터링해 제시하는 대목에 대해
+    **나는 정확히 같은 코드를 정확히 반대 교훈을 보이는 데 쓰겠다. 이렇게 하지 마라!**
+    (§2).[^qntm2020] 근거는 새 메서드 이름 `wayTooCold`가 형용사구라 무엇을 하는지
+    불분명하고, 안에서 `controller.tic()`을 부르는 부수 효과를 추측할 수 없다는 것이다
+    — **둘 다 같은 책 2장과 3장이 금지한 것**이라는 내적 일관성 논증이다. 전문은
+    [클린 코드 비판](clean-code-criticism.md)에 있다.
 
 ## 이어지는 페이지
 
 - [클린 코드라는 말의 정의](clean-code-defined.md) — "테스트 없는 코드는 깨끗하지
   않다"와 단순 설계 규칙 1이 사는 자리
+- [클린 코드 비판](clean-code-criticism.md) — 9장 예제와 TDD 0단계에 유보를 다는 2차 문헌
 - [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
   둘 것인가의 절충
@@ -399,6 +414,10 @@ p.91).[^fowler2018]
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 경계 찔러 보기를 자동화하는 쪽
 - [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md) — 단정문의 정본
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
+
+[^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
+    **절 번호는 이 KB가 매긴 것이다** — 규약은
+    `it/archive/qntm2020/_progress.yaml` 머리말이 정본이다.
 
 [^fowler2018]: Fowler 2018, 4장 "Building Tests"(pp.85–100) 전체. 2장의 정의 한 줄은
     §"Refactoring and the Wider Software Development Process"(p.63)에서 왔다. 쪽은 인쇄판
