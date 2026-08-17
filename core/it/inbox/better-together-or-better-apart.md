@@ -8,6 +8,7 @@ sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: beck2023, resource: /it/sources/beck2023.md }
+  - { id: percival2020, resource: /it/sources/percival2020.md }
 ---
 
 # 합칠 것인가 나눌 것인가
@@ -22,6 +23,7 @@ sources:
 - [클린 코드에 대한 반론](#클린-코드에-대한-반론)
 - [반대 방향의 사전 확률을 가진 소스](#반대-방향의-사전-확률을-가진-소스)
 - [응집도 — 결합된 것끼리 모아라](#응집도--결합된-것끼리-모아라)
+- [값싼 어림 규칙 — 그다음과 그리고](#값싼-어림-규칙--그다음과-그리고)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **두 기능을 한자리에 둘지 갈라 둘지를 무엇으로 판정하는가.**
@@ -325,8 +327,41 @@ sources:
   **정리가 바꿔야 할 요소들을 더 작고 집중된 범위에 두게 할까**가 그 물음이다
   (33장).[^beck2023]
 
+## 값싼 어림 규칙 — 그다음과 그리고
+
+위 절들은 경계를 고르는 기준을 여럿 준다(관련됐다는 네 징후, 합칠 사유 셋, 응집도). 파이썬
+아키텍처 쪽 소스는 그 판정을 **문장 하나로 대신하는 어림 규칙**을 준다.
+
+- 규칙 — **어림 규칙: "그다음(then)"이나 "그리고(and)" 같은 낱말을 쓰지 않고 당신 함수가
+  하는 일을 서술할 수 없다면, 당신은 SRP를 위반하고 있을지 모른다**
+  (8장 §"Single Responsibility Principle").[^percival2020]
+- 그것이 나온 맥락이 이름이다 — **우리 사용 사례는 할당이다. 우리 엔드포인트·서비스 함수·
+  도메인 메서드는 전부 `allocate`라 불리지 `allocate_and_send_mail_if_out_of_stock`이
+  아니다** (8장 §"Single Responsibility Principle").[^percival2020]
+  - **이름이 계측기다.** 위 [관련됐다는 네 징후](#관련됐다는-네-징후)는 코드를 읽어야
+    판정되지만, 이 규칙은 **함수 이름을 소리 내어 풀어 보는 것**으로 끝난다. 그래서 값이
+    싸고, 그만큼 거칠다 — 저자들 자신이 "위반하고 있을지 모른다"로 약하게 적는다.
+- SRP의 정식 진술도 함께 있다 — **SRP의 한 정식화는 각 클래스가 바뀔 이유를 하나만 가져야
+  한다는 것이다. 이메일에서 SMS로 바꿀 때 우리는 `allocate()` 함수를 갱신할 필요가 없어야
+  하는데, 그것이 명백히 별개의 책임이기 때문이다**
+  (8장 §"Single Responsibility Principle").[^percival2020]
+  - **"바뀔 이유"라는 기준이 [변경에 대한 결합도](coupling-with-respect-to-change.md)의
+    한정어와 같은 형식이다** — 둘 다 판정을 구조가 아니라 **변경의 종류**에 건다.
+    #hypothesis 두 소스가 서로를 참조한 적은 없다.
+- 그리고 그쪽의 처방이 이 페이지의 처방과 다르다. 이 페이지는 **쪼개거나 합치는 것**으로
+  경계를 고치지만, 그쪽은 **부수 효과를 이벤트로 떼어** 같은 함수 이름을 지킨다 — 전문은
+  [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md)에 있다.
+  - 위 [쪼개기가 만드는 새 복잡성](#쪼개기가-만드는-새-복잡성)의 계산이 여기에도 걸린다.
+    그쪽 소스가 그 대가를 표로 계상한다 — **이벤트 주도 작업 흐름은 혼란스러울 수 있는데,
+    여러 핸들러의 사슬로 갈라지고 나면 요청이 어떻게 이행될지 이해할 수 있는 시스템의 단일
+    지점이 없기 때문이다** (8장 §"Wrap-Up" 표 8-1).[^percival2020]
+
 ## 이어지는 페이지
 - [코드의 나쁜 냄새](code-smells.md) — Long Function이 사는 자리
+- [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md) — 같은 경계
+  문제를 부수 효과 분리로 푸는 자리
+- [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 같은 판단이
+  객체 군집의 경계로 커지는 자리
 - [변경에 대한 결합도](coupling-with-respect-to-change.md) — 응집의 판정 기준이 되는 개념
 - [콘스탄틴의 등가](constantines-equivalence.md) — 결합과 응집이 비용에 걸리는 방식
 
@@ -356,3 +391,8 @@ sources:
     이미지로 조판된 개념도라 산문으로만 옮겼다.
     §9.6의 `NetworkErrorLogger` 발췌는 분리 자체가 논점이고 복사해 쓸 코드가 아니므로
     펜스로 옮기지 않았다.
+
+[^percival2020]: Percival & Gregory 2020, 8장 §"Single Responsibility Principle"·
+    §"Wrap-Up". **이 소스의 locator는 장 단위다** — 검증 절차와 근거는
+    `it/archive/percival2020/_progress.yaml` 머리말이 정본이다. 표 8-1은 원문의 장단점
+    목록을 옮긴 것이고, 이 절에는 코드 펜스를 두지 않았다.

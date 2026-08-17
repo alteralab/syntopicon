@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
 status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: percival2020, resource: /it/sources/percival2020.md }
 ---
 
 # 자기 테스트 코드
@@ -19,6 +20,7 @@ sources:
 - [경계를 찔러 보라](#경계를-찔러-보라)
 - [실패와 오류는 다르다](#실패와-오류는-다르다)
 - [얼마나 테스트하면 충분한가](#얼마나-테스트하면-충분한가)
+- [테스트에도 층이 있고 층마다 굳히는 것이 다르다](#테스트에도-층이-있고-층마다-굳히는-것이-다르다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **리팩터링(refactoring)이 담보로 잡는 그 테스트는 구체적으로 어떤 성질을
@@ -276,9 +278,46 @@ p.91).[^fowler2018]
   충분히 명료한가? 무엇을 하는지 더 쉽게 이해하도록 리팩터링해야 하는가? 나는 올바른 테스트를
   갖고 있는가?** (4장 §"Much More Than This", p.99).[^fowler2018]
 
+## 테스트에도 층이 있고 층마다 굳히는 것이 다르다
+
+이 페이지는 테스트 모음이 갖춰야 할 **성질**을 다룬다. 파이썬 아키텍처 쪽 소스는 같은
+테스트를 **어느 층에 붙일 것인가**를 묻고, 그 선택이 무엇을 굳히는지를 규정한다.
+
+- 진단이 한 문장이다 (5장 §"Should Domain Layer Tests Move to the Service
+  Layer?"):[^percival2020]
+
+  > Every line of code that we put in a test is like a blob of glue, holding the system in a
+  > particular shape. The more low-level tests we have, the harder it will be to change things.
+
+- 그래서 위 [얼마나 테스트하면 충분한가](#얼마나-테스트하면-충분한가)의 주관적 기준에
+  **층이라는 축이 하나 더 붙는다.** 그쪽 소스는 낮은 층일수록 피드백이 높고 변경의 장벽도
+  높다는 절충으로 그것을 정리한다 — 전문은
+  [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md)에 있다.
+- **테스트를 지우는 것이 정상 절차로 규정된다** — **도메인 모델을 상대로 쓴 작은 핵심
+  테스트 모음을 유지하라. 이 테스트들은 아주 초점이 맞은 커버리지를 갖고 더 잘 깨지지만,
+  가장 높은 피드백을 갖는다. 나중에 서비스 레이어의 테스트가 그 기능을 다루게 되면 이
+  테스트들을 지우기를 두려워하지 마라**
+  (5장 §"Recap: Rules of Thumb for Different Types of Test" 곁글).[^percival2020]
+  - 위 절들이 테스트를 **쌓는** 규율을 말한다면 이쪽은 **버리는** 규율을 말한다. 같은
+    소스가 6장에서 실제로 그렇게 한다 — **더 오래 값을 더하지 않을 것 같다고 생각하면
+    언제든 자유롭게 테스트를 버려라**
+    (6장 §"Tidying Up the Integration Tests").[^percival2020]
+  - **위 [테스트가 실패해야 할 때 실패하는지 확인하라](#테스트가-실패해야-할-때-실패하는지-확인하라)와
+    긴장하지 않는다.** 그쪽은 남아 있는 테스트가 제 구실을 하는지 묻고, 이쪽은 어떤 테스트가
+    남을 값어치가 있는지 묻는다. #hypothesis 두 소스가 서로를 참조한 적은 없다.
+- 그리고 무엇이 실패해야 하는지에 대한 규정이 다르다. 이 페이지의 소스는 **결함을 넣으면
+  어떤 테스트가 실패하리라는 확신**을 기준으로 삼고, 그쪽 소스는 **시스템의 어떤 성질이
+  바뀌지 않도록 강제하는 것**을 테스트의 목적으로 둔다 — **API가 계속 200을 돌려주는지,
+  데이터베이스 세션이 계속 커밋하는지, 주문이 여전히 할당되고 있는지**
+  (5장 §"Should Domain Layer Tests Move to the Service Layer?").[^percival2020]
+  두 기준이 같은 것을 다르게 말한 것이다.
+
 ## 이어지는 페이지
 
 - [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
+- [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
+  둘 것인가의 절충
+- [가짜와 목](fakes-versus-mocks.md) — 테스트 대역을 무엇으로 세울 것인가
 - [리팩터링의 리듬](refactoring-rhythm.md) — 테스트를 얼마나 자주 돌리는가
 - [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 테스트가 없는 레거시 코드
 - [테스트가 코딩을 이끈다](test-to-code.md) — 같은 실천을 다른 소스가 다루는 자리
@@ -294,3 +333,9 @@ p.91).[^fowler2018]
     옮기되 책이 지면 폭 때문에 접어 놓은 줄을 폈다. 책이 반례로 든 판(바깥 스코프 상수,
     "DON'T DO THIS")은 복사해 쓸 것이 아니라 옮기지 않고 산문으로 서술했다. 4장의 UI
     화면 도판과 콘솔 출력 도판은 이미지라 옮기지 않았다.
+
+[^percival2020]: Percival & Gregory 2020, 5장 §"Should Domain Layer Tests Move to the
+    Service Layer?"와 곁글 "Recap: Rules of Thumb for Different Types of Test" ·
+    6장 §"Tidying Up the Integration Tests". **이 소스의 locator는 장 단위다** — 검증
+    절차와 근거는 `it/archive/percival2020/_progress.yaml` 머리말이 정본이다. 이 절에는
+    코드 펜스를 두지 않았다.

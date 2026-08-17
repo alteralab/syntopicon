@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 status: draft
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: percival2020, resource: /it/sources/percival2020.md }
 ---
 
 # 정보 은닉과 정보 누출
@@ -20,6 +21,7 @@ sources:
 - [기본값은 부분적 은닉이다](#기본값은-부분적-은닉이다)
 - [클래스 안에서의 정보 은닉](#클래스-안에서의-정보-은닉)
 - [지나치게 하면](#지나치게-하면)
+- [영속성 무지 — 데이터베이스를 숨기는 실물](#영속성-무지--데이터베이스를-숨기는-실물)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모듈이 무엇을 숨겨야 깊어지며, 숨기지 못한 지식은 어떤 대가를 부르는가.**
@@ -248,9 +250,58 @@ sources:
   조각 하나나 몇 개를 캡슐화하도록 설계하라. 이것이 깊은 모듈을 가진 깨끗하고 단순한
   설계를 낳는다** (5장 §5.10, p.38).[^ousterhout2021]
 
+## 영속성 무지 — 데이터베이스를 숨기는 실물
+
+파이썬 아키텍처 쪽 소스가 이 장의 개념을 애플리케이션 층에 적용한 실물을 준다. 숨기는
+대상이 **데이터가 어떻게 저장되는가**이고, 누출이 일어나는 자리가 **도메인 모델 클래스의
+속성 선언**이다.
+
+- 이름이 붙어 있다 — **ORM이 우리에게 주는 가장 중요한 것은 영속성 무지(persistence
+  ignorance)다: 우리의 멋진 도메인 모델이 데이터가 어떻게 적재되고 영속되는지에 대해
+  아무것도 알 필요가 없다는 발상이다**
+  (2장 §"The 'Normal' ORM Way: Model Depends on ORM").[^percival2020]
+  - 위 [정보 은닉](#정보-은닉)의 정의와 형식이 같다 — 모듈이 어떤 지식을 자기 안에 가두고
+    바깥에 드러내지 않는 것. 다른 점은 **숨기는 주체가 모듈이 아니라 프레임워크**라는
+    것이다.
+- **그리고 곧바로 누출이 지적된다.** 선언적 ORM 문법을 따라 모델 클래스가 `Column`으로
+  속성을 선언하면 — **이 모델이 데이터베이스를 모른다고 정말 말할 수 있는가? 우리 모델
+  속성이 데이터베이스 열과 직접 결합돼 있는데 어떻게 저장 관심사에서 분리될 수 있는가?**
+  (2장 §"The 'Normal' ORM Way: Model Depends on ORM").[^percival2020]
+  - **이것이 위 [정보 누출](#정보-누출)의 정의에 정확히 들어맞는 사례다** — 같은 지식
+    (테이블 구조)이 ORM 설정과 도메인 모델 두 자리에 표현된다. 두 소스가 서로를 참조한 적은
+    없다.
+- 처방은 매핑을 따로 두어 의존 방향을 뒤집는 것이다 — **ORM이 도메인 모델을 임포트한다
+  (또는 "의존한다" 또는 "알고 있다"). 그 반대가 아니다**
+  (2장 §"Inverting the Dependency: ORM Depends on Model").[^percival2020] 그러면
+  **`start_mappers`를 절대 부르지 않으면 우리 도메인 모델 클래스들은 데이터베이스를 전혀
+  모르는 채로 행복하게 남는다**
+  (2장 §"Inverting the Dependency: ORM Depends on Model").[^percival2020]
+- **인터페이스의 크기를 줄이는 것으로 은닉을 표현한 자리도 있다.** SQLAlchemy 세션 위에
+  한 겹을 더 씌우는 이유가 그것이다 — **우리는 ORM과 우리 코드 사이의 인터페이스를
+  "좁히려고" SQLAlchemy `Session` 객체 위에 더 단순한 추상을 하나 더 들인다**
+  (6장 §"Unit of Work Pattern Recap" 곁글).[^percival2020] 그리고 그 반대를 택했을 때의
+  대가 — **`Session` 인터페이스에 결합함으로써 당신은 SQLAlchemy의 모든 복잡성에
+  결합하기로 고르는 것이다** (6장 §"Don't Mock What You Don't Own" 곁글).[^percival2020]
+  - 위 [지나치게 하면](#지나치게-하면)의 맺음("정보 은닉과 깊은 모듈은 밀접히 관련된다")이
+    그대로 성립한다. 전문은 [작업 단위 패턴](unit-of-work-pattern.md)에 있다.
+- **같은 잣대를 객체 군집에 적용한 것이 애그리게이트다** — **우리가 메서드나 함수를
+  "비공개"로 표시하는 데 때때로 앞줄 밑줄을 쓰듯, 애그리게이트를 우리 모델의 "공개"
+  클래스로, 나머지 엔티티와 값 객체를 "비공개"로 생각할 수 있다**
+  (7장 §"What Is an Aggregate?").[^percival2020]
+  - 위 [private 선언은 정보 은닉이 아니다](#private-선언은-정보-은닉이-아니다)와 나란히
+    두면 대비가 선명하다. **파이썬에는 강제되는 `private`이 아예 없으므로 그쪽 소스가
+    지적한 "선언만으로는 은닉이 아니다"라는 문제가 여기서는 처음부터 규율의 문제로만
+    존재한다.** 그래서 이 소스의 처방은 언어 기능이 아니라 **리포지터리가 애그리게이트만
+    돌려주게 하는 규칙**이다 — 전문은
+    [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md)에 있다.
+    #hypothesis 두 소스가 서로를 참조한 적은 없다.
+
 ## 이어지는 페이지
 
 - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 이 기법이 만들려는 것의 정의
+- [리포지터리 패턴](repository-pattern.md) — 영속성 관심사를 숨기는 층
+- [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md) — 같은 은닉을
+  객체 군집 단위로 하는 자리
 - [범용 모듈이 더 깊다](general-purpose-modules.md) — 저자가 "일반성이 더 나은 정보
   은닉으로 이어진다"고 적는 자리
 - [합칠 것인가 나눌 것인가](better-together-or-better-apart.md) — "클래스를 조금 크게"의
@@ -269,3 +320,10 @@ sources:
     Used in Decomposing Systems into Modules," *Communications of the ACM*, December
     1972다. Figure 5.1(HTTP POST 요청 예시)은 그림이므로 딸린 설명 산문만 옮겼다. 인터페이스
     시그니처는 문장 안의 조각이라 인라인으로 옮겼다.
+
+[^percival2020]: Percival & Gregory 2020, 2장 §"The 'Normal' ORM Way: Model Depends on
+    ORM"·§"Inverting the Dependency: ORM Depends on Model" · 6장 곁글 "Don't Mock What You
+    Don't Own"·"Unit of Work Pattern Recap" · 7장 §"What Is an Aggregate?". **이 소스의
+    locator는 장 단위다** — 검증 절차와 근거는 `it/archive/percival2020/_progress.yaml`
+    머리말이 정본이다. 이 절의 코드 조각은 인라인으로 옮겼다 — 대표 펜스는
+    [리포지터리 패턴](repository-pattern.md)이 갖는다.

@@ -40,6 +40,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [파운데이션 모델과 AI 엔지니어링](synthesis/foundation-models-and-ai-engineering.md) — LLM 축의 부모 허브: 모델 계보·스택과 아홉 자식 축(평가·프롬프트·RAG·에이전트·파인 튜닝·데이터셋·추론 서빙·아키텍처·피드백)
 - [복잡성과 모듈 설계](synthesis/complexity-and-modular-design.md) — 코드 품질 축의 부모 허브: 복잡성의 정의와 증상, 모듈 설계 처방과 두 형제 축(문서화와 코드 명료함·복잡성 잣대의 적용)
 - [리팩터링과 코드 냄새](synthesis/refactoring-and-code-smells.md) — 같은 축의 이행 절차 쪽: 행동 보존 소단계의 정의와 리듬, 언제 하는가의 계기, 냄새 어휘, 담보가 되는 테스트, 막는 것들
+- [도메인 모델과 애플리케이션 계층](synthesis/domain-model-and-application-layers.md) — 같은 축의 파이썬 구체화: 의존 역전과 그 위의 네 패턴(리포지터리·서비스 레이어·작업 단위·애그리게이트), 테스트 층 선택, 부트스트랩
 
 ## Tools
 
