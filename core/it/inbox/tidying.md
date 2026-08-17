@@ -26,7 +26,7 @@ sources:
 
 이 개념의 원어는 **정리(tidying)**이고, 그 상위 낱말은
 **리팩터링(refactoring)**·**재구조화(restructuring)**다. 지은이는 Kent Beck이며 —
-[리팩터링](refactoring.md)의 원전이 그 정의의 출처로 드는 **두 모자(two hats)** 비유의
+[리팩터링](../concepts/refactoring.md)의 원전이 그 정의의 출처로 드는 **두 모자(two hats)** 비유의
 주인공이 이 사람이다. 즉 이 페이지는 **그 낱말을 만든 쪽이 그 낱말을 포기하고 새 낱말을
 세우는 자리**다.
 
@@ -67,7 +67,7 @@ sources:
   됐다. **② 조항의 삭제** — **"행동을 바꾸지 않는다"는 조항 자체가 없어졌다.** 둘이
   합쳐지면 남는 것은 "새 기능 없음 + 시스템이 깨질 수 있음 + 끝에 보여 줄 것 없음"이라는
   삼중고이고, 저자는 그 상태의 말을 되살리는 대신 버린다.
-- **이 진단이 [리팩터링](refactoring.md) 원전의 진단과 같은 사실을 가리키되 처방이
+- **이 진단이 [리팩터링](../concepts/refactoring.md) 원전의 진단과 같은 사실을 가리키되 처방이
   다르다.** 원전 쪽은 같은 오용을 관측하고 **정의를 다시 못 박는 것**으로 대응한다 —
   **여러 해에 걸쳐 업계의 많은 사람이 "리팩터링"을 어떤 종류의 코드 정리든 뜻하는 말로
   쓰게 됐다 — 그러나 위의 정의는 코드를 정리하는 특정한 접근을 가리킨다** (2장
@@ -92,7 +92,7 @@ sources:
 - 논증의 순서가 거꾸로다. **먼저 구조 변경이 되돌릴 수 있다는 사실이 있고**, 그래서
   **실수를 피하는 데 드는 투자의 값이 작고**, 그래서 **이름이 작아야 한다**. 이름의
   겸손이 미덕의 표현이 아니라 **가역성이라는 사실의 귀결**이다. 전문은
-  [되돌릴 수 있는 설계 결정](reversible-design-decisions.md)에 있다.
+  [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)에 있다.
 - 같은 판단이 절차 쪽에도 나온다 — **정리 철학의 일부는 그것이 결코 큰일이어서는 안
   된다는 것이다. 그것은 보고되고, 추적되고, 계획되고, 일정에 잡혀야 하는 무언가가 결코
   아니다** (Preface §"Structure of the Book").[^beck2023] 정리를 관리 대상으로 만드는
@@ -183,11 +183,11 @@ sources:
   약점이다. 투기적 설계와 반응적 설계도 판단을 요구하지만, 그것들은 소프트웨어
   설계자에게 다룰 도구를 더 적게 준다** (Preface §"Why 'Empirical' Software
   Design?").[^beck2023]
-  - 이 자기 단서가 이 축의 다른 두 원전에 있는 것과 같은 성격이다. 저쪽 둘은 각자의 핵심 주장에 실증 데이터가 없음을 밝히고([설계 체력 가설](refactoring.md), [투자 비율 10~20%](strategic-versus-tactical-programming.md)), 이쪽은 **답의 형식 자체가 규칙이 아니라 판단임**을 밝힌다.
+  - 이 자기 단서가 이 축의 다른 두 원전에 있는 것과 같은 성격이다. 저쪽 둘은 각자의 핵심 주장에 실증 데이터가 없음을 밝히고([설계 체력 가설](../concepts/refactoring.md), [투자 비율 10~20%](../concepts/strategic-versus-tactical-programming.md)), 이쪽은 **답의 형식 자체가 규칙이 아니라 판단임**을 밝힌다.
 
 ## 원전 쪽에서 본 같은 경계
 
-[리팩터링](refactoring.md)의 원전에도 크기에 대한 판정이 있다. 두 소스가 같은 경계를
+[리팩터링](../concepts/refactoring.md)의 원전에도 크기에 대한 판정이 있다. 두 소스가 같은 경계를
 다른 낱말로 긋는다.
 
 - 원전의 판정 기준은 **깨진 시간**이다 — **누군가 리팩터링하는 동안 이틀간 코드가
@@ -205,9 +205,9 @@ sources:
 - [언제 정리하는가](when-to-tidy.md) — 먼저·나중·이따가·안 함의 판정
 - [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — PR 분리, 한 묶음의 크기, 주기
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 이 구분이 이 책의 뿌리
-- [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 이름이 작아야 하는 이유
+- [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 이름이 작아야 하는 이유
 - [요소를 이롭게 관계 짓기](../concepts/beneficially-relating-elements.md) — 저자의 소프트웨어 설계 정의
-- [리팩터링](refactoring.md) — 상위 낱말의 원전 정의와 그 계보
+- [리팩터링](../concepts/refactoring.md) — 상위 낱말의 원전 정의와 그 계보
 - [언제 리팩터링하는가](when-to-refactor.md) — 같은 물음에 대한 원전 쪽의 답
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 상위 낱말 쪽 허브

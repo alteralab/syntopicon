@@ -100,7 +100,7 @@ Software*(Addison-Wesley, 2003)이다. 업계에서 **파란 책**이라 부르�
   목적**을 유추하게 되어 버그 없이 개념적 기반이 훼손된다는 위험, 이름이 유비쿼터스 언어를
   따라야 한다는 요구와 클라이언트 시점을 강제하는 테스트 우선, 그리고 이름이 완전 명세가
   아니라 시작할 수 있게 하는 단서라는 한계 규정
-- [부수 효과 없는 함수](../inbox/side-effect-free-functions.md) — 명령과 질의의 구분, 의도한
+- [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 명령과 질의의 구분, 의도한
   변경까지 부수 효과라 부르게 된 경위와 중첩 호출의 기제, 예측 불가능의 대가가 버그가 아니라
   **만들 수 있는 행동의 풍부함**으로 계상된다는 판정, 명령과 질의를 가르는 첫째 완화책과 값
   객체를 파생시키는 둘째 완화책, 그리고 이 분리가 엔티티에만 해당한다는 단서
@@ -131,7 +131,7 @@ Entity·Value Object·Aggregate·Repository·Service·Factory의 원 정의는 �
 - [값 객체와 엔티티](../inbox/value-objects-and-entities.md) — 정체성으로 가르는 원 정의
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 군집과
   루트, 불변식의 원 정의
-- [리포지터리 패턴](../inbox/repository-pattern.md) — 메모리 안 컬렉션이라는 착시의 원 정의
+- [리포지터리 패턴](../concepts/repository-pattern.md) — 메모리 안 컬렉션이라는 착시의 원 정의
 
 이 배치의 근거는 그 축의 소스가 스스로 밝힌 분업이다 — 그쪽 저자들은 모델링 자체를 이
 소스로 미룬다고 명시한다.

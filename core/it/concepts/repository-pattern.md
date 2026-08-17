@@ -3,7 +3,6 @@ type: concept
 title: 리포지터리 패턴
 description: 영속 저장소 위에 씌우는 단순화 추상 — 데이터가 전부 메모리에 있는 척한다는 규정과 add·get 두 메서드뿐인 최소 인터페이스, ORM이 주는 영속성 무지와 그것으로는 부족한 이유, 선언적 매핑 대신 고전적 매퍼로 ORM이 모델을 임포트하게 뒤집는 수순, 자기 부과한 단순함이 결합을 막는다는 논리, 집합 하나로 끝나는 가짜 리포지터리와 "가짜로 만들기 어려우면 추상이 너무 복잡하다"는 설계 피드백, 이 패턴의 비용을 저자들이 계상한 표, 그리고 메모리 안 컬렉션의 착시를 조문으로 둔 원 정의와 그 이득 넷
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
-status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }

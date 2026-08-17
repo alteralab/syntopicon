@@ -3,7 +3,6 @@ type: concept
 title: 설계의 경제학 — 시간 가치와 옵션성
 description: Tidy First? 3부가 "언제 설계하는가"의 근거로 끌어오는 두 금융 사실 — 오늘의 1달러가 내일의 1달러보다 크다는 할인 현금 흐름과, 혼돈 속에서는 물건보다 옵션이 낫다는 옵션성, 소프트웨어를 날짜 붙은 현금 흐름의 묶음으로 값매기는 모형, 콜 옵션의 네 파라미터를 설계에 대응시킨 사전, 그리고 두 힘이 정확히 반대 방향으로 당기기 때문에 "먼저 정리?"의 물음표가 지워지지 않는다는 결론
 generated: { by: "claude-opus-5", at: "2026-08-17T23:20:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
@@ -258,7 +257,7 @@ sources:
 
 - [언제 정리하는가](when-to-tidy.md) — 이 이론이 답하는 실무 판정
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 옵션을 만드는 것이 구조라는 규정
-- [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 투자 규모를 정하는 다른 축
+- [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 투자 규모를 정하는 다른 축
 - [콘스탄틴의 등가](../concepts/constantines-equivalence.md) — 비용 쪽 이론의 전문
 - [정리 — tidying](tidying.md) — 이 경제학이 값매기는 대상
 - [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 같은 물음에 비율로 답하는 소스

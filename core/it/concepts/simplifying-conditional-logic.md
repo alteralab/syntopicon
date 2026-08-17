@@ -3,7 +3,6 @@ type: concept
 title: 조건부 로직 단순화 리팩터링
 description: 조건문을 다루는 여섯 항목 — 조건을 분해해 무엇이 아니라 왜를 드러내기, 같은 결과를 내는 검사들을 하나로 합치기, 보호 구절이 강조의 장치라는 규정과 단일 출구 규칙에 대한 판정, 조건을 다형성으로 바꾸는 두 상황과 그 남용에 대한 저자의 거리 두기, 널 객체를 특수 사례의 한 경우로 일반화한 항목, 그리고 단언이 오류 탐지보다 소통의 수단이라는 판정
 generated: { by: "claude-opus-5", at: "2026-08-17T20:00:00Z" }
-status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
 ---
@@ -185,7 +184,7 @@ sources:
   오류를 고친 뒤에도 남겨 두는 쪽으로 기운다. 자기 테스트 코드는 디버깅에 대한 단언의 가치를
   줄이는데, 꾸준히 좁혀 가는 단위 테스트가 흔히 그 일을 더 잘하기 때문이다. 그러나 나는 여전히
   소통을 위해 단언을 좋아한다** (10장 §"Introduce Assertion", p.302).[^fowler2018]
-  담보 쪽 정본은 [자기 테스트 코드](self-testing-code.md)다.
+  담보 쪽 정본은 [자기 테스트 코드](../concepts/self-testing-code.md)다.
 - 3장 주석(Comments) 냄새가 **시스템의 요구되는 상태에 대한 규칙을 진술해야 하면** 이 항목을
   처방으로 지목한다 — [코드의 나쁜 냄새](../concepts/code-smells.md) 참조.
 
@@ -196,7 +195,7 @@ sources:
 - [상속 다루기 리팩터링](../concepts/refactoring-inheritance.md) — 다형성으로 가는 전제를 만드는 장(12장)
 - [기본 리팩터링](../concepts/basic-refactorings.md) — 이 장의 여러 항목이 부품으로 쓰는 *Extract Function*의 정본
 - [코드의 나쁜 냄새](../concepts/code-smells.md) — 반복되는 switch·긴 함수가 이 장을 지목한다
-- [자기 테스트 코드](self-testing-code.md) — 단언과 단위 테스트의 분업
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 단언과 단위 테스트의 분업
 - [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 패턴이 리팩터링의 목적지로 등장하는 형식
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 

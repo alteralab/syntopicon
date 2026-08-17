@@ -318,7 +318,7 @@ sources:
 
 - [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md) — 이
   선택지가 나온 2부의 요지
-- [리포지터리 패턴](../inbox/repository-pattern.md) — 첫째 선택지가 쓰는 층
+- [리포지터리 패턴](repository-pattern.md) — 첫째 선택지가 쓰는 층
 - [감사와 무결성 검사](../concepts/auditing-and-integrity-checking.md) — 이 모델이 감사에서
   유리한 이유의 전문
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — 같은 발상을 낮은 추상 수준에서 하는 쪽

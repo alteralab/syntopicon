@@ -3,7 +3,6 @@ type: concept
 title: 작은 함수
 description: 함수는 작아야 하고 그보다 더 작아야 한다는 규칙과 그것이 딸린 처방들 — 저자 스스로 근거를 댈 수 없다고 밝히는 자리, 스무 줄과 들여쓰기 두 단계라는 구체 수치, "한 가지만 하라"를 추출 가능성으로 판정하는 조작적 정의, 내려가기 규칙, 인수 개수를 0에서 3으로 늘어놓는 서열과 플래그 인수 금지, 부수 효과와 명령·질의 분리, 오류 코드 대신 예외, 그리고 이 규칙이 깊은 모듈 잣대와 정면으로 갈리는 자리
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
-status: draft
 contradicts: [deep-and-shallow-modules]
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
@@ -310,8 +309,8 @@ sources:
 > chapter. I don't write them that way to start. I don't think anyone could.
 
   - **이 진술이 이 장의 규칙을 리팩터링 목표로 재분류한다** — 작성 규칙이 아니라 도착
-    상태다. 그 이행 절차의 원전은 [리팩터링](refactoring.md)이고, 담보가 되는 테스트는
-    [자기 테스트 코드](self-testing-code.md)다.
+    상태다. 그 이행 절차의 원전은 [리팩터링](../concepts/refactoring.md)이고, 담보가 되는 테스트는
+    [자기 테스트 코드](../concepts/self-testing-code.md)다.
 
 ## 2차 문헌이 이 장의 예제를 이 장의 규칙과 대질한다
 
@@ -446,9 +445,9 @@ sources:
 - [DRY 원칙](../concepts/dry-principle.md) — "중복은 만악의 근원"이라는 최대주의가 놓이는 축
 - [이름 짓기](../concepts/naming-things.md) — 이 장이 서술적 이름에 거는 무게가 다른 두 소스와
   만나는 자리
-- [리팩터링](refactoring.md) — 이 장의 규칙이 작성 규칙이 아니라 도착 상태임을 저자가
+- [리팩터링](../concepts/refactoring.md) — 이 장의 규칙이 작성 규칙이 아니라 도착 상태임을 저자가
   밝힌 뒤 남는 절차 층
-- [자기 테스트 코드](self-testing-code.md) — 그 이행의 담보
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 그 이행의 담보
 - [시간적 결합을 깨기](../concepts/breaking-temporal-coupling.md) — 부수 효과 절과
   `G31`이 만나는 실용주의 쪽 자리
 - [코드의 나쁜 냄새](../concepts/code-smells.md) — 긴 함수를 냄새로 다루는 셋째 소스

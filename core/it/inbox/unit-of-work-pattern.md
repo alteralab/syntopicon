@@ -200,8 +200,8 @@ sources:
 
 ## 이어지는 페이지
 
-- [리포지터리 패턴](repository-pattern.md) — UoW가 담고 있는 것
-- [서비스 레이어](service-layer-pattern.md) — UoW를 여닫는 층
+- [리포지터리 패턴](../concepts/repository-pattern.md) — UoW가 담고 있는 것
+- [서비스 레이어](../concepts/service-layer-pattern.md) — UoW를 여닫는 층
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 한 UoW 안에서
   무엇을 바꿔야 하는가의 규칙
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 세션 대신 UoW를 가짜로 만드는 이유

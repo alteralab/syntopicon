@@ -3,7 +3,6 @@ type: concept
 title: 자기 테스트 코드
 description: 테스트를 코드베이스 안에 넣고 결과 확인까지 자동화한 코드라는 규정과 그것이 리팩터링의 전제가 되는 이유 — 저자가 디버깅 시간이 사라지는 것을 관측한 경위, 테스트가 실패해야 할 때 실패하는지 일부러 확인하는 습관, 위험 주도로 무엇을 테스트할지 고르는 기준, 공유 픽스처가 낳는 비결정성과 매번 새로 만드는 처방, 준비-실행-검증이라는 네 국면, 경계와 나쁜 입력을 겨냥하는 적대적 태도, 실패와 오류의 구분, 그리고 "얼마나 테스트하면 충분한가"에 대한 주관적 기준
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
-status: draft
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
@@ -241,7 +240,7 @@ p.91).[^fowler2018]
   쓰고 있다면 나는 아마 이 테스트를 버릴 것이다. 리팩터링은 관찰 가능한 동작을 보존해야
   한다; 이런 오류는 관찰 가능한 것의 범위 밖이므로, 내 리팩터링이 이 조건에 대한 코드의 반응을
   바꾸더라도 걱정할 필요가 없다** (4장 §"Probing the Boundaries", p.98).[^fowler2018]
-  - 이 문장이 [리팩터링](refactoring.md)의 "관찰 가능한 동작"이라는 느슨한 말에 **테스트
+  - 이 문장이 [리팩터링](../concepts/refactoring.md)의 "관찰 가능한 동작"이라는 느슨한 말에 **테스트
     설계상의 실무적 경계**를 준다. 관찰 가능성의 바깥은 테스트로 고정하지 않는다.
 - 단정문과 테스트의 관계 — **이 오류가 나쁜 데이터를 프로그램 안에 돌아다니게 해서 디버깅하기
   어려운 실패를 일으킬 수 있다면, 나는 *Introduce Assertion*으로 빨리 실패하게 할 수도 있다.
@@ -461,7 +460,7 @@ p.91).[^fowler2018]
 - [클린 코드 비판](../concepts/clean-code-criticism.md) — 9장 예제와 TDD 0단계에 유보를 다는 2차 문헌
 - [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md) — 번들링이라는 이름이
   붙은 자리이자 TDD 쟁점의 1차 사료
-- [리팩터링](refactoring.md) — 이 테스트가 담보로 잡히는 활동
+- [리팩터링](../concepts/refactoring.md) — 이 테스트가 담보로 잡히는 활동
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 테스트를 어느 층에
   둘 것인가의 절충
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 테스트 대역을 무엇으로 세울 것인가

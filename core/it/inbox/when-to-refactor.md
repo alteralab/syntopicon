@@ -28,7 +28,7 @@ sources:
 전제가 되는 규정은 하나다 — **리팩터링은 내가 프로그래밍하는 매 시간 하는 일이다**
 (2장 "When Should We Refactor?", p.50).[^fowler2018] 이 장의 나머지는 그 "매 시간"이
 실제로 어떤 모양인지를 여섯 가지로 나눠 보인 것이다. 정의와 두 모자는
-[리팩터링](refactoring.md)에, 무엇을 보고 알아채는가는
+[리팩터링](../concepts/refactoring.md)에, 무엇을 보고 알아채는가는
 [코드의 나쁜 냄새](../concepts/code-smells.md)에 있다.
 
 ## 삼진 규칙
@@ -105,7 +105,7 @@ sources:
   Refactoring", p.52).[^fowler2018] 1장 끝에서는 같은 규칙이 코드베이스 판으로 다시 나온다 —
   **늘 코드베이스를 처음 발견했을 때보다 건강하게 남겨라** (1장 §"Status: Separated into Two
   Files (and Phases)", p.34).[^fowler2018] 같은 계열의 처방이
-  [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md)에 있다.
+  [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md)에 있다.
 - 그리고 이것이 가능한 이유가 리팩터링의 성질에서 나온다 — **리팩터링의 좋은 점은 작은 걸음마다
   코드가 깨지지 않는다는 것이다 — 그래서 때로는 일을 끝내는 데 몇 달이 걸리지만 그 중간
   어느 시점에도 코드는 결코 깨져 있지 않다** (2장 §"Litter-Pickup Refactoring",
@@ -190,7 +190,7 @@ sources:
   팀이 충분히 하고 있지 않다는 신호를 살펴야 한다. 팀이 리팩터링을 너무 많이 하는 일이 일어나기는
   하지만, 충분히 하지 않는 경우보다 훨씬 드물다** (2장 §"What Do I Tell My Manager?",
   p.55).[^fowler2018] 설계 체력 가설(design stamina hypothesis)의 전문은
-  [리팩터링](refactoring.md)에 있다.
+  [리팩터링](../concepts/refactoring.md)에 있다.
 - **그렇지 않은 상대에게는 말하지 말라는 것이 저자의 답이다** — 저자 자신이 이것을 **더
   논쟁적인 조언**이라 부른다 (2장 §"What Do I Tell My Manager?", p.55):[^fowler2018]
 
@@ -220,7 +220,7 @@ sources:
     끓여 낼 수 없다.**
   - 둘째 항목에서 저자가 **환원 불가능성을 명시한다**는 점이 이 절의 성격이다. 같은 자리에서
     실용주의 쪽은 "한 주가 걸리면 그것은 재작성이다"라는 경계값을 제시한다(Topic 40 —
-    [리팩터링](refactoring.md)의 통증 관리 절). 이쪽은 그런 경계값을 주지 않는다.
+    [리팩터링](../concepts/refactoring.md)의 통증 관리 절). 이쪽은 그런 경계값을 주지 않는다.
 
 ## 같은 물음에 네 시점으로 답하는 소스
 
@@ -235,7 +235,7 @@ sources:
   중복인가, 기능을 붙이기 전인가)를 보고, 저쪽의 시점은 **회수 시점의 경제학**을 본다 —
   **정리 비용에 정리 후 행동 변경 비용을 더한 것이 정리 없는 행동 변경 비용보다 작으면
   무조건 먼저 정리하라** (27장).[^beck2023] 그 계산은
-  [설계의 경제학 — 시간 가치와 옵션성](software-design-economics.md)에 있다.
+  [설계의 경제학 — 시간 가치와 옵션성](../concepts/software-design-economics.md)에 있다.
 - **겹치는 자리가 분명하다.** 이 페이지의 [준비 리팩터링](#준비-리팩터링--기능을-붙이기-쉽게-만든-뒤-붙인다)이
   저쪽의 "먼저"이고, [쓰레기 줍기 리팩터링](#쓰레기-줍기-리팩터링)이 저쪽의 "나중에"에
   가깝다. **저쪽에만 있는 것이 "안 함"이다** — **이 코드를 다시는 바꾸지 않을 것이고 설계를
@@ -249,12 +249,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [리팩터링](refactoring.md) — 정의·두 모자·왜 하는가. 이 페이지의 부모
+- [리팩터링](../concepts/refactoring.md) — 정의·두 모자·왜 하는가. 이 페이지의 부모
 - [언제 정리하는가](when-to-tidy.md) — 같은 물음에 네 시점으로 답하는 자리
 - [코드의 나쁜 냄새](../concepts/code-smells.md) — 무엇을 보고 알아채는가
 - [리팩터링의 리듬](../concepts/refactoring-rhythm.md) — 시작한 뒤의 걸음 크기
 - [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 하려는데 안 될 때
-- [자기 테스트 코드](self-testing-code.md) — 시작 전에 있어야 할 것
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 시작 전에 있어야 할 것
 - [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 같은 계기를 다른 소스가 다루는 자리
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 

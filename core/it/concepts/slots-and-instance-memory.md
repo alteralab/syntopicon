@@ -3,7 +3,6 @@ type: concept
 title: __slots__와 인스턴스 메모리
 description: 파이썬이 인스턴스 속성을 기본적으로 딕셔너리에 담는다는 사실과 그것을 숨은 배열로 바꾸는 __slots__의 기제 — 선언이 만드는 두 효과, 하위 클래스에 절반만 상속된다는 반직관, 천만 인스턴스 실측이 보인 절감폭, 그리고 이 최적화가 사 오는 네 가지 단서와 언제 그 대가를 치를 만한가의 경계
 generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
-status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---

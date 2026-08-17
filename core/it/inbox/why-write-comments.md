@@ -121,7 +121,7 @@ sources:
   문서화가 전혀 없는 상태로 끝날 것이다** (12장 §12.2, p.97).[^ousterhout2021]
 - 반론의 첫 축은 투자 사고방식이다 — **이 변명에 대한 반론은 15쪽에서 논한 투자
   사고방식(investment mindset)이다** (12장 §12.2, p.97).[^ousterhout2021] 전문은
-  [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md)에 있다.
+  [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md)에 있다.
 - **둘째 축이 이 절의 계산이다** — **더구나 주석 쓰기가 많은 시간을 요할 필요도 없다. 주석을
   전혀 넣지 않는다고 가정할 때, 개발 시간 중 코드를 타이핑하는 데 쓰는 비중이 얼마나 되는지
   자문해 보라(설계·컴파일·테스트 등과 대비해서); 나는 그 답이 10%를 넘는다고 보지 않는다. 이제
@@ -175,7 +175,7 @@ sources:
   구조를 명료하게 해서 주어진 변경에 어떤 정보와 코드가 관련되는지 분명하게 함으로써 모르는
   줄도 모르는 것을 줄일 수 있다** (12장 §12.5, p.99).[^ousterhout2021]
   - 즉 **변경 증폭은 주석이 못 고친다**. 세 증상의 정의는
-    [복잡성의 정의와 증상](software-complexity-defined.md)에 있다.
+    [복잡성의 정의와 증상](../concepts/software-complexity-defined.md)에 있다.
 - 두 원인에 대해서도 같은 대응이 적힌다 — **2장은 복잡성의 주된 원인이 의존과 불명료라고
   지적했다. 좋은 문서화는 의존을 명료하게 할 수 있고, 틈을 메워 불명료를 제거한다** (12장
   §12.5, p.99).[^ousterhout2021]
@@ -339,9 +339,9 @@ sources:
 - [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 낡는다는 변명에 대한 처방의 자리
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — "코드를 읽으면 된다"는 기대가 낳는
   얕은 메서드
-- [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 투자
+- [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md) — 투자
   사고방식의 전문
-- [복잡성의 정의와 증상](software-complexity-defined.md) — 주석이 덜어 주는 두 증상과 못
+- [복잡성의 정의와 증상](../concepts/software-complexity-defined.md) — 주석이 덜어 주는 두 증상과 못
   덜어 주는 하나
 - [개발자의 소통](../concepts/developer-communication.md) — 같은 문제를 실용주의 쪽에서 다루는 자리
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브

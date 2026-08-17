@@ -3,7 +3,6 @@ type: concept
 title: 되돌릴 수 있는 설계 결정
 description: 구조 변경과 행동 변경을 근본적으로 가르는 성질인 가역성 — 나쁜 머리 모양과 나쁜 문신의 비유, 되돌릴 수 있는 결정에 검토를 많이 투자하는 것이 낭비인 이유와 그것이 "정리"라는 이름의 경제적 근거라는 것, 가역과 비가역을 구분하지 않는 코드 리뷰 관행에 대한 비판, 비가역 결정을 한시적으로 가역으로 만드는 법(프로토타입·기능 플래그), 결정이 코드베이스로 전파되며 비가역이 되는 경로와 그 탈출법
 generated: { by: "claude-opus-5", at: "2026-08-17T23:20:00Z" }
-status: draft
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }

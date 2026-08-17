@@ -201,7 +201,7 @@ sources:
 - [언제 리팩터링하는가](when-to-refactor.md) — 삼진 규칙. 같은 문제의 예방 쪽 답
 - [클린 코드의 발견법 목록](../concepts/clean-code-heuristics.md) — `G5`의 최대주의와 `G15`의 수렴이
   함께 있는 자리
-- [작은 함수](small-functions.md) — "중복은 만악의 근원"이 나오는 장
+- [작은 함수](../concepts/small-functions.md) — "중복은 만악의 근원"이 나오는 장
 - [클린 코드 비판](../concepts/clean-code-criticism.md) — 이 페이지의 명제를 인용해 시대 구분을
   주장하는 2차 문헌
 - [기본 리팩터링](../concepts/basic-refactorings.md) — 인라인이 이름 붙은 조작으로 있는 자리

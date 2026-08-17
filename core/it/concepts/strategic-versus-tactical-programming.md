@@ -3,7 +3,6 @@ type: concept
 title: 전략적 프로그래밍과 전술적 프로그래밍
 description: 동작하는 코드로는 부족하다는 주장 — 빨리 돌게 만드는 데 집중하는 전술적 사고방식이 좋은 설계를 사실상 불가능하게 만드는 기제, 위대한 설계를 1차 목표로 놓는 전략적 사고방식과 그 투자 마인드셋, 능동 투자와 반응 투자의 구분, 개발 시간의 10~20%라는 저자의 권고치와 6~18개월이라는 회수 기간 추정의 근거 없음까지 명시된 자리, 조직의 영웅으로 대접받는 전술적 토네이도, 그리고 스타트업의 압력과 페이스북·구글의 대비, 그리고 같은 태도가 진화 국면·애자일·테스트 주도 개발 세 자리에 다시 적용되는 대목
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
-status: draft
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: beck2023, resource: /it/sources/beck2023.md }
@@ -256,7 +255,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [복잡성의 정의와 증상](software-complexity-defined.md) — 이 장이 전제하는 "무관용"의
+- [복잡성의 정의와 증상](../concepts/software-complexity-defined.md) — 이 장이 전제하는 "무관용"의
   근거(복잡성은 점진적으로 축적된다)가 있는 자리
 - [두 번 설계하라](../concepts/design-it-twice.md) — 능동 투자의 구체적 절차
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) —

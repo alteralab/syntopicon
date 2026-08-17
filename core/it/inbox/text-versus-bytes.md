@@ -210,14 +210,14 @@ sources:
     않는다** — **발음 구별 부호를 제거하는 것은 제대로 된 정규화 형식이 아니다. 그것이 흔히
     낱말의 의미를 바꾸고 검색에서 거짓 양성을 낼 수 있기 때문이다**
     (4장 §"Extreme "Normalization": Taking Out Diacritics", p.144).[^ramalho2022]
-- 정렬에도 같은 문제가 이어진다 — [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md)이
+- 정렬에도 같은 문제가 이어진다 — [파이썬 시퀀스의 의미론](../concepts/sequence-semantics-in-python.md)이
   적은 "기본 문자열 정렬은 문자 코드순"이라는 경고의 처방이 이 장의
   §"Sorting Unicode Text"(pp.148–150)에 있고, 표준 `locale` 모듈과 외부 *pyuca* 패키지가
   거기서 갈린다.[^ramalho2022]
 
 ## 이어지는 페이지
 
-- [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — `str`과 `bytes`가 그
+- [파이썬 시퀀스의 의미론](../concepts/sequence-semantics-in-python.md) — `str`과 `bytes`가 그
   분류에서 어디에 놓이는가(평면 시퀀스), 그리고 정렬 경고의 원산지
 - [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 정규화되지 않은 문자열을 키로 쓰면
   해시가 갈라지는 자리

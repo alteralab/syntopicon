@@ -407,7 +407,7 @@ sources:
   **누군가 코드에 결함을 넣으면 어떤 테스트가 실패하리라고 얼마나 확신하는가?** (4장
   §"Much More Than This", p.100).[^fowler2018]
 - 나머지(픽스처 설계·경계 조사·실패와 오류의 구분·버그 보고 절차)는
-  [자기 테스트 코드](self-testing-code.md)에 있다.
+  [자기 테스트 코드](../concepts/self-testing-code.md)에 있다.
 
 ## 바뀌는 것은 API가 아니라 능력이다
 
@@ -442,11 +442,11 @@ sources:
   [가짜와 목](../concepts/fakes-versus-mocks.md)에 있다.
 
 ## 이어지는 페이지
-- [자기 테스트 코드](self-testing-code.md) — 리팩터링의 담보로서의 테스트 전문
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 리팩터링의 담보로서의 테스트 전문
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 테스트 대역 선택이 설계를 바꾼다는 주장의 전문
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 그 테스트를 어느 층에
   둘 것인가
-- [리팩터링](refactoring.md) — 그 담보가 쓰이는 활동
+- [리팩터링](../concepts/refactoring.md) — 그 담보가 쓰이는 활동
 
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 이 Topic이 미룬 문제(내 편향이 테스트에도 들어간다)의 해법
 - [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 이 페이지가 범위 밖으로 미뤄 둔 "가차 없는

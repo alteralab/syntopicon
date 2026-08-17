@@ -160,13 +160,13 @@ sources:
 | **응집도(Cohesion)** | 정리가 바꿔야 할 요소들을 더 작고 집중된 범위에 두게 할까? |
 | **당신** | 정리가 당신의 프로그래밍에 평화·만족·기쁨을 가져다줄까? |
 
-- 앞의 둘이 [정리와 설계의 경제학](software-design-economics.md)이고, 가운데 둘이
+- 앞의 둘이 [정리와 설계의 경제학](../concepts/software-design-economics.md)이고, 가운데 둘이
   [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md)와
   [응집도](../concepts/better-together-or-better-apart.md)다. **즉 21장의 판정 질문은 3부 이론
   전체의 요약이다** — 책의 구성상 답이 먼저 나오고 근거가 뒤에 온다.
 - 비용과 수익의 어법이 각각 셋(크기·시점·확실성)으로 되어 있는 것이 우연이 아니다.
   그것이 할인 현금 흐름 모형의 세 축이다 — 전문은
-  [정리와 설계의 경제학](software-design-economics.md)에 있다.
+  [정리와 설계의 경제학](../concepts/software-design-economics.md)에 있다.
 
 ## "그때그때 다르다"가 회피가 아닌 이유
 
@@ -200,12 +200,12 @@ sources:
 - [정리 — tidying](tidying.md) — 이 판정의 대상이 무엇인가
 - [정리 열다섯 가지](tidyings-catalog.md) — "무엇을 정리할지 안다"의 목록
 - [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — "몇 개씩"이라는 다른 축
-- [정리와 설계의 경제학](software-design-economics.md) — 비용·수익 인자의 이론
+- [정리와 설계의 경제학](../concepts/software-design-economics.md) — 비용·수익 인자의 이론
 - [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md) — 결합도 인자의 이론
 - [구조 변경과 행동 변경](structure-versus-behavior-change.md) — 이 판정이 전제하는 구분
 - [언제 리팩터링하는가](when-to-refactor.md) — 같은 물음에 대한 원전 쪽의 여섯 계기
 - [기존 코드를 수정할 때](../concepts/modifying-existing-code.md) — 같은 물음에 "고칠 때마다"로 답하는 쪽
-- [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) —
+- [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md) —
   같은 물음에 "예산 10~20%"로 답하는 쪽. **이 소스가 그쪽을 명시적으로 겨냥한다**
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 

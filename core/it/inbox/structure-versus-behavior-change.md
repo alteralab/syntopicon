@@ -53,7 +53,7 @@ diff 위에서 그것을 **S**와 **B**로 표기한다. 이 구분이
   Explained』의 부제를 "Embrace Change"로 단 동기의 일부였다. 젊은 엔지니어였을 때 나는
   안정돼 보이던 상황이 혼돈에 빠지면 겁에 질렸다. 옵션성을 키우는 법을 배우면서 나는
   혼돈을 기회로 보게 됐다** (23장).[^beck2023] 이론은
-  [설계의 경제학](software-design-economics.md)에 있다.
+  [설계의 경제학](../concepts/software-design-economics.md)에 있다.
 
 ## 행동이란 무엇인가
 
@@ -183,19 +183,19 @@ diff 위에서 그것을 **S**와 **B**로 표기한다. 이 구분이
 - 23장이 다음 장으로 넘기며 답을 예고한다 — **구조 변경과 행동 변경이 둘 다 값을 만드는
   방식이지만 근본적으로 다르다는 것을 이해하는 데서 시작하라. 어떻게? 한 낱말로,
   가역성(reversibility)** (23장).[^beck2023]
-- 전문은 [되돌릴 수 있는 설계 결정](reversible-design-decisions.md)에 있다. 요지는
+- 전문은 [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)에 있다. 요지는
   구조 변경이 대체로 되돌릴 수 있고 행동 변경은 그렇지 않다는 것, 그래서 **두 종류에
   같은 크기의 검토를 투자하는 것이 낭비**라는 것이다.
 
 ## 이어지는 페이지
 
 - [정리 — tidying](tidying.md) — S만 하는 변경에 붙은 이름
-- [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 두 변경의 근본 차이
-- [설계의 경제학 — 시간 가치와 옵션](software-design-economics.md) — 옵션성의 이론
+- [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 두 변경의 근본 차이
+- [설계의 경제학 — 시간 가치와 옵션](../concepts/software-design-economics.md) — 옵션성의 이론
 - [언제 정리하는가](when-to-tidy.md) — 이 구분 위에서 하는 판정
 - [정리의 묶음 크기와 리듬](tidying-batch-and-rhythm.md) — 가른 뒤 몇 개씩 묶는가
 - [버전 관리 실천](version-control-practice.md) — 커밋·PR 단위에 대한 이 KB의 다른 판정
-- [리팩터링](refactoring.md) — 같은 구분을 "두 모자"로 부르는 원전
+- [리팩터링](../concepts/refactoring.md) — 같은 구분을 "두 모자"로 부르는 원전
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 
 [^beck2023]: Beck 2023, 16장 "Separate Tidying" · 20장 "Getting Untangled" ·

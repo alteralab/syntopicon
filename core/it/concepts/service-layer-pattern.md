@@ -3,7 +3,6 @@ type: concept
 title: 서비스 레이어
 description: 조율 로직을 담는 층을 따로 두는 판단과 그 대가 — 웹 컨트롤러에 쌓이는 것을 조율(orchestration)이라 이름 붙이고 그것이 웹과 무관하다는 관찰, 전형적인 서비스 함수의 네 단계, 도메인 서비스와 애플리케이션 서비스가 왜 같은 낱말을 쓰는가, 인수를 원시 타입으로 바꿔 서비스 레이어를 도메인에서 완전히 떼는 수순과 그 부작용으로 빠진 서비스가 드러난다는 관찰, 폴더 넷으로 나눈 프로젝트 구조, 그리고 이 층이 빈혈 도메인 안티패턴으로 가는 길이 될 수 있다는 경고
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
-status: draft
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
 ---
@@ -197,7 +196,7 @@ sources:
   주는 순서 규칙("컨트롤러에 조율 로직이 스며드는 것을 발견한 뒤에")이 이 위험에 대한
   유일한 처방이다.
 - 이 형식이 이 책의 서명이다 —
-  [리포지터리 패턴](repository-pattern.md)·[작업 단위 패턴](unit-of-work-pattern.md)·
+  [리포지터리 패턴](../concepts/repository-pattern.md)·[작업 단위 패턴](unit-of-work-pattern.md)·
   [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)가 전부 같은
   장단점 표로 끝난다.
 - 4장이 남긴 어색함 둘도 명시돼 있다 (4장 §"Wrap-Up"):[^percival2020]
@@ -210,7 +209,7 @@ sources:
 - [작업 단위 패턴](unit-of-work-pattern.md) — 이 층의 마지막 결합을 끊는 패턴
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 이 층이 생기고 나서
   테스트를 어느 수준에 둘 것인가
-- [리포지터리 패턴](repository-pattern.md) — 이 층이 의존하는 추상
+- [리포지터리 패턴](../concepts/repository-pattern.md) — 이 층이 의존하는 추상
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 층이 부르는 대상
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 층의 시그니처가 구현하는 원리
 - [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — 레거시에서

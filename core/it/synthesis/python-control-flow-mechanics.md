@@ -126,7 +126,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 - [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 이터레이터 패턴이 언어에
   흡수되어 **손으로 짠 고전 이터레이터는 교육용 예제 말고 실용적 쓸모가 없다**는 저자의
   판정이 합류했다
-- [파이썬 시퀀스의 의미론](../inbox/sequence-semantics-in-python.md) — 제너레이터 식이
+- [파이썬 시퀀스의 의미론](../concepts/sequence-semantics-in-python.md) — 제너레이터 식이
   메모리를 아낀다는 그 페이지의 claim이 근거하는 프로토콜이 어디 있는지가 표시됐다
 - [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) —
   `__getitem__` 하나로 순회가 되는 폴백이 언제까지 유효한가가 합류했다

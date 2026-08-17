@@ -3,7 +3,6 @@ type: concept
 title: 표준 라이브러리의 함수 데코레이터
 description: functools가 데코레이터로 내주는 세 기능이 무엇을 주고 무슨 조건을 요구하는가 — 메모이제이션의 정의와 캐시 키가 인자에서만 만들어진다는 사실, 인자가 해시 가능해야 한다는 요구, functools.cache가 무한히 자라 메모리를 다 쓸 수 있다는 경고와 저자가 그은 적용 범위(짧게 사는 스크립트 대 오래 사는 프로세스), lru_cache의 maxsize·typed와 maxsize=None이 곧 cache라는 대응, 그리고 singledispatch가 만드는 일반 함수와 그것이 자바식 오버로딩이 아닌 이유 — 모듈 확장이지 한 코드 단위에 책임을 몰아넣는 것이 아니다
 generated: { by: "claude-opus-5", at: "2026-08-18T12:00:00Z" }
-status: draft
 sources:
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
@@ -223,7 +222,7 @@ sources:
     처럼 일반 함수의 모든 구현이 같은 모듈에 있지는 않을 것이다** (9장 §"Function
     singledispatch", p.329).[^ramalho2022]
 - **이 판정이 이 KB의 다른 축과 겹치는 지점**: "한 코드 단위에 너무 많은 책임을 몰아넣는다"는
-  진단은 [복잡성의 정의와 증상](software-complexity-defined.md)이 말하는 변경 증폭·인지 부하와
+  진단은 [복잡성의 정의와 증상](../concepts/software-complexity-defined.md)이 말하는 변경 증폭·인지 부하와
   같은 것을 가리킨다. 이 소스는 그 판정을 원리로 세우지 않고 **한 기능을 어떻게 쓰지 말아야
   하는가**로만 쓴다.
 
@@ -271,15 +270,15 @@ sources:
 - [동적 속성과 프로퍼티](../concepts/dynamic-attributes-and-properties.md) — 인스턴스 단위 캐시가
   나오는 그 장의 정본
 - [속성 디스크립터](../concepts/attribute-descriptors.md) — `@cached_property`가 실제로 무엇인가
-- [__slots__와 인스턴스 메모리](slots-and-instance-memory.md) — 여기 한계 둘이 걸리는
+- [__slots__와 인스턴스 메모리](../concepts/slots-and-instance-memory.md) — 여기 한계 둘이 걸리는
   그 클래스 속성과 키 공유 최적화
 - [딕셔너리와 집합](../concepts/dictionaries-and-sets.md) — 캐시가 요구하는 해시 가능성의 계약
 - [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — `singledispatch`에 무엇을
   등록할 것인가의 판단이 기대는 자리
 - [파이썬의 일급 함수](../concepts/first-class-functions-in-python.md) — `functools`의 나머지 고차 함수들
-- [부수 효과 없는 함수](side-effect-free-functions.md) — 결과가 인자에만 달려 있어야 한다는
+- [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 결과가 인자에만 달려 있어야 한다는
   요구를 설계 조항으로 말하는 쪽
-- [복잡성의 정의와 증상](software-complexity-defined.md) — 한 코드 단위에 책임을 몰아넣는 것의
+- [복잡성의 정의와 증상](../concepts/software-complexity-defined.md) — 한 코드 단위에 책임을 몰아넣는 것의
   대가를 원리로 말하는 쪽
 - [파이썬의 함수를 객체로 다루기](../synthesis/python-functions-as-objects.md) — 이 축의 허브
 

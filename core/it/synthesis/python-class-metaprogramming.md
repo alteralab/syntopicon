@@ -108,11 +108,11 @@ generated: { by: "claude-opus-5", at: "2026-08-18T21:00:00Z" }
 
 새 페이지가 아니라 기존 페이지의 절로 들어간 것들이다.
 
-- [표준 라이브러리의 함수 데코레이터](../inbox/standard-library-function-decorators.md) —
+- [표준 라이브러리의 함수 데코레이터](../concepts/standard-library-function-decorators.md) —
   `@cached_property`의 정체(비오버라이딩 디스크립터)와 세 한계, 그리고 `@property`를
   `@cache` 위에 쌓는 처방이 합류했다. **이 저장소 헌장의 캐시 조항이 근거하는 페이지가
   그쪽이므로, 인스턴스 단위 캐시의 함정도 거기 모였다**
-- [__slots__와 인스턴스 메모리](../inbox/slots-and-instance-memory.md) — 그 클래스 속성이
+- [__slots__와 인스턴스 메모리](../concepts/slots-and-instance-memory.md) — 그 클래스 속성이
   **실행 중에 설정되려면 메타클래스여야 한다**는 것과, `@cached_property`가 `__slots__`를
   쓰는 클래스에서 못 산다는 것이 합류했다
 - [시퀀스 프로토콜의 점진 구현](../concepts/implementing-the-sequence-protocol.md) —

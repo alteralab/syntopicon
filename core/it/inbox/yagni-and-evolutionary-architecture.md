@@ -153,7 +153,7 @@ sources:
   이미 있다. 이 절은 그 개념의 아키텍처 판이다 — 리팩터링이 되돌리기를 싸게 만들었기 때문에
   결정을 미룰 수 있다.
 - **전략적 프로그래밍과의 관계**가 미묘하다.
-  [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md)은 개발
+  [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md)은 개발
   시간의 10~20%를 **능동 투자**에 쓰라고 한다. 이 절은 능동 투자 중 **추측성 유연성**만
   겨냥해 기각하고, 좋은 설계 자체에 쓰는 시간은 오히려 요구한다 — **현재 이해된 필요만 푸는
   소프트웨어를 만들되 그 필요에 대해서는 훌륭하게 설계된 소프트웨어를 만든다.** 두 소스가
@@ -161,9 +161,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [리팩터링](refactoring.md) — 이 전제 전환을 가능하게 한 활동
+- [리팩터링](../concepts/refactoring.md) — 이 전제 전환을 가능하게 한 활동
 - [코드의 나쁜 냄새](../concepts/code-smells.md) — Speculative Generality가 사는 자리
-- [자기 테스트 코드](self-testing-code.md) · [버전 관리 실천](version-control-practice.md)
+- [자기 테스트 코드](../concepts/self-testing-code.md) · [버전 관리 실천](version-control-practice.md)
   — 세 실천 중 나머지 둘
 - [애자일의 본질](../concepts/essence-of-agility.md) — "이름만 애자일"이라는 진단의 다른 소스
 - [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 반대로 보이는 처방

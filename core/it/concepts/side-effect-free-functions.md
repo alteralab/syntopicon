@@ -3,7 +3,6 @@ type: concept
 title: 부수 효과 없는 함수
 description: 연산을 명령과 질의로 가르고 로직을 함수 쪽에 몰아 두라는 조항의 원전 — 부수 효과라는 낱말이 왜 의도한 변경에까지 쓰이게 됐는가, 중첩된 호출이 예측을 불가능하게 만드는 기제와 그것이 설계에 씌우는 천장, 함수의 정의와 함수가 위험을 낮추는 이유, 명령과 질의를 가르는 첫째 완화책과 값 객체를 파생시키는 둘째 완화책, 그리고 이 분리가 엔티티에만 해당한다는 단서
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
-status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
   - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
@@ -153,7 +152,7 @@ sources:
 - [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 이 조항이 파이썬에서 걸리는
   더 좁은 처방. **받은 가변 인자를 별칭하지 말고 복사하라**는 규칙과, 그것을 어겼을 때
   "최소 놀람의 원칙"이 어떻게 깨지는가의 실물
-- [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 표준 라이브러리가 명령과
+- [파이썬 시퀀스의 의미론](../concepts/sequence-semantics-in-python.md) — 표준 라이브러리가 명령과
   질의를 반환값으로 표시하는 관례(`list.sort`가 `None`을 돌려주는 자리)
 - [표준 라이브러리의 함수 데코레이터](standard-library-function-decorators.md) — 이 조항을
   지킨 연산만 캐시할 수 있다는 조건이 파이썬 실물로 나타나는 자리

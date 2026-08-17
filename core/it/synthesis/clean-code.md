@@ -31,7 +31,7 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 - [클린 코드라는 말의 정의](../concepts/clean-code-defined.md) — 1장·12장. 저자가 정의를
   스스로 내리지 않고 여섯 명에게 물어 나란히 싣는 구성, 어질러짐의 총 소유 비용,
   보이스카우트 규칙, 켄트 벡의 단순 설계 네 규칙
-- [작은 함수](../inbox/small-functions.md) — 3장. **논쟁 핵심 ①.** 함수는 작아야 하고
+- [작은 함수](../concepts/small-functions.md) — 3장. **논쟁 핵심 ①.** 함수는 작아야 하고
   그보다 더 작아야 한다는 규칙과 그 수치, "한 가지만 하라"의 조작적 정의, 인수 서열
 - [주석은 실패다](../concepts/comments-as-failure.md) — 4장. **논쟁 핵심 ②.** 주석을
   필요악으로 규정하는 조문과 그럼에도 인정되는 좋은 주석 여덟 종
@@ -68,7 +68,7 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 **① 합의 영역 — 얇게, 기존 페이지에 각주 보강으로.**
 2장 이름, 9장 단위 테스트, 12장 단순 설계 네 규칙은 이 KB의 다른 원전과 방향이 같다.
 새 페이지를 만들지 않고 [이름 짓기](../concepts/naming-things.md)와
-[자기 테스트 코드](../inbox/self-testing-code.md)에 합류시켰다.
+[자기 테스트 코드](../concepts/self-testing-code.md)에 합류시켰다.
 
 **② 논쟁 핵심 — 두껍게, 반드시 대비 구조로.**
 3장·4장·6장·17장. 주장을 정확히 기록하되 경쟁 주장과 나란히 놓았고, 그중 둘은
@@ -89,7 +89,7 @@ Craftsmanship*(Prentice Hall, 2008)이다. **이 KB에서 유일하게 논쟁 �
 나왔다.**
 
 **① 함수를 쪼개면 복잡성이 주는가**
-[작은 함수](../inbox/small-functions.md) ↔
+[작은 함수](../concepts/small-functions.md) ↔
 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md).
 한쪽은 스무 줄·들여쓰기 두 단계·블록 한 줄이라는 수치를 두고 "더 뽑아낼 수 있으면 아직
 크다"로 판정한다. 다른 쪽은 그 "N줄 규칙"을 인용해 기각하며 "인터페이스가 기능에 비해
@@ -127,7 +127,7 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
 
 - [이름 짓기](../concepts/naming-things.md) — 2장과 17장 `N1`–`N7`. 이름 규칙 열여섯 개가
   기존 두 소스와 대체로 일치하는 자리
-- [자기 테스트 코드](../inbox/self-testing-code.md) — 9장. TDD 세 법칙, F.I.R.S.T.,
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 9장. TDD 세 법칙, F.I.R.S.T.,
   단정 하나 규칙에 대한 저자의 실제 입장
 - [DRY 원칙](../concepts/dry-principle.md) — 3장과 17장 `G5`. "중복은 만악의 근원"이라는
   최대주의가 이 축의 한쪽 극으로 서는 자리
@@ -186,7 +186,7 @@ fowler2018의 "주석을 쓰고 싶으면 먼저 리팩터링하라"가 이 소�
   근거다.**
 - **⑤ 셋째 주제 TDD는 `contradicts`가 되지 않는다.** 양측이 실증 데이터의 부재를 함께
   인정하므로 검증 가능한 명제의 정면 충돌이 성립하지 않는다 — 판정 근거는
-  [자기 테스트 코드](../inbox/self-testing-code.md)의 번들링 절에 있다.
+  [자기 테스트 코드](../concepts/self-testing-code.md)의 번들링 절에 있다.
 - **⑥ 이 문서로 확인·정정된 사실이 셋이다.** `PrimeGenerator`의 출처 장(10장이 맞고
   qntm 2020의 "8장"은 오류), 식별자 표기(`Next` 포함이 원문이고 대담 쪽이 전사 누락),
   그리고 4장 주석 인용의 세 판본 차이. 상세는

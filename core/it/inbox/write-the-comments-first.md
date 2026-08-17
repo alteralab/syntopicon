@@ -155,7 +155,7 @@ sources:
   주석을 찾는 것이 자부심의 원천이다. 그저 동작하는 코드를 쓰는 것이 아니라 훌륭한 설계가
   주된 목표인 전략적 프로그래밍을 하고 있다면, 주석 쓰기는 재미있어야 한다. 그것이 최선의
   설계를 식별하는 방법이기 때문이다** (15장 §15.4, p.134).[^ousterhout2021]
-  전문은 [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md)에
+  전문은 [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md)에
   있다.
 
 ## 먼저 쓰면 비싼가
@@ -188,7 +188,7 @@ sources:
 - [주석을 왜 쓰는가](why-write-comments.md) — "시간이 없다"는 변명에 대한 앞선 반박
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 이 장이 재는 대상
 - [두 번 설계하라](../concepts/design-it-twice.md) — 코드를 쓰기 전에 설계를 시험하는 다른 절차
-- [전략적 프로그래밍과 전술적 프로그래밍](strategic-versus-tactical-programming.md) — 이
+- [전략적 프로그래밍과 전술적 프로그래밍](../concepts/strategic-versus-tactical-programming.md) — 이
   장이 전제하는 태도
 - [이름 짓기](../concepts/naming-things.md) — "이름 고르기가 어렵다"는 같은 형태의 붉은 깃발
 - [테스트가 코딩을 이끈다](test-to-code.md) — 같은 논증을 테스트로 하는 다른 소스

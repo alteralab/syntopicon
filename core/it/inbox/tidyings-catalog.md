@@ -189,7 +189,7 @@ I부의 열다섯 장이 그대로 열다섯 개의 정리다 (1~15장).[^beck20
 - **매개변수 집합을 객체로 묶고 코드를 그 안으로 옮기는 것** — Explicit parameters의
   다음 수 (17장).[^beck2023]
 - **서비스로 추출하는 것** — 28장에서 **되돌리기 어려운 것**의 대표 예로 따로 다룬다.
-  전문은 [되돌릴 수 있는 설계 결정](reversible-design-decisions.md)에 있다.
+  전문은 [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)에 있다.
 
 셋의 공통점이 **새 요소를 만드는 것**이다. 위 열다섯 개 중 새 요소를 만드는 것은
 Extract Helper와 New Interface뿐이고, 둘 다 **기존 코드를 옮겨 담는 것**이지 없던
@@ -224,7 +224,7 @@ Extract Helper와 New Interface뿐이고, 둘 다 **기존 코드를 옮겨 담�
 - [변경에 대한 결합도](../concepts/coupling-with-respect-to-change.md) — 팬아웃과 연쇄의 이론
 - [응집도](../concepts/better-together-or-better-apart.md) — Cohesion order와 One Pile의 이론
 - [기본 리팩터링](../concepts/basic-refactorings.md) — Extract Helper의 상위 항목 *Extract Function*
-- [조건부 로직 단순화 리팩터링](simplifying-conditional-logic.md) — Guard Clauses의 상위 항목
+- [조건부 로직 단순화 리팩터링](../concepts/simplifying-conditional-logic.md) — Guard Clauses의 상위 항목
 - [설명 주석](../concepts/comments-describe-the-nonobvious.md) — 14장이 겨냥한 것의 다른 소스
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
 

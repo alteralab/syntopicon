@@ -69,7 +69,7 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   `functools.wraps`, 매개변수를 받는 데코레이터가 왜 데코레이터가 아니라 데코레이터 팩토리인가,
   쌓인 데코레이터의 적용 순서, 그리고 어휘 범위가 동적 범위를 이긴 이유 — 함수는 불투명해야
   한다는 요구
-- [표준 라이브러리의 함수 데코레이터](../inbox/standard-library-function-decorators.md) —
+- [표준 라이브러리의 함수 데코레이터](../concepts/standard-library-function-decorators.md) —
   같은 장의 뒷부분. 메모이제이션의 정의와 **캐시 키가 인자에서만 만들어진다는 사실**, 인자가
   해시 가능해야 한다는 요구, `functools.cache`가 경계 없이 자라 메모리를 다 쓸 수 있다는 경고와
   저자가 그은 적용 범위(짧게 사는 스크립트 대 오래 사는 프로세스), `lru_cache`의 `maxsize`·
@@ -128,9 +128,9 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   부르는 것도 특수 메서드를 거친다는 사실이 합류했다
 - [객체 참조와 가변성](../concepts/object-references-and-mutability.md) — 이름을 다시 묶는 것과
   객체를 바꾸는 것의 구분이 클로저에서 어떻게 다시 나타나는지가 합류했다
-- [복잡성의 정의와 증상](../inbox/software-complexity-defined.md) — "모르는 줄도 모르는 것"의
+- [복잡성의 정의와 증상](../concepts/software-complexity-defined.md) — "모르는 줄도 모르는 것"의
   파이썬 실물 하나로 데코레이터가 이름을 갈아치우는 자리가 합류했다
-- [부수 효과 없는 함수](../inbox/side-effect-free-functions.md) — 결과가 인자에만 달려 있어야
+- [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 결과가 인자에만 달려 있어야
   기억해 둘 수 있다는 조건이 합류했다
 - [인터페이스·프로토콜·ABC](../concepts/interfaces-protocols-and-abcs.md) — 일반 함수의 특수화를
   구체 타입이 아니라 ABC나 프로토콜에 등록하라는 지침이 합류했다

@@ -58,7 +58,7 @@ Layer?"):[^percival2020]
 - 이 비유가 이 페이지의 절충을 성립시킨다. 테스트는 자산이자 제약이고, **어느 수준에
   붙이는가**가 무엇을 굳히고 무엇을 남길지를 정한다.
 - 같은 진단이 이 KB의 다른 소스에도 있다 —
-  [자기 테스트 코드](self-testing-code.md)는 테스트를 리팩터링의 담보로 두고 그 담보가
+  [자기 테스트 코드](../concepts/self-testing-code.md)는 테스트를 리팩터링의 담보로 두고 그 담보가
   갖춰야 할 성질을 다루며, [테스트가 코딩을 이끈다](test-to-code.md)는 테스트를 코드의 첫
   사용자로 둔다. **이 소스가 더해 주는 것은 담보에도 층이 있고 층마다 굳히는 것이 다르다는
   것이다.** #hypothesis 세 소스가 서로를 참조한 적은 없다.
@@ -176,11 +176,11 @@ Layer?"):[^percival2020]
 
 ## 이어지는 페이지
 
-- [서비스 레이어](service-layer-pattern.md) — 이 절충이 가능해지는 조건
+- [서비스 레이어](../concepts/service-layer-pattern.md) — 이 절충이 가능해지는 조건
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 이 층의 테스트가 I/O를 다루는 방법
-- [자기 테스트 코드](self-testing-code.md) — 테스트 모음이 갖춰야 할 성질을 다루는 소스
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 테스트 모음이 갖춰야 할 성질을 다루는 소스
 - [테스트가 코딩을 이끈다](test-to-code.md) — 테스트가 설계를 이끈다는 같은 주장
-- [리포지터리 패턴](repository-pattern.md) — 어느 테스트를 남기고 버릴지의 다른 사례
+- [리포지터리 패턴](../concepts/repository-pattern.md) — 어느 테스트를 남기고 버릴지의 다른 사례
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
 

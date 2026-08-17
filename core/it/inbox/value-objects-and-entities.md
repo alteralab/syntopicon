@@ -252,19 +252,19 @@ sources:
 - 불변성의 근거도 원전이 다른 자리에서 댄다 — **값 객체는 불변이며, 이는 생성 중에만 호출되는
   초기화자를 제외하면 그것의 모든 연산이 함수라는 것을 함의한다. 값 객체는 함수처럼 쓰기에 더
   안전하고 테스트하기 더 쉽다** (10장, p.251).[^evans2003] 그 맥락은
-  [부수 효과 없는 함수](side-effect-free-functions.md)에 있다.
+  [부수 효과 없는 함수](../concepts/side-effect-free-functions.md)에 있다.
 
 ## 이어지는 페이지
 
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 객체들이 사는 층
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — "무엇인지"와
   "어느 것인지"의 구분이 이름 짓기 물음과 만나는 자리
-- [부수 효과 없는 함수](side-effect-free-functions.md) — 값 객체의 불변성이 봉사하는 조항
+- [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 값 객체의 불변성이 봉사하는 조항
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 엔티티 중
   일부를 "공개" 진입점으로 올리는 셋째 구분
 - [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md) — 값 객체가
   이벤트·명령으로 쓰이는 자리
-- [리포지터리 패턴](repository-pattern.md) — 이 객체들을 저장하고 되살리는 층
+- [리포지터리 패턴](../concepts/repository-pattern.md) — 이 객체들을 저장하고 되살리는 층
 - [데이터 조직하기](../concepts/organizing-data.md) — 같은 값·참조 구분을 리팩터링 카탈로그가
   *Change Reference to Value*와 그 역으로 부르는 자리
 - [데이터 클래스 빌더](../concepts/data-class-builders.md) — 위 세 재료의 전면 비교와 선택 기준,
