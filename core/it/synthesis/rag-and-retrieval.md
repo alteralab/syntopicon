@@ -13,7 +13,9 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 ## 패턴과 구조
 
 - [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG의 구조와 계보(FiD),
-  검색을 탈지 정하는 세 갈래(사전 라우팅·생성 중 결정·모델 내장 판단), 왜 컨텍스트가 길어져도 검색이 남는가
+  검색 여부를 모델이 정하는 적응형 검색, 왜 컨텍스트가 길어져도 검색이 남는가
+- [적응형 검색 전략](../concepts/adaptive-retrieval-strategies.md) — 검색을 탈지 정하는 세 갈래:
+  사전 라우팅, 생성 중 결정, 모델 내장 판단과 그 대가
 
 ## 검색 알고리즘
 
