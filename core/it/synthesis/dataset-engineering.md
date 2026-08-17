@@ -37,7 +37,8 @@ generated: { by: "claude-fable-5", at: "2026-08-17T06:30:00Z" }
   하는 절차
 - [AI 생성 데이터의 한계](../concepts/limitations-of-ai-generated-data.md) — 네 가지 한계와 모델
   붕괴 논쟁
-- [모델 증류](../concepts/model-distillation.md) — 큰 모델의 행동을 작은 모델로 옮기기
+- [모델 증류](../concepts/model-distillation.md) — 큰 모델의 행동을 작은 모델로 옮기기, 학생이
+  교사를 앞서는 순열 증류 사례까지
 
 ## 처리
 
