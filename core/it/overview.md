@@ -37,7 +37,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [데이터베이스 트랜잭션](synthesis/database-transactions.md) — ACID·격리 수준·직렬성 구현·분산 원자적 커밋
 - [실용주의 프로그래머](synthesis/pragmatic-programmer.md) — 소프트웨어 실천 축의 부모 허브: 철학·도구·유연성·코딩·프로젝트 다섯 갈래
 - [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 메모리·도구·클래스 파일과 로딩·컴파일·동시성
-- [파운데이션 모델과 AI 엔지니어링](synthesis/foundation-models-and-ai-engineering.md) — 언어 모델에서 파운데이션 모델까지의 계보와 그 위에 선 공학 분야: 유스케이스·계획·스택
+- [파운데이션 모델과 AI 엔지니어링](synthesis/foundation-models-and-ai-engineering.md) — LLM 축의 부모 허브: 모델 계보·스택과 아홉 자식 축(평가·프롬프트·RAG·에이전트·파인 튜닝·데이터셋·추론 서빙·아키텍처·피드백)
 
 ## Tools
 
