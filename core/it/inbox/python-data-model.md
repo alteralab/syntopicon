@@ -191,6 +191,14 @@ sources:
 
 ## 이어지는 페이지
 
+- [파이썬다운 객체 만들기](building-pythonic-objects.md) — **이 요지가 하나의 클래스에서
+  끝까지 밀린 자리.** 표현·대안 생성자·포맷·해시 가능성·비공개 속성을 실제로 구현하면
+  어떤 모양이 되는가
+- [시퀀스 프로토콜의 점진 구현](implementing-the-sequence-protocol.md) — 여기의
+  `FrenchDeck`이 얻은 것을 N차원 컬렉션에서 다시 짓는 자리, 그리고 프로토콜을 일부만
+  구현해도 되는 이유
+- [파이썬의 연산자 오버로딩](operator-overloading-in-python.md) — 80개 넘는 특수 메서드 중
+  절반 이상을 차지한다는 그 연산자 쪽
 - [파이썬의 일급 함수](first-class-functions-in-python.md) — 호출 가능한 것 아홉 갈래와
   `__call__`로 만드는 함수 같은 객체
 - [데이터 클래스 빌더](data-class-builders.md) — 이 특수 메서드들을 손으로 쓰지 않고

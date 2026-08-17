@@ -292,6 +292,10 @@ sources:
   "튜플에 가변 항목을 넣지 마라"가 여기 해시 가능성 요구와 만나는 자리
 - [객체 참조와 가변성](object-references-and-mutability.md) — 왜 가변 객체가 해시 키가
   될 수 없는가의 기제
+- [__slots__와 인스턴스 메모리](slots-and-instance-memory.md) — 인스턴스 속성을 담는 그
+  `__dict__`를 아예 쓰지 않는 저장 모델과 그 대가
+- [내장 타입을 상속할 때의 함정](subclassing-built-in-types.md) — `dict`이 아니라
+  `UserDict`에서 만들라는 지침의 근거가 언어 구현 층에서 밝혀지는 자리
 - [값 객체와 엔티티](value-objects-and-entities.md) — `__eq__`와 `__hash__`를 함께 두라는
   규칙의 도메인 쪽
 - [데이터 클래스 빌더](data-class-builders.md) — 그 계약을 `eq`·`frozen` 두 옵션으로

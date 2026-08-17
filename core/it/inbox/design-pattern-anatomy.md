@@ -456,6 +456,17 @@ KB의 [메시징 패턴](../synthesis/messaging-patterns.md) 허브가 그것을
 - 이 소스가 다른 세 소스를 참조한 적은 없다. Ousterhout의 과잉 적용 판정과 이 판정이 같은
   방향을 가리키지만, 겨냥은 다르다 — 저쪽은 **맞지 않는 문제에 패턴을 밀어 넣는 것**을,
   이쪽은 **그 패턴이 이 언어에서는 문제 자체가 아닐 수 있다는 것**을 말한다.
+- **같은 소스의 다른 장이 패턴 이름을 진단 도구로 쓰는 자리가 하나 있다.** 장고의 클래스 기반
+  뷰에서 기반 클래스가 HTTP 동사별 처리기로 위임하는 구조를 두고 저자가 이렇게 적는다 —
+  **디자인 패턴에 관심이 있다면 장고의 디스패치 기제가 템플릿 메서드 패턴(Template Method
+  pattern)의 동적 변형이라는 것을 눈치챌 것이다. 그것이 동적인 이유는 `View` 클래스가 하위
+  클래스에 모든 처리기의 구현을 강제하지 않고, `dispatch`가 특정 요청에 대한 구상 처리기가
+  있는지 런타임에 검사하기 때문이다** (14장 각주 11, p.506).[^ramalho2022]
+  - **이것이 위 넷째 판정의 반례가 아니라 그 판정을 정밀하게 만든다.** Norvig이 다시 생각할
+    것을 제안한 넷 중 하나가 템플릿 메서드였는데, 여기서 그 패턴은 사라지는 대신 **언어의
+    동적 성질을 흡수해 모양이 바뀐 채로 살아남았다.** 즉 언어 기능은 패턴을 없애기도 하고
+    같은 이름 아래 다른 구현을 낳기도 한다. #hypothesis 저자가 그 둘을 나란히 놓고 비교하지는
+    않았다 — 두 서술은 다른 장에 있다.
 
 ## 이어지는 페이지
 
@@ -502,7 +513,9 @@ Neville, "Emerging Standards and Futures in Enterprise Integration"(pp.625–627
     내용은 장별 페이지가 갖는다.
 
 [^ramalho2022]: Ramalho 2022, 10장 "Design Patterns with First-Class Functions" — 제사·도입
-    (pp.341–342) · §"Chapter Summary"(p.357) · 곁글 "Soapbox"(p.359). 쪽은 인쇄판 쪽 번호
+    (pp.341–342) · §"Chapter Summary"(p.357) · 곁글 "Soapbox"(p.359), 그리고 14장
+    "Inheritance: For Better or for Worse" §"Django Generic Views Mixins" 각주 11(p.506).
+    쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 30). 이 페이지에는 패턴이라는 **형식 자체**에 대한 진술만 합류시켰고, 전략·명령
     패턴의 실제 리팩터링은
     [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md)이 갖는다.

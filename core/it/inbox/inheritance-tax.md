@@ -1,13 +1,14 @@
 ---
 type: concept
 title: 상속세
-description: 상속이 두 갈래 역사(시뮬라의 타입 조합과 스몰토크의 행동 조직)에서 왔고 그 둘이 각각 다른 이유로 오용된다는 진단, 상속이 곧 결합이라는 판정과 부모의 이름 변경이 자식과 그 사용자를 조용히 깨뜨리는 실물, 타입 나무가 벽을 덮는 괴물이 되는 경로와 다중 상속의 벽, 그리고 상속을 대체하는 세 기법(인터페이스와 프로토콜·위임·믹스인)과 각각을 고르는 기준, 그리고 같은 구분을 의도가 아니라 기제로 긋는 소프트웨어 설계 쪽 — 인터페이스 상속은 깊이를 늘리고 구현 상속은 정보 누출을 만든다는 갈림과 상속을 못 버릴 때의 완화책, 그리고 같은 약점을 인정하면서도 기본값을 반대로 세우는 셋째 입장 — 먼저 상속을 쓰고 문제가 되면 위임으로 갈아 끼우라는 리팩터링 쪽 판정과 상속을 정당하게 만드는 의미 조건 둘
-generated: { by: "claude-opus-5", at: "2026-08-17T20:00:00Z" }
+description: 상속이 두 갈래 역사(시뮬라의 타입 조합과 스몰토크의 행동 조직)에서 왔고 그 둘이 각각 다른 이유로 오용된다는 진단, 상속이 곧 결합이라는 판정과 부모의 이름 변경이 자식과 그 사용자를 조용히 깨뜨리는 실물, 타입 나무가 벽을 덮는 괴물이 되는 경로와 다중 상속의 벽, 그리고 상속을 대체하는 세 기법(인터페이스와 프로토콜·위임·믹스인)과 각각을 고르는 기준, 그리고 같은 구분을 의도가 아니라 기제로 긋는 소프트웨어 설계 쪽 — 인터페이스 상속은 깊이를 늘리고 구현 상속은 정보 누출을 만든다는 갈림과 상속을 못 버릴 때의 완화책, 같은 약점을 인정하면서도 기본값을 반대로 세우는 셋째 입장 — 먼저 상속을 쓰고 문제가 되면 위임으로 갈아 끼우라는 리팩터링 쪽 판정과 상속을 정당하게 만드는 의미 조건 둘, 그리고 상속을 버릴 수 없는 자리에서 무엇을 지킬 것인가를 일곱 항목으로 적은 넷째 입장과 상속 자체를 거부하는 현대 흐름
+generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
 status: draft
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 상속세
@@ -23,6 +24,8 @@ sources:
 - [이 KB의 상속 서술과 나란히](#이-kb의-상속-서술과-나란히)
 - [같은 구분을 기제로 긋는 쪽](#같은-구분을-기제로-긋는-쪽)
 - [셋째 입장 — 먼저 쓰고 필요하면 갈아 끼운다](#셋째-입장--먼저-쓰고-필요하면-갈아-끼운다)
+- [넷째 입장 — 버릴 수 없을 때 무엇을 지키는가](#넷째-입장--버릴-수-없을-때-무엇을-지키는가)
+- [네 소스를 나란히 놓으면](#네-소스를-나란히-놓으면)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **행동을 공유하거나 타입을 표현하려 할 때, 상속 말고 무엇을 쓸 수 있고 왜 그래야
@@ -379,6 +382,158 @@ sources:
   아니라 "나중에 갈아 끼우는 비용을 얼마로 보는가"라는 계량이다.
 - 전문과 나머지 아홉 항목은 [상속 다루기 리팩터링](refactoring-inheritance.md)에 있다.
 
+## 넷째 입장 — 버릴 수 없을 때 무엇을 지키는가
+
+넷째 소스는 **언어 참조서**라 앞의 셋과 층이 다르다. 상속을 쓸 것인가를 먼저 논하지 않고
+**이미 쓰고 있는 자리에서 무엇을 지킬 것인가**를 목록으로 준다. 그 전제를 저자가 밝힌다 —
+**그러나 우리는 복잡한 클래스 계층으로 설계된 기존 시스템을 유지보수해야 하거나, 상속을 —
+때로는 다중 상속까지 — 쓰도록 강요하는 프레임워크를 써야 한다** (14장 도입,
+p.488).[^ramalho2022]
+
+- 이 목록에 이론적 근거가 없다는 것을 저자가 먼저 인정한다 — **앨런 케이가 경구에서 쓴 것은
+  여전히 참이다: 실무 프로그래머를 이끌 수 있는 상속에 대한 일반 이론이 아직 없다. 우리가
+  가진 것은 경험 법칙, 디자인 패턴, "모범 사례", 영리한 두문자어, 금기 같은 것들이다. 그중
+  일부는 유용한 지침을 주지만 어느 것도 보편적으로 받아들여지거나 항상 적용 가능하지 않다**
+  (14장 §"Coping with Inheritance", p.510).[^ramalho2022]
+  - 그리고 다중 상속이 없어도 마찬가지라는 단서가 붙는다 — **다중 상속 없이도 상속으로
+    이해할 수 없고 부서지기 쉬운 설계를 만들기는 쉽다** (같은 절, p.510).[^ramalho2022]
+
+**일곱 항목**은 이렇다 (14장 §"Coping with Inheritance", pp.510–513).[^ramalho2022]
+
+- **하나 — 클래스 상속보다 객체 합성을 선호하라.** 저자가 이것을 **"내가 여기서 줄 수 있는
+  최선의 조언"**이라 부르고 출처를 밝힌다 — 디자인 패턴 책의 두 번째 객체 지향 설계 원칙이다.
+  진단이 하나 붙는다 — **일단 상속에 편안해지면 그것을 과용하기가 너무 쉽다. 객체를 깔끔한
+  계층에 놓는 것은 우리의 질서 감각에 호소한다; 프로그래머는 재미로도 그것을 한다** (p.510).
+  - 위 [대안 둘 — 위임](#대안-둘--위임)이 같은 기제를 말한다. 이쪽이 더하는 것은 **단일
+    상속에서도 그 원칙이 값을 갖는다**는 단서다 — **단일 상속에서조차 이 원칙은 유연성을
+    높이는데, 서브클래싱이 단단한 결합의 한 형태이고 높은 상속 나무는 부서지기 쉬운 경향이
+    있기 때문이다** (p.510).
+  - **그리고 대체 불가능한 자리를 명시한다** — **합성과 위임은 서로 다른 클래스에 행동을
+    제공하기 위한 믹스인의 사용을 대체할 수 있지만, 타입의 계층을 정의하기 위한 인터페이스
+    상속을 대체할 수는 없다** (p.510).
+- **둘 — 각 경우에 상속이 왜 쓰이는지를 이해하라.** 주된 이유가 둘이다 (p.510):
+  **인터페이스 상속은 하위 타입을 만들며 "is-a" 관계를 함의한다. 이것은 ABC로 하는 것이
+  최선이다.** 그리고 **구현 상속은 재사용으로 코드 중복을 피한다. 믹스인이 이것을 도울 수
+  있다.**
+  - 실무에서 둘이 겹친다는 것을 인정하되 처방이 뒤따른다 — **실무에서 두 용도는 흔히 동시에
+    일어나지만, 의도를 분명히 할 수 있을 때는 언제나 그렇게 하라. 코드 재사용을 위한 상속은
+    구현 세부이고 흔히 합성과 위임으로 대체될 수 있다. 반면 인터페이스 상속은 프레임워크의
+    등뼈다** (p.511).
+  - **이 구분이 위 [같은 구분을 기제로 긋는 쪽](#같은-구분을-기제로-긋는-쪽)과 같은 축이다** —
+    인터페이스 상속과 구현 상속을 갈라 앞의 것만 긍정하는 것까지 똑같다. 다른 것은 처방의
+    구체성이다. 그쪽이 "조심해서 쓰라"에서 멈춘다면 이쪽은 무엇을 기반 클래스로 삼을지까지
+    지정한다.
+- **셋 — ABC로 인터페이스를 명시적으로 만들라** — **현대 파이썬에서 클래스가 인터페이스를
+  정의하려는 것이라면 그것은 명시적 ABC이거나 `typing.Protocol` 하위 클래스여야 한다. ABC는
+  `abc.ABC`나 다른 ABC만 상속해야 한다. ABC의 다중 상속은 문제가 되지 않는다** (p.511).
+  그 둘의 선택 기준은 [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md)에 있다.
+- **넷 — 코드 재사용에는 명시적 믹스인을 쓰라** (p.511):
+
+> If a class is designed to provide method implementations for reuse by multiple unrelated
+> subclasses, without implying an "is-a" relationship, it should be an explicit *mixin
+> class*. Conceptually, a mixin does not define a new type; it merely bundles methods for
+> reuse. A mixin should never be instantiated, and concrete classes should not inherit only
+> from a mixin. Each mixin should provide a single specific behavior, implementing few and
+> very closely related methods. Mixins should avoid keeping any internal state; i.e., a
+> mixin class should not have instance attributes.
+
+  - **"내부 상태를 갖지 말라"가 위 [대안 셋 — 믹스인과 트레이트](#대안-셋--믹스인과-트레이트)에
+    없던 제약이다.** 상태 없는 메서드 묶음이라는 조건이 붙으면 믹스인은 사실상 이름 붙은
+    함수 집합이 되고, 그것이 이름 충돌 말고는 위험을 만들지 않는 이유가 된다.
+  - 표시 방법에 대한 규약도 있다 — **파이썬에는 클래스가 믹스인이라고 말하는 형식적 방법이
+    없으므로 `Mixin` 접미로 이름 짓기를 강력히 권한다** (p.511).
+- **다섯 — 사용자에게 집합 클래스를 제공하라.** 정의를 Booch 등에서 인용한다 — **주로
+  믹스인들에서 상속함으로써 구성되고 자기 자신의 구조나 행동을 더하지 않는 클래스를
+  집합 클래스(aggregate class)라 부른다** (p.511). 처방 — **ABC나 믹스인의 어떤 조합이
+  클라이언트 코드에 특히 유용하다면, 그것들을 합당한 방식으로 한데 모으는 클래스를 제공하라**
+  (p.511).
+  - 값이 무엇인지가 실물로 적힌다 — 본문이 비어 있는 장고의 `ListView`는 **함께 쓰여야 할
+    믹스인과 기반 클래스를 한데 모으는 쓸모 있는 서비스를 제공한다** (p.512). Tkinter의
+    `Widget`도 같다 — **그 집합 클래스 덕분에 우리는 필요한 믹스인들로 새 위젯을 만들 수
+    있다. 의도대로 동작하려면 그것들이 어떤 순서로 선언되어야 하는지 알아낼 필요 없이**
+    (p.512).
+  - **선언 순서라는 지식이 어디에 사는지가 이 항목의 요점이다.** 협력적 다중 상속이 요구하는
+    순서 지식(→ [협력적 다중 상속과 MRO](cooperative-multiple-inheritance.md))을 라이브러리가
+    한 자리에 흡수해 사용자에게 넘기지 않는 것이다.
+- **여섯 — 서브클래싱을 위해 설계된 클래스만 상속하라.** 이 항목은 기술 검토자 Leonardo
+  Rochael의 경고를 그대로 실은 것이다 (p.512):
+
+> Subclassing any complex class and overriding its methods is error-prone because the
+> superclass methods may ignore the subclass overrides in unexpected ways. As much as
+> possible, avoid overriding methods, or at least restrain yourself to subclassing classes
+> which are designed to be easily extended, and only in the ways in which they were designed
+> to be extended.
+
+  - **그 다음 물음이 이 항목을 실행 가능하게 만든다** — **훌륭한 조언이다. 그러나 어떤 클래스가
+    확장되도록 설계됐는지 또는 어떻게 설계됐는지를 우리가 어떻게 아는가?** (p.512) 답이 둘이다.
+    **첫째 답은 문서다**(독스트링이나 코드 주석의 형태일 때도 있다) — 저자가 드는 실물이
+    `socketserver` 패키지로, 그 문서와 소스의 독스트링이 **어느 메서드가 하위 클래스에 의해
+    오버라이드되도록 의도됐는지를 명시적으로 적는다.**
+    - 버전 조건: 파이썬 3.8 이상 — 둘째 답이 PEP 591의 `@final` 데코레이터다. **그것을
+      클래스나 개별 메서드에 적용하면 IDE나 타입 검사기가 그 클래스를 상속하거나 그 메서드를
+      오버라이드하려는 잘못된 시도를 보고할 수 있다** (p.512).
+  - 이 항목이 위 [코드를 공유하려는 상속](#코드를-공유하려는-상속--상속은-곧-결합이다)의
+    "조용히 깨진다"에 대한 부분적 답이다. **계약이 없어서 신호가 없었다면, 계약을 문서와
+    타입 검사기 양쪽에 적어 신호를 만든다.**
+- **일곱 — 구상 클래스 상속을 피하라** — **구상 클래스를 서브클래싱하는 것은 ABC와 믹스인을
+  서브클래싱하는 것보다 위험한데, 구상 클래스의 인스턴스는 대개 내부 상태를 갖고 그 상태에
+  의존하는 메서드를 오버라이드할 때 그것이 쉽게 훼손될 수 있기 때문이다. 당신의 메서드가
+  `super()`를 불러 협력하고 내부 상태가 `__x` 문법의 비공개 속성에 담겨 있더라도, 메서드
+  오버라이드가 버그를 들일 방법은 여전히 수없이 많다** (p.513).
+  - 저자가 이 항목의 출처를 13장으로 넘긴다 — Alex Martelli가 Scott Meyer의 *More Effective
+    C++*를 인용한 **"모든 비말단 클래스는 추상이어야 한다"**가 그것이다 (p.513).
+  - 그리고 탈출구를 남긴다 — **코드 재사용을 위해 서브클래싱을 반드시 써야 한다면, 재사용을
+    의도한 코드는 ABC의 믹스인 메서드나 명시적으로 이름 지어진 믹스인 클래스에 있어야 한다**
+    (p.513).
+
+**그리고 이 소스가 상속 거부의 현대 흐름을 명시적으로 기록한다.**
+
+- 장 요약의 맺음 — **상속을 — 단일 상속조차 — 거부하는 것은 현대의 흐름이다. 21세기에 만들어진
+  가장 성공적인 언어 중 하나는 Go다. 그것은 "클래스"라 불리는 구성물을 갖지 않지만 캡슐화된
+  필드의 구조체인 타입을 지을 수 있고 그 구조체에 메서드를 붙일 수 있다. Go는 컴파일러가
+  구조적 타이핑, 다시 말해 *정적 덕 타이핑*으로 검사하는 인터페이스의 정의를 허용한다 —
+  파이썬 3.8부터 프로토콜 타입으로 우리가 갖게 된 것과 매우 비슷하다. Go는 합성으로 타입과
+  인터페이스를 짓는 특별한 문법을 갖지만 상속을 지원하지 않는다 — 인터페이스 사이에서조차**
+  (14장 §"Chapter Summary", p.515).[^ramalho2022]
+- **조건부 결론이 이 소스의 최종 판정이다** (14장 §"Chapter Summary",
+  p.515):[^ramalho2022]
+
+> So perhaps the best advice about inheritance is: avoid it if you can. But often, we don't
+> have a choice: the frameworks we use impose their own design choices.
+
+- 읽을거리 절이 Hynek Schlawack의 문장을 경구로 세운다 (14장 §"Further Reading",
+  p.515):[^ramalho2022]
+
+> When it comes to reading clarity, properly-done composition is superior to inheritance.
+> Since code is much more often read than written, avoid subclassing in general, but
+> especially don't mix the various types of inheritance, and don't use subclassing for code
+> sharing.
+
+  - 그 글의 저자가 `attrs` 패키지의 제작자이자 Twisted 비동기 프레임워크의 핵심 기여자였고,
+    **시간이 지나면서 핵심 팀은 자기 설계에서 서브클래싱을 과용했다는 것을 깨달았다**고 저자가
+    적는다 (같은 절, p.515).[^ramalho2022]
+  - 같은 글의 다른 한 줄에 저자가 동의를 표한다 — **"더 자주는, 함수 하나면 충분하다는 것을
+    잊지 마라." 나는 동의하고, 그것이 정확히 *Fluent Python*이 클래스와 상속보다 함수를 먼저
+    깊이 다루는 이유다** (14장 §"Further Reading", p.515).[^ramalho2022] 그 함수 쪽 축이
+    [파이썬의 함수를 객체로 다루기](../synthesis/python-functions-as-objects.md)다.
+
+## 네 소스를 나란히 놓으면
+
+- **갈리는 명제가 하나다: 상속을 처음부터 피할 것인가.** 첫째 소스는 피하라 하고, 둘째는
+  구현 상속만 조심하라 하고, 셋째는 먼저 쓰고 갈아 끼우라 하고, 넷째는 **피할 수 있으면
+  피하되 대개 선택권이 없다**고 한다.
+- **네 소스가 진단에서는 겹친다.** 상위·하위 클래스가 단단히 결합한다는 것, 그 결합이 조용히
+  깨진다는 것, 인터페이스를 물려주는 상속만은 값이 있다는 것 — 이 셋을 넷 다 말한다.
+- **그래서 `contradicts`로 판정하지 않았다.** 근거 둘이다. ⑴ 네 소스가 같은 약점을 인정하므로
+  사실 주장이 충돌하지 않는다. ⑵ 갈리는 것은 "상속이 위험한가"가 아니라 **되돌리는 비용을
+  얼마로 보는가**와 **누구를 독자로 두는가**라는 계량이다. 넷째 소스는 특히 **응용 개발자와
+  프레임워크 저자를 명시적으로 갈라 두고**(14장 곁글 §"Think about the Classes You Really
+  Need", p.517)[^ramalho2022] 앞의 조언들이 전자에게 더 강하게 적용된다고 본다 — **우리가
+  코딩하는 클래스는 거의 항상 잎 클래스다.**
+- #hypothesis 네 소스 중 어느 것도 서로를 인용하지 않았다. 다만 넷째와 셋째가 같은 원전을
+  가리킨다 — 디자인 패턴 책의 "클래스 상속보다 객체 합성을 선호하라"이고, 셋째가 그 원칙의
+  통상적 해석을 기각한 자리와 넷째가 그것을 최선의 조언이라 부른 자리가 같은 문장이다.
+
 ## 이어지는 페이지
 
 - [상속 다루기 리팩터링](refactoring-inheritance.md) — **셋째 입장의 전문.** 계층을 고치는
@@ -389,7 +544,14 @@ sources:
 - [변환 프로그래밍](transforming-programming.md) — 객체가 서로의 상태를 바꾸는 대신 데이터를
   흘리는 쪽
 - [디자인 패턴 해부](../concepts/design-pattern-anatomy.md) — 같은 문제를 패턴 카탈로그의 문법으로 적는 자리
+- [협력적 다중 상속과 MRO](cooperative-multiple-inheritance.md) — **넷째 입장의 기제 쪽.**
+  `super()`와 메서드 결정 순서, 그리고 믹스인이 실제로 동작하는 조건
+- [내장 타입을 상속할 때의 함정](subclassing-built-in-types.md) — 같은 소스가 드는, 상속이
+  언어 구현 층에서 새는 자리
+- [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md) — 넷째 입장이 "인터페이스라면
+  ABC이거나 `Protocol`이어야 한다"고 말할 때 그 둘의 선택 기준
 - [실용주의의 유연성과 동시성](../synthesis/pragmatic-flexibility-and-concurrency.md) — 이 축의 허브
+- [파이썬의 상속 기제](../synthesis/python-inheritance-mechanics.md) — 넷째 소스 쪽의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 31 "Inheritance Tax". 곁글("Problems Using Inheritance
     to Build Types", "Mixins, Traits, Categories, Protocol Extensions, …")을 함께 옮겼다.
@@ -405,3 +567,18 @@ sources:
     번호(PDF 쪽 − 22). 직인용에서 워터마크 문자열 `ptg26261585`를 제거했다 — 이 소스의 표준
     규약이며 근거는 `it/archive/fowler2018/_progress.yaml` 머리말에 있다. 항목의 Example 절과
     스케치 도판은 옮기지 않았다.
+
+[^ramalho2022]: Ramalho 2022, 14장 "Inheritance: For Better or for Worse" 도입(p.488) ·
+    §"Coping with Inheritance"(p.510)과 그 아래 일곱 절 §"Favor Object Composition over Class
+    Inheritance"(p.510)·§"Understand Why Inheritance Is Used in Each Case"(pp.510–511)·
+    §"Make Interfaces Explicit with ABCs"(p.511)·§"Use Explicit Mixins for Code Reuse"
+    (p.511)·§"Provide Aggregate Classes to Users"(pp.511–512)·§"Subclass Only Classes
+    Designed for Subclassing"(p.512)·§"Avoid Subclassing from Concrete Classes"(p.513) ·
+    §"Chapter Summary"(p.515) · §"Further Reading"(p.515) · 곁글 §"Think about the Classes
+    You Really Need"(p.517). **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀
+    값이고, 그 오프셋 실측과 판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이
+    정본이다. 이 절은 이 소스가 이 페이지에 더하는 것만 든다 — `super()`·MRO·믹스인의 기제와
+    내장 타입 상속의 함정은 [협력적 다중 상속과 MRO](cooperative-multiple-inheritance.md)와
+    [내장 타입을 상속할 때의 함정](subclassing-built-in-types.md)이 갖는다. §"Coping with
+    Inheritance" 아래 마지막 절 §"Tkinter: The Good, the Bad, and the Ugly"(pp.513–514)는
+    일곱 지침을 하나의 사례에 적용해 보이는 자리라 그 허브 쪽 페이지에 남겼다.

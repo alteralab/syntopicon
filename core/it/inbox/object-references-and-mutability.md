@@ -305,6 +305,10 @@ p.201).[^ramalho2022] 이 KB에 이 장이 필요한 이유가 그것이다 — 
 - [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 같은 사실이 시퀀스 쪽에서
   일으키는 것들: `[[]] * 3` 함정과 `+=` 수수께끼
 - [파이썬 데이터 모델](python-data-model.md) — `__eq__`가 무엇이고 왜 `is`는 그 밖에 있는가
+- [__slots__와 인스턴스 메모리](slots-and-instance-memory.md) — 여기서 나온 약한 참조가
+  기본으로 제공되지 않게 되는 자리와 그 밖의 단서들
+- [파이썬다운 객체 만들기](building-pythonic-objects.md) — 불변성을 흉내 내는 읽기 전용
+  프로퍼티가 무엇을 사고 무엇을 못 사는가
 - [데이터 클래스 빌더](data-class-builders.md) — `@dataclass`가 가변 기본값을 거부하는
   것이 이 함정의 **부분적** 해결책인 자리
 - [값 객체와 엔티티](value-objects-and-entities.md) — 정체성으로 비교할 것과 값으로 비교할

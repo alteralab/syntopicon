@@ -8,6 +8,7 @@ sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: ramalho2022, resource: /it/sources/ramalho2022.md }
 ---
 
 # 정보 은닉과 정보 누출
@@ -24,6 +25,7 @@ sources:
 - [지나치게 하면](#지나치게-하면)
 - [영속성 무지 — 데이터베이스를 숨기는 실물](#영속성-무지--데이터베이스를-숨기는-실물)
 - [셋째 소스 — 모델이 새는 것](#셋째-소스--모델이-새는-것)
+- [넷째 소스 — 접근 제어는 안전이지 보안이 아니다](#넷째-소스--접근-제어는-안전이지-보안이-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모듈이 무엇을 숨겨야 깊어지며, 숨기지 못한 지식은 어떤 대가를 부르는가.**
@@ -334,6 +336,47 @@ sources:
     더 강하다. 그쪽은 선언이 은닉을 **보장하지 않는다**고 말하고, 이쪽은 이름 공간 분리가
     문제를 **감춘다**고 말한다. 전문은 [경계 컨텍스트](bounded-context.md)에 있다.
 
+## 넷째 소스 — 접근 제어는 안전이지 보안이 아니다
+
+위 [private 선언은 정보 은닉이 아니다](#private-선언은-정보-은닉이-아니다)가 **`private`
+선언이 은닉을 보장하지 못한다**고 말한다면, 넷째 소스는 그보다 한 걸음 더 간다 —
+**애초에 그 선언이 강제하는 것도 아니라는 것**을 언어 두 개에서 실증한다.
+
+- 파이썬에는 자바의 `private` 수식자 같은 것이 없다 — **파이썬에 있는 것은 하위 클래스에서
+  "비공개" 속성이 우연히 덮어써지는 것을 막는 단순한 기제다** (11장 §"Private and "Protected"
+  Attributes in Python", p.382).[^ramalho2022] 앞뒤 밑줄 규칙에 맞춰 이름을 지으면 인터프리터가
+  그 이름 앞에 클래스 이름을 붙여 저장한다 — **이름 뒤섞기(name mangling)**다.
+- **규정** (11장 §"Private and "Protected" Attributes in Python", p.382):[^ramalho2022]
+
+> Name mangling is about safety, not security: it's designed to prevent accidental access
+> and not malicious prying.
+
+  - 뒤섞인 이름을 아는 사람은 밖에서 그대로 읽고 쓸 수 있다. 저자의 단서는 **"그러나 당신이
+    운영 코드에서 그러고 있다면, 뭔가 터졌을 때 불평할 수 없다"**이다 (같은 절,
+    p.382).[^ramalho2022]
+- **그리고 자바도 실무에서는 다르지 않다는 것이 곁글의 논지다.** 저자가 Jython으로 자바
+  클래스의 `private` 필드를 리플렉션으로 읽는 스크립트를 보이고 이렇게 맺는다 — **내 요점은
+  이것이다: 자바에서도 접근 제어 수식자는 대체로 보안이 아니라 안전에 대한 것이다, 적어도
+  실무에서는** (11장 곁글 §"Safety Versus Security in Private Attributes",
+  p.396).[^ramalho2022] 근거가 배포 조건이다 — **자바의 `private`과 `protected` 수식자는
+  보통 사고에 대한 보호만 제공한다(즉 안전). 그것은 애플리케이션이 특별히 설정되어 자바
+  `SecurityManager` 위에 배포될 때에만 악의적 의도에 대한 보안을 제공하고, 그런 일은 보안에
+  민감한 기업 환경에서조차 실무에서 좀처럼 일어나지 않는다** (같은 곁글,
+  p.395).[^ramalho2022]
+- **이 소스가 이 페이지에 더하는 것이 무엇인지가 중요하다.** 위 첫째 소스는 `private`이
+  **불충분하다**고 말한다(게터·세터로 정보가 여전히 샌다). 넷째 소스는 `private`이
+  **다른 종류의 보증**이라고 말한다 — 실수를 막는 장치이지 침입을 막는 장치가 아니다.
+  두 주장이 겹치지 않으므로 `contradicts`가 아니라 층이 다른 서술이다.
+  - **귀결이 하나 따라온다.** 정보 은닉을 언어의 접근 제어에 위임할 수 없다면, 그것은 여전히
+    **설계 결정**으로 지켜야 하는 것이 된다 — 무엇을 인터페이스에 올릴 것인가의 판단이지
+    무엇에 키워드를 붙일 것인가의 문제가 아니다.
+- 같은 소스가 **밑줄 하나짜리 관례**도 기록한다 — **인터프리터에게 특별한 의미가 없지만,
+  그런 속성을 클래스 밖에서 접근하면 안 된다는 것은 파이썬 프로그래머 사이에서 매우 강한
+  관례다** (11장 §"Private and "Protected" Attributes in Python", p.383).[^ramalho2022]
+  저자는 그것을 `ALL_CAPS`가 상수를 뜻하는 관례와 나란히 둔다. 그리고 밑줄 둘을 아예 쓰지
+  말라는 반대 의견(Ian Bicking)도 함께 실려 있는데, 그 전문은
+  [파이썬다운 객체 만들기](building-pythonic-objects.md)에 있다.
+
 ## 이어지는 페이지
 
 - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 이 기법이 만들려는 것의 정의
@@ -354,6 +397,10 @@ sources:
   바뀔 때 몇 개의 모듈이 영향받는가)
 - [DRY 원칙](../concepts/dry-principle.md) — 같은 지식이 여러 자리에 표현되는 것을 금하는
   다른 소스의 조문. 그쪽은 그것을 **중복**으로, 이 책은 **누출**로 부른다
+- [파이썬다운 객체 만들기](building-pythonic-objects.md) — 이름 뒤섞기와 읽기 전용
+  프로퍼티의 전문, 그리고 공개 속성으로 시작해도 되는 이유
+- [내장 타입을 상속할 때의 함정](subclassing-built-in-types.md) — 하위 클래스가 상위 클래스의
+  구현 세부에 묶이는 누출이 언어 구현 층에서 나타나는 자리
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
 
 [^ousterhout2021]: Ousterhout 2021, 5장 "Information Hiding (and Leakage)". 쪽은 인쇄판
@@ -374,3 +421,13 @@ sources:
     locator는 장 단위다** — 검증 절차와 근거는 `it/archive/percival2020/_progress.yaml`
     머리말이 정본이다. 이 절의 코드 조각은 인라인으로 옮겼다 — 대표 펜스는
     [리포지터리 패턴](repository-pattern.md)이 갖는다.
+
+[^ramalho2022]: Ramalho 2022, 11장 "A Pythonic Object" §"Private and "Protected" Attributes
+    in Python"(pp.382–384) · 곁글 §"Safety Versus Security in Private Attributes"
+    (pp.395–396). **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그
+    오프셋 실측과 판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다.
+    이 절은 이 소스가 이 페이지에 더하는 것만 든다 — 그 장 전체의 반입분은
+    [파이썬다운 객체 만들기](building-pythonic-objects.md)가 갖는다. 곁글의 자바 예제
+    (`Confidential.java`·`expose.py`)는 논지를 받치는 실증이라 결과만 산문으로 옮기고 코드는
+    옮기지 않았다 — 이 KB의 개념당 대표 펜스 하나 규약(SCHEMA §3)에 따라 그 장의 펜스 자리는
+    파이썬 쪽 예제가 갖는다.
