@@ -12,7 +12,7 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 
 ## 패턴과 구조
 
-- [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG의 구조와 계보(FiD),
+- [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG의 구조와 계보(REALM→RAG→FiD),
   검색 여부를 모델이 정하는 적응형 검색, 왜 컨텍스트가 길어져도 검색이 남는가
 - [적응형 검색 전략](../concepts/adaptive-retrieval-strategies.md) — 검색을 탈지 정하는 세 갈래:
   사전 라우팅, 생성 중 결정, 모델 내장 판단과 그 대가
@@ -22,10 +22,11 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 - [용어 기반 검색](../concepts/term-based-retrieval.md) — 낱말이 겹치는 문서 가운데 무엇을 먼저
   줄 것인가, TF-IDF와 BM25
 - [임베딩 기반 검색](../concepts/embedding-based-retrieval.md) — 의미 공간에서의 이웃 찾기와
-  ANN 색인이 딛는 자리
+  ANN 색인이 딛는 자리, 그리고 문서를 벡터 하나로 줄이지 않는 제3 갈래(late interaction)
 - [검색 평가](../concepts/retrieval-evaluation.md) — 맥락 정밀도와 재현율, 검색기 자체를 재는 법
 - [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 두 검색기를 섞는 법,
-  리랭커 계보 셋(BERT 분류·seq2seq 목표 토큰·LLM 리스트와이즈)과 컨텍스트 배치의 위치 편향
+  리랭커 계보 넷(BERT 분류·seq2seq 목표 토큰·LLM 리스트와이즈·late interaction)과 랭크 융합
+  표준 공식(RRF)의 원전, 컨텍스트 배치의 위치 편향
 
 ## 검색 최적화
 
