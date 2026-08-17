@@ -25,8 +25,10 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
   ANN 색인이 딛는 자리, 그리고 문서를 벡터 하나로 줄이지 않는 제3 갈래(late interaction)
 - [검색 평가](../concepts/retrieval-evaluation.md) — 맥락 정밀도와 재현율, 검색기 자체를 재는 법
 - [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 두 검색기를 섞는 법,
-  리랭커 계보 넷(BERT 분류·seq2seq 목표 토큰·LLM 리스트와이즈·late interaction)과 랭크 융합
-  표준 공식(RRF)의 원전, 컨텍스트 배치의 위치 편향
+  점수 선형 결합과 랭크 융합 표준 공식(RRF)의 원전, 리랭킹을 언제 쓰는가와 컨텍스트 배치의
+  위치 편향
+- [리랭킹의 기제](../concepts/reranking-mechanisms.md) — 리랭커 계보 넷(BERT 이진 분류·seq2seq
+  목표 토큰·LLM 리스트와이즈 순열·late interaction)의 기제와 그 지연·품질 실측
 
 ## 검색 최적화
 
