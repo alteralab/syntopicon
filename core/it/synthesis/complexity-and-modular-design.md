@@ -217,6 +217,10 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
   코드를 어떻게 그쪽으로 옮기는가**를 다룬다. 두 축이 정면으로 갈린 자리가 셋이고 그중
   하나가 이 KB의 첫 `contradicts`다 — 상대편은 자식 허브
   [문서화와 코드 명료함](documentation-and-code-clarity.md)에 있다
+- [정리와 설계의 경제학](tidying-and-design-economics.md) — 같은 층의 넷째 원전
+  (Beck 2023). **이 축을 명시적으로 겨냥해 쓰인 책이다** — 부록에서 저자가 이 축의 논점은
+  타당하나 독단적으로 제시된다고 적고, *Tidy First?*의 물음표가 그에 대한 직접적 응답이라고
+  선언한다. 다투는 것은 정리할 것인가가 아니라 **언제나 인가**다
 - [실용주의 프로그래머](pragmatic-programmer.md) — 같은 층(개별 개발자의 실천 지식)의
   다른 축. 이 허브의 거의 모든 페이지가 그쪽 페이지와 한 자리씩 맞닿는다
 - [비기능 요건](nonfunctional-requirements.md) — 같은 복잡성이 시스템 수준의 요건

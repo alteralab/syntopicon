@@ -8,6 +8,7 @@ sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: beck2023, resource: /it/sources/beck2023.md }
 ---
 
 # 리팩터링
@@ -18,6 +19,7 @@ sources:
 - [왜 리팩터링하는가 — 원전의 네 답](#왜-리팩터링하는가--원전의-네-답)
 - [설계 체력 가설](#설계-체력-가설)
 - [이 말은 어디서 왔나](#이-말은-어디서-왔나)
+- [그 말을 버린 쪽 — 정리(tidying)](#그-말을-버린-쪽--정리tidying)
 - [건설이 아니라 원예](#건설이-아니라-원예)
 - [재구조화 중에서 리팩터링만의 것](#재구조화-중에서-리팩터링만의-것)
 - [언제 리팩터링하는가 — 사유 여섯](#언제-리팩터링하는가--사유-여섯)
@@ -211,6 +213,35 @@ sources:
 - **그리고 성공의 부작용** — **이 인기의 한 가지 단점은 사람들이 "리팩터링"을 어떤 종류의
   재구조화든 뜻하는 것으로 느슨하게 쓰는 것이었다** (2장 §"Where Did Refactoring Come
   From?", p.68).[^fowler2018] 위 정의 절이 그 교정이다.
+
+## 그 말을 버린 쪽 — 정리(tidying)
+
+위 절의 마지막 관측(**"리팩터링"이 어떤 종류의 재구조화든 뜻하는 말로 느슨하게 쓰인다**)에
+**같은 관측을 하고 반대로 대응한 소스**가 이 KB에 있다. 위 [두 모자](#두-모자) 비유의
+주인공인 Kent Beck이 2023년에 쓴 *Tidy First?*다.
+
+- 저자의 진단은 이 페이지의 것보다 세다 (I부 도비라):[^beck2023]
+
+> "Refactoring" took fatal damage when folks started using it to refer to long pauses in
+> feature development. They even eliminated the "that don't change behavior" clause, so
+> "refactoring" could easily break the system.
+
+- **오염이 두 겹으로 서술된다** — 뜻이 **기능 개발의 긴 중단**으로 옮겨 간 것과, **"행동을
+  바꾸지 않는다"는 조항 자체가 삭제된 것**이다 (I부 도비라).[^beck2023] 뒤엣것이 이 페이지의
+  [정의](#정의--명사와-동사)가 지키려는 바로 그 조항이다.
+- **처방이 갈린다.** 이 페이지의 원전은 정의를 다시 못 박아 낱말을 되찾으려 하고, 저쪽은
+  낱말을 버리고 새 낱말을 세운다 — **정리(tidyings)는 리팩터링의 부분집합이다. 정리는
+  아무도 미워할 수 없는 귀엽고 보송보송한 작은 리팩터링들이다** (I부 도비라).[^beck2023]
+- **그래서 두 낱말은 모순이 아니라 포함 관계다.** 저쪽은 이 페이지의 정의(행동을 바꾸지
+  않는 구조 변경)를 그대로 받아들이고 그 안에서 **크기와 논쟁 가능성**으로 부분집합을
+  자른다. 전문은 [정리 — tidying](tidying.md)에 있다.
+- **다만 저쪽에서 "리팩터링"이라는 낱말의 자리가 옮겨진다.** 맺음 장의 규모 표에서 정리는
+  **당신 혼자, 분에서 시간**이고 리팩터링은 **프로그래머 동료들과 함께, 날에서 주**다
+  (33장).[^beck2023] 이 페이지의 원전에는 그런 사회적 범위 구분이 없다 — 여기서 리팩터링은
+  혼자서 몇 분 만에 하는 것도 포함한다([리팩터링의 리듬](refactoring-rhythm.md) 참조).
+  - #hypothesis 두 소스가 이 낱말 범위 차이를 서로에 대해 논한 적은 없다. 같은 낱말을
+    다른 눈금으로 쓰고 있으므로, 두 소스를 같이 읽을 때는 **누가 쓴 "리팩터링"인지**를
+    먼저 보아야 한다는 것이 이 KB의 판정이다.
 
 ## 건설이 아니라 원예
 
@@ -510,7 +541,9 @@ sources:
   활동을 개발 시간의 10~20%라는 예산으로 옮긴 자리
 - [두 번 설계하라](design-it-twice.md) — 반응 투자의 짝인 능동 투자의 절차
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 실용주의 축의 허브
+- [정리 — tidying](tidying.md) — 이 낱말을 버리고 세운 좁은 낱말과 그 정의
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 원전 축의 허브
+- [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 정리 쪽 축의 허브
 
 [^fowler2018]: Fowler 2018, 2장 "Principles in Refactoring" 중 "Defining Refactoring"
     (pp.45–46) · "The Two Hats"(pp.46–47) · "Why Should We Refactor?"(pp.47–50) ·
@@ -528,3 +561,6 @@ sources:
 
 [^ousterhout2021]: Ousterhout 2021, 3장 "Working Code Isn't Enough (Strategic vs.
     Tactical Programming)" · 16장 §16.1 · 19장 §19.3. 쪽은 인쇄판 쪽 번호.
+
+[^beck2023]: Beck 2023, I부 도비라 "Tidyings" · 33장 "Conclusion". **이 소스의 locator는
+    장 단위다** — 검증 절차와 근거는 `it/archive/beck2023/_progress.yaml` 머리말이 정본이다.

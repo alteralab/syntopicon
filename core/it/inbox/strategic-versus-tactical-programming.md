@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 status: draft
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: beck2023, resource: /it/sources/beck2023.md }
 ---
 
 # 전략적 프로그래밍과 전술적 프로그래밍
@@ -20,6 +21,7 @@ sources:
 - [스타트업의 압력](#스타트업의-압력)
 - [오늘 하는 것이지 내일 하는 것이 아니다](#오늘-하는-것이지-내일-하는-것이-아니다)
 - [진화 국면에 다시 적용되는 같은 태도](#진화-국면에-다시-적용되는-같은-태도)
+- [이 책을 겨냥해 쓰인 책](#이-책을-겨냥해-쓰인-책)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **설계에 쓰는 시간을 무엇으로 정당화하며, 얼마나 쓰는 것이 맞는가.**
@@ -226,6 +228,32 @@ sources:
   그것이 최선의 설계를 식별하는 방법이기 때문이다** (15장 §15.4, p.134).[^ousterhout2021]
   전문은 [주석을 먼저 써라](write-the-comments-first.md)에 있다.
 
+## 이 책을 겨냥해 쓰인 책
+
+이 KB의 코드 품질 축에서 **두 원전이 서로를 명시적으로 참조하는 유일한 자리**다. Kent Beck이
+*Tidy First?*(2023) 부록의 독서 목록에서 이 책을 이렇게 적는다 (Appendix):[^beck2023]
+
+> This is the book that got me off my butt writing. John's points are well taken about
+> making design better, but they are presented dogmatically—always keep your code as clean
+> as you possibly can. The question mark in Tidy First? is a direct response.
+
+- **판정이 두 부분이다** — 내용에는 동의하고(**설계를 더 낫게 만드는 것에 대한 그의 논점은
+  타당하다**), **제시 방식**을 문제 삼는다(**독단적으로 제시된다 — 코드를 늘 가능한 한 깨끗하게
+  유지하라**) (Appendix).[^beck2023]
+- **그래서 물음표가 반론의 형식이다.** 저쪽 책의 제목은 *Tidy First?*이고, 저자는 그 물음표가
+  이 책에 대한 **직접적 응답**이라고 적는다 (Appendix).[^beck2023] 즉 다투는 것은 "정리할
+  것인가"가 아니라 **"언제나 인가"**다.
+- 저쪽의 대안은 시점을 판정 대상으로 만드는 것이다 — 네 시점(먼저·나중에·이따가·안 함)과
+  다섯 판정 인자(비용·수익·결합도·응집도·당신)가 그 판정 도구다 (21장 · 33장).[^beck2023]
+  전문은 [언제 정리하는가](when-to-tidy.md)에 있다.
+- **이 페이지의 10~20% 조문과는 층이 다르다.** 이쪽은 **기간에 대한 예산 비율**을 주고,
+  저쪽은 **변경 하나에 대한 판정 목록**을 준다 — 저쪽의 규모 표에서 정리는 분에서 시간
+  단위다 (33장).[^beck2023] #hypothesis 두 답이 같은 축에서 충돌하는지는 두 저자 중
+  누구도 검토하지 않았다. **이 KB는 모순으로 판정하지 않았다** — 부정하는 명제가 서로 다르다.
+- 다만 **저쪽이 이 페이지의 어조를 문제 삼았다는 사실 자체는 기록해 둘 값이 있다.** 이
+  페이지의 조문("설계를 더 낫게 만들고 있지 않다면 당신은 아마 그것을 더 나쁘게 만들고
+  있다")이 저쪽이 "독단적"이라 부른 그 형식이다.
+
 ## 이어지는 페이지
 
 - [복잡성의 정의와 증상](software-complexity-defined.md) — 이 장이 전제하는 "무관용"의
@@ -237,9 +265,17 @@ sources:
 - [리팩터링](../concepts/refactoring.md) — 반응 투자를 실행하는 절차
 - [충분히 좋은 소프트웨어](../concepts/good-enough-software.md) — 언제 멈출지의 반대편 질문
 - [유지보수성](../concepts/maintainability.md) — 같은 비용 구조를 시스템 수준에서 놓은 자리
+- [언제 정리하는가](when-to-tidy.md) — 같은 물음에 네 시점으로 답하며 이 책을 겨냥한 자리
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
+- [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 겨냥한 쪽의 허브
 
 [^ousterhout2021]: Ousterhout 2021, 3장 "Working Code Isn't Enough (Strategic vs.
     Tactical Programming)" · 15장 §15.4 · 16장 §16.1 · 19장 §19.2와 §19.4. 쪽은 인쇄판
     쪽 번호. Figure 3.1(전략·전술 진척 곡선)은 그림이므로 딸린 설명 산문과 저자의 단서만
     옮겼다.
+
+[^beck2023]: Beck 2023, Appendix "Annotated Reading List and References"(Ousterhout 항목) ·
+    21장 "First, After, Later, Never" · 33장 "Conclusion". **이 소스의 locator는 장
+    단위다** — 검증 절차와 근거는 `it/archive/beck2023/_progress.yaml` 머리말이 정본이다.
+    부록이 든 판본 표기는 *A Philosophy of Software Design*, Palo Alto: Yaknyam Press,
+    2018이다(이 KB의 스냅샷은 2021년 2판이라 쪽·절 표기가 다르다).
