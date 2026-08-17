@@ -273,6 +273,10 @@ sources:
   "행동이 없다"를 혼동하면 걸리는 냄새
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
+- [딕셔너리와 집합](dictionaries-and-sets.md) — "해시는 모든 값 속성에 근거해야 한다"가
+  취향이 아니라 **해시 테이블이 깨지지 않기 위한 조건**임을 언어 쪽에서 말하는 자리
+- [객체 참조와 가변성](object-references-and-mutability.md) — 아무것도 하지 않으면 모든
+  사용자 정의 클래스가 정체성으로 비교되어 사실상 엔티티가 되는 자리
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 재료들의 언어 쪽 근거가 모인 허브
 

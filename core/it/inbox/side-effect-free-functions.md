@@ -127,6 +127,11 @@ sources:
 - [코드는 뻔해야 한다](obvious-code.md) — 예측 가능성을 읽는 사람 쪽에서 정의하는 자리
 - [작은 함수](small-functions.md) — 부수 효과를 이름으로 감추지 말라는 같은 요구가 있는 자리
 - [파이썬 데이터 모델](python-data-model.md) — 불변 값을 파이썬에서 만드는 재료
+- [객체 참조와 가변성](object-references-and-mutability.md) — 이 조항이 파이썬에서 걸리는
+  더 좁은 처방. **받은 가변 인자를 별칭하지 말고 복사하라**는 규칙과, 그것을 어겼을 때
+  "최소 놀람의 원칙"이 어떻게 깨지는가의 실물
+- [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 표준 라이브러리가 명령과
+  질의를 반환값으로 표시하는 관례(`list.sort`가 `None`을 돌려주는 자리)
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 10장 "Supple Design" §SIDE-EFFECT-FREE FUNCTIONS(pp.250–255).

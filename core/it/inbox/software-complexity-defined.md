@@ -316,6 +316,8 @@ sources:
   세워 그 자리를 메운다
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) —
   같은 점진적 축적을 심리로 설명하는 쪽
+- [객체 참조와 가변성](object-references-and-mutability.md) — "모르는 줄도 모르는 것"의
+  파이썬 실물 하나. 가변 기본값과 별칭이 만드는 상태가 코드 어디에도 보이지 않는 자리
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
 
 [^ousterhout2021]: Ousterhout 2021, 1장 "Introduction (It's All About Complexity)" ·

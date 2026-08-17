@@ -212,9 +212,9 @@ Annotations" 이하, pp.175–179).[^ramalho2022]
     동작이다: 보통 인스턴스는 클래스에 나타나지 않는 자기만의 속성을 가질 수 있다.**
   - 그 자유에 값이 붙는다는 것을 저자가 각주로 계상한다 — **`__init__` 뒤에 속성을 설정하는
     것은 `__dict__` 키 공유 메모리 최적화를 무력화한다** (5장 각주 7,
-    p.179).[^ramalho2022] 즉 나중에 붙인 속성 하나가 그 클래스 인스턴스 전부의 메모리
-    배치를 되돌린다. 저자가 가리키는 근거는 같은 책 3장 §"Practical Consequences of How
-    dict Works"(p.102)의 키 공유 딕셔너리 서술이다.
+    p.179).[^ramalho2022] 즉 나중에 붙인 속성 하나가 그 인스턴스의 메모리 배치를
+    되돌린다. 그 최적화가 무엇인지는 [딕셔너리와 집합](dictionaries-and-sets.md)의
+    §"해시 테이블이 강제하는 실무 규칙"에 있다 — 같은 책 3장이 근거다.
 
 ## 데코레이터의 키워드 옵션
 
@@ -382,6 +382,12 @@ unsafe_hash=False, frozen=False)`이고, 별표 때문에 **나머지 매개변�
 - [기본형 집착과 데이터 뭉치](code-smells.md) — 왜 딕셔너리·튜플 대신 구조체를 쓰는가의
   냄새 쪽 근거
 - [상속세](inheritance-tax.md) — 데이터 클래스 계층을 만들지 말라는 경고의 원리 쪽
+- [객체 참조와 가변성](object-references-and-mutability.md) — `@dataclass`가 가변 기본값을
+  거부하는 그 함정의 일반형과, `frozen`이 왜 진짜 불변이 아닌가의 언어 쪽 기제
+- [딕셔너리와 집합](dictionaries-and-sets.md) — 해시 가능성의 계약(`__eq__`와 `__hash__`가
+  함께 가야 한다)이 `eq`·`frozen` 두 옵션으로 만족되는 자리
+- [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 필드에 이름을 붙이기 전,
+  튜플을 레코드로 쓰던 자리
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 

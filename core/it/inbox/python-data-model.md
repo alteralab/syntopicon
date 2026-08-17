@@ -175,6 +175,11 @@ sources:
   종류별로 어떻게 다는가
 - [상속세](inheritance-tax.md) — 상속이 아니라 규약으로 다형성을 얻는 쪽
 - [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md) — 인터페이스를 좁게 두는 잣대
+- [파이썬 시퀀스의 의미론](sequence-semantics-in-python.md) — 여기의 `FrenchDeck`이 공짜로
+  얻는 슬라이싱·반복·정렬이 실제로 무엇인가
+- [딕셔너리와 집합](dictionaries-and-sets.md) — `Mapping`과 `Set` 쪽의 같은 이야기
+- [객체 참조와 가변성](object-references-and-mutability.md) — `is`가 왜 데이터 모델 밖에
+  있고 그래서 빠른가
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
