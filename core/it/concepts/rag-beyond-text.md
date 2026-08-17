@@ -1,11 +1,13 @@
 ---
 type: concept
 title: 텍스트 너머의 RAG
-description: 외부 데이터 소스가 문서가 아닐 때의 RAG — 이미지·비디오·오디오를 맥락에 넣는 멀티모달 RAG와 메타데이터로 찾는 길, 그리고 결합 임베딩 공간에서 찾는 길, 표 데이터를 쓰려면 검색 대신 텍스트-투-SQL·SQL 실행·생성의 세 단계가 서는 자리, 외부 소스가 지식 그래프일 때 검색이 커뮤니티 요약의 맵리듀스로 바뀌는 GraphRAG의 미심사 제안과 그 승률·토큰 비용, 그리고 그 실행기가 도구라는 관찰이 에이전트로 넘어가는 지점
-generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
+description: 외부 데이터 소스가 문서가 아닐 때의 RAG — 이미지·비디오·오디오를 맥락에 넣는 멀티모달 RAG와 메타데이터로 찾는 길, 그리고 결합 임베딩 공간에서 찾는 길, 표 데이터를 쓰려면 검색 대신 텍스트-투-SQL·SQL 실행·생성의 세 단계가 서는 자리, 외부 소스가 지식 그래프일 때 검색이 커뮤니티 요약의 맵리듀스로 바뀌는 GraphRAG의 미심사 제안과 그 승률·토큰 비용, 같은 "코퍼스를 그래프로 만들어 찾는다"를 심사본이 다시 세운 두 길(개인화 페이지랭크로 다중홉을 한 번에 푸는 쪽과 이중 수준 키워드 검색으로 커뮤니티 순회를 대체하는 쪽), 커뮤니티 요약이 증분 갱신에서 치르는 대가, 그리고 그 실행기가 도구라는 관찰이 에이전트로 넘어가는 지점
+generated: { by: "claude-opus-5", at: "2026-08-17T15:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: edge2024-graphrag, resource: /it/sources/edge2024-graphrag.md }
+  - { id: gutierrez2024-hipporag, resource: /it/sources/gutierrez2024-hipporag.md }
+  - { id: guo2025-lightrag, resource: /it/sources/guo2025-lightrag.md }
 ---
 
 # 텍스트 너머의 RAG
@@ -20,6 +22,11 @@ sources:
 - [질의가 맵리듀스가 된다](#질의가-맵리듀스가-된다)
 - [무엇으로 재고 얼마가 나왔는가](#무엇으로-재고-얼마가-나왔는가)
 - [저자들이 밝힌 조건과 한계](#저자들이-밝힌-조건과-한계)
+- [같은 발상의 심사본 둘](#같은-발상의-심사본-둘)
+- [커뮤니티 요약 대신 개인화 페이지랭크 — HippoRAG](#커뮤니티-요약-대신-개인화-페이지랭크--hipporag)
+- [HippoRAG가 잰 것](#hipporag가-잰-것)
+- [커뮤니티 순회 대신 이중 수준 검색 — LightRAG](#커뮤니티-순회-대신-이중-수준-검색--lightrag)
+- [심사본 둘이 Edge의 claim에 붙이는 조건](#심사본-둘이-edge의-claim에-붙이는-조건)
 - [도구라는 관찰](#도구라는-관찰)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -246,6 +253,169 @@ sources:
   대한 명확한 고지와 출력에 오류가 있을 수 있다는 고지가 동반되어야 한다** (6.2절,
   p.12).[^edge2024-graphrag]
 
+## 같은 발상의 심사본 둘
+
+- 위 네 절의 claim은 미심사 원고에서 왔다. **"코퍼스를 LLM으로 그래프로 만들고 그 그래프에서
+  검색한다"**는 형태 자체는 심사본 둘이 다시 세우고 다시 잰다 — NeurIPS 2024 본회의를 통과한
+  HippoRAG와 EMNLP 2025 Findings(**경심사 트랙**)의 LightRAG다. 둘 다 색인 단계는 Edge와 같은
+  모양(LLM으로 개체·관계 추출 → 그래프)을 쓰고, **검색 단계에서 커뮤니티 요약을 버린다**는 점에서
+  Edge와 갈린다.
+- 무엇이 보강되고 무엇이 안 되는지를 먼저 갈라 둔다.
+  - **보강되는 것**: 그래프 색인이라는 방법론, 그리고 커뮤니티 요약이 증분 갱신에서 치르는 대가에
+    대한 Edge 밖의 판정(아래 마지막 절).
+  - **보강되지 않는 것**: Edge가 보고한 승률 수치 자체. LightRAG는 **질문 생성 방법을 Edge의 것에서
+    가져오고**(코퍼스당 사용자 5명 × 과제 5개 × 질문 5개 = 125문항) LLM 판정자 다차원 비교도 Edge
+    위에 세운다 (9.1절, pp.10–11).[^guo2025-lightrag] 그 승률은 절차의 독립 검증이 아니라 **같은
+    절차의 재사용**이다.
+    - 다만 기준 하나가 갈린다 — LightRAG의 네 차원은 **포괄성·다양성·권능 부여·전체(Overall)**이고
+      (9.1절, p.11),[^guo2025-lightrag] Edge가 대조 기준으로 둔 **직접성(Directness)**이 빠져 있다.
+      곧 "어떤 방법도 네 기준 전부에서 이길 것으로 기대하지 않는다"던 Edge의 안전장치가
+      없다.[^edge2024-graphrag]
+
+## 커뮤니티 요약 대신 개인화 페이지랭크 — HippoRAG
+
+- 진단은 Edge와 다른 자리를 짚는다 — **현재 RAG 방법들은 각 새 구절이 고립되어 인코딩되기 때문에
+  LLM이 구절 경계를 가로질러 새 지식을 통합해야 하는 과제를 돕지 못한다** (1절,
+  p.1).[^gutierrez2024-hipporag] Edge가 못 푼다고 짚은 것이 **전역 질문**이었다면 여기서 짚는 것은
+  **구절 사이의 연결**이다.
+- 무엇을 조합한 것인지의 정의다. 원문 표기를 그대로 옮겼다 (초록, p.1):[^gutierrez2024-hipporag]
+
+  > HippoRAG synergistically orchestrates LLMs, knowledge graphs, and the Personalized PageRank
+  > algorithm to mimic the different roles of neocortex and hippocampus in human memory.
+
+- 색인 — **LLM(인공 신피질)으로 지식 그래프 삼중항을 추출한다. 이 그래프는 스키마 없는(schemaless)
+  것이고 그 과정은 개방 정보 추출(OpenIE)로 알려져 있다. 이 과정은 검색 코퍼스의 구절에서 두드러진
+  신호를 조밀 벡터 표현이 아니라 이산 명사구로 추출해 더 세밀한 패턴 분리를 가능하게 한다. 마지막으로
+  검색용으로 파인 튜닝된 기성 조밀 인코더를 써서, 이 KG 안의 비슷하지만 동일하지 않은 명사구 사이에
+  추가 엣지를 준다** (2.2절, p.3).[^gutierrez2024-hipporag] 두 개체 표현의 코사인 유사도가 문턱
+  `τ`를 넘을 때 동의 관계 엣지를 더한다 (2.3절, p.4).[^gutierrez2024-hipporag]
+- 검색 — **질의에서 개체명을 뽑아 KG의 노드에 이어 질의 노드를 정하고, 그 질의 노드를 씨앗으로
+  삼아 개인화 페이지랭크(Personalized PageRank, PPR) 알고리즘을 돌린다. PPR은 사용자가 정의한
+  출발 노드 집합을 통해서만 그래프에 확률을 분배하는 페이지랭크의 변종이다. 이는 HippoRAG가 KG의
+  경로를 탐색하고 관련 부분 그래프를 찾아내게 해, 본질적으로 다중홉 추론을 단일 검색 단계에서
+  수행하게 한다** (1절, p.2; 2.2절, p.3).[^gutierrez2024-hipporag] 마지막에 **PPR이 낸 노드 확률
+  분포를 명사구–구절 행렬과 곱해 구절마다의 랭킹 점수를 얻는다** (2.3절,
+  p.5).[^gutierrez2024-hipporag]
+- 역문서 빈도를 신경생물학적으로 흉내 낸 항 하나 — **노드 `i`의 노드 특이성(node specificity)을
+  `s_i = |P_i|⁻¹`로 정의한다. `P_i`는 노드 `i`가 추출된 구절들의 집합이며, 이 정보는 각 노드에 이미
+  있다. 노드 특이성은 PPR 전에 각 질의 노드 확률에 곱해져 그 이웃과 자기 자신의 확률을 조절하는 데
+  쓰인다** (2.3절, p.5).[^gutierrez2024-hipporag] 그 원본 신호인 역문서 빈도는
+  [어휘 기반 검색](../concepts/term-based-retrieval.md)에 있다.
+
+## HippoRAG가 잰 것
+
+- 단일 단계 검색 성능이다. 원문 표기를 그대로 옮겼다 (4절, p.6, Table 2 발췌 —
+  재현율@2·@5):[^gutierrez2024-hipporag]
+
+  | | MuSiQue R@2 | MuSiQue R@5 | 2Wiki R@2 | 2Wiki R@5 | HotpotQA R@2 | HotpotQA R@5 |
+  |---|---|---|---|---|---|---|
+  | BM25 | 32.3 | 41.2 | 51.8 | 61.9 | 55.4 | 72.2 |
+  | ColBERTv2 | 37.9 | 49.2 | 59.2 | 68.2 | 64.7 | 79.3 |
+  | RAPTOR | 35.7 | 45.3 | 46.3 | 53.8 | 58.1 | 71.2 |
+  | HippoRAG (ColBERTv2) | 40.9 | 51.9 | 70.7 | 89.1 | 60.5 | 77.7 |
+
+  - 읽는 법 — **2WikiMultiHopQA에서 R@2와 R@5가 각각 11%와 20% 개선되고 MuSiQue에서 약 3%
+    개선된다. 이 차이는 2WikiMultiHopQA의 개체 중심 설계가 HippoRAG에 특히 잘 맞는다는 것으로
+    부분적으로 설명된다. HotpotQA에서의 낮은 성능은 주로 그 데이터셋의 지식 통합 요구가 낮기
+    때문이다** (4절, p.6).[^gutierrez2024-hipporag] 곧 이득은 데이터셋의 성질이 고르는 것이지 전면적이
+    아니다. 표 안의 RAPTOR 행은 이 KB에 원전이 있는 요약 트리 방식이다.
+  - 이 표의 RAPTOR·ColBERTv2 대비는 [청킹 전략](../concepts/chunking-strategy.md)이 담은 재귀 요약과
+    같은 자리에서 잰 값이다.
+- 부분 성공과 완전 성공을 가르면 격차가 벌어진다 — **모든 지지 구절이 성공적으로 검색된 질의의
+  비율(all-recall)로 재면 상위 5개 기준 ColBERTv2와의 격차가 MuSiQue에서 3%에서 6%로,
+  2WikiMultiHopQA에서 20%에서 38%로 더 벌어진다. 이는 큰 개선이 더 많은 질문에서 부분 검색을
+  달성한 데서가 아니라 모든 지지 문서를 얻은 데서 온다는 것을 시사한다** (5.2절, p.8,
+  Table 6).[^gutierrez2024-hipporag]
+- 반복 검색과의 비용 대조가 이 방식이 사는 자리다 — **단일 단계 HippoRAG는 IRCoT와 대등하거나 그를
+  앞서면서 온라인 검색에서 10–30배 싸고 6–13배 빠르다** (4절, p.7).[^gutierrez2024-hipporag]
+  - **원문 안에서 수치가 어긋나는 자리 하나** — 초록은 같은 대조를 **10–20배 싸고**로 적고, 1절과
+    4절·5.2절은 **10–30배**로 적는다 (초록, p.1; 1절, p.2; 4절, p.7; 5.2절,
+    p.8).[^gutierrez2024-hipporag] 어느 쪽이 오식인지 논문 안에서 판정되지 않으므로 두 값을 함께
+    남기고 하나를 고르지 않는다.
+- 무엇이 이 결과를 만드는가를 저자들이 뜯어본다 (5.1절, p.7, Table 5):[^gutierrez2024-hipporag]
+  - **PPR을 질의 노드 확률만 쓰는 것이나 그 직접 이웃까지 확률을 조금 나눠 주는 것으로 바꾸면 세
+    데이터셋 모두에서 크게 떨어진다.** 평균 R@5로 72.9 대 56.2(질의 노드만)와 59.2(이웃 포함)다.
+    **질의 노드의 이웃을 PPR 없이 더하는 것이 질의 노드만 쓰는 것보다 나쁘다**는 점이 흥미롭다.
+  - **노드 특이성은 MuSiQue와 HotpotQA에서 상당한 개선을 얻지만 2WikiMultiHopQA에서는 거의 변화가
+    없다.** 반대로 **동의 관계 엣지는 2WikiMultiHopQA에 가장 큰 효과를 낸다.**
+  - **폐쇄 모델이 필수는 아니다** — Llama-3.1-70B-Instruct가 세 데이터셋 중 둘에서 GPT-3.5를
+    앞서고 2Wiki에서도 경쟁력이 있다. 반면 종단 간 OpenIE 모델 REBEL로 KG를 지으면 크게 떨어지는데,
+    **GPT-3.5가 REBEL의 두 배 삼중항을 내놓아 일반 개념을 담은 삼중항에 대한 REBEL의 편향을
+    드러낸다.**
+- 저자들이 남긴 조건 — **모든 구성 요소가 추가 훈련 없이 기성으로 쓰였고, 오류 분석은 대부분의
+  오류가 개체명 인식과 OpenIE에서 온다는 것을 보인다. 그리고 가장 중요하게는 HippoRAG의 확장성이
+  아직 더 검증되어야 한다 — 인공 해마 색인의 크기가 현재 벤치마크를 훨씬 넘어 자랄 때의 효율과
+  효과를 아직 실증하지 못했다** (7절, p.10).[^gutierrez2024-hipporag]
+
+## 커뮤니티 순회 대신 이중 수준 검색 — LightRAG
+
+- 색인은 Edge와 같은 모양이되 커뮤니티가 없다 — **LLM으로 개체(노드)와 관계(엣지)를 추출하고,
+  LLM 프로파일링 함수로 개체 노드와 관계 엣지마다 텍스트 키–값 쌍을 만든다. 각 색인 키는 효율적
+  검색을 가능하게 하는 낱말이나 짧은 구이고, 대응하는 값은 텍스트 생성에 도움이 되도록 외부 데이터의
+  관련 조각을 요약한 문단이다. 마지막으로 중복 제거 함수가 원 텍스트의 서로 다른 조각에서 온 동일한
+  개체·관계를 찾아 병합한다** (3.1절, p.3).[^guo2025-lightrag]
+- 검색은 두 수준으로 갈린다 — **저수준 검색(Low-Level Retrieval)은 특정 개체와 그에 결부된 속성·
+  관계를 검색하는 데 집중하고, 고수준 검색(High-Level Retrieval)은 더 넓은 주제와 포괄적 테마를
+  다뤄 여러 관련 개체·관계에 걸쳐 정보를 집계한다** (3.2절, p.4).[^guo2025-lightrag] 실행은 세
+  걸음이다 — **질의에서 지역 키워드와 전역 키워드를 함께 뽑고, 벡터 데이터베이스로 지역 키워드는
+  후보 개체와, 전역 키워드는 전역 키에 이어진 관계와 맞추고, 검색된 그래프 요소의 국소 부분 그래프에서
+  1홉 이웃 노드를 더 모아 고차 관련성을 보탠다** (3.2절, pp.4–5).[^guo2025-lightrag]
+- 절제가 이중 수준의 몫을 가른다 — **고수준을 뺀 변종(-High)은 개체와 그 직접 이웃에 지나치게
+  집중해 포괄적 통찰을 요구하는 복잡한 질의의 정보를 모으는 데 어려움을 겪고, 저수준을 뺀 변종(-Low)은
+  포괄성에서 유리하지만 특정 개체를 살피는 깊이가 줄어 매우 상세한 답을 주는 능력이 제한된다**
+  (4.3절, pp.6–7, Table 2).[^guo2025-lightrag]
+- 뜻밖의 절제 결과 하나 — **검색 과정에서 원 텍스트 사용을 없앤 변종(-Origin)이 유의미한 성능
+  저하를 보이지 않고 어떤 경우(농업·혼합)에는 오히려 개선된다. 그래프 기반 색인 과정에서 핵심
+  정보가 효과적으로 추출되어 질의에 답할 충분한 맥락을 제공하기 때문이며, 원 텍스트는 흔히 응답에
+  잡음을 들이는 무관한 정보를 담기 때문이라고 본다** (4.3절, p.7).[^guo2025-lightrag] #hypothesis
+- 증분 갱신이 설계의 핵심 주장이다 — **새 문서 `D′`에 대해 증분 갱신 알고리즘은 같은 그래프 기반
+  색인 단계를 적용해 `D̂′`를 만들고, 새 그래프 데이터를 원래 것과 노드 집합·엣지 집합의 합집합으로
+  결합한다. 전체 색인 그래프를 다시 짓지 않아도 되므로 계산 부담이 줄고 새 데이터의 빠른 동화가
+  가능해진다** (3.1절, pp.3–4).[^guo2025-lightrag] 그 갱신 전략 일반은
+  [증분 갱신 전략](../concepts/incremental-update-strategies.md)에 있다.
+
+## 심사본 둘이 Edge의 claim에 붙이는 조건
+
+- **커뮤니티 요약의 대가를 심사본이 명시적으로 지목한다** — HippoRAG는 RAPTOR·MemWalker·GraphRAG를
+  같은 계열로 묶은 뒤 **이 방법들은 지식 요소를 요약함으로써 정보를 통합하는데, 이는 새 데이터가
+  더해질 때마다 요약 과정이 반복되어야 한다는 뜻이다. 이와 달리 HippoRAG는 자기 KG에 엣지를 더하는
+  것만으로 새 지식을 계속 통합할 수 있다**고 적는다 (6.1절, p.9).[^gutierrez2024-hipporag] 위에서
+  옮긴 Edge의 색인 절차가 **잎 커뮤니티부터 계층적으로 요약을 쌓는** 것이었음을 놓고 보면 이 지적이
+  겨누는 자리가 분명하다.[^edge2024-graphrag]
+- LightRAG는 그 대가를 수치로 재려 한다. 토큰 비용의 원문 표기다 (4.4절, p.7, Table 3 발췌 —
+  Legal 데이터. `T_extract`는 개체·관계 추출의 토큰 부담):[^guo2025-lightrag]
+
+  | Phase | GraphRAG | LightRAG |
+  |---|---|---|
+  | 검색 단계 토큰 | 610 × 1,000 | < 100 |
+  | 증분 갱신 토큰 | 1,399 × 2 × 5,000 + T_extract | T_extract |
+
+  - 같은 표의 API 호출 행은 스냅샷 추출본에서 열이 서로 섞여 안전하게 읽히지 않아 옮기지 않았다.
+    아래 본문 서술이 그 자리를 대신한다.
+  - 그 수치가 어디서 오는가 — **검색 단계에서 GraphRAG는 커뮤니티 1,399개를 만들고 그중 2수준
+    커뮤니티 610개가 검색에 실제로 쓰이며, 커뮤니티 보고서 하나가 평균 1,000토큰이라 총 61만 토큰이
+    든다. 또 커뮤니티마다 개별 순회를 요구해 수백 번의 API 호출로 이어진다. 대조적으로 LightRAG는
+    키워드 생성과 검색에 100토큰 미만을 쓰고 전 과정에 단 한 번의 API 호출만 필요로 한다** (4.4절,
+    p.7).[^guo2025-lightrag]
+  - 증분 쪽 — **법률 데이터셋 크기의 새 데이터셋을 들일 때 GraphRAG는 기존 커뮤니티 구조를 해체해
+    새 개체·관계를 넣고 완전히 재생성해야 하며, 커뮤니티 보고서당 약 5,000토큰의 상당한 비용이
+    발생한다. 커뮤니티 1,399개면 원본과 새 보고서를 모두 재구성하는 데 약 1,399 × 2 × 5,000토큰이
+    든다** (4.4절, p.8).[^guo2025-lightrag]
+  - 시간·공간도 같은 방향이다 — **문서 삽입 시간이 LightRAG 418–561초 대 GraphRAG 642–953초,
+    평균 질의 시간이 11.2초 대 23.6초, 최종 저장 공간이 39.5MB 대 286.7MB다** (9.2절, p.11,
+    Table 5–7).[^guo2025-lightrag]
+- **품질에서는 우열이 전면적이지 않다.** LightRAG 대 GraphRAG 승률은 농업·CS·법률에서 LightRAG가
+  앞서지만(포괄성 54.4%·51.6%·51.6%), 혼합(Mix) 데이터셋에서는 포괄성 49.6%·전체 49.6%로 GraphRAG가
+  앞선다 (4.2절, p.6, Table 1).[^guo2025-lightrag] 다양성만은 네 데이터셋 모두에서 LightRAG가
+  앞선다(59.2–77.2%). 곧 이 심사본이 뒤집는 것은 **비용**이지 품질 전면이 아니다.
+- 조건 둘을 다시 적어 둔다.
+  - 위 승률은 **Edge에서 가져온 질문 생성과 LLM 판정 절차**로 잰 값이며 대조 기준 하나가 빠져
+    있다 (9.1절, pp.10–11).[^guo2025-lightrag] 판정자 자체의 한계는
+    [AI 판정자의 한계](../concepts/ai-judge-limitations.md)에 있다.
+  - LightRAG는 **경심사 트랙(Findings)** 발표본이고, 저자들이 스스로 남긴 한계는 멀티모달·시간
+    인지의 부재다 (7절, p.9).[^guo2025-lightrag] HippoRAG는 본회의 발표본이되 위에 적은 대로
+    **확장성이 아직 실증되지 않았다**고 스스로 밝힌다.[^gutierrez2024-hipporag]
+
 ## 도구라는 관찰
 
 - 절을 닫는 관찰 — **이 절에서 저자는 검색기와 SQL 실행기 같은 도구가 어떻게 모델이 더 많은 질의를
@@ -265,6 +435,40 @@ sources:
 - [그래프 데이터 모델](../concepts/graph-data-models.md) — 개체와 관계를 노드·엣지로 두는 모델 일반
 - [청킹 전략](../concepts/chunking-strategy.md) — 요약을 재귀로 쌓는 다른 색인 구조
 - [AI 판정자의 한계](../concepts/ai-judge-limitations.md) — 위 승률을 낸 판정자 자신의 문제
+- [어휘 기반 검색](../concepts/term-based-retrieval.md) — 노드 특이성이 흉내 낸 역문서 빈도
+- [증분 갱신 전략](../concepts/incremental-update-strategies.md) — 색인을 다시 짓지 않는 갱신 일반
+- [에이전트의 메모리](../concepts/agent-memory.md) — 그래프 색인을 장기 기억으로 부르는 자리
+
+[^gutierrez2024-hipporag]: Gutiérrez et al. 2024, "HippoRAG: Neurobiologically Inspired Long-Term
+    Memory for Large Language Models", NeurIPS 2024 본회의. 쪽 번호는 스냅샷한 PDF의 쪽이다
+    (프로시딩 인쇄 쪽 번호가 원고에 없다). 이 페이지는 초록·1절 Introduction·2절 HippoRAG
+    (2.1–2.3)·3절 Experimental Setup(3.1–3.4)·4절 Results·5절 Discussions(5.1–5.3)·6.1절 LLM
+    Long-Term Memory·7절 Conclusions & Limitations를 담았다. Table 2는 MuSiQue·2Wiki·HotpotQA의
+    여섯 열과 네 행만 발췌해 옮겼고 Contriever·GTR·Proposition 행과 Average 열은 옮기지 않았다.
+    Table 3(다단계 검색)·Table 4(QA 성능)·Table 5(절제)·Table 6(all-recall)·Table 7(질문 유형
+    사례)은 본문이 서술한 수치만 담았다 — 특히 Table 5의 REBEL 행과 동의 관계 엣지 제거 행은
+    추출본에서 숫자가 깨져 옮기지 않았고 본문 서술만 담았다. Figure 1(지식 통합 예시, p.2)·
+    Figure 2(전체 방법론 도식, p.4)와 부록 A–I는 옮기지 않았다. 2.1절 해마 색인 이론의 신경과학
+    서술은 방법론 대응에 필요한 만큼만 담았다.
+    RAPTOR(Sarthi et al., 2024)와 GraphRAG(Edge et al., 2024)는 이 KB에 원전이 있다.
+    Personalized PageRank(Haveliwala)·ColBERTv2·Contriever·GTR·Propositionizer·IRCoT(Trivedi
+    et al.)·REBEL·Llama-3.1·CaRB·MuSiQue·2WikiMultiHopQA·HotpotQA·hippocampal memory indexing
+    theory(Teyler and Discenna)는 gutierrez2024-hipporag를 통한 전언이다.
+
+[^guo2025-lightrag]: Guo et al. 2025, "LightRAG: Simple and Fast Retrieval-Augmented Generation",
+    Findings of EMNLP 2025 (인쇄 쪽 10746–10761). **경심사** — Findings는 본회의가 아닌 경심사
+    트랙이고, 스냅샷 1쪽 하단에 "Findings of the Association for Computational Linguistics:
+    EMNLP 2025"가 인쇄돼 있다. 쪽 번호는 스냅샷한 PDF의 쪽이다(PDF p.1 = 인쇄 p.10746).
+    이 페이지는 초록·1절 Introduction·2절 Retrieval-Augmented Generation·3절 The LightRAG
+    Architecture(3.1–3.4)·4절 Evaluation(4.1–4.4)·6절 Conclusion·7절 Limitations·9.1절
+    Experimental Settings·9.2절 Time and Space Comparison을 담았다. Table 3은 토큰 행만 발췌해
+    옮겼고 API 호출 행은 추출본에서 열이 섞여 옮기지 않았다(그 사실을 본문에 적었다). Table 1
+    (승률)·Table 2(절제)·Table 4(데이터셋 통계)·Table 5–7(시간·공간)은 본문이 서술한 수치만
+    담았다. Figure 1(전체 구조, p.4)·Figure 2(검색 생성 예시, p.12)와 9.3–9.4절의 프롬프트
+    템플릿은 옮기지 않았다. 5.2절 Large Language Model for Graphs는 담지 않았다.
+    GraphRAG(Edge et al., 2024)·HyDE(Gao et al., 2022)·RAGAS(Es et al., 2024)는 이 KB에 원전이
+    있다. RQ-RAG(Chan et al., 2024)·UltraDomain 벤치마크(Qian et al., 2024)·GPT-4o-mini·
+    nano vector database는 guo2025-lightrag를 통한 전언이다.
 
 [^edge2024-graphrag]: Edge et al., "From Local to Global: A GraphRAG Approach to Query-Focused
     Summarization", arXiv:2404.16130. **미심사** — 원고 표제에 "Preprint. Under review."가

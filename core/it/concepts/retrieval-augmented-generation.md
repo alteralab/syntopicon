@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 검색 증강 생성(RAG)
-description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측, 구절을 인코더에서 따로 처리하고 디코더에서 합쳐 문서 수에 선형으로 확장한 직계 후속, 검색을 탈지 말지를 특수 토큰으로 모델이 스스로 정하게 만든 적응형 검색, 그리고 전역 질문 앞에서 이 패턴 전체가 실패한다는 미심사 진단
-generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
+description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측, 구절을 인코더에서 따로 처리하고 디코더에서 합쳐 문서 수에 선형으로 확장한 직계 후속, 검색을 탈지 말지를 특수 토큰으로 모델이 스스로 정하게 만든 적응형 검색(결정 시점의 세 갈래 비교는 적응형 검색 전략 페이지가 담는다), 그리고 전역 질문 앞에서 이 패턴 전체가 실패한다는 미심사 진단
+generated: { by: "claude-opus-5", at: "2026-08-17T15:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: lewis2020-rag, resource: /it/sources/lewis2020-rag.md }
@@ -500,6 +500,9 @@ sources:
   평가와 정렬됨을 발견했다** (5.2절, p.10, Figure 4d).[^asai2024-selfrag] 표본 100건의 소규모
   평가라는 점은 저자들이 스스로 "small human evaluations"로 밝힌다.
 
+검색 결정을 모델 밖으로 빼는 두 갈래(사전 라우팅·생성 중 결정)와 세 갈래의 대가 비교는
+[적응형 검색 전략](../concepts/adaptive-retrieval-strategies.md)이 담는다.
+
 ## 이 패턴이 못 하는 질문
 
 > **심사 조건**: 이 절의 claim은 **미심사 arXiv 원고**에서 온다(표제에 "Preprint. Under
@@ -518,6 +521,7 @@ sources:
 
 ## 이어지는 페이지
 
+- [적응형 검색 전략](../concepts/adaptive-retrieval-strategies.md) — 검색을 탈지 정하는 세 갈래와 그 대가
 - [어휘 기반 검색](../concepts/term-based-retrieval.md) — 검색기의 첫째 갈래, 낱말 일치와 그 랭킹
 - [임베딩 기반 검색](../concepts/embedding-based-retrieval.md) — 둘째 갈래, 뜻으로 찾는 파이프라인
 - [청킹 전략](../concepts/chunking-strategy.md) — 여기서 미룬 "어떻게 쪼갤 것인가"
@@ -538,6 +542,9 @@ sources:
   쪽에서 프롬프트 기반 기전으로 쓰이는 자리
 - [선호 파인 튜닝](../concepts/preference-finetuning.md) — Self-RAG가 비용 때문에 피했다고 적은
   RLHF 계열
+- [쿼리 재작성](../concepts/query-rewriting.md) — 능동 검색이 임시 문장을 질의로 바꾸는 자리
+- [어휘 기반 검색](../concepts/term-based-retrieval.md) — 세 갈래가 공통으로 BM25를 검색기로 쓰는 자리
+- [모델 라우터](../concepts/model-router.md) — 질의를 보고 경로를 고르는 같은 형태의 부품
 
 [^izacard2021-fid]: Izacard and Grave 2021, "Leveraging Passage Retrieval with Generative Models
     for Open Domain Question Answering", EACL 2021, pp.874–880. 쪽 번호는 학회 논문집 인쇄

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 모델 증류
-description: 작은 학생이 큰 교사를 흉내 내도록 훈련하는 방법 — DistilBERT와 Alpaca의 수치, 많은 라이선스가 이것을 금지한다는 단서, 합성 데이터로 훈련하는 것이 곧 증류는 아니라는 구분, 그리고 학생이 교사보다 커진 Nemotron-4의 사례
-generated: { by: "claude-opus-5", at: "2026-08-17T07:00:00Z" }
+description: 작은 학생이 큰 교사를 흉내 내도록 훈련하는 방법 — DistilBERT와 Alpaca의 수치, 많은 라이선스가 이것을 금지한다는 단서, 합성 데이터로 훈련하는 것이 곧 증류는 아니라는 구분, 학생이 교사보다 커진 Nemotron-4의 사례, 그리고 랭킹 과제에서 교사의 순열을 그대로 목표로 삼은 학생이 교사와 지도 학습 짝을 모두 앞선 원전의 실측
+generated: { by: "claude-opus-5", at: "2026-08-17T15:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: sun2023-rankgpt, resource: /it/sources/sun2023-rankgpt.md }
 ---
 
 # 모델 증류
@@ -16,6 +17,7 @@ sources:
 - [어댑터와 함께 쓰이는 자리](#어댑터와-함께-쓰이는-자리)
 - [합성 데이터 훈련이 곧 증류는 아니다](#합성-데이터-훈련이-곧-증류는-아니다)
 - [자기 출력으로 훈련하는 것의 조건](#자기-출력으로-훈련하는-것의-조건)
+- [학생이 교사를 앞서는 자리 — 순열 증류](#학생이-교사를-앞서는-자리--순열-증류)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **큰 모델의 능력을 작은 모델로 옮기는 일은 무엇이고 어디까지 되는가.**
@@ -87,6 +89,37 @@ sources:
   그들은 모델이 생성한 데이터를 써서 모델을 계속 개선할 수 있었다** (8장, p.396).[^huyen2025] 그
   검증 기전은 [합성 데이터 검증](../concepts/synthetic-data-verification.md)에 있다.
 
+## 학생이 교사를 앞서는 자리 — 순열 증류
+
+- 위의 정의는 **교사 모델의 성능이 학생의 금 기준임을 함의한다**고 적는다.[^huyen2025] 그 함의가
+  성립하지 않는 사례가 한 원전에 실측으로 있다.
+- 무엇을 증류하는가 — **우리 접근과 앞선 증류 방법의 핵심 차이는 일관성 검사나 로그 확률 조작 같은
+  어떤 귀납 편향도 들이지 않고 모델이 생성한 순열(permutation)을 직접 목표로 쓴다는 것이다** (4.1절,
+  p.4).[^sun2023-rankgpt] 실물로는 MS MARCO 훈련 집합의 질의 1만 개와 질의마다 BM25가 가져온 후보
+  구절 20개를 쓰고, 교사 ChatGPT가 낸 순위를 RankNet 손실로 학생에 넣는다 — **`M`개 구절의 순열로
+  `M(M − 1)/2`개 쌍을 만들 수 있다** (4.1–4.2절, p.4).[^sun2023-rankgpt]
+- 왜 증류하는가 — **ChatGPT와 GPT-4는 매우 유능하지만 상용 검색 시스템에 배포하기에는 너무 비싸다.
+  게다가 큰 언어 모델은 불안정한 생성이라는 문제를 겪는다. 그래서 우리는 큰 언어 모델의 능력이
+  리랭킹 과제에는 과잉이라고 주장한다** (4절, p.4).[^sun2023-rankgpt] 배포 비용이라는 동기는 위
+  절과 같고, **불안정성**이 하나 더 붙는다.
+- 세 가지가 뒤집힌다 (7.1절, p.8, Table 7):[^sun2023-rankgpt]
+  - **순열 증류가 지도 학습된 짝을 앞선다** — **ChatGPT의 관련성 판단이 MS MARCO 라벨보다 더
+    포괄적이기 때문일 수 있다**고 저자들은 적는다. #hypothesis 곧 교사가 주는 것은 능력만이 아니라
+    **라벨의 품질**이다.
+  - **증류된 학생이 자기 교사를 앞선다** — BEIR 평균 nDCG로 435M 학생이 53.03, 교사 ChatGPT가
+    49.37이다. 저자들이 붙인 설명은 **특화 모델의 리랭킹 안정성이 ChatGPT보다 낫기 때문일
+    것**이라는 것이다. #hypothesis
+  - **학생이 이전 최고 지도 모델도 앞선다** — 같은 지표로 3B 규모의 monoT5가 51.36이다. 곧 이
+    과제에서 증류는 배포 비용을 깎는 절충이 아니라 성능까지 얻는 경로다.
+- 무엇을 키울 것인가 — **모델 파라미터 수를 늘리는 것이 훈련 데이터를 늘리는 것보다 랭킹 결과에 더
+  큰 개선을 낸다. 또 지도 모델의 성능은 모델 크기와 데이터 크기에 따라 불안정한데, MS MARCO 라벨의
+  잡음이 과적합 문제로 이어지기 때문일 수 있다** (7.2절, pp.8–9, Figure 4).[^sun2023-rankgpt]
+  #hypothesis
+- 조건 — 이 실측은 **리랭킹이라는 좁은 과제**의 것이고, 교사가 그 과제의 금 기준이 아닐 때(라벨
+  잡음이 클 때) 학생이 교사를 넘는다는 구도다. 위 Nemotron-4의 사례가 **교사보다 큰 학생**의
+  경우였다면 여기는 **교사보다 작은 학생**이 넘는 경우다.[^huyen2025] 그 리랭킹 과제 자체는
+  [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md)에 있다.
+
 ## 이어지는 페이지
 
 - [데이터 증강과 합성](../concepts/data-augmentation-and-synthesis.md) — 증류가 합성의 다섯째 이유로
@@ -99,6 +132,22 @@ sources:
 - [오픈소스 모델과 라이선스](../concepts/open-source-models-and-licenses.md) — 출력 사용 금지 조항
 - [LoRA](../concepts/lora.md) — 증류된 학생을 싸게 만드는 기법
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 전문가 혼합과 조밀 모델의 파라미터 비교
+- [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 순열 증류가 놓인 과제
+- [검색 품질 평가](../concepts/retrieval-evaluation.md) — nDCG가 재는 것
+
+[^sun2023-rankgpt]: Sun et al. 2023, "Is ChatGPT Good at Search? Investigating Large Language
+    Models as Re-Ranking Agents", EMNLP 2023 본회의 (인쇄 쪽 14918–14937). 학회 공식 페이지가
+    Outstanding Paper로 표기한다. 쪽 번호는 스냅샷한 PDF의 쪽이다(PDF p.1 = 인쇄 p.14918).
+    이 페이지는 2.2절 LLMs Specialization·4절 Specialization by Permutation Distillation(4.1–4.2)·
+    7절 Experimental Results of Specialization(7.1–7.2)만 담았다 — 리랭킹 방법 자체는
+    [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md)이 담는다. Table 7의
+    수치는 표 형태로 옮기지 않고 본문 서술로만 담았고, Figure 4(모델 크기·데이터 크기 확장, p.8)는
+    옮기지 않았다.
+    **원문 안에서 수치가 어긋나는 자리 하나** — 초록은 증류된 학생을 **440M**이라 적고 1절과
+    Table 7·Figure 4는 **435M**(deberta-v3-large)이라 적는다. 이 페이지는 표에 인쇄된 435M을 쓴다.
+    monoT5(Nogueira et al., 2020)는 이 KB에 원전이 있다. RankNet(Burges et al., 2005)·
+    DeBERTa·LLaMA(Touvron et al., 2023)·MS MARCO·BEIR(Thakur et al., 2021)·
+    Arabzadeh et al.(2021)은 sun2023-rankgpt를 통한 전언이다.
 
 [^huyen2025]: Huyen 2025, 8장 "Dataset Engineering" (책 pp.363–404) 중 "Model Distillation"
     (pp.395–396). 이 구간에는 도판이 없다. Hinton et al.(2015)·Sanh et al.(2019)·Taori et al.·

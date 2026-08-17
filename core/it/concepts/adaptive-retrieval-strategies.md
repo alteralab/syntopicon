@@ -3,7 +3,6 @@ type: concept
 title: 적응형 검색 전략
 description: 검색을 탈지, 언제 탈지를 누가 정하는가 — 질의 복잡도로 생성 전에 고르는 사전 라우팅(Adaptive-RAG), 생성 도중 문장마다 정하는 능동 검색(FLARE·DRAGIN), 모델 자신이 특수 토큰으로 정하는 내장 판단(Self-RAG)의 세 갈래와, 훈련 데이터·반복 호출·모델 훈련이라는 서로 다른 자리에 붙는 대가
 generated: { by: "claude-fable-5", at: "2026-08-17T18:30:00Z" }
-status: draft
 sources:
   - { id: jeong2024-adaptiverag, resource: /it/sources/jeong2024-adaptiverag.md }
   - { id: jiang2023-flare, resource: /it/sources/jiang2023-flare.md }

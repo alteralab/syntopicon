@@ -627,3 +627,28 @@ queries:
     description: "RAGAS faithfulness — 검색 평가와 판정자 축 경계"
     expected_files: ["concepts/retrieval-evaluation.md", "concepts/ai-as-a-judge.md"]
     expected_in_top_k: 5
+  # ---- 논문 배치 2b (런 2026-08-17-03) ----
+  - id: rag3-alias-1
+    query: "Adaptive-RAG"
+    type: alias
+    description: "적응형 검색 자식 페이지"
+    expected_files: ["concepts/adaptive-retrieval-strategies.md"]
+    expected_in_top_k: 5
+  - id: rag3-alias-2
+    query: "HippoRAG"
+    type: alias
+    description: "graph 검색 심사 원전 — 텍스트 너머 페이지"
+    expected_files: ["concepts/rag-beyond-text.md"]
+    expected_in_top_k: 5
+  - id: rag3-sem-1
+    query: "질의가 복잡할 때만 검색을 여러 번 타게 하는 방법"
+    type: semantic
+    description: "사전 라우팅을 이름 없이"
+    expected_files: ["concepts/adaptive-retrieval-strategies.md"]
+    expected_in_top_k: 5
+  - id: rag3-sem-2
+    query: "LLM에게 문서 순서를 통째로 다시 매기게 하는 리랭킹"
+    type: semantic
+    description: "RankGPT 리스트와이즈를 이름 없이"
+    expected_files: ["concepts/hybrid-search-and-reranking.md"]
+    expected_in_top_k: 5

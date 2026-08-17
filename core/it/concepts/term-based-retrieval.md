@@ -2,12 +2,13 @@
 type: concept
 title: 어휘 기반 검색
 description: 낱말이 겹치는 문서를 골라 순위를 매기는 검색 — 검색이 RAG보다 백 년 앞선다는 배치, 희소 대 조밀이라는 문헌의 구분을 저자가 어휘 대 임베딩으로 바꿔 부르는 이유, 용어 빈도와 역문서 빈도를 곱해 점수를 내는 TF-IDF와 문서 길이를 정규화한 BM25의 계보, 원저자 해설이 그 공식을 엘리트성과 2-포아송에서 유도해 내는 경로와 포화·소프트 길이 정규화라는 두 성질, 매개변수 k₁·b의 통상 범위와 모델이 그 값을 정해 주지 않는다는 한계, 토큰화가 뜻을 부수는 자리, 그리고 조밀 검색 원전들이 BM25를 기준선으로 잰 수치와 어휘 갈래가 여전히 이기는 곳
-generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T15:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: karpukhin2020-dpr, resource: /it/sources/karpukhin2020-dpr.md }
   - { id: lewis2020-rag, resource: /it/sources/lewis2020-rag.md }
   - { id: robertson2009-bm25, resource: /it/sources/robertson2009-bm25.md }
+  - { id: su2024-dragin, resource: /it/sources/su2024-dragin.md }
 ---
 
 # 어휘 기반 검색
@@ -374,6 +375,17 @@ sources:
   **DPR의 최선 모델은 BM25 점수가 높지만 답을 담지 않는 구절을 "어려운" 음성 표본으로 하나 섞어
   쓴다** (3.2절, p.3).[^karpukhin2020-dpr] 그 훈련법 자체는
   [임베딩 기반 검색](../concepts/embedding-based-retrieval.md)에 있다.
+- **RAG 파이프라인 안에서 다시 재도 같은 방향이 나온다** — 동적 RAG 틀에서 BM25를 최신 조밀 검색
+  방법인 SGPT로 바꿔 재면 **BM25가 여러 데이터셋에 걸쳐 SGPT를 일관되게 앞선다. SGPT가 많은 정보
+  검색 과제에서 일반적으로 더 나은 성능을 냄에도 그렇다** (5.5절, p.9,
+  Table 7).[^su2024-dragin] 실측은 LLaMA2-13B-Chat 기준 2WikiMultihopQA EM 0.304 대 0.273,
+  HotpotQA 0.314 대 0.264, IIRC 0.185 대 0.169이다.[^su2024-dragin] 저자들의 읽기는 **SGPT 같은
+  조밀 검색 기술의 진전에도 더 단순한 어휘 기반 BM25 알고리즘이 RAG 과제에서 LLM 성능을 높이는
+  강한 기준선으로 여전히 남아 있다**는 것이다 (5.5절, p.9).[^su2024-dragin]
+  - 이 원전이 애초에 BM25를 고른 이유도 같다 — **RAG에서 BM25가 어떤 조밀 검색 모델보다도 나은
+    성능을 보였다는 앞선 연구의 발견에 근거해 BM25를 검색 모델로 채택했다** (4.5절,
+    p.6).[^su2024-dragin] 곧 "어휘 갈래가 이긴다"는 관측은 2020년 절제 실험에서 그치지 않고 2024년
+    심사본에서도 반복된다.
 
 ## 토큰화가 뜻을 부수는 자리
 
@@ -410,6 +422,17 @@ sources:
 - [참조 데이터 대비 유사도 측정](../concepts/similarity-measurements-against-reference-data.md) —
   n-그램 겹침이 처음 나온 자리
 - [언어 모델과 토큰](../concepts/language-models-and-tokens.md) — 토큰화라는 낱말의 다른 쓰임
+
+[^su2024-dragin]: Su et al. 2024, "DRAGIN: Dynamic Retrieval Augmented Generation based on the
+    Real-time Information Needs of Large Language Models", ACL 2024 (인쇄 쪽 12991–13013). 쪽
+    번호는 스냅샷한 PDF의 쪽이다(PDF p.1 = 인쇄 p.12991). **표제 표기 차이** — 스냅샷 PDF의 표제는
+    "Real-time"이 빠진 채 인쇄돼 있고 소스 메타의 제목은 ACL Anthology 등록 제목을 따랐다.
+    이 페이지는 4.5절 Implementation Details의 검색기 선택 근거와 5.5절 Impact of Retriever만
+    담았다 — 이 원전의 본체(동적 RAG 틀 자체)는
+    [검색 증강 생성(RAG)](../concepts/retrieval-augmented-generation.md)이 담는다. Table 7의 수치는
+    표 형태로 옮기지 않고 본문 서술로만 담았다.
+    SGPT(Muennighoff, 2022)·Ram et al.(2023)·BM25(Robertson et al., 2009)는 su2024-dragin을 통한
+    전언이며, BM25의 정본 해설은 이 KB에 있다.
 
 [^huyen2025]: Huyen 2025, 6장 "RAG and Agents" (책 pp.253–306). 이 페이지는 "Retrieval
     Algorithms" 절 서두(p.257), 상자 "Sparse Versus Dense Retrieval"(p.258), "Term-based
