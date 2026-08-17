@@ -9,6 +9,7 @@ sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: beck2023, resource: /it/sources/beck2023.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
+  - { id: metz2016-wrong-abstraction, resource: /it/sources/metz2016-wrong-abstraction.md }
 ---
 
 # 합칠 것인가 나눌 것인가
@@ -356,6 +357,27 @@ sources:
     여러 핸들러의 사슬로 갈라지고 나면 요청이 어떻게 이행될지 이해할 수 있는 시스템의 단일
     지점이 없기 때문이다** (8장 §"Wrap-Up" 표 8-1).[^percival2020]
 
+## 되돌리는 절차를 주는 소스
+
+이 페이지는 합칠지 가를지를 **사전에** 판정하려 하고, 위
+[합칠 사유 셋](#합칠-사유-셋)의 셋째가 중복 제거다. **이미 뽑아냈는데 그 추상이 틀어졌을
+때 무엇을 하는가**는 이 페이지에 없다. 그 자리를 채우는 소스가 이 KB에 들어왔다.
+
+- 판정 기준 (§맺음):[^metz2016-wrong-abstraction]
+
+> If you find yourself passing parameters and adding conditional paths through shared
+> code, the abstraction is incorrect.
+
+- 처방은 인라인이다 — 추상화된 코드를 모든 호출자에 되돌려 넣고, 각 호출자가 실제로
+  실행하는 부분만 남긴다 (§세 걸음 처방).[^metz2016-wrong-abstraction]
+- **이 페이지의 붉은 깃발과 방향이 같다.** 위 [메서드를 쪼개고 합치기](#메서드를-쪼개고-합치기)
+  절의 결합된 메서드 붉은 깃발이 쪼개기 실패를 **사전에** 알아보려는 신호라면, 그쪽은
+  같은 실패를 **사후에** 되돌리는 절차다. 두 접근이 배타적이지 않다.
+- 그리고 되돌린 뒤에 드러나는 것이 이 페이지의 전제와 맞물린다 — **각 호출자가 겉보기에는
+  공유 추상을 호출하고 있었지만 그들이 실행하던 코드는 꽤 고유했음을 발견하는 일이
+  흔하다** (§세 걸음 처방).[^metz2016-wrong-abstraction] 전문은
+  [잘못된 추상](wrong-abstraction.md)에 있다.
+
 ## 이어지는 페이지
 - [코드의 나쁜 냄새](code-smells.md) — Long Function이 사는 자리
 - [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md) — 같은 경계
@@ -370,11 +392,16 @@ sources:
 - [정보 은닉과 정보 누출](information-hiding-and-leakage.md) — "클래스를 조금 크게"가 나온
   자리. 이 장이 그 반대 방향의 조건을 채운다
 - [범용 모듈이 더 깊다](general-purpose-modules.md) — 범용과 특수 목적을 가르라는 규칙의 전문
+- [잘못된 추상](wrong-abstraction.md) — 뽑아낸 추상이 틀어졌을 때 되돌리는 절차를 주는 소스
 - [DRY 원칙](../concepts/dry-principle.md) — 중복 제거를 다루는 다른 소스. 그쪽은 코드가
   같아도 지식이 다르면 중복이 아니라고 하고, 이 책은 뽑아낼 조건을 조각의 길이와 시그니처의
   복잡성으로 잰다
 - [리팩터링](../concepts/refactoring.md) — 쪼개기·합치기를 실행하는 절차
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
+
+[^metz2016-wrong-abstraction]: Metz 2016, "The Wrong Abstraction". **절 이름은 이
+    KB가 매긴 것이다** — 규약은
+    `it/archive/metz2016-wrong-abstraction/_progress.yaml` 머리말이 정본이다.
 
 [^fowler2018]: Fowler 2018, 3장 §"Long Function"(pp.73–74) · §"Shotgun Surgery"(p.77). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크
     문자열 `ptg26261585`를 제거했다 — 이 소스의 표준 규약이며 근거는

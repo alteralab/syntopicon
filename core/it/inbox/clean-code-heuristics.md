@@ -7,6 +7,7 @@ status: draft
 sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: qntm2020, resource: /it/sources/qntm2020.md }
+  - { id: metz2016-wrong-abstraction, resource: /it/sources/metz2016-wrong-abstraction.md }
 ---
 
 # 클린 코드의 발견법 목록
@@ -186,8 +187,19 @@ p.314):[^martin2008]
     (§1).[^qntm2020] 즉 비판자에게도 이미 변호할 가치가 없는 항목으로 취급된다.
     #speculation 오늘날 주요 자바 스타일 가이드와 IDE 기본값이 반대 방향이라는 판정을
     담은 소스는 이 KB에 아직 없다.
-- `G5`의 **"찾을 수 있는 곳마다 중복을 찾아 없애라"** — 반대 극을 세우는 소스가 이
-  KB에 들어오면 [DRY 원칙](dry-principle.md)의 대비 절이 그 자리다.
+- `G5`의 **"찾을 수 있는 곳마다 중복을 찾아 없애라"** — **반대 극이 이제 이 KB에 있다.**
+  [잘못된 추상](wrong-abstraction.md)이 세우는 명제가 이것이다
+  (§여덟 단계 서사 앞):[^metz2016-wrong-abstraction]
+
+> duplication is far cheaper than the wrong abstraction
+
+  **다만 `contradicts`는 걸지 않았다** — 아래 `G15`가 그 소스와 같은 실패 모드를 지목하고
+  같은 방향의 처방을 내기 때문이다. 판정 전문은 그 페이지의 마지막 절에 있다.
+- **`G15`가 이 목록에서 가장 뜻밖의 수렴 지점이다.** **선택자 인수는 큰 함수를 여러 작은
+  함수로 쪼개는 것을 피하려는 게으른 방법일 뿐이다. … 일반적으로 동작을 고르는 코드를
+  함수에 넘기는 것보다 함수를 여럿 두는 편이 낫다** (17장 `G15`, p.295).[^martin2008]
+  공유 코드에 매개변수와 조건 분기가 쌓이는 것을 이 소스도 결함으로 보고 특수화를
+  처방한다 — DRY 최대주의의 반대 극이 내리는 처방과 구조가 같다.
 - 3장의 함수 크기 수치 — **실증 대질 후보.** 저자 스스로 이를 뒷받침하는 연구를 댈 수
   없다고 밝혔고(3장 §"Small!", p.34), 이 KB에는 함수 길이와 결함률의 관계를 다룬 실증
   연구가 아직 반입돼 있지 않다. 반입되면 [작은 함수](small-functions.md)의 모순 절이
@@ -206,6 +218,7 @@ p.314):[^martin2008]
 - [객체와 자료 구조](objects-versus-data-structures.md) — `G23`·`G36`의 전문
 - [코드의 나쁜 냄새](code-smells.md) — 독립적으로 만들어진 경쟁 목록
 - [DRY 원칙](dry-principle.md) — `G5`의 최대주의가 놓이는 축
+- [잘못된 추상](wrong-abstraction.md) — 그 반대 극이자 `G15`와 수렴하는 자리
 - [이름 짓기](naming-things.md) — `N1`–`N7`이 합류하는 자리
 - [자기 테스트 코드](self-testing-code.md) — `T1`–`T9`가 합류하는 자리
 - [코드의 일관성](consistency-in-code.md) — `G11`의 다른 소스 쪽 자리
@@ -213,6 +226,10 @@ p.314):[^martin2008]
   다른 소스 쪽 자리
 - [외부 설정](external-configuration.md) — `G35`의 다른 소스 쪽 자리
 - [클린 코드](../synthesis/clean-code.md) — 이 소스의 허브
+
+[^metz2016-wrong-abstraction]: Metz 2016, "The Wrong Abstraction". **절 이름은 이
+    KB가 매긴 것이다** — 규약은
+    `it/archive/metz2016-wrong-abstraction/_progress.yaml` 머리말이 정본이다.
 
 [^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
     **절 번호는 이 KB가 매긴 것이다** — 규약은

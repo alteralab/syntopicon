@@ -10,6 +10,7 @@ sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: qntm2020, resource: /it/sources/qntm2020.md }
+  - { id: metz2016-wrong-abstraction, resource: /it/sources/metz2016-wrong-abstraction.md }
 ---
 
 # DRY 원칙
@@ -25,6 +26,7 @@ sources:
 - [중복이 무엇을 일으키는가 — 다른 소스의 증상 이름](#중복이-무엇을-일으키는가--다른-소스의-증상-이름)
 - [원칙이 아니라 읽기 비용으로 논증하는 소스](#원칙이-아니라-읽기-비용으로-논증하는-소스)
 - [이 축의 최대주의 극 — 중복은 만악의 근원](#이-축의-최대주의-극--중복은-만악의-근원)
+- [반대 극 — 중복은 잘못된 추상보다 싸다](#반대-극--중복은-잘못된-추상보다-싸다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **무엇을 중복이라 부르며, 왜 그것이 코드 줄의 문제가 아니라 지식의
@@ -302,8 +304,53 @@ sources:
   틀린 것이 아니라 **2008년 시점의 표준**으로 위치시키고, 그 뒤에 반대 극이 생겼다고
   적는다. 이 KB에 그 반대 극을 명시적으로 세운 소스가 아직 없다면 이 절이 갱신 대상이다.
 
+## 반대 극 — 중복은 잘못된 추상보다 싸다
+
+**위 절이 이 축의 한쪽 끝이라면 이 절이 반대쪽 끝이다.** 명제는 한 문장이다
+(§여덟 단계 서사 앞):[^metz2016-wrong-abstraction]
+
+> duplication is far cheaper than the wrong abstraction
+
+그리고 처방판 — **잘못된 추상보다 중복을 택하라** (§여덟 단계 서사
+앞).[^metz2016-wrong-abstraction]
+
+- **논증은 서사다.** 프로그래머 A가 중복을 뽑아 추상을 만들고 떠난 뒤, 거의 들어맞는 새
+  요구사항을 받은 프로그래머 B가 **기존 추상을 지켜야 한다는 의무감을 느끼지만 모든
+  경우에 정확히 같지는 않으므로 매개변수를 받도록 코드를 고치고 조건부 로직을 더한다.**
+  그것이 반복되어 **코드가 이해 불가능해질 때까지** 간다 (§여덟 단계
+  서사).[^metz2016-wrong-abstraction]
+- **그리고 그 코드를 못 버리게 만드는 것이 매몰 비용이다** — **코드가 더 복잡하고 이해
+  불가능할수록, 즉 그것을 만드는 데 들인 투자가 깊을수록, 우리는 그것을 지켜야 한다는
+  압력을 더 느낀다** (§매몰 비용).[^metz2016-wrong-abstraction]
+- **판정 기준이 조작적이다** (§맺음):[^metz2016-wrong-abstraction]
+
+> If you find yourself passing parameters and adding conditional paths through shared
+> code, the abstraction is incorrect.
+
+- **처방은 되돌리기다** — 추상화된 코드를 모든 호출자에 인라인하고, 각 호출자가 실제로
+  실행하는 부분만 남기고 나머지를 지운다 (§세 걸음 처방).[^metz2016-wrong-abstraction]
+  그리고 끝이 아니다 — **옛 추상을 완전히 없애고 나면 처음부터 다시 시작해서 중복을 다시
+  분리해 내고 추상을 다시 뽑아낼 수 있다** (§세 걸음 처방).[^metz2016-wrong-abstraction]
+- **인라인하고 나면 이 페이지 위쪽의 반례가 사후에 확인된다** — **각 호출자가 겉보기에는
+  공유 추상을 호출하고 있었지만 그들이 실행하던 코드는 꽤 고유했음을 발견하는 일이
+  흔하다** (§세 걸음 처방).[^metz2016-wrong-abstraction] 위
+  [코드의 중복 — 그리고 중복이 아닌 것](#코드의-중복--그리고-중복이-아닌-것) 절이
+  **코드가 같아도 지식이 다르면 중복이 아니다**를 사전 판정으로 세운 것과 같은 관찰이다.
+- **두 극이 실제로 갈리는 폭은 슬로건보다 좁다.** 최대주의 쪽 소스의 17장 `G15`가 이
+  절과 **같은 실패 모드**(공유 코드에 매개변수와 조건 분기가 쌓이는 것)를 지목하고
+  **같은 방향의 처방**을 낸다 — **일반적으로 동작을 고르는 코드를 함수에 넘기는 것보다
+  함수를 여럿 두는 편이 낫다** (17장 `G15`, p.295).[^martin2008] 갈리는 것은 **어느 쪽
+  위험을 기본값으로 의심하는가**이지 같은 명제의 참거짓이 아니다. 그래서
+  `contradicts`를 걸지 않았다 — 판정의 전문은 [잘못된 추상](wrong-abstraction.md)의
+  마지막 절이 갖는다.
+- **이 축의 지형이 이렇게 정리된다.** 뽑아낼 것인가를 **사전에** 판정하는 셋(이 페이지의
+  지식 동일성 반례 · 리팩터링 쪽의 삼진 규칙 · 설계 쪽의 붉은 깃발)과, 이미 뽑았는데
+  틀렸을 때 **사후에** 되돌리는 하나(이 절)가 한편이고, 의심 없는 추출을 기본값으로 두는
+  하나(위 최대주의 절)가 반대편이다.
+
 ## 이어지는 페이지
 
+- [잘못된 추상](wrong-abstraction.md) — 이 축의 반대 극
 - [클린 코드의 발견법 목록](clean-code-heuristics.md) — `G5`가 사는 자리
 - [작은 함수](small-functions.md) — "중복은 만악의 근원"이 나오는 장
 - [코드의 나쁜 냄새](code-smells.md) — Duplicated Code가 사는 자리
@@ -323,6 +370,10 @@ sources:
 - [ETC — 바꾸기 쉬운 것이 좋은 설계](etc-easier-to-change.md) — DRY가 그 특수 사례인 상위 가치
 - [개발자의 소통](../concepts/developer-communication.md) — 주석과 코드의 중복을 다루는 규약
 - [실용주의 철학과 접근](../synthesis/pragmatic-philosophy-and-approach.md) — 이 축의 허브
+
+[^metz2016-wrong-abstraction]: Metz 2016, "The Wrong Abstraction". **절 이름은 이
+    KB가 매긴 것이다** — 규약은
+    `it/archive/metz2016-wrong-abstraction/_progress.yaml` 머리말이 정본이다.
 
 [^qntm2020]: qntm 2020, "It's probably time to stop recommending Clean Code".
     **절 번호는 이 KB가 매긴 것이다** — 규약은
