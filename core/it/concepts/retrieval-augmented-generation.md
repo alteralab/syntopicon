@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 검색 증강 생성(RAG)
-description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측, 구절을 인코더에서 따로 처리하고 디코더에서 합쳐 문서 수에 선형으로 확장한 직계 후속, 검색을 탈지 말지를 특수 토큰으로 모델이 스스로 정하게 만든 적응형 검색(결정 시점의 세 갈래 비교는 적응형 검색 전략 페이지가 담는다), 그리고 전역 질문 앞에서 이 패턴 전체가 실패한다는 미심사 진단
-generated: { by: "claude-opus-5", at: "2026-08-17T15:00:00Z" }
+description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 검색기를 마스크드 LM 사전 훈련에 잠재변수로 넣은 선행을 거쳐 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측, 구절을 인코더에서 따로 처리하고 디코더에서 합쳐 문서 수에 선형으로 확장한 직계 후속, 검색을 탈지 말지를 특수 토큰으로 모델이 스스로 정하게 만든 적응형 검색(결정 시점의 세 갈래 비교는 적응형 검색 전략 페이지가 담는다), 그리고 전역 질문 앞에서 이 패턴 전체가 실패한다는 미심사 진단
+generated: { by: "claude-opus-5", at: "2026-08-17T16:40:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: lewis2020-rag, resource: /it/sources/lewis2020-rag.md }
+  - { id: guu2020-realm, resource: /it/sources/guu2020-realm.md }
   - { id: izacard2021-fid, resource: /it/sources/izacard2021-fid.md }
   - { id: asai2024-selfrag, resource: /it/sources/asai2024-selfrag.md }
   - { id: edge2024-graphrag, resource: /it/sources/edge2024-graphrag.md }
@@ -92,7 +93,53 @@ sources:
   검사·해석할 수 있어 파라메트릭 모델의 문제 일부를 다룰 수 있다. 마스크 언어 모델과 미분 가능한
   검색기를 결합한 REALM과 ORQA가 유망한 결과를 보였으나 개방 도메인 추출형 질의응답만 탐색했다.
   이 논문은 그 하이브리드 기억을 "NLP의 짐말"인 seq2seq 모델로 가져온다** (1절, p.1).[^lewis2020-rag]
-  REALM·ORQA·BERT·BART는 아직 이 KB에 반입되지 않은 원전들의 자리다.
+  ORQA·BERT·BART는 아직 이 KB에 반입되지 않은 원전들의 자리다.
+- 그 선행이 자기를 세운 자리 — **지식을 더 모듈적이고 해석 가능한 방식으로 붙잡기 위해, 우리는 언어
+  모델 사전 훈련을 잠재 지식 검색기(latent knowledge retriever)로 증강해 모델이 위키백과 같은 큰
+  코퍼스에서 문서를 검색하고 그것에 어텐션할 수 있게 한다 — 사전 훈련·파인 튜닝·추론 전부에서
+  쓰인다. 그런 지식 검색기를 비지도 방식으로, 곧 마스크드 언어 모델링을 학습 신호로 삼고 수백만
+  문서를 고려하는 검색 단계를 통해 역전파해 사전 훈련하는 법을 우리가 처음으로 보인다** (초록,
+  p.1).[^guu2020-realm] 곧 위 원전이 자기를 **범용 파인 튜닝 처방**으로 규정한 자리에서 (초록,
+  p.1),[^lewis2020-rag] 이 선행은 검색기를 **사전 훈련 단계**에 넣는다 — 발표 순서로도 이쪽이 앞선다.
+- 검색기를 무엇으로 가르치는가 — **REALM의 핵심 직관은 비지도 텍스트에서 오는 성능 기반
+  (performance-based) 신호로 검색기를 훈련하는 것이다. 언어 모델의 퍼플렉시티를 *개선하는* 검색은
+  도움이 되므로 보상받아야 하고, 정보를 주지 않는 검색은 벌받아야 한다. 우리는 이
+  retrieve-then-predict 접근을 잠재변수 언어 모델로 모형화하고 주변 우도를 최적화함으로써 이 행동을
+  얻는다** (1절, p.2).[^guu2020-realm] 잠재 문서를 주변화하는 이 형식이 위 원전의
+  [RAG-Sequence와 RAG-Token](#rag-sequence와-rag-token)이 물려받는 틀이며, 그 원전도 자기 형식을
+  **검색된 문서를 잠재변수로 다룬다**로 적는다 (2절, p.3).[^lewis2020-rag]
+- 그 형식이 부른 계산 문제와 답 — **각 사전 훈련 단계마다 검색기가 수백만 후보 문서를 고려해야 하고
+  그 결정을 통해 역전파해야 하므로, 대규모 신경 검색 모듈을 사전 훈련에 넣는 것은 유의미한 계산
+  난점을 이룬다. 이를 다루려고 문서마다 수행되는 계산을 캐시하고 비동기로 갱신할 수 있도록 검색기를
+  구조화하며, 최선 문서의 선택은 최대 내적 탐색(MIPS)으로 정식화할 수 있다** (1절,
+  p.2).[^guu2020-realm] 실물로는 **수백 훈련 단계마다 모든 문서를 비동기로 다시 임베딩하고 다시
+  색인하며**, 갱신 사이의 낡은 색인은 **상위 `k`개를 고르는 데만 쓰이고 검색된 뒤에는 최신 파라미터로
+  확률과 기울기를 다시 계산한다** (3.3절, p.4).[^guu2020-realm]
+  - 그것이 얼마나 결정적인가 — 갱신은 **약 500 훈련 단계마다 한 번** 일어나며, 속도를 30배 늦추면
+    **NQ 개발 집합 정확 일치가 38.2에서 28.7로, 영샷 검색 Recall@5가 38.5에서 15.1로 떨어진다**
+    (4.5절, p.7, Table 2; p.8).[^guu2020-realm] 곧 위 원전이 문서 인코더를 **얼린** 이유로 든 "색인을
+    주기적으로 다시 만들어야 해서 비용이 크다"가 이 자리의 실측이며 (2.4절,
+    p.4),[^lewis2020-rag] 이 선행 자신도 파인 튜닝에서는 색인을 한 번만 짓고 문서 인코더를 갱신하지
+    않는다 (3.3절, p.5 각주 3).[^guu2020-realm]
+  - 사전 훈련 신호를 고르는 두 손질 — **세계 지식을 요구하는 예시에 집중하려고 "United Kingdom"이나
+    "July 1969" 같은 두드러진 구간(salient span)을 가리고**, 검색이 필요 없을 때 신뢰를 흘려보낼
+    자리로 **빈 널 문서(null document)를 상위 `k`개에 더한다** (3.4절, p.5).[^guu2020-realm] 가리기를
+    무작위 토큰·무작위 구간으로 바꾸면 정확 일치가 38.2에서 각각 32.3·35.3으로 내려간다 (4.5절,
+    p.7, Table 2).[^guu2020-realm]
+- 두 원전이 서로를 놓는 자리가 어긋난다 — 위 원전의 5절은 REALM을 **질의응답 같은 특정 하류 과제를
+  돕도록 검색 모듈을 최적화하는** 계열로 묶고, 그 계열이 **단일 과제에서 강한 성능을 얻는** 반면
+  자기들은 **하나의 검색 기반 구조를 여러 과제에 파인 튜닝할 수 있음을 보인다**고 적는다 (5절,
+  p.9).[^lewis2020-rag] 반면 이 선행은 자기 검색기를 **다른 과제로 전이되도록 설계된** 것으로 적고
+  (1절, p.2), 결론에서 **여기 제시한 것은 REALM류 접근 가족의 최소 구현**이라고 적는다 (6절,
+  p.9).[^guu2020-realm] 두 진술은 같은 작업에 대한 서로 다른 위치 부여이며 어느 쪽이 맞는지 두 논문
+  안에서 판정되지 않으므로 함께 남긴다.
+  - 실측이 겹치는 자리 — 이 선행이 보고한 NQ 정확 일치 **40.4**(사전 훈련 코퍼스 CC-News, 지식
+    코퍼스 위키백과, 파라미터 330m)는 (4.4절, p.7, Table 1)[^guu2020-realm] 아래
+    [원전의 실측](#원전의-실측)에서 옮긴 위 원전 표의 REALM 값과 같은 수치다 (4.1절, pp.5–6,
+    Table 1).[^lewis2020-rag]
+    저자들은 **REALM이 30배 작으면서 가장 큰 T5-11B 모델(34.5)을 앞선다**고 요약하되, **T5가 사전
+    훈련 중 SQuAD 독해 데이터 10만 건 이상에 추가로 접근하며 그런 데이터가 REALM에도 도움이 될 수
+    있으나 우리 실험에서는 쓰지 않았다**는 단서를 붙인다 (4.4절, p.7).[^guu2020-realm]
 
 ## 원전이 자기를 정의한 문장
 
@@ -552,9 +599,9 @@ sources:
     4절 Experiments·5절 Conclusion을 담았다. Table 1은 NQ·TriviaQA 열의 일곱 행만 발췌해 옮겼고
     SQuAD Open 열과 나머지 행은 옮기지 않았다. Table 2(훈련 구절 수별 성능)와 Figure 1·2·3은
     옮기지 않았고 본문이 서술한 수치만 담았다.
-    DPR(Karpukhin et al., 2020)과 RAG(Lewis et al., 2020b)는 이 KB에 원전이 있다.
-    T5(Raffel et al., 2020)·BART·REALM(Guu et al., 2020)·ORQA(Lee et al., 2019)·
-    BM25(Robertson et al., 1995)·FAISS·SpaCy는 izacard2021-fid를 통한 전언이다.
+    DPR(Karpukhin et al., 2020)·RAG(Lewis et al., 2020b)·REALM(Guu et al., 2020)은 이 KB에 원전이
+    있다. T5(Raffel et al., 2020)·BART·ORQA(Lee et al., 2019)·BM25(Robertson et al., 1995)·FAISS·
+    SpaCy는 izacard2021-fid를 통한 전언이다.
 
 [^asai2024-selfrag]: Asai et al. 2024, "Self-RAG: Learning to Retrieve, Generate, and Critique
     through Self-Reflection", ICLR 2024 (oral). 스냅샷은 arXiv:2310.11511 v1(2023-10-17)이며
@@ -592,6 +639,29 @@ sources:
     구조 도식, p.2)·Figure 2(RAG-Token 문서 사후확률, p.7)·Figure 3(검색 문서 수에 따른 성능,
     p.8)은 옮기지 않았고 본문이 서술한 것만 담았다. 수식은 원문의 수학 표기를 인라인 코드로 옮긴
     것이며, 원문의 상위 K 주변화 식 자체는 옮기지 않았다. 표는 Table 1·4·5·6의 본문 서술만 옮겼다.
-    REALM(Guu et al., 2020)·ORQA(Lee et al., 2019)·BERT(Devlin et al., 2019)·BART(Lewis et al.,
-    2020)·FAISS(Johnson et al., 2017)는 lewis2020-rag를 통한 전언이며 각각의 원전은 아직 반입되지
-    않았다. DPR(Karpukhin et al., 2020)과 HNSW(Malkov and Yashunin)는 이 KB에 원전이 있다.
+    DPR(Karpukhin et al., 2020)·HNSW(Malkov and Yashunin)·REALM(Guu et al., 2020)은 이 KB에 원전이
+    있다 — 다만 이 원전이 인용하는 REALM은 arXiv:2002.08909 프리프린트이고 이 KB의 정본은 같은
+    작업의 ICML 2020 심사본이다.
+    ORQA(Lee et al., 2019)·BERT(Devlin et al., 2019)·BART(Lewis et al., 2020)·
+    FAISS(Johnson et al., 2017)는 lewis2020-rag를 통한 전언이며 각각의 원전은 아직 반입되지 않았다.
+
+[^guu2020-realm]: Guu et al. 2020, "REALM: Retrieval-Augmented Language Model Pre-Training",
+    ICML 2020 (PMLR 119, 인쇄 쪽 3929–3938 — 논문 10쪽). 스냅샷은 PMLR 카메라 레디이며(1쪽 하단에
+    "Proceedings of the 37th International Conference on Machine Learning, Vienna, Austria,
+    PMLR 119, 2020"이 인쇄돼 있다) 그 PDF에는 인쇄 쪽 번호가 없으므로 쪽 번호는 스냅샷한 PDF의
+    쪽이다. 이 페이지는 초록·1절 Introduction·3.1절 REALM's generative process·3.3절 Training의
+    MIPS 갱신 진술·3.4절 Injecting inductive biases·4.4절 Main results·4.5절 Analysis·6절 Future
+    Work를 담았다 — 계보 위치와 핵심 기제만 담은 절제 반입이다. 담지 않은 것: 2절 Background,
+    3.2절 Model architecture의 인코더 식과 지식 증강 인코더 정식화, 4.1–4.3절의 벤치마크·비교 대상·
+    구현 세부, 5절 Discussion and Related Work의 네 관점(코퍼스를 맥락으로 보는 언어 모델링·
+    retrieve-and-edit·확장 가능한 접지 신경 기억·비지도 코퍼스 정렬). Table 1과 Table 2는 본문이
+    서술한 수치만 담았고 표 자체는 옮기지 않았다. Table 3(마스크 예측 예시)·Figure 1·2·3은 옮기지
+    않았다. 수식(주변화 식 (1)·검색 분포·기울기 유도)은 옮기지 않고 본문 서술로만 담았다.
+    Lewis et al. 2020(RAG)은 이 KB에 원전이 있다 — 다만 **이 원전이 인용하는 "Lewis et al., 2019"는
+    BART이고 RAG가 아니다**(REALM이 먼저 나왔다). ORQA(Lee et al., 2019)·T5(Raffel et al., 2019)·
+    Roberts et al.(2020)·BERT(Devlin et al., 2018)·RoBERTa(Liu et al., 2019)·SpanBERT(Joshi et al.,
+    2019)·Inverse Cloze Task·kNN-LM(Khandelwal et al., 2019)·DrQA(Chen et al., 2017)·
+    HardEM·GraphRetriever(Min et al., 2019a,b)·PathRetriever(Asai et al., 2019)·
+    NaturalQuestions(Kwiatkowski et al., 2019)·WebQuestions(Berant et al., 2013)·CuratedTrec·
+    SQuAD(Rajpurkar et al., 2016)·CC-News·MIPS 알고리즘(Ram and Gray, 2012; Shrivastava and Li,
+    2014; Shen et al., 2015)은 guu2020-realm을 통한 전언이다.

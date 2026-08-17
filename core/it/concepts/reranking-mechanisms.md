@@ -3,7 +3,6 @@ type: concept
 title: 리랭킹의 기제
 description: 싼 검색기가 모아 온 후보를 다시 줄 세우는 기전의 계보 넷 — 교차 어텐션이 미리 계산될 수 없어 검색이 아니라 리랭킹 자리에 서는 구조적 이유와 그 비용 배수, BERT를 이진 분류기로 세워 구절마다 독립으로 점수를 내는 리랭커의 기제·수치·훈련 재료, 그 계보가 분류에서 생성으로 넘어가 "true" 토큰의 정규화된 확률로 순위를 매기는 자리와 목표 토큰을 조작해 적은 데이터에서 이기는 이유를 시험한 실측, 후보를 한 묶음씩 읽혀 순열을 직접 뱉게 하는 리스트와이즈 리랭킹의 슬라이딩 윈도·초기 순서 민감도·순열 증류, 그리고 질의와 문서를 따로 인코딩해 두고 뒤에서만 만나게 해 리랭킹 비용을 두 자리 수 줄이는 late interaction의 지연·FLOPs 실측과 리랭킹이 앞 단계 재현율에 갇힌다는 대조
 generated: { by: "claude-opus-5", at: "2026-08-17T17:20:00Z" }
-status: draft
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: karpukhin2020-dpr, resource: /it/sources/karpukhin2020-dpr.md }

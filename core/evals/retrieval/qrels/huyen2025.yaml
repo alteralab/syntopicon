@@ -652,3 +652,28 @@ queries:
     description: "RankGPT 리스트와이즈를 이름 없이"
     expected_files: ["concepts/hybrid-search-and-reranking.md"]
     expected_in_top_k: 5
+  # ---- 논문 배치 3 (런 2026-08-17-04) ----
+  - id: rag4-alias-1
+    query: "reciprocal rank fusion"
+    type: alias
+    description: "RRF 원전 — 하이브리드 페이지"
+    expected_files: ["concepts/hybrid-search-and-reranking.md"]
+    expected_in_top_k: 5
+  - id: rag4-alias-2
+    query: "ColBERT"
+    type: alias
+    description: "late interaction — 리랭킹 기제 페이지"
+    expected_files: ["concepts/reranking-mechanisms.md", "concepts/embedding-based-retrieval.md"]
+    expected_in_top_k: 5
+  - id: rag4-sem-1
+    query: "여러 검색기의 순위를 하나로 합치는 공식"
+    type: semantic
+    description: "RRF를 이름 없이"
+    expected_files: ["concepts/hybrid-search-and-reranking.md"]
+    expected_in_top_k: 5
+  - id: rag4-sem-2
+    query: "검색기를 언어 모델 사전 훈련에 함께 넣는 방법"
+    type: semantic
+    description: "REALM을 이름 없이"
+    expected_files: ["concepts/retrieval-augmented-generation.md"]
+    expected_in_top_k: 5
