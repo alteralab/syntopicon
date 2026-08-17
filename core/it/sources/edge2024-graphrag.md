@@ -16,7 +16,7 @@ issued: "2024"
 container-title: "arXiv:2404.16130"
 URL: "https://arxiv.org/abs/2404.16130"
 snapshot: /it/archive/edge2024-graphrag/
-snapshot_sha256: "730f1a9f38d16689900969a3eeeb1b31e45eda1dcc1f37a043afa90aff76c867"
+snapshot_sha256: "bd319ff854abc0bc34c6e65392912ab7aff70094e828c4e2d1cf76cc2ef6a387"
 accessed: "2026-08-17"
 ---
 

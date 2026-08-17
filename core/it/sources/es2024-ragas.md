@@ -11,7 +11,7 @@ container-title: "Proceedings of EACL 2024: System Demonstrations"
 page: "150-158"
 URL: "https://aclanthology.org/2024.eacl-demo.16/"
 snapshot: /it/archive/es2024-ragas/
-snapshot_sha256: "e2038b8cff7574bf5302e1ceb6bfbac6d2471c352073b27f21460910936febce"
+snapshot_sha256: "7f9be5a5609245d4541f7107e94f0b422fe58b93f5e400ae2ceafdfffeede3a2"
 accessed: "2026-08-17"
 ---
 

@@ -11,7 +11,7 @@ issued: "2024"
 container-title: "ICLR 2024 (oral)"
 URL: "https://arxiv.org/abs/2310.11511"
 snapshot: /it/archive/asai2024-selfrag/
-snapshot_sha256: "d9eaa1398abac0df67a9d0933a5bf8b6d9d83d2e72da2a486073cd842dd52978"
+snapshot_sha256: "e616699fd5a598637160aed6835b16e17418d48394e28396f15a7a2383d3551b"
 accessed: "2026-08-17"
 ---
 

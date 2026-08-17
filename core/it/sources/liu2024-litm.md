@@ -15,7 +15,7 @@ volume: "12"
 DOI: "10.1162/tacl_a_00638"
 URL: "https://aclanthology.org/2024.tacl-1.9/"
 snapshot: /it/archive/liu2024-litm/
-snapshot_sha256: "f37f6fabe0fe0d8c73b67579cd115dbf14e282cfb7b7af655ae8109638402c9b"
+snapshot_sha256: "0b4405ddeec23e051d06454af1bb62915967906a04819c2d71595bd0e6bf9487"
 accessed: "2026-08-17"
 ---
 

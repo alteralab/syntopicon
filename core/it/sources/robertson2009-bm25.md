@@ -12,7 +12,7 @@ page: "333-389"
 DOI: "10.1561/1500000019"
 URL: "https://www.staff.city.ac.uk/~sbrp622/papers/foundations_bm25_review.pdf"
 snapshot: /it/archive/robertson2009-bm25/
-snapshot_sha256: "11a9ef825dfd3fe50c8621273d02ea26b6f502b60379db9519d6c5c10de4fd25"
+snapshot_sha256: "ee31f867f4b26cc3ee72c494a5e9465b80e877f3b88f45c6d70bd5669448f331"
 accessed: "2026-08-17"
 ---
 

@@ -10,7 +10,7 @@ page: "874-880"
 DOI: "10.18653/v1/2021.eacl-main.74"
 URL: "https://aclanthology.org/2021.eacl-main.74/"
 snapshot: /it/archive/izacard2021-fid/
-snapshot_sha256: "a0b8708f35c78bc5799322a91e042f33233a5e48226c400843082c8a76b01175"
+snapshot_sha256: "d6b9ddc6634b60058a04cb3c1cd7eec877d62781b2973f9b81c8fe80e9584ce1"
 accessed: "2026-08-17"
 ---
 

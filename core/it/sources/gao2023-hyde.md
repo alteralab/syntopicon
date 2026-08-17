@@ -12,7 +12,7 @@ page: "1762-1777"
 DOI: "10.18653/v1/2023.acl-long.99"
 URL: "https://aclanthology.org/2023.acl-long.99/"
 snapshot: /it/archive/gao2023-hyde/
-snapshot_sha256: "cfc80c2ae284e1a3f36b4cec65122cc06707ac8088f107e43b328906305f609d"
+snapshot_sha256: "4b15fa0eb15ebed010648a10e0ea0b89adefb9bb994d22150237da8cb9bc438b"
 accessed: "2026-08-17"
 ---
 

@@ -8,7 +8,7 @@ issued: "2019"
 container-title: "arXiv:1901.04085"
 URL: "https://arxiv.org/abs/1901.04085"
 snapshot: /it/archive/nogueira2019-rerank/
-snapshot_sha256: "b3f05b72d6d24b00761fb0a7363b6e7a10dac22b7f0abfaf4f5025bea7f8e22e"
+snapshot_sha256: "9ca6e3461cb26e37d1dcff3d6a2850dbd8ac16fe254574d890cd655f639a86c2"
 accessed: "2026-08-17"
 ---
 
