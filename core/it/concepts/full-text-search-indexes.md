@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 전문 검색 색인
-description: 텍스트 어디에 나타날지 모르는 키워드로 문서를 찾는 색인 — 용어마다 차원 하나인 다차원 질의로 보는 관점, 용어에서 문서 ID 목록으로 가는 역색인과 그것을 희소 비트맵으로 바꾸는 표현, 루씬이 SSTable 비슷한 정렬 파일로 그것을 구현하는 방식, 색인이 용어 빈도와 문서 수까지 저장해 점수 계산의 근거가 되는 자리, 그리고 부분 문자열과 오타를 감당하는 n-그램과 레벤슈타인 오토마톤
-generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
+description: 텍스트 어디에 나타날지 모르는 키워드로 문서를 찾는 색인 — 용어마다 차원 하나인 다차원 질의로 보는 관점, 용어에서 문서 ID 목록으로 가는 역색인과 그것을 희소 비트맵으로 바꾸는 표현, 루씬이 SSTable 비슷한 정렬 파일로 그것을 구현하는 방식, 색인이 용어 빈도와 문서 수까지 저장해 점수 계산의 근거가 되는 자리, 같은 이름의 랭킹 함수가 검색 엔진마다 미묘하게 다르게 구현돼 있다는 원저자의 실사 기록, 그리고 부분 문자열과 오타를 감당하는 n-그램과 레벤슈타인 오토마톤
+generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: robertson2009-bm25, resource: /it/sources/robertson2009-bm25.md }
 ---
 
 # 전문 검색 색인
@@ -15,6 +16,7 @@ sources:
 - [용어가 차원이다](#용어가-차원이다)
 - [역색인과 포스팅 리스트](#역색인과-포스팅-리스트)
 - [색인이 점수의 재료도 저장한다](#색인이-점수의-재료도-저장한다)
+- [같은 이름의 랭킹 함수가 엔진마다 다르다](#같은-이름의-랭킹-함수가-엔진마다-다르다)
 - [n-그램과 편집 거리](#n-그램과-편집-거리)
 - [검색 데이터베이스라는 원천 시스템](#검색-데이터베이스라는-원천-시스템)
 - [이어지는 페이지](#이어지는-페이지)
@@ -76,6 +78,31 @@ sources:
   p.257).[^huyen2025] 이 페이지는 색인의 자료 구조를 다루고, 그 위에서 점수를 매기는 TF-IDF·BM25는
   [어휘 기반 검색](../concepts/term-based-retrieval.md)이 담는다.
 
+## 같은 이름의 랭킹 함수가 엔진마다 다르다
+
+- BM25 저자들이 직접 돌아본 구현 실사다.
+
+  > **버전 조건**: 2009년 이 서베이의 집필 시점 기준. 이후 릴리스에서 무엇이 바뀌었는지는 이 소스가
+  > 말하지 않으므로, 아래 목록을 현재 제품의 상태로 읽지 말 것.
+
+- 누가 무엇을 구현했는가 — **우리가 아는 한 BM25F를 온전히 구현한 것은 MG4J(2.2 버전 이상)뿐이다.
+  BM25는 Lemur·MG4J·Okapi·PF/Tijah·Terrier·Wumpus·Xapian·Zettair가 구현한다. 루씬(Lucene)은
+  BM25를 구현하지 않지만 BM25와 BM25F를 구현하는 제3자 루씬 확장이 존재한다** (3.9절,
+  pp.369–370).[^robertson2009-bm25] 이 페이지가 위에서 다룬 루씬이 **랭킹 함수는 별개 축**임을
+  보이는 자리다 — 역색인 자료 구조와 그 위에 얹는 점수 함수는 함께 오지 않는다.
+- 저자들이 어떻게 확인했는가 — **우리는 이 구현들 전부의 코드를 검사했고 그것들이 옳다고 믿는다.
+  (검사는 육안이었다 — 우리가 직접 테스트를 돌리지는 않았다. 두 경우에 구현이 틀려 저자들에게
+  고쳐 달라고 요청했고 그들이 고쳤다.)** (3.9절, p.370과 각주 1).[^robertson2009-bm25] 곧
+  원저자가 육안으로 훑었을 때조차 두 건이 틀려 있었다.
+- 무엇이 어떻게 다른가 — **집필 시점에 이 패키지들의 BM25 구현에는 사소한 차이가 있다. 예컨대
+  PF/Tijah는 `idf = log((N + 0.5) / (n + 0.5))`를 쓰고, Terrier는 `k`를 프로그램으로 수정하는
+  것을 허용하지 않으며, Xapian은 어떤 매개변수도 프로그램으로 수정하는 것을 허용하지 않는다**
+  (3.9절, p.370 각주 1).[^robertson2009-bm25] 매개변수를 못 바꾸는 구현이 있다는 것은
+  [어휘 기반 검색](../concepts/term-based-retrieval.md)이 말하는 `k₁`·`b` 튜닝이 **엔진 선택에
+  걸려 있다**는 뜻이다.
+- 남은 공백 — **위 시스템 중 어느 것도 매개변수 최적화를 지원하지 않는다. 다만 그렇게 확장하는 것이
+  어렵지는 않을 것이다** (3.9절, p.370).[^robertson2009-bm25]
+
 ## n-그램과 편집 거리
 
 - 낱말 대신 문자 조각을 색인하는 길 — **텍스트를 낱말로 쪼개는 대신 길이 n의 모든 부분 문자열을
@@ -125,6 +152,14 @@ sources:
 - [LSM 트리](../concepts/lsm-tree.md) — 루씬이 포스팅 리스트 파일을 병합하는 그 방식
 - [샤딩과 2차 색인](../concepts/sharding-and-secondary-indexes.md) — "용어"라는 낱말이 색인을
   나누는 축으로 쓰이는 자리
+
+[^robertson2009-bm25]: Robertson and Zaragoza 2009, "The Probabilistic Relevance Framework:
+    BM25 and Beyond", *Foundations and Trends in Information Retrieval* 3(4):333–389. 쪽 번호는
+    저널 인쇄 쪽이다. **성격 주의** — 이 문서는 BM25 저자 자신이 쓴 정본 해설이지 BM25의 원전이
+    아니다(원전은 Robertson and Walker, SIGIR 1994). 이 페이지는 3.9절 Open Source
+    Implementations of BM25 and BM25F만 담았다 — 공식과 유도는
+    [어휘 기반 검색](../concepts/term-based-retrieval.md)이 담는다. Lemur·MG4J·Okapi·PF/Tijah·
+    Terrier·Wumpus·Xapian·Zettair·루씬 확장(Pérez-Iglesias)은 robertson2009-bm25를 통한 전언이다.
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 4장 "Storage and Retrieval"
 

@@ -2,9 +2,10 @@
 type: concept
 title: AI 판정자의 한계
 description: AI로 AI를 평가하는 접근이 신뢰를 얻지 못하는 네 가지 이유 — 같은 판정자가 같은 입력에 다른 점수를 내는 비일관성과 일관성이 정확성이 아니라는 단서, 도구마다 뜻이 다른 faithfulness가 보여 주는 기준 모호성과 판정자가 바뀌면 지표가 무너진다는 문제, API 호출이 배로 느는 비용과 응답 전 판정이 더하는 지연, 그리고 자기 편향·첫 위치 편향·장황함 편향
-generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: es2024-ragas, resource: /it/sources/es2024-ragas.md }
 ---
 
 # AI 판정자의 한계
@@ -42,6 +43,17 @@ sources:
   인정했다 — 판정자가 일관되게 같은 실수를 저지를 수도 있다. 게다가 예시를 더 많이 포함하면 프롬프트가
   길어지고, 긴 프롬프트는 더 높은 추론 비용을 뜻한다. Zheng et al.의 실험에서 프롬프트에 더 많은 예시를
   포함한 것이 그들의 GPT-4 지출을 네 배로 만들었다** (3장, p.142).[^huyen2025]
+- 위 표에 실린 도구 중 하나의 원전이 같은 문제를 자기 절로 인정한다 — **(큰) 언어 모델로 재현 가능한
+  결과를 얻는 것은 어렵다. 그래서 프롬프트를 쓰는 신뢰할 만한 소프트웨어는 환각뿐 아니라, 같은
+  실험을 같은 설정으로 여러 번 돌려도 다른 결과가 나올 수 있다는 사실도 고려해야 한다 — 예컨대
+  밑에 깔린 API의 문서화되지 않은 변경 때문에, 또는 신경망에 내재한 무작위성 때문에** (5.1절,
+  p.154).[^es2024-ragas]
+  - 저자들이 쓴 완화책과 그 검증 — **우리는 LLM이 구조화된 JSON 형식으로 출력을 생성하도록
+    요구한다. JSON 형식화의 효과를 재려고 JSON 형식화가 있을 때와 없을 때 연속 두 실행의 RAGAS
+    점수 사이 상관을 측정했고, JSON 형식화 출력을 쓸 때 점수가 더 일관됨을 보았다** (5.1절,
+    pp.154–155, Figure 1).[^es2024-ragas] 곧 비일관성의 완화책은 예시 추가만이 아니다 — 출력
+    **형식**을 고정하는 것도 같은 축의 손잡이이며, 이쪽은 프롬프트를 길게 만들지 않는다.
+    다만 원전은 상관의 수치를 본문에 적지 않고 도판으로만 보인다.
 
 ## 기준 모호성
 
@@ -62,6 +74,20 @@ sources:
 - 그래서 비교가 불가능하다 — **이 세 도구가 출력하는 faithfulness 점수는 비교될 수 없다. (맥락, 답)
   쌍이 주어졌을 때 MLflow가 faithfulness 점수 3을 주고, Ragas가 1을 출력하고, LlamaIndex가 NO를
   출력한다면 어느 점수를 쓰겠는가?** (3장, p.143).[^huyen2025]
+- 표의 Ragas 행이 "0과 1"인 이유가 그 원전에 있다 — **각 진술 `s_i`에 대해 LLM이 그것이 맥락에서
+  추론될 수 있는지 판정하고**, 최종 충실성 점수는 **지지된 진술 수를 전체 진술 수로 나눈 값**이다
+  (3절, p.152).[^es2024-ragas] 곧 Ragas의 0/1은 **답 전체의 등급이 아니라 답을 쪼갠 진술 하나의
+  판정**이고, 사용자가 보는 점수는 그 비율이다. 표의 세 도구는 채점 체계만 다른 것이 아니라 **무엇
+  하나를 채점 단위로 삼는가**가 다르다 — MLflow는 출력 전체를 1–5로, LlamaIndex는 정보 하나를
+  YES/NO로, Ragas는 진술마다 Yes/No를 받아 비율을 낸다.
+  - 프롬프트 문구도 갈린다. 원전이 실은 검증 프롬프트는 **verdict (Yes/No)**를 요구하지만 (3절,
+    p.152),[^es2024-ragas] huyen2025의 표에 실린 라이브러리 프롬프트는 **1 또는 0**을 요구한다
+    (3장, p.142, Table 3-4).[^huyen2025] 논문의 프롬프트와 배포된 도구의 프롬프트가 같지 않다는
+    뜻이며, 이것이 이 절의 문제를 한 겹 더한다 — 같은 이름의 지표가 도구마다 다를 뿐 아니라 **한
+    도구 안에서도 논문과 코드가 다를 수 있다.**
+  - 그 원전의 표기가 "Faithfulness"에 붙이는 정의다 (3절, p.152):[^es2024-ragas]
+
+    > Faithfulness refers to the idea that the answer should be grounded in the given context.
 
 ## 판정자가 바뀌면 지표가 무너진다
 
@@ -152,8 +178,18 @@ sources:
 - [샘플링 전략](../concepts/sampling-strategies.md) — 판정자를 더 일관되게 만드는 변수들
 - [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md) — 평가 방법이
   표준화되지 않은 배경
+- [검색 품질 평가](../concepts/retrieval-evaluation.md) — Ragas의 세 지표가 정의되는 자리
+
+[^es2024-ragas]: Es et al. 2024, "RAGAs: Automated Evaluation of Retrieval Augmented Generation",
+    EACL 2024 **System Demonstrations**, pp.150–158. 본 학회 트랙이 아니라 시연 트랙이므로
+    심사가 가볍다 — 이 페이지의 claim은 그 조건에서 읽는다. 쪽 번호는 학회 논문집 인쇄 쪽이다.
+    이 페이지는 3절 Evaluation Strategies의 충실성 정의·계산과 5.1절 Reproducibility만 담았다 —
+    지표 전체와 실험은 [검색 품질 평가](../concepts/retrieval-evaluation.md)가 담는다.
+    Figure 1(JSON 형식 유무별 점수 일관성 산점도, p.155)은 옮기지 않았고 본문이 서술한 결론만
+    담았다 — 원문이 상관 계수를 본문에 적지 않아 수치는 옮길 것이 없다.
 
 [^huyen2025]: Huyen 2025, 3장 "Evaluation Methodology" (책 pp.113–158). 이 페이지는 "AI as a Judge"
     절의 하위 절 "Limitations of AI as a Judge"(pp.141–145)를 담았다. Table 3-4의 프롬프트는 원문이
     "partially omitted for brevity"라고 밝힌 발췌를 그대로 옮겼다. Zheng et al.(2023)·Wu와
-    Aji(2023)·Saito et al.(2023)·MLflow·Ragas·LlamaIndex는 huyen2025를 통한 전언이다.
+    Aji(2023)·Saito et al.(2023)·MLflow·LlamaIndex는 huyen2025를 통한 전언이다. Ragas에 대한
+    전언은 위 원전 각주로 이중화했다.

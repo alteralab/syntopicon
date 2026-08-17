@@ -1,11 +1,14 @@
 ---
 type: concept
 title: 검색 증강 생성(RAG)
-description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 그리고 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측
-generated: { by: "claude-opus-5", at: "2026-08-17T03:20:00Z" }
+description: 모델이 갖지 못한 정보를 외부 기억에서 꺼내 맥락에 붙이는 패턴 — 위키백과를 읽어 답하던 retrieve-then-generate에서 RAG라는 이름이 주조되기까지의 계보, 컨텍스트가 길어져도 RAG가 끝나지 않는 두 이유와 앤트로픽이 제시한 문턱, 검색기와 생성기 두 부품으로 된 기본 구조 안의 색인·질의·청킹, 원전이 파라메트릭 기억과 비파라메트릭 기억으로 세운 두 정식화(RAG-Sequence·RAG-Token)와 그 실측, 구절을 인코더에서 따로 처리하고 디코더에서 합쳐 문서 수에 선형으로 확장한 직계 후속, 검색을 탈지 말지를 특수 토큰으로 모델이 스스로 정하게 만든 적응형 검색, 그리고 전역 질문 앞에서 이 패턴 전체가 실패한다는 미심사 진단
+generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: lewis2020-rag, resource: /it/sources/lewis2020-rag.md }
+  - { id: izacard2021-fid, resource: /it/sources/izacard2021-fid.md }
+  - { id: asai2024-selfrag, resource: /it/sources/asai2024-selfrag.md }
+  - { id: edge2024-graphrag, resource: /it/sources/edge2024-graphrag.md }
 ---
 
 # 검색 증강 생성(RAG)
@@ -23,6 +26,13 @@ sources:
 - [원전의 실측](#원전의-실측)
 - [색인을 갈아 끼우기](#색인을-갈아-끼우기)
 - [원전이 밝힌 조건과 한계](#원전이-밝힌-조건과-한계)
+- [계보의 다음 걸음 — Fusion-in-Decoder](#계보의-다음-걸음--fusion-in-decoder)
+- [FiD가 잰 것](#fid가-잰-것)
+- [질의마다 검색을 탈지 정하기 — Self-RAG](#질의마다-검색을-탈지-정하기--self-rag)
+- [반성 토큰 네 종류](#반성-토큰-네-종류)
+- [추론 시점에 행동을 바꾸는 손잡이](#추론-시점에-행동을-바꾸는-손잡이)
+- [Self-RAG가 잰 것과 그 절제 실험](#self-rag가-잰-것과-그-절제-실험)
+- [이 패턴이 못 하는 질문](#이-패턴이-못-하는-질문)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모델이 알지 못하는 정보를 질의마다 어떻게 조달해 맥락에 넣는가.**
@@ -310,6 +320,202 @@ sources:
 - 외부 지식 소스 자체의 한계 — **위키백과든 다른 어떤 잠재적 외부 지식 소스든 아마 결코 완전히
   사실적이고 편향이 전혀 없지는 않을 것이다** (Broader Impact, p.10).[^lewis2020-rag]
 
+## 계보의 다음 걸음 — Fusion-in-Decoder
+
+- 무엇을 바꿨는가 — **우리 접근은 [Min et al. 2020과 Lewis et al. 2020b]와 생성 모델이 검색된
+  구절을 처리하는 방식에서 다르다. 이는 많은 수의 문서로 확장하는 것과 그 많은 양의 증거에서
+  이득을 얻는 것을 가능하게 한다** (2절, p.875).[^izacard2021-fid] 곧 위의 원전과 부품 구성이
+  같고(검색기 + 생성기) **디코딩의 배치만** 다르다.
+- 그 배치의 원 진술 — **검색된 구절과 그 제목 각각이 질문과 이어 붙여져 다른 구절들과 독립적으로
+  인코더에서 처리된다. 각 구절의 질문·제목·본문 앞에 `question:`·`title:`·`context:` 특수 토큰을
+  붙인다. 마지막으로 디코더가 검색된 모든 구절의 결과 표현을 이어 붙인 것 위에서 어텐션을
+  수행한다. 그래서 이 모델은 디코더에서만 증거 융합(evidence fusion)을 수행하며, 우리는 이를
+  Fusion-in-Decoder라 부른다** (3절, p.876).[^izacard2021-fid]
+- 왜 그것이 확장을 낳는가 — **구절을 인코더에서 독립적으로 처리함으로써 많은 수의 맥락으로 확장할
+  수 있는데, 한 번에 하나의 맥락에 대해서만 자기 어텐션을 수행하기 때문이다. 이는 모델의 계산
+  시간이 구절 수에 따라 이차가 아니라 선형으로 자란다는 뜻이다. 반면 구절을 디코더에서 함께
+  처리하는 것은 여러 구절의 증거를 더 잘 집계하게 한다** (3절, p.876).[^izacard2021-fid] 위의
+  원전이 **입력과 검색 내용을 단순히 이어 붙인** 것과 갈리는 자리가 여기다.[^lewis2020-rag]
+- 무엇 위에 세웠는가 — **개방 도메인 QA를 위한 우리 생성 모델은 T5나 BART 같은 비지도 데이터로
+  사전 훈련된 시퀀스 투 시퀀스 네트워크에 기반한다** (3절, p.876).[^izacard2021-fid] 실제로는
+  **사전 훈련된 T5 모델로 초기화하며 base(2억 2천만)와 large(7억 7천만) 두 크기를 쓴다** (4절,
+  p.876).[^izacard2021-fid] 검색은 **BM25와 DPR 둘을 쓰되 NQ·TriviaQA에는 DPR을, SQuAD에는
+  BM25를 쓴다** (3절, p.876; 4절, p.877).[^izacard2021-fid]
+
+## FiD가 잰 것
+
+- 계보표다. 위의 원전이 같은 벤치마크에서 어디에 서는지가 이 표에 있다. 원문 표기를 그대로 옮겼다
+  (4절, p.876, Table 1 발췌 — 정확 일치(EM)):[^izacard2021-fid]
+
+  | Model | NQ | TriviaQA |
+  |---|---|---|
+  | ORQA (Lee et al., 2019) | 31.3 | 45.1 |
+  | REALM (Guu et al., 2020) | 40.4 | – |
+  | DPR (Karpukhin et al., 2020) | 41.5 | 57.9 |
+  | RAG (Lewis et al., 2020b) | 44.5 | 56.1 |
+  | T5 (Roberts et al., 2020) | 36.6 | – |
+  | Fusion-in-Decoder (base) | 48.2 | 65.0 |
+  | Fusion-in-Decoder (large) | 51.4 | 67.6 |
+
+  - 읽는 법 — 위에서 옮긴 원전의 NQ 44.5가 이 표의 RAG 행이다.[^lewis2020-rag] **개념적으로
+    단순한데도 이 방법은 NaturalQuestion과 TriviaQA 벤치마크에서 기존 작업을 앞선다. 특히
+    생성 모델은 여러 구절의 증거를 집계해야 할 때 추출형 접근에 견주어 잘 수행하는 것으로
+    보인다** (4절, p.877).[^izacard2021-fid]
+- 파라미터를 지식으로 대신하는 셈 — **NaturalQuestions에서 폐쇄형 T5 모델은 110억 파라미터로
+  36.6% 정확도를 얻는 반면 우리 접근은 7억 7천만 파라미터에 BM25 검색을 붙인 위키백과로 44.1%를
+  얻는다. 두 방법이 대략 같은 양의 메모리를 정보 저장에 쓰므로, 이는 텍스트 기반 명시적 기억이
+  지식 검색 과제에 경쟁력 있음을 가리킨다** (4절, p.877).[^izacard2021-fid]
+- 구절 수에 대한 확장 — **검색 구절 수를 10개에서 100개로 늘리면 TriviaQA에서 6%, NaturalQuestions
+  에서 3.5% 개선된다. 반면 대부분의 추출형 모델의 성능은 구절 10~20개 언저리에서 정점을 찍는 것으로
+  보인다. 우리는 이것이 시퀀스 투 시퀀스 모델이 여러 구절의 정보를 결합하는 데 능하다는 증거라고
+  본다** (4절, p.878, Figure 3).[^izacard2021-fid] #hypothesis 위의 원전이
+  **RAG-Token은 검색 문서 10개에서 정점을 찍는다**고 관측한 자리와 대비된다.[^lewis2020-rag]
+- 훈련 비용을 줄이는 길 — **훈련 구절 수를 줄이면 정확도가 떨어진다. 그래서 앞선 모델들을 100개
+  구절로 1,000 스텝 파인 튜닝할 것을 제안하는데, 이는 정확도 격차를 줄이면서 계산 자원을 유의미하게
+  덜 쓴다 — 100개 구절로 훈련할 때의 425 GPU 시간에 견주어 147 GPU 시간으로 NaturalQuestions
+  46.0 EM에 도달할 수 있다** (4절, pp.877–878, Table 2).[^izacard2021-fid]
+- 저자들이 남겨 둔 것 — **향후 작업으로 특히 많은 수의 지지 구절로 확장할 때 이 모델을 더
+  효율적으로 만들 계획이다. 또한 검색을 우리 모델에 통합해 전체 시스템을 종단 간으로 학습할
+  계획이다** (5절, p.878).[^izacard2021-fid] 곧 이 시점의 FiD는 검색기를 **밖에 둔** 구성이며,
+  위의 원전이 질의 인코더와 생성기를 함께 훈련한 것보다 오히려 결합이 느슨하다.[^lewis2020-rag]
+
+## 질의마다 검색을 탈지 정하기 — Self-RAG
+
+- 무엇이 문제인가 — **검색이 필요한지, 구절이 관련 있는지와 무관하게 고정된 수의 검색 구절을
+  무차별적으로 검색해 넣는 것은 LM의 다재다능함을 떨어뜨리거나 도움 안 되는 응답 생성으로 이어질 수
+  있다** (초록, p.1).[^asai2024-selfrag] 위의 원전이 세운 구조가 **상위 `k`개를 늘 가져온다**는
+  것을 전제하는 데서 나오는 문제다.[^lewis2020-rag]
+- 제안 — **우리는 검색과 자기 반성을 통해 LM의 품질과 사실성을 높이는 Self-Reflective
+  Retrieval-Augmented Generation(SELF-RAG)이라는 새 틀을 소개한다. 우리 틀은 하나의 임의 LM을
+  훈련해 필요할 때마다 적응적으로 구절을 검색하고(retrieves passages on-demand), 반성
+  토큰(reflection tokens)이라 불리는 특수 토큰을 써서 검색된 구절과 자기 생성물에 대해 생성하고
+  반성하게 한다** (초록, p.1).[^asai2024-selfrag]
+- 관습적 RAG와 갈리는 지점의 원 진술 — **이 과정은 검색 필요성과 무관하게 한결같이 고정된 수의
+  문서를 검색하고(예컨대 아래 그림의 예는 사실 지식을 요구하지 않는다) 생성 품질을 두 번 다시 보지
+  않는 관습적 RAG와 다르다. 게다가 SELF-RAG는 각 세그먼트에 대해 그 출력이 구절에 의해 지지되는지에
+  대한 자기 평가와 함께 인용을 제공해 사실 검증을 더 쉽게 만든다** (1절, p.2).[^asai2024-selfrag]
+- 세 걸음 — **입력 프롬프트와 앞선 생성물이 주어지면 SELF-RAG는 먼저 검색된 구절로 이어지는 생성을
+  증강하는 것이 도움이 될지 판정한다. 그렇다면 검색기 모델을 필요할 때 호출하는 검색 토큰을
+  출력한다(1단계). 이어서 SELF-RAG는 검색된 여러 구절을 동시에 처리해 그 관련성을 평가하고 대응하는
+  과제 출력을 생성한다(2단계). 그다음 비평 토큰을 생성해 사실성과 전반적 품질의 관점에서 자기 출력을
+  비평하고 최선을 고른다(3단계)** (1절, p.1).[^asai2024-selfrag]
+
+## 반성 토큰 네 종류
+
+- 네 종류의 원 정의다. 원문 표기를 그대로 옮겼다 (3절, p.4, Table 1):[^asai2024-selfrag]
+
+  | Type | Input | Output | Definitions |
+  |---|---|---|---|
+  | Retrieve | x / x, y | {yes, no, continue} | Decides when to retrieve with R |
+  | IsRel | x, d | {relevant, irrelevant} | d provides useful information to solve x. |
+  | IsSup | x, d, y | {fully supported, partially supported, no support} | All of the verification-worthy statement in y is supported by d. |
+  | IsUse | x, y | {5, 4, 3, 2, 1} | y is a useful response to x. |
+
+  **`x`·`y`·`d`는 각각 입력·출력·관련 구절을 가리키며, 아래 세 행이 세 종류의 비평
+  토큰(Critique tokens)이다** (3절, p.4, Table 1 설명).[^asai2024-selfrag] 곧 반성 토큰은
+  **검색 토큰 하나와 비평 토큰 셋**으로 갈린다.
+- 어떻게 생성되는가 — **SELF-RAG는 반성 토큰을 확장된 모델 어휘에서의 다음 토큰 예측으로 통합함으로써
+  임의의 LM이 그것을 생성하도록 훈련한다** (1절, p.1).[^asai2024-selfrag] 훈련에서
+  **검색된 텍스트 청크를 손실 계산에서 가리고 원 어휘 `V`를 반성 토큰 집합으로 확장한다** (3.2.2절,
+  p.5).[^asai2024-selfrag]
+- 비평 모델은 훈련 때만 있다 — **반성 토큰은 훈련된 비평 모델에 의해 오프라인으로 원 코퍼스에
+  삽입된다. 이는 훈련 중 비평 모델을 띄워 둘 필요를 없애 부담을 줄인다** (1절,
+  p.2).[^asai2024-selfrag] 그 비평 모델은 **GPT-4에 유형별 지시를 프롬프트해 모은 데이터로
+  지도되며, 유형마다 4천~2만 건의 지도 훈련 데이터를 모아 합친다** (3.2.1절,
+  pp.4–5).[^asai2024-selfrag] 결과로 **비평 모델은 대부분의 반성 토큰 범주에서 GPT-4 기반 예측과
+  90% 넘는 일치를 달성한다** (3.2.1절, p.5).[^asai2024-selfrag]
+- RLHF와 무엇이 다른가 — **PPO가 훈련 중 별도의 보상 모델에 기대는 반면, 우리는 비평을 오프라인으로
+  계산해 훈련 코퍼스에 직접 삽입하고 생성기 LM은 표준 LM 목적으로 훈련된다. 이는 PPO에 견주어 훈련
+  비용을 유의미하게 줄인다** (3.2.2절, pp.5–6).[^asai2024-selfrag] 그 정렬 기법은
+  [선호 파인 튜닝](../concepts/preference-finetuning.md)에 있다.
+
+## 추론 시점에 행동을 바꾸는 손잡이
+
+- 왜 손잡이가 필요한가 — **자기 출력을 자기 평가하는 반성 토큰을 생성하는 것은 SELF-RAG를 추론
+  단계에서 조종 가능하게 만들어 다양한 과제 요구에 자기 행동을 맞추게 한다. 사실 정확성을 요구하는
+  과제에서는 모델이 구절을 더 자주 검색하기를 바라고, 개인 경험 에세이 작문 같은 더 열린 과제에서는
+  덜 검색하고 전반적 창의성이나 유용성 점수를 우선하는 쪽으로 무게가 옮겨 간다** (3.3절,
+  p.6).[^asai2024-selfrag]
+- 문턱 — **SELF-RAG는 Retrieve를 예측해 텍스트 구절을 언제 검색할지 동적으로 정한다. 대안으로 우리
+  틀은 문턱을 설정할 수 있게 한다 — Retrieve의 모든 출력 토큰에 걸쳐 정규화한 Retrieve=Yes 토큰의
+  생성 확률이 지정된 문턱을 넘으면 검색을 발동한다** (3.3절, p.6).[^asai2024-selfrag] 실험의 기본값은
+  **대부분의 과제에 0.2, 인용을 요구하는 ALCE에 0**이다 (4.3절, p.7).[^asai2024-selfrag]
+- 세그먼트 단위 빔 탐색 — **각 세그먼트 단계 `t`에서 검색이 필요하면 검색기가 구절 `K`개를 가져오고
+  생성기가 각 구절을 병렬로 처리해 서로 다른 이어짐 후보 `K`개를 출력한다. 우리는 세그먼트 수준 빔
+  탐색을 수행해 각 시점에서 상위 `B`개 세그먼트 이어짐을 얻고 생성 끝에 최선의 시퀀스를 돌려준다.
+  구절 `d`에 대한 각 세그먼트 `y_t`의 점수는 각 비평 토큰 유형의 정규화된 확률의 선형 가중합인
+  비평 점수 `S`로 갱신된다** (3.3절, p.6).[^asai2024-selfrag]
+  - 가중치가 사용자 손잡이다 — **식 (4)의 가중치 `w_G`는 추론 시점에 조정할 수 있는 초매개변수로,
+    시험 시점의 맞춤 행동을 가능하게 한다. 예컨대 결과 `y`가 대체로 증거에 의해 지지되게 하려면
+    IsSup 점수의 가중치를 높이고 다른 국면의 가중치를 상대적으로 낮출 수 있다** (3.3절,
+    p.6).[^asai2024-selfrag] 기본 설정은 **IsRel·IsSup·IsUse에 각각 1.0·1.0·0.5**이고 세그먼트
+    빔 폭은 2다 (4.3절, p.7).[^asai2024-selfrag]
+  - 그 손잡이의 대가가 실측된다 — **IsSup의 가중항을 높이면 모델 생성이 증거에 의해 지지되는지에
+    더 무게가 실려 인용 정밀도에 긍정적 효과를 낸다. 반대로 가중치가 커질수록 MAUVE 점수는 낮아진다
+    — 생성이 길고 유창해질수록 인용으로 완전히 지지되지 않는 주장이 흔히 더 많아지기 때문이다**
+    (5.2절, pp.9–10, Figure 3b).[^asai2024-selfrag] 곧 사실성과 유창성이 하나의 손잡이 양 끝에
+    있다.
+  - 무른 제약 대신 단단한 제약도 쓸 수 있다 — **식 (4)의 무른 보상 함수 대신, 모델이 바람직하지
+    않은 비평 토큰(예: IsSup=No support)을 생성하면 그 세그먼트 이어짐을 명시적으로 걸러 낼 수도
+    있다. RLHF에서 여러 선호의 맞바꿈을 조절하려면 흔히 모델 행동을 바꾸는 훈련이 필요한 데 반해
+    SELF-RAG는 추가 훈련 없이 LM을 맞춘다** (3.3절, p.6).[^asai2024-selfrag]
+
+## Self-RAG가 잰 것과 그 절제 실험
+
+- 주요 결과. 원문 표기를 그대로 옮겼다 (5.1절, p.8, Table 2 발췌 — PopQA·TriviaQA·PubHealth·
+  ARC-Challenge는 정확도, ASQA는 인용 정밀도/재현율):[^asai2024-selfrag]
+
+  | LM | PopQA | TQA | Pub | ARC | ASQA (pre) | ASQA (rec) |
+  |---|---|---|---|---|---|---|
+  | Llama2-chat 13B | 20.0 | 59.3 | 49.4 | 38.4 | – | – |
+  | Ret-Llama2-chat 13B | 51.8 | 59.8 | 52.1 | 37.9 | 19.8 | 36.1 |
+  | ChatGPT | 29.3 | 74.3 | 70.1 | 75.3 | – | – |
+  | Ret-ChatGPT | 50.8 | 65.7 | 54.7 | 75.3 | 65.1 | 76.6 |
+  | Llama2 7B (검색 포함) | 38.2 | 42.5 | 30.0 | 48.0 | 2.9 | 4.0 |
+  | Llama2-FT 7B | 48.7 | 57.3 | 64.3 | 65.8 | 5.0 | 7.5 |
+  | SELF-RAG 7B | 54.9 | 66.4 | 72.4 | 67.3 | 66.9 | 67.8 |
+  | SELF-RAG 13B | 55.8 | 69.3 | 74.5 | 73.1 | 70.3 | 71.3 |
+
+  - 읽는 법 — **SELF-RAG는 모든 과제에서 지도 파인 튜닝된 LLM보다 상당한 성능 우위를 보이며,
+    PubHealth·PopQA·전기 생성·ASQA(Rouge와 MAUVE)에서 ChatGPT까지 앞선다** (5.1절,
+    p.8).[^asai2024-selfrag] 인용 쪽에서는 **ASQA에서 ChatGPT를 뺀 모든 모델보다 인용 정밀도와
+    재현율이 유의미하게 높고, 모델이 생성한 주장이 인용된 증거에 완전히 지지되는지를 재는 인용
+    정밀도에서는 ChatGPT까지 앞선다** (5.1절, p.8).[^asai2024-selfrag]
+  - 훈련 데이터 때문이 아니다 — **SELF-RAG와 같은 지시–출력 쌍으로 훈련되었으나 반성 토큰이나
+    검색된 구절 없이 시험 시점에만 검색 증강되는 Llama2-FT 7B가 SELF-RAG에 뒤진다. 이 결과는
+    SELF-RAG의 이득이 훈련 데이터에서만 오는 것이 아님을 가리킨다** (5.1절,
+    pp.8–9).[^asai2024-selfrag]
+- 절제 실험이 짚는 것 — **관습적 RAG 접근처럼 관련성과 무관하게 상위 구절을 쓰는 것(Retrieve
+  top 1)이 PopQA와 ASQA에서 큰 하락을 낳고, 빔 탐색 중 IsSup을 제거하면 ASQA 성능이 상한다. 이는
+  검색 모델의 상위 구절을 순진하게 전부 쓰거나 관련성 점수에만 의존하는 대신 세밀한 다중 기준에
+  근거해 생성을 신중히 고르는 SELF-RAG의 능력이 효과적임을 보인다** (5.2절,
+  p.9).[^asai2024-selfrag] 곧 **검색을 끄는 능력만큼이나 검색한 것을 버리는 능력이 이 설계의
+  이득**이라는 것이 저자들의 읽기다.
+- 문턱을 움직이면 — **문턱 `δ`를 바꿔 가며 재면 모델의 검색 빈도가 두 데이터셋 모두에서 극적으로
+  바뀐다. 한편으로 덜 검색해서 생기는 성능 저하는 PubHealth에서 더 작고 PopQA에서 더 크다**
+  (5.2절, p.10, Figure 3c).[^asai2024-selfrag] 곧 "검색을 얼마나 탈 것인가"의 최적점은 과제마다
+  다르며 하나의 상수가 아니다.
+- 사람이 본 반성 토큰의 신뢰도 — **PopQA와 전기 결과에서 각 50건을 표집해, 주석자들은 SELF-RAG의
+  답이 흔히 그럴듯하고 관련 구절에 의해 지지된다고 보았으며 IsRel·IsSup 반성 토큰 예측이 대체로 자기
+  평가와 정렬됨을 발견했다** (5.2절, p.10, Figure 4d).[^asai2024-selfrag] 표본 100건의 소규모
+  평가라는 점은 저자들이 스스로 "small human evaluations"로 밝힌다.
+
+## 이 패턴이 못 하는 질문
+
+> **심사 조건**: 이 절의 claim은 **미심사 arXiv 원고**에서 온다(표제에 "Preprint. Under
+> review." 인쇄). 진단 자체는 이 페이지의 다른 원전들과 정합하지만, 그 해법의 우열 주장은
+> 제안자가 자기 설계한 절차로 잰 값이므로 그 조건에서 읽는다.
+
+- 진단 — **RAG는 "데이터셋의 주요 주제는 무엇인가?" 같은 전체 텍스트 코퍼스를 겨냥한 전역 질문에서
+  실패하는데, 이것이 본질적으로 명시적 검색 과제가 아니라 질의 초점 요약(query-focused
+  summarization) 과제이기 때문이다** (초록, p.1).[^edge2024-graphrag]
+- 이 페이지가 서술한 구조에 저자들이 붙인 이름 — **관습적 RAG 접근에서 검색 과정은 질의와 의미적으로
+  비슷한 정해진 수의 레코드를 돌려주고 생성된 답은 그 검색된 레코드의 정보만 쓴다. 어떤 RAG 접근은
+  대안적 검색 기전을 쓸 수 있지만, 우리는 관습적 접근의 계열을 통틀어 벡터 RAG(vector RAG)라
+  부른다** (2.1절, p.2).[^edge2024-graphrag] 곧 위에서 서술한 **상위 `k`개를 가져와 이어 붙이는**
+  구조 전체가 하나의 이름을 갖게 되고, 그 바깥에 다른 계열이 놓인다.
+- 그 계열이 무엇인지와 실측은 [텍스트 너머의 RAG](../concepts/rag-beyond-text.md)에 있다.
+
 ## 이어지는 페이지
 
 - [어휘 기반 검색](../concepts/term-based-retrieval.md) — 검색기의 첫째 갈래, 낱말 일치와 그 랭킹
@@ -328,6 +534,43 @@ sources:
   색인 구조의 관점에서 서술하는 자리
 - [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 원전이 "리랭커도 추출형
   판독기도 필요 없다"고 말한 자리의 반대편
+- [반성과 오류 교정](../concepts/agent-reflection-and-error-correction.md) — 같은 낱말이 에이전트
+  쪽에서 프롬프트 기반 기전으로 쓰이는 자리
+- [선호 파인 튜닝](../concepts/preference-finetuning.md) — Self-RAG가 비용 때문에 피했다고 적은
+  RLHF 계열
+
+[^izacard2021-fid]: Izacard and Grave 2021, "Leveraging Passage Retrieval with Generative Models
+    for Open Domain Question Answering", EACL 2021, pp.874–880. 쪽 번호는 학회 논문집 인쇄
+    쪽이다. 이 페이지는 초록·1절 Introduction·2절 Related Work의 자기 위치 진술·3절 Method·
+    4절 Experiments·5절 Conclusion을 담았다. Table 1은 NQ·TriviaQA 열의 일곱 행만 발췌해 옮겼고
+    SQuAD Open 열과 나머지 행은 옮기지 않았다. Table 2(훈련 구절 수별 성능)와 Figure 1·2·3은
+    옮기지 않았고 본문이 서술한 수치만 담았다.
+    DPR(Karpukhin et al., 2020)과 RAG(Lewis et al., 2020b)는 이 KB에 원전이 있다.
+    T5(Raffel et al., 2020)·BART·REALM(Guu et al., 2020)·ORQA(Lee et al., 2019)·
+    BM25(Robertson et al., 1995)·FAISS·SpaCy는 izacard2021-fid를 통한 전언이다.
+
+[^asai2024-selfrag]: Asai et al. 2024, "Self-RAG: Learning to Retrieve, Generate, and Critique
+    through Self-Reflection", ICLR 2024 (oral). 스냅샷은 arXiv:2310.11511 v1(2023-10-17)이며
+    표제에 "Preprint."가 인쇄된 **학회 카메라 레디 이전 판본**이다 — 심사를 통과한 작업이지만
+    이 페이지가 인용하는 문면은 프리프린트의 것이므로 카메라 레디와 자구가 다를 수 있다. 쪽
+    번호는 그 PDF의 쪽이다. 이 페이지는 초록·1절 Introduction·3절 SELF-RAG(3.1–3.3)·4절
+    Experiments(4.1–4.3)·5절 Results and Analysis(5.1–5.2)·6절 Conclusion을 담았다. Table 1과
+    Table 2는 원문 표기를 그대로 옮기되 Table 2는 여섯 열(PopQA·TQA·Pub·ARC·ASQA 정밀도·재현율)과
+    여덟 행만 발췌했다 — Bio(FactScore)·ASQA의 str-em·rouge·MAUVE 열과 Alpaca·CoVE·Toolformer·
+    SAIL·Perplexity.ai 행은 옮기지 않았다. Table 3(절제)·Figure 3·Figure 4는 옮기지 않았고 본문이
+    서술한 것만 담았다. Figure 1(전체 도식, p.2)·Figure 2(훈련 예시, p.5)와 Algorithm 1, 식
+    (1)–(4), 부록 A–D는 본문이 서술한 것만 담았다.
+    RAG(Lewis et al., 2020)는 이 KB에 원전이 있다. Llama2(Touvron et al., 2023)·GPT-4·
+    Contriever-MS MARCO(Izacard et al., 2022a)·PopQA(Mallen et al., 2023)·TriviaQA·PubHealth·
+    ARC-Challenge·ALCE-ASQA(Gao et al., 2023)·FactScore(Min et al., 2023)·MAUVE(Pillutla et al.,
+    2021)·PPO(Schulman et al., 2017)·SAIL·Toolformer는 asai2024-selfrag를 통한 전언이다.
+
+[^edge2024-graphrag]: Edge et al., "From Local to Global: A GraphRAG Approach to Query-Focused
+    Summarization", arXiv:2404.16130. **미심사** — 원고 표제에 "Preprint. Under review."가
+    인쇄돼 있고 2026-08 재검증에서도 심사본이 확인되지 않았다. 스냅샷은 v2(2025-02-19)이며 소스
+    메타의 연도(2024)는 v1 기준이다. 쪽 번호는 그 PDF의 쪽이다. 이 페이지는 초록과 2.1절 RAG
+    Approaches and Systems의 진단·명명 진술만 담았다 — 파이프라인과 실측은
+    [텍스트 너머의 RAG](../concepts/rag-beyond-text.md)가 담는다.
 
 [^huyen2025]: Huyen 2025, 6장 "RAG and Agents" (책 pp.253–306). 이 페이지는 장 도입부(p.253)와
     "RAG" 절 서두(pp.253–256), "RAG Architecture" 절(pp.256–257)을 담았다. 도판 Figure 6-1(위키백과

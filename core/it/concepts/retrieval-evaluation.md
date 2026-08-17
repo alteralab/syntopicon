@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 검색 품질 평가
-description: 검색기가 좋은지 무엇으로 재는가 — 어휘 갈래와 임베딩 갈래가 속도·성능·비용에서 갈리는 지점, 검색된 문서로 재는 컨텍스트 정밀도와 컨텍스트 재현율, 순위까지 보는 NDCG·MAP·MRR과 임베딩 자체를 재는 MTEB·BEIR, 원전이 세운 상위 k 검색 정확도와 근사 탐색의 재현율 정의, 색인과 질의 사이의 맞바꿈을 재는 ANN-Benchmarks 네 지표, 그리고 검색 솔루션을 고를 때 던지는 질문
-generated: { by: "claude-opus-5", at: "2026-08-17T03:20:00Z" }
+description: 검색기가 좋은지 무엇으로 재는가 — 어휘 갈래와 임베딩 갈래가 속도·성능·비용에서 갈리는 지점, 검색된 문서로 재는 컨텍스트 정밀도와 컨텍스트 재현율, 순위까지 보는 NDCG·MAP·MRR과 임베딩 자체를 재는 MTEB·BEIR, 원전이 세운 상위 k 검색 정확도와 근사 탐색의 재현율 정의, 참조 답 없이 재는 세 지표를 정식화한 RAGAS 원전과 그 계산 절차·사람과의 일치도, 색인과 질의 사이의 맞바꿈을 재는 ANN-Benchmarks 네 지표, 그리고 검색 솔루션을 고를 때 던지는 질문
+generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: karpukhin2020-dpr, resource: /it/sources/karpukhin2020-dpr.md }
   - { id: malkov2018-hnsw, resource: /it/sources/malkov2018-hnsw.md }
+  - { id: es2024-ragas, resource: /it/sources/es2024-ragas.md }
 ---
 
 # 검색 품질 평가
@@ -14,6 +15,10 @@ sources:
 - [두 갈래는 어디서 갈리는가](#두-갈래는-어디서-갈리는가)
 - [원전이 세운 상위 k 검색 정확도](#원전이-세운-상위-k-검색-정확도)
 - [컨텍스트 정밀도와 컨텍스트 재현율](#컨텍스트-정밀도와-컨텍스트-재현율)
+- [참조 답 없이 재는 세 지표](#참조-답-없이-재는-세-지표)
+- [그 셋을 실제로 계산하는 절차](#그-셋을-실제로-계산하는-절차)
+- [사람과 얼마나 맞는가](#사람과-얼마나-맞는가)
+- [책의 지표 이름과 원전의 정의가 어긋나는 자리](#책의-지표-이름과-원전의-정의가-어긋나는-자리)
 - [순위까지 보는 지표와 임베딩 자체의 평가](#순위까지-보는-지표와-임베딩-자체의-평가)
 - [지연과 비용](#지연과-비용)
 - [두 갈래 비교표](#두-갈래-비교표)
@@ -103,6 +108,127 @@ sources:
   안 모든 문서의 그 질의에 대한 관련성에 주석을 달아야 하기 때문이다. 컨텍스트 정밀도는 계산하기 더
   간단하다 — 검색된 문서를 질의와 비교하기만 하면 되고 그것은 AI 판정자가 할 수 있다** (6장,
   p.264).[^huyen2025]
+
+## 참조 답 없이 재는 세 지표
+
+> **심사 조건**: 이 절부터 세 절의 claim은 EACL 2024 **System Demonstrations** 트랙 논문에서
+> 온다. 본 학회 트랙보다 심사가 가볍고 도구 시연이 목적인 트랙이므로, 아래 수치는 그 조건에서
+> 읽는다.
+
+- 왜 참조 없이 재야 하는가 — **RAG 시스템을 지을 때 우리는 보통 사람이 주석한 데이터셋이나 참조
+  답에 접근할 수 없다. 그래서 우리는 완전히 자기 완결적이고 참조 없는(reference-free) 지표에
+  집중한다** (3절, pp.151–152).[^es2024-ragas] huyen2025가 "AI 판정자는 참조 데이터 없이도 작동할
+  수 있다"고 적은 이점이 이 원전의 설계 전제다.
+- 무엇이 문제였는가 — **실무에서 RAG 시스템은 흔히 언어 모델링 과제 자체로, 곧 참조 코퍼스의
+  퍼플렉시티를 재어 평가된다. 그러나 그런 평가가 늘 하류 성능을 예측하지는 않는다. 게다가 이 평가
+  전략은 LM 확률에 기대는데 그것은 어떤 폐쇄 모델(예: ChatGPT·GPT-4)에서는 접근할 수 없다.
+  질의응답도 흔한 평가 과제지만 보통 짧은 추출형 답의 데이터셋만 고려되며, 이는 시스템이 실제로
+  쓰이는 방식을 대표하지 못할 수 있다** (1절, p.150).[^es2024-ragas]
+- 세 국면의 원 정의다 (3절, p.152):[^es2024-ragas]
+  - **충실성(Faithfulness)** — **답이 주어진 맥락에 접지되어야 한다는 착상. 이는 환각을 피하고
+    검색된 맥락이 생성된 답의 정당화 노릇을 할 수 있게 하는 데 중요하다.**
+  - **답 관련성(Answer Relevance)** — **생성된 답이 실제로 제시된 질문을 다뤄야 한다는 착상.**
+  - **맥락 관련성(Context Relevance)** — **검색된 맥락이 초점이 맞아 있어 관련 없는 정보를 가능한
+    한 적게 담아야 한다는 착상.**
+- 셋째 것이 왜 중요한가 — **긴 맥락 구절을 LLM에 먹이는 데 결부된 비용 때문에 중요하다. 게다가
+  맥락 구절이 너무 길면 LLM은 흔히 그 맥락을, 특히 맥락 구절 중간에 제공된 정보를 활용하는 데 덜
+  효과적이다(Liu et al., 2023)** (3절, p.152).[^es2024-ragas] 그 실측은
+  [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md)에 있다.
+
+## 그 셋을 실제로 계산하는 절차
+
+- 공통 전제 — **우리 구현과 실험에서 모든 프롬프트는 OpenAI API로 이용 가능한
+  `gpt-3.5-turbo-16k` 모델로 평가된다** (3절, p.152).[^es2024-ragas]
+- ① 충실성 — **답 `a_s(q)`는 답에서 이뤄진 주장(claim)들이 맥락에서 추론될 수 있으면 맥락
+  `c(q)`에 충실하다. 이를 추정하려고 먼저 LLM으로 진술 집합 `S(a_s(q))`를 뽑는다. 이 단계의 목적은
+  긴 문장을 더 짧고 초점이 맞은 단언으로 분해하는 것이다** (3절, p.152).[^es2024-ragas] 그다음
+  **`S(a_s(q))`의 각 진술 `s_i`에 대해 LLM이 검증 함수 `v(s_i, c(q))`로 그것이 `c(q)`에서 추론될
+  수 있는지 판정한다** (3절, p.152).[^es2024-ragas] 최종 점수는 이렇게 계산된다 (3절,
+  p.152):[^es2024-ragas]
+
+  ```math
+  F = \frac{|V|}{|S|}
+  ```
+
+  **`|V|`는 LLM에 따라 지지된 진술의 수, `|S|`는 `S(a_s(q))`의 전체 진술 수다.**
+  - 검증 프롬프트의 원문이다 (3절, p.152):[^es2024-ragas]
+
+    ```text
+    Consider the given context and following statements, then determine whether they
+    are supported by the information present in the context. Provide a brief explana-
+    tion for each statement before arriving at the verdict (Yes/No). Provide a final
+    verdict for each statement in order at the end in the given format. Do not deviate
+    from the specified format.
+    statement: [statement 1]
+    ...
+    statement: [statement n]
+    ```
+
+- ② 답 관련성 — **주어진 답 `a_s(q)`로부터 LLM에게 그 답에 근거한 잠재 질문 `q_i`를 `n`개
+  생성하게 한다. 그다음 `text-embedding-ada-002` 모델로 모든 질문의 임베딩을 얻고, 각 `q_i`에
+  대해 원 질문 `q`와의 유사도 `sim(q, q_i)`를 대응 임베딩 사이의 코사인으로 계산한다** (3절,
+  p.152).[^es2024-ragas] 점수는 그 평균이다 (3절, p.152, 식 (1)):[^es2024-ragas]
+
+  ```math
+  AR = \frac{1}{n}\sum_{i=1}^{n} \mathrm{sim}(q, q_i)
+  ```
+
+  - 이 지표가 재지 않는 것 — **답 관련성의 평가는 사실성(factuality)을 고려하지 않고, 답이
+    불완전하거나 중복 정보를 담은 경우를 벌한다** (3절, p.152).[^es2024-ragas]
+- ③ 맥락 관련성 — **질문 `q`와 그 맥락 `c(q)`가 주어지면 LLM이 `q`에 답하는 데 결정적인 문장의
+  부분집합 `S_ext`를 `c(q)`에서 뽑는다** (3절, p.153).[^es2024-ragas] 점수는 이렇게 계산된다
+  (3절, p.153, 식 (2)):[^es2024-ragas]
+
+  ```math
+  CR = \frac{\text{number of extracted sentences}}{\text{total number of sentences in } c(q)}
+  ```
+
+  - 추출 프롬프트가 못 하게 막는 것 — **관련 문장이 없거나 주어진 맥락에서 질문에 답할 수 없다고
+    믿으면 "Insufficient Information" 구절을 돌려주라. 후보 문장을 뽑는 동안 주어진 맥락의 문장에
+    어떤 변경도 가하는 것이 허용되지 않는다** (3절, p.153).[^es2024-ragas]
+
+## 사람과 얼마나 맞는가
+
+- 무엇으로 쟀는가 — **제안한 틀을 평가하려면 사람 판단으로 주석된 질문–맥락–답 삼항이 필요하다.
+  이 목적에 쓸 수 있는 공개 데이터셋을 알지 못해 WikiEval이라 부르는 새 데이터셋을 만들었다.
+  2022년 시작 이후 일어난 사건을 다루는 위키백과 문서 50개를 골라, 각 문서의 도입부에 근거해 답할 수
+  있는 질문을 ChatGPT에게 제안하게 했다** (4절, p.153).[^es2024-ragas] **모든 질문은 두 주석자가
+  세 품질 차원에 대해 주석했다. 충실성과 맥락 관련성에서 두 주석자는 약 95%의 경우에, 답 관련성에서는
+  약 90%의 경우에 일치했다** (4절, p.153).[^es2024-ragas]
+- 결과다. 원문 표기를 그대로 옮겼다 (5절, p.154, Table 4 — 쌍 비교 정확도):[^es2024-ragas]
+
+  | | Faith. | Ans. Rel. | Cont. Rel. |
+  |---|---|---|---|
+  | RAGAS | 0.95 | 0.78 | 0.70 |
+  | GPT Score | 0.72 | 0.52 | 0.63 |
+  | GPT Ranking | 0.54 | 0.40 | 0.52 |
+
+  - 읽는 법 — **제안한 지표들이 두 기준선의 예측보다 사람 판단에 훨씬 가깝게 정렬된다. 충실성에서
+    RAGAS 예측은 대체로 매우 정확하다. 답 관련성에서는 일치도가 낮은데 이는 대체로 두 후보 답의
+    차이가 흔히 매우 미묘하다는 사실 때문이다. 맥락 관련성은 평가하기 가장 어려운 품질 차원임을
+    발견했다 — 특히 긴 맥락에서 ChatGPT는 맥락에서 결정적인 문장을 고르는 과제에 자주 고전한다**
+    (5절, p.154).[^es2024-ragas]
+  - 두 기준선이 무엇인가 — **GPT Score는 ChatGPT에게 세 품질 차원에 0에서 10 사이의 점수를 매기게
+    하고, GPT Ranking은 대신 선호하는 답이나 맥락을 고르게 한다. 두 경우 모두 프롬프트에 해당
+    품질 지표의 정의를 포함한다** (5절, p.154).[^es2024-ragas] 곧 이 표가 재는 것은 "LLM으로 재는
+    것"과 "그냥 점수를 물어보는 것"의 차이다 — 분해와 검증을 거치면 충실성에서 0.72가 0.95가 된다.
+
+## 책의 지표 이름과 원전의 정의가 어긋나는 자리
+
+- 책은 **컨텍스트 정밀도는 컨텍스트 관련성(context relevance)이라고도 불린다**고 적고, 그 정의를
+  **검색된 모든 문서 중 질의에 관련 있는 것의 백분율**로 준다 (6장, p.264).[^huyen2025] 그러나
+  이 원전의 맥락 관련성은 **문서가 아니라 문장을 세고**, 검색된 것 중 관련 있는 것의 비율이 아니라
+  **맥락 전체 문장 중 답에 결정적인 문장의 비율**이다 (3절, p.153, 식 (2)).[^es2024-ragas] 두
+  양은 세는 단위가 다르므로 같은 수가 아니다 — 한 문서가 통째로 관련 있어도 그 안 문장 대부분이
+  불필요하면 컨텍스트 정밀도는 1, 맥락 관련성은 낮게 나온다.
+- 책은 또 Ragas의 내장 기준을 **Faithfulness, answer relevance** 둘로 적지만 (3장, p.139,
+  Table 3-3),[^huyen2025] 원전은 **세 국면**을 제안하며 맥락 관련성이 그 셋째다 (3절,
+  p.152).[^es2024-ragas] 셋째가 검색기를 직접 재는 지표라는 점에서 이 페이지의 관심사에
+  가장 가깝다.
+- 어느 쪽도 틀린 것이 아니라 **이름이 겹치고 정의가 다른 경우**이므로, 도구가 낸 "context
+  relevance"를 인용할 때 어느 정의인지 밝히지 않으면 비교가 성립하지 않는다. 도구마다 같은 이름의
+  지표가 다른 것을 잰다는 일반 문제는
+  [AI 판정자의 한계](../concepts/ai-judge-limitations.md)에 있다.
 
 ## 순위까지 보는 지표와 임베딩 자체의 평가
 
@@ -250,6 +376,21 @@ sources:
 - [벡터 색인과 임베딩](../concepts/vector-indexes-and-embeddings.md) — 여기 나온 HNSW·LSH의 구조
 - [비교 평가의 난제](../concepts/comparative-evaluation-challenges.md) — 공개 리더보드가 RAG를
   대변하지 못하는 이유
+- [사실 일관성](../concepts/factual-consistency.md) — 충실성이 재려는 것이 생성 쪽에서 다시
+  나오는 자리
+
+[^es2024-ragas]: Es et al. 2024, "RAGAs: Automated Evaluation of Retrieval Augmented Generation",
+    EACL 2024 **System Demonstrations**, pp.150–158. 본 학회 트랙이 아니라 시연 트랙이므로
+    심사가 가볍다 — 이 페이지의 claim은 그 조건에서 읽는다. 쪽 번호는 학회 논문집 인쇄 쪽이다.
+    이 페이지는 1절 Introduction·3절 Evaluation Strategies·4절 The WikiEval Dataset·5절
+    Experiments를 담았다. 2절 Related Work·5.1절 Reproducibility·6절 Python API·8절 Limitations은
+    [AI 판정자](../concepts/ai-as-a-judge.md)와
+    [AI 판정자의 한계](../concepts/ai-judge-limitations.md)가 담는다. Table 4는 원문 표기를
+    그대로 옮겼고 Table 1·2·3(WikiEval 예시)과 Figure 1(JSON 형식 유무별 점수 일관성 산점도,
+    p.155)은 옮기지 않았다. 프롬프트는 원문 표기를 그대로 옮겼으나 원문이 프롬프트마다 붙인
+    시연 예시(demonstration)는 논문 본문에도 실려 있지 않다(3절 각주 3).
+    Liu et al.(2023)은 이 KB에 원전이 있다. BERTScore·BARTScore·MoverScore·GPTScore·
+    SelfCheckGPT·llama-index·Langchain은 es2024-ragas를 통한 전언이다.
 
 [^huyen2025]: Huyen 2025, 6장 "RAG and Agents" (책 pp.253–306). 이 페이지는 "Comparing retrieval
     algorithms" 절(pp.264–266)과 상자 "Evaluating Retrieval Solutions"(p.272)를 담았다. Table 6-2는

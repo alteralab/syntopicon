@@ -596,3 +596,34 @@ queries:
     description: "SBERT 샴 구조를 이름 없이"
     expected_files: ["concepts/vector-indexes-and-embeddings.md", "concepts/embedding-based-retrieval.md"]
     expected_in_top_k: 5
+  # ---- 논문 배치 2 (런 2026-08-17-02) ----
+  - id: rag2-alias-1
+    query: "Self-RAG"
+    type: alias
+    description: "적응형 검색 원전 — RAG 페이지"
+    expected_files: ["concepts/retrieval-augmented-generation.md"]
+    expected_in_top_k: 5
+  - id: rag2-alias-2
+    query: "HyDE"
+    type: alias
+    description: "가설 문서 임베딩 — 쿼리 재작성 페이지"
+    expected_files: ["concepts/query-rewriting.md"]
+    expected_in_top_k: 5
+  - id: rag2-sem-1
+    query: "BM25 공식의 포화와 길이 정규화"
+    type: semantic
+    description: "원전만이 준 BM25 성질 — 용어 기반 검색 페이지"
+    expected_files: ["concepts/term-based-retrieval.md"]
+    expected_in_top_k: 5
+  - id: rag2-sem-2
+    query: "문서를 요약 트리로 쌓아 검색하는 방법"
+    type: semantic
+    description: "RAPTOR를 이름 없이 — 청킹 페이지"
+    expected_files: ["concepts/chunking-strategy.md"]
+    expected_in_top_k: 5
+  - id: rag2-x-1
+    query: "RAG 답변의 충실성 평가"
+    type: cross-domain
+    description: "RAGAS faithfulness — 검색 평가와 판정자 축 경계"
+    expected_files: ["concepts/retrieval-evaluation.md", "concepts/ai-as-a-judge.md"]
+    expected_in_top_k: 5
