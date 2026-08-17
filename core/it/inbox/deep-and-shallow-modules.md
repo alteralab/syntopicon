@@ -349,10 +349,17 @@ sources:
   유용하고 유연하게 만든다는 것을 배웠다. Go 표준 라이브러리에는 `Reader` — `read` 메서드
   하나만 요구하는 I/O 인터페이스 — 같은 인터페이스가 여럿 있다. 시간이 지나 더 완전한
   프로토콜이 필요하다는 것을 깨달으면, 둘 이상의 프로토콜을 결합해 새 프로토콜을 정의할 수
-  있다** (13장 §"Designing a static protocol").[^ramalho2022]
+  있다** (13장 §"Designing a Static Protocol", p.474).[^ramalho2022]
   - 그리고 확장의 방향이 못 박힌다 — **더 많은 메서드를 가진 프로토콜이 유용하다는 것이
     실천으로 드러날 때, 원래 프로토콜에 메서드를 더하는 대신 그것에서 새 프로토콜을 파생하는
-    편이 낫다** (13장 §"Extending a protocol").[^ramalho2022]
+    편이 낫다** (13장 §"Extending a Protocol", p.477).[^ramalho2022]
+  - **그 지침의 근거가 취향이 아니라 결합도 조문이다** — **좁은 프로토콜과 클라이언트 코드
+    프로토콜이라는 두 관행은 둘 다 불필요한 강한 결합을 피하며, 이는 인터페이스 분리
+    원칙(Interface Segregation Principle)과 같은 선상에 있다. 그 원칙은 "클라이언트가
+    자신이 쓰지 않는 인터페이스에 의존하도록 강요받아서는 안 된다"로 요약할 수 있다**
+    (13장 §"Best Practices for Protocol Design", p.477).[^ramalho2022] 저자가 같은 절에서
+    마틴 파울러의 **역할 인터페이스(role interface)**를 프로토콜 설계에 쓸 생각으로
+    지목한다.
 - **왜 이것이 이 페이지의 잣대인가.** 이 페이지의 비율은 기능 ÷ 인터페이스다. 단일 메서드
   프로토콜은 분모를 **선언 시점에** 최소로 묶는다 — 구현 쪽은 원하는 만큼 깊어도 되고,
   선언은 요구를 하나로 줄인다. 그리고 그 결과가 위 [얕은 모듈](#얕은-모듈)의 반대다:
@@ -361,18 +368,18 @@ sources:
 - **이 지침에는 정적 프로토콜 특유의 조건이 하나 붙는다.** 동적 프로토콜과 달리 —
   **객체는 동적 프로토콜의 일부만 구현하고도 여전히 유용할 수 있다. 그러나 정적 프로토콜을
   충족하려면 객체가 프로토콜 클래스에 선언된 모든 메서드를 제공해야 한다 — 당신 프로그램이
-  그것들을 전부 필요로 하지 않더라도** (13장 §"Two kinds of
-  protocols").[^ramalho2022] 즉 선언에 메서드를 하나 더 얹는 순간 그 비용을 **모든**
+  그것들을 전부 필요로 하지 않더라도** (13장 §"Two Kinds of
+  Protocols", p.435).[^ramalho2022] 즉 선언에 메서드를 하나 더 얹는 순간 그 비용을 **모든**
   구현자가 문다. 이 페이지가 [클래스염](#클래스염)에서 말한 "작게 쪼개면 부담이
   사용자에게 간다"와 방향이 반대인 사례다 — 여기서는 **크게 선언하는 쪽**이 사용자에게
   부담을 넘긴다.
 - 같은 절제가 추상 기반 클래스 쪽에도 걸린다. Alex Martelli의 곁글이 그것이다 —
   **ABC는 프레임워크가 도입하는 아주 일반적인 개념, 추상을 캡슐화하기 위한 것이다. (…)
   [독자들은] 새 ABC를 쓸 필요가 거의 없고, 기존의 것을 올바르게 쓰기만 해도 심각한 오설계
-  위험 없이 이득의 99.9%를 얻는다** (13장 §"Waterfowl and ABCs").[^ramalho2022]
+  위험 없이 이득의 99.9%를 얻는다** (13장 §"Waterfowl and ABCs", p.447).[^ramalho2022]
   - 그리고 ABC 상속의 대가가 이 페이지의 비용 항목과 같은 모양이다 — 예제에서
     `MutableSequence`를 상속하니 쓰지도 않을 메서드 둘을 구현해야 했고, 대신 구상 메서드
-    열하나를 물려받았다 (13장 §"Subclassing an ABC").[^ramalho2022] **인터페이스를 넓게
+    열하나를 물려받았다 (13장 §"Subclassing an ABC", pp.447–449).[^ramalho2022] **인터페이스를 넓게
     잡은 대가를 구현자가 무는 자리**다.
 
 ## 모순 — 이 장이 인용해 기각하는 규칙의 원산지
@@ -484,9 +491,10 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
     `it/sources/martin2008.md`가 정본이다. 쪽은 인쇄판 쪽 번호이며 복원 절차는
     `it/archive/martin2008/_progress.yaml` 머리말이 정본이다.
 
-[^ramalho2022]: Ramalho 2022, 13장 "Interfaces, Protocols, and ABCs"(§"Two kinds of
-    protocols" · 곁글 §"Waterfowl and ABCs"(Alex Martelli) · §"Subclassing an ABC" ·
-    §"Designing a static protocol" · §"Extending a protocol"). **이 소스의 locator는
-    장 + 절 제목이다** — 인쇄판 쪽 앵커가 없다. 검증 절차와 근거, 그리고 **이 스냅샷이
-    Early Release 판이라는 사실**은 `it/archive/ramalho2022/_progress.yaml` 머리말이
+[^ramalho2022]: Ramalho 2022, 13장 "Interfaces, Protocols, and ABCs"(§"Two Kinds of
+    Protocols" pp.434–435 · 곁글 §"Waterfowl and ABCs"(Alex Martelli) pp.443–447 ·
+    §"Subclassing an ABC" pp.447–449 · §"Designing a Static Protocol" pp.474–476 ·
+    §"Best Practices for Protocol Design" pp.476–477 · §"Extending a Protocol"
+    pp.477–478). **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고,
+    그 오프셋 실측과 판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이
     정본이다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.

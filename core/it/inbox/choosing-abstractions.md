@@ -243,31 +243,31 @@ sources:
 직접 걸리는 것만 추린다. 두 소스가 서로를 참조한 적은 없다.
 
 - 넷의 축이 둘이다 — 검사가 런타임인가 정적인가, 그리고 근거가 **구조**인가 **이름**인가
-  (13장 §"The Typing Map" 그림 설명).[^ramalho2022] 이 장이 쓰는 둘은 그중 대각선
+  (13장 §"The Typing Map" 그림 설명, p.432).[^ramalho2022] 이 장이 쓰는 둘은 그중 대각선
   양끝이다: 덕 타이핑(런타임·구조)과 구스 타이핑(런타임·이름, 즉 ABC).
 - **비어 있던 칸이 정적 덕 타이핑이다** — `typing.Protocol`(PEP 544, 파이썬 3.8)이 그것을
   채운다. **정적 프로토콜은 명시적 정의를 갖는다: `typing.Protocol` 하위 클래스다**
-  (13장 §"Two kinds of protocols").[^ramalho2022] 그러면서도 **클래스가 어떤 프로토콜을
+  (13장 §"Two Kinds of Protocols", p.435).[^ramalho2022] 그러면서도 **클래스가 어떤 프로토콜을
   지원한다고 이름으로, 즉 상속으로 선언할 필요가 결코 없다**
-  (13장 §"Two kinds of protocols").[^ramalho2022]
+  (13장 §"Two Kinds of Protocols", p.435).[^ramalho2022]
   - **이것이 이 장의 딜레마를 정확히 겨냥한다.** 이 장은 ABC를 "추상이 무엇인지 이해하는 데
     도움이 되는" 문서화 장치로 쓰면서도 구현 쪽을 그것에 묶고 싶어 하지 않아 결국
     "필요하지 않다"로 물러선다. 정적 프로토콜은 **선언은 남기되 구현 쪽을 묶지 않는다** —
-    구현 클래스는 프로토콜을 임포트할 필요조차 없다 (13장 §"Designing a static
-    protocol").[^ramalho2022] #hypothesis 그 소스가 이 책을 겨냥해 그렇게 말하지는 않았다.
+    구현 클래스는 프로토콜을 임포트할 필요조차 없다 (13장 §"Designing a Static
+    Protocol", p.476).[^ramalho2022] #hypothesis 그 소스가 이 책을 겨냥해 그렇게 말하지는 않았다.
 - **그리고 추상의 크기에 대한 지침이 하나 더 붙는다.** 이 장의 발견 질문들은 "어디에 선을
   그을 것인가"를 묻지만 그 선 뒤의 인터페이스가 얼마나 커야 하는지는 말하지 않는다.
   저쪽은 최소주의를 명시한다 — **나는 Go 커뮤니티에서 단일 메서드 프로토콜이 정적 덕
   타이핑을 더 유용하고 유연하게 만든다는 것을 배웠다. (…) 시간이 지나 더 완전한 프로토콜이
   필요하다는 것을 깨달으면, 둘 이상의 프로토콜을 결합해 새 프로토콜을 정의할 수 있다**
-  (13장 §"Designing a static protocol").[^ramalho2022]
+  (13장 §"Designing a Static Protocol", p.474).[^ramalho2022]
   - 같은 잣대를 이 KB의 다른 페이지가 다른 낱말로 갖고 있다 —
     [깊은 모듈과 얕은 모듈](deep-and-shallow-modules.md)의 "인터페이스를 좁힌다"와,
     이 장 자신의 값싼 계측기("가짜로 만들기 어렵다면 그 추상은 아마 너무 복잡한 것이다").
 - **다만 저쪽도 새 ABC를 만드는 데는 이 장보다 더 부정적이다.** Alex Martelli의 곁글이
   그렇다 — **프로덕션 코드에 맞춤 ABC(나 메타클래스)를 정의하지 마라… (…) [독자들은] 새
   ABC를 쓸 필요가 거의 없고, 기존의 것을 올바르게 쓰기만 해도 심각한 오설계 위험 없이
-  이득의 99.9%를 얻는다** (13장 §"Waterfowl and ABCs").[^ramalho2022] 즉 두 소스가
+  이득의 99.9%를 얻는다** (13장 §"Waterfowl and ABCs", pp.445–447).[^ramalho2022] 즉 두 소스가
   **ABC를 아끼라는 데서는 일치하고**, 갈리는 것은 그 자리를 무엇으로 메우는가다 — 이 장은
   아무것도 안 쓰고, 저쪽은 정적 프로토콜을 제시한다.
 
@@ -310,10 +310,10 @@ sources:
     이미지라 산문 서술로만 옮겼다. 코드 펜스는 대표 하나(추상 수준을 올린 검색 예제)만
     두었고 동기화 예제의 코드 목록 여덟 개는 산문 요지로 옮겼다.
 
-[^ramalho2022]: Ramalho 2022, 13장 "Interfaces, Protocols, and ABCs"(§"The Typing Map" ·
-    §"Two kinds of protocols" · 곁글 §"Waterfowl and ABCs"(Alex Martelli) ·
-    §"Designing a static protocol"). **이 소스의 locator는 장 + 절 제목이다** — 인쇄판
-    쪽 앵커가 없다. 검증 절차와 근거, 그리고 **이 스냅샷이 Early Release 판이라는 사실**은
-    `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 타이핑 지도의 두 축은
+[^ramalho2022]: Ramalho 2022, 13장 "Interfaces, Protocols, and ABCs"(§"The Typing Map"
+    p.432 · §"Two Kinds of Protocols" pp.434–435 · 곁글 §"Waterfowl and ABCs"(Alex
+    Martelli) pp.443–446 · §"Designing a Static Protocol" pp.474–476).
+    **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그 오프셋 실측과
+    판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 타이핑 지도의 두 축은
     Figure 13-1이 이미지라 그 캡션에서 판독했다. 이 소스에서 온 코드 펜스는 이 페이지에
     없다.

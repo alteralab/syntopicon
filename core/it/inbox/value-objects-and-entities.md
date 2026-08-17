@@ -104,17 +104,17 @@ sources:
 
 - **불변성이 첫째 갈림이다** — **`collections.namedtuple`과 `typing.NamedTuple`은 `tuple`
   하위 클래스를 지으므로 인스턴스가 불변이다. 기본적으로 `@dataclass`는 가변 클래스를
-  생산한다** (5장 §"Mutable instances").[^ramalho2022] 즉 네임드튜플 둘은 불변이 기본값이고
+  생산한다** (5장 §"Mutable instances", p.168).[^ramalho2022] 즉 네임드튜플 둘은 불변이 기본값이고
   데이터클래스는 `frozen=True`를 **적어야** 불변이 된다. 위 조각의 `Money`·`Line`이
   `frozen` 없이도 값 객체인 이유가 그것이다.
 - **⚠ 그런데 `frozen=True`가 진짜 불변은 아니다.** `@dataclass`는
   **`dataclass.FrozenInstanceError`(`AttributeError`의 하위 클래스)를 일으키는
-  `__setattr__`과 `__delattr__`을 생성해 불변성을 흉내 낸다**(5장 §"More about @dataclass"
-  표 5-2 각주 a)이고, 인스턴스는 **우발적 변경으로부터 합리적으로 안전하지만 정말로 불변인
+  `__setattr__`과 `__delattr__`을 생성해 불변성을 흉내 낸다**(5장 §"More About @dataclass"
+  표 5-2 각주 a, p.179)이고, 인스턴스는 **우발적 변경으로부터 합리적으로 안전하지만 정말로 불변인
   것은 아니다**.[^ramalho2022] 저자의 실무 판정이 그 뒤에 붙는다 — **파이썬 객체의 동적
   성격을 생각하면 참견하기 좋아하는 프로그래머가 `frozen=True`가 주는 보호를 우회하기가
   그리 어렵지 않다. 그러나 그러려면 필요한 요령들이 코드 리뷰에서 쉽게 눈에 띄어야 한다**
-  (5장 §"More about @dataclass").[^ramalho2022]
+  (5장 §"More About @dataclass", p.180).[^ramalho2022]
   - **이 페이지의 규칙과 맞물리는 자리다.** 위 [동등성과 해시를 어디에 어떻게
     다는가](#동등성과-해시를-어디에-어떻게-다는가)가 "값 객체는 불변이어야 하고 해시는 모든
     값 속성에 근거해야 한다"고 요구하는데, 그 요구는 `frozen`으로 **완전히** 채워지지 않는다.
@@ -123,7 +123,7 @@ sources:
   `@dataclass`가 적절한 `__hash__` 메서드를 생산하므로 인스턴스가 해시 가능해진다. (…)
   `frozen=False`(기본값)이면 `@dataclass`는 `__hash__`를 `None`으로 설정해 인스턴스가 해시
   불가능함을 알리고, 어떤 상위 클래스의 `__hash__`든 덮어쓴다**
-  (5장 §"More about @dataclass").[^ramalho2022]
+  (5장 §"More About @dataclass", p.180).[^ramalho2022]
   - 이것이 이 페이지의 두 규칙이 한 줄로 실현되는 자리다. 값 객체는
     `@dataclass(frozen=True)`로 해시를 얻고, 엔티티는 데코레이터 기본값(`frozen=False`)만으로
     이미 **해시 불가능**이 된다 — 이 페이지가 "엔티티에서는 가장 단순한 선택지가 해시를
@@ -131,10 +131,10 @@ sources:
     그렇게 대응시키지는 않았다.
 - **클래스 문장을 쓸 수 있는가가 셋째 갈림이다** — **`typing.NamedTuple`과 `dataclass`만이
   보통의 클래스 문장 문법을 지원해, 만들고 있는 클래스에 메서드와 독스트링을 더하기 쉽게
-  만든다** (5장 §"Class statement syntax").[^ramalho2022] `collections.namedtuple`에
+  만든다** (5장 §"Class statement syntax", p.168).[^ramalho2022] `collections.namedtuple`에
   메서드를 붙이는 것은 함수를 클래스 속성에 대입하는 **해킹**이고, 저자는
   **가독성과 앞으로의 유지보수를 위해서는 클래스 문장 안에서 메서드를 코딩하는 편이 훨씬
-  낫다**고 적는다 (5장 §"Classic Named Tuples").[^ramalho2022]
+  낫다**고 적는다 (5장 §"Classic Named Tuples", p.172).[^ramalho2022]
   - **그래서 아래 [값 객체에도 행동이 있을 수 있다](#값-객체에도-행동이-있을-수-있다)가
     재료 선택에 되먹임된다.** 화폐 예제처럼 값 객체에 연산을 달 작정이라면
     `collections.namedtuple`은 제외된다. 남는 것은 `typing.NamedTuple`과
@@ -142,7 +142,7 @@ sources:
 - **부적합 사유도 명시돼 있다.** 저자가 PEP 557의 Rationale를 인용한다 —
   **튜플이나 딕셔너리와의 API 호환이 요구될 때**, 그리고 **PEP 484·526이 제공하는 것 이상의
   타입 검증이나 값 검증·변환이 필요할 때**는 데이터 클래스를 쓸 자리가 아니다
-  (5장 §"Further Reading").[^ramalho2022] 뒤쪽이 도메인 모델에서 실제로 자주 걸린다 —
+  (5장 §"Further Reading", p.196).[^ramalho2022] 뒤쪽이 도메인 모델에서 실제로 자주 걸린다 —
   값 객체에 불변식 검증을 걸고 싶어지는 순간이 그것이고, 그때는 `__post_init__`으로 손수
   짜거나 `attrs` 같은 외부 도구로 간다.
 
@@ -295,9 +295,9 @@ sources:
     §Designing VALUE OBJECTS pp.99–102 이하)은 이 페이지의 물음(둘이 "같다"는 것이 무슨
     뜻인가) 밖이다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.
 
-[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders"(§"Mutable instances" ·
-    §"Class statement syntax" · §"Classic Named Tuples" · §"More about @dataclass"와
-    그 표 5-2 · §"Further Reading"). **이 소스의 locator는 장 + 절 제목이다** — 인쇄판
-    쪽 앵커가 없다. 검증 절차와 근거, 그리고 **이 스냅샷이 Early Release 판이라는 사실**은
-    `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 이 소스에서 온 코드 펜스는
+[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders"(§"Mutable instances" p.168 ·
+    §"Class statement syntax" p.168 · §"Classic Named Tuples" pp.169–172 ·
+    §"More About @dataclass" pp.179–180과 그 표 5-2 p.179 · §"Further Reading" p.196).
+    **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그 오프셋 실측과
+    판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. 이 소스에서 온 코드 펜스는
     이 페이지에 없다 — 전문은 [데이터 클래스 빌더](data-class-builders.md)에 있다.

@@ -26,25 +26,26 @@ sources:
 
 - 이 장은 도구를 먼저 소개하고 그 뒤에 경고를 단다 — **데이터 클래스는 편리하지만 그것을
   남용하면 당신의 프로젝트가 고생할 수 있다** (5장 §"@dataclass Example: Dublin Core
-  Resource Record" 맺음).[^ramalho2022]
+  Resource Record" 맺음, p.189).[^ramalho2022]
 - 경고의 형식이 특이하다. **저자가 마틴 파울러의 글 "Code Smell"을 전문 그대로
   재수록한다.** 각주에 사정이 적혀 있다 — **나는 마틴 파울러를 Thoughtworks의 동료로 둔
-  행운이 있어서, 그의 허락을 얻는 데 20분밖에 걸리지 않았다** (5장 각주
-  9).[^ramalho2022]
-- 장 머리의 제사(epigraph)도 같은 계보다 (5장 제사):[^ramalho2022]
+  행운이 있어서, 그의 허락을 얻는 데 20분밖에 걸리지 않았다** (5장 각주 9,
+  p.190).[^ramalho2022]
+- 장 머리의 제사(epigraph)도 같은 계보다 (5장 제사, p.163):[^ramalho2022]
   > Data classes are like children. They are okay as a starting point, but to
   > participate as a grownup object, they need to take some responsibility.
   >
   > — Martin Fowler and Kent Beck
   - 출처가 각주에 적혀 있다 — **Refactoring 초판, 3장 "Bad Smells in Code", Data Class
-    절, 87쪽** (5장 각주 1).[^ramalho2022] 그리고 저자가 §"Further Reading"에서 이
-    문장이 **2판에는 빠져 있다**고 적는다. 이 KB에 들어와 있는
+    절, 87쪽** (5장 각주 1, p.163).[^ramalho2022] 그리고 저자가 **이 최신판에는 이 장의
+    제사에 쓴 "Data classes are like children…" 인용이 빠져 있다**고 적는다
+    (5장 §"Further Reading", p.197).[^ramalho2022] 이 KB에 들어와 있는
     [코드 냄새](code-smells.md)는 그 2판이므로, 이 제사는 그쪽에서 찾을 수 없다.
 
 ## 냄새라는 말의 정의
 
-파울러의 글이 이 페이지에 정의를 공급한다 (5장 §"Data class as a code smell" 안에
-재수록된 Martin Fowler, "Code Smell").[^ramalho2022]
+파울러의 글이 이 페이지에 정의를 공급한다 (5장 §"Data Class as a Code Smell" 안에
+재수록된 Martin Fowler, "Code Smell", pp.190–191).[^ramalho2022]
 
 - 정의 — **코드 냄새는 보통 시스템의 더 깊은 문제에 대응하는 표면적 징후다. 그 용어는 켄트
   벡이 내 Refactoring 책을 도와주는 동안 처음 만들었다.**
@@ -74,11 +75,11 @@ sources:
   유의미한 행동이 없다면, 그 인스턴스를 다루는 코드가 시스템 전체의 메서드와 함수에 흩어져
   있고 심지어 중복돼 있을 가능성이 있다 — 유지보수 두통의 처방전이다. 그래서 파울러가 데이터
   클래스를 다루는 리팩터링들이 책임을 그 안으로 되가져오는 것이다**
-  (5장 §"Data class as a code smell").[^ramalho2022]
-- 장 요약이 그것을 한 줄로 다시 적는다 — **"Data class as a code smell"이 그 뒤에 왔고,
-  데이터 클래스의 오용이 객체 지향 프로그래밍의 기본 원리 — 데이터와 그것을 만지는 함수는
-  같은 클래스 안에 함께 있어야 한다 — 를 무너뜨릴 수 있다고 경고했다. 논리가 없는 클래스는
-  잘못 놓인 로직의 신호일 수 있다** (5장 §"Chapter Summary").[^ramalho2022]
+  (5장 §"Data Class as a Code Smell", p.191).[^ramalho2022]
+- 장 요약이 그것을 한 줄로 다시 적는다 — **그다음 우리는 데이터 클래스의 오용이 객체 지향
+  프로그래밍의 기본 원리 — 데이터와 그것을 만지는 함수는 같은 클래스 안에 함께 있어야
+  한다 — 를 무너뜨릴 수 있다고 경고했다. 논리가 없는 클래스는 잘못 놓인 로직의 신호일 수
+  있다** (5장 §"Chapter Summary", p.196).[^ramalho2022]
 - **진단의 대상이 클래스가 아니라 흩어진 코드라는 점이 이 절의 정확한 지점이다.** 문제는
   "필드만 있는 클래스가 존재한다"가 아니라 "그 필드를 만지는 코드가 다른 곳에 흩어져
   있다"이다. 그래서 처방이 클래스를 없애는 것이 아니라 **행동을 그 안으로 옮기는
@@ -88,18 +89,17 @@ sources:
 
 **저자는 냄새를 인정한 뒤 예외를 명시한다** — **그것을 고려하더라도, 행동이 거의 또는 전혀
 없는 데이터 클래스를 갖는 것이 말이 되는 흔한 시나리오가 두어 개 있다**
-(5장 §"Data class as a code smell").[^ramalho2022]
+(5장 §"Data Class as a Code Smell", p.191).[^ramalho2022]
 
-- **① 비계로서의 데이터 클래스** (5장 §"Data class as a
-  scaffolding"):[^ramalho2022]
+- **① 비계로서의 데이터 클래스** (5장 §"Data Class as Scaffolding", p.191):[^ramalho2022]
   - **이 시나리오에서 데이터 클래스는 새 프로젝트나 모듈을 띄우기 위한 초기의 단순한 클래스
     구현이다. 시간이 지나면 그 클래스는 자기 인스턴스를 다루기 위해 다른 클래스의 메서드에
     기대는 대신 자기 자신의 메서드를 가져야 한다. 비계는 임시적이다. 결국 당신의 맞춤
     클래스는 그것을 시작하는 데 쓴 빌더로부터 완전히 독립적이 될 수 있다.**
   - **단서가 파이썬 특유다** — **파이썬은 빠른 문제 해결과 실험에도 쓰이며, 그럴 때는 비계를
     그대로 두어도 괜찮다.**
-- **② 중간 표현으로서의 데이터 클래스** (5장 §"Data class as intermediate
-  representation"):[^ramalho2022]
+- **② 중간 표현으로서의 데이터 클래스** (5장 §"Data Class as Intermediate
+  Representation", p.191):[^ramalho2022]
   - **데이터 클래스는 JSON이나 다른 교환 형식으로 내보내려는 레코드를 짓거나, 어떤 시스템
     경계를 막 넘어 들어온 데이터를 담는 데 유용할 수 있다. 파이썬의 데이터 클래스 빌더들은
     전부 인스턴스를 평범한 `dict`로 변환하는 메서드나 함수를 제공하며, `**`로 펼친 `dict`를
@@ -124,8 +124,8 @@ sources:
 
 - **① 라말류가 파울러를 인용하고 지지한다.** 이 절은 반박이 아니라 재수록이다. 저자는
   파울러의 정의를 그대로 옮기고 **그래서 파울러가 데이터 클래스를 다루는 리팩터링들이 책임을
-  그 안으로 되가져오는 것이다**라고 그 처방까지 승인한다 (5장 §"Data class as a code
-  smell").[^ramalho2022]
+  그 안으로 되가져오는 것이다**라고 그 처방까지 승인한다 (5장 §"Data Class as a Code
+  Smell", p.191).[^ramalho2022]
 - **② 파울러 쪽이 이미 같은 예외를 명시한다.** 2판의 *Data Class* 항목이 그것을 적는다 —
   **그러나 예외가 있고, 최선의 예외 중 하나가 별개의 함수 호출에서 나온 결과 레코드로 쓰이는
   레코드다. (…) 그런 결과 레코드의 핵심 특성은 그것이 (적어도 실제로는) 불변이라는 것이다**
@@ -201,12 +201,11 @@ sources:
     §"Active Record" p.101). **논쟁 중인 소스다** — 지위와 반입 규약은
     `it/sources/martin2008.md`가 정본이다. 쪽은 인쇄판 쪽 번호이며 복원 절차는
     `it/archive/martin2008/_progress.yaml` 머리말이 정본이다.
-[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders" 중 제사 · §"Data class as a code
-    smell"(안에 전문 재수록된 Martin Fowler, "Code Smell" 포함) · §"Data class as
-    scaffolding" · §"Data class as intermediate representation" · §"Chapter Summary" ·
-    §"Further Reading" · 각주 1과 각주 9. **이 소스의 locator는 장 + 절 제목이다** —
-    인쇄판 쪽 앵커가 없다. **이 스냅샷은 Early Release 판이라 절 제목이 정식 출간본
-    표기(§"Data Class as a Code Smell")와 대소문자가 다르다** — 각주는 스냅샷의 표기를
-    쓴다. 검증 절차와 근거는 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다.
+[^ramalho2022]: Ramalho 2022, 5장 "Data Class Builders" 중 제사 p.163 · §"Data Class as a
+    Code Smell" pp.190–191(안에 전문 재수록된 Martin Fowler, "Code Smell" 포함) ·
+    §"Data Class as Scaffolding" p.191 · §"Data Class as Intermediate Representation"
+    p.191 · §"Chapter Summary" p.196 · §"Further Reading" p.197 · 각주 1 p.163과
+    각주 9 p.190. **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그
+    오프셋 실측과 판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다.
     파울러 글의 재수록분은 원문이 영어 산문이라 한국어로 재서술하되 판정에 쓰이는 문장은
     직인용했다. 이 페이지에는 코드 펜스가 없다 — 이 절에 코드 예제가 없다.

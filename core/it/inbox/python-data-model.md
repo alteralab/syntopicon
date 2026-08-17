@@ -29,21 +29,24 @@ sources:
 
 - 규정 — **데이터 모델을 프레임워크로서의 파이썬에 대한 서술이라고 생각할 수 있다. 그것은
   언어 자체의 구성 요소들 — 시퀀스, 함수, 이터레이터, 코루틴, 클래스, 컨텍스트 매니저
-  같은 것들 — 의 인터페이스를 형식화한다** (1장 도입).[^ramalho2022]
+  같은 것들 — 의 인터페이스를 형식화한다** (1장 도입, p.3).[^ramalho2022]
   - 프레임워크라는 비유가 실무적 귀결을 갖는다 — **프레임워크를 쓸 때 우리는 프레임워크가
     호출하는 메서드를 코딩하는 데 많은 시간을 쓴다. 파이썬 데이터 모델을 활용해 새 클래스를
-    지을 때도 같은 일이 일어난다** (1장 도입).[^ramalho2022]
+    지을 때도 같은 일이 일어난다** (1장 도입, p.3).[^ramalho2022]
 - 이름 — 특수 메서드(special method)는 앞뒤로 밑줄 둘이 붙는다. 그래서 던더 메서드(dunder
   method)라 부른다. **"던더"는 "앞뒤로 이중 밑줄(double underscore before and after)"의
-  줄임이다** (1장 곁글 §"Magic and Dunder").[^ramalho2022]
+  줄임이다** (1장 곁글 §"Magic and Dunder", p.4).[^ramalho2022]
   - 저자가 "매직 메서드(magic method)"라는 통칭을 명시적으로 기각한다 — **나는 특수
     메서드가 마법의 반대라고 믿는다. 파이썬과 루비는 완전히 문서화된 풍부한 메타객체
-    프로토콜로 사용자에게 힘을 준다** (1장 곁글 §"Soapbox").[^ramalho2022] 대비 대상이
-    Go다: Go의 배열·문자열·맵은 대괄호 접근을 지원하지만 **사용자가 정의한 새 컬렉션
-    타입에 `[]` 표기가 동작하게 만들 방법이 없다**는 것이 저자의 진단이다.
-  - 다만 언어 참조서가 다는 경고가 함께 인용된다 — **명시적으로 문서화된 용법을 따르지
-    않는 `__*__` 이름의 어떤 사용도 예고 없이 깨질 수 있다** (1장 곁글 §"Magic and
-    Dunder"에 인용된 The Python Language Reference).[^ramalho2022]
+    프로토콜로 사용자에게 힘을 준다** (1장 §"Soapbox" 곁글 §"Muggle Methods",
+    p.19).[^ramalho2022] 대비 대상이 Go다: Go의 배열·문자열·맵은 대괄호 접근을 지원하지만
+    **사용자가 정의한 새 컬렉션 타입에 `[]` 표기가 동작하게 만들 방법이 없다**는 것이 저자의
+    진단이고, 한 걸음 더 나간다 — **더 나쁜 것은 Go에 반복 가능 인터페이스나 이터레이터
+    객체라는 사용자 수준 개념이 없다는 점이다. 그래서 `for`/`range` 문법이 배열·문자열·맵을
+    포함한 다섯 개의 "마법" 내장 타입을 지원하는 데 갇혀 있다** (같은 곁글, p.19).
+  - 다만 언어 참조서가 다는 경고가 함께 인용된다 — **문맥을 불문하고, 명시적으로 문서화된
+    용법을 따르지 않는 `__*__` 이름의 어떤 사용도 예고 없이 깨질 수 있다** (1장 곁글
+    §"Magic and Dunder"에 인용된 The Python Language Reference, p.4).[^ramalho2022]
 
 ## 특수 메서드는 인터프리터가 부른다
 
@@ -51,17 +54,17 @@ sources:
   인터프리터에 의해 호출되게 되어 있다는 점이다. 당신은 `my_object.__len__()`을 쓰지
   않는다. 당신은 `len(my_object)`를 쓰고, `my_object`가 사용자 정의 클래스의 인스턴스라면
   파이썬이 당신이 구현한 `__len__` 메서드를 호출한다** (1장 §"How Special Methods Are
-  Used").[^ramalho2022]
+  Used", p.8).[^ramalho2022]
   - 유일한 예외가 명시된다 — **사용자 코드가 직접 자주 호출하는 유일한 특수 메서드는
     `__init__`이며, 자신의 `__init__` 구현에서 상위 클래스의 초기화 메서드를 부를 때다**
-    (1장 §"How Special Methods Are Used").[^ramalho2022]
+    (1장 §"How Special Methods Are Used", p.9).[^ramalho2022]
   - 그래서 지침이 따라온다 — **특수 메서드를 호출해야 한다면 보통은 대응하는 내장 함수
     (`len`·`iter`·`str` 등)를 부르는 편이 낫다** (1장 §"How Special Methods Are
-    Used").[^ramalho2022] 이유가 둘이다: 내장 함수는 다른 서비스도 함께 제공하고, 내장
+    Used", p.8).[^ramalho2022] 이유가 둘이다: 내장 함수는 다른 서비스도 함께 제공하고, 내장
     타입에 대해서는 더 빠르다.
 - 호출이 대개 암묵적이라는 것이 이 층의 성격이다 — `for i in x:`는 `iter(x)` 호출을
   일으키고, 그것이 다시 `x.__iter__()`를 부르거나 없으면 `x.__getitem__()`을 쓴다
-  (1장 §"How Special Methods Are Used").[^ramalho2022]
+  (1장 §"How Special Methods Are Used", p.9).[^ramalho2022]
 
 ## 두 메서드가 사 오는 것
 
@@ -69,7 +72,7 @@ sources:
 클래스가 표준 시퀀스처럼 굴기 시작한다.
 
 - 예제의 클래스는 카드 한 벌이고, 위임(composition)으로 실제 일은 내부 리스트가 한다
-  (1장 §"A Pythonic Card Deck" 예제 1-1).[^ramalho2022]
+  (1장 §"A Pythonic Card Deck" 예제 1-1, p.5).[^ramalho2022]
 
   ```python
   import collections
@@ -91,43 +94,43 @@ sources:
           return self._cards[position]
   ```
 
-- 두 메서드로 따라오는 것들 (1장 §"A Pythonic Card Deck"):[^ramalho2022] `len(deck)`,
+- 두 메서드로 따라오는 것들 (1장 §"A Pythonic Card Deck", pp.5–8):[^ramalho2022] `len(deck)`,
   `deck[0]`·`deck[-1]` 색인, 슬라이싱(`deck[:3]`·`deck[12::13]`), `for card in deck`
   반복, `reversed(deck)`, `in` 연산자, `sorted(deck, key=...)`, 그리고 표준 라이브러리의
   `random.choice(deck)`.
   - 슬라이싱이 공짜인 이유가 위임이다 — **우리 `__getitem__`이 `self._cards`의 `[]`
     연산자에 위임하므로 우리 덱은 자동으로 슬라이싱을 지원한다** (1장 §"A Pythonic Card
-    Deck").[^ramalho2022]
+    Deck", p.6).[^ramalho2022]
   - `in`이 동작하는 이유는 반복이 되기 때문이다 — **컬렉션에 `__contains__` 메서드가
-    없으면 `in` 연산자는 순차 훑기를 한다** (1장 §"A Pythonic Card Deck").[^ramalho2022]
-- 그래서 이 장이 뽑는 이득이 둘이다 (1장 §"A Pythonic Card Deck"):[^ramalho2022]
+    없으면 `in` 연산자는 순차 훑기를 한다** (1장 §"A Pythonic Card Deck", p.7).[^ramalho2022]
+- 그래서 이 장이 뽑는 이득이 둘이다 (1장 §"A Pythonic Card Deck", p.6):[^ramalho2022]
   - **당신 클래스의 사용자가 표준 연산에 대해 임의의 메서드 이름을 외울 필요가 없다
     ("항목 수를 어떻게 얻지? `.size()`인가 `.length()`인가 뭐지?").**
   - **풍부한 파이썬 표준 라이브러리의 이득을 보고 `random.choice` 함수처럼 바퀴를 다시
     발명하지 않기가 더 쉽다.**
 - 맺음이 이 페이지의 조문이다 — **`FrenchDeck`이 `object` 클래스를 암묵적으로 상속하지만
   그 기능의 대부분은 상속된 것이 아니라 데이터 모델과 합성을 활용한 데서 온다**
-  (1장 §"A Pythonic Card Deck").[^ramalho2022]
+  (1장 §"A Pythonic Card Deck", p.8).[^ramalho2022]
   - 이것이 [상속세](inheritance-tax.md)가 말하는 것의 언어 쪽 실물이다. 파이썬에서
     "표준 타입처럼 굴게 만들기"는 상속이 아니라 **규약 준수**로 얻어진다.
 
 ## 컬렉션 API — 특수 메서드로 지은 인터페이스 층
 
 - `collections.abc`의 컬렉션 추상 기반 클래스들은 각각 특수 메서드 하나로 규정된다
-  (1장 §"Collection API"):[^ramalho2022] `Iterable`은 `__iter__`로 반복을, `Sized`는
+  (1장 §"Collection API", pp.14–15):[^ramalho2022] `Iterable`은 `__iter__`로 반복을, `Sized`는
   `__len__`으로 `len` 내장 함수를, `Container`는 `__contains__`로 `in` 연산자를 받친다.
   파이썬 3.6이 더한 `Collection` 추상 기반 클래스가 이 셋을 묶는다.
   - 그리고 **상속이 요구되지 않는다** — **파이썬은 구상 클래스가 이 ABC들 중 어느 것도
     실제로 상속하도록 요구하지 않는다. `__len__`을 구현하는 어떤 클래스든 `Sized`
-    인터페이스를 만족한다** (1장 §"Collection API").[^ramalho2022] 이 한 줄이
+    인터페이스를 만족한다** (1장 §"Collection API", p.15).[^ramalho2022] 이 한 줄이
     [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md)의 출발점이다.
   - `Collection`의 세 특화가 `Sequence`(내장 `list`·`str`의 인터페이스),
     `Mapping`(`dict` 등), `Set`(`set`·`frozenset`)이고, **`Sequence`만 `Reversible`이다.
     시퀀스는 내용의 임의 순서를 지원하지만 매핑과 집합은 그렇지 않기 때문이다**
-    (1장 §"Collection API").[^ramalho2022]
+    (1장 §"Collection API", p.15).[^ramalho2022]
 - 특수 메서드의 규모 — **The Python Language Reference의 "Data Model" 장은 80개가 넘는
   특수 메서드 이름을 나열한다. 그 절반 이상이 산술·비트·비교 연산자를 구현한다**
-  (1장 §"Overview of Special Methods").[^ramalho2022] 이 장의 표 둘이 그것을 범주별로
+  (1장 §"Overview of Special Methods", p.15).[^ramalho2022] 이 장의 표 둘이 그것을 범주별로
   정리한다 — 연산자를 뺀 쪽(문자열 표현·수 변환·컬렉션 흉내·반복·호출·컨텍스트 관리·
   인스턴스 생성과 소멸·속성 관리·속성 기술자·추상 기반 클래스·클래스 메타프로그래밍)과
   연산자 쪽(단항·풍부한 비교·산술·역산술·증강 대입·비트).
@@ -136,16 +139,26 @@ sources:
 
 - 질문 자체가 이 장의 문제 제기다 — **파이썬 전에 다른 객체 지향 언어를 배웠다면
   `collection.len()` 대신 `len(collection)`을 쓰는 것이 이상해 보일 수 있다**
-  (1장 도입).[^ramalho2022]
-- 답 — **실용성이 순수성을 이긴다.** 내장 타입에 대해서는 메서드가 아예 호출되지 않는다.
-  **CPython의 내장 객체에 대해서는 어떤 메서드도 호출되지 않는다: 길이는 그저 C 구조체의
-  필드에서 읽힌다** (1장 §"Why len Is Not a Method").[^ramalho2022] 가변 크기 컬렉션이
-  담는 `PyVarObject` 구조체의 `ob_size` 필드가 그것이다.
+  (1장 도입, p.3).[^ramalho2022]
+- 답 — **실용성이 순수성을 이긴다.** 저자가 2013년에 핵심 개발자 Raymond Hettinger에게 이
+  질문을 했고, **그 답의 열쇠가 "The Zen of Python"의 한 줄 "practicality beats purity"였다**
+  (1장 §"Why len Is Not a Method", p.17).[^ramalho2022] 내장 타입에 대해서는 메서드가 아예
+  호출되지 않는다 — **CPython의 내장 객체에 대해서는 어떤 메서드도 호출되지 않는다: 길이는
+  그저 C 구조체의 필드에서 읽힌다** (1장 §"Why len Is Not a Method", p.17).[^ramalho2022]
+  - 그 구조체가 무엇인지는 앞 절이 댄다 — **C로 쓰인 파이썬의 가변 크기 컬렉션은
+    `PyVarObject`라는 구조체를 포함하며, 그것이 컬렉션의 항목 수를 담는 `ob_size` 필드를
+    갖는다. 그래서 `my_object`가 그런 내장 타입 중 하나의 인스턴스라면
+    `len(my_object)`는 `ob_size` 필드의 값을 가져오고, 이것은 메서드를 호출하는 것보다
+    훨씬 빠르다** (1장 §"How Special Methods Are Used", p.8).[^ramalho2022]
 - 그래서 이것이 절충으로 규정된다 — **`len`은 `abs`와 마찬가지로 파이썬 데이터 모델의
   일부로 특별 대우를 받기 때문에 메서드로 호출되지 않는다. 그러나 특수 메서드 `__len__`
   덕분에 당신의 맞춤 객체에서도 `len`이 동작하게 만들 수 있다. 이것은 효율적인 내장 객체의
   필요와 언어의 일관성 사이의 공정한 타협이다** (1장 §"Why len Is Not a
-  Method").[^ramalho2022]
+  Method", p.17).[^ramalho2022]
+  - 저자가 같은 자리에서 "The Zen of Python"을 한 줄 더 인용해 그 특례의 성격을 못 박는다 —
+    **"Special cases aren't special enough to break the rules."** 즉 이 특례는 규칙을
+    깨는 것이 아니라 규칙 안에 난 빠른 길이다 (1장 §"Why len Is Not a
+    Method", p.17).[^ramalho2022]
 - **이 절이 이 KB에 값을 갖는 이유**는 답 자체가 아니라 답의 모양이다. 언어 설계자가
   일관성을 깨는 특례를 두되 그 특례가 **사용자 코드에도 열려 있게** 만들었다 — 내장 타입은
   빠른 경로로 가고, 사용자 타입은 같은 문법으로 같은 결과를 얻는다. [복잡성을 아래로
@@ -165,11 +178,12 @@ sources:
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
-[^ramalho2022]: Ramalho 2022, 1장 "The Python Data Model"(도입 · §"Magic and Dunder"
-    곁글 · §"A Pythonic Card Deck" · §"How Special Methods Are Used" · §"Collection API" ·
-    §"Overview of Special Methods" · §"Why len Is Not a Method" · §"Soapbox" 곁글).
-    **이 소스의 locator는 장 + 절 제목이다** — 인쇄판 쪽 앵커가 없다. 검증 절차와 근거,
-    그리고 **이 스냅샷이 Early Release 판이라는 사실**은
-    `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다. Figure 1-1(2차원 벡터
-    덧셈)과 Figure 1-2(`collections.abc` UML 클래스 다이어그램)는 이미지로 조판돼 있어
-    딸린 설명 산문과 본문 서술만 옮겼다. 코드 펜스는 예제 1-1 원문 그대로다.
+[^ramalho2022]: Ramalho 2022, 1장 "The Python Data Model", pp.3–19(도입 pp.3–4 ·
+    §"Magic and Dunder" 곁글 p.4 · §"A Pythonic Card Deck" pp.5–8 · §"How Special Methods
+    Are Used" pp.8–9 · §"Collection API" pp.14–15 · §"Overview of Special Methods"
+    pp.15–17 · §"Why len Is Not a Method" p.17 · §"Soapbox" 곁글 §"Muggle Methods"
+    pp.19–20). **locator의 쪽은 인쇄판 쪽이다** — 스냅샷 PDF 쪽에서 30을 뺀 값이고, 그
+    오프셋 실측과 판본 판정은 `it/archive/ramalho2022/_progress.yaml` 머리말이 정본이다.
+    Figure 1-1(2차원 벡터 덧셈)과 Figure 1-2(`collections.abc` UML 클래스 다이어그램)는
+    이미지로 조판돼 있어 딸린 설명 산문과 본문 서술만 옮겼다. 코드 펜스는 예제 1-1 원문
+    그대로다.
