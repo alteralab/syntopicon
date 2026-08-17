@@ -12,8 +12,8 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 
 ## 패턴과 구조
 
-- [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG의 구조와 두 구성 요소,
-  왜 컨텍스트가 길어져도 검색이 남는가
+- [검색 증강 생성](../concepts/retrieval-augmented-generation.md) — RAG의 구조와 계보(FiD),
+  검색 여부를 모델이 정하는 적응형 검색(Self-RAG), 왜 컨텍스트가 길어져도 검색이 남는가
 
 ## 검색 알고리즘
 
@@ -22,18 +22,20 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 - [임베딩 기반 검색](../concepts/embedding-based-retrieval.md) — 의미 공간에서의 이웃 찾기와
   ANN 색인이 딛는 자리
 - [검색 평가](../concepts/retrieval-evaluation.md) — 맥락 정밀도와 재현율, 검색기 자체를 재는 법
-- [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 두 검색기를 섞는 법과
-  순위를 다시 매기는 법
+- [하이브리드 검색과 리랭킹](../concepts/hybrid-search-and-reranking.md) — 두 검색기를 섞는 법,
+  교차 인코더 리랭커의 기제, 컨텍스트 배치의 위치 편향까지
 
 ## 검색 최적화
 
-- [청킹 전략](../concepts/chunking-strategy.md) — 문서를 가르는 단위와 크기의 맞바꿈
+- [청킹 전략](../concepts/chunking-strategy.md) — 문서를 가르는 단위와 크기의 맞바꿈, 재귀 요약
+  트리(RAPTOR)라는 대안
 - [쿼리 재작성](../concepts/query-rewriting.md) — 질의를 검색이 잘 되는 꼴로 고치기
 - [맥락 증강 검색](../concepts/contextual-retrieval.md) — 청크에 맥락을 붙여 검색 실패를 줄이기
 
 ## 텍스트 너머
 
-- [텍스트 너머의 RAG](../concepts/rag-beyond-text.md) — 멀티모달 문서와 표 데이터 위의 RAG
+- [텍스트 너머의 RAG](../concepts/rag-beyond-text.md) — 멀티모달 문서, 표 데이터, 그리고 지식 그래프
+  위의 RAG(GraphRAG)
 
 ## 다른 축에서 여기로 이어지는 자리
 
