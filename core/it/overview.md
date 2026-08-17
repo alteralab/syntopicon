@@ -38,6 +38,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [실용주의 프로그래머](synthesis/pragmatic-programmer.md) — 소프트웨어 실천 축의 부모 허브: 철학·도구·유연성·코딩·프로젝트 다섯 갈래
 - [자바 기술 시스템](synthesis/java-technology-system.md) — JVM 축의 부모 허브: 메모리·도구·클래스 파일과 로딩·컴파일·동시성
 - [파운데이션 모델과 AI 엔지니어링](synthesis/foundation-models-and-ai-engineering.md) — LLM 축의 부모 허브: 모델 계보·스택과 아홉 자식 축(평가·프롬프트·RAG·에이전트·파인 튜닝·데이터셋·추론 서빙·아키텍처·피드백)
+- [복잡성과 모듈 설계](synthesis/complexity-and-modular-design.md) — 코드 품질 축: 복잡성의 정의와 증상, 깊은 모듈·정보 은닉·범용성·계층·끌어내리기, 합침과 나눔, 오류 없애기
 
 ## Tools
 
