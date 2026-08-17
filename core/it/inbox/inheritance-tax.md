@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 상속세
-description: 상속이 두 갈래 역사(시뮬라의 타입 조합과 스몰토크의 행동 조직)에서 왔고 그 둘이 각각 다른 이유로 오용된다는 진단, 상속이 곧 결합이라는 판정과 부모의 이름 변경이 자식과 그 사용자를 조용히 깨뜨리는 실물, 타입 나무가 벽을 덮는 괴물이 되는 경로와 다중 상속의 벽, 그리고 상속을 대체하는 세 기법(인터페이스와 프로토콜·위임·믹스인)과 각각을 고르는 기준, 그리고 같은 구분을 의도가 아니라 기제로 긋는 소프트웨어 설계 쪽 — 인터페이스 상속은 깊이를 늘리고 구현 상속은 정보 누출을 만든다는 갈림과 상속을 못 버릴 때의 완화책
-generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
+description: 상속이 두 갈래 역사(시뮬라의 타입 조합과 스몰토크의 행동 조직)에서 왔고 그 둘이 각각 다른 이유로 오용된다는 진단, 상속이 곧 결합이라는 판정과 부모의 이름 변경이 자식과 그 사용자를 조용히 깨뜨리는 실물, 타입 나무가 벽을 덮는 괴물이 되는 경로와 다중 상속의 벽, 그리고 상속을 대체하는 세 기법(인터페이스와 프로토콜·위임·믹스인)과 각각을 고르는 기준, 그리고 같은 구분을 의도가 아니라 기제로 긋는 소프트웨어 설계 쪽 — 인터페이스 상속은 깊이를 늘리고 구현 상속은 정보 누출을 만든다는 갈림과 상속을 못 버릴 때의 완화책, 그리고 같은 약점을 인정하면서도 기본값을 반대로 세우는 셋째 입장 — 먼저 상속을 쓰고 문제가 되면 위임으로 갈아 끼우라는 리팩터링 쪽 판정과 상속을 정당하게 만드는 의미 조건 둘
+generated: { by: "claude-opus-5", at: "2026-08-17T20:00:00Z" }
 status: draft
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: fowler2018, resource: /it/sources/fowler2018.md }
 ---
 
 # 상속세
@@ -21,6 +22,7 @@ sources:
 - [무엇을 언제 고르는가](#무엇을-언제-고르는가)
 - [이 KB의 상속 서술과 나란히](#이-kb의-상속-서술과-나란히)
 - [같은 구분을 기제로 긋는 쪽](#같은-구분을-기제로-긋는-쪽)
+- [셋째 입장 — 먼저 쓰고 필요하면 갈아 끼운다](#셋째-입장--먼저-쓰고-필요하면-갈아-끼운다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **행동을 공유하거나 타입을 표현하려 할 때, 상속 말고 무엇을 쓸 수 있고 왜 그래야
@@ -337,8 +339,50 @@ sources:
 - 두 소스가 서로를 참조한 적은 없다. 그쪽의 여섯 유행 평가 전문은
   [소프트웨어 유행을 잣대로 재기](evaluating-software-trends.md)에 있다.
 
+## 셋째 입장 — 먼저 쓰고 필요하면 갈아 끼운다
+
+같은 대상에 대해 셋째 소스가 **반대 방향의 기본값**을 세운다. 앞의 두 소스가 상속을 쓰기 전에
+멈추라고 하는 데 비해, 리팩터링(refactoring) 카탈로그 쪽은 **먼저 상속을 쓰고 문제가 되면
+갈아 끼우라**고 한다. 갈리는 것은 상속의 위험도가 아니라 **되돌릴 수 있는가에 대한 신뢰**다.
+
+- **원칙 자체는 같은 것을 인용하되 통상적 해석을 기각한다** (12장 §"Replace Subclass with
+  Delegate", p.382):[^fowler2018]
+
+> There is a popular principle: "Favor object composition over class inheritance" (where
+> composition is effectively the same as delegation). Many people take this to mean
+> "inheritance considered harmful" and claim that we should never use inheritance. I use
+> inheritance frequently, partly because I always know I can use Replace Subclass with
+> Delegate should I need to change it later. Inheritance is a valuable mechanism that does
+> the job most of the time without problems. So I reach for it first, and move onto
+> delegation when it starts to rub badly.
+
+- **그 해석이 원칙의 출처와도 어긋난다고 지적한다** — **이 용법은 실은 그 원칙과 일관된다. 그
+  원칙은 상속과 합성(composition)이 어떻게 함께 동작하는지 설명하는 4인방 책에서 왔다. 그
+  원칙은 상속의 과용에 대한 반작용이었다** (12장 §"Replace Subclass with Delegate",
+  p.382).[^fowler2018]
+- **상속을 정당하게 만드는 의미 조건 둘이 명시된다** — **적절한 의미 조건이 적용되는 한(상위
+  타입의 모든 메서드가 하위 타입에 적용되고, 하위 타입의 모든 인스턴스가 상위 타입의
+  인스턴스라면) 상속은 단순하고 효과적인 기제다. (…) 그러니 내 조언은 (대체로) 상속을 먼저
+  쓰고, 그것이 문제가 될 때(그리고 되면) Replace Superclass with Delegate를 적용하라는
+  것이다** (12장 §"Replace Superclass with Delegate", p.400).[^fowler2018]
+  - 이 두 조건은 이 페이지의 [타입을 만들려는 상속](#타입을-만들려는-상속--벽을-덮는-나무)이
+    진단하는 실패와 같은 것을 반대로 진술한 것이다. 그쪽이 조건을 어기는 나무를 보여 준다면
+    이쪽은 조건을 지키는 한 써도 된다고 말한다.
+- **진단 자체는 겹친다.** 이 소스도 상속의 약점 둘을 든다 — **한 번만 낼 수 있는 카드**(변이
+  축이 하나뿐이다)와 **매우 가까운 관계**(부모의 변경이 자식을 쉽게 깨뜨린다) (12장 §"Replace
+  Subclass with Delegate", p.382).[^fowler2018] 위
+  [코드를 공유하려는 상속](#코드를-공유하려는-상속--상속은-곧-결합이다)의 진단과 같다.
+- **갈리는 것은 처방의 시점이다.** 이쪽은 되돌리는 항목 둘(*Replace Subclass with Delegate*,
+  *Replace Superclass with Delegate*)을 손에 쥐고 있으므로 처음 선택을 보수적으로 하지 않는다.
+  #hypothesis 세 소스 중 어느 것도 서로를 인용하지 않았고, 이 차이를 모순이 아니라 관점 차이로
+  판정한 근거는 두 가지다 — 세 소스가 같은 약점을 인정하고, 갈리는 명제가 "상속이 위험한가"가
+  아니라 "나중에 갈아 끼우는 비용을 얼마로 보는가"라는 계량이다.
+- 전문과 나머지 아홉 항목은 [상속 다루기 리팩터링](refactoring-inheritance.md)에 있다.
+
 ## 이어지는 페이지
 
+- [상속 다루기 리팩터링](refactoring-inheritance.md) — **셋째 입장의 전문.** 계층을 고치는
+  열한 항목과 상속을 위임으로 바꾸는 두 항목
 - [결합 끊기](../concepts/decoupling.md) — 이 Topic이 받는 셋째 결합원. 그쪽이 상속을 여기로 미뤘다
 - [직교성](orthogonality.md) — 저자들이 지목한 관련 절. 독립성을 설계 성질로 말하는 자리
 - [ETC — 바꾸기 쉬운 것이 좋은 설계](../concepts/etc-easier-to-change.md) — 저자들이 지목한 관련 절(Topic 8)
@@ -355,3 +399,9 @@ sources:
 
 [^ousterhout2021]: Ousterhout 2021, 19장 "Software Trends" §19.1 "Object-oriented programming and inheritance". 쪽은 인쇄판 쪽 번호. 이 장에는 코드 예제도
     도판도 없다.
+
+[^fowler2018]: Fowler 2018, 12장 "Dealing with Inheritance" §"Replace Subclass with
+    Delegate"(pp.381–382) · §"Replace Superclass with Delegate"(pp.399–400). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 22). 직인용에서 워터마크 문자열 `ptg26261585`를 제거했다 — 이 소스의 표준
+    규약이며 근거는 `it/archive/fowler2018/_progress.yaml` 머리말에 있다. 항목의 Example 절과
+    스케치 도판은 옮기지 않았다.

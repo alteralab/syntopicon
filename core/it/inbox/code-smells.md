@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 코드의 나쁜 냄새
-description: 리팩터링할 때를 정밀한 계측이 아니라 후각으로 판정하자는 제안과 그 어휘 스물넷 — 이름·중복·긴 함수·긴 매개변수 목록·전역 데이터·가변 데이터·발산하는 변경·산탄총 수술·기능 편애·데이터 뭉치·기본형 집착·반복되는 switch·반복문·게으른 요소·추측성 일반화·임시 필드·메시지 체인·중개자·내부자 거래·거대한 클래스·인터페이스가 다른 대안 클래스·데이터 클래스·상속 포기·주석, 그리고 각 냄새가 지목하는 리팩터링과 저자 자신이 초판에서 철회하거나 약화시킨 판정들
+description: 리팩터링할 때를 정밀한 계측이 아니라 후각으로 판정하자는 제안과 그 어휘 스물넷 — 이름·중복·긴 함수·긴 매개변수 목록·전역 데이터·가변 데이터·발산하는 변경·산탄총 수술·기능 편애·데이터 뭉치·기본형 집착·반복되는 switch·반복문·게으른 요소·추측성 일반화·임시 필드·메시지 체인·중개자·내부자 거래·거대한 클래스·인터페이스가 다른 대안 클래스·데이터 클래스·상속 포기·주석, 각 냄새가 지목하는 리팩터링을 카탈로그 항목과 잇는 처방 대응표(그리고 어느 냄새도 부르지 않는 열일곱 항목), 그리고 저자 자신이 초판에서 철회하거나 약화시킨 판정들
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
 status: draft
 contradicts: [why-write-comments]
@@ -23,6 +23,7 @@ sources:
 - [연결이 지나친 것 — 메시지 체인·중개자·내부자 거래](#연결이-지나친-것--메시지-체인중개자내부자-거래)
 - [클래스의 모양 — 거대한 클래스·대안 클래스·데이터 클래스·상속 포기](#클래스의-모양--거대한-클래스대안-클래스데이터-클래스상속-포기)
 - [주석 — 탈취제로 쓰이는 냄새](#주석--탈취제로-쓰이는-냄새)
+- [냄새에서 카탈로그로 — 처방 대응표](#냄새에서-카탈로그로--처방-대응표)
 - [설계 잣대를 세운 소스와 갈리는 자리](#설계-잣대를-세운-소스와-갈리는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -399,6 +400,59 @@ sources:
   있다. 주석은 또한 당신이 무언가를 *왜* 했는지 설명할 수 있다. 이런 종류의 정보는 미래의
   수정자, 특히 잘 잊는 이들에게 도움이 된다** (3장 §"Comments", p.84).[^fowler2018]
 
+## 냄새에서 카탈로그로 — 처방 대응표
+
+이 장이 스스로 밝힌 사용법이 색인이다 — **당신이 무엇을 냄새 맡고 있는지 식별해 보고, 우리가
+제안하는 리팩터링으로 가서 그것이 도움이 되는지 보라** (3장, p.72).[^fowler2018] 아래 표가 그
+"가서"의 목적지를 한자리에 모은 것이고, 오른쪽 열이 그 항목이 사는 이 KB의 페이지다.
+
+| 냄새 | 이 장이 지목하는 리팩터링 | 어디에 |
+|---|---|---|
+| Mysterious Name | Change Function Declaration · Rename Variable · Rename Field | [기본](basic-refactorings.md) · [데이터](organizing-data.md) |
+| Duplicated Code | Extract Function · Slide Statements · Pull Up Method | [기본](basic-refactorings.md) · [이동](moving-features.md) · [상속](refactoring-inheritance.md) |
+| Long Function | Extract Function · Replace Temp with Query · Introduce Parameter Object · Preserve Whole Object · Replace Function with Command · Decompose Conditional · Replace Conditional with Polymorphism · Split Loop | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) · [조건](simplifying-conditional-logic.md) · [API](refactoring-apis.md) |
+| Long Parameter List | Replace Parameter with Query · Preserve Whole Object · Introduce Parameter Object · Remove Flag Argument · Combine Functions into Class | [기본](basic-refactorings.md) · [API](refactoring-apis.md) |
+| Global Data | Encapsulate Variable | [기본](basic-refactorings.md) |
+| Mutable Data | Encapsulate Variable · Split Variable · Slide Statements · Extract Function · Separate Query from Modifier · Remove Setting Method · Replace Derived Variable with Query · Combine Functions into Class · Combine Functions into Transform · Change Reference to Value | [기본](basic-refactorings.md) · [이동](moving-features.md) · [데이터](organizing-data.md) · [API](refactoring-apis.md) |
+| Divergent Change | Split Phase · Move Function · Extract Function · Extract Class | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) |
+| Shotgun Surgery | Move Function · Move Field · Combine Functions into Class · Combine Functions into Transform · Split Phase · Inline Function · Inline Class | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) |
+| Feature Envy | Move Function · Extract Function | [기본](basic-refactorings.md) · [이동](moving-features.md) |
+| Data Clumps | Extract Class · Introduce Parameter Object · Preserve Whole Object | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [API](refactoring-apis.md) |
+| Primitive Obsession | Replace Primitive with Object · Replace Type Code with Subclasses · Replace Conditional with Polymorphism · Extract Class · Introduce Parameter Object | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [조건](simplifying-conditional-logic.md) · [상속](refactoring-inheritance.md) |
+| Repeated Switches | Replace Conditional with Polymorphism | [조건](simplifying-conditional-logic.md) |
+| Loops | Replace Loop with Pipeline | [이동](moving-features.md) |
+| Lazy Element | Inline Function · Inline Class · Collapse Hierarchy | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [상속](refactoring-inheritance.md) |
+| Speculative Generality | Collapse Hierarchy · Inline Function · Inline Class · Change Function Declaration · Remove Dead Code | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) · [상속](refactoring-inheritance.md) |
+| Temporary Field | Extract Class · Move Function · Introduce Special Case | [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) · [조건](simplifying-conditional-logic.md) |
+| Message Chains | Hide Delegate · Extract Function · Move Function | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) |
+| Middle Man | Remove Middle Man · Inline Function · Replace Superclass with Delegate · Replace Subclass with Delegate | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [상속](refactoring-inheritance.md) |
+| Insider Trading | Move Function · Move Field · Hide Delegate · Replace Subclass with Delegate · Replace Superclass with Delegate | [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) · [상속](refactoring-inheritance.md) |
+| Large Class | Extract Class · Extract Superclass · Replace Type Code with Subclasses | [캡슐화](encapsulation-refactorings.md) · [상속](refactoring-inheritance.md) |
+| Alternative Classes with Different Interfaces | Change Function Declaration · Move Function · Extract Superclass | [기본](basic-refactorings.md) · [이동](moving-features.md) · [상속](refactoring-inheritance.md) |
+| Data Class | Encapsulate Record · Remove Setting Method · Move Function · Extract Function | [기본](basic-refactorings.md) · [캡슐화](encapsulation-refactorings.md) · [이동](moving-features.md) · [API](refactoring-apis.md) |
+| Refused Bequest | Push Down Method · Push Down Field · Replace Subclass with Delegate · Replace Superclass with Delegate | [상속](refactoring-inheritance.md) |
+| Comments | Extract Function · Change Function Declaration · Introduce Assertion | [기본](basic-refactorings.md) · [조건](simplifying-conditional-logic.md) |
+
+- 표를 세로로 읽으면 **가장 많은 냄새가 부르는 항목**이 드러난다. *Extract Function*과
+  *Move Function*이 각각 여덟 냄새 이상에서 불리고, 이 둘이 카탈로그의 중심 항목인 이유가 여기
+  있다. 처방이 단 하나뿐인 냄새는 셋이다 — Global Data, Repeated Switches, Loops.
+- **거꾸로 대조하면 3장이 지목하지 않는 항목이 남는다.** 카탈로그 61개 중 이 장이 부르는 것은
+  44개이고, 나머지 17개는 어느 냄새도 처방으로 지목하지 않는다 — *Extract Variable*·
+  *Inline Variable*(6장), *Encapsulate Collection*·*Substitute Algorithm*(7장),
+  *Move Statements into Function*·*Move Statements to Callers*·*Replace Inline Code with
+  Function Call*(8장), *Change Value to Reference*(9장), *Consolidate Conditional
+  Expression*·*Replace Nested Conditional with Guard Clauses*(10장), *Parameterize
+  Function*·*Replace Query with Parameter*·*Replace Constructor with Factory Function*·
+  *Replace Command with Function*(11장), *Pull Up Field*·*Pull Up Constructor Body*·
+  *Remove Subclass*(12장).
+  - #hypothesis 이 열일곱은 대체로 **다른 리팩터링의 부품이거나 그 역**이다. 냄새는 눈에 보이는
+    증상을 가리키는데 이 항목들은 증상이 아니라 수순 중간에 필요해지는 수라서 색인에 오르지
+    않는 것으로 보인다. 근거로는 각 항목의 Mechanics가 이 열일곱을 자주 부른다는 것뿐이라
+    저자가 그렇게 말한 자리는 없다.
+- **이 표는 3장 본문에서만 뽑았다.** 이 장은 별도로 **뒤표지 안쪽의 표**를 함께 보라고
+  안내하는데(3장, p.71), 이 KB의 아카이브 PDF에는 그 표가 들어 있지 않다. 두 목록이 어긋날
+  가능성은 확인하지 못했다.
+
 ## 설계 잣대를 세운 소스와 갈리는 자리
 
 이 축에는 [A Philosophy of Software Design](../sources/ousterhout2021.md)이 먼저 들어와
@@ -448,6 +502,20 @@ sources:
 
 - [리팩터링](refactoring.md) — 이 냄새들이 부르는 활동의 정의
 - [언제 리팩터링하는가](when-to-refactor.md) — 냄새 말고 작업 흐름 쪽의 계기
+- [리팩터링 카탈로그를 읽는 법](refactoring-catalog-format.md) — 위 표의 목적지들이 어떤 규약으로
+  쓰였는가
+- [기본 리팩터링](basic-refactorings.md) — 6장. *Extract Function*을 비롯한 열한 항목
+- [캡슐화 리팩터링](encapsulation-refactorings.md) — 7장. *Extract Class*·*Replace Primitive
+  with Object*가 사는 곳
+- [기능 이동 리팩터링](moving-features.md) — 8장. *Move Function*·*Move Field*가 사는 곳
+- [데이터 조직화 리팩터링](organizing-data.md) — 9장. *Split Variable*·*Replace Derived
+  Variable with Query*가 사는 곳
+- [조건부 로직 단순화 리팩터링](simplifying-conditional-logic.md) — 10장.
+  *Replace Conditional with Polymorphism*이 사는 곳
+- [API 리팩터링](refactoring-apis.md) — 11장. *Remove Flag Argument*·*Preserve Whole Object*가
+  사는 곳
+- [상속 다루기 리팩터링](refactoring-inheritance.md) — 12장. *Push Down Method*와 위임 교체 둘이
+  사는 곳
 - [주석을 왜 쓰는가](why-write-comments.md) — **`contradicts` 상대.** 주석 냄새의 반대편
 - [합칠 것인가 나눌 것인가](better-together-or-better-apart.md) — 함수 크기 쟁점의 반대편
 - [DRY 원칙](dry-principle.md) — Duplicated Code의 원리 쪽 정본
