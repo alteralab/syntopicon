@@ -16,6 +16,7 @@ sources:
 - [컬렉션 API — 특수 메서드로 지은 인터페이스 층](#컬렉션-api--특수-메서드로-지은-인터페이스-층)
 - [len이 메서드가 아닌 이유](#len이-메서드가-아닌-이유)
 - [부르는 것도 데이터 모델을 거친다](#부르는-것도-데이터-모델을-거친다)
+- [문법마다 짝이 되는 프로토콜이 있다](#문법마다-짝이-되는-프로토콜이-있다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **"파이썬답다"는 말이 가리키는 대상이 무엇이고, 내 클래스가 그것을 어떻게
@@ -189,6 +190,32 @@ sources:
   (7장 §"The Nine Flavors of Callable Objects", p.239).[^ramalho2022] 아홉 갈래의 전체
   목록과 각각의 성질은 [파이썬의 일급 함수](first-class-functions-in-python.md)가 갖는다.
 
+## 문법마다 짝이 되는 프로토콜이 있다
+
+위 [특수 메서드는 인터프리터가 부른다](#특수-메서드는-인터프리터가-부른다)가 규칙을
+세운다면, 같은 소스의 4부가 그 규칙을 문법 단위로 다시 말한다 — 문법 하나에 그것을
+제어하는 프로토콜 하나가 짝지어져 있다는 것이다.
+
+- `for`와 `with`가 나란히 놓인다 — **컨텍스트 매니저 객체는 `with` 문을 제어하기 위해
+  존재한다. 이터레이터가 `for` 문을 제어하기 위해 존재하는 것과 똑같다** (18장 §"Context
+  Managers and with Blocks", p.658).[^ramalho2022]
+- `for` 쪽 — **파이썬이 어떤 객체 `x`를 순회해야 할 때마다, 자동으로 `iter(x)`를 부른다**
+  (17장 §"Why Sequences Are Iterable: The iter Function", p.596).[^ramalho2022] 그리고
+  이 페이지가 든 `__getitem__` 하나로 순회가 되는 예제의 근거가 그 함수의 둘째 단계다 —
+  **`__iter__`가 없고 `__getitem__`이 있으면, `iter()`가 0부터 시작하는 색인으로 항목을
+  가져오려 시도하는 이터레이터를 만든다** (같은 절, p.596).[^ramalho2022] 저자가 그것을
+  **덕 타이핑의 극단적 형태**라 부른다 (같은 절, p.597).[^ramalho2022]
+- `with` 쪽 — **`with`의 맨 위에서 파이썬이 컨텍스트 매니저 객체의 `__enter__` 메서드를
+  부른다. `with` 블록이 완료되거나 어떤 이유로든 종료되면 파이썬이 컨텍스트 매니저 객체의
+  `__exit__`를 부른다** (18장 §"Context Managers and with Blocks",
+  p.658).[^ramalho2022]
+- 비동기 문법에도 같은 대응이 반복된다 — `async with`는 `__aenter__`/`__aexit__`에,
+  `async for`는 `__aiter__`/`__anext__`에 얹힌다 (21장 §"Asynchronous Context Managers"
+  p.786 · §"Asynchronous Iteration and Asynchronous Iterables",
+  p.811).[^ramalho2022] 각각의 정본은
+  [컨텍스트 매니저 프로토콜](context-manager-protocol.md)과
+  [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md)에 있다.
+
 ## 이어지는 페이지
 
 - [파이썬다운 객체 만들기](building-pythonic-objects.md) — **이 요지가 하나의 클래스에서
@@ -214,6 +241,10 @@ sources:
 - [딕셔너리와 집합](dictionaries-and-sets.md) — `Mapping`과 `Set` 쪽의 같은 이야기
 - [객체 참조와 가변성](object-references-and-mutability.md) — `is`가 왜 데이터 모델 밖에
   있고 그래서 빠른가
+- [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md) — `for`가 부르는
+  것이 정확히 무엇인가
+- [컨텍스트 매니저 프로토콜](context-manager-protocol.md) — `with`가 부르는 것이 정확히
+  무엇인가
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
@@ -227,3 +258,7 @@ sources:
     Figure 1-1(2차원 벡터 덧셈)과 Figure 1-2(`collections.abc` UML 클래스 다이어그램)는
     이미지로 조판돼 있어 딸린 설명 산문과 본문 서술만 옮겼다. 코드 펜스는 예제 1-1 원문
     그대로다.
+    §"문법마다 짝이 되는 프로토콜이 있다"는 2026-08-18-10 런에서 같은 소스의 17장
+    §"Why Sequences Are Iterable: The iter Function"(pp.596–597) · 18장 §"Context Managers
+    and with Blocks"(p.658) · 21장 §"Asynchronous Context Managers"(p.786) ·
+    §"Asynchronous Iteration and Asynchronous Iterables"(p.811)에서 합류했다.

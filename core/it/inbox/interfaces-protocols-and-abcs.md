@@ -20,6 +20,7 @@ sources:
 - [정적 프로토콜 — 최소 인터페이스](#정적-프로토콜--최소-인터페이스)
 - [언제 ABC이고 언제 Protocol인가](#언제-abc이고-언제-protocol인가)
 - [같은 소스의 다른 장이 이 구분을 쓰는 자리](#같은-소스의-다른-장이-이-구분을-쓰는-자리)
+- [ABC를 만드는 것은 메타클래스다](#abc를-만드는-것은-메타클래스다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **"이 자리에 오는 객체는 이런 것이어야 한다"를 파이썬에서 몇 가지 방식으로
@@ -452,6 +453,37 @@ sources:
   다중 상속은 문제가 되지 않는다** (14장 §"Make Interfaces Explicit with ABCs",
   p.511).[^ramalho2022] 그 장의 나머지 지침은 [상속세](inheritance-tax.md)에 있다.
 
+## ABC를 만드는 것은 메타클래스다
+
+같은 소스의 5부가 이 장에서 쓴 기제 둘의 바닥을 드러낸다.
+
+- `abc.ABCMeta`의 정체 — **`collections.Iterable`의 클래스는 `abc.ABCMeta`다. `Iterable`은
+  추상 클래스이지만 `ABCMeta`는 구상 클래스라는 것을 주의하라 — 결국 `Iterable`이
+  `ABCMeta`의 인스턴스이니** (24장 §"Metaclasses 101", p.932).[^ramalho2022] 그리고 그
+  힘의 출처 — **`ABCMeta` 같은 메타클래스는 `type`으로부터 클래스를 구성하는 힘을
+  상속한다** (같은 절, pp.932–933).[^ramalho2022]
+- 그 사실이 실무의 제약 하나를 낳는다. **클래스는 메타클래스를 하나만 가질 수 있다** —
+  **`abc.ABC`가 `abc.ABCMeta` 메타클래스의 인스턴스임을 우리는 보았다. 그 `Persistent`
+  메타클래스가 `abc.ABCMeta`의 하위 클래스가 아니면 메타클래스 충돌이 난다** (24장
+  §"A Class Can Only Have One Metaclass", p.948).[^ramalho2022] 이 구분(ABC를 쓸 것인가
+  `Protocol`을 쓸 것인가)에 이것이 더하는 것은, **ABC를 고르면 그 클래스의 메타클래스
+  자리를 쓴다**는 사실이다. 그 자리를 다른 데 써야 하는 클래스와는 충돌한다.
+- 위 [가상 하위 클래스와 구조적 타이핑](#가상-하위-클래스와-구조적-타이핑)이 다룬
+  `__subclasshook__`이 표준 라이브러리 자신에게서도 쓰인다 — `abc.Iterator`의 소스가
+  `_check_methods(C, '__iter__', '__next__')`를 부르는 것이 그 실물이고, 표준 라이브러리
+  주석이 그 이유를 적는다 (17장 §"Iterables Versus Iterators", p.601):[^ramalho2022]
+
+> Iterators in Python aren't a matter of type but of protocol. A large and changing number
+> of builtin types implement *some* flavor of iterator. Don't check the type! Use hasattr
+> to check for both "__iter__" and "__next__" attributes instead.
+
+  - 그래서 그 ABC에 대해서는 `isinstance` 검사가 등록 없이도 통한다 — **`Iterator.__subclasshook__`
+    덕분에 이 검사는 `x`의 클래스가 `Iterator`의 실제 하위 클래스도 가상 하위 클래스도
+    아닐 때조차 동작한다** (17장 §"Iterables Versus Iterators", p.602).[^ramalho2022]
+  - 다만 이터러블 쪽에는 같은 검사가 통하지 않는다 — `iter()`가 레거시 `__getitem__`
+    폴백까지 보는 반면 `Iterable` ABC는 보지 않기 때문이다. 그 정본은
+    [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md)에 있다.
+
 ## 이어지는 페이지
 
 - [파이썬 데이터 모델](python-data-model.md) — 여기서 말하는 "동적 프로토콜"이 무엇으로
@@ -476,6 +508,10 @@ sources:
   쓰는 자리
 - [심화 타입 힌트와 그 한계](advanced-type-hints-in-python.md) — 정적 프로토콜을 제네릭으로
   키우는 다음 장과 변성의 요지
+- [클래스 메타프로그래밍과 메타클래스](class-metaprogramming-and-metaclasses.md) —
+  `abc.ABCMeta`가 무엇이고 메타클래스 자리를 쓴다는 것이 왜 제약인가
+- [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md) —
+  `__subclasshook__`이 표준 라이브러리 자신에게 쓰이는 실물
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
@@ -507,3 +543,6 @@ sources:
     (pp.402–403) · 14장 §"Make Interfaces Explicit with ABCs"(p.511) · 16장 §"Overloading *
     for Scalar Multiplication"(p.574)·§"Chapter Summary"(p.586)에서 왔고, 각 장의 전문은 그
     절이 지목하는 페이지들이 갖는다.
+    §"ABC를 만드는 것은 메타클래스다"는 2026-08-18-10 런에서 같은 소스의 17장 §"Iterables
+    Versus Iterators"(pp.601–602)와 24장 §"Metaclasses 101"(pp.932–933) · §"A Class Can
+    Only Have One Metaclass"(p.948)에서 합류했다.

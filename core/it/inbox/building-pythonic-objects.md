@@ -18,6 +18,7 @@ sources:
 - [비공개 속성과 이름 뒤섞기](#비공개-속성과-이름-뒤섞기)
 - [클래스 속성을 덮어쓰는 두 방법](#클래스-속성을-덮어쓰는-두-방법)
 - [언제 구현하지 않는가](#언제-구현하지-않는가)
+- [프로퍼티가 인스턴스 속성을 이기는 기제](#프로퍼티가-인스턴스-속성을-이기는-기제)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **내가 만든 클래스가 파이썬의 내장 타입처럼 자연스럽게 굴게 하려면 무엇을
@@ -291,6 +292,40 @@ sources:
   당신이 그것을 정말로 필요로 하는지 결정하고, 필요할 때 그것이 생성하는 메서드를 덮어쓰기
   위해 여전히 필수적이다** (11장 §"Further Reading", p.393).[^ramalho2022]
 
+## 프로퍼티가 인스턴스 속성을 이기는 기제
+
+위 [해시 가능하게 만들기 — 불변성을 사 오는 값](#해시-가능하게-만들기--불변성을-사-오는-값)이
+읽기 전용 프로퍼티로 불변성을 사 온다고 적는데, 그것이 왜 통하는지는 같은 소스의 5부가
+답한다.
+
+- 조회가 인스턴스에서 시작하지 않는다 (22장 §"Properties Override Instance Attributes",
+  p.863):[^ramalho2022]
+
+> an expression like `obj.data` does not start the search for `data` in `obj`. The search
+> actually starts at `obj.__class__`, and only if there is no property named `data` in the
+> class, Python looks in the `obj` instance itself.
+
+  - 그래서 **프로퍼티는 언제나 클래스 속성이지만, 실제로는 그 클래스의 인스턴스들에서
+    속성 접근을 관리한다** (같은 절, p.861).[^ramalho2022] 이 페이지의 `Vector2d`가
+    `self.__x`에 저장하고 `x` 프로퍼티로만 읽게 만들 수 있는 근거가 그것이다.
+  - 그리고 읽기 전용이 공짜로 따라온다 — **세터 함수를 제공하지 않으면 `property` 클래스의
+    기본 `__set__`이 그 속성이 읽기 전용임을 알리려고 `AttributeError`를 일으킨다** (23장
+    §"Overriding Descriptors", p.894).[^ramalho2022]
+- 더 일반적인 이름이 있다 — **이것은 오버라이딩 디스크립터 일반에 적용되며, 프로퍼티는
+  그중 한 예일 뿐이다** (22장 §"Properties Override Instance Attributes",
+  p.863).[^ramalho2022] 그 일반형의 정본은 [속성 디스크립터](attribute-descriptors.md)에
+  있다.
+- 그 성질에 기대지 않는 캐시 데코레이터가 하나 있다는 것도 함께 알아 둘 값이 있다 —
+  **`@cached_property` 데코레이터는 완전한 프로퍼티를 만들지 않고 비오버라이딩
+  디스크립터를 만든다** (22장 §"Step 5: Caching Properties with functools",
+  p.855).[^ramalho2022] 그래서 그것은 이 절이 말한 "이긴다"를 하지 못하고, 대신 같은
+  이름의 인스턴스 속성에 결과를 써서 자기를 가려지게 만든다.
+- 이 페이지의 곁글 §"Properties Help Reduce Up-Front Costs"가 말한 것 — 공개 속성으로
+  시작해도 나중에 프로퍼티로 감쌀 수 있다 — 이 왜 성립하는지도 같은 기제다. 저자가 그것을
+  다시 못 박는다 — **우리는 단순하게 시작해 데이터 멤버를 공개 속성으로 코딩하는 것이
+  허용된다. 그것이 언제든 프로퍼티(또는 디스크립터)로 감싸질 수 있음을 알기 때문이다**
+  (22장 §"Soapbox", p.876).[^ramalho2022]
+
 ## 이어지는 페이지
 
 - [파이썬 데이터 모델](python-data-model.md) — 이 장이 딛고 선 바닥. 특수 메서드를 부르는
@@ -309,6 +344,10 @@ sources:
 - [딕셔너리와 집합](dictionaries-and-sets.md) — 해시 가능성의 계약
 - [상속세](inheritance-tax.md) — 클래스 데이터 속성 하나만 덮어쓰는 하위 클래스가 그
   경고의 어디에 서는가
+- [동적 속성과 프로퍼티](dynamic-attributes-and-properties.md) — 프로퍼티의 전체 문법과
+  의미론, 그리고 공개 속성으로 시작해도 된다는 판단의 정본
+- [속성 디스크립터](attribute-descriptors.md) — 프로퍼티가 그중 한 예인 오버라이딩
+  디스크립터의 일반형
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
 
@@ -335,3 +374,7 @@ sources:
     코드 펜스 둘은 예제 11-6과 예제 11-7 원문이고, 원문 코드 목록에 삽입된 조판용 번호
     표지와 예제 11-7의 생략 주석 한 줄(`# remaining methods: same as previous Vector2d`)만
     제거했다.
+    §"프로퍼티가 인스턴스 속성을 이기는 기제"는 2026-08-18-10 런에서 같은 소스의 22장
+    §"Properties Override Instance Attributes"(pp.861–863) · §"Step 5: Caching Properties
+    with functools"(p.855) · §"Soapbox"(p.876)와 23장 §"Overriding Descriptors"(p.894)에서
+    합류했다.

@@ -16,6 +16,7 @@ sources:
 - [슬라이스를 아는 __getitem__](#슬라이스를-아는-__getitem__)
 - [__getattr__을 쓰면 __setattr__도 쓴다](#__getattr__을-쓰면-__setattr__도-쓴다)
 - [집계는 map-reduce로](#집계는-map-reduce로)
+- [속성 처리 특수 메서드의 전체 지도](#속성-처리-특수-메서드의-전체-지도)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **어떤 클래스를 "시퀀스"로 만들려면 무엇을 구현해야 하고, 어디까지 구현할지를
@@ -202,6 +203,41 @@ sources:
     우리 `Vector.__hash__` 문제를 내가 파이썬답다고 부를 방식으로 풀었다** (같은 곁글,
     p.430).[^ramalho2022]
 
+## 속성 처리 특수 메서드의 전체 지도
+
+위 [__getattr__을 쓰면 __setattr__도 쓴다](#__getattr__을-쓰면-__setattr__도-쓴다)가 짝으로
+써야 하는 이유를 말한다면, 같은 소스의 22장이 그 둘이 놓인 자리 전체를 그린다.
+
+- 다섯이 있다 (22장 §"Special Methods for Attribute Handling",
+  pp.871–872):[^ramalho2022] `__delattr__`·`__dir__`·`__getattr__`·`__getattribute__`·
+  `__setattr__`.
+- 발동 조건이 갈린다.
+  - `__getattr__` — **`obj`와 클래스, 그 상위 클래스들을 검색한 뒤 이름 붙은 속성을
+    회수하려는 시도가 실패할 때에만 불린다** (같은 절, p.872).[^ramalho2022]
+  - `__getattribute__` — **파이썬 코드에서 이름 붙은 속성을 직접 회수하려는 시도가 있을
+    때마다 언제나 불린다. `__getattr__`은 `__getattribute__` 뒤에만, 그리고
+    `__getattribute__`가 `AttributeError`를 일으킬 때에만 발동된다** (같은 절,
+    p.872).[^ramalho2022] 무한 재귀를 피하려면 **`super().__getattribute__(obj,
+    name)`을 써야 한다.**
+  - `__setattr__` — **이름 붙은 속성을 설정하려는 시도가 있을 때마다 언제나 불린다**
+    (같은 절, p.872).[^ramalho2022]
+- 우회로가 명시돼 있다 — **인스턴스 `__dict__`에서 속성을 직접 읽고 쓰는 것은 이 특수
+  메서드들을 발동시키지 않는다 — 그리고 그것이 필요할 때 그것들을 우회하는 통상적인
+  방법이다** (같은 절, p.871).[^ramalho2022]
+- 그리고 저자의 조문 하나가 이 페이지의 짝 규약에 무게를 더한다 (같은 절,
+  p.872):[^ramalho2022]
+
+> In practice, because they are unconditionally called and affect practically every
+> attribute access, the `__getattribute__` and `__setattr__` special methods are harder
+> to use correctly than `__getattr__`, which only handles nonexisting attribute names.
+> Using properties or descriptors is less error prone than defining these special
+> methods.
+
+  - 즉 이 페이지가 보인 `__getattr__`/`__setattr__` 짝은 **이미 어려운 쪽 절반**이고,
+    같은 일을 프로퍼티나 디스크립터로 하면 덜 위험하다는 것이 저자의 판정이다. 그
+    대안들의 정본은 [동적 속성과 프로퍼티](dynamic-attributes-and-properties.md)와
+    [속성 디스크립터](attribute-descriptors.md)에 있다.
+
 ## 이어지는 페이지
 
 - [파이썬다운 객체 만들기](building-pythonic-objects.md) — 앞 장. 여기서 키우는 그
@@ -218,6 +254,10 @@ sources:
   얹는 다음 자리
 - [파이썬의 일급 함수](first-class-functions-in-python.md) — `reduce`와 `operator` 모듈이
   람다를 대신하는 자리
+- [동적 속성과 프로퍼티](dynamic-attributes-and-properties.md) — 같은 특수 메서드들을
+  더 안전하게 대신하는 층
+- [속성 디스크립터](attribute-descriptors.md) — 그 층을 여러 속성에 재사용 가능하게
+  일반화한 자리
 - [추상화 고르기](choosing-abstractions.md) — 인터페이스를 얼마나 크게 잡을 것인가의 원리 쪽
 - [파이썬 데이터 모델과 프로토콜](../synthesis/python-data-model-and-protocols.md) —
   이 축의 허브
@@ -241,3 +281,6 @@ sources:
     Figure 12-1(축약 함수)·12-2(map-reduce)는 이미지로 조판돼 있어 캡션의 뜻만 본문 서술로
     풀었다. 코드 펜스는 예제 12-6 원문이고, 원문 코드 목록에 삽입된 조판용 번호 표지만
     제거했다.
+    §"속성 처리 특수 메서드의 전체 지도"는 2026-08-18-10 런에서 같은 소스의 22장
+    "Dynamic Attributes and Properties" §"Special Methods for Attribute
+    Handling"(pp.871–872)에서 합류했다.

@@ -101,6 +101,10 @@ generated: { by: "claude-opus-5", at: "2026-08-18T20:00:00Z" }
   클래스다
 - [파이썬의 함수를 객체로 다루기](python-functions-as-objects.md) — 같은 소스의 형제 허브.
   이 장의 읽을거리가 "더 자주는, 함수 하나면 충분하다"로 맺는 그 방향
+- [파이썬의 클래스 메타프로그래밍](python-class-metaprogramming.md) — 같은 소스의 형제 허브.
+  `__init_subclass__`가 협력적으로 동작하려면 `super()`를 불러야 한다는 예의가 이 허브의
+  기제에 근거한다
+- [파이썬의 제어 흐름 기제](python-control-flow-mechanics.md) — 같은 소스의 형제 허브
 - [복잡성과 모듈 설계](complexity-and-modular-design.md) — 상속이 만드는 결합과 정보 누출을
   원리로 말하는 쪽
 - [리팩터링과 코드 냄새](refactoring-and-code-smells.md) — 상속을 위임으로 갈아 끼우는 항목

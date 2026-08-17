@@ -30,6 +30,7 @@ sources:
 - [형식의 한계 — 패턴이 보완하지 못하는 것](#형식의-한계--패턴이-보완하지-못하는-것)
 - [과잉 적용이 최대 위험이라는 판정](#과잉-적용이-최대-위험이라는-판정)
 - [넷째 판정 — 패턴은 언어에 의존한다](#넷째-판정--패턴은-언어에-의존한다)
+- [다섯째 판정 — 언어에 흡수된 패턴과 이름이 살아남은 패턴](#다섯째-판정--언어에-흡수된-패턴과-이름이-살아남은-패턴)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **"패턴"이라는 형식이 데이터 엔지니어링에서 무엇을 약속하는가.**
@@ -468,6 +469,43 @@ KB의 [메시징 패턴](../synthesis/messaging-patterns.md) 허브가 그것을
     같은 이름 아래 다른 구현을 낳기도 한다. #hypothesis 저자가 그 둘을 나란히 놓고 비교하지는
     않았다 — 두 서술은 다른 장에 있다.
 
+## 다섯째 판정 — 언어에 흡수된 패턴과 이름이 살아남은 패턴
+
+넷째 판정이 "패턴은 언어에 의존한다"였다면, 같은 소스의 뒤쪽 장들이 그 의존의 두 결말을
+실물로 보인다. 하나는 패턴이 언어에 흡수되어 **이름만 남는** 결말이고, 다른 하나는 언어가
+그것을 흡수하지 않아 **이름이 계속 일하는** 결말이다.
+
+- 흡수된 쪽 — 이터레이터 패턴이다. 저자의 판정이 한 문단이다 (17장 §"Chapter Summary",
+  p.652):[^ramalho2022]
+
+> The integration of the Iterator pattern in the semantics of Python is a prime example of
+> how design patterns are not equally applicable in all programming languages. In Python,
+> a classic Iterator implemented "by hand" as in Example 17-4 has no practical use, except
+> as a didactic example.
+
+  - 사라진 것은 패턴의 **구현**이지 그 **요구사항**이 아니다. 저자는 GoF의 "Applicability"
+    절에서 다중 순회 지원 항목을 그대로 인용하고, 그 요구가 **`iter(my_iterable)` 호출마다
+    새롭고 독립적인 이터레이터를 만들 것**을 요구한다고 적는다 (17장 §"Don't Make the
+    Iterable an Iterator for Itself", p.605).[^ramalho2022] 그것을 어기는 것 —
+    이터러블을 자기 자신의 이터레이터로 만드는 것 — 이 **흔한 안티패턴**으로 지목된다.
+  - GoF 자신이 최소 인터페이스를 각주에서 이미 줄여 놓았고, 파이썬이 그것을 더 줄였다 —
+    **이것이 파이썬에 있는 것과 가깝다: 단일 메서드 `__next__`가 그 일을 한다. 그러나
+    실수로 간과될 수 있는 센티널을 쓰는 대신 `StopIteration` 예외가 순회의 끝을 알린다.
+    단순하고 올바르다: 그것이 파이썬 방식이다** (17장 §"Soapbox — The Minimalistic
+    Iterator Interface in Python", p.654).[^ramalho2022]
+- 살아남은 쪽 — 템플릿 메서드다. 같은 소스가 디스크립터 계층을 지으면서 그 이름을 그대로
+  쓴다 — **`Validated`·`Quantity`·`NonBlank` 사이의 관계는 *Design Patterns* 고전이 서술한
+  템플릿 메서드의 적용이다** (23장 §"LineItem Take #5: A New Descriptor Type",
+  p.889).[^ramalho2022] 저자가 인용하는 정의도 원전 그대로다 — **템플릿 메서드는 하위
+  클래스가 구체적 동작을 제공하려고 오버라이드하는 추상 연산들의 관점에서 알고리즘을
+  정의한다.**
+  - 다만 이름에 대한 이견이 붙는다 — **Alex Martelli는 이 디자인 패턴을 자기
+    위임(Self-Delegation)이라 부르기를 선호하고, 나도 그것이 더 서술적인 이름이라는 데
+    동의한다** (같은 절, p.890).[^ramalho2022]
+- 두 결말을 가르는 것은 **언어가 그 패턴의 협력 구조를 문법으로 제공하는가**다.
+  #hypothesis 이 판정은 이 KB의 읽기다 — 소스는 두 사례를 각각 다른 장에서 다루고 둘을
+  나란히 놓고 비교하지는 않는다.
+
 ## 이어지는 페이지
 
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이
@@ -488,6 +526,10 @@ KB의 [메시징 패턴](../synthesis/messaging-patterns.md) 허브가 그것을
   규칙의 예외로 등장하는 자리
 - [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md) —
   "패턴은 언어에 의존한다"는 판정이 한 언어에서 실제로 무엇을 무너뜨리는지 끝까지 따라간 자리
+- [이터레이터 프로토콜과 제너레이터](iterator-protocol-and-generators.md) — 이터레이터
+  패턴이 언어에 흡수된 자리의 정본
+- [속성 디스크립터](attribute-descriptors.md) — 템플릿 메서드라는 이름이 여전히 일하는
+  자리
 
 [^konieczny2025]: Konieczny 2025, 서문 "The Structure of This Book"(pp.x–xi) · 1장 "Introducing
 Data Engineering Design Patterns"(pp.1–6) · "Afterword"(p.331). 그림 1-1(블로그 분석 플랫폼)은
@@ -521,3 +563,8 @@ Neville, "Emerging Standards and Futures in Enterprise Integration"(pp.625–627
     [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md)이 갖는다.
     GoF 서문 인용은 이 소스가 옮긴 것을 재인용한 것이다 — 이 KB는 *Design Patterns* 원서를
     들이지 않았다.
+    §"다섯째 판정 — 언어에 흡수된 패턴과 이름이 살아남은 패턴"은 2026-08-18-10 런에서
+    같은 소스의 17장 "Iterators, Generators, and Classic Coroutines" §"Don't Make the
+    Iterable an Iterator for Itself"(p.605) · §"Chapter Summary"(p.652) · §"Soapbox —
+    The Minimalistic Iterator Interface in Python"(p.654)과 23장 "Attribute Descriptors"
+    §"LineItem Take #5: A New Descriptor Type"(pp.889–890)에서 합류했다.
