@@ -212,6 +212,11 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
   (12~18장). 쪼갠 것을 읽는 사람에게 전달하는 층 — 주석·이름·일관성·뻔함
 - [복잡성 잣대의 적용](applying-the-complexity-lens.md) — **같은 소스의 형제 허브**(19~22장).
   여기서 만든 잣대를 유행·성능·설계 우선순위에 대는 층
+- [리팩터링과 코드 냄새](refactoring-and-code-smells.md) — 같은 층의 셋째 원전
+  (Fowler 2018, 1~4장). 이 축이 **무엇이 좋은 설계인가**를 판정한다면 그쪽은 **이미 있는
+  코드를 어떻게 그쪽으로 옮기는가**를 다룬다. 두 축이 정면으로 갈린 자리가 셋이고 그중
+  하나가 이 KB의 첫 `contradicts`다 — 상대편은 자식 허브
+  [문서화와 코드 명료함](documentation-and-code-clarity.md)에 있다
 - [실용주의 프로그래머](pragmatic-programmer.md) — 같은 층(개별 개발자의 실천 지식)의
   다른 축. 이 허브의 거의 모든 페이지가 그쪽 페이지와 한 자리씩 맞닿는다
 - [비기능 요건](nonfunctional-requirements.md) — 같은 복잡성이 시스템 수준의 요건
