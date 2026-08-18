@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 파라미터 확장
-status: draft
 description: 중괄호 확장 문법의 규범과 그 안에 숨은 판정들 — 콜론 유무가 "unset"과 "unset이거나 null"을 가르는 표, 기본값·대입·오류·대체값 네 형태와 그 부작용, 접두·접미 제거가 정규 표현식이 아니라 패턴 매칭이라는 것과 큰따옴표의 위치가 패턴 문자의 운명을 바꾼다는 규정, set -u가 확장을 실패시키는 자리, 그리고 word가 필요할 때만 확장된다는 규범
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -140,7 +139,7 @@ sources:
 
 - **`@`와 `*`는 예외다** — 인자가 없다고 `set -u`가 걸리지 않는다.
 - 실패의 등급이 "확장 오류(expansion error)"이므로 비대화형 셸은 **종료한다**
-  ([셸 오류의 귀결](shell-error-consequences.md)).
+  ([셸 오류의 귀결](../concepts/shell-error-consequences.md)).
 - `${#parameter}`와 부분 문자열 처리 네 형태는 `parameter`가 unset이고 `set -u`가 켜져 있으면
   **확장이 실패한다**고 §2.6.2가 따로 못 박는다.[^opengroup2024-shell] 반면 `${x:-default}`
   계열은 unset을 검사하는 것이 그 형태의 목적이므로 이 실패의 대상이 아니다.
@@ -153,7 +152,7 @@ sources:
 - [단어 확장의 순서](shell-word-expansion-order.md) — 이 확장이 도는 자리
 - [위치 파라미터와 특수 파라미터](shell-special-parameters.md) — 이름이 아닌 파라미터들
 - [경로명 확장](shell-pathname-expansion.md) — 접두·접미 제거가 빌려 쓰는 패턴 문법
-- [셸 오류의 귀결](shell-error-consequences.md) — 확장 실패가 셸을 죽이는 자리
+- [셸 오류의 귀결](../concepts/shell-error-consequences.md) — 확장 실패가 셸을 죽이는 자리
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 
 [^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std

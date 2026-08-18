@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 셸의 종료 상태와 그 전파
-status: draft
 description: 명령 하나의 종료 상태가 어떻게 정해지고 파이프라인·목록·복합 명령·함수를 지나며 무엇으로 바뀌는가 — 127과 126과 128 초과라는 세 예약값, pipefail이 표준이 된 Issue 8의 파이프라인 종료 상태 표, AND-OR 목록과 조건 구문이 "실행된 마지막 것"을 물려주는 규칙, 반복문이 조건절의 상태를 버린다는 규정과 그 때문에 실패 원인을 잃는 자리, 그리고 명령 이름이 없는 단순 명령의 상태
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -110,7 +109,7 @@ sources:
   명시하지 않으면 마지막 명령이 그대로 반환값이 된다.
 - 그룹 명령(`( … )`와 `{ …; }`)의 종료 상태는 compound-list의 상태다
   (§2.9.4.1).[^opengroup2024-shell] 둘의 차이는 상태가 아니라 실행 환경이다
-  ([셸 실행 환경과 서브셸](shell-execution-environment.md)).
+  ([셸 실행 환경과 서브셸](../concepts/shell-execution-environment.md)).
 
 ## 명령 이름이 없는 단순 명령
 
@@ -129,10 +128,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [셸 오류의 귀결](shell-error-consequences.md) — 0이 아닌 상태와 "오류"는 다른 축이다
-- [셸 실행 환경과 서브셸](shell-execution-environment.md) — 상태가 경계를 넘는 방식
+- [셸 오류의 귀결](../concepts/shell-error-consequences.md) — 0이 아닌 상태와 "오류"는 다른 축이다
+- [셸 실행 환경과 서브셸](../concepts/shell-execution-environment.md) — 상태가 경계를 넘는 방식
 - [위치 파라미터와 특수 파라미터](shell-special-parameters.md) — `?`가 무엇을 가리키는가
-- [Unix 도구로 하는 배치 처리](batch-processing-with-unix-tools.md) — 파이프라인의 효용 쪽.
+- [Unix 도구로 하는 배치 처리](../concepts/batch-processing-with-unix-tools.md) — 파이프라인의 효용 쪽.
   이 페이지는 그 파이프라인이 실패를 어떻게 보고하는지를 답한다
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 

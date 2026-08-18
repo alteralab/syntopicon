@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 경로명 확장 — 글로빙의 규범
-status: draft
 description: 글로브 패턴이 파일 이름으로 바뀌는 단계의 규범과 그 함정 — 맞는 파일이 없으면 패턴 문자열이 그대로 남는다는 규정, 선행 점과 슬래시가 특수 문자에 잡히지 않는다는 두 예외, 권한 오류를 오류로 치지 않고 진행한다는 규정, 정렬이 로케일의 대조 순서를 따른다는 것, 그리고 패턴 매칭이 정규 표현식이 아니라는 구분
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -125,9 +124,9 @@ sources:
 ## 이어지는 페이지
 
 - [단어 확장의 순서](shell-word-expansion-order.md) — 이 단계의 자리
-- [필드 분리와 IFS](shell-field-splitting.md) — 이 단계 바로 앞
+- [필드 분리와 IFS](../concepts/shell-field-splitting.md) — 이 단계 바로 앞
 - [셸 인용 — 무엇이 확장을 막는가](shell-quoting.md) — 패턴 문자를 보통 문자로 만드는 방법
-- [파라미터 확장](shell-parameter-expansion.md) — 같은 패턴 문법을 접두·접미 제거에 쓰는 자리
+- [파라미터 확장](../concepts/shell-parameter-expansion.md) — 같은 패턴 문법을 접두·접미 제거에 쓰는 자리
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 
 [^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std

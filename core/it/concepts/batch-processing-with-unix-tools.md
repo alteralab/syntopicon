@@ -5,6 +5,7 @@ description: 웹 서버 로그에서 인기 페이지 다섯 개를 뽑는 한 �
 generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: opengroup2024-shell, resource: /it/sources/opengroup2024-shell.md }
 ---
 
 # Unix 도구로 하는 배치 처리
@@ -14,6 +15,7 @@ sources:
 - [같은 일을 하는 프로그램](#같은-일을-하는-프로그램)
 - [정렬인가 인메모리 집계인가](#정렬인가-인메모리-집계인가)
 - [어디서 멈추는가](#어디서-멈추는가)
+- [이 파이프라인이 실패를 보고하는 방식](#이-파이프라인이-실패를-보고하는-방식)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **단일 기계의 Unix 파이프라인이 분산 배치 처리의 무엇을 미리 보여 주는가.**
@@ -121,8 +123,28 @@ sources:
   가득 차면 생산 프로세스가 기다려야 하는 것이 백프레셔(backpressure)의 한 형태**다 (11장,
   pp.464–465).[^kleppmann2026]
 
+## 이 파이프라인이 실패를 보고하는 방식
+
+이 예제의 효용은 위에서 다 나왔다. 그러나 운영에 올릴 때 걸리는 것이 하나 더 있고, 그 답은
+이 소스가 아니라 셸의 규범 원전에 있다.
+
+- 규범 문구 — 기본 설정에서 파이프라인의 종료 상태(exit status)는 **The exit status of the last
+  (rightmost) command specified in the pipeline** 이다 (§2.9.2).[^opengroup2024-shell]
+  - 그래서 위 여섯 단계 중 앞의 다섯이 어떻게 실패하든 **`head`가 성공하면 파이프라인은
+    성공이다.** 로그 파일이 없어 `cat`이 죽어도 결과는 빈 출력과 종료 상태 0이다.
+  - 이것을 바꾸는 옵션이 `set -o pipefail`이고, 켜면 **0이 아닌 상태를 낸 가장 오른쪽 명령**의
+    상태가 파이프라인의 상태가 된다 (§2.9.2).[^opengroup2024-shell]
+  - 버전 조건: Open Group Base Specifications Issue 8 부터 — `pipefail`은 이 판본에서 표준에
+    들어왔다.
+- 규범이 하나 더 붙는다 — 셸은 **마지막 명령이 끝나기를 기다리고**, 나머지 전부를 기다려도
+  된다(`may`) (§2.9.2).[^opengroup2024-shell] `head`가 다섯 줄을 얻고 끝난 뒤 앞쪽 명령이
+  아직 돌고 있을 수 있다.
+- 규정은 [셸의 종료 상태와 그 전파](../concepts/shell-exit-status.md)에 모아 두었다.
+
 ## 이어지는 페이지
 
+- [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 파이프라인이 무엇을
+  하기로 명세돼 있는가
 - [배치 처리의 기본](../concepts/batch-processing-basics.md) — 이 예제가 직관을 세우려는 대상
 - [MapReduce](../concepts/mapreduce.md) — 이 파이프라인의 분산판
 - [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) — 명령 연쇄가 분산에서 되는 것
@@ -130,3 +152,6 @@ sources:
 - [분산 파일시스템](../concepts/distributed-filesystems.md) — 단일 기계의 한계를 넘는 자리
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 11장 "Batch Processing" — 셸 펜스는 p.454의 명령을 원문에서 지면 폭 때문에 접힌 여섯 줄로 두지 않고 한 줄로 이었다(보탠 것 없음). 파이썬 펜스는 p.456 그대로이며 원문의 주석 번호 표식만 덜어냈다
+
+[^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std
+    1003.1-2024, Volume 3 Chapter 2, §2.9.2 Pipelines.

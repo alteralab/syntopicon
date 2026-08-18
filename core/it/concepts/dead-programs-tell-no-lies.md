@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 죽은 프로그램은 거짓말하지 않는다
-description: '"일어날 수 없다"는 사고방식을 겨냥한 Topic — 남의 코드가 내 문제를 먼저 잡아낸다는 관찰과 모든 case 문에 default 절이 필요한 이유, 모든 예외를 잡아 다시 던지는 코드가 결합을 늘린다는 판정, 일찍 죽으라는 조문과 얼랭의 "그냥 죽게 두라" 및 수퍼바이저 트리, 그리고 불구가 된 프로그램이 죽은 프로그램보다 더 큰 피해를 준다는 근거'
+description: '"일어날 수 없다"는 사고방식을 겨냥한 Topic — 남의 코드가 내 문제를 먼저 잡아낸다는 관찰과 모든 case 문에 default 절이 필요한 이유, 모든 예외를 잡아 다시 던지는 코드가 결합을 늘린다는 판정, 일찍 죽으라는 조문과 얼랭의 "그냥 죽게 두라" 및 수퍼바이저 트리, 불구가 된 프로그램이 죽은 프로그램보다 더 큰 피해를 준다는 근거, 그리고 셸에서 이 처방이 무엇으로 구현되며 규범이 그 적용을 어디서 면제하는가'
 generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
+  - { id: opengroup2024-shell, resource: /it/sources/opengroup2024-shell.md }
 ---
 
 # 죽은 프로그램은 거짓말하지 않는다
@@ -17,6 +18,7 @@ sources:
 - [죽일 수 없는 환경에서도 원칙은 같다](#죽일-수-없는-환경에서도-원칙은-같다)
 - [시스템 쪽 내결함성과 나란히](#시스템-쪽-내결함성과-나란히)
 - [같은 처방을 다른 근거로 지지하는 소스](#같은-처방을-다른-근거로-지지하는-소스)
+- [셸에서 일찍 죽기 — 규범이 면제하는 자리](#셸에서-일찍-죽기--규범이-면제하는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **"일어날 수 없는 일"이 일어났다는 것을 알았을 때 프로그램은 무엇을 해야 하는가.**
@@ -43,7 +45,7 @@ sources:
 - 오류를 어떻게 대할 것인가 — **모든 오류는 당신에게 정보를 준다. 당신은 그 오류가 일어날 수 없다고
   스스로를 설득하고 그것을 무시하기로 선택할 수 있다. 대신 실용주의 프로그래머는 오류가 있다면 매우
   매우 나쁜 일이 일어난 것이라고 스스로에게 말한다** (Topic 24).[^thomas2020] 그리고 그 오류
-  메시지를 실제로 읽으라는 조문은 [디버깅](debugging-practice.md)에 있다(Tip 32).
+  메시지를 실제로 읽으라는 조문은 [디버깅](../concepts/debugging-practice.md)에 있다(Tip 32).
 
 ## 잡아서 놓아 주기는 낚시에서나 하는 것
 
@@ -112,7 +114,7 @@ sources:
 
 ## 시스템 쪽 내결함성과 나란히
 
-- 이 Topic의 처방(빠르게 죽고 감독자가 재시작한다)이 [신뢰성과 내결함성](reliability-and-fault-tolerance.md)의
+- 이 Topic의 처방(빠르게 죽고 감독자가 재시작한다)이 [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md)의
   어휘로는 **결함(fault)을 장애(failure)로 번지지 않게 막는 층 구조**다. 그쪽 소스는 같은 배치를
   시스템 속성으로 정의하고, 이 책은 그것을 개별 프로세스가 자기 자신에 대해 내리는 판단으로 놓는다.
 - 층이 다르므로 대립이 아니다. 다만 **강조점이 반대 방향으로 놓인다** — 이 책은 "의심스러우면 죽어라"를
@@ -148,23 +150,43 @@ sources:
 - 대립하지 않는다. 이 Topic의 표적은 **불가능해야 했던 조건**이고 그쪽 첫 기법의 표적은
   **불필요하게 오류로 선언된 정상 조건**이다(존재하지 않는 변수를 지우라는 요청 같은).
   두 소스가 서로를 참조한 적은 없다. 전문은
-  [오류를 존재에서 없애기](define-errors-out-of-existence.md)에 있다.
+  [오류를 존재에서 없애기](../concepts/define-errors-out-of-existence.md)에 있다.
 - 그쪽도 애플리케이션에 따라 다르다는 단서를 단다 — **복제된 저장 시스템에서는 I/O 오류에
   중단하는 것이 적절하지 않다. 대신 시스템은 복제된 데이터를 써서 손실된 정보를 복구해야
   한다** (10장 §10.8, p.89).[^ousterhout2021] 위
   [시스템 쪽 내결함성과 나란히](#시스템-쪽-내결함성과-나란히) 절이 세운 대비를 그쪽 저자가
   스스로 인정하는 자리다.
 
+## 셸에서 일찍 죽기 — 규범이 면제하는 자리
+
+셸 스크립트에서 이 처방에 해당하는 장치는 `set -e`이고, 그 의미는 규범 원전이 정한다. 여기서
+중요한 것은 그 장치가 **무엇을 하는가**보다 **어디서 적용되지 않는가**다 — 일찍 죽는다고 믿고
+쓰는데 죽지 않는 자리가 명세돼 있기 때문이다.
+
+- 규범 문구 — **when any command fails (for any of the reasons listed in 2.8.1 Consequences of
+  Shell Errors or by returning an exit status greater than zero), the shell immediately shall
+  exit** (§2.15 `set`).[^opengroup2024-shell] 오류와 0이 아닌 종료 상태를 하나로 묶는 것이 이
+  옵션의 일이다.
+- 그러나 스펙이 예외를 셋으로 못 박는다 (§2.15 `set`):[^opengroup2024-shell]
+  **파이프라인 안의 개별 명령과 단어 확장 중의 명령 치환 서브셸**, **`while`·`until`·`if`·`elif`
+  뒤의 조건절과 `!`로 시작하는 파이프라인과 AND-OR 목록에서 마지막이 아닌 명령**, 그리고
+  **`-e`가 무시되는 동안의 실패로 상태가 정해진 복합 명령**.
+- 그래서 이 페이지의 처방을 셸에 옮길 때 얻는 것은 "실패하면 멈춘다"가 아니라 **"명세된 자리에서만
+  멈춘다"**이다. 나머지는 [죽일 수 없는 환경에서도 원칙은 같다](#죽일-수-없는-환경에서도-원칙은-같다)
+  절의 논리로 돌아간다 — 자동으로 멈추지 않는 곳에서는 손으로 검사해 멈춰야 한다.
+- 규정 전체는 [셸 오류의 귀결](../concepts/shell-error-consequences.md)에 모아 두었다.
+
 ## 이어지는 페이지
 
-- [계약에 의한 설계](design-by-contract.md) — 무엇이 "불가능한 일"인지 미리 적어 두는 쪽
+- [셸 오류의 귀결](../concepts/shell-error-consequences.md) — 셸이 언제 죽기로 약속했는가
+- [계약에 의한 설계](../concepts/design-by-contract.md) — 무엇이 "불가능한 일"인지 미리 적어 두는 쪽
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 그 불가능을 코드 안에서 검사하는 장치
-- [디버깅](debugging-practice.md) — 저자들이 이 Topic의 첫 관련 절로 지목한 자리. 오류 메시지를
+- [디버깅](../concepts/debugging-practice.md) — 저자들이 이 Topic의 첫 관련 절로 지목한 자리. 오류 메시지를
   읽으라는 조문도 그쪽에 있다
 - [리소스 균형 맞추기](../concepts/balancing-resources.md) — 죽기 전에 정리해야 할 것이 있을 때의 규약
-- [오류를 존재에서 없애기](define-errors-out-of-existence.md) — 크래시를 네 기법 중 넷째로
+- [오류를 존재에서 없애기](../concepts/define-errors-out-of-existence.md) — 크래시를 네 기법 중 넷째로
   놓고 그 앞에 세 기법을 두는 자리
-- [신뢰성과 내결함성](reliability-and-fault-tolerance.md) — 같은 판단이 시스템 속성으로 정의된 자리
+- [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 같은 판단이 시스템 속성으로 정의된 자리
 - [실용주의의 기본 도구와 편집증](../synthesis/pragmatic-basic-tools-and-paranoia.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 24 "Dead Programs Tell No Lies". 암스트롱 인용은 이
@@ -172,3 +194,7 @@ sources:
 
 [^ousterhout2021]: Ousterhout 2021, 10장 "Define Errors Out Of Existence". 쪽은 인쇄판
     쪽 번호.
+
+[^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std
+    1003.1-2024, Volume 3 Chapter 2, §2.15 Special Built-In Utilities의 `set` 유틸리티(`-e`)와
+    §2.8.1 Consequences of Shell Errors.

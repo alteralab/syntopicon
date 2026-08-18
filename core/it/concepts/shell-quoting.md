@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 셸 인용 — 무엇이 확장을 막는가
-status: draft
 description: POSIX 셸의 네 가지 인용 기법이 각각 무엇을 막고 무엇을 막지 못하는지 — 반드시 인용해야 하는 문자 목록과 "조건부로 특별한" 문자에 붙은 should 권고, 백슬래시가 개행에서만 예외인 이유, 작은따옴표가 자기 자신을 담지 못한다는 제약, 큰따옴표 안에서 살아남는 세 문자와 확장 결과의 문자값이 보존된다는 규범, 그리고 인용 제거가 확장의 맨 끝에 오는 순서
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -109,7 +108,7 @@ sources:
 
   - 큰따옴표는 **확장을 막는 것이 아니라 확장 결과의 문자값을 보존한다.** 그래서 확장은
     일어나되 그 결과가 다시 필드로 쪼개지거나 글로브 패턴으로 해석되지 않는다. 기제는
-    [필드 분리와 IFS](shell-field-splitting.md)에 있다 — 분리 대상이 "큰따옴표 안에서 일어나지
+    [필드 분리와 IFS](../concepts/shell-field-splitting.md)에 있다 — 분리 대상이 "큰따옴표 안에서 일어나지
     않은 확장 결과"로 한정돼 있다.
 - 큰따옴표 안의 `\`는 아무 문자나 이스케이프하지 못한다. `"$(...)"`와 `"${...}"` 밖에서는
   다음 문자가 `$`·`` ` ``·`\`·개행일 때만(또는 특별하게 취급될 큰따옴표일 때만) 이스케이프
@@ -159,8 +158,8 @@ sources:
 
 - [단어 확장의 순서](shell-word-expansion-order.md) — 인용이 어느 단계를 막는지 보려면 단계가
   먼저 있어야 한다
-- [필드 분리와 IFS](shell-field-splitting.md) — 큰따옴표가 실제로 막는 것
-- [경로명 확장](shell-pathname-expansion.md) — 인용이 글로브 패턴을 문자 그대로 만드는 자리
+- [필드 분리와 IFS](../concepts/shell-field-splitting.md) — 큰따옴표가 실제로 막는 것
+- [경로명 확장](../concepts/shell-pathname-expansion.md) — 인용이 글로브 패턴을 문자 그대로 만드는 자리
 - [위치 파라미터와 특수 파라미터](shell-special-parameters.md) — `"$@"`가 큰따옴표 안에서
   특별해지는 자리
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브

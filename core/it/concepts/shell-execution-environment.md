@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 셸 실행 환경과 서브셸
-status: draft
 description: 서브셸이 무엇을 복사하고 무엇을 되돌리지 않는가 — 셸 실행 환경을 이루는 열 가지 항목의 목록, 서브셸이 복제본이며 그 변경이 바깥에 영향을 주지 않는다는 규범, 서브셸이 만들어지는 네 자리(명령 치환·괄호 그룹·비동기 목록·다중 명령 파이프라인)와 파이프라인에 붙은 구현 재량, 유틸리티가 받는 별도 환경이 셸 환경보다 좁다는 것, 그리고 변수 대입이 현재 환경에 남는지가 명령의 종류에 달렸다는 규정
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -119,7 +118,7 @@ sources:
   생긴 변수 대입이 어디에서 보이는지 (§2.9.1.2).[^opengroup2024-shell]
 - `readonly`가 걸린 변수에 대입하려 하면 **변수 대입 오류**이고, 그 귀결은 §2.8.1이 정한다
   (§2.9.1.2)[^opengroup2024-shell] — 비대화형 셸은 종료한다
-  ([셸 오류의 귀결](shell-error-consequences.md)).
+  ([셸 오류의 귀결](../concepts/shell-error-consequences.md)).
 
 ## 함수가 되돌리는 것과 되돌리지 않는 것
 
@@ -133,7 +132,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [셸 오류의 귀결](shell-error-consequences.md) — 오류가 서브셸까지만 죽이는 자리
+- [셸 오류의 귀결](../concepts/shell-error-consequences.md) — 오류가 서브셸까지만 죽이는 자리
 - [셸의 종료 상태와 그 전파](shell-exit-status.md) — 서브셸이 값을 돌려보내는 통로 하나
 - [단어 확장의 순서](shell-word-expansion-order.md) — 명령 치환이 서브셸을 만드는 자리
 - [위치 파라미터와 특수 파라미터](shell-special-parameters.md) — 서브셸에서도 같은 값인 것들

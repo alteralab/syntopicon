@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 단어 확장의 순서
-status: draft
 description: POSIX 셸이 한 단어를 처리하는 네 단계의 규범 순서와 그 순서가 낳는 함정 — 확장 결과는 다시 확장되지 않는다는 규정, 단어 하나가 여러 필드가 되는 세 경로(필드 분리·경로명 확장·특수 파라미터)와 그 밖은 전부 한 필드라는 규범, 중괄호 확장이 구현 정의로 남아 이식성이 없다는 자리, 명령 치환이 후행 개행을 잘라 낸다는 규정, 그리고 확장이 어느 실행 환경에서 수행되는가
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -43,7 +42,7 @@ sources:
   (§2.6).[^opengroup2024-shell] 넷 사이에 우선순위가 있는 것이 아니다.
 - 3단계에는 스위치가 달려 있다 — `set -f`면 경로명 확장이 통째로 꺼진다
   (§2.6, §2.15 set).[^opengroup2024-shell] 2단계에는 그런 스위치가 없고, `IFS`를 비우는 것이
-  그 자리를 대신한다([필드 분리와 IFS](shell-field-splitting.md) 참조).
+  그 자리를 대신한다([필드 분리와 IFS](../concepts/shell-field-splitting.md) 참조).
 
 ## 단어 하나는 기본적으로 필드 하나다
 
@@ -58,7 +57,7 @@ sources:
 - 그러니까 **단어 하나가 여럿이 되는 경로는 셋뿐이다**: 필드 분리, 경로명 확장, 그리고
   특수 파라미터 `@`·`*`의 확장 (§2.6).[^opengroup2024-shell] 인용으로 앞의 둘을 막으면 남는
   것은 셋째뿐이고, 그래서 `"$@"`가 유일하게 "여러 인자를 안전하게 넘기는" 표기가 된다
-  ([위치 파라미터와 특수 파라미터](shell-special-parameters.md)).
+  ([위치 파라미터와 특수 파라미터](../concepts/shell-special-parameters.md)).
 - `$` 뒤에 올 수 있는 것도 규정돼 있다. 숫자·특수 파라미터 이름·변수 이름의 첫 글자로 유효한
   문자·`{`·`(`·작은따옴표 중 하나가 아니면 **결과는 미지정(unspecified)이다**
   (§2.6).[^opengroup2024-shell] 다만 `$` 뒤가 공백·탭·개행이거나 아무것도 없으면 `$`는
@@ -108,7 +107,7 @@ sources:
   알 수 없다). 그리고 **가운데 개행은 남지만 필드 분리가 먹는다** — 인용하지 않았다면.
 - 출력에 널 바이트가 들어 있으면 동작은 미지정이다 (§2.6.3).[^opengroup2024-shell]
 - 명령 치환은 **서브셸 환경(subshell environment)에서 돈다** — 그 귀결은
-  [셸 실행 환경과 서브셸](shell-execution-environment.md)에 있다.
+  [셸 실행 환경과 서브셸](../concepts/shell-execution-environment.md)에 있다.
 - 백쿼트 형태(`` `…` ``)와 `$(…)` 형태는 백슬래시 처리가 다르고, 백쿼트 쪽에는 "따옴표 문자열이
   시작만 하고 끝나지 않으면 undefined"류의 함정이 여럿 붙는다 (§2.6.3).[^opengroup2024-shell]
 - `$((`가 산술 확장과 "서브셸로 시작하는 명령 치환" 사이에서 모호하다는 것도 이 절이 인정한다.
@@ -152,11 +151,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [셸 인용 — 무엇이 확장을 막는가](shell-quoting.md) — 이 순서의 어느 단계를 어떤 인용이 막는가
-- [필드 분리와 IFS](shell-field-splitting.md) — 2단계의 규범
-- [경로명 확장](shell-pathname-expansion.md) — 3단계의 규범
-- [파라미터 확장](shell-parameter-expansion.md) — 1단계에서 가장 자주 쓰는 것
-- [셸 실행 환경과 서브셸](shell-execution-environment.md) — 명령 치환이 어디서 도는가
+- [셸 인용 — 무엇이 확장을 막는가](../concepts/shell-quoting.md) — 이 순서의 어느 단계를 어떤 인용이 막는가
+- [필드 분리와 IFS](../concepts/shell-field-splitting.md) — 2단계의 규범
+- [경로명 확장](../concepts/shell-pathname-expansion.md) — 3단계의 규범
+- [파라미터 확장](../concepts/shell-parameter-expansion.md) — 1단계에서 가장 자주 쓰는 것
+- [셸 실행 환경과 서브셸](../concepts/shell-execution-environment.md) — 명령 치환이 어디서 도는가
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 
 [^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std

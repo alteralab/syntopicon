@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 셸 오류의 귀결
-status: draft
 description: 어떤 오류가 비대화형 셸을 종료시키고 어떤 오류는 그냥 지나가는가 — 오류 종류별 종료 여부를 정한 표와 그 안의 "shall exit"·"may exit"·"shall not exit" 구분, 특수 내장 유틸리티가 일반 유틸리티와 다른 두 가지, set -e가 무엇을 종료시키고 어디서 무시되는지의 규범 목록, 그리고 0이 아닌 종료 상태와 "오류"가 다른 축이라는 구분
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -139,7 +138,7 @@ sources:
 - [셸의 종료 상태와 그 전파](shell-exit-status.md) — 다른 축
 - [셸 실행 환경과 서브셸](shell-execution-environment.md) — 오류가 어디까지 죽이는가
 - [파라미터 확장](shell-parameter-expansion.md) — 확장 오류를 일부러 내는 장치
-- [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md) — 일찍 죽으라는 처방 쪽.
+- [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — 일찍 죽으라는 처방 쪽.
   이 페이지는 셸이 실제로 언제 죽기로 약속했는지를 답한다
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 

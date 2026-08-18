@@ -151,10 +151,13 @@ sources:
 
 - [평문의 힘](../concepts/power-of-plain-text.md) — 이 두 도구가 다루는 재료. 도구를 조합할 수 있는 것은
   형식이 공통이기 때문이다
-- [버전 관리](version-control-practice.md) — 3장의 셋째 기본 도구. 셸 설정과 에디터 설정 자체를
+- [버전 관리](../concepts/version-control-practice.md) — 3장의 셋째 기본 도구. 셸 설정과 에디터 설정 자체를
   거기 넣으라는 처방이 이 페이지와 맞물린다
 - [Unix 도구로 하는 배치 처리](../concepts/batch-processing-with-unix-tools.md) — 파이프라인
   조합이 실제 규모에서 무엇을 해내는가
+- [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 처방이 가리키는 도구가
+  무엇을 하기로 **약속했는지**의 규범 원전. 셸을 자기 것으로 만들라는 조언과 그 셸이 인용·확장·
+  종료 상태를 어떻게 처리한다고 명세돼 있는지는 다른 층의 질문이다
 - [지식 포트폴리오](../concepts/knowledge-portfolio.md) — 도구 유창함을 기술 자산의 관리로 보는 자리
 - [실용주의의 기본 도구와 편집증](../synthesis/pragmatic-basic-tools-and-paranoia.md) — 이 축의 허브
 

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 위치 파라미터와 특수 파라미터
-status: draft
 description: 특수 파라미터 at과 asterisk가 왜 다르고 왜 인용과 결합해야만 뜻이 정해지는가 — 큰따옴표 밖에서는 둘이 같고 안에서는 갈린다는 규범, 인용하지 않으면 빈 필드가 버려질 수 있다는 규정, 위치 파라미터가 두 자리 이상이면 중괄호가 필수라는 규칙, 물음표 파라미터가 가리키는 것이 직전 파이프라인이라는 정의와 명령 치환이 그 값을 어떻게 바꾸는가, 그리고 나머지 특수 파라미터의 규정
 generated: { by: "claude-fable-5", at: "2026-08-18T13:00:00Z" }
 sources:
@@ -21,8 +20,8 @@ sources:
 하나의 질문: **인자 목록을 넘길 때 `$@`와 `$*` 중 무엇을 어떻게 인용해야 뜻이 정해지는가.**
 
 특수 파라미터(special parameters)는 이름이 아니라 기호로 표시되는 파라미터다
-(§2.5).[^opengroup2024-shell] 그중 `@`와 `*`는 [인용](shell-quoting.md)·
-[필드 분리](shell-field-splitting.md)와 셋이 얽혀야 뜻이 정해지고, 그래서 셋 중 하나만 알고
+(§2.5).[^opengroup2024-shell] 그중 `@`와 `*`는 [인용](../concepts/shell-quoting.md)·
+[필드 분리](../concepts/shell-field-splitting.md)와 셋이 얽혀야 뜻이 정해지고, 그래서 셋 중 하나만 알고
 쓰면 틀린다.
 
 ## 위치 파라미터 — 두 자리부터는 중괄호가 필수다
@@ -82,7 +81,7 @@ sources:
   (§2.5.2).[^opengroup2024-shell] **버려도 되고 안 버려도 된다** — 구현에 따라 다를 수 있는
   자리이므로 인용하지 않은 `$@`·`$*`로 빈 인자를 전달하려는 시도는 애초에 이식성이 없다.
 - 그다음 절이 비어 있지 않은 필드도 **더 쪼갠다**고 못 박으므로, 공백이 든 인자는 인용 없이는
-  반드시 갈라진다([필드 분리와 IFS](shell-field-splitting.md)).
+  반드시 갈라진다([필드 분리와 IFS](../concepts/shell-field-splitting.md)).
 
 ## 인자가 없을 때
 
@@ -120,7 +119,7 @@ sources:
 
   - 즉 서브셸의 상태를 직접 읽는 것이 아니라 **대입 명령의 상태를 읽는 것**이고, 그 대입 명령의
     상태가 명령 치환에서 온다. 명령 이름이 없는 단순 명령의 규정이 그것을 정한다
-    ([종료 상태](shell-exit-status.md)).
+    ([종료 상태](../concepts/shell-exit-status.md)).
 
 ## 나머지 특수 파라미터
 
@@ -140,10 +139,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [셸 인용 — 무엇이 확장을 막는가](shell-quoting.md) — `"$@"`의 큰따옴표가 하는 일
-- [필드 분리와 IFS](shell-field-splitting.md) — 인용하지 않았을 때 일어나는 일
-- [파라미터 확장](shell-parameter-expansion.md) — `${...}` 문법 전체
-- [종료 상태](shell-exit-status.md) — `$?`가 읽는 값이 어떻게 정해지는가
+- [셸 인용 — 무엇이 확장을 막는가](../concepts/shell-quoting.md) — `"$@"`의 큰따옴표가 하는 일
+- [필드 분리와 IFS](../concepts/shell-field-splitting.md) — 인용하지 않았을 때 일어나는 일
+- [파라미터 확장](../concepts/shell-parameter-expansion.md) — `${...}` 문법 전체
+- [종료 상태](../concepts/shell-exit-status.md) — `$?`가 읽는 값이 어떻게 정해지는가
 - [POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) — 이 축의 허브
 
 [^opengroup2024-shell]: The IEEE and The Open Group 2024, Base Specifications Issue 8 / IEEE Std
