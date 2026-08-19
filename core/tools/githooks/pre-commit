@@ -1,6 +1,73 @@
-#!/bin/sh
-# 커밋 게이트 (PLAN §4.4) — validate 통과 없이는 커밋 불가.
+#!/usr/bin/env bash
+# 커밋 게이트 — 두 벌이 순서대로 돈다.
+#   1. core validate (core PLAN §4.4) — KB 정합. 통과 없이는 커밋 불가.
+#   2. altera-rules 게이트 — 생성 규약의 기계 집행. 선언은 루트 altera-rules.yml,
+#      규약 체크아웃 위치는 실체화된 표면(.claude/rules)의 링크 대상에서 읽는다
+#      (기계 로컬 정보의 정본은 기계 로컬 산출물).
 # 활성화(기기당 1회): git config core.hooksPath core/tools/githooks
 # 우회는 --no-verify — 도구가 우회하면 게이트가 아니라는 교훈(aider 사례)대로 기본 금지.
-cd "$(git rev-parse --show-toplevel)/core" || exit 1
-exec uv run tools/validate.py
+set -uo pipefail
+
+top="$(git rev-parse --show-toplevel)"
+
+# ── 1. core validate ─────────────────────────────────────────────────────────
+(cd "$top/core" && uv run tools/validate.py) || exit 1
+
+# ── 2. altera-rules ──────────────────────────────────────────────────────────
+link="$top/.claude/rules/altera-common.md"
+if [ ! -L "$link" ]; then
+  echo "altera-rules 표면이 실체화돼 있지 않다: $link" >&2
+  echo "  복구: bash <altera-rules 체크아웃>/scripts/install-surfaces.sh" >&2
+  exit 1
+fi
+rules="$(cd "$(dirname "$(readlink "$link")")/.." && pwd)"
+
+status=0
+
+# 2a. 표면 드리프트 — 선언(altera-rules.yml)과 실체(.claude/rules/) 대조
+"$rules/scripts/install-surfaces.sh" --check || status=1
+
+# 2b. 판 대조 — .pre-commit-config.yaml rev 대조의 등가물. 심링크 소비는 핀 판이
+#     아니라 live 체크아웃을 읽으므로, 태그 부재·태그 뒤·분기는 실패시키고
+#     태그보다 앞서는 것(저작 중)은 알리고 통과시킨다.
+declared="$(cd "$top/core" && uv run python -c \
+  'import sys, yaml; print(yaml.safe_load(open(sys.argv[1]))["rev"])' \
+  "$top/altera-rules.yml")" || exit 1
+if ! pinned="$(git -C "$rules" rev-parse --verify -q "refs/tags/$declared^{commit}")"; then
+  echo "선언된 판이 규약 체크아웃에 없다: $declared" >&2
+  status=1
+elif ! git -C "$rules" merge-base --is-ancestor "$pinned" HEAD; then
+  echo "규약 체크아웃이 선언된 판($declared) 뒤에 있거나 갈라져 있다." >&2
+  echo "  git -C $rules checkout $declared  또는 선언 rev 갱신" >&2
+  status=1
+elif [ "$pinned" != "$(git -C "$rules" rev-parse HEAD)" ]; then
+  echo "· 규약 체크아웃이 ${declared}보다 앞서 있다 — 미발표 조항이 활성이다 ($(git -C "$rules" describe --tags HEAD))"
+fi
+
+# 2c. 스테이지된 파일을 종류별로 모아 언어 게이트를 돌린다
+py_files=()
+sh_files=()
+while IFS= read -r -d '' f; do
+  path="$top/$f"
+  [ -f "$path" ] || continue
+  case "$f" in
+    *.py) py_files+=("$path") ;;
+    *.sh) sh_files+=("$path") ;;
+    *)  # 확장자가 없어도 셔뱅이 셸이면 셸이다 (커밋 훅·래퍼)
+      IFS= read -r first < "$path" || first=""
+      case "$first" in
+        '#!/bin/sh'*|'#!/bin/bash'*|'#!/usr/bin/env bash'*|'#!/usr/bin/env sh'*)
+          sh_files+=("$path") ;;
+      esac ;;
+  esac
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+if [ "${#py_files[@]}" -gt 0 ]; then
+  "$rules/gates/precommit/ast-grep-scan.sh" "${py_files[@]}" || status=1
+  "$rules/gates/precommit/ruff-base.sh"     "${py_files[@]}" || status=1
+fi
+if [ "${#sh_files[@]}" -gt 0 ]; then
+  "$rules/gates/precommit/shellcheck-scan.sh" "${sh_files[@]}" || status=1
+fi
+
+exit "$status"
