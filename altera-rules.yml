@@ -1,0 +1,5 @@
+rev: rules-v0.4.0
+surfaces:
+  - common
+  - lang/python
+  - lang/bash
