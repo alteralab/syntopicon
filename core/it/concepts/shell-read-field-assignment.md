@@ -2,7 +2,6 @@
 type: concept
 title: read와 변수 배분
 description: 표준 입력의 한 줄이 왜 의도한 변수에 안 들어가는가 — read가 §2.6.5 필드 분리를 "수정해서" 쓴다는 규정, 출력 필드를 변수 개수보다 하나 적게만 만들고 나머지를 unsplit으로 돌려준다는 상한, 앞에서부터 짝을 맞추고 남은 변수는 빈 문자열로 채운다는 배분 규칙, IFS가 빈 문자열일 때 배분 자체가 사라지는 자리, 그리고 이 규범이 빈 칸 소실 뒤에 이어지는 "뒤 칸 당겨 읽기"를 설명하는 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-18T23:45:00Z" }
 sources:
   - { id: opengroup2024-shell, resource: /it/sources/opengroup2024-shell.md }
@@ -23,7 +22,7 @@ sources:
 
 하나의 질문: **표준 입력의 한 줄은 어떤 규칙으로 `var` 피연산자들에 나눠 담기는가.**
 
-[필드 분리와 IFS](shell-field-splitting.md)는 확장 결과가 **몇 개로 쪼개지는가**만 정한다. 쪼갠
+[필드 분리와 IFS](../concepts/shell-field-splitting.md)는 확장 결과가 **몇 개로 쪼개지는가**만 정한다. 쪼갠
 것을 **어느 변수에 넣는가**는 그 절이 답하지 않는 질문이고, 규범은 `read` 유틸리티 페이지에 따로
 있다. 둘을 한 덩어리로 알면 사고를 절반만 설명하게 된다 — 값이 사라지는 것은 분리의 규범이고,
 남은 값이 앞으로 밀려 다른 변수로 들어가는 것은 여기 배분의 규범이다.
@@ -142,7 +141,7 @@ sources:
 
 - **1단계 — 분리가 빈 칸을 지운다.** 구분자가 IFS 공백류면 연달아 와도 필드를 하나만 끊으므로,
   값이 비어 있던 칸은 출력 필드로 나오지 않는다 (§2.6.5, [필드 분리와
-  IFS](shell-field-splitting.md)).[^opengroup2024-shell]
+  IFS](../concepts/shell-field-splitting.md)).[^opengroup2024-shell]
 - **2단계 — 배분이 남은 것을 앞에서부터 채운다.** 위 검사에 자리 개념이 없으므로 세 번째 칸의
   값이 두 번째 변수로 들어간다. 사라진 것은 한 칸인데 **틀리는 것은 그 뒤 전부**다.
 - **3단계 — 남은 변수가 빈 문자열이 된다.** 필드가 하나 모자라므로 마지막 변수에 빈 문자열이
@@ -153,7 +152,7 @@ sources:
 막는 방법은 배분 쪽이 아니라 **분리 쪽**에 있는데, 스펙이 그 길을 좁혀 놓았다.
 
 - `<space>`·`<tab>`·`<newline>`은 `IFS` 값에 들어 있는 한 **언제나** IFS 공백류다 (§2.6.5,
-  [필드 분리와 IFS](shell-field-splitting.md)).[^opengroup2024-shell] 그러므로 탭으로 칸을 가른
+  [필드 분리와 IFS](../concepts/shell-field-splitting.md)).[^opengroup2024-shell] 그러므로 탭으로 칸을 가른
   자료를 `IFS`에 탭만 넣어 읽어도 **빈 칸은 여전히 사라진다.** "구분자를 좁히면 되겠지"가
   듣지 않는 자리다.
 - 빈 칸이 살아남으려면 구분자가 애초에 공백류가 아닌 문자여야 한다. 그때는 분리 알고리즘이
@@ -250,7 +249,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [필드 분리와 IFS](shell-field-splitting.md) — 이 페이지의 앞 단계. 무엇이 필드가 되는가를 정하는
+- [필드 분리와 IFS](../concepts/shell-field-splitting.md) — 이 페이지의 앞 단계. 무엇이 필드가 되는가를 정하는
   다른 알고리즘
 - [셸의 종료 상태와 그 전파](shell-exit-status.md) — `read`가 내는 1과 1 초과가 놓이는 자리
 - [셸 실행 환경과 서브셸](shell-execution-environment.md) — 대입이 어디에 남는가
