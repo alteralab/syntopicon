@@ -1,0 +1,78 @@
+# 질문지 조각 — Dijkstra 1969 상한 명제 승급(2026-08-21, 검증 축 두 번째 반입).
+# 소스는 둘이지만(EWD249 전체형 · NATO 로마 보고서 경구형) 정답 페이지는 하나라
+# 조각도 하나다 — source는 전체형 원전인 EWD249로 잡았다.
+# 이 소스가 만드는 검색 위험은 둘이다. ① 이 명제는 코퍼스 어디에나 스며 있는
+# 상투구라 "테스트"·"버그" 같은 흔한 낱말로는 이 페이지가 뜨지 않는다. exact와
+# semantic 문항이 그 자리를 겨냥한다. ② 널리 도는 문면이 영어 인용구라, 원어
+# alias가 실제 검색 키로 사는지가 이 페이지의 회수 가능성을 좌우한다.
+# cross-domain 둘은 test-oracle 페이지와의 분업(실행한 입력 ↔ 실행하지 않은 입력)이
+# 실제로 두 페이지를 함께 물어 오는지를 본다.
+source: dijkstra1969-ewd249
+added: 2026-08-21
+queries:
+  - id: pna-exact-1
+    query: "결함의 부재"
+    type: exact
+    description: "복합명사 — 통과가 증명하지 못하는 쪽의 이름"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-exact-2
+    query: "소진 테스트"
+    type: exact
+    description: "복합명사 — 명제를 떠받치는 불가능성의 이름"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-exact-3
+    query: "따름정리"
+    type: exact
+    description: "EWD249가 이 명제에 붙인 지위. 이 코퍼스에서 드문 낱말이라 변별력이 있다"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-alias-1
+    query: "program testing"
+    type: alias
+    description: "원어 병기 — 원문이 쓰는 낱말. 한국어 표면형(테스팅·테스트)과 갈라 주는 키"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-alias-2
+    query: "presence of bugs"
+    type: alias
+    description: "직인용 구절의 핵심 어구. 널리 도는 문면이 영어라 이 키가 실제 진입로다"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-alias-3
+    query: "exhaustive testing"
+    type: alias
+    description: "원어 병기 — 논증의 출발점"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-sem-1
+    query: "테스트가 전부 통과했다고 해서 문제가 없다고 말할 수 없는 이유"
+    type: semantic
+    description: "패러프레이즈 — 결함·부재·오라클 어휘 불사용"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-sem-2
+    query: "돌려 보지 않은 입력에 대해서는 아무 것도 보장되지 않는다"
+    type: semantic
+    description: "패러프레이즈 — 비대칭의 근거를 낱말 없이 서술한 질의"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-top-1
+    query: "부품이 많아질수록 전체가 옳을 확률이 급격히 떨어지는 계산"
+    type: topical
+    description: "p의 N제곱 논증. 수식이 기호로만 남지 않고 이름으로 잡히는지를 본다"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: pna-x-1
+    query: "무엇이 옳은 동작인지 판정하는 문제와 통과가 무엇을 증명하는지의 문제"
+    type: cross-domain
+    description: "분업 확인 — 실행한 입력 쪽(test-oracle)과 실행하지 않은 입력 쪽(이 소스)"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: pna-x-2
+    query: "생성한 코드의 정확성을 통과율로 재는 것이 착시가 될 수 있는 자리"
+    type: cross-domain
+    description: "LLM 시대 지위 절. 이 명제와 오라클 문제가 함께 걸리는지를 본다"
+    expected_files: ["concepts/testing-shows-presence-not-absence.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5

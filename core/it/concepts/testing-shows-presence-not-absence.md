@@ -2,7 +2,6 @@
 type: concept
 title: 테스팅은 결함의 존재만 보인다
 description: 테스트가 통과했다는 것이 무엇을 증명하고 무엇을 증명하지 못하는가 — Dijkstra가 1969년에 세운 상한 명제의 두 문면과 그 선후, 명제를 떠받치는 소진 테스트 논증, 이 명제가 말하지 않는 것, 그리고 판정자가 사람에서 모델로 바뀐 시대에 이 비대칭이 그대로 남는 이유
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
 sources:
   - { id: dijkstra1969-ewd249, resource: /it/sources/dijkstra1969-ewd249.md }

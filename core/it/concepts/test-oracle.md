@@ -263,14 +263,17 @@ sources:
 
 ## 이어지는 페이지
 
+- [테스팅은 결함의 존재만 보인다](../concepts/testing-shows-presence-not-absence.md) —
+  실행하지 않은 입력 쪽의 상한. 이 페이지가 실행한 입력에 대한 판정 근거를 다룬다면,
+  그쪽은 그 판정이 전부 통과했을 때 무엇이 증명되지 **않는가**를 다룬다
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 계약과 불변식을 속성으로 묶어 컴퓨터가 입력을
   만들게 하는 기법. 이 분류에서는 파생 오라클 쪽에 붙는다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) — 명세 오라클과 모델
   체킹이 분산 시스템 층에서 쓰이는 모습
-- [단정적 프로그래밍](assertive-programming.md) — §4.2의 단정을 코드 안에 상주시키는 실천
-- [계약에 의한 설계](design-by-contract.md) — 사전·사후 조건이 명세 오라클이 되는 갈래
-- [테스트가 코딩을 이끈다](test-to-code.md) — 테스트 가능성을 위한 설계와 오라클의 관계
+- [단정적 프로그래밍](../concepts/assertive-programming.md) — §4.2의 단정을 코드 안에 상주시키는 실천
+- [계약에 의한 설계](../concepts/design-by-contract.md) — 사전·사후 조건이 명세 오라클이 되는 갈래
+- [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 테스트 가능성을 위한 설계와 오라클의 관계
 
 [^barr2015-oracle]: Barr, Harman, McMinn, Shahbaz & Yoo 2015, "The Oracle Problem in Software
     Testing: A Survey", *IEEE Transactions on Software Engineering* 41(5):507–525. 쪽 번호는
