@@ -1,0 +1,68 @@
+# 질문지 조각 — Barr et al. 오라클 문제 서베이 승급(2026-08-21, 검증 축의 첫 반입).
+# 이 소스가 만드는 검색 위험은 동음이의다 — 이 코퍼스에서 "오라클"은 이미 셋을
+# 가리킨다(테스트 오라클, 퍼콜레이터의 타임스탬프 오라클, 데이터베이스 제품 Oracle).
+# alias 문항 셋은 원어 test oracle이 그 셋을 갈라 주는 키로 사는지를 겨냥하고,
+# semantic 문항은 오라클이라는 낱말을 한 번도 쓰지 않은 질의가 이 페이지에 닿는지를 잰다.
+# cross-domain 둘은 이 페이지가 기존 테스트 페이지들의 상위 개념으로 실제로 걸렸는지를 본다.
+source: barr2015-oracle
+added: 2026-08-21
+queries:
+  - id: orc-exact-1
+    query: "암묵 오라클"
+    type: exact
+    description: "복합명사 — 명세도 도메인 지식도 없이 잡히는 갈래의 이름"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-exact-2
+    query: "인간 오라클 비용"
+    type: exact
+    description: "복합명사 — 자동 오라클이 없을 때 남는 비용의 이름"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-alias-1
+    query: "test oracle"
+    type: alias
+    description: "원어 병기 — 이 코퍼스의 다른 두 오라클(타임스탬프 오라클·Oracle DB)과 갈라 주는 키"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-alias-2
+    query: "metamorphic relation"
+    type: alias
+    description: "원어 유지 용어 — 같은 구현의 여러 실행 사이에 거는 제약"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-alias-3
+    query: "ground truth oracle"
+    type: alias
+    description: "원어 병기 — 알 수 없는 채로 건전성과 완전성의 상한 노릇을 하는 개념"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-sem-1
+    query: "테스트가 통과했다는 말이 정말 옳다는 뜻인지를 무엇이 보증하나"
+    type: semantic
+    description: "패러프레이즈 — 오라클·기대값 어휘 불사용"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-sem-2
+    query: "명세가 없을 때 이전 판본이나 다른 구현에서 기대를 끌어오는 방법"
+    type: semantic
+    description: "패러프레이즈 — 파생·오라클 어휘 불사용. 의사 오라클과 회귀 가정이 답"
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-top-1
+    query: "자동으로 판정할 수 없을 때 사람의 확인 부담을 줄이는 방법"
+    type: topical
+    expected_files: ["concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: orc-x-1
+    query: "코드와 테스트를 같은 사람이 써서 같은 잘못된 가정이 양쪽에 들어갈 때"
+    type: cross-domain
+    description: "같은 문제의 두 층 — 일반형(이 소스)과 한 함수 수준의 처방(thomas2020)"
+    expected_files: ["concepts/test-oracle.md", "concepts/property-based-testing.md"]
+    expected_in_top_k: 5
+  - id: orc-x-2
+    query: "형식 명세와 모델이 옳고 그름의 판정 근거가 되는 자리"
+    type: cross-domain
+    description: "명세 오라클의 두 층 — 분류(이 소스)와 분산 시스템 적용(kleppmann2026)"
+    expected_files: ["concepts/test-oracle.md", "concepts/formal-methods-and-randomized-testing.md"]
+    expected_in_top_k: 5

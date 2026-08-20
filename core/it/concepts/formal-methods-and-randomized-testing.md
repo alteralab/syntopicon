@@ -186,6 +186,8 @@ sources:
 ## 이어지는 페이지
 
 - [속성 기반 테스트](property-based-testing.md) — 같은 기법이 한 함수의 계약을 검증하는 자리
+- [테스트 오라클](test-oracle.md) — 명세와 모델이 판정의 근거가 되는 구조를 일반화한 자리.
+  형식 명세는 그 분류에서 명세 오라클이고, 실행 흔적에서 모델을 끌어내는 쪽은 파생 오라클이다
 - [장애 모델과 시스템 동기성](../concepts/failure-models-and-synchrony.md) — 여기서 검증하려는
   성질과 그 성질이 성립해야 할 모델
 - [분산 컴퓨팅의 오류](../concepts/fallacies-of-distributed-computing.md) — 결함 주입으로

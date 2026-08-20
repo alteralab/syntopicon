@@ -2,7 +2,6 @@
 type: concept
 title: 테스트 오라클
 description: 무엇이 옳은 동작인지를 무엇이 답하는가라는 문제와 그 답의 네 출처 — 오라클을 자극과 응답의 열에 대한 부분 함수로 규정하는 정의, 알 수 없는 근거 진리가 건전성과 완전성의 상한이 되는 구조, 명세에서 오는 오라클과 다른 산출물에서 파생되는 오라클과 암묵 지식에서 오는 오라클, 그리고 자동 오라클이 아예 없을 때 사람의 판정 비용을 줄이는 갈래, 편수 분포가 말해 주는 것과 말해 주지 못하는 것, LLM 세대에서 이 문제가 놓인 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
 sources:
   - { id: barr2015-oracle, resource: /it/sources/barr2015-oracle.md }
@@ -264,10 +263,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [속성 기반 테스트](property-based-testing.md) — 계약과 불변식을 속성으로 묶어 컴퓨터가 입력을
+- [속성 기반 테스트](../concepts/property-based-testing.md) — 계약과 불변식을 속성으로 묶어 컴퓨터가 입력을
   만들게 하는 기법. 이 분류에서는 파생 오라클 쪽에 붙는다
-- [자기 테스트 코드](self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
-- [형식 방법과 무작위 테스트](formal-methods-and-randomized-testing.md) — 명세 오라클과 모델
+- [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
+- [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) — 명세 오라클과 모델
   체킹이 분산 시스템 층에서 쓰이는 모습
 - [단정적 프로그래밍](assertive-programming.md) — §4.2의 단정을 코드 안에 상주시키는 실천
 - [계약에 의한 설계](design-by-contract.md) — 사전·사후 조건이 명세 오라클이 되는 갈래

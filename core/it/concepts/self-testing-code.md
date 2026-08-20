@@ -469,6 +469,8 @@ p.91).[^fowler2018]
 - [테스트가 코딩을 이끈다](test-to-code.md) — 같은 실천을 다른 소스가 다루는 자리
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 경계 찔러 보기를 자동화하는 쪽
 - [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — 단정문의 정본
+- [테스트 오라클](test-oracle.md) — 이 페이지에서 사람이 손으로 짓는 기대값이 무엇의 한 사례인지,
+  그리고 그 기대값이 올 수 있는 다른 출처들
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design

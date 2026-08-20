@@ -227,6 +227,8 @@ sources:
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 불변식을 코드 안에 상주시키는 짝
 - [우연에 의한 프로그래밍](../concepts/programming-by-coincidence.md) — "가정을 테스트하라"의 원래 요구
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) — 같은 기법의 분산 시스템 층
+- [테스트 오라클](test-oracle.md) — 이 Topic이 던진 질문("내가 틀렸다는 것을 무엇이 알려 주는가")의
+  일반형과 그 답의 네 출처. 속성은 그 분류에서 파생 오라클 쪽에 놓인다
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 42 "Property-Based Testing". 예제는 파이썬의
