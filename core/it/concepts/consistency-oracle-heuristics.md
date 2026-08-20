@@ -2,7 +2,6 @@
 type: concept
 title: 일관성 오라클 휴리스틱
 description: 명세가 없을 때 기대를 무엇에 비추어 만드는가 — 문제를 알아보는 근거를 관계된 것들 사이의 바람직한 일관성으로 규정하고 그 관계를 열한 항목으로 목록화한 실무 카탈로그, 2005년 여덟 항목(HICCUPPS)에서 2012년 열한 항목((F)EW HICCUPPS)으로의 계보와 U 항목 개명, 저자 자신이 밝힌 오류 가능성과 비완전성, 그리고 이 카탈로그가 오라클 네 출처 분류의 어디에 앉는가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
 sources:
   - { id: bolton2012-few-hiccupps, resource: /it/sources/bolton2012-few-hiccupps.md }

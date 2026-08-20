@@ -1,0 +1,85 @@
+# 질문지 조각 — Bolton 일관성 오라클 휴리스틱 승급(2026-08-21, 검증 축 세 번째 반입).
+# 소스는 둘이지만(2012 블로그 · 2005 Better Software 기사) 정답 페이지는 하나라
+# 조각도 하나다 — source는 열한 항목을 확정한 2012년 글로 잡았다.
+# 이 소스가 만드는 검색 위험은 셋이다. ① 이 페이지의 진입로가 대부분 니모닉
+# 문자열(HICCUPPS·FEW HICCUPPS)이라 원어 alias가 죽으면 페이지가 사실상 안 잡힌다.
+# ② 항목 이름의 한국어 뜻풀이는 괄호 안에만 있어 한국어 표면형으로 회수되는지를
+# 따로 재야 한다. ③ 이 코퍼스의 "일관성"은 이미 레플리카 일관성·일관성 모델 쪽으로
+# 무겁게 쏠려 있어 "일관성 휴리스틱"이 그 무게를 뚫는지가 관건이다.
+# cross-domain 둘은 test-oracle 과의 분업(연구 갈래 분류 ↔ 사람이 비추는 근거 목록)이
+# 실제로 두 페이지를 함께 물어 오는지를 본다.
+source: bolton2012-few-hiccupps
+added: 2026-08-21
+queries:
+  - id: coh-exact-1
+    query: "일관성 휴리스틱"
+    type: exact
+    description: "복합명사 — 이 카탈로그의 이름. 레플리카 일관성 계열의 쏠림을 뚫는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-exact-2
+    query: "사용자의 바람"
+    type: exact
+    description: "항목 이름의 한국어 뜻풀이. 괄호 안 역어가 검색 키로 사는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-exact-3
+    query: "비교 가능한 제품"
+    type: exact
+    description: "항목 이름의 한국어 뜻풀이 — 의사 오라클의 비형식판에 붙은 이름"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-alias-1
+    query: "FEW HICCUPPS"
+    type: alias
+    description: "니모닉 원어 — 이 페이지의 1차 진입로. 죽으면 페이지가 사실상 안 잡힌다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-alias-2
+    query: "HICCUPPS"
+    type: alias
+    description: "2005년 판 니모닉. 옛 이름으로 들어오는 질의가 같은 페이지에 닿아야 한다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-alias-3
+    query: "consistency heuristics"
+    type: alias
+    description: "원어 — 직인용 블록 안에만 있는 표기가 실제 검색 키로 사는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-sem-1
+    query: "명세가 없는데 이것이 버그라고 말하려면 무엇을 근거로 대나"
+    type: semantic
+    description: "패러프레이즈 — 오라클·휴리스틱·일관성 어휘 불사용"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-sem-2
+    query: "기대에 못 미친다는 말만으로는 보고가 공허해지는 이유"
+    type: semantic
+    description: "패러프레이즈 — 이 카탈로그가 겨냥한 공백을 낱말 없이 서술한 질의"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-top-1
+    query: "제품이 과거 판본이나 경쟁 제품과 다를 때 문제를 의심하는 근거"
+    type: topical
+    description: "History 와 Comparable Products 항목. 목록의 개별 항목으로 페이지에 닿는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-top-2
+    query: "여덟 항목이 열한 항목으로 늘어난 경위와 글자가 바뀐 이유"
+    type: topical
+    description: "계보 절. 니모닉 문자열 없이 계보를 묻는 질의가 걸리는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md"]
+    expected_in_top_k: 5
+  - id: coh-x-1
+    query: "판정 근거가 어디서 오는가의 분류와 사람이 실제로 무엇에 비추어 보는가의 목록"
+    type: cross-domain
+    description: "분업 확인 — 연구 갈래 분류(test-oracle)와 실무 근거 목록(이 소스)"
+    expected_files: ["concepts/consistency-oracle-heuristics.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: coh-x-2
+    query: "프롬프트가 명세 자리에 설 때 산출물의 옳고 그름을 무엇에 비추어 보나"
+    type: cross-domain
+    description: "LLM 시대 지위 절. 명세 부재라는 같은 조건에서 두 페이지가 함께 걸리는지를 본다"
+    expected_files: ["concepts/consistency-oracle-heuristics.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
