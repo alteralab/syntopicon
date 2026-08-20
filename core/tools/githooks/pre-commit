@@ -17,7 +17,7 @@ top="$(git rev-parse --show-toplevel)"
 link="$top/.claude/rules/altera-common.md"
 if [ ! -L "$link" ]; then
   echo "altera-rules 표면이 실체화돼 있지 않다: $link" >&2
-  echo "  복구: bash <altera-rules 체크아웃>/scripts/install-surfaces.sh" >&2
+  echo "  복구: <altera-rules 체크아웃>/scripts/install_surfaces.py" >&2
   exit 1
 fi
 rules="$(cd "$(dirname "$(readlink "$link")")/.." && pwd)"
@@ -25,7 +25,7 @@ rules="$(cd "$(dirname "$(readlink "$link")")/.." && pwd)"
 status=0
 
 # 2a. 표면 드리프트 — 선언(altera-rules.yml)과 실체(.claude/rules/) 대조
-"$rules/scripts/install-surfaces.sh" --check || status=1
+"$rules/scripts/install_surfaces.py" --check || status=1
 
 # 2b. 판 대조 — .pre-commit-config.yaml rev 대조의 등가물. 심링크 소비는 핀 판이
 #     아니라 live 체크아웃을 읽으므로, 태그 부재·태그 뒤·분기는 실패시키고
