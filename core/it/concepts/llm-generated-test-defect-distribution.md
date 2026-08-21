@@ -2,7 +2,6 @@
 type: concept
 title: LLM 생성 테스트의 결함 분포
 description: LLM이 생성한 단위 테스트가 어디서 얼마나 틀리는가의 전수 실측 — 구문·컴파일·실행의 세 층에서 무엇이 걸러지는지, 실행까지 간 테스트의 실패가 왜 거의 다 단정 오류인지, 그 실패한 단정이 대상의 결함을 찾은 것이 아니라 스스로 틀린 것이라는 수동 검사 결과, 통과한 테스트는 사람 것과 커버리지가 비슷하다는 대칭, 컴파일 층은 기계 게이트로 고쳐지지만 오라클 층은 남는다는 구조, 그리고 이 수치들이 모델·시점·언어·프레임워크에 얼마나 의존하는가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
 sources:
   - { id: yuan2024-chatgpt-tests, resource: /it/sources/yuan2024-chatgpt-tests.md }
