@@ -39,6 +39,8 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
   출력을 알아보는 능력과 자기 출력을 선호하는 정도의 관계, 그 인과를 세우려 한 실험
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 판정자와 대상이 다른
   모델이어도 오답이 겹치면 정확도가 부풀려지는 구조
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 자기 판정에 기대는
+  자기 수정의 이득을 같은 표본 예산에서 재고, 피드백을 더 강한 모델이 줄 때 무엇이 달라지는지
 
 ## 비교 평가
 
