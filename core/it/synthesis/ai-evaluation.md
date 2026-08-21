@@ -35,6 +35,10 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
   세 가지 편향
 - [AI 판정자의 선택](../concepts/ai-judge-selection.md) — 강한/약한/동일 판정자, 자기 평가,
   특화 판정자 셋
+- [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 판정자가 자기
+  출력을 알아보는 능력과 자기 출력을 선호하는 정도의 관계, 그 인과를 세우려 한 실험
+- [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 판정자와 대상이 다른
+  모델이어도 오답이 겹치면 정확도가 부풀려지는 구조
 
 ## 비교 평가
 
