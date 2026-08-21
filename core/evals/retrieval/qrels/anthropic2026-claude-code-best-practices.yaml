@@ -1,0 +1,124 @@
+# 질문지 조각 — Anthropic 2026 "Best practices for Claude Code" 승급(2026-08-22,
+# 검증자 독립성 갈래의 다섯 번째 반입이자 이 갈래 첫 벤더 문서).
+# 이 소스가 만드는 검색 위험은 두 겹이다. 첫째, 갈래 안 간섭 — 검증자·판정자·분리
+# 어휘는 이미 self-repair-feedback-bottleneck·correlated-errors-across-llms·
+# self-recognition-and-self-preference·ai-judge-selection이 소유하고, 그 넷은 전부
+# 실증 페이지다. 둘째, 갈래 밖 간섭 — "에이전트"와 "리뷰"는 agent-* 계열과
+# code-review 성격 페이지들이 가진다. 그래서 exact 문항은 이 페이지만 가진 문면
+# 어휘(문면·벤더 실무 문서·일한 에이전트가 채점·과잉 보고)를 겨냥하고, alias 문항은
+# 이 페이지에서만 병기된 원어(vendor guidance·fresh context·verification subagent·
+# adversarial review step)가 갈라 주는 키로 사는지를 잰다. semantic 문항은 실무자가
+# 실제로 던질 법한 물음이 실증 페이지가 아니라 이 페이지로 닿는지를 본다.
+# cross-domain 셋은 이번 런이 실제로 건 양방향 링크(더 강한 판정자·저자 은닉·
+# 오류 상관)가 검색에서도 이웃으로 잡히는지를 본다.
+source: anthropic2026-claude-code-best-practices
+added: 2026-08-22
+queries:
+  - id: vsaw-exact-1
+    query: "에이전트 작업 흐름의 검증자 분리"
+    type: exact
+    description: "페이지 제목 그대로 — 실증 네 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-exact-2
+    query: "일한 에이전트가 채점하지 않는다"
+    type: exact
+    description: "문서가 요구하는 분리를 이 KB가 옮긴 문장 — 이 페이지에만 있다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-exact-3
+    query: "근거가 아니라 문면"
+    type: exact
+    description: "이 페이지의 지위 절을 여는 말 — 벤더 문서를 실증과 가르는 어휘다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-exact-4
+    query: "벤더 실무 문서"
+    type: exact
+    description: "이 KB의 유일한 벤더 제품 문서 — 페이지와 소스 메타 중 하나는 잡혀야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md", "sources/anthropic2026-claude-code-best-practices.md"]
+    expected_in_top_k: 5
+  - id: vsaw-exact-5
+    query: "반박을 시킨 판정자는 없는 결함까지 보고한다"
+    type: exact
+    description: "과잉 보고 경고 절의 제목 — 분리의 대가를 다루는 자리는 여기뿐이다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-exact-6
+    query: "문면이 실증보다 덜 말하는 자리"
+    type: exact
+    description: "이 페이지가 자기 한계를 적은 절 — 오인용을 막는 자리라 반드시 잡혀야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-alias-1
+    query: "vendor guidance"
+    type: alias
+    description: "원어 병기 — 이 소스의 지위를 가리키는 키. 역어가 흔들려도 남는다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md", "sources/anthropic2026-claude-code-best-practices.md"]
+    expected_in_top_k: 5
+  - id: vsaw-alias-2
+    query: "fresh context"
+    type: alias
+    description: "원어 병기 — 문서가 쓰는 표기 그대로. 이 KB에서 이 페이지에만 있다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-alias-3
+    query: "verification subagent"
+    type: alias
+    description: "원어 병기 — 분리를 실행하는 장치의 이름"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-alias-4
+    query: "adversarial review step"
+    type: alias
+    description: "원어 병기 — 직인용 둘이 나온 절의 이름"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-alias-5
+    query: "Claude Code best practices"
+    type: alias
+    description: "원문 제목 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["sources/anthropic2026-claude-code-best-practices.md", "concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-sem-1
+    query: "코드를 짠 에이전트가 자기 코드를 리뷰해도 되는가"
+    type: semantic
+    description: "패러프레이즈 — 이 페이지가 답하는 질문 그대로. 실증 페이지보다 이쪽이 먼저 와야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-sem-2
+    query: "리뷰를 새 세션에서 돌리라는 권고의 근거"
+    type: semantic
+    description: "패러프레이즈 — 방금 쓴 코드로 기우는 것을 막는다는 문면이 답이다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-sem-3
+    query: "리뷰어가 사소한 지적을 쏟아내서 과잉 설계로 간다"
+    type: semantic
+    description: "패러프레이즈 — 검증·판정 어휘 불사용. 과잉 보고 경고 절이 답이다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-top-1
+    query: "개정되는 웹 문서를 인용할 때 열람 시점을 어떻게 적는가"
+    type: topical
+    description: "살아있는 문서의 스냅샷 지위 — 두 판 대조와 개정 시각을 적은 자리가 답이다"
+    expected_files: ["sources/anthropic2026-claude-code-best-practices.md", "concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: vsaw-x-1
+    query: "실무 지침은 판정자가 더 강해야 한다고 적는가"
+    type: cross-domain
+    description: "문면은 다르게까지만 적고 실증은 강하게까지 갔다 — 두 페이지가 짝으로 걸려야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md", "concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: vsaw-x-2
+    query: "저자를 숨기는 것과 쓴 기억을 떼는 것"
+    type: cross-domain
+    description: "저자 은닉 권고와 새 문맥 권고 — 같은 목표의 두 손잡이가 짝으로 걸려야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md", "concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: vsaw-x-3
+    query: "판정자를 새 모델로 바꿔도 남는 위험"
+    type: cross-domain
+    description: "fresh model의 모호함이 걸리는 자리 — 오류 상관 실측과 짝으로 걸려야 한다"
+    expected_files: ["concepts/verifier-separation-in-agent-workflows.md", "concepts/correlated-errors-across-llms.md"]
+    expected_in_top_k: 5
