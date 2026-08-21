@@ -65,7 +65,8 @@ sources:
 
 ## 레거시 코드의 정의 — 테스트가 없는 코드
 
-- **저자는 통용되던 뜻을 버리고 다시 정의한다** (Preface).[^feathers2004]
+- **저자는 레거시 코드(legacy code)의 통용되던 뜻을 버리고 다시 정의한다**
+  (Preface).[^feathers2004]
 
   > To me, legacy code is simply code without tests.
 
@@ -144,7 +145,7 @@ sources:
   기법들은 이 페이지의 질문 밖이다.
 - **레거시 코드 변경 알고리즘** (2장 §"The Legacy Code Change Algorithm",
   p.18).[^feathers2004] ⑴ 변경 지점을 식별한다, ⑵ 테스트 지점을 찾는다, ⑶ 의존을
-  끊는다, ⑷ 테스트를 쓴다, ⑸ 변경하고 리팩터링한다. **테스트 쓰기가 변경보다 앞에
+  끊는다, ⑷ 테스트를 쓴다, ⑸ 변경하고 리팩터링(refactoring)한다. **테스트 쓰기가 변경보다 앞에
   있다는 순서가 이 절차의 전부다.**
 
 ## 특성화 테스트의 정의와 절차
