@@ -1,0 +1,127 @@
+# 질문지 조각 — Olausson et al. 2024 승급(2026-08-21, 검증자 독립성 갈래의 네 번째 반입).
+# 이 소스가 만드는 검색 위험은 갈래 밖 간섭이다 — "자기 평가"와 "반성"은 이미
+# agent-reflection-and-error-correction과 ai-judge-selection이 소유하고, pass@k는
+# functional-correctness가, 자기선호는 self-recognition-and-self-preference가 소유한다.
+# 그래서 자기·피드백·평가 어휘로 던진 질의가 이 페이지를 지나칠 수 있다. exact 문항은
+# 이 페이지만 가진 어휘(자기 수정·은탄환·수리 트리·수리 성공률·초기 프로그램의 다양성)를
+# 겨냥하고, alias 문항은 이 페이지에서만 병기된 원어(self-repair·repair tree·baseline)가
+# 갈라 주는 키로 사는지를 잰다. semantic 문항은 자기·수정이라는 낱말을 쓰지 않은 질의가
+# 닿는지를 본다. cross-domain 넷은 이번 런이 실제로 건 링크(자기선호 기제·오류 상관·
+# 판정자 고르기·pass@k 원정의)가 검색에서도 이웃으로 잡히는지를 본다.
+source: olausson2024-self-repair
+added: 2026-08-21
+queries:
+  - id: srfb-exact-1
+    query: "자기 수정의 피드백 병목"
+    type: exact
+    description: "페이지 제목 그대로 — 반성 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-exact-2
+    query: "자기 수정은 은탄환이 아니다"
+    type: exact
+    description: "원문 제목이 던지는 물음의 답 — 이 KB에서 이 페이지에만 있는 문장"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-exact-3
+    query: "수리 트리"
+    type: exact
+    description: "이 논문이 만든 구조의 이름 — 이 KB에서 이 페이지에만 있는 복합명사"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-exact-4
+    query: "수리 성공률"
+    type: exact
+    description: "사람 피드백과 견준 표의 지표 이름 — 표가 붙은 절이 잡혀야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-exact-5
+    query: "초기 프로그램의 다양성"
+    type: exact
+    description: "예산 배분의 결론 — 수리보다 초기 표본에 쓰라는 추세가 답이다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-exact-6
+    query: "같은 표본 예산의 기준선"
+    type: exact
+    description: "이 페이지가 이득을 재는 방식 — 기준선을 적지 않은 다른 자기 평가 서술과 갈려야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-alias-1
+    query: "self-repair"
+    type: alias
+    description: "원어 병기 — 역어가 흔들려도 남는 검색 키"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-alias-2
+    query: "repair tree"
+    type: alias
+    description: "원어 병기 — 이 논문이 만든 구조 이름. 이 KB에서 이 페이지에만 있다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-alias-3
+    query: "silver bullet code generation"
+    type: alias
+    description: "원문 제목의 낱말 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md", "sources/olausson2024-self-repair.md"]
+    expected_in_top_k: 5
+  - id: srfb-alias-4
+    query: "HumanEval APPS"
+    type: alias
+    description: "실험이 선 두 벤치마크 — 벤치마크 목록 페이지들과 갈려 실측이 있는 자리가 나와야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-sem-1
+    query: "모델이 자기가 쓴 코드를 스스로 고치면 이득이 있는가"
+    type: semantic
+    description: "패러프레이즈 — 이 페이지가 답하는 질문 그대로"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-sem-2
+    query: "표본을 더 뽑는 것과 고치는 것 중 어느 쪽이 나은가"
+    type: semantic
+    description: "패러프레이즈 — 자기·수정 어휘 불사용. 예산 비교 절이 답이다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-sem-3
+    query: "사람이 쓴 설명이 모델이 쓴 설명보다 디버깅에 나은가"
+    type: semantic
+    description: "사람 피드백 실험 — 표와 질적 분류가 붙은 두 절이 답이다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-top-1
+    query: "자기 피드백의 질이 왜 병목이 되는가"
+    type: topical
+    description: "피드백 모델만 갈아 끼운 절개 실험이 답이다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-top-2
+    query: "프롬프팅으로 만든 자기 수정에만 걸리는 결론"
+    type: topical
+    description: "버전 조건과 범위 절 — 학습 경로로 넣은 방식이 범위 밖이라는 한정이 잡혀야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md"]
+    expected_in_top_k: 5
+  - id: srfb-x-1
+    query: "생성한 모델이 판정도 하면 무엇을 잃는가"
+    type: cross-domain
+    description: "기제와 하류 대가 — 자기선호 원전과 이 실측이 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md", "concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srfb-x-2
+    query: "판정자는 다르기만 하면 되는가 더 강해야 하는가"
+    type: cross-domain
+    description: "조건이 둘로 좁혀지는 자리 — 오류 상관과 이 실측이 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md", "concepts/correlated-errors-across-llms.md"]
+    expected_in_top_k: 5
+  - id: srfb-x-3
+    query: "더 강한 모델에게 평가를 맡기면 무엇이 좋아지는가"
+    type: cross-domain
+    description: "판정자 강도 기준과 그 기준을 잰 실측이 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md", "concepts/ai-judge-selection.md"]
+    expected_in_top_k: 5
+  - id: srfb-x-4
+    query: "pass@k 정의와 표본 수 세기"
+    type: cross-domain
+    description: "원정의와 자기 수정용 재정의 — 두 페이지가 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-repair-feedback-bottleneck.md", "concepts/functional-correctness.md"]
+    expected_in_top_k: 5
