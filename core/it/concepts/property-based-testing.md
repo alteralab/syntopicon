@@ -2,7 +2,7 @@
 type: concept
 title: 속성 기반 테스트
 description: 코드와 테스트를 같은 사람이 쓰면 같은 틀린 가정이 양쪽에 들어간다는 문제와 그 기계적 해법 — 계약과 불변식을 속성으로 묶어 컴퓨터가 입력을 만들게 하는 절차, 창고 재고 예제에서 반증 사례가 예상과 다른 곳의 버그를 찾아내는 실물, 실패를 단위 테스트로 굳혀 회귀를 막는 규칙, 그리고 이 기법이 설계에 미치는 영향
-generated: { by: "claude-opus-5", at: "2026-08-15T22:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T16:00:00Z" }
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
 ---
@@ -37,6 +37,14 @@ sources:
   작업이 코딩에서 분리되면 그것을 잃는다** (Topic 42).[^thomas2020]
   - 이 기각이 중요하다. 저자들은 **조직으로 푸는 해법(테스터 분리)을 [테스트가 코딩을 이끈다](test-to-code.md)의
     명제와 양립할 수 없다는 이유로 버린다.** 그래서 남는 해법이 사람이 아니라 기계여야 한다.
+  - **기각의 근거가 하나 더 있는데 저자들은 그것을 들지 않는다.** 사람을 갈라 놓는 해법은
+    "따로 쓰면 따로 틀린다"를 전제하는데, 그 전제 자체가 측정돼 기각된 적이 있다 —
+    같은 명세에서 서로 모르는 사람들이 만든 판본 27개가 같은 입력에서 함께 틀린 정도가
+    독립 가정이 예측하는 것보다 크게 많았다.
+    [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md)이 그
+    실험과 저자들이 붙인 단서를 담는다. 이 Topic의 결론(사람이 아니라 기계에 맡긴다)은
+    그 실측 아래서도 유지되지만, **이유가 하나 늘어난다** — 사람을 갈라도 선입견은
+    갈라지지 않는다.
 - 채택한 해법 — **대신 우리는 당신의 선입견을 공유하지 않는 컴퓨터가 당신 대신 테스트를 좀 하는
   대안을 선호한다** (Topic 42).[^thomas2020]
 - 저자들이 앞세운 경구 (Topic 42):[^thomas2020]
@@ -229,6 +237,9 @@ sources:
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) — 같은 기법의 분산 시스템 층
 - [테스트 오라클](test-oracle.md) — 이 Topic이 던진 질문("내가 틀렸다는 것을 무엇이 알려 주는가")의
   일반형과 그 답의 네 출처. 속성은 그 분류에서 파생 오라클 쪽에 놓인다
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) — 이 Topic이
+  기각한 해법("다른 사람에게 테스트를 맡긴다")이 약속한 것을 실제로 주는지 잰 실험. 따로
+  써도 같은 입력에서 함께 틀린다는 결과다
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 42 "Property-Based Testing". 예제는 파이썬의

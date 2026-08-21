@@ -2,7 +2,7 @@
 type: concept
 title: 테스트 오라클
 description: 무엇이 옳은 동작인지를 무엇이 답하는가라는 문제와 그 답의 네 출처 — 오라클을 자극과 응답의 열에 대한 부분 함수로 규정하는 정의, 알 수 없는 근거 진리가 건전성과 완전성의 상한이 되는 구조, 명세에서 오는 오라클과 다른 산출물에서 파생되는 오라클과 암묵 지식에서 오는 오라클, 그리고 자동 오라클이 아예 없을 때 사람의 판정 비용을 줄이는 갈래, 편수 분포가 말해 주는 것과 말해 주지 못하는 것, LLM 세대에서 이 문제가 놓인 자리
-generated: { by: "claude-opus-5", at: "2026-08-21T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T16:00:00Z" }
 sources:
   - { id: barr2015-oracle, resource: /it/sources/barr2015-oracle.md }
 ---
@@ -147,9 +147,15 @@ sources:
   > specifications rapidly fall out of date when they exist at all.
 
 - **의사 오라클(pseudo-oracle)** — 독립적으로 만들어진 프로그램의 대안 판본이다. 다른 팀이
-  만들었거나 아예 다른 언어로 쓰였다 (§5.1, p.515).[^barr2015-oracle] 결함 감내 쪽의 N-버전
+  만들었거나 아예 다른 언어로 쓰였다 (§5.1, p.515).[^barr2015-oracle] 내결함성 쪽의 N-버전
   프로그래밍(N-version programming)이 같은 발상이며, 결과가 갈리면 투표 기제가 어느 출력을
   쓸지 정한다.
+  - **이 갈래가 기대는 전제는 따로 측정된 적이 있고 기각됐다.** 판본들이 독립적으로
+    만들어졌으니 독립적으로 실패하리라는 가정이 그것인데, 같은 명세에서 만든 판본 27개를
+    100만 건에 돌린 1986년 실험이 그 가정을 99% 신뢰수준에서 기각했다 —
+    [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md)이 그 실험과
+    저자들이 결론짓지 않은 것을 담는다. 이 서베이는 §5.1에서 의사 오라클을 분류에 올릴 뿐
+    그 전제를 검토하지 않는다.
 - **의사 오라클이 겨냥한 것은 "시험 불가능한 프로그램"이다** — 논문은 Weyuker의 규정을 인용한다
   (§5.1, p.515).[^barr2015-oracle] 원전(Weyuker 1982)은 이 KB에 없으므로 barr2015-oracle을
   통한 전언이다.
@@ -303,6 +309,9 @@ sources:
   갈래에 걸쳐 앉는다
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 계약과 불변식을 속성으로 묶어 컴퓨터가 입력을
   만들게 하는 기법. 이 분류에서는 파생 오라클 쪽에 붙는다
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) — §5.1의 의사
+  오라클이 기대는 전제를 실험으로 잰 자리. 판정자가 여럿이라는 것이 판정이 독립이라는 뜻은
+  아니라는 결과이고, 이 페이지가 다루지 않는 "누가 판정해야 믿을 수 있는가" 쪽의 원전이다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) — 명세 오라클과 모델
   체킹이 분산 시스템 층에서 쓰이는 모습

@@ -2,7 +2,7 @@
 type: concept
 title: 하드웨어·소프트웨어·사람의 결함
 description: 시스템을 실제로 고장 내는 세 원천과 그 상관 구조의 차이 — 디스크·SSD·CPU·RAM의 연간 고장률 실측치와 중복으로 대응하는 방식, 같은 소프트웨어를 돌리기 때문에 강하게 상관되는 소프트웨어 결함, 설정 변경이 장애의 최대 원인이라는 조사와 "인적 오류"라는 진단이 왜 생산적이지 않은가, 그리고 무비난 사후 분석
-generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T16:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
 ---
@@ -162,6 +162,10 @@ sources:
   알고리즘 가정으로 형식화한 것
 - [유지보수성](../concepts/maintainability.md) — 운영자를 편하게 만드는 설계가 왜 신뢰성
   문제인가
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) — "중복은
+  결함이 독립일 때 효과적이다"라는 같은 전제를 소프트웨어 쪽에서 실험으로 잰 자리. 이
+  페이지는 같은 소프트웨어를 돌려서 상관이 생긴다고 적는데, 그쪽은 **따로 만든 소프트웨어도**
+  같은 입력에서 함께 틀렸다는 결과다
 - [카프카 클러스터 문제 진단](../concepts/kafka-cluster-problem-diagnosis.md) — 결함이 운영
   현장에서 보이는 모습
 

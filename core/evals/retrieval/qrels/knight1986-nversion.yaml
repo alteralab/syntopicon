@@ -1,0 +1,91 @@
+# 질문지 조각 — Knight & Leveson 1986 승급(2026-08-21, 검증자 독립성 갈래의 첫 반입).
+# 이 소스가 만드는 검색 위험은 "독립"의 과부하다 — 이 코퍼스에서 독립은 이미 여럿을
+# 가리킨다(JVM의 언어 독립성, 데이터 독립, 분산 시스템의 장애 독립, 그리고 여기의
+# 통계적 독립). exact 문항은 이 페이지가 소유한 복합명사가 그 과부하를 뚫는지 보고,
+# alias 문항은 원어 병기(N-version programming·coincident failures·design diversity)가
+# 갈라 주는 키로 사는지를 겨냥한다. semantic 문항은 "독립"이라는 낱말을 한 번도 쓰지
+# 않은 질의가 이 페이지에 닿는지를 잰다. cross-domain 셋은 이번 런이 실제로 건 세
+# 링크(속성 기반 테스트·테스트 오라클·하드웨어와 소프트웨어와 사람의 결함)가 검색에서도
+# 이웃으로 잡히는지를 본다.
+# reply(knight1990-reply)는 별도 조각을 만들지 않는다 — 두 문서가 한 페이지를 먹이므로
+# 정답 파일이 같고, 조각을 둘로 나누면 같은 페이지를 두 번 재는 것이 된다.
+source: knight1986-nversion
+added: 2026-08-21
+queries:
+  - id: nvp-exact-1
+    query: "N-버전 프로그래밍"
+    type: exact
+    description: "복합명사 — 이 페이지가 소유한 기법의 이름"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-exact-2
+    query: "독립 가정 기각"
+    type: exact
+    description: "복합명사 — 이 실험이 한 일. '독립'의 과부하를 '기각'이 갈라 주는지 본다"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-exact-3
+    query: "상관 실패"
+    type: exact
+    description: "복합명사 — 이 페이지가 고정한 역어"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-alias-1
+    query: "N-version programming"
+    type: alias
+    description: "원어 병기 — 이 코퍼스의 다른 독립성(JVM 언어 독립성 등)과 갈라 주는 키"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-alias-2
+    query: "coincident failures"
+    type: alias
+    description: "원어 병기 — 여러 판본이 같은 입력에서 함께 실패하는 사건의 이름"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-alias-3
+    query: "design diversity"
+    type: alias
+    description: "원어 병기 — 판본을 서로 다르게 만들려는 성질. 잴 자가 없다는 단서가 붙는 자리"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-sem-1
+    query: "서로 모르는 사람들이 따로 만든 프로그램이 같은 입력에서 함께 틀릴 수 있나"
+    type: semantic
+    description: "패러프레이즈 — 독립·상관·N-버전 어휘 불사용"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-sem-2
+    query: "여러 구현의 결과가 일치하면 믿어도 되는지를 실제로 재 본 실험"
+    type: semantic
+    description: "패러프레이즈 — 투표·다수결·독립 어휘 불사용"
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-top-1
+    query: "판정을 여럿에게 나눠 맡기면 신뢰도가 정말 올라가는가"
+    type: topical
+    expected_files: ["concepts/correlated-failure-of-independent-versions.md"]
+    expected_in_top_k: 5
+  - id: nvp-x-1
+    query: "테스트를 다른 사람에게 맡기면 내 잘못된 가정이 걸러지는가"
+    type: cross-domain
+    description: "이번 런이 건 링크 — 기각된 조직 해법(thomas2020 Topic 42)과 그 전제의 실측"
+    expected_files:
+      - "concepts/correlated-failure-of-independent-versions.md"
+      - "concepts/property-based-testing.md"
+    expected_in_top_k: 5
+  - id: nvp-x-2
+    query: "독립적으로 만든 다른 구현을 기대값 판정에 쓰는 방법"
+    type: cross-domain
+    description: "이번 런이 건 링크 — 의사 오라클의 분류(barr2015-oracle §5.1)와 그 전제의 실측"
+    expected_files:
+      - "concepts/correlated-failure-of-independent-versions.md"
+      - "concepts/test-oracle.md"
+    expected_in_top_k: 5
+  - id: nvp-x-3
+    query: "중복을 두어도 부품이 함께 고장 나면 소용이 없다"
+    type: cross-domain
+    description: "이번 런이 건 링크 — 같은 전제가 인프라 층(kleppmann2026 2장)과 소프트웨어 층에서 반복되는 자리"
+    expected_files:
+      - "concepts/correlated-failure-of-independent-versions.md"
+      - "concepts/hardware-software-and-human-faults.md"
+    expected_in_top_k: 5
