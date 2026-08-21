@@ -6,7 +6,6 @@ status: draft
 generated: { by: "claude-opus-5", at: "2026-08-22T02:20:00Z" }
 sources:
   - { id: anthropic2026-claude-code-best-practices, resource: /it/sources/anthropic2026-claude-code-best-practices.md }
-stale_after: "2027-02-22"
 ---
 
 # 에이전트 작업 흐름의 검증자 분리
