@@ -41,6 +41,8 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
   모델이어도 오답이 겹치면 정확도가 부풀려지는 구조
 - [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 자기 판정에 기대는
   자기 수정의 이득을 같은 표본 예산에서 재고, 피드백을 더 강한 모델이 줄 때 무엇이 달라지는지
+- [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
+  같은 요구가 벤더 실무 문서에 적힌 문면. 실증이 아니라 문면이고, 개정되는 문서의 스냅샷 지위
 
 ## 비교 평가
 
