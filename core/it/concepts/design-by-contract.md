@@ -135,7 +135,7 @@ sources:
   "게으른(lazy)" 코드에 있다: 시작하기 전에 받아들일 것에 엄격하고, 대가로 가능한 한 적게
   약속하라. 기억하라, 당신의 계약이 무엇이든 받아들이고 대가로 온 세상을 약속한다고 명시한다면
   당신에게는 쓸 코드가 아주 많다!** (Topic 23)[^thomas2020] 그 짝이 되는 원칙은
-  [직교성](orthogonality.md)에 있다.
+  [직교성](../concepts/orthogonality.md)에 있다.
 - 그리고 언어와 무관한 이득 — **함수형이든 객체 지향이든 절차형이든 어떤 프로그래밍 언어에서도
   DbC는 당신이 **생각하게** 만든다** (Topic 23).[^thomas2020]
 
@@ -170,7 +170,7 @@ sources:
   우리는 코드가 지키는 *계약*(contracts)을 가진다는 발상을 이야기했다 (…) 코드 *불변식*(invariants)도
   있다 (…) 일단 계약과 불변식(우리는 이것들을 한데 묶어 *속성*(properties)이라 부를 것이다)을
   알아내면 우리는 그것을 써서 테스팅을 자동화할 수 있다** (Topic 42).[^thomas2020] 전문은
-  [속성 기반 테스트](property-based-testing.md)에 있다.
+  [속성 기반 테스트](../concepts/property-based-testing.md)에 있다.
 - **그래서 위 곁글의 다섯 이점 중 둘째가 여기서 뒤집힌다.** 곁글은 **DbC는 모든 경우에 대해 성공과
   실패의 매개변수를 정의하는 반면, 테스트는 한 번에 하나의 특정 경우만 겨냥할 수 있다**고 적었다
   (Topic 23).[^thomas2020] 속성 기반 테스트는 그 한계를 깬다 — 사람이 쓰는 것이 케이스가 아니라
@@ -287,18 +287,21 @@ sources:
 - [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — 계약이 깨졌을 때 무엇을
   해야 하는가. 저자들이 이 Topic의 첫 관련 절로 지목한 자리
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 계약을 코드 안의 검사로 옮기는 장치
-- [속성 기반 테스트](property-based-testing.md) — 계약과 불변식을 기계가 반증하게 만드는 자리
-- [테스트가 코딩을 이끈다](test-to-code.md) — 단위 테스트를 "계약에 대한 테스트"로 규정하는 자리
-- [직교성](orthogonality.md) — "수줍은 코드"와 "게으른 코드"가 짝을 이루는 자리
+- [속성 기반 테스트](../concepts/property-based-testing.md) — 계약과 불변식을 기계가 반증하게 만드는 자리
+- [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 단위 테스트를 "계약에 대한 테스트"로 규정하는 자리
+- [직교성](../concepts/orthogonality.md) — "수줍은 코드"와 "게으른 코드"가 짝을 이루는 자리
 - [데이터 품질 강제 패턴](../concepts/data-quality-enforcement-patterns.md) — 같은 판단이 데이터 경계에서
   어떻게 달라지는가
 - [데이터플로에서 제약 강제하기](../concepts/enforcing-constraints-in-dataflow.md) — 제약을
   분산 시스템에서 지키는 문제. 계약의 어휘가 조율의 문제로 바뀌는 자리
+- [테스트 오라클](../concepts/test-oracle.md) — 사전·사후 조건이 기대값의 출처가 되는 자리.
+  그쪽은 단정과 계약을 명세 오라클의 한 부류로 묶고, 형식 명세가 있어도 실행 결과와의 대조가
+  저절로 서지는 않는다는 세 난점을 함께 적는다
 - [실용주의의 기본 도구와 편집증](../synthesis/pragmatic-basic-tools-and-paranoia.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 23 "Design by Contract". 4장 도입의 Tip 36과, 같은
     Topic의 두 곁글("DBC and Test-Driven Development", "Who's Responsible?")을 함께 옮겼다.
     마이어 인용은 이 Topic이 참고문헌 [Mey97](*Object-Oriented Software Construction*)로
     지목한 것이다. "속성 기반 테스트가 이 어휘를 되받는다" 절만 Topic 42
-    "Property-Based Testing"에서 왔다 — 그쪽 전문은 [속성 기반 테스트](property-based-testing.md)에
+    "Property-Based Testing"에서 왔다 — 그쪽 전문은 [속성 기반 테스트](../concepts/property-based-testing.md)에
     있다.

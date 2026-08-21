@@ -331,6 +331,15 @@ Standards).[^bolton2012-few-hiccupps]
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 같은 "기대를 어디서
   구하는가"에 대한 기계화된 답. 이쪽이 사람의 일관성 판단이라면 그쪽은 형식화된 속성이다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
+- [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 이 목록의
+  History 항목 하나에만 기대었을 때 무엇이 남는가의 실증. 이전 판본이 아니라 지금 판본과의
+  일관성을 재면 판별력이 사라진다
+- [특성화 테스트](../concepts/characterization-test.md) — 같은 History 항목을 다섯 단계
+  절차로 편 실무 규범. 기록과 보존은 하고 옳음 판정은 하지 않는다는 경계가 붙는다
+- [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
+  모델이 기대를 지을 때 무엇에 정렬하는가의 실측. 이 카탈로그가 열거하는 근거 대신 대상의
+  현재 동작에 정렬하면 어떻게 되는지가 수치로 나온다
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^bolton2012-few-hiccupps]: Bolton 2012, "FEW HICCUPPS", DevelopSense.
     발행 2012-07-23이고 **살아 있는 문서**다 — 글 말미가 2016-12-18·2017-01-26의 수정을

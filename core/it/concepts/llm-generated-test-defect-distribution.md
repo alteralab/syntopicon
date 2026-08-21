@@ -251,6 +251,13 @@ sources:
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 단정을 코드 안에 상주시키는
   실천. 이 페이지의 단정은 테스트 쪽 단정이라 층이 다르다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
+- [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 같은
+  기제의 LLM 이전 층. 명세가 없으면 생성된 단정이 의도가 아니라 관측을 적는다는 것과, 그
+  아래서 사람이 교정을 다 하지는 않는다는 것을 사람 피험자 통제실험 둘이 잰다
+- [특성화 테스트](../concepts/characterization-test.md) — 사람이 같은 절차를 의도적으로
+  밟을 때의 처방과 그 경계. 기대값의 출처가 대상 자신이면 사람이 쓰든 기계가 뽑든 같은
+  한계에 걸린다
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^yuan2024-chatgpt-tests]: Yuan, Liu, Ding, Wang, Chen, Peng & Lou 2024, "No More Manual
     Tests? Evaluating and Improving ChatGPT for Unit Test Generation", *Proc. ACM Softw.

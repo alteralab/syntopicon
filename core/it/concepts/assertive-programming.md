@@ -45,7 +45,7 @@ sources:
   검사한다** (Topic 25).[^thomas2020] 저자들이 "아주 나쁜 착상"이라고 표시한 반례는 콘솔에서
   'Y'나 'N'을 읽은 뒤 `assert((ch == 'Y') || (ch == 'N'))`으로 확인하는 코드다 — 사용자 입력은
   잘못될 수 있는 정상 경로이므로 단정문의 대상이 아니다 (Topic 25).[^thomas2020]
-  - 같은 구분이 [계약에 의한 설계](design-by-contract.md)에도 있다 — 선행 조건을 사용자 입력 검증에
+  - 같은 구분이 [계약에 의한 설계](../concepts/design-by-contract.md)에도 있다 — 선행 조건을 사용자 입력 검증에
     쓰지 말라는 조문이 그것이다.
 - 죽는 방식은 고를 수 있다 — **대부분의 `assert` 구현이 단정문 실패 시 프로세스를 종료시킨다는
   이유만으로 당신이 쓰는 판이 그래야 할 이유는 없다. 자원을 해제해야 한다면 단정문의 예외를 잡거나
@@ -109,10 +109,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [계약에 의한 설계](design-by-contract.md) — 단정문이 부분적으로 흉내 내는 그 계약. 왜 부분에
+- [계약에 의한 설계](../concepts/design-by-contract.md) — 단정문이 부분적으로 흉내 내는 그 계약. 왜 부분에
   그치는지도 그쪽에 있다
-- [죽은 프로그램은 거짓말하지 않는다](dead-programs-tell-no-lies.md) — 단정문이 걸렸을 때의 결말
-- [디버깅](debugging-practice.md) — "가정하지 말고 증명하라"가 나온 자리
+- [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — 단정문이 걸렸을 때의 결말
+- [디버깅](../concepts/debugging-practice.md) — "가정하지 말고 증명하라"가 나온 자리
+- [테스트 오라클](../concepts/test-oracle.md) — 이 단정문이 오라클 분류에서 앉는 자리. 그쪽 §4.2가
+  단정을 명세 오라클의 한 부류로 세우고, 개발자가 쓰고 검사자가 읽는다는 분업이 이미
+  그 계보에 들어 있다고 적는다
 - [실용주의의 기본 도구와 편집증](../synthesis/pragmatic-basic-tools-and-paranoia.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 25 "Assertive Programming". 곁글은 같은 Topic의

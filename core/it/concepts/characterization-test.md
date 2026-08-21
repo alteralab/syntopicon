@@ -285,8 +285,8 @@ sources:
   "의심스러움" 표시와 에스컬레이션이 절차에 함께 들어 있다 (13장, pp.188·190).
 - **이 경계가 왜 중요한가** — 현재 동작(버그 포함)에 정렬해 기대값을 만드는 것은
   [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md)이 세운
-  실패 기전과 **같은 동작**이다. 그 페이지가 인용하는 대로, 명세가 없으면 생성된 단언은
-  의도가 아니라 관측을 적고, 대상이 이미 틀려 있으면 단언도 틀린 채 태어난다. **사람이
+  실패 기전과 **같은 동작**이다. 그 페이지가 인용하는 대로, 명세가 없으면 생성된 단정은
+  의도가 아니라 관측을 적고, 대상이 이미 틀려 있으면 단정도 틀린 채 태어난다. **사람이
   절차를 밟아 쓰든 기계가 뽑아내든 기대값의 출처가 같으면 같은 한계에 걸린다.**
 - **극한에는 이름이 붙어 있다** —
   [변경 감지 테스트(change-detector test)](../concepts/current-behaviour-as-oracle.md#이름이-붙은-자리--변경-감지-테스트)다.
@@ -403,6 +403,10 @@ sources:
 - [일관성 오라클 휴리스틱](../concepts/consistency-oracle-heuristics.md) — 명세가 없을 때
   기대를 무엇에 비추는가의 실무 카탈로그. "이전 판본과의 일관성"이 그 목록의 한 항목이고,
   이 페이지의 절차가 그 항목을 절차로 편 것이다
+- [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
+  같은 출처에서 기대값을 길어 오는 일을 기계가 대신할 때의 실측. 위 "LLM 시대의 지위"가
+  던지는 판정 질문이 실제 수치로 어디에 걸리는지를 그쪽이 잰다
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^feathers2004]: Feathers 2004, *Working Effectively with Legacy Code*, Prentice Hall PTR.
     **확보본은 EPUB이라 조판 쪽이 없고, 원문에 인쇄판 쪽 앵커(`page_NNN`)가 남아 있어

@@ -151,7 +151,7 @@ sources:
     어떻게 계층의 기능을 결정할 수 있는가?**
   - 그리고 처방 — **우리는 소프트웨어를 짓는 유일한 방법이 점진적이라고 강하게 믿는다. 종단 간
     기능의 작은 조각을 짓고, 가면서 문제에 대해 배워라. 코드를 살찌워 가면서 그 배움을 적용하고, 매
-    걸음 고객을 참여시키고, 그들이 과정을 안내하게 하라.** [트레이서 탄환과 프로토타입](tracer-bullets-and-prototypes.md)이
+    걸음 고객을 참여시키고, 그들이 과정을 안내하게 하라.** [트레이서 탄환과 프로토타입](../concepts/tracer-bullets-and-prototypes.md)이
     이 처방의 원래 자리다.
 - TDD에 대한 저자들의 최종 조언 — **꼭 TDD를 실천하라. 그러나 한다면 이따금 멈춰서 큰 그림을 보는
   것을 잊지 마라. 초록색 `"tests passed"` 메시지에 유혹당해 실제로는 해법에 가까이 데려다주지 않는
@@ -455,6 +455,9 @@ sources:
 - [디버깅](../concepts/debugging-practice.md) — 임시 테스트를 형식화하는 자리
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 테스트 창의 검사 쪽 짝
 - [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 저자들이 관련 절로 지목한 피드백 규율
+- [테스트 오라클](../concepts/test-oracle.md) — 이 페이지의 단위 테스트 정의가 기대값의 출처를
+  둘 이름 짓는다: "알려진 값에 비추어" 검사하는 쪽과 "같은 테스트의 이전 실행 결과에 비추어"
+  검사하는 쪽. 그쪽이 그 둘을 명세 오라클과 파생 오라클로 갈라 각각의 한계를 적는다
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 4장 "Building Tests" 중 §"The Value of Self-Testing Code"(pp.85–87) · §"Add Another Test"(p.93) · §"Much More Than This"(pp.99–100). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크

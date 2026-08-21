@@ -139,6 +139,18 @@ Dijkstra가 1969년에 이 질문에 상한을 하나 세웠고, 그 상한이 �
   Dijkstra가 처방한 증명 쪽이 분산 시스템 층에서 실제로 어디까지 쓰이는가
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 개별 사례 대신 성질을
   적어 입력을 기계가 만들게 하는 갈래. 가짓수 논증에 대한 부분 응답이다
+- [일관성 오라클 휴리스틱](../concepts/consistency-oracle-heuristics.md) — 돌려 본
+  입력에 대해서라도 통과와 실패를 무엇에 비추어 가르는가의 실무 카탈로그
+- [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 기대값을
+  대상 자신에게서 길어 왔을 때. 되비추는 테스트는 이 상한 아래에서 더 적게 증명한다 —
+  옳은 프로그램과 그른 프로그램이 같은 확률로 통과하기 때문이다
+- [특성화 테스트](../concepts/characterization-test.md) — 같은 자리를 처방 쪽에서 본
+  실무 규범. 저자 자신이 그 테스트에 도덕적 권위가 없다고 적는다: 통과는 지금 동작이
+  옳다는 뜻이 아니라 그대로라는 뜻이다
+- [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
+  통과율이 대상의 옳음이 아니라 테스트 자신의 옳음이었다는 실측. 통과 한 건의 증거
+  무게를 실제로 잰 자리
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^dijkstra1969-ewd249]: Dijkstra 1969, 「Notes on Structured Programming」(EWD249),
     Technological University Eindhoven, T.H.-Report 70-WSK-03. 쪽 번호는 인쇄
