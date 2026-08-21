@@ -198,7 +198,7 @@ sources:
   따져 아니면 확신이 설 때까지 더 쓴다. 확신이 서지 않으면 **다른 방식으로 바꾸는 편이
   안전하다**고 적는다 (13장, pp.188–189).[^feathers2004]
 - **리팩터링을 겨눌 때 확인할 것은 둘이다** (13장 §"Targeted Testing" 상자,
-  pp.193–194).[^feathers2004]
+  p.194).[^feathers2004]
 
   > When we refactor, we generally have to check for two things: Does the behavior exist
   > after the refactoring, and is it connected correctly?
