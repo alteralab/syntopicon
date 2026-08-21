@@ -2,7 +2,6 @@
 type: concept
 title: 모델 사이의 오류 상관
 description: 벤더도 아키텍처도 다른 언어 모델들이 같은 오답으로 모이는지를 리더보드 두 곳과 이력서 평가로 잰 2025년 실측 — 둘 다 틀렸을 때 같은 답을 고르는 비율이 우연 기준의 두 배라는 결과, 같은 회사·같은 기반 아키텍처가 상관을 올린다는 회귀와 그것을 통제해도 정확한 모델끼리 더 겹친다는 결과, 판정자로 쓰면 자기보다 못한 모델의 정확도를 부풀린다는 사례 연구, 그리고 문항 수가 논문 안에서 어긋나는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
 sources:
   - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
@@ -160,8 +159,8 @@ sources:
   google/text-unicorn@001 ↔ writer/palmyra-x-v3 쌍이 그 극단의 실물이다.
 - RESUMES에서도 방향은 같다 — 잔차 상관을 종속변수로 한 회귀의 절편이 0.6534이고 같은 회사
   항은 +0.0210이며, 사람 점수와의 상관이 높은 모델끼리(즉 개별적으로 정확한 모델끼리)의
-  교호작용 항이 +0.0429다 (Appendix C Table 8, 관측 190쌍, 결정계수 R² 0.415). 다만 이 자료에서
-  같은 회사 항은 p 값 0.092로 유의하지 않다.[^kim2025-error-correlation]
+  교호작용 항이 +0.0429다. 다만 이 자료에서 같은 회사 항은 p 값 0.092로 유의하지 않다
+  (Appendix C Table 8, 관측 190쌍, 결정계수 R² 0.415).[^kim2025-error-correlation]
 
 ## 유능할수록 더 겹친다
 

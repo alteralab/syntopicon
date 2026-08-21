@@ -2,10 +2,11 @@
 type: concept
 title: AI 판정자의 한계
 description: AI로 AI를 평가하는 접근이 신뢰를 얻지 못하는 네 가지 이유 — 같은 판정자가 같은 입력에 다른 점수를 내는 비일관성과 일관성이 정확성이 아니라는 단서, 도구마다 뜻이 다른 faithfulness가 보여 주는 기준 모호성과 판정자가 바뀌면 지표가 무너진다는 문제, API 호출이 배로 느는 비용과 응답 전 판정이 더하는 지연, 그리고 자기 편향·첫 위치 편향·장황함 편향
-generated: { by: "claude-opus-5", at: "2026-08-17T11:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: es2024-ragas, resource: /it/sources/es2024-ragas.md }
+  - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
 ---
 
 # AI 판정자의 한계
@@ -141,6 +142,15 @@ sources:
   자기 응답을 선호하는 것이다. 모델이 생성할 가장 그럴듯한 응답을 계산하도록 돕는 바로 그 기제가 이
   응답에 높은 점수도 준다. Zheng et al.의 2023년 실험에서 GPT-4는 자기 자신을 10% 높은 승률로,
   Claude-v1은 자기 자신을 25% 높은 승률로 선호한다** (3장, pp.144–145).[^huyen2025]
+- **자기 편향은 같은 벤더의 다른 모델에까지 걸린다** — 판정자를 근거 진리 대신 써서 다른 모델을
+  채점시키면, 판정자는 자기보다 정확도가 낮은 모델의 정확도를 체계적으로 부풀리고 자기보다 정확한
+  모델의 정확도는 깎는다. 기제는 관대함이 아니라 **오류 상관(correlated errors)**이다 — 판정자와
+  대상이 같은 오답을 고르면 그 문항이 정답으로 집계되고, 반대로 판정자가 틀린 문항에서는 대상이
+  맞혀도 점수를 줄 수 없다. 그리고 부풀림은 **같은 벤더·같은 계열의 모델에서 더 크다**. 저자들은
+  이것을 자기 선호(self-preferencing)가 같은 계열의 다른 모델 사이에서도 일어날 수 있다는 뜻으로
+  읽는다 (§4, Figure 2·8).[^kim2025-error-correlation]
+  - 처방 — 판정자를 바꿔서 푸는 문제가 아니라 **모델과 판정자의 쌍마다 근거 진리 자료로 오류
+    지표를 보정해야 하는** 문제다 (§4).[^kim2025-error-correlation]
 - 첫 위치 편향 — **많은 AI 모델이 첫 위치 편향(first-position bias)을 갖는다. AI 판정자는 쌍 비교에서
   첫 번째 답을, 또는 선택지 목록에서 첫 번째 것을 선호할 수 있다. 이는 서로 다른 순서로 같은 테스트를
   여러 번 반복하거나 정성껏 만든 프롬프트로 완화할 수 있다. AI의 위치 편향은 사람의 그것과 반대다.
@@ -172,6 +182,8 @@ sources:
   규정
 - [판정자 모델 고르기](../concepts/ai-judge-selection.md) — 비용을 줄이려 약한 판정자를 쓰는 선택과
   자기 편향이 자기 평가에 걸리는 자리
+- [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 위 자기 편향이 같은
+  벤더의 다른 모델로 번지는 기제와 그 실측
 - [비교 평가](../concepts/comparative-evaluation.md) — 첫 위치 편향이 실제로 쌍 비교에서 작동하는 자리
 - [기능적 정확성](../concepts/functional-correctness.md) — AI 판정자를 보완할 정확 평가 쪽
 - [AI의 확률적 성격](../concepts/probabilistic-nature-of-ai.md) — 비일관성의 출처와 그 완화책
@@ -193,3 +205,8 @@ sources:
     "partially omitted for brevity"라고 밝힌 발췌를 그대로 옮겼다. Zheng et al.(2023)·Wu와
     Aji(2023)·Saito et al.(2023)·MLflow·LlamaIndex는 huyen2025를 통한 전언이다. Ragas에 대한
     전언은 위 원전 각주로 이중화했다.
+
+[^kim2025-error-correlation]: Kim, Garg, Peng & Garg 2025, "Correlated Errors in Large
+    Language Models", ICML 2025 본회의(PMLR 267). 이 페이지는 §4의 판정자 사례 연구와 그
+    바탕이 되는 §3.2의 방향만 담았다 — 오류 상관 자체의 수치와 분모·표 위치는
+    [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)에 있다.

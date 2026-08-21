@@ -2,9 +2,10 @@
 type: concept
 title: 판정자 모델 고르기
 description: 판정자가 판정 대상보다 강해야 하는가라는 물음의 세 답 — 강한 판정자가 주는 이득과 가장 강한 모델에는 판정자가 없다는 막다른 길, 자기 평가가 부정행위처럼 보이면서도 온전성 점검으로는 쓸모 있는 이유, 판정이 생성보다 쉽다는 논거와 그에 반하는 실측, 그리고 보상 모델·참조 기반 판정자·선호 모델이라는 작고 특화된 판정자 셋
-generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
 ---
 
 # 판정자 모델 고르기
@@ -44,6 +45,12 @@ sources:
 - **더 강한 모델을 판정자로 쓰는 것은 우리에게 두 가지 난제를 남긴다. 첫째, 가장 강한 모델에는 자격을
   갖춘 판정자가 남지 않는다. 둘째, 어느 모델이 가장 강한지 판정할 대안 평가 방법이 필요하다** (3장,
   p.146).[^huyen2025]
+- **세 번째 난제가 실측으로 붙는다** — 판정자의 답을 근거 진리 대신 쓰면 판정자보다 정확도가 낮은
+  모델의 정확도가 체계적으로 부풀려진다. 원인은 판정자의 관대함이 아니라 **오류 상관(correlated
+  errors)**이고, 리더보드(leaderboard) 두 곳의 자료에서 **개별적으로 더 정확한 모델끼리 오히려 더 상관돼
+  있었으므로** 판정자를 더 강한 모델로 갈아 끼우는 것이 이 문제를 없애 주지 않는다. 저자들의 처방은
+  판정자 교체가 아니라 **모델과 판정자의 쌍마다 근거 진리 자료로 지표를 보정하는 것**이다
+  (§3.2, §4).[^kim2025-error-correlation]
 
 ## 자기 평가
 
@@ -116,6 +123,8 @@ sources:
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 보상 모델과 검증기로 출력을 고르는 자리
 - [참조 데이터 대비 유사도 측정](../concepts/similarity-measurements-against-reference-data.md) —
   참조 기반 판정자가 대체하는 손 설계 지표
+- [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — "더 강한 판정자"라는
+  기준에 붙는 조건. 정확한 모델끼리 더 상관된다는 실측과 판정자 부풀림의 기제
 - [비교 평가](../concepts/comparative-evaluation.md) — 선호 모델이 예측하려는 신호가 나오는 자리
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — Cappy의 3억 6천만 파라미터가 작다는
   판단의 기준
@@ -126,3 +135,8 @@ sources:
     않았고 본문이 서술한 내용만 담았다. Press et al.(2022)·Gou et al.(2023)·Valmeekam et al.(2023)·
     Zheng et al.(2023)·구글 Cappy(2023)·BLEURT(Sellam et al., 2020)·Prometheus(Kim et al., 2023)·
     PandaLM(Wang et al., 2023)·JudgeLM(Zhu et al., 2023)은 huyen2025를 통한 전언이다.
+
+[^kim2025-error-correlation]: Kim, Garg, Peng & Garg 2025, "Correlated Errors in Large
+    Language Models", ICML 2025 본회의(PMLR 267). 이 페이지는 §4의 판정자 사례 연구와 그
+    바탕이 되는 §3.2의 방향만 담았다 — 오류 상관 자체의 수치와 분모·표 위치는
+    [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)에 있다.

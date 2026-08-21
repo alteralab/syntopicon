@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 독립 개발 판본의 실패 상관
-description: 독립적으로 만들어진 것들이 독립적으로 틀리지는 않는다는 1986년의 실험 반증 — 같은 명세에서 만든 27개 판본을 100만 건에 돌려 독립 실패 모형을 99% 신뢰수준에서 기각한 결과, 결함이 동일하지 않아도 동시 실패가 나는 기제, 저자들이 결론짓지 않은 것을 저자 자신이 못 박은 1990년 반박문, 이 고전을 지금 조건으로 옮길 때 물어야 할 것, 그리고 반대 극의 문면이 왜 전부 반박문 경유인가
-generated: { by: "claude-opus-5", at: "2026-08-21T16:00:00Z" }
+description: 독립적으로 만들어진 것들이 독립적으로 틀리지는 않는다는 1986년의 실험 반증 — 같은 명세에서 만든 27개 판본을 100만 건에 돌려 독립 실패 모형을 99% 신뢰수준에서 기각한 결과, 결함이 동일하지 않아도 동시 실패가 나는 기제, 저자들이 결론짓지 않은 것을 저자 자신이 못 박은 1990년 반박문, 이 고전을 지금 조건으로 옮길 때 물어야 할 것, 반대 극의 문면이 왜 전부 반박문 경유인가, 그리고 같은 물음을 언어 모델에 건 현대 대응물이 어디에 있는가
+generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
 sources:
   - { id: knight1986-nversion, resource: /it/sources/knight1986-nversion.md }
   - { id: knight1990-reply, resource: /it/sources/knight1990-reply.md }
+  - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
 ---
 
 # 독립 개발 판본의 실패 상관
@@ -317,8 +318,14 @@ N-버전 프로그래밍(N-version programming)은 같은 기능의 판본 여�
   둘 다 데이터 오염(data contamination)을 논하지 않는다. 이 KB는 그 둘의 원문을 확보하지
   않았으므로 **이름도 수치도 옮기지 않는다** — 지금 이 자리에 적을 수 있는 것은 "미심사
   재현이 있고 방향이 갈린다"까지다.
-- #hypothesis 모델 사이의 오답 수렴을 잰 연구가 따로 있고, 방향은 **유능한 모델일수록
-  벤더가 달라도 같은 오답으로 모인다**는 쪽이다. 수치는 이 페이지에 적지 않는다.
+- **모델 사이의 오답 수렴에는 이제 실측이 있다** — 리더보드 두 곳의 모델 349개와 71개를
+  쌍으로 놓고 재자, 두 모델이 모두 틀렸을 때 같은 오답을 고르는 비율이 우연 기준을 크게
+  넘었고, 같은 회사·같은 기반 아키텍처(base architecture)를 통제한 뒤에도 **개별적으로 더 정확한 모델끼리
+  더 상관돼 있었다** (§3.2, Table 1).[^kim2025-error-correlation] 수치와 분모는
+  [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)이 담는다.
+  **그 자료는 위 판정을 한 걸음 더 밀어붙인다** — 벤더를 갈라도 상관이 남는다는 것이
+  이 실험과 같은 방향으로 확인됐고, 여기서 재지 못한 것 하나가 거기서 재어졌다.
+  개별 신뢰도가 높을수록 상관이 낮아지는 것이 아니라 **높아진다**.
 
 ## 이 실험 앞뒤의 이론
 
@@ -360,6 +367,9 @@ Littlewood & Miller 쪽 기록이다.
   중복이 결함 독립을 전제한다는 같은 구조가 인프라 층에서 반복되는 자리
 - [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 결함을 견딘다는
   것이 무엇을 뜻하는가의 어휘
+- [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 이 실험과 같은
+  물음을 언어 모델에 건 현대 대응물. 판본 대신 모델을, 동시 실패 대신 같은 오답을 세고,
+  개별 정확도와 상관의 관계까지 잰 자리
 - [데이터 오염](../concepts/data-contamination.md) — 위 LLM 시대의 지위 절이 미심사 재현
   둘에 대해 지적한 미논의 항목의 정의
 
@@ -381,3 +391,8 @@ Littlewood & Miller 쪽 기록이다.
     §3.7(프로그래밍 시간)은 논쟁의 세부라 이 페이지에 옮기지 않았다. §2가 예고한 후속
     논문(1990년 2월 IEEE TSE — 동일하지 않은 결함이 왜 동시 실패를 낳는지의 모형)과
     Shimeall & Leveson 1988, Eckhardt 외의 NASA 실험은 원문 미확보라 전언으로만 적었다.
+[^kim2025-error-correlation]: Kim, Garg, Peng & Garg 2025, "Correlated Errors in Large
+    Language Models", §3.2와 Table 1. **이 페이지는 방향만 옮기고 수치는 옮기지 않는다** —
+    단위·분모(모델 쌍 수)·표 위치가 붙은 인용은 전부
+    [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)에 있다.
+    두 소스는 서로를 인용하지 않으므로 이 실험과 그 논문을 잇는 것은 이 KB의 읽기다.
