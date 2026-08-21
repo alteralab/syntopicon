@@ -1,0 +1,115 @@
+# 질문지 조각 — Panickssery et al. 2024 승급(2026-08-21, 검증자 독립성 갈래의 세 번째 반입).
+# 이 소스가 만드는 검색 위험은 갈래 안 형제 간섭이다 — 자기 편향(self-bias)은 이미
+# ai-judge-limitations가 목록으로 소유하고, 같은 벤더로 번지는 쪽은
+# correlated-errors-across-llms가 소유한다. 그래서 "자기 편향"으로 던진 질의가 이
+# 페이지를 지나칠 수 있다. exact 문항은 이 페이지만 가진 어휘(자기인식·자기선호·
+# 저자 은닉·라벨을 뒤집으면)를 겨냥하고, alias 문항은 이 페이지에서만 병기된 원어
+# (self-recognition·self-preference·authorship obfuscation·pairwise measurement)가
+# 갈라 주는 키로 사는지를 잰다. semantic 문항은 자기·편향이라는 낱말을 쓰지 않은
+# 질의가 닿는지를 본다. cross-domain 셋은 이번 런이 실제로 건 세 링크(한계 목록·
+# 오류 상관·판정자 고르기)가 검색에서도 이웃으로 잡히는지를 본다.
+source: panickssery2024
+added: 2026-08-21
+queries:
+  - id: srsp-exact-1
+    query: "자기인식과 자기선호"
+    type: exact
+    description: "페이지 제목 그대로 — 편향 목록 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-exact-2
+    query: "자기 출력을 알아보는 능력"
+    type: exact
+    description: "자기인식의 풀어 쓴 형태 — 이 KB에서 이 페이지에만 있는 서술"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-exact-3
+    query: "저자 은닉"
+    type: exact
+    description: "원문이 조건부로 권하는 유일한 대응책 — 처방을 찾는 질의가 닿아야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-exact-4
+    query: "라벨을 뒤집으면 선호도 뒤집힌다"
+    type: exact
+    description: "라벨 실험의 결과 — 이 페이지에만 있는 설계이고 표가 붙어 있다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-exact-5
+    query: "생성자와 판정자가 같은 모델"
+    type: exact
+    description: "이 페이지가 서는 문제 설정 — 판정자 일반론 페이지들과 갈려야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-alias-1
+    query: "self-recognition"
+    type: alias
+    description: "원어 병기 — 역어가 흔들려도 남는 검색 키"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-alias-2
+    query: "self-preference"
+    type: alias
+    description: "원어 병기 — huyen2025 계열의 self-bias와 갈라 주는 키"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-alias-3
+    query: "authorship obfuscation"
+    type: alias
+    description: "원어 병기 — 원문의 대응책 이름. 이 KB에서 이 페이지에만 있다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-alias-4
+    query: "pairwise measurement"
+    type: alias
+    description: "원어 병기 — 측정 설계 절이 답이다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-sem-1
+    query: "모델이 자기가 쓴 글을 알아볼 수 있는가"
+    type: semantic
+    description: "패러프레이즈 — 편향 어휘 불사용. 측정 결과 절이 답이다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-sem-2
+    query: "자기가 만든 답에 후한 점수를 주는 이유가 무엇인가"
+    type: semantic
+    description: "패러프레이즈 — 목록이 아니라 기제를 묻는 질의. 이 페이지가 그 답이다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-sem-3
+    query: "사람이 보기에 비슷한 품질인데 모델은 자기 것을 더 높게 매기는가"
+    type: semantic
+    description: "게재본에만 있는 사람 평가 절 — 승률과 자기선호 점수를 견주는 자리"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-top-1
+    query: "상관을 인과로 읽으려면 어떤 실험을 더 해야 하는가"
+    type: topical
+    description: "이 논문의 설계가 답이다 — 역인과 배제와 교란 통제"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-top-2
+    query: "저자들이 인과를 확정하지 않고 남긴 한계"
+    type: topical
+    description: "원문이 넘지 않은 선 절 — 조항 증류가 먼저 읽어야 할 자리"
+    expected_files: ["concepts/self-recognition-and-self-preference.md"]
+    expected_in_top_k: 5
+  - id: srsp-x-1
+    query: "AI 판정자가 자기 응답을 더 높게 매기는 편향"
+    type: cross-domain
+    description: "같은 편향의 두 자리 — 한계 목록과 그 기제 원전이 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md", "concepts/ai-judge-limitations.md"]
+    expected_in_top_k: 5
+  - id: srsp-x-2
+    query: "판정자가 자기와 닮은 모델을 후하게 매기는 문제"
+    type: cross-domain
+    description: "같은 모델일 때와 다른 모델일 때 — 두 설명이 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md", "concepts/correlated-errors-across-llms.md"]
+    expected_in_top_k: 5
+  - id: srsp-x-3
+    query: "모델이 자기 자신을 평가하게 해도 되는가"
+    type: cross-domain
+    description: "자기 평가의 자격 물음 — 판정자 고르기와 이 기제가 짝으로 걸려야 한다"
+    expected_files: ["concepts/self-recognition-and-self-preference.md", "concepts/ai-judge-selection.md"]
+    expected_in_top_k: 5
