@@ -26,7 +26,7 @@ queries:
   - id: srsp-exact-3
     query: "저자 은닉"
     type: exact
-    description: "원문이 조건부로 권하는 유일한 대응책 — 처방을 찾는 질의가 닿아야 한다"
+    description: "원문이 조건부로 권하는 유일한 대응책 — 처방을 찾는 질의가 닿아야 한다. 승급 직후 실측에서 네 레그 모두 빗나갔다: information-hiding-and-leakage가 '은닉'을 통째로 가져가고 이 낱말은 코퍼스에 두 번밖에 없다. 페이지 description에 낱말을 올려도 순위가 바뀌지 않았으므로 이 문항은 어휘 충돌을 재는 자리로 남긴다"
     expected_files: ["concepts/self-recognition-and-self-preference.md"]
     expected_in_top_k: 5
   - id: srsp-exact-4

@@ -1,12 +1,13 @@
 ---
 type: concept
 title: AI 판정자의 한계
-description: AI로 AI를 평가하는 접근이 신뢰를 얻지 못하는 네 가지 이유 — 같은 판정자가 같은 입력에 다른 점수를 내는 비일관성과 일관성이 정확성이 아니라는 단서, 도구마다 뜻이 다른 faithfulness가 보여 주는 기준 모호성과 판정자가 바뀌면 지표가 무너진다는 문제, API 호출이 배로 느는 비용과 응답 전 판정이 더하는 지연, 그리고 자기 편향·첫 위치 편향·장황함 편향
-generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
+description: AI로 AI를 평가하는 접근이 신뢰를 얻지 못하는 네 가지 이유 — 같은 판정자가 같은 입력에 다른 점수를 내는 비일관성과 일관성이 정확성이 아니라는 단서, 도구마다 뜻이 다른 faithfulness가 보여 주는 기준 모호성과 판정자가 바뀌면 지표가 무너진다는 문제, API 호출이 배로 느는 비용과 응답 전 판정이 더하는 지연, 그리고 자기 편향·첫 위치 편향·장황함 편향과 자기 편향이 자기인식에서 온다는 기제 쪽 설명
+generated: { by: "claude-opus-5", at: "2026-08-21T21:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: es2024-ragas, resource: /it/sources/es2024-ragas.md }
   - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
+  - { id: panickssery2024, resource: /it/sources/panickssery2024.md }
 ---
 
 # AI 판정자의 한계
@@ -142,6 +143,22 @@ sources:
   자기 응답을 선호하는 것이다. 모델이 생성할 가장 그럴듯한 응답을 계산하도록 돕는 바로 그 기제가 이
   응답에 높은 점수도 준다. Zheng et al.의 2023년 실험에서 GPT-4는 자기 자신을 10% 높은 승률로,
   Claude-v1은 자기 자신을 25% 높은 승률로 선호한다** (3장, pp.144–145).[^huyen2025]
+- **자기 편향의 기제를 실험으로 파고든 원전이 따로 있다** — 자기 출력을 알아보는 능력
+  (self-recognition)을 파인튜닝으로 올리면 자기 출력을 선호하는 정도(self-preference)가
+  같은 선 위를 따라 함께 오른다. 저자들은 역인과와 교란 변수를 각각 배제하는 실험을
+  덧붙이지만, 그것을 인과의 **초기 증거**라고만 부르고 확정하지 않는다 (§3·§5.3).[^panickssery2024]
+  - **자기 편향이 실제 품질 차이보다 크다는 것도 같은 원전이 사람 주석으로 쟀다** —
+    같은 모델 쌍을 사람이 판정했을 때의 격차보다 판정자가 자기에게 준 선호가 더
+    컸다 (§2.5).[^panickssery2024] 곧 위 huyen2025의 "사람 주석자는 동등한 품질로
+    판단하는데"라는 전제가 이 원전에서 측정으로 확인된 셈이다.
+  - 위 huyen2025의 설명("가장 그럴듯한 응답을 계산하는 바로 그 기제가 높은 점수도
+    준다")과 이 원전의 가설은 **같은 것이 아니다.** 앞은 생성 확률이 곧 점수라는
+    설명이고, 뒤는 자기 것임을 **알아보는 것**이 선호를 낳는다는 설명이다. 뒤쪽이
+    맞다면 처방이 달라진다 — 원전이 조건부로 권하는 대응은 판정자 교체가 아니라
+    **저자 은닉(authorship obfuscation)**이다 (§5.1).[^panickssery2024]
+  - 측정 설계와 수치, 그리고 저자들이 넘지 않은 선은
+    [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md)에 있다.
+    그 페이지의 값은 2024년의 모델 세대와 뉴스 요약 과제에 묶여 있다.
 - **자기 편향은 같은 벤더의 다른 모델에까지 걸린다** — 판정자를 근거 진리 대신 써서 다른 모델을
   채점시키면, 판정자는 자기보다 정확도가 낮은 모델의 정확도를 체계적으로 부풀리고 자기보다 정확한
   모델의 정확도는 깎는다. 기제는 관대함이 아니라 **오류 상관(correlated errors)**이다 — 판정자와
@@ -182,6 +199,9 @@ sources:
   규정
 - [판정자 모델 고르기](../concepts/ai-judge-selection.md) — 비용을 줄이려 약한 판정자를 쓰는 선택과
   자기 편향이 자기 평가에 걸리는 자리
+- [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 위 자기 편향이
+  왜 생기는가의 기제 쪽. 자기 출력을 알아보는 능력을 손잡이로 써서 인과를 세우려 한 설계와,
+  저자들이 인과를 확정하지 않고 남긴 선
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 위 자기 편향이 같은
   벤더의 다른 모델로 번지는 기제와 그 실측
 - [비교 평가](../concepts/comparative-evaluation.md) — 첫 위치 편향이 실제로 쌍 비교에서 작동하는 자리
@@ -210,3 +230,10 @@ sources:
     Language Models", ICML 2025 본회의(PMLR 267). 이 페이지는 §4의 판정자 사례 연구와 그
     바탕이 되는 §3.2의 방향만 담았다 — 오류 상관 자체의 수치와 분모·표 위치는
     [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)에 있다.
+
+[^panickssery2024]: Panickssery, Bowman & Feng 2024, "LLM Evaluators Recognize and Favor
+    Their Own Generations", NeurIPS 2024 본회의(게재본 1쪽 푸터가 문면 근거). 이 페이지는
+    그 소스에서 수치를 옮기지 않고 방향과 설계만 옮겼다 — 수치와 그것에 붙는 모델·과제
+    조건은 [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md)에
+    있고, 프리프린트와 게재본이 갈리는 자리는
+    [소스 메타](../sources/panickssery2024.md)에 있다.
