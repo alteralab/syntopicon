@@ -1,0 +1,111 @@
+# 질문지 조각 — 특성화 테스트 승급(2026-08-21, 검증 축 여섯 번째이자 오라클 갈래 마지막).
+# 이 페이지가 지는 검색 위험은 **바로 앞 런이 세운 형제와의 간섭**이다. current-behaviour-as-oracle과
+# 이 페이지는 같은 대상(현재 동작을 기대값으로 삼는 것)을 다루고 어휘도 겹친다 — 두 페이지가 서로의
+# 절을 인용하며 링크로 묶여 있어 이웃 확장이 둘을 한 덩어리로 끌어올 수도 있다. 갈리는 것은 질문이다:
+# 그쪽은 **그 절차의 전제를 잰 실증**, 이쪽은 **그 절차의 처방과 경계**다.
+# exact 문항은 이 페이지만 가진 어휘(특성화 테스트·도덕적 권위·레거시 코드의 재정의)를 겨냥하고,
+# alias 문항은 이 페이지에서만 병기된 원어(characterization test·Cover and Modify·이 책 제목)가
+# 갈라 주는 키로 사는지를 잰다. cross-domain 셋은 이 페이지가 실제로 건 링크 셋이 짝으로 걸리는지를 본다.
+#
+# **sib 문항 둘이 이 조각의 핵심 계측이다** — 처방을 묻는 질의가 이쪽으로, 실증을 묻는 질의가
+# 그쪽으로 갈리는지를 잰다. 갈리지 않으면 신설(형제) 판정이 검색에서는 성립하지 않는다는 신호이고,
+# 그때 볼 것은 유사도가 아니라 두 페이지가 같은 질문에 답하게 됐는가다.
+source: feathers2004
+added: 2026-08-21
+queries:
+  - id: chartest-exact-1
+    query: "특성화 테스트"
+    type: exact
+    description: "페이지 제목 그대로 — 이 KB에서 이 페이지에만 있는 복합명사다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-exact-2
+    query: "레거시 코드는 테스트가 없는 코드다"
+    type: exact
+    description: "저자가 통용 정의를 버리고 다시 세운 정의 — 이 페이지의 절 하나가 통째로 이것이다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-exact-3
+    query: "테스트에 도덕적 권위가 없다"
+    type: exact
+    description: "저자가 이 테스트의 오라클 지위를 스스로 낮추는 자리 — 이 페이지의 축"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-exact-4
+    query: "보존 오라클과 수용 오라클"
+    type: exact
+    description: "용도 한정 절 — 조항이 이 소스를 인용할 때 반드시 함께 와야 하는 경계다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-alias-1
+    query: "characterization test"
+    type: alias
+    description: "원어 병기 — 저자가 붙인 이름이고 확립 역어가 없어 원어가 정확 일치 키다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-alias-2
+    query: "Cover and Modify"
+    type: alias
+    description: "2장이 변경 방식에 붙인 고유명 — Edit and Pray의 반대 극이다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-alias-3
+    query: "Working Effectively with Legacy Code"
+    type: alias
+    description: "책 제목 — 다른 페이지들이 산문으로 언급만 하던 것이 이제 페이지를 가진다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-sem-1
+    query: "명세도 테스트도 없는 코드를 고쳐야 할 때 기대값을 어디서 가져오나"
+    type: semantic
+    description: "패러프레이즈 — 이 페이지가 답하는 하나의 질문. 오라클 어휘 불사용"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-sem-2
+    query: "일부러 틀린 값을 넣고 실패 메시지가 알려 주는 값으로 바꾸는 절차"
+    type: semantic
+    description: "패러프레이즈 — 다섯 단계 절차의 둘째·넷째 단계. 이름을 모르는 사람의 질의다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-top-1
+    query: "지금 동작을 그대로 기대값으로 굳혀도 되는 때와 안 되는 때"
+    type: topical
+    description: "용도 한정 — 보존에는 유효하고 수용에는 반패턴이라는 경계가 답이다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-top-2
+    query: "모델이 방금 만든 코드를 레거시로 볼 수 있는가"
+    type: topical
+    description: "LLM 시대의 지위 절 — 이 KB의 재프레임이 검색으로 잡혀야 한다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-sib-1
+    query: "레거시 코드에 안전망을 까는 절차와 그 절차를 쓰면 안 되는 자리"
+    type: topical
+    description: "형제 갈림 계측 A — 처방을 묻는 질의다. 이쪽이 1위여야 한다"
+    expected_files: ["concepts/characterization-test.md"]
+    expected_in_top_k: 5
+  - id: chartest-sib-2
+    query: "테스트가 리팩터링을 돕는다는 명제를 사람에게 걸어 잰 실험 결과"
+    type: topical
+    description: "형제 갈림 계측 B — 실증을 묻는 질의다. 형제 쪽이 1위여야 한다"
+    expected_files: ["concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
+  - id: chartest-x-1
+    query: "현재 동작을 기대값으로 삼는 절차와 그 절차를 잰 통제실험"
+    type: cross-domain
+    description: "처방과 실증 — 이 페이지가 caveat의 근거로 실제 링크를 건 상대와 짝으로 걸려야 한다"
+    expected_files: ["concepts/characterization-test.md", "concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
+  - id: chartest-x-2
+    query: "회귀 테스트가 이전 판본을 오라클로 쓴다는 가정의 실무판"
+    type: cross-domain
+    description: "이론과 절차 — 서베이의 파생 오라클 갈래와 그 갈래의 실무 절차"
+    expected_files: ["concepts/characterization-test.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: chartest-x-3
+    query: "테스트 없는 레거시를 리팩터링할 때 지름길이 없다는 인정과 그 처방"
+    type: cross-domain
+    description: "지목한 쪽과 지목된 쪽 — Fowler가 이 책을 구해 읽으라 한 자리와 그 책의 페이지"
+    expected_files: ["concepts/characterization-test.md", "concepts/obstacles-to-refactoring.md"]
+    expected_in_top_k: 5

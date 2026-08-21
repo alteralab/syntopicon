@@ -2,7 +2,7 @@
 type: concept
 title: 현재 동작을 오라클로 쓴다는 것
 description: 기대값을 코드의 지금 동작에서 길어 올릴 때 무엇이 남고 무엇이 사라지는가 — LLM 이전에 이미 세워져 있던 실증 셋. 명세 없이 생성된 단언은 의도가 아니라 관측을 적는다는 기제, 커버리지는 크게 오르는데 결함 발견은 오르지 않았다는 97명 통제실험, 도구가 준 시작점에 사람이 머문다는 관찰, 리팩터링의 안전망 명제를 42명에게 걸었더니 더 빠르지도 더 좋지도 않았다는 통제실험, 그리고 코드를 되비추기만 하는 테스트에 붙은 이름과 그 해악 서술
-generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T06:00:00Z" }
 sources:
   - { id: fraser2015-user-study, resource: /it/sources/fraser2015-user-study.md }
   - { id: vonken2012-refactoring, resource: /it/sources/vonken2012-refactoring.md }
@@ -247,8 +247,8 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
     클래스가 밀어 내릴 메서드를 간접 호출하고 있어 참가자를 옳은 클래스로 유도했을
     가능성으로 설명한다 (§IV-B).[^vonken2012-refactoring] 즉 이 한 건은 안전망이 아니라
     **길잡이**로 작동한 사례다.
-- **초록과 §V의 세기가 다르다 — 둘 다 적는다.** 초록은 이렇게
-  단정한다.[^vonken2012-refactoring]
+- **초록과 §V의 세기가 다르다 — 둘 다 적는다.** 초록은 이렇게 단정한다
+  (초록).[^vonken2012-refactoring]
 
   > Results indicate that having unit tests available during refactoring does not lead to
   > quicker refactoring or to higher-quality code after refactoring.
@@ -265,7 +265,10 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
 
   참고문헌 [25]는 Feathers, *Working Effectively with Legacy Code*(Prentice Hall, 2004)다
   (참고문헌 목록).[^vonken2012-refactoring] **이 페이지가 그 책의 용도 한정에 쓰이는
-  근거가 이 문장이다.**
+  근거가 이 문장이다.** 그 책이 세운 절차와 그 절차의 경계는
+  [특성화 테스트](../concepts/characterization-test.md)가 담는다 — 그쪽이 이 절을 자기
+  caveat의 근거로 인용하며, **인용의 세기는 이 절이 정한다**: 이 논문은 "돕지 않는다는
+  증명"이 아니라 "돕는다는 증거를 관측하지 못했다"까지만 말한다.
 - **저자 자신이 적은 한계를 같은 무게로 읽는다** (§V-A·§V-C).[^vonken2012-refactoring]
   ⑴ 대상 JPacman은 산업 시스템보다 작다. ⑵ **새로 만든 코드에 테스트를 추가하라고
   요구하지 않았다** — 기존 테스트를 통과 상태로 유지하는 것만 요구했고, 저자는 그 지시가
@@ -282,7 +285,7 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
 **이 절의 근거 등급은 위 둘과 다르다.** 아래 인용은 측정이 아니라 구글의 규범 서술이다.
 
 - **정의** — 코드 아래의 정보를 그대로 옮겨 놓은 테스트에 붙은 이름이 **변경 감지 테스트
-  (change-detector test)**다.[^eagle2015-change-detector]
+  (change-detector test)**다 (본문 4문단).[^eagle2015-change-detector]
 
   > This is a change-detector test—it is a transformation of the same information in the
   > code under test—and it breaks in response to any change to the production code, without
@@ -291,8 +294,8 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   두 성질이 한 문장에 있다: **생산 코드가 바뀌면 무조건 깨진다**는 것과 **원본이든
   수정본이든 옳은 동작을 검증하지 않는다**는 것.
 - **왜 검증이 되지 않는가** — 글은 극단적인 예(테스트가 소스 파일의 각 줄을 문자열로
-  비교하는 것)를 먼저 놓고 그것을 체크섬에 빗댄
-  뒤 이렇게 적는다.[^eagle2015-change-detector]
+  비교하는 것)를 먼저 놓고 그것을 체크섬에 빗댄 뒤 이렇게 적는다
+  (본문 3문단, 첫째 코드 예시 바로 뒤).[^eagle2015-change-detector]
 
   > A correct or incorrect program is equally likely to pass a test that is a derivative of
   > the code under test.
@@ -310,7 +313,8 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   실증으로 쓰지 않고, **실무 규범이 같은 방향을 가리킨다는 사실**로만 쓴다.
 - **글이 드는 두 번째 예는 목(mock) 호출 순서 검증이다** — `Processor`가 두 부품의
   `process`를 차례로 부르는지 목으로 확인하는 테스트를 두고, 글은 그것이 첫 번째 극단적
-  예와 얼마나 다르냐고 되묻는다.[^eagle2015-change-detector] 되비추기가 문자열 비교라는
+  예와 얼마나 다르냐고 되묻는다 (둘째 코드 예시와 본문 4문단).[^eagle2015-change-detector]
+  되비추기가 문자열 비교라는
   극단만이 아니라 **상호작용 검증이라는 흔한 형태로도 나타난다**는 것이 이 예의 요지다.
   본문의 코드 두 조각은 실행 가능한 언어가 아니라 의사코드라 이 페이지에 펜스로 옮기지
   않았다.
@@ -337,7 +341,8 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   결과는 오히려 테스트 쪽이 더 오래 걸린 것이었다 (표 II·표
   V).[^vonken2012-refactoring]
 - **되비추기만 하는 테스트를 실무 규범이 별도로 이름 붙여 배격한다** — `change-detector
-  test`라는 이름과 "다시 쓰거나 지우라"는 처방이 존재한다.[^eagle2015-change-detector]
+  test`라는 이름과 "다시 쓰거나 지우라"는 처방이 존재한다
+  (본문 4·5문단).[^eagle2015-change-detector]
 
 **지지하지 않는 것 — 이 선을 넘겨 인용하지 않는다:**
 
@@ -371,6 +376,10 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   증명한다
 - [일관성 오라클 휴리스틱](../concepts/consistency-oracle-heuristics.md) — 명세가 없을 때
   기대를 무엇에 비추는가의 실무 카탈로그. "이전 판본과의 일관성"이 그 목록의 한 항목이다
+- [특성화 테스트](../concepts/characterization-test.md) — **이 페이지가 재는 대상을
+  처방한 실무 규범.** 형제 관계다: 그쪽이 정의·절차·용도 한정을 담고, 이 페이지가 그
+  처방의 전제를 잰 실증을 담는다. 그쪽 페이지의 caveat 두 자리(안전망 명제의 통제실험,
+  변경 감지 테스트)가 이 페이지의 두 절을 가리킨다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
 
 [^fraser2015-user-study]: Fraser, Staats, McMinn, Arcuri & Padberg 2015, "Does Automated
@@ -400,7 +409,11 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
     옮겼다.
 [^eagle2015-change-detector]: Eagle 2015, "Testing on the Toilet: Change-Detector Tests
     Considered Harmful", *Google Testing Blog*, 2015년 1월 27일 게시. **아카이브가 아니라
-    라이브 페이지를 2026-08-20T17:26Z에 받은 스냅샷이다.** 측정·표본이 없는 규범 글
+    라이브 페이지를 2026-08-20T17:26Z에 받은 스냅샷이다.** **절도 쪽도 없는 짧은 글이라
+    locator는 본문 문단 번호로 적었다** — 게시물 본문은 산문 다섯 문단과 코드 예시 둘로
+    이루어져 있고, 세는 단위는 게시일·저자·출처 안내 줄을 뺀 산문 문단이다(1문단
+    리팩터링 상황, 2문단 기계적 작성, 첫째 코드 예시, 3문단 체크섬 비유, 둘째 코드 예시,
+    4문단 변경 감지 테스트 정의, 5문단 해악 서술). 측정·표본이 없는 규범 글
     (사내 회람물 Testing on the Toilet의 블로그판)이므로 이 페이지는 정의와 규범 서술만
     인용하고 수치 주장의 근거로 쓰지 않는다. 확보본에 함께 담긴 독자 댓글 2건은 저자의
     글이 아니므로 인용하지 않았고, 본문의 의사코드 두 조각은 실행 가능한 언어가 아니라

@@ -3,7 +3,6 @@ type: concept
 title: 특성화 테스트
 description: 테스트가 없는 코드를 바꿀 때 기대값을 어디서 길어 오는가 — 레거시 코드를 "테스트 없는 코드"로 다시 정의하고 현재 동작을 그대로 적어 두는 테스트에 이름과 절차를 준 실무 규범, 저자 자신이 그 테스트에 도덕적 권위가 없다고 규정한 자리, 보존 오라클로는 유효하고 수용 오라클로는 반패턴이 되는 경계, 그리고 이 책의 핵심 전제를 직접 잰 통제실험이 음성이었다는 사실
 generated: { by: "claude-opus-5", at: "2026-08-21T06:00:00Z" }
-status: draft
 sources:
   - { id: feathers2004, resource: /it/sources/feathers2004.md }
 ---
