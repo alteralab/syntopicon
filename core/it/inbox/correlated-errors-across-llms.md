@@ -47,7 +47,8 @@ sources:
   (Appendix A.1).[^kim2025-error-correlation] HUGGINGFACE 쪽은 원래 2,041개 모델에서
   349개로 줄인 것이다 — 쌍 단위 분석의 계산량이 모델 수의 제곱에 비례해 늘어나기 때문이고, 개인이
   미세 조정한 모델은 사람당 최대 5개까지만 넣어 한 사람이 자료를 지배하지 않게 했다.
-- **상관의 지표는 "둘 다 틀렸을 때의 일치율"이다** (§3.1):[^kim2025-error-correlation]
+- **상관의 지표는 "둘 다 틀렸을 때의 일치율(agreement rate when both models are wrong)"이다**
+  (§3.1):[^kim2025-error-correlation]
 
   > through *agreement rate when both models are wrong*: when two models are wrong, how often
   > do their wrong answers coincide?
@@ -61,7 +62,7 @@ sources:
   > *errors*.
 
   RESUMES에서는 정답 라벨이 없으므로 대신 **잔차의 상관**을 쓴다 — 모델 점수와 사람 점수의
-  차이를 모델 쌍마다 상관 낸다. 저자들은 여기서 사람 점수를 근거 진리로 다루되 이력서와
+  차이를 모델 쌍마다 상관 낸다. 저자들은 여기서 사람 점수를 근거 진리(ground truth)로 다루되 이력서와
   공고의 적합성 평가가 주관적이라는 것을 같은 자리에 적는다 (§3.1).[^kim2025-error-correlation]
 
 ## 문항 수는 논문 안에서 어긋난다
@@ -136,7 +137,7 @@ sources:
   |---|---|---|
   | 절편 | 0.6018 | 0.3984 |
   | 같은 회사 | +0.0216 | +0.0658 |
-  | 같은 기반 아키텍처 | 특성 없음 | +0.0759 |
+  | 같은 기반 아키텍처(base architecture) | 특성 없음 | +0.0759 |
   | 정확도 1 | +0.0549 | +0.0138 |
   | 정확도 2 | +0.0544 | +0.0131 |
   | 정확도 1과 정확도 2의 교호작용 | +0.0264 | +0.0227 |
