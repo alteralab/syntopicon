@@ -2,7 +2,6 @@
 type: concept
 title: 자기 수정의 피드백 병목
 description: 모델이 자기 코드를 스스로 고치는 자기 수정이 같은 표본 예산의 재표집보다 나은가를 2024년에 잰 실측 — 수리 트리를 표본 수로 환산해 견주는 pass@k 재정의, 이득이 작거나 없고 예측하기 어렵다는 결과, 예산은 수리보다 초기 프로그램의 다양성에 쓰는 편이 낫다는 추세, 피드백만 더 강한 모델로 갈아 끼우면 기준선과 자기 수정을 모두 넘는다는 절개 실험, 사람 피드백이 GPT-4 자신의 피드백보다 수리 성공률을 1.58배로 올린다는 표, 그리고 이 결과가 프롬프팅으로 구현한 자기 수정에만 걸린다는 범위
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: olausson2024-self-repair, resource: /it/sources/olausson2024-self-repair.md }

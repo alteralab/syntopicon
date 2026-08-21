@@ -2,7 +2,7 @@
 type: concept
 title: 기능적 정확성
 description: 모호함 없는 판정이 나오는 평가와 그렇지 않은 평가를 가르는 선, 그리고 시스템이 의도한 기능을 실제로 수행했는가로 재는 궁극의 지표 — 코드 생성에서 실행 정확도가 되는 자리, 단위 테스트라는 오래된 관행과 HumanEval·MBPP·text-to-SQL 벤치마크, k개 표본 중 하나만 통과하면 되는 pass@k, 그리고 측정 가능한 목적을 가진 과제까지의 확장
-generated: { by: "claude-opus-5", at: "2026-08-16T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
 ---
@@ -141,6 +141,9 @@ sources:
   단위 평가로 확장되는 쪽
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — pass@k의 k가 표본 수로 등장하는 쪽,
   그리고 유효한 SQL이 나올 때까지 계속 생성하는 접근
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 표본을 초기
+  생성과 수리 양쪽에서 뽑을 때 이 pass@k의 k를 무엇으로 세야 하는지, 그리고 그렇게 세고
+  나면 자기 수정의 이득이 얼마로 남는지
 - [언어 모델링 지표](../concepts/language-modeling-metrics.md) — 다운스트림 성능의 대리 지표 쪽
 - [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 여기서 빌려 온 단위 테스트 관행이
   소프트웨어 공학 쪽에서 서술되는 자리

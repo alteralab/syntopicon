@@ -2,7 +2,7 @@
 type: concept
 title: 모델 사이의 오류 상관
 description: 벤더도 아키텍처도 다른 언어 모델들이 같은 오답으로 모이는지를 리더보드 두 곳과 이력서 평가로 잰 2025년 실측 — 둘 다 틀렸을 때 같은 답을 고르는 비율이 우연 기준의 두 배라는 결과, 같은 회사·같은 기반 아키텍처가 상관을 올린다는 회귀와 그것을 통제해도 정확한 모델끼리 더 겹친다는 결과, 판정자로 쓰면 자기보다 못한 모델의 정확도를 부풀린다는 사례 연구, 그리고 문항 수가 논문 안에서 어긋나는 자리
-generated: { by: "claude-opus-5", at: "2026-08-21T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
 ---
@@ -303,6 +303,10 @@ Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025"라 인쇄한 
 - [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 판정자와 대상이
   **같은 모델**일 때의 짝. 그쪽은 자기 것임을 알아보는 능력을 손잡이로 써서 자기 선호의
   인과를 세우려 한다
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 같은 물음의
+  하류 쪽. 이 페이지가 판정자를 **다른 모델**로 바꿔도 부풀림이 남는다고 잰다면, 그쪽은
+  판정자를 **더 강한 모델**로 바꿨을 때 비로소 이득이 생긴다고 잰다. 둘을 합치면 조건이
+  "다르다"에서 "다르고 또한 강하다"로 좁혀진다
 - [판정자 모델 고르기](../concepts/ai-judge-selection.md) — 판정자를 대상보다 강한 모델로 고르라는
   기준. 이 페이지의 결과는 그 기준에 조건을 붙인다 — 강한 판정자는 자기보다 약한 모델의
   정확도를 부풀리고, 강한 모델끼리는 더 상관돼 있다

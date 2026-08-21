@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 판정자 모델 고르기
-description: 판정자가 판정 대상보다 강해야 하는가라는 물음의 세 답 — 강한 판정자가 주는 이득과 가장 강한 모델에는 판정자가 없다는 막다른 길, 자기 평가가 부정행위처럼 보이면서도 온전성 점검으로는 쓸모 있는 이유, 판정이 생성보다 쉽다는 논거와 그에 반하는 실측, 그리고 보상 모델·참조 기반 판정자·선호 모델이라는 작고 특화된 판정자 셋
-generated: { by: "claude-opus-5", at: "2026-08-21T18:00:00Z" }
+description: 판정자가 판정 대상보다 강해야 하는가라는 물음의 세 답 — 강한 판정자가 주는 이득과 가장 강한 모델에는 판정자가 없다는 막다른 길, 자기 평가가 부정행위처럼 보이면서도 온전성 점검으로는 쓸모 있는 이유와 그 자기 평가로 얻는 이득을 코드 생성에서 실제로 재 본 결과, 판정이 생성보다 쉽다는 논거와 그에 반하는 실측, 그리고 보상 모델·참조 기반 판정자·선호 모델이라는 작고 특화된 판정자 셋
+generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
   - { id: kim2025-error-correlation, resource: /it/sources/kim2025-error-correlation.md }
+  - { id: olausson2024-self-repair, resource: /it/sources/olausson2024-self-repair.md }
 ---
 
 # 판정자 모델 고르기
@@ -71,6 +72,15 @@ sources:
   Final response [from AI]: No it's not. The correct answer is 13.
   ```
 
+- **"자기 응답을 고치도록 밀어 준다"는 위 서술을 코드 생성에서 재 본 실측이 있다.** 자기
+  피드백으로 자기 코드를 고치는 자기 수정(self-repair)을 같은 표본 예산의 재표집과 견주면
+  이득이 작거나 없는 자리가 있고, **피드백만 더 강한 모델이 주도록 바꾸면 기준선과 자기
+  수정 양쪽을 넘는다** (§4.1·§4.2, pp.5–8).[^olausson2024-self-repair] 곧 자기 평가로
+  얻는 이득은 이 페이지가 묻는 판정자 강도 물음과 같은 손잡이를 공유한다. 수치와 분모는
+  [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md)에 있다.
+  - 버전 조건: 2023년에 동결된 모델 스냅샷 셋과 파이썬 코드 생성 벤치마크 둘, 그리고
+    프롬프팅으로 구현한 자기 수정에 한정된다.
+
 ## 더 약한 판정자는 가능한가
 
 - 열린 질문과 그 논거 — **한 가지 열린 질문은 판정자가 판정받는 모델보다 약할 수 있는가다. 어떤 이들은
@@ -125,6 +135,8 @@ sources:
   참조 기반 판정자가 대체하는 손 설계 지표
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — "더 강한 판정자"라는
   기준에 붙는 조건. 정확한 모델끼리 더 상관된다는 실측과 판정자 부풀림의 기제
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 같은 모델을
+  판정자로 쓰는 자기 평가가 하류 성능에서 얼마를 버는지를 코드 생성에서 잰 실측
 - [비교 평가](../concepts/comparative-evaluation.md) — 선호 모델이 예측하려는 신호가 나오는 자리
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — Cappy의 3억 6천만 파라미터가 작다는
   판단의 기준
@@ -140,3 +152,8 @@ sources:
     Language Models", ICML 2025 본회의(PMLR 267). 이 페이지는 §4의 판정자 사례 연구와 그
     바탕이 되는 §3.2의 방향만 담았다 — 오류 상관 자체의 수치와 분모·표 위치는
     [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md)에 있다.
+
+[^olausson2024-self-repair]: Olausson, Inala, Wang, Gao & Solar-Lezama 2024, "Is Self-Repair
+    a Silver Bullet for Code Generation?", ICLR 2024 게재본. 이 페이지는 §4.1·§4.2의 방향만
+    담았다 — 수치와 분모·표 위치는
+    [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md)에 있다.

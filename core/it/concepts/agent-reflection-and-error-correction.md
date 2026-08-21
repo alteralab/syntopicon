@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 반성과 오류 교정
-description: 계획이 아니라 계획의 결과를 평가해 다음 계획을 고치는 기전 — 반성이 유용한 네 자리, 추론과 행동을 번갈아 놓아 에이전트의 흔한 패턴이 된 ReAct의 형식, 평가자와 자기 반성 모듈을 갈라 새 궤적을 제안하는 Reflexion, 그리고 구현이 쉽고 성능 향상이 놀랍지만 토큰과 지연을 대가로 낸다는 셈
-generated: { by: "claude-opus-5", at: "2026-08-16T17:30:00Z" }
+description: 계획이 아니라 계획의 결과를 평가해 다음 계획을 고치는 기전 — 반성이 유용한 네 자리, 추론과 행동을 번갈아 놓아 에이전트의 흔한 패턴이 된 ReAct의 형식, 평가자와 자기 반성 모듈을 갈라 새 궤적을 제안하는 Reflexion, 구현이 쉽고 성능 향상이 놀랍지만 토큰과 지연을 대가로 낸다는 셈, 그리고 같은 예산을 재표집에 썼을 때와 견주면 그 향상이 작거나 없다는 코드 생성 실측
+generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: olausson2024-self-repair, resource: /it/sources/olausson2024-self-repair.md }
 ---
 
 # 반성과 오류 교정
@@ -118,6 +119,14 @@ sources:
 
 - 이점 — **계획 생성과 비교해 반성은 구현하기가 비교적 쉽고 놀랄 만큼 좋은 성능 개선을 가져올 수
   있다** (6장, p.294).[^huyen2025]
+  - **이 이점 서술에는 견줄 기준이 적혀 있지 않다.** 코드 생성에서 같은 표본 예산의
+    재표집을 기준선으로 놓고 재 본 실측은 이득이 작거나 없는 자리를 여럿 찾았고, 자기가
+    아니라 **더 강한 모델이 피드백을 줄 때** 비로소 기준선과 자기 수정(self-repair)
+    양쪽을 넘었다
+    (§4.1·§4.2, pp.5–8).[^olausson2024-self-repair] 수치와 분모는
+    [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md)에 있다.
+    - 버전 조건: 2023년에 동결된 모델 스냅샷 셋과 파이썬 코드 생성 벤치마크 둘, 그리고
+      프롬프팅으로 구현한 자기 수정에 한정된다.
 - 대가 — **이 접근의 단점은 지연과 비용이다. 사고·관찰, 때로는 행동을 생성하는 데 많은 토큰이 들 수
   있고 이는 비용과 사용자가 체감하는 지연을 늘린다 — 중간 단계가 많은 과제에서 특히 그렇다.
   에이전트가 형식을 따르도록 유도하려고 ReAct와 Reflexion의 저자들은 자기 프롬프트에 예시를 많이 썼다.
@@ -134,6 +143,8 @@ sources:
 - [사고 연쇄 프롬프팅](../concepts/chain-of-thought-prompting.md) — 자기 비평 프롬프트의 출처
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — 별도 채점기·검증기가 쓰이는 다른 자리
 - [AI 판정자](../concepts/ai-as-a-judge.md) — 평가자를 모델로 세우는 일반 문제
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 자기 반성을
+  같은 예산의 재표집과 견주면 얼마를 버는지, 그리고 무엇이 그 이득을 막는지를 잰 실측
 - [인컨텍스트 학습](../concepts/in-context-learning.md) — 형식을 유도하는 예시가 비용이 되는 자리
 
 [^huyen2025]: Huyen 2025, 6장 "RAG and Agents" (책 pp.253–306). 이 페이지는 "Reflection and error
@@ -143,3 +154,8 @@ sources:
     않았고 본문이 서술한 두 모듈 구조만 담았다. ReAct(Yao et al., 2022)·HotpotQA(Yang et al., 2018)·
     Reflexion(Shinn et al., 2023)·actor-critic(Konda and Tsitsiklis, 1999)은 huyen2025를 통한
     전언이다.
+
+[^olausson2024-self-repair]: Olausson, Inala, Wang, Gao & Solar-Lezama 2024, "Is Self-Repair
+    a Silver Bullet for Code Generation?", ICLR 2024 게재본. 이 페이지는 §4.1·§4.2의 방향만
+    담았다 — 수치와 분모·표 위치는
+    [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md)에 있다.

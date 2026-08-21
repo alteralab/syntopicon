@@ -2,7 +2,7 @@
 type: concept
 title: 자기인식과 자기선호
 description: 판정자가 자기 출력을 더 높게 매기는 것이 자기 출력임을 알아보기 때문인지를 요약 과제에서 잰 2024년 실측 — 두 성질의 정의와 쌍별·개별 측정, 파인튜닝 없이도 우연 기준을 넘는 자기인식, 사람 주석으로 잰 실제 품질 차이보다 자기선호가 크다는 결과, 파인튜닝으로 자기인식을 움직였더니 자기선호가 같은 선 위를 따라 움직였다는 설계, 원문이 조건부로 권하는 유일한 대응책인 저자 은닉, 그리고 저자들이 인과를 확정하지 않고 남긴 선
-generated: { by: "claude-opus-5", at: "2026-08-21T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
 sources:
   - { id: panickssery2024, resource: /it/sources/panickssery2024.md }
 ---
@@ -295,6 +295,10 @@ GPT-3.5의 한 칸뿐이다.
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 같은 편향이
   자기 자신이 아니라 **같은 벤더의 다른 모델**로 번지는 쪽. 그쪽의 기제는 자기인식이
   아니라 오류 상관이다
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 같은 모델이
+  생성자이자 판정자일 때의 **하류 대가**를 코드 생성에서 잰 쪽. 이 페이지가 자기선호의
+  기제를 다룬다면 그쪽은 그 자기 판정에 기대어 얻는 성능이 얼마나 되는지를 재고, 피드백을
+  더 강한 모델이 주면 이득이 생긴다는 절개 실험을 붙인다
 - [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
   독립적으로 만든 것들이 독립적으로 틀리지 않는다는 같은 물음의 프로그램 판본 층
 - [AI 판정자](../concepts/ai-as-a-judge.md) — 판정자를 "모델 더하기 프롬프트"로 규정하는
