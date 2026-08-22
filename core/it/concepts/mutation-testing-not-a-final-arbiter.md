@@ -3,7 +3,6 @@ type: concept
 title: 뮤테이션 테스팅은 최종 심급이 아니다
 description: 뮤테이션 테스팅의 원전과 산업 최대 규모 운영 기록을 한 자리에 놓은 페이지 — 결합 효과의 정의와 원전 스스로 붙인 "증명할 길이 없다"는 단서, 죽은·살아 있는·동등 뮤턴트라는 어휘의 출처, competent programmer hypothesis라는 명명이 원전에 없다는 실측, 규모가 전통적 방식을 무너뜨리는 자리, Google이 절대 뮤테이션 점수를 버리고 코드 리뷰 시점의 개별 제안으로 갈아탄 기록과 그 수치, 그리고 절대 점수 임계와 프로젝트 간 비교를 금지하는 이 KB의 판정
 generated: { by: "claude-opus-5", at: "2026-08-23T05:30:00Z" }
-status: draft
 sources:
   - { id: demillo1978-hints, resource: /it/sources/demillo1978-hints.md }
   - { id: petrovic2021-google-mutation, resource: /it/sources/petrovic2021-google-mutation.md }
@@ -319,7 +318,7 @@ sources:
 - **뮤테이션이 커버리지가 못 보는 것을 본다는 대비는 언어 모델이 만든 테스트에서 다시
   측정됐다.** [MUTGEN](../sources/wang2025-mutgen.md)이 이 KB에 들어온 이유가 그
   동기 진술 하나다 — 커버리지가 만점인 생성 테스트가 뮤테이션 점수는 바닥일 수 있다는
-  것. **미심사 프리프린트이므로 방향만 쓴다.**
+  것.[^wang2025-mutgen] **미심사 프리프린트이므로 방향만 쓴다.**
 - **산업 채택도 같은 방향으로 갔다.**
   [생성된 테스트의 필터 체인](../concepts/filter-chain-for-generated-tests.md)이 담은
   Meta의 ACH는 **관문의 마지막 조건을 커버리지에서 뮤턴트 사살로 바꾼** 배선이다.

@@ -2,7 +2,7 @@
 type: concept
 title: 커버리지는 뮤턴트 킬을 예측한다
 description: 커버리지가 스위트를 크게 만들어 간접으로 돕는 것이 아니라 독립으로 효과성에 기여한다고 잰 두 논문 — 크기와 커버리지를 각각 넣은 회귀 모형을 겨뤄 둘 다 필요하다고 결론한 2009년의 통제 실험과 그 모형의 모양, 오픈소스 자바 수백 개에서 문장 커버리지가 뮤턴트 킬의 최선 예측자였다는 2014년의 대규모 관찰과 그 분모, 두 논문이 효과성을 무엇으로 쟀는지, 크기가 커지면 상관이 떨어진다는 원문 자신의 단서, 그리고 같은 물음에 반대 답을 낸 논문이 같은 학회 같은 해에 있다는 사실
-generated: { by: "claude-opus-5", at: "2026-08-23T02:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T06:05:00Z" }
 contradicts: [coverage-confounded-by-suite-size]
 sources:
   - { id: namin2009-size-coverage, resource: /it/sources/namin2009-size-coverage.md }
@@ -62,6 +62,10 @@ sources:
   `"silver standard"`로 삼았다고 1절이 밝힌다. 도구는 PIT다.
 - **그래서 이 페이지의 제목이 "효과성"이 아니라 "뮤턴트 킬"이다.** 두 논문이 예측한다고
   말한 대상은 대부분 뮤테이션 점수이지 실제 결함이 아니다.
+- **그 종속변수 자체가 실결함을 대신할 수 있는지는 별도 페이지의 물음이다** —
+  [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md).
+  거기서 옮긴 원전의 눈금은 그 대체가 **증명할 길이 없는 경험적 원리**에 기댄다는
+  것이다.
 
 ## 크기와 커버리지를 겨루게 한다
 
@@ -296,6 +300,8 @@ sources:
   생성된 테스트의 커버리지 수치가 무엇을 재고 있는가
 - [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 재는 대상을 상태 커버리지로
   바꾸라는 실무 규범
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  이 페이지의 종속변수를 만든 기법의 원전과 한계
 
 [^namin2009-size-coverage]: Siami Namin & Andrews 2009, "The Influence of Size and Coverage
     on Test Suite Effectiveness", ISSTA 2009, 인쇄 쪽 57~67. 확보본 1쪽 하단이 `57`,

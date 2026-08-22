@@ -2,7 +2,7 @@
 type: concept
 title: 실용주의 스타터 킷
 description: 방법론·언어·기술 스택과 무관하게 모든 팀이 갖춰야 한다고 저자들이 지목한 세 다리 — 빌드와 릴리스를 모는 버전 관리, 그물 비유로 서술되는 가차 없는 지속적 테스팅(단위·통합·검증과 확인·성능), 테스트 자체를 사보타주로 시험하는 절차, 코드 커버리지가 아니라 상태 커버리지를 재라는 판정, 버그는 사람이 한 번만 찾으면 된다는 규칙, 그리고 수동 절차를 금지하는 전체 자동화
-generated: { by: "claude-opus-5", at: "2026-08-15T23:55:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T05:45:00Z" }
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
 ---
@@ -165,6 +165,14 @@ sources:
     [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md)가 다루는 무작위 결함 주입과
     같은 도구인데, **여기서의 목적은 시스템의 회복력이 아니라 테스트 스위트의 감도**다. 같은 도구가
     피시험체를 바꿔 겨눠진 것이고, 그 이동이 이 절의 요지다.
+  - **이 절차를 기계가 대신하는 것이 뮤테이션 테스팅(mutation testing)이다.** 사람이
+    버그 하나를 손으로 심고 테스트가 항의하는지 보는 자리에서, 기계는 프로그램을
+    한 군데씩 바꾼 변형(뮤턴트)을 대량으로 만들고 스위트가 그것을 죽이는지 센다.
+    [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md)가
+    그 기법의 원전과 산업 규모 운영 기록을 담는다. **다만 그쪽의 판정은 이 Topic보다
+    조심스럽다** — 산업 최대 규모의 사례가 절대 점수를 지표에서 내리고 리뷰 시점의 개별
+    제안으로 갈아탔으므로, 사보타주의 기계 판을 **통과·탈락을 가르는 관문**으로 두는
+    것은 그 사례가 지지하지 않는다.
 
 ## 얼마나 테스트했는가 — 코드가 아니라 상태
 
@@ -295,6 +303,8 @@ sources:
 - [속성 기반 테스트](property-based-testing.md) — 상태 커버리지 문제를 기계에 넘기는 도구
 - [커버리지는 단서지 목표가 아니다](../concepts/coverage-as-clue-not-target.md) — 같은 커버리지
   한계 진단에서 도구 교체가 아니라 읽는 법의 교체로 가는 실무 규범. Tip 93의 형제 자리
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  Tip 92의 사보타주를 기계가 대신하는 기법. 그 기법이 무엇을 재고 무엇을 못 재는지
 - [계약에 의한 설계](../concepts/design-by-contract.md) — 통합 테스팅이 대상으로 삼는 계약
 - [디버깅](../concepts/debugging-practice.md) — 버그를 한 번만 찾는 규칙의 개인 층
 - [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md) — 수동 단계가 깨진
