@@ -370,8 +370,22 @@ Littlewood & Miller 쪽 기록이다.
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 이 실험과 같은
   물음을 언어 모델에 건 현대 대응물. 판본 대신 모델을, 동시 실패 대신 같은 오답을 세고,
   개별 정확도와 상관의 관계까지 잰 자리
+- [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 판정자와
+  대상을 아예 갈라 두지 않은 자리. 이 페이지가 "따로 만들면 따로 틀린다"를 반증한다면
+  그쪽은 같은 모델일 때 무엇이 판정을 기울이는가의 기제를 잰다
+- [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 이 페이지가
+  세우는 방향("주체 교체만으로는 충분하지 않다")을 코드 생성 층에서 잰 쪽. 이득이 생긴
+  것은 피드백 주체가 다를 때가 아니라 더 강할 때였다
+- [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
+  같은 주체 분리를 벤더 실무 문서가 요구하는 문면. 그 요구가 이 실험이 반증한 가정 위에
+  서 있다는 것이 두 페이지가 만나는 자리다
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 이 페이지가 가리킨 방향
+  ("주체를 바꾸는 것보다 정보의 출처와 방법을 가르는 것")이 조직 경계에서 실물이 된 배치.
+  다만 기대를 여럿이 따로 적었다고 그 기대들이 독립적으로 틀리지는 않는다는 위험은 이
+  페이지가 소유한다
 - [데이터 오염](../concepts/data-contamination.md) — 위 LLM 시대의 지위 절이 미심사 재현
   둘에 대해 지적한 미논의 항목의 정의
+- [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^knight1986-nversion]: Knight & Leveson 1986, "An Experimental Evaluation of the Assumption
     of Independence in Multi-version Programming". 확보본이 저자본이라 쪽번호가 인쇄

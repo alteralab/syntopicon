@@ -299,7 +299,7 @@ GPT-3.5의 한 칸뿐이다.
   생성자이자 판정자일 때의 **하류 대가**를 코드 생성에서 잰 쪽. 이 페이지가 자기선호의
   기제를 다룬다면 그쪽은 그 자기 판정에 기대어 얻는 성능이 얼마나 되는지를 재고, 피드백을
   더 강한 모델이 주면 이득이 생긴다는 절개 실험을 붙인다
-- [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) —
   독립적으로 만든 것들이 독립적으로 틀리지 않는다는 같은 물음의 프로그램 판본 층
 - [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
   이 페이지가 조건부로 권한 저자 은닉이 벤더 실무 문서에서는 **판정자에게서 쓴 기억을
@@ -312,6 +312,7 @@ GPT-3.5의 한 칸뿐이다.
   쓸 수 있는가의 물음. 이 페이지는 그 물음에 기제 쪽 답을 준다
 - [비교 평가](../concepts/comparative-evaluation.md) — 쌍별 측정과 순서 편향이 실제
   평가 절차에서 작동하는 자리
+- [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^panickssery2024]: Panickssery, Bowman & Feng 2024, "LLM Evaluators Recognize and Favor
     Their Own Generations", NeurIPS 2024 본회의. 쪽 번호는 **게재본(camera-ready)의 자체

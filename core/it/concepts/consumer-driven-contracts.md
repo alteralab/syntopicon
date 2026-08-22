@@ -253,7 +253,7 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
 - **#hypothesis 계약이 소비자 손에서 나온다는 사실만으로 판정이 독립이 되지는 않는다.**
   소비자들이 같은 팀이거나 같은 생성기에서 나온 클라이언트를 쓰면 그 기대들도 같이
   틀릴 수 있다. 이 글은 그 위험을 다루지 않는다 — 그 물음은
-  [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md)가
+  [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md)가
   소유한다.
 
 ## 저자가 스스로 그은 한계
@@ -320,7 +320,7 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
 - [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
   **다른 축이다.** 그쪽은 판정 *주체*를 갈라 두라는 요구이고, 이 페이지는 판정 *근거*를
   누가 썼는가다. 둘은 서로를 함의하지 않는다
-- [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) —
   기대를 여럿이 따로 적었다고 그 기대들이 독립적으로 틀리지는 않는다는 쪽의 원전
 - [계약에 의한 설계](../concepts/design-by-contract.md) — 같은 낱말의 다른 경계.
   위 [계약에 의한 설계와 같은 낱말, 다른 것](#계약에-의한-설계와-같은-낱말-다른-것) 참조
@@ -334,6 +334,8 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
   장치를 한 프로그램 안에서 쓰는 쪽
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 이 축의 허브
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
+- [검증자 독립성](../synthesis/verifier-independence.md) — 판정 주체 쪽의 허브이자 이
+  갈래의 허브
 
 [^robinson2006-cdc]: Robinson 2006, "Consumer-Driven Contracts: A Service Evolution
     Pattern", `martinfowler.com/articles/consumerDrivenContracts.html`, 2006년 6월 12일

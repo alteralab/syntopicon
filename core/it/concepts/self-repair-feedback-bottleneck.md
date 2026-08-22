@@ -287,7 +287,7 @@ p.14).[^olausson2024-self-repair]
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 판정자를 **다른
   모델**로 바꿔도 오답이 겹치면 정확도가 부풀려진다는 쪽. 이 페이지와 합치면 조건이 둘로
   좁혀진다 — 판정자는 달라야 하고 또한 더 강해야 한다
-- [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) —
   독립적으로 만든 것들이 독립적으로 틀리지 않는다는 같은 물음의 프로그램 판본 층
 - [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
   이 페이지가 좁힌 조건이 벤더 실무 문서에서는 어디까지 적혀 있는가. 그 문서는 판정자가
@@ -304,6 +304,7 @@ p.14).[^olausson2024-self-repair]
   논문은 실행 가능한 테스트를 전부 가졌다고 가정하고 그 위에 피드백 층을 얹는다
 - [AI 판정자의 한계](../concepts/ai-judge-limitations.md) — 판정자를 모델로 세울 때 생기는
   일반 문제. 이 페이지의 피드백 모델이 그 판정자의 한 사례다
+- [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^olausson2024-self-repair]: Olausson, Inala, Wang, Gao & Solar-Lezama 2024, "Is Self-Repair
     a Silver Bullet for Code Generation?", ICLR 2024 게재본. 쪽 번호는 **확보본의 자체

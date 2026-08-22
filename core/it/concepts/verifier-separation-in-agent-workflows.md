@@ -127,13 +127,14 @@ sources:
   달라지는지를 재고, **더 강한 판정자**라는 조건까지 좁힌다
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 판정자를 다른
   모델로 바꿔도 오답이 겹치면 남는 위험. 위 `fresh model`의 모호함이 걸리는 자리
-- [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
+- [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) —
   독립적으로 만든 것들이 독립적으로 틀리지 않는다는 같은 물음의 프로그램 판본 층. 이
   문서가 실무 문면으로 요구하는 분리가 그 고전이 반증한 가정 위에 서 있다
 - [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — **다른 축이다.** 이 페이지가
   요구하는 것은 판정 *주체*를 갈라 두는 것이고, 그쪽은 판정 *근거*가 담긴 사양 산출물을 누가
   썼는가다. 둘은 서로를 함의하지 않는다 — 제공자가 소비자에게서 받은 계약 테스트를 자기
   CI에서 돌리면 주체는 갈리지 않은 채 근거만 갈린다
+- [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^anthropic2026-claude-code-best-practices]: Anthropic 2026, "Best practices for Claude
     Code", `code.claude.com/docs/en/best-practices`. **벤더 제품 문서이고 학술 근거가

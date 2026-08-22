@@ -40,7 +40,7 @@ sources:
   직접 만든 이력서 평가 자료 하나다 (§3.1).[^kim2025-error-correlation] HUGGINGFACE는
   HuggingFace Open LLM Leaderboard 2에서 349개 모델, HELM은 스탠퍼드 HELM에서 71개 모델,
   RESUMES는 저자들이 20개 모델에 1,800건의 이력서–채용공고 쌍을 채점시킨 것이다.
-  앞의 둘은 MMLU 문항을 쓰고 정답 라벨이 있다.
+  앞의 둘은 MMLU 문항을 쓰고 근거 진리(ground truth) 라벨이 있다.
 - **HELM의 71개 모델은 15개 회사에 걸쳐 있다** — OpenAI·Anthropic·Google·DeepSeek·Qwen
   등이고, 한 회사가 같은 모델의 여러 판을 냈으면 최신 판들이 들어 있다
   (Appendix A.1).[^kim2025-error-correlation] HUGGINGFACE 쪽은 원래 2,041개 모델에서
@@ -60,8 +60,8 @@ sources:
   > both give the correct answer. We, in contrast, are primarily interested in correlated
   > *errors*.
 
-  RESUMES에서는 정답 라벨이 없으므로 대신 **잔차의 상관**을 쓴다 — 모델 점수와 사람 점수의
-  차이를 모델 쌍마다 상관 낸다. 저자들은 여기서 사람 점수를 근거 진리(ground truth)로 다루되 이력서와
+  RESUMES에서는 근거 진리가 없으므로 대신 **잔차의 상관**을 쓴다 — 모델 점수와 사람 점수의
+  차이를 모델 쌍마다 상관 낸다. 저자들은 여기서 사람 점수를 근거 진리로 다루되 이력서와
   공고의 적합성 평가가 주관적이라는 것을 같은 자리에 적는다 (§3.1).[^kim2025-error-correlation]
 
 ## 문항 수는 논문 안에서 어긋난다
@@ -203,8 +203,8 @@ sources:
   결과 도판은 HELM이 Figure 2, HUGGINGFACE가 Figure 8이고, 세로축이 부풀림(판정 정확도 빼기
   참 정확도), 가로축이 대상 모델의 참 정확도다.
 - **같은 벤더·같은 계열이면 더 심하다** — §4는 같은 벤더의 모델을 붉은 점으로 그리고, 판정자가
-  그 모델들의 정확도를 크게 부풀리는 사례가 보인다고 적는다. 저자들은 이것을 자기 선호
-  (self-preferencing) 우려와 연결하며, **자기 선호가 같은 계열의 다른 모델 사이에서도 일어날
+  그 모델들의 정확도를 크게 부풀리는 사례가 보인다고 적는다. 저자들은 이것을 자기선호
+  (self-preferencing) 우려와 연결하며, **자기선호가 같은 계열의 다른 모델 사이에서도 일어날
   수 있다**는 뜻이라고 쓴다 (§4).[^kim2025-error-correlation]
 - **저자들의 처방** (§4):[^kim2025-error-correlation]
 
@@ -214,8 +214,8 @@ sources:
 
   곧 판정자를 바꿔서 푸는 문제가 아니라 **모델–판정자 쌍마다 근거 진리로 보정해야 하는**
   문제다.
-- 이 절이 말하는 자기 선호는 **판정자가 자기 것임을 알아보아서** 생기는 것이 아니라
-  오류가 겹쳐서 생긴다. 자기 것임을 알아보는 쪽에서 자기 선호를 설명하려 한 실험은
+- 이 절이 말하는 자기선호는 **판정자가 자기 것임을 알아보아서** 생기는 것이 아니라
+  오류가 겹쳐서 생긴다. 자기 것임을 알아보는 쪽에서 자기선호를 설명하려 한 실험은
   [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md)에 있고,
   거기서도 인과는 확정되지 않았다. **두 설명은 경쟁하는 것이 아니라 서로 다른 자리를
   덮는다** — 이쪽은 판정자와 대상이 다른 모델일 때, 저쪽은 같은 모델일 때다.
@@ -259,7 +259,7 @@ Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025"라 인쇄한 
 | 모델 집합 | HELM 71개(15개 회사)·HUGGINGFACE 349개·RESUMES 20개 |
 | 모델 시점 | Appendix D의 HELM 표에서 가장 새 모델이 claude-3-5-sonnet-20241022 · gpt-4o-2024-08-06 · gemini-1.5-pro-002 · llama-3.1/3.2 · qwen2.5 — 곧 2024년 말까지 공개된 세대 |
 | 과제 | MMLU 계열 객관식과 이력서–공고 적합성 수치 채점. 열린 생성은 아니다 |
-| 판정 근거 | 리더보드의 정답 라벨과 저자들의 손라벨 |
+| 판정 근거 | 리더보드의 근거 진리 라벨과 저자들의 손라벨 |
 
 - **낡는 것과 낡지 않는 것을 갈라 둔다.** 절대 수치(0.6·0.423·계수들)는 위 모델 집합과
   시점에 묶여 있다. 방향(같은 회사·같은 아키텍처가 상관을 올린다, 정확한 모델끼리 더
@@ -301,7 +301,7 @@ Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025"라 인쇄한 
 - [AI 판정자의 한계](../concepts/ai-judge-limitations.md) — 자기 편향과 판정자가 바뀌면 지표가 무너지는
   문제. 이 페이지는 그 편향이 **같은 벤더의 다른 모델 사이에서도** 나타난다는 실측을 더한다
 - [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 판정자와 대상이
-  **같은 모델**일 때의 짝. 그쪽은 자기 것임을 알아보는 능력을 손잡이로 써서 자기 선호의
+  **같은 모델**일 때의 짝. 그쪽은 자기 것임을 알아보는 능력을 손잡이로 써서 자기선호의
   인과를 세우려 한다
 - [자기 수정의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 같은 물음의
   하류 쪽. 이 페이지가 판정자를 **다른 모델**로 바꿔도 부풀림이 남는다고 잰다면, 그쪽은
@@ -317,6 +317,7 @@ Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025"라 인쇄한 
 - [테스트 오라클](../concepts/test-oracle.md) — 판정의 근거가 어디서 오는가의 분류. 여러 모델의 합의를
   오라클로 쓰는 구조가 무엇을 전제하는지가 이 페이지가 잰 것이다
 - [데이터 오염](../concepts/data-contamination.md) — 훈련 코퍼스의 공유가 평가에 남기는 다른 자국
+- [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^kim2025-error-correlation]: Kim, Garg, Peng & Garg 2025, "Correlated Errors in Large
     Language Models". 확보본이 PMLR camera-ready이나 자체 쪽번호가 1–29라 인쇄 쪽
