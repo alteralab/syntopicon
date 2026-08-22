@@ -126,6 +126,12 @@ sources:
 
 - [공개 벤치마크와 리더보드](../concepts/public-benchmarks-and-leaderboards.md) — 오염이 훼손하는
   대상 자체
+- [벤치마크의 수명과 철회](../concepts/benchmark-lifespan-and-retirement.md) — 이 페이지가
+  일반론으로 적은 것이 한 벤치마크에서 실현된 기록. 만든 쪽이 탐침을 세워 모델에게 정답
+  패치를 되뱉게 하고 그 벤치마크를 스스로 내렸다
+- [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) — 점수를
+  대상의 능력에서 떼어 놓는 다른 경로. 오염이 훈련 시점의 누출이라면 그쪽은 추론 시점의
+  착취다
 - [언어 모델링 지표](../concepts/language-modeling-metrics.md) — 퍼플렉시티가 무엇이고 왜 오염 탐지에
   쓰이는가
 - [파운데이션 모델 평가의 난제](../concepts/evaluating-foundation-models-challenges.md) — 벤치마크

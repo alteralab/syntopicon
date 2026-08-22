@@ -34,9 +34,11 @@ sources:
 
 ## 이 소스의 지위
 
-- **심사는 통과했다.** 확보본 1쪽에 `Empirical Software Engineering (accepted
-  manuscript)`가 인쇄돼 있고, §3이 저널 심사를 직접 서술한다 (§3,
-  p.7).[^baltes2026-llm-guidelines]
+- **근거 등급은 `peer-reviewed`이고, 심사는 실제로 통과했다.** 확보본 1쪽에 `Empirical
+  Software Engineering (accepted manuscript)`가 인쇄돼 있고, §3이 저널 심사를 직접
+  서술한다 (§3, p.7).[^baltes2026-llm-guidelines] **다만 그 등급이 여는 것은 심사를
+  지났다는 사실까지다** — 실측인가 규범인가는 다른 축이고, 이 문서가 그 축의 어디에
+  앉는지는 바로 아래 항목이 정한다.
 
   > During the review process of the *Empirical Software Engineering* journal, the
   > structure and content were improved based on reviewers' suggestions.
@@ -233,10 +235,24 @@ pp.18–59).[^baltes2026-llm-guidelines] **요구(must)와 권고(should) 표기
   모델·시점·언어에 묶인 값을 실제로 그렇게 적어 둔 실측 페이지
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 모델 집합과
   시점을 유통기한으로 갈라 둔 실측 페이지
+- [벤치마크의 테스트 부족](../concepts/benchmark-test-inadequacy.md) — 5.2가 요구하는
+  모델 판과 실행 시점을 버전 조건 블록으로 실제로 적어 둔 자리. 그 페이지가 자기 수치를
+  조항에 박지 않는 근거로 이 페이지를 든다
+- [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) —
+  값 하나마다 데이터셋과 모델과 스캐폴드와 프롬프트를 붙여 적는 규칙. 5.2의 밝힐 의무와
+  5.5의 지표 정당화 요구를 한 페이지 안에서 실행한 모습이다
+- [벤치마크의 수명과 철회](../concepts/benchmark-lifespan-and-retirement.md) — 같은 요구를
+  모델이 아니라 벤치마크 쪽으로 돌린 자리. 어느 판인지와 어느 시점인지에 더해 그 뒤에
+  감사나 철회 고지가 있었는지를 묻는다
+- [생성된 테스트의 필터 체인](../concepts/filter-chain-for-generated-tests.md) — 5.2의
+  요구가 지켜지지 않은 실물. 산업 배포 논문 하나가 쓴 모델의 정체를 상업 기밀이라며
+  밝히지 않는다
 - [데이터 오염](../concepts/data-contamination.md) — 5.5와 5.8이 내적 타당도 위협으로
   드는 것. 그쪽은 기제를, 이쪽은 무엇을 밝히라는 의무를 다룬다
 - [공개 벤치마크와 리더보드](../concepts/public-benchmarks-and-leaderboards.md) —
   벤치마크가 무엇을 보장하고 무엇을 보장하지 않는가
+- [벤치마크와 수용 판정의 무결성](../synthesis/benchmark-and-acceptance-integrity.md) —
+  이 갈래의 허브
 - [AI 판정자의 한계](../concepts/ai-judge-limitations.md) — 5.7이 인간 검증을 요구하는
   이유가 놓인 자리
 - [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 지표와 기준선을

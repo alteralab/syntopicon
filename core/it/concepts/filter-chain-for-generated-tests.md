@@ -52,7 +52,7 @@ sources:
 |---|---|---|
 | 소스 | [alshahwan2024-testgen-llm](../sources/alshahwan2024-testgen-llm.md) | [foster2025-ach](../sources/foster2025-ach.md) |
 | 게재 표면 | `FSE ’24`(문면). Companion·산업 트랙 여부는 문면에 없고 레코드 근거 | `FSE Companion ’25`(문면) |
-| 근거의 격 | **심사 게재 + 산업 자기 보고** | **심사 게재 + 산업 자기 보고** |
+| 근거 등급 | **심사 게재 + 산업 자기 보고** | **심사 게재 + 산업 자기 보고** |
 | 재현 가능성 | 없음 — Meta 내부 코드베이스·비공개 모델 | 없음 — 같은 이유 |
 
 - **심사를 통과했다는 것이 값의 독립성을 주지 않는다.** 두 논문의 수치는 전부 **Meta가
@@ -95,7 +95,10 @@ sources:
   > test assertion. Therefore, TestGen-LLM discards any test case that does not pass on
   > first execution.
 
-  곧 **실패한 테스트는 전부 버린다.** 그 대가로 남는 것이 무엇인지도 같은 자리에 적힌다 —
+  곧 **실패한 테스트는 전부 버린다.** 자동화할 수 있는 오라클이 없으면, 실패한 테스트가
+  대상의 버그를 찾아낸 것인지 아니면 그 테스트의 단정이 스스로 틀린 것인지를 도구가
+  자동으로 가릴 수 없다. 논문은 그 판별을 시도하는 대신 실패를 통째로 버리는 쪽을 골랐다.
+  그 대가로 남는 것이 무엇인지도 같은 자리에 적힌다 —
   `The effect of this filter is to preserve only tests that can be used for regression
   testing`.
 - **셋째 관문의 판정 규칙이 숫자로 못박혀 있다** (§2, p.2):[^alshahwan2024-testgen-llm]
@@ -462,12 +465,20 @@ sources:
 - [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) — 테스트를
   모델의 권한 안에 두면 무슨 일이 일어나는가. 이 페이지의 배포는 반대 구도다 — 모델이 테스트를
   만들되 통과 판정은 손대지 못한다
+- [벤치마크의 테스트 부족](../concepts/benchmark-test-inadequacy.md) — 관문의 마지막 조건을
+  무엇으로 두느냐가 왜 문제가 되는지의 실험실 판. 거기서도 커버리지와 뮤테이션은 틀린 표본을
+  잡아내는 경험적 기준 위에 더 얹을 것이 적었다
+- [벤치마크의 수명과 철회](../concepts/benchmark-lifespan-and-retirement.md) — 자동 채점을
+  제대로 만들기 어렵다는 같은 문제의 벤치마크 쪽. 좁아지지도 넓어지지도 않아야 한다는 두
+  조건이, 이 페이지의 관문 넷이 지나고도 남아 사람 리뷰로 넘어가는 자리와 겹친다
 - [테스팅은 결함의 존재만 보인다](../concepts/testing-shows-presence-not-absence.md) —
   관문을 다 지난 테스트가 통과한다는 사실이 무엇을 증명하지 않는가의 상한
 - [자기 수리의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 모델이 자기
   출력을 고칠 때 무엇이 병목인가. 이 페이지의 필터는 그 피드백을 사람이 아니라 인프라에서
   받는다
-- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 페이지가 우회한 문제의 허브
+- [벤치마크와 수용 판정의 무결성](../synthesis/benchmark-and-acceptance-integrity.md) —
+  이 갈래의 허브
 
 [^alshahwan2024-testgen-llm]: Alshahwan, Chheda, Finegenova, Gokkaya, Harman, Harper,
     Marginean, Sengupta & Wang 2024, "Automated Unit Test Improvement using Large Language

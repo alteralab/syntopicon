@@ -457,6 +457,9 @@ sources:
 - [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) —
   이 벤치마크의 Verified 부분집합 위에 세워진 측정. 그쪽 수치를 읽을 때 이 페이지의
   오염 진단이 함께 걸린다
+- [생성된 테스트의 필터 체인](../concepts/filter-chain-for-generated-tests.md) — 철회문의
+  둘째 교훈(자동 채점은 제대로 만들기 어렵다)이 산업 배포에서 어떤 장치로 나타나는가.
+  거기서 채점은 결정적 검사 넷이 맡고, 그 관문이 못 보는 것은 사람 리뷰로 넘어간다
 - [공개 벤치마크와 리더보드](../concepts/public-benchmarks-and-leaderboards.md) —
   벤치마크가 포화되어 갈린다는 일반론. 이 페이지는 그 갈림의 처음과 끝을 원문으로 가진
   한 사례다
@@ -473,6 +476,8 @@ sources:
   대리하는가
 - [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 공개 벤치마크를
   믿을 수 없을 때 세우는 것
+- [벤치마크와 수용 판정의 무결성](../synthesis/benchmark-and-acceptance-integrity.md) —
+  이 갈래의 허브
 
 [^jimenez2024-swebench]: Jimenez, Yang, Wettig, Yao, Pei, Press & Narasimhan 2024,
     "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?", ICLR 2024.
