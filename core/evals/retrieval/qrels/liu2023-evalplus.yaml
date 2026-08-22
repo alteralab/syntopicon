@@ -1,0 +1,114 @@
+# 질문지 조각 — Liu 외 2023(EvalPlus) 승급(2026-08-22, 수용·벤치마크 갈래의 둘째 반입).
+# 이 소스가 만드는 검색 위험은 어휘 간섭 하나로 몰려 있다. "HumanEval"과 "pass@k"는
+# 이 KB에서 이미 여섯 페이지 넘게 나눠 갖는다(functional-correctness·
+# public-benchmarks-and-leaderboards·llm-generated-test-defect-distribution·
+# self-repair-feedback-bottleneck·similarity-measurements-against-reference-data·
+# cost-and-latency-criteria). "벤치마크"는 huyen2025 계열이 소유하고, "판별력"은
+# 오라클 계열 두 페이지(current-behaviour-as-oracle·consistency-oracle-heuristics)가
+# 이미 쓴다. 그래서 이 페이지가 자기 자리를 잡으려면 공유 어휘가 아니라 자기만 가진
+# 어휘로 걸려야 한다.
+# exact 문항은 이 페이지만 가진 낱말(테스트 부족·순위 역전·정답 구현의 결함·
+# 테스트 스위트 축소)을 겨냥한다. alias 문항은 이 페이지에서만 병기된 원어
+# (type-aware mutation·differential testing·corner-case inputs)가 갈라 주는 키로
+# 사는지를 잰다. semantic 문항은 벤치마크라는 낱말을 쓰지 않은 질의가 닿는지를 본다.
+# cross-domain 셋은 이번 런이 실제로 건 링크 셋(기능적 정확성·공개 벤치마크와
+# 리더보드·테스팅은 결함의 존재만 보인다)이 검색에서도 이웃으로 잡히는지를 본다.
+source: liu2023-evalplus
+added: 2026-08-22
+queries:
+  - id: btinad-exact-1
+    query: "벤치마크의 테스트 부족"
+    type: exact
+    description: "페이지 제목 그대로 — 벤치마크 계열 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-exact-2
+    query: "테스트를 늘리면 통과율이 떨어진다"
+    type: exact
+    description: "이 논문의 핵심 처치와 결과 — 이 KB에서 이 페이지만 갖는 절 이름"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-exact-3
+    query: "정답 구현 자체가 틀려 있었다"
+    type: exact
+    description: "벤치마크의 기준선에 있던 결함 열여덟 건 — 이 페이지만 갖는 서술"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-exact-4
+    query: "테스트 스위트 축소"
+    type: exact
+    description: "테스트를 줄여도 판별력이 남는다는 결과가 앉은 자리"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-exact-5
+    query: "HumanEval 문항당 테스트 개수"
+    type: exact
+    description: "HumanEval을 나눠 갖는 여러 페이지 가운데 테스트 개수를 실제로 실은 것은 이 페이지뿐이다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-alias-1
+    query: "type-aware mutation"
+    type: alias
+    description: "원어 병기 — 엣지 입력을 불리는 방법의 이름. 이 KB에 이 페이지만 갖는다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-alias-2
+    query: "differential testing"
+    type: alias
+    description: "원어 병기 — 이 실험의 오라클 이름. 오라클 계열 페이지들과 갈라 주는 키"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-alias-3
+    query: "corner-case inputs"
+    type: alias
+    description: "원어 직인용 — 엣지를 만들라고 준 지시의 문면. 이 페이지에만 있다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-sem-1
+    query: "코드를 하나도 안 고쳤는데 점수가 내려간 이유"
+    type: semantic
+    description: "패러프레이즈 — 벤치마크와 테스트라는 낱말 불사용. 처치가 테스트 강화뿐이었다는 것이 답"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-sem-2
+    query: "어느 모델이 더 나은지 판정이 뒤집힐 수 있나"
+    type: semantic
+    description: "패러프레이즈 — 순위 역전이 답이다. 모델 비교를 다루는 다른 페이지들과 겨룬다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-sem-3
+    query: "엣지 케이스를 자동으로 만들어 내는 방법"
+    type: semantic
+    description: "패러프레이즈 — 명시 지시와 타입별 변이와 계약 셋이 답이다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-top-1
+    query: "통과율은 코드의 옳음을 재는가 테스트의 판별력을 재는가"
+    type: topical
+    description: "이 페이지가 서는 물음 그 자체"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-top-2
+    query: "멈춘 리더보드의 값을 지금 모델 비교에 써도 되는가"
+    type: topical
+    description: "원문 밖 확인 절 — 갱신이 멈춘 리더보드는 그 시점의 스냅샷이라는 판정이 답이다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: btinad-x-1
+    query: "HumanEval과 pass@k가 무엇을 재고 무엇을 못 재는가"
+    type: cross-domain
+    description: "정의 쪽과 그 정의의 분모를 잰 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md", "concepts/functional-correctness.md"]
+    expected_in_top_k: 5
+  - id: btinad-x-2
+    query: "벤치마크를 고른 뒤에도 그 점수를 믿을 수 없는 이유"
+    type: cross-domain
+    description: "고르는 쪽과 고른 것 안에서 흔들리는 쪽이 함께 잡혀야 한다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md", "concepts/public-benchmarks-and-leaderboards.md"]
+    expected_in_top_k: 5
+  - id: btinad-x-3
+    query: "테스트가 통과했다는 사실의 증거 무게"
+    type: cross-domain
+    description: "상한 명제 쪽과 그 착시를 실제로 잰 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/benchmark-test-inadequacy.md", "concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
