@@ -2,7 +2,6 @@
 type: concept
 title: LLM 실증 연구의 보고 규범
 description: LLM이 들어간 소프트웨어 공학 실증 연구가 무엇을 반드시 밝혀야 하는가를 22인이 합의로 정한 지침 문서의 요지 — 모델 이름과 판, 실행 날짜, 설정값을 밝히라는 요구, 지표 선택을 정당화하라는 요구, 모델을 가로질러 또 시간을 가로질러 일반화를 확인했는지 밝히라는 요구, 비결정성 때문에 실험을 되풀이하고 분포로 보고하라는 권고, 그리고 이 문서 자체는 심사를 통과한 규범이지 실측이 아니라서 여기 실린 수치는 하나도 인용하지 않는다는 경계
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-22T00:00:00Z" }
 sources:
   - { id: baltes2026-llm-guidelines, resource: /it/sources/baltes2026-llm-guidelines.md }

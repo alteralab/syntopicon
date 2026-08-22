@@ -257,6 +257,9 @@ sources:
 - [특성화 테스트](../concepts/characterization-test.md) — 사람이 같은 절차를 의도적으로
   밟을 때의 처방과 그 경계. 기대값의 출처가 대상 자신이면 사람이 쓰든 기계가 뽑든 같은
   한계에 걸린다
+- [LLM 실증 연구의 보고 규범](../concepts/llm-empirical-study-reporting-norms.md) — 이
+  페이지가 버전 조건 블록으로 하는 일의 규범 근거. 모델 판과 실행 날짜를 밝히는 것이
+  요구 층에 있고, 실험을 되풀이해 분포로 보고하는 것이 권고 층에 있다는 구획
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^yuan2024-chatgpt-tests]: Yuan, Liu, Ding, Wang, Chen, Peng & Lou 2024, "No More Manual

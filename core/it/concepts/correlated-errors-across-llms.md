@@ -317,6 +317,9 @@ Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025"라 인쇄한 
 - [테스트 오라클](../concepts/test-oracle.md) — 판정의 근거가 어디서 오는가의 분류. 여러 모델의 합의를
   오라클로 쓰는 구조가 무엇을 전제하는지가 이 페이지가 잰 것이다
 - [데이터 오염](../concepts/data-contamination.md) — 훈련 코퍼스의 공유가 평가에 남기는 다른 자국
+- [LLM 실증 연구의 보고 규범](../concepts/llm-empirical-study-reporting-norms.md) — 이
+  페이지가 "근거 등급과 유통기한" 절에서 하는 일의 규범 근거. 모델을 가로지르는 일반화와
+  시간을 가로지르는 일반화를 갈라 밝히라는 요구가 그 절의 축과 같다
 - [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^kim2025-error-correlation]: Kim, Garg, Peng & Garg 2025, "Correlated Errors in Large
