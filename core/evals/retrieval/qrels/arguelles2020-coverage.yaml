@@ -1,0 +1,107 @@
+# 질문지 조각 — Arguelles, Ivanković & Bender 2020("Code Coverage Best Practices",
+# Google Testing Blog) 승급. 2026-08-23, 스위트 평가 갈래의 셋째 반입.
+#
+# 이 소스가 만드는 검색 위험은 앞 둘과 다르다. 앞 조각들이 걱정한 것은 "커버리지"라는
+# 낱말을 여덟 페이지가 나눠 갖는 어휘 간섭이었는데, 이 페이지는 거기에 더해 **같은 갈래
+# 안에서 가장 가까운 이웃과 결론만 다르고 어휘는 거의 같다.** 1999년 실무자 글
+# (coverage-as-clue-not-target)과 이 글은 둘 다 목표치·관문·수치의 부작용을 말하고, 갈리는
+# 자리는 관문을 걸라고 하느냐 하나뿐이다. 그래서 exact 문항이 잘못 걸리면 두 페이지가
+# 서로를 대신하고, 그것은 "현행 실무 권고"를 물은 사람에게 1999년 글을 주는 실패다.
+#
+# exact 문항은 이 페이지만 가진 낱말(권고 구간·하향식 강제·커밋 단위 임계·관문을 걸라는
+# 권고)을 겨냥한다. 승급 시점에 `commendable`·`exemplary`·`incidental`·`권고 구간`은 이
+# 페이지 밖에서 0건이었다. alias 문항은 원문 표기(top-down mandates, mutation testing)가
+# 갈라 주는 키로 사는지를 잰다. semantic 문항은 커버리지라는 낱말 없이 "목표 수치를
+# 누가 정하는가"를 물었을 때 닿는지를 본다.
+#
+# cross-domain 셋이 이 조각의 계측 목적이다. covops-x-1은 1999년 글과 이 글이 **함께**
+# 돌아오는지를 재고(둘이 서로를 밀어내면 0.5로 떨어진다), covops-x-2는 논쟁 양극 사이에
+# 이 페이지가 서 있다는 배치가 검색에서도 성립하는지를 재며, covops-x-3은 이번 런이 실제로
+# 건 산업 배선 쪽 링크(줄 커버리지 관문)를 잰다.
+source: arguelles2020-coverage
+added: 2026-08-23
+queries:
+  - id: covops-exact-1
+    query: "커버리지 운용의 산업 권고"
+    type: exact
+    description: "페이지 제목 그대로. 커버리지를 나눠 갖는 여덟 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-exact-2
+    query: "60% 75% 90% 커버리지 권고 구간"
+    type: exact
+    description: "회사가 정한 세 구간. 권고 구간이라는 말과 세 값이 함께 걸리는 자리는 이 페이지뿐이다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-exact-3
+    query: "하향식 강제를 피하면서 관문은 거는 권고"
+    type: exact
+    description: "이 글의 두 권고가 병존하는 자리. 1999년 글은 관문을 경계하므로 이 페이지가 답이다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-exact-4
+    query: "커밋 단위 커버리지 임계"
+    type: exact
+    description: "커밋마다 99%가 무리가 아니고 90%가 하한이라는 대목. 이 페이지만 갖는다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-exact-5
+    query: "통합 테스트 커버리지는 왜 부수적인가"
+    type: exact
+    description: "단위 테스트와 통합 테스트의 신호 질이 다르다는 불릿. 부수적이라는 규정은 이 페이지만 갖는다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-alias-1
+    query: "top-down mandates"
+    type: alias
+    description: "원문 표기. 하향식이라는 역어를 쓰는 다른 페이지들과 갈라 준다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-alias-2
+    query: "commendable exemplary acceptable"
+    type: alias
+    description: "권고 구간에 붙은 세 라벨의 원문 표기. 승급 시점에 이 페이지 밖에서 0건이었다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-sem-1
+    query: "목표 수치는 누가 정해야 하는가"
+    type: semantic
+    description: "패러프레이즈. 커버리지라는 낱말 없이 물었을 때 제품 소유자가 정한다는 조문에 닿아야 한다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-sem-2
+    query: "덮은 곳이 아니라 안 덮인 곳을 본다"
+    type: semantic
+    description: "이 글의 뼈대 문장. 지표를 어느 방향으로 읽는가를 낱말 없이 물었다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-top-1
+    query: "회사가 낸 커버리지 목표치를 근거로 써도 되는가"
+    type: topical
+    description: "산업 규범 등급과 분모 없음이 답이다. 등급 표기가 검색으로 잡히는지를 본다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-top-2
+    query: "단정이 실패를 실제로 잡는지는 무엇으로 재는가"
+    type: topical
+    description: "커버리지가 답하지 않는 물음에 뮤테이션 테스팅을 지목한 대목이 답이다"
+    expected_files: ["concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: covops-x-1
+    query: "커버리지 수치를 관문으로 걸어도 되는가"
+    type: cross-domain
+    description: "이 조각의 계측 문항. 관문을 경계하는 1999년 글과 관문을 권고하는 2020년 글이 함께 돌아와야 한다. 한쪽만 오면 r_at_5가 0.5로 떨어진다"
+    expected_files: ["concepts/coverage-operating-guidelines.md", "concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covops-x-2
+    query: "커버리지 논쟁이 갈린 채로 실무는 무엇을 하는가"
+    type: cross-domain
+    description: "논쟁 양극 사이의 배치. 실무 권고 쪽과 회의 측 실증이 함께 잡혀야 한다"
+    expected_files: ["concepts/coverage-operating-guidelines.md", "concepts/coverage-confounded-by-suite-size.md"]
+    expected_in_top_k: 5
+  - id: covops-x-3
+    query: "줄 커버리지를 관문 조건으로 쓴 실제 배선"
+    type: cross-domain
+    description: "권고 층과 산업 배선 층이 짝으로 걸려야 한다. 이번 런이 실제로 건 링크다"
+    expected_files: ["concepts/coverage-operating-guidelines.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
