@@ -3,7 +3,6 @@ type: concept
 title: 단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다
 description: 커버리지 논쟁이 다투던 스위트 크기의 아래를 열어 테스트 메서드 안의 단정을 변수로 놓은 자리 — 이 논문의 효과성이 곧 PIT 뮤테이션 점수라는 정의와 그 순환, 크기를 통제해도 남는 단정 수의 상관과 그 통제 설계, 단정 커버리지가 오라클 품질 지표에서 왔다는 계보, 단정 실패로만 죽는 뮤턴트를 따로 센 명시 뮤테이션 점수, 단정 커버리지를 통제하면 문장 커버리지의 상관이 어디까지 내려앉는가, 사람이 쓴 단정과 생성된 단정의 격차와 단정 종류별 순위, 그리고 원문이 실결함으로 넘어가지 않은 선
 generated: { by: "claude-opus-5", at: "2026-08-23T05:00:00Z" }
-status: draft
 sources:
   - { id: zhang2015-assertions, resource: /it/sources/zhang2015-assertions.md }
 ---
@@ -34,7 +33,8 @@ sources:
 
 - **근거 등급은 `peer-reviewed`다.** 게재 레코드가 확보본 1쪽 하단에 인쇄돼 있다 —
   `ESEC/FSE’15, August 30 – September 4, 2015, Bergamo, Italy` ·
-  `ACM. 978-1-4503-3675-8/15/08...` · `http://dx.doi.org/10.1145/2786805.2786858`.[^zhang2015-assertions]
+  `ACM. 978-1-4503-3675-8/15/08...` · `http://dx.doi.org/10.1145/2786805.2786858`
+  (1쪽 하단 저작권 상자, p.214).[^zhang2015-assertions]
 - **다만 확보본은 ACM 최종 조판이 아니라 저자본이다.** 같은 자리가
   `This is the author’s version of the work` … `The definitive version was published in the
   following publication:`이라고 밝힌다. **게재 레코드와 인쇄 쪽 번호를 함께 실은
@@ -146,7 +146,7 @@ sources:
 
   p 값은 전부 `< 2.2e − 16`이다. **크기를 통제해도 상관이 내려가지 않는다는 것이 이
   표의 뜻이고, 회의 측 논문이 커버리지에서 관찰한 하락과 대비되는 자리다.**
-- 저자들이 이 두 절에 붙인 상자가 Finding 1과 2다.[^zhang2015-assertions]
+- 저자들이 이 두 절에 붙인 상자가 Finding 1과 2다 (§4.1, p.219).[^zhang2015-assertions]
 
   > Finding 1: Our results indicate that, without controlling for test suite size, there is
   > a very strong correlation between the effectiveness of a test suite and the number of
