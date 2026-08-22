@@ -339,10 +339,12 @@ sources:
   > cases solely on the basis of the coverage they add, then such valuable test cases would
   > be wrongly discarded.
 
-- **반대 방향도 잰다** (§6, p.8):[^foster2025-ach] 같은 표에서 TestGen-LLM은 **더 많은
-  클래스에 테스트를 만들지만(32% 대 5.3%) 뮤턴트는 훨씬 적게 죽인다(2.0% 대 12%)**. 논문의
-  결론 문장은 이렇다 — `targeting mutants can also elevate coverage, but targeting coverage
-  will be inadequate to kill mutants`.
+- **반대 방향도 잰다** (§6과 Table 8, pp.8–9):[^foster2025-ach] 같은 표에서 TestGen-LLM은
+  **더 많은 클래스에 테스트를 만들지만(32% 대 5.3%) 뮤턴트는 훨씬 적게 죽인다.** 사살률은
+  에이전트 판정 기준으로 2.0% 대 12%, 사람 판정으로 보정한 `likely actual` 기준으로
+  2.4% 대 15%이고 §6 산문은 뒤쪽 쌍을 쓴다. 논문의 결론 문장은 이렇다 — `targeting
+  mutants can also elevate coverage, but targeting coverage will be inadequate to kill
+  mutants`.
 - **이 대비의 성격을 정확히 보라.** 두 도구는 목표가 다르고 분모도 다르다. 이 KB는 이 값을
   "ACH가 더 낫다"로 읽지 않고, **관문의 마지막 조건을 무엇으로 두느냐가 통과하는 테스트의
   종류를 바꾼다**는 뜻으로만 읽는다.
@@ -429,8 +431,10 @@ sources:
 - **test-a-thon은 평상시가 아니다.** TestGen-LLM 스스로 첫 배포를 `we cannot claim that this
   was a perfect example of diff time deployment`라 적는다 — test-a-thon이라 테스트에 대한
   관심이 평소보다 높았다는 것이다 (§3.2, p.5).[^alshahwan2024-testgen-llm] ACH의 두
-  test-a-thon도 같은 성격이고, 리뷰어는 6명씩이며 전원이 개인정보 공학 배경을 가졌다
-  (§4.2, pp.4–5).[^foster2025-ach]
+  test-a-thon도 같은 성격이고, 리뷰어는 각 6명이다 — WhatsApp 쪽은 6명 전원이 개인정보
+  공학과 소프트웨어 테스팅 배경을 가졌고, Messenger 쪽은 테스팅에는 강한 전문성이 있으나
+  개인정보 공학은 **적어도 기초 경험** 수준이라고 적힌다 (§4.2,
+  pp.4–5).[^foster2025-ach]
 - **ACH의 Messenger 1단계는 사전 선별된 표본이다** (§4.2, p.5):[^foster2025-ach] 60개 중
   10개를 널 포인터 예외 관련이라며 뺐고, 그 선별이 틀렸다고 판단해 2단계에서 폐기했다.
   Table 4가 두 단계를 따로 싣는 이유다.
