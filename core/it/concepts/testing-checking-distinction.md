@@ -2,7 +2,7 @@
 type: concept
 title: 테스팅과 체킹의 구분
 description: 무엇이 자동화 가능한가를 낱말로 가른 실무자 선언 — 도구가 공정을 바꾼다는 관찰에서 출발해 테스팅과 체킹을 따로 정의하고 체킹만이 완전 자동화될 수 있다고 못 박는 자리, 같은 글의 2013년 판과 현행판에서 두 정의가 통째로 갈아끼워진 대조, 체킹을 사람·기계·사람기계 셋으로 나눈 갈래, 사람은 알고리즘을 체현하지 못한다는 사고 실험, 저자들이 스스로 긋지 않은 선, 그리고 이 구분 자체가 같은 학파 안에서 거짓 이분법이라고 반박받는 자리
-generated: { by: "claude-opus-5", at: "2026-08-22T12:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-22T14:00:00Z" }
 contradicts: [testing-checking-false-dichotomy]
 sources:
   - { id: bach2013-testing-checking-refined, resource: /it/sources/bach2013-testing-checking-refined.md }
@@ -294,6 +294,10 @@ Testing).[^bach2013-testing-checking-refined]
 - **반대 극은 같은 학파 안에 있다.** 맥락 주도 테스팅(context-driven testing)의 창시자
   가운데 한 사람인 Cem Kaner가 이 구분을 **또 하나의 거짓 이분법**이라고 적었다. 그 쪽은
   [테스팅·체킹은 거짓 이분법이다](../concepts/testing-checking-false-dichotomy.md)가 소유한다.
+  - **둘은 같은 선언문에 이름을 올린 사이다.** 이 글의 저자 James Bach와 반박한 Cem
+    Kaner는 [맥락 주도 테스팅의 일곱 원칙](../concepts/context-driven-testing-principles.md)의
+    공저자이고, 그 부록의 학파 명단에도 나란히 적혀 있다. 그래서 이 모순은 학파의
+    경계를 넘는 다툼이 아니라 **같은 선언문 서명자들 사이의 다툼**이다.
 - **두 글은 서로를 안다.** Kaner의 글이 2013-02-04, 이 글이 2013-03-26이다. 그리고 이
   글의 댓글에서 한 독자가 Kaner의 문장을 URL과 함께 그대로 인용해 묻자, Bach가 직접
   답한다 (현행판 §댓글, Michael Leung 2013-04-10
@@ -353,6 +357,8 @@ Testing).[^bach2013-testing-checking-refined]
   만든 산출물이 이 정의로는 체킹인데, 그 체킹이 어디서 얼마나 틀리는가의 실측
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 기대를 사례가 아니라 속성으로 적는
   갈래. 이 구분의 어휘로는 명제를 사람이 쓰고 관측을 기계가 모으는 자리다
+- [맥락 주도 테스팅의 일곱 원칙](../concepts/context-driven-testing-principles.md) — 이 글의
+  저자 둘이 십 년 전 서명한 학파 선언. 이 구분을 보편 규칙으로 읽지 말라는 조항이 거기 있다
 - [코코넛은 통하지 않는다](../concepts/coconuts-dont-cut-it.md) — 형식만 옮겨 오는 채택의 실패.
   이 구분이 어휘 규약을 넘어 구호로 유통될 때 걸리는 진단
 

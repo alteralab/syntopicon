@@ -2,7 +2,6 @@
 type: concept
 title: 버그 옹호
 description: 결함을 발견한 사람이 그것이 고쳐지게 하려면 보고를 어떻게 쓰는가를 다룬 장 — 보고를 설득 문서로 규정한 자리, 누구든 보고할 수 있어야 한다며 관문을 여는 쪽의 lesson들, 사소한 버그의 보고를 멈추면 무엇이 따라오는가, 보고의 양을 좁히는 유일한 조항과 그 조건, 판정을 넘지 말라는 선, 두 번째 테스터가 보고를 검토하는 자리와 그 부담 경고, 그리고 이 장의 방향이 과잉 보고를 막는 관문이 아니라 보고의 강화라는 이 KB의 판정
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-22T14:00:00Z" }
 sources:
   - { id: kaner2002-lessons, resource: /it/sources/kaner2002-lessons.md }

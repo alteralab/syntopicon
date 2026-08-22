@@ -2,7 +2,7 @@
 type: concept
 title: 에이전트 작업 흐름의 검증자 분리
 description: 코딩 에이전트의 벤더 실무 문서가 "일한 에이전트가 채점하지 않는다"를 적어 둔 문면 — 반박을 목표로 주는 두 번째 의견, 방금 쓴 코드에 기울지 않게 하는 새 문맥, 그리고 반박을 시킨 판정자가 없는 결함까지 보고한다는 경고. 벤더 지침이라 근거가 아니라 문면이고, 2026년 8월 18일 개정판 스냅샷에 한정된다
-generated: { by: "claude-opus-5", at: "2026-08-22T05:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-22T14:00:00Z" }
 sources:
   - { id: anthropic2026-claude-code-best-practices, resource: /it/sources/anthropic2026-claude-code-best-practices.md }
 ---
@@ -134,6 +134,10 @@ sources:
   요구하는 것은 판정 *주체*를 갈라 두는 것이고, 그쪽은 판정 *근거*가 담긴 사양 산출물을 누가
   썼는가다. 둘은 서로를 함의하지 않는다 — 제공자가 소비자에게서 받은 계약 테스트를 자기
   CI에서 돌리면 주체는 갈리지 않은 채 근거만 갈린다
+- [버그 옹호](../concepts/bug-advocacy.md) — **실증이 아니라 사람 시대의 같은 물음이다.**
+  판정자가 사람일 때 과잉 보고를 무엇이 눌렀는가를 2002년 실무 규범이 적어 둔 자리이고,
+  그쪽 처방은 판정 기준을 좁히는 대신 **보고를 다른 큐로 보내** 산출을 보존한다. 위
+  §셋의 처방과 형태가 같고 손잡이가 다르다
 - [검증자 독립성](../synthesis/verifier-independence.md) — 이 갈래의 허브
 
 [^anthropic2026-claude-code-best-practices]: Anthropic 2026, "Best practices for Claude
