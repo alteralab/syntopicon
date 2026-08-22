@@ -1,0 +1,125 @@
+# 질문지 조각 — Robinson 2006 "Consumer-Driven Contracts: A Service Evolution Pattern"
+# 승급(2026-08-22, 검증자 독립성 갈래의 여섯 번째이자 마지막 반입).
+# 이 소스가 만드는 검색 위험은 세 겹이다. 첫째, "계약" 어휘의 과밀 — design-by-contract가
+# 마이어의 사전·사후 조건으로, source-systems-and-generation이 데이터 계약으로,
+# test-to-code가 "계약에 대한 테스트"로 이미 그 낱말을 쓴다. 둘째, "소비자·제공자"
+# 어휘의 과밀 — 카프카 컨슈머와 publish-subscribe-messaging이 같은 역어를 쓴다.
+# 셋째, 갈래 안 간섭 — 검증자·분리 어휘는 verifier-separation-in-agent-workflows와
+# 실증 네 페이지가 소유하고, 그쪽은 판정 주체를 다루지 판정 근거의 출처를 다루지 않는다.
+# 그래서 exact 문항은 이 페이지만 가진 어휘(소비자 주도 계약·파생 계약·딱 필요한
+# 만큼의 검증·정보 출처가 갈린다)를 겨냥하고, alias 문항은 이 페이지에서만 병기된
+# 원어(consumer-driven contract·provider contract·Schematron·heteronomous)가 갈라 주는
+# 키로 사는지를 잰다. cross-domain 셋은 이번 런이 실제로 건 양방향 링크(계약에 의한
+# 설계와의 구분, 검증자 분리와의 축 구분, 웹 서비스 API 버저닝)가 검색에서도 이웃으로
+# 잡히는지를 본다. 특히 cdc-x-1은 두 "계약" 페이지가 섞이는지를 재는 문항이다.
+source: robinson2006-cdc
+added: 2026-08-22
+queries:
+  - id: cdc-exact-1
+    query: "소비자 주도 계약"
+    type: exact
+    description: "페이지 제목 그대로 — 계약에 의한 설계가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-exact-2
+    query: "제공자 계약 소비자 계약 소비자 주도 계약"
+    type: exact
+    description: "이 글이 가른 세 종류 — 셋을 함께 다루는 페이지는 여기뿐이다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-exact-3
+    query: "딱 필요한 만큼의 검증"
+    type: exact
+    description: "받는 쪽이 자기가 쓰는 것만 검증한다는 처방 — 이 페이지에만 있는 역어다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-exact-4
+    query: "파생 계약"
+    type: exact
+    description: "저자가 소비자 주도 계약에 붙인 다른 이름 — 이 페이지에만 있다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-exact-5
+    query: "저자가 낸 특성 표"
+    type: exact
+    description: "세 계약을 다섯 축으로 정리한 표가 있는 절 — 권위와 유효 경계가 갈리는 자리다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-exact-6
+    query: "정보 출처가 갈린다"
+    type: exact
+    description: "이 페이지가 검증 축에 서는 이유를 적은 절 이름 — KB의 판정임을 밝힌 자리다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-alias-1
+    query: "consumer-driven contract"
+    type: alias
+    description: "원어 병기 — 역어가 흔들려도 남는 정확 일치 키"
+    expected_files: ["concepts/consumer-driven-contracts.md", "sources/robinson2006-cdc.md"]
+    expected_in_top_k: 5
+  - id: cdc-alias-2
+    query: "provider contract"
+    type: alias
+    description: "원어 병기 — 계약 세 종류 중 하나. 데이터 계약 페이지와 갈려야 한다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-alias-3
+    query: "Schematron"
+    type: alias
+    description: "소비자가 자기 손으로 쓰는 검증 스키마의 이름 — 코드 펜스가 붙은 자리다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-alias-4
+    query: "heteronomous"
+    type: alias
+    description: "원어 병기 — 제공자가 자기 경계 밖 의무를 진다는 성질의 이름"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-alias-5
+    query: "Consumer-Driven Contracts A Service Evolution Pattern"
+    type: alias
+    description: "원문 제목 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["sources/robinson2006-cdc.md", "concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-sem-1
+    query: "쓰는 데가 없는 필드를 API에서 빼도 되는지 어떻게 아는가"
+    type: semantic
+    description: "패러프레이즈 — 이 패턴이 제공자에게 준다는 통찰 그대로. 계약 낱말 불사용"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-sem-2
+    query: "받는 쪽이 스키마 전체를 검증하면 왜 묶이는가"
+    type: semantic
+    description: "패러프레이즈 — 숨은 결합의 기제가 답이다. 이 페이지가 문제 절에서 다룬다"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-sem-3
+    query: "기대를 부르는 쪽이 적고 만드는 쪽이 그것에 맞춘다"
+    type: semantic
+    description: "패러프레이즈 — 이 패턴의 방향 뒤집기 그대로. 고유명사 불사용"
+    expected_files: ["concepts/consumer-driven-contracts.md"]
+    expected_in_top_k: 5
+  - id: cdc-top-1
+    query: "실무자가 쓴 패턴 글을 학술 근거로 쓰면 안 되는 이유"
+    type: topical
+    description: "등급 표기와 저자의 자기 규정 — 지위 절과 소스 메타가 답이다"
+    expected_files: ["concepts/consumer-driven-contracts.md", "sources/robinson2006-cdc.md"]
+    expected_in_top_k: 5
+  - id: cdc-x-1
+    query: "계약이라는 낱말이 가리키는 두 가지 경계"
+    type: cross-domain
+    description: "모듈 사이의 사전·사후 조건과 서비스 사이의 메시지 — 두 페이지가 짝으로 걸려야 한다"
+    expected_files: ["concepts/consumer-driven-contracts.md", "concepts/design-by-contract.md"]
+    expected_in_top_k: 5
+  - id: cdc-x-2
+    query: "채점하는 쪽을 가르는 것과 채점표를 누가 썼는지는 다른 문제다"
+    type: cross-domain
+    description: "판정 주체 분리와 판정 근거 출처 분리 — 이번 런이 명시로 갈라 둔 두 축이다"
+    expected_files: ["concepts/consumer-driven-contracts.md", "concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
+  - id: cdc-x-3
+    query: "클라이언트를 통제하지 못하는 서비스의 호환성 유지"
+    type: cross-domain
+    description: "API 버저닝 쪽 서술과 이 패턴의 문제 설정 — 짝으로 걸려야 한다"
+    expected_files: ["concepts/consumer-driven-contracts.md", "concepts/web-services-and-rest.md"]
+    expected_in_top_k: 5
