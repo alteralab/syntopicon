@@ -137,6 +137,9 @@ sources:
   다음에 오는 효율성과 가독성, 그리고 BIRD-SQL이 실행 시간까지 재는 자리
 - [평가 주도 개발](../concepts/evaluation-driven-development.md) — 코딩이 흔한 생성 AI 유스케이스가
   되는 이유가 기능적 정확성이라는 자리
+- [벤치마크의 테스트 부족](../concepts/benchmark-test-inadequacy.md) — 여기 실린 HumanEval의
+  테스트가 문항당 몇 개였는지, 그리고 대상 코드를 그대로 둔 채 그 테스트만 늘렸을 때 같은
+  모델의 pass@k가 어떻게 움직이는지의 실측
 - [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — "의도한 기능을 했는가"가 과제
   단위 평가로 확장되는 쪽
 - [테스트 시점 컴퓨트](../concepts/test-time-compute.md) — pass@k의 k가 표본 수로 등장하는 쪽,

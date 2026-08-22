@@ -240,6 +240,8 @@ sources:
 ## 이어지는 페이지
 
 - [데이터 오염](../concepts/data-contamination.md) — 공개 벤치마크를 믿을 수 없게 만드는 것
+- [벤치마크의 테스트 부족](../concepts/benchmark-test-inadequacy.md) — 벤치마크를 고르고 나서도
+  남는 것. 고른 벤치마크 하나 안에서 테스트가 못 가르면 통과율도 모델 순위도 흔들린다
 - [모델 선택 워크플로](../concepts/model-selection-workflow.md) — 이 단계가 놓인 네 단계의 자리
 - [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 공개 벤치마크가 좁혀 준 뒤에
   오는 것
