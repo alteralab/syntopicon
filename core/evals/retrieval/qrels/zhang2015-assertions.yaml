@@ -1,0 +1,115 @@
+# 질문지 조각 — Zhang & Mesbah 2015("Assertions Are Strongly Correlated with Test Suite
+# Effectiveness", ESEC/FSE 2015) 승급. 2026-08-23, 스위트 평가 갈래의 넷째 반입.
+#
+# 이 소스가 만드는 검색 위험은 앞 셋과 또 다르다. 앞 조각들은 "커버리지"라는 낱말을 여러
+# 페이지가 나눠 갖는 어휘 간섭을 걱정했는데, 이 페이지는 **그 낱말을 하나 더 만들어 낸다** —
+# 단정 커버리지(assertion coverage)다. 승급 시점에 `단정 커버리지`·`명시 뮤테이션 점수`·
+# `checked coverage`·`assertion coverage`·`JavaSlicer`는 전부 이 페이지 밖에서 0건이었고,
+# `Randoop`은 논쟁 쌍 두 극과 공유한다. 그래서 exact 문항은 이 페이지가 새로 들여온 낱말이
+# 자기 페이지로 붙는지를 재고, 실패하면 "커버리지"라는 상위 낱말이 신규 어휘를 삼켰다는 뜻이다.
+#
+# 반대 위험도 하나 있다. 이 페이지의 결론 문장("커버리지보다 단정이 낫다")은 회의 측
+# 페이지(coverage-confounded-by-suite-size)의 결론과 방향이 같아서, 커버리지의 한계를 묻는
+# 질의에서 둘이 서로를 밀어낼 수 있다. zhang-x-1이 그 자리를 잰다.
+#
+# cross-domain 넷이 이 조각의 계측 목적이다. zhang-x-1은 논쟁 양극 사이 중재항이라는 배치가
+# 검색에서도 서는지를 재고, zhang-x-2는 단정을 오라클 부류로 규정한 페이지와의 접점(이번 런의
+# 호출자 ②)을 재며, zhang-x-3은 생성 단정의 품질이라는 물음이 2015년 실증과 LLM 시대 실측을
+# 함께 부르는지를, zhang-x-4는 2020년 산업 문서가 이름으로만 지목한 것에 이 페이지가 눈금을
+# 붙였다는 관계를 잰다.
+#
+# **주의**: 이 페이지의 결론은 "뮤테이션 점수를 예측한다"이지 "실결함을 예측한다"가 아니다.
+# 뮤테이션 점수 타당성 페이지가 서면 그쪽과의 cross-domain 문항을 이 조각에 더한다.
+source: zhang2015-assertions
+added: 2026-08-23
+queries:
+  - id: zhang-exact-1
+    query: "단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다"
+    type: exact
+    description: "페이지 제목 그대로. 커버리지를 나눠 갖는 아홉 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-exact-2
+    query: "단정 커버리지를 통제하면 문장 커버리지 상관이 내려앉는다"
+    type: exact
+    description: "이 논문의 핵심 통제 실험. 크기를 통제한 회의 측 실험과 어휘가 닮았으므로 갈라져야 한다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-exact-3
+    query: "명시 뮤테이션 점수"
+    type: exact
+    description: "이 논문의 고유 구성물. 단정 실패로만 죽은 뮤턴트의 비율이고 승급 시점에 이 페이지 밖에서 0건이었다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-exact-4
+    query: "테스트 케이스당 단정 수로 나눈 세 통의 스위트"
+    type: exact
+    description: "밀도에 해당하는 버킷 실험. 같은 크기에서 단정이 많은 쪽이 낫다는 결과의 설계다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-exact-5
+    query: "단정의 내용 종류와 메서드 종류가 효과성을 가른다"
+    type: exact
+    description: "RQ3의 결과. boolean과 object가 갈리지 않는다는 대목까지 이 페이지만 갖는다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-alias-1
+    query: "assertion coverage checked coverage"
+    type: alias
+    description: "원문 표기 둘. 역어가 흔들려도 이 키로 잡혀야 한다. 승급 시점에 이 페이지 밖에서 0건이었다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-alias-2
+    query: "JavaSlicer 역방향 슬라이스"
+    type: alias
+    description: "단정 커버리지를 재는 도구. 이 페이지만 갖는 고유 식별자다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-sem-1
+    query: "테스트가 실행만 하고 값을 물어보지 않으면 무엇이 남는가"
+    type: semantic
+    description: "패러프레이즈. 단정이라는 낱말 없이 실행과 검사의 구분을 물었을 때 닿아야 한다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-sem-2
+    query: "스위트가 커서 좋은 것인가 안에 든 것이 많아서 좋은 것인가"
+    type: semantic
+    description: "크기와 단정 수를 가르는 물음. 이 논문이 크기를 고정하고 단정만 움직인 이유다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-top-1
+    query: "이 논문의 효과성은 무엇을 잰 값인가"
+    type: topical
+    description: "효과성이 곧 PIT 뮤테이션 점수라는 정의와 그 순환. 이 페이지의 caveat 절이 답이다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-top-2
+    query: "생성된 단정은 사람이 쓴 단정을 대신할 수 있는가"
+    type: topical
+    description: "Randoop 단정이 뮤턴트를 거의 못 죽였다는 결과와 보충물이라는 처방이 답이다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: zhang-x-1
+    query: "커버리지 수치가 효과성을 예측하지 못하는 까닭"
+    type: cross-domain
+    description: "이 조각의 계측 문항. 크기를 지목한 회의 측과 단정을 지목한 이 페이지가 함께 돌아와야 한다. 한쪽만 오면 r_at_5가 0.5로 떨어진다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md", "concepts/coverage-confounded-by-suite-size.md"]
+    expected_in_top_k: 5
+  - id: zhang-x-2
+    query: "단정이 오라클이라면 그 오라클은 얼마나 넓게 걸렸는가"
+    type: cross-domain
+    description: "단정을 오라클 부류로 규정한 페이지와 그 부류의 넓이를 재는 눈금이 짝으로 걸려야 한다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: zhang-x-3
+    query: "기계가 만든 단정은 무엇을 적는가"
+    type: cross-domain
+    description: "2015년의 생성 단정 실측과 LLM 생성 테스트의 단정 오류 분포가 함께 잡혀야 한다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md", "concepts/llm-generated-test-defect-distribution.md"]
+    expected_in_top_k: 5
+  - id: zhang-x-4
+    query: "단정이 실패를 실제로 잡는지 재는 지표"
+    type: cross-domain
+    description: "2020년 산업 문서가 이름으로만 지목한 물음에 이 페이지가 눈금을 붙였다는 관계다"
+    expected_files: ["concepts/assertions-predict-mutation-kills.md", "concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
