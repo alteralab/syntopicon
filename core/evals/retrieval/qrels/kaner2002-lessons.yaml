@@ -1,0 +1,110 @@
+# 질문지 조각 — Kaner·Bach·Pettichord 2002 승급(2026-08-22, 자동화 경계 갈래의 셋째 반입).
+# 이 소스가 만드는 검색 위험은 넷이다. ① "맥락 주도 테스팅"이라는 낱말이 이미 코퍼스에
+# 있다 — kaner2013-insapience 소스와 testing-checking 두 페이지가 그 낱말을 인용 문면으로
+# 담고 있어, 원칙을 소유한 신규 페이지가 그 선점을 뚫어야 한다. 뚫지 못하면 "맥락 주도
+# 테스팅이 뭐냐"는 질의가 원칙이 아니라 원칙을 인용한 논쟁 글로 간다. ② "모범 사례가
+# 없다"는 조항이 coconuts-dont-cut-it와 갈린다 — 그쪽은 방법론 채택의 화물 숭배이고
+# 이쪽은 테스팅 프랙티스의 평가 축이다. 두 페이지가 서로를 밀어내지 않고 각자 자기
+# 질의를 받는지 본다. ③ "버그 옹호"는 코퍼스에 없던 새 복합명사인데, 낱말을 이루는
+# "버그"와 "보고"가 둘 다 과부하돼 있다 — 단독 낱말이 아니라 복합명사가 키로 사는지
+# 따로 재야 한다. ④ 이 소스의 등급이 실무자 선언이라 수치가 하나도 없다 — 이 갈래에서
+# 처음으로 숫자 없이 서는 페이지 둘이고, 어휘 레그가 기댈 고유 토큰이 그만큼 적다.
+# 마지막 두 문항은 갈래 배선 계측이다. 원칙 페이지가 testing-checking 쌍의 근거로
+# 회수되는지, 버그 옹호가 검증자 분리 문면과 함께 물려 오는지를 본다.
+source: kaner2002-lessons
+added: 2026-08-22
+queries:
+  - id: cdt-exact-1
+    query: "맥락 주도 테스팅의 일곱 원칙"
+    type: exact
+    description: "이 페이지가 소유한 이름. 기존 페이지들의 인용 문면 선점을 뚫는지 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-exact-2
+    query: "모범 사례는 없다"
+    type: exact
+    description: "원칙 2의 한국어 조항. coconuts와 갈리는 자리라 어느 쪽이 먼저 오는지도 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-alias-1
+    query: "There are good practices in context, but there are no best practices"
+    type: alias
+    description: "원칙 2 원문 문면. 직인용 블록 안의 원어가 검색 키로 사는지 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-alias-2
+    query: "context-driven school of software testing"
+    type: alias
+    description: "학파의 자기 호칭. 원어 병기가 이 페이지로 오는지 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-sem-1
+    query: "어떤 방식이 좋은지는 그 방식 자체가 아니라 놓인 상황이 정한다는 주장"
+    type: semantic
+    description: "패러프레이즈 — 맥락·원칙·테스팅 어휘를 한 번도 쓰지 않은 질의"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-top-1
+    query: "항공기 제어 소프트웨어와 웹 워드프로세서에서 같은 방식이 통하지 않는 이유"
+    type: topical
+    description: "부록의 예시 절. 원칙이 아니라 예시로 들어오는 질의가 닿는지 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: cdt-top-2
+    query: "선언에 연구 인용이 한 건도 없어서 학술 근거로 쓸 수 없는 자리"
+    type: topical
+    description: "단서 절. 등급 판정이 낱말 없이 회수되는지 본다"
+    expected_files: ["concepts/context-driven-testing-principles.md"]
+    expected_in_top_k: 5
+  - id: ba-exact-1
+    query: "버그 옹호"
+    type: exact
+    description: "새 복합명사. 과부하된 낱말 둘로 이뤄져 있어 복합명사가 키로 사는지 본다"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: ba-alias-1
+    query: "bug advocacy"
+    type: alias
+    description: "원어 병기. 장 제목이자 저자들이 붙인 이름이다"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: ba-alias-2
+    query: "your bug report is a sales tool"
+    type: alias
+    description: "보고를 설득 문서로 규정한 문면. 직인용 안의 원어가 사는지 본다"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: ba-sem-1
+    query: "결함을 발견한 사람이 그것을 고치게 하려면 무엇을 어떻게 적어야 하나"
+    type: semantic
+    description: "패러프레이즈 — 옹호·보고서 어휘 불사용"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: ba-top-1
+    query: "사소한 문제를 무더기로 올리면 읽는 쪽의 일이 마비된다는 경고"
+    type: topical
+    description: "양을 좁히는 유일한 조항. 이 페이지에서 가장 오인용되기 쉬운 자리다"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: ba-top-2
+    query: "검사하는 쪽이 출시를 막는 문지기가 되면 안 되는 이유"
+    type: topical
+    description: "1장 lesson 12. 검증자를 관문으로 세우는 것 자체를 거부하는 대목"
+    expected_files: ["concepts/bug-advocacy.md"]
+    expected_in_top_k: 5
+  - id: kbl-x-1
+    query: "판정자가 없는 결함까지 보고할 때 무엇으로 막나"
+    type: cross-domain
+    description: "갈래 배선 계측 — 사람 시대의 규범과 벤더 문면이 함께 물려 오는지 본다"
+    expected_files:
+      - "concepts/bug-advocacy.md"
+      - "concepts/verifier-separation-in-agent-workflows.md"
+    expected_in_top_k: 5
+  - id: kbl-x-2
+    query: "테스팅과 체킹을 갈라 두는 논쟁이 기대는 전제는 어디서 왔나"
+    type: cross-domain
+    description: "갈래 배선 계측 — 원칙 페이지가 모순 쌍의 근거로 회수되는지 본다"
+    expected_files:
+      - "concepts/context-driven-testing-principles.md"
+      - "concepts/testing-checking-false-dichotomy.md"
+    expected_in_top_k: 5
