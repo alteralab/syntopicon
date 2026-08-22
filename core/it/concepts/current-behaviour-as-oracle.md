@@ -151,6 +151,12 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   > Our studies illustrate that this assumption does not appear to be true; merely
   > achieving high coverage does not necessarily improve our ability to test software.
 
+- **같은 결론이 실무 규범 쪽에 먼저 적혀 있었다.** 1999년의 실무자 글
+  [커버리지는 단서지 목표가 아니다](../concepts/coverage-as-clue-not-target.md)는 커버리지를
+  겨냥해 스위트를 설계하면 커버리지가 정보원이기를 그만둔다고 논증한다. **격이 다르다** —
+  그쪽은 측정 없는 주장이고 이쪽은 통제실험이므로, 두 자리를 함께 인용할 때 수치의 근거는
+  이 페이지가 지고 그쪽은 그 명제가 먼저 세워져 있었다는 계보로만 쓴다.
+
 ## 의도 포착 — 초기 실험의 결론과 재현 실험의 철회
 
 **이 절은 두 실험이 갈린 자리이므로 한쪽만 인용하지 않는다.**
@@ -381,6 +387,9 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
 - [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
   같은 기제가 LLM 생성물에서 어떻게 나타나는지의 실측. 이 페이지가 LLM 이전의 층을
   맡는다
+- [커버리지는 단서지 목표가 아니다](../concepts/coverage-as-clue-not-target.md) — 커버리지가
+  올라도 스위트가 나아졌다는 뜻이 아니라는 명제의 실무 규범 층. 이 페이지의 RQ1과 RQ2가
+  갈린 자리를 그쪽은 측정 없이 먼저 주장했다
 - [테스팅은 결함의 존재만 보인다](../concepts/testing-shows-presence-not-absence.md) —
   통과가 무엇을 증명하지 않는가의 상한. 되비추는 테스트는 그 상한 아래에서도 더 적게
   증명한다

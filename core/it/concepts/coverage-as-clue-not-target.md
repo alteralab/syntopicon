@@ -2,7 +2,6 @@
 type: concept
 title: 커버리지는 단서지 목표가 아니다
 description: 코드 커버리지를 무엇으로 쓸 것인가를 커버리지 도구를 네 개 만든 실무자가 적은 자리 — 커버리지가 재는 것과 있지도 않은 코드는 잴 수 없다는 구조적 한계, 검출되는 약점이 검출되지 않는 약점의 표지라는 비대칭 관찰, 도구는 명령이 아니라 단서를 준다는 규정, 커버리지 수치를 출하 관문으로 걸었을 때 사람이 무엇을 최적화하게 되는가, 시간이 부족할 때의 위험 기반 배분과 집계 커버리지의 값어치, 그리고 이 글의 수치가 왜 측정값이 아닌가
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-23T00:00:00Z" }
 sources:
   - { id: marick1999-coverage, resource: /it/sources/marick1999-coverage.md }
