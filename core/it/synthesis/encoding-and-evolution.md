@@ -33,6 +33,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
   오래 살고 마이그레이션이 미뤄지는 자리
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 서비스 API의 정의·IDL·프레임워크와
   API 버저닝
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 서비스 계약을 제공자·소비자·
+  소비자 주도 셋으로 가르고, 소비자가 자기가 쓰는 것만 단정으로 적게 해 제공자가 무엇을 뺄 수
+  있는지 알게 만드는 2006년의 패턴. 실무자 에세이라 근거가 아니라 정의다
 - [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) — 위치 투명성이
   실패하는 여섯 지점
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) —

@@ -113,6 +113,9 @@ generated: { by: "claude-opus-5", at: "2026-08-21T14:30:00Z" }
   아니라 코드 안에 상주시키는 실천
 - [계약에 의한 설계](../concepts/design-by-contract.md) — 사전·사후 조건이 기대값의
   출처가 되는 갈래
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 같은 계약이 조직 경계를
+  넘는 자리. 기대를 적은 사양 산출물의 저자가 판정 대상의 구현을 보지 않는다는 성질이
+  이 축과 만나는 지점이고, 소스가 실무자 에세이라 정의만 준다
 - [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 단위 테스트를 계약에 대한
   테스트로 규정하는 자리
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) —
