@@ -79,7 +79,7 @@ sources:
   > It can only tell me how the code that exists has been exercised. It can't tell me how
   > code that <u>ought</u> to exist <u>would have been</u> exercised.
 
-  같은 쪽이 이것을 **모든 코드 커버리지 도구의 근본 문제**로 못 박는다 — 다중 조건
+  이어지는 쪽이 이것을 **모든 코드 커버리지 도구의 근본 문제**로 못 박는다 — 다중 조건
   커버리지를 재는 것만의 문제가 아니다 (p.6).[^marick1999-coverage]
 - **이런 결함을 부르는 이름이 있다** (p.6).[^marick1999-coverage] 새 코드를 더해야 고쳐지는
   결함을 **누락의 결함(faults of omission)**이라 하고, 저자는 이것이 현실에서 흔하다고
