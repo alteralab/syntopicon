@@ -3,7 +3,6 @@ type: concept
 title: 커버리지는 뮤턴트 킬을 예측한다
 description: 커버리지가 스위트를 크게 만들어 간접으로 돕는 것이 아니라 독립으로 효과성에 기여한다고 잰 두 논문 — 크기와 커버리지를 각각 넣은 회귀 모형을 겨뤄 둘 다 필요하다고 결론한 2009년의 통제 실험과 그 모형의 모양, 오픈소스 자바 수백 개에서 문장 커버리지가 뮤턴트 킬의 최선 예측자였다는 2014년의 대규모 관찰과 그 분모, 두 논문이 효과성을 무엇으로 쟀는지, 크기가 커지면 상관이 떨어진다는 원문 자신의 단서, 그리고 같은 물음에 반대 답을 낸 논문이 같은 학회 같은 해에 있다는 사실
 generated: { by: "claude-opus-5", at: "2026-08-23T02:00:00Z" }
-status: draft
 contradicts: [coverage-confounded-by-suite-size]
 sources:
   - { id: namin2009-size-coverage, resource: /it/sources/namin2009-size-coverage.md }

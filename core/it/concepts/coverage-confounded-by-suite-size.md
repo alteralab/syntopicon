@@ -3,7 +3,6 @@ type: concept
 title: 커버리지 신호는 스위트 크기가 만든다
 description: 큰 자바 프로그램 다섯 개에서 스위트 3만 1천 개를 만들어 커버리지와 결함 검출 효과성의 상관을 잰 자리 — 효과성을 뮤테이션 점수로 정의한 조건, 크기를 무시했을 때와 통제했을 때의 상관계수 대비와 프로젝트마다 갈리는 폭, 강한 커버리지 기준이 추가 정보를 주지 못한다는 결과와 그 항공 표준 함의, 저자들이 실무자 두 사람의 주장을 실증 층에서 받았다고 적은 자리, 종속변수를 실제 버그로 바꾸면 답이 달라지는 대조, 원문이 스스로 그은 선, 그리고 같은 학회 같은 해에 반대 답을 낸 논문이 있다는 사실
 generated: { by: "claude-opus-5", at: "2026-08-23T02:00:00Z" }
-status: draft
 contradicts: [coverage-predicts-mutation-kills]
 sources:
   - { id: inozemtseva2014-coverage, resource: /it/sources/inozemtseva2014-coverage.md }
