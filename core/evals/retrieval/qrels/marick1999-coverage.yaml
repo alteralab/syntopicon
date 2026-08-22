@@ -1,0 +1,131 @@
+# 질문지 조각 — Marick 1999("How to Misuse Code Coverage") 승급
+# (2026-08-23, 스위트 평가 갈래의 첫 반입).
+#
+# 이 소스가 만드는 검색 위험은 어휘 간섭이다. "커버리지"는 이 KB에서 이미 다섯 페이지가
+# 나눠 갖는다(pragmatic-starter-kit는 상태 커버리지, current-behaviour-as-oracle는
+# 구조 커버리지 실측, filter-chain-for-generated-tests는 줄 커버리지 관문,
+# benchmark-test-inadequacy는 분기 커버리지로 테스트를 줄이는 기준,
+# llm-generated-test-defect-distribution은 생성 테스트의 커버리지 수치). "관문"과
+# "게이트"도 필터 체인 계열이 이미 쓰고, "테스트 설계"는 오라클 계열이 쓴다. 그래서 이
+# 페이지가 자기 자리를 잡으려면 공유 어휘가 아니라 자기만 가진 어휘로 걸려야 한다.
+#
+# exact 문항은 이 페이지만 가진 낱말(누락의 결함·출하 관문·커버리지 조건·집계 커버리지·
+# 제품 테스터)을 겨냥한다. 위 다섯 낱말은 승급 시점에 이 페이지 밖에서 0건이었다.
+# alias 문항은 이 페이지에서만 병기된 원어(faults of omission·multiple condition
+# coverage·shipping gate)가 갈라 주는 키로 사는지를 잰다. semantic 문항은 커버리지라는
+# 낱말을 쓰지 않은 질의가 닿는지를 본다 — 이 페이지의 논증은 지표 일반의 유인 문제라
+# 낱말 없이 물어질 확률이 높다. cross-domain 셋은 이번 런이 실제로 건 보강 링크 셋
+# (실용주의 스타터 킷·현재 동작을 오라클로 쓴다는 것·생성된 테스트의 필터 체인)이
+# 검색에서도 이웃으로 잡히는지를 본다. 셋 다 커버리지를 다루므로 이 문항들은 어휘
+# 간섭이 이웃 관계로 풀리는지를 재는 자리이기도 하다.
+source: marick1999-coverage
+added: 2026-08-23
+queries:
+  - id: covclue-exact-1
+    query: "커버리지는 단서지 목표가 아니다"
+    type: exact
+    description: "페이지 제목 그대로 — 커버리지를 나눠 갖는 다섯 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-exact-2
+    query: "누락의 결함"
+    type: exact
+    description: "새 코드를 더해야 고쳐지는 결함의 이름. 승급 시점에 이 페이지 밖에서 0건"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-exact-3
+    query: "커버리지를 출하 관문으로 요구할 때"
+    type: exact
+    description: "게이트 수치의 부작용이 앉은 절. 관문이라는 낱말을 필터 체인 계열과 겨룬다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-exact-4
+    query: "빠진 커버리지 조건"
+    type: exact
+    description: "이 글이 이름 붙인 단위. 이 페이지만 갖는 용어다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-exact-5
+    query: "집계 커버리지는 무엇을 재는가"
+    type: exact
+    description: "하나로 합친 커버리지가 테스팅이 아니라 코드 구성을 잰다는 판정이 답이다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-exact-6
+    query: "제품 테스터에게 커버리지가 주는 단서"
+    type: exact
+    description: "독립 테스터 쪽 절. 제품 테스터라는 말은 이 페이지만 갖는다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-alias-1
+    query: "faults of omission"
+    type: alias
+    description: "원어 병기 — 이 KB에 이 페이지만 갖는 키"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-alias-2
+    query: "multiple condition coverage"
+    type: alias
+    description: "원어 병기 — 이 글이 택한 측도의 이름. 줄 커버리지와 분기 커버리지를 쓰는 페이지들과 갈라 준다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-alias-3
+    query: "shipping gate"
+    type: alias
+    description: "원어 직인용 — 관리자가 거는 관문의 문면 이름"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-sem-1
+    query: "숫자를 목표로 걸면 사람이 그 숫자만 맞춘다"
+    type: semantic
+    description: "패러프레이즈 — 커버리지라는 낱말 불사용. 재이는 대로 최적화한다는 기제가 답이다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-sem-2
+    query: "도구는 있는 코드만 볼 수 있고 있어야 할 코드는 못 본다"
+    type: semantic
+    description: "패러프레이즈 — 구조적 한계가 답이다. 도구라는 낱말을 여러 페이지와 겨룬다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-sem-3
+    query: "왜 하필 85퍼센트인가"
+    type: semantic
+    description: "관행 수치의 유래가 다른 회사 따라 하기였다는 각주가 답이다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-sem-4
+    query: "시간이 부족할 때 어디를 테스트하고 어디를 버릴 것인가"
+    type: semantic
+    description: "위험 셋으로 나누고 낮은 위험은 의도적으로 테스트하지 않는다는 배분이 답이다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-top-1
+    query: "커버리지 수치는 무엇을 말하고 무엇을 말하지 않는가"
+    type: topical
+    description: "이 페이지가 서는 물음 그 자체"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-top-2
+    query: "커버리지를 아예 안 쓰는 것도 잘못인가"
+    type: topical
+    description: "두 방향의 오용을 함께 다루는 절 — 관문으로 걸기와 쓸모없다고 버리기"
+    expected_files: ["concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covclue-x-1
+    query: "코드 커버리지 대신 무엇을 재야 하는가"
+    type: cross-domain
+    description: "재는 대상을 바꾸라는 쪽과 읽는 법을 바꾸라는 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md", "concepts/pragmatic-starter-kit.md"]
+    expected_in_top_k: 5
+  - id: covclue-x-2
+    query: "커버리지가 올랐는데 결함은 더 못 찾는다"
+    type: cross-domain
+    description: "실무 규범의 주장 쪽과 통제실험으로 잰 쪽이 함께 잡혀야 한다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md", "concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
+  - id: covclue-x-3
+    query: "커버리지를 통과 조건으로 걸면 어떤 테스트가 버려지는가"
+    type: cross-domain
+    description: "그 부작용을 논증한 쪽과 산업 배선에서 실제로 잰 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/coverage-as-clue-not-target.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
