@@ -286,8 +286,8 @@ Testing).[^bach2013-testing-checking-refined]
   moral judgments`와 §Human Checking vs. Machine Checking의 `a robust role for tools
   in testing must be embraced`가 명시적 방어선이다. 그럼에도 이 구분이 반자동화
   구호로 유통됐다는 것이 반박 쪽의 관찰이고, 그것은 이 글이 통제하지 못한 결과다.
-- **정의가 확정되지 않았다.** 정의가 두 번 갈아끼워졌고, 현행판 안에서도 낱말이 한 번
-  갈리며(`mechanistic` ↔ `mechanical`), 세 종류 정의 중 하나는 옛 어휘를 이고 있다.
+- **정의가 확정되지 않았다.** 두 정의가 통째로 갈아끼워졌고, 현행판 안에서도 체킹
+  정의를 싣는 두 자리의 낱말이 갈린다(`mechanistic` ↔ `mechanical`).
   **이 구분을 인용할 때 판을 적지 않으면 어느 정의를 뜻하는지 알 수 없다.**
 
 ## 이 구분에 걸린 모순
