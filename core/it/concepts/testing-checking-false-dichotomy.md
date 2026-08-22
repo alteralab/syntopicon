@@ -63,7 +63,7 @@ sources:
   > are done by machines and machines are not sapient. Therefore, automated testing
   > cannot be sapient.
 
-- **둘째 장면 — 체킹이라는 낱말.** 또 다른 참석자가 자기 테스트를 설명하면서 어색해하고
+- **둘째 장면 — 체킹(checking)이라는 낱말.** 또 다른 참석자가 자기 테스트를 설명하면서 어색해하고
   변명하듯 말했는데, 문제는 그 테스트가 프로그램의 동작을 기대 결과에 비추어 검사한다는
   점이었다는 것이다.
 
@@ -76,8 +76,8 @@ sources:
 - **겨냥점이 낱말의 유통이라는 점을 놓치면 이 글을 오독한다.** 저자가 반박하는 것은
   정의문 자체보다 **그 정의가 현장에서 낳은 태도**다. 그는 낱말을 정치화하거나 자동
   테스팅을 미워하는 것 자체는 시간이 지나면 스스로 교정될 문제라고 보고 크게 개의치
-  않는다고 적는다 — 문제는 그 다음 주장, 즉 그것이 맥락 주도 테스팅의 본질과 충돌한다는
-  주장이라는 것이다 (§hooey 문단).[^kaner2013-insapience]
+  않는다고 적는다 — 문제는 그 다음 주장, 즉 그것이 맥락 주도 테스팅(context-driven
+  testing)의 본질과 충돌한다는 주장이라는 것이다 (§hooey 문단).[^kaner2013-insapience]
 - **실무적 대가도 지목한다** — 테스터에게 테스트 자동화를 의심하도록, 그것을 이류로
   다루도록, 사피엔스라는 비법 소스는 수동 테스트에만 있다고 여기도록 가르친다면, 우리는
   **강한 자동화가 가장 잘 듣는 맥락에서 실패할 테스터를 길러 내는 것**이라고 적는다
@@ -296,8 +296,12 @@ sources:
   되묻기에 든 "오늘 동작이 지난달 동작과 같은가"를 실제로 재면 무엇이 남는가
 - [맥락 주도 테스팅의 일곱 원칙](../concepts/context-driven-testing-principles.md) — 이
   글이 근거로 부르는 전제의 성문 원본. 같은 저자가 참여한 2002년 책의 부록이다
+- [버그 옹호](../concepts/bug-advocacy.md) — 이 글의 저자가 십일 년 전 공저한 책의 다른
+  호출자. 테스터의 산출이 판정이 아니라 설득 문서라는 규정이, 자동이냐 수동이냐가 아니라
+  물음이 있느냐로 테스트를 가르는 이 글의 판정 기준과 같은 자리에 선다
 - [코코넛은 통하지 않는다](../concepts/coconuts-dont-cut-it.md) — "보편 모범 사례는
   없다"는 같은 전제가 방법론 채택 쪽에서 되풀이되는 자리
+- [테스팅에서 자동화의 경계](../synthesis/automation-boundary-in-testing.md) — 이 갈래의 허브
 
 [^kaner2013-insapience]: Kaner 2013, "The Insapience of Anti-Automationism",
     Context Driven Testing, 2013-02-04. 절 번호도 소제목도 없으므로 locator는 **문단

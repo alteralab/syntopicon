@@ -359,8 +359,12 @@ Testing).[^bach2013-testing-checking-refined]
   갈래. 이 구분의 어휘로는 명제를 사람이 쓰고 관측을 기계가 모으는 자리다
 - [맥락 주도 테스팅의 일곱 원칙](../concepts/context-driven-testing-principles.md) — 이 글의
   저자 둘이 십 년 전 서명한 학파 선언. 이 구분을 보편 규칙으로 읽지 말라는 조항이 거기 있다
+- [버그 옹호](../concepts/bug-advocacy.md) — 같은 저자 둘이 참여한 2002년 책의 4장. 체크가
+  명제의 참·거짓을 가린 뒤에도 그것이 고쳐질 값어치가 있는가는 이 글의 어휘로는 명제가
+  아니라 의견이고, 그 자리에서 무엇을 하는가가 그 페이지의 물음이다
 - [코코넛은 통하지 않는다](../concepts/coconuts-dont-cut-it.md) — 형식만 옮겨 오는 채택의 실패.
   이 구분이 어휘 규약을 넘어 구호로 유통될 때 걸리는 진단
+- [테스팅에서 자동화의 경계](../synthesis/automation-boundary-in-testing.md) — 이 갈래의 허브
 
 [^bach2013-testing-checking-refined]: Bach & Bolton 2013, "Testing and Checking
     Refined", James Bach's Blog. **판이 둘인 살아 있는 문서다** — 이 페이지의 인용은

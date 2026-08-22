@@ -50,8 +50,9 @@ sources:
 
 ## 원칙이 실린 자리
 
-- **일곱 원칙은 본문이 아니라 책 끝의 부록에 있다.** 부록 제목은 "The Context-Driven
-  Approach to Software Testing"이고, 원칙 목록은 그 안의 소제목 "The Seven Basic
+- **맥락 주도 테스팅(context-driven testing)의 일곱 원칙은 본문이 아니라 책 끝의
+  부록에 있다.** 부록 제목은 "The Context-Driven Approach to Software Testing"이고,
+  원칙 목록은 그 안의 소제목 "The Seven Basic
   Principles of the Context-Driven School" 아래에 있다 (§Appendix).[^kaner2002-lessons]
   머리말이 그 자리를 미리 알린다 — **"We discuss the context-driven approach at the
   end of the book"** (§Preface, "Welcome to Lessons Learned in Software
@@ -207,6 +208,8 @@ of the Context-Driven School").[^kaner2002-lessons]
 - [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
   벤더 실무 문면이 "이렇게 하라"를 적는 자리. 원칙 2가 그 문면을 보편 규칙으로 읽지 말라고
   요구하는 조항이다
+- [테스팅에서 자동화의 경계](../synthesis/automation-boundary-in-testing.md) — 이 갈래의 허브.
+  이 원칙이 그 갈래의 헌법 자리에 놓이는 이유를 허브가 적는다
 
 [^kaner2002-lessons]: Kaner, Bach & Pettichord 2002, *Lessons Learned in Software
     Testing*. **확보본이 Wiley 전자책 판이라 인쇄 쪽 앵커가 하나도 없다** — EPUB 전체에
