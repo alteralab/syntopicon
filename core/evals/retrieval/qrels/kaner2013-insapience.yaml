@@ -54,9 +54,9 @@ queries:
     expected_files: ["concepts/testing-checking-false-dichotomy.md"]
     expected_in_top_k: 5
   - id: tcf-sem-2
-    query: "어느 상황에서나 옳은 테스트 방법은 없다는 전제"
+    query: "세션으로 조직한 탐색적 테스팅조차 어디서나 통하는 방법은 아니라는 단서"
     type: semantic
-    description: "패러프레이즈 — 맥락 전제 문단. 탐색적 테스팅조차 예외가 아니라는 단서가 붙는 자리"
+    description: "패러프레이즈 — 맥락 전제 문단. 2026-08-22 갈래 마감에서 문항을 고쳤다 — 옛 질의는 원칙 자체를 물어서 그 조항을 소유한 context-driven-testing-principles가 뒤에 서고 나서는 이 페이지를 가리키는 힘을 잃었고 네 레그 전부 미회수였다. 이 페이지만 갖는 단서(자기 진영에도 겨눈 괄호 안 예외)를 질의에 넣어 갈림을 살렸다"
     expected_files: ["concepts/testing-checking-false-dichotomy.md"]
     expected_in_top_k: 5
   - id: tcf-top-1

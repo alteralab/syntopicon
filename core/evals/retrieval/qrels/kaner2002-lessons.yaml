@@ -87,9 +87,9 @@ queries:
     expected_files: ["concepts/bug-advocacy.md"]
     expected_in_top_k: 5
   - id: ba-top-2
-    query: "검사하는 쪽이 출시를 막는 문지기가 되면 안 되는 이유"
+    query: "테스터가 릴리스를 막는 관문이 되면 안 되는 이유"
     type: topical
-    description: "1장 lesson 12. 검증자를 관문으로 세우는 것 자체를 거부하는 대목"
+    description: "1장 lesson 12. 검증자를 관문으로 세우는 것 자체를 거부하는 대목. 2026-08-22 갈래 마감에서 문항과 페이지를 함께 고쳤다 — 옛 질의(문지기·출시)는 이 KB의 어느 페이지에도 없는 낱말이라 네 레그 전부 미회수였고, 정답 대목은 KB 판정 절의 자식 불릿이어서 절 단위로도 잡히지 않았다. 페이지 쪽은 lesson 12를 자기 절로 올렸다"
     expected_files: ["concepts/bug-advocacy.md"]
     expected_in_top_k: 5
   - id: kbl-x-1
