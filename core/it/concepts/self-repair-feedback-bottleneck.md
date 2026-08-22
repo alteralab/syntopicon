@@ -2,7 +2,7 @@
 type: concept
 title: 자기 수정의 피드백 병목
 description: 모델이 자기 코드를 스스로 고치는 자기 수정이 같은 표본 예산의 재표집보다 나은가를 2024년에 잰 실측 — 수리 트리를 표본 수로 환산해 견주는 pass@k 재정의, 이득이 작거나 없고 예측하기 어렵다는 결과, 예산은 수리보다 초기 프로그램의 다양성에 쓰는 편이 낫다는 추세, 피드백만 더 강한 모델로 갈아 끼우면 기준선과 자기 수정을 모두 넘는다는 절개 실험, 사람 피드백이 GPT-4 자신의 피드백보다 수리 성공률을 1.58배로 올린다는 표, 그리고 이 결과가 프롬프팅으로 구현한 자기 수정에만 걸린다는 범위
-generated: { by: "claude-opus-5", at: "2026-08-21T23:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-22T02:20:00Z" }
 sources:
   - { id: olausson2024-self-repair, resource: /it/sources/olausson2024-self-repair.md }
 ---
@@ -289,6 +289,10 @@ p.14).[^olausson2024-self-repair]
   좁혀진다 — 판정자는 달라야 하고 또한 더 강해야 한다
 - [독립 판본의 상관된 실패](../concepts/correlated-failure-of-independent-versions.md) —
   독립적으로 만든 것들이 독립적으로 틀리지 않는다는 같은 물음의 프로그램 판본 층
+- [에이전트 작업 흐름의 검증자 분리](../concepts/verifier-separation-in-agent-workflows.md) —
+  이 페이지가 좁힌 조건이 벤더 실무 문서에서는 어디까지 적혀 있는가. 그 문서는 판정자가
+  새 문맥에서 돌고 반박을 목표로 갖는 것까지만 요구하고 **더 강해야 한다**는 조건은 적지
+  않는다. 실증이 아니라 문면이다
 - [기능적 정확성](../concepts/functional-correctness.md) — 이 페이지가 고쳐 쓴 pass@k의
   원래 정의와, 실행으로 정확성을 재는 관행이 서 있는 자리
 - [반성과 오류 교정](../concepts/agent-reflection-and-error-correction.md) — 자기 평가를
