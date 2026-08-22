@@ -200,12 +200,13 @@ sources:
 - **저자들이 자기 생존율이 뮤테이션 점수가 아님을 명시한다**
   (§5.3):[^petrovic2021-google-mutation]
 
-  > Note that this is not the same as the traditional mutation score (ratio of killed
+  > Note that this is not the same as the traditional mutation score [30] (ratio of killed
   > mutants to the total number of mutants) because mutagenesis is probabilistic and
   > only generates a subset of all mutants.
 
   **이 논문이 내는 어떤 비율도 뮤테이션 점수로 읽어서는 안 된다**고 논문이 스스로
-  적는 자리다.
+  적는 자리다. 인용 안의 `[30]`은 원문의 참고문헌 번호이고 가리키는 것은
+  1978년 원전이다.
 
 ## 변경분 한정과 arid 억제 — 실제로 무엇을 하는가
 
