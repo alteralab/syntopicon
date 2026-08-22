@@ -2,7 +2,7 @@
 type: concept
 title: 웹 서비스와 REST
 description: 네트워크 너머로 API를 노출하는 쪽과 부르는 쪽의 배치 — 서비스가 데이터베이스와 닮았으면서도 임의 질의를 허용하지 않는다는 차이, 웹 서비스가 웹 밖에서도 쓰이는 세 맥락, REST가 무엇을 강조하는가, IDL(OpenAPI·프로토콜 버퍼)과 서비스 프레임워크의 분업, RPC 인코딩의 호환성이 서비스 API 버저닝으로 이어지는 경로, 그리고 데이터 반입 관점에서 본 REST·웹훅·gRPC
-generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-22T05:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
@@ -229,6 +229,9 @@ sources:
   아키텍처 쪽 자리
 - [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — 요청과 응답에 방향이
   나뉘어 걸리는 규칙
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 제공자가 클라이언트를 통제하지 못해
+  호환을 무기한 유지하게 된다는 이 페이지의 문제를 다른 쪽에서 붙잡은 2006년의 패턴. 계약을
+  제공자가 내리는 대신 소비자가 적은 기대에서 파생시키면 무엇을 뺄 수 있는지가 드러난다는 배치
 - [프로토콜 버퍼와 필드 태그](../concepts/protocol-buffers-encoding.md) — gRPC가 쓰는 그 IDL
 - [GraphQL](../concepts/graphql.md) — 클라이언트가 응답 구조를 직접 정하는 다른 API 설계
 - [원천 시스템과 데이터 생성](../concepts/source-systems-and-generation.md) — API가 원천 시스템의

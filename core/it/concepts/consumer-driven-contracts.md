@@ -2,7 +2,6 @@
 type: concept
 title: 소비자 주도 계약
 description: 서비스 계약을 제공자 계약·소비자 계약·소비자 주도 계약 셋으로 가른 2006년의 패턴 서술 — 소비자가 자기가 쓰는 것만 단정으로 적고 그 단정 뭉치에서 제공자 계약이 파생된다는 배치, 그 단정이 빌드마다 도는 테스트로 표현된다는 대목, 그리고 저자 자신이 그어 둔 적용 범위. 실무자 에세이라 근거가 아니라 정의와 자기 규정이다
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-22T05:00:00Z" }
 sources:
   - { id: robinson2006-cdc, resource: /it/sources/robinson2006-cdc.md }
@@ -45,8 +44,9 @@ sources:
   **패턴을 제안하는 글**이지 그 패턴을 잰 글이 아니라는 것이 이 한 문장에 있다.
 - **개정이 없는 판이다.** 본문 말미 「Significant Revisions」가 한 줄뿐이고
   (**"12 June 2006: First published"**), 페이지가 심은 `og:article:modified_time`도 같은
-  날이다.[^robinson2006-cdc] 다만 글 자신이 더 나중 판의 존재를 알린다 — Thoughtworks
-  Anthology의 개정판과 후속 블로그 글이 있다고 적는다. **그 판들은 이 KB에 없다.**
+  날이다 (절 `Significant Revisions`).[^robinson2006-cdc] 다만 글 자신이 더 나중 판의
+  존재를 알린다 — Thoughtworks Anthology의 개정판과 후속 블로그 글이 있다고 적는다
+  (초록 아래 알림 줄).[^robinson2006-cdc] **그 판들은 이 KB에 없다.**
 
 ## 전이 조건 — 2006년의 자리에서 지금의 자리로
 
@@ -70,9 +70,9 @@ WS-Policy가 예시의 재료이고, 지금 실무에서 그 자리를 다른 �
 ## 문제 — 계약이 서비스를 묶는다
 
 - **역설이 출발점이다** — 계약은 서비스의 독립을 가능하게 하는 동시에 제공자와 소비자를
-  바람직하지 않은 방식으로 묶는다 (절 `Interlude: Burdened With Services`).
-  글은 이것을 **숨은 결합(“hidden” coupling)**이라 부르고, 그 결합을 체계적으로 다룰
-  장비가 우리에게 거의 없다고 적는다.[^robinson2006-cdc]
+  바람직하지 않은 방식으로 묶는다. 글은 이것을 **숨은 결합(“hidden” coupling)**이라
+  부르고, 그 결합을 체계적으로 다룰 장비가 우리에게 거의 없다고 적는다
+  (절 `Interlude: Burdened With Services`).[^robinson2006-cdc]
 - **묶이는 기제** — 소비자가 받은 문서를 XSD로 검증하면, 자기가 처리할 생각이 없는
   부분까지 포함해 **제공자 계약 전체를 암묵적으로 받아들이게 된다** (절 `Breaking
   Changes`).[^robinson2006-cdc] 그래서 제공자가 아무도 쓰지 않는 필드 하나를 빼려 해도
@@ -205,7 +205,7 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
 | Consumer-Driven | Closed | Complete | Single | Non-authoritative | Consumers |
 
 **마지막 열이 이 표의 요점이다.** 제공자 계약과 소비자 주도 계약은 앞 네 축이 똑같고
-오직 권위(Authority)와 유효 경계(Bounded)에서 갈린다 — 뒤쪽은 **소비자 계약의 집합에
+오직 `Authority` 열과 `Bounded` 열에서 갈린다 — 뒤쪽은 **소비자 계약의 집합에
 대해서만** 안정하고 불변이다. 기대가 생기고 사라지면 그 경계도 바뀐다.
 
 ## 구현 — 계약이 빌드마다 도는 테스트가 된다

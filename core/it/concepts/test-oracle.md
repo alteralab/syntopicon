@@ -2,7 +2,7 @@
 type: concept
 title: 테스트 오라클
 description: 무엇이 옳은 동작인지를 무엇이 답하는가라는 문제와 그 답의 네 출처 — 오라클을 자극과 응답의 열에 대한 부분 함수로 규정하는 정의, 알 수 없는 근거 진리가 건전성과 완전성의 상한이 되는 구조, 명세에서 오는 오라클과 다른 산출물에서 파생되는 오라클과 암묵 지식에서 오는 오라클, 그리고 자동 오라클이 아예 없을 때 사람의 판정 비용을 줄이는 갈래, 편수 분포가 말해 주는 것과 말해 주지 못하는 것, LLM 세대에서 이 문제가 놓인 자리
-generated: { by: "claude-opus-5", at: "2026-08-21T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-22T05:00:00Z" }
 sources:
   - { id: barr2015-oracle, resource: /it/sources/barr2015-oracle.md }
 ---
@@ -317,6 +317,10 @@ sources:
   체킹이 분산 시스템 층에서 쓰이는 모습
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — §4.2의 단정을 코드 안에 상주시키는 실천
 - [계약에 의한 설계](../concepts/design-by-contract.md) — 사전·사후 조건이 명세 오라클이 되는 갈래
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 같은 §4.2의 단정·계약 부류가 조직
+  경계 너머로 나간 자리. §4.2가 적은 튜링의 제안(개발자가 단정을 쓰고 테스터가 그것을 검사한다)에서
+  단정을 쓰는 쪽이 **소비하는 서비스**로 옮겨 간 배치이고, 그쪽 소스는 실무자 에세이라 그 배치의
+  정의를 줄 뿐 효과를 재지 않는다
 - [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 테스트 가능성을 위한 설계와 오라클의 관계
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 

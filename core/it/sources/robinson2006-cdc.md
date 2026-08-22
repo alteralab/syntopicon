@@ -19,8 +19,8 @@ accessed: "2026-08-20"
 
 ## 지위 — 실무자 에세이이지 실증이 아니다
 
-- **성격**: 패턴 서술 에세이(practitioner essay). 마틴 파울러 사이트에 실린 게스트 글이고
-  저자는 당시 Thoughtworks의 컨설턴트다. 문면 그대로 — **"Ian Robinson is a Principal
+- **성격**: 실무자 에세이(practitioner essay). 패턴을 서술하는 글이고, 마틴 파울러
+  사이트에 실린 게스트 글이며, 저자는 당시 Thoughtworks의 컨설턴트다. 문면 그대로 — **"Ian Robinson is a Principal
   Consultant with Thoughtworks"**. 실험도 측정도 없고 수치가 한 개도 없다.
 - **그래서 "학술 근거"로 인용하지 않는다.** 이 소스가 여는 것은 **정의와 그 정의를 지은
   사람의 자기 규정**이다. 글 자신이 서두에서 자기가 무엇을 하는지 규정한다 — 이 글은
