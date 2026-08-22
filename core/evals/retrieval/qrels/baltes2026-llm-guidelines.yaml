@@ -1,0 +1,111 @@
+# 질문지 조각 — Baltes 외 2026 승급(2026-08-22, 수용·벤치마크 갈래의 첫 반입).
+# 이 소스가 만드는 검색 위험은 두 갈래다. 하나는 어휘 간섭이다 — "유통기한"과
+# "버전 조건"은 llm-generated-test-defect-distribution이 이미 소유하고 있고,
+# "벤치마크"와 "데이터 오염"은 huyen2025 계열 페이지들(public-benchmarks-and-leaderboards·
+# data-contamination·evaluation-pipeline-design)이 소유한다. 둘째는 층 혼동이다 —
+# 이 페이지는 "무엇을 밝혀야 하는가"(연구 보고 규범)에 답하고 옆 페이지들은 "무엇을
+# 어떻게 재는가"(평가 시스템)에 답하는데, 낱말이 겹친다.
+# exact 문항은 이 페이지만 가진 어휘(보고 규범·요구와 권고·연구 실행 날짜·종단 재실행)를
+# 겨냥한다. alias 문항은 이 페이지에서만 병기된 원어(must·should·longitudinal re-runs·
+# construct validity)가 갈라 주는 키로 사는지를 잰다. semantic 문항은 규범·지침이라는
+# 낱말을 한 번도 쓰지 않은 질의가 닿는지를 본다. cross-domain 셋은 이번 런이 실제로 건
+# 링크(두 실측 페이지와 데이터 오염)가 검색에서도 이웃으로 잡히는지를 본다.
+source: baltes2026-llm-guidelines
+added: 2026-08-22
+queries:
+  - id: lenorm-exact-1
+    query: "LLM 실증 연구의 보고 규범"
+    type: exact
+    description: "페이지 제목 그대로 — 평가 시스템 계열 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-exact-2
+    query: "요구와 권고를 가르는 기준"
+    type: exact
+    description: "이 문서의 두 층 구획 — 이 KB에서 이 페이지에만 있는 절 이름"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-exact-3
+    query: "연구 실행 날짜"
+    type: exact
+    description: "요구 층의 최소 항목 하나 — 시점을 밝히라는 의무가 앉은 자리"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-exact-4
+    query: "종단 재실행"
+    type: exact
+    description: "다시 재라는 요구가 어느 층에 있는지를 답하는 낱말. 이 KB에 이 페이지만 갖는다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-exact-5
+    query: "연구 유형 일곱"
+    type: exact
+    description: "지침의 적용 단위인 분류 — 벤치마크 계열 페이지들과 갈라 주는 어휘"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-alias-1
+    query: "must should 요구 권고"
+    type: alias
+    description: "원어 병기 — 이 문서가 두 층을 부르는 이름. 역어가 흔들려도 남는 키"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-alias-2
+    query: "longitudinal re-runs"
+    type: alias
+    description: "원어 병기 — 재측정 완화책의 이름. 이 페이지에서만 병기된다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-alias-3
+    query: "reproducibility replicability"
+    type: alias
+    description: "원어 병기 — 이 문서가 둘을 섞어 쓰는 이유가 적힌 자리"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-sem-1
+    query: "논문에 모델 이름과 판을 안 적으면 나중에 그 수치를 어떻게 읽나"
+    type: semantic
+    description: "패러프레이즈 — 규범·지침 어휘 불사용. 요구 층의 최소 열거가 답이다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-sem-2
+    query: "같은 프롬프트를 넣어도 결과가 달라지는데 실험을 몇 번 돌려야 하나"
+    type: semantic
+    description: "패러프레이즈 — 되풀이와 반복 횟수 정당화가 권고 층에 있다는 것이 답"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-sem-3
+    query: "남들이 쓰는 지표라는 이유로 그 지표를 골라도 되는가"
+    type: semantic
+    description: "패러프레이즈 — 선행 채택이 정당화가 아니라는 요구 문면이 답이다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-top-1
+    query: "LLM을 쓴 연구는 무엇을 반드시 밝혀야 하는가"
+    type: topical
+    description: "이 페이지가 서는 물음 그 자체"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-top-2
+    query: "심사를 통과했어도 그 논문의 수치를 그대로 인용하면 안 되는 경우"
+    type: topical
+    description: "지위 절 — 결과 절이 없는 규범 문서라는 판정이 답이다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-x-1
+    query: "실측 수치에 모델과 시점을 붙여 두는 관행의 근거"
+    type: cross-domain
+    description: "규범과 그 관행의 실물 — 보고 규범과 LLM 생성 테스트 결함 분포가 짝으로 걸려야 한다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md", "concepts/llm-generated-test-defect-distribution.md"]
+    expected_in_top_k: 5
+  - id: lenorm-x-2
+    query: "모델을 가로지르는 일반화와 시간을 가로지르는 일반화를 갈라 밝히기"
+    type: cross-domain
+    description: "요구 문면과 그것을 표의 축으로 쓴 실측 페이지가 짝으로 걸려야 한다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md", "concepts/correlated-errors-across-llms.md"]
+    expected_in_top_k: 5
+  - id: lenorm-x-3
+    query: "벤치마크가 학습 데이터에 섞이는 문제를 연구자가 어떻게 다뤄야 하나"
+    type: cross-domain
+    description: "기제 쪽(데이터 오염)과 의무 쪽(밝히라는 요구)이 함께 잡혀야 한다"
+    expected_files: ["concepts/llm-empirical-study-reporting-norms.md", "concepts/data-contamination.md"]
+    expected_in_top_k: 5
