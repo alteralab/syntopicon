@@ -30,6 +30,10 @@ generated: { by: "claude-fable-5", at: "2026-08-16T19:30:00Z" }
 
 ## AI 판정자
 
+**아래 목록의 뒤 네 페이지는 "누가 판정해야 믿을 수 있는가"를 함께 묻는다.** 그
+갈래의 정본 진입점은 형제 허브 [검증자 독립성](verifier-independence.md)이고, 여기서는
+판정자 운용 쪽에서 닿는 자리로 둔다.
+
 - [AI 판정자](../concepts/ai-as-a-judge.md) — 왜 쓰는가, 세 가지 사용법, 판정자 프롬프트
 - [AI 판정자의 한계](../concepts/ai-judge-limitations.md) — 비일관성, 기준 모호성, 비용과 지연,
   세 가지 편향
