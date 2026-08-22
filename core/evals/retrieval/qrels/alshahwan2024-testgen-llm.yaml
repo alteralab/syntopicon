@@ -1,0 +1,121 @@
+# 질문지 조각 — Alshahwan 외 2024(TestGen-LLM) 승급(2026-08-22, 수용·벤치마크 갈래의
+# 다섯째 반입. 묶음 1페이지의 앞쪽 절반).
+# 이 소스가 만드는 검색 위험은 **고유 어휘가 거의 없다**는 데서 온다. 반입 전 코퍼스를
+# 훑어 보니 `필터 체인`은 0건이지만, 이 페이지가 실제로 쓰는 낱말은 코퍼스가 이미 크게
+# 나눠 가진 것들이다 — `커버리지` 36곳, `불안정` 27곳, `관문` 15곳, `회귀 테스트` 13곳.
+# 그래서 exact 문항은 낱말 하나가 아니라 **이 페이지만 갖는 결합**으로 던진다(관문의
+# 순서, 다섯 번 실행, 사람 앞의 필터). alias는 반대로 이 KB가 독점하는 원어를 쓴다 —
+# `TestGen-LLM`·`flaky`·`Kotlin`은 반입 전 0건이었다.
+# semantic 셋은 이 페이지가 서는 물음을 낱말을 갈아 던진다. cross-domain 셋은 이번 런이
+# 실제로 건 링크를 겨냥한다 — x-1이 잡히지 않으면 보강한 개정판이 검색에 반영되지 않은 것이다.
+source: alshahwan2024-testgen-llm
+added: 2026-08-22
+queries:
+  - id: fcgt-exact-1
+    query: "생성된 테스트의 필터 체인"
+    type: exact
+    description: "페이지 제목 그대로 — 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-exact-2
+    query: "빌드 실행 반복 실행 커버리지 순서로 거른다"
+    type: exact
+    description: "관문 넷의 순서 — 낱말 하나하나는 코퍼스가 나눠 갖지만 이 결합은 이 페이지만 갖는다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-exact-3
+    query: "다섯 번 실행에서 매번 통과하지 않으면 불안정으로 본다"
+    type: exact
+    description: "flaky 판정 임계 — 불안정은 27곳이 쓰므로 판정 규칙과 묶어 던진다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-exact-4
+    query: "필터는 LLM이 아니다"
+    type: exact
+    description: "호출자가 기대는 절 — 판정자가 결정적 도구라는 구획이 실린 자리는 여기뿐이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-exact-5
+    query: "집계 단위를 붙이지 않은 수치는 인용하지 않는다"
+    type: exact
+    description: "이 소스의 인용 규칙 — 테스트 클래스 단위와 시도 단위가 갈리는 자리. 소스 메타가 소유한다"
+    expected_files: ["sources/alshahwan2024-testgen-llm.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-exact-6
+    query: "필터를 통과한 것도 사람이 거른다"
+    type: exact
+    description: "거절 사유가 실린 절 — 게이트의 사각이 어디로 가는지를 묻는 자리"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-alias-1
+    query: "TestGen-LLM"
+    type: alias
+    description: "도구 이름 — 반입 전 코퍼스에 0건이었다. 페이지와 소스 메타가 독점해야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "sources/alshahwan2024-testgen-llm.md"]
+    expected_in_top_k: 5
+  - id: fcgt-alias-2
+    query: "flaky"
+    type: alias
+    description: "원어 병기 — 역어(불안정)는 27곳이 쓰지만 원어는 이번 반입이 처음이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-alias-3
+    query: "Assured LLMSE"
+    type: alias
+    description: "두 논문이 공통으로 기대는 상위 개념 이름 — 이 KB는 원전을 확보하지 않았으므로 이름만 있는 자리를 찾아야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "sources/foster2025-ach.md"]
+    expected_in_top_k: 5
+  - id: fcgt-alias-4
+    query: "test-a-thon"
+    type: alias
+    description: "두 배포의 실험 무대 이름 — 수치의 분모가 붙는 자리를 다시 찾을 때 쓰는 키다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-sem-1
+    query: "모델이 만든 테스트를 사람에게 보내기 전에 무엇이 거르나"
+    type: semantic
+    description: "이 페이지가 서는 물음 그 자체 — 필터라는 낱말 불사용"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-sem-2
+    query: "실패한 테스트가 버그를 찾은 것인지 단정이 틀린 것인지 자동으로 못 가른다"
+    type: semantic
+    description: "둘째 관문의 설계 근거 — 오라클 계열이 아니라 이 페이지가 와야 한다. 여기서만 그 판단이 도구의 선택으로 실현된다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-sem-3
+    query: "커버리지를 늘리는데도 엔지니어가 거절한 테스트"
+    type: semantic
+    description: "간섭 시험 — 커버리지는 36곳이 쓴다. 이 질의는 커버리지 지표가 아니라 사람 리뷰의 잔여를 묻고 있으므로 이 페이지가 와야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-top-1
+    query: "산업 규모에서 LLM이 만든 코드가 실제로 얼마나 받아들여지나"
+    type: topical
+    description: "수용률과 그 분모가 실린 절이 답이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-top-2
+    query: "모델을 바꿔도 성공률 자릿수가 바뀌지 않는다"
+    type: topical
+    description: "배포 표의 읽기 — 시행 수 불균형 단서와 함께 실린 자리"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: fcgt-x-1
+    query: "기계가 걸러 내는 결함 층과 오라클 층"
+    type: cross-domain
+    description: "실험실 실측 쪽과 그 층 구획을 산업 배포가 받아들인 쪽이 짝으로 걸려야 한다. 이번 개정이 그 대응을 명시한 자리라 짝이 안 잡히면 보강이 검색에 반영되지 않은 것이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "concepts/llm-generated-test-defect-distribution.md"]
+    expected_in_top_k: 5
+  - id: fcgt-x-2
+    query: "첫 실행에서 통과하는 것만 남기면 기대값은 어디서 오나"
+    type: cross-domain
+    description: "필터의 대가와 그 퇴화를 잰 실증이 짝으로 걸려야 한다. 이번 개정이 두 페이지를 이은 자리다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
+  - id: fcgt-x-3
+    query: "판정자가 생성자와 갈려 있어야 한다는 요구의 산업 실물"
+    type: cross-domain
+    description: "검증자 독립성 허브와 그 요구를 결정적 도구로 구현한 배포가 짝으로 걸려야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "synthesis/verifier-independence.md"]
+    expected_in_top_k: 5

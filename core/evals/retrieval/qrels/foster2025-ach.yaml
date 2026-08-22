@@ -1,0 +1,115 @@
+# 질문지 조각 — Foster 외 2025(ACH) 승급(2026-08-22, 수용·벤치마크 갈래의 다섯째 반입.
+# 묶음 1페이지의 뒤쪽 절반).
+# 앞 조각(alshahwan2024-testgen-llm)과 정답 페이지가 같으므로, 이 조각은 **그 페이지의
+# 다른 절들**을 겨냥한다. 겹치는 문항을 두지 않는다.
+# 검색 위험은 둘이다. 첫째, `뮤턴트`는 반입 전 코퍼스에 4곳뿐이지만 그중 둘이 이 갈래
+# 형제(benchmark-test-inadequacy)와 오라클 계열(current-behaviour-as-oracle)이라, 뮤테이션
+# 문항은 반드시 이 페이지의 결과와 묶어 던진다. 둘째, `등가`는 42곳이 쓰는 일반 낱말이라
+# 단독으로 쓰지 않고 `등가 뮤턴트`로만 쓴다.
+# 뮤테이션 테스팅 자체의 지위를 다루는 페이지는 아직 KB에 없다(suite-assessment 갈래).
+# 그래서 이 조각은 뮤테이션 이론을 묻지 않고, **이 배포가 실제로 잰 것**만 묻는다.
+source: foster2025-ach
+added: 2026-08-22
+queries:
+  - id: ach-exact-1
+    query: "결함을 먼저 만들고 그 결함을 잡는 테스트를 만든다"
+    type: exact
+    description: "ACH의 핵심 착상 — 이 절이 답이어야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-exact-2
+    query: "등가 뮤턴트를 판정하는 LLM 심판"
+    type: exact
+    description: "판정자가 모델로 바뀐 유일한 자리 — 등가는 42곳이 쓰므로 뮤턴트와 묶어 던진다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-exact-3
+    query: "커버리지 관문이 버렸을 테스트"
+    type: exact
+    description: "마지막 관문의 조건이 무엇을 놓치는지를 수치로 잰 절"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-exact-4
+    query: "판정 규칙을 붙이지 않은 정밀도와 재현율은 인용하지 않는다"
+    type: exact
+    description: "이 소스의 인용 규칙 — 같은 에이전트의 값이 규칙마다 넷이다. 소스 메타가 소유한다"
+    expected_files: ["sources/foster2025-ach.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-exact-5
+    query: "수용률이 관심사 적중률의 두 배"
+    type: exact
+    description: "리커트 관련성 대 수용 판단이 갈리는 자리 — 이 논문의 관찰이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-exact-6
+    query: "게재 제목은 Assured가 아니다"
+    type: exact
+    description: "재검증 정정이 걸린 자리 — 소스 메타가 게재 지위와 함께 소유한다"
+    expected_files: ["sources/foster2025-ach.md"]
+    expected_in_top_k: 5
+  - id: ach-alias-1
+    query: "Automated Compliance Hardener"
+    type: alias
+    description: "도구 이름의 풀이 — 반입 전 코퍼스에 0건이었다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "sources/foster2025-ach.md"]
+    expected_in_top_k: 5
+  - id: ach-alias-2
+    query: "mutation testing"
+    type: alias
+    description: "원어 병기 — 이 KB에 아직 뮤테이션 전용 페이지가 없으므로 지금은 이 페이지가 받아야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-alias-3
+    query: "LLM-as-judge"
+    type: alias
+    description: "원어 병기 — 등가 판정 에이전트의 방식 이름. 심판 계열 페이지가 아니라 이 페이지의 측정이 잡혀야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-alias-4
+    query: "Llama 3.1 70B"
+    type: alias
+    description: "모델 판 — 버전 조건 블록이 소유한다. 수치를 다시 읽을 때 실제로 쓰이는 키다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-sem-1
+    query: "일부러 버그를 심고 그것을 잡는 테스트를 자동으로 만든다"
+    type: semantic
+    description: "패러프레이즈 — 뮤턴트라는 낱말 불사용"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-sem-2
+    query: "커버리지를 늘리지 않는데도 값어치가 있는 테스트"
+    type: semantic
+    description: "간섭 시험 — 커버리지 계열이 아니라 이 페이지의 측정이 와야 한다. 절반 가까이가 그런 테스트였다는 결과가 실린 자리"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-sem-3
+    query: "주석만 바꾼 변경을 모델이 의미 변화로 잘못 본다"
+    type: semantic
+    description: "정밀도와 재현율이 전처리로 크게 오른 이유 — 이 자리는 이 페이지만 갖는다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-top-1
+    query: "관심사를 자연어로 적으면 그것을 지키는 테스트가 나오나"
+    type: topical
+    description: "ACH가 답하려는 물음 — 개인정보 경화가 그 실물이다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-top-2
+    query: "미래의 회귀는 막지만 지금 있는 결함은 못 찾는다"
+    type: topical
+    description: "논문이 스스로 적은 미해결 문제 — 오라클 문제로 되돌아가는 자리"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: ach-x-1
+    query: "심사를 통과했지만 제3자가 다시 잴 수 없는 수치"
+    type: cross-domain
+    description: "산업 자기 보고의 지위와 그 수치를 어떻게 읽으라는 규범이 짝으로 걸려야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "concepts/llm-empirical-study-reporting-norms.md"]
+    expected_in_top_k: 5
+  - id: ach-x-2
+    query: "테스트를 모델이 만들되 통과 판정은 손대지 못하게 한다"
+    type: cross-domain
+    description: "권한을 준 쪽과 떼어 놓은 쪽 — 갈래 안 형제가 짝으로 걸려야 한다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
