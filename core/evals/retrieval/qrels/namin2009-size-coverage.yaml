@@ -1,0 +1,112 @@
+# 질문지 조각 — Namin & Andrews 2009("The Influence of Size and Coverage on Test Suite
+# Effectiveness")와 Gopinath 등 2014("Code Coverage for Suite Evaluation by Developers")
+# 승급. 2026-08-23, 스위트 평가 갈래의 둘째 반입.
+#
+# **조각을 합친 이유**: 두 소스가 같은 페이지 하나(coverage-predicts-mutation-kills)를
+# 정답으로 갖는다. 소스마다 파일을 나누면 정답이 같은 문항이 두 파일로 흩어져 어느 쪽
+# 어휘가 페이지를 살리는지 대조할 수 없다. 각주 층 소스 셋(kochhar2015-real-bugs ·
+# fowler2012-test-coverage · zhao2026-llm-coverage-replication)은 조각을 만들지 않았다 —
+# 그 셋은 자기 페이지가 없고 인용 자리로만 산다.
+#
+# 이 페이지의 검색 위험은 형제 페이지(coverage-confounded-by-suite-size)와의 어휘 겹침이다.
+# 두 페이지가 커버리지·효과성·스위트 크기·뮤테이션을 다 쓰고 결론만 반대다. 그래서 exact
+# 문항은 겹치지 않는 낱말만 겨냥한다 — 변이 가능성·블록 커버리지·지멘스는 승급 시점에 이
+# 페이지 밖에서 0건이었다.
+#
+# alias 문항은 두 논문이 쓴 원어 약칭(AM·statement coverage)이 키로 사는지를 잰다.
+# semantic 문항은 결론의 방향을 낱말 없이 물었을 때 형제 페이지가 아니라 이쪽이 오는지를
+# 본다 — 이 조각에서 가장 깨지기 쉬운 자리다. pair 문항(covpred-pair-1)은 형제 조각의
+# covsize-pair-1과 짝이고, 질의를 반대 방향에서 걸어 같은 쌍을 잰다.
+source: namin2009-size-coverage
+added: 2026-08-23
+queries:
+  - id: covpred-exact-1
+    query: "커버리지는 뮤턴트 킬을 예측한다"
+    type: exact
+    description: "페이지 제목 그대로. 반대 결론을 낸 형제 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-exact-2
+    query: "변이 가능성"
+    type: exact
+    description: "문장 커버리지만 코드 블록 크기를 셈에 넣는다는 기제의 이름. 승급 시점에 이 페이지 밖에서 0건"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-exact-3
+    query: "문장 커버리지가 최선의 예측자였다"
+    type: exact
+    description: "이 페이지의 중심 결과. 문장 커버리지라는 말은 여러 페이지가 쓰므로 결과 문장으로 가른다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-exact-4
+    query: "블록 커버리지와 분기 커버리지 중 무엇이 더 잘 맞히는가"
+    type: exact
+    description: "블록 커버리지는 이 페이지만 갖는 낱말이고 둘의 순위 뒤집힘이 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-exact-5
+    query: "크기와 커버리지를 함께 넣은 모형"
+    type: exact
+    description: "둘 다 넣은 모형이 어느 한쪽만 넣은 모형을 이긴다는 회귀 비교가 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-exact-6
+    query: "지멘스 프로그램으로 잰 커버리지 실험"
+    type: exact
+    description: "2009년 논문의 대상. 지멘스는 이 페이지만 갖는 낱말이고 대상이 작다는 단서와 묶여 있다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-alias-1
+    query: "statement coverage"
+    type: alias
+    description: "원어 병기. 이 페이지의 중심 측도이므로 원어로도 이 페이지가 잡혀야 한다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-alias-2
+    query: "Randoop 생성 스위트로도 같은 결과가 나오는가"
+    type: alias
+    description: "사람이 쓴 스위트와 생성 스위트를 나눠 본 두 단계 설계가 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-sem-1
+    query: "커버리지를 올리면 스위트가 커져서 좋아지는 것이 아니라 커버리지 자체가 돕는다"
+    type: semantic
+    description: "이 페이지의 결론을 낱말 그대로 쓰지 않고 물었다. 형제 페이지가 아니라 이쪽이 와야 한다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-sem-2
+    query: "스위트가 하나뿐일 때 이 스위트가 쓸 만한지 어떻게 아는가"
+    type: semantic
+    description: "여러 스위트 비교가 아니라 단일 스위트 평가로 물음을 바꾼 자리가 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-sem-3
+    query: "테스트를 더 넣을수록 새로 잡히는 결함이 줄어드는 이유"
+    type: semantic
+    description: "수확 체감을 로그 항으로 설명한 기제가 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-top-1
+    query: "커버리지 종류마다 예측력이 다른가"
+    type: topical
+    description: "문장이 1위이고 경로가 꼴찌라는 순위표가 답이다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: covpred-x-1
+    query: "먼저 테스트하고 나중에 빠진 커버리지를 본다"
+    type: cross-domain
+    description: "옹호 측이 자기 결과가 강화한다고 적은 실무자 처방. 실증 쪽과 실무자 원전이 짝으로 걸려야 한다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md", "concepts/coverage-as-clue-not-target.md"]
+    expected_in_top_k: 5
+  - id: covpred-x-2
+    query: "커버리지를 관문 조건으로 쓰는 것이 옳은가"
+    type: cross-domain
+    description: "예측력을 인정하는 쪽과 관문을 실제로 건 산업 배선이 함께 잡혀야 한다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: covpred-pair-1
+    query: "커버리지와 스위트 효과성의 상관을 두고 갈린 실증"
+    type: cross-domain
+    description: "이 쌍의 둘째 계측 문항. 형제 조각의 covsize-pair-1과 반대 방향에서 같은 쌍을 잰다. 한 극만 오면 r_at_5가 0.5다"
+    expected_files: ["concepts/coverage-predicts-mutation-kills.md", "concepts/coverage-confounded-by-suite-size.md"]
+    expected_in_top_k: 5
