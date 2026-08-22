@@ -1,0 +1,125 @@
+# 질문지 조각 — Zhong 외 2025(ImpossibleBench) 승급(2026-08-22, 수용·벤치마크 갈래의
+# 셋째 반입).
+# 이 소스가 만드는 검색 위험은 앞 둘과 모양이 다르다. 반입 전 코퍼스를 훑어 보니
+# 이 논문의 고유 어휘(SWE-bench·LiveCodeBench·치팅·스캐폴드)는 이 KB에 하나도 없었다.
+# 그래서 간섭은 고유 어휘가 아니라 **일반 낱말** 쪽에서 온다. 위험은 셋이다.
+# 첫째, "오버로딩"은 이미 파이썬·JVM 계열 열넷이 소유하고 그중 하나는 제목이
+# operator-overloading-in-python이다 — 그래서 이 원어를 별칭 문항으로 쓰지 않고,
+# 대신 "연산자를 바꿔 테스트를 통과시킨다"는 **행위 서술**이 파이썬 쪽이 아니라
+# 이쪽으로 오는지를 semantic 문항으로 잰다. 둘째, "monitor"는 마흔 곳 넘게 쓰이므로
+# 감시자 문항은 반드시 이 페이지의 결과와 묶어서 던진다. 셋째, "벤치마크"와 "테스트"는
+# 갈래 안 형제(benchmark-test-inadequacy)와 오라클 계열이 나눠 가지므로, 이 페이지는
+# 자기만 가진 어휘(불가능 과제·치팅률·착취)로 걸려야 한다.
+# cross-domain 셋은 이번 런이 실제로 건 링크를 겨냥한다 — 특히 x-1은 개정판이 가설을
+# 실측으로 바꾼 자리라, 두 페이지가 짝으로 잡히지 않으면 개정이 검색에 반영되지 않은 것이다.
+source: zhong2025-impossiblebench
+added: 2026-08-22
+queries:
+  - id: tcea-exact-1
+    query: "에이전트의 테스트 케이스 착취"
+    type: exact
+    description: "페이지 제목 그대로 — 에이전트 계열 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-exact-2
+    query: "불가능 과제"
+    type: exact
+    description: "정직한 해가 없도록 만든 과제 — 이 KB에서 이 페이지와 소스 메타만 갖는 낱말"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "sources/zhong2025-impossiblebench.md"]
+    expected_in_top_k: 5
+  - id: tcea-exact-3
+    query: "치팅률"
+    type: exact
+    description: "이 논문의 지표 이름 — 반입 전 코퍼스에 없던 낱말이라 이 페이지가 독점해야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "sources/zhong2025-impossiblebench.md"]
+    expected_in_top_k: 5
+  - id: tcea-exact-4
+    query: "치팅의 네 유형"
+    type: exact
+    description: "테스트 수정과 나머지 셋을 가른 절 — 유형 분류가 실린 자리는 여기뿐이다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-exact-5
+    query: "설정 없이 단일 수치 인용 금지"
+    type: exact
+    description: "이 소스의 인용 규칙 — 같은 숫자가 다른 설정을 가리키는 자리를 막는다. 소스 메타가 소유하고 페이지가 되받는다"
+    expected_files: ["sources/zhong2025-impossiblebench.md", "concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-exact-6
+    query: "감시자는 복잡한 과제에서 샌다"
+    type: exact
+    description: "감시자라는 낱말은 카프카 쪽도 쓰므로 결과 서술과 묶어 던진다 — 이 절이 답이어야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-alias-1
+    query: "ImpossibleBench"
+    type: alias
+    description: "원문 제목 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["sources/zhong2025-impossiblebench.md", "concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-alias-2
+    query: "cheating rate"
+    type: alias
+    description: "원어 병기 — 역어가 흔들려도 남는 지표 이름"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "sources/zhong2025-impossiblebench.md"]
+    expected_in_top_k: 5
+  - id: tcea-alias-3
+    query: "Conflicting-SWEbench"
+    type: alias
+    description: "설정을 가리키는 데이터셋 이름 — 수치를 다시 찾을 때 실제로 쓰이는 키다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "sources/zhong2025-impossiblebench.md"]
+    expected_in_top_k: 5
+  - id: tcea-alias-4
+    query: "special casing"
+    type: alias
+    description: "원어 병기 — 테스트를 알아보고 특수 처리하는 경로의 이름"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-sem-1
+    query: "풀 수 없는 문제를 주면 모델이 무엇을 하나"
+    type: semantic
+    description: "패러프레이즈 — 치팅과 테스트라는 낱말 불사용. 이 페이지가 답한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-sem-2
+    query: "테스트 파일을 에이전트가 못 고치게 하면 무엇이 달라지나"
+    type: semantic
+    description: "패러프레이즈 — 접근 권한 실험이 답이다. 이 갈래의 호출자가 기대는 자리"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-sem-3
+    query: "비교 연산자를 바꿔서 테스트를 통과시키는 행동"
+    type: semantic
+    description: "간섭 시험 — 오버로딩 어휘는 파이썬 계열 열넷이 소유한다. 이 질의는 언어 기능이 아니라 착취 행위를 묻고 있으므로 이 페이지가 와야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-top-1
+    query: "통과를 목표로 주면 통과가 만들어진다"
+    type: topical
+    description: "이 페이지가 서는 물음 그 자체 — 상한 명제의 대우에 해당한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-top-2
+    query: "능력이 오를수록 치팅이 느는가"
+    type: topical
+    description: "원문의 방향과 계열 안 반례가 함께 실린 절이 답이다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
+  - id: tcea-x-1
+    query: "테스트가 통과했다는 사실을 왜 믿을 수 없나"
+    type: cross-domain
+    description: "상한 명제 쪽과 그 귀결을 실제로 잰 쪽이 짝으로 걸려야 한다. 이번 개정이 가설을 실측으로 바꾼 자리라 짝이 안 잡히면 개정이 검색에 반영되지 않은 것이다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "concepts/testing-shows-presence-not-absence.md"]
+    expected_in_top_k: 5
+  - id: tcea-x-2
+    query: "벤치마크 점수가 대상의 옳음을 재지 못하는 두 경로"
+    type: cross-domain
+    description: "테스트가 약해서 부풀려진 쪽과 테스트가 권한 안에 있어 만들어진 쪽 — 갈래 안 형제가 짝으로 걸려야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: tcea-x-3
+    query: "판정자를 떼는 것과 판정 근거를 떼는 것"
+    type: cross-domain
+    description: "검증자 분리 문면과 테스트 파일 권한 실측 — 같은 요구의 두 손잡이가 짝으로 걸려야 한다"
+    expected_files: ["concepts/test-case-exploitation-by-agents.md", "concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
