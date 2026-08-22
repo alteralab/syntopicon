@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 커버리지 운용의 산업 권고
-status: draft
 description: 커버리지가 효과성을 예측하느냐는 실증 논쟁 뒤에 한 회사가 낸 실무 합의문 — 지표를 손실 있는 간접 측정으로 규정한 자리, 값어치는 덮인 곳이 아니라 안 덮인 곳에 있다는 조문, 이상적 수치는 없고 하향식 강제를 피한다면서도 관문은 걸라는 두 권고의 병존, 회사가 적은 권고 구간이 왜 측정값이 아닌가, 커밋 단위 임계와 파이프라인 집계, 그리고 단정의 실질성은 커버리지가 아니라 뮤테이션 테스팅이 잰다는 대목
 generated: { by: "claude-opus-5", at: "2026-08-23T04:00:00Z" }
 sources:
@@ -30,7 +29,7 @@ sources:
   적는다** — 코드 리뷰에 커버리지를 심는 배선, 파이프라인 전체의 집계, 커밋 단위 관문은
   전부 그런 인프라가 이미 서 있는 조직의 그림이고, 그 인프라가 없는 조직에 이 권고를
   그대로 옮길 근거는 이 글에 없다.
-- **저자들이 첫 문단에서 글의 성격을 규정한다.**[^arguelles2020-coverage]
+- **저자들이 첫 문단에서 글의 성격을 규정한다** (서문 1문단).[^arguelles2020-coverage]
 
   > We have spent several decades driving software testing initiatives in various very
   > large software companies. … The purpose of this document is to give you tools to steer
@@ -98,11 +97,11 @@ sources:
 
 > We should gate deployments that do not meet our code coverage standards.
 
-- **어떤 관문이냐는 팀이 정한다.**[^arguelles2020-coverage] 전체 코드에 걸 것인가 신규
+- **어떤 관문이냐는 팀이 정한다** (본문 불릿 12).[^arguelles2020-coverage] 전체 코드에 걸 것인가 신규
   코드에만 걸 것인가, 고정 수치인가 이전 판 대비 변화량인가, 무시하거나 집중할 부분은
   어디인가 — 여러 기제를 두고 팀이 토론해 정하고 그것을 지키기로 약속한다. 관문을 어기는
   커버리지 하락은 체크인과 프로덕션 도달을 막아야 한다고 적는다.
-- **같은 문단이 자기 단서를 단다.**[^arguelles2020-coverage] 관문이 채워야 할 체크박스로
+- **같은 문단이 자기 단서를 단다** (본문 불릿 12).[^arguelles2020-coverage] 관문이 채워야 할 체크박스로
   취급되면 역효과가 날 수 있다며 이렇게 쓴다 — `pressure to 'hit the metric' almost
   never yields the desired outcome`.
 - **그래서 이 글의 권고는 "관문을 걸지 마라"가 아니라 "관문을 걸되 목표로 읽지 마라"다.**
@@ -148,7 +147,7 @@ sources:
   **뮤테이션 테스팅(mutation testing)**이 답하는 물음이 커버리지의 물음과 다르다는
   구분이다 — 줄이 실행됐는가가 아니라 그 줄에서 **단정(assertion)이 실패를 실제로
   잡는가**다. 원문은 이 낱말에 자사 논문 링크를 걸어 두고 본문에서는 더 설명하지 않는다.
-- **100%를 겨냥할 때의 대가도 같은 불릿에 있다.**[^arguelles2020-coverage] 수치를 100%에
+- **100%를 겨냥할 때의 대가도 같은 불릿에 있다** (본문 불릿 3).[^arguelles2020-coverage] 수치를 100%에
   최대한 가깝게 만드는 데 집중하면 `a false sense of security`에 이르고, 기계 시간을
   태우며 유지해야 할 저가치 테스트라는 기술 부채를 만든다고 적는다.
 
@@ -158,11 +157,11 @@ sources:
   테스트 커버리지는 퍼즐의 한 조각이고, 통합·시스템 테스트의 커버리지도 중요하며,
   파이프라인의 **모든 출처를 합친 관점**이 프로덕션까지 가는 동안 무엇이 한 번도 실행되지
   않는지를 보여 준다.
-- **그러나 종류마다 신호의 질이 다르다고 같은 불릿이 적는다.**[^arguelles2020-coverage]
+- **그러나 종류마다 신호의 질이 다르다고 같은 불릿이 적는다** (본문 불릿 11).[^arguelles2020-coverage]
   단위 테스트는 실행된 코드와 평가된 코드의 상관이 높지만 통합·종단(end-to-end) 테스트의
   커버리지 일부는 **의도한 것이 아니라 부수적으로(incidental)** 생긴다.
 - **그럼에도 통합 쪽을 집계에 넣는 이유**는 단위 테스트에서 덮지 않은 것을 통합 테스트가
-  덮고 있으리라 **믿어 버리는 상황**을 피하기 위해서다.[^arguelles2020-coverage]
+  덮고 있으리라 **믿어 버리는 상황**을 피하기 위해서다 (본문 불릿 11).[^arguelles2020-coverage]
 
 ## 이 KB의 읽기 — 논쟁 양극 사이 어디에 서는가
 
