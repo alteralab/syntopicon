@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 벤치마크의 수명과 철회
-status: draft
 description: 한 벤치마크가 표준이 되었다가 만든 쪽 손에 철회되기까지를 두 원문으로 붙여 읽는 자리 — 2,294문항을 12개 파이썬 저장소의 병합 PR에서 3단계로 걸러 낸 구성 절차와 fail-to-pass·pass-to-pass 두 테스트 집합, 전부 통과해야 푼 것으로 세는 % resolved 지표, 원전이 오염을 걱정하지 않아도 된다고 적은 근거, 그리고 2026년 벤더 감사가 어려운 문항 138개에서 찾아낸 결함 테스트 비율과 세 모델의 gold patch 축자 재현, 무엇을 권고했고 이 KB가 어느 수치를 옮기지 않는지
 generated: { by: "claude-opus-5", at: "2026-08-22T10:00:00Z" }
 sources:
