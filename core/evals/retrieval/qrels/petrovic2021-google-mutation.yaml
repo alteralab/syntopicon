@@ -1,0 +1,101 @@
+# 질문지 조각 — Petrović·Ivanković·Fraser·Just("Practical Mutation Testing at Scale:
+# A View from Google", IEEE TSE 수용판) 승급. 2026-08-23, 스위트 평가 갈래의 다섯째 반입.
+# 정답 페이지는 `concepts/mutation-testing-not-a-final-arbiter.md` 하나이고 원전 쪽 각도를
+# 재는 조각이 `demillo1978-hints.yaml`이다. 두 조각은 같은 페이지를 겨누되 질의가 겹치지
+# 않는다 — 저쪽은 1978년의 어휘와 실측, 이쪽은 규모·운용·수치다.
+#
+# 이 소스가 만드는 검색 위험은 둘이다.
+#
+# 하나는 **산업 배선 어휘의 간섭**이다. "코드 리뷰"·"관문"·"필터"는 승급 시점에
+# filter-chain-for-generated-tests와 current-behaviour-as-oracle가 이미 나눠 갖는다.
+# 그쪽은 생성된 테스트를 거르는 관문이고 이쪽은 뮤턴트를 띄우는 제안이라 성격이 다른데,
+# 어휘가 닮아 서로를 밀어낼 수 있다. petrovic-x-1이 그 자리를 잰다.
+#
+# 다른 하나는 반대 방향이다. `arid`·`변경 목록`·`changelist`는 승급 시점에 이 소스 밖에서
+# 0건이었다. exact·alias 문항이 실패하면 간섭이 아니라 신규 페이지가 색인에 안 붙은 것이다.
+#
+# 그리고 이 조각의 성격이 하나 더 있다. 이 페이지의 핵심 주장은 "가장 큰 규모의 사례가
+# 점수 게이트를 쓰지 않는다"인데, 같은 회사가 커버리지에는 관문을 권한다
+# (coverage-operating-guidelines). 두 문서를 같은 운용으로 읽으면 안 된다는 구분이
+# 검색에서도 서는지를 petrovic-x-2가 잰다.
+source: petrovic2021-google-mutation
+added: 2026-08-23
+queries:
+  - id: petrovic-exact-1
+    query: "arid 노드 억제와 한 줄 한 뮤턴트"
+    type: exact
+    description: "이 논문의 두 기술적 해법. arid는 승급 시점에 이 소스 밖에서 0건이었다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-exact-2
+    query: "변경분 한정 뮤테이션은 바뀌고 커버된 줄에만 뮤턴트를 만든다"
+    type: exact
+    description: "규모 문제의 해법이자 비용 통제 수단. 측정 주장이 아니라는 단서가 붙는 자리다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-exact-3
+    query: "비생산적 뮤턴트와 변경 탐지기 성질의 테스트"
+    type: exact
+    description: "억제가 겨누는 대상의 정의. 죽일 수는 있으나 죽이는 테스트가 스위트를 낫게 하지 않는 뮤턴트다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-exact-4
+    query: "변경 목록당 생성 뮤턴트 중앙값이 820에서 7로"
+    type: exact
+    description: "억제 효과의 결과 표. 이 수치 묶음은 이 페이지에만 있다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-alias-1
+    query: "diff-based mutation testing changelist"
+    type: alias
+    description: "원문 표기 둘. 역어가 흔들려도 이 키로 잡혀야 한다. 승급 시점에 이 소스 밖에서 0건이었다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-alias-2
+    query: "neither concrete nor actionable and it does not guide testing"
+    type: alias
+    description: "절대 점수를 지표에서 내린 이유의 원문. 게이트 폐기 근거의 핵심 인용이다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-sem-1
+    query: "가장 큰 규모로 이 기법을 돌린 회사는 점수를 어떻게 쓰는가"
+    type: semantic
+    description: "패러프레이즈. 답은 점수를 안 쓴다는 것이고 그 근거가 이 페이지에 있다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-sem-2
+    query: "도구가 남긴 지적을 사람이 필수로 표시하지 않으면 그냥 제출할 수 있다"
+    type: semantic
+    description: "관문이 아니라는 문면 근거. 차단하는 것이 도구가 아니라 사람이라는 자리다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-top-1
+    query: "억제 규칙을 다른 조직이 그대로 가져다 쓸 수 있는가"
+    type: topical
+    description: "언어별로 사람이 큐레이션한 백 개 넘는 규칙이라 이전 가능한 형태가 아니라는 사각이다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-top-2
+    query: "절대 점수에 임계값을 걸어도 되는가"
+    type: topical
+    description: "이 KB가 내리는 세 금지의 첫째. 원문 근거와 KB 판정이 갈려 적힌 자리다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: petrovic-x-1
+    query: "생성된 테스트의 마지막 관문을 커버리지가 아니라 뮤턴트 사살로 두면"
+    type: cross-domain
+    description: "이 조각의 계측 문항. 산업 필터 체인과 이 페이지가 짝으로 와야 한다. 어휘가 닮아 서로 밀어낼 위험이 가장 큰 자리다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: petrovic-x-2
+    query: "같은 회사가 커버리지에는 관문을 권하고 뮤테이션에는 권하지 않는다"
+    type: cross-domain
+    description: "두 산업 문서를 같은 운용으로 읽으면 안 된다는 구분. 두 페이지가 함께 와야 성립한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: petrovic-x-3
+    query: "죽인 뮤턴트를 테스트를 줄이는 기준으로 쓴 자리"
+    type: cross-domain
+    description: "벤치마크 쪽 실험실 판과 산업 판이 이웃으로 잡히는지를 잰다. 이번 런이 실제로 건 링크다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5

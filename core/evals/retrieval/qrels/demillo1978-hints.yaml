@@ -1,0 +1,103 @@
+# 질문지 조각 — DeMillo·Lipton·Sayward 1978("Hints on Test Data Selection: Help for the
+# Practicing Programmer", IEEE Computer) 승급. 2026-08-23, 스위트 평가 갈래의 다섯째 반입.
+# 정답 페이지는 `concepts/mutation-testing-not-a-final-arbiter.md` 하나이고, 같은 페이지를
+# Google 쪽 각도에서 재는 조각이 `petrovic2021-google-mutation.yaml`이다. 두 조각의 질의는
+# 겹치지 않게 갈랐다 — 이쪽은 원전의 어휘와 1978년 실측, 저쪽은 규모와 산업 운용이다.
+#
+# 이 소스가 만드는 검색 위험은 앞 넷과 방향이 반대다. 앞 조각들은 "커버리지"라는 낱말을
+# 여러 페이지가 나눠 갖는 간섭을 걱정했는데, 이 페이지가 들여온 낱말 가운데 다수는 승급
+# 시점에 **이 소스 밖에서 0건**이었다(`결합 효과`·`coupling effect`·`고차 뮤턴트`·
+# `competent programmer`). 그래서 exact·alias 문항이 실패하면 어휘 간섭이 아니라 신규
+# 페이지가 색인에 안 붙은 것이다.
+#
+# 진짜 간섭은 `뮤테이션 점수`에 있다. 이 낱말은 승급 시점에 여섯 페이지가 나눠 갖는다
+# (coverage-confounded-by-suite-size · coverage-predicts-mutation-kills ·
+# assertions-predict-mutation-kills · filter-chain-for-generated-tests ·
+# current-behaviour-as-oracle · llm-generated-test-defect-distribution). 그 여섯은 전부
+# 뮤테이션 점수를 **종속변수로 쓰는** 쪽이고 이 페이지만 그 종속변수 자체를 겨눈다.
+# demillo-x-1과 demillo-top-2가 그 구분이 검색에서 서는지를 잰다.
+#
+# `최종 심급`은 반대 위험이다. 승급 시점에 여섯 페이지가 이 낱말을 다른 뜻으로 쓴다
+# (성능·이름 짓기·오라클 등). 제목에 든 낱말이 다른 도메인에 끌려가는지를 demillo-exact-1이
+# 잰다.
+source: demillo1978-hints
+added: 2026-08-23
+queries:
+  - id: demillo-exact-1
+    query: "뮤테이션 테스팅은 최종 심급이 아니다"
+    type: exact
+    description: "페이지 제목 그대로. 최종 심급을 다른 뜻으로 쓰는 여섯 페이지가 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-exact-2
+    query: "결합 효과는 증명할 길이 없는 경험적 원리다"
+    type: exact
+    description: "이 원전의 자기 규정. 뮤테이션이 눈금이 될 수 있다는 주장 전체가 여기 기댄다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-exact-3
+    query: "죽은 뮤턴트와 살아 있는 뮤턴트와 동등 뮤턴트"
+    type: exact
+    description: "이 원전이 만든 세 어휘. 동등 뮤턴트는 다섯 페이지가 나눠 갖지만 셋을 묶으면 원전으로 와야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-exact-4
+    query: "FIND 예제에서 순열보다 나은 일곱 개의 배열 벡터"
+    type: exact
+    description: "1978년의 주 실험. 살아 있는 뮤턴트 58개에서 14개로 줄인 데이터 축약이다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-alias-1
+    query: "coupling effect empirical principle"
+    type: alias
+    description: "원문 표기. 역어가 흔들려도 이 키로 잡혀야 한다. 승급 시점에 이 소스 밖에서 0건이었다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-alias-2
+    query: "competent programmers whittling away the distance"
+    type: alias
+    description: "유능한 프로그래머 서술문의 원문. 이 이름이 가설로 불리는 근거가 원전에 없다는 실측의 자리다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-sem-1
+    query: "단순한 실수를 잡는 테스트가 복잡한 실수도 잡는다는 믿음"
+    type: semantic
+    description: "패러프레이즈. 결합 효과라는 낱말 없이 그 내용을 물었을 때 닿아야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-sem-2
+    query: "일부러 버그를 심어 테스트가 항의하는지 보는 일을 기계가 하면"
+    type: semantic
+    description: "사보타주와 뮤테이션의 관계. 실무 규범 쪽과 이 페이지가 함께 잡혀도 되지만 이 페이지가 top 5에는 있어야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-top-1
+    query: "유능한 프로그래머 가설이라는 이름은 어디서 왔는가"
+    type: topical
+    description: "그 명명이 1978년 원문에 없다는 실측이 답이다. hypothesis 낱말이 0회라는 대조 결과가 이 페이지에만 있다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-top-2
+    query: "뮤테이션 점수가 실제 결함을 대신할 수 있는가"
+    type: topical
+    description: "여섯 페이지가 뮤테이션 점수를 종속변수로 쓰지만 이 물음에 답하는 것은 이 페이지뿐이다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: demillo-x-1
+    query: "이 논문의 효과성이 곧 뮤테이션 점수라는 순환은 어디서 풀리는가"
+    type: cross-domain
+    description: "이 조각의 계측 문항. 순환을 적어 둔 단정 페이지와 그 종속변수를 겨눈 이 페이지가 짝으로 와야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/assertions-predict-mutation-kills.md"]
+    expected_in_top_k: 5
+  - id: demillo-x-2
+    query: "테스트를 사보타주로 시험하라는 실무 규범과 그 기계 판"
+    type: cross-domain
+    description: "이번 런이 실제로 건 링크. 실용주의 스타터 킷의 Tip 92와 이 페이지가 이웃으로 잡혀야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/pragmatic-starter-kit.md"]
+    expected_in_top_k: 5
+  - id: demillo-x-3
+    query: "동등 뮤턴트가 남으면 점수의 천장이 프로그램마다 달라진다"
+    type: cross-domain
+    description: "프로젝트 간 비교 금지의 근거. 동등 뮤턴트를 가정으로 처리한 실증 페이지와 함께 와야 한다"
+    expected_files: ["concepts/mutation-testing-not-a-final-arbiter.md", "concepts/coverage-confounded-by-suite-size.md"]
+    expected_in_top_k: 5
