@@ -1,0 +1,89 @@
+# 질문지 조각 — Kaner 반박 승급(2026-08-22, 자동화 경계 갈래의 모순 쌍 반대 극).
+# 쌍의 다른 극 조각은 bach2013-testing-checking-refined.yaml 이고, 두 조각의 정답
+# 페이지가 다르다. 이 페이지가 만드는 검색 위험은 셋이다. ① 제목이 부정문이라
+# ("거짓 이분법") 주제어가 아니라 판정어다 — 무엇에 대한 반박인지가 제목에 없어서
+# 주제 질의가 상대 극으로만 흘러갈 수 있다. ② 이 글의 고유 어휘가 대부분 원어
+# (HiVAT·sapient·false dichotomy)라 한국어 표면형으로 회수되는지를 따로 재야 한다.
+# ③ "자동화"는 이 코퍼스에서 CI·배포·도구 쪽으로 무겁게 쏠려 있어 테스팅 논쟁이
+# 그 무게를 뚫는지가 관건이다.
+# 마지막 문항은 contradicts 쌍 계측이다 — 상대 조각의 tcd-pair-1과 다른 표면형으로
+# 같은 것을 잰다(이쪽은 자동화 쪽 낱말로, 저쪽은 구분 쪽 낱말로 들어간다).
+source: kaner2013-insapience
+added: 2026-08-22
+queries:
+  - id: tcf-exact-1
+    query: "거짓 이분법"
+    type: exact
+    description: "이 페이지가 소유한 판정어. 제목의 핵이자 원문 결론 문장의 역어다"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-exact-2
+    query: "고용량 자동 테스팅"
+    type: exact
+    description: "복합명사 — 이 글의 배경이 된 기법군의 역어"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-exact-3
+    query: "맥락 주도 테스팅"
+    type: exact
+    description: "복합명사 — 이 반박이 근거로 삼는 전제의 이름. 코코넛 페이지와 갈리는지도 함께 본다"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-alias-1
+    query: "false dichotomy"
+    type: alias
+    description: "원어 — 직인용 블록 안의 결론 문면이 검색 키로 사는지 본다"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-alias-2
+    query: "HiVAT"
+    type: alias
+    description: "원어 약어 — 이 글의 1차 진입로 중 하나"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-alias-3
+    query: "sapient testing"
+    type: alias
+    description: "원어 — 이 반박이 겨냥한 어휘. 상대 극의 은퇴 선언과 같은 낱말이라 갈림도 함께 본다"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-sem-1
+    query: "자동으로 돌리는 것도 결국 사람이 설계하고 사람이 기대값을 넣은 것 아닌가"
+    type: semantic
+    description: "패러프레이즈 — 두 극단 논증. 이분법·체킹 어휘 불사용"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-sem-2
+    query: "어느 상황에서나 옳은 테스트 방법은 없다는 전제"
+    type: semantic
+    description: "패러프레이즈 — 맥락 전제 문단. 탐색적 테스팅조차 예외가 아니라는 단서가 붙는 자리"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-top-1
+    query: "한 테스트가 기대와 견주는 정도와 뜻밖의 것을 보여 주는 정도를 함께 가진다"
+    type: topical
+    description: "정도 규정 불릿. 배타적 두 상자가 아니라는 이 글의 실질적 제안"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-top-2
+    query: "테스터에게 자동화를 이류로 여기라고 가르치면 무엇을 잃는가"
+    type: topical
+    description: "실무적 대가 문단. 이 반박이 드는 유일한 결과 주장이다"
+    expected_files: ["concepts/testing-checking-false-dichotomy.md"]
+    expected_in_top_k: 5
+  - id: tcf-x-1
+    query: "일관성 목록에 비추어 판정하는 일도 결국 기대와 견주는 일 아닌가"
+    type: cross-domain
+    description: "이번 런이 건 링크 — 이 반박이 근거로 든 카탈로그와 함께 걸리는지 본다"
+    expected_files:
+      - "concepts/testing-checking-false-dichotomy.md"
+      - "concepts/consistency-oracle-heuristics.md"
+    expected_in_top_k: 5
+  - id: tcf-pair-1
+    query: "자동화할 수 있는 것과 없는 것의 경계를 낱말로 그을 수 있나"
+    type: cross-domain
+    description: "contradicts 쌍 계측 — 상대 조각과 다른 표면형(자동화 쪽 낱말)으로 같은 것을 잰다"
+    expected_files:
+      - "concepts/testing-checking-false-dichotomy.md"
+      - "concepts/testing-checking-distinction.md"
+    expected_in_top_k: 5

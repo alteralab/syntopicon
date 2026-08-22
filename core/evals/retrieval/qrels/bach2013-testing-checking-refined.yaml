@@ -1,0 +1,88 @@
+# 질문지 조각 — Bach & Bolton 테스팅·체킹 구분 승급(2026-08-22, 자동화 경계 갈래의 첫 반입).
+# 이 소스가 만드는 검색 위험은 셋이다. ① 이 갈래가 새로 채택한 음차 "체킹"이 형태소
+# 레그에서 살아남는지가 미지수다 — 이 코퍼스의 기존 "체킹"은 전부 모델 체킹(model
+# checking)과 팩트체킹이라, 새 낱말이 그 쏠림을 뚫어야 한다. ② "테스팅"은 이 코퍼스에서
+# 가장 과부하된 낱말이라 단독으로는 아무것도 가르지 못한다 — exact 문항은 전부 이
+# 페이지가 소유한 복합명사로 잡았다. ③ 정의가 판마다 다른 소스라 정의 문면의 원어
+# (mechanistic process·algorithmic decision rules)가 검색 키로 사는지를 따로 재야 한다.
+# 마지막 문항은 contradicts 쌍 계측이다 — 한 질의가 양 극을 함께 물어 오지 않으면
+# 이 KB는 논쟁을 정설로 보여 주게 된다. 쌍의 반대 극 조각은 kaner2013-insapience.yaml.
+source: bach2013-testing-checking-refined
+added: 2026-08-22
+queries:
+  - id: tcd-exact-1
+    query: "테스팅과 체킹의 구분"
+    type: exact
+    description: "복합명사 — 이 페이지가 소유한 이름. 새 음차가 모델 체킹 쏠림을 뚫는지 본다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-exact-2
+    query: "기계 체킹"
+    type: exact
+    description: "복합명사 — 체킹 세 갈래 중 하나. 음차가 수식어와 붙어도 사는지 본다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-exact-3
+    query: "사람 체킹"
+    type: exact
+    description: "복합명사 — attempted 단서가 붙는 유일한 갈래"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-alias-1
+    query: "Rapid Software Testing"
+    type: alias
+    description: "원어 병기 — 이 구분을 소유한 방법론의 이름. 지위 판정의 진입로다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-alias-2
+    query: "mechanistic process of verifying propositions"
+    type: alias
+    description: "현행판 정의 문면. 직인용 블록 안의 원어가 검색 키로 사는지 본다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-alias-3
+    query: "algorithmic decision rules"
+    type: alias
+    description: "2013 판 정의 문면. 옛 정의로 들어오는 질의가 같은 페이지에 닿아야 한다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-sem-1
+    query: "테스트에서 기계가 대신할 수 있는 부분과 사람만 할 수 있는 부분을 무엇이 가르나"
+    type: semantic
+    description: "패러프레이즈 — 체킹·구분·자동화 어휘 불사용"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-sem-2
+    query: "사람은 정해진 절차만 따르는 일을 온전히 해내지 못한다는 논증"
+    type: semantic
+    description: "패러프레이즈 — 체현 사고 실험. 테스트 어휘를 한 번도 쓰지 않은 질의"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-top-1
+    query: "같은 글의 정의가 판마다 달라져서 인용할 때 판을 함께 적어야 하는 자리"
+    type: topical
+    description: "정의 교체 절. 이 페이지의 판본 대조가 낱말 없이 회수되는지 본다"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-top-2
+    query: "품질은 의견이라 사실 확인의 대상이 되지 못한다"
+    type: topical
+    description: "verifying 설명 주석. 자동화 경계가 판정 대상의 성격에 걸린다는 대목"
+    expected_files: ["concepts/testing-checking-distinction.md"]
+    expected_in_top_k: 5
+  - id: tcd-x-1
+    query: "모델이 만든 테스트가 실제로 자동화한 것은 무엇인가"
+    type: cross-domain
+    description: "이번 런의 시대 지위 절과 생성 산출물 실측이 함께 걸리는지 본다"
+    expected_files:
+      - "concepts/testing-checking-distinction.md"
+      - "concepts/llm-generated-test-defect-distribution.md"
+    expected_in_top_k: 5
+  - id: tcd-pair-1
+    query: "테스팅과 체킹을 갈라 두는 것이 옳은가"
+    type: cross-domain
+    description: "contradicts 쌍 계측 — 한 질의가 양 극을 함께 물어 오는지. 한쪽만 오면 이 KB가 논쟁을 정설로 보여 준다"
+    expected_files:
+      - "concepts/testing-checking-distinction.md"
+      - "concepts/testing-checking-false-dichotomy.md"
+    expected_in_top_k: 5
