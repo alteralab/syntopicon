@@ -1,0 +1,122 @@
+# 질문지 조각 — OpenAI 2026(SWE-bench Verified 철회문) 승급(2026-08-22, 수용·벤치마크
+# 갈래의 넷째 반입). jimenez2024-swebench와 **한 페이지를 함께 세우므로**
+# (kb_form: bundle) 정답 파일이 같고, 이 조각은 페이지의 **뒤쪽 절반**(무엇이 드러났고
+# 무엇을 권고했나)을 겨냥한다.
+#
+# 이 조각이 잡아야 하는 간섭은 앞 조각과 다르다.
+# 첫째, **"오염"이 위험 어휘다.** 이 KB 40개 파일에 있고 그중 data-contamination은
+# 제목부터 그것이다. 그래서 오염 문항은 반드시 이 페이지가 가진 사실
+# (모델이 gold patch를 축자로 되뱉는다는 것, 자기 벤치마크를 만든 쪽이 스스로 내렸다는
+# 것)과 묶어 던지고, 맨 낱말 "데이터 오염"은 이 조각이 겨냥하지 않는다.
+# 둘째, **"유통기한"은 이미 일곱 페이지가 나눠 갖고 그중 둘이 갈래 안 형제다**
+# (benchmark-test-inadequacy·llm-empirical-study-reporting-norms). 그래서 유통기한
+# 어휘 대신 이 페이지만 가진 사건 어휘(철회·감사·결함 테스트)로 건다.
+# 셋째, **"SWE-bench Verified"는 test-case-exploitation-by-agents가 먼저 쓴다.**
+# 그쪽은 그 부분집합에서 만든 349문항이 자기 분모라고만 적고, 그 부분집합이 어떻게
+# 만들어졌고 왜 내려졌는지는 이 페이지만 답한다. alias 문항이 그 갈림을 잰다.
+#
+# 수치 문항을 하나 둔다(exact-3). 이 페이지의 59.4%는 **분모가 무작위 표본이 아니라는
+# 단서와 한 몸**이라, 값만 떼어 인용되면 원문이 하지 않은 주장이 된다. 질의가 값이 아니라
+# 분모를 물을 때 이 페이지가 오는지를 재는 것이 목적이다.
+#
+# cross-domain 셋은 이번 런이 실제로 건 링크를 겨냥한다. x-3은 이 페이지가 갈래 안
+# 형제의 분모를 흔드는 자리라, 짝으로 잡히지 않으면 그 연결이 검색에 없는 것이다.
+source: openai2026-swebench-verified-retire
+added: 2026-08-22
+queries:
+  - id: blar-r-exact-1
+    query: "만든 쪽이 벤치마크를 더는 쓰지 않겠다고 밝힌 사례"
+    type: exact
+    description: "이 페이지의 뒤쪽 절반 전체가 답이다. 포화와 교체를 다루는 일반론 페이지들과 겨룬다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-exact-2
+    query: "테스트가 옳은 답을 거부한다"
+    type: exact
+    description: "좁은 테스트와 넓은 테스트가 실린 절. 테스트 판별력을 다루는 형제 페이지가 아니라 이쪽이 1위여야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-exact-3
+    query: "결함 테스트 감사의 분모가 무작위 표본이 아닌 이유"
+    type: exact
+    description: "감사 대상 138문항이 어려운 쪽으로 치우쳐 있다는 단서. 값만 떼어 쓰는 오독을 막는 자리다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-exact-4
+    query: "모델이 정답 패치를 그대로 되뱉는다"
+    type: exact
+    description: "오염 탐침의 결과. 오염을 소유한 data-contamination이 아니라 이 페이지가 답해야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-exact-5
+    query: "벤더가 자기 보고로 낸 감사를 어떻게 읽는가"
+    type: exact
+    description: "두 소스의 지위 절. 등급이 갈라 적힌 자리이고 이해 충돌 두 자리도 여기 있다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md", "sources/openai2026-swebench-verified-retire.md"]
+    expected_in_top_k: 5
+  - id: blar-r-alias-1
+    query: "SWE-bench Verified"
+    type: alias
+    description: "부분집합 이름. 이 낱말을 먼저 쓴 착취 페이지와 갈리되, 그것이 무엇이고 왜 내려졌는지는 이 페이지가 답한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-alias-2
+    query: "narrow test cases wide test cases"
+    type: alias
+    description: "원어 병기 둘. 반입 전 코퍼스에 0건이라 이 페이지가 독점해야 하는 신규 키다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-alias-3
+    query: "SWE-bench Pro"
+    type: alias
+    description: "대안으로 권고된 이름. 이 KB는 원문을 갖고 있지 않으므로 이름과 그 지위만 답으로 나와야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md", "sources/openai2026-swebench-verified-retire.md"]
+    expected_in_top_k: 5
+  - id: blar-r-sem-1
+    query: "구현 세부를 강제하는 테스트 때문에 옳은 답이 떨어진다"
+    type: semantic
+    description: "패러프레이즈. 좁은 테스트가 답이다. 통과가 옳음을 보장하지 않는다는 반대 방향 명제와 갈려야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-sem-2
+    query: "문제 설명에 없는 기능까지 검사하는 테스트"
+    type: semantic
+    description: "패러프레이즈. 넓은 테스트가 답이다. 원 풀 리퀘스트가 이슈 셋을 함께 고친 사례가 실물이다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-sem-3
+    query: "공개된 자료로 만든 시험지를 계속 쓸 수 있나"
+    type: semantic
+    description: "패러프레이즈. 비밀번호 보호와 canary 문자열과 비공개 저작이라는 권고가 답이다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-top-1
+    query: "좋은 테스트는 좁아도 안 되고 넓어도 안 된다"
+    type: topical
+    description: "철회문의 둘째 교훈. 서로 반대 방향인 두 조건이 한 문장에 담긴 자리다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-top-2
+    query: "벤치마크 점수를 근거로 쓰기 전에 무엇을 확인하나"
+    type: topical
+    description: "이 페이지가 더하는 셋째 확인 항목, 곧 그 벤치마크에 감사나 철회 고지가 있었는가가 답이다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
+    expected_in_top_k: 5
+  - id: blar-r-x-1
+    query: "훈련에서 답을 본 모델이 시험을 잘 보는 일을 어떻게 다루나"
+    type: cross-domain
+    description: "오염 일반론 쪽과 그것이 한 벤치마크에서 실현된 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md", "concepts/data-contamination.md"]
+    expected_in_top_k: 5
+  - id: blar-r-x-2
+    query: "벤치마크 테스트가 코드의 옳음을 못 재는 두 방향"
+    type: cross-domain
+    description: "테스트가 약해 통과가 부푸는 쪽과 테스트가 좁거나 넓어 옳은 답이 떨어지는 쪽이 짝으로 걸려야 한다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md", "concepts/benchmark-test-inadequacy.md"]
+    expected_in_top_k: 5
+  - id: blar-r-x-3
+    query: "철회된 데이터셋 위에서 잰 값을 어떻게 읽나"
+    type: cross-domain
+    description: "그 부분집합을 분모로 삼은 측정 쪽과 그 부분집합의 오염 진단 쪽이 짝으로 걸려야 한다. 짝이 안 잡히면 이 연결이 검색에 없는 것이다"
+    expected_files: ["concepts/benchmark-lifespan-and-retirement.md", "concepts/test-case-exploitation-by-agents.md"]
+    expected_in_top_k: 5
