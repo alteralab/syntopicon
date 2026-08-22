@@ -94,7 +94,7 @@ sources:
   **사람 개발자에게도 불가능한 과제**가 되기 때문이다 (§A.1, p.16).[^jimenez2024-swebench]
   **뒤에 나올 철회문의 감사가 정확히 이 자리를 다시 짚는다.**
 - **과제 하나의 크기** (Table 1, p.4).[^jimenez2024-swebench] 저장소별로 묶지 않은
-  미시 평균이다.
+  미시 평균(micro-average)이다.
 
   | | 평균 | 최대 |
   |---|---|---|
@@ -284,8 +284,8 @@ sources:
 - **처음 눈치챈 경로** (Contamination 절):[^openai2026-swebench-verified-retire] 자기
   모델에서 먼저 보였다 — GPT-5.2가 **거의 풀 수 없다고 판정해 둔 과제 31개를 풀었다.**
   `django__django-14725`에서 테스트는 문제 서술이 요구하지 않은 `edit_only` 매개변수를
-  요구하는데, 모델의 사고 사슬에 그 매개변수가 Django 4.1에서 도입됐다는 정보가 그대로
-  나온다.
+  요구하는데, 모델의 사고 사슬(chain of thought)에 그 매개변수가 Django 4.1에서 도입됐다는
+  정보가 그대로 나온다.
 
   > There is also `edit_only` parameter maybe added around 4.1 or 4.2. Since this is 4.1
   > dev 2022, the code might be before introduction. We will implement now. Hidden tests
