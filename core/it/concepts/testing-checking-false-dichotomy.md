@@ -3,7 +3,6 @@ type: concept
 title: 테스팅·체킹은 거짓 이분법이다
 description: 자동화 가능한 것의 경계를 낱말로 긋는 시도를 같은 학파 안에서 반박한 글 — 고용량 자동 테스팅 워크숍에서 들은 두 장면과 그것이 촉발한 반박, 모든 테스트가 수동이면서 동시에 자동이라는 두 극단 논증, 수동과 자동의 구분이 원칙이 아니라 정도의 문제라는 판정, 체킹과 비체킹을 이분이 아니라 정도로 다시 규정한 두 문장, 상대 진영의 오라클 카탈로그를 그대로 근거로 삼는 되묻기, 근거로 삼는 맥락 주도 테스팅의 전제, 그리고 이 반박 자신도 측정이 아니라 저술이라는 한계
 generated: { by: "claude-opus-5", at: "2026-08-22T12:30:00Z" }
-status: draft
 contradicts: [testing-checking-distinction]
 sources:
   - { id: kaner2013-insapience, resource: /it/sources/kaner2013-insapience.md }

@@ -3,7 +3,6 @@ type: concept
 title: 테스팅과 체킹의 구분
 description: 무엇이 자동화 가능한가를 낱말로 가른 실무자 선언 — 도구가 공정을 바꾼다는 관찰에서 출발해 테스팅과 체킹을 따로 정의하고 체킹만이 완전 자동화될 수 있다고 못 박는 자리, 같은 글의 2013년 판과 현행판에서 두 정의가 통째로 갈아끼워진 대조, 체킹을 사람·기계·사람기계 셋으로 나눈 갈래, 사람은 알고리즘을 체현하지 못한다는 사고 실험, 저자들이 스스로 긋지 않은 선, 그리고 이 구분 자체가 같은 학파 안에서 거짓 이분법이라고 반박받는 자리
 generated: { by: "claude-opus-5", at: "2026-08-22T12:30:00Z" }
-status: draft
 contradicts: [testing-checking-false-dichotomy]
 sources:
   - { id: bach2013-testing-checking-refined, resource: /it/sources/bach2013-testing-checking-refined.md }

@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 일관성 오라클 휴리스틱
-description: 명세가 없을 때 기대를 무엇에 비추어 만드는가 — 문제를 알아보는 근거를 관계된 것들 사이의 바람직한 일관성으로 규정하고 그 관계를 열한 항목으로 목록화한 실무 카탈로그, 2005년 여덟 항목(HICCUPPS)에서 2012년 열한 항목((F)EW HICCUPPS)으로의 계보와 U 항목 개명, 저자 자신이 밝힌 오류 가능성과 비완전성, 그리고 이 카탈로그가 오라클 네 출처 분류의 어디에 앉는가
-generated: { by: "claude-opus-5", at: "2026-08-21T00:00:00Z" }
+description: 명세가 없을 때 기대를 무엇에 비추어 만드는가 — 문제를 알아보는 근거를 관계된 것들 사이의 바람직한 일관성으로 규정하고 그 관계를 열한 항목으로 목록화한 실무 카탈로그, 2005년 여덟 항목(HICCUPPS)에서 2012년 열한 항목((F)EW HICCUPPS)으로의 계보와 U 항목 개명, 저자 자신이 밝힌 오류 가능성과 비완전성, 이 목록이 저자의 다른 주장을 겨누는 반박의 근거로 쓰인 자리, 그리고 이 카탈로그가 오라클 네 출처 분류의 어디에 앉는가
+generated: { by: "claude-opus-5", at: "2026-08-22T12:30:00Z" }
 sources:
   - { id: bolton2012-few-hiccupps, resource: /it/sources/bolton2012-few-hiccupps.md }
   - { id: bolton2005-testing-without-a-map, resource: /it/sources/bolton2005-testing-without-a-map.md }
+  - { id: kaner2013-insapience, resource: /it/sources/kaner2013-insapience.md }
 ---
 
 # 일관성 오라클 휴리스틱
@@ -17,6 +18,7 @@ sources:
 - [계보 — 여덟에서 열하나로](#계보--여덟에서-열하나로)
 - [Claims와 Statutes를 가르는 선](#claims와-statutes를-가르는-선)
 - [카탈로그가 스스로 밝히는 한계](#카탈로그가-스스로-밝히는-한계)
+- [이 목록이 논쟁의 근거로 쓰인 자리](#이-목록이-논쟁의-근거로-쓰인-자리)
 - [오라클 네 출처 분류의 어디에 앉는가](#오라클-네-출처-분류의-어디에-앉는가)
 - [LLM 시대의 지위](#llm-시대의-지위)
 - [이어지는 페이지](#이어지는-페이지)
@@ -273,6 +275,34 @@ Standards).[^bolton2012-few-hiccupps]
 - **적용하는 것이지 따르는 것이 아니다.** 위 §이 소스의 지위가 인용한 "to be applied,
   not followed"가 이 목록의 사용법을 규정한다 — 체크리스트로 소진하는 물건이 아니다.
 
+## 이 목록이 논쟁의 근거로 쓰인 자리
+
+**이 카탈로그는 같은 저자 진영의 다른 주장을 겨누는 반박에 근거로 인용된다.** 2013년
+2월, Cem Kaner가 테스팅과 체킹을 가르는 구분을 반박하면서 이 목록을 URL과 함께
+지목한다 (§되묻기 문단).[^kaner2013-insapience]
+
+> But in the land of Sapient Testing, these particular expectations are enumerated as
+> Consistency Heuristics that sapient testers rely on
+> (e.g. http://www.developsense.com/blog/2012/07/few-hiccupps/). Apparently, at least
+> some sapient testing is checking.
+
+- **인용된 URL이 이 페이지의 소스 그 자체다.** 즉 이 카탈로그를 쓴 사람의 다른 주장이,
+  이 카탈로그를 근거로 되받아진다.
+- **논증의 형태.** 이력·비교 가능한 제품·주장 항목에 비추어 판정하는 일은 명확한 기대를
+  미리 갖고 결과를 견주는 일이므로, 반박자는 그것을 체킹이라 부르지 않을 이유가 없다고
+  본다. 그 앞 문단이 든 예가 정확히 이 목록의 항목들이다 — 오늘 동작이 지난달 동작과
+  일치하는가(History), 계산이 존중받는 경쟁 제품의 것과 일치하는가(Comparable
+  Products), 명세에 적힌 주장과 일치하는가(Claims) (§되묻기
+  문단).[^kaner2013-insapience]
+- **이 페이지는 그 논쟁의 승패를 적지 않는다.** 양극은 각각
+  [테스팅과 체킹의 구분](../concepts/testing-checking-distinction.md)과
+  [테스팅·체킹은 거짓 이분법이다](../concepts/testing-checking-false-dichotomy.md)가
+  소유하고, 둘은 `contradicts`로 묶여 한 쌍으로 보존된다.
+- #hypothesis **다만 이 인용이 카탈로그 자신에 대해 말해 주는 것이 하나 있다.** 열한
+  항목 가운데 History·Comparable Products·Product는 기계가 견줄 수 있는 형태로 적힐 수
+  있고, Image·Users' Desires·Purpose는 그렇지 않다. **같은 목록 안에서 자동화 가능성이
+  갈린다**는 사실이 이 되묻기가 성립하는 조건이다.
+
 ## 오라클 네 출처 분류의 어디에 앉는가
 
 이 절은 두 소스의 주장이 아니라 **이 KB의 읽기**다. 두 소스 중 어느 쪽도
@@ -339,7 +369,17 @@ Standards).[^bolton2012-few-hiccupps]
 - [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
   모델이 기대를 지을 때 무엇에 정렬하는가의 실측. 이 카탈로그가 열거하는 근거 대신 대상의
   현재 동작에 정렬하면 어떻게 되는지가 수치로 나온다
+- [테스팅과 체킹의 구분](../concepts/testing-checking-distinction.md) — 같은 두 저자가
+  자동화 가능한 것의 경계를 낱말로 그은 자리. 이 카탈로그와 같은 진영의 문서다
+- [테스팅·체킹은 거짓 이분법이다](../concepts/testing-checking-false-dichotomy.md) —
+  그 구분을 반박하면서 **이 카탈로그를 근거로 드는** 글. 위 절이 그 자리를 옮겼다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
+
+[^kaner2013-insapience]: Kaner 2013, "The Insapience of Anti-Automationism",
+    Context Driven Testing, 2013-02-04. **이 페이지에서 이 소스는 이 카탈로그가 논쟁에서
+    어떻게 인용됐는가를 적는 용도로만 쓰였다** — 카탈로그의 내용에 대한 근거가 아니다.
+    지위는 실무자 에세이이고, 절 번호가 없어 locator는 문단 역할로 적는다. 규약의 정본은
+    `it/archive/kaner2013-insapience/_progress.yaml` 머리말이다.
 
 [^bolton2012-few-hiccupps]: Bolton 2012, "FEW HICCUPPS", DevelopSense.
     발행 2012-07-23이고 **살아 있는 문서**다 — 글 말미가 2016-12-18·2017-01-26의 수정을
