@@ -78,9 +78,9 @@ queries:
     expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
     expected_in_top_k: 5
   - id: blar-sem-2
-    query: "고친 것 말고 멀쩡하던 기능이 깨졌는지 확인하는 테스트"
+    query: "과제 하나에 테스트가 두 갈래로 붙어 한쪽은 문제가 풀렸는지 다른 쪽은 멀쩡하던 것이 깨지지 않았는지 가른다"
     type: semantic
-    description: "패러프레이즈. pass-to-pass가 맡는 일이 답이다. 회귀 테스트 어휘를 쓰는 다른 페이지들과 겨룬다"
+    description: "패러프레이즈. fail-to-pass와 pass-to-pass가 나눠 맡는 일이 답이다. 2026-08-22 갈래 마감에서 문면을 고쳤다 — 옛 문면(고친 것 말고 멀쩡하던 기능이 깨졌는지 확인하는 테스트)은 회귀 테스트 일반을 가리켜 네 레그 전부 이 페이지를 고르지 못했고, 그때 회수된 페이지들도 그 물음에는 맞는 답이었다. 변별력을 주는 것은 두 갈래가 한 과제에 함께 붙는다는 구조라 그것을 물음에 넣었다"
     expected_files: ["concepts/benchmark-lifespan-and-retirement.md"]
     expected_in_top_k: 5
   - id: blar-sem-3
