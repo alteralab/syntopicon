@@ -292,7 +292,8 @@ sources:
   > For a proper, reliable test double, consider introducing a repository layer which
   > mediates between your application code and EF Core. … In testing, the repository
   > abstraction is directly stubbed or mocked without needing any actual LINQ queries,
-  > effectively removing EF Core from your testing stack altogether
+  > effectively removing EF Core from your testing stack altogether and allowing tests to
+  > focus on application code alone.
 
   - **진단이 한 줄로 요약된다** (같은 절) — 앞의 방법들이 모두 **"still evaluate the
     program's LINQ queries"** 이고 그것이 어려움의 근원이라는 것이다:
@@ -302,7 +303,7 @@ sources:
     감싸야 하므로 **아키텍처 층이 하나 더 생기고 구현·유지 비용이 크며**, 게다가
     **리포지터리가 노출한 질의에 대해서는 여전히 실물 데이터베이스 테스트가 필요할 것**이라고
     적는다.[^efcore2026-testing]
-- **`Summary` 절의 권고 넷이 이 문서의 최종 층이다**:[^efcore2026-testing]
+- **`Summary` 절의 권고 넷이 이 문서의 최종 층이고, 그 넷이 순서를 이룬다**:[^efcore2026-testing]
 
   > We recommend that developers have good test coverage of their application running
   > against their actual production database system.
@@ -316,6 +317,10 @@ sources:
 
   > Avoid the in-memory provider for testing purposes - this is discouraged and only
   > supported for legacy applications.
+
+  - **곧 실물 → 리포지터리 층 대역 → SQLite 인메모리 → (쓰지 말 것) 인메모리 공급자다.**
+    셋째 칸이 이 페이지를 부르는 조항과 부딪히는 자리이고, 아래
+    [금지인가 권장하지 않음인가](#금지인가-권장하지-않음인가--문면의-층)가 그 판정을 갖는다.
 
 ## 벤더의 비교 표
 
@@ -347,15 +352,27 @@ IEnumerable-returning repository methods, in order to be stubbed/mocked."**[^efc
   `may fail in production … although the h2-based tests are green`(hauer) ·
   `don't guarantee that your program works when running against the real external
   resource`(efcore).
-- **어긋나는 지점의 목록도 겹친다.** 셋이 공통으로 드는 것이 **원시 SQL과 방언**,
-  **트랜잭션 의미론**, **공급자·벤더 고유 기능**이다. 제약(constraint)과 격리 수준은
-  bogard만, 대소문자 비교는 efcore만, 예약어는 hauer만 든다.
+- **어긋나는 지점의 목록은 부분만 겹친다.** 셋이 **모두** 드는 것은 둘뿐이다 —
+  **공급자·벤더 고유 기능이 대역에 없다**는 것과 **SQL 문면이 엔진마다 다르다**는 것이다.
+  나머지는 갈린다.
+
+  | 어긋나는 지점 | bogard | hauer | efcore |
+  |---|---|---|---|
+  | 공급자·벤더 고유 기능 | 든다(번역되지 않는 LINQ 호출·무의미해진 `Include`) | 든다(`unix_timestamp()`·트리거·윈도 함수·JSON) | 든다(`EF.Functions.DateDiffDay`) |
+  | SQL 문면·방언 | 든다(원시 SQL 접근이 막힌다) | 든다(예약어가 된 열 이름) | 든다(`SQL dialects are different`) |
+  | 트랜잭션 의미론 | 든다 | **들지 않는다** | 든다 |
+  | 제약·격리 수준 | 든다 | 들지 않는다 | 들지 않는다 |
+  | 대소문자 비교 | 들지 않는다 | 들지 않는다 | 든다 |
+
+  **hauer 글에는 트랜잭션·격리·제약·원시 SQL이라는 낱말이 아예 없다.** 그 글의 논거는
+  기능 집합과 방언에만 서 있다.
 - **셋 다 실물 데이터베이스를 첫째 자리에 둔다.** hauer와 efcore는 컨테이너를 이름까지
   들어 권하고(`Docker`·`TestContainers`/`Testcontainers`), bogard는 자기 팀이 실물 통합
   테스트를 어차피 썼다고 적는다.
-- **셋 다 대역이 프로덕션 코드를 끌어당긴다고 적는다** — bogard의 "개발자가 SQL을 피하게
-  된다", hauer의 "프로덕션 코드를 H2 호환으로 바꾼다", efcore의 "공급자 고유 메서드를 쓴
-  질의는 테스트할 수 없다"가 같은 자리다.
+- **대역이 프로덕션 코드를 끌어당긴다는 논거는 둘만 든다** — bogard의 "개발자가 SQL을
+  피하게 된다"와 hauer의 "프로덕션 코드를 H2 호환으로 바꾼다"가 같은 자리다. **efcore는
+  거기까지 가지 않는다** — 공급자 고유 메서드를 쓴 질의는 **"cannot be tested"** 라고만
+  적고, 그래서 사람들이 그 메서드를 안 쓰게 된다는 말은 없다.
 
 ## 세 소스가 갈리는 자리
 
@@ -421,11 +438,10 @@ IEnumerable-returning repository methods, in order to be stubbed/mocked."**[^efc
     않았다"는 조건은 인메모리 공급자로 바꿔치기를 배제하지 못하기 때문이다. **이 묶음이
     그쪽 처방의 실행 층인 이유가 이것이다.**
 - **[실제 프로젝트에서 무엇이 목으로 대체되는가](../concepts/what-gets-mocked-in-practice.md)의
-  실측은 반대 방향이다.** 그쪽이 자바 넷의 의존 2,178건에서 `Database` 범주의 목 대체 비율을
-  재고, 그 값이 이 묶음의 처방과 가장 크게 어긋나는 자리다. **수치와 분모는 그 페이지에서
-  읽는다** — 이 페이지는 옮기지 않는다.
-  - **두 페이지의 격이 다르다.** 그쪽은 심사 실증이고 이 페이지는 실무 규범 셋이다.
-    **같은 무게로 인용하지 않는다.**
+  실측은 반대 방향이다.** 그쪽이 `Database` 범주 의존의 목 대체 비율을 재고 그 값이 이
+  묶음의 처방과 가장 크게 어긋난다. **수치와 분모는 그 페이지에서 읽는다** — 이 페이지는
+  옮기지 않는다. **격도 다르다** — 그쪽은 심사 실증이고 이 페이지는 실무 규범 셋이라
+  같은 무게로 인용하지 않는다.
 - **[테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md)와는
   방향이 같고 물러설 자리에서 갈린다.** 그쪽의 순서가 실물 · 가짜 · 스텁 · 상호작용 검증이고,
   이 묶음은 그 첫째 칸을 지지한다. **긴장은 둘째 칸에서 생긴다** — 실물이 느릴 때 가짜로
@@ -440,14 +456,12 @@ IEnumerable-returning repository methods, in order to be stubbed/mocked."**[^efc
     아니라, 조건이 만족되지 않은 가짜의 사례다.** #hypothesis 조건을 모두 만족한
     데이터베이스 가짜가 실제로 어떻게 되는지를 잰 자료는 이 KB에 없다.
 - **[가짜와 목](../concepts/fakes-versus-mocks.md)의 가짜 리포지터리가 efcore의 처방과 같은
-  층이다.** 그쪽 책은 몽키패치 대신 가짜 구현을 쓰라고 하고 그 가짜를 **리포지터리
-  층**(`FakeRepository`)에 둔다 — efcore가 대역이 필요할 때 첫째로 권하는 자리와 같다.
-  **두 문헌이 서로를 인용한 적은 없다.**
-  - **그러면서 같은 책이 이 묶음이 경고하는 일을 한다.** 그쪽 계열 페이지
-    [작업 단위 패턴](../concepts/unit-of-work-pattern.md)이 옮긴 문면대로, 그 책은
-    프로덕션을 포스트그레스로 두고 **통합 테스트에서는 SQLite를 쓸 수 있도록** 세션 팩토리를
-    덮어쓴다. **이 묶음의 세 소스가 정확히 그 배치를 문제 삼는다.** 어느 쪽이 옳은지를 잰
-    자료는 이 KB에 없다.
+  층이다.** 그쪽 책은 가짜를 **리포지터리 층**(`FakeRepository`)에 두는데, efcore가 대역이
+  꼭 필요할 때 첫째로 권하는 자리가 같다. **두 문헌이 서로를 인용한 적은 없다.**
+  - **그러면서 같은 책이 이 묶음이 경고하는 일을 한다.** [작업 단위 패턴](../concepts/unit-of-work-pattern.md)이
+    옮긴 문면대로 그 책은 프로덕션을 포스트그레스로 두고 **통합 테스트에서는 SQLite를 쓸 수
+    있도록** 세션 팩토리를 덮어쓴다 — 곧 다른 엔진이다. **어느 쪽이 옳은지를 잰 자료는 이
+    KB에 없다.**
 - **[테스트의 바람직한 성질 열둘](../concepts/test-desiderata.md)의 간섭 문장이 이 묶음의
   일반형이다.** 그쪽이 옮긴 문면은 예측력(Predictive)을 올리면 빠름(Fast)이 깎인다는 것이고,
   **왜 그런지는 그 소스가 적지 않는다.** 이 묶음이 그 자리에 사례를 준다 — 대역은 빠름을
