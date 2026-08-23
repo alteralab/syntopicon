@@ -3,7 +3,6 @@ type: concept
 title: 목 객체는 역할을 발견하기 위한 것이다
 description: 목 객체 기법을 만든 사람들이 그 기법의 목적을 무엇이라고 적었는가 — 이름이 잘못됐다는 자기 규정과 역할로 타입을 찾는다는 재규정, 필요에서 인터페이스를 끌어내는 need-driven development의 절차와 그것이 낳는 좁은 역할 인터페이스, 테스트를 거꾸로 쓰는 여섯 단계, "소유한 타입만 목하라"가 설계 변경 가능성 때문에 있다는 원래 근거, 저자들이 오해라고 이름 붙인 여섯 가운데 "목은 시스템 경계에서만 쓴다"와 "목이 리팩터링을 막는다" 둘, 도구가 기법을 강제하는 자리, 그리고 저자들이 스스로 적은 미해결과 이 논문에 측정이 없다는 사실
 generated: { by: "claude-opus-5", at: "2026-08-24T02:00:00Z" }
-status: draft
 contradicts: [what-to-replace-with-mocks]
 sources:
   - { id: freeman2004-mock-roles, resource: /it/sources/freeman2004-mock-roles.md }
@@ -156,7 +155,7 @@ sources:
   방향이 초록의 논지와 같다.
 - **널리 유통되는 변형과 문면이 다르다.** "Don't mock what you don't own"은 이 논문의 문면이
   아니다. 이 KB의 다른 페이지가 그 변형을 곁글 제목으로 쓰는데, **그 소스는 출처를 적지
-  않는다** — [가짜와 목](fakes-versus-mocks.md)이 그 자리다.
+  않는다** — [가짜와 목](../concepts/fakes-versus-mocks.md)이 그 자리다.
 
 ## 저자들이 오해라고 부르는 것
 
@@ -364,7 +363,7 @@ sources:
 - [대역 어휘와 두 TDD 스타일](test-double-vocabulary-and-tdd-styles.md) — 이 논문의 계보에
   **모키스트·런던 학파**라는 이름을 붙인 자리. 그 글이 두 스타일의 원전으로 이 저자들을
   지목하면서 판정을 유보한다
-- [가짜와 목](fakes-versus-mocks.md) — "가진 적 없는 것을 목하지 마라"를 곁글 제목으로
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — "가진 적 없는 것을 목하지 마라"를 곁글 제목으로
   쓰되 **출처를 적지 않는** 소스. 그 표어의 원문 형태가 이 페이지의
   [§4.1](#소유한-타입만-목한다--원래-근거)이고, **근거가 다르다** — 그쪽은 지저분한 하위
   시스템 위에 단순한 추상을 세우게 만드는 어림 규칙으로 쓰고, 이쪽은 설계를 바꿀 수 있게

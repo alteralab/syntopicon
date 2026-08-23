@@ -3,7 +3,6 @@ type: concept
 title: 실제 프로젝트에서 무엇이 목으로 대체되는가
 description: 대역 갈래의 처방들이 현장에서 지켜지는지를 잰 실증 둘 — 자바 넷의 의존 2,178건을 손으로 분류해 낸 범주별 목 비율과 데이터베이스 72%라는 그림 위치, 개발자가 목하는 이유와 목하지 않는 이유, 결합도와 복잡도로는 목 여부가 예측되지 않는다는 대조, 아파치 자바 193개 프로젝트의 프레임워크 채택률과 목이 촘촘하지 않다는 세 측정, 목 객체의 다수가 자기가 소유하지 않은 라이브러리 클래스를 대체한다는 값, 프레임워크 없이 상속으로 만드는 목, 설문 자기 보고와 채굴값이 크게 어긋난다는 자인, 그리고 저자들이 "무엇을 언제 목할 것인가"를 미해결로 명시한 문면
 generated: { by: "claude-opus-5", at: "2026-08-24T02:00:00Z" }
-status: draft
 sources:
   - { id: spadini2017-mocking-practices, resource: /it/sources/spadini2017-mocking-practices.md }
   - { id: xiao2024-mocking-frameworks, resource: /it/sources/xiao2024-mocking-frameworks.md }
@@ -313,7 +312,7 @@ Sonarqube에서는 면담할 개발자를 구하지 못했다고 적혀 있다.[
 | 데이터베이스는 managed 의존이므로 **실물을 쓴다** | [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md) | **어긋난다** — 표본 안 `Database` 의존의 **72%**가 목으로 대체된다(spadini 그림 2) |
 | 시스템 안 클래스 사이의 통신은 구현 세부이므로 **목하지 않는다** | 같은 페이지 | **부분적으로 어긋난다** — `Domain object` 의존의 **36%**가 목으로 대체된다(같은 그림). 저자들은 이것을 "뚜렷한 경향 없음"으로 읽는다 |
 | 목은 **통합 테스트에만** 둔다 | 같은 페이지 | **잴 수 없다** — 두 논문 다 테스트의 종류를 가르지 않는다. 둘째 논문은 JUnit 임포트로 테스트 파일을 식별하므로 통합 테스트가 섞인다고 §8에서 자인한다 |
-| 목이 가장 유용한 자리는 **시스템 안쪽**이다 | [목 객체는 역할을 발견하기 위한 것이다](mock-objects-for-role-discovery.md) | **어긋난다** — 아파치 목 객체의 **평균 61.1%**가 자기 패키지 **밖**의 라이브러리 클래스를 대체한다(xiao 표 5a) |
+| 목이 가장 유용한 자리는 **시스템 안쪽**이다 | [목 객체는 역할을 발견하기 위한 것이다](../concepts/mock-objects-for-role-discovery.md) | **어긋난다** — 아파치 목 객체의 **평균 61.1%**가 자기 패키지 **밖**의 라이브러리 클래스를 대체한다(xiao 표 5a) |
 | **소유한 타입만 목한다**(두 처방의 공통 지반) | 위 두 페이지 | **가장 크게 어긋난다** — 가장 많이 목으로 대체되는 클래스가 `javax.servlet.http.HttpServletRequest`(503회)이고 목록에 `java.util.Map`(100회)과 `java.io.File`(97회)이 든다(xiao 표 5b) |
 
 - **마지막 줄이 이 표에서 가장 강한 발견이다.** 논쟁하는 두 소스가 **유일하게 합의하는
@@ -352,15 +351,15 @@ Sonarqube에서는 면담할 개발자를 구하지 못했다고 적혀 있다.[
 - [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md) — 이 실측이 어긋나는 처방
   한쪽. **데이터베이스를 목으로 바꾸지 말라는 판정이 그 페이지의 중심이고, 이 페이지의
   그림 2가 반대 방향을 가리킨다**
-- [목 객체는 역할을 발견하기 위한 것이다](mock-objects-for-role-discovery.md) — 어긋나는
+- [목 객체는 역할을 발견하기 위한 것이다](../concepts/mock-objects-for-role-discovery.md) — 어긋나는
   처방 다른 쪽. **두 처방이 서로 모순하면서도 "소유한 타입만 목하라"에서는 합의하는데,
   이 페이지의 표 5b가 그 합의마저 어긴다**
-- [대역 어휘와 두 TDD 스타일](test-double-vocabulary-and-tdd-styles.md) — 두 처방이 서 있는
+- [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) — 두 처방이 서 있는
   지형과 그 이름. 그 글의 저자가 판정을 유보한 자리에 이 페이지가 **판정 대신 분포**를 놓는다
-- [테스트 대역 선호 순서와 규모 전제](test-double-preference-at-scale.md) — 같은 물음에
+- [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md) — 같은 물음에
   대규모 조직의 선호 순서로 답한 자리. 그쪽이 실물을 먼저 쓰라고 하고 이 페이지는 외부
   자원 의존에서 그 순서가 실제로는 뒤집혀 있음을 보인다
-- [가짜와 목](fakes-versus-mocks.md) — 목 대신 가짜를 쓰라는 다른 처방. 이 페이지의 둘째
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 목 대신 가짜를 쓰라는 다른 처방. 이 페이지의 둘째
   논문이 **프레임워크 없이 상속으로 만드는 목**을 세는데, 그것이 그 페이지가 말하는 가짜와
   같은 것인지는 두 소스가 답하지 않는다
 - [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md) — 처방들이
