@@ -1,0 +1,136 @@
+# 질문지 조각 — Luo, Hariri, Eloussi & Marinov 2014, "An Empirical Analysis of Flaky
+# Tests"(FSE'14). 승급. 2026-08-23, 스위트 운영 갈래의 셋째이자 마지막 반입.
+#
+# **각주 소스 둘의 조각을 여기 합쳤다.** micco2016-flaky(구글 테스팅 블로그)와
+# micco2017-ci(발표 슬라이드)는 정답 페이지가 같다 — 셋 다
+# concepts/flaky-test-root-causes-and-fixes.md 로 답한다. 조각을 따로 두면 같은 정답을
+# 세 파일이 주장하게 되므로 한 벌로 잰다.
+#
+# 이 반입이 만드는 검색 위험은 넷이다.
+#
+# 하나는 **"불안정"이라는 낱말이 이제 세 페이지에 걸린다**는 것이다. 새 페이지가 원인과
+# 고침을, concepts/google-test-sizes-and-suite-operations.md 가 운영 수치와 조직 조문을,
+# concepts/why-fewer-end-to-end-tests.md 가 피드백 루프의 성질 하나를 소유한다. 어느
+# 질문에 어느 쪽이 와야 하는지를 exact 넷과 x-1 이 가른다. 승급 시점에 이 갈래는
+# 셋으로 닫히므로 여기가 갈래 안 분업의 계측 지점이다.
+#
+# 둘은 **분모가 섞이는 것**이다. 이 반입은 서로 다른 분모의 백분율을 일곱 개 들여왔다.
+# 논문 쪽은 161/74/32/19 이고 각주 쪽은 테스트 실행/테스트 개수/전이 셋이다. 분모를
+# 물었을 때 엉뚱한 소스가 오면 다음 세션이 수치를 섞는다. exact-3 과 x-2 가 이 자리다.
+#
+# 셋은 **"순서 의존"이라는 낱말의 과부하**다. 승급 시점에 그 말은 KB의 여덟 페이지에
+# 있고 그중 일곱은 테스트와 무관하다(작업 단위·정확히 한 번 처리·시간 결합·전체 순서의
+# 한계·데이터 볼트 셋). 테스트 격리를 물었는데 그쪽이 오면 실패다. sem-2 가 이것을 잰다.
+#
+# 넷은 **원어 범주 이름이 검색 키로 서는가**다. Async Wait·Test Order Dependency·
+# waitFor·Marinov·intermit 은 승급 시점에 KB에서 이 계열 밖 0건이었다. 역어를 쓰지 않고
+# 원어를 유지한 판단이 검색에서 값을 내는지를 alias 셋이 잰다.
+#
+# cross-domain 셋이 이 조각의 계측 목적이다. x-1 은 갈래 세 페이지가 한 질의에 함께
+# 오는지를, x-2 는 관문 조건으로 배선된 쪽과 원인 쪽이 짝이 되는지를, x-3 은 판정자가
+# 에이전트가 되는 축과 닿는지를 잰다.
+source: luo2014-flaky
+added: 2026-08-23
+queries:
+  - id: luo-exact-1
+    query: "불안정 테스트의 원인 분류와 고침"
+    type: exact
+    description: "페이지 제목 그대로. 같은 갈래의 운영 수치 페이지가 아니라 이쪽이 1위여야 한다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-exact-2
+    query: "Async Wait Concurrency Test Order Dependency 상위 세 범주"
+    type: exact
+    description: "이 논문의 원어 범주 이름 셋. 승급 시점에 KB에서 이 계열 밖 0건이었다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-exact-3
+    query: "잠자기로 고친 불안정 테스트는 몇 건이 완전히 없어졌나"
+    type: exact
+    description: "표 4의 Remove 칸이 0이라는 결과. 이 페이지의 조항 근거이고 분모는 74다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-exact-4
+    query: "구글 불안정 비율 0.15퍼센트와 재실행 완화"
+    type: exact
+    description: "반대 방향의 대조 문항. 이쪽은 2020년 책 페이지가 1위여야 한다. 새 페이지가 이 자리를 뺏으면 갈래 안 분업이 무너진 것이다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: luo-alias-1
+    query: "Luo Hariri Eloussi Marinov An Empirical Analysis of Flaky Tests"
+    type: alias
+    description: "저자와 원문 제목. 승급 시점에 Marinov 는 KB에서 이 계열에만 있었다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-alias-2
+    query: "waitFor 로 바꾸면 불안정이 사라지는가"
+    type: alias
+    description: "고침 방식의 원어 이름. 승급 시점에 waitFor 는 KB에서 이 계열에만 있었다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-alias-3
+    query: "intermit flak 키워드로 커밋 로그를 뒤진 표본"
+    type: alias
+    description: "이 논문의 표본 구성 방식이자 저자들이 밝힌 재현율 한계. 승급 시점에 intermit 은 KB에서 이 계열에만 있었다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-alias-4
+    query: "4.2M 테스트 가운데 16퍼센트가 어느 정도 불안정하다"
+    type: alias
+    description: "각주 소스의 슬라이드 문면. 16퍼센트의 분모가 확정되는 자리다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-sem-1
+    query: "같은 코드인데 돌릴 때마다 결과가 달라지는 테스트는 왜 그런가"
+    type: semantic
+    description: "원인 축을 낱말 없이 물었다. 열 범주를 든 절이 답이다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-sem-2
+    query: "테스트끼리 상태를 공유해서 실행 순서에 따라 결과가 갈린다"
+    type: semantic
+    description: "격리 조항의 자리. 승급 시점에 순서 의존이라는 말은 KB의 여덟 페이지에 있고 일곱은 테스트와 무관하다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-sem-3
+    query: "테스트가 언제부터 불안정해지고 고치기까지 얼마나 걸리나"
+    type: semantic
+    description: "처음 쓰일 때부터 불안정한 것이 161건 중 126건이고 평균 388.46일이라는 결과 절이 답이다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-top-1
+    query: "실패한 테스트를 여러 번 다시 돌려 판정해도 되는가"
+    type: topical
+    description: "논문이 스스로 적은 재실행의 한계와 각주 소스의 10회 판정 절차가 함께 있는 자리다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-top-2
+    query: "불안정한 테스트는 그냥 지워도 되는가"
+    type: topical
+    description: "고침의 24퍼센트가 프로덕션 코드를 함께 고쳤다는 결과와 지우지 말라는 함의가 답이다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-top-3
+    query: "발표 슬라이드에 실린 수치를 논문 근거로 써도 되는가"
+    type: topical
+    description: "슬라이드 문면 표기 규약의 자리. 소스 메타가 정본이고 페이지가 그 지위를 적는다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md", "sources/micco2017-ci.md"]
+    expected_in_top_k: 5
+  - id: luo-x-1
+    query: "불안정한 테스트를 어떻게 다뤄야 하나"
+    type: cross-domain
+    description: "이 조각의 계측 문항 하나. 갈래 세 페이지가 함께 돌아와야 원인과 운영과 논거가 갈리지 않고 이어진다. 이번 런이 건 양방향 링크가 이 자리다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md", "concepts/google-test-sizes-and-suite-operations.md", "concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
+  - id: luo-x-2
+    query: "다섯 번 실행에서 매번 통과해야 한다는 관문"
+    type: cross-domain
+    description: "판정 규칙을 소유한 쪽과 원인을 소유한 쪽이 짝으로 걸려야 한다. 관문은 걸러 낼 뿐 원인을 갈라 주지 않는다"
+    expected_files: ["concepts/filter-chain-for-generated-tests.md", "concepts/flaky-test-root-causes-and-fixes.md"]
+    expected_in_top_k: 5
+  - id: luo-x-3
+    query: "에이전트가 만든 테스트의 불안정은 얼마나 재어졌나"
+    type: cross-domain
+    description: "언어 모델 시대의 공백을 적은 절과 검증자 분리 축이 함께 와야 그 자리가 이어진다"
+    expected_files: ["concepts/flaky-test-root-causes-and-fixes.md", "concepts/verifier-separation-in-agent-workflows.md"]
+    expected_in_top_k: 5
