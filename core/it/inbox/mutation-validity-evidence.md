@@ -147,8 +147,9 @@ sources:
   C의 CoREBench(Coreutils · Findutils · Grep · Make)와 자바의 Defects4J(JFreeChart ·
   Closure · Commons-Lang · Commons-Math · Joda-Time). 개발자 테스트에 KLEE · Randoop ·
   EvoSuite로 만든 테스트를 보태 큰 풀을 만들고 거기서 스위트를 뽑는다.
-  - 버전 조건: CoREBench와 Defects4J의 2018년 시점 판이고, 자바 쪽 뮤테이션 도구는
-    Major와 Pit이다.
+  - 버전 조건: CoREBench와 Defects4J의 2018년 시점 판이다. 뮤테이션 도구는 선행 연구
+    둘이 쓴 것을 그대로 썼고(3.4절), 자바 쪽은 Pit으로 다시 돌려 결과가 통계적으로
+    다르지 않음을 확인했다(6절).
   - **분석에 실제로 쓴 결함 수는 Defects4J 231개 · CoREBench 68개다** (3.2절과 4.4절).
     Defects4J 357개 중 126개는 실행 시간 때문에, CoREBench 70개 중 2개는 컴파일 실패로
     빠졌다. **Table 1의 `420`은 같은 논문 안에서 이 분모와 맞지 않으므로 이 페이지는
