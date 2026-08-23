@@ -3,7 +3,6 @@ type: concept
 title: 테스트의 바람직한 성질 열둘
 description: 테스트가 갖출 만한 성질 열둘을 한 줄 정의로 늘어놓고 그 성질들이 서로 지지하거나 간섭한다고 적은 한 쪽짜리 목록 — 열두 성질의 원문 정의와 이 KB가 고른 역어, 목록을 규범이 아니라 교환 재료로 규정하는 부제, 자동화가 빠름을 돕고 예측력이 빠름을 깎는다는 두 문장, 조합 가능성으로 빠름과 예측력을 함께 얻는다는 겉보기 간섭의 해소, 구조 둔감이 리팩터링 내성과 같은 성질인가의 판정과 두 서술이 서 있는 층의 차이, 행위 민감이 관찰 가능한 행위와 만나는 자리, 그리고 우선순위도 측정 방법도 없다는 이 목록의 한계
 generated: { by: "claude-opus-5", at: "2026-08-24T04:00:00Z" }
-status: draft
 sources:
   - { id: beck2019-test-desiderata, resource: /it/sources/beck2019-test-desiderata.md }
 ---
@@ -146,7 +145,7 @@ sources:
 | 어디 | 문면 | 무엇을 재는가 |
 |---|---|---|
 | 이 문서 | tests should not change their result if the structure of the code changes. | 결과의 불변 |
-| [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md) | the degree to which a test can sustain a refactoring of the underlying application code without turning red | 붉어지는 정도 |
+| [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md) | the degree to which a test can sustain a refactoring of the underlying application code without turning red | 붉어지는 정도 |
 
 - **문면이 다른 것을 재고 있다.** 이쪽은 결과가 바뀌지 않아야 한다는 **상태의 서술**이고,
   저쪽은 견디는 **정도(degree)**의 서술이다. 저쪽은 한 걸음 더 나가 그 정도를 거짓
@@ -211,7 +210,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md) — **이 목록의
+- [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md) — **이 목록의
   구조 둔감이 잣대로 승격된 자리.** 같은 방향의 서술을 네 속성 가운데 하나로 놓고 협상
   불가라고 판정하며, 그 판정의 근거와 사각을 함께 갖는다
 - [종단 테스트를 왜 줄이는가](why-fewer-end-to-end-tests.md) — 성질 셋으로 크기를 고르는
