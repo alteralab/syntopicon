@@ -2,7 +2,6 @@
 type: concept
 title: 대역 어휘와 두 TDD 스타일
 description: 테스트 대역을 부르는 말이 어떻게 갈리고 그 위의 스타일 선택이 무엇을 바꾸는가 — 하나로 뭉쳐 있던 것이 검증 방식의 구분과 TDD 스타일의 구분 둘로 갈라진 자리, 더미와 가짜와 스텁과 스파이와 목의 정의 다섯과 그 어휘의 진짜 소유자, 목만이 행위 검증을 요구하고 스텁은 양쪽 다 된다는 판정, 언제 대역을 쓰는가로 갈리는 클래시컬과 모키스트의 정의, 두 스타일이 갈리는 다섯 축과 각 축에서 서로가 서로를 무엇으로 비판하는가, 스타일과 무관하게 요구되는 것 하나, 그리고 이 구분을 지은 저자 자신이 판정을 유보했고 그 뒤로 개정 기록이 늘지 않았다는 사실
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-23T20:00:00Z" }
 sources:
   - { id: fowler2007-mocks-arent-stubs, resource: /it/sources/fowler2007-mocks-arent-stubs.md }
