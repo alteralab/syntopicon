@@ -1,0 +1,82 @@
+# 질문지 조각 — Beck "Test Desiderata"(testdesiderata.com, 2026-08-20 확보본)
+# 반입(2026-08-24, unit-design-doubles 갈래의 넷째 런). 한 쪽짜리 소스이고 페이지도 하나다.
+#
+# 이 소스가 만드는 검색 위험은 두 겹이다.
+# 첫째, **성질 이름이 흔한 낱말이다** — 빠름·격리·결정적·자동은 코퍼스 곳곳에 있고
+# `flaky-test-root-causes-and-fixes`·`why-fewer-end-to-end-tests`·
+# `google-test-sizes-and-suite-operations`가 같은 낱말을 더 많은 분량으로 쓴다. 그래서
+# exact 문항은 **이 페이지만 가진 형식**(성질이 열둘이라는 수, 세 관계 문장, 원문 정의의
+# 한국어 재서술)을 겨냥한다.
+# 둘째, **원어 열둘 가운데 코퍼스에서 이 페이지만 가진 것이 셋뿐이다**(Composable ·
+# Writable · Inspiring). 나머지는 다른 페이지와 겹치거나(Predictive는
+# predictive-analytics-and-algorithmic-harm) 이 런의 개정판과 겹친다(structure-insensitive는
+# resistance-to-refactoring-and-false-positives에도 들어갔다). alias 문항은 앞의 셋으로
+# 잡고, 겹치는 원어는 cross-domain으로 옮겨 **두 페이지가 함께 잡히는지**를 잰다.
+#
+# cross-domain 둘은 이 런이 실제로 건 접점이다. 하나는 양방향 링크(구조 둔감 ↔ 리팩터링
+# 내성)이고, 다른 하나는 **낱말이 같은데 가리키는 것이 다른 자리**(테스트끼리의 격리 ↔
+# 실패 위치 지목)다. 뒤엣것은 두 페이지가 섞이는지를 보는 문항이라 실패해도 병합 신호가
+# 아니다 — 이 KB가 두 뜻을 갈라 적어 둔 것이 맞는지의 확인이다.
+source: beck2019-test-desiderata
+added: 2026-08-24
+queries:
+  - id: desiderata-exact-1
+    query: "테스트의 바람직한 성질 열둘"
+    type: exact
+    description: "이 페이지의 제목이자 이 코퍼스에서 성질을 열둘로 세는 유일한 자리"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-exact-2
+    query: "구조가 바뀌면 테스트 결과가 바뀌지 않아야 한다"
+    type: exact
+    description: "구조 둔감의 정의를 한국어로 재서술한 문장 — 리팩터링 내성 페이지는 견디는 정도로 적으므로 문면이 다르다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-exact-3
+    query: "조합 가능성으로 테스트를 빠르면서 예측력 있게 만든다"
+    type: exact
+    description: "겉보기 간섭을 푸는 이 문서의 유일한 해법 문장 — 이 페이지에만 있다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-alias-1
+    query: "Composable"
+    type: alias
+    description: "원어 병기 — 코퍼스에서 이 원어를 가진 페이지는 이것 하나다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-alias-2
+    query: "Inspiring"
+    type: alias
+    description: "원어 병기 — 역어(확신을 줌)와 원어가 멀어서 원어 키가 살아 있는지를 본다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-sem-1
+    query: "실행하는 차례를 바꿔도 같은 답이 나와야 한다는 요구"
+    type: semantic
+    description: "패러프레이즈 — 격리·순서 의존·불안정 어휘 불사용. 불안정 테스트 페이지와 갈리는지를 본다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-sem-2
+    query: "다 통과했는데도 내보내기가 미덥지 않은 스위트"
+    type: semantic
+    description: "패러프레이즈 — 예측력과 확신을 줌 두 성질이 겨냥하는 상태. 성질 이름 불사용"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-top-1
+    query: "테스트를 운영에 가깝게 만들면 무엇을 잃나"
+    type: topical
+    description: "이 문서가 든 유일한 간섭 사례 — 예측력을 올리면 빠름이 깎인다"
+    expected_files: ["concepts/test-desiderata.md"]
+    expected_in_top_k: 5
+  - id: desiderata-x-1
+    query: "구조가 바뀌어도 결과가 그대로여야 한다는 요구는 리팩터링 내성과 같은 것인가"
+    type: cross-domain
+    description: "이 런이 건 양방향 링크 — 두 페이지가 함께 잡혀야 같은 방향 다른 층이라는 판정이 읽힌다"
+    expected_files: ["concepts/test-desiderata.md", "concepts/resistance-to-refactoring-and-false-positives.md"]
+    expected_in_top_k: 5
+  - id: desiderata-x-2
+    query: "테스트끼리의 격리와 실패 위치를 좁히는 일은 다른 말인가"
+    type: cross-domain
+    description: "낱말이 같은데 가리키는 것이 다른 자리 — 이 페이지와 종단 테스트 페이지가 그 갈림을 나눠 갖는다"
+    expected_files: ["concepts/test-desiderata.md", "concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
