@@ -1,0 +1,108 @@
+# 질문지 조각 — TDD 효과의 실증 세 편(Fucci TSE 2017 · Tosun ICSSP'18 · Fucci ESEM'16)
+# 반입(2026-08-24, unit-design-doubles 갈래의 일곱째·마지막 런). 신규 페이지 하나와 개정판
+# 셋이고, 신규 페이지는 `contradicts`로 묶인 두 극의 중재항이다(엣지는 걸지 않는다).
+#
+# 이 소스 묶음이 만드는 검색 위험은 네 겹이다.
+# 첫째, **TDD라는 낱말이 이 코퍼스에서 이미 붐빈다.** test-double-vocabulary-and-tdd-styles ·
+# tdd-high-gear-and-low-gear · test-to-code · self-testing-code가 전부 그 낱말을 쓰고, 그
+# 가운데 둘은 제목에 TDD를 달고 있다. 그래서 exact 문항은 낱말이 아니라 **이 페이지만 가진
+# 측정의 형태**(네 차원·순서 차원·부정 조건절)를 겨냥한다.
+# 둘째, **"순서"는 이 코퍼스에서 거의 전부 다른 뜻이다**(정렬·실행 순서·선호 순서). 그래서
+# 원어 sequencing을 alias로 따로 잡는다.
+# 셋째, **뮤테이션 점수가 다른 갈래의 소유물이다.** mutation-validity-evidence ·
+# assertions-predict-mutation-kills · coverage-predicts-mutation-kills가 그 낱말을 훨씬 많은
+# 분량으로 쓴다. 그래서 이 런의 뮤테이션 문항은 **TDD와 test-last를 견준다는 조건**을 함께
+# 건다.
+# 넷째, **중재항이라 양극과 함께 잡혀야 판정이 읽힌다.** cross-domain 문항 둘이 그 배선을
+# 잰다 — 하나는 두 극과 이 페이지가 함께 잡히는지, 다른 하나는 뮤테이션 점수의 조건 페이지와
+# 함께 잡히는지다.
+#
+# alias 문항은 코퍼스에서 이 페이지만 가진 원어·고유명으로 잡았다(sequencing · ICSSP ·
+# blind analysis).
+source: fucci2017-tdd-dissection
+added: 2026-08-24
+queries:
+  - id: fucci-tdd-exact-1
+    query: "TDD를 네 차원으로 쪼개어 잰 결과"
+    type: exact
+    description: "이 페이지의 중심 분해. 세분성·균일성·순서·리팩터링 노력을 한자리에 둔 곳은 여기뿐이다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-exact-2
+    query: "테스트를 먼저 쓰는 순서가 최종 회귀 모형에 남지 않았다"
+    type: exact
+    description: "이 소스의 핵심 결과 문면을 한국어로 재서술한 것 — 코퍼스에 이 주장을 담은 자리는 하나다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-exact-3
+    query: "순서의 효과가 없다는 결과를 test-last 우위로 읽으면 안 되는 이유"
+    type: exact
+    description: "corrections 4항이 요구한 부정 조건절. 이 페이지가 직인용으로 소유한다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-exact-4
+    query: "사이클 길이의 중앙값과 중앙값 절대편차로 개발 과정을 재는 방법"
+    type: exact
+    description: "세분성·균일성의 조작적 정의. 눈금과 범위를 함께 적은 자리는 이 페이지뿐이다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-exact-5
+    query: "모집 인원과 분석에 쓰인 표본 수가 다른 산업 실험"
+    type: exact
+    description: "corrections 2항이 요구한 구분. 24명 모집과 n 10~18의 분리를 이 페이지가 표로 갖는다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-alias-1
+    query: "sequencing granularity uniformity"
+    type: alias
+    description: "원어 병기 — 이 세 낱말이 함께 나오는 개념 페이지는 이것 하나다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-alias-2
+    query: "ICSSP"
+    type: alias
+    description: "게재처 정정의 대상 문자열. 대장이 ICSE-SEIP로 잘못 적고 있던 자리라 검색으로 잡혀야 한다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-alias-3
+    query: "blind analysis"
+    type: alias
+    description: "눈가림 분석의 원어 — 코퍼스에서 이 원어를 병기한 개념 페이지는 이것 하나다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-sem-1
+    query: "잘게 그리고 고르게 나아가는 것이 결과를 설명한다"
+    type: semantic
+    description: "패러프레이즈 — TDD·순서·차원 어휘 불사용. 최종 모형에 남은 것을 겨냥한다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-sem-2
+    query: "목적을 모르는 제3자가 자료를 뽑고 통계를 돌린 연구"
+    type: semantic
+    description: "패러프레이즈 — 눈가림·재현 어휘 불사용. 연구자 편향을 설계로 막은 절을 겨냥한다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-top-1
+    query: "TDD가 낫다는 주장을 실증은 무엇으로 재는가"
+    type: topical
+    description: "이 페이지의 하나의 질문. 결과 변수가 셋 다 다르다는 표를 겨냥한 주제 질의다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-top-2
+    query: "처치와 과제와 순서가 함께 움직이는 실험 설계의 한계"
+    type: topical
+    description: "이 런이 잡은 교란. 두 논문에 걸친 판정이라 한 절에만 있지 않다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-x-1
+    query: "단위 테스트 논쟁의 양극과 그 사이에 놓인 측정"
+    type: cross-domain
+    description: "중재항 배선 — 두 극과 이 페이지가 함께 잡혀야 이 KB가 논쟁을 정설로 두지 않는다는 판정이 읽힌다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md", "concepts/unit-testing-as-waste.md", "concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: fucci-tdd-x-2
+    query: "뮤테이션 점수로 두 개발 방식을 견줄 때 붙는 조건"
+    type: cross-domain
+    description: "갈래 밖 접점 — 이 런의 결과 변수가 기대는 타당성 페이지와 함께 잡히는지를 본다"
+    expected_files: ["concepts/empirical-evidence-on-tdd-effects.md", "concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
