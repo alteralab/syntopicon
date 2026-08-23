@@ -2,7 +2,6 @@
 type: concept
 title: 구글의 테스트 크기 어휘와 스위트 운영
 description: 크기를 자원 제약으로 정의하고 범위와 갈라 놓은 어휘의 정본 서술과 그 어휘를 10년 앞서 낸 블로그와의 차이, 단위 테스트 80퍼센트라는 비중이 측정이 아니라 다른 책의 피라미드에서 온 목표치라는 것, 불안정 비율 0.15퍼센트의 분모와 이 책에 없는 조문, 재실행 완화를 조건부로 승인하는 문면, 큰 테스트가 사내 지속 통합 관문 밖에 있다는 자인, 그리고 이 서술 전체가 기대는 규모 전제
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-23T14:00:00Z" }
 sources:
   - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }

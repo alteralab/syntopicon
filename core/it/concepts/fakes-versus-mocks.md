@@ -2,7 +2,7 @@
 type: concept
 title: 가짜와 목
 description: 테스트 대역 중 무엇을 쓸 것인가에 대한 이 소스의 입장과 그 근거 셋 — 몽키패치가 단위 테스트는 가능하게 하지만 설계는 개선하지 못한다는 첫째 이유, 목 테스트가 상호작용을 검증하므로 구현 세부에 결합된다는 둘째, 목 과용이 코드를 설명하지 못하는 테스트 모음을 낳는다는 셋째, 목과 가짜의 짧은 정의와 런던 학파 대 고전 학파의 대응, 테스트 가능성을 위한 설계가 곧 확장성을 위한 설계라는 판정, TDD를 테스트 실천이기 전에 설계 실천으로 보는 규정, 그리고 "가진 적 없는 것을 목하지 마라"가 강제하는 것
-generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T14:00:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
 ---
@@ -167,6 +167,11 @@ Out?"):[^percival2020]
 - [작업 단위 패턴](unit-of-work-pattern.md) — "가진 적 없는 것을 목하지 마라"가 나온 자리
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 가짜를 실제로
   꽂아 넣는 장치
+- [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md) —
+  같은 선택을 대규모 조직의 실무로 적은 다른 소스. 결론의 방향이 같다(상태 중심·실물
+  우선)지만 **논거가 다르다** — 이 책은 설계가 좋아지는가로 논증하고 저쪽은 규모에서
+  유지되는가로 논증한다. 저쪽이 가짜의 값어치를 사용자 수의 함수로 적는다는 것이 두
+  문헌을 함께 읽어야 하는 이유다
 - [자기 테스트 코드](self-testing-code.md) — 테스트 모음의 성질을 다루는 다른 소스
 - [테스트가 코딩을 이끈다](test-to-code.md) — 테스트가 설계를 이끈다는 같은 주장의 다른 판본
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —

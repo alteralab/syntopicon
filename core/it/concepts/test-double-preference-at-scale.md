@@ -2,7 +2,6 @@
 type: concept
 title: 테스트 대역 선호 순서와 규모 전제
 description: 실물을 먼저 쓰고 안 되면 가짜를 쓰며 스텁과 상호작용 검증을 뒤로 미룬다는 한 대규모 조직의 선호 순서와 그 각각의 조건, 가짜의 값어치를 사용자 수의 함수로 적은 문면, 한 API가 수만 번 목으로 대체될 때 생기는 문제와 그것을 막는 정적 분석 주석, 대역이 실물과 어긋날 때 큰 테스트가 받는 자리, 그리고 이 논거 전체가 기대는 규모 전제와 그것을 뗐을 때 남는 것
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-23T14:00:00Z" }
 sources:
   - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }
@@ -282,7 +281,7 @@ doubles").[^winters2020-swe-at-google]
 
 ## 이어지는 페이지
 
-- [구글의 테스트 크기 어휘와 스위트 운영](google-test-sizes-and-suite-operations.md) — 같은
+- [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md) — 같은
   책 11·12·14장. small의 제약이 대역을 요구하는 자리이고, 이 페이지는 그 요구에 무엇으로
   답하는지를 다룬다
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 다른 소스가 같은 선택을 다룬 자리. 그쪽은

@@ -2,10 +2,11 @@
 type: concept
 title: 현재 동작을 오라클로 쓴다는 것
 description: 기대값을 코드의 지금 동작에서 길어 올릴 때 무엇이 남고 무엇이 사라지는가 — LLM 이전에 이미 세워져 있던 실증 셋. 명세 없이 생성된 단정은 의도가 아니라 관측을 적는다는 기제, 커버리지는 크게 오르는데 결함 발견은 오르지 않았다는 97명 통제실험, 도구가 준 시작점에 사람이 머문다는 관찰, 리팩터링의 안전망 명제를 42명에게 걸었더니 더 빠르지도 더 좋지도 않았다는 통제실험, 그리고 코드를 되비추기만 하는 테스트에 붙은 이름과 그 해악 서술
-generated: { by: "claude-opus-5", at: "2026-08-22T11:10:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T14:00:00Z" }
 sources:
   - { id: fraser2015-user-study, resource: /it/sources/fraser2015-user-study.md }
   - { id: vonken2012-refactoring, resource: /it/sources/vonken2012-refactoring.md }
+  - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }
   - { id: eagle2015-change-detector, resource: /it/sources/eagle2015-change-detector.md }
 ---
 
@@ -324,6 +325,13 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   극단만이 아니라 **상호작용 검증이라는 흔한 형태로도 나타난다**는 것이 이 예의 요지다.
   본문의 코드 두 조각은 실행 가능한 언어가 아니라 의사코드라 이 페이지에 펜스로 옮기지
   않았다.
+- **같은 이름이 5년 뒤 같은 회사의 책에도 나온다** (13장 §"Prefer State Testing Over
+  Interaction Testing").[^winters2020-swe-at-google] 상호작용 검증을 과하게 쓴 테스트를
+  사내에서 농담처럼 `change-detector tests`라 부른다고 적고, 이유를 **동작이 그대로여도
+  프로덕션 코드가 바뀌면 실패하기 때문**으로 든다. 문면과 자리는
+  [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md)에
+  있다. **위 두 번째 예(목 호출 순서 검증)가 그 책에서 조문이 된 셈이다** — 그쪽은 상태
+  검증을 먼저 쓰고 상호작용 검증은 호출 횟수나 순서 자체가 동작일 때로 미루라고 적는다.
 
 ## 이 묶음이 지지하는 것과 지지하지 않는 것
 
@@ -400,6 +408,9 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
   처방의 전제를 잰 실증을 담는다. 그쪽 페이지의 caveat 두 자리(안전망 명제의 통제실험,
   변경 감지 테스트)가 이 페이지의 두 절을 가리킨다
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 기대값을 사람이 짓는 자리와 그 절차
+- [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md) —
+  같은 회사의 책이 `change-detector` 라는 이름을 다시 쓰면서 상호작용 검증을 언제만 쓸지
+  조문으로 적은 자리
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^fraser2015-user-study]: Fraser, Staats, McMinn, Arcuri & Padberg 2015, "Does Automated
@@ -438,3 +449,9 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
     인용하고 수치 주장의 근거로 쓰지 않는다. 확보본에 함께 담긴 독자 댓글 2건은 저자의
     글이 아니므로 인용하지 않았고, 본문의 의사코드 두 조각은 실행 가능한 언어가 아니라
     펜스로 옮기지 않았다. 원문이 거는 인쇄용 TotT 원본(Google Docs)은 확보하지 않았다.
+[^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,
+    *Software Engineering at Google*, abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23
+    열람본, 13장 `Test Doubles`(저자 Andrew Trenk·Dillon Bly) §"Prefer State Testing Over
+    Interaction Testing". **공개판 HTML에 쪽 번호가 없어 locator는 장 번호와 원문 절
+    제목이다.** 이 페이지는 이 책에서 `change-detector`라는 이름이 다시 쓰인다는 사실만
+    옮긴다 — 근거 등급은 `industry-norm`이고 측정이 아니다.
