@@ -501,6 +501,12 @@ sources:
 - [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md) —
   관문 3이 걸러 내는 것의 **원인 쪽**. 열 범주와 범주별 고침 분포가 거기 있고, 이 페이지의
   관문은 원인을 묻지 않고 버린다
+- [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md)
+  — 같은 신호를 관문이 아니라 운영으로 다루는 쪽. 재실행을 조건부로 승인하되 근본 원인의
+  해결을 미룰 뿐이라고 적은 자리가, 다섯 번 실행을 통과 조건으로 굳힌 이 페이지의 관문과
+  같은 선택의 두 판본이다
+- [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md) — 좋은 피드백 루프의
+  성질로 "믿을 만하다"를 든 논거 쪽. 그 성질이 이 페이지에서 관문의 문장으로 번역됐다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 페이지가 우회한 문제의 허브
 - [벤치마크와 수용 판정의 무결성](../synthesis/benchmark-and-acceptance-integrity.md) —
   이 갈래의 허브

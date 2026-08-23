@@ -344,6 +344,9 @@ Pyramid").[^wacker2015-e2e]
 - [커버리지 운용의 산업 권고](../concepts/coverage-operating-guidelines.md) — 같은 회사가
   커버리지를 어떻게 운용하라고 적었는가. 종단 테스트의 커버리지를 집계에서 빼라는 권고가
   이 글의 방향과 만난다
+- [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이 갈래의 허브. 이
+  페이지가 배합을 고르는 논거를 소유하고, 그 배합이 어느 어휘 위에 서는지와 불안정을
+  무엇으로 다루는지가 같은 자리에 모여 있다
 
 [^wacker2015-e2e]: Wacker 2015, "Just Say No to More End-to-End Tests",
     *Google Testing Blog*, 2015년 4월 22일 게시, 2026-08-23 열람본. **블로그 글이라 쪽

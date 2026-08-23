@@ -291,6 +291,15 @@ doubles").[^winters2020-swe-at-google]
   농담처럼 부르는 `change-detector test`에 이름을 붙이고 해악을 적은 같은 회사의 규범 글
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 13장이
   이음매(seam)를 만드는 흔한 기법으로 든 것의 실물
+- [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md) — "작게 생각하라"는
+  처방이 실제로 요구하는 것이 이 페이지의 선호 순서다. 그쪽이 왜 작아야 하는가를, 이 페이지가
+  작으려면 무엇을 세워야 하는가를 소유한다
+- [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md) —
+  실물이 드물게 불안정(flaky)을 일으키면 견디고 자주 일으키면 대역으로 바꾸라는 이 페이지의
+  판단이 어떤 원인들 위의 판단인가. 그쪽의 Network 범주 처방이 모의를 최선의 고침으로 들고,
+  이 페이지는 그 모의의 대가를 적는다
+- [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이 갈래의 허브. 작은
+  테스트를 성립시키는 자리로 이 페이지가 거기 든다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 형제 허브. 대역을 쓰면 기대값이
   무엇을 근거로 서는가가 그 축의 질문이다
 

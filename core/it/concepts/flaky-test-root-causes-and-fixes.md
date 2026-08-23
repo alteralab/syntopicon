@@ -369,7 +369,7 @@ sources:
   페이지가 원인과 고침을 소유하고 그쪽이 운영 목표와 조직 조문을 소유한다**
 - [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md) — 좋은 피드백
   루프의 성질 셋 가운데 "믿을 만하다"가 이 페이지의 원인 목록과 만나는 자리. 그 글이
-  밀폐 테스트로 불안정이 `entirely` 사라진다고 적은 대목의 반대편에, 이 페이지는 잠자기
+  밀폐(hermetic) 테스트로 불안정이 `entirely` 사라진다고 적은 대목의 반대편에, 이 페이지는 잠자기
   고침 20건이 하나도 불안정을 없애지 못했다는 표를 놓는다
 - [생성된 테스트의 필터 체인](../concepts/filter-chain-for-generated-tests.md) — 다섯 번
   실행에서 매번 통과해야 한다는 불안정 판정을 관문의 조건으로 쓴 산업 배선. **그 관문은
@@ -388,6 +388,8 @@ sources:
   자체가 불안정할 때의 자리. 위 절이 든 *Large Language Monkeys*가 그쪽 각주와 겹친다
 - [자바 스레드 스케줄링과 상태](../concepts/java-thread-scheduling-and-states.md) — 이
   페이지의 Concurrency 범주와 Async Wait 범주가 기대는 아래층 기제
+- [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이 갈래의 허브. 이
+  페이지가 그 갈래에서 유일한 심사 실증이고, 나머지는 조문과 운영 목표다
 - [테스트 스위트의 적절성](../synthesis/test-suite-adequacy.md) — 형제 허브. 스위트가
   충분히 조밀한가를 재는 쪽이고, 이 페이지는 그 스위트가 **같은 코드에 같은 답을 주는가**를
   다룬다
