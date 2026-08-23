@@ -2,7 +2,6 @@
 type: concept
 title: 뮤테이션 타당성을 정면으로 잰 여섯 편
 description: 뮤테이션 점수가 스위트 적절성의 눈금이 될 수 있다는 전제를 실증으로 시험한 심사 논문 여섯 편을 한 자리에 놓은 페이지 — 동등 뮤턴트가 점수의 천장을 깎는 비율, 스위트 크기를 통제하면 무너지는 실결함 상관, 포섭 뮤턴트가 만드는 점수 비교의 제1종 오류율, 커밋 관련 뮤턴트가 변경 바깥에 있는 비율, 결합 효과가 실제 결함에서 성립하는 비율, 실제 변경이 한 토큰이 아니라는 토큰 분포, 그리고 버그 수정 이력으로 잰 뮤테이션 점수의 예측력과 그 예측력이 문턱 이분에서만 남는다는 결과
-status: draft
 generated: { by: "claude-opus-5", at: "2026-08-23T07:30:00Z" }
 sources:
   - { id: yao2014-equivalent-stubborn, resource: /it/sources/yao2014-equivalent-stubborn.md }
@@ -390,7 +389,8 @@ hypothesis)이다. 이 논문은 실제 변경이 몇 토큰인지를 세어 그
   것이다 (5절).[^ahmed2016-testedness]
 - **변경분 한정에도 사각이 붙는다.** 그 페이지는 산업 사례의 변경분 한정을 "무엇을
   놓치는지 이 논문이 재지 않는다"로 남겨 두었다. **Ojdanić 외 2023이 그것을 잰
-  자리다** — 커밋 관련 뮤턴트의 81퍼센트가 변경 바깥이다.[^ojdanic2023-commit-relevant]
+  자리다** — 커밋 관련 뮤턴트의 81퍼센트가 변경 바깥이다
+  (5.1.2절 Figure 7).[^ojdanic2023-commit-relevant]
 
 ## 시대 지위 — 언어 모델이 만든 스위트에서
 
@@ -417,8 +417,9 @@ hypothesis)이다. 이 논문은 실제 변경이 몇 토큰인지를 세어 그
   근거이지 폐기의 근거가 아니다.**
 - **동등 뮤턴트 판정은 결정 불가능 문제다.** Yao 외의 946개는 사람의 판정이고 저자들이
   스스로 상한이라고 부른다 (3.3.1절).[^yao2014-equivalent-stubborn]
-- **버그 수정 라벨 둘이 기계 분류다.** Gopinath 외의 78.87퍼센트 정확도와 Ahmed 외의
-  버그 수정 F1 0.51이 그 층의 오차다.[^gopinath2014-mutations-real-faults][^ahmed2016-testedness]
+- **버그 수정 라벨 둘이 기계 분류다.** Gopinath 외의 78.87퍼센트 정확도
+  (3절 A절)[^gopinath2014-mutations-real-faults]와 Ahmed 외의 버그 수정 F1 0.51이
+  (3장 4절 Table 1) 그 층의 오차다.[^ahmed2016-testedness]
 - **대상이 좁다.** Papadakis 외 2016은 C 유틸리티 다섯, Ojdanić 외는 아파치 커먼즈
   다섯, Gay & Salahirad는 Defects4J의 자바 프로젝트 다섯, Yao 외는 C 프로그램 열여덟이다.
   **저자들 스스로 일반화 한계를 타당성 위협 절에 적는다.**
