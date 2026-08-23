@@ -2,7 +2,7 @@
 type: concept
 title: 생성된 테스트의 필터 체인
 description: 모델이 만든 테스트를 사람에게 보내기 전에 무엇이 거르는가를 Meta의 두 배포 보고로 읽는 자리 — 빌드·실행·반복 실행·커버리지의 네 관문과 그 순서, 각 관문이 결정적 도구이지 LLM이 아니라는 것, 관문마다 남는 비율과 집계 단위, 배포에서 엔지니어가 실제로 수용한 비율과 거절 사유, 그리고 후속 시스템이 수용 조건을 커버리지에서 결함 검출로 옮기면서 드러난 것 — 커버리지 필터였다면 버려졌을 테스트의 비율과 등가 뮤턴트를 판정하는 LLM 심판의 정밀도·재현율
-generated: { by: "claude-opus-5", at: "2026-08-23T05:50:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T18:00:00Z" }
 sources:
   - { id: alshahwan2024-testgen-llm, resource: /it/sources/alshahwan2024-testgen-llm.md }
   - { id: foster2025-ach, resource: /it/sources/foster2025-ach.md }
@@ -428,6 +428,10 @@ sources:
   five executions is deemed flaky`는 `simple, widely-used and effective`라는 말과 참고문헌
   둘로만 뒷받침되고, 다섯 번이 몇 번의 오판을 남기는지는 재지 않는다
   (§2, p.2).[^alshahwan2024-testgen-llm]
+  - **그 관문은 원인을 갈라 주지 않는다.**
+    [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md)이
+    옮긴 심사 실증은 결과가 뒤집힐 확률이 낮으면 몇 번 다시 돌려서는 드러나지 않는다고
+    적는다. 다섯 회를 통과한 것 가운데 무엇이 남았는지는 두 논문 어느 쪽도 재지 않았다.
 - **모델의 정체가 없다.** TestGen-LLM은 `LLM1`·`LLM2`가 상업적으로 민감하다며 아무것도
   밝히지 않는다 (각주 1, p.1).[^alshahwan2024-testgen-llm] **모델 판과 설정을 밝히라는
   [보고 규범](../concepts/llm-empirical-study-reporting-norms.md)의 요구가 여기서 지켜지지
@@ -494,6 +498,9 @@ sources:
 - [자기 수리의 피드백 병목](../concepts/self-repair-feedback-bottleneck.md) — 모델이 자기
   출력을 고칠 때 무엇이 병목인가. 이 페이지의 필터는 그 피드백을 사람이 아니라 인프라에서
   받는다
+- [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md) —
+  관문 3이 걸러 내는 것의 **원인 쪽**. 열 범주와 범주별 고침 분포가 거기 있고, 이 페이지의
+  관문은 원인을 묻지 않고 버린다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 페이지가 우회한 문제의 허브
 - [벤치마크와 수용 판정의 무결성](../synthesis/benchmark-and-acceptance-integrity.md) —
   이 갈래의 허브

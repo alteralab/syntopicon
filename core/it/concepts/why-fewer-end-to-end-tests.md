@@ -2,7 +2,7 @@
 type: concept
 title: 종단 테스트를 왜 줄이는가
 description: 테스트의 값어치를 실패 검출이 아니라 버그 수정으로 재고 좋은 피드백 루프의 성질 셋으로 크기를 고르는 2015년 구글 블로그의 논거 — 실패한 테스트는 사용자에게 이롭지 않다는 출발점, 빠름과 신뢰와 실패 위치 지목이라는 세 성질, 종단 테스트가 그 셋을 잃는 자리, 지어낸 사례라고 저자가 밝힌 날짜별 통과율 표, 제안의 문법으로 적힌 70/20/10과 같은 회사 2020년 책의 80/15/5와의 차이, 이 글에 없는 낱말, 그리고 판정자가 에이전트로 바뀐 뒤 반복 실패율을 분모와 함께 잰 산업 자기 보고
-generated: { by: "claude-opus-5", at: "2026-08-23T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-23T18:00:00Z" }
 sources:
   - { id: wacker2015-e2e, resource: /it/sources/wacker2015-e2e.md }
   - { id: gorbachov2026-agentic-testing, resource: /it/sources/gorbachov2026-agentic-testing.md }
@@ -86,6 +86,12 @@ loop)이고, 이상적인 루프에는 성질이 여럿 있다고 적으며 셋�
 
   > Flaky tests reduce the developer's trust in the test, and as a result flaky tests are
   > often ignored, even when they find real product issues.
+
+  **이 글은 불안정이 왜 생기는지도 어떻게 고치는지도 적지 않는다.** 그 자리를 채우는 심사
+  실증이 [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md)
+  이다 — 고침 커밋 201건을 정독해 원인을 열 범주로 나누고, 범주마다 어떤 고침이 불안정을
+  실제로 없앴는지를 센다. **이 글이 무시된다고 적은 그 테스트들이 프로덕션 코드의 버그를
+  드러내기도 한다는 것도 그쪽 실증이 세어 놓았다.**
 
 - **실패를 좁혀 준다** — 이 페이지에서 가장 많이 인용될 자리다
   (§"Building the Right Feedback Loop").[^wacker2015-e2e]
@@ -321,6 +327,10 @@ Pyramid").[^wacker2015-e2e]
 
 - [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md)
   — 같은 회사가 다섯 해 뒤에 낸 크기 어휘와 80/15/5. **수치를 인용하려면 그쪽으로 간다**
+- [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md) —
+  이 글이 성질 셋 가운데 "믿을 만하다"로만 적고 지나간 자리. **불안정이 무엇 때문에
+  생기고 무엇으로 없어지는가**를 고침 커밋의 분포로 센 심사 실증이고, 이 글의
+  `will remove flakiness entirely`가 서지 않는 이유를 잠자기 고침 20건의 결과가 보인다
 - [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md) —
   이 글이 "작게 생각하라"로 요구한 것을 실제로 하려면 무엇을 대역으로 세울 것인가
 - [생성된 테스트의 필터 체인](../concepts/filter-chain-for-generated-tests.md) — 다섯 번
