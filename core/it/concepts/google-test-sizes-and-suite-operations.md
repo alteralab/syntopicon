@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 구글의 테스트 크기 어휘와 스위트 운영
-description: 크기를 자원 제약으로 정의하고 범위와 갈라 놓은 어휘의 정본 서술과 그 어휘를 10년 앞서 낸 블로그와의 차이, 단위 테스트 80퍼센트라는 비중이 측정이 아니라 다른 책의 피라미드에서 온 목표치라는 것, 불안정 비율 0.15퍼센트의 분모와 이 책에 없는 조문, 재실행 완화를 조건부로 승인하는 문면, 큰 테스트가 사내 지속 통합 관문 밖에 있다는 자인, 그리고 이 서술 전체가 기대는 규모 전제
-generated: { by: "claude-opus-5", at: "2026-08-23T14:00:00Z" }
+description: 크기를 자원 제약으로 정의하고 범위와 갈라 놓은 어휘의 정본 서술과 그 어휘를 10년 앞서 낸 블로그와의 차이, 단위 테스트 80퍼센트라는 비중이 측정이 아니라 다른 책의 피라미드에서 온 목표치라는 것과 같은 회사가 다섯 해 앞서 낸 다른 배합, 불안정 비율 0.15퍼센트의 분모와 이 책에 없는 조문, 재실행 완화를 조건부로 승인하는 문면, 큰 테스트가 사내 지속 통합 관문 밖에 있다는 자인, 그리고 이 서술 전체가 기대는 규모 전제
+generated: { by: "claude-opus-5", at: "2026-08-23T16:00:00Z" }
 sources:
   - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }
   - { id: stewart2010-test-sizes, resource: /it/sources/stewart2010-test-sizes.md }
@@ -197,6 +197,14 @@ Stewart가 같은 세 이름을 표로 냈다.[^stewart2010-test-sizes]
 - **책이 배격하는 배합에는 이름이 붙어 있다** (11장 §"Test Scope").[^winters2020-swe-at-google]
   종단 테스트만 많고 통합·단위가 적은 `ice cream cone`, 종단과 단위는 많은데 통합이 적은
   `hourglass`. 뒤엣것은 의존을 따로 세우기 어렵게 만드는 강한 결합에서 생긴다고 적는다.
+  - **두 이름도 이 책이 처음이 아니다.** 같은 회사의 2015년 블로그가 같은 두 이름을 같은
+    뜻으로 쓴다 —
+    [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md)의 배합 절.
+- **같은 회사가 다섯 해 앞서 다른 배합을 냈다.** 2015년 블로그의 값은 70/20/10이고 어조는
+  `As a good first guess, Google often suggests`다. **이 책의 80/15/5와 수치가 다르고, 둘 다
+  측정이 아니라 제안이다.** 두 값의 차이와 집계 단위의 차이는
+  [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md)가 표로 소유한다 —
+  이 페이지는 이 책의 문면을, 그쪽은 그 배합을 고르는 논거를 소유한다.
 - **단위 테스트 편향의 이유도 규범 진술이다** (11장 §"Test Scope").[^winters2020-swe-at-google]
   큰 테스트는 제품이 자라는 동안의 **온전성 검사**이고
   `they should not be viewed as a primary method for catching bugs`라고 쓴다.
@@ -348,6 +356,10 @@ Stewart가 같은 세 이름을 표로 냈다.[^stewart2010-test-sizes]
 
 ## 이어지는 페이지
 
+- [종단 테스트를 왜 줄이는가](why-fewer-end-to-end-tests.md) — 같은 회사가 다섯 해 앞서 낸
+  70/20/10과 그 배합을 고르는 논거. 이 페이지가 "얼마나"의 문면을 소유하고 그쪽이 "왜 그
+  방향인가"를 소유한다. `entirely`라는 낱말로 불안정이 사라진다고 적은 2015년 글의 주장이
+  이 페이지의 0.15%와 겹쳐 읽히는 자리이기도 하다
 - [테스트 대역 선호 순서와 규모 전제](test-double-preference-at-scale.md) — 같은 책 13장.
   small의 제약을 만족시키려면 대역이 필요한데 무엇을 고를 것인가가 그쪽 질문이다
 - [커버리지 운용의 산업 권고](../concepts/coverage-operating-guidelines.md) — 같은 회사가
