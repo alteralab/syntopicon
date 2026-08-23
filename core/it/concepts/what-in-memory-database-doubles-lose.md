@@ -3,7 +3,6 @@ type: concept
 title: 인메모리 데이터베이스 대역이 잃는 것
 description: 데이터베이스 의존을 같은 엔진이 아닌 것으로 바꿔칠 때 무엇을 잃는가에 대한 세 문헌의 논거와 그 층 — 테스트를 두 벌 쓰게 되고 원시 SQL을 못 쓰고 API가 어긋나고 트랜잭션이 아무 일도 하지 않는다는 한 팀의 경험, 방언과 벤더 고유 기능의 차이가 초록 테스트를 프로덕션 실패로 만든 사례와 실물 데이터베이스를 컨테이너로 띄우라는 처방, 자기 제품의 인메모리 공급자를 highly discouraged로 표시하고 대신 리포지터리 층 대역과 SQLite 인메모리를 조건부로 권한 벤더 문서와 그 비교 표, 세 문헌 어디에도 금지 낱말이 없다는 층 판정, 그리고 실물 우선이라는 처방과 실제 관행이 반대라는 대조
 generated: { by: "claude-opus-5", at: "2026-08-24T06:00:00Z" }
-status: draft
 sources:
   - { id: bogard2020-in-memory-databases, resource: /it/sources/bogard2020-in-memory-databases.md }
   - { id: hauer2017-dont-use-in-memory-databases, resource: /it/sources/hauer2017-dont-use-in-memory-databases.md }

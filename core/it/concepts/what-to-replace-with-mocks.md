@@ -2,7 +2,7 @@
 type: concept
 title: 무엇을 목으로 대체할 것인가
 description: 목을 쓸 자리를 소유나 편의가 아니라 관찰 가능성으로 가르는 판정과 그 근거 — 대역 다섯을 목과 스텁 둘로 묶는 축, 스텁과의 상호작용을 단언하지 말라는 규칙과 과잉 명세, 내부 통신은 구현 세부이고 시스템 간 통신은 관찰 가능한 행위라는 판정, 프로세스 밖 의존을 managed와 unmanaged로 가르는 정의와 후방 호환이라는 근거, 둘 다인 의존과 실물을 쓸 수 없는 경우의 처방, 목을 통합 테스트에만 두고 시스템 가장자리에서 검증하며 소유한 타입만 목하라는 지침 넷, 저자가 고전 학파를 고르면서 그 학파도 이상적이지 않다고 적는 자리, 그리고 이 판정이 목 객체 원전과 갈리는 축과 갈리지 않는 공통 지반
-generated: { by: "claude-opus-5", at: "2026-08-24T02:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T06:00:00Z" }
 contradicts: [mock-objects-for-role-discovery]
 sources:
   - { id: khorikov2020-unit-testing, resource: /it/sources/khorikov2020-unit-testing.md }
@@ -168,6 +168,16 @@ sources:
 
   > Use real instances of managed dependencies; replace unmanaged dependencies with mocks.
 
+  - **그 "real instance"가 무엇인지는 이 책이 답하지 않는다.** 데이터베이스를 실물로 쓰라는
+    말이 **같은 엔진**을 뜻하는지, 인메모리(in-memory) 공급자(provider)나 다른 데이터베이스로
+    바꿔친 것도 실물로 치는지가 이 책의 주제가 아니다. 그 자리를 채운 문헌 셋이 이제 이 KB에
+    있다 —
+    [인메모리 데이터베이스 대역이 잃는 것](../concepts/what-in-memory-database-doubles-lose.md)이
+    그 페이지이고, **이 처방의 실행 층**이다.
+  - **그래서 이 처방을 문자 그대로 지키면서도 실패할 수 있다.** "목을 쓰지 않았다"는 조건이
+    인메모리 공급자로 바꿔치기를 배제하지 못하기 때문이다. 그쪽 세 소스가 잃는 것으로
+    드는 것이 트랜잭션 의미론·SQL 방언·제약과 격리 수준인데, **전부 이 책이 실물을 쓰라고
+    한 이유와 같은 층의 것**이다.
 - **연결 고리가 명시된다** (같은 절) — **"communications with managed dependencies are
   implementation details. Conversely, communications with unmanaged dependencies are part
   of your system's observable behavior."** 곧 이 구분은 위
@@ -433,6 +443,11 @@ success"**라고 적고 나머지를 여기 둔다(9장 도입).[^khorikov2020-u
 - [실제 프로젝트에서 무엇이 목으로 대체되는가](../concepts/what-gets-mocked-in-practice.md) —
   이 페이지의 판정과 실제 관행을 대조한 자리. **데이터베이스를 목으로 바꾸지 말라는 판정과
   가장 크게 어긋나는 값이 거기 있고, 그 논문 가운데 하나가 이 물음을 미해결로 적는다**
+- [인메모리 데이터베이스 대역이 잃는 것](../concepts/what-in-memory-database-doubles-lose.md) —
+  **이 페이지 처방의 실행 층.** 위 [managed 의존과 unmanaged 의존](#managed-의존과-unmanaged-의존)이
+  managed 의존에 실물을 쓰라고 판정하고, 그쪽이 그 "실물"을 같은 엔진으로 좁히며 세우는
+  방법(컨테이너)까지 적는다. **다만 근거의 격이 이 페이지와 같다** — 그쪽 세 소스도 전부
+  측정 없는 실무 규범이다
 - **아직 답이 없는 물음 하나**
   - **이 판정과 그 반대 판정 가운데 어느 쪽이 옳은가.** 두 소스 다 측정이 없고, 실증 둘은
     관행의 분포만 재었지 효과를 재지 않았다. **"시스템 안쪽 협력자를 목으로 검사한 테스트가
