@@ -3,7 +3,6 @@ type: concept
 title: 단위 테스트는 대부분 낭비인가
 description: 단위 테스트 대부분이 낭비라는 주장을 세운 한 편의 에세이와 그 논거가 어디서 무너지는가 — 동료심사 없는 뉴스레터라는 지위와 저자 자신의 한정 문면, 정보 이론과 계산 복잡도와 유지 비용과 심리라는 논거 넷, 같은 주장이 권고형 상자와 단정형 요약 불릿 두 층에서 다른 세기로 적힌 자리, 저자가 값어치를 인정한 예외 셋, 유일한 학술 인용을 반증으로 쓴 대목, 정보 이론 논거가 두 절 사이에서 서로를 무너뜨리는 자리와 그 아래 깔린 절단 표본 문제, 그리고 이 글에서 살아남는 방향 하나
 generated: { by: "claude-opus-5", at: "2026-08-24T07:00:00Z" }
-status: draft
 contradicts: [google-test-sizes-and-suite-operations]
 sources:
   - { id: coplien2014-unit-testing-waste, resource: /it/sources/coplien2014-unit-testing-waste.md }

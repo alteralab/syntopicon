@@ -1,5 +1,5 @@
 ---
-type: webpage
+type: report
 title: "Why Most Unit Testing is Waste"
 author:
   - { family: "Coplien", given: "James O." }
@@ -44,6 +44,10 @@ accessed: "2026-08-24"
   - 그러므로 **게재처 이름·호수·발행일을 이 소스의 문면으로 적을 수 없다.** 원 게재 주소가
     `rbcs-us.com`이라는 것과 본문의 `Rex`가 이 KB가 가진 전부이며, 그 둘을 이어 발행 주체를
     단정하는 것은 추론이지 문면이 아니다. `container-title`을 비워 둔 이유가 이것이다.
+  - **`type: report`은 기관 보고서라는 주장이 아니다.** 이 KB의 타입 열 가운데 쪽이 매겨진
+    자체 조판 PDF가 들어가는 자리가 그것이고(선례: `marick1999-coverage` — 같은 꼴의 실무자
+    PDF), 진행 기록의 단위를 쪽으로 둘 수 있게 하는 것도 그 타입이다. **발행 주체에 대한
+    주장은 이 필드에 없다.**
 - **저자의 자기 한정이 마지막 절에 있다**(§1.10):
 
   > As for the Internet: it's sad, and frankly scary, that there isn't much out there.
