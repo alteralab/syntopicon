@@ -1,0 +1,73 @@
+# 질문지 조각 — Freeman·Pryce·Mackinnon·Walnes, "Mock Roles, not Objects"(OOPSLA 2004)
+# 반입(2026-08-24, unit-design-doubles 갈래의 셋째 런). 신규 페이지 하나:
+#   concepts/mock-objects-for-role-discovery.md
+#
+# 이 소스가 만드는 검색 위험은 세 겹이다.
+# 첫째, **대역 어휘의 과밀이 이 갈래에서 최고조다** — fakes-versus-mocks ·
+# test-double-preference-at-scale · test-double-vocabulary-and-tdd-styles ·
+# what-to-replace-with-mocks가 이미 "목·스텁·가짜·대역"을 그대로 쓰고, 이 런이 같은 낱말로
+# 두 페이지를 더 넣는다. 그래서 exact 문항은 **이 논문만 가진 어휘**(역할 발견, need-driven
+# development, 소유한 타입만, 오해라고 부른 것)를 겨냥한다.
+# 둘째, **모순 상대와 정면으로 겹친다** — what-to-replace-with-mocks가 같은 주제를 반대
+# 판정으로 쓴다. exact·topical 문항 몇을 그 갈림에 걸어 어느 쪽이 어느 질문을 가져가는지
+# 본다. 한쪽이 다른 쪽 질문을 다 가져가면 그것은 페이지 경계 문제이지 질문 오류가 아니다.
+# 셋째, **원어가 이 페이지에만 있는 키가 둘이다**(need-driven development ·
+# Only Mock Types You Own). 원어를 역어로 옮기지 않기로 한 결정의 검색 대가를 alias 문항이
+# 직접 잰다.
+#
+# cross-domain 둘은 이 런이 실제로 건 링크를 겨냥한다 — 모순 엣지 하나와 표어 귀속 하나.
+source: freeman2004-mock-roles
+added: 2026-08-24
+queries:
+  - id: freeman-exact-1
+    query: "목 객체는 격리가 아니라 역할을 발견하기 위한 것이다"
+    type: exact
+    description: "이 논문의 중심 재규정 — 이 낱말 조합을 가진 페이지는 코퍼스에 이것 하나다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-exact-2
+    query: "목이 가장 유용한 자리는 시스템 경계가 아니라 시스템 안쪽이다"
+    type: exact
+    description: "모순의 축 문장 — 반대 판정을 쓰는 what-to-replace-with-mocks와 여기서 갈린다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-exact-3
+    query: "소유한 타입만 목하는 이유는 설계를 바꿀 수 있어야 하기 때문이다"
+    type: exact
+    description: "§4.1의 원래 근거 — 같은 지침을 다른 근거로 채택한 페이지와 갈라져야 한다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-alias-1
+    query: "need-driven development"
+    type: alias
+    description: "역어를 만들지 않고 원어를 유지하기로 한 결정의 검색 대가를 직접 잰다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-alias-2
+    query: "Only Mock Types You Own"
+    type: alias
+    description: "원문 절 제목 — 널리 퍼진 변형이 아니라 이 표기를 가진 페이지를 잡아야 한다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-sem-1
+    query: "아직 없는 협력자를 가짜로 세워 두고 필요한 인터페이스를 찾아 나가는 개발 방식"
+    type: semantic
+    description: "패러프레이즈 — 목·역할·발견 어휘 불사용. 이 논문 §2의 절차를 뜻으로만 묻는다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
+  - id: freeman-x-1
+    query: "목을 시스템 안쪽에 쓸 것인가 가장자리에만 쓸 것인가"
+    type: cross-domain
+    description: "이 런이 건 모순 엣지 — 양쪽 페이지가 함께 나와야 논쟁이 보인다"
+    expected_files:
+      - "concepts/mock-objects-for-role-discovery.md"
+      - "concepts/what-to-replace-with-mocks.md"
+    expected_in_top_k: 5
+  - id: freeman-x-2
+    query: "가진 적 없는 것을 목하지 마라는 표어의 원문 형태와 그것을 출처 없이 쓴 책"
+    type: cross-domain
+    description: "이 런이 정정한 귀속 — 원전 페이지와 그 표어를 곁글 제목으로 쓰는 페이지의 접점"
+    expected_files:
+      - "concepts/mock-objects-for-role-discovery.md"
+      - "concepts/fakes-versus-mocks.md"
+    expected_in_top_k: 5

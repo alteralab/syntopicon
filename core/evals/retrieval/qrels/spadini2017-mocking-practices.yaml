@@ -1,0 +1,40 @@
+# 질문지 조각 — Spadini et al., "To Mock or Not To Mock?"(MSR 2017)
+# 반입(2026-08-24, unit-design-doubles 갈래의 셋째 런). 이 소스와 xiao2024-mocking-frameworks가
+# 한 페이지를 함께 세운다: concepts/what-gets-mocked-in-practice.md
+#
+# 이 소스가 만드는 검색 위험은 둘이다.
+# 첫째, **한 페이지를 소스 둘이 나눠 쓰므로 어느 질문이 그 페이지를 부르는지 갈라 보아야
+# 한다** — 이 조각은 spadini 쪽 어휘(범주별 목 비율·면담·설문·코드 지표)를 겨냥하고,
+# xiao 조각은 저쪽 어휘(아파치·프레임워크 채택률·라이브러리 클래스)를 겨냥한다.
+# 둘째, **처방 페이지들과 어휘가 거의 같다** — "데이터베이스를 목한다"는 문장이
+# what-to-replace-with-mocks에도 있다(금지의 형태로). 실측을 묻는 질문이 처방 페이지로
+# 새는지 여기서 본다.
+source: spadini2017-mocking-practices
+added: 2026-08-24
+queries:
+  - id: spadini-exact-1
+    query: "실제 프로젝트에서 데이터베이스 의존은 얼마나 목으로 대체되나"
+    type: exact
+    description: "이 소스의 대표 실측 — 실측을 묻는 질문이 처방 페이지로 새는지 본다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: spadini-exact-2
+    query: "결합도와 복잡도로는 어떤 클래스를 목할지 예측되지 않는다"
+    type: exact
+    description: "§V.C의 음성 결과 — 이 코퍼스에서 이 페이지만 가진 발견이다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: spadini-sem-1
+    query: "개발자들은 목이 설계 문제를 가린다고 말하면서도 실제로는 많이 쓴다"
+    type: semantic
+    description: "면담 진술과 코드가 갈리는 이 페이지의 반복 모양. 어휘 겹침 없이 뜻으로만 묻는다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: spadini-x-1
+    query: "데이터베이스를 실물로 쓰라는 처방과 실제 관행은 어긋나는가"
+    type: cross-domain
+    description: "이 런이 건 대조 링크 — 실측 페이지와 처방 페이지가 함께 나와야 한다"
+    expected_files:
+      - "concepts/what-gets-mocked-in-practice.md"
+      - "concepts/what-to-replace-with-mocks.md"
+    expected_in_top_k: 5

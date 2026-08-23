@@ -1,0 +1,47 @@
+# 질문지 조각 — Xiao et al., "An empirical study on the usage of mocking frameworks in
+# Apache software foundation"(EMSE 29:39, 2024)
+# 반입(2026-08-24, unit-design-doubles 갈래의 셋째 런). spadini2017-mocking-practices와 함께
+# 한 페이지를 세운다: concepts/what-gets-mocked-in-practice.md
+#
+# 이 조각이 겨냥하는 것은 셋이다.
+# 첫째, **이 논문만 가진 어휘**(아파치·모킹 프레임워크 채택률·라이브러리 클래스 비율·
+# 프레임워크 없이 만드는 목). spadini 조각과 겹치지 않게 갈랐다.
+# 둘째, **"미해결로 명시했다"는 사실 자체**가 이 KB에서 이 페이지만 가진 것이다 — 논쟁을
+# 정설로 오인하지 않으려면 그 문면이 검색으로 닿아야 한다.
+# 셋째, **두 처방이 유일하게 합의한 지침마저 관행이 어긴다**는 대조. cross-domain 문항이
+# 그 접점을 잰다.
+source: xiao2024-mocking-frameworks
+added: 2026-08-24
+queries:
+  - id: xiao-exact-1
+    query: "무엇을 언제 목할 것인가는 아직 열린 연구 문제다"
+    type: exact
+    description: "2024년 심사 논문의 미해결 선언 — 이 KB에서 이 페이지만 가진 사실이다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: xiao-exact-2
+    query: "목 객체의 다수가 자기 패키지 밖 라이브러리 클래스를 대체한다"
+    type: exact
+    description: "표 5a의 대표값 — 소유한 타입만 목하라는 지침과 정면으로 어긋나는 자리"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: xiao-alias-1
+    query: "mocking framework adoption Apache"
+    type: alias
+    description: "원어 병기 — 이 원어 조합을 가진 페이지는 코퍼스에 이것 하나다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: xiao-top-1
+    query: "모킹 프레임워크를 안 쓰고 상속으로 테스트 대역을 만드는 관행"
+    type: topical
+    description: "RQ5 — 가짜를 다루는 fakes-versus-mocks와 겹칠 자리"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5
+  - id: xiao-x-1
+    query: "논쟁하는 두 처방이 유일하게 합의한 지침을 현장이 지키는가"
+    type: cross-domain
+    description: "이 런의 핵심 대조 — 실측 페이지와 원전 페이지가 함께 나와야 한다"
+    expected_files:
+      - "concepts/what-gets-mocked-in-practice.md"
+      - "concepts/mock-objects-for-role-discovery.md"
+    expected_in_top_k: 5
