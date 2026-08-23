@@ -1,0 +1,142 @@
+# 질문지 조각 — 뮤테이션 타당성 실증 일곱 편(저자 여섯 갈래) 승급. 2026-08-23,
+# 스위트 평가 갈래의 여섯째이자 마지막 반입. 런 2026-08-23-06.
+#
+# **조각 하나에 소스 일곱이 들어간다.** 정답 페이지가 전부
+# `concepts/mutation-validity-evidence.md` 하나이기 때문이다(kb_form: bundle). 소스당
+# 한 조각이라는 관례를 깨는 자리이므로 여기 이유를 적는다 — 조각을 일곱으로 쪼개면
+# 같은 정답을 겨눈 문항이 일곱 파일에 흩어지고, 어느 소스의 어휘가 검색을 끌어오는지가
+# 파일 경계로 가려진다. 대신 문항 id 접두를 소스별로 갈랐다(mvalid-yao-* 꼴).
+#
+# 소스 일곱: yao2014-equivalent-stubborn · papadakis2018-mutation-scores ·
+# papadakis2016-subsuming · ojdanic2023-commit-relevant · gay2023-operator-coupling ·
+# gopinath2014-mutations-real-faults · ahmed2016-testedness
+#
+# 이 조각이 재는 것은 **직전 런이 세운 페이지와 이 페이지가 갈리는가**다. 둘은 짝이고
+# (원전·산업 기록 ↔ 심사 실증) 같은 낱말을 많이 나눠 갖는다. 갈리지 않으면 뮤테이션을
+# 물었을 때 언제나 한쪽만 나온다.
+#
+# 승급 시점의 어휘 지형(concepts + synthesis 기준, 이 페이지 제외):
+#   · `뮤테이션 점수` 8페이지 — 가장 붐빈다. 여덟 중 여섯은 이 낱말을 종속변수로 쓰고,
+#     mutation-testing-not-a-final-arbiter와 이 페이지만 그 종속변수 자체를 겨눈다.
+#   · `동등 뮤턴트` 3페이지 · `결합 효과`와 `coupling effect` 2페이지 —
+#     직전 런이 들여온 낱말이라 이 페이지가 둘째 사용자다. 그래서 이 낱말들의 문항은
+#     "찾히는가"가 아니라 "짝의 어느 쪽이 오는가"를 잰다.
+#   · `유능한 프로그래머` · `competent programmer` · `stubborn` 1페이지(직전 런) —
+#     역시 짝 구분 문항이다.
+#   · `제1종 오류` · `Type I error` · `커밋 관련` · `Defects4J` 0페이지 —
+#     이 페이지가 처음 들여온다. 실패하면 어휘 간섭이 아니라 색인 미부착이다.
+#   · `포섭` 1페이지인데 도메인이 다르다(term-based-retrieval의 용어 포섭).
+#     mvalid-x-3이 그 끌림을 잰다.
+source: mutation-validity-evidence
+sources:
+  - yao2014-equivalent-stubborn
+  - papadakis2018-mutation-scores
+  - papadakis2016-subsuming
+  - ojdanic2023-commit-relevant
+  - gay2023-operator-coupling
+  - gopinath2014-mutations-real-faults
+  - ahmed2016-testedness
+added: 2026-08-23
+queries:
+  - id: mvalid-exact-1
+    query: "뮤테이션 타당성을 정면으로 잰 여섯 편"
+    type: exact
+    description: "페이지 제목 그대로. 뮤테이션을 다루는 여덟 페이지 가운데 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-yao-exact-1
+    query: "생성한 뮤턴트의 23퍼센트가 동등 뮤턴트였다"
+    type: exact
+    description: "Yao 3.3.1절의 총계. 동등 뮤턴트를 쓰는 세 페이지 가운데 실측 비율을 가진 것은 이 페이지뿐이다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-yao-sem-1
+    query: "어떤 테스트로도 죽일 수 없는 변형이 점수의 천장을 낮춘다"
+    type: semantic
+    description: "동등 뮤턴트라는 낱말 없이 그 내용을 물었다. 원전 페이지와 함께 와도 되지만 실측을 가진 이 페이지가 top 5에는 있어야 한다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-pap18-exact-1
+    query: "스위트 크기를 통제하면 뮤테이션 점수와 실제 결함 검출의 상관이 무너진다"
+    type: exact
+    description: "Papadakis 2018의 결론. 같은 논증의 커버리지판을 담은 페이지와 갈려야 한다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-pap18-alias-1
+    query: "all correlations become weak or moderate in the best case"
+    type: alias
+    description: "7절 결론의 원문 표기. 역어가 흔들려도 이 키로 잡혀야 한다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-pap16-exact-1
+    query: "포섭 뮤턴트 때문에 뮤테이션 점수 비교가 제1종 오류를 낸다"
+    type: exact
+    description: "제1종 오류는 승급 시점에 이 페이지가 처음 들여오는 낱말이다. 실패하면 어휘 간섭이 아니라 색인 미부착이다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-pap16-top-1
+    query: "기여하는 뮤턴트가 전체의 몇 퍼센트인가"
+    type: topical
+    description: "0.4에서 4.8퍼센트가 답이다. 나머지가 잉여라는 사실이 점수 게이트 금지의 첫째 근거다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-ojd-exact-1
+    query: "커밋과 관련 있는 뮤턴트의 81퍼센트가 커밋 변경 바깥에 있다"
+    type: exact
+    description: "방향이 뒤집히기 쉬운 수치다. 커밋 관련이라는 낱말은 이 페이지가 처음 들여온다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-ojd-sem-1
+    query: "바뀐 줄에만 변형을 심으면 무엇을 놓치는가"
+    type: semantic
+    description: "변경분 한정의 사각. 산업 운영 기록 페이지가 재지 않고 넘긴 자리를 이 페이지가 받는다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-gay-exact-1
+    query: "실제 결함에 강하게 결합하는 뮤턴트는 열에 하나다"
+    type: exact
+    description: "Gay와 Salahirad의 9.92퍼센트. 결합 효과의 성립률을 가진 유일한 페이지다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-gop-exact-1
+    query: "실제 버그 수정은 평균 네 토큰을 건드린다"
+    type: exact
+    description: "유능한 프로그래머 가설의 구문 반박. 토큰은 122페이지가 쓰는 흔한 낱말이라 붐비는 자리다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-gop-alias-1
+    query: "competent programmer hypothesis may not be applicable syntactically"
+    type: alias
+    description: "6절 논의의 판정. 같은 낱말을 명명의 출처 쪽에서 쓰는 원전 페이지와 갈려야 한다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-ahmed-top-1
+    query: "잘 테스트된 코드가 정말 나중에 덜 고쳐지는가"
+    type: topical
+    description: "Ahmed의 물음. 종속변수를 뮤턴트 킬이 아니라 이후 버그 수정으로 바꾼 유일한 자리다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-ahmed-sem-1
+    query: "점수의 작은 차이로 스위트를 견주지 말고 문턱으로 가르라"
+    type: semantic
+    description: "낮은 단일 문턱 이분 판정의 실증 근거. 이 KB의 처방이 아니라 논문의 처방이 된 자리다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
+  - id: mvalid-x-1
+    query: "뮤테이션 게이트를 최종 심급에서 끌어내리는 근거는 무엇인가"
+    type: cross-domain
+    description: "이 조각의 계측 문항. 짝이 함께 와야 한다 — 원전과 산업 기록 쪽, 그리고 심사 실증 쪽"
+    expected_files: ["concepts/mutation-validity-evidence.md", "concepts/mutation-testing-not-a-final-arbiter.md"]
+    expected_in_top_k: 5
+  - id: mvalid-x-2
+    query: "지표와 결함 검출의 상관이 스위트 크기가 만든 착시인 경우"
+    type: cross-domain
+    description: "커버리지판과 뮤테이션판이 짝으로 와야 한다. 같은 논증을 다른 지표에 적용한 두 자리다"
+    expected_files: ["concepts/mutation-validity-evidence.md", "concepts/coverage-confounded-by-suite-size.md"]
+    expected_in_top_k: 5
+  - id: mvalid-x-3
+    query: "하나가 다른 하나를 포섭하면 뒤엣것은 세지 않는다"
+    type: cross-domain
+    description: "포섭은 승급 시점에 검색 쪽 용어 페이지가 다른 뜻으로 쓴다. 뮤턴트 포섭이 그 끌림을 이기는지 잰다"
+    expected_files: ["concepts/mutation-validity-evidence.md"]
+    expected_in_top_k: 5
