@@ -53,8 +53,8 @@ refactoring) 하나만은 협상 불가로 못 박은 뒤, 거기서 "무엇을 
 - 표지 파일이 `MEAP VERSION 3`을 인쇄한다. EPUB 패키지 메타의 제목도
   **"Unit Testing: Principles, Practices, and Patterns MEAP V03"**이다.
 - **판권면이 없다.** 그래서 확보본 문면에는 **ISBN도 발행 연도도 없다.** frontmatter의
-  `issued: "2020"`은 최종 인쇄판의 발행 연도로 대장(`verify-ingest/queue.yaml`)이 기재한
-  값이고, **확보본 문면에서 확인된 값이 아니다.** ISBN은 확인할 수 없어 적지 않았다.
+  `issued: "2020"`은 최종 인쇄판의 발행 연도로 반입 판정 대장이 기재한 값이고,
+  **확보본 문면에서 확인된 값이 아니다.** ISBN은 확인할 수 없어 적지 않았다.
   EPUB 패키지가 심은 제작 타임스탬프는 `2019-10-15`다.
 - **본문은 1~11장 전부와 4부 도비라를 담고 있다.** 브리프 목차(`Brief Table of Contents`)와
   실제 파일이 일치한다. 결락 장은 없다.
