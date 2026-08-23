@@ -1,0 +1,40 @@
+# 질문지 조각 — Hauer, "Don't use In-Memory Databases (H2, Fongo) for Tests"
+# (phauer.com, 2017 게시 · 2022 갱신, 2026-08-20 확보본)
+# 반입(2026-08-24, unit-design-doubles 갈래의 다섯째 런). 세 소스가 한 페이지를 세운다:
+# concepts/what-in-memory-database-doubles-lose.md
+#
+# 이 조각이 겨냥하는 것은 셋이다.
+# 첫째, **이 소스만 가진 고유 명사**다 — `H2` · `Fongo` · `TestContainers`가 그것이고,
+# 코퍼스에서 이 페이지에만 있다(`Testcontainers` 표기는 kafka-streams-architecture에도 있어
+# 경쟁이 실재한다 — alias 문항이 그 경쟁을 잰다).
+# 둘째, **이 묶음에서 유일하게 구체적인 실패 사례**다 — 예약어가 된 열 이름 때문에 초록
+# 테스트가 프로덕션에서 깨진 일화.
+# 셋째, **처방 층**이다. 세 소스 가운데 무엇으로 바꾸라는 데까지 가는 것은 이 소스뿐이므로
+# topical 문항을 거기 건다.
+source: hauer2017-dont-use-in-memory-databases
+added: 2026-08-24
+queries:
+  - id: inmem-hauer-alias-1
+    query: "Fongo"
+    type: alias
+    description: "원어 병기 — 코퍼스에서 이 낱말을 가진 페이지는 이것 하나다"
+    expected_files: ["concepts/what-in-memory-database-doubles-lose.md"]
+    expected_in_top_k: 5
+  - id: inmem-hauer-alias-2
+    query: "TestContainers"
+    type: alias
+    description: "원어 병기 — 두 소스가 표기를 달리 쓰는 도구(TestContainers/Testcontainers)이고 뒤엣것은 카프카 스트림즈 페이지에도 있다. 경쟁 아래에서 이 페이지가 잡히는지를 본다"
+    expected_files: ["concepts/what-in-memory-database-doubles-lose.md"]
+    expected_in_top_k: 5
+  - id: inmem-hauer-exact-1
+    query: "예약어가 된 열 이름 때문에 초록 테스트가 프로덕션에서 깨졌다"
+    type: exact
+    description: "이 묶음에서 유일하게 구체적인 실패 사례 — MySQL 5.7.6의 virtual 예약어"
+    expected_files: ["concepts/what-in-memory-database-doubles-lose.md"]
+    expected_in_top_k: 5
+  - id: inmem-hauer-top-1
+    query: "테스트에서 실물 데이터베이스를 어떻게 세우나"
+    type: topical
+    description: "세 소스 가운데 처방 층까지 가는 것은 이 소스뿐이다 — 컨테이너를 테스트가 관리할지 빌드가 관리할지"
+    expected_files: ["concepts/what-in-memory-database-doubles-lose.md"]
+    expected_in_top_k: 5
