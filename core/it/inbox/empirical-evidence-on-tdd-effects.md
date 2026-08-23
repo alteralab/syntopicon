@@ -96,8 +96,10 @@ test-last(incremental test-last, ITL), Tosun 2018은 같은 것을 ITLD로 적�
     (§4.2·§2).[^fucci2017-tdd-dissection] **이 페이지가 "통제 실험이 TDD를
     반증했다"고 적지 않는 이유가 이 문장이다.**
   - 관측된 순서 값 자체가 낮다 — SEQ의 중앙값이 33.33이고 3사분위수가 47.33이다
-    (Table 5, n=82).[^fucci2017-tdd-dissection] **참가자들은 TDD 과제에서도 사이클의 절반
-    아래만 test-first로 갔다.**
+    (Table 5, n=82). §5.1의 서술도 같다 — **상위 사분위의 참가자조차 사이클의 대략
+    절반만 test-first로 갔다.**[^fucci2017-tdd-dissection] **이 값은 두 처치의 관측을
+    합친 것이므로 "TDD 과제에서 얼마였는가"의 답이 아니다** — 이 논문은 그 분해를
+    내놓지 않는다.
 
 ## 순서 차원은 최종 모형에 남지 않는다
 
