@@ -6,8 +6,12 @@
 # 형제(benchmark-test-inadequacy)와 오라클 계열(current-behaviour-as-oracle)이라, 뮤테이션
 # 문항은 반드시 이 페이지의 결과와 묶어 던진다. 둘째, `등가`는 42곳이 쓰는 일반 낱말이라
 # 단독으로 쓰지 않고 `등가 뮤턴트`로만 쓴다.
-# 뮤테이션 테스팅 자체의 지위를 다루는 페이지는 아직 KB에 없다(suite-assessment 갈래).
-# 그래서 이 조각은 뮤테이션 이론을 묻지 않고, **이 배포가 실제로 잰 것**만 묻는다.
+# 뮤테이션 테스팅 자체의 지위는 이 조각이 묻지 않는다 — **이 배포가 실제로 잰 것**만 묻는다.
+# 2026-08-23(suite-assessment 갈래 마감, 런 2026-08-23-07) 갱신: 그 지위를 다루는 페이지가
+# 갈래로 서면서 `mutation testing`을 인쇄하는 페이지가 넷으로 늘었다. 그 낱말만으로 이
+# 페이지를 가리키던 `ach-alias-2`는 자기 description이 적어 둔 전제("아직 뮤테이션 전용
+# 페이지가 없으므로")가 무너져 전 레그 미회수가 됐고, 이 페이지에만 인쇄된 원어 표기로
+# 교체했다.
 source: foster2025-ach
 added: 2026-08-22
 queries:
@@ -54,9 +58,9 @@ queries:
     expected_files: ["concepts/filter-chain-for-generated-tests.md", "sources/foster2025-ach.md"]
     expected_in_top_k: 5
   - id: ach-alias-2
-    query: "mutation testing"
+    query: "unkilled"
     type: alias
-    description: "원어 병기 — 이 KB에 아직 뮤테이션 전용 페이지가 없으므로 지금은 이 페이지가 받아야 한다"
+    description: "원어 표기 — ACH 원문 직인용 안의 낱말이고 코퍼스에서 이 페이지에만 인쇄돼 있다. 앞 질의 `mutation testing`은 뮤테이션 갈래가 서면서 네 페이지가 나눠 갖게 되어 이 페이지를 가리키지 못했다(2026-08-23 교체)"
     expected_files: ["concepts/filter-chain-for-generated-tests.md"]
     expected_in_top_k: 5
   - id: ach-alias-3

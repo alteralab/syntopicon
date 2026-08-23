@@ -105,9 +105,9 @@ queries:
     expected_files: ["concepts/mutation-validity-evidence.md"]
     expected_in_top_k: 5
   - id: mvalid-gop-alias-1
-    query: "competent programmer hypothesis may not be applicable syntactically"
+    query: "competent programmer hypothesis"
     type: alias
-    description: "6절 논의의 판정. 같은 낱말을 명명의 출처 쪽에서 쓰는 원전 페이지와 갈려야 한다"
+    description: "페이지에 인쇄된 원어 병기 그대로다. 앞 질의는 원문 판정을 이 KB가 의역한 문장이라 어느 페이지에도 인쇄돼 있지 않아 전 레그 미회수였다(2026-08-23 교체). 같은 낱말을 명명의 출처 쪽에서 쓰는 원전 페이지와 갈리는지를 재는 짝 구분 문항이고, 그쪽이 이 낱말을 절 제목으로도 쓰므로 어려운 자리다"
     expected_files: ["concepts/mutation-validity-evidence.md"]
     expected_in_top_k: 5
   - id: mvalid-ahmed-top-1
