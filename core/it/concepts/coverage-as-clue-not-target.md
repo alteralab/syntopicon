@@ -361,7 +361,8 @@ sources:
   위 [실증 논쟁의 양극이 이 글을 인용한다](#실증-논쟁의-양극이-이-글을-인용한다) 참조.
 - **적용 범위가 코드 커버리지에 한정된다** — 저자 자신이 1쪽에서 그렇게 좁혀 둔다.
   다른 테스트 커버리지 측도에 이 글의 주장을 그대로 옮길 근거는 이 글에 없다.
-- **뮤테이션 테스팅이 이 글에 없다.** 커버리지의 대안 지표를 이 글은 다루지 않는다.
+- **뮤테이션 테스팅(mutation testing)이 이 글에 없다.** 커버리지의 대안 지표를 이 글은
+  다루지 않는다.
 
 ## 이어지는 페이지
 
@@ -370,6 +371,17 @@ sources:
   낮음에서 중간으로 떨어진다
 - [커버리지는 뮤턴트 킬을 예측한다](../concepts/coverage-predicts-mutation-kills.md) — 같은
   물음에 반대 답을 낸 실증 층의 다른 극. 이쪽도 이 글을 자기 편으로 인용한다
+- [단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다](../concepts/assertions-predict-mutation-kills.md)
+  — 이 글이 실행과 검사를 가른 구분에 눈금을 붙인 실증. 단정 커버리지가 그 눈금이고,
+  그 지표는 원래 오라클 품질을 재려고 만들어졌다
+- [커버리지 운용의 산업 권고](../concepts/coverage-operating-guidelines.md) — 같은 구분을
+  2020년에 다시 세운 산업 문서. 값어치는 덮인 곳이 아니라 안 덮인 곳에 있다는 조문까지
+  겹치고, 관문을 걸라고 권하는 자리에서 이 글과 갈린다
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  이 글이 다루지 않은 대안 지표. 지표를 목표로 걸면 도구가 정보원이기를 그만둔다는 이
+  글의 논증이 그쪽에서 뮤테이션 점수의 세 금지로 되풀이된다
+- [뮤테이션 타당성을 정면으로 잰 여섯 편](../concepts/mutation-validity-evidence.md) —
+  그 대안 지표의 타당성을 정면으로 잰 심사 실증 묶음
 - [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 같은 한계에서 다른 결론으로 가는 실무
   규범. `Test State Coverage, Not Code Coverage`가 그 조문이다
 - [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 커버리지가 오르고

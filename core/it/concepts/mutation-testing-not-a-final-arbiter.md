@@ -393,6 +393,10 @@ sources:
   마지막 조건을 커버리지에서 뮤턴트 사살로 바꾼 산업 배선
 - [벤치마크의 테스트 부족](../concepts/benchmark-test-inadequacy.md) — 죽인 뮤턴트를
   벤치마크 스위트를 줄이는 세 기준 중 하나로 쓴 자리
+- [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —
+  이 페이지가 방향만 옮긴 대비(커버리지는 만점인데 뮤테이션 점수는 바닥)를 같은 미심사
+  소스로 함께 적는 자리. 그쪽은 통과한 생성 테스트의 커버리지가 사람 것에 필적한다는
+  심사 실측도 갖는다
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 스위트의 감도를 올리는
   다른 길. 이쪽은 결함을 심고 저쪽은 입력을 생성한다
 - [테스팅은 결함의 존재만 보인다](../concepts/testing-shows-presence-not-absence.md) —

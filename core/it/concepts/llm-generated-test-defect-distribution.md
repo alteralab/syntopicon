@@ -271,6 +271,12 @@ sources:
 - [LLM 실증 연구의 보고 규범](../concepts/llm-empirical-study-reporting-norms.md) — 이
   페이지가 버전 조건 블록으로 하는 일의 규범 근거. 모델 판과 실행 날짜를 밝히는 것이
   요구 층에 있고, 실험을 되풀이해 분포로 보고하는 것이 권고 층에 있다는 구획
+- [단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다](../concepts/assertions-predict-mutation-kills.md)
+  — 사람이 쓴 단정과 생성된 단정의 격차를 뮤턴트 킬로 잰 LLM 이전 층. 이 페이지의 비자명
+  단정 비율과 같은 물음이고, 그쪽은 단정 커버리지라는 눈금을 준다
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  이 페이지가 방향만 옮긴 대비(커버리지는 만점인데 뮤테이션 점수는 바닥)의 지표 쪽 원전과
+  한계. 같은 미심사 소스를 그쪽도 방향으로만 쓴다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^yuan2024-chatgpt-tests]: Yuan, Liu, Ding, Wang, Chen, Peng & Lou 2024, "No More Manual

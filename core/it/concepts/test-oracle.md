@@ -322,6 +322,9 @@ sources:
   단정을 쓰는 쪽이 **소비하는 서비스**로 옮겨 간 배치이고, 그쪽 소스는 실무자 에세이라 그 배치의
   정의를 줄 뿐 효과를 재지 않는다
 - [테스트가 코딩을 이끈다](../concepts/test-to-code.md) — 테스트 가능성을 위한 설계와 오라클의 관계
+- [단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다](../concepts/assertions-predict-mutation-kills.md)
+  — §4.2가 오라클의 한 부류로 규정한 단정이 스위트 안에 얼마나 넓게 걸렸는지를 재는 눈금.
+  그 지표(단정 커버리지)가 오라클 품질 측정에서 왔다는 계보도 그 페이지에 있다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 이 축의 허브
 
 [^barr2015-oracle]: Barr, Harman, McMinn, Shahbaz & Yoo 2015, "The Oracle Problem in Software

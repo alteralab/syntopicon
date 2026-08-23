@@ -412,6 +412,15 @@ sources:
   검사를 가른 1999년의 실무 규범. 이 논문이 그 구분에 눈금을 붙인다
 - [커버리지 운용의 산업 권고](../concepts/coverage-operating-guidelines.md) — 단정의
   실질성은 커버리지가 아니라 뮤테이션이 잰다고 지목한 2020년 산업 문서
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  이 논문이 선행 연구 인용으로 처리하고 넘긴 물음. 효과성을 뮤테이션 점수로 정의한 이
+  페이지의 전제가 거기서 심판된다
+- [뮤테이션 타당성을 정면으로 잰 여섯 편](../concepts/mutation-validity-evidence.md) —
+  그 물음을 실증으로 시험한 심사 논문 묶음. 이 페이지의 순환이 닫히는 자리를 바깥에서
+  여는 쪽이다
+- [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 재는 대상을 코드
+  커버리지에서 상태 커버리지로 옮기라는 실무 규범. 이 논문은 같은 자리를 단정 커버리지로
+  옮긴다 — 도구를 바꾸는 처방과 눈금을 바꾸는 처방이 나란히 서는 자리다
 - [테스트 오라클](../concepts/test-oracle.md) — 단정을 오라클의 한 부류로 규정하는 자리.
   이 논문의 단정 커버리지는 그 부류가 얼마나 넓게 걸렸는지를 재는 눈금이다
 - [LLM 생성 테스트의 결함 분포](../concepts/llm-generated-test-defect-distribution.md) —

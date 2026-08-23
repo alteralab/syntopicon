@@ -306,6 +306,9 @@ sources:
   선택으로 다시 나온다
 - [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
   그 세 기준 중 죽인 뮤턴트가 어디서 온 기준이고 어디까지 지지되는가
+- [커버리지는 단서지 목표가 아니다](../concepts/coverage-as-clue-not-target.md) — 그 세
+  기준의 나머지 하나인 분기 커버리지를 목표가 아니라 선별의 단서로 쓰는 용법. 같은
+  구분을 1999년에 세운 실무 규범이 그쪽이다
 - [테스팅은 결함의 존재만 보인다](../concepts/testing-shows-presence-not-absence.md) —
   통과가 부재의 증거가 아니라는 상한 명제. 이 페이지는 그 명제가 벤치마크 통과율에서
   실제로 얼마짜리 착시였는지를 잰 실측이다

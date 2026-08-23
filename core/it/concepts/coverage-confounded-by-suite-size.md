@@ -270,6 +270,17 @@ sources:
 
 - [커버리지는 뮤턴트 킬을 예측한다](../concepts/coverage-predicts-mutation-kills.md) — 같은 물음에
   반대 답을 낸 두 논문. 이 쌍의 다른 극이다
+- [단정 수와 단정 커버리지가 뮤턴트 킬을 예측한다](../concepts/assertions-predict-mutation-kills.md)
+  — 이 논문이 지목한 교란 변수의 아래를 연 자리. 크기를 고정한 채 단정만 움직여도
+  상관이 내려가지 않았다는 결과이고, 크기가 무엇을 대리하고 있었는지를 되짚는다
+- [커버리지 운용의 산업 권고](../concepts/coverage-operating-guidelines.md) — 이 논문의
+  결론을 운용 규칙으로 받은 산업 문서. 높은 수치가 스위트 품질을 보증하지 않는다는
+  대목이 같은 방향이고, 그러면서도 관문은 걸라고 권하는 자리에서 갈린다
+- [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
+  이 페이지가 효과성으로 쓴 종속변수 자체를 겨누는 자리. 뮤테이션 점수가 실결함을
+  대신할 수 있는가는 이 논문이 묻지 않고 넘긴 물음이다
+- [뮤테이션 타당성을 정면으로 잰 여섯 편](../concepts/mutation-validity-evidence.md) —
+  같은 크기 교란 논증을 커버리지가 아니라 뮤테이션 점수에 건 심사 실증이 그 묶음에 있다
 - [커버리지는 단서지 목표가 아니다](../concepts/coverage-as-clue-not-target.md) — 이 논문이
   §5에서 참고문헌으로 지목하는 실무자 층. 주장이 먼저 있었고 이 논문이 규모를 붙였다
 - [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 생성된
