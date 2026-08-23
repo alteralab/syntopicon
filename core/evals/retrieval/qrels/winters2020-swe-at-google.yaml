@@ -1,0 +1,127 @@
+# 질문지 조각 — Winters, Manshreck & Wright(큐레이터) 2020, *Software Engineering at
+# Google*(abseil.io 공개판) 11~14장 승급. 2026-08-23, 스위트 운영 갈래의 첫 반입.
+#
+# 이 소스가 만드는 검색 위험은 둘이다.
+#
+# 하나는 **"크기"라는 낱말의 과부하**다. 이 KB에는 스위트 크기를 다루는 페이지가 이미
+# 여럿이고(커버리지 신호는 스위트 크기가 만든다, 단정 수와 단정 커버리지가 뮤턴트 킬을
+# 예측한다), 그쪽 "크기"는 테스트 개수를 뜻한다. 이 페이지의 "크기"는 자원 제약을 뜻하는
+# 전혀 다른 축이다. exact 문항이 이 구분을 못 잡으면 크기를 물은 사람에게 통제 실험
+# 페이지가 돌아간다.
+#
+# 둘은 **두 신규 페이지가 서로를 밀어내는 것**이다. 같은 책, 같은 회사, 같은 어휘를 쓰고
+# 둘 다 규모 전제 절을 갖는다. 크기를 물었는데 대역 페이지가 오거나 그 반대면 실패다.
+# 그래서 두 페이지 각각에 자기만 갖는 낱말로 exact 문항을 걸었다. 승급 시점에
+# `enormous`·`80/15/5`·`DoNotMock`은 이 페이지들 밖에서 0건이었고, `Mockito`는 카프카
+# 페이지 한 곳에만 있었다.
+#
+# cross-domain 넷이 이 조각의 계측 목적이다. swegoogle-x-1은 같은 회사의 커버리지 권고와
+# 이 책의 커버리지 문단이 함께 오는지를 재고(저자가 겹치는 두 문헌이다), swegoogle-x-2는
+# 이번 런이 실제로 건 불안정 쪽 배선을 재며, swegoogle-x-3과 x-4는 **다음 갈래의 접점**을
+# 미리 잰다 — 대역 페이지가 기존 fakes-versus-mocks와 변경 감지 테스트 페이지에 닿아야
+# 그 갈래가 이 페이지를 찾아 쓴다.
+source: winters2020-swe-at-google
+added: 2026-08-23
+queries:
+  - id: swegoogle-exact-1
+    query: "구글의 테스트 크기 어휘와 스위트 운영"
+    type: exact
+    description: "페이지 제목 그대로. 스위트 크기를 다루는 다른 페이지들이 아니라 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-exact-2
+    query: "small medium large 테스트 크기 제약"
+    type: exact
+    description: "자원 제약으로 정의된 세 크기. 테스트 개수를 뜻하는 다른 페이지의 크기와 갈려야 한다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-exact-3
+    query: "80/15/5 테스트 비중 목표치"
+    type: exact
+    description: "피라미드 비중과 그 지위. 승급 시점에 이 표기는 이 페이지 밖에서 0건이었다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-exact-4
+    query: "불안정 비율 0.15퍼센트와 그 분모"
+    type: exact
+    description: "값과 분모의 경계가 함께 있는 자리. 값만 옮기면 안 된다는 것이 이 페이지의 판정이다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-exact-5
+    query: "테스트 대역 선호 순서와 규모 전제"
+    type: exact
+    description: "둘째 페이지의 제목 그대로. 크기 페이지가 아니라 이쪽이 1위여야 한다"
+    expected_files: ["concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-exact-6
+    query: "실물을 먼저 쓰고 안 되면 가짜를 쓴다"
+    type: exact
+    description: "이 장의 조문. 대역 페이지만 갖는 순서 서술이다"
+    expected_files: ["concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-alias-1
+    query: "enormous test size"
+    type: alias
+    description: "각주에만 있는 네 번째 크기. 승급 시점에 이 낱말은 KB에서 이 페이지에만 있었다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-alias-2
+    query: "DoNotMock"
+    type: alias
+    description: "정적 분석 주석의 원문 표기. 규모 전제가 가장 노골적으로 드러나는 절의 키다"
+    expected_files: ["concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-alias-3
+    query: "hermetic 밀폐 테스트"
+    type: alias
+    description: "원문 표기와 역어를 함께 물었다. 두 신규 페이지가 이 낱말을 공유하므로 둘 중 하나면 통과다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md", "concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-sem-1
+    query: "테스트를 어느 크기로 얼마나 둘 것인가"
+    type: semantic
+    description: "패러프레이즈. 크기라는 축 자체를 낱말 없이 물었다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-sem-2
+    query: "목 대신 진짜 구현을 쓰라는 이유"
+    type: semantic
+    description: "선호 순서의 근거를 낱말 없이 물었다. 대역 페이지에 닿아야 한다"
+    expected_files: ["concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-top-1
+    query: "회사가 적은 테스트 비중을 근거로 써도 되는가"
+    type: topical
+    description: "산업 규범 등급과 목표치라는 지위가 답이다. 헤지 셋이 잡히는지를 본다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-top-2
+    query: "가짜를 만들 값어치가 있는 조건"
+    type: topical
+    description: "사용자 수의 함수로 적힌 자리. 1인 프로젝트 전이 단서의 핵심 문면이다"
+    expected_files: ["concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-x-1
+    query: "커버리지 집계를 어느 테스트에서 재는가"
+    type: cross-domain
+    description: "이 조각의 계측 문항 하나. 저자가 겹치는 두 문헌(커버리지 권고와 이 책의 커버리지 문단)이 함께 돌아와야 한다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md", "concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-x-2
+    query: "불안정한 테스트를 재실행으로 넘겨도 되는가"
+    type: cross-domain
+    description: "재실행 완화를 승인하는 쪽과 다섯 번 실행 판정을 관문으로 쓴 산업 배선이 짝으로 걸려야 한다"
+    expected_files: ["concepts/google-test-sizes-and-suite-operations.md", "concepts/filter-chain-for-generated-tests.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-x-3
+    query: "테스트 대역으로 무엇을 쓸 것인가"
+    type: cross-domain
+    description: "다음 갈래의 접점. 대규모 조직의 실무 쪽과 파이썬 실무서 쪽이 함께 돌아와야 그 갈래가 두 문헌을 견줄 수 있다"
+    expected_files: ["concepts/test-double-preference-at-scale.md", "concepts/fakes-versus-mocks.md"]
+    expected_in_top_k: 5
+  - id: swegoogle-x-4
+    query: "상호작용만 검증하는 테스트가 왜 해로운가"
+    type: cross-domain
+    description: "같은 회사의 두 문헌이 같은 이름을 쓰는 자리. 이번 런이 실제로 건 링크다"
+    expected_files: ["concepts/test-double-preference-at-scale.md", "concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
