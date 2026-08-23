@@ -1,0 +1,104 @@
+# 질문지 조각 — Fowler "Mocks Aren't Stubs"(martinfowler.com, 2007-01-02 판)
+# 반입(2026-08-23, unit-design-doubles 갈래의 첫 런).
+#
+# 이 소스가 만드는 검색 위험은 세 겹이다.
+# 첫째, **대역 어휘의 과밀**이 이미 심하다 — `fakes-versus-mocks`(percival2020)와
+# `test-double-preference-at-scale`(SWE@Google ch13)이 "테스트 대역·목·스텁·가짜"를
+# 그대로 쓰고, 뒤 런들(khorikov·mock-debate-pair)이 같은 낱말로 더 들어온다. 그래서
+# exact 문항은 **이 페이지만 가진 어휘**(음차한 클래시컬·모키스트, 상태 검증 대 행위
+# 검증의 분리, 다섯 갈래 나열, Detroit·런던 별칭)를 겨냥한다.
+# 둘째, **음차와 역어가 갈린다** — 기존 두 페이지는 "런던 학파·고전 학파·고전주의"로,
+# 이 페이지는 "클래시컬·모키스트"로 쓴다. mocks-alias-2가 정확히 그 갈림을 잰다.
+# 셋째, **원어가 이 페이지에만 있는 키가 여럿이다**(behavior verification · Test Spy ·
+# Object Mothers · need-driven · Detroit). 병기가 어휘 갈래에서 사는지를 alias 문항이
+# 잰다. 실패하면 병기 정정 대상이지 질문 오류가 아니다.
+#
+# cross-domain 둘은 이 런이 실제로 건 접점을 겨냥한다 — 기존 두 페이지가 쓰는 학파
+# 이름과 정의의 출처가 이 페이지라는 관계가 검색에서도 이웃으로 잡히는지를 본다.
+source: fowler2007-mocks-arent-stubs
+added: 2026-08-23
+queries:
+  - id: mocks-exact-1
+    query: "클래시컬 스타일과 모키스트 스타일"
+    type: exact
+    description: "이 페이지만 쓰는 음차 표기 — 기존 페이지들은 고전 학파·런던 학파로 적는다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-exact-2
+    query: "상태 검증과 행위 검증은 서로 다른 두 구분이다"
+    type: exact
+    description: "이 글의 중심 주장 — 하나로 뭉쳐 있던 것을 둘로 쪼갠 자리"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-exact-3
+    query: "더미 가짜 스텁 스파이 목 다섯 가지 대역"
+    type: exact
+    description: "5분류 나열 — 대역 어휘를 쓰는 다른 페이지들은 이 다섯을 함께 세우지 않는다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-exact-4
+    query: "목만 행위 검증을 요구하고 스텁은 양쪽 다 된다"
+    type: exact
+    description: "이 페이지가 소유한 판정 — 목과 스텁의 차이가 재료가 아니라 단계에 있다는 대목"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-alias-1
+    query: "behavior verification"
+    type: alias
+    description: "원어 병기 — 이 원어를 가진 페이지는 코퍼스에서 이것 하나다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-alias-2
+    query: "mockist classicist"
+    type: alias
+    description: "음차와 역어의 갈림 지점 — test-double-preference-at-scale도 mockist를 인용문에 갖고 있어 두 페이지가 섞이는지를 본다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-alias-3
+    query: "Test Spy"
+    type: alias
+    description: "원어 유지 용어 — 행위 검증을 하는 스텁의 이름"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-alias-4
+    query: "Object Mothers"
+    type: alias
+    description: "픽스처 생성 클래스의 이름 — 이 페이지에만 있는 키"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-sem-1
+    query: "적중했는지 빗나갔는지를 남은 값으로는 알 수 없는 장치를 테스트하기"
+    type: semantic
+    description: "패러프레이즈 — 캐시·상태 검증·행위 검증 어휘 불사용. 상태 검증 선호자에게도 예외가 있는 자리"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-sem-2
+    query: "테스트가 전부 통과하는데 정작 오류가 가려져 있는 경우"
+    type: semantic
+    description: "패러프레이즈 — 잘못된 기대가 초록을 만든다는 대목. 목·대역 어휘 불사용"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-top-1
+    query: "언제 대역을 쓰는가로 두 진영이 갈린다"
+    type: topical
+    description: "이 페이지가 두 스타일을 가르는 기준으로 세운 질문 그대로"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-top-2
+    query: "테스트를 구현에 결합시키면 리팩터링에 무엇이 걸리나"
+    type: topical
+    description: "다섯 축 가운데 결합 축 — 리팩터링 내성 어휘를 쓰는 뒤 런들과 겹칠 자리라 기준선을 여기서 잡아 둔다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md"]
+    expected_in_top_k: 5
+  - id: mocks-x-1
+    query: "목과 가짜의 짧은 정의가 뭉갠 자리를 정확히 가른 글은 무엇인가"
+    type: cross-domain
+    description: "이 런이 건 양방향 링크 — percival2020 쪽이 자기 정의를 부정확하다고 밝히며 지목한 대상이 이 페이지다"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md", "concepts/fakes-versus-mocks.md"]
+    expected_in_top_k: 5
+  - id: mocks-x-2
+    query: "실물을 먼저 쓰라는 조직이 자기 방식을 부르는 학파 이름은 어디서 왔나"
+    type: cross-domain
+    description: "SWE@Google ch13이 쓰는 classical/mockist라는 이름의 출처가 이 페이지라는 접점"
+    expected_files: ["concepts/test-double-vocabulary-and-tdd-styles.md", "concepts/test-double-preference-at-scale.md"]
+    expected_in_top_k: 5
