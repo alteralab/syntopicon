@@ -120,8 +120,10 @@ sources:
   > Stunt Double in movies. (One of his aims was to avoid using any name that was already
   > widely used.) Meszaros then defined five particular kinds of double:
 
-  - 대상 시스템을 가리키는 말도 남의 것이다 — **"Following Meszaros I'll use System Under
-    Test, or rather the abbreviation SUT."**[^fowler2007-mocks-arent-stubs]
+  - 대상 시스템(system under test, SUT)과 협력자(collaborator)를 가리키는 말도 남의
+    것이다 — **"Following Meszaros I'll use System Under Test, or rather the abbreviation
+    SUT."**[^fowler2007-mocks-arent-stubs] 이 글의 앞 판에서는 각각 `primary object`·
+    `secondary objects`라고 불렀다고 저자가 밝힌다(§"Regular Tests").
   - **목 객체(mock object)라는 말조차 이 글이 지은 것이 아니다** — 첫 문단이
     **"I first came across the term “mock object” a few years ago in the Extreme
     Programming (XP) community"**로 시작한다.[^fowler2007-mocks-arent-stubs]
@@ -270,7 +272,8 @@ sources:
 ### 픽스처를 짓는 비용
 
 - **클래시컬은 협력자를 전부 만들어야 한다** (§"Fixture Setup"):[^fowler2007-mocks-arent-stubs]
-  실제 테스트는 부차 객체가 많고 매 실행마다 만들고 허문다. 그래서 픽스처를 재사용하게 되고,
+  실제 테스트는 부차 객체가 많고 매 실행마다 만들고 허문다. 그래서 픽스처(fixture)를
+  재사용하게 되고,
   여러 테스트 클래스가 쓰는 복잡한 픽스처는 별도 생성 클래스로 뽑는다 — 저자가 이것을
   **Object Mothers**라 부르고 그 이름의 출처가 이른 시기 사내 XP 프로젝트의 관례라고 적는다.
   - **그 대가도 같은 자리에 있다** — 마더는 유지해야 하는 코드이고
