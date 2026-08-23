@@ -3,7 +3,6 @@ type: concept
 title: 리팩터링 내성과 거짓 양성
 description: 좋은 단위 테스트의 네 속성 가운데 리팩터링 내성 하나만 협상 불가인 이유와 그 근거 — 리팩터링 내성의 정의, 거짓 양성이 스위트를 무엇으로 부수는가의 두 경로, 거짓 양성의 유일한 원인으로 지목된 구현 세부 결합, 관찰 가능한 행위와 구현 세부를 가르는 두 조건, 두 속성이 각각 1종 오류와 2종 오류를 맡는 대칭, 앞의 세 속성이 상호 배타라는 판정과 그 세 극단 사례, 협상 불가의 근거가 이진성이라는 논증, 그리고 거기서 나오는 블랙박스 기본값
 generated: { by: "claude-opus-5", at: "2026-08-23T22:00:00Z" }
-status: draft
 sources:
   - { id: khorikov2020-unit-testing, resource: /it/sources/khorikov2020-unit-testing.md }
 ---

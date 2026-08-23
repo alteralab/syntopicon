@@ -3,7 +3,6 @@ type: concept
 title: 무엇을 목으로 대체할 것인가
 description: 목을 쓸 자리를 소유나 편의가 아니라 관찰 가능성으로 가르는 판정과 그 근거 — 대역 다섯을 목과 스텁 둘로 묶는 축, 스텁과의 상호작용을 단언하지 말라는 규칙과 과잉 명세, 내부 통신은 구현 세부이고 시스템 간 통신은 관찰 가능한 행위라는 판정, 프로세스 밖 의존을 managed와 unmanaged로 가르는 정의와 후방 호환이라는 근거, 둘 다인 의존과 실물을 쓸 수 없는 경우의 처방, 목을 통합 테스트에만 두고 시스템 가장자리에서 검증하며 소유한 타입만 목하라는 지침 넷, 그리고 저자가 고전 학파를 고르면서 그 학파도 이상적이지 않다고 적는 자리
 generated: { by: "claude-opus-5", at: "2026-08-23T22:10:00Z" }
-status: draft
 sources:
   - { id: khorikov2020-unit-testing, resource: /it/sources/khorikov2020-unit-testing.md }
 ---
@@ -29,7 +28,7 @@ sources:
 
 - **근거 등급은 `practitioner-norm`이다.** 이 책에는 측정이 없고 인용할 수치가 없다.
   아래 판정들은 학술 근거가 아니라 실무 규범이며, 저자의 자기 규정과 판(MEAP V03)에 관한
-  실측은 [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md)의
+  실측은 [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md)의
   첫 절과 [소스 메타](../sources/khorikov2020-unit-testing.md)가 정본이다.
 - **이 페이지의 판정은 앞 페이지의 판정에서 연역된다.** 거짓 양성의 유일한 원인이 구현
   세부에 대한 결합이라면, 대역을 어디에 쓸지는 **무엇이 구현 세부인가**의 문제가 된다.
@@ -328,7 +327,7 @@ success"**라고 적고 나머지를 여기 둔다(9장 도입).[^khorikov2020-u
 같은 갈림을 이 KB의 다른 페이지가 다른 이름으로 부른다. **이름이 다른 것은 소스가 다른
 이름을 쓰기 때문이지 가리키는 것이 달라서가 아니다.**
 
-| 이 책(khorikov) | [대역 어휘와 두 TDD 스타일](test-double-vocabulary-and-tdd-styles.md)(fowler) | 같은 자리인 근거 |
+| 이 책(khorikov) | [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md)(fowler) | 같은 자리인 근거 |
 |---|---|---|
 | 고전 학파(classical school) | 클래시컬(classical) · 사람은 클래시시스트(classicist) | 두 소스 모두 Detroit를 별칭으로 든다 |
 | 런던 학파(London school) | 모키스트(mockist) | 이 책이 London을 고르며 mockist를 피한다고 명시한다 |
@@ -370,15 +369,15 @@ success"**라고 적고 나머지를 여기 둔다(9장 도입).[^khorikov2020-u
 
 ## 이어지는 페이지
 
-- [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md) —
+- [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md) —
   **먼저 읽는다.** 이 페이지의 모든 판정이 거기서 나온 잣대 하나에 기댄다
-- [대역 어휘와 두 TDD 스타일](test-double-vocabulary-and-tdd-styles.md) — 이 페이지가 쓰는
+- [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) — 이 페이지가 쓰는
   대역 낱말과 학파 이름의 원전 쪽. 그쪽은 어휘를 소유하고 판정을 유보하며, 이 페이지는
   같은 갈림에 판정을 내리되 그 판정을 두 학파 밖에 세운다
-- [가짜와 목](fakes-versus-mocks.md) — 같은 고전 측 입장을 파이썬 실무로 적은 다른 소스.
+- [가짜와 목](../concepts/fakes-versus-mocks.md) — 같은 고전 측 입장을 파이썬 실무로 적은 다른 소스.
   **그쪽이 "가진 적 없는 것을 목하지 마라"를 곁글 제목으로 쓰고, 이 페이지의 넷째 지침이
   같은 명제를 원전 귀속과 함께 다룬다**
-- [테스트 대역 선호 순서와 규모 전제](test-double-preference-at-scale.md) — 같은 물음에
+- [테스트 대역 선호 순서와 규모 전제](../concepts/test-double-preference-at-scale.md) — 같은 물음에
   **다른 축으로** 답한 자리. 그쪽은 실물 · 가짜 · 스텁 · 상호작용 검증의 선호 순서를 규모
   조건 위에 세우고, 이 페이지는 순서 대신 **경계 하나**로 답한다. **두 답이 데이터베이스에서
   갈리는지 겹치는지가 이 KB의 미해결 물음이다**

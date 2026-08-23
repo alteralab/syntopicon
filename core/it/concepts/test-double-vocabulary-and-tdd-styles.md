@@ -238,6 +238,17 @@ sources:
     계열(Detroit/London)과 같은 자리를 가리킨다. **이 페이지는 저자가 지은 이름 쪽을 음차로
     쓴다** — 클래시컬(classical)·모키스트(mockist), 사람을 가리킬 때는
     클래시시스트(classicist)·모키스트(mockist).
+
+    | 이 페이지 | [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md) | 같은 자리인 근거 |
+    |---|---|---|
+    | 클래시컬(classical) · 클래시시스트(classicist) | 고전 학파(classical school) | 두 소스 모두 Detroit를 별칭으로 든다 |
+    | 모키스트(mockist) | 런던 학파(London school) | 그쪽 소스가 London을 고르며 mockist를 피한다고 명시한다 |
+
+  - **그리고 위 인용의 마지막 문장이 다른 소스에서 표기 규칙으로 실행된 것이 보인다.**
+    같은 갈림을 다루는 [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md)의
+    소스가 그 낱말을 쓰지 않기로 하며 이유를 적는데, 그 이유가 여기 적힌 관찰과 같다 —
+    그 스타일을 따르는 사람들이 `mockist`라는 말을 싫어한다는 것이다. **한쪽이 관찰로
+    남긴 것을 다른 쪽이 규칙으로 삼았다.**
 - **BDD가 모키스트의 갈래로 소개된다** (같은 절):[^fowler2007-mocks-arent-stubs]
   행위 주도 개발(Behavior Driven Development, BDD)이 **"an important offshoot of the mockist
   style"**로 적히고, 테스트를 행위로 이름 바꾼 것이 TDD를 설계 기법으로 배우게 하려는
@@ -412,6 +423,11 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
     가장 좋은 자료로 Freeman & Pryce를 들고 **"In particular read the excellent OOPSLA
     paper"**라고 적는다.[^fowler2007-mocks-arent-stubs] **2차 경유다.** 이름과 이 글이 옮긴
     문면 밖으로 나가지 않는다.
+  - **그 표어를 자기 지침으로 채택한 소스가 이 KB에 있다** —
+    [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md)의 소스가 "소유한 타입만
+    목하라"를 Freeman & Pryce에게 귀속하며 그들의 2009년 책 69쪽을 지목하고,
+    그 분석에 전적으로 동의한다고 적는다. **여전히 원전 자체는 이 KB에 없다** — 그쪽
+    페이지도 2차 경유 딱지를 달고 있다.
 - **"내가 판정할 사람이 아니다" 류의 문장도 이 글에 없다.** `right person`이라는 표현은
   이메일 테스트 예시(`sent to the right person`)에서만 쓰인다. 저자의 유보를 인용할 때는 위
   [이 소스의 지위와 저자의 유보](#이-소스의-지위와-저자의-유보)에 옮긴 실제 문면을 쓴다.
@@ -448,6 +464,18 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
   방식을 클래시컬로 이름 붙이는데, **그 이름이 여기서 지어진 이름이다.** 그쪽은 모키스트를
   "틀렸다"가 아니라 "규모에서 어렵다"로 강등하고, 이 페이지는 그 강등이 어느 축의 논거를
   고른 것인지를 보여 준다
+- [무엇을 목으로 대체할 것인가](../concepts/what-to-replace-with-mocks.md) — **이 글이
+  유보한 자리에 판정을 놓은 소스.** 그쪽은 두 학파 가운데 하나를 고르는 대신 **응용 경계를
+  넘고 외부에서 관찰되는 통신만 목으로 검사한다**는 선을 긋고, 그 선으로 두 학파를 **둘 다**
+  비판한다 — 런던 학파는 내부와 외부 통신을 구분하지 않아서, 고전 학파는 공유 의존이라는
+  기준이 목으로 바꾸면 안 되는 것까지 쓸어 담아서다. 위 [두 스타일이 갈리는 다섯
+  축](#두-스타일이-갈리는-다섯-축) 가운데 **구현에 대한 결합** 축만 골라 무게를 실은
+  것으로 읽힌다
+- [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md) —
+  같은 소스가 그 판정의 잣대를 세운 자리. 위 [구현에 대한 결합](#구현에-대한-결합)에서 이
+  글이 "리팩터링을 방해한다"로 적은 것에 이름(리팩터링 내성)과 협상 불가라는 지위를 준다.
+  **이 글이 다섯 축을 나란히 놓고 판정을 유보한 것과, 그쪽이 한 축을 이진 스위치로 놓고
+  나머지를 그 아래 두는 것이 두 소스의 형식 차이다**
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 대역을
   실제로 꽂아 넣는 장치. 이 페이지의 두 스타일 모두 협력자를 바꿔 끼울 수 있어야 성립하고,
   그 자리를 만드는 기법이 거기 있다
@@ -455,7 +483,7 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
   성립시키는 대역 이야기가 거기 걸려 있다
 - **아직 답이 없는 물음 하나** — 무엇을 목으로 만들 것인가에 대해 이 글이 가리키기만 한
   Freeman & Pryce 쪽 계보는 무엇을 주장하며, 그 주장은 이 페이지의 다섯 축 가운데 어디에
-  서는가. **이 KB는 그 원전을 아직 갖고 있지 않다.**
+  서는가. **이 KB는 그 원전을 아직 갖고 있지 않다** — 그것을 채택한다고 적은 소스만 있다.
 
 [^fowler2007-mocks-arent-stubs]: Fowler, "Mocks Aren't Stubs", martinfowler.com,
     2026-08-20 확보본. **절 번호가 없어 locator는 원문 §제목(영문 표기 그대로)이다** —
