@@ -418,8 +418,9 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
 - **"Don't mock what you don't own"은 이 글에 없다.** 그 변형인 "Only Mock Types You Own"도
   없다. `own`이라는 낱말은 `on your own`·`your own mind up` 같은 자리에서만 나온다. 이
   표어는 커뮤니티에서 굳은 말이고, 이 글이 참고 문헌으로 가리키는 Freeman & Pryce 쪽 계보에
-  속한다 — **그 원전을 이 KB가 아직 갖고 있지 않으므로 여기서는 이 소스에 없다는 사실까지만
-  적는다.**
+  속한다 — 원문 형태(`Only Mock Types You Own`)와 그 근거는
+  [목 객체는 역할을 발견하기 위한 것이다](mock-objects-for-role-discovery.md)가 갖는다.
+  **여기서는 이 소스에 없다는 사실까지만 적는다.**
   - 이 글이 그 문헌을 가리키는 방식은 링크 한 줄이다 (§"Further Reading") — 모키스트 스타일의
     가장 좋은 자료로 Freeman & Pryce를 들고 **"In particular read the excellent OOPSLA
     paper"**라고 적는다.[^fowler2007-mocks-arent-stubs] **2차 경유다.** 이름과 이 글이 옮긴
@@ -427,8 +428,8 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
   - **그 표어를 자기 지침으로 채택한 소스가 이 KB에 있다** —
     [무엇을 목으로 대체할 것인가](what-to-replace-with-mocks.md)의 소스가 "소유한 타입만
     목하라"를 Freeman & Pryce에게 귀속하며 그들의 2009년 책 69쪽을 지목하고,
-    그 분석에 전적으로 동의한다고 적는다. **여전히 원전 자체는 이 KB에 없다** — 그쪽
-    페이지도 2차 경유 딱지를 달고 있다.
+    그 분석에 전적으로 동의한다고 적는다. **다만 그 소스가 지목하는 것은 2009년 책이고,
+    표어의 원문 형태가 실린 것은 2004년 논문이다** — 두 문서가 다르다.
 - **"내가 판정할 사람이 아니다" 류의 문장도 이 글에 없다.** `right person`이라는 표현은
   이메일 테스트 예시(`sent to the right person`)에서만 쓰인다. 저자의 유보를 인용할 때는 위
   [이 소스의 지위와 저자의 유보](#이-소스의-지위와-저자의-유보)에 옮긴 실제 문면을 쓴다.
