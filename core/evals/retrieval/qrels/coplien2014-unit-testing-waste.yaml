@@ -1,0 +1,95 @@
+# 질문지 조각 — Coplien "Why Most Unit Testing is Waste"(rbcs-us.com, Wayback 2023-09-23 확보본)
+# 반입(2026-08-24, unit-design-doubles 갈래의 여섯째 런). 신규 페이지 하나와 개정판 하나이고,
+# 둘은 `contradicts`로 묶인 논쟁 쌍이다.
+#
+# 이 소스가 만드는 검색 위험은 세 겹이다.
+# 첫째, **"단위 테스트"가 이 코퍼스에서 가장 붐비는 낱말이다.** 같은 갈래의
+# resistance-to-refactoring-and-false-positives · what-to-replace-with-mocks ·
+# test-double-vocabulary-and-tdd-styles · test-desiderata가 전부 그 낱말을 더 많은 분량으로
+# 쓰고, google-test-sizes-and-suite-operations는 이 런의 개정판이기까지 하다. 그래서 exact
+# 문항은 낱말이 아니라 **이 페이지만 가진 주장의 형태**(1년 무실패·정보 이론·낭비의 논거)를
+# 겨냥한다.
+# 둘째, **"낭비"라는 역어가 코퍼스에 60여 곳 있다**(성능·GC·데이터 축이 대부분이다). 원어
+# waste도 pragmatic-teams에 있다. 그래서 낱말 하나로는 잡히지 않고, 검증 축의 문맥과 함께
+# 물어야 한다.
+# 셋째, **논쟁 쌍이라 한쪽만 잡히면 이 KB의 판정이 왜곡된다.** cross-domain 문항 둘이 그
+# 배선을 잰다 — 하나는 contradicts 양극이 함께 잡히는지, 다른 하나는 커버리지 목표화라는
+# 접점에서 세 문헌이 함께 잡히는지다.
+#
+# alias 문항은 코퍼스에서 이 페이지만 가진 원어로 잡았다(Green Bar Fever · Janzen). 오식
+# Saledian은 확보본 표기라 소스 메타와 페이지 둘 다에 있어 alias로 쓰지 않고 남겨 둔다.
+source: coplien2014-unit-testing-waste
+added: 2026-08-24
+queries:
+  - id: coplien-exact-1
+    query: "1년 동안 실패하지 않은 테스트는 버려라"
+    type: exact
+    description: "이 글의 가장 널리 인용되는 주장. 코퍼스에서 이 기준을 적은 자리는 여기뿐이다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-exact-2
+    query: "단위 테스트가 대부분 낭비라는 주장의 논거"
+    type: exact
+    description: "이 페이지의 제목이자 하나의 질문. 낭비라는 흔한 역어를 검증 축 문맥과 함께 물었다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-exact-3
+    query: "늘 통과하는 테스트는 정보를 만들지 않는다"
+    type: exact
+    description: "정보 이론 논거의 핵심 문장을 한국어로 재서술한 것 — 이 페이지에만 있다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-exact-4
+    query: "권고형 상자와 단정형 요약 불릿의 인용 형태 차이"
+    type: exact
+    description: "corrections가 요구한 두 층 대조표. 같은 주장이 두 세기로 적힌 자리를 이 페이지가 소유한다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-alias-1
+    query: "Green Bar Fever"
+    type: alias
+    description: "원어 병기 — 코퍼스에서 이 원어를 가진 개념 페이지는 이것 하나다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-alias-2
+    query: "Janzen"
+    type: alias
+    description: "유일한 학술 인용의 저자명 — 원 논문은 미확보라 이 이름이 나오는 개념 페이지도 하나뿐이다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-sem-1
+    query: "테스트를 줄이자는 주장에서 실제로 살아남는 것은 무엇인가"
+    type: semantic
+    description: "패러프레이즈 — 낭비·커버리지·단위 테스트 어휘 불사용. caveat가 요구한 결론 절을 겨냥한다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-sem-2
+    query: "드물게만 실패하는 검사를 없애도 되는가"
+    type: semantic
+    description: "패러프레이즈 — 내부 모순 절(꼬리의 위험과 절단 표본)을 겨냥한다. 불안정 테스트 페이지와 갈리는지도 함께 본다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-top-1
+    query: "테스트가 코드보다 분량이 많아지면 무엇을 의심하나"
+    type: topical
+    description: "심리·프로세스 논거. 이 글이 원인 후보로 든 것들을 겨냥한 주제 질의다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-top-2
+    query: "동료심사도 참고문헌도 없는 글을 근거로 쓸 때의 한계"
+    type: topical
+    description: "지위 절. essay 등급의 의무가 이 페이지 본문에 어떻게 적혀 있는지를 잰다"
+    expected_files: ["concepts/unit-testing-as-waste.md"]
+    expected_in_top_k: 5
+  - id: coplien-x-1
+    query: "단위 테스트를 얼마나 둘 것인가를 두고 정면으로 갈리는 두 문헌"
+    type: cross-domain
+    description: "이 런이 건 contradicts 양극 — 둘이 함께 잡혀야 이 KB가 논쟁을 정설로 두지 않는다는 판정이 읽힌다"
+    expected_files: ["concepts/unit-testing-as-waste.md", "concepts/google-test-sizes-and-suite-operations.md"]
+    expected_in_top_k: 5
+  - id: coplien-x-2
+    query: "커버리지 수치를 목표로 걸면 사람이 코드를 어떻게 바꾸나"
+    type: cross-domain
+    description: "이 런이 건 갈래 밖 접점 — 같은 방향인데 실패 양식이 다른 세 문헌 가운데 둘 이상이 함께 잡히는지를 본다"
+    expected_files: ["concepts/unit-testing-as-waste.md", "concepts/coverage-as-clue-not-target.md", "concepts/coverage-operating-guidelines.md"]
+    expected_in_top_k: 5
