@@ -1,0 +1,39 @@
+# 질문지 조각 — Gorbachov 2026, "Agentic Testing: Where Agents Fit in the E2E Testing
+# Stack"(Engineering at Slack) 승급. 2026-08-23, 스위트 운영 갈래의 둘째 반입에 각주
+# 소스로 함께 들어왔다.
+#
+# 이 소스는 자기 페이지를 갖지 않는다. 에이전트가 종단 흐름을 몰았을 때의 반복 실패율이
+# concepts/why-fewer-end-to-end-tests.md의 마지막 절 하나에 들어 있고, 이 조각은 **그
+# 절이 검색으로 닿는지**만 잰다. 각주 소스의 질문지는 이 형태가 맞다.
+#
+# 재는 위험은 둘이다. 하나는 **최신 절이 2015년 본문에 묻히는 것** — 페이지의 중심이
+# 열 해 전 블로그라, 에이전트를 물었을 때 이 페이지가 후보에 못 오르면 다음 세션이 같은
+# 실측을 다시 찾는다. 둘은 **분모가 값에서 떨어지는 것** — 실패율만 잡히고 회차 20회와
+# 두 흐름의 난이도 차이가 안 잡히면 그 값이 오독된다.
+source: gorbachov2026-agentic-testing
+added: 2026-08-23
+queries:
+  - id: gorbachov-exact-1
+    query: "에이전트가 종단 테스트를 돌렸을 때의 실패율"
+    type: exact
+    description: "이 소스가 잰 값 그대로. 페이지의 마지막 절이 답이다"
+    expected_files: ["concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
+  - id: gorbachov-alias-1
+    query: "Slack Engineering Agentic Testing"
+    type: alias
+    description: "발행처와 원문 제목. 승급 시점에 이 표기는 KB에서 이 계열에만 있었다"
+    expected_files: ["concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
+  - id: gorbachov-sem-1
+    query: "에이전트가 화면을 직접 조작하는 테스트는 믿을 만한가"
+    type: semantic
+    description: "패러프레이즈. 실행 방식 셋과 흐름 난이도별 실패율이 답이다"
+    expected_files: ["concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
+  - id: gorbachov-top-1
+    query: "한 회사가 자기 제품 위에서 잰 값을 근거로 써도 되는가"
+    type: topical
+    description: "산업 자기 보고의 지위와 분모 병기 규칙이 답이다. 거짓 통과를 재지 않았다는 공백도 같은 절에 있다"
+    expected_files: ["concepts/why-fewer-end-to-end-tests.md"]
+    expected_in_top_k: 5
