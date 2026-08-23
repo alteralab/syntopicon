@@ -6,6 +6,10 @@
 # 그래서 exact 문항은 낱말 하나가 아니라 **이 페이지만 갖는 결합**으로 던진다(관문의
 # 순서, 다섯 번 실행, 사람 앞의 필터). alias는 반대로 이 KB가 독점하는 원어를 쓴다 —
 # `TestGen-LLM`·`flaky`·`Kotlin`은 반입 전 0건이었다.
+# 2026-08-23(스위트 운영 갈래 마감, 런 2026-08-23-11) 갱신: `flaky`가 더는 이 KB에서
+# 이 페이지의 것이 아니다. 스위트 운영 갈래가 서면서 그 원어를 인쇄하는 파일이 열 개로
+# 늘었고(개념 다섯·소스 메타 다섯), 그중 셋은 파일 이름에도 그 낱말이 들어간다. 전제가
+# 무너진 `fcgt-alias-2`는 전 레그 미회수가 됐고, 이 페이지에만 인쇄된 원문 표기로 교체했다.
 # semantic 셋은 이 페이지가 서는 물음을 낱말을 갈아 던진다. cross-domain 셋은 이번 런이
 # 실제로 건 링크를 겨냥한다 — x-1이 잡히지 않으면 보강한 개정판이 검색에 반영되지 않은 것이다.
 source: alshahwan2024-testgen-llm
@@ -54,9 +58,9 @@ queries:
     expected_files: ["concepts/filter-chain-for-generated-tests.md", "sources/alshahwan2024-testgen-llm.md"]
     expected_in_top_k: 5
   - id: fcgt-alias-2
-    query: "flaky"
+    query: "five executions is deemed flaky"
     type: alias
-    description: "원어 병기 — 역어(불안정)는 27곳이 쓰지만 원어는 이번 반입이 처음이다"
+    description: "원문 직인용 안의 표기이고 코퍼스에서 이 페이지에만 인쇄돼 있다. 앞 질의 `flaky`는 스위트 운영 갈래가 서면서 열 개 파일이 나눠 갖게 되어 이 페이지를 가리키지 못했다(2026-08-23 교체)"
     expected_files: ["concepts/filter-chain-for-generated-tests.md"]
     expected_in_top_k: 5
   - id: fcgt-alias-3
