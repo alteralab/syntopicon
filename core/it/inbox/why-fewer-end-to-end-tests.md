@@ -231,7 +231,7 @@ Pyramid").[^wacker2015-e2e]
 | 배합 | 70 / 20 / 10 | 80 / 15 / 5 |
 | 어조 | `suggests`, `good first guess` | `As a very rough guideline`, `we tend to aim` |
 | 집계 단위 | 적혀 있지 않다 | 테스트 케이스 수(그림 캡션) |
-| 피라미드 출처 | 2014년 사내 학회 기조 강연 | Mike Cohn, *Succeeding with Agile*(2009) |
+| 피라미드 출처 | 2014년 `Google Test Automation Conference` 기조 강연 | Mike Cohn, *Succeeding with Agile*(2009) |
 | 배격하는 배합 | ice cream cone, hourglass | 같은 두 이름 |
 
 - **둘을 겹쳐 읽을 때의 주의**: 두 값 다 회사가 정한 목표치이므로 "구글은 단위 테스트를
