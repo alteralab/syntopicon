@@ -46,8 +46,8 @@ sources:
 
 ## 크기와 범위는 다른 축이다
 
-**이 책의 첫 기여가 어휘를 두 축으로 가른 것이다** (11장 §"Designing a Test
-Suite").[^winters2020-swe-at-google]
+**이 책의 첫 기여가 크기(size)와 범위(scope)라는 두 축으로 어휘를 가른 것이다**
+(11장 §"Designing a Test Suite").[^winters2020-swe-at-google]
 
 > We have come to the conclusion that there are two distinct dimensions for every test
 > case: size and scope. Size refers to the resources that are required to run a test case:
@@ -72,8 +72,8 @@ Suite").[^winters2020-swe-at-google]
   > that is being *validated*, not the code that is being executed.
 
 - **두 축이 직교라는 것을 예로 못 박는다** (11장 §"Test Scope").[^winters2020-swe-at-google]
-  모든 프로세스 밖 의존을 대역으로 세우면 넓은 범위의 서버 종단점 테스트도 small일 수 있고,
-  날짜 선택기 하나를 검증하려고 브라우저 전체를 띄워야 하면 좁은 범위의 테스트도 medium이
+  모든 프로세스 밖 의존을 대역(test double)으로 세우면 넓은 범위의 서버 종단점 테스트도
+  small일 수 있고, 날짜 선택기 하나를 검증하려고 브라우저 전체를 띄워야 하면 좁은 범위의 테스트도 medium이
   된다.
 
 ## 세 크기의 제약
@@ -93,7 +93,7 @@ Size").[^winters2020-swe-at-google]
 | large | 여러 기계 | (크기 제약 없음) | 원격 클러스터의 시스템까지 |
 
 - **small의 입출력 금지에 예외 한 줄이 각주로 붙는다** (11장 각주 5).[^winters2020-swe-at-google]
-  밀폐된 메모리 구현을 쓴다면 파일 시스템 접근이 허용된다.
+  밀폐된(hermetic) 메모리 구현을 쓴다면 파일 시스템 접근이 허용된다.
 - **네 번째 크기가 각주에만 있다** (11장 각주 4).[^winters2020-swe-at-google]
 
   > Technically, we have four sizes of test at Google: small, medium, large, and
