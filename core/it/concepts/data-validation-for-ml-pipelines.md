@@ -2,7 +2,6 @@
 type: concept
 title: ML 파이프라인의 데이터 검증
 description: 값은 유효한데 틀린 데이터를 무엇에 비추어 잡을 것인가 — 기대를 적은 스키마가 명세로 선재하지 않고 데이터에서 추론돼 데이터와 공진화한다는 배치, 단일 배치·배치 간·훈련 코드의 가정으로 가른 세 층, 훈련-서빙 왜곡 세 종류와 카이제곱 검정을 버리고 해석 가능한 분포 거리를 고른 이유, 스키마로 훈련 코드를 퍼즈하는 모델 단위 테스트, 그리고 구글 프로덕션 700여 파이프라인의 30일 이상 분포
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-24T00:00:00Z" }
 sources:
   - { id: breck2019-data-validation, resource: /it/sources/breck2019-data-validation.md }

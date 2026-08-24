@@ -155,6 +155,11 @@ sources:
 - [데이터 레이크](../concepts/data-lake.md) — 같은 선택이 분석 저장소 층위에서 반복되는 자리
 - [카프카 직렬화와 스키마 레지스트리](../concepts/kafka-serialization-and-schema-registry.md) —
   스키마를 데이터에서 떼어 내 따로 관리하는 세 번째 길
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 스키마가
+  **데이터보다 나중에 오는** 자리. 데이터베이스에서는 스키마가 먼저 와서 갱신과 질의를
+  검사하지만 ML 파이프라인은 데이터 생성이 파이프라인 밖에 있어 그 전제가 깨진다는 것이
+  그쪽의 출발점이고, 답은 스키마를 데이터에서 추론해 데이터와 함께 진화시키는 것이다.
+  여기의 "암묵 스키마는 언제나 있다"는 지적과 같은 사실의 다른 면이다
 - [정규화와 비정규화](../concepts/normalization-and-denormalization.md) — 스키마와 별개로
   데이터를 어디에 둘지의 선택
 - [유지보수성](../concepts/maintainability.md) — 스키마 마이그레이션이 진화성 문제인 이유

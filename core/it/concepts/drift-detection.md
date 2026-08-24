@@ -67,6 +67,10 @@ sources:
   무엇인가
 - [퇴화 피드백 루프](../concepts/degenerate-feedback-loop.md) — 사용자 행동과 시스템이 서로를 미는
   다른 갈래
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — **바뀌는 것이
+  다르다.** 이 페이지가 세는 셋은 프롬프트·사용자 행동·기저 모델이고, 그쪽이 재는 것은 자질
+  값의 분포가 배치 사이에서 얼마나 움직였는가다. 그쪽은 그 움직임이 언제나 양수라는 전제에서
+  출발해 "경보를 낼 만큼 큰가"만 묻는다
 
 [^huyen2025]: Huyen 2025, 10장 "AI Engineering Architecture and User Feedback" (책 pp.449–496).
     이 페이지는 "Monitoring and Observability" 절의 하위 절 "Drift detection"(pp.471–472)을 담았다.

@@ -301,6 +301,11 @@ sources:
 - [유지보수성](../concepts/maintainability.md) — 진화성이 비기능 요건으로 정의되는 자리
 - [읽기 스키마와 쓰기 스키마](../concepts/schema-on-read-and-schema-on-write.md) — 스키마를 강제할지
   말지가 이 문제에 어떻게 걸리는가
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 스키마가
+  **어떻게 생겨나는가** 쪽. 여기가 다루는 것은 스키마가 바뀌는 동안 옛 판과 새 판이 함께 도는
+  조건이고, 그쪽은 그 스키마가 애초에 손으로 쓰이지 않고 데이터에서 추론된 뒤 경보를 계기로
+  사람의 승인을 거쳐 고쳐진다는 배치를 다룬다. 두 방향의 호환이 아니라 **데이터와 기대의
+  공진화**가 그쪽의 낱말이다
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 5장 "Encoding and Evolution"
 

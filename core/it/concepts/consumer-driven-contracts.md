@@ -332,6 +332,10 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
   서술이 이 글의 문제 설정과 맞물린다
 - [단정적 프로그래밍](../concepts/assertive-programming.md) — 기대를 단정으로 적는 같은
   장치를 한 프로그램 안에서 쓰는 쪽
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 같은 물음이
+  데이터 경계에서 되풀이되는 자리. 그쪽에서 기대를 적은 스키마는 **데이터를 쓰는 쪽**인
+  파이프라인 소유자가 큐레이션하고, 데이터를 만드는 팀은 대개 다른 팀이라 계약의 방향이
+  소비자 쪽에서 올라온다. 다만 그 사양은 협상된 계약이 아니라 관측에서 추론된 것이다
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 이 축의 허브
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
 - [검증자 독립성](../synthesis/verifier-independence.md) — 판정 주체 쪽의 허브이자 이

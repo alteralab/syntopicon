@@ -109,6 +109,10 @@ sources:
 - [데이터 오염](../concepts/data-contamination.md) — 중복이 평가를 망치는 쪽
 - [데이터 품질 관리](../concepts/data-quality-management.md) — 데이터 웨어하우스가 같은 낱말로 재는 것
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 사전 훈련 쪽의 같은 실측
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 같은 낱말이
+  **좋고 나쁨이 아니라 기대와의 어긋남**을 뜻하는 자리. 그쪽에서 품질 문제의 주된 출처는
+  잡음이 아니라 데이터 생성 코드의 버그이고, 그래서 잡는 대상도 값 하나가 아니라 조각별
+  빈도의 변화다
 
 [^huyen2025]: Huyen 2025, 8장 "Dataset Engineering" (책 pp.363–404) 중 "Data Quality"
     (pp.368–369). 2장 "Understanding Foundation Models"(p.51)의 고품질 소량 대목을 대조로 함께

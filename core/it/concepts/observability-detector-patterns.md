@@ -392,6 +392,11 @@ Konieczny 10장의 관측 가능성(observability) 패턴은 그 답을 **탐지
   감사 단계로 승격되는 그 구분과, SLA 지표를 모으는 두 관측자
 - [데이터 품질 강제 패턴](../concepts/data-quality-enforcement-patterns.md) — 이 장이 메우는 공백의 주인.
   AWAP 잡 자체가 돌지 않는 경우
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 같은 고리가
+  ML 파이프라인에서 닫히는 자리. 위 죽음의 고리는 **직전 실행**을 기준으로 삼아 나쁜 날이
+  새 기준이 되고, 그쪽의 되먹임 고리는 **서빙 데이터가 다음 훈련 데이터가 되어** 오류가
+  눌러앉는다. 끊는 법도 대칭이다 — 이쪽은 기준을 직전 성공 실행으로 바꾸고, 그쪽은 검증을
+  고리 상류로 옮긴다. 재는 것도 갈린다: Skew Detector는 볼륨, 그쪽의 왜곡은 값의 분포다
 - [카프카 컨슈머 랙과 종단 간 모니터링](../concepts/kafka-consumer-lag-monitoring.md) —
   Lag Detector가 일반화한 그 측정의 카프카 실물
 - [지연의 백분위](../concepts/latency-percentiles.md) — 평균이 꼬리를 숨긴다는 논증의 원리 쪽

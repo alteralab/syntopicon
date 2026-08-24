@@ -336,6 +336,10 @@ Konieczny 9장의 첫 범주인 **품질 강제**(Quality Enforcement)는 그 �
   닮았지만 원인이 다른 자리
 - [데이터 웨어하우스의 데이터 품질 관리](data-quality-management.md) — 품질을 조직·프로세스의
   문제로 다루는 원리 층
+- [ML 파이프라인의 데이터 검증](data-validation-for-ml-pipelines.md) — **여기가 답하지 않는
+  질문의 주인.** 이 페이지는 규칙을 어느 자리에서 강제하는가(감사 단계냐 저장소 위임이냐)를
+  정하고 규칙의 내용은 주어진 것으로 놓는다. 그 규칙이 어디서 생겨나고 어떻게 낡는지 —
+  기대를 데이터에서 추론해 데이터와 함께 고쳐 나가는 배치 — 는 그쪽이 담당한다
 - [정규화와 비정규화](normalization-and-denormalization.md) — 무결성 제약이 성립하는 모델
 - [세션화 패턴](sessionization-patterns.md) — 스키마 파손으로 실패한 그 Stateful Sessionizer
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 두 패턴이
