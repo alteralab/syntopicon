@@ -3,7 +3,6 @@ type: concept
 title: TDD 효과의 실증
 description: TDD가 낫다는 주장을 실증이 무엇으로 재고 그 결과가 무엇을 말하고 무엇을 말하지 않는가 — TDD를 네 차원으로 쪼개 회귀로 잰 관찰 연구에서 순서 차원이 최종 모형에 남지 않은 자리와 그 결과를 test-last 우위로 읽지 말라고 논문이 직접 못 박은 부정 조건절, 같은 산업 실험의 데이터로 단위 테스트의 결함 검출력을 재어 반대 방향 결과를 낸 논문과 그 설계에서 처치와 과제와 순서가 함께 움직인다는 사실, 모집 24명과 분석 n을 가르는 자리, 목적을 모르는 두 기관이 데이터를 뽑고 분석한 외부 재현의 영 결과와 거기서 유의하게 나온 순서 효과, 세 실증이 공유하는 결과 변수의 좁음, 그리고 이 페이지가 논쟁의 두 극에 대해 판정이 아니라 중재항으로 서는 이유
 generated: { by: "claude-opus-5", at: "2026-08-24T12:00:00Z" }
-status: draft
 sources:
   - { id: fucci2017-tdd-dissection, resource: /it/sources/fucci2017-tdd-dissection.md }
   - { id: tosun2018-tdd-unit-tests, resource: /it/sources/tosun2018-tdd-unit-tests.md }

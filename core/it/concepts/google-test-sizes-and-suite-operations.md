@@ -2,7 +2,7 @@
 type: concept
 title: 구글의 테스트 크기 어휘와 스위트 운영
 description: 크기를 자원 제약으로 정의하고 범위와 갈라 놓은 어휘의 정본 서술과 그 어휘를 10년 앞서 낸 블로그와의 차이, 단위 테스트 80퍼센트라는 비중이 측정이 아니라 다른 책의 피라미드에서 온 목표치라는 것과 같은 회사가 다섯 해 앞서 낸 다른 배합, 그 비중을 정면으로 부정하는 에세이와 이 페이지가 이루는 모순 쌍의 축 셋, 불안정 비율 0.15퍼센트의 분모와 이 책에 없는 조문, 재실행 완화를 조건부로 승인하는 문면, 큰 테스트가 사내 지속 통합 관문 밖에 있다는 자인, 그리고 이 서술 전체가 기대는 규모 전제
-generated: { by: "claude-opus-5", at: "2026-08-24T07:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T12:00:00Z" }
 contradicts: [unit-testing-as-waste]
 sources:
   - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }
@@ -410,6 +410,10 @@ Stewart가 같은 세 이름을 표로 냈다.[^stewart2010-test-sizes]
   실행에서 매번 통과해야 한다는 불안정 판정을 실제 관문의 조건으로 쓴 산업 배선
 - [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) — 같은 회사의
   다른 규범 글이 `change-detector test`라는 이름을 붙인 자리
+- [TDD 효과의 실증](../concepts/empirical-evidence-on-tdd-effects.md) — **이 페이지와
+  반대 극이 함께 기대는 자리에 측정을 놓은 곳.** 다만 **축이 겹치지 않는다** — 그쪽 세 논문은
+  단위 테스트의 **비중**이 아니라 테스트와 제품 코드를 쓰는 **과정**을 재므로, 이 페이지의
+  80/15/5를 지지하지도 반박하지도 않는다. 그쪽이 그 사실을 자기 절에 적어 둔다
 - [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이 갈래의 허브. 크기의
   배합과 비결정성을 한 질문으로 묶는 자리이고, 이 페이지가 그 어휘의 바닥이다
 - [테스트 스위트의 적절성](../synthesis/test-suite-adequacy.md) — 형제 허브. 스위트를 하나의
