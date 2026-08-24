@@ -2,7 +2,7 @@
 type: concept
 title: 대역 어휘와 두 TDD 스타일
 description: 테스트 대역을 부르는 말이 어떻게 갈리고 그 위의 스타일 선택이 무엇을 바꾸는가 — 하나로 뭉쳐 있던 것이 검증 방식의 구분과 TDD 스타일의 구분 둘로 갈라진 자리, 더미와 가짜와 스텁과 스파이와 목의 정의 다섯과 그 어휘의 진짜 소유자, 목만이 행위 검증을 요구하고 스텁은 양쪽 다 된다는 판정, 언제 대역을 쓰는가로 갈리는 클래시컬과 모키스트의 정의, 두 스타일이 갈리는 다섯 축과 각 축에서 서로가 서로를 무엇으로 비판하는가, 스타일과 무관하게 요구되는 것 하나, 그리고 이 구분을 지은 저자 자신이 판정을 유보했고 그 뒤로 개정 기록이 늘지 않았다는 사실
-generated: { by: "claude-opus-5", at: "2026-08-24T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 sources:
   - { id: fowler2007-mocks-arent-stubs, resource: /it/sources/fowler2007-mocks-arent-stubs.md }
 ---
@@ -185,13 +185,13 @@ sources:
   > warehouse's state. Mocks use behavior verification, where we instead check to see if the
   > order made the correct calls on the warehouse.
 
-  - **단언이 하나도 없을 수 있다는 대목이 이 차이의 극단이다** (같은 절) — 대상 시스템만
-    단언으로 검사되고, **"if the method doesn't change the state of the order there's no
+  - **단정(assertion)이 하나도 없을 수 있다는 대목이 이 차이의 극단이다** (같은 절) — 대상 시스템만
+    단정으로 검사되고, **"if the method doesn't change the state of the order there's no
     asserts at all"**.[^fowler2007-mocks-arent-stubs]
 - **설정 단계가 둘로 쪼개진다** (§"Tests with Mock Objects"):[^fowler2007-mocks-arent-stubs]
   목을 쓰는 테스트의 설정은 데이터(data)와 기대(expectations) 두 부분이고, 기대는
   **대상 시스템이 행사될 때 목의 어떤 메서드가 불려야 하는가**를 미리 적는다. 검증도 둘이다 —
-  대상 시스템에 대한 단언과 목 자신에 대한 검증(`warehouseMock.verify()`)이다.
+  대상 시스템에 대한 단정과 목 자신에 대한 검증(`warehouseMock.verify()`)이다.
   - xUnit의 네 단계(setup·exercise·verify·teardown)는 두 스타일에서 같고, 달라지는 것은
     **그 안에 무엇이 들어가는가**다.[^fowler2007-mocks-arent-stubs]
 - **도구가 기대를 표현하는 방식이 둘로 갈린다** (§"Using EasyMock"):[^fowler2007-mocks-arent-stubs]
@@ -477,6 +477,16 @@ barely scratching the surface"**(§"Design Style").[^fowler2007-mocks-arent-stub
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 대역을
   실제로 꽂아 넣는 장치. 이 페이지의 두 스타일 모두 협력자를 바꿔 끼울 수 있어야 성립하고,
   그 자리를 만드는 기법이 거기 있다
+- [단위 테스트는 대부분 낭비인가](../concepts/unit-testing-as-waste.md) — **이 페이지의
+  두 스타일 밖에서 둘 다에 걸리는 비판.** 그 글은 클래시컬·모키스트의 갈림을 다루지 않은 채
+  목(mock)을 단위 테스트가 문맥을 지어내는 장치로 규정하고 단위 테스트에 실린 무게 자체를
+  부정한다. **근거 등급이 이 페이지와 같은 `essay`다**
+- [테스트의 바람직한 성질 열둘](../concepts/test-desiderata.md) — 위 [두 스타일이 갈리는
+  다섯 축](#두-스타일이-갈리는-다섯-축) 가운데 **구현에 대한 결합**이 지키려는 성질에 이름을
+  붙인 목록. 그쪽의 구조 둔감(structure-insensitive)이 그 자리이고, **그쪽도 이 페이지처럼
+  판정할 재료를 갖고 있지 않다**
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — **이 갈래의 허브.** 이 페이지가
+  세운 어휘와 두 스타일 위에 갈래의 나머지 페이지들이 자리를 잡는다
 - [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이웃 허브. 작은 테스트를
   성립시키는 대역 이야기가 거기 걸려 있다
 - [목 객체는 역할을 발견하기 위한 것이다](../concepts/mock-objects-for-role-discovery.md) —

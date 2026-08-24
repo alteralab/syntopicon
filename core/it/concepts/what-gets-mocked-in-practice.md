@@ -2,7 +2,7 @@
 type: concept
 title: 실제 프로젝트에서 무엇이 목으로 대체되는가
 description: 대역 갈래의 처방들이 현장에서 지켜지는지를 잰 실증 둘 — 자바 넷의 의존 2,178건을 손으로 분류해 낸 범주별 목 비율과 데이터베이스 72%라는 그림 위치, 개발자가 목하는 이유와 목하지 않는 이유, 결합도와 복잡도로는 목 여부가 예측되지 않는다는 대조, 아파치 자바 193개 프로젝트의 프레임워크 채택률과 목이 촘촘하지 않다는 세 측정, 목 객체의 다수가 자기가 소유하지 않은 라이브러리 클래스를 대체한다는 값, 프레임워크 없이 상속으로 만드는 목, 설문 자기 보고와 채굴값이 크게 어긋난다는 자인, 그리고 저자들이 "무엇을 언제 목할 것인가"를 미해결로 명시한 문면
-generated: { by: "claude-opus-5", at: "2026-08-24T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 sources:
   - { id: spadini2017-mocking-practices, resource: /it/sources/spadini2017-mocking-practices.md }
   - { id: xiao2024-mocking-frameworks, resource: /it/sources/xiao2024-mocking-frameworks.md }
@@ -280,7 +280,8 @@ Sonarqube에서는 면담할 개발자를 구하지 못했다고 적혀 있다.[
 ## 저자들이 미해결로 적은 것 (xiao)
 
 **이 항목이 이 페이지가 이 KB에 서는 이유의 절반이다.** 2024년 심사 논문이 "무엇을 언제
-목할 것인가"를 **풀린 문제로 다루지 않는다.**
+목할 것인가"를 **풀린 문제로 다루지 않는다.** 논문이 쓰는 낱말은 열린 연구 문제(open
+research)이고, 이 페이지는 그것을 미해결로 옮긴다.
 
 - **초록이 그렇게 적는다**:[^xiao2024-mocking-frameworks]
 
@@ -369,11 +370,13 @@ Sonarqube에서는 면담할 개발자를 구하지 못했다고 적혀 있다.[
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 목 대신 가짜를 쓰라는 다른 처방. 이 페이지의 둘째
   논문이 **프레임워크 없이 상속으로 만드는 목**을 세는데, 그것이 그 페이지가 말하는 가짜와
   같은 것인지는 두 소스가 답하지 않는다
-- [리팩터링 내성과 거짓 양성](resistance-to-refactoring-and-false-positives.md) — 처방들이
+- [리팩터링 내성과 거짓 양성](../concepts/resistance-to-refactoring-and-false-positives.md) — 처방들이
   주장하는 **효과**의 이름. 이 페이지의 두 논문이 재지 않은 것이 정확히 그것이다
 - [인메모리 데이터베이스 대역이 잃는 것](what-in-memory-database-doubles-lose.md) — 위 표
   첫 줄의 처방이 요구하는 "실물"의 뜻. **그쪽이 실물을 같은 엔진으로 좁히므로 이 페이지의
   어긋남은 그만큼 더 커진다** — 두 논문은 목 대체만 셌고 목이 아닌 대역은 세지 않았다
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — **이 갈래의 허브.** 이 페이지가
+  대조한 처방들이 거기 모여 있고, 그 가운데 어느 것도 실증이 아니라는 판정도 거기 있다
 - [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이웃 허브. 작은 테스트를
   성립시키는 대역 이야기가 거기 걸려 있다
 

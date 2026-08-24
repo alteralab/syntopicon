@@ -2,7 +2,7 @@
 type: concept
 title: 단위 테스트는 대부분 낭비인가
 description: 단위 테스트 대부분이 낭비라는 주장을 세운 한 편의 에세이와 그 논거가 어디서 무너지는가 — 동료심사 없는 뉴스레터라는 지위와 저자 자신의 한정 문면, 정보 이론과 계산 복잡도와 유지 비용과 심리라는 논거 넷, 같은 주장이 권고형 상자와 단정형 요약 불릿 두 층에서 다른 세기로 적힌 자리, 저자가 값어치를 인정한 예외 셋, 유일한 학술 인용을 반증으로 쓴 대목, 정보 이론 논거가 두 절 사이에서 서로를 무너뜨리는 자리와 그 아래 깔린 절단 표본 문제, 그리고 이 글에서 살아남는 방향 하나
-generated: { by: "claude-opus-5", at: "2026-08-24T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 contradicts: [google-test-sizes-and-suite-operations]
 sources:
   - { id: coplien2014-unit-testing-waste, resource: /it/sources/coplien2014-unit-testing-waste.md }
@@ -393,6 +393,8 @@ sources:
   처방이 같은 회사 문헌으로 서 있는 자리.** 이 글은 시스템 테스트로 무게를 옮기라 하고 그쪽은
   종단 테스트를 줄이라 한다. 두 글이 드는 근거가 다른 축이라는 것(이쪽은 값어치와 오라클,
   그쪽은 피드백 루프의 성질)이 대조의 자리다
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — **이 갈래의 허브.** 이 글이 한
+  극으로 서는 논쟁과 그 중재항이 거기 모여 있다
 - [테스트 스위트의 적절성](../synthesis/test-suite-adequacy.md) — 이웃 허브. 커버리지를 무엇으로
   읽을 것인가의 갈래가 거기 있고, 이 글의 커버리지 정의는 그 갈래의 어느 지표와도 같은 눈금이
   아니다

@@ -2,7 +2,7 @@
 type: concept
 title: 인메모리 데이터베이스 대역이 잃는 것
 description: 데이터베이스 의존을 같은 엔진이 아닌 것으로 바꿔칠 때 무엇을 잃는가에 대한 세 문헌의 논거와 그 층 — 테스트를 두 벌 쓰게 되고 원시 SQL을 못 쓰고 API가 어긋나고 트랜잭션이 아무 일도 하지 않는다는 한 팀의 경험, 방언과 벤더 고유 기능의 차이가 초록 테스트를 프로덕션 실패로 만든 사례와 실물 데이터베이스를 컨테이너로 띄우라는 처방, 자기 제품의 인메모리 공급자를 highly discouraged로 표시하고 대신 리포지터리 층 대역과 SQLite 인메모리를 조건부로 권한 벤더 문서와 그 비교 표, 세 문헌 어디에도 금지 낱말이 없다는 층 판정, 그리고 실물 우선이라는 처방과 실제 관행이 반대라는 대조
-generated: { by: "claude-opus-5", at: "2026-08-24T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 sources:
   - { id: bogard2020-in-memory-databases, resource: /it/sources/bogard2020-in-memory-databases.md }
   - { id: hauer2017-dont-use-in-memory-databases, resource: /it/sources/hauer2017-dont-use-in-memory-databases.md }
@@ -517,6 +517,8 @@ IEnumerable-returning repository methods, in order to be stubbed/mocked."**[^efc
   생긴다
 - [불안정 테스트의 원인 분류와 고침](../concepts/flaky-test-root-causes-and-fixes.md) —
   실물 자원을 테스트에 들일 때 무엇이 흔들리는가. 컨테이너 처방이 치르는 대가의 다른 이름
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — **이 갈래의 허브.** 이 페이지가
+  실행 층으로 받는 처방과 그 처방을 어기는 실측이 거기 함께 있다
 - [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이웃 허브. 작은 테스트를
   성립시키는 대역 이야기가 거기 걸려 있다
 - **아직 답이 없는 물음 둘**

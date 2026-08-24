@@ -2,7 +2,7 @@
 type: concept
 title: 테스트 대역 선호 순서와 규모 전제
 description: 실물을 먼저 쓰고 안 되면 가짜를 쓰며 스텁과 상호작용 검증을 뒤로 미룬다는 한 대규모 조직의 선호 순서와 그 각각의 조건, 가짜의 값어치를 사용자 수의 함수로 적은 문면, 한 API가 수만 번 목으로 대체될 때 생기는 문제와 그것을 막는 정적 분석 주석, 대역이 실물과 어긋날 때 큰 테스트가 받는 자리, 그리고 이 논거 전체가 기대는 규모 전제와 그것을 뗐을 때 남는 것
-generated: { by: "claude-opus-5", at: "2026-08-24T06:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 sources:
   - { id: winters2020-swe-at-google, resource: /it/sources/winters2020-swe-at-google.md }
 ---
@@ -177,7 +177,7 @@ Implementation").[^winters2020-swe-at-google] 실물은 **빠르고 결정적이
 - **그래도 쓸 자리가 있다** (13장 §"When Is Stubbing Appropriate?"):[^winters2020-swe-at-google]
   대상 시스템을 특정 상태로 몰기 위해 어떤 값을 돌려받아야 할 때다. 실물이나 가짜로는
   일으키기 어려운 오류나 드문 반환값을 흉내 낼 수 있다는 것이 스터빙의 고유 능력이다.
-  - **조건이 붙는다** — 스텁하는 함수마다 테스트의 단언과 **직접 관계**가 있어야 하고, 많은
+  - **조건이 붙는다** — 스텁하는 함수마다 테스트의 단정(assertion)과 **직접 관계**가 있어야 하고, 많은
     함수를 스텁해야 한다면 그것은 과용이거나 대상 시스템이 너무 복잡하다는 신호다.
 
 ## 상호작용 검증은 언제만 쓰나
@@ -295,7 +295,11 @@ doubles").[^winters2020-swe-at-google]
   답하는지를 다룬다
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 다른 소스가 같은 선택을 다룬 자리. 그쪽은
   파이썬 실무 책이고 결론의 방향이 같다(상태 중심·고전 학파). 두 문헌이 서로를 인용한 적은
-  없고, 이 KB의 대역 축을 어느 페이지가 소유할지는 그 축을 다루는 다음 반입에서 정한다
+  없다. **이 KB에서 대역 축을 모으는 자리는
+  [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) 허브이고,
+  그 안에서 어휘는 [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md)이,
+  무엇을 목으로 바꿀 것인가의 판정은
+  [무엇을 목으로 대체할 것인가](../concepts/what-to-replace-with-mocks.md)가 소유한다**
 - [무엇을 목으로 대체할 것인가](../concepts/what-to-replace-with-mocks.md) — **같은 물음에
   다른 축으로 답한 자리.** 이 페이지는 실물 · 가짜 · 스텁 · 상호작용 검증이라는 **선호
   순서**를 규모 조건 위에 세우고, 그쪽은 순서 대신 **경계 하나**로 답한다 — 응용 경계를
@@ -333,6 +337,13 @@ doubles").[^winters2020-swe-at-google]
   그쪽 세 소스는 데이터베이스 엔진의 가짜에서 그 물러섬이 실패했다고 적는다. 다만 이
   페이지가 가짜에 붙인 조건 둘(소유팀이 유지 · 계약 테스트로 충실도 검사)을 그 사례에 대
   보면 긴장이 좁아진다
+- [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) —
+  **이 페이지가 쓰는 학파 이름이 지어진 자리.** 위 [선호 순서](#선호-순서--실물이-먼저다)가
+  자기 방식을 클래시컬로 부르고 반대편을 모키스트로 부르는데, 두 이름 다 그 글이 지었다.
+  그쪽은 두 스타일의 논거를 나란히 놓고 **판정을 유보하며**, 이 페이지는 규모라는 한 축을
+  골라 강등한다
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — 이웃 허브. 이 선호 순서가
+  대역 갈래의 다른 처방들과 어디서 갈리는지가 거기 모여 있다
 - [테스트 스위트의 운영](../synthesis/test-suite-operations.md) — 이 갈래의 허브. 작은
   테스트를 성립시키는 자리로 이 페이지가 거기 든다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 형제 허브. 대역을 쓰면 기대값이

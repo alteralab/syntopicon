@@ -2,7 +2,7 @@
 type: concept
 title: TDD 효과의 실증
 description: TDD가 낫다는 주장을 실증이 무엇으로 재고 그 결과가 무엇을 말하고 무엇을 말하지 않는가 — TDD를 네 차원으로 쪼개 회귀로 잰 관찰 연구에서 순서 차원이 최종 모형에 남지 않은 자리와 그 결과를 test-last 우위로 읽지 말라고 논문이 직접 못 박은 부정 조건절, 같은 산업 실험의 데이터로 단위 테스트의 결함 검출력을 재어 반대 방향 결과를 낸 논문과 그 설계에서 처치와 과제와 순서가 함께 움직인다는 사실, 모집 24명과 분석 n을 가르는 자리, 목적을 모르는 두 기관이 데이터를 뽑고 분석한 외부 재현의 영 결과와 거기서 유의하게 나온 순서 효과, 세 실증이 공유하는 결과 변수의 좁음, 그리고 이 페이지가 논쟁의 두 극에 대해 판정이 아니라 중재항으로 서는 이유
-generated: { by: "claude-opus-5", at: "2026-08-24T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-08-24T01:20:00Z" }
 sources:
   - { id: fucci2017-tdd-dissection, resource: /it/sources/fucci2017-tdd-dissection.md }
   - { id: tosun2018-tdd-unit-tests, resource: /it/sources/tosun2018-tdd-unit-tests.md }
@@ -368,6 +368,8 @@ test-last(incremental test-last, ITL), Tosun 2018은 같은 것을 ITLD로 적�
   — **"리팩터링"이라는 낱말이 두 페이지에서 다른 것을 가리킨다.** 그쪽은 **테스트가
   리팩터링에 견디는가**를 말하고, 이 페이지의 REF는 **개발자가 리팩터링에 쓴 사이클의
   비율**이다. 그 구분을 놓치면 REF의 음의 계수가 그쪽 조문을 반박하는 것처럼 보인다
+- [대역과 단위 테스트의 가치](../synthesis/test-doubles-and-unit-test-value.md) — **이 갈래의 허브.** 이 페이지가
+  중재항으로 서는 논쟁의 두 극이 거기 있다
 - [검증자 독립성](../synthesis/verifier-independence.md) — 이웃 허브. 위
   [목적을 모르는 사람이 분석했을 때](#목적을-모르는-사람이-분석했을-때)의 눈가림 분석이
   그 축과 닿되 **층이 다르다** — 그 허브는 소프트웨어를 판정하는 주체를 다루고, 이쪽의
