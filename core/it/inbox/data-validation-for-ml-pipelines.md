@@ -28,7 +28,7 @@ sources:
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **코드가 아니라 파이프라인을 흐르는 데이터를 검증할 때, 무엇이 "옳은
-데이터"를 정하고 그 기대는 어디서 오는가.**
+데이터"를 정하고 그 기대(expectation)는 어디서 오는가.**
 
 ## 이 페이지의 지위 — 심사 논문이자 배포 관측 보고
 
@@ -165,7 +165,7 @@ p.4):[^breck2019-data-validation]
 
   **"기대되는 데이터 특성"이 정의 안에 들어 있다.** 그러므로 이상 탐지의 실질은 그 기대를
   어디에 적어 두느냐로 옮겨 간다.
-- 그 자리가 스키마다 — 데이터베이스의 스키마 개념을 일반화해 `codifies the expectations
+- 그 자리가 스키마(schema)다 — 데이터베이스의 스키마 개념을 일반화해 `codifies the expectations
   for correct data`하게 만든 것이고, 훈련 알고리즘이 받는 키-값 목록 형식으로 바뀌면서
   사라진 의미론을 되잡는 **논리 모델**로 규정한다 (§1 PDF p.2, §3 PDF
   p.4).[^breck2019-data-validation]
@@ -200,7 +200,7 @@ p.4):[^breck2019-data-validation]
     부호화된 불리언 따위), 그리고 **자질 수명 주기 단계**(`UNKNOWN_STAGE`·`PLANNED`·
     `ALPHA`·`BETA`·`PRODUCTION`·`DEPRECATED`·`DEBUG_ONLY`) — 단계가 다르면 같은 이상의
     무게도 다르다는 것이 이 마지막 항목의 요지다.
-  - 훈련-서빙 왜곡과 배치 간 드리프트를 재는 임계값도 **스키마 안의 제약으로** 들어간다
+  - 훈련-서빙 왜곡과 배치 간 드리프트(drift)를 재는 임계값도 **스키마 안의 제약으로** 들어간다
     (`skew_comparator`·`drift_comparator`, 그림 7, PDF p.13).[^breck2019-data-validation]
     곧 **경보의 민감도까지 같은 파일이 소유한다.**
 
