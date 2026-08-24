@@ -1,0 +1,100 @@
+# 질문지 조각 — Breck et al. 2019 "Data Validation for Machine Learning" (2nd SysML Conference)
+# 승급(2026-08-24, 데이터 검증 갈래의 첫 반입).
+# 이 소스가 만드는 검색 위험은 세 겹이다. 첫째, "데이터 품질·검증" 어휘의 과밀 —
+# data-quality-enforcement-patterns(AWAP·Constraints Enforcer)·quality-observation-patterns·
+# data-quality-management·training-data-quality가 이미 그 낱말을 쓴다. 둘째, "스큐" 어휘의
+# 삼중 과적재 — relieving-hot-spots가 파티션 부하 불균형으로, bitemporal-data가 실제 시각과
+# 처리 시각의 거리로, observability-detector-patterns가 실행 사이 볼륨 차로 쓴다. 이 페이지의
+# 왜곡은 훈련 데이터와 서빙 데이터의 값 분포 차이라 넷째 뜻이다. 셋째, "단위 테스트"와
+# "드리프트" 어휘의 과밀 — 검증 축 페이지 다수와 drift-detection이 소유한다.
+# 그래서 exact 문항은 이 페이지만 가진 어휘(훈련-서빙 왜곡·단일 배치 검증·모델 단위 테스트·
+# 과적합한 스키마)를 겨냥하고, alias 문항은 이 페이지에서만 병기된 원어가 갈라 주는 키로
+# 사는지를 잰다. cross-domain 둘은 이번 런이 실제로 건 양방향 링크(현재 동작을 오라클로 쓰기,
+# 관측 탐지 패턴의 죽음의 고리)가 검색에서도 이웃으로 잡히는지를 본다.
+source: breck2019-data-validation
+added: 2026-08-24
+queries:
+  - id: breck-exact-1
+    query: "훈련-서빙 왜곡"
+    type: exact
+    description: "이 페이지가 세운 역어 — 부하 치우침·시간 스큐 페이지가 아니라 여기가 1위여야 한다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-exact-2
+    query: "단일 배치 검증 배치 간 검증"
+    type: exact
+    description: "논문이 가른 두 층 — 둘을 함께 다루는 페이지는 여기뿐이다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-exact-3
+    query: "모델 단위 테스트"
+    type: exact
+    description: "스키마로 훈련 코드를 퍼즈하는 셋째 층 — 단위 테스트 어휘가 과밀한 자리에서 갈려야 한다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-exact-4
+    query: "과적합한 스키마 거짓 경보"
+    type: exact
+    description: "추론된 스키마가 데이터에 너무 붙으면 생기는 대가 — 이 페이지의 고유 논거다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-exact-5
+    query: "스키마가 데이터에서 추론되고 데이터와 공진화한다"
+    type: exact
+    description: "이 논문의 중심 배치 — 읽기 스키마 페이지와 짝이 되되 이 페이지가 1위여야 한다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-alias-1
+    query: "training-serving skew"
+    type: alias
+    description: "원어 병기 — 역어가 흔들려도 남는 정확 일치 키"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-alias-2
+    query: "feature skew distribution skew"
+    type: alias
+    description: "원어 병기 — 왜곡 세 종류 중 둘. 파티션 치우침 페이지와 갈려야 한다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-alias-3
+    query: "Data Validation for Machine Learning SysML"
+    type: alias
+    description: "원문 제목과 학회 문면 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["sources/breck2019-data-validation.md", "concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-alias-4
+    query: "time travel 자질 값이 나중에 질의돼 부풀어 오른다"
+    type: alias
+    description: "자질 왜곡의 한 기제에 논문이 붙인 이름 — 이 페이지에만 있다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-sem-1
+    query: "타입은 맞는데 값이 틀린 데이터를 어떻게 알아채나"
+    type: semantic
+    description: "패러프레이즈 — -1 사례의 급소 그대로. 고유명사 불사용"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-sem-2
+    query: "모델 성능이 조금만 떨어져서 놓치는 데이터 오류"
+    type: semantic
+    description: "패러프레이즈 — 집계 지표가 안전망이 못 되는 이유. 이 페이지가 정면으로 다룬다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-sem-3
+    query: "경보가 너무 자주 뜨면 사람이 검증을 꺼 버린다"
+    type: semantic
+    description: "패러프레이즈 — 정밀도를 재현율보다 앞세운 설계 제약의 근거다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-top-1
+    query: "카이제곱 검정이 큰 데이터에서 쓸모없어지는 이유"
+    type: topical
+    description: "표본이 커질수록 검정통계량 분산이 줄어 미세한 차이에도 반응한다 — 합성 실험이 붙은 절"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: breck-x-1
+    query: "기대값을 대상 자신에게서 길어 올릴 때 무엇이 위험한가"
+    type: cross-domain
+    description: "코드 층의 특성화·현재 동작 오라클과 데이터 층의 스키마 추론 — 짝으로 걸려야 한다"
+    expected_files: ["concepts/data-validation-for-ml-pipelines.md", "concepts/current-behaviour-as-oracle.md"]
+    expected_in_top_k: 5
