@@ -289,7 +289,8 @@ Verification.run(data, checks)
 
   갱신·삭제가 있는 데이터셋은 이 절 밖이다.
 
-- 계산 모델이 셋으로 서 있다 (§3.2, p.1785).[^schelter2018-data-quality] 시각 t의
+- **증분 계산**(incremental computation)의 계산 모델이 셋으로 서 있다 (§3.2,
+  p.1785).[^schelter2018-data-quality] 시각 t의
   스냅샷을 D(t), 그때 새로 붙는 델타(delta) 데이터를 ΔD(t)라 할 때 — **상태**(state) S,
   델타와 이전 상태에서 상태를 갱신하는 함수 f, 상태에서 실제 메트릭을 뽑는 함수 g, 그리고
   초기 빈 상태 S(0)이다.
@@ -432,6 +433,8 @@ Verification.run(data, checks)
   선택과 보수적 편향**으로 메운다.
 
 ## 메트릭 이력 위의 이상 탐지
+
+**이상 탐지**(anomaly detection)가 이 시스템의 셋째 층이고, 앞의 둘과 겨냥이 다르다.
 
 - **대상이 데이터가 아니라 메트릭의 시계열이다** (§3.4,
   p.1787):[^schelter2018-data-quality]
