@@ -38,3 +38,10 @@ queries:
       - "concepts/what-gets-mocked-in-practice.md"
       - "concepts/what-to-replace-with-mocks.md"
     expected_in_top_k: 5
+  # 갈래 마감(2026-08-24, unit-design-doubles)에서 추가 — topical 갈래가 0건이었다.
+  - id: spadini-top-1
+    query: "개발자는 어떤 의존을 목으로 바꾸고 어떤 것을 그냥 쓰나"
+    type: topical
+    description: "이 논문의 중심 물음. 처방 페이지들이 아니라 관행을 잰 페이지가 와야 한다"
+    expected_files: ["concepts/what-gets-mocked-in-practice.md"]
+    expected_in_top_k: 5

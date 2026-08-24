@@ -71,3 +71,10 @@ queries:
       - "concepts/mock-objects-for-role-discovery.md"
       - "concepts/fakes-versus-mocks.md"
     expected_in_top_k: 5
+  # 갈래 마감(2026-08-24, unit-design-doubles)에서 추가 — topical 갈래가 0건이었다.
+  - id: freeman-top-1
+    query: "목을 세우는 목적이 테스트 격리인가 설계 발견인가"
+    type: topical
+    description: "이 논문이 자기 기법을 다시 규정한 축. 격리 도구로 읽는 다른 페이지들과 갈리는지를 본다"
+    expected_files: ["concepts/mock-objects-for-role-discovery.md"]
+    expected_in_top_k: 5
