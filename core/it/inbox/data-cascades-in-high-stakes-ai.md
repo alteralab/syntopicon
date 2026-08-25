@@ -45,7 +45,10 @@ sources:
   > Percentages are derived from coding each transcript for each individual's experiences
   > of cascades.
 
-- **분석은 주제 분석 계열의 반복 코딩이다.** 연구자 둘이 독립적으로 전 단위를 여러 번
+- **분석 절차의 출처는 Thomas 2006의 일반 귀납적 접근**(a general inductive approach for
+  analyzing qualitative evaluation data)이다 — 논문이 `Following [119]`로 그것을 지목한다
+  (§3, PDF p.4, 참고문헌 [119]). **"주제 분석(thematic analysis)"이라는 낱말은 이 논문에
+  없다.** 연구자 둘이 독립적으로 전 단위를 여러 번
   읽어 포화까지 범주를 세우고, 그룹 토의로 다듬어 상위 범주 셋(캐스케이드의 특성 ·
   유발 요인 · 캐스케이드 유형)과 하위 범주 18개를 얻었다 (§3, PDF
   p.4).[^sambasivan2021-data-cascades]
@@ -103,7 +106,7 @@ sources:
   것은 수혜 공동체에 대한 해, 이해관계자 관계의 소진, 데이터셋 전량 폐기, 값비싼 반복까지
   갔다.
 - **중복 발생**: `45.3% experienced two or more cascades each`. **대개 모델 구축의
-  상류에서 촉발돼 모델 개발·배포의 하류에서 나타난다.**
+  상류(upstream)에서 촉발돼 모델 개발·배포의 하류(downstream)에서 나타난다.**
 - **대개 피할 수 있다**:
 
   > Cascades are often avoidable by step-wise and early interventions in the development
@@ -135,7 +138,7 @@ p.8).[^sambasivan2021-data-cascades]
 - **물리적 세계 취약성** — 유발: 깨끗한 훈련 데이터(지저분한 실사용 데이터) · 변덕스러운
   실세계 데이터를 다룰 채비 부족. 영향: 수혜자에 대한 해 · 모델의 완전 실패 · 프로젝트
   포기. 신호: 배포 후 시스템 성능. 하위 갈래는 하드웨어 드리프트 · 환경 드리프트 · 인간
-  드리프트 셋이다 (§4.3.1, PDF p.7). 참여자 인용:
+  드리프트 셋이다 (§4.3.1, PDF p.7).[^sambasivan2021-data-cascades] 참여자 인용:
 
   > Suppose an image is out of focus, there is a drop of oil, or a drop of water on the
   > image, appearing blurry or diffused. A model which is looking at this can easily get
@@ -145,13 +148,13 @@ p.8).[^sambasivan2021-data-cascades]
 - **응용 도메인 전문성 부족** — 유발: 기술 전문성에 대한 과신 · 개념 증명까지 빨리
   달리기. 영향: 수혜자에 대한 해 · 값비싼 반복. 신호: 시스템 성능 · 사후 도메인 전문가
   자문. 두 대표 사례가 **근거 진리(ground truth)의 주관성**과 **대표성 있는 데이터
-  찾기**다 (§4.3.2, PDF pp.7–8).
+  찾기**다 (§4.3.2, PDF pp.7–8).[^sambasivan2021-data-cascades]
 - **충돌하는 보상 체계** — 유발: 어긋난 인센티브 · 파트너의 데이터 문해력 부족 · 데이터를
   비기술 업무로 보기. 영향: 값비싼 반복 · 다른 데이터 원천으로 이동 · 프로젝트 포기.
-  신호: 시스템 성능 · 소진된 파트너 관계 (§4.3.3, PDF pp.8–9).
+  신호: 시스템 성능 · 소진된 파트너 관계 (§4.3.3, PDF pp.8–9).[^sambasivan2021-data-cascades]
 - **조직 간 문서화 부실** — 유발: 데이터 문서화의 가치를 무시. 영향: 데이터셋 일부 또는
   전체 폐기 · 시간과 노력 낭비. 신호: **대개 '우연히' 걸리는 수동 인스턴스 검토**
-  (§4.3.4, PDF p.9).
+  (§4.3.4, PDF p.9).[^sambasivan2021-data-cascades]
 
 **이 배열 자체가 이 페이지의 논지다** — 유발 요인 열은 전부 상류(문제 정의·수집·라벨링)에
 있고, 영향 열은 전부 하류(모델 평가·배포)에 있으며, 신호 열은 하류에만 있다.
@@ -163,10 +166,11 @@ p.8).[^sambasivan2021-data-cascades]
 
 - **실무자가 쓴 것은 모델이 데이터에 얼마나 잘 맞는지를 재는 지표뿐이었다.** F1·정확도·
   AUC 같은 적합도 지표는 데이터의 **현상적 충실도**(fidelity)와 **타당도**(validity)에
-  대해 알려 주는 것이 없다.
+  대해 알려 주는 것이 없다 (§5, PDF p.10).[^sambasivan2021-data-cascades]
 - **데이터의 좋음을 재는 표준 지표가 없다** — `Currently, there are no standardised
-  metrics for characterising the goodness-of-data [11, 13]`.
-- **그래서 두 가지가 따라온다** (§5, PDF p.10):
+  metrics for characterising the goodness-of-data [11, 13]` (§5, PDF
+  p.10).[^sambasivan2021-data-cascades]
+- **그래서 두 가지가 따라온다** (§5, PDF p.10):[^sambasivan2021-data-cascades]
 
   > First, these metrics give us no assurances about the quality of the data. Second, they
   > are too late to detect and course-correct from the unforeseen effects of data cascades.
