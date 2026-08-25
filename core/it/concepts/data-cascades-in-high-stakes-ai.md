@@ -293,11 +293,12 @@ p.8).[^sambasivan2021-data-cascades]
 - [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md) — 데이터 엔지니어가
   ML 쪽과 만나는 자리에서 "데이터 캐스케이드가 무엇인가"를 알아야 할 항목으로 든다.
   그 물음의 답이 이 페이지다
-- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브.
+- [명세 없는 데이터 검증](../synthesis/data-validation-without-specifications.md) — 이 갈래의 허브
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 형제 허브.
   데이터 층에는 판정 근거가 없어 시스템 지표를 대리로 쓴다는 이 페이지의 진단이 그 축의
   데이터판이다
 
-**이 KB에 아직 없는 것**: goodness-of-data 지표를 실제로 제안하고 잰 소스가 없다. 이
+**이 KB에 없는 것**: goodness-of-data 지표를 실제로 제안하고 잰 소스가 없다. 이
 논문도 그것을 **필요하다고 말할 뿐 만들지 않는다**.
 
 [^sambasivan2021-data-cascades]: Sambasivan, Kapania, Highfill, Akrong, Paritosh, Aroyo

@@ -149,6 +149,11 @@ p.4):[^breck2019-data-validation]
 | **배치 간 검증**(inter-batch validation) | `are there any significant changes between the training and serving data, or between successive batches of the training data?` | 소프트웨어 스택 사이에서 생기는 오류(훈련 데이터 생성과 서빙 데이터 생성의 논리가 다를 때)와 새 코드 롤아웃의 버그 |
 | **모델 테스트**(model testing) | `are there any assumptions in the training code that are not reflected in the data ...?` | 훈련 코드가 데이터에 대해 품은 가정 중 데이터에 없는 것 |
 
+- **셋째 층은 원문에서 이름이 둘이다.** 2절의 목록은 `Model testing`으로 적고, 5절과
+  6절은 같은 것을 `Model Unit Tester`·`model unit test`·`model unit testing`으로 부른다
+  (§2 PDF p.4, §5 PDF pp.7–8, §6.1 PDF p.9).[^breck2019-data-validation] 이 페이지는 층의
+  이름으로는 **모델 테스트**(model testing)를, 그 층이 실제로 하는 일을 다루는 아래 절에서는
+  **모델 단위 테스트**(model unit testing)를 쓴다 — 원문이 두 자리에서 다르게 부르기 때문이다.
 - **앞의 둘이 대장이 적어 둔 단일 배치 대 배치 간 2분법이고, 원문에는 셋째가 있다.**
   2분법은 *데이터를 무엇과 비교하는가*의 축(자기 자신 대 다른 배치)이고, 셋째는 비교
   대상이 데이터가 아니라 **훈련 코드**여서 축이 다르다. 셋을 나란히 적을 때 이 비대칭을
@@ -362,8 +367,11 @@ p.4):[^breck2019-data-validation]
 
 ## 모델 단위 테스트 — 스키마로 훈련 코드를 퍼즈한다
 
-- 겨냥이 다르다 — 앞의 두 층이 기대와 데이터의 어긋남을 찾는다면, 이 층은 **기대와 훈련
-  코드의 가정**이 어긋난 것을 찾는다 (§5, PDF p.7).[^breck2019-data-validation]
+- 겨냥이 다르다 — **모델 단위 테스트**(model unit testing)는 앞의 두 층이 기대와 데이터의
+  어긋남을 찾는 데 비해 **기대와 훈련 코드의 가정**이 어긋난 것을 찾는다 (§5, PDF
+  p.7).[^breck2019-data-validation] 위
+  [검증을 세 층으로 가른다](#검증을-세-층으로-가른다)의 표에서 **모델 테스트**(model testing)로
+  적은 층이 이것이다.
 - 예가 로그 변환이다 — 훈련 코드가 어떤 수치 자질에 로그를 취하면 그 값이 늘 양수라는
   암묵 가정을 하는 것인데, 스키마가 그 가정을 적고 있지 않고 마침 그 훈련 배치에 양수만
   들어 있으면 **검증도 훈련도 아무것도 잡지 못한다.** 모델이 서빙에 올라가 비양수 값을
@@ -528,7 +536,12 @@ p.4):[^breck2019-data-validation]
   하류에서 무슨 일이 벌어지는가의 현장 기록. 이 논문이 **기제**로 말한 증폭을 그쪽은
   **지연과 비용**으로 적는다. 다만 그쪽의 처방은 "상류에 검사를 세워라"가 아니라
   인센티브·교육·문서화의 구조 변화라, 이 논문의 결론과 방향은 같되 층이 다르다
-- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
+- [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — 기대를 적지 않고도
+  파이프라인을 검사하는 다른 길. 같은 입력으로 다시 돌린 결과가 처음과 같은가만 묻는 규율이라
+  **명세도 스키마도 필요 없지만**, 틀린 데이터를 결정적으로 틀리게 처리하는 파이프라인은
+  그 검사를 통과한다 — 그 빈자리를 메우는 것이 이 페이지의 스키마다
+- [명세 없는 데이터 검증](../synthesis/data-validation-without-specifications.md) — 이 갈래의 허브
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 형제 허브
 - [데이터 엔지니어링 설계 패턴](../synthesis/data-engineering-design-patterns.md) —
   데이터 품질 패턴 쪽의 허브
 

@@ -348,8 +348,9 @@ sources:
   다루는가.** 이 글이 더하는 것은 그 그래프의 **노드를 태스크·테이블에서 태스크 인스턴스·파티션으로
   내리는** 관점이다.
 - [완만하게 변하는 차원](../concepts/slowly-changing-dimension.md) — **차원 속성이 바뀌면 어떻게
-  응답하는가.** 킴벌의 타입 체계가 그쪽이고, 이 글은 그 체계 대신 **스냅샷을 쌓자**고 제안한다.
-  모순이 아니라 비용 조건 위의 맞교환 재평가다.
+  응답하는가.** 킴벌 계열 **차원 모델링**(dimensional modeling)의 타입 체계가 그쪽이고, 이 글은
+  그 체계 대신 **스냅샷을 쌓자**고 제안한다. 모순이 아니라 **저장과 컴퓨트가 싸졌다는 비용 조건
+  위의 맞교환 재평가**다.
 - [늦은 데이터 통합](../concepts/late-data-integration.md) — **닫은 과거를 다시 여는 대가는
   무엇인가.** 그쪽이 재생의 비용을 다루고, 이 글은 그 상황 자체를 피하려고 **파티션 축을 처리
   시각으로 옮기는** 선택을 든다.
@@ -376,7 +377,9 @@ sources:
 - [속성 기반 테스트](../concepts/property-based-testing.md) — 기대를 사례가 아니라 성질로 적는
   갈래. 멱등을 파이프라인의 성질로 읽으면 같은 모양이고, 다만 입력을 기계가 만들지 않는다
 - [테스트 오라클](../concepts/test-oracle.md) — 메타모픽 관계의 정의가 사는 자리
-- [배치 처리](../synthesis/batch-processing.md) — 이 층의 허브
+- [배치 처리](../synthesis/batch-processing.md) — **이 페이지가 소속된 허브**
+- [명세 없는 데이터 검증](../synthesis/data-validation-without-specifications.md) — 이 글의 규율이
+  오라클 없는 검사로 읽히는 자리를 모아 둔 허브. 소속은 위 배치 처리 쪽이고, 그쪽은 이 접점만 가리킨다
 
 [^beauchemin2018-functional-data-engineering]: Beauchemin 2018, "Functional Data
     Engineering — a modern paradigm for batch data processing", Medium. 쪽 번호가 없는

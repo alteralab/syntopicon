@@ -364,7 +364,7 @@ p.1782):[^schelter2018-data-quality]
 ## 제약을 제안받는다 — 프로파일링과 열 이름 학습
 
 **채택 비용이 이 기능의 존재 이유다** (§3.3, p.1786).[^schelter2018-data-quality] 시스템의
-가치가 사용자가 정의한 체크의 풍부함에 달려 있으므로, 스키마도 타입 정보도 없는 데이터
+가치가 사용자가 정의한 체크의 풍부함에 달려 있으므로, 스키마(schema)도 타입 정보도 없는 데이터
 (예: 분산 파일 시스템의 CSV 파일)에서 시작할 수 있어야 한다.
 
 - **프로파일링**(profiling)은 **세 번의 훑기**로 끝낸다 (§3.3,
@@ -623,7 +623,7 @@ pp.1791~1792).[^schelter2018-data-quality] 아래는 그 조건에서만 읽는�
 - [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) —
   기대값을 대상 자신에게서 길어 올릴 때 무엇이 남고 무엇이 사라지는가. 메트릭 이력을
   기준으로 삼는 이상 탐지가 데이터 층의 같은 절차다
-- [함수형 데이터 엔지니어링](functional-data-engineering.md) — 이 논문이 append-only
+- [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — 이 논문이 append-only
   가정으로 비켜 간 물음, 곧 **파이프라인을 함수로 보아 재실행이 같은 결과를 내는가**(멱등)를
   정면으로 다루는 자리. 그쪽은 기대를 선언하지 않고도 두 실행을 견주지만, 그래서 **틀린
   데이터를 결정적으로 틀리게 처리하는 파이프라인**은 잡지 못한다 — 그 빈자리를 메우는 것이
@@ -634,7 +634,8 @@ pp.1791~1792).[^schelter2018-data-quality] 아래는 그 조건에서만 읽는�
   드러나기까지 2~3년이 걸린 사례까지. **근거의 격이 다르다**: 이 논문은 자기 시스템에
   대한 측정이고 그쪽은 자기 보고 인터뷰의 코딩이다. 그리고 그쪽의 처방은 제약 선언이
   아니라 인센티브·교육·문서화의 구조 변화다
-- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
+- [명세 없는 데이터 검증](../synthesis/data-validation-without-specifications.md) — 이 갈래의 허브
+- [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 형제 허브
 - [데이터 엔지니어링 설계 패턴](../synthesis/data-engineering-design-patterns.md) —
   데이터 품질 패턴 쪽의 허브
 

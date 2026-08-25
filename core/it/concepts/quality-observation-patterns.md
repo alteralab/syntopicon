@@ -209,6 +209,10 @@ Konieczny 9장의 마지막 범주인 **품질 관측**(Quality Observation)은 
   것을 **메트릭 이력으로 쌓아 그 시계열에 이상 탐지를 거는** 쪽. 여기의 관측자가 규칙을
   고치려고 데이터를 본다면 그쪽은 **과거의 자기 메트릭을 기준으로 삼는다**. 막느냐 보느냐의
   구분도 그쪽에서는 체크 수준(경고냐 오류냐)으로 표현된다
+- [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — **오늘의 규칙이
+  낡았을 때 무엇을 내놓는가에서 갈리는 쪽.** 여기의 관측자는 규칙을 고치라고 알리고, 그쪽은
+  **스키마 갱신 제안**을 사람이 한 번 눌러 받아들이게 한다. 규칙이 낡는다는 진단은 같고
+  그 진단을 처리하는 자리가 다르다
 - [스트림 처리의 결함 내성](stream-processing-fault-tolerance.md) — 지연 탐지가 읽는 그 체크포인트
 - [서비스 수준 목표](service-level-objectives.md) — 관측된 수치를 약속으로 바꾸는 쪽
 - [관측 탐지 패턴](../concepts/observability-detector-patterns.md) — 다음 장. 여기 두 관측자가 SLA 지표를
