@@ -623,14 +623,17 @@ pp.1791~1792).[^schelter2018-data-quality] 아래는 그 조건에서만 읽는�
 - [현재 동작을 오라클로 쓴다는 것](../concepts/current-behaviour-as-oracle.md) —
   기대값을 대상 자신에게서 길어 올릴 때 무엇이 남고 무엇이 사라지는가. 메트릭 이력을
   기준으로 삼는 이상 탐지가 데이터 층의 같은 절차다
+- [함수형 데이터 엔지니어링](functional-data-engineering.md) — 이 논문이 append-only
+  가정으로 비켜 간 물음, 곧 **파이프라인을 함수로 보아 재실행이 같은 결과를 내는가**(멱등)를
+  정면으로 다루는 자리. 그쪽은 기대를 선언하지 않고도 두 실행을 견주지만, 그래서 **틀린
+  데이터를 결정적으로 틀리게 처리하는 파이프라인**은 잡지 못한다 — 그 빈자리를 메우는 것이
+  이 페이지의 제약이다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
 - [데이터 엔지니어링 설계 패턴](../synthesis/data-engineering-design-patterns.md) —
   데이터 품질 패턴 쪽의 허브
 
-**아직 이 KB에 답이 없는 물음 둘**: 파이프라인을 함수로 보아 **재실행이 같은 결과를
-내는가**를 묻는 자리(멱등)와, **검증을 상류에 두지 않았을 때 오염이 하류에서 어떻게
-불어나는가**를 잰 자리다. 이 논문은 앞엣것을 append-only 가정으로 비켜 가고 뒤엣것을
-동기로만 언급한다.
+**이 논문이 비켜 간 물음**: **검증을 상류에 두지 않았을 때 오염이 하류에서 어떻게
+불어나는가**를 이 논문은 동기로만 언급하고 재지 않는다.
 
 [^schelter2018-data-quality]: Schelter, Lange, Schmidt, Celikel, Biessmann, Grafberger
     2018, "Automating Large-Scale Data Quality Verification", PVLDB 11(12):1781–1794.

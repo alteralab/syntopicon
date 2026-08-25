@@ -338,6 +338,9 @@ Reis & Housley는 같은 층을 데이터 엔지니어링 수명 주기의 **저
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 오케스트레이션이
   저류로 놓이는 전체 뼈대
 - [내구 실행과 워크플로](../concepts/durable-execution-and-workflows.md) — 같은 낱말의 다른 뜻
+- [함수형 데이터 엔지니어링](functional-data-engineering.md) — **이 그래프의 노드를 한 단계
+  내리는 관점.** 워크플로를 태스크의 DAG로, 계보를 테이블의 그래프로 보는 대신 **태스크
+  인스턴스와 파티션**의 그래프로 보면 무엇이 달라지는지를 Airflow 제작자가 적은 자리
 - [Unix 도구로 하는 배치 처리](../concepts/batch-processing-with-unix-tools.md) — 파이프로 이은
   단일 기계판
 - [배치 처리의 유스케이스](../concepts/batch-use-cases.md) — 이 스케줄러가 실제로 굴리는 것

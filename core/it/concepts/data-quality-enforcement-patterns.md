@@ -346,6 +346,12 @@ Konieczny 9장의 첫 범주인 **품질 강제**(Quality Enforcement)는 그 �
   번역해 집계 질의 하나로 몰아넣고, 데이터가 자라면 상태를 들고 증분으로 다시 잰다.
   **배치로 보면 그쪽 체크는 저장소 위임이 아니라 파이프라인 안에서 도는 감사 단계 쪽**이고,
   이상을 만나면 데이터 발행을 세운다는 대목이 감사의 실패 결말과 겹친다
+- [함수형 데이터 엔지니어링](functional-data-engineering.md) — **검사 단계를 두지 않고 신뢰를
+  얻으려는 쪽.** 거기서는 출력을 불변 파티션으로 통째로 덮어써 **다시 돌린 결과가 처음과
+  같도록** 만드는 것이 규율이고, 여기 감사 단계처럼 데이터의 내용을 판정하지는 않는다.
+  AWAP가 이름을 물려받은 Write-Audit-Publish의 출처는 위
+  [Audit-Write-Audit-Publish](#audit-write-audit-publish--변환-앞뒤에-검사를-세운다)의 계보
+  상자가 밝히는 Ufford이고, **그 이름은 그쪽 글에 등장하지 않는다**
 - [정규화와 비정규화](normalization-and-denormalization.md) — 무결성 제약이 성립하는 모델
 - [세션화 패턴](sessionization-patterns.md) — 스키마 파손으로 실패한 그 Stateful Sessionizer
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 두 패턴이

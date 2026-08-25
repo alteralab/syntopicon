@@ -52,6 +52,13 @@ Konieczny의 4장은 그 답을 네 범주로 가른다 — **덮어쓰기**(Ove
 - 계보 한 줄 — 저자는 **2018년 "Functional Data Engineering: A Modern Paradigm for Batch Data
   Processing" 기사로 멱등성을 대중화한 Maxime Beauchemin**을 따로 언급한다 (4장,
   p.80).[^konieczny2025]
+  - 그 글의 원문이 이 KB에 있다 —
+    [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md)이 그 페이지다. 이 페이지가
+    답하는 것이 **어떻게 치우는가**라면 그쪽은 **왜 그래야 하는가**다. 다만 **정의의 모양이
+    다르다** — 위 절댓값 항등식(`absolute(-1) == absolute(absolute(absolute(-1)))`)은
+    Konieczny의 것이고 Beauchemin의 글에는 그 항등식이 없다. 그쪽의 규정은
+    *"produce the same result every time it runs or re-runs"*, 곧 **재실행 결과의
+    동일성**이고, 그것을 얻는 수단으로 **덮어쓰기 강제**를 못 박는다.
 
 ## Fast Metadata Cleaner — 데이터 대신 메타데이터를 지운다
 
@@ -400,6 +407,8 @@ Konieczny의 4장은 그 답을 네 범주로 가른다 — **덮어쓰기**(Ove
 
 ## 이어지는 페이지
 
+- [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — 이 다섯 패턴이 지키려는 성질을
+  왜 지켜야 하는지, 그 논거가 실린 원전
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 같은 장의 데이터베이스 범주
   (Keyed Idempotency·Transactional Writer)가 간 자리
 - [배치 반입 패턴](../concepts/batch-ingestion-patterns.md) — Full Loader의 드롭-앤-인서트가 같은 문제를

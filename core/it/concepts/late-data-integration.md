@@ -314,6 +314,9 @@ Konieczny는 이 문제를 셋으로 쪼갠다 — **무엇이 늦었는지 정�
   깨지는 자리(Readiness Marker)
 - [재처리와 점진적 이관](../concepts/reprocessing-and-gradual-migration.md) — 백필이라는 낱말이
   다른 소스에서 갈리는 자리
+- [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — **이 문제를 아예 만나지 않으려는
+  선택.** 늦은 팩트가 있을 수 있으면 시간 파티셔닝을 **이벤트 시각이 아니라 처리 시각으로** 하라는
+  처방이 그쪽에 있고, 이벤트 시각 술어가 파티션 가지치기를 못 쓰게 되는 것이 그 대가다
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 이 세
   패턴이 속한 카탈로그
 
