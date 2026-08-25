@@ -186,8 +186,8 @@ p.8).[^sambasivan2021-data-cascades]
 
 ## 이 논문의 처방은 무엇인가
 
-**이 KB가 이 소스를 부른 이유는 "검증을 상류에 배치하라"의 실증을 찾기 위해서였다.
-문면 대조 결과는 부분 지지다.**
+**이 KB의 검증 축이 이 소스에 기대는 것은 "검증을 상류에 배치하라"의 근거다. 문면
+대조 결과는 부분 지지다.**
 
 - **지지되는 쪽**: 캐스케이드가 상류에서 촉발돼 하류에서 나타난다는 것, 대리 지표가
   **너무 늦다**는 것, 그리고 개입은 **단계적이고 이른** 것이어야 한다는 것이 전부 문면에
@@ -233,8 +233,9 @@ p.8).[^sambasivan2021-data-cascades]
   가리키면 검색에서 섞인다. 이 KB의
   [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md)가 이미 "데이터
   캐스케이드(data cascades)"로 적고 있어 선례도 그쪽이다.
-- **high-stakes → 고위험.** 논문의 정의는 "살아 있는 존재의 안전에 영향이 가는 도메인"이고
-  (§1, PDF p.1 각주 2), 신용·도로 안전·보건이 예다.
+- **high-stakes → 고위험.** 본문은 `high-stakes domains ... that have safety impacts on
+  living beings`라 적고, 각주 2가 `involving safety, well-being and stakes (e.g., road
+  safety, credit assessment)`로 넓힌다 (§1, PDF p.1 본문과 각주 2).
 - **field partner → 현장 파트너**, **application-domain expert → 응용 도메인 전문가**,
   **ground truth → 근거 진리**(이 KB의 오라클 축 표기를 따른다).
 
