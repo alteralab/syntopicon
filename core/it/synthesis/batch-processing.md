@@ -21,6 +21,9 @@ generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
   입력이 주는 네 가지와 그 대가, MapReduce에서 지금까지의 지형
 - [Unix 도구로 하는 배치 처리](../concepts/batch-processing-with-unix-tools.md) — 파이프라인
   한 줄이 분산 배치의 축소판인 이유와 정렬 대 인메모리 집계
+- [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — 배치를 순수 함수의
+  규율로 짜자는 제안. 결정적이고 멱등한 순수 태스크, 원자 단위가 되는 불변 파티션, 재현
+  가능성이라는 요구, 그리고 저자가 스스로 그 규칙을 깨는 한 자리
 
 ## 저장 계층
 
