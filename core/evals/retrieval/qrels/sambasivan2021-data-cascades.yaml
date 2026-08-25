@@ -1,0 +1,86 @@
+# 질문지 조각 — Sambasivan et al. 2021 "'Everyone wants to do the model work, not the
+# data work': Data Cascades in High-Stakes AI"(CHI '21). 데이터 검증 갈래의 넷째이자
+# 대장 마지막 반입.
+#
+# 이 소스가 만드는 검색 위험은 두 겹이다. 첫째, **"데이터 품질" 어휘의 과밀** —
+# data-quality-management(웨어하우스)·data-quality-enforcement-patterns(파이프라인 패턴)·
+# training-data-quality(훈련 데이터 여섯 특성)·declarative-data-quality-constraints(제약
+# 선언)·quality-observation-patterns가 이미 그 낱말을 쓴다. 이 페이지는 품질을 어떻게
+# 재거나 강제하는가가 아니라 **재지 않았을 때 벌어진 일**을 담으므로, 같은 낱말로 물으면
+# 밀리고 자기 질문으로 물으면 1위여야 한다. 둘째, **상류/하류 어휘의 과적재** —
+# data-lake·data-quantum·dead-letter-and-dropped-records가 다른 뜻으로 쓴다.
+#
+# exact 문항은 이 페이지만 가진 결합(캐스케이드의 정의·유형 넷·goodness-of-data·53명
+# 표본)을 겨냥한다. alias 문항은 영어 병기가 정확 일치 키로 사는지를 잰다 — 정의는 인용
+# 블록 안에 있으므로 인용 블록의 색인 여부도 함께 본다. cross-domain 둘은 이번 런이 건
+# 배선(오라클 부재의 데이터판 · 선언적 제약 페이지가 남긴 물음의 해소)이 검색에서도
+# 짝으로 잡히는지를 본다.
+source: sambasivan2021-data-cascades
+added: 2026-08-25
+queries:
+  - id: sambasivan-exact-1
+    query: "데이터 캐스케이드의 정의와 다섯 성질"
+    type: exact
+    description: "이 페이지의 중심 개념 — 새 용어라 경쟁이 적어야 정상이고, 밀리면 병기가 안 산 것이다"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-exact-2
+    query: "물리적 세계 취약성 응용 도메인 전문성 부족 충돌하는 보상 체계 조직 간 문서화 부실"
+    type: exact
+    description: "유형 넷의 이름을 한 줄로 — 표가 통째로 잡히는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-exact-3
+    query: "고위험 AI 실무자 53명 인터뷰에서 92%가 겪었다"
+    type: exact
+    description: "수치와 분모의 결합 — 인용할 때 함께 적어야 하는 것이 한자리에 있는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-exact-4
+    query: "데이터의 좋음을 재는 표준 지표가 없다"
+    type: exact
+    description: "goodness-of-data 부재 — '데이터 품질' 어휘의 과밀 속에서 이 자리가 구별되는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-alias-1
+    query: "compounding events causing negative downstream effects from data issues"
+    type: alias
+    description: "원문 정의의 영어 문면 — 인용 블록이 색인되는지도 함께 본다. 회수 실패는 곧 인용 불가다"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md", "sources/sambasivan2021-data-cascades.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-alias-2
+    query: "goodness-of-fit goodness-of-data high-stakes AI"
+    type: alias
+    description: "영어 병기 셋 — 역어가 흔들려도 원어가 불변 검색 키로 남는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-sem-1
+    query: "데이터 문제가 왜 배포하고 한참 뒤에야 드러나는가"
+    type: semantic
+    description: "패러프레이즈 — 이 페이지의 하나의 질문. 고유명사 불사용이다"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-sem-2
+    query: "모델 성능 지표로 데이터 품질을 진단하면 무엇을 놓치나"
+    type: semantic
+    description: "대리 지표의 한계 — 같은 진단을 기술 쪽에서 낸 페이지와 짝으로 잡혀도 좋다"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md", "concepts/data-validation-for-ml-pipelines.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-top-1
+    query: "데이터 작업이 모델 작업보다 낮게 평가받는 구조"
+    type: topical
+    description: "논문 제목이 말하는 것을 낱말을 바꿔 물었다 — 인센티브 쪽 서술이 잡히는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-x-1
+    query: "판정 근거가 없을 때 사람은 무엇을 대리 지표로 쓰는가"
+    type: cross-domain
+    description: "오라클 부재의 데이터판 — 이번 런이 건 허브 배선이 검색에서도 짝으로 잡히는지"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
+  - id: sambasivan-x-2
+    query: "검증을 상류에 두지 않으면 오염이 하류에서 어떻게 불어나는가"
+    type: cross-domain
+    description: "선언적 제약 페이지가 남겼던 물음 — 물음과 답이 짝으로 걸려야 한다"
+    expected_files: ["concepts/data-cascades-in-high-stakes-ai.md", "concepts/declarative-data-quality-constraints.md"]
+    expected_in_top_k: 5
