@@ -48,7 +48,8 @@ sources:
     경력 서술로만 나오고 그 회사들에서 무엇이 어떻게 됐다는 서술이 본문에 없다 — **일화**다.
 - **측정 수치가 0건이다.** 본문에 단위 붙은 측정값이 하나도 없다. 등장하는 숫자는 전부
   가정된 시나리오의 값이다(예시 연도, 예시의 이력 기간, 그래프 깊이의 어림).
-- **새로움도 저자가 부인한다** — 이 글이 함수형 접근을 형식화한 첫 글일 수는 있어도 그
+- **새로움도 저자가 부인한다** — 이 글이 함수형 프로그래밍(functional programming) 접근을
+  데이터 엔지니어링에 대해 형식화한 첫 글일 수는 있어도 그
   실천 자체는 실험적이지도 새롭지도 않다고 적고, 근거로 성숙한 대기업들이 여러 해 써
   왔다는 것을 든다 (「In retrospect」 절).[^beauchemin2018-functional-data-engineering]
   **어느 회사가 무엇을 얼마나 했는지는 적히지 않는다.**
@@ -87,8 +88,8 @@ sources:
 
 ## 순수 태스크 — 결정적이고 멱등하다
 
-- 규정 자체를 옮긴다. 이 문장이 이 글이 이 KB에 들어오는 이유다 (「Pure tasks」
-  절):[^beauchemin2018-functional-data-engineering]
+- **순수 태스크**(pure task)의 규정 자체를 옮긴다. 이 문장이 이 글이 이 KB에 들어오는
+  이유다 (「Pure tasks」 절):[^beauchemin2018-functional-data-engineering]
 
   > A pure task should be deterministic and idempotent, meaning that it will produce the
   > same result every time it runs or re-runs. This requires forcing an overwrite
