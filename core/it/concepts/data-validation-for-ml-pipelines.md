@@ -260,8 +260,20 @@ p.4):[^breck2019-data-validation]
   이유가 여기 있다.
 - 7절이 이 선택을 아마존 쪽 시스템과 정면으로 대비한다 — 저쪽은 사용자가 **임의 제약**을
   쓰게 하고, 이쪽은 대다수 사용자의 제약을 담아내면서 **스키마 관리 도구를 만들 수 있는
-  제한된 정의 언어**를 골랐다고 적는다 (§7, PDF p.10).[^breck2019-data-validation]
-  선언적 제약을 어디까지 열 것인가는 그 대비의 반대쪽이 답할 질문이다.
+  제한된 정의 언어**를 골랐다고 적는다 (§7, PDF p.10):[^breck2019-data-validation]
+
+  > While Amazon's system allows users to express arbitrary constraints, we opted to have a
+  > restrictive schema definition language that captures the data constraints for most of
+  > our users while permitting us to develop effective tools to help users manage their
+  > schema.
+
+  **그 대비의 반대쪽이 이 KB에 있다** —
+  [선언적 데이터 품질 제약](../concepts/declarative-data-quality-constraints.md)이 여기서
+  `Schelter et al., 2018`로 지목된 논문이고, 거기서 임의 제약을 여는 근거(외부 서비스
+  호출과 임의 함수를 메트릭에 걸 수 있어야 한다는 유연성 원칙)와 그 대가(제약 집합을
+  기계가 관리하지 못해 제안 기능으로 거들고, 그 제안이 표본에서만 참일 수 있다는 것)를
+  볼 수 있다. **인용 방향은 한쪽뿐이다** — 저쪽이 1년 먼저 나와 이 논문을 인용하지 않고,
+  이 논문이 저쪽을 인용한다.
 
 ## 배치 간 검증 — 훈련-서빙 왜곡 세 종류
 
@@ -448,6 +460,12 @@ p.4):[^breck2019-data-validation]
 이 페이지가 답하는 질문은 **기대가 어디서 오는가**다. 이웃한 데이터 페이지들은 같은
 낱말을 쓰면서 다른 질문에 답한다.
 
+- [선언적 데이터 품질 제약](../concepts/declarative-data-quality-constraints.md) —
+  **선언한 것이 무엇으로 환원되어 어떻게 실행되는가.** 같은 해에 같은 문제를 푼 아마존
+  쪽 시스템이고, 7절이 이 논문과 정면으로 대비한다(위
+  [이 스키마가 못 적는 것](#이-스키마가-못-적는-것) 참조). **기대의 출처를 묻는 이
+  페이지와 달리 그쪽은 제약의 실행 기제를 묻는다** — 제약을 메트릭 계산으로 번역해
+  집계 질의로 몰아넣고, 데이터가 자라면 상태를 들고 증분으로 다시 잰다.
 - [데이터 품질 강제 패턴](../concepts/data-quality-enforcement-patterns.md) — **규칙을
   어느 자리에서 강제하는가.** AWAP는 변환 앞뒤에 감사 단계를 두고, Constraints Enforcer는
   검증을 저장소에 위임한다. 규칙의 내용은 주어진 것으로 놓는다. **이 페이지는 그 규칙이

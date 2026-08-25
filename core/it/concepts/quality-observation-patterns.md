@@ -205,6 +205,10 @@ Konieczny 9장의 마지막 범주인 **품질 관측**(Quality Observation)은 
   어포던스로 다루는 원리 층(로그·트레이스·메트릭 세 기둥)
 - [데이터 흐름 의존 패턴](../concepts/data-flow-dependency-patterns.md) — 온라인 관측 잡의 자리를 정하는
   Parallel Split·Local Sequencer와 `all_done` 트리거 규칙
+- [선언적 데이터 품질 제약](../concepts/declarative-data-quality-constraints.md) — 관측한
+  것을 **메트릭 이력으로 쌓아 그 시계열에 이상 탐지를 거는** 쪽. 여기의 관측자가 규칙을
+  고치려고 데이터를 본다면 그쪽은 **과거의 자기 메트릭을 기준으로 삼는다**. 막느냐 보느냐의
+  구분도 그쪽에서는 체크 수준(경고냐 오류냐)으로 표현된다
 - [스트림 처리의 결함 내성](stream-processing-fault-tolerance.md) — 지연 탐지가 읽는 그 체크포인트
 - [서비스 수준 목표](service-level-objectives.md) — 관측된 수치를 약속으로 바꾸는 쪽
 - [관측 탐지 패턴](../concepts/observability-detector-patterns.md) — 다음 장. 여기 두 관측자가 SLA 지표를

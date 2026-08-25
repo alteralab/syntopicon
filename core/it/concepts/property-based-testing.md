@@ -240,6 +240,10 @@ sources:
 - [독립 개발 판본의 실패 상관](../concepts/correlated-failure-of-independent-versions.md) — 이 Topic이
   기각한 해법("다른 사람에게 테스트를 맡긴다")이 약속한 것을 실제로 주는지 잰 실험. 따로
   써도 같은 입력에서 함께 틀린다는 결과다
+- [선언적 데이터 품질 제약](../concepts/declarative-data-quality-constraints.md) — 같은
+  구조를 데이터에 거는 쪽. 불변식을 **데이터셋 전체에 걸리는 제약**으로 선언한다는 점이
+  같고, **입력을 기계가 만들지 않고 이미 있는 데이터가 입력**이라는 점이 다르다. 그래서
+  반증 사례를 축소(shrink)하는 대신 **제약을 깬 실제 값**이 결과에 딸려 나온다
 - [코딩하는 동안](../synthesis/pragmatic-coding-practice.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 42 "Property-Based Testing". 예제는 파이썬의

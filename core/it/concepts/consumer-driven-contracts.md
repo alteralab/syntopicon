@@ -336,6 +336,12 @@ Characteristics`).[^robinson2006-cdc] 축 이름과 값은 원문 그대로다.
   데이터 경계에서 되풀이되는 자리. 그쪽에서 기대를 적은 스키마는 **데이터를 쓰는 쪽**인
   파이프라인 소유자가 큐레이션하고, 데이터를 만드는 팀은 대개 다른 팀이라 계약의 방향이
   소비자 쪽에서 올라온다. 다만 그 사양은 협상된 계약이 아니라 관측에서 추론된 것이다
+- [선언적 데이터 품질 제약](../concepts/declarative-data-quality-constraints.md) — 같은
+  방향이 **데이터 파이프라인에서 실물로 관측된 자리.** 거기 인용된 논문의 교훈 절이
+  생산자와 소비자가 같은 검증 시스템을 쓸 때의 이득으로 `the producer can choose to adapt
+  checks from downstream consumers earlier in the data processing pipeline`을 든다 —
+  **하류 소비자의 검사가 상류 생산자의 파이프라인으로 올라간다.** 다만 그것은 측정이 아니라
+  사용자 피드백의 서술이다
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 이 축의 허브
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
 - [검증자 독립성](../synthesis/verifier-independence.md) — 판정 주체 쪽의 허브이자 이

@@ -2,7 +2,6 @@
 type: concept
 title: 선언적 데이터 품질 제약
 description: 데이터 품질 검사를 코드로 선언하면 그것이 무엇으로 환원되어 어떻게 돌아가는가 — 체크와 제약을 메트릭 계산으로 번역해 집계 질의 한 번에 몰아넣는 실행 구조, 데이터가 자랄 때 상태를 들고 다시 재는 증분 계산과 그것이 지는 조건, 프로파일링과 열 이름 학습으로 제약을 제안받는 절차와 그 오제안 실측, 메트릭 이력 시계열 위의 이상 탐지, 그리고 임의 제약을 여는 이 설계가 제한된 스키마 언어를 고른 쪽과 갈리는 자리
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-25T00:00:00Z" }
 sources:
   - { id: schelter2018-data-quality, resource: /it/sources/schelter2018-data-quality.md }
@@ -209,41 +208,41 @@ p.1782):[^schelter2018-data-quality]
 
 ## 선언의 실물
 
-리스팅 1(p.1783)이 그 API의 실물이고, 외부 데이터·사용자 정의 함수·이상 탐지·예측
-가능성이 한 화면에 다 들어 있다.[^schelter2018-data-quality]
+- 이 API의 실물이 논문에 하나 있고, 외부 데이터·사용자 정의 함수·이상 탐지·예측
+  가능성이 한 화면에 다 들어 있다 (리스팅 1, p.1783).[^schelter2018-data-quality]
 
-```scala
-val numTitles = callRestService(...)
-val maxExpectedPhoneRatio = computeRatio(...)
+  ```scala
+  val numTitles = callRestService(...)
+  val maxExpectedPhoneRatio = computeRatio(...)
 
-var checks = Array()
+  var checks = Array()
 
-checks += Check(Level.Error)
-  .isComplete("customerId", "title",
-    "impressionStart", "impressionEnd",
-    "deviceType", "priority")
-  .isUnique("customerId", "countryResidence",
-    "deviceType", "title")
-  .hasCountDistinct("title", _ <= numTitles)
-  .hasHistogramValues("deviceType",
-    _.ratio("phone") <= maxExpectedPhoneRatio)
+  checks += Check(Level.Error)
+    .isComplete("customerId", "title",
+      "impressionStart", "impressionEnd",
+      "deviceType", "priority")
+    .isUnique("customerId", "countryResidence",
+      "deviceType", "title")
+    .hasCountDistinct("title", _ <= numTitles)
+    .hasHistogramValues("deviceType",
+      _.ratio("phone") <= maxExpectedPhoneRatio)
 
-checks += Check(Level.Error)
-  .isNonNegative("count")
-  .isLessThan("impressionStart", "impressionEnd")
-  .isInRange("priority", ("hi", "lo"))
+  checks += Check(Level.Error)
+    .isNonNegative("count")
+    .isLessThan("impressionStart", "impressionEnd")
+    .isInRange("priority", ("hi", "lo"))
 
-checks += Check(Level.Warning, on="delta")
-  .hasNoAnomalies(Size, OnlineNormal(stdDevs=3))
-checks += Check(Level.Error, on="delta")
-  .hasNoAnomalies(Size, OnlineNormal(stdDevs=4))
+  checks += Check(Level.Warning, on="delta")
+    .hasNoAnomalies(Size, OnlineNormal(stdDevs=3))
+  checks += Check(Level.Error, on="delta")
+    .hasNoAnomalies(Size, OnlineNormal(stdDevs=4))
 
-checks += Check(Level.Warning)
-  .hasPredictability("countryResidence",
-    ("zipCode", "cityResidence"), precision=0.99)
+  checks += Check(Level.Warning)
+    .hasPredictability("countryResidence",
+      ("zipCode", "cityResidence"), precision=0.99)
 
-Verification.run(data, checks)
-```
+  Verification.run(data, checks)
+  ```
 
 - 원문의 조판 들여쓰기(연속 줄을 이어 적는 방식)만 정돈했고 **토큰은 손대지 않았다.**
   추출 텍스트가 식별자를 낱자로 흩어 놓아(`h a s C o u n t D i s t i n c t`) 150dpi 렌더로
