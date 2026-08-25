@@ -1,0 +1,98 @@
+# 질문지 조각 — Beauchemin 2018 "Functional Data Engineering — a modern paradigm for
+# batch data processing"(Medium). 데이터 검증 갈래의 셋째 반입.
+#
+# 이 소스가 만드는 검색 위험은 세 겹이다. 첫째, **멱등 어휘의 과밀** —
+# idempotent-write-patterns(다섯 패턴)·exactly-once-message-processing·
+# kafka-idempotent-producer·stream-processing-fault-tolerance가 이미 그 낱말을 쓴다. 그중
+# idempotent-write-patterns는 같은 개념의 '어떻게'를 담아 가장 가깝고, 이 페이지는 '왜'를
+# 담는다 — 두 페이지가 서로를 밀어내지 않고 각자의 질문에서 1위여야 한다. 둘째,
+# **파티션 어휘의 과적재** — topics-and-partitions·kafka-producer-partitioning은 카프카의
+# 파티션이고, sharding-basics는 샤딩의 동의어로 쓴다. 이 페이지의 파티션은 배치 출력의
+# 원자 단위라 셋째 뜻이다. 셋째, **불변 어휘** — state-streams-and-immutability와
+# object-stores가 이미 소유한다.
+#
+# exact 문항은 이 페이지만 가진 결합(순수 태스크·차원 스냅샷·처리 시각 파티셔닝·과거 의존)을
+# 겨냥한다. alias 문항은 영어 병기가 정확 일치 키로 사는지를 잰다 — 인용 블록의 문면이
+# 색인되는지도 함께 본다. cross-domain 하나는 이번 런이 건 검증 축 연결(메타모픽 관계와
+# 모양이 같다는 읽기)이 검색에서도 짝으로 잡히는지를 본다.
+source: beauchemin2018-functional-data-engineering
+added: 2026-08-25
+queries:
+  - id: beauchemin-exact-1
+    query: "순수 태스크는 결정적이고 멱등하며 덮어쓰기를 강제한다"
+    type: exact
+    description: "이 글의 중심 규정 — 멱등 어휘가 과밀한 자리에서 여기가 1위여야 한다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-exact-2
+    query: "파티션을 불변 블록으로 보고 통째로 덮어쓴다"
+    type: exact
+    description: "파티션이 원자 단위가 되는 전환 — 카프카 파티션·샤딩과 갈려야 한다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-exact-3
+    query: "차원 스냅샷을 스케줄마다 파티션으로 덧붙인다"
+    type: exact
+    description: "타입 2 SCD 대신 스냅샷을 쌓자는 제안 — 이 페이지의 고유 결합이다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-exact-4
+    query: "시간 파티셔닝을 이벤트 처리 시각으로 한다"
+    type: exact
+    description: "늦은 팩트의 처방 — 스트림 시간 의미론·늦은 데이터 통합과 이웃이되 여기가 잡혀야 한다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-exact-5
+    query: "과거 의존은 병렬화할 수 없는 깊은 DAG를 만든다"
+    type: exact
+    description: "상태 복잡도가 시간에 따라 선형으로 자라는 자리 — 이 페이지만 서술한다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-exact-6
+    query: "지속되고 불변인 스테이징 영역에서 웨어하우스를 처음부터 다시 계산"
+    type: exact
+    description: "파생 테이블 보존 기간을 줄일 수 있게 하는 논거 — 고유 결합이다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-alias-1
+    query: "pure task deterministic and idempotent"
+    type: alias
+    description: "원문 규정의 영어 문면 — 인용 블록이 색인되는지도 함께 본다. 회수 실패는 곧 인용 불가다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-alias-2
+    query: "immutable data along with versioned logic reproducibility"
+    type: alias
+    description: "이 글의 자기 요약 한 줄 — 소스 메타와 페이지 둘 중 하나는 잡혀야 한다"
+    expected_files: ["concepts/functional-data-engineering.md", "sources/beauchemin2018-functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-alias-3
+    query: "partition pruning 파티션 가지치기"
+    type: alias
+    description: "처리 시각 파티셔닝이 되사는 대가의 이름 — 원어 병기가 정확 일치 키로 사는지"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-sem-1
+    query: "배치 파이프라인을 다시 돌려도 같은 결과가 나오게 하려면"
+    type: semantic
+    description: "패러프레이즈 — 이 페이지의 하나의 질문. 고유명사 불사용이고 '어떻게' 쪽 페이지와 짝으로 잡혀도 좋다"
+    expected_files: ["concepts/functional-data-engineering.md", "concepts/idempotent-write-patterns.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-sem-2
+    query: "데이터 파이프라인을 함수형 프로그래밍처럼 짜면 무엇이 좋은가"
+    type: semantic
+    description: "패러프레이즈 — 이 글의 제목이 말하는 것을 낱말을 바꿔 물었다"
+    expected_files: ["concepts/functional-data-engineering.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-top-1
+    query: "저장이 싸지면 데이터 모델링의 선택이 어떻게 달라지나"
+    type: topical
+    description: "비용 조건 위의 맞교환 재평가 — 이번 런이 건 SCD 쪽 링크가 짝으로 잡히는지"
+    expected_files: ["concepts/functional-data-engineering.md", "concepts/slowly-changing-dimension.md"]
+    expected_in_top_k: 5
+  - id: beauchemin-x-1
+    query: "같은 입력으로 두 번 실행해 출력을 견주는 것이 오라클 없는 검증인가"
+    type: cross-domain
+    description: "메타모픽 관계와 모양이 같다는 이 KB의 읽기 — 두 페이지가 짝으로 걸려야 한다"
+    expected_files: ["concepts/functional-data-engineering.md", "concepts/test-oracle.md"]
+    expected_in_top_k: 5
