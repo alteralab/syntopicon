@@ -2,7 +2,6 @@
 type: concept
 title: 왜 자기 어텐션인가
 description: 트랜스포머 원전이 순환과 합성곱을 걷어낸 근거 — 층당 계산량·병렬화 가능량·경로 길이라는 세 척도, scaled dot-product attention의 정의와 √d_k로 나누는 이유, 멀티 헤드의 동기, 위치 인코딩을 사인과 코사인으로 고른 이유, 그리고 저자들이 WMT 2014에서 직접 잰 BLEU와 훈련 비용, 표 3의 변형 실험. 논문집 판과 arXiv v7의 EN-FR 수치가 다르다는 사실도 함께
-status: draft
 generated: { by: "claude-fable-5", at: "2026-08-25T00:00:00Z" }
 sources:
   - { id: vaswani2017-attention, resource: /it/sources/vaswani2017-attention.md }
@@ -159,10 +158,15 @@ sources:
   - 각주가 그 추측의 산수를 댄다 — 질의 `q`와 키 `k`의 성분이 평균 0, 분산 1인 독립 확률
     변수라고 가정하면 그 내적은 평균 0, **분산 `d_k`**를 갖는다 (3.2.1절, p.4 각주
     4).[^vaswani2017-attention]
-- 내적(dot-product) 어텐션을 덧셈(additive) 어텐션 대신 고른 이유는 **속도와 공간**이다 —
+- 내적(dot-product) 어텐션을 `additive attention` 대신 고른 이유는 **속도와 공간**이다 —
   이론적 복잡도는 비슷하지만 **"dot-product attention is much faster and more space-efficient
   in practice, since it can be implemented using highly optimized matrix multiplication code"**
   (3.2.1절, p.4).[^vaswani2017-attention]
+  - `additive attention`은 옮기지 않고 원어로 둔다. **이 KB가 `additive`를 "합산 가능"으로
+    고정한 것은 차원 모델링의 팩트 속성 이야기이고**(SCHEMA 역어 표), 여기의 `additive`는 은닉
+    층 하나짜리 순방향 망으로 호환 함수를 계산하는 **다른 기제**다. 영어가 같을 뿐 가리키는
+    것이 달라서, 합쳐 옮기면 그 구분이 사라진다 — `compaction`을 LSM과 카프카에서 갈라 옮긴
+    것과 같은 처리다.
 
 ## 멀티 헤드 어텐션의 동기
 
@@ -312,7 +316,7 @@ sources:
   **100,000 스텝(12시간)**, big 모델은 스텝당 1.0초로 **300,000 스텝(3.5일)** 훈련했다
   (5.2절, p.7).
 - **최적화기** — Adam, β₁(베타 1) = 0.9, β₂(베타 2) = 0.98, ε(엡실론) = 10⁻⁹. 학습률은 고정이
-  아니라 식 (3)으로 바꿨다 (5.3절, p.7):
+  아니라 식 (3)으로 바꿨다 (5.3절, p.7):[^vaswani2017-attention]
 
   ```math
   lrate = d_{model}^{-0.5} \cdot \min\!\left(step\_num^{-0.5},\ step\_num \cdot warmup\_steps^{-1.5}\right)

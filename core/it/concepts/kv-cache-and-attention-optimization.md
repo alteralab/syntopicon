@@ -5,6 +5,7 @@ description: 어텐션이 추론에서 만드는 병목과 그것을 세 갈래�
 generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: vaswani2017-attention, resource: /it/sources/vaswani2017-attention.md }
 ---
 
 # KV 캐시와 어텐션 최적화
@@ -49,7 +50,12 @@ sources:
   p.434).[^huyen2025]
   - 각주 — **자기회귀 모델의 어텐션 계산 수는 O(n²)이다** (9장, p.434 각주 22).[^huyen2025]
   - 본문의 "지수적으로"와 각주의 O(n²)은 서로 다른 증가율을 가리킨다 — 이차는 지수가 아니다. 양쪽을
-    인쇄된 대로 옮겼고 책 안에 정오를 판정할 근거가 없다. #hypothesis
+    인쇄된 대로 옮겼고 책 안에는 정오를 판정할 근거가 없다.
+  - 책 밖의 근거는 원전에 있다 — Vaswani et al.(2017) 표 1이 자기 어텐션 층의 층당 복잡도를
+    **O(n² · d)**로 적는다. `n`은 시퀀스 길이, `d`는 표현 차원이다 (표 1,
+    p.6).[^vaswani2017-attention] 원전 기준으로 맞는 쪽은 각주의 이차이고 본문의 "지수적으로"는
+    느슨한 표현이다. 자세한 것은
+    [왜 자기 어텐션인가](../concepts/why-self-attention.md)에 있다.
 - 배치도 키운다 — **KV 캐시 크기는 배치 크기가 커져도 자란다. 어느 구글 논문은 멀티헤드 어텐션과
   배치 크기 512, 컨텍스트 길이 2048을 가진 500B+ 모델에 대해 KV 캐시가 총 3TB가 된다고 계산했다
   (Pope et al., 2022). 이는 그 모델 가중치의 세 배 크기다** (9장, p.434).[^huyen2025]
@@ -148,6 +154,8 @@ sources:
 
 - [트랜스포머 구조](../concepts/transformer-architecture.md) — 키·값·질의 벡터와 멀티헤드가 정의되는
   자리
+- [왜 자기 어텐션인가](../concepts/why-self-attention.md) — 이 캐시가 담는 키·값 벡터를 처음
+  정의한 원전과, 층당 복잡도를 O(n² · d)로 적은 표 1
 - [커널과 컴파일러](../concepts/kernels-and-compilers.md) — 커널이 무엇이고 어떻게 쓰이는가
 - [컨텍스트 길이와 컨텍스트 효율](../concepts/context-length-and-efficiency.md) — 긴 컨텍스트가
   어려운 이유의 다른 절반
@@ -172,3 +180,7 @@ sources:
     al.(2024)·Shazeer(2019)·Ainslie et al.(2023)·Character.AI(2024)·Kwon et al.(2023)·Hooper et
     al.(2024)·Kang et al.(2024)·Ge et al.(2023)·Liu et al.(2024)·Dao et al.(2022)는 huyen2025를
     통한 전언이다.
+
+[^vaswani2017-attention]: Vaswani et al. 2017, "Attention Is All You Need" (NIPS 2017 논문집 판,
+    표 1, p.6). 이 페이지에서는 자기 어텐션 층의 층당 복잡도 표기 하나를 대조하는 데만 쓰였다.
+    원전의 전체 서술은 [왜 자기 어텐션인가](../concepts/why-self-attention.md)가 소유한다.

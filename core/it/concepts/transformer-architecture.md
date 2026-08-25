@@ -5,6 +5,7 @@ description: 트랜스포머가 무엇을 고치려고 나왔는지부터 되짚
 generated: { by: "claude-opus-5", at: "2026-08-16T19:00:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: vaswani2017-attention, resource: /it/sources/vaswani2017-attention.md }
 ---
 
 # 트랜스포머 구조
@@ -32,6 +33,11 @@ sources:
   메커니즘(attention mechanism)에 기반한 트랜스포머 구조(transformer architecture, Vaswani
   et al., 2017)다. 이전 구조들의 많은 한계를 다루며 그것이 인기에 기여했다. 그러나 트랜스포머
   구조에도 자기 한계가 있다** (2장, p.58).[^huyen2025]
+  - **여기서 인용되는 Vaswani et al.(2017)의 원전은 이 KB에 원전 페이지로 서 있다** —
+    [왜 자기 어텐션인가](../concepts/why-self-attention.md). 이 페이지의 서술은 huyen2025를
+    통한 것이고, 원전이 스스로 정의한 것(scaled dot-product attention의 식과 √`d_k`로 나누는
+    이유, 멀티 헤드의 동기, 위치 인코딩의 선택 근거)과 스스로 잰 값(WMT 2014 BLEU, 표 3의
+    변형 실험)은 그쪽이 소유한다.
 
 ## seq2seq의 두 문제
 
@@ -50,6 +56,12 @@ sources:
   - **첫째, 소박한 seq2seq 디코더는 입력의 최종 은닉 상태만 써서 출력 토큰을 생성한다. 직관적으로
     이것은 책 요약만 가지고 그 책에 대한 답을 생성하는 것과 같다. 이는 생성된 출력의 품질을
     제한한다.**
+    - **이 첫째 서술은 원전 문면에 없다.** Vaswani et al.(2017) 논문집 판을 전수 대조한 결과
+      `final hidden state`·`fixed-length`·`bottleneck` 어느 표현도 0건이다 —
+      최종 은닉 상태를 병목으로 규정하는 문장이 그 논문에 없다는 뜻이다. 원전이 1절에서 드는
+      한계는 아래 둘째와 같은 **순차 계산의 제약** 쪽이다.[^vaswani2017-attention] 첫째는
+      Huyen의 확장이고, 인용 자체는 huyen2025에 정확히 귀속돼 있다. 원문 대조는
+      [왜 자기 어텐션인가](../concepts/why-self-attention.md)에 있다.
   - **둘째, RNN 인코더와 디코더는 입력 처리와 출력 생성이 모두 순차적으로 이뤄진다는 뜻이라 긴
     시퀀스에서 느리다. 입력이 200토큰이면 seq2seq는 각 입력 토큰의 처리가 끝나야 다음으로 넘어갈
     수 있다.**
@@ -110,6 +122,10 @@ sources:
 - 저자가 그대로 실은 어텐션 함수다 (2장, p.62):[^huyen2025]
 
   > Attention(*Q*, *K*, *V*) = softmax(*QK*<sup>T</sup> / √*d*)*V*
+
+  - 원전 대조 — Vaswani et al.(2017) 식 (1)의 분모는 √`d`가 아니라 **√`d_k`**(키 차원의
+    제곱근)이고, 원전은 그 나눗셈의 이유까지 적는다.[^vaswani2017-attention] 두 표기의 차이와 그 이유는
+    [왜 자기 어텐션인가](../concepts/why-self-attention.md)에 있다.
 
 - 헤드 뒤 — **모든 어텐션 헤드의 출력은 이어 붙여진다. 이 이어 붙인 출력에 또 하나의 변환을
   적용하는 데 출력 사영 행렬이 쓰이고, 그 뒤에 모델의 다음 계산 단계로 넘어간다. 출력 사영 행렬은
@@ -185,6 +201,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [왜 자기 어텐션인가](../concepts/why-self-attention.md) — 이 구조의 원전이 스스로 정의하고
+  스스로 잰 것: 세 척도, √`d_k` 나눗셈의 이유, 위치 인코딩의 선택 근거, WMT 2014 실측
 - [대안 모델 구조](../concepts/alternative-model-architectures.md) — 트랜스포머를 대체하려는
   RWKV·SSM·Mamba·Jamba
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 이 차원 값들이 합쳐져 나오는
@@ -198,5 +216,14 @@ sources:
     "Modeling" 절 도입과 "Model Architecture"의 트랜스포머 부분(pp.58–64)을 담았다. Table 2-4
     (p.64)는 원문 표기를 그대로 옮겼다. 도판 Figure 2-4(seq2seq 대 트랜스포머, p.59)·Figure 2-5
     (어텐션 메커니즘 동작, p.61)·Figure 2-6(트랜스포머 가중치 구성, p.64)은 옮기지 않았다.
-    Vaswani et al.(2017) "Attention Is All You Need"·Bahdanau et al.·Touvron et al.(2023)·
-    Agarap(2018)·Hendrycks and Gimpel(2016)은 huyen2025를 통한 전언이다.
+    Bahdanau et al.·Touvron et al.(2023)·Agarap(2018)·Hendrycks and Gimpel(2016)은 huyen2025를
+    통한 전언이다. **Vaswani et al.(2017)은 더 이상 전언이 아니다** — 원전이
+    [왜 자기 어텐션인가](../concepts/why-self-attention.md)로 이 KB에 들어와 있고, 원전의
+    정의·수식·수치는 그 페이지가 원문 로케이터와 함께 소유한다.
+
+[^vaswani2017-attention]: Vaswani et al. 2017, "Attention Is All You Need" (NIPS 2017 논문집 판).
+    이 페이지에서 이 각주가 붙는 자리는 둘뿐이고 둘 다 원전과의 대조다. ① 어텐션 함수의 분모
+    표기 차이 — 원전 3.2.1절 식 (1), p.4. ② 최종 은닉 상태를 병목으로 규정하는 서술이 원전에
+    없다는 것 — 원전 1절 pp.1–2를 포함해 논문집 판 전체(pp.1–11)에서 `final hidden state`·
+    `fixed-length`·`bottleneck`이 각 0건이고, 1절이 드는 한계는 순차 계산의 제약이다
+    (2026-08-25 전수 대조). 원전의 전체 서술은 원전 페이지가 소유한다.
