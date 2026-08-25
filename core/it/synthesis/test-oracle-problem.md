@@ -134,6 +134,11 @@ generated: { by: "claude-opus-5", at: "2026-08-21T14:30:00Z" }
   테스트로 규정하는 자리
 - [형식 방법과 무작위 테스트](../concepts/formal-methods-and-randomized-testing.md) —
   명세 오라클과 모델 체킹이 분산 시스템 층에서 쓰이는 모습
+- [데이터 캐스케이드](../concepts/data-cascades-in-high-stakes-ai.md) — **오라클 부재의
+  데이터판.** 데이터의 좋음을 재는 판정 근거가 없어 실무자가 시스템 전체를 재는 대리
+  지표(정확도·F1)로 데이터 문제를 진단하려 했고, 그래서 문제가 하류에서야 드러났다는
+  고위험 AI 현장의 기록. 근거는 실무자 53명 인터뷰의 코딩이라 이 축의 이론 페이지들과
+  격이 다르다
 - [리팩터링과 코드 냄새](refactoring-and-code-smells.md) — 동작 보존 변경 쪽의 형제 축.
   그 담보가 되는 테스트를 무엇으로 볼 것인지가 이 축과 만나는 자리
 - [대역과 단위 테스트의 가치](test-doubles-and-unit-test-value.md) — 형제 허브. 판정 장치를
