@@ -64,7 +64,7 @@ accessed: "2026-08-25"
 
   > Numbers reported throughout the paper represent the percentage of participants who
   > self-reported a trigger, impact, or signal of data challenges in the interviews.
-  > Percentages are derived from coding each transcript for each individual's experiences
+  > Percentages are derived from coding each transcript for each individual’s experiences
   > of cascades.
 
 - **평정자 간 신뢰도를 재지 않았다** — `Since codes are our process, not product [80],

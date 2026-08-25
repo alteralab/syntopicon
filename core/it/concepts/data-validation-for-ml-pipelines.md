@@ -93,6 +93,11 @@ sources:
 - 같은 절이 데이터를 알고리즘·인프라와 같은 급으로 올리라고 요구한다 — `we need to
   elevate data to a first-class citizen in ML pipelines, on par with algorithms and
   infrastructure` (§1, PDF p.1).[^breck2019-data-validation]
+- **이 "조기에 잡아라"의 사회기술적 근거가 이 KB의 다른 페이지에 있다** —
+  [데이터 캐스케이드](../concepts/data-cascades-in-high-stakes-ai.md). 이 논문의 증폭 논거는
+  파이프라인 안의 되먹임 고리라는 기제이고, 그쪽은 그 지연이 현장에서 얼마나 길었는지를
+  실무자 증언으로 적는다(가장 심한 것은 드러나기까지 2~3년). **격이 같지 않다** — 이쪽은
+  자기 배포 관측, 그쪽은 자기 보고 인터뷰의 코딩이다.
 
 ## 모델 품질 지표는 데이터 오류의 안전망이 아니다
 
@@ -519,6 +524,10 @@ p.4):[^breck2019-data-validation]
   되는 갈래
 - [드리프트 탐지](../concepts/drift-detection.md) — 아무도 배포하지 않았는데 달라지는
   것들. 그쪽은 프롬프트·사용자 행동·기저 모델이고 이쪽은 자질 값의 분포다
+- [데이터 캐스케이드](../concepts/data-cascades-in-high-stakes-ai.md) — 검증을 걸지 않았을 때
+  하류에서 무슨 일이 벌어지는가의 현장 기록. 이 논문이 **기제**로 말한 증폭을 그쪽은
+  **지연과 비용**으로 적는다. 다만 그쪽의 처방은 "상류에 검사를 세워라"가 아니라
+  인센티브·교육·문서화의 구조 변화라, 이 논문의 결론과 방향은 같되 층이 다르다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
 - [데이터 엔지니어링 설계 패턴](../synthesis/data-engineering-design-patterns.md) —
   데이터 품질 패턴 쪽의 허브

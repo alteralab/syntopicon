@@ -628,12 +628,15 @@ pp.1791~1792).[^schelter2018-data-quality] 아래는 그 조건에서만 읽는�
   정면으로 다루는 자리. 그쪽은 기대를 선언하지 않고도 두 실행을 견주지만, 그래서 **틀린
   데이터를 결정적으로 틀리게 처리하는 파이프라인**은 잡지 못한다 — 그 빈자리를 메우는 것이
   이 페이지의 제약이다
+- [데이터 캐스케이드](../concepts/data-cascades-in-high-stakes-ai.md) — **이 논문이 동기로만 말하고
+  재지 않은 물음**, 곧 검증을 상류에 두지 않았을 때 오염이 하류에서 어떻게 불어나는가.
+  그쪽이 고위험 AI 실무자 53명의 인터뷰로 그 하류를 기록한다 — 상류에서 촉발돼 하류에서
+  드러나기까지 2~3년이 걸린 사례까지. **근거의 격이 다르다**: 이 논문은 자기 시스템에
+  대한 측정이고 그쪽은 자기 보고 인터뷰의 코딩이다. 그리고 그쪽의 처방은 제약 선언이
+  아니라 인센티브·교육·문서화의 구조 변화다
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 판정 근거 쪽의 허브
 - [데이터 엔지니어링 설계 패턴](../synthesis/data-engineering-design-patterns.md) —
   데이터 품질 패턴 쪽의 허브
-
-**이 논문이 비켜 간 물음**: **검증을 상류에 두지 않았을 때 오염이 하류에서 어떻게
-불어나는가**를 이 논문은 동기로만 언급하고 재지 않는다.
 
 [^schelter2018-data-quality]: Schelter, Lange, Schmidt, Celikel, Biessmann, Grafberger
     2018, "Automating Large-Scale Data Quality Verification", PVLDB 11(12):1781–1794.

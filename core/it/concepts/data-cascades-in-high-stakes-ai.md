@@ -1,8 +1,7 @@
 ---
 type: concept
 title: 데이터 캐스케이드
-description: 상류의 데이터 문제가 왜 하류에서 늦게·불투명하게·겹쳐서 터지는가 — 고위험 AI 실무자 53명 인터뷰로 정의된 데이터 캐스케이드와 그 다섯 성질, 유형 넷과 지역별 분포, 지표가 데이터가 아니라 시스템 전체를 재기 때문에 늦게 보인다는 진단, 그리고 이 논문의 처방이 "상류에 검사를 건다"가 아니라는 것
-status: draft
+description: 상류의 데이터 문제가 왜 하류에서 늦게·불투명하게·겹쳐서 터지는가 — 고위험 AI 실무자 53명 인터뷰로 정의된 데이터 캐스케이드와 그 다섯 성질, 데이터 작업을 모델 작업보다 낮게 치는 보상 구조라는 배경, 유형 넷과 지역별 분포, 지표가 데이터가 아니라 시스템 전체를 재기 때문에 늦게 보인다는 진단, 그리고 이 논문의 처방이 "상류에 검사를 건다"가 아니라는 것
 generated: { by: "claude-fable-5", at: "2026-08-25T00:00:00Z" }
 sources:
   - { id: sambasivan2021-data-cascades, resource: /it/sources/sambasivan2021-data-cascades.md }
@@ -13,6 +12,7 @@ sources:
 - [이 페이지의 지위 — 질적 인터뷰 연구다](#이-페이지의-지위--질적-인터뷰-연구다)
 - [정의](#정의)
 - [다섯 성질](#다섯-성질)
+- [왜 이런 것이 흔한가 — 데이터 작업의 저평가](#왜-이런-것이-흔한가--데이터-작업의-저평가)
 - [유형 넷과 그 분포](#유형-넷과-그-분포)
 - [왜 하류에서야 보이는가 — 지표가 데이터를 재지 않는다](#왜-하류에서야-보이는가--지표가-데이터를-재지-않는다)
 - [이 논문의 처방은 무엇인가](#이-논문의-처방은-무엇인가)
@@ -42,14 +42,14 @@ sources:
 
   > Numbers reported throughout the paper represent the percentage of participants who
   > self-reported a trigger, impact, or signal of data challenges in the interviews.
-  > Percentages are derived from coding each transcript for each individual's experiences
+  > Percentages are derived from coding each transcript for each individual’s experiences
   > of cascades.
 
 - **분석 절차의 출처는 Thomas 2006의 일반 귀납적 접근**(a general inductive approach for
   analyzing qualitative evaluation data)이다 — 논문이 `Following [119]`로 그것을 지목한다
   (§3, PDF p.4, 참고문헌 [119]). **"주제 분석(thematic analysis)"이라는 낱말은 이 논문에
-  없다.** 연구자 둘이 독립적으로 전 단위를 여러 번
-  읽어 포화까지 범주를 세우고, 그룹 토의로 다듬어 상위 범주 셋(캐스케이드의 특성 ·
+  없다.** 연구자 둘이 독립적으로 전 단위를 여러 번 읽어 포화까지 범주를 세우고, 그룹
+  토의로 다듬어 상위 범주 셋(캐스케이드의 특성 ·
   유발 요인 · 캐스케이드 유형)과 하위 범주 18개를 얻었다 (§3, PDF
   p.4).[^sambasivan2021-data-cascades]
 - **평정자 간 신뢰도를 재지 않았다** — `Since codes are our process, not product [80],
@@ -116,7 +116,43 @@ sources:
 **지연의 크기가 §4.3 첫 문단에 있다** — `The most severe data cascades were also
 long-drawn and completely unknown to practitioners; in some cases, taking 2-3 years to
 manifest` (PDF p.7).[^sambasivan2021-data-cascades] 물리적 세계 취약성 유형은
-`almost always in the production stage`에서 드러났다.
+`almost always in the production stage`에서 드러났다 — **배포하고 한참 지나서야 드러난다는
+뜻이고, 그동안 문제는 계속 불어난다.**
+
+## 왜 이런 것이 흔한가 — 데이터 작업의 저평가
+
+논문은 유형별 서술에 앞서 캐스케이드를 낳는 **가로지르는 배경** 넷을 §4.2에 둔다
+(PDF pp.5–6).[^sambasivan2021-data-cascades] **논문 제목이 그중 첫째에서 나온다.**
+
+- **AI의 인센티브와 통화**: `An overall lack of recognition for the invisible, arduous,
+  and taken-for-granted data work in AI led to poor data practices, resulting in the data
+  cascades below. Care of, and improvements to data are not easily ‘tracked’ or rewarded,
+  as opposed to models.` 모델은 명성과 상승 이동의 수단으로 보고됐고, ML 논문이 인용을
+  낳아 채용과 레지던시에서 경쟁력이 된다 (§4.2, PDF p.5). 제목이 된 참여자의
+  말:[^sambasivan2021-data-cascades]
+
+  > Everyone wants to do the model work, not the data work
+
+  (P4, 헬스케어, 인도 — §4.2, PDF p.5)
+- **데이터 교육**: AI 교과 과정이 깨끗한 값을 가진 장난감 데이터셋(UCI Census·캐글)에
+  몰려 있어 실무에 필요한 파이프라인 구축 준비가 안 된다 (§4.2, PDF
+  p.6).[^sambasivan2021-data-cascades] 참여자의 말:
+
+  > In real life, we never see clean data. Courses and trainings focus on models and tools
+  > to use but rarely teach about data cleaning and pipeline gaps.
+
+  (P37, 헬스케어, 한 서아프리카 국가 — §4.2, PDF p.6)
+- **데이터 부트스트래핑**: 고위험 도메인은 지역·인구·현상·종에 특화된 데이터셋을 요구하는데
+  기성 데이터가 없다. **참여자 53명 중 74%가 현장 파트너를 통해 처음부터 데이터 수집에
+  나섰다** (§4.2, PDF p.6).[^sambasivan2021-data-cascades]
+- **하류 책무**: 고위험 AI를 규정하는 성질 하나가 **살아 있는 존재에 대한 함의된 책무**라고
+  적는다 (§4.2, PDF p.6).[^sambasivan2021-data-cascades] 소비자 AI는 대체로 70~75% 정확도를
+  겨냥하지만 고위험에서는 1%가 결정적이라는 증언이 있다 — **참여자 보고이지 이 논문의
+  측정이 아니다.**
+
+**이 절이 아래 유형 넷의 "왜"다.** 캐스케이드는 개인의 부주의가 아니라 **데이터 작업을
+모델 작업보다 낮게 치는 보상 구조**에서 나온다는 것이 논문의 진단이고, 그래서 5절 처방도
+개인이 아니라 구조를 향한다.
 
 ## 유형 넷과 그 분포
 

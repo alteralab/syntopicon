@@ -113,6 +113,11 @@ sources:
   **좋고 나쁨이 아니라 기대와의 어긋남**을 뜻하는 자리. 그쪽에서 품질 문제의 주된 출처는
   잡음이 아니라 데이터 생성 코드의 버그이고, 그래서 잡는 대상도 값 하나가 아니라 조각별
   빈도의 변화다
+- [데이터 캐스케이드](../concepts/data-cascades-in-high-stakes-ai.md) — **이런 특성 목록이 표준으로
+  서 있지 않다는 것 자체를 문제로 드는 쪽.** 거기 인용된 논문은 실무자가 실제로 쓰는 것이
+  모델의 적합도 지표(goodness-of-fit)뿐이고 데이터의 좋음을 재는 표준 지표
+  (goodness-of-data)는 없다고 적는다. 이 페이지의 여섯 특성은 한 저자의 정리이지 그
+  표준이 아니다
 
 [^huyen2025]: Huyen 2025, 8장 "Dataset Engineering" (책 pp.363–404) 중 "Data Quality"
     (pp.368–369). 2장 "Understanding Foundation Models"(p.51)의 고품질 소량 대목을 대조로 함께
