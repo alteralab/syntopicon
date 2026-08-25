@@ -44,6 +44,7 @@ generated: { by: "claude-fable-5", at: "2026-08-17T11:30:00Z" }
 - [훈련 데이터 큐레이션](../concepts/training-data-curation.md) — 데이터 출처와 품질, 가진 것을 쓴다는 접근의 결과
 - [다국어 모델](../concepts/multilingual-models.md) — 언어별 데이터 편중이 성능·지연·요금으로 넘어오는 자리
 - [도메인 특화 모델](../concepts/domain-specific-models.md) — 인터넷에 없는 데이터를 위해 따로 만드는 모델
+- [왜 자기 어텐션인가](../concepts/why-self-attention.md) — 트랜스포머 원전이 순환과 합성곱을 걷어낸 근거와 저자들이 직접 잰 값
 - [트랜스포머 구조](../concepts/transformer-architecture.md) — 어텐션과 트랜스포머 블록, 프리필과 디코드
 - [대안 모델 구조](../concepts/alternative-model-architectures.md) — RWKV·SSM·Mamba·Jamba와 새 구조의 문턱
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 파라미터·훈련 토큰·FLOP과 희소 모델
