@@ -1,7 +1,7 @@
 ---
 type: concept
 title: CompletableFuture와 비동기 조합
-description: Java 8이 조합 가능성과 사용 편의를 겨냥해 들인 비동기 API가 콜백 중심을 선언적 변환의 연속으로 바꾸는 방식과 포크조인 프레임워크 위에 선다는 사실, 오류 처리 메서드와 커스텀 실행자라는 통제 수단, 그리고 학습 투자와 여전히 막는 get과 다중 체인의 오류 전파와 역전된 실행 흐름의 디버깅이라는 대가
+description: Java 8이 조합 가능성과 사용 편의를 겨냥해 들인 비동기 API가 콜백 중심을 선언적 변환의 연속으로 바꾸는 방식과 포크조인 프레임워크 위에 선다는 사실, 오류 처리 메서드와 커스텀 실행자라는 통제 수단, 학습 투자와 여전히 막는 get과 다중 체인의 오류 전파와 역전된 실행 흐름의 디버깅이라는 대가, 그리고 값 하나에는 되고 데이터의 흐름에는 되지 않는다는 6장의 경계
 status: draft
 generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 sources:
@@ -15,6 +15,7 @@ sources:
 - [장점](#장점)
 - [단점과 한계](#단점과-한계)
 - [기술 결정이 아니라 아키텍처 약속이다](#기술-결정이-아니라-아키텍처-약속이다)
+- [값 하나에는 되고 흐름에는 되지 않는다](#값-하나에는-되고-흐름에는-되지-않는다)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **비동기 작업을 이어 붙이는 일을 API가 대신해 주면 무엇이 쉬워지고 무엇이
@@ -97,6 +98,19 @@ sources:
   아키텍처 수준의 약속이므로, 팀의 역량과 애플리케이션의 실제 성능 요구에 따라 신중히 고르라는
   것이다 (1장, p.25).[^rahman2025]
 
+## 값 하나에는 되고 흐름에는 되지 않는다
+
+6장이 이 API의 경계를 한 문장으로 긋는다.
+
+- 저자가 콜백 지옥의 해법으로 이 API를 다시 데려온 뒤 스스로 묻는다 — 그러면 I/O 스레드를 막는
+  문제가 풀린 것인가. 아직 고려하지 않은 것이 데이터의 흐름이라는 것이 그 답이다 (6장
+  "Asynchronous APIs", p.278).[^rahman2025]
+- 경계가 여기서 특정된다 — `CompletableFuture`는 값 하나를 돌려주는 메서드에는 아름답게 동작하지만,
+  한 번의 응답이 아니라 결과의 연속을 다뤄야 할 때는 다르다. 저자는 그 자리가 리액티브 프레임워크가
+  가장 빛나는 곳이라고 적는다 (6장, p.278).[^rahman2025] 그 다음 단계의 모양은
+  [리액티브 스트림 규격과 네 구성 요소](../concepts/reactive-streams-specification-components.md)에
+  있다.
+
 ## 이어지는 페이지
 
 - [실행자 프레임워크와 그 한계](../concepts/executor-framework-and-its-limits.md) — 이 API가
@@ -106,10 +120,13 @@ sources:
   한계를 더 밀고 간 다음 패러다임
 - [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 발상 전환
   없이 같은 효율을 노리는 쪽
+- [비동기 API의 모양과 콜백 지옥](../concepts/async-api-shapes-and-callback-hell.md) — 이 API가
+  정리해 주는 그 중첩
 - [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 1장 "Introduction" — "Bringing Composability into Play with
     CompletableFuture"(pp.23–25), "Advantages of using CompletableFuture"(p.24),
-    "Disadvantages and limitations"(p.24), 조직 준비도 상자(p.25). 인용한
+    "Disadvantages and limitations"(p.24), 조직 준비도 상자(p.25); 6장 "The Relevance of
+    Reactive Java in Light of Virtual Threads" — "Asynchronous APIs"(p.278). 인용한
     `calculateCreditWithCompletableFuture`는 원문 그대로이며 `import` 세 줄과 코드 옆 번호
-    표식은 뺐다.
+    표식은 뺐다. 6장의 `CompletableFuture` 판 `chat`과 그 체인(p.278)은 옮기지 않았다.

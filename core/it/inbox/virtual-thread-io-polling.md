@@ -103,6 +103,8 @@ sources:
 - [가상 스레드 핀닝](../concepts/virtual-thread-pinning.md) — 언마운트되지 못하는 예외
 - [블로킹 I/O와 스레드 효율](../concepts/blocking-io-and-thread-efficiency.md) — 이 기제가 겨냥한
   본래 문제
+- [NIO 셀렉터와 이벤트 루프](../concepts/nio-selector-event-loop.md) — 같은 준비 상태 감시를
+  애플리케이션이 직접 지을 때의 모양
 - [가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md) — 이
   페이지가 속한 허브
 

@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 자바 동시 실행 모델
-description: 자바 애플리케이션이 일을 동시에 시키려고 써 온 방식들의 진입점 — 스레드를 손수 만들던 자리, 요청당 스레드가 부딪힌 메모리와 상한과 문맥 전환의 값, 그 위에 차례로 겹쳐 온 실행자와 포크조인 풀과 CompletableFuture와 리액티브, 그 답들이 안에서 실제로 도는 역학(스레드 풀의 구조와 설정과 종류, Callable과 Future, 작업 의존이 만드는 교착), 마지막으로 그 대가들을 피하려는 가상 스레드
+description: 자바 애플리케이션이 일을 동시에 시키려고 써 온 방식들의 진입점 — 스레드를 손수 만들던 자리, 요청당 스레드가 부딪힌 메모리와 상한과 문맥 전환의 값, 그 위에 차례로 겹쳐 온 실행자와 포크조인 풀과 CompletableFuture와 리액티브, 그 답들이 안에서 실제로 도는 역학(스레드 풀의 구조와 설정과 종류, Callable과 Future, 작업 의존이 만드는 교착), 마지막으로 그 대가들을 피하려는 가상 스레드. 논블로킹 I/O와 리액티브 스트림의 안쪽, 가상 스레드 하나의 안쪽, 구조적 동시성, 문맥 전달은 각각 자식 허브가 담당한다
 generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 ---
 
@@ -43,7 +43,8 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 - [CompletableFuture와 비동기 조합](../concepts/completable-future-composition.md) — 콜백을 변환의
   체인으로 바꾸는 API와 그 학습·디버깅 값
 - [자바 리액티브 프레임워크의 대가](../concepts/reactive-frameworks-tradeoffs-in-java.md) — 스트림과
-  이벤트로 가는 패러다임이 요구하는 여섯 가지 대가
+  이벤트로 가는 패러다임이 요구하는 여섯 가지 대가. 그 패러다임의 안쪽은 자식 허브인
+  [리액티브 자바와 논블로킹 I/O](reactive-java-and-non-blocking-io.md)가 담당한다
 
 ## 그 답들의 역학
 
@@ -87,6 +88,10 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
   묶는 원칙과 그것을 구현한 `StructuredTaskScope`, 그리고 조인 정책들
 - [컨텍스트 전달과 스코프 값](context-propagation-and-scoped-values.md) — 호출 사슬을 따라 문맥
   데이터를 넘기는 문제와 `ThreadLocal`이 남긴 값, 그리고 그 자리를 대신하는 `ScopedValue`
+- [리액티브 자바와 논블로킹 I/O](reactive-java-and-non-blocking-io.md) — 스레드가 기다리지 않게
+  만드는 길: 논블로킹 I/O의 정의와 NIO의 채널·버퍼·셀렉터, 직접 지을 때의 상태와 스레드 규율,
+  프레임워크가 그 루프를 대신 돌 때 남는 규칙, 그 위의 리액티브 스트림과 배압, 그리고 가상 스레드와
+  나란히 놓았을 때의 선택
 
 ## 이어지는 허브
 
