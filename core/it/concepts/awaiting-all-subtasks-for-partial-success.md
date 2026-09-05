@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 전부 기다리기와 부분 성공
-description: awaitAll 정책이 성공과 실패를 가리지 않고 모든 서브태스크의 완료를 기다리며 실패를 취소 신호로 삼지 않는다는 것, 그래서 부수 효과를 남기거나 가능한 만큼 모으는 일과 오류를 연결마다 가두는 서버에 맞는다는 것, 그리고 join의 반환값에 대한 이 소스 안의 어긋남
+description: awaitAll 정책이 성공과 실패를 가리지 않고 모든 서브태스크의 완료를 기다리며 실패를 취소 신호로 삼지 않는다는 것, 그래서 부수 효과를 남기거나 가능한 만큼 모으는 일과 오류를 연결마다 가두는 서버에 맞는다는 것, 그리고 join의 반환값이 이 책 안에서 세 자리로 갈렸다가 JDK 25 API 문서로 null이라고 닫힌 자리
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
+  - { id: oracle2025-structuredtaskscope-javadoc, resource: /it/sources/oracle2025-structuredtaskscope-javadoc.md }
 ---
 
 # 전부 기다리기와 부분 성공
@@ -25,7 +26,7 @@ sources:
 > **버전 조건**: JDK 25의 미리 보기(preview) 기능 기준. 컴파일과 실행에 `--enable-preview`가
 > 필요하다. 아래 팩토리 이름과 반환 모양은 이 소스가 쓰는 JDK 25 판의 것이고, 미리 보기 기능이라
 > 정식화될 때 바뀔 수 있다. `stale_after`는 그 다음 릴리스(JDK 26, 2026년 3월)를 재심 시점으로
-> 잡은 것이다.
+> 잡은 것이다. 반환 타입을 대조한 규격은 JDK 25 API 문서 기준(프리뷰)이다.
 
 ## 실패를 취소 신호로 삼지 않는다
 
@@ -53,9 +54,17 @@ sources:
   (4장, p.140).[^rahman2025]
 - 판단 재료는 예제 코드다 — 이 절의 예제는 `Void result = scope.join();`으로 받고 그 위에
   "`awaitAll()`에서는 `join()`이 언제나 `null`을 돌려준다"는 주석이 달려 있다 (4장,
-  p.156).[^rahman2025] 이 KB는 어느 쪽이 옳다고 단정하지 않고 세 자리를 그대로 남긴다. #hypothesis
-  카탈로그 항목이 바로 아래 `allUntil` 항목의 반환값을 잘못 옮겼을 가능성이 있다 — 그쪽은 실제로
-  `Stream<Subtask>`를 돌려준다고 두 곳에서 일관되게 적혀 있다.
+  p.156).[^rahman2025]
+- **규격이 이 물음을 닫는다.** `awaitAll()`의 선언은 `Joiner<T,Void>`이고, 그 조이너의 `result()`
+  메서드는 `null`을 돌려준다. `join()`이 돌려주는 것이 곧 `result()`의 값이므로 `join()`은
+  `null`이다 (`java.base`, `StructuredTaskScope.Joiner` 항).[^oracle2025-structuredtaskscope-javadoc]
+- 그래서 **p.154 본문과 p.156 예제가 맞고 p.140 카탈로그가 오기다.** 이 KB가 앞서 세워 둔 추측 —
+  카탈로그 항목이 바로 아래 `allUntil` 항목의 반환값을 잘못 옮겼으리라는 것 — 도 함께 확인된다.
+  스트림을 돌려주는 선언은 `allUntil(Predicate)`과 `allSuccessfulOrThrow()` 둘뿐이고 둘 다
+  `Joiner<T, Stream<Subtask<T>>>`다.[^oracle2025-structuredtaskscope-javadoc]
+- **이것은 두 소스의 모순이 아니라 해설서의 오기다.** 규격이 API 선언 그 자체이므로 대립하는 두
+  주장이 아니고, 그래서 `contradicts`를 걸지 않는다. 책의 세 서술은 위에 그대로 남겨 둔다 —
+  같은 책을 읽는 사람이 이 자리에서 걸릴 것이기 때문이다.
 
 ## 어디에 쓰는가
 
@@ -67,29 +76,29 @@ sources:
 
 ## 여러 통로로 알림을 보내는 예제
 
-저자가 꾸민 상황은 중대한 시스템 사건을 이메일과 문자와 푸시 세 통로로 알리는 것이다. 최대한 널리
-닿는 것이 목적이라 한 통로가 실패해도 나머지는 계속 전달해야 한다 (4장, p.154).[^rahman2025]
+- 저자가 꾸민 상황은 중대한 시스템 사건을 이메일과 문자와 푸시 세 통로로 알리는 것이다. 최대한 널리
+  닿는 것이 목적이라 한 통로가 실패해도 나머지는 계속 전달해야 한다 (4장, p.154).[^rahman2025]
 
-```java
-public void sendCriticalAlert(String alertMessage) throws InterruptedException {
-  log("Sending critical alert: " + alertMessage);
+  ```java
+  public void sendCriticalAlert(String alertMessage) throws InterruptedException {
+    log("Sending critical alert: " + alertMessage);
 
-    try (var scope = open(Joiner.<Void>awaitAll())) {
-      scope.fork(() -> {
-        sendEmailNotification(alertMessage);
-        return null;
-      });
-      scope.fork(() -> {
-        sendSmsNotification(alertMessage);
-        return null;
-      });
-      scope.fork(() -> {
-        sendPushNotification(alertMessage);
-        return null;
-      });
-      Void result = scope.join();
-      logNotificationSummary();
-```
+      try (var scope = open(Joiner.<Void>awaitAll())) {
+        scope.fork(() -> {
+          sendEmailNotification(alertMessage);
+          return null;
+        });
+        scope.fork(() -> {
+          sendSmsNotification(alertMessage);
+          return null;
+        });
+        scope.fork(() -> {
+          sendPushNotification(alertMessage);
+          return null;
+        });
+        Void result = scope.join();
+        logNotificationSummary();
+  ```
 
 - 결과를 모으는 자리가 공유 상태다 — 흉내 메서드들이 `CopyOnWriteArrayList`에 결과를 담고
   `AtomicInteger` 둘로 성공과 실패를 센다 (4장, pp.154–155).[^rahman2025] 원자적 카운터가 왜
@@ -148,3 +157,8 @@ public void sendCriticalAlert(String alertMessage) throws InterruptedException {
     `logNotificationSummary`(p.157), `AwaitAllDemo` 전문과 `main`(p.158),
     `ResilientServer`의 `serve`·`handleConnection`(pp.161–162), 텔넷 접속과 서버 실행
     출력(p.163).
+
+[^oracle2025-structuredtaskscope-javadoc]: Oracle 2025, Java SE 25 & JDK 25 API 문서,
+    `java.base`의 `java.util.concurrent.StructuredTaskScope.Joiner` — `awaitAll()` 항의 선언과
+    `result()` 계약, 그리고 `result()` 항의 "이 메서드의 결과가 `join` 메서드의 반환값"이라는
+    규정. 프리뷰 API 표시가 붙어 있다.

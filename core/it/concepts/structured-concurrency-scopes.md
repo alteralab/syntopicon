@@ -3,7 +3,7 @@ type: concept
 title: 구조적 동시성 스코프
 description: 자바가 구조적 동시성을 구현한 StructuredTaskScope의 모양 — 봉인 인터페이스와 fork·join·close라는 세 메서드, 인스턴스를 만드는 정적 팩토리 open, try-with-resources로 닫는 규칙과 중첩을 어겼을 때의 StructureViolationException, 그리고 서브태스크 하나가 실패하면 형제를 취소하고 FailedException으로 감싸 던지는 기본 동작
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
 ---
@@ -88,26 +88,26 @@ sources:
 
 ## 실물
 
-앞의 비구조적 예제를 스코프로 다시 쓰면 `submit`과 `Future.get()` 자리가 `fork`와 `join`으로
-바뀐다 (4장, p.135).[^rahman2025]
+- 앞의 비구조적 예제를 스코프로 다시 쓰면 `submit`과 `Future.get()` 자리가 `fork`와 `join`으로
+  바뀐다 (4장, p.135).[^rahman2025]
 
-```java
-public ProductInfo fetchProductInfo(Long productId) {
-    log("Fetching product & reviews for id: " + productId);
-    try (var scope = StructuredTaskScope.open()) {
-        StructuredTaskScope.Subtask<Product> productTask =
-            scope.fork(() -> fetchProduct(productId));
-        StructuredTaskScope.Subtask<List<Review>> reviewsTask =
-            scope.fork(() -> fetchReviews(productId));
-        scope.join();
-        return new ProductInfo(productTask.get(), reviewsTask.get());
-    } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-        throw new ProductServiceException(
-            "Fetch failed for id: " + productId);
-    }
-}
-```
+  ```java
+  public ProductInfo fetchProductInfo(Long productId) {
+      log("Fetching product & reviews for id: " + productId);
+      try (var scope = StructuredTaskScope.open()) {
+          StructuredTaskScope.Subtask<Product> productTask =
+              scope.fork(() -> fetchProduct(productId));
+          StructuredTaskScope.Subtask<List<Review>> reviewsTask =
+              scope.fork(() -> fetchReviews(productId));
+          scope.join();
+          return new ProductInfo(productTask.get(), reviewsTask.get());
+      } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+          throw new ProductServiceException(
+              "Fetch failed for id: " + productId);
+      }
+  }
+  ```
 
 - 미리 보기 기능이라 실행에 플래그가 필요하다 — `javac --release 25 --enable-preview Main.java`,
   `java --enable-preview Main`, 소스 코드 런처로는 `java --enable-preview Main.java`,

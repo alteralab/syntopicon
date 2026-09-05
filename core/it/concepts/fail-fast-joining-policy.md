@@ -3,9 +3,10 @@ type: concept
 title: 실패 즉시 중단 정책
 description: 서브태스크 하나라도 실패하면 스코프 전체를 접는 두 정책 — 기본값인 awaitAllSuccessfulOrThrow와 성공 시 결과를 스트림으로 모아 주는 allSuccessfulOrThrow, 그 둘이 실패에서 똑같이 행동한다는 것, 그리고 같은 시나리오를 실행자로 돌렸을 때와 갈리는 실측 시간
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
+  - { id: oracle2025-structuredtaskscope-javadoc, resource: /it/sources/oracle2025-structuredtaskscope-javadoc.md }
 ---
 
 # 실패 즉시 중단 정책
@@ -24,7 +25,7 @@ sources:
 > **버전 조건**: JDK 25의 미리 보기(preview) 기능 기준. 컴파일과 실행에 `--enable-preview`가
 > 필요하다. 아래 팩토리 이름과 반환 타입은 이 소스가 쓰는 JDK 25 판의 것이고, 미리 보기 기능이라
 > 정식화될 때 바뀔 수 있다. `stale_after`는 그 다음 릴리스(JDK 26, 2026년 3월)를 재심 시점으로
-> 잡은 것이다.
+> 잡은 것이다. 반환 타입을 대조한 규격은 JDK 25 API 문서 기준(프리뷰)이다.
 
 ## 전부 성공 아니면 무효
 
@@ -75,34 +76,41 @@ sources:
   `java.util.Stream<Subtask<T>>`를 돌려준다. 이 스트림에는 성공적으로 완료된 모든 서브태스크의
   핸들이 **갈라 놓은 순서대로** 담기고, 그래서 결과를 한꺼번에 처리하기 쉽다 (4장,
   p.150).[^rahman2025]
+- 규격이 이 두 서술을 그대로 뒷받침한다 — `allSuccessfulOrThrow()`의 선언은
+  `Joiner<T, Stream<Subtask<T>>>`이고 `awaitAllSuccessfulOrThrow()`의 선언은 `Joiner<T,Void>`다.
+  전자의 `result()`는 전부 성공하면 갈라 놓은 순서의 스트림을 돌려주고 하나라도 실패하면 가장 먼저
+  실패한 서브태스크의 예외를 던지며, 후자의 `result()`는 전부 성공하면 `null`을 돌려주고 아니면
+  같은 예외를 던진다 (`java.base`, `StructuredTaskScope.Joiner` 항).[^oracle2025-structuredtaskscope-javadoc]
+  - 책이 적은 `java.util.Stream`은 실제로는 `java.util.stream.Stream`이다 — 규격의 선언에서
+    확인된다.[^oracle2025-structuredtaskscope-javadoc]
 - 그래서 고르는 기준이 결과 타입이다 — 서브태스크가 모두 같은 타입을 돌려주고 전부 성공해야 할 때
   이 조이너를 쓰고, 서로 다른 타입을 돌려줄 때는 어차피 하나씩 다루게 되므로 기본 정책이 더 맞는다
   (4장, p.150).[^rahman2025]
 
 ## 일괄 검증 예제
 
-저자가 드는 예는 사용자 아이디 목록을 외부 서비스에 대조해 검증하는 일이다. 동시에 하되 **모든
-아이디가 검증되어야만 그 묶음이 유효하다** (4장, p.150).[^rahman2025]
+- 저자가 드는 예는 사용자 아이디 목록을 외부 서비스에 대조해 검증하는 일이다. 동시에 하되 **모든
+  아이디가 검증되어야만 그 묶음이 유효하다** (4장, p.150).[^rahman2025]
 
-```java
-public List<ValidatedUser> validateAllUsers(List<Long> userIds)
-    throws InterruptedException {
-  log("Validating a batch of " + userIds.size() + " users...");
-  try (var scope
-           = open(Joiner.<ValidatedUser>allSuccessfulOrThrow())) {
-    var subtasks = userIds.stream()
-        .map(id -> scope.fork(() -> validateUserWithFailure(id)))
-        .toList();
-    var resultStream = scope.join();
-    return resultStream
-        .map(Subtask::get)
-        .toList();
-  } catch (FailedException ex) {
-    throw new RuntimeException("Batch validation failed",
-        ex.getCause());
+  ```java
+  public List<ValidatedUser> validateAllUsers(List<Long> userIds)
+      throws InterruptedException {
+    log("Validating a batch of " + userIds.size() + " users...");
+    try (var scope
+             = open(Joiner.<ValidatedUser>allSuccessfulOrThrow())) {
+      var subtasks = userIds.stream()
+          .map(id -> scope.fork(() -> validateUserWithFailure(id)))
+          .toList();
+      var resultStream = scope.join();
+      return resultStream
+          .map(Subtask::get)
+          .toList();
+    } catch (FailedException ex) {
+      throw new RuntimeException("Batch validation failed",
+          ex.getCause());
+    }
   }
-}
-```
+  ```
 
 - 실행 결과가 두 결말을 보인다 — 성공 시나리오에서는 네 검증 태스크가 모두 가상 스레드에서 돌고
   마지막 것이 끝나기를 `join()`이 기다린 뒤 결과 스트림을 돌려준다. 실패 시나리오에서는 다섯
@@ -141,3 +149,7 @@ public List<ValidatedUser> validateAllUsers(List<Long> userIds)
     `ValidatedUser` 레코드와 `validateUser`·`validateUserWithFailure`(pp.150–151),
     `BatchValidationDemo`의 `main`(p.152). 실행 출력(pp.143–146, pp.153–154)도 미수록이고
     본문의 수치만 옮겼다.
+
+[^oracle2025-structuredtaskscope-javadoc]: Oracle 2025, Java SE 25 & JDK 25 API 문서,
+    `java.base`의 `java.util.concurrent.StructuredTaskScope.Joiner` — `allSuccessfulOrThrow()`와
+    `awaitAllSuccessfulOrThrow()` 항의 선언과 `result()` 계약. 프리뷰 API 표시가 붙어 있다.

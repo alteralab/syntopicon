@@ -3,9 +3,10 @@ type: concept
 title: allUntil로 만드는 중단 조건
 description: 서브태스크가 완료될 때마다 검사되는 술어를 받아 스코프를 언제 취소할지 직접 정하는 정책, 술어가 끝까지 참이 되지 않으면 전부 기다리기와 같아진다는 것, join이 갈라 놓은 모든 서브태스크의 스트림을 돌려준다는 것, 그리고 첫 성공에서 멈추는 백업 예제
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
+  - { id: oracle2025-structuredtaskscope-javadoc, resource: /it/sources/oracle2025-structuredtaskscope-javadoc.md }
 ---
 
 # allUntil로 만드는 중단 조건
@@ -23,7 +24,7 @@ sources:
 > **버전 조건**: JDK 25의 미리 보기(preview) 기능 기준. 컴파일과 실행에 `--enable-preview`가
 > 필요하다. 아래 팩토리 이름과 반환 모양은 이 소스가 쓰는 JDK 25 판의 것이고, 미리 보기 기능이라
 > 정식화될 때 바뀔 수 있다. `stale_after`는 그 다음 릴리스(JDK 26, 2026년 3월)를 재심 시점으로
-> 잡은 것이다.
+> 잡은 것이다. 반환 타입을 대조한 규격은 JDK 25 API 문서 기준(프리뷰)이다.
 
 ## 조건을 직접 쓰는 자리
 
@@ -37,42 +38,50 @@ sources:
   [전부 기다리기와 부분 성공](../concepts/awaiting-all-subtasks-for-partial-success.md)에 있다.
 - 어느 쪽이든 `scope.join()`은 **갈라 놓은 모든 서브태스크가 담긴 `Stream<Subtask>`를**
   돌려준다 (4장, p.140).[^rahman2025]
+- 규격이 이 쪽을 뒷받침한다 — `allUntil(Predicate)`의 선언은 `Joiner<T, Stream<Subtask<T>>>`이고,
+  `result()`는 갈라 놓은 순서대로 모든 서브태스크의 스트림을 돌려준다. 그 스트림에는 완료된
+  서브태스크뿐 아니라, 전부 갈라지거나 완료되기 전에 스코프가 취소되었다면 아직 결과가 없는
+  서브태스크도 들어 있다 (`java.base`, `StructuredTaskScope.Joiner` 항).[^oracle2025-structuredtaskscope-javadoc]
+- **같은 쪽(p.140)이 `awaitAll()`에도 이 스트림 반환을 적은 것은 책의 오기다.** 규격의
+  `awaitAll()` 선언은 `Joiner<T,Void>`이고 `result()`는 `null`을 돌려준다 — 스트림을 돌려주는
+  것은 여기 `allUntil` 쪽뿐이다.[^oracle2025-structuredtaskscope-javadoc] 그 자리의 사정은
+  [전부 기다리기와 부분 성공](../concepts/awaiting-all-subtasks-for-partial-success.md)에 있다.
 - 저자가 4장에서 이 메서드로 만들어 보이는 조건은 "첫 성공에서 멈추기"다 (4장 §"After first
   success", p.163).[^rahman2025]
 
 ## 첫 성공에서 멈추는 백업
 
-저자가 꾸민 상황은 데이터를 여러 곳에 백업하다가 어느 한 곳이 성공하는 즉시 나머지를 그만두는
-백업 서비스다 (4장, p.163).[^rahman2025] 클라우드와 USB와 네트워크 드라이브 세 곳이고, 각각
-500밀리초·300밀리초·400밀리초가 걸리며 성공률은 모두 50퍼센트로 꾸며져 있다 (4장,
-p.164).[^rahman2025]
+- 저자가 꾸민 상황은 데이터를 여러 곳에 백업하다가 어느 한 곳이 성공하는 즉시 나머지를 그만두는
+  백업 서비스다 (4장, p.163).[^rahman2025] 클라우드와 USB와 네트워크 드라이브 세 곳이고, 각각
+  500밀리초·300밀리초·400밀리초가 걸리며 성공률은 모두 50퍼센트로 꾸며져 있다 (4장,
+  p.164).[^rahman2025]
 
-```java
-public void performBackup(String data) throws InterruptedException {
-  log("Starting backup to multiple locations...");
+  ```java
+  public void performBackup(String data) throws InterruptedException {
+    log("Starting backup to multiple locations...");
 
-    try (var scope = open(Joiner.<BackupResult>allUntil(subtask -> {
-      boolean shouldStop = hasSuccess.get();
-      if (shouldStop) {
-        log("Backup successful! Canceling other attempts...");
-      }
-      return shouldStop;
-    }))) {
-
-        scope.fork(() -> backupToCloud(data));
-        scope.fork(() -> backupToUSB(data));
-        scope.fork(() -> backupToNetwork(data));
-
-        scope.join();
-
-        if (hasSuccess.get()) {
-          log("Backup completed successfully!");
-        } else {
-          log("All backup attempts failed!");
+      try (var scope = open(Joiner.<BackupResult>allUntil(subtask -> {
+        boolean shouldStop = hasSuccess.get();
+        if (shouldStop) {
+          log("Backup successful! Canceling other attempts...");
         }
-    }
-}
-```
+        return shouldStop;
+      }))) {
+
+          scope.fork(() -> backupToCloud(data));
+          scope.fork(() -> backupToUSB(data));
+          scope.fork(() -> backupToNetwork(data));
+
+          scope.join();
+
+          if (hasSuccess.get()) {
+            log("Backup completed successfully!");
+          } else {
+            log("All backup attempts failed!");
+          }
+      }
+  }
+  ```
 
 - 이 술어가 하는 일은 하나다 — 성공이 이미 있으면 실행을 멈추게 한다. `join()` 뒤에는 성공 여부에
   따라 완료와 전부 실패가 갈린다 (4장, p.165).[^rahman2025]
@@ -106,3 +115,7 @@ public void performBackup(String data) throws InterruptedException {
     개념당 대표 코드 하나 규칙에 따라 남긴 것: `BackupResult` 레코드와 `hasSuccess` 선언(p.163),
     세 백업 흉내 메서드(p.164), `BackupDemo`의 `main`(p.165). 이 절에는 실행 출력이 실려 있지
     않아 이 예제의 실측 시간은 원문에도 없다.
+
+[^oracle2025-structuredtaskscope-javadoc]: Oracle 2025, Java SE 25 & JDK 25 API 문서,
+    `java.base`의 `java.util.concurrent.StructuredTaskScope.Joiner` — `allUntil(Predicate)` 항과
+    `awaitAll()` 항의 선언과 `result()` 계약. 프리뷰 API 표시가 붙어 있다.

@@ -3,7 +3,7 @@ type: concept
 title: 첫 성공으로 끝내는 경주
 description: anySuccessfulResultOrThrow 정책이 서브태스크를 경주시켜 먼저 성공한 하나의 결과를 join의 반환값으로 삼고 나머지를 즉시 취소한다는 것, 그 취소가 서브태스크 쪽에서는 인터럽트로 도착한다는 것, 전부 실패했을 때만 예외가 된다는 것, 그리고 캐시와 데이터베이스와 외부 API를 나란히 던진 실측 시간
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
 ---
@@ -39,30 +39,30 @@ sources:
 
 ## 세 소스를 나란히 던지는 예제
 
-저자가 꾸민 상황은 상품 정보를 응답 시간이 다른 세 곳에서 가져오는 것이다 — 500밀리초 걸리는 캐시,
-2초 걸리는 데이터베이스, 3초 걸리는 외부 API. 무엇이든 먼저 오는 것으로 진행한다 (4장,
-p.147).[^rahman2025]
+- 저자가 꾸민 상황은 상품 정보를 응답 시간이 다른 세 곳에서 가져오는 것이다 — 500밀리초 걸리는 캐시,
+  2초 걸리는 데이터베이스, 3초 걸리는 외부 API. 무엇이든 먼저 오는 것으로 진행한다 (4장,
+  p.147).[^rahman2025]
 
-```java
-public Product fetchProduct(long productId) {
-  Instant start = Instant.now();
-  try (var scope
-           = StructuredTaskScope.open(
-               StructuredTaskScope
-                   .Joiner.<Product>anySuccessfulResultOrThrow())) {
-    scope.fork(() -> fetchProductFromDatabase(productId));
-    scope.fork(() -> fetchProductFromCache(productId));
-    scope.fork(() -> fetchProductFromAPI(productId));
-    return scope.join();
-  } catch (InterruptedException | StructuredTaskScope.FailedException e) {
-    throw new RuntimeException(e);
-  } finally {
-    Instant end = Instant.now();
-    log("Total time taken: %dms%n"
-        .formatted(Duration.between(start, end).toMillis()));
+  ```java
+  public Product fetchProduct(long productId) {
+    Instant start = Instant.now();
+    try (var scope
+             = StructuredTaskScope.open(
+                 StructuredTaskScope
+                     .Joiner.<Product>anySuccessfulResultOrThrow())) {
+      scope.fork(() -> fetchProductFromDatabase(productId));
+      scope.fork(() -> fetchProductFromCache(productId));
+      scope.fork(() -> fetchProductFromAPI(productId));
+      return scope.join();
+    } catch (InterruptedException | StructuredTaskScope.FailedException e) {
+      throw new RuntimeException(e);
+    } finally {
+      Instant end = Instant.now();
+      log("Total time taken: %dms%n"
+          .formatted(Duration.between(start, end).toMillis()));
+    }
   }
-}
-```
+  ```
 
 - 이 정책에서는 `scope.join()`이 **처음 성공한 서브태스크의 결과 자체를 돌려준다** (4장, p.148,
   코드 주석).[^rahman2025] 기본 정책에서 `join()`이 결과를 돌려주지 않고 핸들에서 꺼내야 했던 것과

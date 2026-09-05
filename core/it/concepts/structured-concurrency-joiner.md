@@ -3,9 +3,10 @@ type: concept
 title: 조이너와 조인 정책
 description: join이 언제 끝나고 무엇을 돌려줄지를 조이너 객체가 정한다는 설계, 결과 메서드 둘과 수명 주기 훅 둘로 이루어진 인터페이스, 그리고 자바가 정적 팩토리로 내주는 다섯 가지 공통 정책과 그중 무엇을 고를지의 기준
 stale_after: "2026-03-31"
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
+  - { id: oracle2025-structuredtaskscope-javadoc, resource: /it/sources/oracle2025-structuredtaskscope-javadoc.md }
 ---
 
 # 조이너와 조인 정책
@@ -24,7 +25,7 @@ sources:
 > **버전 조건**: JDK 25의 미리 보기(preview) 기능 기준. 컴파일과 실행에 `--enable-preview`가
 > 필요하다. 아래 인터페이스와 팩토리 이름은 이 소스가 쓰는 JDK 25 판의 것이고, 미리 보기 기능이라
 > 정식화될 때 바뀔 수 있다. `stale_after`는 그 다음 릴리스(JDK 26, 2026년 3월)를 재심 시점으로
-> 잡은 것이다.
+> 잡은 것이다. 반환 타입을 대조한 규격은 JDK 25 API 문서 기준(프리뷰)이다.
 
 ## 고정 정책 대신 인터페이스
 
@@ -36,14 +37,14 @@ sources:
   p.139).[^rahman2025] 그 인터페이스를 단순화해 보면 결말 메서드와 수명 주기 훅(lifecycle hook)이
   함께 들어 있다 (4장, p.139).[^rahman2025]
 
-```java
-public interface Joiner<T, R> {
-    R result();
-    Throwable exception();
-    default boolean onFork(Subtask<? extends T> subtask) { ... }
-    default boolean onComplete(Subtask<? extends T> subtask) { ... }
-}
-```
+  ```java
+  public interface Joiner<T, R> {
+      R result();
+      Throwable exception();
+      default boolean onFork(Subtask<? extends T> subtask) { ... }
+      default boolean onComplete(Subtask<? extends T> subtask) { ... }
+  }
+  ```
 
 ## 네 메서드의 역할이 갈린다
 
@@ -83,8 +84,17 @@ Policies", pp.140–141).[^rahman2025]
 - **`awaitAll()`이 `join()`에서 무엇을 돌려주는가는 이 소스 안에서 어긋난다.** 위 카탈로그(p.140)는
   `Stream<Subtask>`를 돌려준다고 적지만, 그 정책을 따로 다루는 절(p.154)은 **언제나 `null`을
   돌려준다**고 적고, 같은 절의 예제 코드(p.156)는 `Void result = scope.join();`으로 뒤쪽 서술과
-  맞는다.[^rahman2025] 이 KB는 어느 쪽도 단정하지 않고 두 서술을 그대로 둔다 —
-  [전부 기다리기와 부분 성공](../concepts/awaiting-all-subtasks-for-partial-success.md) 참고.
+  맞는다.[^rahman2025]
+- **규격을 보면 카탈로그 쪽이 오기다.** 다섯 팩토리의 선언은 이렇다 — `awaitAll()`과
+  `awaitAllSuccessfulOrThrow()`가 `Joiner<T,Void>`, `anySuccessfulResultOrThrow()`가
+  `Joiner<T,T>`, `allSuccessfulOrThrow()`와 `allUntil(Predicate)`가
+  `Joiner<T, Stream<Subtask<T>>>`다. `awaitAll()`의 `result()`는 `null`을 돌려주므로 위 카탈로그의
+  마지막 문장은 `allUntil` 쪽에만 해당한다 (`java.base`,
+  `StructuredTaskScope.Joiner` 항).[^oracle2025-structuredtaskscope-javadoc]
+- 이 어긋남은 두 소스의 **모순이 아니라 해설서의 오기**라서 `contradicts`를 걸지 않는다. 책의
+  서술은 위에 그대로 두고 규격을 나란히 둔다 —
+  [전부 기다리기와 부분 성공](../concepts/awaiting-all-subtasks-for-partial-success.md)에 세 자리의
+  실물이 있다.
 
 ## 무엇을 고를 것인가
 
@@ -116,3 +126,9 @@ Policies", pp.140–141).[^rahman2025]
     §"Gather all results or fail fast"(p.150)와 §"Wait for all"(p.154). 인용한 인터페이스
     선언은 원문이 "단순화한 모습"이라고 밝힌 것 그대로이며(본문 생략 표시 포함), 조판 줄바꿈만
     폈다.
+
+[^oracle2025-structuredtaskscope-javadoc]: Oracle 2025, Java SE 25 & JDK 25 API 문서,
+    `java.base`의 `java.util.concurrent.StructuredTaskScope.Joiner` — 정적 팩토리 다섯 개
+    (`awaitAll()`·`awaitAllSuccessfulOrThrow()`·`allSuccessfulOrThrow()`·
+    `anySuccessfulResultOrThrow()`·`allUntil(Predicate)`)의 선언과 `result()` 계약.
+    프리뷰 API 표시가 붙어 있다.

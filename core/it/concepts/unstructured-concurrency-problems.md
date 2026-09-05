@@ -2,7 +2,7 @@
 type: concept
 title: 비구조적 동시성의 문제
 description: 실행자와 Future로 동시 작업을 조율할 때 구조적으로 빠져 있는 것 — 태스크 위계가 없어 취소가 전파되지 않는다는 것, 그래서 실패한 요청의 형제 태스크가 계속 도는 스레드 누수와 쓸모없어진 결과를 기다리는 낭비, 그리고 스레드 덤프에 태스크와 서브태스크의 관계가 남지 않는다는 관측의 손실
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-06T00:20:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
 ---
@@ -43,38 +43,38 @@ sources:
 
 ## 실물 예제
 
-저자가 드는 예는 상품 상세와 리뷰를 동시에 가져와 화면에 보여 주는 웹 애플리케이션이다 (4장,
-p.126).[^rahman2025] 두 조회를 `ExecutorService`에 던지고 `Future.get()`으로 결과를 받는다.
+- 저자가 드는 예는 상품 상세와 리뷰를 동시에 가져와 화면에 보여 주는 웹 애플리케이션이다 (4장,
+  p.126).[^rahman2025] 두 조회를 `ExecutorService`에 던지고 `Future.get()`으로 결과를 받는다.
 
-```java
-public class ProductService {
-  public ProductInfo fetchProductInfo(Long productId) {
-      log("Fetching product & reviews for id: " + productId);
+  ```java
+  public class ProductService {
+    public ProductInfo fetchProductInfo(Long productId) {
+        log("Fetching product & reviews for id: " + productId);
 
-        try (var ExecutorService
-                  = Executors.newVirtualThreadPerTaskExecutor()) {
+          try (var ExecutorService
+                    = Executors.newVirtualThreadPerTaskExecutor()) {
 
-            Future<Product> productTask =
-                ExecutorService.submit(() -> fetchProduct(productId));
-            Future<List<Review>> reviewsTask =
-                ExecutorService.submit(() -> fetchReviews(productId));
-            Product product = productTask.get();
-            List<Review> reviews = reviewsTask.get();
-            return new ProductInfo(product, reviews);
+              Future<Product> productTask =
+                  ExecutorService.submit(() -> fetchProduct(productId));
+              Future<List<Review>> reviewsTask =
+                  ExecutorService.submit(() -> fetchReviews(productId));
+              Product product = productTask.get();
+              List<Review> reviews = reviewsTask.get();
+              return new ProductInfo(product, reviews);
 
-        } catch (ExecutionException | InterruptedException e) {
-            Throwable cause = e.getCause() != null ? e.getCause() : e;
+          } catch (ExecutionException | InterruptedException e) {
+              Throwable cause = e.getCause() != null ? e.getCause() : e;
 
-            if (e instanceof InterruptedException) {
-                Thread.currentThread().interrupt();
-            }
+              if (e instanceof InterruptedException) {
+                  Thread.currentThread().interrupt();
+              }
 
-            throw new ProductServiceException(
-                "Fetch failed for id: " + productId, cause);
-        }
-    }
-}
-```
+              throw new ProductServiceException(
+                  "Fetch failed for id: " + productId, cause);
+          }
+      }
+  }
+  ```
 
 - 저자 자신이 이 코드에 대한 첫 인상을 적는다 — 언뜻 보면 완벽하게 합리적이다. 그러나 두 메서드가
   동시에 실행되므로 각각 독립으로 성공하거나 실패할 수 있다는 데서 문제가 시작된다 (4장,
