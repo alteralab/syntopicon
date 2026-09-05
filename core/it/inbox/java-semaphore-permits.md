@@ -114,6 +114,8 @@ sources:
 
 - [가상 스레드 시대의 속도 제한](../concepts/rate-limiting-with-virtual-threads.md) — 이 도구를
   왜 다시 꺼내야 했는가
+- [fork 시점의 시작 통제](../concepts/fork-time-admission-control.md) — 같은 퍼밋을 구조적
+  동시성 조이너 안에 넣은 자리
 - [공유 상태는 잘못된 상태다](../concepts/shared-state-is-incorrect-state.md) — 같은 함정을
   언어와 무관하게 다룬 자리
 - [스레드 안전성 구현 수단](../concepts/thread-safety-implementation.md) — 상호 배제 동기화의

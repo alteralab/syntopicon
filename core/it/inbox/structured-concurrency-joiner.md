@@ -106,6 +106,8 @@ Policies", pp.140–141).[^rahman2025]
   나머지를 끝까지 돌리는 쪽
 - [allUntil로 만드는 중단 조건](../concepts/custom-stop-condition-with-alluntil.md) — 조건을
   직접 쓰는 쪽
+- [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md) — 이 인터페이스를 직접 구현할 때
+  지켜야 하는 것
 - [스코프와 서브태스크의 수명 주기](../concepts/scope-and-subtask-lifecycle.md) — 이 훅들이 불리는
   절차
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브

@@ -95,6 +95,10 @@ public void performBackup(String data) throws InterruptedException {
   참이 되지 않을 때 이 정책이 되는 것
 - [첫 성공으로 끝내는 경주](../concepts/racing-subtasks-for-first-result.md) — 같은 "첫 성공에서
   멈춤"을 준비된 정책으로 얻는 쪽
+- [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md) — 술어 하나로 안 될 때 조이너를
+  통째로 만드는 쪽
+- [결과를 보고 일찍 끝내는 커스텀 조이너](../concepts/early-completion-custom-joiners.md) —
+  같은 조기 종료를 조이너 안에서 구현한 실물
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 4장 "Structured Concurrency" — §"Common Joining

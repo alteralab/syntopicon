@@ -37,6 +37,13 @@ sources:
 - 그래서 이 정책의 값은 회복력이다 — 일부 연산이 실패할 수 있지만 성공한 것들을 처리하는 이득은
   여전히 원할 때, `awaitAll()`은 어떤 일도 헛되이 버려지지 않게 한다 (4장,
   p.154).[^rahman2025]
+- 예외 쪽의 귀결이 하나 더 있다 — **`awaitAll()`에서는 `join()`이 결코 `FailedException`을 던지지
+  않는다.** 일부가 실패해도 모든 태스크가 끝나기를 기다릴 뿐이다 (4장, p.177).[^rahman2025]
+- 그래서 대가가 붙는다. 성공과 실패를 **모두 모으려면 각 서브태스크 안에서 예외를 다뤄야 한다**
+  (4장, p.177).[^rahman2025] 그 방법은
+  [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md)에 있고,
+  같은 일을 조이너 쪽에서 한 번에 하는 길은
+  [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md)에 있다.
 
 ## join이 무엇을 돌려주는가
 
@@ -120,6 +127,10 @@ public void sendCriticalAlert(String alertMessage) throws InterruptedException {
 - [실패 즉시 중단 정책](../concepts/fail-fast-joining-policy.md) — 실패를 곧 취소로 삼는 쪽
 - [allUntil로 만드는 중단 조건](../concepts/custom-stop-condition-with-alluntil.md) — 이 정책에
   중단 조건 하나를 얹는 쪽
+- [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md) — 성공과 실패를 조이너 쪽에서
+  함께 모으는 쪽
+- [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md) — 이
+  정책에서 예외를 어디서 잡아야 하는가
 - [모듈 임포트 선언](../concepts/module-import-declaration.md) — 이 절의 예제 클래스들이 쓰는 JDK
   25 문법
 - [가상 스레드 시대의 속도 제한](../concepts/rate-limiting-with-virtual-threads.md) — 연결마다
@@ -127,8 +138,10 @@ public void sendCriticalAlert(String alertMessage) throws InterruptedException {
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 4장 "Structured Concurrency" — §"Wait for all"(pp.154–160),
-    §"Resilient concurrent server"(pp.160–163), 그리고 카탈로그 쪽 서술은 §"Common Joining
-    Policies"(p.140). 인용한 코드는 pp.156–157의 `sendCriticalAlert`이고, 조판 줄바꿈을 폈으며
+    §"Resilient concurrent server"(pp.160–163), 카탈로그 쪽 서술은 §"Common Joining
+    Policies"(p.140), 그리고 `join()`이 `FailedException`을 던지지 않는다는 규정과 그 대가는
+    §"Understanding how different joiners handle exceptions"(p.177) — 그 절의 예제
+    `demonstrateAwaitAll`은 미수록이다. 인용한 코드는 pp.156–157의 `sendCriticalAlert`이고, 조판 줄바꿈을 폈으며
     원문 주석 네 줄과 `log` 호출 두 줄을 깎았다. **원문의 이 메서드는 `catch (InterruptedException)`
     블록까지 이어지는데, 지면이 두 쪽으로 갈리며 `try` 블록이 열린 채 끝나는 발췌라 이 KB도 같은
     범위만 옮겼다** — 그대로 복사하면 컴파일되지 않는다. 개념당 대표 코드 하나 규칙에 따라 남긴 것:

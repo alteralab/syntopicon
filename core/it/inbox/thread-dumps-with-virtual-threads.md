@@ -101,6 +101,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [구조가 드러나는 스레드 덤프](../concepts/structured-thread-dumps.md) — 같은 덤프에 스코프
+  위계가 컨테이너로 나오는 자리
 - [가상 스레드 모니터링](../concepts/monitoring-virtual-threads.md) — 흐름을 계속 기록하는 다른
   길
 - [JFR과 JMC](../concepts/jfr-and-jmc.md) — 함께 쓰는 기록 장치와 분석 콘솔

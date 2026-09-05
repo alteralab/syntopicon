@@ -37,6 +37,13 @@ sources:
   취소되고, 실패한 서브태스크의 오류가 부모 태스크로 전파된다 (4장, p.141).[^rahman2025]
 - 이 설계가 보장하는 것은 **연산의 모든 부분이 성공했을 때만 결과를 받는다**는 것이고, 그래서
   불완전하거나 일부만 처리된 결과를 쓰는 일이 막힌다 (4장, p.141).[^rahman2025]
+- 서브태스크 여럿이 실패했을 때 무엇이 원인으로 실리는지도 정해져 있다 —
+  `allSuccessfulOrThrow()`와 `awaitAllSuccessfulOrThrow()`의 경우 `FailedException`의 원인은
+  **가장 먼저 실패한 서브태스크**의 예외다 (4장, p.166).[^rahman2025]
+- 저자가 이 정책을 실패 즉시 중단(fail-fast) 전략이라고 다시 부르며 세 태스크짜리 예로 보인다 —
+  둘째가 예외를 던지면 `join()`이 `FailedException`을 던지고 셋째는 취소될 수 있다 (4장,
+  p.176).[^rahman2025] 그 예외를 어디서 받을지의 네 가지 전략은
+  [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md)에 있다.
 
 ## 실측으로 갈리는 자리
 
@@ -114,12 +121,17 @@ public List<ValidatedUser> validateAllUsers(List<Long> userIds)
   성공하면 끝내는 쪽
 - [전부 기다리기와 부분 성공](../concepts/awaiting-all-subtasks-for-partial-success.md) — 실패를
   취소 신호로 삼지 않는 쪽
+- [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md) — 이 정책이
+  던지는 `FailedException`을 어디서 다룰 것인가
 - [비구조적 동시성의 문제](../concepts/unstructured-concurrency-problems.md) — 실행자 대조군이
   왜 2초를 버렸는가
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 4장 "Structured Concurrency" — §"Wait for all to succeed or first to
-    fail"(pp.141–146), §"Gather all results or fail fast"(pp.150–154). 인용한 코드는 p.151의
+    fail"(pp.141–146), §"Gather all results or fail fast"(pp.150–154); 원인 예외가 가장 먼저
+    실패한 서브태스크의 것이라는 규정은 §"Exception Handling in StructuredTaskScope"(p.166),
+    세 태스크짜리 대조 예는 §"Understanding how different joiners handle exceptions"(p.176)이고
+    그 예제 코드(`demonstrateAllSuccessfulOrThrow`)는 미수록이다. 인용한 코드는 p.151의
     `validateAllUsers`이고, 조판 줄바꿈을 폈으며 `log` 호출 두 줄과 원문 주석 두 줄을 깎았다.
     **원문의 `catch (FailedException ex)` 블록은 실패 경로인데도 검증에 성공했다는 문구를
     로그로 찍는다**(p.151). 같은 예제의 실행 출력(p.153)은 실패를 알리는 다른 문구를 보여 주므로

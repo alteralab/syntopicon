@@ -1,15 +1,16 @@
 ---
 type: synthesis
 title: 자바의 구조적 동시성
-description: 관련된 태스크를 하나의 일의 단위로 묶는 원칙과 자바가 그것을 구현한 StructuredTaskScope의 진입점 — 실행자와 Future에 태스크 위계가 없어 새던 자리, 스코프와 서브태스크가 fork에서 close까지 거치는 절차, 그리고 join이 언제 끝나고 무엇을 돌려줄지를 정하는 조이너와 그 정책들
-generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
+description: 관련된 태스크를 하나의 일의 단위로 묶는 원칙과 자바가 그것을 구현한 StructuredTaskScope의 진입점 — 실행자와 Future에 태스크 위계가 없어 새던 자리, 스코프와 서브태스크가 fork에서 close까지 거치는 절차, join이 언제 끝나고 무엇을 돌려줄지를 정하는 조이너와 그 정책들, 조이너를 직접 만드는 확장점, 실패했을 때의 예외와 스레드·이름·타임아웃 구성, 그리고 이 구조가 낳는 메모리 일관성 보장과 중첩과 관측 가능성
+generated: { by: "claude-opus-5", at: "2026-09-05T18:00:00Z" }
 ---
 
 # 자바의 구조적 동시성
 
 **이름의 범위가 곧 이 허브의 범위다.** 여기는 **여러 서브태스크를 갈라 놓은 뒤 그것들을 하나의 일로
 묶어 다루는 방법**이 사는 자리다. 원칙 쪽과 자바 API 쪽이 함께 있고, API 쪽은
-`StructuredTaskScope`와 그 조인 정책이 전부다.
+`StructuredTaskScope`와 그 조인 정책, 그것을 확장하고 구성하는 자리, 그리고 그 구조가 낳는 부수
+효과(메모리 일관성, 중첩, 관측 가능성)가 전부다.
 
 가상 스레드 하나가 무엇으로 만들어져 어떻게 도는가는 형제 허브인
 [가상 스레드의 내부와 운영](virtual-thread-internals-and-operations.md)이 담당한다. 이 허브는
@@ -17,7 +18,8 @@ generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
 묻는 것은 스레드가 아니라 태스크 사이의 관계다.
 
 읽는 순서가 있다. 없을 때 무엇이 새는지를 먼저 보고, 그 결함에 답하는 원칙을 지나, 자바가 그것을
-구현한 API와 절차를 밟은 뒤, 마지막이 조인 정책들이다.
+구현한 API와 절차를 밟고, 조인 정책들을 지나, 그 정책을 직접 만드는 확장점과 스코프를 손보는
+구성으로 간 뒤, 마지막이 이 구조가 그냥 딸려 주는 것들이다.
 
 ## 무엇이 문제였나
 
@@ -53,6 +55,31 @@ generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
 - [allUntil로 만드는 중단 조건](../concepts/custom-stop-condition-with-alluntil.md) — 완료마다
   검사되는 술어로 취소 시점을 직접 정하는 쪽
 
+## 정책을 직접 만드는 자리
+
+- [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md) — `Joiner`를 구현할 때의 계약,
+  세 메서드가 불리는 시점, `boolean` 하나가 계속과 취소를 가른다는 것, 서브태스크의 세 최종 상태
+- [결과를 보고 일찍 끝내는 커스텀 조이너](../concepts/early-completion-custom-joiners.md) —
+  성공이 정족수에 닿거나 실패율이 문턱을 넘으면 남은 태스크를 접는 쪽
+- [fork 시점의 시작 통제](../concepts/fork-time-admission-control.md) — 퍼밋으로 동시 실행을
+  묶거나 바깥 조건이 거짓이면 새 태스크를 아예 시작시키지 않는 쪽
+
+## 스코프를 손보는 자리
+
+- [스코프 구성](../concepts/structured-task-scope-configuration.md) — 스레드 팩토리와 스코프
+  이름과 타임아웃, 그리고 플랫폼 스레드로도 돌릴 수 있으나 그러면 원래 문제로 돌아간다는 것
+- [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md) — 실패가
+  `FailedException`으로 감싸여 나온다는 규칙과 그것을 어디서 다룰지의 네 전략
+
+## 이 구조가 딸려 주는 것
+
+- [구조적 스코프의 메모리 일관성 효과](../concepts/structured-scope-memory-consistency.md) —
+  `fork`와 `join`이 양방향으로 세우는 선 발생 관계와 그래도 남는 몫
+- [중첩 스코프](../concepts/nested-structured-scopes.md) — 스코프 안의 스코프가 만드는 트리,
+  위로 가는 오류와 아래로 가는 취소
+- [구조가 드러나는 스레드 덤프](../concepts/structured-thread-dumps.md) — 그 위계가 JSON
+  덤프에 스레드 컨테이너로 나오는 자리
+
 ## 경계에 있는 페이지
 
 - [동시 실행기와 asyncio](../concepts/concurrent-executors-and-asyncio.md) — 같은 원칙을 파이썬
@@ -65,6 +92,12 @@ generated: { by: "claude-opus-5", at: "2026-09-05T16:00:00Z" }
   문법
 - [공유 상태는 틀린 상태다](../concepts/shared-state-is-incorrect-state.md) — 서브태스크들이 함께
   쓰는 상태를 다룰 때의 규칙
+- [원자성·가시성·실행 순서와 선 발생 원칙](../concepts/happens-before-and-jmm-guarantees.md) —
+  스코프의 메모리 일관성 보장이 기대는 자바 메모리 모델 쪽 규칙
+- [자바 세마포어와 퍼밋](../concepts/java-semaphore-permits.md) — 속도 제한 조이너가 쓰는 도구
+- [정족수 읽기와 쓰기](../concepts/quorum-reads-and-writes.md) — 정족수 조이너가 빌려 온 개념
+- [가상 스레드가 보이는 스레드 덤프](../concepts/thread-dumps-with-virtual-threads.md) — 스코프
+  위계가 실리는 그 덤프를 뜨는 법
 
 ## 이어지는 허브
 

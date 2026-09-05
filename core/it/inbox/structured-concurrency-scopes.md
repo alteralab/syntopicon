@@ -17,6 +17,7 @@ sources:
 - [인스턴스를 만드는 자리](#인스턴스를-만드는-자리)
 - [실물](#실물)
 - [실패하면 무엇이 벌어지나](#실패하면-무엇이-벌어지나)
+- [API를 잘못 썼을 때](#api를-잘못-썼을-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **자바는 구조적 동시성의 원칙을 어떤 API로 내놓았는가.**
@@ -129,10 +130,34 @@ public ProductInfo fetchProductInfo(Long productId) {
   취소되면 스코프가 닫히며 두 서브태스크가 함께 끝나며, `join()`이 결과를 꺼내기 전에 완료를
   보장하므로 불완전한 데이터 문제가 생기지 않는다 (4장, p.137).[^rahman2025]
 
+## API를 잘못 썼을 때
+
+- 규칙이 하나로 깔린다 — 달리 지정하지 않는 한 이 클래스의 메서드에 `null` 인자를 넘기면
+  `NullPointerException`이 던져진다. 그 일관된 동작이 프로그래밍 오류를 일찍 잡게 하고 API를
+  예측 가능하게 만든다 (4장 §"General exceptions", p.177).[^rahman2025]
+- 그 밖에도 오류 조건마다 특정 예외를 던져 문제를 알맞게 다루기 쉽게 한다 (4장,
+  p.177).[^rahman2025] 저자가 보이는 자리가 셋이다 (4장, pp.178–179):[^rahman2025]
+  - 조이너 자리에 `null`을 주고 `open`을 부르면 곧바로 `NullPointerException`이 나서, 잘못된
+    구성으로 스코프가 만들어지는 것을 막는다.
+  - `null` `Callable`로 `fork`를 부르면 `NullPointerException`이 나서, 유효한 태스크만 제출되게
+    한다.
+  - 이미 닫힌 스코프에 `fork`를 부르면 `IllegalStateException`이 나서, 유효하지 않은 스코프
+    인스턴스에 대한 연산을 막는다.
+- 이것은 API 오용에 대한 반응이고, 서브태스크가 실패했을 때 나오는 `FailedException`과는 다른
+  갈래다. 그쪽은
+  [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md)에 있다.
+
 ## 이어지는 페이지
 
 - [구조적 동시성의 원칙](../concepts/structured-concurrency-principle.md) — 이 API가 구현하는
   언어 무관 규정
+- [구조적 스코프의 예외 처리](../concepts/exception-handling-in-structured-scopes.md) —
+  `FailedException`을 어디서 다룰 것인가
+- [스코프 구성](../concepts/structured-task-scope-configuration.md) — `open`의 오버로드가 받는
+  구성 함수
+- [중첩 스코프](../concepts/nested-structured-scopes.md) — 이 닫는 순서 규칙이 걸리는 자리
+- [구조적 스코프의 메모리 일관성 효과](../concepts/structured-scope-memory-consistency.md) —
+  `fork`와 `join`이 세우는 선 발생 관계
 - [비구조적 동시성의 문제](../concepts/unstructured-concurrency-problems.md) — 이 API가 답하는
   결함
 - [스코프와 서브태스크의 수명 주기](../concepts/scope-and-subtask-lifecycle.md) — fork와 join과
@@ -145,7 +170,9 @@ public ProductInfo fetchProductInfo(Long productId) {
 
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "The Promise of Structured
     Concurrency"(pp.50–51); 4장 "Structured Concurrency" — §"Understanding the API",
-    "StructuredTaskScope"(pp.133–137). 인용한 코드는 4장 p.135의 `fetchProductInfo`이고
+    "StructuredTaskScope"(pp.133–137), §"General exceptions"(pp.177–179).
+    `ExceptionBehaviorDemo` 전문과 실행 출력(pp.178–179)은 미수록이다 — 던져지는 예외의 이름과
+    조건은 본문에 옮겼다. 인용한 코드는 4장 p.135의 `fetchProductInfo`이고
     조판 줄바꿈만 폈다. 2장 p.50의 짧은 예제(`fetchData` 두 개를 갈라 이어 붙이는 `main`)는
     같은 API의 같은 모양이라 개념당 대표 코드 하나 규칙에 따라 뺐다. 그림 4-2(p.137,
     `fetchProductInfo`가 두 조회를 갈라 조인하고 실패 시 취소하는 흐름)와 실패 시나리오의 전체

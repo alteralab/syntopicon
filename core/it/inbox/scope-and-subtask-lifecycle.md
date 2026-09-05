@@ -90,6 +90,9 @@ sources:
   꽂히는 자리
 - [Callable과 Future로 결과 받기](../concepts/callable-and-future-results.md) — 결과 핸들을
   다루던 앞선 방식
+- [중첩 스코프](../concepts/nested-structured-scopes.md) — 이 수명 주기가 여러 층으로 겹칠 때
+- [커스텀 조이너의 계약](../concepts/custom-joiner-contract.md) — `onFork`와 `onComplete`를
+  직접 쓰는 자리
 - [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md) — 여기서 시작되는 그 가상
   스레드를 무엇이 태우는가
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브
