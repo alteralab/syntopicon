@@ -148,6 +148,10 @@ sources:
   2025년 9월) 판단으로, JDK 21이 여전히 장기 지원(LTS) 버전이고 대부분의 애플리케이션이 그것에
   기대고 있으므로 핀닝 문제를 계속 의식하고 그에 맞춰 애플리케이션을 설계하는 것이 합리적이라고
   적는다 (2장, p.70).[^rahman2025]
+- 책을 맺으면서 저자가 같은 단서를 한 번 더 적는다 — JDK 24가 동기화 블록에 얽힌 핀닝 문제를
+  풀지만, 모든 운영 시스템이 JDK 21 같은 이전 버전에서 JDK 24로 곧바로 옮기지는 않으리라는 점을
+  짚어 둘 필요가 있다는 것이다 (8장, p.312).[^rahman2025] 그래서 이 페이지의 JDK 23 이하 서술은
+  릴리스가 나왔다고 곧바로 죽는 것이 아니라, 현장의 이전 속도만큼 더 살아 있다.
 
 ## 이어지는 페이지
 
@@ -166,5 +170,6 @@ sources:
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "Limitations of Virtual
     Threads"(pp.61–62), "Pinning"(pp.62–63), "Synchronized Blocks and Virtual Thread
     Pinning"(pp.66–67), "JEP 491: Synchronize Virtual Threads Without Pinning"(p.70).
+    이전 속도 단서는 8장 "Conclusion and Takeaways"(p.312).
     개념당 대표 코드 하나 규칙에 따라 `ThreadPinnedExample`만 실었고, 심각도 절의 세 동기화
     블록 조각(pp.66–67)은 본문에 짧게 옮기거나 서술로만 담았다.

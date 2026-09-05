@@ -29,6 +29,12 @@ sources:
   컨테이너가 자기 스레드 풀의 스레드 하나에 그 요청을 넘긴다 (1장, p.9).[^rahman2025]
 - 동시 연결이 많을 때 이 모델이 유리하다 — 동시성이 늘면 처리량도 늘고, 그 성질이 현대 웹
   애플리케이션이 늘어나는 요청량을 감당하며 확장하게 해 준다 (1장, p.9).[^rahman2025]
+- 이 모델의 실물을 저자가 뒤에서 이름으로 짚는다 — 스프링 부트 웹 애플리케이션이 역사적으로 이
+  모델을 주로 따랐고, 요청마다 전용 플랫폼 스레드 하나가 붙었다. 중간 부하에서는 잘 돌지만 I/O
+  바운드 요청이 동시에 많이 들어오면 확장성 문제에 부딪힌다 (7장, p.297).[^rahman2025]
+  그 프레임워크가 지금 그 자리를 어떻게 바꾸는지는
+  [프레임워크가 가상 스레드를 켜는 방식](../concepts/enabling-virtual-threads-in-frameworks.md)에
+  있다.
 - 그래서 자연스러운 추론이 나온다 — 대부분의 현대 운영 체제가 수백만 동시 연결을 감당하니 스레드를
   더 만들면 처리량이 더 나오리라는 것이고, 리틀의 법칙(Little's Law)도 그렇게 읽힌다. 저자는 이
   추론이 그럴듯해 보이지만 미끄러운 데가 있어 늘 기대한 결과를 내지는 않는다고 못박는다 (1장,
@@ -131,7 +137,8 @@ sources:
 - [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 1장 "Introduction" — "Understanding the Hidden Costs of
-    Threads"(pp.9–11), "How Many Threads Can You Create?"(pp.10–11). 처리량 공식은 원문 표기를
+    Threads"(pp.9–11), "How Many Threads Can You Create?"(pp.10–11). 스프링 부트가 이 모델을
+    따랐다는 서술은 7장 "Spring Boot"(p.297). 처리량 공식은 원문 표기를
     그대로 옮겼다. 그림 1-2(스레드 풀이 서블릿 요청을 처리하는 그림, p.9)는 옮기지 않았다 —
     원문은 `archive/` 스냅샷이 보존한다. 인용한 `ThreadLimitTest`는 원문 그대로이며 조판
     줄바꿈만 폈고, `import` 두 줄은 덜어 냈다.

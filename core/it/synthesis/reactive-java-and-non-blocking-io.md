@@ -60,6 +60,9 @@ generated: { by: "claude-opus-5", at: "2026-09-05T22:00:00Z" }
 
 ## 경계에 있는 페이지
 
+- [이벤트 루프에서 가상 스레드로 덜어내기](../concepts/offloading-blocking-work-from-event-loops.md)
+  — 이벤트 루프 위에 선 프레임워크가 블로킹 작업을 가상 스레드로 옮기는 자리. 프레임워크 층이므로
+  부모 허브가 담당한다
 - [가상 스레드의 I/O 폴링](../concepts/virtual-thread-io-polling.md) — 같은 준비 상태 감시를 가상
   머신이 대신 도는 자리. 그쪽은 가상 스레드 허브가 담당한다
 - [블로킹 I/O와 스레드 효율](../concepts/blocking-io-and-thread-efficiency.md) — 같은 막힘을

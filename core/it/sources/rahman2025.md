@@ -31,4 +31,8 @@ accessed: "2026-09-05"
 얹은 300dpi 스캔본이라 기계 추출이 아니라 시각 판독으로 읽는다.
 
 KB 안의 자리: 가상 머신이 하는 일까지만 다루는 [자바 메모리 모델과 동시성](../synthesis/java-memory-model-and-concurrency.md)(zhou2024)이 비워 둔 `java.util.concurrent`
-이후의 라이브러리·API 층을 이 소스가 채운다.
+이후의 라이브러리·API 층을 이 소스가 채운다. 그 층은 [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md)을 부모로 두고 네 자식 허브로 갈린다 —
+[가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md),
+[자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md),
+[컨텍스트 전달과 스코프 값](../synthesis/context-propagation-and-scoped-values.md),
+[리액티브 자바와 논블로킹 I/O](../synthesis/reactive-java-and-non-blocking-io.md).
