@@ -14,6 +14,7 @@ sources:
 - [원래 무엇을 하던 도구인가](#원래-무엇을-하던-도구인가)
 - [수백만 개가 되면 문제가 셋](#수백만-개가-되면-문제가-셋)
 - [저자의 실측](#저자의-실측)
+- [가벼운 공유가 왜 필요한가](#가벼운-공유가-왜-필요한가)
 - [대안 둘](#대안-둘)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -89,6 +90,29 @@ sources:
   `ThreadLocal` 없이 같은 프로그램을 돌리면 가상 스레드가 1,000개나 관여함에도 메모리 사용량이
   곧바로 떨어진다 (2장, p.73).[^rahman2025]
 
+## 가벼운 공유가 왜 필요한가
+
+- 같은 책이 5장에서 이 한계를 다시 세우며 규모의 대비를 명시한다 — `ThreadLocal`의 한계는 가상
+  스레드(JEP 444)가 도입되면서 더욱 뚜렷해진다. 스레드마다 전용 운영 체제 자원을 갖는 전통적인
+  플랫폼 스레드와 달리, 가상 스레드는 운영 체제 스레드 하나가 수천 개, 심지어 수백만 개의 경량
+  스레드를 태울 수 있다 (5장, p.225).[^rahman2025]
+- 가능하다는 것과 감당된다는 것이 다르다 — 가상 스레드마다 자기 `ThreadLocal` 데이터를 갖는 것이
+  기술적으로 가능하기는 하지만 메모리 부담이 금세 감당할 수 없는 수준이 된다 (5장,
+  p.225).[^rahman2025]
+- 수명 쪽 문제는 오히려 덜하다 — 가상 스레드는 수명이 짧으므로 오래 사는 스레드 로컬 변수의 문제는
+  덜 심각하다. 가비지 컬렉션이 치워 주기 때문이다. 그래도 그만큼 많은 복제가 만드는 메모리 부담은
+  남는다 (5장, p.225).[^rahman2025]
+- 저자가 필요한 기제의 조건을 여기서 세운다 (5장, p.225).[^rahman2025]
+  - 복제를 여럿 만들지 않고도 상속 가능한, 스레드별 데이터를 저장할 수 있어야 한다.
+  - 데이터가 불변이면 더 좋다. 공유되는 한 벌을 자식 스레드들이 참조하면 되므로 중복이 더 생기지
+    않는다.
+  - 이 데이터에는 유한한 수명이 있어야 한다. 데이터를 나누던 메서드가 끝나면 딸린 스레드 로컬은
+    의미를 잃어야 한다. 그것들은 태스크가 도는 동안 상태를 담아 두는 편한 자리이지 메모리를
+    영구히 쌓아 두는 곳이 아니기 때문이다.
+- 이 세 조건이 그대로 `ScopedValue`의 성질이 된다. 저자가 그 지점에서 새 API를 꺼낸다 (5장,
+  p.225).[^rahman2025] 그 API의 전반은
+  [ScopedValue의 구성 요소와 API](../concepts/scoped-value-core-components.md)에 있다.
+
 ## 대안 둘
 
 - 스코프 값(scoped values) — 가상 스레드를 염두에 두고 설계되었고, 불변성과 한정된 수명 덕분에
@@ -104,6 +128,13 @@ sources:
 
 ## 이어지는 페이지
 
+- [ThreadLocal의 설계 결함 셋](../concepts/thread-local-design-flaws.md) — 규모와 무관하게 이 API 자체가
+  갖는 결함들
+- [ThreadLocal로 문맥을 감추는 프레임워크 패턴](../concepts/thread-local-context-propagation.md) — 이 도구가
+  실제로 가장 많이 쓰이는 자리
+- [ScopedValue의 구성 요소와 API](../concepts/scoped-value-core-components.md) — 위 세 조건에 답하는 API
+- [ScopedValue가 ThreadLocal보다 나은 이유](../concepts/scoped-value-vs-thread-local.md) — 두 도구를 나란히
+  놓고 견준 자리
 - [스레드 안전성 구현 수단](../concepts/thread-safety-implementation.md) — `ThreadLocal`의 구현
   내부와 그것이 놓인 갈래
 - [가상 스레드 모니터링](../concepts/monitoring-virtual-threads.md) — 어디서 쓰이는지 실제로
@@ -118,7 +149,9 @@ sources:
   페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "The Conundrum of ThreadLocal
-    Variables in Virtual Threads"(pp.71–73), "Challenges with Virtual Threads"(pp.71–72).
+    Variables in Virtual Threads"(pp.71–73), "Challenges with Virtual Threads"(pp.71–72);
+    5장 "Scoped Values" — §"Toward Lightweight Sharing"(p.225). 5장 절에는 코드가 실려 있지
+    않다.
     그림 2-3과 2-4(JConsole 힙 메모리 사용량 화면 두 장, pp.73–74)는 옮기지 않았고 저자가 본문에
     서술한 대비만 담았다. 인용한 코드에서 임포트 목록과 흉내 메서드 `useIt`·`sleep`(p.72)은
     덜어 냈다.

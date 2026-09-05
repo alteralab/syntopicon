@@ -85,6 +85,8 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
   그리고 그것을 재고 옮기는 운영 도구들
 - [자바의 구조적 동시성](structured-concurrency-in-java.md) — 갈라 놓은 서브태스크를 하나의 일로
   묶는 원칙과 그것을 구현한 `StructuredTaskScope`, 그리고 조인 정책들
+- [컨텍스트 전달과 스코프 값](context-propagation-and-scoped-values.md) — 호출 사슬을 따라 문맥
+  데이터를 넘기는 문제와 `ThreadLocal`이 남긴 값, 그리고 그 자리를 대신하는 `ScopedValue`
 
 ## 이어지는 허브
 

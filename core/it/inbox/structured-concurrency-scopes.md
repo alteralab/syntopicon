@@ -164,6 +164,8 @@ public ProductInfo fetchProductInfo(Long productId) {
   close 사이에서 실제로 무엇이 도는가
 - [조이너와 조인 정책](../concepts/structured-concurrency-joiner.md) — `join()`이 언제 끝나고
   무엇을 돌려줄지를 정하는 자리
+- [구조적 동시성에서의 스코프 값 상속](../concepts/scoped-value-with-structured-concurrency.md) — 이 스코프
+  안에서 포크된 서브태스크가 바깥의 스코프 값을 물려받는 자리
 - [CompletableFuture와 비동기 조합](../concepts/completable-future-composition.md) — 예외와
   조합을 다루던 앞선 API
 - [자바의 구조적 동시성](../synthesis/structured-concurrency-in-java.md) — 이 페이지가 속한 허브

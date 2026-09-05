@@ -105,3 +105,5 @@ generated: { by: "claude-opus-5", at: "2026-09-05T18:00:00Z" }
   동시에 시키려고 써 온 수단들의 계보
 - [가상 스레드의 내부와 운영](virtual-thread-internals-and-operations.md) — 이 스코프가 태우는
   스레드 쪽의 형제 허브
+- [컨텍스트 전달과 스코프 값](context-propagation-and-scoped-values.md) — 이 스코프 안의
+  서브태스크가 물려받는 값이 사는 형제 허브

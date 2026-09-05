@@ -99,6 +99,8 @@ generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
 
 - [자바 동시 실행 모델](java-concurrent-execution-models.md) — 이 허브의 부모, 곧 가상 스레드가
   놓인 실행 모델들의 계보
+- [컨텍스트 전달과 스코프 값](context-propagation-and-scoped-values.md) — 여기 한계로 든
+  `ThreadLocal` 문제가 API 층에서 다뤄지는 형제 허브
 - [자바의 구조적 동시성](structured-concurrency-in-java.md) — 이 스레드들 위에 얹히는 프로그래밍
   모델 쪽의 형제 허브
 - [자바 메모리 모델과 동시성](java-memory-model-and-concurrency.md) — 가상 머신이 스레드에게

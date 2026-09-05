@@ -121,6 +121,8 @@ sources:
 - [가상 스레드 핀닝](../concepts/virtual-thread-pinning.md) — 이 도구들이 찾는 현상
 - [가상 스레드와 ThreadLocal](../concepts/thread-local-with-virtual-threads.md) — 나머지 한
   한계
+- [ThreadLocal의 설계 결함 셋](../concepts/thread-local-design-flaws.md) — 이 플래그가 찾아 주는 쓰임이
+  왜 문제가 되는가
 - [가상 스레드가 보이는 스레드 덤프](../concepts/thread-dumps-with-virtual-threads.md) — 한 시점의
   상태를 통째로 뜨는 다른 길
 - [가상 스레드와 ReentrantLock](../concepts/reentrant-lock-for-virtual-threads.md) — 기록에서
