@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 가상 스레드의 내부와 운영
-description: 가상 스레드를 안쪽에서 본 자리들의 진입점 — 플랫폼 스레드와의 갈림과 스케줄러, 캐리어에 얹고 내리는 기제, 확장을 주는 조건과 그 한계인 핀닝과 ThreadLocal, 그리고 그 한계를 찾아내고 이전을 판단하는 운영 도구들
+description: 가상 스레드를 안쪽에서 본 자리들의 진입점 — 플랫폼 스레드와의 갈림과 스케줄러, 캐리어에 얹고 내리는 기제와 그것을 떠받치는 후속문과 스택 복사와 I/O 폴러, 확장을 주는 조건과 그 한계인 핀닝과 ThreadLocal, 그리고 그 한계를 찾아내고 이전을 판단하는 운영 도구들
 generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
 ---
 
@@ -40,6 +40,16 @@ generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
 
 - [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)
   — 스택 프레임이 힙으로 간 뒤의 마운트와 언마운트, 그리고 투명성
+- [자바의 후속문 API](../concepts/java-continuation-api.md) — 멈췄다 이어 가는 능력의 실물,
+  그리고 그것이 공개 API가 아니라 내부 API라는 사실
+- [후속문의 스택 복사와 지연 복사](../concepts/continuation-stack-copying.md) — 양보할 때 프레임이
+  어디로 가는가, 전부를 되돌리지 않는 최적화와 반환 장벽
+- [포크조인 풀이 가상 스레드 스케줄러가 된 이유](../concepts/fork-join-pool-as-virtual-thread-scheduler.md)
+  — 병렬성 기본값과 CPU 대 I/O의 논거, 낮은 경합, 그리고 비동기 모드
+- [가상 스레드의 I/O 폴링](../concepts/virtual-thread-io-polling.md) — `park` 뒤의 경로와 그것을
+  다시 깨우는 읽기 폴러와 쓰기 폴러
+- [직접 만들어 본 가상 스레드](../concepts/nano-thread-from-scratch.md) — 후속문 위에 손으로
+  얹어 본 실물과 워커가 바뀌는 출력
 
 ## 확장의 근거와 그 조건
 

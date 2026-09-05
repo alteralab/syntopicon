@@ -27,6 +27,11 @@ sources:
   p.18).[^rahman2025]
 - 작업이 제출되면 큐에 들어가고 풀의 스레드가 큐에서 집어 실행한다는 것이 그 구조다 (1장,
   p.8).[^rahman2025]
+- 3장에서 저자가 정체를 한 줄로 다시 적는다 — 실행자 프레임워크는 본질적으로 스레드 풀의 구현이다
+  (3장, p.91).[^rahman2025] 그 스레드 풀이 왜 있어야 하고 안에서 무엇이 도는지는
+  [스레드 풀의 이유와 내부 구조](../concepts/thread-pool-rationale-and-internals.md)에, 이
+  프레임워크가 노출하는 손잡이는
+  [ThreadPoolExecutor 설정과 풀 크기](../concepts/thread-pool-executor-configuration.md)에 있다.
 - 앞의 신용 점수 예제를 실행자로 다시 쓰면 스레드를 직접 만들던 자리가 `submit` 호출로 바뀐다 (1장,
   p.18).[^rahman2025]
 
@@ -84,6 +89,14 @@ sources:
 
 - [블로킹 I/O와 스레드 효율](../concepts/blocking-io-and-thread-efficiency.md) — 실행자가 대신하는
   임기응변식 생성과 그 대가
+- [스레드 풀의 이유와 내부 구조](../concepts/thread-pool-rationale-and-internals.md) — 이
+  프레임워크가 구현하고 있는 것
+- [ThreadPoolExecutor 설정과 풀 크기](../concepts/thread-pool-executor-configuration.md) — 실제로
+  돌릴 수 있는 손잡이들
+- [JDK 실행자 프레임워크의 스레드 풀 종류](../concepts/jdk-thread-pool-types.md) — 팩토리가 내주는
+  다섯 가지
+- [Callable과 Future로 결과 받기](../concepts/callable-and-future-results.md) — 첫째 한계인 막는
+  `get`의 실물
 - [거짓 공유와 캐시 일관성](../concepts/false-sharing-and-cache-coherence.md) — 둘째 한계의 기제
 - [포크조인 풀과 작업 훔치기](../concepts/fork-join-pool-and-work-stealing.md) — 캐시 경합과 복잡한
   작업 의존을 겨냥한 다음 답
@@ -94,6 +107,7 @@ sources:
 - [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 1장 "Introduction" — "Starting Threads"(p.8), "Introducing the
-    Executor Framework"(pp.18–19), "Remaining Challenges"(pp.19–20). 최소 JDK 버전은 머리말
+    Executor Framework"(pp.18–19), "Remaining Challenges"(pp.19–20). 3장 "The Mechanics of
+    Modern Concurrency in Java" — "Thread Pool"(p.91). 최소 JDK 버전은 머리말
     "What This Book Offers"(p.xi). 인용한 `calculateCreditWithExecutor`는 원문 그대로이며 조판 줄바꿈만
     폈고, 원문이 코드 옆에 붙인 번호 표식은 뺐다.

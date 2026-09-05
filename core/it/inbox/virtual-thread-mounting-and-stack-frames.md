@@ -58,6 +58,10 @@ sources:
   기다리는 자리에 이르면 자기 캐리어 스레드에서 내려올 수 있다 (2장, pp.46–47).[^rahman2025]
 - 그때 프레임이 반대 방향으로 간다 — 수정된 스택 프레임이 힙으로 다시 복사되고, 캐리어 스레드는
   풀려나 다른 일을 하러 간다 (2장, p.47).[^rahman2025]
+- **이 복사가 통째로 일어나지는 않는다** — 3장이 밝히기로 깊은 호출 스택에서 매번 스택 전체를
+  복사하는 것은 비싼 연산이라, 가상 머신에 지연 복사(lazy copy) 기제가 구현되어 있다 (3장,
+  p.116).[^rahman2025] 그 기제와 그것을 성립시키는 반환 장벽은
+  [후속문의 스택 복사와 지연 복사](../concepts/continuation-stack-copying.md)에 있다.
 - 적용 범위가 넓다 — 이 기능은 JDK의 거의 모든 블로킹 지점에 소급 적용되었고, 그것이 가상
   스레드를 자원 활용 면에서 매우 효율적으로 만드는 것이다 (2장, p.47).[^rahman2025]
 - **여기서 벗어나는 경우가 핀닝이다** —
@@ -88,6 +92,10 @@ sources:
 ## 이어지는 페이지
 
 - [가상 스레드 핀닝](../concepts/virtual-thread-pinning.md) — 내려오지 못하는 두 자리
+- [후속문의 스택 복사와 지연 복사](../concepts/continuation-stack-copying.md) — 이 복사를 한 층
+  아래에서 본 자리
+- [자바의 후속문 API](../concepts/java-continuation-api.md) — 마운트와 언마운트를 촉발하는 것의 실물
+- [가상 스레드의 I/O 폴링](../concepts/virtual-thread-io-polling.md) — 내려온 것을 다시 올리는 쪽
 - [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md) — 캐리어를 담고 있는 풀
 - [플랫폼 스레드와 가상 스레드](../concepts/platform-threads-and-virtual-threads.md) — 두
   종류의 갈림
@@ -102,4 +110,5 @@ sources:
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "How Virtual Threads Work
     Under the Hood"(p.46), "Stack Frames and Memory Management"(p.46), "Carrier Threads and
     OS Involvement"(p.46), "Handling Blocking Operations"(pp.46–47), "Transparency and
-    Invisibility"(p.47). 이 절에는 코드 예제가 없다.
+    Invisibility"(p.47). 3장 "The Mechanics of Modern Concurrency in Java" —
+    "Continuation"(p.116). 이 절에는 코드 예제가 없다.

@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 자바 동시 실행 모델
-description: 자바 애플리케이션이 일을 동시에 시키려고 써 온 방식들의 진입점 — 스레드를 손수 만들던 자리, 요청당 스레드가 부딪힌 메모리와 상한과 문맥 전환의 값, 그리고 그 위에 차례로 겹쳐 온 실행자와 포크조인 풀과 CompletableFuture와 리액티브, 마지막으로 그 대가들을 피하려는 가상 스레드
+description: 자바 애플리케이션이 일을 동시에 시키려고 써 온 방식들의 진입점 — 스레드를 손수 만들던 자리, 요청당 스레드가 부딪힌 메모리와 상한과 문맥 전환의 값, 그 위에 차례로 겹쳐 온 실행자와 포크조인 풀과 CompletableFuture와 리액티브, 그 답들이 안에서 실제로 도는 역학(스레드 풀의 구조와 설정과 종류, Callable과 Future, 작업 의존이 만드는 교착), 마지막으로 그 대가들을 피하려는 가상 스레드
 generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 ---
 
@@ -44,6 +44,21 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
   체인으로 바꾸는 API와 그 학습·디버깅 값
 - [자바 리액티브 프레임워크의 대가](../concepts/reactive-frameworks-tradeoffs-in-java.md) — 스트림과
   이벤트로 가는 패러다임이 요구하는 여섯 가지 대가
+
+## 그 답들의 역학
+
+앞의 답들이 무엇을 약속하는가를 넘어, 안에서 실제로 무엇이 도는가를 보는 자리다.
+
+- [스레드 풀의 이유와 내부 구조](../concepts/thread-pool-rationale-and-internals.md) — 왜 미리
+  만들어 두어야 하는가, 큐와 워커라는 두 부품, 그리고 최소 구현에서 드러나는 여섯 가지 설계 결정
+- [ThreadPoolExecutor 설정과 풀 크기](../concepts/thread-pool-executor-configuration.md) —
+  팩토리 뒤에 있는 하나의 구현과 그 일곱 매개변수, 코어와 최대 크기, CPU 대 I/O의 갈림
+- [JDK 실행자 프레임워크의 스레드 풀 종류](../concepts/jdk-thread-pool-types.md) — 고정과 캐시드와
+  단일과 스케줄드와 작업 훔치기, 그리고 각각의 쓸 자리
+- [Callable과 Future로 결과 받기](../concepts/callable-and-future-results.md) — 결과를 돌려받는
+  두 인터페이스와 막는 `get`
+- [의존하는 하위 작업과 스레드 풀의 교착](../concepts/recursive-task-decomposition-deadlock.md) —
+  풀이 작업 사이의 의존을 모를 때 벌어지는 일과 포크조인이 그것을 푸는 방식
 
 ## 그다음
 

@@ -32,6 +32,11 @@ sources:
 - **공용 풀과 다른 풀이다** — 이 `ForkJoinPool`이 가상 스레드 스케줄링의 바탕이고, 병렬 스트림
   구현처럼 다른 용도로 쓰이는 공용 풀(common pool)과는 구분된다. 공용 풀은 후입선출(Last-In,
   First-Out) 모드로 동작한다 (2장, p.32).[^rahman2025]
+- 3장이 그 선입선출의 출처를 밝힌다 — 가상 스레드를 쓸 때는 포크조인 풀의 비동기 모드(async mode)가
+  쓰이고, 비동기 모드에서 이 풀은 선입선출로 전환된다. 그리고 그 풀의 스레드들이 모든 가상 스레드를
+  실행하며 스케줄러 노릇을 한다 (3장, pp.112–113).[^rahman2025] 왜 하필 이 풀이 뽑혔는지는
+  [포크조인 풀이 가상 스레드 스케줄러가 된 이유](../concepts/fork-join-pool-as-virtual-thread-scheduler.md)에
+  있다.
 - 이 구분이 이전 소스의 서술을 정확하게 만든다 —
   [가상 스레드와 코루틴](../concepts/virtual-threads-and-coroutines.md)이 옮긴 "룸의 기본
   스케줄러는 `ForkJoinPool`"이라는 서술과 같은 대상을 가리키며, 여기서는 그 풀이 캐리어 스레드를
@@ -67,6 +72,8 @@ sources:
   스케줄러가 배분하는 두 종류
 - [포크조인 풀과 작업 훔치기](../concepts/fork-join-pool-and-work-stealing.md) — 이 스케줄러가
   물려받은 구조
+- [포크조인 풀이 가상 스레드 스케줄러가 된 이유](../concepts/fork-join-pool-as-virtual-thread-scheduler.md)
+  — 왜 이 풀이었는가와 비동기 모드
 - [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)
   — 스케줄러가 옮기는 대상의 실물
 - [가상 스레드와 코루틴](../concepts/virtual-threads-and-coroutines.md) — 후속문과 스케줄러의
@@ -77,4 +84,5 @@ sources:
   페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "What Is a Virtual
-    Thread?"(pp.31–32). 인용한 명령은 원문 그대로이며 조판 강조 표기만 뗐다.
+    Thread?"(pp.31–32). 3장 "The Mechanics of Modern Concurrency in Java" — "Why ForkJoinPool
+    for Virtual Threads?"(pp.112–113). 인용한 명령은 원문 그대로이며 조판 강조 표기만 뗐다.

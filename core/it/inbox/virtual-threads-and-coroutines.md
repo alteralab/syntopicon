@@ -172,9 +172,14 @@ sources:
   스택이 사는 자리
 - [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 같은
   가상 스레드를 쓰는 쪽에서 본 자리(rahman2025): 실행자 한 줄을 바꿔 얻는 이득과 세 이점
+- [자바의 후속문 API](../concepts/java-continuation-api.md) — 여기서 개념과 계보로 다룬 후속문이
+  자바에서 어떤 클래스와 메서드로 실재하는가(rahman2025): `jdk.internal.vm.Continuation`의
+  `yield`와 `run`, 그리고 그것이 공개 API가 아니라는 사실
 - [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)
   — 후속문의 문맥 저장·복원이 실제로 어떻게 이뤄지는가(rahman2025): 스택 프레임이 힙과 캐리어
   스택 사이를 오가는 자리
+- [후속문의 스택 복사와 지연 복사](../concepts/continuation-stack-copying.md) — 그 저장과 복원이
+  전부를 옮기지는 않는다는 것(rahman2025)
 - [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md) — 여기서 '룸의 기본 스케줄러는
   `ForkJoinPool`'이라 적은 그 풀의 모드와 병렬성 손잡이(rahman2025)
 - [네이티브 호출과 핀닝](../concepts/native-method-pinning.md) — 여기서 던진 물음, 곧 코루틴에서
