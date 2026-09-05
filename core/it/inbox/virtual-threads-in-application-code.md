@@ -84,11 +84,16 @@ sources:
 - 원문은 여기에 한 절을 더 붙인다 — 플랫폼 스레드도 포크/조인 풀의 뒷받침을 받으므로 가상 스레드가
   그 정교한 스레드 풀의 이점을 물려받고, 그래서 가상 스레드와 플랫폼 스레드가 결합해 최선의 자원
   활용과 확장성을 낸다는 것이다 (1장, p.29).[^rahman2025]
-  - #hypothesis 이 서술은 다른 소스와 어긋나 보인다. 가상 스레드를 가상 머신 쪽에서 다룬
-    [가상 스레드와 코루틴](../concepts/virtual-threads-and-coroutines.md)은 포크/조인 풀을
-    **가상 스레드의 기본 스케줄러**로 적지 플랫폼 스레드 일반의 밑바탕으로 적지 않는다. 어느 쪽이
-    맞는지는 이 장의 서술만으로 가려지지 않으므로 원문 표현을 고치지 않고 보존한다. 2장 이후에
-    같은 구조를 더 자세히 다루는 자리가 있으므로 그때 대조할 항목이다.
+  - **이 서술은 같은 소스의 뒤쪽이 좁혀 준다.** 포크/조인 풀의 뒷받침을 받는 것은 플랫폼 스레드
+    일반이 아니라 가상 스레드를 태우는 캐리어 스레드다 — 캐리어 스레드는 특수한 `ForkJoinPool`의
+    일부이고, 가상 스레드 스케줄러 자체가 선입선출로 도는 작업 훔치기 `ForkJoinPool`이며 병렬
+    스트림이 쓰는 공용 풀과는 구분된다 (2장, pp.31–32, p.46).[^rahman2025] 그러므로
+    [가상 스레드와 코루틴](../concepts/virtual-threads-and-coroutines.md)이 포크/조인 풀을
+    가상 스레드의 기본 스케줄러로 적은 것과 어긋나지 않는다. 여기 p.29의 표현이 그 관계를
+    성기게 적은 것이고, 원문 표현은 고치지 않고 보존한다. 좁혀진 서술은
+    [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md)와
+    [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)에
+    있다.
 
 ## 블로킹 연산의 처리
 
@@ -125,11 +130,17 @@ sources:
   되는 그 자리
 - [자바 리액티브 프레임워크의 대가](../concepts/reactive-frameworks-tradeoffs-in-java.md) — 이 답이
   피하려는 대가들
+- [플랫폼 스레드와 가상 스레드](../concepts/platform-threads-and-virtual-threads.md) — 두 종류의
+  관계를 같은 소스가 더 자세히 적은 자리
+- [가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md) — 이
+  가상 스레드를 열어 본 자리들의 허브
 - [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 페이지가 속한 허브
 
 [^rahman2025]: Rahman 2025, 1장 "Introduction" — "Revolutionizing Concurrency in Java"(pp.28–30),
     "The Promise of Virtual Threads"(pp.28–29), "Seamless Integration with Existing
     Codebases"(p.29), "Virtual Threads and Platform Threads"(p.29), "Intelligent Handling of
-    Blocking Operations"(p.29), "Benefits of Embracing Virtual Threads"(p.30). 최소 JDK 버전과
+    Blocking Operations"(p.29), "Benefits of Embracing Virtual Threads"(p.30). 포크/조인 풀과
+    캐리어 스레드의 관계를 좁혀 주는 서술은 2장 "What Is a Virtual Thread?"(pp.31–32)와
+    "Carrier Threads and OS Involvement"(p.46). 최소 JDK 버전과
     24·25 권고는 머리말 "What This Book Offers"(p.xi). 인용한
     `calculateCreditWithVirtualThread`는 원문 그대로이며 조판 줄바꿈만 폈다.

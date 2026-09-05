@@ -172,6 +172,15 @@ sources:
   스택이 사는 자리
 - [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 같은
   가상 스레드를 쓰는 쪽에서 본 자리(rahman2025): 실행자 한 줄을 바꿔 얻는 이득과 세 이점
+- [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)
+  — 후속문의 문맥 저장·복원이 실제로 어떻게 이뤄지는가(rahman2025): 스택 프레임이 힙과 캐리어
+  스택 사이를 오가는 자리
+- [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md) — 여기서 '룸의 기본 스케줄러는
+  `ForkJoinPool`'이라 적은 그 풀의 모드와 병렬성 손잡이(rahman2025)
+- [네이티브 호출과 핀닝](../concepts/native-method-pinning.md) — 여기서 던진 물음, 곧 코루틴에서
+  네이티브 메서드를 부르면 어떻게 되는가에 대한 답(rahman2025)
+- [가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md) — 이
+  가상 스레드를 열어 본 자리들의 허브
 - [자바 메모리 모델과 동시성](../synthesis/java-memory-model-and-concurrency.md) — 이 페이지가 속한 허브
 - [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 가상 스레드가
   놓이는 라이브러리·API 층의 허브

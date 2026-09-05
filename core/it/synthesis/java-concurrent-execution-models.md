@@ -49,6 +49,8 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 
 - [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 실행자 한
   줄을 바꿔 얻는 이득과 블로킹을 만나면 제어를 넘기는 동작
+- [구조적 동시성 스코프](../concepts/structured-concurrency-scopes.md) — 동시에 던진 태스크들의
+  예외와 타임아웃을 스코프가 대신 책임지게 하는 구조
 
 ## 경계에 있는 페이지
 
@@ -62,6 +64,12 @@ generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
   프로그램이 어디까지 통제하는가
 - [동시 실행기와 asyncio](../concepts/concurrent-executors-and-asyncio.md) — 같은 실행기 추상과
   비동기 전염 문제를 파이썬 쪽에서 본 자리
+
+## 자식 허브
+
+- [가상 스레드의 내부와 운영](virtual-thread-internals-and-operations.md) — 가상 스레드 하나를
+  열어 본 자리들: 스케줄러와 마운트 기제, 확장의 근거와 조건, 핀닝과 ThreadLocal이라는 한계,
+  그리고 그것을 재고 옮기는 운영 도구들
 
 ## 이어지는 허브
 
