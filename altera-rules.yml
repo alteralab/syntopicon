@@ -1,4 +1,4 @@
-rev: rules-v0.5.0
+rev: rules-v0.10.0
 surfaces:
   - common
   - lang/python
