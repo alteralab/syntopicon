@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from syntopicon import index_db, layout as layout_mod, morph
 from syntopicon.workspace import DEFAULT
 
+# ast-grep-ignore: regex-on-structure — 어휘: 문장 경계 구두점·빈 줄, 중첩 없음
 SENTENCE = re.compile(r"(?<=[.!?。])\s+|\n{2,}")
 
 #: 이 도구의 플래그 전부. `--`를 자동 삽입하는 스캔이 이 표를 읽으므로 파서와

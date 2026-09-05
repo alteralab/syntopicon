@@ -1,0 +1,12 @@
+# altera-rules가 조항에 귀속한 룰 집합을 상속한다. 그 밖의 룰은 켜지 않는다.
+# 규약 체크아웃은 이 저장소의 형제 디렉토리(../../altera-rules)로 전제한다 — 커밋 훅이 같은 전제를 쓴다.
+extend = "../../altera-rules/gates/ruff/base.toml"
+
+[lint.extend-per-file-ignores]
+# extend-per-file-ignores: per-file-ignores로 쓰면 base의 면제(tests의 F401 등)를 통째로 덮어쓴다.
+# 글롭은 호출 위치와 무관하게 맞도록 **/ 접두를 둔다.
+# 출력 층 선언 (C-REPORT-3의 반례 자리). tools/ 바로 아래 파일은 전부 명령행 진입점이고
+# evals/는 평가 러너·픽스처 생성기다 — 출력이 일인 자리. tools/syntopicon/ 패키지는
+# 라이브러리 층이라 면제하지 않는다.
+"**/core/tools/*.py" = ["T201", "T203"]
+"**/core/evals/**" = ["T201", "T203"]

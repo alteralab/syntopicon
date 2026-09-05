@@ -64,7 +64,7 @@ done < <(git diff --cached --name-only --diff-filter=ACMR -z)
 
 if [ "${#py_files[@]}" -gt 0 ]; then
   "$rules/gates/precommit/ast-grep-scan.sh" "${py_files[@]}" || status=1
-  "$rules/gates/precommit/ruff-base.sh"     "${py_files[@]}" || status=1
+  "$rules/gates/precommit/ruff-base.sh" --config "$top/core/ruff.toml" "${py_files[@]}" || status=1
 fi
 if [ "${#sh_files[@]}" -gt 0 ]; then
   "$rules/gates/precommit/shellcheck-scan.sh" "${sh_files[@]}" || status=1

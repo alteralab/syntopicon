@@ -27,6 +27,7 @@ shared_assets:
     - .gitignore
     - pyproject.toml  # tools/ Tier A 의존 핀
     - uv.lock         #   〃 (해결된 잠금 — 재현 설치)
+    - ruff.toml       # altera-rules 린트 게이트의 프로젝트 설정 — 출력 층 선언 (훅이 --config로 태운다)
   dirs:
     - schema/         # 이 파일 + per-type 스키마 + vocabulary/user-dict + migrations.md
     - tools/          # 결정적 CLI (Tier A/B — PLAN §3)

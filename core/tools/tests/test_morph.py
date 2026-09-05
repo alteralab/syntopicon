@@ -95,6 +95,7 @@ def test_질의의_모든_항은_인용된다():
     assert morph.query_expression("AND") == '"AND"'
     expression = morph.query_expression("복제지연 OR checksum")
     # phrase 안에 공백이 있으므로 공백 split이 아니라 전체 형태로 검사한다
+    # ast-grep-ignore: regex-on-structure — 어휘: 따옴표 토큰의 OR 나열, 중첩 없음
     assert re.fullmatch(r'"[^"]+"( OR "[^"]+")*', expression), expression
 
 

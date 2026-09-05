@@ -18,6 +18,7 @@ SECRET_COMMAND = "cat ~/.ssh/id_ed25519"
 def transcript(tmp_path: Path) -> Path:
     lines = [
         {"type": "user", "timestamp": "2026-08-13T01:00:00Z",
+         # ast-grep-ignore: machine-absolute-path — 시험 자료: 실재하지 않는 가짜 경로 값
          "cwd": "/Users/x/workspace/syntopicon",
          "message": {"content": SECRET_PROMPT}},
         {"type": "assistant", "timestamp": "2026-08-13T01:00:05Z",
@@ -48,6 +49,7 @@ def test_요약은_메타데이터만_담는다(tmp_path: Path):
     assert summary["tokens"] == {"input": 150, "output": 50,
                                  "cache_read": 900, "cache_creation": 0}
     assert summary["models"] == ["claude-fable-5"]
+    # ast-grep-ignore: machine-absolute-path — 시험 자료: 실재하지 않는 가짜 경로 값을 대조한다
     assert summary["cwd"] == "/Users/x/workspace/syntopicon"
     assert summary["first_at"] == "2026-08-13T01:00:00Z"
     assert summary["last_at"] == "2026-08-13T01:02:00Z"

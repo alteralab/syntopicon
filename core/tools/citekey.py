@@ -25,6 +25,7 @@ from syntopicon import schemas
 from syntopicon.repo import ROOT
 
 # citekey 문자 집합은 정규 언어라 regex가 정확한 도구다(PLAN §3의 명시 예외).
+# ast-grep-ignore: regex-on-structure — 어휘: citekey 문자 집합은 정규 언어 — 도구 규약이 명시한 예외
 NON_KEY = re.compile(r"[^a-z0-9_.-]+")
 
 SEED = """---

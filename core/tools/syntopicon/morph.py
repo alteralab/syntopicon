@@ -14,7 +14,6 @@ from __future__ import annotations
 import re
 import unicodedata
 from dataclasses import dataclass
-from pathlib import Path
 
 import yaml
 
@@ -58,6 +57,7 @@ KEEP_TAGS = frozenset({
 #: 잘게 부서진 흔적일 때가 많다.
 FRAGMENT_RUN = 3
 
+# ast-grep-ignore: regex-on-structure — 어휘: 한글 음절 문자 집합
 HANGUL = re.compile(r"^[가-힣]+$")
 
 
@@ -89,6 +89,7 @@ def _kiwi():
     한 실행 안이다. 사전을 넣고 재색인하는 절차(kb-lint의 morph-fragmentation
     안내)가 어차피 재실행이라 실질 표류는 없다.
     """
+    # ast-grep-ignore: global-statement — 지연 싱글턴. 명시 전역을 택한 사유는 위 독스트링
     global _kiwi_engine
     if _kiwi_engine is None:
         from kiwipiepy import Kiwi
