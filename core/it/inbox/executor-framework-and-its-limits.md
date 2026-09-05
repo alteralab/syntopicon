@@ -13,6 +13,7 @@ sources:
 - [실행자가 대신 맡는 것](#실행자가-대신-맡는-것)
 - [바꿔도 시간은 거의 같았다](#바꿔도-시간은-거의-같았다)
 - [남은 한계 셋](#남은-한계-셋)
+- [태스크 위계가 없다는 넷째 한계](#태스크-위계가-없다는-넷째-한계)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **스레드를 손수 만드는 대신 실행자에 맡기면 무엇이 해결되고 무엇이 남는가.**
@@ -85,10 +86,23 @@ sources:
   효율적이고 유지하기 쉬운 코드를 어떻게 쓸 것인가를 다음 질문으로 세운다 (1장,
   p.20).[^rahman2025]
 
+## 태스크 위계가 없다는 넷째 한계
+
+- 4장이 같은 프레임워크의 한계를 하나 더 짚는다 — `ExecutorService`와 `Future` 같은 전통적 동시성
+  모델에서는 태스크 위계(task hierarchy)가 본래부터 지원되지 않는다. 그래서 취소를 전파하거나 오류를
+  구조적으로 다루기가 어렵고, 결과는 조각나고 오류가 잦은 동시 프로그래밍이다 (4장 도입,
+  p.125).[^rahman2025]
+- 이 한계는 앞의 셋과 성격이 다르다. 앞의 셋은 태스크 하나를 다루는 값(막힘, 캐시, 표기)에 대한
+  것이고, 이것은 **태스크들 사이의 관계**가 API에 표현되지 않는다는 것이다. 그 결과로 무엇이
+  새는지는 [비구조적 동시성의 문제](../concepts/unstructured-concurrency-problems.md)에, 그것에
+  답하는 구조는 [구조적 동시성 스코프](../concepts/structured-concurrency-scopes.md)에 있다.
+
 ## 이어지는 페이지
 
 - [블로킹 I/O와 스레드 효율](../concepts/blocking-io-and-thread-efficiency.md) — 실행자가 대신하는
   임기응변식 생성과 그 대가
+- [비구조적 동시성의 문제](../concepts/unstructured-concurrency-problems.md) — 넷째 한계가 실제로
+  드러나는 자리
 - [스레드 풀의 이유와 내부 구조](../concepts/thread-pool-rationale-and-internals.md) — 이
   프레임워크가 구현하고 있는 것
 - [ThreadPoolExecutor 설정과 풀 크기](../concepts/thread-pool-executor-configuration.md) — 실제로
@@ -108,6 +122,7 @@ sources:
 
 [^rahman2025]: Rahman 2025, 1장 "Introduction" — "Starting Threads"(p.8), "Introducing the
     Executor Framework"(pp.18–19), "Remaining Challenges"(pp.19–20). 3장 "The Mechanics of
-    Modern Concurrency in Java" — "Thread Pool"(p.91). 최소 JDK 버전은 머리말
+    Modern Concurrency in Java" — "Thread Pool"(p.91). 4장 "Structured Concurrency" —
+    장 도입(p.125). 최소 JDK 버전은 머리말
     "What This Book Offers"(p.xi). 인용한 `calculateCreditWithExecutor`는 원문 그대로이며 조판 줄바꿈만
     폈고, 원문이 코드 옆에 붙인 번호 표식은 뺐다.

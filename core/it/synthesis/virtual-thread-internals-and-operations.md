@@ -33,8 +33,6 @@ generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
   인터럽트, 바꿀 수 없는 성질들, 새 메서드와 폐기된 메서드, 막혀 있는 조회
 - [가상 스레드로 비동기 결과 모으기](../concepts/aggregating-async-results-with-virtual-threads.md)
   — 블로킹 get이 싸지면서 달라지는 코드 모양
-- [구조적 동시성 스코프](../concepts/structured-concurrency-scopes.md) — 그 방식이 남긴 예외와
-  타임아웃 문제에 답하는 구조
 
 ## 안쪽 기제
 
@@ -101,5 +99,7 @@ generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
 
 - [자바 동시 실행 모델](java-concurrent-execution-models.md) — 이 허브의 부모, 곧 가상 스레드가
   놓인 실행 모델들의 계보
+- [자바의 구조적 동시성](structured-concurrency-in-java.md) — 이 스레드들 위에 얹히는 프로그래밍
+  모델 쪽의 형제 허브
 - [자바 메모리 모델과 동시성](java-memory-model-and-concurrency.md) — 가상 머신이 스레드에게
   보장하는 것

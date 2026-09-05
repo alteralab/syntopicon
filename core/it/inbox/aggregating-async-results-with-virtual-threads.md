@@ -75,6 +75,8 @@ sources:
 
 - [구조적 동시성 스코프](../concepts/structured-concurrency-scopes.md) — 이 방식이 남긴 예외와
   타임아웃 문제에 답하는 구조
+- [비구조적 동시성의 문제](../concepts/unstructured-concurrency-problems.md) — 같은 코드 모양이
+  태스크 사이의 관계에서 무엇을 놓치는가
 - [CompletableFuture와 비동기 조합](../concepts/completable-future-composition.md) — 같은 문제를
   콜백 체인으로 풀던 앞선 답
 - [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 같은
