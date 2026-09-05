@@ -1,0 +1,313 @@
+# 질문지 조각 — 『Modern Concurrency in Java』(rahman2025) 한 권 완주 승급 배치
+# (2026-09-05, 승급 커밋 10c29aa — concepts 81건·허브 5개).
+# 이 소스는 용어가 거의 전부 영어 원어(virtual thread·Joiner·ScopedValue)라 alias
+# 문항이 병기 회귀의 주 감시대이고, claim의 유효 범위가 JDK 판마다 갈려 버전 조건
+# 문항(mcj-exact-9·10·11)이 그 자리를 검색이 잡는지 따로 잰다.
+source: rahman2025
+added: 2026-09-06
+queries:
+  # ---- alias: 원어 질의가 한국어 페이지를 잡는가 ----
+  - id: mcj-alias-1
+    query: "virtual thread"
+    type: alias
+    description: "원어 질의 — 이 소스의 중심 용어, 두 종류를 가르는 페이지"
+    expected_files: ["concepts/platform-threads-and-virtual-threads.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-2
+    query: "structured concurrency"
+    type: alias
+    description: "원어 질의 — 원칙 쪽과 자바 API 쪽 어느 페이지든 정답"
+    expected_files: ["concepts/structured-concurrency-principle.md", "concepts/structured-concurrency-scopes.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-3
+    query: "ScopedValue"
+    type: alias
+    description: "원어 유지 용어 — 스코프 값 API 페이지"
+    expected_files: ["concepts/scoped-value-core-components.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-4
+    query: "pinning"
+    type: alias
+    description: "원어 질의 — 한국어 표기가 '핀닝' 음차라 원어 병기가 유일한 검색 키"
+    expected_files: ["concepts/virtual-thread-pinning.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-5
+    query: "carrier thread"
+    type: alias
+    description: "원어 질의 — 캐리어 스레드는 제목이 아니라 본문에만 사는 용어다"
+    expected_files: ["concepts/virtual-thread-mounting-and-stack-frames.md", "concepts/platform-threads-and-virtual-threads.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-6
+    query: "Joiner"
+    type: alias
+    description: "원어 고유명 — 조인 정책 인터페이스, 한국어 '조이너'와의 병기 회귀 지점"
+    expected_files: ["concepts/structured-concurrency-joiner.md", "concepts/custom-joiner-contract.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-7
+    query: "backpressure"
+    type: alias
+    description: "원어 질의 — 한국어 역어 '배압'이 먼저 자리 잡은 페이지"
+    expected_files: ["concepts/backpressure-strategies-in-reactive-streams.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-8
+    query: "ThreadLocal"
+    type: alias
+    description: "원어 유지 용어 — 설계 결함 쪽과 프레임워크 패턴 쪽 두 페이지"
+    expected_files: ["concepts/thread-local-design-flaws.md", "concepts/thread-local-context-propagation.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-9
+    query: "ForkJoinPool work stealing"
+    type: alias
+    description: "원어 질의 — 작업 훔치기 역어 채택 페이지"
+    expected_files: ["concepts/fork-join-pool-and-work-stealing.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-10
+    query: "continuation"
+    type: alias
+    description: "원어 질의 — 역어 '후속문'이 KB 안에서만 쓰이는 말이라 원어가 유일한 진입점"
+    expected_files: ["concepts/java-continuation-api.md", "concepts/continuation-stack-copying.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-11
+    query: "Little's law"
+    type: alias
+    description: "원어 고유명 — 리틀의 법칙 페이지"
+    expected_files: ["concepts/littles-law-and-throughput.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-12
+    query: "StructuredTaskScope"
+    type: alias
+    description: "원어 API 이름 — 스코프 페이지 직격"
+    expected_files: ["concepts/structured-concurrency-scopes.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-13
+    query: "false sharing"
+    type: alias
+    description: "원어 질의 — 거짓 공유 역어 페이지"
+    expected_files: ["concepts/false-sharing-and-cache-coherence.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-14
+    query: "Reactive Streams Publisher Subscriber"
+    type: alias
+    description: "원어 규격 용어 — 네 구성 요소 페이지"
+    expected_files: ["concepts/reactive-streams-specification-components.md"]
+    expected_in_top_k: 5
+  - id: mcj-alias-15
+    query: "JEP 491"
+    type: alias
+    description: "고유 식별자 질의 — 버전 경계를 실은 페이지를 번호만으로 잡는가. 의도된 어려운 문항이다: 실측(2026-09-06)에서 벡터·스코프 레그가 모두 놓치고 bm25만 잡았다 — 식별자는 부분토큰 전담 레그의 몫이라는 분업의 확인점"
+    expected_files: ["concepts/virtual-thread-pinning.md"]
+    expected_in_top_k: 5
+  # ---- exact: 핵심 명사 직격 ----
+  - id: mcj-exact-1
+    query: "가상 스레드 핀닝"
+    type: exact
+    description: "이 소스의 대표 한계 페이지 직격"
+    expected_files: ["concepts/virtual-thread-pinning.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-2
+    query: "리틀의 법칙과 처리량"
+    type: exact
+    description: "확장의 논거가 되는 관계식 페이지"
+    expected_files: ["concepts/littles-law-and-throughput.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-3
+    query: "중첩 스코프에서의 스코프 값 리바인딩"
+    type: exact
+    description: "리바인딩 페이지 직격 — 다른 스코프 값 페이지 네 개와 갈라지는가"
+    expected_files: ["concepts/scoped-value-rebinding.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-4
+    query: "가상 스레드의 마운트와 언마운트"
+    type: exact
+    description: "안쪽 기제 페이지 직격"
+    expected_files: ["concepts/virtual-thread-mounting-and-stack-frames.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-5
+    query: "실패 즉시 중단 조인 정책"
+    type: exact
+    description: "조인 정책 다섯 중 fail-fast 쪽 페이지"
+    expected_files: ["concepts/fail-fast-joining-policy.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-6
+    query: "ThreadPoolExecutor 매개변수와 풀 크기"
+    type: exact
+    description: "풀 설정 페이지 — 풀 종류 페이지와 갈라지는가"
+    expected_files: ["concepts/thread-pool-executor-configuration.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-7
+    query: "가상 스레드 스케줄러의 병렬성 기본값"
+    type: exact
+    description: "스케줄러 페이지 — 포크조인 풀 선정 이유 페이지와 형제다"
+    expected_files: ["concepts/virtual-thread-scheduler.md", "concepts/fork-join-pool-as-virtual-thread-scheduler.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-8
+    query: "NIO 셀렉터와 관심 이벤트"
+    type: exact
+    description: "셀렉터 페이지 직격"
+    expected_files: ["concepts/nio-selector-event-loop.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-9
+    query: "JDK 24에서 synchronized 핀닝은 어떻게 바뀌었나"
+    type: exact
+    description: "버전 조건 회귀 — 동기화 블록 핀닝 서술의 유효 구간이 JDK 23 이하로 잘린 자리"
+    expected_files: ["concepts/virtual-thread-pinning.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-10
+    query: "ScopedValue는 어느 JDK에서 정식이 됐나"
+    type: exact
+    description: "버전 조건 회귀 — JDK 25 정식화, 소스 안에서 어긋나는 문장까지 기록한 두 페이지"
+    expected_files: ["concepts/scoped-value-core-components.md", "concepts/migrating-from-thread-local-to-scoped-values.md"]
+    expected_in_top_k: 5
+  - id: mcj-exact-11
+    query: "StructuredTaskScope는 아직 미리 보기 기능인가"
+    type: exact
+    description: "버전 조건 회귀 — --enable-preview가 필요한 구간과 다음 릴리스까지라는 유효 범위"
+    expected_files: ["concepts/structured-concurrency-scopes.md"]
+    expected_in_top_k: 5
+  # ---- semantic: 이름 없이 뜻으로 ----
+  - id: mcj-sem-1
+    query: "요청마다 스레드를 하나씩 쓰면 왜 막히는가"
+    type: semantic
+    description: "요청당 스레드 모델의 값을 이름 없이 — 숨은 비용과 묶임 두 페이지"
+    expected_files: ["concepts/hidden-costs-of-threads.md", "concepts/blocking-io-and-thread-efficiency.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-2
+    query: "자식 작업이 부모보다 오래 살지 못하게 하는 방식"
+    type: semantic
+    description: "구조적 동시성 원칙을 이름 없이"
+    expected_files: ["concepts/structured-concurrency-principle.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-3
+    query: "먼저 응답한 하나만 쓰고 나머지 호출은 끊어 버리는 방법"
+    type: semantic
+    description: "경주 정책을 이름 없이"
+    expected_files: ["concepts/racing-subtasks-for-first-result.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-4
+    query: "값을 호출 사슬 전체에 인자로 끌고 다니지 않고 넘기는 방법"
+    type: semantic
+    description: "문맥 전달 문제와 그 답을 이름 없이"
+    expected_files: ["concepts/context-passing-burden.md", "concepts/scoped-value-core-components.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-5
+    query: "재사용되는 스레드에 앞 요청의 값이 남아 새는 문제"
+    type: semantic
+    description: "무제한 수명 결함을 이름 없이"
+    expected_files: ["concepts/thread-local-design-flaws.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-6
+    query: "동기화 블록 대신 락 객체를 쓰면 스레드가 내려올 수 있는 이유"
+    type: semantic
+    description: "ReentrantLock 선택 근거를 이름 없이 — JDK 21~23 한정 서술"
+    expected_files: ["concepts/reentrant-lock-for-virtual-threads.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-7
+    query: "부모 작업이 자식을 기다리며 스레드를 붙잡아 전부 멈추는 상황"
+    type: semantic
+    description: "재귀 분해 교착을 이름 없이"
+    expected_files: ["concepts/recursive-task-decomposition-deadlock.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-8
+    query: "스레드를 아무리 늘려도 더 빨라지지 않는 작업"
+    type: semantic
+    description: "빠름과 확장의 구분을 이름 없이"
+    expected_files: ["concepts/virtual-thread-scalability-limits.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-9
+    query: "서로 다른 변수를 고쳤을 뿐인데 캐시가 계속 무효화되는 현상"
+    type: semantic
+    description: "거짓 공유를 이름 없이"
+    expected_files: ["concepts/false-sharing-and-cache-coherence.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-10
+    query: "소비자가 못 따라갈 때 생산자에게 속도를 늦추라고 알리는 방법"
+    type: semantic
+    description: "배압을 이름 없이"
+    expected_files: ["concepts/backpressure-strategies-in-reactive-streams.md"]
+    expected_in_top_k: 5
+  - id: mcj-sem-11
+    query: "실행 상태를 저장했다가 멈춘 자리에서 이어 가는 기제"
+    type: semantic
+    description: "후속문을 이름 없이 — 이 소스가 유일한 출처인 개념"
+    expected_files: ["concepts/java-continuation-api.md", "concepts/continuation-stack-copying.md"]
+    expected_in_top_k: 5
+  # ---- topical: 허브를 겨누는 넓은 질의 ----
+  - id: mcj-top-1
+    query: "자바 동시 실행 모델의 계보"
+    type: topical
+    description: "부모 허브 — 이번 승급으로 자식 넷이 처음 concepts를 가리키게 된 자리"
+    expected_files: ["synthesis/java-concurrent-execution-models.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-2
+    query: "가상 스레드는 안에서 어떻게 만들어져 돌고 어디서 막히는가"
+    type: topical
+    description: "내부·운영 허브"
+    expected_files: ["synthesis/virtual-thread-internals-and-operations.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-3
+    query: "자바의 구조적 동시성 전체"
+    type: topical
+    description: "구조적 동시성 허브 — 열여섯 개 자식의 진입점"
+    expected_files: ["synthesis/structured-concurrency-in-java.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-4
+    query: "호출 사슬을 따라 컨텍스트를 전달하는 문제"
+    type: topical
+    description: "컨텍스트 전달 허브"
+    expected_files: ["synthesis/context-propagation-and-scoped-values.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-5
+    query: "논블로킹 I/O와 리액티브 스트림"
+    type: topical
+    description: "리액티브 허브"
+    expected_files: ["synthesis/reactive-java-and-non-blocking-io.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-6
+    query: "가상 스레드를 운영에서 감시하는 도구"
+    type: topical
+    description: "모니터링과 스레드 덤프 두 페이지"
+    expected_files: ["concepts/monitoring-virtual-threads.md", "concepts/thread-dumps-with-virtual-threads.md"]
+    expected_in_top_k: 5
+  - id: mcj-top-7
+    query: "스프링 부트에서 가상 스레드 켜기"
+    type: topical
+    description: "프레임워크 설정 스위치와 실행자 주입 두 갈래 — stale_after가 가장 짧은 4장 계열"
+    expected_files: ["concepts/enabling-virtual-threads-in-frameworks.md", "concepts/virtual-thread-executor-injection.md"]
+    expected_in_top_k: 5
+  # ---- cross-domain: 다른 소스와의 접점 ----
+  - id: mcj-x-1
+    query: "선 발생 관계가 보장하는 가시성"
+    type: cross-domain
+    description: "zhou2024의 JMM 페이지와 이 소스의 구조적 스코프 일관성 페이지가 만나는 자리"
+    expected_files: ["concepts/structured-scope-memory-consistency.md", "concepts/happens-before-and-jmm-guarantees.md"]
+    expected_in_top_k: 5
+  - id: mcj-x-2
+    query: "자바 메모리 모델이 정의하는 원자적 연산"
+    type: cross-domain
+    description: "zhou2024 원전 페이지 — 이번 승급에서 링크만 개정된 두 페이지의 경계"
+    expected_files: ["concepts/java-memory-model.md", "concepts/happens-before-and-jmm-guarantees.md"]
+    expected_in_top_k: 5
+  - id: mcj-x-3
+    query: "코루틴과 가상 스레드는 무엇이 같고 무엇이 다른가"
+    type: cross-domain
+    description: "ramalho2022의 파이썬 실행 단위 셋과 자바 쪽 계보 페이지의 접점"
+    expected_files: ["concepts/virtual-threads-and-coroutines.md", "concepts/concurrency-models-in-python.md"]
+    expected_in_top_k: 5
+  - id: mcj-x-4
+    query: "실행자로 스레드 다발을 감추고 future로 결과를 받는 층"
+    type: cross-domain
+    description: "ramalho2022의 파이썬 실행자·asyncio와 자바 실행자 프레임워크의 경계"
+    expected_files: ["concepts/executor-framework-and-its-limits.md", "concepts/concurrent-executors-and-asyncio.md"]
+    expected_in_top_k: 5
+  - id: mcj-x-5
+    query: "세마포어로 동시 접근 개수를 묶기"
+    type: cross-domain
+    description: "thomas2020·zhou2024의 공유 상태 규율과 이 소스의 퍼밋 페이지·속도 제한 페이지의 접점"
+    expected_files: ["concepts/java-semaphore-permits.md", "concepts/rate-limiting-with-virtual-threads.md"]
+    expected_in_top_k: 5
+  - id: mcj-x-6
+    query: "커널 스레드와 1:1로 묶이는 스레드 구현"
+    type: cross-domain
+    description: "zhou2024의 스레드 구현 세 모델과 이 소스의 두 종류 갈림이 겹치는 자리"
+    expected_files: ["concepts/platform-threads-and-virtual-threads.md", "concepts/thread-implementation-models.md"]
+    expected_in_top_k: 5
