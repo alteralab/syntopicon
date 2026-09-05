@@ -2,7 +2,7 @@
 type: concept
 title: 가상 스레드와 코루틴
 description: 1:1 커널 스레드 모델이 마이크로서비스 시대에 부딪힌 한계와 그에 대한 자바의 답 — 문맥 전환 비용의 정체, 스택 트와인에서 스택풀·스택리스 코루틴으로 이어진 계보, 스레드 스택 1MB 대 코루틴 수백 바이트라는 수치, 그리고 룸 프로젝트가 JDK 21에 들인 가상 스레드가 플랫폼 스레드와 N:1로 얹히는 구조
-generated: { by: "claude-opus-5", at: "2026-08-15T00:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-05T06:00:00Z" }
 sources:
   - { id: zhou2024, resource: /it/sources/zhou2024.md }
 ---
@@ -169,7 +169,25 @@ sources:
 - [자바 언어 진화 프로젝트](../concepts/java-language-evolution-projects.md) — 룸이 놓인 프로젝트 지형
 - [런타임 데이터 영역과 메모리 오버플로](../concepts/jvm-runtime-data-areas.md) — `-Xss`가 조절하는
   스택이 사는 자리
+- [애플리케이션에서 본 가상 스레드](../concepts/virtual-threads-in-application-code.md) — 같은
+  가상 스레드를 쓰는 쪽에서 본 자리(rahman2025): 실행자 한 줄을 바꿔 얻는 이득과 세 이점
+- [자바의 후속문 API](../concepts/java-continuation-api.md) — 여기서 개념과 계보로 다룬 후속문이
+  자바에서 어떤 클래스와 메서드로 실재하는가(rahman2025): `jdk.internal.vm.Continuation`의
+  `yield`와 `run`, 그리고 그것이 공개 API가 아니라는 사실
+- [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)
+  — 후속문의 문맥 저장·복원이 실제로 어떻게 이뤄지는가(rahman2025): 스택 프레임이 힙과 캐리어
+  스택 사이를 오가는 자리
+- [후속문의 스택 복사와 지연 복사](../concepts/continuation-stack-copying.md) — 그 저장과 복원이
+  전부를 옮기지는 않는다는 것(rahman2025)
+- [가상 스레드 스케줄러](../concepts/virtual-thread-scheduler.md) — 여기서 '룸의 기본 스케줄러는
+  `ForkJoinPool`'이라 적은 그 풀의 모드와 병렬성 손잡이(rahman2025)
+- [네이티브 호출과 핀닝](../concepts/native-method-pinning.md) — 여기서 던진 물음, 곧 코루틴에서
+  네이티브 메서드를 부르면 어떻게 되는가에 대한 답(rahman2025)
+- [가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md) — 이
+  가상 스레드를 열어 본 자리들의 허브
 - [자바 메모리 모델과 동시성](../synthesis/java-memory-model-and-concurrency.md) — 이 페이지가 속한 허브
+- [자바 동시 실행 모델](../synthesis/java-concurrent-execution-models.md) — 이 가상 스레드가
+  놓이는 라이브러리·API 층의 허브
 
 [^zhou2024]: 저우즈밍 2024(한국어판), 12장 "자바 메모리 모델과 스레드" §12.5(pp.617–623).
     이 소스의 PDF는 OCR 텍스트라 식별자가 훼손되어 있어 본문 서술과 일치하는 쪽으로 복원했다 —

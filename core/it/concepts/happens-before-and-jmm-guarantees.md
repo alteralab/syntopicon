@@ -171,6 +171,8 @@ sources:
 - [스레드 안전성의 다섯 등급](../concepts/thread-safety-levels.md) — 이 판정 도구가 재는 대상의 정의
 - [락의 구현과 최적화](../concepts/lock-optimization.md) — `synchronized`가 남용될 때 가상 머신이
   하는 일
+- [구조적 스코프의 메모리 일관성 효과](../concepts/structured-scope-memory-consistency.md) —
+  스레드 시작 규칙과 스레드 종료 규칙이 구조적 동시성의 `fork`·`join`에 얹히는 자리
 - [자바 메모리 모델과 동시성](../synthesis/java-memory-model-and-concurrency.md) — 이 페이지가 속한 허브
 
 [^zhou2024]: 저우즈밍 2024(한국어판), 12장 "자바 메모리 모델과 스레드" §12.3.5–§12.3.6
