@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 비기능 요건
-description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
+description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 그 분포의 꼬리를 없애는 대신 견디는 기법들, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 ---
 
@@ -19,6 +19,21 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   이유, 꼬리 지연 증폭, 백분위를 계산하는 법
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지표를 약속으로 바꾸는
   SLI·SLO·SLA·OLA와 소진율 경보
+
+## 꼬리 지연을 견디는 법
+
+- [꼬리 내성이라는 설계 태도](../concepts/tail-tolerance-as-a-design-stance.md) — 가변성을 없애는
+  대신 견디자는 입장, 기법을 요청 안과 요청 사이로 가르는 두 시간 척도, 그 대가의 크기
+- [지연 가변성이 생기는 자리](../concepts/latency-variability-sources.md) — 공유 자원과 배경
+  데몬부터 전력 한계와 절전 모드까지, 부품이 흔들리는 원인 목록
+- [부품의 가변성을 줄이는 공학](../concepts/reducing-component-variability.md) — 서비스 등급과
+  얕은 큐, 요청 쪼개기, 배경 활동 동기화, 캐시가 꼬리를 다루지 못하는 이유
+- [요청 안에서의 단기 적응](../concepts/tail-tolerant-short-term-adaptations.md) — 헤지 요청과
+  묶인 요청, 그 부하를 묶는 지연 발송과 서버 간 취소
+- [요청 사이의 장기 적응](../concepts/tail-tolerant-long-term-adaptations.md) — 마이크로 파티션,
+  선택적 복제, 느린 기계를 빼되 그림자 요청으로 계속 재는 격리
+- ["충분히 좋은" 결과와 카나리 요청](../concepts/good-enough-results-and-canary-requests.md) —
+  결과가 부정확해도 되는 시스템에만 열리는 두 기법
 
 ## 신뢰성
 
