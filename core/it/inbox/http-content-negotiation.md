@@ -21,6 +21,7 @@ sources:
 - [반응 협상](#반응-협상)
 - [반응 협상의 득실](#반응-협상의-득실)
 - [요청 콘텐츠 협상](#요청-콘텐츠-협상)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **한 자원에 표현이 여럿일 때 어느 것을 보낼지는 누가 정하고, 그 판단을 어느 쪽에
@@ -156,6 +157,13 @@ sources:
   요청에서 어떤 콘텐츠 타입이 받아들여지는지를 발견할 수 있게** 한다 (§12.3).[^fielding2022-rfc9110]
   그 필드의 정의는 이 문서가 갖지 않는다.
 
+## RFC 9110에서 바뀐 것
+
+- **`Accept`와 `Accept-Encoding`이 응답 메시지에도 쓰일 수 있게 되었다.** 뒤쪽은 RFC 7694가
+  도입한 것이고, 이 명세는 그 확장을 담되 예제와 배포 고려는 뺐다
+  (부록 B.3과 B.9, §12.3).[^fielding2022-rfc9110] 위의 요청 콘텐츠 협상이 그 자리다.
+  - 버전 조건: RFC 7231 이하에서는 두 필드가 요청 쪽에만 정의되어 있었다.
+
 ## 이어지는 페이지
 
 - [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — 이 세 패턴이 실제로
@@ -168,6 +176,10 @@ sources:
   표현이 갈릴 때 엔티티 태그도 갈라야 하는 이유
 - [요청 컨텍스트 필드](../concepts/http-request-context-fields.md) — 암묵적 협상 재료로 쓰인다고
   적힌 그 User-Agent
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 반응 협상을
+  부르는 300의 정의
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 받아들일 수 있는 표현이
+  없을 때의 406
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

@@ -20,6 +20,7 @@ sources:
 - [Referer가 새는 정보](#referer가-새는-정보)
 - [TE](#te)
 - [User-Agent](#user-agent)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **요청이 무엇을 하려는지가 아니라 그 요청이 어떤 맥락에서 왔는지를 알리는 필드들은
@@ -221,6 +222,12 @@ sources:
   사칭하면, 수신자는 실제 에이전트에서 잘 동작하지 않더라도 사용자가 그 식별된 에이전트용 응답을
   일부러 원한다고 가정할 수 있다 (§10.1.5).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **`Expect`의 리스트 기반 문법이 복원되었다.** RFC 2616과의 호환을 위해서다
+  (부록 B.3, §10.1.1).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7231 이하에서는 리스트가 아니었다.
+
 ## 이어지는 페이지
 
 - [응답 컨텍스트 필드](../concepts/http-response-context-fields.md) — 같은 축의 응답 쪽 네 필드
@@ -239,6 +246,12 @@ sources:
   문법의 정의와 Accept 계열 네 필드
 - [콘텐츠 협상](../concepts/http-content-negotiation.md) — User-Agent가 암묵적 협상 재료로 쓰인다고
   적힌 자리
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  100-continue 기대에 답하는 100의 정의
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 기대를 채울 수 없을 때의
+  417
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — Referer가 새는 정보와
+  User-Agent가 만드는 지문
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

@@ -19,6 +19,7 @@ sources:
 - [대상 URI를 서버가 다시 확인해야 하는 이유](#대상-uri를-서버가-다시-확인해야-하는-이유)
 - [인증서 검증](#인증서-검증)
 - [IP 주소로 식별되는 서버](#ip-주소로-식별되는-서버)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **클라이언트는 어떤 근거로 "이 서버가 이 URI에 답할 자격이 있다"고 판단하는가.**
@@ -167,6 +168,13 @@ sources:
 - 일치의 판정은 동일성이다. IP-ID 유형의 참조 정체성은 그 주소가 인증서 subjectAltName 확장의
   iPAddress 값과 동일하면 일치한다 (§4.3.5).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **오리진과 원 서버에 대한 권위 있는 접근의 서술이 `http`와 `https` 양쪽에 대해 넓어졌다.**
+  대체 서비스와, 반드시 TCP에 기반하지는 않는 보안된 연결을 셈에 넣기 위해서다
+  (부록 B.2, §4.2.1·§4.2.2·§4.3.1).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7230 이하와 비교한 변경이다.
+
 ## 이어지는 페이지
 
 - [http와 https URI 스킴과 정규화](../concepts/http-uri-schemes-and-normalization.md) — 이 오리진을
@@ -178,6 +186,10 @@ sources:
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   권위 있는 응답을 발원시키는 원 서버의 정의
 - [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — 이 규범이 놓인 문서의 범위
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — 권위가 이름 해소와 라우팅에
+  기대므로 생기는 공격면과 피싱
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 오리진이 맞지 않는
+  요청을 거절하는 421
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

@@ -17,6 +17,7 @@ sources:
 - [추측으로 재시도하는 쪽](#추측으로-재시도하는-쪽)
 - [프록시와 재시도의 재시도](#프록시와-재시도의-재시도)
 - [이 문서가 정의하지 않는 것](#이-문서가-정의하지-않는-것)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **응답을 못 읽은 채 요청이 끊겼을 때 그 요청을 자동으로 다시 보내도 되는지는
@@ -101,6 +102,12 @@ sources:
 - 캐시가 재시도된 요청을 어떻게 다루는가도 이 문서 밖이다. 캐시 동작의 규범은 RFC 9111이 정본이다
   (§9.2.3).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **클라이언트 재시도에 걸려 있던 제약이 구현의 실제 동작을 반영해 느슨해졌다**
+  (부록 B.3, §9.2.2).[^fielding2022-rfc9110] 위의 추측으로 재시도하는 쪽 조문이 그 결과다.
+  - 버전 조건: RFC 7231 이하와 비교한 변경이다.
+
 ## 이어지는 페이지
 
 - [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)
@@ -115,6 +122,10 @@ sources:
   떠맡을 때도 외부 API의 멱등성이 남는다는 자리
 - [응답 컨텍스트 필드](../concepts/http-response-context-fields.md) — 서버가 언제 다시 오라고
   말하는 Retry-After
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 메서드가 멱등하지 않아도
+  다른 연결로 다시 보내도 되는 421
+- [서버 오류 5xx와 과부하 신호](../concepts/http-server-error-status-codes.md) — 503과 Retry-After가
+  재시도를 늦추는 자리
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

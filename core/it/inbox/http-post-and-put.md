@@ -20,6 +20,7 @@ sources:
 - [성공 응답에 검증자를 보낼 수 있는 조건](#성공-응답에-검증자를-보낼-수-있는-조건)
 - [둘의 근본 차이](#둘의-근본-차이)
 - [PUT의 부작용과 부분 PUT](#put의-부작용과-부분-put)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **요청에 표현을 실어 보내는 두 메서드는 무엇이 다르고, 왜 한쪽만 멱등한가.**
@@ -191,6 +192,12 @@ sources:
   캐시를 지나가면 **그 저장된 응답들은 무효화된다** (§9.3.4).[^fielding2022-rfc9110] 무효화의
   규범은 RFC 9111 영역이다.
 
+## RFC 9110에서 바뀐 것
+
+- **`Content-Range` 필드를 PUT의 요청 수정자로 쓰는 것이 허용되었다**
+  (부록 B.3, §9.3.4).[^fielding2022-rfc9110] 위의 부분 PUT이 기대는 자리가 그것이다.
+  - 버전 조건: RFC 7231 이하와 비교한 변경이다.
+
 ## 이어지는 페이지
 
 - [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)
@@ -209,6 +216,12 @@ sources:
 - [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — 갱신
   손실을 막는 다섯 필드의 정의와 판정 규칙
 - [범위 요청](../concepts/http-range-requests.md) — 부분 PUT이 쓰는 Content-Range의 전문
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  새 자원을 만들었을 때의 201과 보낼 콘텐츠가 없을 때의 204
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — POST의 결과를
+  다른 자원으로 보내는 303
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 자원의 현재 상태와
+  충돌할 때의 409와 전제 조건이 거짓일 때의 412
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

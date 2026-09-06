@@ -17,6 +17,7 @@ sources:
 - [CONNECT의 위험과 제약](#connect의-위험과-제약)
 - [OPTIONS와 별표 요청 대상](#options와-별표-요청-대상)
 - [TRACE가 되비추는 것](#trace가-되비추는-것)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **가져오지도 보내지도 않는 네 메서드는 각각 무엇을 요청하는 것인가.**
@@ -179,6 +180,16 @@ sources:
 - 클라이언트는 TRACE 요청에 **콘텐츠를 보내서는 안 된다**(MUST NOT). TRACE 응답은 캐시 가능하지 않다
   (§9.3.8).[^fielding2022-rfc9110] 위의 GET·HEAD·DELETE가 SHOULD NOT인 것과 달리 여기는 MUST NOT다.
 
+## RFC 9110에서 바뀐 것
+
+- **GET과 HEAD와 DELETE의 요청 본문이 상호운용되지 않는다는 사실이 명확해졌다**
+  (부록 B.3, §9.3.5).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7231 이하와 비교한 변경이다.
+- **OPTIONS 서술에서 `Content-Length` 설정에 대한 불필요한 요건이 제거되었다**
+  (부록 B.3, §9.3.7).[^fielding2022-rfc9110]
+- **TRACE 응답에 `message/http` 미디어 타입을 쓰라는 규범 요건이 제거되었다**
+  (부록 B.3, §9.3.8).[^fielding2022-rfc9110]
+
 ## 이어지는 페이지
 
 - [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 이 넷이 놓인 표준 메서드
@@ -193,6 +204,8 @@ sources:
 - [HTTP 콘텐츠의 의미론과 식별](../concepts/http-content-semantics.md) — CONNECT의 2xx 응답에
   콘텐츠가 없다는 규칙이 다시 나오는 자리
 - [응답 컨텍스트 필드](../concepts/http-response-context-fields.md) — OPTIONS 응답이 보내는 Allow
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  DELETE와 OPTIONS의 성공에 붙는 200과 202와 204의 정의
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 예제 요청은

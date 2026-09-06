@@ -17,6 +17,7 @@ sources:
 - [질의 필드로 민감한 값을 보내는 문제](#질의-필드로-민감한-값을-보내는-문제)
 - [HEAD의 정의](#head의-정의)
 - [HEAD 응답이 GET 응답과 어긋나도 되는 자리](#head-응답이-get-응답과-어긋나도-되는-자리)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **정보를 가져오는 메서드는 정확히 무엇을 요청하는 것이고, 콘텐츠를 뺀 판본은 어디까지
@@ -130,6 +131,13 @@ sources:
   불일치가 HEAD 요청을 위해 콘텐츠를 생성했다가 버리는 것보다 낫다고 본다**
   (§9.3.2).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **GET과 HEAD와 DELETE의 요청 본문이 상호운용되지 않는다는 사실이 명확해졌다**
+  (부록 B.3, §9.3.1·§9.3.2).[^fielding2022-rfc9110] 위의 GET 요청에 콘텐츠를 싣는 문제가 그
+  자리다.
+  - 버전 조건: RFC 7231 이하와 비교한 변경이다.
+
 ## 이어지는 페이지
 
 - [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 이 둘만 모든 범용
@@ -148,6 +156,10 @@ sources:
   GET이 304로 끝나는 판정 규칙
 - [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — HEAD 응답에서 빠질
   수 있다고 적힌 그 Vary
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  200이 메서드마다 다른 것을 싣는다는 표와 206
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 조건부 GET이
+  받는 304
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

@@ -23,6 +23,7 @@ sources:
 - [Accept-Language](#accept-language)
 - [Vary](#vary)
 - [Vary를 보내는 기준과 뺄 수 있는 자리](#vary를-보내는-기준과-뺄-수-있는-자리)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **선호는 어떤 문법으로 적히고, 그 선호에 맞는 것이 없을 때 서버는 무엇을 해도
@@ -125,7 +126,9 @@ sources:
   0.3으로 적혀 있다 (§12.5.1).[^fielding2022-rfc9110]
   - #hypothesis 이 어긋남은 예제가 개정되며 남은 자국으로 보인다. 이전 판의 같은 예제는 `text/html`을
     0.7로 나열했고, 그 목록이 `text/plain` 중심으로 바뀌는 동안 마지막 줄만 옛 값을 유지하면 지금
-    상태가 된다. errata는 조회하지 않았다.
+    상태가 된다. errata는 조회하지 않았다. 부록 B가 §12.5.1에 대해 기록하는 변경은 accept-params와
+    accept-ext 생성 규칙의 제거뿐이고 이 표는 언급하지 않으므로, 이 추정은 확인되지도 반증되지도
+    않았다.
 
 ## Accept-Charset
 
@@ -234,6 +237,16 @@ sources:
   - 응답 콘텐츠가 망 지역에 따라 골라졌거나 영향을 받았더라도, 원 서버가 **수신자가 지역을 옮겨도 캐시된
     응답이 재사용되기를 바란다면** 그 변이를 `Vary`에 나타낼 필요가 없다.
 
+## RFC 9110에서 바뀐 것
+
+- **`Accept` 정의에서 "Accept Parameters"(accept-params와 accept-ext 생성 규칙)가 제거되었다**
+  (부록 B.3, §12.5.1).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7231 이하에는 그 규칙들이 있었다.
+- **`Accept-Charset`이 폐기되었다** (부록 B.3, §12.5.2).[^fielding2022-rfc9110] 위의 폐기 서술이
+  그 결과다.
+- **`Vary`에 다른 값이 함께 있을 때 `*`의 의미론이 명확해졌다**
+  (부록 B.3, §12.5.5).[^fielding2022-rfc9110]
+
 ## 이어지는 페이지
 
 - [콘텐츠 협상](../concepts/http-content-negotiation.md) — 이 필드들이 실현하는 세 패턴의 정의와
@@ -246,6 +259,10 @@ sources:
 - [GET과 HEAD](../concepts/http-get-and-head.md) — HEAD 응답에서 Vary가 빠질 수 있다고 적힌 자리
 - [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 협상으로
   갈린 표현마다 엔티티 태그가 달라야 하는 이유
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 받아들일 수 있는 표현이
+  없을 때의 406과 지원하지 않는 형식일 때의 415
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — 이 필드들이 브라우저 지문의
+  가장 예상 밖의 재료라는 지적
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

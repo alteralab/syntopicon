@@ -23,5 +23,8 @@ HTTP 의미론의 현행 Internet Standard(STD 97). 메서드의 안전성·멱�
 (캐싱은 RFC 9111이 7234를 폐기해 맡음). 2026-09-07 datatracker 기준 이 문서를 갱신·폐기하는 RFC는 없다.
 
 KB 안의 자리: "멱등" 49건 언급의 정박점. 어느 메서드가 재시도 가능한가, 상태 코드의 뜻이 무엇인가의 규범.
+페이지들은 허브 [HTTP 의미론](../synthesis/http-semantics.md) 아래 살고, 메시지·필드·라우팅·컨텍스트 필드는
+자식 허브 [HTTP 메시지와 필드](../synthesis/http-messages-and-fields.md)가, 메서드는
+[HTTP 메서드 의미론](../synthesis/http-method-semantics.md)이 맡는다.
 POST 중복 제거(멱등 키 저장·중복 payload)는 이 문서 밖의 별도 계약이고, 캐시 동작은 RFC 9111 영역이다.
 편집자 3인이 저자란에 있다(Ed.).

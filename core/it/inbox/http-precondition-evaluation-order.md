@@ -19,6 +19,7 @@ sources:
 - [순서가 왜 정해져야 하는가](#순서가-왜-정해져야-하는가)
 - [여섯 단계](#여섯-단계)
 - [확장에 거는 요구](#확장에-거는-요구)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **조건부 요청 필드가 둘 이상 함께 올 때 서버는 무엇을 먼저 보고, 그 판정은 요청 처리의
@@ -124,6 +125,12 @@ sources:
   **이 문서가 정의한 필드들과 실무에서 만날 수 있는 다른 조건들에 대해 자기 필드를 평가할 순서를
   정의하는 것이 좋다** (§13.2.2).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **전제 조건을 요청 콘텐츠를 처리하기 전에 평가할 수 있게 되었다.** 이전에는 응답이 그러지
+  않았더라면 성공했을 상황이 될 때까지 기다려야 했다 (부록 B.4, §13.2).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7232 이하에서는 그 대기가 걸려 있었다.
+
 ## 이어지는 페이지
 
 - [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — 여기서
@@ -134,6 +141,10 @@ sources:
 - [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md) —
   조건부 필드를 무시해야 한다고 지목된 세 메서드
 - [GET과 HEAD](../concepts/http-get-and-head.md) — 조건부 HEAD가 정의되어 있으나 쓸 이유가 없다는 자리
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 조건이 거짓일 때 오는
+  412의 정의
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 조건부 GET이
+  받는 304의 정의
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

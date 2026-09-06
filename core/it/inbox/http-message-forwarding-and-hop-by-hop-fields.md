@@ -18,6 +18,7 @@ sources:
 - [Via](#via)
 - [전송 중 변환의 제한](#전송-중-변환의-제한)
 - [Upgrade로 프로토콜을 바꾼다](#upgrade로-프로토콜을-바꾼다)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지가 중개자를 거쳐 갈 때 무엇이 그대로 가고 무엇이 그 자리에서 걷히는가.**
@@ -211,6 +212,14 @@ sources:
   프로토콜을 바꾸거나 기존 통신을 다른 연결로 옮기는 데는 쓸 수 없다. 그런 목적에는 3xx(Redirection)
   응답이 더 알맞다 (§7.8).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **`Via`의 received-by 생성 규칙에서 uri-host가 빠졌다.** RFC 7230이 URI 문법의 호스트 규칙 변화
+  때문에 그 규칙을 넓혔는데 Via에는 바람직하지 않았고, 기존 pseudonym 문법이 그것을 담을 수 있어
+  단순화한 것이다. **그 결과로 received-by의 호스트 이름 허용 문자에서 콤마가 빠졌다**
+  (부록 B.2, §7.6.3).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7230 이하에서는 콤마가 허용되어 있었다.
+
 ## 이어지는 페이지
 
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 여기서 요건을 받는 프록시와 게이트웨이와 터널의
@@ -228,6 +237,9 @@ sources:
 - [요청 컨텍스트 필드](../concepts/http-request-context-fields.md) — 여기와 같은 요건이 걸리는 TE
 - [종단 간 논증](../concepts/end-to-end-argument.md) — 기능을 사슬의 끝에 두는 쪽과 중간에 두는 쪽의
   일반 논증
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  업그레이드를 받아들일 때 오는 101
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 올라오라고 요구하는 426
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 예제 요청은

@@ -17,6 +17,7 @@ sources:
 - [응답 콘텐츠의 뜻은 셋이 함께 정한다](#응답-콘텐츠의-뜻은-셋이-함께-정한다)
 - [콘텐츠가 없는 응답](#콘텐츠가-없는-응답)
 - [콘텐츠의 식별](#콘텐츠의-식별)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지에 실린 옥텟 스트림은 무엇을 뜻하고, 그것이 어느 자원의 표현인지는 무엇으로
@@ -122,6 +123,13 @@ sources:
 - 이 표의 요점은 **순서다.** 위에서부터 맞는 것을 찾을 때까지 내려가므로, 예를 들어 GET에 대한 200
   응답에서는 `Content-Location`이 있어도 2번에서 판정이 끝난다 (§6.4.2).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **"payload"와 "payload body"라는 용어가 "content"로 바뀌었다.** 필드 이름 같은 다른 자리의
+  쓰임과 맞추고, HTTP/2와 HTTP/3의 프레임 페이로드와 헷갈리지 않게 하려는 것이다
+  (부록 B.3, §6.4).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7231 이하에서는 앞의 이름을 썼다.
+
 ## 이어지는 페이지
 
 - [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md) — 이 콘텐츠가
@@ -140,6 +148,8 @@ sources:
   메서드 토큰의 규정
 - [범위 요청](../concepts/http-range-requests.md) — 206 콘텐츠가 표현의 어느 부분인지를 정하는 규범
 - [콘텐츠 협상](../concepts/http-content-negotiation.md) — 어느 표현이 콘텐츠에 실릴지를 고르는 축
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  콘텐츠가 없는 204와 부분만 싣는 206의 정의
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 응답 식별 표는 §6.4.2의 일곱

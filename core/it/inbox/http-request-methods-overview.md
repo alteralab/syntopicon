@@ -90,7 +90,9 @@ sources:
     Allowed)** 로 답해야 한다 (SHOULD).
 - 이 명세 밖의 추가 메서드가 이미 여럿 규정되어 있다. 그런 메서드는 전부 **"Hypertext Transfer
   Protocol (HTTP) Method Registry"에 등록되어야 한다** (§9.1).[^fielding2022-rfc9110] 등록 절차와
-  새 메서드를 만들 때의 고려 사항은 이 문서의 확장 절(§16.1)이 따로 다룬다.
+  새 메서드를 만들 때의 고려 사항은 이 문서의 확장 절(§16.1)이 따로 다루고, 그 내용은
+  [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md)에 있다 —
+  새 메서드는 파싱 알고리즘을 바꿀 수 없고 콘텐츠를 금지할 수 없다는 제약이 거기 있다.
 
 ## 이어지는 페이지
 
@@ -104,6 +106,11 @@ sources:
   자리
 - [자원과 표현](../concepts/http-resources-and-representations.md) — 메서드가 적용되는 대상의 정의
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 균일 인터페이스를 설계 원칙으로 삼는 쪽
+- [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md) — 새 메서드를
+  등록할 때의 절차와 제약
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 막힌 메서드에 붙는 405
+- [서버 오류 5xx와 과부하 신호](../concepts/http-server-error-status-codes.md) — 모르는 메서드에
+  붙는 501
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 ABNF 규칙은

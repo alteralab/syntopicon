@@ -1,8 +1,8 @@
 ---
 type: synthesis
 title: HTTP 의미론
-description: HTTP의 현행 원전(RFC 9110, STD 97)에서 나온 페이지들의 진입점 — 자원과 표현과 무상태와 중개자라는 어휘, 이름과 값의 쌍인 필드와 버전 무관한 네 부분의 메시지, 대상 URI를 정하고 중개자를 지나 보내는 라우팅, 실린 옥텟을 해석하게 하는 표현 메타데이터와 검증자, 요청의 뜻을 정하는 메서드 여덟과 그 공통 속성인 안전성과 멱등성과 캐시 가능성, 요청과 응답의 맥락을 알리는 컨텍스트 필드, 개별 방식이 아니라 챌린지와 크리덴셜의 자리만 정하는 인증 틀, 여러 표현 중 하나를 고르게 하는 콘텐츠 협상, 그리고 메서드를 적용하기 전에 조건을 시험하는 조건부 요청과 표현의 일부만 받는 범위 요청
-generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
+description: HTTP의 현행 원전(RFC 9110, STD 97)에서 나온 페이지들의 진입점 — 자원과 표현과 무상태와 중개자라는 어휘, 실린 옥텟을 해석하게 하는 표현 메타데이터와 검증자, 개별 방식이 아니라 챌린지와 크리덴셜의 자리만 정하는 인증 틀, 여러 표현 중 하나를 고르게 하는 콘텐츠 협상, 메서드를 적용하기 전에 조건을 시험하는 조건부 요청과 표현의 일부만 받는 범위 요청, 응답의 결과를 세 자리 수로 말하는 상태 코드 다섯 클래스, 새 버전 없이 능력을 더하는 확장점과 레지스트리, 그리고 이 프로토콜을 쓰는 쪽이 조심할 것들. 메시지와 필드, 그리고 메서드는 자식 허브가 맡는다
+generated: { by: "claude-opus-5", at: "2026-09-07T22:05:00Z" }
 ---
 
 # HTTP 의미론
@@ -12,14 +12,24 @@ generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
 프레이밍)과 캐시 동작의 규범은 각각 다른 문서가 정본이고, 이 허브의 페이지들은 그 경계를 만날 때마다
 "그쪽은 저 문서가 맡는다"고만 적는다.
 
+원전이 크므로 두 덩어리는 자식 허브로 갈라 두었다. 메시지와 필드가 하나이고 메서드가 다른 하나다.
+여기 남은 것은 그 둘 밖의 것 — 낱말을 정하는 개념, 실린 것을 해석하게 하는 표현, 인증과 협상과
+조건부·범위, 응답 쪽의 상태 코드, 그리고 확장과 보안이다.
+
 읽는 순서는 원전의 구조를 따른다. 먼저 낱말을 정하고, 그 낱말이 실려 다니는 그릇인 필드와 메시지를
-보고, 그 메시지가 어디로 가는지의 라우팅을 지나, 실려 온 옥텟을 무엇으로 해석하는지의 표현에 닿는다.
-거기까지가 "무엇이 오가는가"이고, 그다음이 "무엇을 하려는 것인가"인 메서드다. 마지막이 그 요청과
-응답을 둘러싼 맥락을 알리는 필드들이다.
+보고(자식 허브), 실려 온 옥텟을 무엇으로 해석하는지의 표현에 닿는다. 거기까지가 "무엇이 오가는가"이고,
+그다음이 "무엇을 하려는 것인가"인 메서드(자식 허브)와 "그래서 어떻게 되었는가"인 상태 코드다.
 
 이 허브의 페이지들이 서술하는 프로토콜을 설계 원칙 쪽에서 다루는 것은
 [웹 서비스와 REST](../concepts/web-services-and-rest.md)이고, 그 페이지는
 [인코딩과 진화](encoding-and-evolution.md) 허브의 데이터플로 절에 산다.
+
+## 자식 허브
+
+- [HTTP 메시지와 필드](http-messages-and-fields.md) — 필드의 문법과 결합, 버전 무관한 네 부분의
+  메시지, 대상을 정하고 중개자를 지나는 라우팅, 그리고 요청과 응답의 맥락을 알리는 컨텍스트 필드
+- [HTTP 메서드 의미론](http-method-semantics.md) — 요청의 뜻을 정하는 메서드 토큰의 지위와 표준
+  여덟의 정의, 그리고 안전성과 멱등성과 캐시 가능성
 
 ## 정의와 개념
 
@@ -40,56 +50,12 @@ generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
 - [오리진과 권위 있는 접근](../concepts/http-origin-and-authoritative-access.md) — 스킴·호스트·
   포트 세 값의 조와, 어떤 서버가 이 URI에 답할 자격이 있는가의 판정
 
-## 필드와 메시지
-
-- [HTTP 필드의 문법과 결합](../concepts/http-field-syntax-and-combining.md) — 같은 이름의 필드 줄이
-  콤마로 이어져 하나의 값이 되는 규칙과 순서가 뜻을 바꾼다는 귀결
-- [HTTP 필드 값의 공통 문법 규칙](../concepts/http-field-common-rules.md) — 토큰·공백 세 종류·인용
-  문자열·코멘트·파라미터와 리스트 확장 문법
-- [HTTP 날짜 형식](../concepts/http-date-formats.md) — 수신자는 세 형식을 다 받고 송신자는 하나만
-  만든다는 비대칭, 그리고 Date 필드
-- [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md) — 버전 무관한
-  네 부분의 메시지 정의와 완결의 판정
-- [HTTP 헤더 섹션과 트레일러 섹션](../concepts/http-header-and-trailer-sections.md) — 콘텐츠 앞뒤
-  두 자리의 지위 차이와 트레일러에 걸리는 제약
-- [HTTP 콘텐츠의 의미론과 식별](../concepts/http-content-semantics.md) — 실린 옥텟의 뜻을 메서드와
-  상태 코드가 정한다는 것과 응답 식별의 순서 규칙
-
-## 라우팅
-
-- [요청 대상과 Host](../concepts/http-target-uri-and-host.md) — 대상 URI를 정하고 실어 보내고 다시
-  재구성하는 경로, 그리고 잘못 보내진 요청의 거절
-- [HTTP 메시지 전달과 hop-by-hop 필드](../concepts/http-message-forwarding-and-hop-by-hop-fields.md)
-  — Connection이 가르는 종단 간 필드와 다음 수신자까지만 가는 필드, Via와 Max-Forwards와 Upgrade
-
 ## 표현
 
 - [표현 메타데이터](../concepts/http-representation-metadata.md) — Content-Type과 Content-Encoding의
   두 겹 모델, Content-Language와 Content-Length와 Content-Location
 - [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 강한
   검증자와 약한 검증자의 구분과 두 비교 함수
-
-## 메서드
-
-- [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 메서드 토큰이 요청
-  의미론의 일차 출처라는 규정, 표준 메서드 여덟의 목록, 모르는 메서드와 막힌 메서드의 갈림
-- [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)
-  — 세 공통 속성의 정의와 여덟 메서드의 배정, 안전이 구현의 부작용을 금지하지 않는다는 것
-- [멱등성과 자동 재시도의 규범](../concepts/http-idempotency-and-automatic-retry.md) — 끊긴 요청을
-  다시 보내도 되는지의 판정과 프록시에 걸린 절대 금지, 그리고 중복 제거 수단을 정의하지 않은 자리
-- [GET과 HEAD](../concepts/http-get-and-head.md) — 선택된 표현의 전송을 요청한다는 정의와 콘텐츠를
-  뺀 판본이 어디까지 같아야 하는가
-- [POST와 PUT](../concepts/http-post-and-put.md) — 자원별 처리와 상태 대치라는 의도의 차이, PUT이
-  이후의 관측을 보장하지 않는다는 단서
-- [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md) —
-  URI 매핑의 연결 해제, 터널 개설과 그 위험, 별표 요청 대상, 요청의 되비춤
-
-## 컨텍스트 필드
-
-- [요청 컨텍스트 필드](../concepts/http-request-context-fields.md) — Expect와 100-continue의 양쪽
-  요건, From, Referer와 그것이 새는 정보, TE, User-Agent와 지문 채취
-- [응답 컨텍스트 필드](../concepts/http-response-context-fields.md) — Allow, 201과 3xx에서 뜻이
-  갈리는 Location, 언제 다시 오라는 Retry-After, 그리고 Server
 
 ## 인증 틀
 
@@ -113,3 +79,28 @@ generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
   이상일 때의 여섯 단계와, 갱신 손실 방지가 캐시 검증보다 앞서는 이유
 - [범위 요청](../concepts/http-range-requests.md) — 표현의 일부만 달라는 Range와 어느 부분인지를
   알리는 Content-Range, 그리고 구현하지 않아도 상호운용이 깨지지 않게 만든 설계
+
+## 상태 코드
+
+- [HTTP 상태 코드의 다섯 클래스와 확장 규칙](../concepts/http-status-codes-and-classes.md) — 세
+  자리 수의 첫 자리가 클래스를 정한다는 것과, 모르는 코드를 그 클래스의 x00으로 취급하라는 요건
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  최종 응답보다 먼저 오는 잠정 응답과, 성공을 알리는 코드들이 서로 갈리는 지점
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 다시 보낼 요청을
+  만드는 다섯 단계와, 어느 코드가 메서드를 지키고 어느 코드가 바꿔도 되는가
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 요청 자체의 문제와 자원
+  쪽의 문제와 인증과 전제 조건을 가려 말하는 코드들
+- [서버 오류 5xx와 과부하 신호](../concepts/http-server-error-status-codes.md) — 서버가 이행하지
+  못했다는 말의 갈래들과, 부하 차단의 신호가 되는 503과 Retry-After
+
+## 확장
+
+- [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md) — 새 버전 없이
+  능력을 더하는 자리들과 레지스트리 일곱, 그리고 새 메서드와 새 상태 코드와 새 인증 스킴에 걸리는 것
+- [새 HTTP 필드를 정의할 때](../concepts/http-new-field-design.md) — 가장 널리 쓰이는 확장점의
+  이름과 값 규칙, X- 접두를 쓰지 말라는 조문
+
+## 보안
+
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — 권위와 중개자와 로그와 URI와
+  지문 채취까지, 원전이 열거하는 열여섯 갈래 가운데 결정에 걸리는 것들

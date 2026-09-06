@@ -70,6 +70,11 @@ sources:
 - `token68`이라는 이름은 그 문법이 허용하는 문자 수에서 왔다. URI의 비예약 문자 66개에 몇 개를 더해
   **base64와 base64url과 base32와 base16을 패딩이 있든 없든 담되 공백은 배제하도록** 만든 규칙이다
   (§11.2).[^fielding2022-rfc9110]
+- 새 스킴을 만들 때 걸리는 것은 따로 정해져 있다. 인증 스킴 레지스트리 등록에는 이름과 명세
+  포인터가 필요하고(MUST) IETF Review를 거쳐야 하며, **인증이 무상태로 전제된다는 것과 `realm`이
+  예약되어 있다는 것과 챌린지·크리덴셜의 파싱을 새 스킴이 바꿀 수 없다는 것**이 그 제약이다
+  (§16.4.1, §16.4.2).[^fielding2022-rfc9110] 그 목록은
+  [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md)에 있다.
 
 ## 인증 파라미터의 두 표기
 
@@ -158,6 +163,11 @@ sources:
   (§11.5).[^fielding2022-rfc9110]
 - 바깥 경계는 못 박혀 있다. **인증 스킴이 특별히 허용하지 않는 한 하나의 보호 공간은 자기 서버의
   범위 밖으로 확장될 수 없다** (§11.5).[^fielding2022-rfc9110]
+- 이 범위 규칙에 딸린 위험이 보안 고려에 적혀 있다. **realm 기제에만 기대어 보호 공간을 세우는
+  스킴은 크리덴셜을 그 원 서버의 모든 자원에 노출한다.** 어떤 자원에 인증을 성공시킨 클라이언트가
+  같은 오리진의 다른 자원에도 같은 크리덴셜을 쓰므로, 그 다른 자원이 크리덴셜을 수확할 수 있게
+  된다 (§17.16.3).[^fielding2022-rfc9110] 한 오리진에 여러 당사자의 자원을 두는 배치에서 특히
+  문제이고, 완화는 당사자마다 호스트 이름이나 포트를 달리해 보호 공간을 가르는 것이다.
 - 표기에 역사적 이유로 붙은 요건이 하나 있다. 송신자는 **인용 문자열 구문만 생성해야 한다**(MUST).
   수신자는 상호운용을 최대로 하려면 토큰과 인용 문자열 두 구문을 다 지원해야 할 수 있다. 오랫동안 두
   표기를 다 받아 온 기존 클라이언트가 있기 때문이다 (§11.5).[^fielding2022-rfc9110]
@@ -173,6 +183,12 @@ sources:
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 401과 407을 가르는 그 프록시의 정의
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   요청마다 크리덴셜을 다시 실어야 하는 이유
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 챌린지를 실어 오는 401과
+  407, 그리고 크리덴셜이 충분하지 않을 때의 403
+- [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md) — 새 인증
+  스킴이 지켜야 하는 것들
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — realm에만 기댄 보호 공간이
+  크리덴셜을 오리진 전체에 노출한다는 지적과 크리덴셜의 기밀성
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

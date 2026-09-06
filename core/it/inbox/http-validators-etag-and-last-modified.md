@@ -21,6 +21,7 @@ sources:
 - [엔티티 태그의 생성](#엔티티-태그의-생성)
 - [두 비교 함수](#두-비교-함수)
 - [콘텐츠 협상과 엔티티 태그](#콘텐츠-협상과-엔티티-태그)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **내가 가진 표현이 지금 서버에 있는 것과 같은지를 무엇으로 재고, 그 잣대의 정확도는
@@ -234,6 +235,14 @@ sources:
   범위 요청에서 생길 수 있는 충돌을 막으려는 것이다. 반면 전송 코딩은 메시지 전송 동안에만 적용되므로
   **엔티티 태그를 갈리게 하지 않는다** (§8.8.3.3).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **Last-Modified가 강한 검증자인지 판정할 때 걸려 있던 임의의 60초 한계가 없어졌다.** 이전 판들은
+  `Date`와 `Last-Modified` 값이 다른 시계에서 나오거나 응답을 준비하는 다소 다른 시점에 만들어질
+  가능성을 막으려고 그 한계를 두었는데, 이 명세는 그것을 합리적 재량으로 완화했다
+  (부록 B.4, §8.8.2.2).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7232 이하에서는 60초 한계가 걸려 있었다.
+
 ## 이어지는 페이지
 
 - [자원과 표현](../concepts/http-resources-and-representations.md) — 검증자가 서술하는 선택된 표현의
@@ -251,6 +260,10 @@ sources:
 - [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md) — 태그 조건이
   날짜 조건보다 앞서는 규범
 - [콘텐츠 협상](../concepts/http-content-negotiation.md) — 엔티티 태그를 갈리게 만드는 그 협상의 정의
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 검증자 비교가
+  통과했을 때 오는 304의 정의
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — 엔티티 태그가 영구 식별자로
+  남용되는 자리
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 ABNF 펜스는

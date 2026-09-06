@@ -24,6 +24,7 @@ sources:
 - [Content-Range](#content-range)
 - [부분 PUT](#부분-put)
 - [multipart/byteranges 미디어 타입](#multipartbyteranges-미디어-타입)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **표현의 일부만 달라는 말을 어떻게 하고, 서버는 그 요청을 어디까지 들어주기로
@@ -65,6 +66,12 @@ sources:
 - 생성 규칙은 토큰 하나이고, **모든 범위 단위 이름은 대소문자를 가리지 않으며** "HTTP Range Unit
   Registry"에 등록되는 것이 좋다. 범위 단위는 확장 가능하도록 의도되었다
   (§14.1).[^fielding2022-rfc9110]
+- 그 레지스트리에 등록하려면 이름과 설명과 명세 포인터를 적어야 하고(MUST), 값 추가에는 IETF
+  Review가 필요하다 (§16.5.1).[^fielding2022-rfc9110] 바이트 말고 쪽·절·레코드·행·시간 같은 형식
+  특정 경계도 응용 특정 목적으로는 쓸 수 있으나 **실무에서 흔히 쓰이지 않으며**, 만들려는 쪽은
+  그것이 콘텐츠 코딩이나 범용 중개자와 어떻게 맞물릴지를 고려하는 편이 좋다
+  (§16.5.2).[^fielding2022-rfc9110] 다른 확장점들과 나란히 놓인 지도는
+  [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md)에 있다.
 
 ## 범위 지정자
 
@@ -263,6 +270,19 @@ sources:
 - 이 타입은 이 문서가 등록 양식과 함께 정의한다. 등록에 적힌 인코딩 고려는 **7bit와 8bit와 binary만
   허용**이고, 변경 관리자는 IESG다 (§14.6).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **범위 단위와 범위 지정자의 문법이 리팩터링되었다.** 바이트와 다른 확장 범위 단위 사이의 인위적
+  구분을 줄이려고 other-range-unit이라는 겹치는 문법을 없애고, 범위 단위를 일반적으로 토큰으로
+  정의하면서 확장을 범위 명세 안(other-range)에 넣었다. 그 결과로 확장 범위 단위를 포함한 모든 범위
+  집합에서 콤마가 무엇을 가르는지가 모호하지 않게 되었다 (부록 B.5).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 7233 이하와 비교한 변경이다.
+- **확장 메서드에 대해 `Range` 처리를 정의할 수 있게 되었다** (부록 B.5, §14.2).[^fielding2022-rfc9110]
+- **`Content-Range`를 요청 수정자로 써서 부분 PUT을 하는 것이 서술되었다**
+  (부록 B.5, §14.5).[^fielding2022-rfc9110] 위의 부분 PUT 절이 그 자리다.
+- **범위 단위는 대소문자를 가리지 않고 비교된다** (부록 B.3, §14.1).[^fielding2022-rfc9110]
+- **`Accept-Ranges`의 사용이 원 서버로 제한되지 않는다** (부록 B.3, §14.3).[^fielding2022-rfc9110]
+
 ## 이어지는 페이지
 
 - [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — Range를
@@ -277,6 +297,14 @@ sources:
   뜻하는가
 - [HTTP 헤더 섹션과 트레일러 섹션](../concepts/http-header-and-trailer-sections.md) —
   Accept-Ranges가 실릴 수 있는 그 뒤쪽 섹션
+- [정보 응답 1xx와 성공 2xx](../concepts/http-informational-and-successful-status-codes.md) —
+  부분 전송에 답하는 206과 여러 부분을 합치는 규칙
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 만족할 수 없거나 지나친
+  범위를 거절하는 416
+- [HTTP의 확장점과 레지스트리](../concepts/http-extension-points-and-registries.md) — 범위 단위를
+  새로 만들 때의 절차
+- [HTTP 보안 고려](../concepts/http-security-considerations.md) — 겹치는 범위를 이용한 서비스
+  거부와 그 완화
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

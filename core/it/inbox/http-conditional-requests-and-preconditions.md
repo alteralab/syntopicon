@@ -22,6 +22,7 @@ sources:
 - [If-Modified-Since](#if-modified-since)
 - [If-Unmodified-Since](#if-unmodified-since)
 - [If-Range](#if-range)
+- [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **내가 아는 상태가 아직 그대로일 때만 이 요청을 적용하라는 말을 어떻게 하고, 서버는
@@ -248,6 +249,16 @@ sources:
   일치이고**, 그래서 `If-Unmodified-Since`를 평가할 때 쓰는 "이르거나 같음" 비교와 다르다
   (§13.1.5).[^fielding2022-rfc9110]
 
+## RFC 9110에서 바뀐 것
+
+- **If-Match와 If-Unmodified-Since에 걸려 있던 엣지 케이스 요건이 제거되었다.** 변경 요청이 이미
+  적용되어 검증이 실패하는 경우에 2xx 응답으로 검증자를 보내지 못하게 하던 요건이다
+  (부록 B.4, §13.1.1·§13.1.4).[^fielding2022-rfc9110] 위의 이미 적용된 것처럼 보일 때의 선택지가
+  그 자리다.
+  - 버전 조건: RFC 7232 이하에서는 그 금지가 걸려 있었다.
+- **If-Unmodified-Since가 수정 시각 개념이 없는 자원에는 적용되지 않는다는 사실이 명확해졌다**
+  (부록 B.4, §13.1.4).[^fielding2022-rfc9110]
+
 ## 이어지는 페이지
 
 - [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md) — 이 다섯 필드가
@@ -259,6 +270,10 @@ sources:
   메서드
 - [GET과 HEAD](../concepts/http-get-and-head.md) — 조건부 GET이 304로 끝나는 자리
 - [HTTP 날짜 형식](../concepts/http-date-formats.md) — 두 날짜 조건이 쓰는 HTTP-date의 정의
+- [클라이언트 오류 4xx](../concepts/http-client-error-status-codes.md) — 조건이 거짓일 때 오는
+  412의 정의
+- [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 조건부 GET이
+  받는 304의 정의와 그때 보내야 하는 필드들
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor
