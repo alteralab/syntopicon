@@ -86,12 +86,25 @@ sources:
   GET에 대한 200(OK)·206(Partial Content)·304(Not Modified) 응답의 콘텐츠를 구성할 데이터와
   메타데이터를 제공한다** (§3.2).[^fielding2022-rfc9110] 이 한 문장이 조건부 요청과 범위 요청과
   캐시 재검증이 무엇을 놓고 도는지를 정한다.
+- 그 데이터와 메타데이터의 규범이 이 문서 뒤쪽에 있다. 표현 데이터는 `Content-Type` 위에
+  `Content-Encoding`을 얹은 **두 겹의 순서 있는 인코딩 모델**로 정의되고, 그것을 서술하는 표현 헤더
+  필드가 메시지에 콘텐츠가 있을 때 그 데이터를 어떻게 해석할지 알려 준다
+  (§8.1, §8.2).[^fielding2022-rfc9110] 각 필드는
+  [표현 메타데이터](../concepts/http-representation-metadata.md)가 다룬다.
+- 선택된 표현이 바뀌었는지를 재는 메타데이터에는 따로 이름이 붙는다. 조건부 요청의 전제 조건에 쓰일 수
+  있는 자원 메타데이터를 **검증자(validator)**라 하고, 검증자 필드는 선택된 표현의 현재 검증자를 전한다
+  (§8.8).[^fielding2022-rfc9110] 강한 검증자와 약한 검증자의 구분과 두 실물은
+  [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md)에 있다.
 
 ## 이어지는 페이지
 
 - [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — 이 두 낱말이 놓인 정의
 - [http와 https URI 스킴과 정규화](../concepts/http-uri-schemes-and-normalization.md) — 자원을
   가리키는 식별자의 문법과 같은 자원인지 판정하는 규칙
+- [표현 메타데이터](../concepts/http-representation-metadata.md) — 표현 데이터를 어떻게 해석할지
+  알려 주는 필드들
+- [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 선택된
+  표현이 바뀌었는지를 재는 메타데이터
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   이 표현을 주고받는 메시지의 구조
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 이 두 낱말을 설계 원칙으로 삼는 쪽

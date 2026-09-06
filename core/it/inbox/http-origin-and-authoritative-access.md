@@ -122,6 +122,13 @@ sources:
   공격자가 한 포트로 가는 연결을 다른 포트에서 받게 만들 수 있기 때문이다. 확인하지 않으면 그런
   공격자가 한 대상 URI에 대한 응답을 다른 포트에서 온 권위 있어 보이는 응답으로 바꿔치기할 수 있다
   (§4.3.3).[^fielding2022-rfc9110]
+- 위에서 말한 "거부할 준비"가 뒤에서 규범이 된다. 신뢰된 게이트웨이에서 온 연결이 아닌 한 원 서버는
+  대상 URI에 대한 스킴별 요건이 충족되지 않으면 요청을 거절해야 하고, 특히 **https 자원에 대한
+  요청은 그 대상 URI의 오리진에 유효한 인증서로 보안된 연결로 받은 것이 아니면 거절되어야 한다**
+  (§7.4).[^fielding2022-rfc9110] 그 거절에 붙는 상태 코드가 **421(Misdirected Request)**이다.
+  대상 URI가 요청 안에서 어떻게 전달되고 서버가 그것을 어떻게 재구성하는지, 그리고 Host 값이
+  연결의 호스트와 어긋나는 자리는
+  [요청 대상과 Host](../concepts/http-target-uri-and-host.md)가 다룬다.
 
 ## 인증서 검증
 
@@ -166,6 +173,8 @@ sources:
   이루는 스킴과 호스트와 포트의 문법
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 게이트웨이가 원 서버 행세를 하는 자리와
   프로토콜 수준에서 경로상 공격자와 구분되지 않는 네트워크 중개자
+- [요청 대상과 Host](../concepts/http-target-uri-and-host.md) — 이 오리진이 요청 안에서 어떻게
+  실려 오고 어긋났을 때 어떻게 거절되는가
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   권위 있는 응답을 발원시키는 원 서버의 정의
 - [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — 이 규범이 놓인 문서의 범위

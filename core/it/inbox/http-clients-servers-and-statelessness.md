@@ -84,6 +84,14 @@ sources:
   - 트레일러 필드
 - 응답은 하나가 아닐 수 있다. 서버는 **응답 메시지 하나 이상**을 보내 요청에 답한다
   (§3.4).[^fielding2022-rfc9110]
+- 여기까지가 개요다. 이 문서는 뒤에서 같은 메시지를 **버전과 무관한 추상 자료형**으로 다시 정의하고,
+  제어 데이터와 헤더 표와 콘텐츠 스트림과 트레일러 표 넷으로 나눈다 (§6).[^fielding2022-rfc9110]
+  그 정의와 프레이밍 규범은
+  [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md)에 있고,
+  헤더와 트레일러의 지위 차이는
+  [HTTP 헤더 섹션과 트레일러 섹션](../concepts/http-header-and-trailer-sections.md)이,
+  콘텐츠의 뜻은
+  [HTTP 콘텐츠의 의미론과 식별](../concepts/http-content-semantics.md)이 다룬다.
 
 ## 사용자 에이전트
 
@@ -144,6 +152,8 @@ sources:
   정의 문장에 놓인 자리
 - [자원과 표현](../concepts/http-resources-and-representations.md) — 이 메시지가 실어 나르는 것
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 이 양 끝 사이에 들어오는 것들
+- [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md) — 여기서 개요만
+  본 메시지의 버전 무관 정의와 완결 판정
 - [HTTP 준수 요건과 오류 처리](../concepts/http-conformance-and-error-handling.md) — 여기 나온
   역할 이름들에 요건이 걸리는 방식
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 무상태성을 설계 원칙으로 삼는 쪽

@@ -67,3 +67,23 @@ generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
   기본 포트와 보안 요건, 스킴 기반 정규화 네 규칙과 동등성이 거는 URI 설계 제약
 - [오리진과 권위 있는 접근](../concepts/http-origin-and-authoritative-access.md) — 스킴·호스트·
   포트 세 값의 조와, 어떤 서버가 이 URI에 답할 자격이 있는가의 판정
+- [HTTP 필드의 문법과 결합](../concepts/http-field-syntax-and-combining.md) — 같은 이름의 필드 줄이
+  콤마로 이어져 하나의 값이 되는 규칙과 순서가 뜻을 바꾼다는 귀결
+- [HTTP 필드 값의 공통 문법 규칙](../concepts/http-field-common-rules.md) — 토큰·공백 세 종류·인용
+  문자열·코멘트·파라미터와 리스트 확장 문법
+- [HTTP 날짜 형식](../concepts/http-date-formats.md) — 수신자는 세 형식을 다 받고 송신자는 하나만
+  만든다는 비대칭, 그리고 Date 필드
+- [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md) — 버전 무관한
+  네 부분의 메시지 정의와 완결의 판정
+- [HTTP 헤더 섹션과 트레일러 섹션](../concepts/http-header-and-trailer-sections.md) — 콘텐츠 앞뒤
+  두 자리의 지위 차이와 트레일러에 걸리는 제약
+- [HTTP 콘텐츠의 의미론과 식별](../concepts/http-content-semantics.md) — 실린 옥텟의 뜻을 메서드와
+  상태 코드가 정한다는 것과 응답 식별의 순서 규칙
+- [요청 대상과 Host](../concepts/http-target-uri-and-host.md) — 대상 URI를 정하고 실어 보내고 다시
+  재구성하는 경로, 그리고 잘못 보내진 요청의 거절
+- [HTTP 메시지 전달과 hop-by-hop 필드](../concepts/http-message-forwarding-and-hop-by-hop-fields.md)
+  — Connection이 가르는 종단 간 필드와 다음 수신자까지만 가는 필드, Via와 Max-Forwards와 Upgrade
+- [표현 메타데이터](../concepts/http-representation-metadata.md) — Content-Type과 Content-Encoding의
+  두 겹 모델, Content-Language와 Content-Length와 Content-Location
+- [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 강한
+  검증자와 약한 검증자의 구분과 두 비교 함수
