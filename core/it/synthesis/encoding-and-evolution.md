@@ -46,3 +46,24 @@ generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
   흐름과 큐·토픽 두 패턴
 - [분산 액터 프레임워크](../concepts/distributed-actor-frameworks.md) — 브로커와 프로그래밍 모델을
   한 프레임워크로 합친 쪽
+
+## HTTP 의미론
+
+위 데이터플로의 웹 서비스 쪽이 전제하는 프로토콜의 원전(RFC 9110, STD 97)에서 나온 페이지들이다.
+
+- [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — HTTP를 무상태 요청/응답
+  프로토콜 가족으로 정의하는 문장과, 의미론·캐싱·HTTP/1.1 메시징 구문이 세 문서로 갈라선 분업
+- [자원과 표현](../concepts/http-resources-and-representations.md) — 요청의 대상이면 자원이고
+  주고받는 것은 자원 자체가 아니라 표현이라는 정의, 그리고 선택된 표현
+- [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
+  참여자가 연결마다의 역할이라는 것과 무상태의 정확한 뜻, 요청·응답 메시지의 구조
+- [HTTP 중개자](../concepts/http-intermediaries.md) — 프록시와 게이트웨이와 터널을 가르는 기준,
+  방향 어휘 넷, 그리고 캐시의 정의만 여기 있고 규범은 캐싱 명세에 있다는 분업
+- [HTTP 준수 요건과 오류 처리](../concepts/http-conformance-and-error-handling.md) — 요건이
+  역할에 걸리는 방식과, 오류 처리 기제를 일부러 명세하지 않은 결정
+- [HTTP 버전 번호와 의미론의 분리](../concepts/http-version-numbering.md) — 두 자리가 각각
+  선언하는 것과, 핵심 의미론은 버전을 넘어 바뀌지 않는다는 진술
+- [http와 https URI 스킴과 정규화](../concepts/http-uri-schemes-and-normalization.md) — 두 스킴의
+  기본 포트와 보안 요건, 스킴 기반 정규화 네 규칙과 동등성이 거는 URI 설계 제약
+- [오리진과 권위 있는 접근](../concepts/http-origin-and-authoritative-access.md) — 스킴·호스트·
+  포트 세 값의 조와, 어떤 서버가 이 URI에 답할 자격이 있는가의 판정
