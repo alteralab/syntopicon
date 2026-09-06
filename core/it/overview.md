@@ -29,6 +29,7 @@ generated: { by: "tools/kb-new", at: "2026-08-05T02:09:19Z" }
 - [데이터 모델과 질의 언어](synthesis/data-models-and-query-languages.md) — 관계형·문서·그래프·이벤트·데이터프레임과 그 질의 언어들
 - [저장 엔진](synthesis/storage-engines.md) — 디스크에 데이터를 놓는 구조, B-트리 대 LSM, 분석용 열 저장과 색인들
 - [인코딩과 진화](synthesis/encoding-and-evolution.md) — 데이터를 바이트로 바꾸는 형식과 버전을 넘어 살아남는 방법
+- [HTTP 의미론](synthesis/http-semantics.md) — 그 데이터플로의 웹 서비스 쪽이 전제하는 프로토콜의 원전(RFC 9110, STD 97): 어휘·필드와 메시지·라우팅·표현·메서드·컨텍스트 필드
 - [분산 시스템 기초](synthesis/distributed-systems-basics.md) — 통신·시간·장애의 가정과 그 위의 실패 감지·리더 선출
 - [분산 합의](synthesis/distributed-consensus.md) — 서버 여럿을 하나처럼 굴게 만드는 문제와 Raft·Paxos 계열의 해법
 - [데이터 복제](synthesis/data-replication.md) — 리더 하나·여럿·없음의 세 갈래와 각각이 낳는 문제

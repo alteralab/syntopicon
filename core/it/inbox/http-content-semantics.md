@@ -54,6 +54,16 @@ sources:
   대상 자원이 갖기를 바라는 상태**를 나타내고, POST 요청의 콘텐츠에 실린 표현은 **대상 자원이
   처리할 정보**를 나타낸다 (§6.4.1).[^fielding2022-rfc9110] 같은 옥텟이라도 메서드가 다르면 다른
   것을 뜻한다.
+- 그 두 메서드의 정의가 이 대조를 그대로 되풀이한다. PUT은 대상 자원의 상태가 실린 표현이 정의하는
+  상태로 만들어지거나 대치되기를 요청하고, POST는 대상 자원이 실린 표현을 **그 자원 고유의 의미론에
+  따라 처리하도록** 요청한다 (§9.3.3, §9.3.4).[^fielding2022-rfc9110] 원전은 이 의도의 차이가
+  **PUT을 멱등하고 중개자에게 보이게 만든다**고 적는다 (§9.3.4).[^fielding2022-rfc9110] 두 메서드의
+  전문은 [POST와 PUT](../concepts/http-post-and-put.md)에 있다.
+- 콘텐츠를 실을 수는 있으나 뜻이 정의되지 않은 메서드도 있다. GET·HEAD·DELETE 요청의 콘텐츠는
+  **일반적으로 정의된 의미론이 없고 요청의 뜻이나 대상을 바꿀 수 없으며**, 요청 밀반입 공격의 잠재력
+  때문에 거절될 수 있다 (§9.3.1, §9.3.2, §9.3.5).[^fielding2022-rfc9110] TRACE 요청에는 콘텐츠를
+  보내지 말라는 금지(MUST NOT)가 걸리고, CONNECT 요청 메시지는 콘텐츠를 갖지 않는다
+  (§9.3.6, §9.3.8).[^fielding2022-rfc9110]
 
 ## 응답 콘텐츠의 뜻은 셋이 함께 정한다
 
@@ -118,6 +128,10 @@ sources:
   뒤에 오는 두 섹션
 - [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 식별과는
   다른 축인 표현의 판별
+- [POST와 PUT](../concepts/http-post-and-put.md) — 요청 콘텐츠의 뜻을 정하는 두 메서드의 전문
+- [GET과 HEAD](../concepts/http-get-and-head.md) — 콘텐츠에 정의된 뜻이 없는 요청의 제약
+- [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 여기서 뜻을 정하는
+  메서드 토큰의 규정
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 응답 식별 표는 §6.4.2의 일곱

@@ -49,6 +49,12 @@ sources:
   의미론을 함의하는 것처럼 보이더라도, 클라이언트는 그 자원이 안전한 메서드로 온 요청을 처리할
   때 안전하지 않은 동작을 피하리라 기대할 수 있다** (§3.1).[^fielding2022-rfc9110] 어느 메서드가
   안전한지는 이 문서의 메서드 절이 정한다.
+- 그 자리가 §9.2.1이다. **정의된 의미론이 본질적으로 읽기 전용인** 메서드가 안전하고, 이 명세가
+  정의한 메서드 중에서는 GET·HEAD·OPTIONS·TRACE 넷이 그렇다 (§9.2.1).[^fielding2022-rfc9110]
+  대상 URI의 파라미터가 행위를 고르게 자원을 구성했다면, 그 행위를 메서드 의미론과 일관되게 만드는
+  것은 **자원 소유자의 책임**이다 (§9.2.1).[^fielding2022-rfc9110] 세 공통 속성의 정의와 분포는
+  [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)에
+  있다.
 
 ## 표현이란 무엇인가
 
@@ -107,6 +113,10 @@ sources:
   표현이 바뀌었는지를 재는 메타데이터
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   이 표현을 주고받는 메시지의 구조
+- [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)
+  — 안전한 메서드로 온 요청에 자원이 무엇을 해서는 안 되는가
+- [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 요청 의미론을 담는
+  그 메서드 토큰의 규정
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 이 두 낱말을 설계 원칙으로 삼는 쪽
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"

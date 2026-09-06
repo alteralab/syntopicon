@@ -102,6 +102,16 @@ sources:
   - 0보다 크면 전달할 메시지에 갱신된 `Max-Forwards` 필드를 만들어야 하며, 그 값은 받은 값에서 1을
     뺀 것과 자기가 지원하는 최대값 중 **작은 쪽**이다.
 - 다른 메서드와 함께 받은 `Max-Forwards`는 수신자가 무시해도 된다 (§7.6.2).[^fielding2022-rfc9110]
+- 두 메서드 쪽에서도 이 필드가 다시 규정된다 (§9.3.7, §9.3.8).[^fielding2022-rfc9110]
+  - OPTIONS에서 클라이언트는 이 필드로 **요청 사슬의 특정 수신자를 겨냥해도 된다**(MAY). 프록시는
+    요청을 전달하면서 이 필드를 생성해서는 안 되며(MUST NOT), 예외는 그 요청을 이 필드와 함께 받은
+    경우다.
+  - TRACE에서 **최종 수신자**는 원 서버이거나 **이 필드의 값 0을 받은 첫 서버**다. 곧 위의 "자기가
+    최종 수신자로서 응답해야 한다"가 TRACE 쪽에서 최종 수신자의 정의가 된다. 이 필드로 요청 사슬의
+    길이를 제한할 수 있는 것이 **메시지를 무한 루프로 전달하는 프록시 사슬을 시험하는 데** 쓸모가 있다.
+  - TRACE가 되비추는 값 중 `Via`가 특히 관심 대상인데, **요청 사슬의 자취 노릇을 하기 때문**이다.
+  - 두 메서드의 전문은
+    [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md)에 있다.
 
 ## Via
 
@@ -213,6 +223,9 @@ sources:
   트레일러 쪽
 - [HTTP 버전 번호와 의미론의 분리](../concepts/http-version-numbering.md) — Via가 기록하는 프로토콜
   능력의 뜻
+- [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md) —
+  Max-Forwards를 쓰는 두 메서드와 터널을 여는 CONNECT의 전문
+- [요청 컨텍스트 필드](../concepts/http-request-context-fields.md) — 여기와 같은 요건이 걸리는 TE
 - [종단 간 논증](../concepts/end-to-end-argument.md) — 기능을 사슬의 끝에 두는 쪽과 중간에 두는 쪽의
   일반 논증
 

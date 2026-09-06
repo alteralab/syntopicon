@@ -51,6 +51,12 @@ sources:
   - CONNECT에서 요청 대상은 **터널 목적지의 호스트 이름과 포트 번호를 콜론으로 이은 것**이다.
   - OPTIONS에서 요청 대상은 **별표(`*`) 하나**일 수 있다.
   - 이 두 형태는 **다른 메서드와 함께 쓰여서는 안 된다.**
+- 두 특수 형태의 근거가 메서드 절에 있다. CONNECT의 요청 대상에는 **기본 포트가 없어 클라이언트가
+  포트 번호를 반드시 보내야 하고**(MUST), 서버는 비었거나 유효하지 않은 포트를 겨냥한 CONNECT를
+  거절해야 한다(MUST) (§9.3.6).[^fielding2022-rfc9110] 별표를 요청 대상으로 쓴 OPTIONS는 **특정
+  자원이 아니라 서버 일반에 적용되며**, 서버의 통신 옵션이 대개 자원에 달렸으므로 핑이나 무연산 류로만
+  쓸모가 있다 (§9.3.7).[^fielding2022-rfc9110] 두 메서드의 전문은
+  [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md)에 있다.
 
 ## 서버 쪽의 재구성
 
@@ -158,6 +164,8 @@ sources:
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 프록시와 게이트웨이와 터널의 구분
 - [HTTP 메시지 추상과 프레이밍](../concepts/http-message-abstraction-and-framing.md) — 요청 대상이
   드는 제어 데이터의 정의
+- [DELETE와 CONNECT와 OPTIONS와 TRACE](../concepts/http-delete-connect-options-and-trace.md) —
+  특수 요청 대상을 쓰는 두 메서드의 전문
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 같은
   문제를 프로토콜 밖에서 푸는 쪽
 
