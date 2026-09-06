@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 비기능 요건
-description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 그 지표를 얻으려고 부하를 거는 실험의 설계, 그 분포의 꼬리를 없애는 대신 견디는 기법들, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
+description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 그 지표를 얻으려고 부하를 거는 실험의 설계, 그 분포의 꼬리를 없애는 대신 견디는 기법들, 트리거가 사라져도 스스로 유지되는 과부하라는 실패 모델, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 ---
 
@@ -47,6 +47,21 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   선택적 복제, 느린 기계를 빼되 그림자 요청으로 계속 재는 격리
 - ["충분히 좋은" 결과와 카나리 요청](../concepts/good-enough-results-and-canary-requests.md) —
   결과가 부정확해도 되는 시스템에만 열리는 두 기법
+
+## 과부하가 스스로 유지될 때
+
+- [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md) — 트리거가
+  사라져도 낫지 않는 과부하의 정의, 안정 상태와 취약 상태와 장애 상태의 경계
+- [메타안정 장애의 트리거](../concepts/metastable-failure-triggers.md) — 부하를 올리는 트리거와
+  용량을 내리는 트리거, 크기와 지속 시간이 회복과 장애를 가르는 폭
+- [지속 효과와 증폭 기제](../concepts/sustaining-effects-and-amplification.md) — 재시도와 캐시
+  미스와 느린 오류 처리와 가비지 컬렉션, 부하를 키우는 증폭과 용량을 깎는 증폭
+- [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md) — 숨은 용량과 공표
+  용량, 특성 지표, 취약도가 이분법이 아니라 정도라는 실험
+- [공개 사후 분석에서 본 메타안정 장애](../concepts/metastable-failures-in-incident-reports.md) —
+  열한 개 조직의 사건을 이 틀로 분류한 실증 표와 지속 시간 분포
+- [메타안정 장애에서 복구하기](../concepts/recovering-from-metastable-failures.md) — 부하를
+  안정 문턱 아래로 내리는 쪽과 문턱 자체를 올리는 쪽, 그리고 각각의 한계
 
 ## 신뢰성
 

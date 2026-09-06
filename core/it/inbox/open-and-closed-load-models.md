@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 개방 부하 모델과 폐쇄 부하 모델
-description: 부하를 거는 방식이 갈리는 세 가지 시스템 모델의 정의 — 요청 완료가 다음 요청을 낳는 폐쇄 모델의 사용자 수 N과 사고 시간, 요청 완료와 무관하게 도착하는 개방 모델의 도착률 λ, 둘 사이에서 세션으로 머무는 부분 개방 모델의 잔류 확률 p, 세 모델에서 서버 부하 ρ가 각각 무엇의 곱인가, 그리고 부하 생성기가 이 선택을 대개 밝히지 않는다는 실측
+description: 부하를 거는 방식이 갈리는 세 가지 시스템 모델의 정의 — 요청 완료가 다음 요청을 낳는 폐쇄 모델의 사용자 수 N과 사고 시간, 요청 완료와 무관하게 도착하는 개방 모델의 도착률 λ, 둘 사이에서 세션으로 머무는 부분 개방 모델의 잔류 확률 p, 세 모델에서 서버 부하 ρ가 각각 무엇의 곱인가, 부하 생성기가 이 선택을 대개 밝히지 않는다는 실측, 그리고 개방 모델을 정의에 못 박은 실패 부류 하나
 status: draft
 generated: { by: "claude-opus-5", at: "2026-09-07T02:00:00Z" }
 sources:
   - { id: schroeder2006-open-vs-closed, resource: /it/sources/schroeder2006-open-vs-closed.md }
+  - { id: bronson2021-metastable, resource: /it/sources/bronson2021-metastable.md }
 ---
 
 # 개방 부하 모델과 폐쇄 부하 모델
@@ -16,6 +17,7 @@ sources:
 - [어느 쪽도 그대로는 현실이 아니다](#어느-쪽도-그대로는-현실이-아니다)
 - [부분 개방 시스템](#부분-개방-시스템)
 - [부하 생성기는 이 선택을 대개 밝히지 않는다](#부하-생성기는-이-선택을-대개-밝히지-않는다)
+- [개방 모델을 정의에 못 박은 실패 부류 하나](#개방-모델을-정의에-못-박은-실패-부류-하나)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **부하를 걸어 시스템을 잴 때, 다음 요청이 무엇에 의해 생기는가 — 그리고 그
@@ -118,6 +120,25 @@ sources:
   생성기**를 설계하는 일이 중요하며, 이 작업이 다른 이들도 그렇게 하도록 북돋우기를 바란다고
   적는다 (§1, p.240 · §9, p.251).[^schroeder2006-open-vs-closed]
 
+## 개방 모델을 정의에 못 박은 실패 부류 하나
+
+이 구분이 부하 도구 설정을 넘어서는 자리가 하나 있다. 어떤 실패 부류는 정의 안에 개방
+시스템을 조건으로 달고 있다.
+
+- 메타안정 장애(metastable failure)의 정의는 이렇게 시작한다 — **메타안정 장애는 통제되지
+  않는 부하원(uncontrolled source of load)을 가진 개방 시스템에서 일어나며, 트리거가 시스템을
+  나쁜 상태로 들여보내고 그 상태는 트리거가 제거된 뒤에도 지속된다** (§1,
+  p.221).[^bronson2021-metastable]
+- 조건이 걸리는 이유는 위 [폐쇄 시스템](#폐쇄-시스템)의 규정 문장에 있다. 폐쇄 모델에서는
+  새 요청이 앞 요청의 완료로만 생기므로, 시스템이 느려지면 도착도 함께 느려진다. 도착이
+  완료와 무관한 개방 모델에서만 부하가 시스템의 상태와 독립적으로 계속 쌓일 수 있다.
+- 그래서 부하 모델의 선택이 무엇을 볼 수 있는지를 정한다. 그 논문은 합성 작업 부하로 이런
+  장애를 촉발하려 할 때 **부하 생성기가 조정 누락(coordinated omission)을 보여서는 안
+  된다**고 못 박는다 (§4, p.226).[^bronson2021-metastable] 조정 누락은 시스템이 느려질 때
+  부하 생성기가 요청을 함께 늦추는 것이며, 폐쇄 모델 부하 생성기가 구조적으로 그렇게 한다.
+- 이 실패 부류의 전문은
+  [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md)에 있다.
+
 ## 이어지는 페이지
 
 - [응답 시간을 가르는 세 원칙](../concepts/open-vs-closed-response-time-principles.md) — 같은
@@ -133,6 +154,10 @@ sources:
 - [리틀의 법칙과 처리량](../concepts/littles-law-and-throughput.md) — 처리량과 동시성과 응답
   시간을 잇는 관계식
 - [응답 시간과 처리량](../concepts/response-time-and-throughput.md) — 이 모델들이 재려는 그 지표
+- [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md) — 정의에
+  개방 시스템을 조건으로 단 실패 부류
+- [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md) — 폐쇄 모델 부하
+  생성기로는 볼 수 없는 것을 어떻게 재는가
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
 
 [^schroeder2006-open-vs-closed]: Schroeder, Wierman & Harchol-Balter 2006, "Open Versus
@@ -140,3 +165,7 @@ sources:
     §2 "Closed, open, and partly-open systems"(pp.241–242), Table 1(p.241), §9
     "Conclusion"(p.251). 쪽수는 NSDI '06 논문집 게재본 기준이며 PDF 스냅샷 1–14쪽이
     pp.239–252에 해당한다. Figure 1의 세 모델 도해는 옮기지 않았다.
+[^bronson2021-metastable]: Bronson, Aghayev, Charapko & Zhu 2021, "Metastable Failures in
+    Distributed Systems", HotOS '21, pp.221–227. §1 "Introduction"(p.221),
+    §4 "Discussion and Research Directions"(p.226). 쪽수는 ACM 게재본 인쇄 쪽 기준이며
+    PDF 스냅샷 1–7쪽이 pp.221–227에 해당한다.

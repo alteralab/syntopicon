@@ -166,6 +166,8 @@ sources:
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 어느
   인스턴스로 보낼지의 문제
 - [지연의 백분위](../concepts/latency-percentiles.md) — 여기서 나오는 백분위 어휘의 정의
+- [지속 효과와 증폭 기제](../concepts/sustaining-effects-and-amplification.md) — 여기 기법들이
+  일부러 만드는 그 여분 부하가, 통제되지 않으면 스스로 유지되는 과부하의 한 변이 되는 자리
 
 [^dean2013-tail-at-scale]: Dean & Barroso 2013, "The Tail at Scale", CACM 56(2), pp.74–80.
     쪽수는 CACM 게재본 기준(PDF 스냅샷 1–7쪽 = pp.74–80). 표 2는 p.78의
