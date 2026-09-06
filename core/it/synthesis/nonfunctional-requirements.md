@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 비기능 요건
-description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 그 분포의 꼬리를 없애는 대신 견디는 기법들, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
+description: 기능 목록 바깥에서 시스템의 값어치를 정하는 요건들을 모으는 허브 — 성능을 재는 지표와 분포, 그 지표를 얻으려고 부하를 거는 실험의 설계, 그 분포의 꼬리를 없애는 대신 견디는 기법들, 잘못돼도 계속 도는 것, 부하가 늘 때 대처하는 능력, 그리고 오래 살려 두는 비용
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 ---
 
@@ -19,6 +19,19 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   이유, 꼬리 지연 증폭, 백분위를 계산하는 법
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지표를 약속으로 바꾸는
   SLI·SLO·SLA·OLA와 소진율 경보
+
+## 부하를 어떻게 걸어 재는가
+
+- [개방 부하 모델과 폐쇄 부하 모델](../concepts/open-and-closed-load-models.md) — 다음 요청을
+  무엇이 낳는가로 갈리는 세 모델, 각 모델에서 서버 부하가 무엇의 곱인가
+- [부하 모델을 공정히 비교하는 실험 설계](../concepts/load-model-experiment-design.md) — 무엇을
+  고정하고 무엇을 움직여야 두 모델을 같은 조건에서 견줄 수 있는가
+- [응답 시간을 가르는 세 원칙](../concepts/open-vs-closed-response-time-principles.md) — 같은
+  부하에서 응답 시간이 자릿수로 갈리는 이유, 수렴 속도, 변동성의 비대칭
+- [스케줄링 효과가 부하 모델에 따라 갈리는 자리](../concepts/scheduling-under-open-and-closed-models.md) —
+  짧은 작업 우선이 개방에서만 크게 듣는 이유
+- [부분 개방 모델과 세션 길이](../concepts/partly-open-model-and-session-length.md) — 세션당
+  요청 수로 어느 모델이 맞는지 고르는 법, 사고 시간이 무관하다는 발견
 
 ## 꼬리 지연을 견디는 법
 
