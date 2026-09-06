@@ -87,6 +87,14 @@ sources:
 - 원전이 드는 동등한 표기의 예다. `text/html;charset=utf-8`과 `Text/HTML;Charset="utf-8"`과
   `text/html; charset="utf-8"`과 `text/html;charset=UTF-8`은 전부 같은 것을 서술하되, **일관성을 위해
   첫 번째가 선호된다** (§8.3.1).[^fielding2022-rfc9110]
+- 협상 쪽에서 이 타입이 범위로 넓어진다. `Accept`의 값은 **미디어 범위(media-range)** 의 리스트인데,
+  별표가 미디어 타입을 범위로 묶어 `*/*`는 모든 미디어 타입을, `type/*`는 그 타입의 모든 서브타입을
+  가리킨다 (§12.5.1).[^fielding2022-rfc9110] 한 타입에 범위가 여럿 걸리면 **가장 구체적인 참조가
+  우선한다.**
+- 미디어 타입 파라미터에 걸린 제약도 협상에서 온다. 협상이 `q`라는 이름의 파라미터를 가중치로 쓰므로
+  같은 이름의 미디어 타입 파라미터와 부딪히고, 그래서 **미디어 타입 레지스트리가 `q`라는 이름의
+  파라미터를 금지한다** (§12.5.1).[^fielding2022-rfc9110] 협상 전문은
+  [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md)에 있다.
 
 ## charset과 멀티파트
 
@@ -124,6 +132,13 @@ sources:
   (§8.4).[^fielding2022-rfc9110]
 - 요청 메시지 안의 표현이 받아들일 수 없는 콘텐츠 코딩을 가지면 원 서버는 415(Unsupported Media Type)로
   응답할 수 있다 (§8.4).[^fielding2022-rfc9110]
+- 그 415 응답에 붙는 규범이 협상 쪽에 있다. 지원하지 않는 콘텐츠 코딩 때문에 요청을 실패시키는 서버는
+  **415에 `Accept-Encoding`을 넣는 것이 좋다.** 그래야 클라이언트가 콘텐츠 코딩 문제와 미디어 타입
+  문제를 구별할 수 있다. 뒤집어 콘텐츠 코딩과 무관한 이유로 415를 내는 서버는 **그 필드를 넣어서는 안
+  된다**(MUST NOT) (§12.5.3).[^fielding2022-rfc9110]
+- 어떤 코딩이 받아들일 만한지의 판정도 협상 쪽 규칙이다. 표현에 콘텐츠 코딩이 없으면 기본으로 받아들일
+  만하고, 표현의 코딩이 `Accept-Encoding`에 나열되어 있으면 그 항목의 가중치가 0이 아닌 한 받아들일
+  만하다 (§12.5.3).[^fielding2022-rfc9110]
 
 ## 콘텐츠 코딩
 
@@ -245,6 +260,10 @@ sources:
   — 변환 프록시가 이 표현을 바꿀 수 있는 범위
 - [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — 데이터 형식이 바뀌어도
   읽히게 만드는 문제를 인코딩 쪽에서 본 자리
+- [콘텐츠 협상](../concepts/http-content-negotiation.md) — 여기 정의된 축들을 놓고 고르는 세 패턴
+- [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — 미디어 타입과
+  charset과 콘텐츠 코딩과 언어에 각각 선호를 매기는 네 필드
+- [범위 요청](../concepts/http-range-requests.md) — 바이트 범위가 인코딩된 열을 기준으로 계산되는 자리
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 두 겹 인코딩 모델

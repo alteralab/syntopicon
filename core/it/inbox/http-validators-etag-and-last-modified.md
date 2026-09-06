@@ -107,6 +107,17 @@ sources:
 - 약한 검증자는 **클라이언트가 이전에 얻은 표현 데이터와의 정확한 동일성을 요구하지 않을 때만** 쓸 수
   있다. 캐시 항목을 검증하거나 웹 순회를 최근 변경으로 한정하는 자리가 그렇다
   (§8.8.1).[^fielding2022-rfc9110]
+- 그 구분이 전제 조건 필드에 그대로 배정되어 있다 (§13.1.1, §13.1.2, §13.1.5).[^fielding2022-rfc9110]
+  - `If-Match`를 평가하는 원 서버는 **강한 비교 함수를 써야 한다**(MUST). 클라이언트가 표현 데이터에
+    어떤 변경이라도 있었으면 메서드가 적용되지 않게 하려는 의도이기 때문이다.
+  - `If-None-Match`를 평가하는 수신자는 **약한 비교 함수를 써야 한다**(MUST). 약한 엔티티 태그도
+    표현 데이터에 변경이 있었더라도 캐시 검증에는 쓸 수 있기 때문이다.
+  - `If-Range`에는 **약함으로 표시된 엔티티 태그를 담아 보낼 수 없고**(MUST NOT), 날짜를 담으려면
+    그 날짜가 강한 검증자여야 한다.
+- 전제 조건이 둘 이상 함께 올 때 **엔티티 태그 조건이 날짜 조건보다 앞선다.** 원전이 그 순서의 근거로
+  **엔티티 태그가 날짜 검증자보다 정확하다고 전제된다**는 것을 든다 (§13.2.2).[^fielding2022-rfc9110]
+  평가 순서 전문은 [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md)에
+  있다.
 
 ## Last-Modified
 
@@ -235,6 +246,11 @@ sources:
   보낼 때의 제약
 - [HTTP 콘텐츠의 의미론과 식별](../concepts/http-content-semantics.md) — 표현을 식별하는 축과 판별하는
   축의 차이
+- [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — 이
+  검증자들을 실제로 견주는 다섯 필드
+- [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md) — 태그 조건이
+  날짜 조건보다 앞서는 규범
+- [콘텐츠 협상](../concepts/http-content-negotiation.md) — 엔티티 태그를 갈리게 만드는 그 협상의 정의
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록과 ABNF 펜스는

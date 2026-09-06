@@ -140,7 +140,18 @@ sources:
   표현이 PUT의 결과라는 것을 알게 해**, 원 서버에서 다시 가져올 필요가 없게 만든다
   (§9.3.4).[^fielding2022-rfc9110]
 - 응답으로 받은 새 검증자의 쓰임도 명시된다. **사고로 인한 덮어쓰기를 막기 위해 이후의 조건부 요청에
-  쓸 수 있다** (§9.3.4).[^fielding2022-rfc9110] 조건부 요청 자체의 규범은 이 문서의 §13이 다룬다.
+  쓸 수 있다** (§9.3.4).[^fielding2022-rfc9110]
+- 그 조건부 요청이 막는 것에 이름이 붙어 있다. **갱신 손실(lost update) 문제**, 곧 한 클라이언트가
+  병렬로 일하던 다른 클라이언트의 작업을 사고로 덮어쓰는 것이다. 조건은 PUT과 DELETE 같은 상태 변경
+  메서드에 붙는다 (§13).[^fielding2022-rfc9110]
+- 어느 필드를 쓰는지도 정해져 있다. `If-Match`와 `If-Unmodified-Since`가 **POST와 PUT과 DELETE 같은
+  상태 변경 메서드와 함께 쓰여 사고성 덮어쓰기를 막는 데 가장 흔히 쓰인다.** 앞쪽은 엔티티 태그를 쓰고
+  뒤쪽은 자원이 엔티티 태그를 주지 않을 때 날짜로 같은 목적을 이룬다
+  (§13.1.1, §13.1.4).[^fielding2022-rfc9110]
+- 조건이 거짓일 때 원 서버가 고르는 답이 둘이라는 것도 이 자리에 걸린다. **412(Precondition Failed)로
+  실패를 알리거나**, 상태 변경이 이미 적용된 것처럼 보이면 **2xx로 답해도 된다**(MAY)
+  (§13.1.1, §13.1.4).[^fielding2022-rfc9110] 전문은
+  [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md)에 있다.
 
 ## 둘의 근본 차이
 
@@ -168,8 +179,14 @@ sources:
   자원을 만들 수 있고** 관련 자원 사이에 링크가 추가되게 할 수도 있다
   (§9.3.4).[^fielding2022-rfc9110]
 - 부분 PUT이라는 관행이 언급된다. 어떤 원 서버는 `Content-Range` 헤더 필드를 요청 수정자로 써서
-  **부분 PUT을 수행하는 것을 지원한다** (§9.3.4).[^fielding2022-rfc9110] 그 규범은 이 문서의
-  §14.5가 다룬다.
+  **부분 PUT을 수행하는 것을 지원한다** (§9.3.4).[^fielding2022-rfc9110]
+- 그 지원의 지위가 §14.5에서 조심스럽게 규정된다. **지원이 일관되지 않고 사용자 에이전트와의 사적
+  합의에 달려 있다.** 부분 PUT을 지원하지 않는 대상 자원에 대해 `Content-Range`를 받은 원 서버는
+  **400(Bad Request)으로 답해야 한다**(SHOULD) (§14.5).[^fielding2022-rfc9110]
+- 위험도 명시되어 있다. **부분 PUT은 PUT의 원래 정의와 뒤 호환되지 않고**, 실린 콘텐츠가 현재 표현
+  전체를 대치하는 것으로 쓰여 버릴 수 있다 (§14.5).[^fielding2022-rfc9110] 그래서 원전이 대안 둘을
+  제시하는데, **별개로 식별되는 자원을 대상으로 삼는 것**과 **부분 갱신을 위해 정의된 다른 메서드를
+  쓰는 것**이다.
 - PUT 응답은 **캐시 가능하지 않다.** 성공한 PUT 요청이 대상 URI에 대해 저장된 응답을 하나 이상 가진
   캐시를 지나가면 **그 저장된 응답들은 무효화된다** (§9.3.4).[^fielding2022-rfc9110] 무효화의
   규범은 RFC 9111 영역이다.
@@ -189,6 +206,9 @@ sources:
   Location
 - [자원과 표현](../concepts/http-resources-and-representations.md) — 바라는 상태로서의 표현
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 이 메서드 배분을 설계 원칙으로 삼는 쪽
+- [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — 갱신
+  손실을 막는 다섯 필드의 정의와 판정 규칙
+- [범위 요청](../concepts/http-range-requests.md) — 부분 PUT이 쓰는 Content-Range의 전문
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

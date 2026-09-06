@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: HTTP 의미론
-description: HTTP의 현행 원전(RFC 9110, STD 97)에서 나온 페이지들의 진입점 — 자원과 표현과 무상태와 중개자라는 어휘, 이름과 값의 쌍인 필드와 버전 무관한 네 부분의 메시지, 대상 URI를 정하고 중개자를 지나 보내는 라우팅, 실린 옥텟을 해석하게 하는 표현 메타데이터와 검증자, 요청의 뜻을 정하는 메서드 여덟과 그 공통 속성인 안전성과 멱등성과 캐시 가능성, 그리고 요청과 응답의 맥락을 알리는 컨텍스트 필드
+description: HTTP의 현행 원전(RFC 9110, STD 97)에서 나온 페이지들의 진입점 — 자원과 표현과 무상태와 중개자라는 어휘, 이름과 값의 쌍인 필드와 버전 무관한 네 부분의 메시지, 대상 URI를 정하고 중개자를 지나 보내는 라우팅, 실린 옥텟을 해석하게 하는 표현 메타데이터와 검증자, 요청의 뜻을 정하는 메서드 여덟과 그 공통 속성인 안전성과 멱등성과 캐시 가능성, 요청과 응답의 맥락을 알리는 컨텍스트 필드, 개별 방식이 아니라 챌린지와 크리덴셜의 자리만 정하는 인증 틀, 여러 표현 중 하나를 고르게 하는 콘텐츠 협상, 그리고 메서드를 적용하기 전에 조건을 시험하는 조건부 요청과 표현의 일부만 받는 범위 요청
 generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
 ---
 
@@ -90,3 +90,26 @@ generated: { by: "claude-opus-5", at: "2026-09-07T16:00:00Z" }
   요건, From, Referer와 그것이 새는 정보, TE, User-Agent와 지문 채취
 - [응답 컨텍스트 필드](../concepts/http-response-context-fields.md) — Allow, 201과 3xx에서 뜻이
   갈리는 Location, 언제 다시 오라는 Retry-After, 그리고 Server
+
+## 인증 틀
+
+- [HTTP 인증 틀](../concepts/http-authentication-framework.md) — 이 문서가 개별 인증 방식이 아니라
+  챌린지와 크리덴셜의 자리만 정한다는 것과, 오리진과 realm이 함께 긋는 보호 공간
+- [HTTP 인증 필드](../concepts/http-authentication-fields.md) — 챌린지와 크리덴셜과 마무리 정보를
+  나르는 여섯 필드, 그리고 원 서버 쪽과 프록시 쪽이 미치는 범위의 차이
+
+## 콘텐츠 협상
+
+- [콘텐츠 협상](../concepts/http-content-negotiation.md) — 서버가 고르는 사전 협상과 사용자
+  에이전트가 고르는 반응 협상과 이후 요청을 유도하는 요청 콘텐츠 협상, 그리고 각각이 잃는 것
+- [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — 선호에 가중치를
+  매기는 문법과 Accept 계열 네 필드, 그리고 협상의 결과를 표기하는 Vary
+
+## 조건부 요청과 범위 요청
+
+- [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) —
+  메서드를 적용하기 전에 시험할 조건을 붙이는 다섯 필드와 각각의 판정 규칙
+- [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md) — 조건이 둘
+  이상일 때의 여섯 단계와, 갱신 손실 방지가 캐시 검증보다 앞서는 이유
+- [범위 요청](../concepts/http-range-requests.md) — 표현의 일부만 달라는 Range와 어느 부분인지를
+  알리는 Content-Range, 그리고 구현하지 않아도 상호운용이 깨지지 않게 만든 설계

@@ -74,6 +74,12 @@ sources:
   처리를 적용한 뒤 대상 자원의 새 상태를 나타낼 수도 있다 (§6.4.1).[^fielding2022-rfc9110]
 - GET에 대한 206(Partial Content) 응답의 콘텐츠는 선택된 표현의 한 부분이거나, 그 표현의 여러 부분을
   담은 멀티파트 메시지 바디다 (§6.4.1).[^fielding2022-rfc9110]
+- 그 멀티파트 바디의 미디어 타입이 §14.6에서 정해진다. **206 응답이 여러 범위의 콘텐츠를 담을 때
+  그것들은 `multipart/byteranges` 미디어 타입의 바디 부분으로 전송되고**, 각 부분은 자기
+  `Content-Type`과 `Content-Range` 필드를 가진다 (§14.6).[^fielding2022-rfc9110] 어느 부분인지를
+  알리는 `Content-Range`는 단일 부분 206 응답에서는 메시지 콘텐츠 전체의 범위를, 416 응답에서는
+  선택된 표현에 관한 정보를 나른다 (§14.4).[^fielding2022-rfc9110] 범위 요청 전문은
+  [범위 요청](../concepts/http-range-requests.md)에 있다.
 - 오류 상태 코드를 가진 응답 메시지는 보통 **오류 조건을 나타내는 콘텐츠**를 담는다. 오류 상태와
   그것을 해소하는 데 제안되는 단계를 서술하는 것이다 (§6.4.1).[^fielding2022-rfc9110]
 
@@ -132,6 +138,8 @@ sources:
 - [GET과 HEAD](../concepts/http-get-and-head.md) — 콘텐츠에 정의된 뜻이 없는 요청의 제약
 - [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 여기서 뜻을 정하는
   메서드 토큰의 규정
+- [범위 요청](../concepts/http-range-requests.md) — 206 콘텐츠가 표현의 어느 부분인지를 정하는 규범
+- [콘텐츠 협상](../concepts/http-content-negotiation.md) — 어느 표현이 콘텐츠에 실릴지를 고르는 축
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 응답 식별 표는 §6.4.2의 일곱

@@ -45,7 +45,14 @@ sources:
   효과를 만든다.
 - 의미론을 좁히는 수단이 하나 있다. 클라이언트는 요청에 `Range` 헤더 필드를 보내 GET의 의미론을
   **범위 요청(range request)** 으로 바꿀 수 있고, 그러면 선택된 표현의 일부만 전송하라는 요청이 된다
-  (§9.3.1).[^fielding2022-rfc9110] 범위 요청 자체의 규범은 이 문서의 §14가 따로 다룬다.
+  (§9.3.1).[^fielding2022-rfc9110]
+- 그 좁힘이 GET에만 열려 있다. 서버는 **범위 처리가 정의되지 않은 요청 메서드와 함께 받은 `Range`
+  필드를 무시해야 하고**(MUST), **이 명세에서 범위 처리가 정의된 메서드는 GET뿐이다**
+  (§14.2).[^fielding2022-rfc9110]
+- 평가 자리도 정해져 있다. `Range`는 **전제 조건 필드들을 평가한 뒤에, 그리고 `Range`가 없었다면
+  결과가 200(OK)이었을 경우에만** 평가된다. 곧 **조건부 GET이 304로 끝날 상황에서는 `Range`가
+  무시된다** (§14.2).[^fielding2022-rfc9110] 범위 요청 전문은
+  [범위 요청](../concepts/http-range-requests.md)에 있다.
 - GET에 대한 응답은 **캐시 가능하다**. 캐시는 `Cache-Control` 헤더 필드가 달리 지시하지 않는 한
   그것을 이후의 GET과 HEAD 요청을 충족하는 데 쓸 수 있다 (§9.3.1).[^fielding2022-rfc9110]
 
@@ -136,6 +143,11 @@ sources:
 - [표현 메타데이터](../concepts/http-representation-metadata.md) — HEAD가 가지러 가는 그 메타데이터
 - [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 최근
   수정을 찾는 데 쓰이는 잣대
+- [범위 요청](../concepts/http-range-requests.md) — GET의 의미론을 좁히는 Range와 부분 응답의 규범
+- [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) — 조건부
+  GET이 304로 끝나는 판정 규칙
+- [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — HEAD 응답에서 빠질
+  수 있다고 적힌 그 Vary
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

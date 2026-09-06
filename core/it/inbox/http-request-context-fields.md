@@ -181,6 +181,11 @@ sources:
 - 값의 구성이 정해져 있다. `trailers`를 뺀 각 원소는 **전송 코딩 이름 토큰**과, 그 코딩에 대한 상대적
   선호를 나타내는 선택적 가중치와, 그 코딩의 선택적 파라미터로 이뤄진다
   (§10.1.4).[^fielding2022-rfc9110]
+- 그 가중치가 콘텐츠 협상 필드들과 같은 문법이다. **`q`라는 이름의 파라미터**이고 대소문자를 가리지
+  않으며, 값은 **0에서 1 사이의 실수로 정규화되어 0.001이 가장 덜 선호되고 1이 가장 선호되며 0은
+  "받아들일 수 없음"** 을 뜻한다. `q`가 없으면 기본 가중치는 1이고, 보내는 쪽은 소수점 뒤 세 자리를
+  넘겨 생성해서는 안 된다(MUST NOT) (§12.4.2).[^fielding2022-rfc9110] 이 문법을 쓰는 다른 필드들은
+  [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md)에 있다.
 - 중개자에 걸리는 요건이 있다. `TE`를 보내는 송신자는 중개자가 이 필드를 전달하지 않도록 **`Connection`
   헤더 필드 안에 `TE` 연결 옵션도 보내야 한다**(MUST) (§10.1.4).[^fielding2022-rfc9110] 곧 `TE`는
   hop-by-hop 필드다.
@@ -230,6 +235,10 @@ sources:
 - [오리진과 권위 있는 접근](../concepts/http-origin-and-authoritative-access.md) — Referer 금지가
   걸리는 오리진 비교의 정의
 - [POST와 PUT](../concepts/http-post-and-put.md) — 큰 콘텐츠를 보내기 전에 Expect를 쓰게 되는 자리
+- [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — TE가 빌려 쓰는 가중치
+  문법의 정의와 Accept 계열 네 필드
+- [콘텐츠 협상](../concepts/http-content-negotiation.md) — User-Agent가 암묵적 협상 재료로 쓰인다고
+  적힌 자리
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor
