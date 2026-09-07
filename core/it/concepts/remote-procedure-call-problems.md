@@ -2,10 +2,11 @@
 type: concept
 title: 원격 프로시저 호출의 문제
 description: 네트워크 요청을 함수 호출처럼 보이게 만들려던 착상과 그것이 근본적으로 어긋나는 여섯 지점 — EJB·RMI·DCOM·CORBA·SOAP으로 이어지는 실패의 계보, 위치 투명성이라는 목표, 예측 가능성·타임아웃·재시도의 멱등성·지연의 변동성·참조 전달·언어 간 타입 번역에서 지역 호출과 갈리는 방식, 같은 진단이 2003년에 통합 패턴(Remote Procedure Invocation)으로 서술됐을 때 무엇이 이점으로 꼽히고 무엇이 남는 결합으로 지적됐는가, 그리고 REST가 그 대신 취한 태도
-generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-07T15:45:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: fielding2022-rfc9110, resource: /it/sources/fielding2022-rfc9110.md }
 ---
 
 # 원격 프로시저 호출의 문제
@@ -131,6 +132,23 @@ sources:
   위치 투명성이 RPC에서보다 더 잘 작동하는데, 액터 모델이 이미 단일 프로세스 안에서도 메시지가
   유실될 수 있다고 가정하기 때문이다** (5장, p.191).[^kleppmann2026] 전문은
   [분산 액터 프레임워크](../concepts/distributed-actor-frameworks.md)에 있다.
+- 위 셋째 지점("재시도가 중복을 만든다")이 HTTP에서 어떻게 규범이 되어 있는지가 이 프로토콜의 원전에
+  있다. 같은 요청을 여러 번 보냈을 때 서버에 대한 **의도된 효과**가 한 번과 같으면 그 메서드는
+  멱등(idempotent)하고, 이 명세가 정의한 메서드 중에서는 PUT과 DELETE와 안전한 메서드들이 그렇다
+  (§9.2.2).[^fielding2022-rfc9110] 곧 HTTP는 중복 제거 기제를 프로토콜에 짓는 대신 **어느 메서드가
+  다시 보내도 되는지를 메서드 토큰에 실어 두었다.**
+  - 버전 조건: RFC 9110(2022-06, STD 97) 기준. 2026-09-07 시점 이를 갱신하거나 폐기하는 RFC 없음.
+- 그 판정이 곧바로 재시도 규칙이 된다. 멱등한 요청은 응답을 읽기 전에 통신이 끊기면 자동으로 반복할 수
+  있고, 클라이언트는 멱등하지 않은 메서드의 요청을 **자동으로 재시도해서는 안 된다**(SHOULD NOT)
+  (§9.2.2).[^fielding2022-rfc9110] 위 지점이 말한 "프로토콜에 중복 제거 기제를 짓지 않는 한"의
+  **HTTP판 답이 이것**이고, 그 기제를 실제로 짓는 일은
+  [멱등성과 자동 재시도의 규범](../concepts/http-idempotency-and-automatic-retry.md)이 적듯 여전히
+  HTTP 밖의 계약이다.
+- REST의 태도가 프로토콜 규범에서도 확인된다. HTTP의 표준 요청 메서드는 **자원별로 따로 있지 않은데**,
+  균일 인터페이스가 네트워크 기반 시스템에서 더 나은 가시성과 재사용을 주기 때문이고 원전이 그 근거로
+  REST를 참조한다 (§9.1).[^fielding2022-rfc9110] 원격 객체의 메서드 집합을 그대로 옮기지 않겠다는
+  선언이라 위 결론과 같은 방향이다. 전문은
+  [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -149,8 +167,15 @@ sources:
   네 스타일 중 어디에 놓이고 무엇이 그것을 대체하는가
 - [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) —
   Waldo 인용이 놓인 자리와 결합을 가정의 수로 재는 자
+- [멱등성과 자동 재시도의 규범](../concepts/http-idempotency-and-automatic-retry.md) — 셋째 지점이
+  HTTP에서 규범이 된 자리와 그것이 남긴 빈자리
+- [HTTP 요청 메서드의 지위](../concepts/http-request-methods-overview.md) — 자원별 메서드를 두지
+  않는다는 선언
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 5장 "Encoding and Evolution"
+
+[^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
+    (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다.
 
 [^hohpe2004]: Hohpe & Woolf 2004, 1장 "Solving Integration Problems Using Patterns" —
 "Loose Coupling"(pp.9–11); 2장 "Integration Styles" — "Remote Procedure Invocation"

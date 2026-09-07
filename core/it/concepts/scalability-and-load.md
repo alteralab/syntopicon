@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 확장성과 부하
-description: 부하가 늘 때 시스템이 대처하는 능력을 어떻게 논해야 하는가 — "X는 확장 가능하다"가 무의미한 라벨인 이유와 대신 던져야 할 세 질문, 부하를 서술하는 지표와 극단값, 선형 확장성과 그보다 빨리 자라는 비용, 공유 메모리·공유 디스크·무공유 세 아키텍처, 만능 확장 비법이 없다는 전제 위의 설계 원칙들, 그리고 이 어휘 전부가 기계 쪽 축이라는 지적(인간 규모)
+description: 부하가 늘 때 시스템이 대처하는 능력을 어떻게 논해야 하는가 — "X는 확장 가능하다"가 무의미한 라벨인 이유와 대신 던져야 할 세 질문, 부하를 서술하는 지표와 극단값(그 지표의 선택이 곧 개방 부하 모델과 폐쇄 부하 모델의 갈림이라는 점), 선형 확장성과 그보다 빨리 자라는 비용, 공유 메모리·공유 디스크·무공유 세 아키텍처, 만능 확장 비법이 없다는 전제 위의 설계 원칙들, 그리고 이 어휘 전부가 기계 쪽 축이라는 지적(인간 규모)
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
+  - { id: schroeder2006-open-vs-closed, resource: /it/sources/schroeder2006-open-vs-closed.md }
 ---
 
 # 확장성과 부하
@@ -68,6 +69,14 @@ sources:
   수(사례 연구에서는 팔로워 수)를 알아야 할 수 있다. 평균적인 경우가 중요할 수도 있고, 소수의
   극단적 경우가 병목을 지배할 수도 있다. 전부 특정 애플리케이션의 세부에 달려 있다** (2장,
   p.50).[^kleppmann2026]
+- 여기서 고른 지표가 곧 부하를 거는 방식을 정한다. 초당 요청 수로 부하를 서술하면 그것은 요청
+  도착이 완료와 무관하게 일어나는 개방 부하 모델(open system model)의 매개변수 λ이고, 동시
+  사용자 수로 서술하면 그것은 사용자 수가 고정된 폐쇄 부하 모델(closed system model)의 매개변수
+  N이다. 두 모델은 부하와 서비스 요구량을 똑같이 맞춰 돌려도 유의하게 다른 결과를 낸다 (§1,
+  p.239).[^schroeder2006-open-vs-closed] 곧 위 두 지표는 같은 것을 다르게 세는 방법이 아니라
+  서로 다른 실험이다. 그 차이의 목록은
+  [개방 부하 모델과 폐쇄 부하 모델](../concepts/open-and-closed-load-models.md)과
+  [응답 시간을 가르는 세 원칙](../concepts/open-vs-closed-response-time-principles.md)에 있다.
 - **부하를 이해하고 나면 부하가 늘 때 무슨 일이 일어나는지 조사할 수 있고, 이를 두 방식으로 볼
   수 있다** (2장, p.50):[^kleppmann2026]
   - **부하를 어떤 방식으로 늘리고 시스템 자원(CPU·메모리·네트워크 대역폭 등)을 그대로 두면
@@ -235,9 +244,17 @@ sources:
   극단값이 설계를 가르는 실물
 - [유지보수성](../concepts/maintainability.md) — "필요 이상으로 복잡하게 만들지 마라"가 다른
   각도에서 다시 나오는 자리
+- [개방 부하 모델과 폐쇄 부하 모델](../concepts/open-and-closed-load-models.md) — 위 부하 지표
+  두 가지가 서로 다른 부하 모델의 매개변수라는 것
+- [부분 개방 모델과 세션 길이](../concepts/partly-open-model-and-session-length.md) — 실제
+  트레이스로 어느 모델이 맞는지 고르는 법
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements"
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture"
 
 [^dehghani2022]: Dehghani 2022, 6장 "The Inflection Point" · 8장 "Before the Inflection Point"
+
+[^schroeder2006-open-vs-closed]: Schroeder, Wierman & Harchol-Balter 2006, "Open Versus
+    Closed: A Cautionary Tale", NSDI '06, §1 "Introduction", p.239. 쪽수는 NSDI '06 논문집
+    게재본 기준이다.

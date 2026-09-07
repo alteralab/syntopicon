@@ -2,9 +2,10 @@
 type: concept
 title: 종단 간 논증
 description: 데이터베이스가 직렬성 트랜잭션을 준다고 해서 애플리케이션이 데이터 손상에서 자유로워지지 않는 이유 — TCP의 중복 억제가 연결 안에서만 유효하고 2PC로도 메워지지 않는 구간, 최종 사용자 클라이언트가 만든 요청 ID를 데이터베이스까지 관통시키는 해법, 그리고 1984년의 종단 간 논증이 체크섬과 암호화에도 똑같이 적용되는 자리
-generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-07T15:40:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: fielding2022-rfc9110, resource: /it/sources/fielding2022-rfc9110.md }
 ---
 
 # 종단 간 논증
@@ -154,6 +155,20 @@ sources:
   트랜잭션에서 일어날 필요가 없는데, 그것들은 중복이고 요청 이벤트에서 하류 컨슈머가 유도할 수 있기
   때문이다 — 이벤트가 정확히 한 번 처리되는 한, 그리고 그것은 다시 요청 ID로 강제할 수 있다** (13장,
   p.565).[^kleppmann2026]
+- HTTP 쪽에서 이 자리를 규범이 어떻게 다루는지가 원전에 적혀 있다. POST는 멱등하지 않은 메서드이고,
+  클라이언트는 **멱등하지 않은 메서드의 요청을 자동으로 재시도해서는 안 된다**(SHOULD NOT). 예외는
+  메서드와 무관하게 그 요청 의미론이 실제로 멱등하다는 것을 아는 수단이나, 원래 요청이 결코 적용되지
+  않았음을 감지하는 수단을 가진 경우뿐이다 (§9.2.2).[^fielding2022-rfc9110]
+  - 버전 조건: RFC 9110(2022-06, STD 97) 기준. 2026-09-07 시점 이를 갱신하거나 폐기하는 RFC 없음.
+- 그런데 **그 "아는 수단"을 만드는 기제를 HTTP는 정의하지 않는다** (§9.2.2).[^fielding2022-rfc9110]
+  위 요청 ID 해법이 정확히 그 빈자리를 프로토콜 밖에서 메우는 것이다. 곧 이 페이지의 처방은 HTTP를
+  보완하는 별도 계약이지 HTTP가 주는 것이 아니다.
+- 그래서 이 절이 서술한 브라우저의 폼 재제출은 규범 위반이 아니다. 그것은 사용자가 지시한 수동
+  재시도이고, 위 조문이 막는 것은 **자동** 재시도다. 자동 쪽에는 중개자에 대한 절대 금지까지 붙는다 —
+  **프록시는 멱등하지 않은 요청을 자동으로 재시도해서는 안 되고**(MUST NOT), 클라이언트는 실패한 자동
+  재시도를 다시 자동으로 재시도해서는 안 된다(SHOULD NOT) (§9.2.2).[^fielding2022-rfc9110]
+  그 조문들의 전문은
+  [멱등성과 자동 재시도의 규범](../concepts/http-idempotency-and-automatic-retry.md)에 있다.
 
 ## 1984년의 논증
 
@@ -226,5 +241,12 @@ sources:
 - [카프카 암호화](../concepts/kafka-encryption.md) — 종단 간 암호화 논증이 한 제품에서 구체화된 예
 - [감사와 무결성 검사](../concepts/auditing-and-integrity-checking.md) — 종단 간 체크섬을
   실제로 돌리는 쪽
+- [멱등성과 자동 재시도의 규범](../concepts/http-idempotency-and-automatic-retry.md) — 이 문제의
+  HTTP 쪽 규범과 그것이 정의하지 않고 남긴 자리
+- [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md)
+  — POST가 멱등하지 않다는 판정의 근거
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 13장 "A Philosophy of Streaming Systems"
+
+[^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
+    (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다.

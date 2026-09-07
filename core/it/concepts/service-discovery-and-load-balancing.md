@@ -2,9 +2,10 @@
 type: concept
 title: 서비스 디스커버리와 로드 밸런싱
 description: 클라이언트가 접속할 주소를 알아내는 문제와 요청을 여러 인스턴스에 나누는 문제, 그리고 그 둘을 함께 푸는 다섯 가지 해법 — 하드웨어와 소프트웨어 로드 밸런서, DNS가 자주 바뀌는 환경에서 낡은 주소를 주는 이유, etcd·주키퍼 기반 레지스트리와 하트비트, 그리고 사이드카로 배치되어 TLS와 관측까지 떠맡는 서비스 메시
-generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-07T00:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: dean2013-tail-at-scale, resource: /it/sources/dean2013-tail-at-scale.md }
 ---
 
 # 서비스 디스커버리와 로드 밸런싱
@@ -12,6 +13,7 @@ sources:
 - [두 문제](#두-문제)
 - [다섯 가지 해법](#다섯-가지-해법)
 - [무엇을 고르는가](#무엇을-고르는가)
+- [어느 인스턴스로 보내는가](#어느-인스턴스로-보내는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **서비스 인스턴스가 뜨고 지고 옮겨 다니는데 클라이언트는 어디로 연결해야 하는지
@@ -73,6 +75,27 @@ sources:
   있다. 더 단순한 배포는 소프트웨어 로드 밸런서로 가장 잘 처리된다** (5장,
   pp.185–186).[^kleppmann2026]
 
+## 어느 인스턴스로 보내는가
+
+위 절들은 **가용한 인스턴스 목록을 어떻게 알아내는가**까지를 다룬다. 목록을 알고 난 뒤 그중 어디로
+보낼지는 별개의 결정이고, 그 결정이 꼬리 지연을 바꾼다.
+
+- 선행 연구의 결과 — Dean·Barroso는 Mitzenmacher를 인용해, **큐에 넣는 시점의 큐 길이를 보고
+  클라이언트가 두 서버 중 하나를 고르게 하면** 균일 무작위 방식보다 부하 분산 성능이 지수적으로
+  좋아진다고 적는다 (p.77).[^dean2013-tail-at-scale]
+- 그런데 저자들은 그 위에서 **고르지 말라**고 권한다. 원격 큐를 먼저 탐침(probe)하고 가장 덜 바쁜
+  서버에 요청을 제출하는 방식은 이득이 있을 수 있지만, 두 큐에 **동시에** 작업을 넣는 것보다 덜
+  효과적이며 세 이유를 든다 (p.78):[^dean2013-tail-at-scale]
+  - **탐침 시점과 요청 시점 사이에 부하 수준이 바뀔 수 있다.**
+  - 하부 시스템과 하드웨어의 가변성 때문에 **요청 서비스 시간을 추정하기 어려울 수 있다.**
+  - 모든 클라이언트가 **같은 시각에 같은(가장 덜 바쁜) 서버를 골라** 일시적 핫스팟을 만들 수 있다.
+- 저자들이 대신 지지하는 것은 요청의 사본을 여러 서버에 동시에 큐잉하고 서버들이 서로 상태를 알려
+  취소하게 하는 **묶인 요청(tied requests)** 이다 (pp.77–78).[^dean2013-tail-at-scale] 그 기제와 실측은
+  [요청 안에서의 단기 적응](../concepts/tail-tolerant-short-term-adaptations.md)에 있다.
+- 느린 인스턴스를 아예 빼는 반대편 결정도 있다 — 지연 분포를 관찰해 특히 느린 기계를 제외하되 그림자
+  요청으로 계속 재는 방식은
+  [요청 사이의 장기 적응](../concepts/tail-tolerant-long-term-adaptations.md)에 있다.
+
 ## 이어지는 페이지
 
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 여기서 주소를 찾아 부르는 그 서비스
@@ -83,4 +106,8 @@ sources:
 - [메시지 브로커를 쓰는 이유](../concepts/publish-subscribe-messaging.md) — 브로커가 이 문제 자체를
   없애 준다는 논거
 
+- [지연의 백분위](../concepts/latency-percentiles.md) — 인스턴스 선택이 옮기는 그 분포
+
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 5장 "Encoding and Evolution"
+[^dean2013-tail-at-scale]: Dean & Barroso 2013, "The Tail at Scale", CACM 56(2), pp.74–80.
+    쪽수는 CACM 게재본 기준(PDF 스냅샷 1–7쪽 = pp.74–80).

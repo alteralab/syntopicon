@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 웹 서비스와 REST
-description: 네트워크 너머로 API를 노출하는 쪽과 부르는 쪽의 배치 — 서비스가 데이터베이스와 닮았으면서도 임의 질의를 허용하지 않는다는 차이, 웹 서비스가 웹 밖에서도 쓰이는 세 맥락, REST가 무엇을 강조하는가, IDL(OpenAPI·프로토콜 버퍼)과 서비스 프레임워크의 분업, RPC 인코딩의 호환성이 서비스 API 버저닝으로 이어지는 경로, 그리고 데이터 반입 관점에서 본 REST·웹훅·gRPC
-generated: { by: "claude-opus-5", at: "2026-08-22T05:00:00Z" }
+description: 네트워크 너머로 API를 노출하는 쪽과 부르는 쪽의 배치 — 서비스가 데이터베이스와 닮았으면서도 임의 질의를 허용하지 않는다는 차이, 웹 서비스가 웹 밖에서도 쓰이는 세 맥락, REST가 무엇을 강조하는가, IDL(OpenAPI·프로토콜 버퍼)과 서비스 프레임워크의 분업, RPC 인코딩의 호환성이 서비스 API 버저닝으로 이어지는 경로, 데이터 반입 관점에서 본 REST·웹훅·gRPC, 그리고 이 모든 것이 얹히는 HTTP 자체의 정의가 어느 문서에 있는가
+generated: { by: "claude-opus-5", at: "2026-09-07T09:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: fielding2022-rfc9110, resource: /it/sources/fielding2022-rfc9110.md }
 ---
 
 # 웹 서비스와 REST
@@ -19,6 +20,7 @@ sources:
 - [데이터 반입 쪽에서 본 API](#데이터-반입-쪽에서-본-api)
 - [웹훅 — 방향이 뒤집힌 API](#웹훅--방향이-뒤집힌-api)
 - [gRPC](#grpc)
+- [이 모든 것이 얹히는 HTTP의 정의](#이-모든-것이-얹히는-http의-정의)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **네트워크 너머로 노출하는 API를 어떻게 정의하고, 그것을 어떻게 바꿔 나가는가.**
@@ -219,8 +221,37 @@ sources:
   허용하고 엔지니어가 어떤 gRPC 상호작용 코드에도 적용될 기술 집합을 개발하도록 허용한다** (5장,
   p.176).[^reis2022]
 
+## 이 모든 것이 얹히는 HTTP의 정의
+
+이 페이지의 소스들은 HTTP를 이미 있는 것으로 놓고 그 위의 설계를 이야기한다. HTTP 자체의 현행
+규범은 RFC 9110(STD 97)이고, 위 서술에 쓰인 낱말들이 거기서 정의된다.
+
+- HTTP의 정의 자체는 프로토콜 하나가 아니라 **가족**으로 내려진다 — 일반 인터페이스와 확장 가능한
+  의미론과 자기 서술적 메시지를 공유하는, 무상태이고 애플리케이션 계층인 요청/응답 프로토콜들
+  (§1.1).[^fielding2022-rfc9110] 자세한 자리는
+  [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md)에 있다.
+- 위 "리소스 식별에 URL 쓰기"에 해당하는 규범은 자원(resource)과 표현(representation)의 정의다.
+  요청의 대상이면 자원이고, HTTP는 자원의 성질을 제한하지 않고 상호작용 인터페이스만 정의하며,
+  주고받는 것은 자원 자체가 아니라 그 상태를 반영하도록 의도된 표현이다
+  (§3.1, §3.2).[^fielding2022-rfc9110] 자세한 자리는
+  [자원과 표현](../concepts/http-resources-and-representations.md)에 있다.
+- 위 "상호작용이 무상태"에 해당하는 규범 문장도 이 문서에 있다. 무상태(stateless)는 각 요청 메시지의
+  의미론이 고립되어 이해되고 연결과 그 위 메시지의 관계가 메시지 해석에 영향을 주지 않는다는 뜻이다
+  (§3.3).[^fielding2022-rfc9110] 자세한 자리는
+  [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md)에 있다.
+- 위 "캐시 제어에 HTTP 기능 쓰기"의 규범은 이 문서가 아니라 RFC 9111(HTTP Caching)에 있다.
+  RFC 9110은 캐시가 무엇인지만 정의하고 캐시 동작과 캐시 가능한 응답의 요건은 그쪽으로 넘긴다
+  (§3.8).[^fielding2022-rfc9110]
+- REST 자체의 정의는 이 문서가 주지 않는다. RFC 9110은 표현을 설명하면서 REST 논문을 참조할 뿐이다
+  (§3.2).[^fielding2022-rfc9110]
+
 ## 이어지는 페이지
 
+- [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — 이 페이지가 전제하는
+  프로토콜의 현행 규범과 의미론·캐싱·메시징 구문의 분업
+- [자원과 표현](../concepts/http-resources-and-representations.md) — REST가 쓰는 두 낱말의 원전 정의
+- [http와 https URI 스킴과 정규화](../concepts/http-uri-schemes-and-normalization.md) — 자원 식별에
+  URL을 쓴다고 할 때 그 URL의 규약
 - [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) — 이 배치를 지역 함수
   호출처럼 보이게 만들려던 시도가 왜 실패했는가
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 클라이언트가
@@ -243,3 +274,6 @@ sources:
     Example 5-3(p.182)의 것을 그대로 옮겼다.
 
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems"
+
+[^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
+    (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다.

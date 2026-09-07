@@ -1,11 +1,13 @@
 ---
 type: concept
 title: 분산 컴퓨팅의 오류
-description: 원격 통신에 대해 무심코 하는 가정 중 무엇이 틀리는가 — Deutsch가 1994년에 적은 목록과 그 바깥의 가정들(처리 시간·큐·시계·상태 일관성·로컬과 원격의 동일시), 네트워크 파티션과 부분 실패, 요청 하나가 실패할 수 있는 여섯 경로와 그것들이 서로 구별되지 않는다는 사실, 데이터센터 네트워크가 실제로 얼마나 자주 고장 나는지의 실측, 연쇄 장애를 막는 서킷 브레이커·백오프·지터, 그리고 재시도가 부하를 스스로 키워 재부팅 전까지 회복하지 못하게 만드는 메타안정 장애
-generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
+description: 원격 통신에 대해 무심코 하는 가정 중 무엇이 틀리는가 — Deutsch가 1994년에 적은 목록과 그 바깥의 가정들(처리 시간·큐·시계·상태 일관성·로컬과 원격의 동일시), 네트워크 파티션과 부분 실패, 요청 하나가 실패할 수 있는 여섯 경로와 그것들이 서로 구별되지 않는다는 사실, 데이터센터 네트워크가 실제로 얼마나 자주 고장 나는지의 실측, 연쇄 장애를 막는 서킷 브레이커·백오프·지터, 그리고 재시도가 부하를 스스로 키워 재부팅 전까지 회복하지 못하게 만드는 메타안정 장애와 그 원전의 좁은 정의
+generated: { by: "claude-opus-5", at: "2026-09-07T07:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: bronson2021-metastable, resource: /it/sources/bronson2021-metastable.md }
+  - { id: huang2022-metastable-wild, resource: /it/sources/huang2022-metastable-wild.md }
 ---
 
 # 분산 컴퓨팅의 오류
@@ -367,9 +369,31 @@ sources:
   것**이 계통적 소프트웨어 결함을 줄이는 "작은 것들" 중 하나로 세어진다 (2장,
   p.47).[^kleppmann2026] 그 목록의 전문은
   [하드웨어·소프트웨어·사람의 결함](../concepts/hardware-software-and-human-faults.md)에 있다.
+- 이 이름의 원전은 이 절이 인용한 소스가 아니라 2021년의 워크숍 논문이며, 거기서 정의는 더
+  좁다 — **메타안정 장애는 통제되지 않는 부하원을 가진 개방 시스템에서 일어나며, 트리거가
+  시스템을 나쁜 상태로 들여보내고 그 상태는 트리거가 제거된 뒤에도 지속된다** (§1,
+  p.221).[^bronson2021-metastable] 그래서 **트리거가 제거되면 해소되는 장애(서비스 거부 공격,
+  림플락, 라이브락)는 이 부류가 아니다** (§1, p.221).[^bronson2021-metastable] 위 재시도 폭풍
+  서술은 그 정의의 한 사례에 해당한다.
+- 원전은 근본 원인의 자리도 옮겨 놓는다 — **메타안정 장애의 근본 원인은 트리거가 아니라
+  지속시키는 피드백 루프라고 본다. 같은 장애 상태로 이끄는 트리거는 여럿이므로, 지속 효과를
+  다루는 쪽이 앞으로의 장애를 막을 가능성이 훨씬 높다** (§3, p.224).[^bronson2021-metastable]
+- 실증도 있다. 공개 사후 분석을 뒤진 후속 연구는 열한 개 조직의 사건을 이 틀로 분류하고,
+  **지난 10년간 아마존 웹 서비스의 주요 중단 15건 중 적어도 4건이 메타안정 장애 때문이었다**고
+  적는다 (Abstract, p.73).[^huang2022-metastable-wild] 같은 조사에서 **가장 흔한 지속 효과는
+  재시도 정책으로 연구한 사건의 50%가 넘었다** (§2.2, p.75).[^huang2022-metastable-wild]
+- 이 실패 모델의 전문은 별도 페이지들에 있다 —
+  [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md),
+  [메타안정 장애의 트리거](../concepts/metastable-failure-triggers.md),
+  [지속 효과와 증폭 기제](../concepts/sustaining-effects-and-amplification.md),
+  [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md),
+  [공개 사후 분석에서 본 메타안정 장애](../concepts/metastable-failures-in-incident-reports.md),
+  [메타안정 장애에서 복구하기](../concepts/recovering-from-metastable-failures.md).
 
 ## 이어지는 페이지
 
+- [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md) — 위 절이
+  이름만 부른 그 실패 부류의 원전 정의와 상태 구분
 - [응답 시간과 처리량](../concepts/response-time-and-throughput.md) — 이 악순환이 시작되는 그
   처리량-응답 시간 곡선
 - [하드웨어·소프트웨어·사람의 결함](../concepts/hardware-software-and-human-faults.md) — 연쇄
@@ -394,3 +418,11 @@ sources:
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements" · 9장 "The Trouble with Distributed Systems"
 [^petrov2019]: Petrov 2019, 8장 "Introduction and Overview"
+[^bronson2021-metastable]: Bronson, Aghayev, Charapko & Zhu 2021, "Metastable Failures in
+    Distributed Systems", HotOS '21, pp.221–227. §1 "Introduction"(pp.221–222),
+    §3 "Approaches to Handling Metastability"(p.224). 쪽수는 ACM 게재본 인쇄 쪽 기준이며
+    PDF 스냅샷 1–7쪽이 pp.221–227에 해당한다.
+[^huang2022-metastable-wild]: Huang, Magnusson, Bangalore Muralikrishna, Estyak, Isaacs,
+    Aghayev, Zhu & Charapko 2022, "Metastable Failures in the Wild", OSDI '22, pp.73–89.
+    Abstract(p.73), §2.2 "Summary of Metastable Failures in the Wild"(p.75). 쪽수는 USENIX
+    논문집 인쇄 쪽 기준이며 PDF 스냅샷 2–19쪽이 pp.73–89에 해당한다.

@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 지연의 백분위
-description: 응답 시간을 하나의 수가 아니라 분포로 다루는 방법 — 평균이 "전형적" 응답 시간을 말해 주지 못하는 이유, 중앙값과 p95·p99·p999, 꼬리 지연이 가장 값진 고객을 때리는 자리, 백엔드 호출이 늘수록 느린 요청이 늘어나는 꼬리 지연 증폭, 그리고 백분위를 온라인으로 계산할 때 평균 내면 안 되는 이유
-generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
+description: 응답 시간을 하나의 수가 아니라 분포로 다루는 방법 — 평균이 "전형적" 응답 시간을 말해 주지 못하는 이유, 중앙값과 p95·p99·p999, 꼬리 지연이 가장 값진 고객을 때리는 자리, 백엔드 호출이 늘수록 느린 요청이 늘어나는 꼬리 지연 증폭과 그 증폭을 팬아웃 서버 수로 계산한 원전의 수치, 그리고 백분위를 온라인으로 계산할 때 평균 내면 안 되는 이유
+generated: { by: "claude-opus-5", at: "2026-09-07T00:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
+  - { id: dean2013-tail-at-scale, resource: /it/sources/dean2013-tail-at-scale.md }
 ---
 
 # 지연의 백분위
@@ -91,6 +92,40 @@ sources:
   더 높은 비율이 느려지게 된다. 이 효과를 꼬리 지연 증폭(tail latency amplification)이라 한다**
   (2장, p.41).[^kleppmann2026]
 
+### 원전이 계산한 증폭의 크기
+
+이 효과를 처음 세우고 수치로 보인 것은 Dean·Barroso다. 그쪽 서술은 병렬 호출의 수를 **팬아웃
+(fan-out)** 이라 부르고, 루트에서 리프 서버로 요청을 펼쳐 응답 분배 트리로 병합하는 구조를 전제한다
+(Component-Level Variability Amplified By Scale, p.76).[^dean2013-tail-at-scale]
+
+- 저자들의 가정 예 — 각 서버가 **보통 10ms에 응답하지만 99번째 백분위 지연이 1초**인 시스템을 두고
+  따진다. 사용자 요청이 그런 서버 **한 대**에서 처리되면 100건 중 1건이 느리다(1초)
+  (p.76).[^dean2013-tail-at-scale]
+- 팬아웃이 늘면 산수가 뒤집힌다 (p.76):[^dean2013-tail-at-scale]
+  - 사용자 요청이 그런 서버 **100대**에서 병렬로 응답을 모아야 하면 **사용자 요청의 63%가 1초를
+    넘긴다.**
+  - 단일 서버 수준에서 1초 넘는 지연을 겪는 요청이 **1만 건 중 1건**뿐인 서비스라도, 그런 서버가
+    **2,000대**면 사용자 요청 **다섯 중 거의 하나**가 1초를 넘긴다.
+- 즉 부품의 백분위가 아무리 좋아도 팬아웃이 그것을 갉아먹는다. 이것이 이 페이지 앞 절의 정성적 서술에
+  대응하는 정량적 형태다.
+- 실측 — 저자들은 이 가정 예와 논리적으로 비슷한 실제 구글 서비스의 측정을 표로 싣는다. 루트 서버가
+  중간 서버를 거쳐 매우 많은 수의 리프 서버로 요청을 분배하는 구조다 (Table 1,
+  p.77):[^dean2013-tail-at-scale]
+
+  | 완료 기준 | 50%ile 지연 | 95%ile 지연 | 99%ile 지연 |
+  |---|---|---|---|
+  | 무작위 리프 하나가 끝남 | 1ms | 5ms | 10ms |
+  | 리프 요청의 95%가 끝남 | 12ms | 32ms | 70ms |
+  | 리프 요청의 100%가 끝남 | 40ms | 87ms | 140ms |
+
+- 저자들이 이 표에서 읽는 것 — 무작위 요청 하나가 끝나는 99번째 백분위 지연은 루트에서 재어 10ms인데,
+  **모든 요청이 끝나는 99번째 백분위 지연은 140ms**이고 **요청의 95%가 끝나는 99번째 백분위는
+  70ms**다. 즉 **가장 느린 5%의 요청을 기다리는 것이 전체 99번째 백분위 지연의 절반을 차지한다**
+  (p.76).[^dean2013-tail-at-scale]
+- 그래서 처방이 나온다 — **이 느린 이상치에 집중하는 기법이 전체 서비스 성능에 극적인 감소를 낼 수
+  있다** (p.76).[^dean2013-tail-at-scale] 그 기법들은
+  [꼬리 내성이라는 설계 태도](../concepts/tail-tolerance-as-a-design-stance.md) 아래 페이지들에 있다.
+
 ## SLO와 SLA에서의 사용
 
 - **백분위는 서비스의 기대 성능과 가용성을 정의하는 방법으로 서비스 수준 목표(service level
@@ -138,6 +173,12 @@ sources:
   클라이언트 쪽에서 재는 객관적 지표의 실물
 - [소셜 네트워크 홈 타임라인 사례](../concepts/social-network-home-timelines.md) — 꼬리 지연이
   극단 사용자에서 생기는 실제 이유
+- [꼬리 내성이라는 설계 태도](../concepts/tail-tolerance-as-a-design-stance.md) — 이 꼬리를 없애는 대신
+  견디자는 입장과 그 기법들의 분류
+- [지연 가변성이 생기는 자리](../concepts/latency-variability-sources.md) — 이 분포가 넓어지는 원인 목록
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 2장 "Defining Nonfunctional Requirements"
 [^shapira2021]: Shapira et al. 2021, 13장 "Monitoring Kafka"
+[^dean2013-tail-at-scale]: Dean & Barroso 2013, "The Tail at Scale", CACM 56(2), pp.74–80.
+    쪽수는 CACM 게재본 기준(PDF 스냅샷 1–7쪽 = pp.74–80). 표 1은 p.77의
+    "Individual-leaf-request finishing times for a large fan-out service tree".
