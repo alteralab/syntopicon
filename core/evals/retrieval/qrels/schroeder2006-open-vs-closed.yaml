@@ -1,0 +1,85 @@
+# 질문지 조각 — 「Open Versus Closed: A Cautionary Tale」(schroeder2006-open-vs-closed)
+# 승급 배치 (승급 커밋 f4ff778, 2026-09-07 — 신규 concepts 5건 + scalability-and-load 개정).
+# 이 소스의 어휘는 큐잉 이론에서 온 원어(open system·closed system·think time)이고 한국어
+# 역어("개방 부하 모델")가 KB 안에서 새로 붙은 이름이라 alias가 병기 회귀의 감시대다.
+# 다섯 페이지가 서로 매우 가까워(전부 두 모델의 비교) 문항끼리 갈라지는지가 두 번째 관심사다.
+source: schroeder2006-open-vs-closed
+added: 2026-09-07
+queries:
+  # ---- alias: 원어 질의가 한국어 페이지를 잡는가 ----
+  - id: ovc-alias-1
+    query: "open system closed system"
+    type: alias
+    description: "원어 질의 — 이 소스의 중심 대립, 세 모델을 정의한 페이지가 정답"
+    expected_files: ["concepts/open-and-closed-load-models.md"]
+    expected_in_top_k: 5
+  - id: ovc-alias-2
+    query: "think time"
+    type: alias
+    description: "원어 질의 — 역어 '사고 시간'이 이 배치에서 처음 쓰인 말, 두 페이지가 다룬다"
+    expected_files: ["concepts/partly-open-model-and-session-length.md", "concepts/scheduling-under-open-and-closed-models.md"]
+    expected_in_top_k: 5
+  - id: ovc-alias-3
+    query: "partly-open system"
+    type: alias
+    description: "원어 질의 — 세 번째 모델, 정의 페이지와 전용 페이지 둘 다 정답"
+    expected_files: ["concepts/partly-open-model-and-session-length.md", "concepts/open-and-closed-load-models.md"]
+    expected_in_top_k: 5
+  - id: ovc-alias-4
+    query: "squared coefficient of variation of service demand"
+    type: alias
+    description: "원어 통계량 — 실험 설계에서 변동성을 조절한 매개변수, 한국어 표기가 길어 원어가 유일한 키"
+    expected_files: ["concepts/load-model-experiment-design.md"]
+    expected_in_top_k: 5
+  # ---- exact: 핵심 명사 직격 ----
+  - id: ovc-exact-1
+    query: "세션당 요청 수가 부분 개방 모델을 가르는 경계값"
+    type: exact
+    description: "부분 개방 페이지 직격 — 사고 시간이 아니라 세션 길이가 매개변수라는 결론 자리"
+    expected_files: ["concepts/partly-open-model-and-session-length.md"]
+    expected_in_top_k: 5
+  - id: ovc-exact-2
+    query: "짧은 작업 우선 스케줄링의 이득"
+    type: exact
+    description: "스케줄링 페이지 직격 — 개방에서 자릿수 이득, 폐쇄에서 무효라는 갈림"
+    expected_files: ["concepts/scheduling-under-open-and-closed-models.md"]
+    expected_in_top_k: 5
+  # ---- semantic: 이름 없이 뜻으로 ----
+  - id: ovc-sem-1
+    query: "부하 테스트에서 동시 사용자 수를 고정하면 무엇이 왜곡되나"
+    type: semantic
+    description: "이 소스가 존재하는 이유를 이름 없이 — 큐 길이 상한이 응답 시간을 낙관하게 만드는 자리"
+    expected_files: ["concepts/open-vs-closed-response-time-principles.md", "concepts/open-and-closed-load-models.md"]
+    expected_in_top_k: 5
+  - id: ovc-sem-2
+    query: "두 가지 부하 생성 방식을 같은 조건에서 공정하게 견주려면"
+    type: semantic
+    description: "실험 설계 페이지를 이름 없이 — 무엇을 고정하고 무엇을 움직이는가"
+    expected_files: ["concepts/load-model-experiment-design.md"]
+    expected_in_top_k: 5
+  - id: ovc-sem-3
+    query: "실제 트래픽 기록을 보고 어느 부하 모델로 재현할지 고르는 절차"
+    type: semantic
+    description: "세션 식별 세 단계 절차를 이름 없이 — 열 개 사이트 실측이 붙은 페이지"
+    expected_files: ["concepts/partly-open-model-and-session-length.md"]
+    expected_in_top_k: 5
+  # ---- topical: 허브 직격 ----
+  - id: ovc-top-1
+    query: "부하를 어떻게 걸어서 성능을 재는가"
+    type: topical
+    description: "비기능 요건 허브의 '부하를 어떻게 걸어 재는가' 절 — 이번 승급으로 신설된 목록"
+    expected_files: ["synthesis/nonfunctional-requirements.md"]
+    expected_in_top_k: 5
+  # ---- cross-domain: 다른 소스와의 접점 ----
+  - id: ovc-x-1
+    query: "리틀의 법칙으로 스케줄링 정책이 다 똑같아지는 논증"
+    type: cross-domain
+    description: "rahman2025의 리틀의 법칙 페이지와 이 소스의 폐쇄 되먹임 고리 논증이 만나는 자리"
+    expected_files: ["concepts/scheduling-under-open-and-closed-models.md", "concepts/littles-law-and-throughput.md"]
+    expected_in_top_k: 5
+  - id: ovc-x-2
+    query: "부하를 서술할 지표를 고르는 일이 곧 부하 모델을 고르는 일이다"
+    type: cross-domain
+    description: "kleppmann의 확장성 어휘와 이 소스의 모델 구분이 이번 승급에서 이어 붙은 개정 자리"
+    expected_files: ["concepts/scalability-and-load.md", "concepts/open-and-closed-load-models.md"]
+    expected_in_top_k: 5

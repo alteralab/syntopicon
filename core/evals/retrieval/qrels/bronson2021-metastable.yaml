@@ -1,0 +1,106 @@
+# 질문지 조각 — 「Metastable Failures in Distributed Systems」(bronson2021-metastable)와
+# 「Metastable Failures in the Wild」(huang2022-metastable-wild) 한 런 승급 배치
+# (승급 커밋 f4ff778, 2026-09-07 — 신규 concepts 6건 + fallacies-of-distributed-computing 개정).
+# 두 소스가 한 런으로 들어와 페이지들이 서로 섞여 있고(정의·트리거·지속 효과는 bronson,
+# 사후 분석 조사와 형식화는 huang), 러너에 소스 필터가 없으므로 조각도 하나로 둔다.
+# `source:`는 bronson2021-metastable로 적되 huang2022-metastable-wild 문항을 함께 담는다.
+# 이 어휘는 전부 2021년 이후에 붙은 영어 조어(metastable failure·sustaining effect·
+# hidden capacity)라 alias가 병기 회귀의 감시대다.
+source: bronson2021-metastable
+added: 2026-09-07
+queries:
+  # ---- alias: 원어 질의가 한국어 페이지를 잡는가 ----
+  - id: msf-alias-1
+    query: "metastable failure"
+    type: alias
+    description: "원어 질의 — 이 배치의 중심 용어, 정의와 세 상태를 담은 페이지가 정답"
+    expected_files: ["concepts/metastable-failure-definition.md"]
+    expected_in_top_k: 5
+  - id: msf-alias-2
+    query: "sustaining effect"
+    type: alias
+    description: "원어 조어 — 역어 '지속 효과'가 이 배치에서 처음 붙은 이름, 근본 원인으로 지목된 자리"
+    expected_files: ["concepts/sustaining-effects-and-amplification.md"]
+    expected_in_top_k: 5
+  - id: msf-alias-3
+    query: "retry storm"
+    type: alias
+    description: "원어 질의 — 정의 페이지와 개정된 오류 페이지 둘이 같은 현상을 다른 층위로 적는다"
+    expected_files: ["concepts/metastable-failure-definition.md", "concepts/fallacies-of-distributed-computing.md"]
+    expected_in_top_k: 5
+  - id: msf-alias-4
+    query: "hidden capacity"
+    type: alias
+    description: "원어 조어 — 공표 용량과 가르는 개념, 취약 상태 탐지 페이지에만 있다"
+    expected_files: ["concepts/detecting-the-vulnerable-state.md"]
+    expected_in_top_k: 5
+  - id: msf-alias-5
+    query: "load shedding"
+    type: alias
+    description: "원어 질의 — 복구 전략 쪽 페이지가 정답이나 KB 안에 병기가 넷이라 갈라짐을 재는 문항"
+    expected_files: ["concepts/recovering-from-metastable-failures.md", "concepts/sustaining-effects-and-amplification.md"]
+    expected_in_top_k: 5
+  # ---- exact: 핵심 명사 직격 ----
+  - id: msf-exact-1
+    query: "메타안정 장애의 세 상태"
+    type: exact
+    description: "안정·취약·메타안정 장애의 경계 — 정의 페이지 직격"
+    expected_files: ["concepts/metastable-failure-definition.md"]
+    expected_in_top_k: 5
+  - id: msf-exact-2
+    query: "부하를 올리는 트리거와 용량을 내리는 트리거"
+    type: exact
+    description: "트리거 분류 페이지 직격 — 지속 효과 페이지와 갈라지는가"
+    expected_files: ["concepts/metastable-failure-triggers.md"]
+    expected_in_top_k: 5
+  - id: msf-exact-3
+    query: "룩어사이드 캐시가 만드는 증폭"
+    type: exact
+    description: "지속 효과 네 사례 중 하나 직격 — 효율을 높이는 기능이 루프가 된다는 관찰 자리"
+    expected_files: ["concepts/sustaining-effects-and-amplification.md"]
+    expected_in_top_k: 5
+  # ---- semantic: 이름 없이 뜻으로 ----
+  - id: msf-sem-1
+    query: "트리거가 사라졌는데 과부하가 안 풀리는 상태"
+    type: semantic
+    description: "이 실패 부류의 정의를 이름 없이 — 이 배치의 핵심 회귀 지점"
+    expected_files: ["concepts/metastable-failure-definition.md"]
+    expected_in_top_k: 5
+  - id: msf-sem-2
+    query: "공개된 장애 사후 보고서를 모아 원인 유형을 분류한 조사"
+    type: semantic
+    description: "huang2022 문항 — 스물두 건 표본의 실증 조사 페이지를 이름 없이"
+    expected_files: ["concepts/metastable-failures-in-incident-reports.md"]
+    expected_in_top_k: 5
+  - id: msf-sem-3
+    query: "시스템이 이미 위험 구간에 들어와 있는지 재는 법"
+    type: semantic
+    description: "취약 상태 탐지를 이름 없이 — 복구 페이지와 갈라지는가"
+    expected_files: ["concepts/detecting-the-vulnerable-state.md"]
+    expected_in_top_k: 5
+  # ---- topical: 허브·개정 페이지를 겨누는 넓은 질의 ----
+  - id: msf-top-1
+    query: "과부하가 스스로 유지되는 실패 모델 전체"
+    type: topical
+    description: "비기능 요건 허브의 '과부하가 스스로 유지될 때' 절 — 이번 승급으로 신설된 목록"
+    expected_files: ["synthesis/nonfunctional-requirements.md"]
+    expected_in_top_k: 5
+  - id: msf-top-2
+    query: "원격 통신에 대해 무심코 하는 틀린 가정들"
+    type: topical
+    description: "개정 회귀 지점 — fallacies 페이지에 메타안정 장애의 좁은 정의가 이번에 얹혔다"
+    expected_files: ["concepts/fallacies-of-distributed-computing.md"]
+    expected_in_top_k: 5
+  # ---- cross-domain: 다른 소스와의 접점 ----
+  - id: msf-x-1
+    query: "가비지 컬렉션 정지가 용량을 깎아 자기유지 루프가 되는 자리"
+    type: cross-domain
+    description: "kleppmann 분산 축의 프로세스 정지와 이 배치의 용량 깎는 증폭이 만나는 자리"
+    expected_files: ["concepts/sustaining-effects-and-amplification.md", "concepts/process-pauses.md"]
+    expected_in_top_k: 5
+  - id: msf-x-2
+    query: "503과 Retry-After로 클라이언트의 재시도를 조율하기"
+    type: cross-domain
+    description: "같은 배치의 RFC 9110 서버 오류 페이지와 이 소스의 복구 전략이 이어지는 자리"
+    expected_files: ["concepts/recovering-from-metastable-failures.md", "concepts/http-server-error-status-codes.md"]
+    expected_in_top_k: 5

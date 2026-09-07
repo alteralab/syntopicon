@@ -1,0 +1,226 @@
+# 질문지 조각 — RFC 9110 HTTP Semantics(fielding2022-rfc9110, STD 97) 완주 승급 배치
+# (승급 커밋 f4ff778, 2026-09-07 — 신규 concepts 41건 + 허브 3개(http-semantics와 자식 둘) +
+# end-to-end-argument·remote-procedure-call-problems·web-services-and-rest 개정).
+# 이 소스는 KB에서 유일하게 규범 문서라 성격이 다르다. ① 필드 이름과 상태 코드는 번역되지
+# 않는 프로토콜 토큰이라 alias가 그 자체로 정답 경로다. ② 41개 페이지가 전부 "HTTP"로 시작해
+# 서로 매우 가까워, 문항이 형제들 사이에서 갈라지는지가 이 조각의 두 번째 관심사다.
+# ③ 원전이 아홉 RFC를 폐기하고 캐싱을 9111에 넘겼으므로 어느 문서가 무엇을 정하는가를
+# 버전 조건 문항 넷(http-exact-5·6, http-sem-2·3)으로 따로 잰다.
+source: fielding2022-rfc9110
+added: 2026-09-07
+queries:
+  # ---- alias: 프로토콜 토큰이 한국어 페이지를 잡는가 ----
+  - id: http-alias-1
+    query: "ETag"
+    type: alias
+    description: "번역되지 않는 필드 이름 — 검증자 페이지 직격, 조건부 요청 페이지들과 갈라지는가"
+    expected_files: ["concepts/http-validators-etag-and-last-modified.md"]
+    expected_in_top_k: 5
+  - id: http-alias-2
+    query: "Retry-After"
+    type: alias
+    description: "필드 이름 — 정의는 응답 컨텍스트 페이지, 쓰이는 자리는 503 페이지로 갈린다"
+    expected_files: ["concepts/http-response-context-fields.md", "concepts/http-server-error-status-codes.md"]
+    expected_in_top_k: 5
+  - id: http-alias-3
+    query: "Content-Range"
+    type: alias
+    description: "필드 이름 — 범위 요청 페이지가 정의를 갖고 PUT 페이지가 요청 수정자 용법을 갖는다"
+    expected_files: ["concepts/http-range-requests.md", "concepts/http-post-and-put.md"]
+    expected_in_top_k: 5
+  - id: http-alias-4
+    query: "421 Misdirected Request"
+    type: alias
+    description: "상태 코드 토큰 — 규범은 대상 URI 페이지, 목록은 4xx 페이지. 숫자만으로 잡히는지도 함께 본다"
+    expected_files: ["concepts/http-target-uri-and-host.md", "concepts/http-client-error-status-codes.md"]
+    expected_in_top_k: 5
+  - id: http-alias-5
+    query: "idempotent"
+    type: alias
+    description: "원어 질의 — 역어 '멱등'과의 병기 회귀 지점, 세 속성을 정의한 페이지"
+    expected_files: ["concepts/http-safe-idempotent-and-cacheable-methods.md"]
+    expected_in_top_k: 5
+  - id: http-alias-6
+    query: "precondition"
+    type: alias
+    description: "원어 질의 — 역어 '전제 조건'을 쓰는 두 페이지(정의 쪽과 평가 순서 쪽)"
+    expected_files: ["concepts/http-conditional-requests-and-preconditions.md", "concepts/http-precondition-evaluation-order.md"]
+    expected_in_top_k: 5
+  - id: http-alias-7
+    query: "WWW-Authenticate"
+    type: alias
+    description: "필드 이름 — 필드 쪽 페이지와 틀 쪽 페이지가 형제로 갈라지는 자리"
+    expected_files: ["concepts/http-authentication-fields.md", "concepts/http-authentication-framework.md"]
+    expected_in_top_k: 5
+  - id: http-alias-8
+    query: "IMF-fixdate"
+    type: alias
+    description: "고유 문법 이름 — 날짜 형식 페이지에만 있다. 식별자 질의가 어느 레그에 걸리는지의 확인점"
+    expected_files: ["concepts/http-date-formats.md"]
+    expected_in_top_k: 5
+  - id: http-alias-9
+    query: "Expect 100-continue"
+    type: alias
+    description: "필드와 기대 토큰 — 요청 컨텍스트 필드 페이지 직격"
+    expected_files: ["concepts/http-request-context-fields.md"]
+    expected_in_top_k: 5
+  - id: http-alias-10
+    query: "Upgrade"
+    type: alias
+    description: "필드 이름 — 같은 연결 위에서 프로토콜을 갈아타는 자리, 전달·hop-by-hop 페이지가 담는다"
+    expected_files: ["concepts/http-message-forwarding-and-hop-by-hop-fields.md"]
+    expected_in_top_k: 5
+  # ---- exact: 핵심 명사 직격 (5·6은 버전 조건) ----
+  - id: http-exact-1
+    query: "전제 조건 평가 순서"
+    type: exact
+    description: "여섯 단계 우선순위 페이지 직격 — 전제 조건 정의 페이지와 갈라지는가"
+    expected_files: ["concepts/http-precondition-evaluation-order.md"]
+    expected_in_top_k: 5
+  - id: http-exact-2
+    query: "hop-by-hop 필드"
+    type: exact
+    description: "Connection이 종단 간과 가르는 기제 — 중개자 페이지와 갈라지는가"
+    expected_files: ["concepts/http-message-forwarding-and-hop-by-hop-fields.md"]
+    expected_in_top_k: 5
+  - id: http-exact-3
+    query: "안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드"
+    type: exact
+    description: "메서드 공통 속성 페이지 직격 — 메서드 개별 페이지들과 갈라지는가"
+    expected_files: ["concepts/http-safe-idempotent-and-cacheable-methods.md"]
+    expected_in_top_k: 5
+  - id: http-exact-4
+    query: "요청 대상과 Host 필드"
+    type: exact
+    description: "대상 URI가 제어 데이터와 Host로 나뉘어 실린다는 배치 페이지 직격"
+    expected_files: ["concepts/http-target-uri-and-host.md"]
+    expected_in_top_k: 5
+  - id: http-exact-5
+    query: "RFC 9110이 폐기한 RFC 목록"
+    type: exact
+    description: "버전 조건 회귀 — 아홉 건 표와 RFC 7230만 일부라는 예외가 실린 자리"
+    expected_files: ["concepts/http-definition-and-scope.md"]
+    expected_in_top_k: 5
+  - id: http-exact-6
+    query: "HTTP 캐싱은 어느 RFC가 정하나"
+    type: exact
+    description: "버전 조건 회귀 — 캐싱이 RFC 9111로 갈라져 나간 분업. 이 KB에 캐싱 페이지가 없다는 경계이기도 하다"
+    expected_files: ["concepts/http-definition-and-scope.md", "concepts/http-intermediaries.md"]
+    expected_in_top_k: 5
+  - id: http-exact-7
+    query: "트레일러 섹션과 헤더 섹션의 차이"
+    type: exact
+    description: "같은 필드 문법을 쓰면서 지위가 다른 두 자리 — 필드 문법 페이지와 갈라지는가"
+    expected_files: ["concepts/http-header-and-trailer-sections.md"]
+    expected_in_top_k: 5
+  - id: http-exact-8
+    query: "미디어 타입 위에 콘텐츠 코딩을 얹는 두 겹 순서"
+    type: exact
+    description: "표현 메타데이터 페이지 직격 — 콘텐츠 의미론 페이지와 갈라지는가"
+    expected_files: ["concepts/http-representation-metadata.md"]
+    expected_in_top_k: 5
+  # ---- semantic: 이름 없이 뜻으로 (2·3은 버전 조건) ----
+  - id: http-sem-1
+    query: "POST를 재시도해도 되는가"
+    type: semantic
+    description: "멱등성이 자동 재시도에 여는 것과 닫는 것 — 이 소스의 실무 최다 질의 자리"
+    expected_files: ["concepts/http-idempotency-and-automatic-retry.md"]
+    expected_in_top_k: 5
+  - id: http-sem-2
+    query: "리다이렉션을 따라갈 때 원래 메서드가 그대로 가는가 GET으로 바뀌는가"
+    type: semantic
+    description: "버전 조건 회귀 — 301·302의 역사적 허용과 307·308의 보존이 갈리고, 308이 RFC 7538에서 옮겨 온 자리"
+    expected_files: ["concepts/http-redirection-status-codes.md"]
+    expected_in_top_k: 5
+  - id: http-sem-3
+    query: "Connection 헤더 필드를 쓰지 못하게 하는 HTTP 버전이 있다"
+    type: semantic
+    description: "버전 조건 회귀 — HTTP/2 이상은 연결 제어 정보를 필드로 싣는 것 자체를 금지한다는 단서"
+    expected_files: ["concepts/http-message-forwarding-and-hop-by-hop-fields.md"]
+    expected_in_top_k: 5
+  - id: http-sem-4
+    query: "같은 이름의 헤더가 여러 줄일 때 값은 어떻게 되나"
+    type: semantic
+    description: "콤마 결합과 순서가 뜻을 바꾼다는 귀결, Set-Cookie 예외를 이름 없이"
+    expected_files: ["concepts/http-field-syntax-and-combining.md"]
+    expected_in_top_k: 5
+  - id: http-sem-5
+    query: "전송된 옥텟이 어느 자원의 표현인지 어떻게 정해지나"
+    type: semantic
+    description: "요청 두 갈래와 응답 일곱 단계의 판정 순서를 이름 없이"
+    expected_files: ["concepts/http-content-semantics.md"]
+    expected_in_top_k: 5
+  - id: http-sem-6
+    query: "요청 하나의 뜻이 앞선 요청과 무관하게 이해된다는 성질"
+    type: semantic
+    description: "무상태의 정의를 이름 없이 — 같은 연결의 두 요청을 같은 사용자로 가정하지 말라는 요건. 의도된 어려운 문항: 정답 페이지는 '의미론이 고립되어 이해된다'로 쓰고 질의는 그 뜻만 바꿔 말한다 — 2026-09-07 실측 네 레그 모두 미검출(bm25·vector·morph·scoped). 의미 레그 회귀 확인점으로 유지"
+    expected_files: ["concepts/http-clients-servers-and-statelessness.md"]
+    expected_in_top_k: 5
+  - id: http-sem-7
+    query: "새 헤더 필드 이름에 X- 접두를 붙이지 말라는 이유"
+    type: semantic
+    description: "확장점으로서의 필드 설계 지침을 이름 없이 — 밑줄이 게이트웨이에서 문제되는 자리도 같은 페이지"
+    expected_files: ["concepts/http-new-field-design.md"]
+    expected_in_top_k: 5
+  - id: http-sem-8
+    query: "이 서버가 이 주소에 답할 자격이 있다고 무엇으로 판단하나"
+    type: semantic
+    description: "오리진과 권위를 이름 없이 — http 스킴의 권위가 약한 이유가 실린 자리"
+    expected_files: ["concepts/http-origin-and-authoritative-access.md"]
+    expected_in_top_k: 5
+  - id: http-sem-9
+    query: "콘텐츠를 빼고 헤더만 받아 보는 요청"
+    type: semantic
+    description: "HEAD를 이름 없이 — 메서드 개요 페이지가 아니라 GET·HEAD 페이지가 정답이어야 한다"
+    expected_files: ["concepts/http-get-and-head.md"]
+    expected_in_top_k: 5
+  # ---- topical: 허브를 겨누는 넓은 질의 ----
+  - id: http-top-1
+    query: "HTTP 의미론 전체"
+    type: topical
+    description: "부모 허브 — 이번 승급으로 신설, 41개 페이지의 진입점"
+    expected_files: ["synthesis/http-semantics.md"]
+    expected_in_top_k: 5
+  - id: http-top-2
+    query: "HTTP 메시지의 구조와 필드"
+    type: topical
+    description: "자식 허브 — 필드 문법·메시지 추상·전달·컨텍스트 필드를 묶는 자리"
+    expected_files: ["synthesis/http-messages-and-fields.md"]
+    expected_in_top_k: 5
+  - id: http-top-3
+    query: "HTTP 메서드가 무엇을 뜻하는가"
+    type: topical
+    description: "자식 허브 — 메서드 토큰의 지위와 여덟 메서드와 세 속성을 묶는 자리"
+    expected_files: ["synthesis/http-method-semantics.md"]
+    expected_in_top_k: 5
+  - id: http-top-4
+    query: "응답의 결과를 알리는 세 자리 수의 다섯 갈래"
+    type: topical
+    description: "상태 코드 총론 페이지 — 클래스별 네 페이지와 갈라지는가"
+    expected_files: ["concepts/http-status-codes-and-classes.md"]
+    expected_in_top_k: 5
+  # ---- cross-domain: 다른 소스와의 접점 (셋은 이번 승급의 개정 페이지) ----
+  - id: http-x-1
+    query: "요청 ID를 클라이언트에서 데이터베이스까지 관통시켜 중복 처리를 막기"
+    type: cross-domain
+    description: "kleppmann의 종단 간 논증과 이 원전이 POST 중복 제거 수단을 정의하지 않는다는 경계가 만나는 자리"
+    expected_files: ["concepts/end-to-end-argument.md", "concepts/http-idempotency-and-automatic-retry.md"]
+    expected_in_top_k: 5
+  - id: http-x-2
+    query: "자원마다 메서드를 두는 분산 객체 방식과 균일 인터페이스의 갈림"
+    type: cross-domain
+    description: "kleppmann·hohpe의 RPC 진단과 이 원전이 자원별 메서드를 두지 않은 이유가 만나는 자리"
+    expected_files: ["concepts/remote-procedure-call-problems.md", "concepts/http-request-methods-overview.md"]
+    expected_in_top_k: 5
+  - id: http-x-3
+    query: "REST API가 얹히는 HTTP 자체의 정의는 어디에 있나"
+    type: cross-domain
+    description: "개정 회귀 지점 — web-services-and-rest가 이번 승급에서 HTTP 의미론 허브로 이어 붙은 자리"
+    expected_files: ["concepts/web-services-and-rest.md", "synthesis/http-semantics.md"]
+    expected_in_top_k: 5
+  - id: http-x-4
+    query: "응답을 받지 못했을 때 요청이 처리됐는지 알 수 없는 문제"
+    type: cross-domain
+    description: "kleppmann의 실패 여섯 경로와 이 원전의 자동 재시도 규범이 같은 상황을 양쪽에서 적는 자리"
+    expected_files: ["concepts/fallacies-of-distributed-computing.md", "concepts/http-idempotency-and-automatic-retry.md"]
+    expected_in_top_k: 5

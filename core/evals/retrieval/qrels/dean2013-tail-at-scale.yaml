@@ -1,0 +1,105 @@
+# 질문지 조각 — 「The Tail at Scale」(dean2013-tail-at-scale) 승급 배치
+# (승급 커밋 f4ff778, 2026-09-07 — 신규 concepts 6건 + latency-percentiles·
+# service-discovery-and-load-balancing 개정).
+# 이 소스는 기법 이름이 전부 영어 조어(tied requests·latency-induced probation)이고
+# 한국어 역어가 KB 안에서만 쓰이는 말이라 alias 문항이 병기 회귀의 주 감시대다.
+# 또 하나의 감시대는 개정된 두 페이지 — 이번 승급에서 꼬리 지연 증폭 수치와
+# 지연 유발 격리가 얹혔고, 그 절이 검색에 잡히는지를 exact·topical로 따로 잰다.
+source: dean2013-tail-at-scale
+added: 2026-09-07
+queries:
+  # ---- alias: 원어 질의가 한국어 페이지를 잡는가 ----
+  - id: tas-alias-1
+    query: "tied requests"
+    type: alias
+    description: "원어 조어 — 역어 '묶인 요청'이 KB 안에서만 쓰이는 말이라 원어가 유일한 진입점"
+    expected_files: ["concepts/tail-tolerant-short-term-adaptations.md"]
+    expected_in_top_k: 5
+  - id: tas-alias-2
+    query: "tail-tolerant"
+    type: alias
+    description: "원어 질의 — 이 소스의 설계 태도를 이름 붙인 말, 여러 페이지가 병기하지만 정의 페이지가 정답"
+    expected_files: ["concepts/tail-tolerance-as-a-design-stance.md"]
+    expected_in_top_k: 5
+  - id: tas-alias-3
+    query: "latency-induced probation"
+    type: alias
+    description: "원어 조어 — 역어 '지연 유발 격리'는 이 페이지 밖에 쓰인 적이 없다"
+    expected_files: ["concepts/tail-tolerant-long-term-adaptations.md"]
+    expected_in_top_k: 5
+  - id: tas-alias-4
+    query: "head-of-line blocking"
+    type: alias
+    description: "원어 질의 — 선두 차단이라는 역어를 쓴 가변성 축소 페이지"
+    expected_files: ["concepts/reducing-component-variability.md"]
+    expected_in_top_k: 5
+  - id: tas-alias-5
+    query: "good-enough results"
+    type: alias
+    description: "원어 질의 — 인용부호를 두른 한국어 제목이라 원어가 더 안정한 키"
+    expected_files: ["concepts/good-enough-results-and-canary-requests.md"]
+    expected_in_top_k: 5
+  # ---- exact: 핵심 명사 직격 ----
+  - id: tas-exact-1
+    query: "묶인 요청과 헤지 요청"
+    type: exact
+    description: "요청 안 단기 적응 두 기법 직격 — 장기 적응 페이지와 갈라지는가"
+    expected_files: ["concepts/tail-tolerant-short-term-adaptations.md"]
+    expected_in_top_k: 5
+  - id: tas-exact-2
+    query: "마이크로 파티션과 선택적 복제"
+    type: exact
+    description: "요청 사이 장기 적응 페이지 직격"
+    expected_files: ["concepts/tail-tolerant-long-term-adaptations.md"]
+    expected_in_top_k: 5
+  - id: tas-exact-3
+    query: "꼬리 지연 증폭"
+    type: exact
+    description: "개정 회귀 지점 — 이번 승급에서 latency-percentiles에 원전의 팬아웃 수치가 얹혔다"
+    expected_files: ["concepts/latency-percentiles.md"]
+    expected_in_top_k: 5
+  # ---- semantic: 이름 없이 뜻으로 ----
+  - id: tas-sem-1
+    query: "백엔드가 많아질수록 느린 요청이 늘어나는 이유"
+    type: semantic
+    description: "팬아웃과 꼬리의 관계를 이름 없이 — 개정된 백분위 페이지가 답이어야 한다"
+    expected_files: ["concepts/latency-percentiles.md"]
+    expected_in_top_k: 5
+  - id: tas-sem-2
+    query: "배경 작업과 절전 모드 때문에 응답 시간이 흔들리는 자리"
+    type: semantic
+    description: "가변성의 원인 목록을 이름 없이 — 견디는 쪽 페이지들과 갈라지는가"
+    expected_files: ["concepts/latency-variability-sources.md"]
+    expected_in_top_k: 5
+  - id: tas-sem-3
+    query: "지연의 흔들림을 없애는 대신 견디자는 입장"
+    type: semantic
+    description: "설계 태도를 이름 없이 — 두 시간 척도로 기법을 가른 진입점"
+    expected_files: ["concepts/tail-tolerance-as-a-design-stance.md"]
+    expected_in_top_k: 5
+  # ---- topical: 허브·개정 페이지를 겨누는 넓은 질의 ----
+  - id: tas-top-1
+    query: "응답 시간 분포의 꼬리를 다루는 기법 전체"
+    type: topical
+    description: "비기능 요건 허브의 '꼬리 지연을 견디는 법' 절 — 이번 승급으로 신설된 목록"
+    expected_files: ["synthesis/nonfunctional-requirements.md"]
+    expected_in_top_k: 5
+  - id: tas-top-2
+    query: "요청을 여러 인스턴스에 나누고 접속할 주소를 알아내는 문제"
+    type: topical
+    description: "개정 회귀 지점 — service-discovery 페이지에 로드 밸런싱이 꼬리 지연과 만나는 자리가 얹혔다"
+    expected_files: ["concepts/service-discovery-and-load-balancing.md"]
+    expected_in_top_k: 5
+  # ---- cross-domain: 다른 소스와의 접점 ----
+  - id: tas-x-1
+    query: "복제본 여럿에 같은 일을 시키고 먼저 온 답만 쓰는 방식"
+    type: cross-domain
+    description: "rahman2025의 경주 정책과 이 소스의 단기 적응이 같은 착상에 이르는 자리"
+    expected_files: ["concepts/tail-tolerant-short-term-adaptations.md", "concepts/racing-subtasks-for-first-result.md"]
+    expected_in_top_k: 5
+  - id: tas-x-2
+    query: "가비지 컬렉션 정지가 응답 시간을 흔드는 자리"
+    type: cross-domain
+    description: "kleppmann 분산 축의 프로세스 정지와 이 소스의 가변성 원인 목록이 겹치는 자리"
+    expected_files: ["concepts/latency-variability-sources.md", "concepts/process-pauses.md"]
+    expected_in_top_k: 5
