@@ -22,6 +22,8 @@ sources:
 - [한 번의 돌파가 다음 것을 부른다](#한-번의-돌파가-다음-것을-부른다)
 - [단속 평형 — 13장이 이 리듬에 붙인 이름](#단속-평형--13장이-이-리듬에-붙인-이름)
 - ["깊은 모델"과 "깊은 모듈"은 다른 말이다](#깊은-모델과-깊은-모듈은-다른-말이다)
+- [증류가 이 모델을 향해 몰아간다](#증류가-이-모델을-향해-몰아간다)
+- [통일은 새 모델을 만드는 일이다](#통일은-새-모델을-만드는-일이다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모델을 고쳐 나가는 일이 겨냥하는 종착점은 무엇이고, 그것은 어떤 모양으로
@@ -303,6 +305,61 @@ III부를 닫는 13장이 같은 사건을 사례가 아니라 **리듬**으로 
   심급이 **사람의 말**인 반면 깊은 모듈의 심급은 **인터페이스의 폭**이라 원리상 갈릴 수 있다.
   가설로 적는다.
 
+## 증류가 이 모델을 향해 몰아간다
+
+15장이 증류를 닫으면서 이 페이지의 물음으로 돌아온다.
+
+- 증류의 범위가 넓혀진다 — **증류는 도메인의 부분들을 핵심에서 떼어 내는 거친 수준에서만
+  작동하지 않는다. 그것은 또한 그 하위 도메인들을, 특히 핵심 도메인을 더 깊은 통찰을 향해 계속
+  리팩터링함으로써 정련하는 것을 뜻하며, 깊은 모델과 유연한 설계를 향해 몰아간다** (15장,
+  p.436).[^evans2003]
+- 목표가 한 문장으로 적힌다 (15장, p.436):[^evans2003]
+
+> The goal is a design that makes the model obvious, a model that expresses the domain simply.
+> A deep model distills the most essential aspects of a domain into simple elements that can be
+> combined to solve the important problems of the application.
+
+  - **이것이 위 [깊은 모델의 정의](#깊은-모델의-정의)와 같은 것을 증류의 말로 다시 적은
+    것이다.** 8장이 "무엇이 깊은 모델인가"를 사례로 보였다면 15장은 그 도착이 어느 활동의
+    산물인지를 지정한다.
+- **그리고 돌파의 위치가 값을 가른다** (15장, p.437):[^evans2003]
+
+> Although a breakthrough to a deep model provides value anywhere it happens, it is in the CORE
+> DOMAIN that it can change the trajectory of an entire project.
+
+  - 위 [사례 — 대출 신디케이션](#사례--대출-신디케이션)의 돌파가 왜 그렇게 큰 효과를 냈는지가
+    여기서 설명된다. 그것이 [핵심 도메인](core-domain.md)에서 일어났기 때문이다.
+
+## 통일은 새 모델을 만드는 일이다
+
+14장이 두 모델을 합치는 문제를 다루면서 이 페이지의 사건을 다른 각도에서 부른다.
+
+- **모델 통일의 성질** (14장, p.379):[^evans2003]
+
+> Unifying multiple models almost always means creating a new model.
+
+  - 근거는 아무도 자기 모델을 버리지 않는다는 것이다. 서로 다른 부분을 만진 사람들은 상대의
+    모델이 자기 경험에 모순되므로 받아들일 수 없고, 그래서 **양쪽의 성질을 아우르되 부적절한
+    함의는 빼는 새 추상**이 필요해진다 (14장, p.380).[^evans2003]
+  - 그 새 추상이 도착하는 방식이 이 페이지의 돌파와 같다 — **새 통찰이 지속적 정련의 과정에서
+    더 깊은 모델로 이끌 수 있다. 새 애플리케이션 요구사항도 더 깊은 모델로의 이동을 강제할 수
+    있다** (14장, p.380).[^evans2003]
+- **성공의 조건으로 지목되는 것이 최소주의다** (14장, p.381):[^evans2003]
+
+> Successful model unification, to a large extent, hinges on minimalism.
+
+  - 저자의 설명은 빼기가 더하기보다 중요하다는 것이다 — 코끼리의 코는 뱀보다 많기도 하고 적기도
+    한데 **그 "적음"이 아마 "많음"보다 더 중요하다. 잘못된 독니 기능을 갖느니 물 뿜는 능력을
+    결여하는 편이 낫다** (14장, p.381).[^evans2003]
+- **그러나 이 도약을 계획에 넣을 수 없다는 단서가 14장에서 한 번 더 반복된다** — 서로 다른
+  사용자 집단의 은어를 통일할 깊은 모델이 떠오르기도 하지만 **문제는 깊은 모델이 많은 개발과
+  지식 정련 뒤에, 그것도 일어난다면, 생애 주기의 나중에 떠오른다는 것이다. 깊은 모델을 계획할
+  수는 없다. 기회가 생겼을 때 받아들이고 전략을 바꾸고 리팩터링해야 할 뿐이다** (14장,
+  p.387).[^evans2003]
+  - 그래서 컨텍스트 병합 절차가 이 사건을 전제하지 않고 조건으로만 둔다.
+    [컨텍스트 전략과 변환](context-strategy-and-transformations.md)의 공유 커널 병합이 은어가
+    갈린 하위 도메인을 미루는 이유가 이것이다.
+
 ## 이어지는 페이지
 
 - [지식 정련](knowledge-crunching.md) — 깊은 모델이 나오는 과정의 이름
@@ -321,7 +378,10 @@ III부를 닫는 13장이 같은 사건을 사례가 아니라 **리듬**으로 
     §Levels of Refactoring · §Deep Models · §Deep Model/Supple Design · §The Discovery
     Process) · 8장 "Breakthrough"(pp.193–204 — §Story of a Breakthrough · §The Breakthrough ·
     §A Deeper Model · §A Sobering Decision · §The Payoff · §Opportunities · §Focus on Basics ·
-    §Epilogue: A Cascade of New Insights). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이
+    §Epilogue: A Cascade of New Insights) · 14장 "Maintaining Model Integrity"
+    §"Unifying an Elephant"(pp.379–381) · §"Catering to Special Needs with Distinct Models"
+    (p.387) · 15장 "Distillation" §"Deep Models Distill"(pp.436–437). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 33, 실측). 원문이
     패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 8장의 도판 전부
     (Figure 8.1–8.9 — 두 판의 클래스 다이어그램, 인출·상환·수수료 분배를 파이 조각으로 그린
     도해 넷, 최종 거래 모델 다이어그램)는 이미지라 딸린 판정 산문만 옮겼다. 대출 신디케이션의

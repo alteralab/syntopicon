@@ -20,6 +20,7 @@ sources:
 - [다른 패러다임이면 달라진다](#다른-패러다임이면-달라진다)
 - [선언적 스타일의 설계](#선언적-스타일의-설계)
 - [생성된 코드는 따로 치워 둔다](#생성된-코드는-따로-치워-둔다)
+- [증류가 이 스타일에 거는 것](#증류가-이-스타일에-거는-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프로그램의 일부를 실행 가능한 명세로 쓰려는 시도는 무엇을 약속하고 어디서
@@ -186,6 +187,42 @@ sources:
     #hypothesis 저자가 두 절을 이렇게 맞물려 읽지는 않았다.
 - 패키징 조항 전문은 [도메인의 모듈](modules-in-the-domain.md)에 있다.
 
+## 증류가 이 스타일에 거는 것
+
+같은 원전의 15장이 전략적 증류를 다루면서 이 스타일을 다시 부른다. 저자가 그 이유를 먼저
+밝힌다 — **선언적 설계와 "선언적 스타일"은 10장의 주제이지만 그 설계 스타일은 전략적 증류를
+다루는 이 장에서 특별히 언급할 값어치가 있다** (15장, p.426).[^evans2003]
+
+- 잇는 고리는 시야다 — **증류의 값은 자기가 무엇을 하고 있는지 볼 수 있다는 것, 무관한 세부에
+  주의를 빼앗기지 않고 본질로 잘라 들어가는 것이다** (15장, p.426).[^evans2003]
+- 그래서 조건이 붙은 권고가 나온다 — **핵심 도메인의 중요한 부분들은 선언적 스타일을 따를 수
+  있다. 보조하는 설계가 핵심의 개념과 규칙을 표현할 경제적인 언어를 제공하면서 그것을 계산하거나
+  강제하는 수단을 캡슐화할 때 그렇다** (15장, p.426).[^evans2003]
+- **그 보조하는 설계가 무엇으로 이루어지는지가 이 페이지의 형제 패턴들로 지목된다** (15장,
+  p.426):[^evans2003]
+
+> COHESIVE MECHANISMS are by far most useful when they provide access through an
+> INTENTION-REVEALING INTERFACE, with conceptually coherent ASSERTIONS and SIDE-EFFECT-FREE
+> FUNCTIONS. MECHANISMS and supple designs allow the CORE DOMAIN to make meaningful statements
+> rather than calling obscure functions.
+
+  - **"무의미한 함수 호출 대신 뜻 있는 진술"이 이 스타일의 판정 기준으로 쓰이는 자리다.**
+    계산을 떼어 내는 쪽은 [정합적 기제](cohesive-mechanisms.md)에 있다.
+- 그리고 이 스타일의 최대치가 따로 계상된다 — **그러나 예외적인 보상은 핵심 도메인 자체의
+  일부가 깊은 모델로 돌파해서, 가장 중요한 애플리케이션 시나리오를 유연하고 간결하게 표현할 수
+  있는 언어로 기능하기 시작할 때 온다** (15장, p.426).[^evans2003]
+- 그 상태가 어떻게 도착하는지도 적힌다 (15장, p.426):[^evans2003]
+
+> A deep model often comes with a corresponding supple design. When a supple design reaches
+> maturity, it provides an easily understood set of elements that can be combined unambiguously
+> to accomplish complex tasks or express complex information, just as words are combined into
+> sentences. At that point, client code takes on a declarative style and can be much more
+> distilled.
+
+  - **이 문장이 위 [선언적 스타일의 설계](#선언적-스타일의-설계)와 증류를 한 줄로 잇는다.**
+    선언적 스타일은 목표가 아니라 깊은 모델과 유연한 설계가 성숙했을 때 클라이언트 코드에
+    나타나는 결과다. 그 도착점은 [깊은 모델과 돌파](deep-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [단언](assertions-pattern.md) — 이 절이 "진짜 보증은 아니다"라고 평하는 앞 패턴
@@ -207,7 +244,8 @@ sources:
 [^evans2003]: Evans 2003, 10장 "Supple Design" §"Declarative Design"(pp.270–272) ·
     §"Domain-Specific Languages"(pp.272–273) · 곁글 "From the Ground Up"(10장, p.273, 곁글) ·
     §"A Declarative Style of Design"(p.273) · 5장 "A Model Expressed in Software"
-    §MODULES 중 패키징 조항의 예외(p.115). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
+    §MODULES 중 패키징 조항의 예외(p.115) · 15장 "Distillation" §"Distilling to a Declarative
+    Style"(pp.426–427). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
     원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절들에는
     코드가 없어 펜스를 두지 않았다. 곁글은 본문 옆 단에 조판되어 있어 추출본에서 본문과
     섞여 나왔고, 곁글 자신의 문장만 골라 옮겼다.

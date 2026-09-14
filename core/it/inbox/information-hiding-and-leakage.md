@@ -27,6 +27,7 @@ sources:
 - [셋째 소스 — 모델이 새는 것](#셋째-소스--모델이-새는-것)
 - [지식이 층을 거슬러 오르는 누출](#지식이-층을-거슬러-오르는-누출)
 - [생성과 저장을 감출 때 지켜지는 것](#생성과-저장을-감출-때-지켜지는-것)
+- [저수준 인터페이스가 앗아 가는 것](#저수준-인터페이스가-앗아-가는-것)
 - [넷째 소스 — 접근 제어는 안전이지 보안이 아니다](#넷째-소스--접근-제어는-안전이지-보안이-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -412,6 +413,28 @@ sources:
     이분법이 아니라 정도이고, 여기서는 **누구에게 감추는가**가 그 정도를 정한다. 사고를
     포함한 전문은 [리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
 
+## 저수준 인터페이스가 앗아 가는 것
+
+위 절의 번역 계층이 왜 원시 데이터 수준으로 내려가면 안 되는지가 같은 절에 적혀 있고, 그것이
+이 페이지의 누출 개념과 정확히 겹친다.
+
+- 착각의 진단 — 이 문제가 몰래 다가오는 이유는 **우리가 시스템 사이로 나르는 것이 원시
+  데이터이고 그 뜻은 중의성이 없으며 양쪽에서 같아야 한다고 생각하기** 때문인데 **이 가정은
+  보통 틀렸다. 미묘하지만 중요한 뜻의 차이가 각 시스템에서 데이터가 연관되는 방식에서 생긴다**
+  (14장, p.365).[^evans2003]
+- **대가가 양쪽에서 계상된다** (14장, p.365):[^evans2003]
+
+> A low-level interface takes away the power of the other system's model to explain the data and
+> constrain its values and relationships, while saddling the new system with the burden of
+> interpreting primitive data that is not in terms of its own model.
+
+  - **앞 절은 저쪽 모델의 손실이고 뒤 절은 이쪽으로의 누출이다.** 저쪽이 갖고 있던 제약과 설명이
+    사라지면서 그 지식이 이쪽 클라이언트 코드로 옮겨 앉는다. 위
+    [정보 누출](#정보-누출)의 정의가 시스템 경계에서 나타나는 모습이다.
+- 그래서 처방이 모델 수준의 번역으로 올라간다 — **서로 다른 모델을 따르는 부분들 사이에 번역을
+  제공해서 모델이 소화되지 않은 이물질로 오염되지 않게 해야 한다** (14장, p.365).[^evans2003]
+  그 계층의 설계는 [부패 방지 계층](anticorruption-layer.md)에 있다.
+
 ## 넷째 소스 — 접근 제어는 안전이지 보안이 아니다
 
 위 [private 선언은 정보 은닉이 아니다](#private-선언은-정보-은닉이-아니다)가 **`private`
@@ -494,7 +517,7 @@ sources:
     5장 §SERVICES 중 §Granularity(p.108) · §MODULES 중
     §"The Pitfalls of Infrastructure-Driven Packaging"(pp.113·115) · 14장 §BOUNDED CONTEXT
     (p.336 곁글 "BOUNDED CONTEXTS Are Not MODULES") · §CONTEXT MAP(p.344) ·
-    §ANTICORRUPTION LAYER(pp.365–366) · 6장 §FACTORIES(pp.137–138) ·
+    §ANTICORRUPTION LAYER(pp.365–366) — 저수준 인터페이스 논의 p.365 포함 · 6장 §FACTORIES(pp.137–138) ·
     §REPOSITORIES(pp.149–150)와 §"Client Code Ignores REPOSITORY Implementation; Developers
     Do Not"(pp.154–155). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절들은 이 소스가 이 페이지에

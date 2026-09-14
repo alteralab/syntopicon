@@ -23,6 +23,7 @@ sources:
 - [언제 리팩터링하지 않는가](#언제-리팩터링하지-않는가)
 - [같은 물음에 네 시점으로 답하는 소스](#같은-물음에-네-시점으로-답하는-소스)
 - [정당화 요구 자체를 문제로 보는 소스](#정당화-요구-자체를-문제로-보는-소스)
+- [크게 망가진 시스템에서 어디부터 손대는가](#크게-망가진-시스템에서-어디부터-손대는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **리팩터링(refactoring)을 언제 시작하고 무엇을 계기로 삼는가.**
@@ -295,6 +296,41 @@ sources:
     받아들여질 수 있는가)을 본다.
 - 절차의 전문은 [모델 리팩터링의 과정](model-refactoring-process.md)에 있다.
 
+## 크게 망가진 시스템에서 어디부터 손대는가
+
+같은 소스의 15장이 증류를 닫으면서 이 페이지의 물음에 한 번 더 답한다. 이번에는 **언제**가
+아니라 **어디**다.
+
+- 물음이 세워진다 — **인수분해가 부실한 큰 시스템을 만나면 어디서 시작하는가** (15장,
+  p.437).[^evans2003]
+- 저자는 익스트림 프로그래밍 공동체의 통상적 답 둘을 적고 **둘 다 지지하지 않는다고 밝힌다**
+  (15장, p.437):[^evans2003]
+  - **그냥 아무 데서나 시작하라. 어차피 전부 리팩터링되어야 한다** — 이에 대한 판정은 **최고
+    프로그래머만으로 채워진 몇몇 프로젝트를 빼면 실용적이지 않다**는 것이다.
+  - **아픈 곳에서 시작하라. 내 특정 작업을 끝내는 데 필요한 것을 리팩터링하겠다** — 이에 대한
+    판정은 **가장자리를 쪼아 대면서 증상을 다루고 근본 원인을 무시하며 최악의 엉킴을 피하는
+    경향이 있다는 것, 그리고 결국 코드가 점점 더 리팩터링하기 어려워진다**는 것이다.
+- **그 대신 제시되는 답이 둘이고 둘 다 핵심 도메인을 기준으로 삼는다** (15장,
+  p.437):[^evans2003]
+
+> 1. In a pain-driven refactoring, you look to see if the root involves the CORE DOMAIN or the
+>    relationship of the CORE to a supporting element. If it does, you bite the bullet and fix
+>    that first.
+> 2. When you have the luxury of refactoring freely, you focus first on better factoring of the
+>    CORE DOMAIN, on improving the segregation of the CORE, and on purifying supporting
+>    subdomains to be GENERIC.
+
+- 맺음 — **이것이 리팩터링에 쓴 돈에서 가장 큰 효과를 얻는 방법이다** (15장,
+  p.437).[^evans2003]
+- **이 답이 위 [정당화 요구 자체를 문제로 보는 소스](#정당화-요구-자체를-문제로-보는-소스)와
+  짝을 이룬다.** 그쪽이 정당화를 셈으로 풀지 말라고 했다면, 이쪽은 셈 대신 쓸 기준을 준다 —
+  우선순위의 잣대는 비용 추정이 아니라 [핵심 도메인](core-domain.md)과의 거리다. 두 기법의
+  전문은 [격리된 핵심과 추상 핵심](segregated-core.md)과
+  [일반 하위 도메인](generic-subdomains.md)에 있다.
+  - 아픔 주도 리팩터링을 기각하지 않고 **그 안에서 근본 원인을 보라**고 좁힌다는 점도 눈여겨볼
+    자리다. 위 [쓰레기 줍기 리팩터링](#쓰레기-줍기-리팩터링)과 충돌하지 않는다. #hypothesis
+    두 소스가 서로를 논한 적은 없다.
+
 ## 이어지는 페이지
 
 - [리팩터링](../concepts/refactoring.md) — 정의·두 모자·왜 하는가. 이 페이지의 부모
@@ -318,6 +354,8 @@ sources:
     Flows". **이 소스의 locator는 장 단위다** — 검증 절차와 근거는
     `it/archive/beck2023/_progress.yaml` 머리말이 정본이다.
 
-[^evans2003]: Evans 2003, 13장 "Refactoring Toward Deeper Insight" §"Timing"(pp.324–325).
-    쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는
-    관례를 직인용에서 유지했다. 이 절에는 코드도 도판도 없다.
+[^evans2003]: Evans 2003, 13장 "Refactoring Toward Deeper Insight" §"Timing"(pp.324–325) ·
+    15장 "Distillation" §"Choosing Refactoring Targets"(p.437). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서
+    유지했다. 두 절에는 코드도 도판도 없다. 15장 쪽의 답 둘은 원문이 번호 매긴 목록으로
+    조판한 것이라 인용 블록 안에 그 번호를 유지했다.
