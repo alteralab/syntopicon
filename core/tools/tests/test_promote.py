@@ -76,11 +76,13 @@ def test_dry_run은_계획만_말한다(repo: Repo):
     assert promote_events(repo) == []
 
 
-def test_qrels가_있으면_검색_실측이_사슬에_든다(repo: Repo):
+def test_qrels가_있어도_검색_실측은_사슬에_들지_않는다(repo: Repo):
+    """2026-09-14 사용자 결정: 평가는 승급과 물음이 달라 사슬 밖(/kb-eval 명시 호출)이다."""
     seeded(repo)
     qrels = repo.root / "evals" / "retrieval" / "qrels"
     qrels.mkdir(parents=True)
     (qrels / "seed.yaml").write_text("source: seed\nqueries: []\n")
     result = repo.run("promote.py", "--kb", "it", "--dry-run", "--skip-qmd")
     assert result.returncode == 0, result.stdout + result.stderr
-    assert "retrieval-eval" in result.stdout
+    assert "retrieval-eval" not in result.stdout
+    assert "lint" in result.stdout

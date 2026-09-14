@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import langfuse_bridge
 from syntopicon import layout as layout_mod, stats
 from syntopicon.workspace import DEFAULT
-from syntopicon.repo import ROOT, visible_files
+from syntopicon.repo import visible_files
 
 TOOLS = Path(__file__).resolve().parent
 
@@ -58,15 +58,38 @@ def stages(kb: str, with_qmd: bool) -> list[tuple[str, list[str]]]:
             ("qmd-cleanup", ["qmd", "cleanup"]),
         ]
     planned.append(("lint", [sys.executable, str(TOOLS / "lint.py")]))
-    # 검색 실측 — 손 절차였을 때 첫 실행 후 코퍼스가 3배 되도록 안 돌았다(2026-08-14
-    # 감사). qmd cleanup과 같은 처방: 사슬에 박는다. 결정적 레그만이라 분 단위이고,
-    # 회귀는 경보이지 게이트가 아니다(러너가 항상 0으로 끝난다). qrels 조각이 있는
-    # 루트에서만 돈다 — 없는 루트(샌드박스 등)에서는 잴 것이 없다.
-    if any((ROOT / "evals" / "retrieval" / "qrels").glob("*.yaml")):
-        planned.append(("retrieval-eval", [
-            sys.executable, str(TOOLS.parent / "evals" / "retrieval" / "runner.py"),
-            "--legs", "fast", "--record"]))
+    # 검색 실측(retrieval-eval)은 이 사슬에 없다 — 2026-09-14 사용자 결정으로 뺐다.
+    # 이력: 손 절차였을 때 첫 실행 후 코퍼스가 3배 되도록 안 돌아(2026-08-14 감사) 사슬에
+    # 박았으나, 질문지가 68파일·약 1,025문항으로 자라자 승급마다 전수 4레그를 도는 비용이
+    # 승급 자체(분 단위)를 압도했다(evans2003 승급 실측: 6단계 완료 뒤 평가만 수십 분).
+    # 승급은 "이 초안이 본 코퍼스에 들어가도 되는가"이고 평가는 "코퍼스 전체의 검색 품질
+    # 추세"라 물음이 다르며, 회귀는 게이트가 아니라 경보다(러너는 항상 0으로 끝난다).
+    # 평가는 사람이 /kb-eval로 명시 호출한다 — 큰 배치 승급 뒤가 그 자리다(kb-ingest 9단계).
     return planned
+
+
+def run_stages(planned: list[tuple[str, list[str]]]) -> tuple[dict[str, int], str | None]:
+    """단계를 순서대로 돌리고 (단계별 소요 ms, 실패한 단계 이름 또는 None)을 돌려준다.
+
+    첫 실패에서 멈추고 남은 단계를 알린다 — 부분 적용된 사슬은 사람이 원인을 고친 뒤
+    같은 명령으로 재개한다(이미 승급된 초안은 merge가 대상 없음으로 지나간다).
+    """
+    durations: dict[str, int] = {}
+    for index, (name, command) in enumerate(planned):
+        print(f"\n[{index + 1}/{len(planned)}] {name}", flush=True)
+        started = time.monotonic()
+        code = subprocess.run(command).returncode
+        durations[name] = stats.elapsed_ms(started)
+        if code == 0:
+            continue
+        remaining = [n for n, _ in planned[index + 1:]]
+        print(f"\n중단: {name} 단계가 종료 코드 {code}로 실패했습니다.", file=sys.stderr)
+        if remaining:
+            print(f"실행되지 않은 단계: {', '.join(remaining)} — 원인을 고친 뒤 "
+                  "이 도구를 다시 실행하십시오(이미 승급된 초안은 merge가 "
+                  "대상 없음으로 지나갑니다).", file=sys.stderr)
+        return durations, name
+    return durations, None
 
 
 def main(argv: list[str]) -> int:
@@ -101,22 +124,7 @@ def main(argv: list[str]) -> int:
         print("--dry-run — 아무것도 실행하지 않았습니다.")
         return 0
 
-    durations: dict[str, int] = {}
-    failed: str | None = None
-    for index, (name, command) in enumerate(planned):
-        print(f"\n[{index + 1}/{len(planned)}] {name}", flush=True)
-        started = time.monotonic()
-        code = subprocess.run(command).returncode
-        durations[name] = stats.elapsed_ms(started)
-        if code != 0:
-            failed = name
-            remaining = [n for n, _ in planned[index + 1:]]
-            print(f"\n중단: {name} 단계가 종료 코드 {code}로 실패했습니다.", file=sys.stderr)
-            if remaining:
-                print(f"실행되지 않은 단계: {', '.join(remaining)} — 원인을 고친 뒤 "
-                      "이 도구를 다시 실행하십시오(이미 승급된 초안은 merge가 "
-                      "대상 없음으로 지나갑니다).", file=sys.stderr)
-            break
+    durations, failed = run_stages(planned)
 
     with stats.connect(DEFAULT) as db:
         lint_row = db.execute(
