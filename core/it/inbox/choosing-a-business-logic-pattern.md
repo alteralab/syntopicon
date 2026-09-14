@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 업무 로직 구현 패턴 고르기
-description: 전술 설계가 무엇을 묻는 층위인지와 업무 로직을 구현하는 패턴들 사이의 선택 기준 — 전략이 무엇과 왜에 답했다면 전술은 어떻게에 답한다는 배치, 코드가 자기 경계 컨텍스트의 유비쿼터스 언어를 말하게 하는 것이 이 패턴들의 공통 목적이라는 규정, 로직의 복잡성과 자료 구조의 복잡성이라는 두 축으로 갈리는 세 패턴과 시간 차원을 더해 넷째가 서는 자리, 업무 로직 패턴이 정해지면 아키텍처 패턴도 따라 정해진다는 대응표와 CQRS만이 의무로 걸리는 자리, 그 선택을 시스템 전체에도 경계 컨텍스트 전체에도 걸지 말고 하위 도메인 단위의 세로 경계로 나누라는 범위 조항, 판정의 입력이 하위 도메인의 종류라는 대응과 핵심에는 단순 패턴을 쓰지 말라는 금지, 단순한 로직에 정교한 패턴을 쓰면 우발적 복잡성으로 해가 된다는 반대 방향의 금지, 그리고 상위 패턴이 하위 패턴을 대체하지 않고 층으로 겹친다는 판정
-generated: { by: "claude-opus-5", at: "2026-09-14T23:00:00Z" }
+description: 전술 설계가 무엇을 묻는 층위인지와 업무 로직을 구현하는 패턴들 사이의 선택 기준 — 전략이 무엇과 왜에 답했다면 전술은 어떻게에 답한다는 배치, 코드가 자기 경계 컨텍스트의 유비쿼터스 언어를 말하게 하는 것이 이 패턴들의 공통 목적이라는 규정, 로직의 복잡성과 자료 구조의 복잡성이라는 두 축으로 갈리는 세 패턴과 시간 차원을 더해 넷째가 서는 자리, 업무 로직 패턴이 정해지면 아키텍처 패턴도 따라 정해진다는 대응표와 CQRS만이 의무로 걸리는 자리, 그 선택을 시스템 전체에도 경계 컨텍스트 전체에도 걸지 말고 하위 도메인 단위의 세로 경계로 나누라는 범위 조항, 판정의 입력이 하위 도메인의 종류라는 대응과 핵심에는 단순 패턴을 쓰지 말라는 금지, 단순한 로직에 정교한 패턴을 쓰면 우발적 복잡성으로 해가 된다는 반대 방향의 금지, 그리고 상위 패턴이 하위 패턴을 대체하지 않고 층으로 겹친다는 판정, 그리고 10장이 그 판정 전부를 하나의 결정 트리로 묶는 자리 — 휴리스틱이 100퍼센트 옳도록 증명된 규칙이 아니라 어림법이라는 규정, 정교한 패턴부터 묻고 하나씩 떨어뜨리며 내려오는 물음 넷, 패턴 선택이 어긋나면 하위 도메인 분류를 다시 보라는 역방향 쓰임, 복잡한 로직과 단순한 로직을 가르는 두 신호와 그중 하나가 유비쿼터스 언어 자체라는 것, 저자 자신이 적는 아키텍처 대응 넷과 CQRS만이 예외라는 조항, 그리고 업무 로직 패턴이 테스트 전략까지 정한다는 셋째 칸 — 도메인 모델에는 피라미드, 액티브 레코드에는 다이아몬드, 트랜잭션 스크립트에는 역피라미드 — 과 이것이 규칙이 아니라 저자의 취향에 기반한 출발점이라는 단서
+generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 status: draft
 sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
@@ -18,6 +18,14 @@ sources:
 - [패턴들은 서로를 대체하지 않는다](#패턴들은-서로를-대체하지-않는다)
 - [아키텍처 패턴은 업무 로직 패턴에 걸린다](#아키텍처-패턴은-업무-로직-패턴에-걸린다)
 - [이 판정을 어느 범위에 거는가](#이-판정을-어느-범위에-거는가)
+- [휴리스틱이라는 낱말](#휴리스틱이라는-낱말)
+- [판정을 물음 넷으로 편다](#판정을-물음-넷으로-편다)
+- [반대 방향으로도 읽는다 — 분류를 검증하는 쓰임](#반대-방향으로도-읽는다--분류를-검증하는-쓰임)
+- [복잡한 로직과 단순한 로직을 가르는 어림법](#복잡한-로직과-단순한-로직을-가르는-어림법)
+- [아키텍처 패턴도 물음 넷으로 편다](#아키텍처-패턴도-물음-넷으로-편다)
+- [테스트 전략도 여기서 따라 나온다](#테스트-전략도-여기서-따라-나온다)
+- [셋을 하나의 결정 트리로](#셋을-하나의-결정-트리로)
+- [이것이 규칙이 아니라는 단서](#이것이-규칙이-아니라는-단서)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **업무 로직을 어떤 모양으로 구현할지를 무엇을 보고 정하는가.**
@@ -201,6 +209,235 @@ sources:
     [판정의 입력은 하위 도메인의 종류다](#판정의-입력은-하위-도메인의-종류다)가 업무 로직
     패턴에 대해 내리는 결론이 아키텍처 패턴에도 그대로 걸린다.
 
+## 휴리스틱이라는 낱말
+
+**10장이 이 페이지의 판정들을 하나의 틀로 묶는다.** 그 틀의 이름이 휴리스틱이고, 장이 그
+낱말의 뜻을 먼저 정한다.
+
+- 저자가 장을 여는 진단 — **"상황에 따라 다르다"는 소프트웨어 공학의 거의 모든 물음에 대한
+  옳은 답이지만 그다지 실용적이지 않고, 이 장은 그 "상황"이 무엇에 달렸는지를 탐색한다**
+  (10장, p.159).[^khononov2021]
+- 규정 (10장, p.159):[^khononov2021]
+
+> A heuristic is not a hard rule that is guaranteed and mathematically proven to be correct in 100%
+> of cases. Rather, it's a rule of thumb: not guaranteed to be perfect, yet sufficient for one's
+> immediate goals. In other words, using heuristics is an effective problem-solving approach that
+> ignores the noise inherent in many cues, focusing instead on the "swamping forces" reflected in the
+> most important cues.
+
+  - 저자가 이 규정의 출처로 대는 것은 Gerd Gigerenzer, Peter M. Todd, ABC Research Group,
+    *Simple Heuristics That Make Us Smart*(Oxford University Press, 1999)다 (10장, p.159,
+    각주 1).[^khononov2021] **이 KB가 확인한 원전이 아니다.**
+- 이 장의 휴리스틱들이 무엇을 보는지도 밝혀진다 — **서로 다른 업무 도메인의 본질적 성질과 여러
+  설계 결정이 다루는 문제의 본질에 초점을 맞춘다** (10장, p.159).[^khononov2021]
+- **장의 자리도 명시된다** — 이 장은 I부와 II부를 잇고, 분석 도구를 적용해 소프트웨어 설계
+  결정을 이끄는 휴리스틱을 다룬다. **곧 (업무) 도메인이 이끄는 (소프트웨어) 설계다** (10장,
+  p.159).[^khononov2021] 그 이름 풀이의 자리는 [전략 설계](strategic-design.md)다.
+
+## 판정을 물음 넷으로 편다
+
+**위 [두 축으로 갈린다](#두-축으로-갈린다)와
+[판정의 입력은 하위 도메인의 종류다](#판정의-입력은-하위-도메인의-종류다)가 5장부터 7장에
+흩어져 있던 판정을 모은 것이라면, 10장은 저자 자신이 그것을 순서 있는 물음 넷으로 편다.**
+
+- 먼저 패턴 넷의 자리가 다시 배열된다 (10장, p.161):[^khononov2021]
+  - **트랜잭션 스크립트와 액티브 레코드는 업무 로직이 단순한 하위 도메인에 더 맞는다** —
+    보조 하위 도메인이거나 일반 하위 도메인에 서드파티 솔루션을 통합하는 경우 같은 자리다.
+    **둘의 차이는 자료 구조의 복잡성뿐이다.**
+  - **도메인 모델과 그 변종인 이벤트 소싱 도메인 모델은 업무 로직이 복잡한 하위 도메인, 곧 핵심
+    하위 도메인에 맞는다** (10장, p.162).[^khononov2021]
+  - **넷째로 가는 조건이 셋으로 늘어난다** — **금전이나 화폐 거래를 추적하거나, 법으로 감사
+    로그 제공이 의무이거나, 시스템 동작에 대한 깊은 분석이 필요한 핵심 하위 도메인은 이벤트
+    소싱 도메인 모델로 다루는 편이 낫다** (10장, p.162).[^khononov2021]
+- 그 셋을 저자가 물음의 사슬로 세운다 (10장, p.162):[^khononov2021]
+
+> Does the subdomain track money or other monetary transactions or have to provide a consistent audit
+> log, or is deep analysis of its behavior required by the business? If so, use the event-sourced
+> domain model. Otherwise...
+
+> Is the subdomain's business logic complex? If so, implement a domain model. Otherwise...
+
+> Does the subdomain include complex data structures? If so, use the active record pattern.
+> Otherwise...
+
+> Implement a transaction script.
+
+  - **순서가 거꾸로라는 데 주의한다.** 가장 정교한 패턴을 먼저 묻고 하나씩 떨어뜨리며 내려온다.
+    아래 [이것이 규칙이 아니라는 단서](#이것이-규칙이-아니라는-단서)가 그 순서의 근거를
+    저자의 취향으로 밝힌다.
+  - **위 [금지가 양쪽으로 걸린다](#금지가-양쪽으로-걸린다)와 방향이 반대다.** 5장의 금지는
+    "핵심에 단순 패턴을 쓰지 마라"였고 이 사슬은 "정교한 패턴이 필요한 이유가 없으면 내려가라"다.
+    둘이 같은 대칭의 양쪽이다.
+- 저자가 이 사슬을 **하위 도메인의 복잡성과 종류 사이에 강한 관계가 있으므로 도메인 주도 결정
+  트리(domain-driven decision tree)로 시각화할 수 있다**고 적는다 (10장,
+  p.162).[^khononov2021] 그 도판이 Figure 10-3이다.
+
+## 반대 방향으로도 읽는다 — 분류를 검증하는 쓰임
+
+- **이 판정에 둘째 쓰임이 붙는다** (10장, p.163):[^khononov2021]
+
+> Deciding on the business logic implementation pattern according to the complexity of the business
+> logic and its data structures is a way to validate your assumptions about the subdomain type.
+
+- 어긋남이 신호가 된다 — **핵심 하위 도메인이라고 여겼는데 최선의 패턴이 액티브 레코드나
+  트랜잭션 스크립트로 나오거나, 보조 하위 도메인이라고 믿은 것이 도메인 모델이나 이벤트 소싱
+  도메인 모델을 요구하면, 그 하위 도메인과 업무 도메인 전반에 대한 가정을 다시 볼 훌륭한
+  기회다** (10장, p.163).[^khononov2021]
+- 다만 단서가 붙는다 (10장, p.163):[^khononov2021]
+
+> Remember, a core subdomain's competitive advantage is not necessarily technical.
+
+  - **그러므로 어긋남이 곧 오분류의 증명은 아니다.** 기술적으로 단순한 핵심 하위 도메인이
+    있을 수 있고, 그 판정 기준은 [핵심 도메인](../concepts/core-domain.md)과
+    [하위 도메인의 세 종류](subdomain-types.md)에 있다.
+
+## 복잡한 로직과 단순한 로직을 가르는 어림법
+
+- 위 사슬의 둘째 물음이 기대는 경계선에 저자가 어림법을 하나 더 붙인다 — **두 종류를 가르는
+  선이 아주 날카롭지는 않지만 쓸모가 있다** (10장, p.162).[^khononov2021]
+- 두 신호가 제시된다 (10장, pp.162–163):[^khononov2021]
+  - **복잡한 업무 로직은 대체로 복잡한 업무 규칙, 불변식, 알고리즘을 포함한다. 단순한 접근은
+    주로 입력을 검증하는 일을 중심으로 돈다.**
+  - **둘째 어림법은 유비쿼터스 언어 자체의 복잡성에 관한 것이다** — **그 언어가 주로 CRUD
+    연산을 서술하고 있는가, 아니면 더 복잡한 업무 프로세스와 규칙을 서술하고 있는가.**
+    - **둘째 신호가 이 KB에서 값이 있다.** 판정의 재료가 코드가 아니라 말이라는 뜻이고, 그
+      말의 정본은 [유비쿼터스 언어](ubiquitous-language.md)다. 곧 아직 코드를 쓰지 않은
+      시점에도 이 판정을 내릴 수 있다.
+
+## 아키텍처 패턴도 물음 넷으로 편다
+
+**위 [아키텍처 패턴은 업무 로직 패턴에 걸린다](#아키텍처-패턴은-업무-로직-패턴에-걸린다)의
+대응표는 8장의 절들에서 이 KB가 모아 만든 것이었다. 10장은 저자 자신이 같은 대응을 목록으로
+적는다.**
+
+- 전제 — **의도한 업무 로직 구현 패턴을 알면 아키텍처 패턴을 고르는 일이 직선적이 된다** (10장,
+  p.163).[^khononov2021]
+- 대응 넷 (10장, p.163):[^khononov2021]
+
+> The event-sourced domain model requires CQRS. Otherwise, the system will be extremely limited in
+> its data querying options, fetching a single instance by its ID only.
+
+> The domain model requires the ports & adapters architecture. Otherwise, the layered architecture
+> makes it hard to make aggregates and value objects ignorant of persistence.
+
+> The Active record pattern is best accompanied by a layered architecture with the additional
+> application (service) layer. This is for the logic controlling the active records.
+
+> The transaction script pattern can be implemented with a minimal layered architecture, consisting
+> of only three layers.
+
+  - **위 대응표와 어긋나지 않고 근거를 더한다.** 8장이 각 패턴의 "언제 쓰는가"에서 조건을 적은
+    것을 10장이 판정 순서로 다시 세웠고, 이유가 한 줄씩 붙는다.
+  - 원문의 `The Active record pattern`은 대문자 표기가 그 문장에서만 다르게 조판된 것이고,
+    이 KB는 직인용이므로 원문 표기를 그대로 두었다.
+- **예외가 하나 명시된다** (10장, p.163):[^khononov2021]
+
+> The only exception to the preceding heuristics is the CQRS pattern. CQRS can be beneficial not only
+> for the event-sourced domain model, but also for any other pattern if the subdomain requires
+> representing its data in multiple persistent models.
+
+  - 이 예외가 8장의 분리 선언과 같은 방향이다. 그 서술은 [CQRS 아키텍처](cqrs-architecture.md)에
+    있다.
+
+## 테스트 전략도 여기서 따라 나온다
+
+**이 장이 판정의 사슬을 한 칸 더 늘린다.** 업무 로직 패턴과 아키텍처 패턴을 알면 테스트 전략도
+정해진다는 것이 그 칸이다.
+
+- 근거 — **업무 로직 구현 패턴과 아키텍처 패턴 둘에 대한 지식을 그 코드베이스의 테스트 전략을
+  고르는 휴리스틱으로 쓸 수 있다** (10장, p.164).[^khononov2021] 저자가 드는 전략은 셋이고,
+  **셋의 차이는 단위·통합·종단이라는 서로 다른 테스트 종류 중 어디에 무게를 두는가**다 (10장,
+  p.165).[^khononov2021]
+- **테스트 피라미드 — 도메인 모델 둘** (10장, p.165):[^khononov2021]
+
+> The classic testing pyramid emphasizes unit tests, fewer integration tests, and even fewer
+> end-to-end tests. Both variants of the domain model patterns are best addressed with the testing
+> pyramid. Aggregates and value objects make perfect units for effectively testing the business
+> logic.
+
+- **테스트 다이아몬드 — 액티브 레코드** (10장, p.165):[^khononov2021]
+
+> The testing diamond focuses the most on integration tests. When the active record pattern is used,
+> the system's business logic is, by definition, spread across both the service and business logic
+> layers. Therefore, to focus on integrating the two layers, the testing pyramid is the more
+> effective choice.
+
+  - **원문의 마지막 문장이 "the testing pyramid"라고 적는다.** 절 제목과 앞 문장이 전부
+    다이아몬드를 말하므로 원서의 오식으로 보인다. #hypothesis 직인용이므로 원문 그대로
+    옮겼고, 이 판단은 이 KB의 것이지 저자의 정정이 아니다.
+- **역 테스트 피라미드 — 트랜잭션 스크립트** (10장, p.165):[^khononov2021]
+
+> The reversed testing pyramid attributes the most attention to end-to-end tests: verifying the
+> application's workflow from beginning to end. Such an approach best fits codebases implementing the
+> transaction script pattern: the business logic is simple and the number of layers is minimal,
+> making it more effective to verify the end-to-end flow of the system.
+
+- 셋을 표로 모으면 이렇다.
+
+| 업무 로직 패턴 | 테스트 전략 | 무게가 실리는 곳 | 이유 |
+|---|---|---|---|
+| [도메인 모델 패턴](../concepts/domain-model-pattern.md) · [이벤트 소싱 도메인 모델](event-sourced-domain-model.md) | 테스트 피라미드 | 단위 | 애그리게이트와 값 객체가 완벽한 단위가 된다 |
+| [액티브 레코드](active-record.md) | 테스트 다이아몬드 | 통합 | 업무 로직이 정의상 서비스 층과 업무 로직 층에 걸쳐 있다 |
+| [트랜잭션 스크립트](transaction-script.md) | 역 테스트 피라미드 | 종단 | 로직이 단순하고 층이 최소라 종단 흐름 확인이 더 효과적이다 |
+
+- **이 대응이 이 KB의 테스트 축과 겨루는 자리다.** 이 코퍼스의 테스트 축은 종단 테스트를 줄일
+  이유를 정면으로 다루고 있고, 그 서술은
+  [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md)와
+  [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md)에
+  있다. 어긋남과 그 성격은 그 페이지들에 적었다 — 요지는 **두 소스가 같은 축 위에서 다른 값을
+  주는 것이 아니라, 무게 배분을 정하는 입력을 서로 다르게 잡는다**는 것이다. 그쪽은 피드백
+  루프의 성질(속도·신뢰·실패 위치 지목)을 입력으로 삼고, 이쪽은 업무 로직 구현 패턴을 입력으로
+  삼는다.
+
+## 셋을 하나의 결정 트리로
+
+- 저자가 셋을 합친다 — **업무 로직 패턴, 아키텍처 패턴, 테스트 전략 휴리스틱을 통합해 전술 설계
+  결정 트리(tactical design decision tree) 하나로 요약할 수 있다** (10장,
+  p.166).[^khononov2021] 그 도판이 Figure 10-7이다.
+- 그 트리가 무엇을 주는지 (10장, p.166):[^khononov2021]
+
+> As you can see, identifying subdomains types and following the decision tree gives you a solid
+> starting point for making the essential design decisions.
+
+  - **입력이 하나뿐이라는 것이 이 트리의 요점이다.** 하위 도메인의 종류를 식별하는 것 하나로
+    업무 로직 패턴·아키텍처 패턴·테스트 전략 셋이 따라 나온다. 그 식별의 절차는
+    [하위 도메인의 세 종류](subdomain-types.md)와
+    [비즈니스 도메인과 하위 도메인](business-domain-and-subdomains.md)에 있다.
+- 10장 맺음이 그 범위를 다시 적는다 — 업무 도메인과 그 하위 도메인에 대한 지식을 적용해 기술
+  결정을 이끄는 법, 곧 **안전한 경계 컨텍스트 경계를 고르고, 애플리케이션의 업무 로직을
+  모델링하고, 각 경계 컨텍스트의 내부 구성 요소 사이 상호작용을 조율할 아키텍처 패턴을 정하는
+  것**이다. 마지막으로 **어떤 테스트가 더 중요한가라는 자주 격론이 붙는 주제로 우회해 같은 틀을
+  써서 테스트를 업무 도메인에 따라 우선순위 매겼다**고 적는다 (10장, p.167).[^khononov2021]
+
+## 이것이 규칙이 아니라는 단서
+
+- 저자가 트리 바로 뒤에 유보를 단다 (10장, p.166):[^khononov2021]
+
+> That said, it's important to reiterate that these are heuristics, not hard rules. There is an
+> exception to every rule, let alone heuristics, that by definition are not intended to be correct in
+> 100% of the cases.
+
+- **트리의 순서가 저자 개인의 취향이라는 것까지 밝혀진다** (10장, p.167):[^khononov2021]
+
+> The decision tree is based on my preference to use the simple tools, and resort to the advanced
+> patterns—domain model, event-sourced domain model, CQRS, and so on—only when absolutely necessary.
+
+- 반례도 저자가 직접 든다 — **이벤트 소싱 도메인 모델을 구현한 경험이 많아 모든 하위 도메인에
+  그것을 쓰는 팀들을 만났고, 그들에게는 여러 패턴을 쓰는 것보다 그 편이 더 단순하다**. 다만
+  **그 접근을 모두에게 권할 수는 없고, 자신이 일하거나 자문한 회사들에서는 휴리스틱 기반
+  접근이 모든 문제에 같은 해법을 쓰는 것보다 효율적이었다**고 적는다 (10장,
+  p.167).[^khononov2021]
+- 맺음 (10장, p.167):[^khononov2021]
+
+> At the end of the day, it depends on your specific context. Use the decision tree illustrated in
+> Figure 10-7, and the design heuristics it is based on, as guiding principles, but not as a
+> replacement for critical thinking. If you find that alternative heuristics fit you better, feel
+> free to alter the guiding principles or build your own decision tree altogether.
+
+  - **이 단서가 이 페이지 전체의 지위를 정한다.** 위 표들은 판정 규칙이 아니라 출발점이고,
+    가장 강한 조항은 여전히 5장의 두 금지다(핵심에 단순 패턴 금지, 단순한 것에 정교한 패턴
+    금지). 나머지는 기본값이다.
+
 ## 이어지는 페이지
 
 - [트랜잭션 스크립트](transaction-script.md) — 가장 단순한 패턴이자 나머지의 바탕
@@ -234,3 +471,18 @@ sources:
     확인해 준다. 아키텍처 패턴 대응표는 원문의 표가 아니라 §"When to Use…" 절 셋과
     §Conclusion에서 이 KB가 모아 만든 것이다. 도판 둘(Figure 8-17 여러 하위 도메인에 걸친
     경계 컨텍스트 · 8-18 아키텍처 슬라이스)은 도판이라 본문이 그것에 대해 적는 것만 옮겼다.
+    **10장 "Design Heuristics"(도입 p.159 · §Heuristic p.159 · §"Business Logic Implementation
+    Patterns" pp.161–163 · §"Architectural Patterns" pp.163–164 · §"Testing Strategy"
+    pp.164–165와 그 아래 §"Testing Pyramid"·§"Testing Diamond"·§"Reversed Testing Pyramid"
+    p.165 · §"Tactical Design Decision Tree" pp.166–167 · §Conclusion p.167)이 이 페이지에
+    합류했다.** 저자가 대는 출처 하나(Gigerenzer, Todd & ABC Research Group,
+    *Simple Heuristics That Make Us Smart*, Oxford University Press 1999)는 이 KB가 확인한
+    원전이 아니다. §Heuristic 인용 끝에 붙은 본문 각주 번호 표지("cues.1")는 떼고 옮겼다.
+    10장의 도판 일곱(Figure 10-1 여러 경계 컨텍스트에 걸친 변경 · 10-2 넓은 경계 컨텍스트
+    경계 · 10-3 업무 로직 구현 패턴 결정 트리 · 10-4 아키텍처 패턴 결정 트리 · 10-5 테스트
+    전략 셋 · 10-6 테스트 전략 결정 트리 · 10-7 전술 설계 결정 트리)은 도판이라 본문이 그것에
+    대해 적는 것만 산문으로 옮겼다 — **결정 트리 넷은 전부 도판이고 본문에 대응하는 산문이
+    있어 그 산문을 옮겼다.** 장 끝 연습문제 넷(pp.167–168)은 claim이 아니라 옮기지 않았다.
+    §"Testing Diamond"의 마지막 문장이 "the testing pyramid is the more effective choice"라고
+    적는 것은 원문 그대로이고 이 KB의 옮김 오류가 아니다 — `pdftotext -layout` 추출로
+    재확인했다.

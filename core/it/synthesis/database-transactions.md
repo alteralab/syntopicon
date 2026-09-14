@@ -59,6 +59,10 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   때의 표준과 그 한계, 데이터베이스 내부 구현과의 대비
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 분산 트랜잭션
   없이 멱등성으로 같은 것을 얻는 길
+- [아웃박스 패턴](../concepts/outbox-pattern.md) — 두 쓰기를 한 데이터베이스 안으로 몰아
+  분산 트랜잭션을 피하는 쪽
+- [사가 패턴](../concepts/saga-pattern.md) — 서비스 쪽에서 2PC의 자리를 대신하는 것. 원자성을
+  포기하고 보상 행동과 결국 일관됨을 받는다
 - [Calvin과 Spanner](../concepts/calvin-and-spanner.md) — 실행 순서를 먼저 합의하는 쪽과 샤드마다
   합의 그룹을 두는 쪽
 - [Percolator 트랜잭션](../concepts/percolator-transactions.md) — 기존 분산 스토어 위에 스냅샷

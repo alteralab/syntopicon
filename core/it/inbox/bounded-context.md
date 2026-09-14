@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 경계 컨텍스트
-description: 하나의 모델이 통용되는 범위를 명시적으로 긋는다는 패턴의 원전 — 같은 이름의 클래스를 두 팀이 공유하다 터진 사건, 전사적 단일 모델이 비용을 못 넘는다는 판정과 그 위험 넷, 컨텍스트가 무엇으로 정의되는가와 모듈과 다른 점, 화물 예약 프로젝트에서 무엇이 경계 안에 들고 무엇이 나가는가, 경계를 그어서 얻는 것이 안에는 명료함이고 밖에는 자유라는 계산, 모델이 쪼개졌음을 알아채는 두 증상, 그어 놓은 경계 안을 하나로 유지하는 지속적 통합, 팀 하나에 컨텍스트 하나가 대응한다는 규칙과 경계를 키우거나 줄이려는 힘이 어디에 정리되어 있는가, 그리고 외부 시스템은 이 패턴의 정의를 약하게만 만족시키므로 통일 의도가 실제로 있는지 확인하라는 단서, 그리고 2021년 실무서가 더하는 것 — 같은 낱말이 두 부서에서 다른 뜻을 갖는 리드의 사례와 접두어 해법이 기각되는 이유, 언어를 쪼개 각 조각에 컨텍스트를 배정하라는 규정과 경계가 유비쿼터스 언어의 일관성 경계라는 못박음, 크기 자체는 판정 기준이 아니며 정합적 기능을 쪼개지 말라는 어림법과 더 잘게 뽑아낼 이유 셋, 하위 도메인은 발견되고 경계 컨텍스트는 설계된다는 구별과 그것이 원전과 겨루지 않는 이유, 컨텍스트마다 별도 서비스를 요구하는 물리 경계와 팀 하나가 소유한다는 소유권 경계, 그리고 의미 영역과 토마토와 중력의 두 모델과 냉장고 판지라는 일상의 경계 넷
-generated: { by: "claude-opus-5", at: "2026-09-14T20:00:00Z" }
+description: 하나의 모델이 통용되는 범위를 명시적으로 긋는다는 패턴의 원전 — 같은 이름의 클래스를 두 팀이 공유하다 터진 사건, 전사적 단일 모델이 비용을 못 넘는다는 판정과 그 위험 넷, 컨텍스트가 무엇으로 정의되는가와 모듈과 다른 점, 화물 예약 프로젝트에서 무엇이 경계 안에 들고 무엇이 나가는가, 경계를 그어서 얻는 것이 안에는 명료함이고 밖에는 자유라는 계산, 모델이 쪼개졌음을 알아채는 두 증상, 그어 놓은 경계 안을 하나로 유지하는 지속적 통합, 팀 하나에 컨텍스트 하나가 대응한다는 규칙과 경계를 키우거나 줄이려는 힘이 어디에 정리되어 있는가, 그리고 외부 시스템은 이 패턴의 정의를 약하게만 만족시키므로 통일 의도가 실제로 있는지 확인하라는 단서, 그리고 2021년 실무서가 더하는 것 — 같은 낱말이 두 부서에서 다른 뜻을 갖는 리드의 사례와 접두어 해법이 기각되는 이유, 언어를 쪼개 각 조각에 컨텍스트를 배정하라는 규정과 경계가 유비쿼터스 언어의 일관성 경계라는 못박음, 크기 자체는 판정 기준이 아니며 정합적 기능을 쪼개지 말라는 어림법과 더 잘게 뽑아낼 이유 셋, 하위 도메인은 발견되고 경계 컨텍스트는 설계된다는 구별과 그것이 원전과 겨루지 않는 이유, 컨텍스트마다 별도 서비스를 요구하는 물리 경계와 팀 하나가 소유한다는 소유권 경계, 그리고 의미 영역과 토마토와 중력의 두 모델과 냉장고 판지라는 일상의 경계 넷, 그리고 같은 판본의 10장이 크기 물음에 내놓는 어림법 — 크기를 정하고 모델을 맞추지 말고 모델이 크기를 정하게 하라는 인용, 여러 경계에 걸치는 변경이 비싸고 경계 리팩터링은 더 비싸다는 셈, 논리 경계를 고치는 값이 물리 경계를 고치는 값보다 훨씬 싸므로 넓게 시작해 지식이 쌓이면 쪼개라는 처방, 그리고 이 어림법이 핵심 하위 도메인에 주로 걸리며 핵심이 자주 상호작용하는 하위 도메인들을 함께 품으라는 단서
+generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -25,6 +25,7 @@ sources:
 - [한 낱말이 부서마다 다른 뜻일 때](#한-낱말이-부서마다-다른-뜻일-때)
 - [이 판본이 정의하는 경계 컨텍스트](#이-판본이-정의하는-경계-컨텍스트)
 - [경계의 크기는 그 자체로 판정 기준이 아니다](#경계의-크기는-그-자체로-판정-기준이-아니다)
+- [넓게 시작하라 — 10장의 어림법](#넓게-시작하라--10장의-어림법)
 - [하위 도메인은 발견되고 경계 컨텍스트는 설계된다](#하위-도메인은-발견되고-경계-컨텍스트는-설계된다)
 - [물리 경계와 소유권 경계](#물리-경계와-소유권-경계)
 - [일상에 있는 경계들](#일상에-있는-경계들)
@@ -363,6 +364,68 @@ sources:
   일부의 개발 생애 주기를 분리해야 할 때), **그리고 어떤 기능을 나머지와 독립적으로 확장하는
   능력**이다 (3장, p.38).[^khononov2021]
 
+## 넓게 시작하라 — 10장의 어림법
+
+**같은 판본의 10장이 위 절의 "크기는 기준이 아니다"를 실행 가능한 기본값으로 바꾼다.** 3장이
+크기를 기준에서 뺐다면, 10장은 그 자리에 **무엇으로 시작할 것인가**를 놓는다.
+
+- 물음이 다시 세워진다 — 3장에서 본 대로 넓은 경계도 좁은 경계도 일관된 유비쿼터스 언어를 품는
+  유효한 경계 컨텍스트의 정의에 맞을 수 있는데, **그래도 경계 컨텍스트의 최적 크기는
+  무엇인가**. 저자는 이 물음이 **경계 컨텍스트를 마이크로서비스와 동일시하는 일이 잦기 때문에
+  특히 중요하다**고 적는다 (10장, p.160).[^khononov2021]
+  - 그 동일시를 다루는 장은 11장이고 이 반입에 아직 들어오지 않았다.
+- **가장 작은 경계를 지향해야 하는가**라는 물음에 저자가 자기 친구 Nick Tune의 말을 인용해
+  답한다 (10장, p.160):[^khononov2021]
+
+> There are many useful and revealing heuristics for defining the boundaries of a service. Size is
+> one of the least useful. Rather than making the model a function of the desired size—optimizing for
+> small bounded contexts—it's much more effective to do the opposite: treat the bounded context's
+> size as a function of the model it encompasses.
+
+  - **함수의 방향이 뒤집혀 있다는 것이 이 인용의 요점이다.** 크기를 정하고 모델을 거기 맞추는
+    것이 아니라, 모델이 정해지면 크기가 따라 나온다.
+  - 이 인용은 저자가 대는 개인적 출처이고 이 KB가 확인한 출판물이 아니다.
+- 잘못 그은 경계가 무엇을 치르는지 (10장, p.160):[^khononov2021]
+
+> Software changes affecting multiple bounded contexts are expensive and require lots of
+> coordination, especially if the affected bounded contexts are implemented by different teams. Such
+> changes that are not encapsulated in a single bounded context signal ineffective design of the
+> contexts' boundaries.
+
+  - **그리고 되돌리기가 비싸다** — **경계 컨텍스트 경계를 리팩터링하는 것은 값비싼 일이고, 많은
+    경우 비효율적인 경계가 손대지지 않은 채 남아 기술 부채를 쌓게 된다** (10장,
+    p.160).[^khononov2021]
+- 언제 그런 변경이 일어나는지에서 어림법이 나온다 — **경계 컨텍스트의 경계를 무효화하는 변경은
+  보통 업무 도메인이 잘 알려져 있지 않거나 업무 요구사항이 자주 바뀔 때 일어난다**. 그런데
+  **휘발성과 불확실성은 1장에서 본 대로 핵심 하위 도메인의 성질이고, 특히 구현 초기 단계에
+  그렇다. 이것을 경계 컨텍스트 경계를 설계하는 휴리스틱으로 쓸 수 있다** (10장,
+  pp.160–161).[^khononov2021]
+- 처방 (10장, p.161):[^khononov2021]
+
+> Broad bounded context boundaries, or those that encompass multiple subdomains, make it safer to be
+> wrong about the boundaries or the models of the included subdomains. Refactoring logical boundaries
+> is considerably less expensive than refactoring physical boundaries. Hence, when designing bounded
+> contexts, start with wider boundaries. If required, decompose the wide boundaries into smaller ones
+> as you gain domain knowledge.
+
+  - **이 어림법의 근거는 되돌리기 비용의 비대칭이다.** 넓게 잡아 두면 틀렸을 때 안에서 논리
+    경계만 옮기면 되고, 좁게 잡았다가 틀리면 물리 경계를 옮겨야 한다. 위
+    [물리 경계와 소유권 경계](#물리-경계와-소유권-경계)가 그 둘의 구별을 적은 자리다.
+  - 논리 경계를 안에 두는 실행이 8장의 세로 분할이고, 그 서술은
+    [업무 로직 구현 패턴 고르기 §이 판정을 어느 범위에 거는가](choosing-a-business-logic-pattern.md#이-판정을-어느-범위에-거는가)에
+    있다.
+- **적용 범위에 단서가 붙는다** (10장, p.161):[^khononov2021]
+
+> This heuristic applies mainly to bounded contexts encompassing core subdomains, as both generic and
+> supporting subdomains are more formularized and much less volatile.
+
+  - 그래서 처방이 하나 더 나온다 — **핵심 하위 도메인을 담은 경계 컨텍스트를 만들 때는 그 핵심이
+    가장 자주 상호작용하는 다른 하위 도메인들을 함께 넣어 예기치 못한 변경으로부터 스스로를
+    보호할 수 있다.** 그것은 다른 핵심 하위 도메인일 수도 있고 보조나 일반 하위 도메인일 수도
+    있다 (10장, p.161).[^khononov2021]
+  - 종류별 성질의 정본은 [하위 도메인의 세 종류](subdomain-types.md)와
+    [핵심 도메인](../concepts/core-domain.md)에 있다.
+
 ## 하위 도메인은 발견되고 경계 컨텍스트는 설계된다
 
 이 판본이 원전에 없는 구별을 하나 세운다. 업무 쪽 단위와 설계 쪽 단위를 가르는 문장이고, 이
@@ -550,3 +613,8 @@ sources:
     서술했다. 장 끝 연습문제 여섯(pp.46–47)은 claim이 아니라 옮기지 않았다 — 다만 5번이
     서문의 WolfDesk 설명을 참조하고, 그 설명은
     [비즈니스 도메인과 하위 도메인](business-domain-and-subdomains.md)에 있다.
+    **10장 §"Bounded Contexts"(pp.160–161)가 이 페이지에 합류했다.** 거기 인용된 Nick Tune의
+    말은 저자가 대는 개인적 출처이고 이 KB가 확인한 출판물이 아니다. 10장의 도판
+    둘(Figure 10-1 여러 경계 컨텍스트에 걸친 변경 · 10-2 넓은 경계 컨텍스트 경계)은 도판이라
+    본문이 그것에 대해 적는 것만 산문으로 옮겼다. 10장의 각주 2(경계 컨텍스트와
+    마이크로서비스의 상호작용은 11장이 다룬다)는 뒤 런의 범위라 주제 이름만 옮겼다.
