@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 모델 주도 설계
-description: 모델과 구현을 한 몸으로 묶는다는 조항의 원전 — 분석 모델과 설계 모델을 갈라 두면 둘 다 죽는다는 진단, 하나의 모델이 두 목적을 다 감당해야 한다는 요구와 그 대가, 매핑이 뻔해야 한다는 처방과 코드를 바꾸는 것이 모델을 바꾸는 것이라는 귀결, 모델링 패러다임을 지원하는 언어가 왜 필요한가, 이름 규약으로 개념을 유추하던 스크립트를 개념을 명시한 모델로 바꾼 인쇄 회로 기판 사례, 사용자에게 보이는 모델과 구현 모델이 어긋날 때 생기는 것, 모델링과 구현을 사람으로 갈라놓으면 안 되는 이유, 이 조항이 객체를 요구하지 않되 표현력 있는 구현은 요구한다는 5장의 단서, 그리고 모델에 대응하지 않는 구성물이 오히려 이 설계를 완성한다는 6장의 규정과 이 조항을 규칙으로 오해해 엉킴에 빠진 팀의 기록
+description: 모델과 구현을 한 몸으로 묶는다는 조항의 원전 — 분석 모델과 설계 모델을 갈라 두면 둘 다 죽는다는 진단, 하나의 모델이 두 목적을 다 감당해야 한다는 요구와 그 대가, 매핑이 뻔해야 한다는 처방과 코드를 바꾸는 것이 모델을 바꾸는 것이라는 귀결, 모델링 패러다임을 지원하는 언어가 왜 필요한가, 이름 규약으로 개념을 유추하던 스크립트를 개념을 명시한 모델로 바꾼 인쇄 회로 기판 사례, 사용자에게 보이는 모델과 구현 모델이 어긋날 때 생기는 것, 모델링과 구현을 사람으로 갈라놓으면 안 되는 이유, 이 조항이 객체를 요구하지 않되 표현력 있는 구현은 요구한다는 5장의 단서, 그리고 모델에 대응하지 않는 구성물이 오히려 이 설계를 완성한다는 6장의 규정과 이 조항을 규칙으로 오해해 엉킴에 빠진 팀의 기록, 그리고 II부 도입이 밝히는 이 부의 규모와 계보 — 객체 지향 설계 입문서가 아니라 통상적 발상의 강조점을 옮긴다는 자기 규정, 작은 규모의 정성이 III·IV부의 발판이라는 배치, 책임 주도 설계와 계약에 의한 설계에서 빌려 온 설계 양식, 원리가 안 맞아 보일 때 필요한 것은 준수가 아니라 이해라는 조항, 다음 세 장이 패턴 언어로 조직되고 그 이름들이 유비쿼터스 언어에 보태진다는 것
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
@@ -20,6 +20,7 @@ sources:
 - [모델링하는 사람과 코드 쓰는 사람을 가르지 마라](#모델링하는-사람과-코드-쓰는-사람을-가르지-마라)
 - [이 조항은 객체를 요구하지 않는다](#이-조항은-객체를-요구하지-않는다)
 - [모델에서 오지 않는 구성물이 이 설계를 완성한다](#모델에서-오지-않는-구성물이-이-설계를-완성한다)
+- [II부가 자기 규모와 계보를 밝히는 자리](#ii부가-자기-규모와-계보를-밝히는-자리)
 - [이 조항이 겨냥하는 모델은 아무 모델이 아니다](#이-조항이-겨냥하는-모델은-아무-모델이-아니다)
 - [이 조항이 부정하는 것 — 분석과 설계의 균열](#이-조항이-부정하는-것--분석과-설계의-균열)
 - [이어지는 페이지](#이어지는-페이지)
@@ -304,6 +305,75 @@ sources:
   전문은
   [관계형 데이터베이스를 위한 객체 설계](designing-objects-for-relational-databases.md)에 있다.
 
+## II부가 자기 규모와 계보를 밝히는 자리
+
+이 조항을 가운데 놓은 II부가 도입에서 먼저 하는 일은 **무엇을 하는 부가 아닌지**를 적고,
+설계 양식을 어디서 빌려 왔는지를 밝히는 것이다. 이 페이지의 조항이 앞으로 어떤 수준의
+작업을 요구하는지가 거기서 정해진다.
+
+- **이 책은 객체 지향 설계 입문서가 아니다.** 도입이 자기 성격을 부정형으로 규정한다
+  (II부 도입, p.64):[^evans2003]
+
+> This book is not an introduction to object-oriented design, nor does it propose radical design
+> fundamentals. Domain-driven design shifts the emphasis of certain conventional ideas.
+
+  - 새 기초를 제안하는 것이 아니라 **통상적 발상의 강조점을 옮긴다**는 규정이고, 그래서 위
+    [이 조항은 객체를 요구하지 않는다](#이-조항은-객체를-요구하지-않는다)의 단서와 결이 같다.
+- **작은 규모의 정성이 큰 규모 작업의 발판이다.** 모델과 구현을 서로 맞춰 두는 종류의 결정들은
+  개별 요소의 세부에 대한 주의를 요구하고, 그 세부를 다루는 것이 II부의 일이다
+  (II부 도입, p.64):[^evans2003]
+
+> Careful crafting at this small scale gives developers a steady platform from which to apply the
+> modeling approaches of Parts III and IV.
+
+  - 그 발판 위에 얹히는 것이 [깊은 모델과 돌파](deep-model.md)(III부)와
+    [전략적 설계](strategic-design.md)(IV부)다. 이 배치가 아래
+    [이 조항이 겨냥하는 모델은 아무 모델이 아니다](#이-조항이-겨냥하는-모델은-아무-모델이-아니다)에서
+    III부 쪽 서술과 맞물린다.
+- **설계 양식의 출처가 밝혀진다** (II부 도입, p.64).[^evans2003] 이 책의 설계 양식은
+  Wirfs-Brock et al. 1990이 제시하고 Wirfs-Brock 2003이 갱신한 **책임 주도 설계**
+  (responsibility-driven design)의 원리를 대체로 따르며, 특히 III부에서 Meyer 1988이 기술한
+  **계약에 의한 설계**(design by contract)의 발상에 크게 기댄다. Larman 1998 같은 책이 적는
+  객체 지향 설계의 널리 받아들여진 모범 사례와도 어긋나지 않는다고 덧붙인다.
+  - 계약 쪽 계보의 전문은 [계약에 의한 설계](design-by-contract.md)에 있다 — 그 페이지도
+    출처로 같은 Meyer 1988을 대고, 10장의 단언이 그 어휘를 애그리게이트 단위까지 넓힌다.
+  - **이 KB에는 Wirfs-Brock 쪽 소스가 없다.** 이름만 기록해 둔다.
+- **원리가 안 맞아 보이는 순간을 위한 조항**이 붙는다. 프로젝트가 크고 작은 요철에 부딪히면
+  개발자는 이 원리들이 적용 불가능해 보이는 상황에 놓이는데, 그때 필요한 것은 규칙의 준수가
+  아니라 기초가 이 조항을 **어떻게** 떠받치는지에 대한 이해다 (II부 도입, p.64):[^evans2003]
+
+> To make the domain-driven design process resilient, developers need to understand *how* the
+> well-known fundamentals support MODEL-DRIVEN DESIGN, so they can compromise without derailing.
+
+  - **타협을 금지하지 않는다는 뜻이다.** 같은 취지가 11장에도 한 번 더 나오고, 그 문장은 위
+    [이 조항이 부정하는 것 — 분석과 설계의 균열](#이-조항이-부정하는-것--분석과-설계의-균열)에
+    "계산된 타협"으로 적혀 있다.
+- **다음 세 장은 패턴 언어(pattern language)로 조직된다** (II부 도입, p.64).[^evans2003]
+  형식의 설명은 부록 A가 맡고, 그 조직이 **미묘한 모델 구분과 설계 결정이 이 과정에 어떤 영향을
+  주는지**를 보이는 장치라고 적힌다.
+- **부 도입의 끝에 항해 지도(navigation map)가 하나 있다** (II부 도입, p.65).[^evans2003]
+  본문이 그것을 이 부에서 제시할 패턴들과 그것들이 서로 관계 맺는 몇 가지 방식을 보이는
+  그림이라고 적는다. 그림 자체는 도판이라 옮기지 않았고, 지도가 이 페이지의 조항과
+  [스마트 UI 안티패턴](smart-ui-antipattern.md)을 **서로 배타적인 선택**으로 갈라 놓는다는 것만
+  기록한다.
+- **표준 패턴을 공유하면 설계에 질서가 생긴다** (II부 도입, p.64).[^evans2003] 팀원이 서로의
+  작업을 이해하기 쉬워지고, 그 패턴들이 [유비쿼터스 언어](ubiquitous-language.md)에 보태져
+  모델과 설계 결정을 논하는 말이 된다. **이 조항의 언어 쪽 짝이 여기서 한 번 더 확인된다** —
+  패턴 이름은 설계의 어휘일 뿐 아니라 대화의 어휘다.
+- **기예와 체계의 분업**이 도입의 맺음이다 (II부 도입, pp.64–65):[^evans2003]
+
+> Developing a good domain model is an art. But the practical design and implementation of a
+> model’s individual elements can be relatively systematic.
+
+  - 체계적인 쪽이 II부의 내용이다 — 도메인 설계를 다른 관심사 더미에서 격리하면 설계와 모델의
+    연결이 크게 뚜렷해지고, 일정한 구분에 따라 모델 요소를 정의하면 그 의미가 날카로워지며,
+    개별 요소에 검증된 패턴을 따르면 구현하기 실용적인 모델이 나온다.
+  - 그리고 왜 이 작은 일이 큰 모델의 전제 조건인지가 한 문장으로 닫힌다
+    (II부 도입, p.65):[^evans2003]
+
+> Elaborate models can cut through complexity only if care is taken with the fundamentals,
+> resulting in detailed elements that the team can confidently combine.
+
 ## 이 조항이 겨냥하는 모델은 아무 모델이 아니다
 
 이 페이지의 조항은 **모델과 구현을 묶으라**고 요구하지만 어떤 모델을 묶을지는 말하지 않는다.
@@ -365,7 +435,8 @@ sources:
 - [리팩터링](refactoring.md) — 이 소스가 모델 갱신 절차로 부르는 활동
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 장 도입(p.294)과 예제
+[^evans2003]: Evans 2003, II부 "The Building Blocks of a Model-Driven Design" 도입(pp.64–65) ·
+    11장 "Applying Analysis Patterns" 장 도입(p.294)과 예제
     "Earning Interest with Accounts"(p.300) ·
     III부 "Refactoring Toward Deeper Insight" 도입(pp.188·191) ·
     3장 "Binding Model and Implementation" 전체
@@ -382,3 +453,7 @@ sources:
     제네릭 없는 원시 `Set`을 쓴다. 넷 리스트·규칙 파일의 표 형식 예시(pp.53–54)는 실행할
     것이 아니라 표로 옮기지 않고 산문으로 서술했다. 곁글 "A Medieval Sky Computer"(p.47)와
     도판(Figure 3.1·3.2·3.3)은 옮기지 않았다.
+    II부 도입의 항해 지도(p.65)도 도판이라 옮기지 않고, 본문이 그것에 대해 적는 것과 지도가
+    이 조항과 SMART UI를 배타적 선택으로 갈라 놓는다는 것만 산문으로 서술했다.
+    Wirfs-Brock et al. 1990 · Wirfs-Brock 2003 · Meyer 1988 · Larman 1998은 이 책이 대는
+    출처이고 이 KB가 직접 확인한 원전이 아니다.
