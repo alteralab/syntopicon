@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 리포지터리 패턴
-description: 영속 저장소 위에 씌우는 단순화 추상 — 데이터가 전부 메모리에 있는 척한다는 규정과 add·get 두 메서드뿐인 최소 인터페이스, ORM이 주는 영속성 무지와 그것으로는 부족한 이유, 선언적 매핑 대신 고전적 매퍼로 ORM이 모델을 임포트하게 뒤집는 수순, 자기 부과한 단순함이 결합을 막는다는 논리, 집합 하나로 끝나는 가짜 리포지터리와 "가짜로 만들기 어려우면 추상이 너무 복잡하다"는 설계 피드백, 이 패턴의 비용을 저자들이 계상한 표, 그리고 메모리 안 컬렉션의 착시를 조문으로 둔 원 정의와 그 이득 넷
+description: 영속 저장소 위에 씌우는 단순화 추상 — 데이터가 전부 메모리에 있는 척한다는 규정과 add·get 두 메서드뿐인 최소 인터페이스, ORM이 주는 영속성 무지와 그것으로는 부족한 이유, 선언적 매핑 대신 고전적 매퍼로 ORM이 모델을 임포트하게 뒤집는 수순, 자기 부과한 단순함이 결합을 막는다는 논리, 집합 하나로 끝나는 가짜 리포지터리와 "가짜로 만들기 어려우면 추상이 너무 복잡하다"는 설계 피드백, 이 패턴의 비용을 저자들이 계상한 표, 참조를 얻는 세 길과 모든 접근을 항해로만 하려다 엉킴에 빠진 팀의 기록, 기반 구조가 쉬울 때와 어려울 때 각각 모델이 망가지는 두 경로를 세운 원전의 문제 서술, 메모리 안 컬렉션의 착시를 조문으로 둔 원 정의와 그 이득 넷, 그리고 인터페이스의 폭과 구현이 따로 다뤄지는 자리
 generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 status: draft
 sources:
@@ -20,6 +20,7 @@ sources:
 - [테스트를 버릴 때와 남길 때](#테스트를-버릴-때와-남길-때)
 - [비용 — 저자들이 계상한 표](#비용--저자들이-계상한-표)
 - [이 패턴의 원 정의](#이-패턴의-원-정의)
+- [인터페이스의 폭과 구현은 따로 다룬다](#인터페이스의-폭과-구현은-따로-다룬다)
 - [질의 규칙을 어디에 두는가](#질의-규칙을-어디에-두는가)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -210,6 +211,59 @@ sources:
 리포지터리는 이 소스가 만든 것이 아니라 도메인 주도 설계 쪽 원전에서 왔다. 원 정의를 여기
 둔다 — 이 페이지가 옮긴 파이썬 판정과 어긋나지 않는지 대조할 자리다.
 
+- 원전은 참조를 얻는 길이 셋뿐이라는 데서 출발한다 — 객체를 만들거나, 연관을 항해하거나,
+  질의하는 것이다. 앞 둘만으로는 **첫 객체를 얻어야** 한다는 문제가 남는다 (6장,
+  p.147).[^evans2003]
+  - 저자가 앞 둘만 쓰려 한 팀의 사례를 남긴다 — 모델 주도 설계를 열성적으로 받아들여 **모든**
+    객체 접근을 생성이나 항해로만 하려 한 팀이 있었고, **이 자기 부과한 제한이 그들을 정확히
+    앞 몇 장에 걸쳐 피하려 애써 온 그 끝없는 엉킴을 만들게 강제했다** (6장,
+    pp.147–148).[^evans2003] 팀은 그 전략을 오래 유지하지 못했지만 **다른 일관된 접근으로
+    대체하지도 못했다. 그들은 임기응변 해법을 이어 붙였고 야심이 줄었다** (6장,
+    p.148).[^evans2003]
+- **질의와 연관 중 무엇을 쓸지가 설계 결정이 된다** — 데이터베이스 검색은 전역적으로 접근 가능해
+  어떤 객체로도 곧장 갈 수 있게 하고, **모든 객체가 상호 연결될 필요가 없어져 객체의 그물을 다룰
+  만하게 유지할 수 있다. 항해를 제공할지 검색에 의존할지가 설계 결정이 되고, 검색의 결합 해제와
+  연관의 응집성을 맞바꾸게 된다** (6장, p.148).[^evans2003]
+  - 예가 한 쌍의 물음으로 온다 — **고객(Customer) 객체가 자신이 낸 모든 주문(Order)의 컬렉션을
+    들어야 하는가? 아니면 주문이 고객 ID 필드 검색으로 데이터베이스에서 찾아져야 하는가?
+    검색과 연관의 옳은 조합이 설계를 이해할 수 있게 만든다** (6장, p.148).[^evans2003]
+    이 저울의 다른 쪽 끝이 [도메인 연관](domain-associations.md)이다.
+- **문제 서술이 둘로 나뉘어 인쇄된다.** 첫째는 기반 구조가 쉬울 때와 어려울 때 각각 무엇이
+  망가지는지다 (6장, p.149):[^evans2003]
+
+> A client needs a practical means of acquiring references to preexisting domain objects. If
+> the infrastructure makes it easy to do so, the developers of the client may add more
+> traversable associations, muddling the model. On the other hand, they may use queries to
+> pull the exact data they need from the database, or to pull a few specific objects rather
+> than navigating from AGGREGATE roots. Domain logic moves into queries and client code, and
+> the ENTITIES and VALUE OBJECTS become mere data containers. The sheer technical complexity
+> of applying most database access infrastructure quickly swamps the client code, which leads
+> developers to dumb down the domain layer, which makes the model irrelevant.
+
+- 그 사이에 범위가 좁혀진다. 일시적 객체(보통 값 객체)는 걱정하지 않아도 되고, 항해로 찾는 편이
+  편한 영속 객체도 질의 접근이 필요 없다. **그리고 가장 중요하게, 애그리게이트 내부의 어떤 객체도
+  루트로부터의 항해를 제외한 접근이 금지된다** (6장, p.149).[^evans2003]
+  - 값 객체를 전역 검색하는 일이 드문 이유도 적혀 있다 — **속성으로 값을 찾는 것은 그 속성을 가진
+    새 인스턴스를 만드는 것과 동등하므로, 값에 대한 전역 검색 접근은 흔히 무의미하다** (6장,
+    p.150).[^evans2003] 예외는 사용자 이름과 함께 저장해 되찾는 여행 일정 같은 것, 그리고 값이
+    미리 정해진 열거형이다. 그리고 진단이 하나 따라온다 — **데이터베이스에서 기존 값을 검색해야
+    한다고 느낀다면, 사실은 당신이 알아보지 못한 정체성을 가진 엔티티를 갖고 있을 가능성을
+    고려할 만하다** (6장, p.150).[^evans2003]
+- 그래서 문제가 더 정밀하게 다시 서술된다 (6장, p.150):[^evans2003]
+
+> A subset of persistent objects must be globally accessible through a search based on object
+> attributes. Such access is needed for the roots of AGGREGATES that are not convenient to
+> reach by traversal. They are usually ENTITIES, sometimes VALUE OBJECTS with complex internal
+> structure, and sometimes enumerated VALUES. Providing access to other objects muddies
+> important distinctions. Free database queries can actually breach the encapsulation of
+> domain objects and AGGREGATES. Exposure of technical infrastructure and database access
+> mechanisms complicates the client and obscures the MODEL-DRIVEN DESIGN.
+
+- 기술적 해법들이 있다는 것도 인정된다 — SQL을 질의 객체(QUERY OBJECT)로 캡슐화하거나 메타데이터
+  매핑 층으로 객체와 테이블을 번역하는 기법들이다. **그러나 그렇더라도 무엇을 잃었는지 유의하라.
+  우리는 더 이상 도메인 모델의 개념을 생각하고 있지 않다** (6장, pp.150–151).[^evans2003]
+  그래서 이 패턴의 성격이 규정된다 — **리포지터리 패턴은 그 해법들을 캡슐화하고 우리의 모델 초점을
+  되돌리는 단순한 개념적 틀이다** (6장, p.151).[^evans2003]
 - 처방 문단이 그 정의다 (6장, p.151):[^evans2003]
 
 > For each type of object that needs global access, create an object that can provide the
@@ -239,6 +293,25 @@ sources:
   것을 요청할 수 있게 한다. 이 모든 것을 지원하려면 많은 복잡한 기술 인프라가 필요하지만
   인터페이스는 단순하고 개념적으로 도메인 모델에 연결되어 있다** (6장, p.151).[^evans2003]
   이 문장이 기대는 조항은 [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md)다.
+
+## 인터페이스의 폭과 구현은 따로 다룬다
+
+원전은 정의를 세운 뒤 같은 장에서 두 물음을 더 간다 — 질의 인터페이스를 어디까지 열 것인가,
+그리고 그 뒤를 어떻게 구현할 것인가. 이 페이지의 물음(사이에 무엇을 놓는가)과 다른 물음이라
+따로 선다.
+
+- [리포지터리의 질의와 구현](repository-querying-and-implementation.md)이 그 자리다. 고정 질의와
+  유연한 질의의 절충, 클라이언트는 구현을 몰라도 되지만 개발자는 알아야 한다는 조항, 구현에서
+  붙드는 셋(타입 추상화·결합 해제 활용·트랜잭션 통제를 클라이언트에 남기기), 그리고 프레임워크와
+  싸우지 말라는 판정이 거기 있다.
+  - 그중 셋째가 위 [가장 단순한 리포지터리](#가장-단순한-리포지터리)의 "커밋을 리포지터리 밖에
+    두고 호출자의 책임으로 만든다"와 같은 결정이다. 원전 쪽 근거는 맥락의 소재다 —
+    **클라이언트가 작업 단위를 올바르게 시작하고 커밋할 맥락을 갖고 있으리라 추정된다** (6장,
+    p.156).[^evans2003]
+- 검색이 돌려주는 객체가 실제로 만들어지는 과정은
+  [저장된 객체의 재구성](reconstituting-stored-objects.md)에 있다. 원전은 리포지터리와 팩토리를
+  합치지 않고 분담시킨다 — **팩토리는 새 객체를 만들고, 리포지터리는 옛 객체를 찾는다** (6장,
+  p.158).[^evans2003]
 
 ## 질의 규칙을 어디에 두는가
 
@@ -280,6 +353,10 @@ sources:
 ## 이어지는 페이지
 
 - [작업 단위 패턴](unit-of-work-pattern.md) — 이 리포지터리를 담는 원자적 경계
+- [리포지터리의 질의와 구현](repository-querying-and-implementation.md) — 인터페이스의 폭과
+  그 뒤의 구현
+- [저장된 객체의 재구성](reconstituting-stored-objects.md) — 검색이 돌려주는 객체가 만들어지는 일
+- [팩토리 패턴](factories-pattern.md) — 새 객체를 맡는 짝
 - [명세 패턴](specification-pattern.md) — 이 리포지터리가 받는 질의 규칙이 사는 객체
 - [서비스 레이어](service-layer-pattern.md) — 이 리포지터리를 부르는 층
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 리포지터리
@@ -291,12 +368,19 @@ sources:
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
 
-[^evans2003]: Evans 2003, 6장 "The Life Cycle of a Domain Object" §REPOSITORIES
-    (pp.151–152) · 9장 "Making Implicit Concepts Explicit" §"Applying and Implementing
+[^evans2003]: Evans 2003, 6장 "The Life Cycle of a Domain Object" §REPOSITORIES 도입과
+    문제 서술 둘과 처방(pp.147–152) · §"Implementing a REPOSITORY"의 트랜잭션 조항(p.156) ·
+    §"The Relationship with FACTORIES"의 분담 한 줄(p.158) · 9장 "Making Implicit Concepts
+    Explicit" §"Applying and Implementing
     SPECIFICATION"(§Selection (or Querying) pp.229–234). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은
-    대문자로 조판하는 관례를 직인용에서 유지했다. **6장에서는 원 정의와 이득 목록만 들었다** —
-    구현·프레임워크·팩토리와의 관계를 다루는 나머지 절(pp.152–159)은 이 페이지의
-    물음(사이에 무엇을 놓는가) 밖이다. 질의 규칙의 자리는 9장 쪽에서 들었고, 거기서도 코드는
+    대문자로 조판하는 관례를 직인용에서 유지했다. **6장의 나머지 절은 물음이 달라 형제 페이지로
+    갈랐다** — 질의 인터페이스와 구현(pp.152–157)은
+    [리포지터리의 질의와 구현](repository-querying-and-implementation.md)에, 팩토리와의 관계
+    전문(pp.157–159)은 [저장된 객체의 재구성](reconstituting-stored-objects.md)에,
+    관계형 스키마 설계(pp.159–161)는
+    [관계형 데이터베이스를 위한 객체 설계](designing-objects-for-relational-databases.md)에 있다.
+    Figure 6.18(리포지터리가 클라이언트를 위해 검색하는 도해)은 걸러 내고 딸린 산문만 옮겼다.
+    질의 규칙의 자리는 9장 쪽에서 들었고, 거기서도 코드는
     같은 설계의 변형 연쇄라 산문으로만 옮겼다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.
 
 [^percival2020]: Percival & Gregory 2020, 2장 "Repository Pattern" 전체(곁글 "Django's

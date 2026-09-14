@@ -206,8 +206,20 @@ sources:
 > comes in a more cumbersome way of writing and maintaining queries.
 
   - 이 KB에서 리포지터리를 다루는 자리는
-    [리포지터리 패턴](../concepts/repository-pattern.md)이고, 그쪽 원 정의의 "어떤 기준으로
+    [리포지터리 패턴](repository-pattern.md)이고, 그쪽 원 정의의 "어떤 기준으로
     객체를 선택하는 메서드"가 여기서 명세를 받는 메서드로 구체화된다.
+- **같은 원전 6장이 이 맞물림을 리포지터리 쪽에서 한 번 더 규정한다.** 질의 인터페이스를
+  일반화하는 방법으로 명세가 지목된다 — **프레임워크를 통해 리포지터리를 일반화하는 데 특히
+  적절한 한 접근은 명세 기반 질의를 쓰는 것이다. 명세는 클라이언트가 어떻게 얻을지에 대한 걱정
+  없이 자기가 원하는 것을 서술(즉 명세)하게 해 준다** (6장, p.153).[^evans2003]
+  - 평가에 양면이 붙는다 — **명세 기반 질의는 우아하고 유연하다. 가용한 기반 구조에 따라 그것은
+    적당한 프레임워크일 수도 있고 엄두를 못 낼 만큼 어려울 수도 있다** (6장,
+    p.153).[^evans2003]
+  - 그리고 단서 하나가 위 둘째 판을 정당화한다 — **유연한 질의를 갖춘 리포지터리 설계라도
+    특화된 하드코딩 질의를 더할 수 있게 해야 한다** (6장, pp.153–154).[^evans2003] 그렇지 않은
+    프레임워크는 **도메인 설계를 일그러뜨리거나 개발자들에게 우회당하는 경향이 있다** (6장,
+    p.154).[^evans2003] 전문은
+    [리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
 - 저자 자신이 범위를 제한한다 — **이 논의는 명세와 데이터베이스를 결합하는 문제의 표면을
   겨우 긁을 뿐이고, 나는 생길 수 있는 모든 고려 사항을 다루려 시도하지 않겠다** (9장,
   p.234).[^evans2003] 그러면서 더 읽을 곳으로 Fowler 2003을 댄다.
@@ -439,7 +451,9 @@ p.273).[^evans2003]
   창고 적재기 서비스 인터페이스가 사는 자리
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 이 패턴이 명시하려는 개념을 찾아내는
   앞 단계
-- [리포지터리 패턴](../concepts/repository-pattern.md) — 선택 쓰임에서 이 패턴과 맞물리는 짝
+- [리포지터리 패턴](repository-pattern.md) — 선택 쓰임에서 이 패턴과 맞물리는 짝
+- [리포지터리의 질의와 구현](repository-querying-and-implementation.md) — 명세가 질의 인터페이스를
+  일반화하는 자리
 - [값 객체와 엔티티](../concepts/value-objects-and-entities.md) — 명세가 어떤 종류의 객체인가
 - [계층 아키텍처](../concepts/layered-architecture.md) — 규칙이 도메인 층을 떠나면 안 되는 이유
 - [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md) — 생성기 인터페이스를
@@ -459,7 +473,9 @@ p.273).[^evans2003]
     (Generating)"(pp.234–235) · 예제 "Chemical Warehouse Packer"(pp.235–238) · 예제
     "A Working Prototype of the Warehouse Packer"(pp.239–241). 선언적 확장은 10장
     "Supple Design" §"Extending SPECIFICATIONS in a Declarative Style"(pp.273–282)와
-    곁글 "Aristotle on SPECIFICATIONS"(10장, p.282, 곁글)에서 왔다. 쪽은 인쇄판 쪽 번호
+    곁글 "Aristotle on SPECIFICATIONS"(10장, p.282, 곁글)에서 왔다. 리포지터리 쪽에서 이 패턴을
+    질의 일반화 수단으로 지목하는 자리는 6장 "The Life Cycle of a Domain Object"
+    §"Querying a REPOSITORY"(pp.153–154)다. 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서
     유지했다. 펜스의 Java 코드는 p.228 원문이며, 추출본에서 눌린 줄바꿈과 들여쓰기를
     표준 Java 조판으로 되돌린 것 말고 보탠 줄은 없다. 이 코드는 **2003년 Java의 관용**이라

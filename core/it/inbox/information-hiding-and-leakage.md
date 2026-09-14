@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 정보 은닉과 정보 누출
-description: 파르나스에서 온 정보 은닉이 깊은 모듈을 만드는 첫째 기법인 이유와 그 반대편의 정보 누출 — 무엇이 숨겨지는 지식인가, private 선언과 정보 은닉이 같지 않은 이유, 인터페이스를 거치지 않는 뒷문 누출이 더 나쁜 이유, 누출의 흔한 원인인 시간적 분해, 클래스를 조금 크게 만들면 은닉이 좋아진다는 일반 주제, 내부 자료 구조를 반환하는 게터가 인터페이스를 얕게 만드는 실물, 기본값이 부분적 은닉이라는 규정, 과잉 노출이라는 붉은 깃발, 누출되는 것이 구현 세부가 아니라 남의 모델일 때를 더하는 셋째 소스, 그리고 잘게 쪼갠 도메인 객체가 도메인 지식을 애플리케이션 층으로 흘려보낸다는 층 단위의 누출
+description: 파르나스에서 온 정보 은닉이 깊은 모듈을 만드는 첫째 기법인 이유와 그 반대편의 정보 누출 — 무엇이 숨겨지는 지식인가, private 선언과 정보 은닉이 같지 않은 이유, 인터페이스를 거치지 않는 뒷문 누출이 더 나쁜 이유, 누출의 흔한 원인인 시간적 분해, 클래스를 조금 크게 만들면 은닉이 좋아진다는 일반 주제, 내부 자료 구조를 반환하는 게터가 인터페이스를 얕게 만드는 실물, 기본값이 부분적 은닉이라는 규정, 과잉 노출이라는 붉은 깃발, 누출되는 것이 구현 세부가 아니라 남의 모델일 때를 더하는 셋째 소스, 잘게 쪼갠 도메인 객체가 도메인 지식을 애플리케이션 층으로 흘려보낸다는 층 단위의 누출, 그리고 조립과 질의를 감추지 않으면 규칙이 새고 개발자의 행동까지 바뀐다는 진단과 "클라이언트에게는 감추되 개발자에게는 감추지 않는다"는 경계
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 status: draft
 sources:
@@ -26,6 +26,7 @@ sources:
 - [영속성 무지 — 데이터베이스를 숨기는 실물](#영속성-무지--데이터베이스를-숨기는-실물)
 - [셋째 소스 — 모델이 새는 것](#셋째-소스--모델이-새는-것)
 - [지식이 층을 거슬러 오르는 누출](#지식이-층을-거슬러-오르는-누출)
+- [생성과 저장을 감출 때 지켜지는 것](#생성과-저장을-감출-때-지켜지는-것)
 - [넷째 소스 — 접근 제어는 안전이지 보안이 아니다](#넷째-소스--접근-제어는-안전이지-보안이-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -373,6 +374,44 @@ sources:
     도달할 수 있었다고 적는다 — **업무 로직을 구현하는 "객체"와 데이터베이스 접근을 맡은 객체
     사이의 연결은 너무 광범위해 결합이 매우 높다** (5장, p.115).[^evans2003]
 
+## 생성과 저장을 감출 때 지켜지는 것
+
+같은 원전이 6장에서 은닉의 대상을 둘 더 든다 — 객체를 **만드는 방법**과 **저장소에서 꺼내는
+방법**이다. 둘 다 감추지 않으면 새는 것이 데이터가 아니라 **규칙**이다.
+
+- 생성 쪽 — 클라이언트가 도메인 객체를 조립하게 두면 **그것은 객체의 내부 구조에 대해 무언가를
+  알아야 한다.** 그리고 부품들의 관계에 걸리는 불변식(invariant)을 전부 강제하려면
+  **클라이언트가 그 객체의 규칙 일부를 알아야 한다** (6장, p.137).[^evans2003]
+  - 그 결과가 캡슐화의 파열로 명시된다 — **객체 생성을 떠맡은 클라이언트는 불필요하게 복잡해지고
+    자기 책임을 흐린다. 그것은 도메인 객체와 생성되는 애그리게이트(AGGREGATE)의 캡슐화를
+    깨뜨린다** (6장, p.137).[^evans2003]
+  - 처방은 조립을 별도 객체 뒤로 옮기는 것이다 — **팩토리(FACTORY)는 복잡한 객체나 애그리게이트를
+    만드는 데 필요한 지식을 캡슐화한다** (6장, p.138).[^evans2003] 전문은
+    [팩토리 패턴](factories-pattern.md)에 있다.
+- 저장 쪽 — **자유로운 데이터베이스 질의는 실제로 도메인 객체와 애그리게이트의 캡슐화를
+  깨뜨릴 수 있다. 기술 기반 구조와 데이터베이스 접근 기제의 노출은 클라이언트를 복잡하게
+  만들고 모델 주도 설계를 흐린다** (6장, p.150).[^evans2003]
+  - **은닉이 실패할 때 개발자의 행동이 바뀐다는 진단이 이 자리의 특색이다** — 클라이언트 코드가
+    데이터베이스를 직접 쓰면 **개발자들은 애그리게이트나 심지어 객체 캡슐화 같은 모델의 특징을
+    우회하고 필요한 데이터를 직접 가져와 조작하고 싶은 유혹을 받는다. 점점 더 많은 도메인
+    규칙이 질의 코드에 박히거나 그냥 사라진다** (6장, p.149).[^evans2003]
+
+- **그런데 이 원전은 은닉의 대상에 한계선을 긋는다.** 감추는 것은 **클라이언트 코드**이지
+  **클라이언트의 개발자**가 아니다 (6장, pp.154–155):[^evans2003]
+
+> Encapsulation of the persistence technology allows the client to be very simple, completely
+> decoupled from the implementation of the REPOSITORY. But as is often the case with
+> encapsulation, the developer must understand what is happening under the hood.
+
+  - 근거가 성능이다 — **리포지터리가 다른 방식으로 쓰이거나 다른 방식으로 작동할 때 성능 함의가
+    극단적일 수 있다** (6장, p.154).[^evans2003] 저자가 드는 실물은 "all objects" 질의 하나가
+    데이터베이스 전체를 메모리로 끌어온 사고다.
+  - 요구의 정도도 조절된다 — **그것이 구현에 대한 세세한 친숙함을 뜻할 필요는 없다. 잘 설계된
+    구성 요소는 특징 지을 수 있다** (6장, p.154).[^evans2003]
+  - **위 [부분적 은닉에도 값이 있다](#부분적-은닉에도-값이-있다)와 같은 방향의 단서다.** 은닉은
+    이분법이 아니라 정도이고, 여기서는 **누구에게 감추는가**가 그 정도를 정한다. 사고를
+    포함한 전문은 [리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
+
 ## 넷째 소스 — 접근 제어는 안전이지 보안이 아니다
 
 위 [private 선언은 정보 은닉이 아니다](#private-선언은-정보-은닉이-아니다)가 **`private`
@@ -423,6 +462,9 @@ sources:
 - [도메인 서비스](domain-services.md) — 조율 지식이 위로 새는 것을 막는 굵기
 - [도메인의 모듈](modules-in-the-domain.md) — 패키징이 응집을 깨뜨려 모델을 가리는 자리
 - [리포지터리 패턴](repository-pattern.md) — 영속성 관심사를 숨기는 층
+- [팩토리 패턴](factories-pattern.md) — 조립 지식을 숨기는 구성물
+- [리포지터리의 질의와 구현](repository-querying-and-implementation.md) — 클라이언트에게는 감추고
+  개발자에게는 감추지 않는다는 경계
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 같은 은닉을
   객체 군집 단위로 하는 자리
 - [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 저자가 "일반성이 더 나은 정보
@@ -452,9 +494,11 @@ sources:
     5장 §SERVICES 중 §Granularity(p.108) · §MODULES 중
     §"The Pitfalls of Infrastructure-Driven Packaging"(pp.113·115) · 14장 §BOUNDED CONTEXT
     (p.336 곁글 "BOUNDED CONTEXTS Are Not MODULES") · §CONTEXT MAP(p.344) ·
-    §ANTICORRUPTION LAYER(pp.365–366). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    §ANTICORRUPTION LAYER(pp.365–366) · 6장 §FACTORIES(pp.137–138) ·
+    §REPOSITORIES(pp.149–150)와 §"Client Code Ignores REPOSITORY Implementation; Developers
+    Do Not"(pp.154–155). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절들은 이 소스가 이 페이지에
-    더하는 것만 든다 — 각 조항의 전문은 [계층 아키텍처](layered-architecture.md)·[도메인 서비스](domain-services.md)·[도메인의 모듈](modules-in-the-domain.md)·[경계 컨텍스트](../concepts/bounded-context.md)·[컨텍스트 지도](../concepts/context-map.md)에 있다.
+    더하는 것만 든다 — 각 조항의 전문은 [계층 아키텍처](layered-architecture.md)·[도메인 서비스](domain-services.md)·[도메인의 모듈](modules-in-the-domain.md)·[경계 컨텍스트](../concepts/bounded-context.md)·[컨텍스트 지도](../concepts/context-map.md)·[팩토리 패턴](factories-pattern.md)·[리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
 
 [^percival2020]: Percival & Gregory 2020, 2장 §"The 'Normal' ORM Way: Model Depends on
     ORM"·§"Inverting the Dependency: ORM Depends on Model" · 6장 곁글 "Don't Mock What You
