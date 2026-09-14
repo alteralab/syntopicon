@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 의도를 드러내는 인터페이스
-description: 인터페이스의 이름이 목적을 말하고 수단은 말하지 않아야 한다는 조항의 원전 — 규칙을 명시하지 않고 효과만 내는 코드가 무엇을 잃는가, 인터페이스가 말해 주지 않으면 캡슐화의 값이 사라진다는 진단, 구현에서 목적을 유추한 개발자가 우연히만 맞는 목적을 유추하게 된다는 위험, 이름이 유비쿼터스 언어를 따라야 한다는 요구와 클라이언트 시점을 강제하는 테스트 우선, 그리고 페인트 혼합 예제에서 이름 하나가 바뀌며 회수된 것
+description: 인터페이스의 이름이 목적을 말하고 수단은 말하지 않아야 한다는 조항의 원전 — 규칙을 명시하지 않고 효과만 내는 코드가 무엇을 잃는가, 인터페이스가 말해 주지 않으면 캡슐화의 값이 사라진다는 진단, 구현에서 목적을 유추한 개발자가 우연히만 맞는 목적을 유추하게 된다는 위험, 이름이 유비쿼터스 언어를 따라야 한다는 요구와 클라이언트 시점을 강제하는 테스트 우선, 페인트 혼합 예제에서 이름 하나가 바뀌며 회수된 것, 그리고 이 조항만으로는 모자라다는 같은 장의 두 실측
 generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 status: draft
 sources:
@@ -17,6 +17,7 @@ sources:
 - [클라이언트 시점을 강제하는 테스트](#클라이언트-시점을-강제하는-테스트)
 - [이름 하나로 회수되는 것](#이름-하나로-회수되는-것)
 - [이름을 주는 대상이 규칙과 생성기일 때](#이름을-주는-대상이-규칙과-생성기일-때)
+- [이 조항만으로는 모자란 자리](#이-조항만으로는-모자란-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **인터페이스의 이름은 무엇을 말해야 하고 무엇을 말하지 않아야 하는가.**
@@ -182,10 +183,37 @@ sources:
   지목한다 (9장, pp.235·238).[^evans2003] 그 인터페이스의 전문은
   [도메인 객체가 된 프로세스](processes-as-domain-objects.md)에 있다.
 
+## 이 조항만으로는 모자란 자리
+
+같은 장이 이 조항의 한계를 두 번 실물로 짚는다. 둘 다 이름이 이미 좋은 코드에서 시작한다.
+
+- **부수 효과가 남아 있을 때.** 다음 패턴이 이 조항을 이어받으며 적는다 — 이 조항이 **우리를
+  거기까지 절반은 데려다주지만, 의도에 대한 비형식적 암시가 늘 충분하지는 않다** (10장,
+  p.255).[^evans2003] 이름이 무엇을 하는지 말해도, 연산이 무엇을 바꾸는지는 인터페이스가
+  제한하지 않는다. 그 공백을 [단언](assertions-pattern.md)이 메운다.
+- **입도가 어긋나 있을 때.** 10장 끝의 통합 예제가 이 조항을 갖춘 코드에서 출발한다 — **이
+  설계는 이미 의도를 드러내는 인터페이스를 갖추고 있다. 그러나
+  `distributePaymentPrincipal()` 메서드는 위험한 일을 한다** (10장, p.285).[^evans2003]
+  질의와 수정자를 가른 뒤에도 코드는 연산이 늘 때마다 무거워졌고, 저자는 그것을 입도가 너무
+  거친 신호로 읽는다 (10장, p.286).[^evans2003] 그 연쇄는
+  [확립된 형식 체계](established-formalisms.md)에 있다.
+- 그래서 이 장은 세 조항을 함께 요구한다 (10장, p.259):[^evans2003]
+
+> The communicativeness of the INTENTION-REVEALING INTERFACES, combined with the predictability
+> given by SIDE-EFFECT-FREE FUNCTIONS and ASSERTIONS, should make encapsulation and abstraction
+> safe.
+
+  - 그리고 셋이 갖춰지면 선언적 영역에 발을 들이게 된다는 판정이
+    [선언적 설계](declarative-design.md)에 있다.
+
 ## 이어지는 페이지
 
 - [부수 효과 없는 함수](side-effect-free-functions.md) — 같은 장의 다음 패턴. 이름이 약속한
   것을 예측 가능하게 만드는 쪽
+- [단언](assertions-pattern.md) — 이름이 못 말하는 상태 변경을 못 박는 쪽
+- [개념의 윤곽](conceptual-contours.md) — 이름을 붙일 단위의 굵기를 정하는 쪽
+- [선언적 설계](declarative-design.md) — 이 조항이 세 조건 중 하나가 되는 자리
+- [확립된 형식 체계](established-formalisms.md) — 이 조항을 갖춘 코드가 더 나아가는 연쇄
 - [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — 이 조항이 이름에
   담으라고 요구하는 것이 어디까지인가
 - [유비쿼터스 언어](ubiquitous-language.md) — 이름의 정본
@@ -201,7 +229,9 @@ sources:
 
 [^evans2003]: Evans 2003, 10장 "Supple Design" §INTENTION-REVEALING INTERFACES
     (pp.246–249) · 9장 "Making Implicit Concepts Explicit"(§Explicit Constraints p.221 ·
-    §"Building to Order (Generating)" p.235 · 예제 "Chemical Warehouse Packer" p.238). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
+    §"Building to Order (Generating)" p.235 · 예제 "Chemical Warehouse Packer" p.238) ·
+    10장 §ASSERTIONS 도입(p.255)과 마무리(p.259) · 예제 "Integrating the Patterns: Shares
+    Math"(pp.285–286). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
     조판하는 관례를 직인용에서 유지했다. 저자가 밝힌 앞선 출처는 Beck 1997이다. 펜스의
     Java 테스트는 p.248 원문 그대로이며 원문 조판의 빈 줄 배치만 정돈했다 — 보탠 줄은 없다.
     이 코드는 **2003년 Java의 관용**이라 JUnit 3 스타일(`public void test…`)을 쓴다.

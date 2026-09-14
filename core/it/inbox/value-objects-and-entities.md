@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 값 객체와 엔티티
-description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각, 그리고 이 구분의 원 정의와 정체성이 대상이 아니라 모델이 정하는 것이라는 원전의 못 박기
+description: 도메인 객체를 정체성 유무로 가르는 구분과 그 구분이 파이썬 코드에서 갖는 모양 — 데이터는 있으나 정체성이 없는 것을 값 객체로 두는 규정과 frozen dataclass·NamedTuple·namedtuple이 공짜로 주는 값 동등성, 세 재료 중 무엇을 고르는가의 기준과 frozen이 진짜 불변은 아니라는 단서, 값 객체에도 연산이 있을 수 있다는 화폐 예제, 오래 사는 정체성을 갖는 엔티티와 그 정체성 동등성, __eq__와 __hash__를 어느 쪽에 어떻게 다는가의 규칙과 둘을 따로 건드리지 말라는 경고, 원시 타입을 NewType으로 감싸는 것에 대한 저자 자신의 기각, 이 구분의 원 정의와 정체성이 대상이 아니라 모델이 정하는 것이라는 원전의 못 박기, 그리고 이 구분이 연산의 타입을 정하는 자리 — 닫힌 연산이 주로 값 객체의 기회이고 엔티티에는 드문 이유
 generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 status: draft
 sources:
@@ -22,6 +22,7 @@ sources:
 - [이벤트도 값 객체다](#이벤트도-값-객체다)
 - [이 구분의 원 정의](#이-구분의-원-정의)
 - [규칙도 값 객체가 된다](#규칙도-값-객체가-된다)
+- [이 구분이 연산의 타입을 정한다](#이-구분이-연산의-타입을-정한다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 객체 둘이 "같다"는 말은 무슨 뜻이고, 그 답이 갈리는 지점에서 코드가
@@ -282,12 +283,40 @@ sources:
   하면 지불 요청이라는 `Invoice`의 기본 책임과 무관한 방식으로 객체들을 결합시킬 것이다** (9장,
   p.226).[^evans2003] 전문은 [명세 패턴](specification-pattern.md)에 있다.
 
+## 이 구분이 연산의 타입을 정한다
+
+원전 10장은 이 구분을 연산 설계의 판정 기준으로 쓴다. 인자와 반환 타입을 구현자와 같게 두는
+연산의 닫힘(CLOSURE OF OPERATIONS)이 어디에 적용되는가를 정체성 유무가 가른다.
+
+- 적용 대상이 먼저 좁혀진다 — **이 패턴은 값 객체의 연산에 가장 자주 적용된다** (10장,
+  p.269).[^evans2003]
+- 엔티티가 빠지는 근거가 정체성에서 곧장 나온다 — **엔티티의 생애 주기는 도메인에서 의미를
+  가지므로, 질문에 답하려고 그냥 새것을 불러낼 수는 없다** (10장, p.269).[^evans2003]
+  - **위 [구분의 기준은 정체성이다](#구분의-기준은-정체성이다)가 실무 규칙 하나를 낳는
+    자리다.** 값 객체는 계산이 필요할 때마다 만들어 쓰고 버릴 수 있으니 연산의 결과가 될 수
+    있다. 엔티티는 만들어 내는 일 자체가 도메인 사건이라 결과 자리에 놓기 어렵다.
+- 예외가 없는 것은 아니다 — `Employee` 객체에 그 상급자를 물으면 다른 `Employee`가 돌아온다.
+  **그러나 일반적으로 엔티티는 계산의 결과가 될 법한 종류의 개념이 아니다. 그래서 대체로 이것은
+  값 객체에서 찾을 기회다** (10장, p.269).[^evans2003]
+- 같은 장이 값 객체를 복잡한 계산의 거처로 지목하는 자리도 이 판정과 짝을 이룬다 — **가장 복잡한
+  계산을 독립형 클래스로 인수분해하라. 어쩌면 더 연결된 클래스가 들고 있는 값 객체로
+  모델링해서** (10장, p.267).[^evans2003] 그 처방은
+  [독립형 클래스](standalone-classes.md)에 있고, 닫힘 자체는
+  [연산의 닫힘](closure-of-operations.md)에 있다.
+- 10장 끝의 통합 예제가 이 판정이 실제로 뒤집히는 장면을 보인다. 지분 분배를 맡은 `Share Pie`는
+  처음에 `Loan` 애그리게이트 안에서 정체성이 국소적인 엔티티로 만들어졌다가, 값 객체로 바뀌면서
+  `plus()`와 `minus()`가 닫힌 연산이 된다 (10장, pp.287–288).[^evans2003] 그 연쇄는
+  [확립된 형식 체계](established-formalisms.md)에 있다.
+
 ## 이어지는 페이지
 
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 객체들이 사는 층
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — "무엇인지"와
   "어느 것인지"의 구분이 이름 짓기 물음과 만나는 자리
 - [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 값 객체의 불변성이 봉사하는 조항
+- [연산의 닫힘](closure-of-operations.md) — 이 구분이 연산의 타입 선택으로 이어지는 자리
+- [독립형 클래스](standalone-classes.md) — 복잡한 계산을 값 객체로 옮기라는 처방
+- [확립된 형식 체계](established-formalisms.md) — 엔티티가 값 객체로 바뀌며 연산이 닫히는 실물
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 엔티티 중
   일부를 "공개" 진입점으로 올리는 셋째 구분
 - [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md) — 값 객체가
@@ -321,7 +350,9 @@ sources:
 [^evans2003]: Evans 2003, 5장 "A Model Expressed in Software"(§ENTITIES pp.89–96 ·
     §VALUE OBJECTS pp.97–99, 곁글 "Is Address a VALUE OBJECT?" pp.97–98 포함) ·
     9장 "Making Implicit Concepts Explicit" §SPECIFICATION(pp.225–226) ·
-    10장 §SIDE-EFFECT-FREE FUNCTIONS(p.251).
+    10장 §SIDE-EFFECT-FREE FUNCTIONS(p.251) · 10장 §STANDALONE CLASSES(p.267) ·
+    §CLOSURE OF OPERATIONS(p.269) · 예제 "Integrating the Patterns: Shares Math"
+    (pp.287–288).
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는
     관례를 직인용에서 유지했다. **5장 쪽에서는 원 정의만 든다** — 두 패턴의 설계 지침
     (§Modeling ENTITIES pp.93–94 · §Designing the Identity Operation pp.94–96 ·
