@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 감사와 무결성 검사
-description: 하드웨어도 소프트웨어도 완전히 믿을 수 없다면 손상 여부를 어떻게 알아내는가 — 시스템 모델이 이진이 아니라 확률이라는 관점, HDFS와 S3가 디스크를 대하는 방식, 이벤트 기반 시스템이 감사 가능성에서 유리한 이유, 그리고 블록체인·머클 트리·인증서 투명성이 데이터 시스템에 줄 수 있는 것
+description: 하드웨어도 소프트웨어도 완전히 믿을 수 없다면 손상 여부를 어떻게 알아내는가 — 시스템 모델이 이진이 아니라 확률이라는 관점, HDFS와 S3가 디스크를 대하는 방식, 이벤트 기반 시스템이 감사 가능성에서 유리한 이유, 블록체인·머클 트리·인증서 투명성이 데이터 시스템에 줄 수 있는 것, 그리고 상태 기반 모델에 로그 파일·로그 테이블·트리거 이력을 곁들이는 더 싼 대안 셋이 각각 왜 강한 일관성을 갖는 감사 로그가 되지 못하는가
 generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 감사와 무결성 검사
@@ -15,6 +16,7 @@ sources:
 - [감사 가능성을 위한 설계](#감사-가능성을-위한-설계)
 - [다시 종단 간 논증](#다시-종단-간-논증)
 - [감사 가능한 데이터 시스템의 도구](#감사-가능한-데이터-시스템의-도구)
+- [더 싼 감사 로그가 왜 감사 로그가 못 되는가](#더-싼-감사-로그가-왜-감사-로그가-못-되는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **데이터가 조용히 손상됐다는 것을 어떻게 알아내는가.**
@@ -156,10 +158,57 @@ sources:
   만들고 성능 페널티를 최대한 낮게 유지하려면 어느 정도 작업이 필요하겠지만, 그럼에도 흥미롭다**
   (13장, p.578).[^kleppmann2026]
 
+## 더 싼 감사 로그가 왜 감사 로그가 못 되는가
+
+위 [감사 가능성을 위한 설계](#감사-가능성을-위한-설계)는 이벤트 기반 시스템이 감사에 **유리한
+이유**를 적는다. 도메인 주도 설계 쪽 소스가 그 반대 방향을 적는다 — **더 싼 대안들이 왜 같은
+것을 주지 못하는가**다.
+
+- 먼저 이 모델이 주는 것이 감사 로그로 규정된다 (7장, p.111):[^khononov2021]
+
+> The persisted domain events represent a strongly consistent audit log of everything that has
+> happened to the aggregates' states. Laws oblige some business domains to implement such audit logs,
+> and event sourcing provides this out of the box.
+
+  - **"strongly consistent"라는 한정이 이 항목의 값이다.** 아래 세 대안이 전부 그 한정을
+    만족하지 못한다.
+- **텍스트 파일에 로그를 쓰는 방식** (7장, p.114):[^khononov2021]
+
+> Writing data both to an operational database and to a logfile is an error-prone operation. In its
+> essence, it's a transaction against two storage mechanisms: the database and the file. If the first
+> one fails, the second one has to be rolled back. For example, if a database transaction fails, no
+> one cares to delete the prior log messages. Hence, such logs are not consistent, but rather,
+> eventually inconsistent.
+
+- **같은 트랜잭션 안에서 로그 테이블에 덧붙이는 방식** — 인프라 관점에서는 일관된 동기화를
+  실제로 준다. 그러나 사람이 로그 레코드를 덧붙이는 것을 잊을 수 있고, 더 무겁게는 (7장,
+  p.115):[^khononov2021]
+
+> Furthermore, when the state-based representation is used as the source of truth, the additional log
+> table's schema usually degrades into chaos quickly. There is no way to enforce that all required
+> information is written and that it is written in the correct format.
+
+- **데이터베이스 트리거로 이력 테이블에 복사하는 방식** — 사람이 잊는 문제는 넘어선다. 그러나
+  (7장, p.115):[^khononov2021]
+
+> That said, the resultant history only includes the dry facts: what fields were changed. It misses
+> the business contexts: why the fields were changed. The lack of "why" drastically limits the
+> ability to project additional models.
+
+  - **위 [감사 가능성을 위한 설계](#감사-가능성을-위한-설계)가 트랜잭션 로그에 내린 판정과
+    같은 것이다** — 그쪽도 여러 테이블의 삽입·갱신·삭제가 **왜** 그 변이가 수행됐는지를 주지
+    않는다고 적는다. **두 소스가 서로를 참조한 적은 없고 같은 결핍을 같은 낱말로 짚는다.**
+  - 세 대안의 전문은
+    [이벤트 소싱과 CQRS §그냥 로그를 남기면 안 되는가](../concepts/event-sourcing-and-cqrs.md)에
+    있고, 그 감사 로그를 낳는 업무 로직 패턴은
+    [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [종단 간 논증](../concepts/end-to-end-argument.md) — 무결성 검사를 어디에 두어야 하는가의 원리
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 감사 가능성에서 유리한 그 모델
+- [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 감사 로그를 부산물로
+  내는 업무 로직 구현 패턴
 - [상태·스트림·불변성](../concepts/state-streams-and-immutability.md) — 불변 로그가 감사 로그가
   되는 자리
 - [실패 모델과 동기성](../concepts/failure-models-and-synchrony.md) — 시스템 모델이라는 그 가정
@@ -170,3 +219,8 @@ sources:
 - [객체 스토어](../concepts/object-stores.md) — S3가 디스크를 다루는 방식의 배경
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 13장 "A Philosophy of Streaming Systems"
+
+[^khononov2021]: Khononov 2021, 7장 "Modeling the Dimension of Time" §Advantages(p.111) ·
+    §"Frequently Asked Questions" 중 §"Why Can't I Just…?"(pp.114–115). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.

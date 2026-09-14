@@ -1,10 +1,11 @@
 ---
 type: concept
 title: CRUD와 삽입 전용 패턴
-description: "애플리케이션이 상태를 데이터베이스에 기록하는 두 방식 — 네 연산으로 현재 상태만 남기는 CRUD와, 갱신 대신 타임스탬프 붙은 새 행을 넣어 이력을 테이블 안에 보존하는 삽입 전용, 그리고 후자가 치르는 두 대가(테이블 팽창과 MAX 조회 비용)"
+description: "애플리케이션이 상태를 데이터베이스에 기록하는 두 방식 — 네 연산으로 현재 상태만 남기는 CRUD와, 갱신 대신 타임스탬프 붙은 새 행을 넣어 이력을 테이블 안에 보존하는 삽입 전용, 후자가 치르는 두 대가(테이블 팽창과 MAX 조회 비용), 그리고 같은 성질을 저장소가 수정·삭제를 허용하지 않아야 한다는 조항으로 거는 쪽과 그쪽에서 두 대가가 문턱·스냅샷·샤딩으로 다뤄지는 자리"
 generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # CRUD와 삽입 전용 패턴
@@ -14,6 +15,7 @@ sources:
 - [분석 쪽의 삽입 전용](#분석-쪽의-삽입-전용)
 - [삽입 전용이 치르는 두 대가](#삽입-전용이-치르는-두-대가)
 - [추출 전략이 여기서 갈린다](#추출-전략이-여기서-갈린다)
+- [추가 전용을 저장소의 조항으로 거는 쪽](#추가-전용을-저장소의-조항으로-거는-쪽)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **원천 애플리케이션이 상태를 어떻게 적어 두느냐가 내가 이력을 얻을 수 있는지를
@@ -85,11 +87,37 @@ sources:
     이력이 필요하면 CDC로, 현재 상태만 필요하면 스냅샷으로 간다. 상세는
     [변경 데이터 캡처](../concepts/change-data-capture.md).
 
+## 추가 전용을 저장소의 조항으로 거는 쪽
+
+위 [삽입 전용 패턴](#삽입-전용-패턴)은 삽입 전용을 **테이블을 쓰는 방식**으로 다룬다. 애플리케이션
+아키텍처 쪽 소스는 같은 성질을 **저장소가 강제해야 하는 조항**으로 건다.
+
+- [khononov2021](../sources/khononov2021.md)이 이벤트를 담는 데이터베이스에 거는 제약이 하나다
+  (7장 §"Event Store", p.107):[^khononov2021]
+
+> The event store should not allow modifying or deleting the events since it's append-only storage.
+
+  - 저자가 각주에 예외를 하나 남긴다 — **데이터 마이그레이션 같은 예외적인 경우**다 (7장,
+    p.107, 각주 2).[^khononov2021]
+- **차이는 강제의 주체다.** 위 [삽입 전용 패턴](#삽입-전용-패턴)의 삽입 전용은 애플리케이션이
+  갱신 대신 삽입을 고르는 관행이고, 갱신을 막는 것은 아무것도 없다. 이 판본은 **저장소가 수정과
+  삭제를 허용하지 않아야 한다**고 요구한다. 그래야 그 로그가 정본이 될 수 있기 때문이다.
+  - 그래서 위 [삽입 전용이 치르는 두 대가](#삽입-전용이-치르는-두-대가) 중 조회 비용이 그쪽에서
+    더 크게 나타나고, 그쪽이 그 비용에 문턱과 해법을 붙인다 — 애그리게이트당 이벤트 만 건이
+    문턱이고 그 위에서만 스냅샷 패턴을 정당화한다. 전문은
+    [이벤트 소싱과 CQRS §성능이 문제가 되는 문턱과 스냅샷](../concepts/event-sourcing-and-cqrs.md)에
+    있다.
+  - 테이블 팽창 쪽 대가는 그쪽에서 삭제가 아니라 **샤딩**으로 다뤄진다 — 연산이 애그리게이트
+    하나 안에서 닫히므로 애그리게이트 ID로 샤딩할 수 있다는 것이다 (7장,
+    p.114).[^khononov2021] **위 대가 목록의 "레코드 정리"는 그쪽에서 선택지가 아니다.**
+
 ## 이어지는 페이지
 
 - [원천 시스템과 데이터 생성](../concepts/source-systems-and-generation.md) — 이 패턴들이
   놓인 단계
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — CRUD 테이블에서 이력을 되찾는 경로
+- [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 추가 전용 저장을
+  업무 로직 구현의 전제로 삼는 패턴
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 삽입 전용을 아키텍처 원리로
   밀어붙인 것
 - [완만하게 변하는 차원(SCD)](../concepts/slowly-changing-dimension.md) — 같은 선택의 차원
@@ -98,3 +126,8 @@ sources:
   merge 할지의 결정
 
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems"
+
+[^khononov2021]: Khononov 2021, 7장 "Modeling the Dimension of Time" §"Event Store"
+    (p.107 본문과 각주 2) · §"Frequently Asked Questions" 중 규모 물음(p.114). 쪽은 인쇄판
+    쪽 번호(PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 대조했고, 인용에서 본문
+    각주 번호 표지 하나("the events2")를 뺐다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.

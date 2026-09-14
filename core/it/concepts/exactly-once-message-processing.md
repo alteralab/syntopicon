@@ -1,14 +1,15 @@
 ---
 type: concept
 title: 정확히 한 번 메시지 처리
-description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer
-generated: { by: "claude-opus-5", at: "2026-08-17T03:30:00Z" }
+description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer, 그리고 도메인 주도 설계 쪽에서 같은 문제를 푸는 아웃박스 패턴이 이 사다리의 어느 칸에 서는가
+generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 정확히 한 번 메시지 처리
@@ -34,6 +35,7 @@ sources:
 - [키 패턴이 데이터베이스에 매이는 두 자리](#키-패턴이-데이터베이스에-매이는-두-자리)
 - [트랜잭션을 패턴으로 세우면 — Transactional Writer](#트랜잭션을-패턴으로-세우면--transactional-writer)
 - [이 패턴의 멱등성이 끝나는 자리](#이-패턴의-멱등성이-끝나는-자리)
+- [도메인 주도 설계 쪽의 답 — 아웃박스가 서는 칸](#도메인-주도-설계-쪽의-답--아웃박스가-서는-칸)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지를 처리하면서 그 부수 효과가 정확히 한 번만 남게 하려면 무엇이
@@ -619,6 +621,39 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   Windowed Deduplicator나 [멱등적 쓰기 패턴](idempotent-write-patterns.md)의 Stateful Merger가
   맡는다.
 
+## 도메인 주도 설계 쪽의 답 — 아웃박스가 서는 칸
+
+**같은 문제에 2021년 도메인 주도 설계 실무서가 내놓는 답이 아웃박스 패턴이고, 그것이 이
+페이지의 두 길 중 어느 쪽에 서는지가 여기서 정해진다.**
+
+- 그 패턴은 애그리게이트의 상태와 나갈 도메인 이벤트를 **같은 원자적 트랜잭션에 함께 커밋**하고,
+  별도의 릴레이가 커밋된 이벤트를 꺼내 버스에 발행한다. 곧 위
+  [분산 트랜잭션 없이 하는 길](#분산-트랜잭션-없이-하는-길)에 선다 — 두 시스템에 걸친 원자적
+  커밋을 쓰지 않고, 두 쓰기를 한 시스템 안에 가둔다.
+- **그 대가가 명시된다** (9장, p.147):[^khononov2021]
+
+> It's important to note that the outbox pattern guarantees delivery of the messages at least once:
+> if the relay fails right after publishing a message but before marking it as published in the
+> database, the same message will be published again in the next iteration.
+
+  - **그러므로 아웃박스는 이 페이지가 요구하는 것의 절반만 준다.** 발행 쪽에서 메시지를 잃지
+    않는 것은 보증하고, 그 메시지가 효과를 한 번만 내게 하는 일은 소비자에게 남긴다. 그 나머지
+    절반이 위 [그래서 무엇이 필요한가](#그래서-무엇이-필요한가)와
+    [이 문제에 처음 이름이 붙은 자리 — Idempotent Receiver](#이-문제에-처음-이름이-붙은-자리--idempotent-receiver)다.
+  - **저자가 그 대응을 이 절에서 말하지 않는다.** 아웃박스 절은 최소 한 번이라는 사실만 적고
+    소비자 쪽 조건을 다루지 않는다. 같은 책의 5장이 다른 맥락에서 멱등성과 낙관적 동시성을
+    처방하지만 두 자리를 잇지는 않는다.
+- **이 페이지의 두 길과 나란히 놓으면 이렇다.**
+
+| 길 | 두 쓰기를 무엇이 묶는가 | 소비자에게 남는 조건 |
+|---|---|---|
+| 이종 분산 트랜잭션 | 두 시스템에 걸친 원자적 커밋 프로토콜 | 없음(성립하는 조건이 갖춰졌을 때) |
+| 카프카 트랜잭션 | 브로커 안의 읽기-처리-쓰기 한 묶음 | 카프카 안에 머무는 동안만. 데이터베이스 갱신은 묶어 주지 않는다 |
+| **아웃박스** | **데이터베이스 하나의 트랜잭션.** 둘째 쓰기를 메시지 시스템이 아니라 같은 데이터베이스로 돌린다 | **멱등한 소비자.** 최소 한 번이 보장의 상한이다 |
+
+- 그 패턴의 전문은 [아웃박스 패턴](outbox-pattern.md)에 있고, 같은 기제를 스키마 결합을 끊는
+  수단으로 쓰는 쪽은 [변경 데이터 캡처](../concepts/change-data-capture.md)에 있다.
+
 ## 이어지는 페이지
 
 - [늦은 데이터 통합](late-data-integration.md) — 중복 제거 윈도를 닫는 그 워터마크의 정의와
@@ -650,6 +685,8 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   소비자 패턴 무리의 나머지
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — 절대값 메시지가 중복 내성을
   얻은 대가로 생기는 순서 의존, 그리고 상태 있는 수신자의 버퍼 문제
+- [아웃박스 패턴](outbox-pattern.md) — 발행 쪽에서 메시지를 잃지 않게 하는 쪽. 이 페이지의
+  둘째 길에 서고 소비자 멱등성을 조건으로 넘긴다
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 원전 층이 속한 카탈로그의 허브
 
 [^hohpe2004]: Hohpe & Woolf 2004, 10장 "Messaging Endpoints" — "Idempotent
@@ -667,3 +704,9 @@ Records"(pp.46–50) · 4장 "Idempotency Design Patterns" — "Database"(pp.100
 그림 3-3(스트리밍 잡의 중복 제거 상호작용)·4-8(늦은 데이터의 키 생성 영향)·4-9(트랜잭션적
 프로듀서의 고수준 도식)는 도식이므로 본문이 서술한 내용만 옮겼다. 코드 펜스는 예제 3-6·4-15·4-22를
 조판 줄바꿈만 정돈한 것이다.
+
+[^khononov2021]: Khononov 2021, 9장 "Communication Patterns" §"Integrating Aggregates" 중
+    §Outbox와 §"Fetching unpublished events"(pp.145–147). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26,
+    실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했다. 그 절의 본체는
+    [아웃박스 패턴](outbox-pattern.md)에 있고, 이 페이지는 그 패턴이 이 사다리의 어느 칸에
+    서는가만 받았다.

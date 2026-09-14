@@ -197,7 +197,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이 원리를 애플리케이션 설계로 민 것
+- [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이 원리를 애플리케이션 설계로 민 것.
+  스냅샷을 언제 정당화할 수 있는지에 문턱(애그리게이트당 이벤트 만 건)을 붙이는 자리가 그쪽의
+  성능 절이다
+- [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 같은 원리를 한
+  애그리게이트의 생애에 적용한 업무 로직 구현 패턴
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — 같은 원리를 기존 데이터베이스에 적용한 것
 - [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) — 무엇이 정본인가
 - [정규화·비정규화와 조인](../concepts/normalization-and-denormalization.md) — 여기서 무의미해진다는

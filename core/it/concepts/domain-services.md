@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 도메인 서비스
-description: 사물이 아니라 활동인 도메인 개념을 모델에 두는 패턴의 원전 — 객체에 억지로 밀어 넣었을 때 잃는 것과 Manager로 끝나는 가짜 객체, 상태를 캡슐화하지 않고 홀로 서는 인터페이스라는 정의와 동사로 이름 짓는 관례, 좋은 서비스의 세 특징과 여기서 무상태가 뜻하는 것, 처방 문단, 서비스를 기반·애플리케이션·도메인 셋으로 가르는 기준과 계좌 이체 예제의 층별 분담, 굵기를 조절해 도메인 지식이 애플리케이션 층으로 새는 것을 막는다는 둘째 값, 접근 수단보다 책임을 떼어 내는 결정이 중요하다는 판정, 그리고 조립을 감출 자연스러운 거처가 없을 때 팩토리가 이 자리에 서는 경우
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+description: 사물이 아니라 활동인 도메인 개념을 모델에 두는 패턴의 원전 — 객체에 억지로 밀어 넣었을 때 잃는 것과 Manager로 끝나는 가짜 객체, 상태를 캡슐화하지 않고 홀로 서는 인터페이스라는 정의와 동사로 이름 짓는 관례, 좋은 서비스의 세 특징과 여기서 무상태가 뜻하는 것, 처방 문단, 서비스를 기반·애플리케이션·도메인 셋으로 가르는 기준과 계좌 이체 예제의 층별 분담, 굵기를 조절해 도메인 지식이 애플리케이션 층으로 새는 것을 막는다는 둘째 값, 접근 수단보다 책임을 떼어 내는 결정이 중요하다는 판정, 조립을 감출 자연스러운 거처가 없을 때 팩토리가 이 자리에 서는 경우, 그리고 2021년 실무서가 더하는 것 — 업무 로직을 담는 무상태 객체라는 규정과 여러 구성 요소의 호출을 조율해 계산이나 분석을 한다는 쓰임, 여러 애그리게이트에서 읽어야 하는 계산이 이 자리에 온다는 응답 기한 예제, 그리고 이 패턴이 한 트랜잭션에 애그리게이트 하나라는 제약의 빠져나갈 구멍이 아니라는 못박음과 마이크로서비스와 무관하다는 단서
+generated: { by: "claude-opus-5", at: "2026-09-14T23:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 도메인 서비스
@@ -18,6 +19,9 @@ sources:
 - [굵기 — 지식이 새는 것을 막는 둘째 값](#굵기--지식이-새는-것을-막는-둘째-값)
 - [접근 수단은 부차적이다](#접근-수단은-부차적이다)
 - [팩토리가 서비스가 되는 자리](#팩토리가-서비스가-되는-자리)
+- [무상태 객체라는 규정 — 2021년 판본](#무상태-객체라는-규정--2021년-판본)
+- [응답 기한 계산 — 여러 애그리게이트에서 읽는다](#응답-기한-계산--여러-애그리게이트에서-읽는다)
+- [빠져나갈 구멍이 아니다](#빠져나갈-구멍이-아니다)
 - [이 낱말이 이 KB에서 갈리는 자리](#이-낱말이-이-kb에서-갈리는-자리)
 - [번역 계층의 얼굴도 서비스다](#번역-계층의-얼굴도-서비스다)
 - [외부 시스템의 인터페이스에 무슨 이름을 붙이는가](#외부-시스템의-인터페이스에-무슨-이름을-붙이는가)
@@ -232,6 +236,105 @@ sources:
     p.138).[^evans2003]
   - 전문은 [팩토리 패턴](factories-pattern.md)에 있다.
 
+## 무상태 객체라는 규정 — 2021년 판본
+
+[khononov2021](../sources/khononov2021.md)이 같은 패턴을 도메인 모델의 구성 단위 셋 중 마지막
+자리에 놓는다. 부르는 조건은 원전과 같고 규정의 형태가 다르다.
+
+- 부르는 조건이 원전과 같다 — **머지않아 어떤 애그리게이트에도 값 객체에도 속하지 않거나
+  여러 애그리게이트에 관련되어 보이는 업무 로직을 만나게 된다. 그런 경우 도메인 주도 설계는
+  그 로직을 도메인 서비스로 구현하기를 제안한다** (6장 §"Domain services",
+  p.92).[^khononov2021]
+  - 위 [사물이 아닌 것을 사물로 만들 때](#사물이-아닌-것을-사물로-만들-때)의 원전 문제 서술과
+    같은 자리다. 다른 것은 **여러 애그리게이트에 걸린다**는 조건을 명시적으로 든다는 점이고,
+    원전은 같은 것을 "여러 도메인 객체를 함께 끌어모아 조율한다"로 적는다.
+- **규정이 인터페이스가 아니라 객체로 온다** (6장, p.93):[^khononov2021]
+
+> A domain service is a stateless object that implements the business logic. In the vast
+> majority of cases, such logic orchestrates calls to various components of the system to
+> perform some calculation or analysis.
+
+  - **원전의 정의와 대질하면 두 가지가 다르다.** 위 [무엇이 서비스인가](#무엇이-서비스인가)의
+    원 정의는 **모델에서 홀로 서는 인터페이스로 제공되는 연산**이라고 적고 구현 형태를
+    규정하지 않는다. 이 판본은 **객체**라고 적는다. 그리고 원전은 무상태를 좋은 서비스의 세
+    특징 중 하나로 두는데, 이 판본은 그것을 정의에 넣는다.
+  - **무상태의 뜻은 원전 쪽이 더 좁게 규정해 두었다** — 위
+    [좋은 서비스의 세 특징](#좋은-서비스의-세-특징)이 옮긴 대로 금지되는 것은 **자기 행동에
+    영향을 주는 자기 상태**이고 전역 정보를 바꾸는 것은 허용된다. 이 판본은 무상태의 뜻을
+    따로 풀지 않는다. 두 소스를 함께 읽을 때 그 규정을 원전 쪽에서 가져와야 한다.
+- 6장 맺음이 같은 것을 한 줄로 되풀이한다 — **도메인 모델의 어떤 애그리게이트에도 값 객체에도
+  자연스럽게 속하지 않는 업무 로직을 담는 무상태 객체** (6장 §Conclusion,
+  p.96).[^khononov2021]
+
+## 응답 기한 계산 — 여러 애그리게이트에서 읽는다
+
+- 예제가 헬프데스크의 응답 기한이다. 상담원이 해법을 제시해야 하는 기한이 **티켓의 데이터
+  (우선순위와 이관 여부)뿐 아니라 상담원 부서의 우선순위별 응답 시간 정책과 상담원의 근무
+  교대 일정에도 달렸다** — 근무 시간 밖에 응답하라고 할 수는 없기 때문이다
+  (6장, p.93).[^khononov2021]
+- **그래서 이 계산이 도메인 서비스의 이상적인 후보가 된다** — **응답 기한 계산 로직이 티켓,
+  배정된 상담원의 부서, 그리고 근무 일정이라는 여러 출처의 정보를 요구하기 때문**이다
+  (6장, p.93).[^khononov2021]
+- 구현은 부서 정책을 읽어 우선순위별 최대 응답 시간을 얻고, 이관되었으면 정책의 이관 계수를
+  곱하고, 그 범위의 근무 교대를 읽어 목표 시각을 계산한다 (6장, p.93):[^khononov2021]
+
+  ```csharp
+  public ResponseTimeframe CalculateAgentResponseDeadline(UserId agentId, Priority priority,
+      bool escalated, DateTime startTime)
+  {
+      var policy = _departmentRepository.GetDepartmentPolicy(agentId);
+      var maxProcTime = policy.GetMaxResponseTimeFor(priority);
+
+      if (escalated) {
+          maxProcTime = maxProcTime * policy.EscalationFactor;
+      }
+
+      var shifts = _departmentRepository.GetUpcomingShifts(agentId, startTime,
+                       startTime.Add(policy.MaxAgentResponseTime));
+
+      return CalculateTargetTime(maxProcTime, shifts);
+  }
+  ```
+
+  - **이 조각이 위 [계좌 이체 — 층별 분담의 실물](#계좌-이체--층별-분담의-실물)과 같은 모양
+    이면서 결정적으로 다르다.** 둘 다 여러 도메인 객체를 조율하지만, 이체 쪽은 두 계좌에
+    차변과 대변을 **만들고** 이쪽은 세 곳에서 **읽기만** 한다. 그 차이가 다음 절의 조항이다.
+
+## 빠져나갈 구멍이 아니다
+
+**이 절이 이 판본이 이 패턴에 더하는 가장 강한 조항이다.**
+
+- 이득을 먼저 적고 곧바로 제한한다 (6장, p.93):[^khononov2021]
+
+> Domain services make it easy to coordinate the work of multiple aggregates. However, it is
+> important to always keep in mind the aggregate pattern's limitation of modifying only one
+> instance of an aggregate in one database transaction. Domain services are not a loophole
+> around this limitation. The rule of one instance per transaction still holds true. Instead,
+> domain services lend themselves to implementing calculation logic that requires reading the
+> data of multiple aggregates.
+
+  - 그 제약의 전문은
+    [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 있다.
+- **원전과 대질했고 겨루는 자리가 남는다. 모순 쌍으로 세우지는 않았다.**
+  - **원전의 계좌 이체 도메인 서비스는 두 `Account` 객체에 차변과 대변을 만든다.** 위
+    [계좌 이체 — 층별 분담의 실물](#계좌-이체--층별-분담의-실물)의 표 가운데 줄이 그것이고,
+    이 판본의 조항을 그대로 적용하면 그 서비스는 한 트랜잭션에 두 애그리게이트를 고치는
+    셈이라 허용되지 않는다.
+  - **그러나 대상이 다르다.** 이 판본의 제한이 걸리는 것은 **애그리게이트**이고, 원전의 계좌
+    이체 예제가 다루는 `Account`가 애그리게이트 루트인지를 원전이 밝히지 않는다. 둘이 한
+    애그리게이트 안의 엔티티라면 두 소스가 어긋나지 않는다.
+  - **그리고 이 제한의 출처가 이 판본이 새로 세운 조항이다.** 원전의 구현 규칙 일곱에는 한
+    트랜잭션에 애그리게이트 하나라는 수량 제한이 없다. 그 차이의 분석은
+    [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 적어
+    두었고, 이 절의 차이는 그 차이에서 파생된다. 즉 **도메인 서비스에서 갈리는 것이 아니라
+    애그리게이트에서 갈린 것이 여기까지 내려온 것이다.** 그래서 이 페이지에
+    `contradicts`를 걸지 않았다.
+- 마지막 단서가 이름에 걸린다 — **도메인 서비스는 마이크로서비스, 서비스 지향 아키텍처, 또는
+  소프트웨어 공학에서 "서비스"라는 낱말이 쓰이는 거의 모든 다른 용법과 아무 관계가 없다.
+  그것은 그저 업무 로직을 담는 데 쓰이는 무상태 객체다** (6장, p.93).[^khononov2021]
+  - 위 [이 낱말이 이 KB에서 갈리는 자리](#이-낱말이-이-kb에서-갈리는-자리)가 그 혼동을 이 KB
+    안에서 정리한 목록이고, 이 판본이 같은 경고를 배치 단위(마이크로서비스)까지 넓힌다.
+
 ## 이 낱말이 이 KB에서 갈리는 자리
 
 - **이 페이지가 다루는 것은 도메인 층의 서비스다.** 이 KB에서 같은 낱말을 쓰는 다른 페이지가
@@ -295,6 +398,9 @@ sources:
 
 ## 이어지는 페이지
 
+- [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 패턴이 구성 단위로 드는 모델
+- [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 이 패턴이
+  우회하지 못하는 제약
 - [서비스 레이어](service-layer-pattern.md) — 위 표 첫 줄의 애플리케이션 서비스
 - [도메인 객체가 된 프로세스](processes-as-domain-objects.md) — 같은 패턴을 9장이 다시 부르는 자리
 - [계층 아키텍처](layered-architecture.md) — 세 층의 규정
@@ -319,3 +425,10 @@ sources:
     조판한 것을 표로 옮겼다 — 문구는 원문 그대로이고 순서도 바꾸지 않았다. 패턴 도비라의
     사진과 Figure는 이미지라 옮기지 않았다. 이 소스에서 온 코드 펜스는 이 페이지에 없다 —
     이 절에 코드 목록이 없다.
+
+[^khononov2021]: Khononov 2021, 6장 "Tackling Complex Business Logic" §"Domain services"
+    (pp.92–93) · §Conclusion(p.96). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
+    `pdftotext -layout` 추출로 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다. 코드 펜스는
+    하나만 두었다 — 원문이 클래스 선언과 `...` 생략 표시로 감싼 것을 메서드 하나만 남기고
+    깎았고(감싼 줄을 지웠을 뿐 없는 줄을 보태지 않았다) 조판 폭 때문에 접힌 인자 목록의
+    줄바꿈 위치는 조정했으며 언어 표지(`csharp`)는 이 KB가 붙였다. 이 절에 도판은 없다.

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 계층 아키텍처
-description: 도메인 층을 격리하기 위해 프로그램을 층으로 가른다는 패턴의 원전 — 도메인 코드가 다른 코드에 퍼졌을 때 무엇이 불가능해지는가, 네 층의 이름과 각 층의 책임 규정, 애플리케이션 층을 얇게 유지하고 업무 규칙을 도메인 층에 두라는 배분, 층 사이 의존 방향의 원칙, 서비스라는 낱말이 세 층에 각각 있다는 구분, 이 분리를 패키징으로 강제하는 것이 유일하게 유용한 기술 구획이라는 판정과 티어 분할이 반대로 모델을 조각내는 대가, 규칙과 생성 책임이 각각 이 경계를 넘어 새는 두 방향, 모델에 대응하지 않는데도 도메인 층에 사는 구성물이 있다는 예외, 이 분리가 노리는 것이 무엇인가, 그리고 16장의 책임 층이 같은 낱말을 쓰되 도메인 층 안쪽을 도메인의 책임으로 다시 가르는 다른 구조라는 구분
-generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
+description: 도메인 층을 격리하기 위해 프로그램을 층으로 가른다는 패턴의 원전 — 도메인 코드가 다른 코드에 퍼졌을 때 무엇이 불가능해지는가, 네 층의 이름과 각 층의 책임 규정, 애플리케이션 층을 얇게 유지하고 업무 규칙을 도메인 층에 두라는 배분, 층 사이 의존 방향의 원칙, 서비스라는 낱말이 세 층에 각각 있다는 구분, 이 분리를 패키징으로 강제하는 것이 유일하게 유용한 기술 구획이라는 판정과 티어 분할이 반대로 모델을 조각내는 대가, 규칙과 생성 책임이 각각 이 경계를 넘어 새는 두 방향, 모델에 대응하지 않는데도 도메인 층에 사는 구성물이 있다는 예외, 이 분리가 노리는 것이 무엇인가, 그리고 16장의 책임 층이 같은 낱말을 쓰되 도메인 층 안쪽을 도메인의 책임으로 다시 가르는 다른 구조라는 구분, 그 위에 2021년 실무가 같은 패턴을 표현·업무 로직·데이터 접근 세 층으로 적고 서비스 층을 변종으로 끼워 넣는 판본과 현대 시스템에서 넓어진 양 끝 층의 범위, 이름의 대응표, 이 패턴이 트랜잭션 스크립트와 액티브 레코드에 맞고 도메인 모델에는 맞지 않는다는 판정, 그리고 층과 티어가 논리 경계와 물리 경계로 갈린다는 구분
+generated: { by: "claude-opus-5", at: "2026-09-15T00:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 계층 아키텍처
@@ -20,6 +21,10 @@ sources:
 - [네 층 중 무엇이 이 방법론의 요구인가](#네-층-중-무엇이-이-방법론의-요구인가)
 - [모델을 흐리는 다른 힘들](#모델을-흐리는-다른-힘들)
 - [16장의 책임 층은 이 층 나누기가 아니다](#16장의-책임-층은-이-층-나누기가-아니다)
+- [2021년 판본은 같은 패턴을 세 층으로 적는다](#2021년-판본은-같은-패턴을-세-층으로-적는다)
+- [층 사이의 소통과 이름의 대응](#층-사이의-소통과-이름의-대응)
+- [이 패턴이 맞는 자리와 맞지 않는 자리](#이-패턴이-맞는-자리와-맞지-않는-자리)
+- [층과 티어는 다르다](#층과-티어는-다르다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델이 사는 자리를 어떻게 격리하고, 그 격리는 무엇을 위한 것인가.**
@@ -272,6 +277,181 @@ sources:
     구현되어 별개의 경계 컨텍스트가 되는** 경우를 든다 (16장, p.462).[^evans2003] 그때는
     책임 층의 한 층이 통째로 다른 배치 단위가 된다.
 
+## 2021년 판본은 같은 패턴을 세 층으로 적는다
+
+[khononov2021](../sources/khononov2021.md)이 이 패턴을 **세 아키텍처 패턴 중 첫째**로 다시
+세운다. 원전의 네 층과 이름도 개수도 다르되 같은 패턴이고, 이 판본이 더하는 것은 **왜 아키텍처
+패턴이 필요한가**라는 문제 설정과 **어느 업무 로직 패턴에 맞는가**라는 판정이다.
+
+- 문제 설정이 위 [도메인 코드가 흩어졌을 때](#도메인-코드가-흩어졌을-때)와 같은 진단이다
+  (8장 §"Business Logic Versus Architectural Patterns", p.117):[^khononov2021]
+
+> The variety of concerns that a codebase has to take care of makes it easy for its business logic to
+> become diffused among the different components: that is, for some of the logic to be implemented in
+> the user interface or database, or be duplicated in different components. Lacking strict
+> organization in implementation concerns makes the codebase hard to change.
+
+  - 대가의 계상도 같은 모양이다 — 업무 로직을 바꿔야 할 때 **코드베이스의 어느 부분이 영향을
+    받아야 하는지 분명하지 않고**, 변경이 **무관해 보이는 부분에 예기치 않은 영향을** 주며,
+    반대로 **고쳐야 할 코드를 놓치기 쉽다** (8장, p.117).[^khononov2021]
+- 그래서 아키텍처 패턴의 정의가 이렇게 온다 (8장, p.117):[^khononov2021]
+
+> Architectural patterns introduce organizational principles for the different aspects of a codebase
+> and present clear boundaries between them: how the business logic is wired to the system's input,
+> output, and other infrastructural components.
+
+- 계층 아키텍처의 규정 (8장 §"Layered Architecture", p.118):[^khononov2021]
+
+> Layered architecture is one of the most common architectural patterns. It organizes the codebase
+> into horizontal layers, with each layer addressing one of the following technical concerns:
+> interaction with the consumers, implementing business logic, and persisting the data.
+
+  그리고 고전적 형태의 층이 셋으로 적힌다 (8장, p.118):[^khononov2021]
+
+> In its classic form, the layered architecture consists of three layers: the presentation layer
+> (PL), the business logic layer (BLL), and the data access layer (DAL).
+
+  - **위 [네 개의 층](#네-개의-층)의 표와 견주면 애플리케이션 층 하나가 빠져 있다.** 이
+    판본은 그 층을 필수가 아니라 **변종**으로 다룬다 — 아래 서비스 층 항목을 보라. 원전은
+    반대로 네 층을 관례로 기술하고 그중 도메인 층 하나만 요구로 좁힌다(위
+    [네 층 중 무엇이 이 방법론의 요구인가](#네-층-중-무엇이-이-방법론의-요구인가)).
+    **대상이 같고 무엇을 기본으로 세울지가 다르다.**
+- **양 끝 두 층의 범위가 현대 시스템에서 넓어졌다는 것이 이 판본의 갱신이다.**
+  - 표현 층 — 원 형태에서는 웹 인터페이스나 데스크톱 애플리케이션 같은 그래픽 인터페이스를
+    가리켰다. 그러나 (8장, p.118):[^khononov2021]
+
+    > In modern systems, however, the presentation layer has a broader scope: that is, all means for
+    > triggering the program's behavior, both synchronous and asynchronous.
+
+    저자가 드는 것이 다섯이다 — GUI, 명령줄 인터페이스(CLI), 다른 시스템과의 프로그램적
+    통합을 위한 API, 메시지 브로커의 이벤트 구독, 나가는 이벤트를 발행하는 메시지 토픽
+    (8장, pp.118–119).[^khononov2021] 그래서 결론이 이렇다 (8장, p.119):[^khononov2021]
+
+    > All of these are the means for the system to receive requests from the external environment and
+    > communicate the output. Strictly speaking, the presentation layer is the program's public
+    > interface.
+
+  - 업무 로직 층 — **저자가 이 층의 규정을 원전에서 빌린다**. 업무 결정이 구현되는 자리이고,
+    **에릭 에반스의 말대로 이 층이 소프트웨어의 심장이다** (8장, p.119).[^khononov2021]
+    원문 판정은 위 [네 개의 층](#네-개의-층)에 있다. 그리고 이 층이 5장에서 7장의 업무 로직
+    패턴들이 구현되는 자리로 지정된다 — 액티브 레코드나 도메인 모델이 여기 산다. 그 선택은
+    [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 있다.
+  - 데이터 접근 층 — 원 형태에서는 시스템의 데이터베이스를 가리켰다. 넓어진 범위가 셋으로
+    적힌다 (8장, pp.119–120):[^khononov2021] NoSQL 이후 한 시스템이 **여러 데이터베이스**를
+    쓰는 것이 흔해졌고(문서 저장소를 운영 데이터베이스로, 검색 색인을 동적 질의에, 인메모리
+    데이터베이스를 성능 최적화 연산에), 클라우드 객체 저장소나 메시지 버스처럼 **전통적
+    데이터베이스가 아닌 저장 매체**가 들어오며, **외부 정보 제공자와의 통합**(외부 시스템의
+    API, 클라우드 벤더의 관리형 서비스)도 이 층이 맡는다.
+    - 저자가 각주로 경계를 하나 긋는다 — 여기서 메시지 버스는 **시스템 내부의 필요**에
+      쓰이는 것이고, 공개적으로 노출된다면 표현 층에 속한다 (8장, p.120, 각주 3).[^khononov2021]
+      **같은 기술이 어느 층에 속하는지를 용도가 정한다는 것**이고, 위
+      [서비스는 세 층 모두에 있다](#서비스는-세-층-모두에-있다)가 서비스라는 낱말에 대해
+      내리는 판정과 같은 모양이다.
+- **서비스 층은 변종으로 들어온다** (8장 §Variation, p.121):[^khononov2021]
+
+> It's common to see the layered architecture pattern extended with an additional layer: the service
+> layer.
+
+  - 그 층의 정의와 처방, 그리고 **언제 그것이 필요하고 언제 불필요한가**는
+    [서비스 레이어](../concepts/service-layer-pattern.md)에 있다. 이 페이지는 그것이 계층
+    아키텍처의 확장으로 온다는 사실만 갖는다.
+
+## 층 사이의 소통과 이름의 대응
+
+- 의존 방향의 조항이 위 [조항](#조항)과 같다 (8장 §"Communication Between Layers",
+  p.120):[^khononov2021]
+
+> The layers are integrated in a top-down communication model: each layer can hold a dependency only
+> on the layer directly beneath it
+
+  - 얻는 것도 같게 적힌다 — **이것이 구현 관심사의 결합 해제를 강제하고 층 사이에 공유되는
+    지식을 줄인다** (8장, p.120).[^khononov2021]
+  - **한 가지가 원전과 다르다.** 원전의 조항은 **"같은 층의 다른 요소나 그 아래 층의 요소에만"**
+    의존한다고 적어 아래로 여러 칸 건너뛰는 것을 막지 않는다. 이 판본은 **바로 아래 층**으로
+    좁힌다. 좁히는 쪽이라 모순 쌍으로 세우지 않았다. 원전 16장이 쓰는 완화된 층 시스템
+    (아래 어느 층에든 접근 허용)까지 세면 같은 소스 안에도 세기 차이가 있다 — 위
+    [16장의 책임 층은 이 층 나누기가 아니다](#16장의-책임-층은-이-층-나누기가-아니다)를 보라.
+- **이름의 대응표를 저자가 직접 적는다** (8장 §Terminology, p.124):[^khononov2021]
+
+| 이 판본의 이름 | 다른 데서 쓰는 이름 |
+|---|---|
+| Presentation layer | user interface layer |
+| Service layer | application layer |
+| Business logic layer | domain layer = model layer |
+| Data access layer | infrastructure layer |
+
+  - 저자 자신의 선택도 밝혀져 있다 (8장, p.124):[^khononov2021]
+
+  > To eliminate confusion, I present the pattern using the original terminology. That said, I prefer
+  > "user interface layer" and "infrastructure layer" as these terms better reflect the
+  > responsibilities of modern systems and an application layer to avoid confusion with the physical
+  > boundaries of services.
+
+  - **이 표가 이 페이지와 그 판본을 잇는 사전이다.** 오른쪽 열이 위
+    [네 개의 층](#네-개의-층)이 쓰는 이름이고, 저자가 선호한다고 적은 것도 그쪽이다.
+    **두 소스가 서로 다른 개념을 말하는 것이 아니라 같은 층에 다른 이름을 쓴다.**
+
+## 이 패턴이 맞는 자리와 맞지 않는 자리
+
+이 판본이 더하는 판정이 이것이다 — **아키텍처 패턴의 선택이 업무 로직 패턴의 선택에 걸린다.**
+
+- 맞는 자리 (8장 §"When to Use Layered Architecture", p.124):[^khononov2021]
+
+> The dependency between the business logic and the data access layers makes this architectural
+> pattern a good fit for a system with its business logic implemented using the transaction script or
+> active record pattern.
+
+- 맞지 않는 자리 (8장, p.125):[^khononov2021]
+
+> However, the pattern makes it challenging to implement a domain model. In a domain model, the
+> business entities (aggregates and value objects) should have no dependency and no knowledge of the
+> underlying infrastructure. The layered architecture's top-down dependency requires jumping through
+> some hoops to fulfill this requirement. It is still possible to implement a domain model in a
+> layered architecture, but the pattern we will discuss next fits much better.
+
+  - 장 맺음이 같은 판정을 한 문장으로 다시 적는다 — **이 패턴이 업무 로직을 데이터 접근
+    구현과 결합시키므로 액티브 레코드 기반 시스템에 잘 맞는다** (8장,
+    p.135).[^khononov2021]
+  - **여기가 이 KB 안에서 판정이 갈리는 자리다.** 이 페이지의 원전은 층 나누기를 **도메인
+    주도 설계의 전제 조건**으로 세우고(위
+    [네 층 중 무엇이 이 방법론의 요구인가](#네-층-중-무엇이-이-방법론의-요구인가)), 이 판본은
+    같은 패턴을 도메인 모델에 **맞지 않는** 것으로 판정한다.
+    - **모순 쌍으로 세우지 않았다.** 대상이 다르기 때문이다. 원전이 요구하는 것은
+      **도메인 층의 격리** 하나이고, 같은 장이 그 요구를 형태에서 떼어 낸다 — 응집된 도메인
+      설계가 나머지와 느슨하게 결합된 채 격리되면 그것이 네 층 구조인지는 묻지 않는다(위
+      [네 층 중 무엇이 이 방법론의 요구인가](#네-층-중-무엇이-이-방법론의-요구인가)의 마지막
+      항목). 이 판본이 맞지 않는다고 판정하는 것은 **위에서 아래로만 의존한다는 형태**이고,
+      그 형태를 뒤집어 격리 요구를 만족시키는 것이 다음 패턴이다.
+    - 그 뒤집기는 [의존성 역전 원칙](../concepts/dependency-inversion-principle.md)의 포트와
+      어댑터 절에 있다. **이 KB에서 두 소스가 같은 결론에 이른다** — 파이썬 쪽 소스도 3층
+      구조를 안팎으로 뒤집는 데서 출발한다.
+
+## 층과 티어는 다르다
+
+- 저자가 곁글 하나를 이 혼동에 쓴다 (8장 §"Optional: Layers Versus Tiers",
+  p.125):[^khononov2021]
+
+> The layers architecture is often confused with the N-Tier architecture, and vice versa. Despite the
+> similarities between the two patterns, layers and tiers are conceptually different: a layer is a
+> logical boundary, whereas a tier is a physical boundary.
+
+- 가르는 기준이 배치 단위다 (8장, p.125):[^khononov2021]
+
+> All layers in the layered architecture are bound by the same lifecycle: they are implemented,
+> evolved, and deployed as one single unit. On the other hand, a tier is an independently deployable
+> service, server, or system.
+
+  - 저자의 예가 웹 시스템이다 — 브라우저, 요청을 넘기는 역방향 프록시, 웹 서버 위의 웹
+    애플리케이션, 데이터베이스 서버. **전부 같은 물리 서버에서 컨테이너로 돌 수도 있고 여러
+    서버에 흩어질 수도 있지만, 각 구성 요소가 나머지와 독립적으로 배치·관리될 수 있으므로
+    그것들은 층이 아니라 티어다** (8장, p.125).[^khononov2021] 그리고 **층은 그 웹
+    애플리케이션 안쪽의 논리 경계다.**
+- **원전도 같은 구분을 하되 반대 방향에서 경고한다.** 위 [조항](#조항)의 이득 목록이 층을
+  서로 다른 서버에 배치할 수 있다는 것을 이점으로 들고, 위
+  [패키징으로 이 분리를 강제한다](#패키징으로-이-분리를-강제한다)가 티어 분할이 모델을
+  조각내는 대가를 적는다. **두 소스가 같은 선을 긋고 서로 다른 쪽의 위험을 짚는다** — 이
+  판본은 두 낱말을 섞어 쓰는 것을, 원전은 논리 경계를 물리 경계로 성급히 바꾸는 것을 경고한다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](model-driven-design.md) — 이 분리가 가능하게 하려는 것
@@ -292,6 +472,11 @@ sources:
 - [대규모 구조](../concepts/large-scale-structure.md) — 그 층 나누기가 속한 구조의 층위
 - [층이 다르면 추상도 달라야 한다](../concepts/different-layer-different-abstraction.md) — 층 나누기를
   다른 축에서 판정하는 자리
+- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴의 의존 방향을
+  뒤집은 포트와 어댑터
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 세 아키텍처 패턴 중 셋째
+- [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처 패턴을
+  고를지가 걸리는 입력
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 층 구조를 파이썬으로 구체화한 축의 허브
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
@@ -316,3 +501,19 @@ sources:
     물음이 달라 [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md)가,
     §THE SMART UI "ANTI-PATTERN"(pp.76–79)은 [스마트 UI 안티패턴](smart-ui-antipattern.md)이
     담는다.
+
+[^khononov2021]: Khononov 2021, 8장 "Architectural Patterns"(도입과 §"Business Logic Versus
+    Architectural Patterns" pp.117–118 · §"Layered Architecture" 도입 p.118 ·
+    §"Presentation Layer" pp.118–119 · §"Business Logic Layer" p.119 ·
+    §"Data Access Layer" pp.119–120 · §"Communication Between Layers" p.120 ·
+    §Variation p.121 · §Terminology p.124 · §"When to Use Layered Architecture" pp.124–125 ·
+    곁글 §"Optional: Layers Versus Tiers" p.125 · §Conclusion p.135). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. 업무 로직 층 인용에서 본문 각주 번호 표지 하나("As Eric Evans
+    says, 1")를 뺐다 — 그 각주가 가리키는 것이 이 페이지의 원전이다. 이름 대응표는 원문이
+    불릿 목록이고 이 KB가 표로 옮겼으며 **값은 번역하지 않았다**(층 이름이 검색 키다).
+    도판 일곱(Figure 8-1~8-7)은 도판이라 본문이 그것에 대해 적는 것만 산문으로 옮겼다.
+    §Variation의 C# 목록 셋(MVC 컨트롤러와 `CampaignManagementService` 인터페이스와 추출된
+    `UserService`)은 [서비스 레이어](../concepts/service-layer-pattern.md)가 대표 하나를
+    갖는다 — 이 페이지에는 펜스를 두지 않았다. 장 끝 연습문제 다섯(pp.135–136)은 claim이
+    아니라 옮기지 않았다.

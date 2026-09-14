@@ -11,6 +11,7 @@ sources:
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 깊은 모듈과 얕은 모듈
@@ -29,6 +30,7 @@ sources:
 - [선언 자체를 좁힌다 — 단일 메서드 프로토콜](#선언-자체를-좁힌다--단일-메서드-프로토콜)
 - [모순 — 이 장이 인용해 기각하는 규칙의 원산지](#모순--이-장이-인용해-기각하는-규칙의-원산지)
 - [얽힘 — 저자가 대담에서 더한 둘째 기제](#얽힘--저자가-대담에서-더한-둘째-기제)
+- [같은 잣대를 서비스 경계에 적용한 자리](#같은-잣대를-서비스-경계에-적용한-자리)
 - [같은 형용사를 쓰는 다른 개념 — 깊은 모델](#같은-형용사를-쓰는-다른-개념--깊은-모델)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -446,6 +448,49 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
   것 (§"Method Length Summary").[^ousterhout2024-aposd] 전문은
   [오스터하우트–마틴 공개 대담](../concepts/aposd-vs-clean-code-dialogue.md)에 있다.
 
+## 같은 잣대를 서비스 경계에 적용한 자리
+
+**2021년의 도메인 주도 설계 실무서가 이 장을 이름으로 인용하며 마이크로서비스를 이 잣대로
+읽는다.** 이 절은 그 적용만 받는다 — 잣대 자체는 위 [깊이](#깊이--비용-대-이득)가 갖는다.
+
+- 그쪽 저자는 먼저 모듈을 **기능과 로직**으로 가른다 — 기능(function)은 그 모듈이 해야 하는
+  일, 곧 업무 기능이고, 로직(logic)은 그 모듈의 업무 로직, 곧 기능을 **어떻게** 구현하는가다
+  (14장 §"Microservices as Deep Services", p.222).[^khononov2021]
+- 그리고 이 장의 직사각형 비유를 그대로 옮겨 적는다 — 윗변이 모듈의 기능 곧 공개 인터페이스의
+  복잡성이고, 넓은 직사각형은 더 넓은 기능을, 좁은 직사각형은 더 제한된 기능과 그만큼 단순한
+  공개 인터페이스를 뜻하며, **면적**이 모듈의 로직 곧 그 기능의 구현이다 (14장, pp.222–223).
+  [^khononov2021]
+- 그쪽이 옮겨 적는 판정 문장 (14장, p.223):[^khononov2021]
+
+> According to this model, effective modules are deep: a simple public interface encapsulates
+> complex logic. Ineffective modules are shallow: a shallow module's public interface encapsulates
+> much less complexity than a deep module.
+
+- **얕음의 극단으로 그쪽이 드는 예가 두 줄짜리 덧셈 메서드다** — `int AddTwoNumbers(int a, int b)
+  { return a + b; }`. 공개 인터페이스(메서드 시그니처)와 로직(메서드 본문)이 정확히 같아서,
+  이런 모듈은 여분의 "움직이는 부품"을 들이고 복잡성을 감싸는 대신 **전체 체계에 우발적 복잡성을
+  더한다** (14장, p.223).[^khononov2021] 위 [얕은 모듈](#얕은-모듈)의 통과 메서드와 같은 진단이다.
+- **두 개념이 갈리는 지점은 하나뿐이라고 그쪽이 명시한다** (14장 §"Microservices as Deep
+  Modules", p.223):[^khononov2021]
+
+> Apart from different terminology, the notion of deep modules differs from the microservices
+> pattern in that the modules can denote both logical and physical boundaries, while microservices
+> are strictly physical. Otherwise, both concepts and their underlying design principles are the
+> same.
+
+  - **이 문장이 이 페이지의 [무엇을 모듈로 세는가](#무엇을-모듈로-세는가)와 맞물린다.** 이 장은
+    모듈을 클래스·서브시스템·서비스 등 여러 형태로 세고, 그쪽은 그중 **물리 경계인 것만**
+    마이크로서비스라 부른다. 같은 잣대의 부분집합이지 다른 잣대가 아니다.
+- **그쪽이 이 잣대에서 얻어 가는 결론이 체계 쪽에 있다** (14장, pp.223–224):[^khononov2021]
+  - 체계 복잡성의 관점에서 **깊은 모듈은 체계의 전역 복잡성을 줄이고, 얕은 모듈은 자기 국소
+    복잡성을 감싸지 못하는 구성 요소를 들여서 그것을 늘린다.**
+  - 그래서 **얕은 서비스가 그토록 많은 마이크로서비스 지향 프로젝트가 실패하는 이유**라고 적는다.
+  - 그리고 서비스당 메서드 하나로 쪼갠 설계가 얕은 모듈의 실물이다 — 통합용 공개 메서드를
+    넣어야 했으므로 인터페이스가 응당 그래야 할 것보다 "넓어진다".
+- 그쪽 서술의 전문은
+  [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md)와
+  [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md)에 있다.
+
 ## 같은 형용사를 쓰는 다른 개념 — 깊은 모델
 
 이 KB에는 **깊은 모델**(deep model)이라는 다른 개념이 있다(Evans 2003). 낱말이 겹치지만
@@ -489,6 +534,10 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
   단위로 커지는 축
 - [인터페이스·프로토콜·ABC](interfaces-protocols-and-abcs.md) — 인터페이스 선언 자체를
   최소로 두는 지침과 그것을 적는 네 가지 방식
+- [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 이 잣대를 물리
+  서비스 경계에 적용한 쪽
+- [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md) — 그 적용이 실제
+  경계를 고르는 어림법으로 내려가는 자리
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 이 축의 허브
 
 [^ousterhout2024-aposd]: Ousterhout & Martin 2024, "A Philosophy of Software Design
@@ -525,3 +574,13 @@ p.26).[^ousterhout2021] **그 규칙을 수치까지 명시한 소스가 이제 
 [^evans2003]: Evans 2003, III부 "Refactoring Toward Deeper Insight" 도입 §"Deep Models"
     (p.190). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 이 소스에서 온 코드 펜스는 이 페이지에
     없다.
+
+[^khononov2021]: Khononov 2021, 14장 "Microservices" §"Microservices as Deep Services"
+    (pp.222–223)와 §"Microservices as Deep Modules"(pp.223–224). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. `AddTwoNumbers`는 원서에서 네 줄로 조판된 C# 목록이고, 이 페이지의
+    펜스 예산은 유닉스 I/O 예제가 쓰고 있어 한 줄로 이어 인라인으로 옮겼다 — 글자를 보태지
+    않았다. 도판 하나(Figure 14-6, 깊은 모듈의 직사각형 도해)는 도판이라 본문이 그것에 대해
+    적는 것만 산문으로 옮겼고, 그 도해는 이 장의 Figure 4.1을 그쪽 저자가 다시 그린 것이다.
+    그쪽 저자가 대는 출처(이 페이지의 원전인 Ousterhout 2021)는 이 KB가 이미 들인 소스라
+    각주가 아니라 본문 링크로 걸었다.

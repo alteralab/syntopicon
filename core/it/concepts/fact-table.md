@@ -7,6 +7,7 @@ sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 팩트 테이블
@@ -25,6 +26,7 @@ sources:
 - [센티피드 팩트 테이블 금지](#센티피드-팩트-테이블-금지)
 - [Data Vault 쪽 서술 — 관계도 팩트가 된다](#data-vault-쪽-서술--관계도-팩트가-된다)
 - [Data Vault 쪽 서술 — grain과 롤업](#data-vault-쪽-서술--grain과-롤업)
+- [도메인 주도 설계 쪽에서 본 팩트 — 도메인 이벤트와 닮은 점과 다른 점](#도메인-주도-설계-쪽에서-본-팩트--도메인-이벤트와-닮은-점과-다른-점)
 
 팩트 테이블(fact table)은 업무 프로세스 이벤트의 성과 측정값(measurement)을
 담는 [차원 모델](../concepts/dimensional-modeling.md)의 중심 테이블이다. 측정 데이터는
@@ -351,6 +353,49 @@ Linstedt는 같은 테이블을 정보 마트 계층의 구성물로 다시 서�
     그 후퇴선조차 필요 없다고 덧붙인다. 조건이 다른 두 진술이므로 병합하지 않고 조건을
     적어 둔다. 큐브 쪽은 [데이터 큐브와 구체화 뷰](../concepts/data-cubes-and-materialized-views.md).
 
+## 도메인 주도 설계 쪽에서 본 팩트 — 도메인 이벤트와 닮은 점과 다른 점
+
+**운영 모델 쪽 소스 하나가 이 테이블을 자기 어휘로 읽는다.** 이 절은 그 대질만 둔다.
+
+- 닮은 점 (16장 §"Fact Table", p.250):[^khononov2021]
+
+> Facts represent business activities that have already happened. Facts are similar to the notion
+> of domain events in the sense that both describe things that happened in the past.
+
+- **다른 점도 같은 문단에 있다** — 도메인 이벤트와 달리 **팩트를 과거 시제 동사로 이름 짓는
+  문체 규칙은 없다.** 그럼에도 팩트는 업무 프로세스의 활동을 나타낸다 — 예로 그쪽이 드는 것이
+  `Fact_CustomerOnboardings`(새로 온보딩된 고객마다 한 레코드)와 `Fact_Sales`(확정된 판매마다
+  한 레코드)다 (16장, p.250).[^khononov2021] 위
+  [기반 원칙 — 측정 이벤트와 1:1](#기반-원칙--측정-이벤트와-11)이 같은 대응을 측정의 언어로
+  적는 자리다.
+- **추가 전용이라는 성질도 같은 자리에서 도메인 이벤트와 나란히 놓인다** (16장, p.251):
+  [^khononov2021]
+
+> Also, similar to domain events, fact records are never deleted or modified: analytical data is
+> append-only data: the only way to express that current data is outdated is to append a new record
+> with the current state.
+
+  - 그쪽이 드는 실물은 지원 요청의 상태를 30분마다 찍은 스냅샷 팩트다. 그 예에서 저자가 짚는
+    것은 **얼마나 잘게 찍을지를 데이터 분석가가 정한다**는 것과, 측정값이 바뀔 때마다 팩트
+    레코드를 만드는 것은 **어떤 경우에는 낭비이고 어떤 경우에는 기술적으로 불가능하다**는
+    것이다 (16장, p.251).[^khononov2021] 그 계열의 표는
+    [스냅샷 팩트 테이블](../concepts/snapshot-fact-tables.md)이 받는다.
+- **이 대질이 모순을 만들지 않는다.** 두 낱말이 같은 것을 가리키는 것이 아니라 **닮은 성질을
+  공유하는 다른 대상**이다 — 도메인 이벤트는 운영 모델의 구성 단위이고 팩트는 분석 모델의
+  테이블 행이다. 저자 자신이 그 차이를 이름 규칙에서 짚는다. 이벤트 쪽 서술은
+  [도메인 이벤트](../concepts/domain-events.md)와
+  [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md)에 있고, 뒤엣것에
+  [팩트 테이블과 무엇이 다른가](../concepts/event-sourcing-and-cqrs.md)
+  절이 이미 있다.
+
+
 [^kimball2013]: Kimball & Ross 2013, 1장 "Data Warehousing, Business Intelligence, and Dimensional Modeling Primer" · 2장 "Kimball Dimensional Modeling Techniques Overview" · 3장 "Retail Sales" · 9장 "Human Resources Management" · 12장 "Transportation" · 13장 "Education" · 14장 "Healthcare"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 4장 "Storage and Retrieval"
 [^linstedt2016]: Linstedt & Olschimke 2016, 7장 "Dimensional Modeling"
+[^khononov2021]: Khononov 2021, 16장 "Data Mesh" §"Fact Table"(pp.250–251). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했다. 그 절의
+    도판 둘(Figure 16-2 지원 데스크가 해결한 건들을 담은 팩트 테이블 · 16-3 지원 건 생애 주기의
+    상태 변화를 담은 팩트 테이블)은 도판이라 본문이 그것에 대해 적는 것만 산문으로 옮겼다.
+    그 장의 나머지(차원 테이블 · 별·눈송이 스키마 · 분석 데이터 관리 아키텍처 · 데이터 메시
+    네 원칙)는 이 페이지에 두지 않았다 — 이 KB의 해당 페이지들이 각자의 원전으로 이미 담고
+    있고, 이 페이지는 그쪽이 더하는 대질 하나만 받았다.

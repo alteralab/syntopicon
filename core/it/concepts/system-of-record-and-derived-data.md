@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 기록 시스템과 파생 데이터
-description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 갱신·삭제가 여기서 어려워지는 이유, 이 구분을 데이터 모델로 밀어붙였을 때 나오는 비정규화와 이벤트 소싱, 그리고 같은 규칙(각 사실은 정확히 한 번 표현된다)이 코드 쪽에서 DRY 원칙으로 세워지는 자리
+description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 갱신·삭제가 여기서 어려워지는 이유, 이 구분을 데이터 모델로 밀어붙였을 때 나오는 비정규화와 이벤트 소싱, 같은 규칙(각 사실은 정확히 한 번 표현된다)이 코드 쪽에서 DRY 원칙으로 세워지는 자리, 그리고 같은 구분을 한 애플리케이션의 아키텍처 조항으로 거는 쪽 — 강한 일관성을 갖는 저장소가 하나뿐이라고 못 박고 나머지를 전부 결국 일관되는 투영으로 두는 배치
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 기록 시스템과 파생 데이터
@@ -19,6 +20,7 @@ sources:
 - [이 구분을 데이터 모델로 밀어붙이면](#이-구분을-데이터-모델로-밀어붙이면)
 - [13장이 이 구분을 아키텍처로 밀어붙인다](#13장이-이-구분을-아키텍처로-밀어붙인다)
 - [코드 쪽의 같은 규칙 — DRY](#코드-쪽의-같은-규칙--dry)
+- [같은 구분을 한 애플리케이션 안의 조항으로 거는 쪽](#같은-구분을-한-애플리케이션-안의-조항으로-거는-쪽)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **한 조직의 여러 데이터 저장소 중에서 무엇이 정본이고 무엇이
@@ -182,12 +184,49 @@ sources:
   파생 파이프라인은 그 "양 끝"이 실제로 깨지는 자리이며, 완화책도 같은 종류다 — 스키마를 정본
   한 곳에서 읽어 코드를 생성하는 것이다.
 
+## 같은 구분을 한 애플리케이션 안의 조항으로 거는 쪽
+
+위 절들은 이 구분을 **여러 저장 시스템 사이**의 관계로 다룬다. 도메인 주도 설계 쪽 소스가 같은
+어휘를 **한 경계 컨텍스트 안의 아키텍처 조항**으로 쓴다.
+
+- 이벤트 소싱에서 정본이 되는 것이 이벤트이고, 그것을 담는 데이터베이스에 지위가 붙는다
+  (7장 §"Source of Truth", p.107):[^khononov2021]
+
+> The database that stores the system's events is the only strongly consistent storage: the system's
+> source of truth. The accepted name for the database that is used for persisting events is
+> event store.
+
+- 같은 조항이 CQRS 아키텍처에서 명령 실행 모델에 걸린다 (8장,
+  p.130):[^khononov2021]
+
+> The command execution model is also the only model representing strongly consistent data—the
+> system's source of truth. It should be possible to read the strongly consistent state of a business
+> entity and have optimistic concurrency support when updating it.
+
+- **"오직 하나"라는 한정이 이 판본이 더하는 것이다.** 위 [두 정의](#두-정의)의 기록 시스템
+  정의는 **권위 있는 판본을 갖는다**고만 적고 파생 쪽의 일관성 등급을 규정하지 않는다. 이
+  판본은 파생 쪽을 전부 **결국 일관되는(eventually consistent) 투영**으로 못 박고, 그 조항에서
+  실무 규칙 하나를 뽑는다 — 명령이 호출자에게 데이터를 돌려줄 때 그 데이터는 강한 일관성을 갖는
+  모델에서 와야 한다는 것이다 (8장, p.133).[^khononov2021]
+  - **대상이 어긋나지 않는다.** 두 소스가 같은 구분을 하고, 한쪽이 그것을 여러 시스템 사이의
+    지정으로, 다른 쪽이 한 애플리케이션 안의 강제 조항으로 쓴다. 규모가 다를 뿐이다.
+- 파생 쪽에 걸리는 요구도 같은 모양으로 반복된다 — 읽기 모델은 **미리 캐시된 투영**이고,
+  **투영의 데이터를 전부 지우고 처음부터 다시 만들 수 있어야** 구현이 제대로 된 것이다 (8장,
+  p.130).[^khononov2021] 위 [두 정의](#두-정의)의 파생 데이터 정의("잃어도 원본에서 다시 만들
+  수 있다")를 **적격 기준으로 격상한 것**이고, 위
+  [이 구분을 데이터 모델로 밀어붙이면](#이-구분을-데이터-모델로-밀어붙이면)이 옮긴 재현 가능성
+  원칙과 같다. **세 소스가 같은 요구에 도착한다.**
+- 전문은 [CQRS 아키텍처](../concepts/cqrs-architecture.md)와
+  [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md)에 있다.
+
 ## 이어지는 페이지
 
 - [데이터 통합](../concepts/data-integration.md) — 이 구분을 여러 저장 시스템에 걸쳐 실제로
   운용하는 방법
 - [언번들드 데이터베이스](../concepts/unbundling-databases.md) — 파생 유지 기능을 데이터베이스
   밖으로 꺼낸 그림
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 이 구분을 한 경계 컨텍스트의 아키텍처
+  조항으로 거는 자리
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이 구분을 데이터 모델로
   삼았을 때의 이점과 함정
 - [정규화와 비정규화](../concepts/normalization-and-denormalization.md) — 비정규화가 파생
@@ -209,3 +248,9 @@ sources:
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 9 "DRY—The Evils of Duplication"
+
+[^khononov2021]: Khononov 2021, 7장 "Modeling the Dimension of Time" §"Source of Truth"
+    (p.107) · 8장 "Architectural Patterns" §"Command-Query Responsibility Segregation" 중
+    §Implementation(p.130)과 §"Model Segregation"(p.133). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. 이 소스에서 온 코드 펜스는 이 페이지에 없다.

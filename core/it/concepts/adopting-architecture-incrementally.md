@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 있는 시스템에 이 구조 들이기
-description: 이미 진흙 공이 된 시스템에서 이 패턴들을 조금씩 들이는 절차와 그 실전 회고 — 먼저 어떤 문제를 풀려는지 정하고 기능 작업에 묶어 파는 판단, 사용 사례를 명령형 이름으로 뽑아 서비스 레이어부터 만드는 첫 걸음과 중복을 허용하라는 지침, 양방향 링크를 식별자로 바꿔 애그리게이트를 갈라내는 수순, 이벤트 가로채기와 교살자 무화과 패턴으로 기능을 옮기는 세 단계, 이해관계자를 설득하는 방법으로서의 도메인 모델링, 기술 감수자가 남긴 "작게 시작하라"는 회고, 저자들이 답한 질문 일곱, 그리고 점진적 성장이 마스터 플랜보다 나은 이유를 대는 크리스토퍼 알렉산더 인용과 이 방법론을 "제3의 길"로 요약하는 원전의 맺음
-generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
+description: 이미 진흙 공이 된 시스템에서 이 패턴들을 조금씩 들이는 절차와 그 실전 회고 — 먼저 어떤 문제를 풀려는지 정하고 기능 작업에 묶어 파는 판단, 사용 사례를 명령형 이름으로 뽑아 서비스 레이어부터 만드는 첫 걸음과 중복을 허용하라는 지침, 양방향 링크를 식별자로 바꿔 애그리게이트를 갈라내는 수순, 이벤트 가로채기와 교살자 무화과 패턴으로 기능을 옮기는 세 단계, 이해관계자를 설득하는 방법으로서의 도메인 모델링, 기술 감수자가 남긴 "작게 시작하라"는 회고, 저자들이 답한 질문 일곱, 그리고 점진적 성장이 마스터 플랜보다 나은 이유를 대는 크리스토퍼 알렉산더 인용과 이 방법론을 "제3의 길"로 요약하는 원전의 맺음, 그리고 2021년 실무서가 같은 패턴을 교살자 마이그레이션 패턴이라 부르며 더하는 것 — 큰 재작성은 드물게 성공한다는 기각, 새 경계 컨텍스트를 만들어 새 요구사항을 거기 구현하고 레거시 기능을 옮기며 레거시 쪽 개발은 동결한다는 규정, 요청을 옛것과 새것 사이로 가르다 마이그레이션이 끝나면 함께 제거되는 파사드, 그리고 경계 컨텍스트 하나에 데이터베이스 하나라는 규칙을 이행 기간에만 느슨하게 하는 조건
+generated: { by: "claude-opus-5", at: "2026-09-15T12:00:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 있는 시스템에 이 구조 들이기
@@ -14,6 +15,7 @@ sources:
 - [얽힌 책임을 갈라내기 — 서비스 레이어부터](#얽힌-책임을-갈라내기--서비스-레이어부터)
 - [애그리게이트와 바운디드 컨텍스트 식별하기](#애그리게이트와-바운디드-컨텍스트-식별하기)
 - [이벤트 가로채기와 교살자 무화과](#이벤트-가로채기와-교살자-무화과)
+- [2021년 실무서가 같은 패턴에 붙이는 이름과 두 단서](#2021년-실무서가-같은-패턴에-붙이는-이름과-두-단서)
 - [이해관계자를 설득하는 법](#이해관계자를-설득하는-법)
 - [작게 시작하라 — 기술 감수자의 회고](#작게-시작하라--기술-감수자의-회고)
 - [저자들이 답한 질문 일곱](#저자들이-답한-질문-일곱)
@@ -166,6 +168,71 @@ sources:
   시스템**이었고 — **이것이 이벤트 주도 아키텍처의 "Hello World"다. 그것이 우리로 하여금
   메시지 버스를 배포하고, 생산자와 소비자를 연결하고, 배포 파이프라인을 만들고, 단순한
   메시지 핸들러를 쓰도록 강제했다** (Epilogue §"An Event-Driven Approach…").[^percival2020]
+
+## 2021년 실무서가 같은 패턴에 붙이는 이름과 두 단서
+
+[khononov2021](../sources/khononov2021.md)의 13장이 같은 패턴을 **교살자 마이그레이션 패턴**
+(strangler migration pattern)이라 부르며 레거시 현대화의 두 갈래 중 하나로 세운다. 위
+[이벤트 가로채기와 교살자 무화과](#이벤트-가로채기와-교살자-무화과)·[레거시를 반복마다 걷어 내는 다른 소스](#레거시를-반복마다-걷어-내는-다른-소스)와
+**겨루지 않고 같은 방향으로 간다.** 이 판본이 더하는 것은 **파사드와의 결합**과 **데이터베이스
+규칙을 이행 기간에만 느슨하게 하는 조건**이다.
+
+- 먼저 대안이 기각된다 (13장, p.204):[^khononov2021]
+
+> The "big rewrite" endeavors, in which the engineers are trying to rewrite the system from
+> scratch, this time designing and implementing the whole system correctly, are rarely successful.
+
+  - 맺음에서 한 줄로 요약된다 — **큰 재작성은 업무 가치보다 위험을 더 수반한다!**(Big rewrites
+    entail more risk than business value!) (13장, p.213).[^khononov2021]
+  - **세 소스가 같은 판정을 낸다.** 위 [작게 시작하라](#작게-시작하라--기술-감수자의-회고)의
+    회고와 원전의 반복 단위 지침과 이 문장이 같은 방향이고, **모순 쌍으로 세우지 않았다.**
+- **이름의 유래가 나무다** — **교살자 무화과는 열대 나무의 한 무리로 독특한 성장 방식을
+  공유한다. 교살자는 다른 나무, 곧 숙주 나무 위에서 자란다. 교살자는 숙주 나무의 윗가지에서
+  씨앗으로 삶을 시작한다. 자라면서 아래로 길을 내어 마침내 흙에 뿌리를 내린다. 결국 교살자는
+  숙주 나무를 뒤덮는 잎을 틔워 숙주 나무의 죽음에 이르게 한다** (13장,
+  p.208).[^khononov2021]
+- **패턴의 규정** (13장, p.208):[^khononov2021]
+
+> The idea is to create a new bounded context—the strangler—use it to implement new requirements,
+> and gradually migrate the legacy context's functionality into it.
+
+  - 그 사이 레거시 쪽에 걸리는 금지가 하나다 — **같은 시기에 핫픽스와 그 밖의 비상 상황을
+    제외하면 레거시 경계 컨텍스트의 진화와 개발은 멈춘다** (13장, p.208).[^khononov2021]
+    **위 [이벤트 가로채기와 교살자 무화과](#이벤트-가로채기와-교살자-무화과)의 세 단계에는 이
+    금지가 없다.** 그쪽은 이벤트를 통해 새 시스템을 기르는 기제를 적고, 이쪽은 옛 시스템의
+    개발을 동결한다는 운영 조항을 적는다. 겨루지 않고 서로를 보완한다.
+- **단서 하나 — 파사드가 짝으로 온다** (13장, p.208):[^khononov2021]
+
+> Usually, the strangler pattern is used in tandem with the façade pattern: a thin abstraction
+> layer that acts as the public interface and is in charge of forwarding the requests to
+> processing either by the legacy or the modernized bounded context.
+
+  - 그 파사드에는 수명이 있다 — **마이그레이션이 끝나면, 곧 숙주가 죽으면 파사드는 더 이상
+    필요하지 않으므로 제거된다** (13장, p.208).[^khononov2021]
+  - **원전의 부패 방지 계층도 같은 생애를 갖는다** — 위
+    [레거시를 반복마다 걷어 내는 다른 소스](#레거시를-반복마다-걷어-내는-다른-소스)가 적듯
+    그 계층에서 불필요해진 부분을 식별해 제거하는 것이 절차에 들어 있다. 다만 **두 장치의 일이
+    다르다** — 부패 방지 계층은 모델을 번역하고, 파사드는 요청을 라우팅한다.
+- **단서 둘 — 데이터베이스 규칙이 한시적으로 느슨해진다** — 저자는 **각 경계 컨텍스트가 별도
+  서브시스템이므로 다른 경계 컨텍스트와 데이터베이스를 공유할 수 없다는 원리와 반대로, 교살자
+  패턴을 구현할 때는 그 규칙을 완화할 수 있다**고 적는다. 근거가 비용이다 — **컨텍스트 사이의
+  복잡한 통합을 피하기 위해서이고, 그 통합은 많은 경우 분산 트랜잭션을 수반할 수 있다. 두
+  컨텍스트가 같은 데이터를 다뤄야 하기 때문이다** (13장, p.209).[^khononov2021]
+  - **완화에는 만료 조건이 붙는다** (13장, p.209):[^khononov2021]
+
+> The condition for bending the one-database-per-bounded-context rule is that eventually, and
+> better sooner than later, the legacy context will be retired, and the database will be used
+> exclusively by the new implementation.
+
+  - **이것이 이 KB에서 그 규칙의 유일한 명시적 예외다.** 그 규칙이 사는 자리는
+    [경계 컨텍스트](bounded-context.md)이고, 저자 자신이 이것을 원리에 반하는 것으로 적으며
+    기한을 조건으로 건다.
+- **다른 갈래는 리팩터링이다** — 저자는 현대화 전략을 **구성 요소를 통째로 점진 교체하는
+  것(교살자 패턴)과 기존 해법을 점진적으로 리팩터링하는 것** 둘로 놓고 (13장,
+  p.207),[^khononov2021] 뒤쪽의 조항을
+  [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에서 편다. 이 갈림길이
+  놓인 절차 전체는
+  [브라운필드에 도메인 주도 설계 들이기](applying-ddd-to-brownfield.md)에 있다.
 
 ## 이해관계자를 설득하는 법
 
@@ -383,6 +450,11 @@ Evans 2003의 14장이 같은 문제에 다른 어휘로 답한다. 위
 - [리포지터리 패턴](repository-pattern.md) — 부록 C가 시험하는 주장
 - [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 같은 레거시 문제를 다른
   소스가 다루는 자리
+- [브라운필드에 도메인 주도 설계 들이기](applying-ddd-to-brownfield.md) — 이 교체가 놓인
+  현대화 절차 전체
+- [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md) — 교체 대신 고쳐 쓰는
+  다른 갈래
+- [컨텍스트 전략과 변환](context-strategy-and-transformations.md) — 원전의 레거시 폐기 절차
 - [질서의 진화](evolving-order.md) — 처음부터 구조를 굳히지 말라는 쪽의 조항
 - [전략 설계 결정하기](strategic-decision-making.md) — 마스터 플랜 인용의 전문
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
@@ -406,3 +478,16 @@ Evans 2003의 14장이 같은 문제에 다른 어휘로 답한다. 위
     1975, *The Oregon Experiment*, pp.16–28에서 옮겨 실은 것이고, 이 페이지는 그 재인용을 이
     책의 쪽으로 단다 — 원전을 직접 확인하지 않았다.
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 이 소스에서 온 코드 펜스는 이 페이지에 없다.
+
+[^khononov2021]: Khononov 2021, 13장 "Domain-Driven Design in the Real World"
+    §"Modernization Strategy"(p.204)와 §"Tactical Modernization"(p.207) 중 두 갈래를 가르는
+    대목 · §"Strangler pattern"(pp.208–209) · §Conclusion(p.213). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. 원문이 패턴 이름의 첫 등장을 기울임으로 조판하는 관례는 직인용에서
+    별도로 표시하지 않았다. 도판 셋(Figure 13-3 교살자 무화과 사진 · 13-4 파사드가 요청을
+    가르는 그림 · 13-5 두 체계가 같은 데이터베이스를 쓰는 그림)은 도판이라 본문이 그것에 대해
+    적는 것만 산문으로 옮겼다 — 13-3의 출처로 저자가 적은 Unsplash 사진 URL은 도판의 출처라
+    옮기지 않았다. 이 절에는 코드 목록이 없다. 그 장의 나머지(전략 분석·현대화 전략 전체·
+    실용적 DDD·잠행 DDD)는 이 페이지에 두지 않고
+    [브라운필드에 도메인 주도 설계 들이기](applying-ddd-to-brownfield.md)에 두었다 — 같은
+    claim을 두 페이지에 흩지 않는다.

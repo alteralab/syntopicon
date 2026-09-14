@@ -2,7 +2,7 @@
 type: concept
 title: 스마트 UI 안티패턴
 description: 저자 자신이 도메인 주도 설계를 쓰지 말라고 적은 갈림길 — 왜 이 패턴의 부정에 따로 한 절이 필요한가, 어떤 조건에서 미숙한 팀이 모델 주도 설계를 시도하면 취소되는가, 업무 로직을 사용자 인터페이스에 전부 넣으라는 처방, 저자가 계상한 이득 일곱과 대가 넷, 이 길을 고르면 언어와 도구까지 그쪽으로 골라야 하고 되돌아올 길이 애플리케이션 교체뿐이라는 조항, 두 길 사이에 있는 트랜잭션 스크립트, 그리고 어떤 아키텍처가 도메인 주도 설계를 떠받칠 수 있는가의 최소 기준
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-14T23:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
@@ -135,6 +135,11 @@ p.77).[^evans2003]
   예로 드는 것이 Fowler(2003)의 트랜잭션 스크립트(TRANSACTION SCRIPT)이고, 그것은
   **사용자 인터페이스를 애플리케이션에서 분리하되 객체 모델을 제공하지는 않는다** (4장,
   p.79).[^evans2003]
+  - 그 패턴의 전문은 [트랜잭션 스크립트](transaction-script.md)에 있다. **원전이 한 줄로
+    지나가는 자리에 2021년 실무서가 절을 따로 두고** 구현 요구와 실패 사례와 쓸 자리까지
+    적는다. 그리고 이 페이지가 다루는 갈림길과 다른 축을 하나 더 세운다 — 업무 로직의
+    복잡성이 아니라 **하위 도메인의 종류**로 판정하는 축이고, 그 전체 표는
+    [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 있다.
 
 ## 최소 기준
 
@@ -178,6 +183,9 @@ p.77).[^evans2003]
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 패턴이 부정하는 대상
 - [층을 잇는 법과 아키텍처 프레임워크](../concepts/relating-layers-and-frameworks.md) — 같은 장의 앞 절.
   층을 나눈 다음의 문제
+- [트랜잭션 스크립트](transaction-script.md) — 저자가 두 길 사이에 놓은 패턴
+- [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 같은 갈림길을 하위
+  도메인의 종류로 판정하는 축
 - [모델 주도 설계](../concepts/model-driven-design.md) — 이 갈림길의 다른 쪽 길
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 같은 단서를 파이썬 쪽에서 다는 자리
 - [아키텍처를 점진적으로 들이기](../concepts/adopting-architecture-incrementally.md) — 반대

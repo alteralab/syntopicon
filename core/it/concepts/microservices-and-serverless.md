@@ -7,6 +7,7 @@ sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 마이크로서비스와 서버리스
@@ -25,6 +26,10 @@ sources:
 - [서버리스 대 서버](#서버리스-대-서버)
 - [컨테이너](#컨테이너)
 - [같은 분해를 분석 데이터로 옮기면](#같은-분해를-분석-데이터로-옮기면)
+- [2021년 판본이 내리는 정의 — 서비스와 마이크로서비스](#2021년-판본이-내리는-정의--서비스와-마이크로서비스)
+- [한 메서드 한 서비스는 왜 실패하는가](#한-메서드-한-서비스는-왜-실패하는가)
+- [국소 복잡성과 전역 복잡성](#국소-복잡성과-전역-복잡성)
+- [크기로 내린 정의에 대한 판정](#크기로-내린-정의에-대한-판정)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **애플리케이션을 여러 서비스로 쪼갤 때 데이터는 어디에 두어야
@@ -393,6 +398,130 @@ sources:
   왔다. DevOps 운동은 업무 서비스를 짓는 것과 운영하는 것 사이의 간극을 닫고 dev·ops 교차 기능
   팀을 만들었다** (3장, p.41).[^dehghani2022] 분석 데이터 소유권은 그 목록에 얹히는 다음 항이다.
 
+## 2021년 판본이 내리는 정의 — 서비스와 마이크로서비스
+
+도메인 주도 설계 실무서 한 권이 이 낱말을 **공개 인터페이스로** 정의한다. 위 절들이 데이터
+경계와 배포 단위로 쪼개기를 설명했다면, 이 판본은 **무엇을 마이크로서비스라 부를 수 있는가**에
+먼저 답한다.
+
+- 먼저 서비스의 정의를 OASIS에서 가져온다 (14장 §"What Is a Service?", p.217):[^khononov2021]
+
+> According to OASIS, a service is a mechanism that enables access to one or more capabilities,
+> where the access is provided using a prescribed interface.
+
+  - **규정된 인터페이스(prescribed interface)는 서비스로 데이터를 넣고 빼는 어떤 기제든** 될 수
+    있다 — 요청/응답 같은 동기 모델일 수도, 이벤트를 생산하고 소비하는 비동기 모델일 수도 있다.
+    그것이 그 서비스의 **공개 인터페이스**이고, 다른 구성 요소와 소통하고 통합하는 수단이다
+    (14장, pp.217–218).[^khononov2021]
+  - 저자가 빌려 오는 비유는 랜디 슈프의 **정문(front door)**이다 — 서비스로 드나드는 모든
+    데이터는 정문을 지나야 한다. 나아가 **서비스의 공개 인터페이스가 서비스 자신을 정의한다**.
+    잘 표현된 인터페이스 하나면 그 서비스가 구현한 기능을 서술하기에 충분하다 (14장, p.218).
+    [^khononov2021]
+- **그 위에 마이크로서비스의 정의가 한 줄로 얹힌다** (14장 §"What Is a Microservice?", p.218):
+  [^khononov2021]
+
+> Since a service is defined by its public interface, a microservice is a service with a
+> micro-public interface: a micro-front door.
+
+  - 얻는 것 셋 — 공개 인터페이스가 작으면 **그 서비스 하나의 기능도, 다른 구성 요소와의 통합도**
+    이해하기 쉬워진다. 기능을 줄이면 **바뀔 이유도 줄고**, 개발·관리·확장 면에서 서비스가 더
+    자율적이 된다 (14장, p.219).[^khononov2021]
+- **이 정의가 위 [데이터 경계](#데이터-경계--데이터베이스를-공유하지-않는다)의 규칙을 유도한다.**
+  데이터베이스를 드러내 그것을 정문의 일부로 만들면 공개 인터페이스가 거대해진다 — 관계형
+  데이터베이스에 던질 수 있는 서로 다른 SQL 질의가 몇 개냐고 물으면 SQL이 유연한 언어인 만큼
+  **답은 사실상 무한**이다. 그래서 마이크로서비스는 데이터베이스를 감싸고, 데이터는 훨씬
+  간결한 통합 지향 공개 인터페이스를 통해서만 접근된다 (14장, p.219).[^khononov2021]
+  - **이 KB의 다른 소스가 같은 규칙을 다른 근거로 세운다** — 위 절은 그 근거를 **독립 배포와
+    스키마 변경의 폭발**에 둔다. 두 근거가 겨루지 않고 같은 처방으로 모인다. 이 판본이 더하는
+    것은 그 규칙이 **정의에서 따라 나온다**는 배치다.
+
+## 한 메서드 한 서비스는 왜 실패하는가
+
+- **정의가 단순한 만큼 순진한 오독도 쉽다** — 인터페이스를 메서드 하나로 제한하면 완벽한
+  마이크로서비스가 되지 않겠느냐는 것이다. 저자는 공개 메서드 여덟을 가진 백로그 관리 서비스에
+  "서비스당 메서드 하나" 규칙을 적용해 보인다 (14장 §"Method as a Service: Perfect
+  Microservices?", p.219).[^khononov2021]
+- 결과가 이렇다 (14장, p.219):[^khononov2021]
+  - 쪼개진 서비스들은 저마다 자기 데이터베이스를 감싼다. 남의 데이터베이스에 직접 접근할 수
+    없고 공개 인터페이스로만 접근한다.
+  - 그런데 그 일을 할 공개 인터페이스가 없다. 서비스들은 **함께 일하고 서로의 변경을 동기화해야**
+    하므로, 그 통합 관심사를 감당할 메서드를 인터페이스에 **더 넣어야** 한다.
+  - 그 결과 서비스 사이의 통합과 데이터 흐름이 **전형적인 분산된 큰 진흙 공**의 모양이 된다.
+- 저자가 랜디 슈프의 비유를 이어 적는다 — 그렇게 잘게 쪼개서 서비스의 **정문은 확실히 최소로
+  줄였지만**, 전체 기능을 구현하느라 각 서비스에 **거대한 "관계자 외 출입 금지" 출입구**를 달아야
+  했다 (14장, p.220).[^khononov2021]
+- **그래서 설계 목표가 옮겨진다** (14장 §"Design Goal", pp.220–221):[^khononov2021]
+  - 첫째로 그 규칙은 **애초에 가능하지 않다.** 서비스들이 함께 일해야 하므로 통합용 공개
+    메서드로 인터페이스를 넓힐 수밖에 없다.
+  - 둘째로 **전투에서 이기고 전쟁에서 졌다.** 서비스 하나하나는 원래 설계보다 훨씬 단순해졌지만
+    **체계 전체는 수십 배 복잡해졌다.**
+  - 마이크로서비스 아키텍처의 목표는 **유연한 체계를 만드는 것**이고, 구성 요소 하나에 설계
+    노력을 집중하면서 그것이 체계의 나머지와 맺는 상호작용을 무시하는 것은 **체계라는 낱말의
+    정의 자체에 어긋난다** — 체계는 함께 작동하는 연결된 것들의 집합이다. 그러므로 **체계는
+    독립적인 구성 요소들로 지어질 수 없다.** 아무리 탈결합되어 있어도 서비스들은 여전히
+    통합되고 서로 소통해야 한다.
+
+## 국소 복잡성과 전역 복잡성
+
+- 저자는 40년 전의 절차형 코드 논의에서 이 축을 빌려 온다 — 글렌퍼드 마이어스의
+  *Composite/Structured Design* 첫 쪽이다 (14장 §"System Complexity", p.221):[^khononov2021]
+
+> There is much more to the subject of complexity than simply attempting to minimize the local
+> complexity of each part of a program. A much more important type of complexity is global
+> complexity: the complexity of the overall structure of a program or system (i.e., the degree of
+> association or interdependence among the major pieces of a program).
+
+- **이 맥락으로 옮기면 둘이 이렇게 갈린다** (14장, p.221):[^khononov2021]
+
+| | 국소 복잡성(local complexity) | 전역 복잡성(global complexity) |
+|---|---|---|
+| 무엇의 복잡성인가 | 마이크로서비스 하나 | 체계 전체 |
+| 무엇이 정한다 | 그 서비스의 구현 | 서비스들 사이의 상호작용과 의존 |
+
+- **양 끝을 밀어 보면 둘 다 실패한다** (14장, pp.221–222):[^khononov2021]
+  - 전역 복잡성을 최소로 만드는 것은 놀랍도록 쉽다 — 구성 요소 사이의 상호작용을 전부 없애고
+    모든 기능을 한 모놀리식 서비스에 구현하면 된다. 어떤 상황에서는 통하는 전략이지만, 다른
+    상황에서는 **가능한 가장 높은 수준의 국소 복잡성**인 큰 진흙 공으로 간다.
+  - 반대로 국소 복잡성만 최적화하고 전역 복잡성을 방치하면 **더 무서운 분산된 큰 진흙 공**이
+    된다.
+  - 그러므로 **둘을 함께 최적화해야 한다.** 어느 한쪽만 최적화하도록 설계 목표를 세우는 것은
+    국소 최적이고, 전역 최적은 둘의 균형에 있다.
+- **분해에는 문턱이 있고 그 문턱은 유스 케이스가 정한다** (14장 §"Microservices as Deep
+  Modules", p.224):[^khononov2021]
+  - 모놀리스를 서비스로 쪼개면 변경 도입 비용이 내려가고, 마이크로서비스로 분해됐을 때 그 비용이
+    최소가 된다.
+  - **그 문턱을 지나 계속 쪼개면** 깊던 서비스가 점점 얕아지고 인터페이스가 다시 커진다. 이번에는
+    통합 필요 때문이고, 변경 비용도 함께 다시 올라가며, 전체 아키텍처는 분산된 큰 진흙 공이 된다.
+  - 문턱 자체는 **그 마이크로서비스들이 속한 체계의 유스 케이스**가 정한다.
+- 이 잣대로 서비스를 판정하는 방법(깊이)은
+  [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)에 있고, 그 문턱에 맞는 경계를
+  실제로 고르는 어림법은
+  [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md)에 있다.
+
+## 크기로 내린 정의에 대한 판정
+
+- **저자는 크기로 내린 정의 둘을 틀린 것으로 지목한다** (14장 §"Microservices as Deep Modules",
+  p.224):[^khononov2021]
+
+> The mistaken definitions of a microservice as a service having no more than X lines of code, or
+> as a service that should be easier to rewrite than to modify, concentrate on the individual
+> service while missing the most important aspect of the architecture: the system.
+
+  - 같은 문단이 그 앞에 진단을 적는다 — **얕은 서비스가 그토록 많은 마이크로서비스 지향 프로젝트가
+    실패하는 이유**다 (14장, p.224).[^khononov2021]
+- **이 판정이 이 페이지의 다른 소스들과 겨루는가.** 겨루지 않는다 — 대질해 보면 잣대의 대상이
+  다르다.
+  - 위 [서비스로 나눈다는 것](#서비스로-나눈다는-것)의 규정은 서비스마다 **하나의 잘 정의된
+    목적**을 둔다는 것이고, 그것은 이 판정이 요구하는 것과 같은 방향이다 — 코드 줄 수를 세지
+    않는다.
+  - 위 [사람 문제의 기술적 해법](#사람-문제의-기술적-해법)의 규정도 크기 기준이 아니라 **팀
+    사이의 조율 비용**을 잣대로 삼는다. 이 판본이 전역 복잡성이라 부르는 것과 물음이 가깝고,
+    작은 회사에서는 부담이 되기 쉽다는 단서도 "문턱을 지나 쪼개지 말라"는 이 판정과 방향이
+    같다.
+  - #hypothesis 두 서술이 **정면으로 갈리는 경우가 남는다** — 팀 경계가 이미 잘게 나뉜 조직에서
+    조율 비용 잣대는 더 잘게 쪼개는 쪽을 지지하고, 이 판본의 잣대는 전역 복잡성을 이유로 막을
+    수 있다. 어느 소스도 그 경우를 다루지 않아 가설로 적는다.
+
 ## 이어지는 페이지
 
 - [모놀리스와 모듈](../concepts/monolith-versus-modular.md) — 쪼갤 것인가 말 것인가의 축
@@ -423,9 +552,35 @@ sources:
   서비스 인스턴스가 여럿일 때 클라이언트가 어디로 가는가
 - [내구 실행과 워크플로](../concepts/durable-execution-and-workflows.md) — 서비스 여럿에
   걸친 일을 트랜잭션처럼 굴리려는 시도
+- [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 이 경계를
+  도메인 주도 설계의 어느 경계에 맞출 것인가
+- [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 공개 인터페이스로 내린
+  정의가 기대는 잣대
+- [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 이 서비스들을 비동기
+  이벤트로 잇는 쪽
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture" · 4장 "Choosing Technologies Across the Data Engineering Lifecycle"
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 5장 "Encoding and Evolution" · 13장 "A Philosophy of Streaming Systems"
 
 [^dehghani2022]: Dehghani 2022, 1장 "Data Mesh in a Nutshell" · 2장 "Principle of Domain Ownership" · 3장 "Principle of Data as a Product"
+
+[^khononov2021]: Khononov 2021, 14장 "Microservices"(장 도입 p.217 · §"What Is a Service?"
+    pp.217–218 · §"What Is a Microservice?" pp.218–219 · §"Method as a Service: Perfect
+    Microservices?" pp.219–220 · §"Design Goal" pp.220–221 · §"System Complexity" pp.221–222 ·
+    §"Microservices as Deep Services" pp.222–223 · §"Microservices as Deep Modules"
+    pp.223–224). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로
+    문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다. 도판 일곱(Figure 14-1 서비스 사이의
+    소통 · 14-2 서비스의 공개 인터페이스 · 14-3 순진한 분해 · 14-4 통합 복잡성 · 14-5 서비스
+    세분성과 체계 복잡성 · 14-6 깊은 모듈 · 14-7 세분성과 변경 비용)은 도판이라 본문이 그것에
+    대해 적는 것만 산문으로 옮겼다. 위 국소·전역 복잡성 대비 표는 원문에 없다 — 같은 절이
+    산문으로 적는 두 규정을 이 KB가 표로 모은 것이고 근거는 그 절의 본문에 있다. 이 장의
+    코드 목록 하나(`AddTwoNumbers`)는 얕은 모듈의 극단적 사례라 이 페이지가 아니라
+    [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)에 두었다. 저자가 대는
+    출처 셋(OASIS의 서비스 지향 아키텍처 참조 모델 v1.0 · Glenford J. Myers,
+    *Composite/Structured Design* · 랜디 슈프의 정문 비유)은 이 KB가 확인한 원전이 아니라
+    각주에 그렇게 적었다. 경계를 고르는 절(§"Domain-Driven Design and Microservices'
+    Boundaries")과 인터페이스를 압축하는 절(§"Compressing Microservices' Public Interfaces")은
+    이 페이지에 두지 않고 [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md)에
+    두었다 — 물음이 다르다(무엇이 마이크로서비스인가 대 경계를 어디에 긋는가). 장 끝
+    연습문제 넷(p.232)은 claim이 아니라 옮기지 않았다.

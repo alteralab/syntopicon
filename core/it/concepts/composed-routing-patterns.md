@@ -2,9 +2,10 @@
 type: concept
 title: 복합 라우팅 패턴
 description: "단순 라우터를 조합해 만드는 넷과 그 위의 아키텍처 하나 — 쪼개고·라우팅하고·다시 모아 밖에서는 필터 하나로 보이는 Composed Message Processor, 같은 메시지를 뿌리고 응답을 모으는 Scatter-Gather의 두 변종(분배형·경매형), 순차 라우팅에서 다섯 대안을 기각하고 경로를 메시지에 붙이는 Routing Slip과 그 두 한계, 중간 결과로 다음 단계를 정하는 Process Manager와 프로세스 정의·인스턴스·상관, 그리고 통합 스파게티를 허브 앤 스포크로 접는 Message Broker와 위버브로커를 피하는 브로커 계층"
-generated: { by: "claude-opus-5", at: "2026-08-16T22:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 복합 라우팅 패턴
@@ -27,6 +28,7 @@ sources:
 - [세 아키텍처를 나란히](#세-아키텍처를-나란히)
 - [Message Broker — 통합 스파게티를 접는다](#message-broker--통합-스파게티를-접는다)
 - [브로커 계층과 위버브로커](#브로커-계층과-위버브로커)
+- [이 이름을 2021년 도메인 주도 설계가 빌려 가는 자리](#이-이름을-2021년-도메인-주도-설계가-빌려-가는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지 하나가 여러 단계를 거쳐야 할 때 그 경로를 누가 들고 있는가.**
@@ -536,6 +538,23 @@ sources:
   하나하나 사이를 번역하는 데 요구되는 번역기의 수가 참여자 수의 제곱으로 자란다)를 피하기 위해
   내부적으로 *Canonical Data Model*(355)을 쓴다** (7장, p.326).[^hohpe2004]
 
+## 이 이름을 2021년 도메인 주도 설계가 빌려 가는 자리
+
+**같은 이름의 패턴이 이 KB에 한 자리 더 있고, 그쪽이 이 서술을 출처로 댄다.**
+
+- [khononov2021](../sources/khononov2021.md)이 프로세스 매니저를 정의하면서 각주로 이 책을
+  가리킨다 (9장, p.151, 각주 2).[^khononov2021] 그 정의는 **시퀀스의 상태를 유지하고 다음 처리
+  단계를 정하는 중앙 처리 단위**이고, 위 [해법](#process-manager--매-단계-중앙으로-돌아온다)이
+  옮긴 이 책의 처방과 같은 대상을 가리킨다.
+- **다만 옮겨 놓은 자리가 다르다.** 여기서 프로세스 매니저는 통합 인프라의 구성 요소이고
+  (프로세스 정의와 인스턴스, 상관 식별자, 프로세스 엔진, BPEL4WS), 그쪽에서는 도메인 모델 안의
+  애그리게이트로 구현된다 — **상태 기반이거나 이벤트 소싱**이다.
+- **그쪽이 이 패턴을 무엇과 가르는지도 다르다.** 이 책은 이 패턴을 *Routing Slip*과 가르고
+  (단계가 미리 정해지는가, 선형인가), 그쪽은 사가와 가른다(로직이 있는가, 인스턴스가 암묵적으로
+  생기는가). 그 대조는 [프로세스 매니저](process-manager.md)에 있다.
+- **모순 쌍으로 세우지 않았다.** 두 정의가 일치하고 뒤 소스가 앞 소스를 직접 인용한다. 층이
+  다른 두 구현을 같은 이름이 덮고 있을 뿐이다.
+
 ## 이어지는 페이지
 
 - [메시지 라우팅 패턴](message-routing-patterns.md) — 이 넷이 조합하는 재료의 앞쪽.
@@ -554,6 +573,8 @@ sources:
   Parallel Split·Aligned Fan-In이라는 이름으로 사는 자리
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 프로세스 인스턴스의 상태를
   이벤트 로그로 두는 쪽
+- [프로세스 매니저](process-manager.md) — 같은 이름이 도메인 모델 안으로 들어간 자리
+- [사가 패턴](saga-pattern.md) — 그쪽이 프로세스 매니저와 가르는 대상
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
 
 [^hohpe2004]: Hohpe & Woolf 2004, 7장 "Message Routing" — "Introduction"(pp.227–228) ·
@@ -569,3 +590,8 @@ Orchestration Manager pp.320–321, Commercial EAI Tools p.326)은 반입 전략
 저자 자신의 진술이다(Introduction, p.xlv: 예제를 읽는 것은 엄격히 선택이며 관련 논점은 전부 패턴
 서술에 있다). WS-Routing 예제에서는 그것이 시점 스냅샷이라는 저자들의 단서만 본문으로 옮겼다
 (p.311).
+
+[^khononov2021]: Khononov 2021, 9장 "Communication Patterns" §"Integrating Aggregates" 중
+    §"Process Manager"(pp.150–154). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 이 절의 본체는
+    [프로세스 매니저](process-manager.md)에 있고, 이 페이지는 같은 이름이 두 자리에 있다는
+    사실과 그 분업만 받았다.

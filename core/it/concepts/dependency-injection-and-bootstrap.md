@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 의존성 주입과 부트스트랩
-description: 명시적 의존을 실제로 누가 어떻게 꽂아 넣는가 — 파이썬 세계에서 DI가 의심받는다는 인정과 그럼에도 쓰게 되는 통증, 클로저·partial·클래스라는 세 가지 수동 주입 방식과 늦은 바인딩이라는 차이, 합성 루트를 부트스트랩 스크립트라 부르는 판단과 그것이 맡는 네 가지 일, 시그니처를 검사해 이름으로 의존을 맞추는 구현과 그것을 과잉 설계라 부른 공저자의 반론 및 더 단순한 판본, 테스트에서 기본값을 덮어써 가짜를 꽂는 방법, 그리고 단순한 의존을 "제대로 된" 어댑터로 승격시키는 여섯 단계
+description: 명시적 의존을 실제로 누가 어떻게 꽂아 넣는가 — 파이썬 세계에서 DI가 의심받는다는 인정과 그럼에도 쓰게 되는 통증, 클로저·partial·클래스라는 세 가지 수동 주입 방식과 늦은 바인딩이라는 차이, 합성 루트를 부트스트랩 스크립트라 부르는 판단과 그것이 맡는 네 가지 일, 시그니처를 검사해 이름으로 의존을 맞추는 구현과 그것을 과잉 설계라 부른 공저자의 반론 및 더 단순한 판본, 테스트에서 기본값을 덮어써 가짜를 꽂는 방법, 단순한 의존을 "제대로 된" 어댑터로 승격시키는 여섯 단계, 그리고 다른 소스가 포트를 어댑터로 해소하는 수단으로 주입과 부트스트랩을 대등하게 병렬하는 자리와 그 배치가 이 페이지의 배치와 어긋나 보이는 이유
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 의존성 주입과 부트스트랩
@@ -18,6 +19,7 @@ sources:
 - [어댑터를 "제대로" 만드는 여섯 단계](#어댑터를-제대로-만드는-여섯-단계)
 - [언제 DI 프레임워크가 필요한가](#언제-di-프레임워크가-필요한가)
 - [프레임워크를 얼마나 쓸 것인가 — 다른 소스의 같은 판정](#프레임워크를-얼마나-쓸-것인가--다른-소스의-같은-판정)
+- [포트를 어댑터로 해소하는 두 수단](#포트를-어댑터로-해소하는-두-수단)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **의존을 전부 명시적으로 선언하기로 했다면, 그것을 실제로 조립하는 일은 누가
@@ -230,11 +232,35 @@ sources:
     읽히는가"에 둔다. 저자들이 서로를 대조한 적이 없어 가설로 적는다.
 - 그쪽의 전문은 [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md)에 있다.
 
+## 포트를 어댑터로 해소하는 두 수단
+
+이 페이지의 두 낱말 — 주입과 부트스트랩 — 이 아키텍처 패턴의 조항 안에 나란히 등장하는 자리가
+있다.
+
+- [khononov2021](../sources/khononov2021.md)이 포트와 어댑터 아키텍처를 규정하면서 적는다
+  (8장, p.128):[^khononov2021]
+
+> The abstract ports are resolved into concrete adapters in the infrastructure layer, either through
+> dependency injection or by bootstrapping.
+
+- **이 판본은 둘을 대등한 선택지로 병렬한다.** 이 페이지의 소스는 다르게 배치한다 — 위
+  [합성 루트를 부트스트랩 스크립트라 부른다](#합성-루트를-부트스트랩-스크립트라-부른다)가
+  부트스트랩 스크립트를 **주입이 일어나는 자리의 이름**으로 다루므로, 그쪽에서 둘은 배타적
+  선택지가 아니라 한 기제와 그 기제가 사는 자리다.
+  - **모순 쌍으로 세우지 않았다.** 이 판본은 한 문장으로 지나가는 자리이고 둘의 관계를
+    규정하지 않는다. #hypothesis 이 판본의 "부트스트랩"이 가리키는 것은 애플리케이션 시작
+    시점에 구현을 고정하는 정적 배선(컴파일 타임 또는 시작 시점의 구성)이고, 그쪽 소스의
+    부트스트랩 스크립트가 바로 그것이라 실제로는 같은 것을 가리킨다고 읽는다. 저자가 그것을
+    밝힌 대목은 없다.
+- 그 아키텍처 전체는
+  [의존성 역전 원칙 §포트와 어댑터의 규정](dependency-inversion-principle.md)에 있다.
+
 ## 이어지는 페이지
 
 - [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md) — 프레임워크를 얼마나
   쓸 것인가를 다른 소스가 판정하는 자리
-- [의존성 역전 원칙](dependency-inversion-principle.md) — 명시적 의존이 구현하는 원리
+- [의존성 역전 원칙](dependency-inversion-principle.md) — 명시적 의존이 구현하는 원리이자
+  포트와 어댑터 아키텍처가 이 둘을 부르는 자리
 - [가짜와 목](fakes-versus-mocks.md) — 왜 몽키패치가 아니라 주입인가
 - [추상화 고르기](../concepts/choosing-abstractions.md) — 이 장이 전제로 삼는 3장
 - [작업 단위 패턴](unit-of-work-pattern.md) — 이 장에서 주입되는 주된 의존
@@ -255,3 +281,9 @@ sources:
 [^evans2003]: Evans 2003, 4장 "Isolating the Domain" §Relating the Layers(p.73) ·
     §Architectural Frameworks(pp.74–75). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 이 소스에서 온
     코드 펜스는 이 페이지에 없다.
+
+[^khononov2021]: Khononov 2021, 8장 "Architectural Patterns" §"Ports & Adapters" 중
+    §"Integration of Infrastructural Components"(p.128). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 대조했다. 같은 절의 C# 목록
+    (`IMessaging` 포트와 `SQSBus` 어댑터)은
+    [의존성 역전 원칙](dependency-inversion-principle.md)이 대표 펜스를 갖는다.

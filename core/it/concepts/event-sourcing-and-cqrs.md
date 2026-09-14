@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 이벤트 소싱과 CQRS
-description: 쓰기에 최적화된 표현과 읽기에 최적화된 표현을 아예 갈라 놓는 데이터 모델 — 불변 이벤트 로그를 진실의 원천으로 두고 거기서 구체화 뷰를 유도하는 구조, 명령이 사실이 되는 순간과 과거 시제 명명 규약, 팩트 테이블과 닮았지만 순서가 중요하다는 차이, 재현 가능한 뷰 재계산·감사 로그·되돌릴 수 있음이라는 이점들, 그리고 외부 정보·개인 데이터 삭제·부수 효과라는 세 가지 함정
+description: 쓰기에 최적화된 표현과 읽기에 최적화된 표현을 아예 갈라 놓는 데이터 모델 — 불변 이벤트 로그를 진실의 원천으로 두고 거기서 구체화 뷰를 유도하는 구조, 명령이 사실이 되는 순간과 과거 시제 명명 규약, 팩트 테이블과 닮았지만 순서가 중요하다는 차이, 재현 가능한 뷰 재계산·감사 로그·되돌릴 수 있음이라는 이점들, 외부 정보·개인 데이터 삭제·부수 효과라는 세 가지 함정, 이 패턴을 실제로 구현하는 쪽이 규정하는 이벤트 저장소의 최소 인터페이스와 낙관적 동시성 인수, 성능이 문제가 되는 문턱과 스냅샷을 정당화하라는 단서, 삭제 요구를 암호 키 삭제로 푸는 잊을 수 있는 페이로드, 상태 기반 모델에 로그를 곁들이는 세 대안이 각각 무엇을 못 하는가, 그리고 CQRS를 이벤트 소싱 없이도 쓸 수 있다는 주장
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 이벤트 소싱과 CQRS
@@ -14,16 +15,23 @@ sources:
 - [왜 쓰기와 읽기를 가르는가](#왜-쓰기와-읽기를-가르는가)
 - [이벤트 로그](#이벤트-로그)
 - [두 이름의 정의](#두-이름의-정의)
+- [시간의 차원을 데이터 모델에 들인다](#시간의-차원을-데이터-모델에-들인다)
+- [이벤트 저장소](#이벤트-저장소)
 - [명령이 사실이 되는 순간](#명령이-사실이-되는-순간)
 - [팩트 테이블과 무엇이 다른가](#팩트-테이블과-무엇이-다른가)
 - [이점](#이점)
 - [함정](#함정)
+- [개인 데이터 삭제 — 잊을 수 있는 페이로드](#개인-데이터-삭제--잊을-수-있는-페이로드)
 - [무엇으로 구현하는가](#무엇으로-구현하는가)
+- [성능이 문제가 되는 문턱과 스냅샷](#성능이-문제가-되는-문턱과-스냅샷)
+- [그냥 로그를 남기면 안 되는가](#그냥-로그를-남기면-안-되는가)
 - [CDC와 무엇이 다른가](#cdc와-무엇이-다른가)
 - [로그 압착이 여기서는 다르게 걸린다](#로그-압착이-여기서는-다르게-걸린다)
 - [13장이 이 모델을 감사 가능성의 근거로 삼는다](#13장이-이-모델을-감사-가능성의-근거로-삼는다)
 - [이벤트 기반 아키텍처](#이벤트-기반-아키텍처)
 - [애플리케이션 안에서 읽기 경로를 고르는 네 선택지](#애플리케이션-안에서-읽기-경로를-고르는-네-선택지)
+- [CQRS를 이벤트 소싱 없이 쓸 수 있다는 주장](#cqrs를-이벤트-소싱-없이-쓸-수-있다는-주장)
+- [15장이 이 패턴과 이벤트 주도 아키텍처를 가른다](#15장이-이-패턴과-이벤트-주도-아키텍처를-가른다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모든 상태 변화를 불변 이벤트로 적고 읽기용 표현을 거기서 유도하면 무엇을 얻고
@@ -73,6 +81,98 @@ sources:
   예컨대 상태 기계 복제(state machine replication)가 그렇다** (3장,
   p.102).[^kleppmann2026] 그 계보는
   [복제 상태 기계](../concepts/replicated-state-machine.md)에 있다.
+
+## 시간의 차원을 데이터 모델에 들인다
+
+앞의 절들은 이 패턴을 **데이터 모델의 선택지**로 규정한다. 도메인 주도 설계 쪽 소스가 같은
+패턴을 **업무 도메인 모델링의 문제**에서 유도하고, 이 KB에서 그것을 **실제로 구현하는 첫
+소스**다.
+
+- 저자가 상태 기반 테이블 하나(텔레마케팅의 리드 스무 줄, 이름·전화번호·상태·생성일·갱신일)를
+  먼저 보이고 거기서 무엇을 알 수 있는지 셈한 뒤 빠진 것을 짚는다 (7장,
+  p.101):[^khononov2021]
+
+> The table's data documents the leads' current states, but it misses the story of how each lead
+> got to their current state.
+
+  - 그 빠진 것이 업무의 물음이다 — 리드가 전환되기까지 통화가 몇 번이었는가, 구매가 즉시
+    일어났는가 긴 여정이었는가, 여러 번 후속 통화를 한 사람에게 계속 연락할 값이 있는가
+    (7장, p.101).[^khononov2021] **판매 프로세스를 최적화하려면 답해야 하는 물음들이고,
+    현재 상태만 담은 스키마는 그중 어느 것도 답하지 못한다.**
+- 그래서 패턴의 규정이 시간을 축으로 온다 (7장, p.101):[^khononov2021]
+
+> The event sourcing pattern introduces the dimension of time into the data model. Instead of the
+> schema reflecting the aggregates' current state, an event sourcing–based system persists events
+> documenting every change in an aggregate's lifecycle.
+
+  - **위 [두 이름의 정의](#두-이름의-정의)와 같은 것을 다른 입구로 말한다.** 그쪽은 질의
+    요구를 하나의 표현으로 감당할 수 없다는 데이터 모델의 문제에서 출발하고, 이쪽은 현재
+    상태만으로는 업무의 물음에 답할 수 없다는 도메인의 문제에서 출발한다. 도달점은 같다.
+- 이 패턴이 새로운 발명이 아니라는 관찰도 붙는다 (7장, p.108):[^khononov2021]
+
+> In essence, the event sourcing pattern is nothing new. The financial industry uses events to
+> represent changes in a ledger. A ledger is an append-only log that documents transactions. A
+> current state (e.g., account balance) can always be deduced by "projecting" the ledger's records.
+
+  - 같은 회계 관행을 도메인 모델의 구성 요소로 들이는 쪽은
+    [상태·스트림·불변성](../concepts/state-streams-and-immutability.md)의 마지막 절과
+    [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md)에 있다.
+
+## 이벤트 저장소
+
+- 패턴이 성립하기 위한 조건 (7장 §"Source of Truth", p.107):[^khononov2021]
+
+> For the event sourcing pattern to work, all changes to an object's state should be represented and
+> persisted as events. These events become the system's source of truth (hence the name of the
+> pattern).
+
+- 그 이벤트를 담는 데이터베이스에 이름과 지위가 붙는다 (7장, p.107):[^khononov2021]
+
+> The database that stores the system's events is the only strongly consistent storage: the system's
+> source of truth. The accepted name for the database that is used for persisting events is
+> event store.
+
+  - **"유일하게 강한 일관성을 갖는 저장소"라는 한정이 이 KB의 다른 소스가 쓰지 않는 표현이다.**
+    위 [이벤트 로그](#이벤트-로그)와 [두 이름의 정의](#두-이름의-정의)는 이벤트 로그를 정본으로
+    삼는다고만 적고 파생 뷰의 일관성 등급을 규정하지 않는다. 이 판본은 **투영이 결국
+    일관되는 것임을 아키텍처 조항으로 못 박고**, 그 조항이 [CQRS 아키텍처](../concepts/cqrs-architecture.md)의
+    "명령이 돌려주는 데이터는 강한 일관성 모델에서 와야 한다"는 제한으로 이어진다.
+    정본과 파생의 구별 자체는
+    [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md)에 있다.
+- 이 저장소에 걸리는 제약은 하나다 (7장 §"Event Store", p.107):[^khononov2021]
+
+> The event store should not allow modifying or deleting the events since it's append-only storage.
+
+  - 저자가 각주로 예외를 남긴다 — **데이터 마이그레이션 같은 예외적인 경우를 빼고**다
+    (7장, p.107, 각주 2).[^khononov2021] 추가 전용 저장의 일반 논의는
+    [CRUD와 삽입 전용 패턴](../concepts/crud-and-insert-only-patterns.md)에 있다.
+- **최소 인터페이스가 두 연산으로 규정된다** (7장, p.107):[^khononov2021]
+
+  > To support implementation of the event sourcing pattern, at a minimum the event store has to
+  > support the following functionality: fetch all events belonging to a specific business entity and
+  > append the events.
+
+  저자가 그 둘을 그대로 인터페이스로 적는다:
+
+  ```csharp
+  interface IEventStore
+  {
+      IEnumerable<Event> Fetch(Guid instanceId);
+      void Append(Guid instanceId, Event[] newEvents, int expectedVersion);
+  }
+  ```
+
+- 셋째 인수가 이 인터페이스의 핵심이다 (7장, p.107):[^khononov2021]
+
+> The expectedVersion argument in the Append method is needed to implement optimistic concurrency
+> management: when you append new events, you also specify the version of the entity on which you
+> are basing your decisions. If it's stale, that is, new events were added after the expected
+> version, the event store should raise a concurrency exception.
+
+  - **읽기 전용 조회와 낙관적 추가, 이 둘이면 패턴이 선다는 것이 이 절의 값이다.** 나머지
+    기능(투영을 위한 구독 등)은 CQRS를 위해 더해지는 것이라고 저자가 다음 장으로 넘긴다
+    (7장, p.108).[^khononov2021] 낙관적 동시성 제어 일반은
+    [동시성 제어 분류](../concepts/concurrency-control-classification.md)에 있다.
 
 ## 명령이 사실이 되는 순간
 
@@ -150,6 +250,34 @@ sources:
   - **외부에 보이는 부수 효과가 있으면 이벤트 재처리에 주의가 필요하다 — 예컨대 구체화 뷰를 다시
     만들 때마다 확인 이메일을 다시 보내고 싶지는 않을 것이다.**
 
+## 개인 데이터 삭제 — 잊을 수 있는 페이로드
+
+위 [함정](#함정)의 개인 데이터 항이 삭제 요구와 불변성의 충돌을 짚고 크립토 슈레딩을 해법이자
+또 다른 대가로 든다. 구현 쪽 소스가 같은 해법에 이름과 구체적 배치를 준다.
+
+- 물음이 GDPR로 온다 — 이벤트 저장소는 추가 전용인데 물리적으로 데이터를 지워야 하면 어떻게
+  하는가 (7장 §"Deleting Data", p.114).[^khononov2021] 답이 이렇다 (7장,
+  p.114):[^khononov2021]
+
+> This need can be addressed with the forgettable payload pattern: all sensitive information is
+> included in the events in encrypted form. The encryption key is stored in an external key–value
+> store: the key storage, where the key is a specific aggregate's ID and the value is the encryption
+> key. When the sensitive data has to be deleted, the encryption key is deleted from the key storage.
+> As a result, the sensitive information contained in the events is no longer accessible.
+
+  - **키의 단위가 애그리게이트 ID라는 것이 이 판본이 더하는 값이다.** 위 [함정](#함정)이
+    옮긴 크립토 슈레딩 서술은 "나중에 지우기로 선택할 수 있는 키"라고만 적고 키를 무엇 단위로
+    쪼갤지는 열어 둔다. 이 판본은 그 단위를 애그리게이트로 고정한다 — 애그리게이트가 이미
+    일관성 경계이자 샤딩 단위이므로 키 경계도 거기 맞춘다는 것이다.
+    #hypothesis 저자가 그 이유를 밝힌 대목은 없고, 근거는 같은 장이 샤딩 단위도 애그리게이트
+    ID로 잡는다는 것이다.
+  - **대가는 그대로 남는다.** 위 [함정](#함정)이 적은 것 — 키를 지우면 필요할 때 파생 상태를
+    다시 계산할 수 없다 — 을 이 판본은 적지 않는다. 두 서술이 어긋나는 것이 아니라 한쪽이
+    해법을, 다른 한쪽이 그 해법의 대가를 적는다. 그 대가의 전문은
+    [상태·스트림·불변성](../concepts/state-streams-and-immutability.md)에 있고, 삭제 요구가
+    파생 데이터 일반에 부딪히는 자리는
+    [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md)에 있다.
+
 ## 무엇으로 구현하는가
 
 - **어떤 데이터베이스 위에도 이벤트 소싱을 구현할 수 있지만, EventStoreDB·MartenDB(PostgreSQL
@@ -166,6 +294,100 @@ sources:
   로그로 표현하며 복잡한 업무 도메인의 활동을 모델링하는 데 유리할 수 있다. 추가 전용 로그는
   데이터를 쓰는 데 좋고, 효율적 질의를 지원하기 위해 이벤트 로그는 CQRS를 통해 읽기에 최적화된
   구체화 뷰로 번역된다** (3장, p.108).[^kleppmann2026]
+
+## 성능이 문제가 되는 문턱과 스냅샷
+
+위 [로그 압착이 여기서는 다르게 걸린다](#로그-압착이-여기서는-다르게-걸린다)가 스냅샷을 **읽기와
+크래시 복구를 빠르게 하는 성능 최적화**로 규정한다. 구현 쪽 소스가 그 최적화를 언제 해야
+하는지에 수치를 붙인다.
+
+- 물음이 성능이다 — 이벤트에서 상태를 재구성하면 이벤트가 쌓일수록 느려질 텐데 이것이 어떻게
+  돌아가는가 (7장 §Performance, p.112).[^khononov2021] 저자가 먼저 비용을 인정한다 —
+  **이벤트를 상태 표현으로 투영하는 데 실제로 연산 능력이 들고, 애그리게이트의 목록에 이벤트가
+  더 쌓일수록 그 필요가 자란다** (7장, p.112).[^khononov2021]
+- 처방은 계측이다 (7장, p.112):[^khononov2021]
+
+> It's important to benchmark a projection's impact on performance: the effect of working with
+> hundreds or thousands of events. The results should be compared with the expected lifespan of an
+> aggregate—the number of events expected to be recorded during an average lifespan.
+
+- 그리고 실측값 둘이 나온다 (7장, p.112):[^khononov2021]
+
+> In most systems, the performance hit will be noticeable only after 10,000+ events per aggregate.
+> That said, in the vast majority of systems, an aggregate's average lifespan won't go over 100
+> events.
+
+  - **두 수치의 간격이 두 자릿수라는 것이 이 항목의 요점이다.** 문턱이 만 건인데 실제
+    수명이 백 건이면 최적화는 대개 필요 없다.
+- 드물게 문제가 될 때 쓰는 것이 **스냅샷(snapshot) 패턴**이고 단계가 둘이다 (7장,
+  p.113):[^khononov2021]
+  - **프로세스 하나가 이벤트 저장소의 새 이벤트를 계속 훑으며 대응하는 투영을 만들어 캐시에
+    저장한다.**
+  - 애그리게이트에 어떤 동작을 실행하려고 메모리 안의 투영이 필요해지면 — 캐시에서 현재 상태
+    투영을 가져오고, 스냅샷 버전 이후에 온 이벤트를 이벤트 저장소에서 가져오고, 그 추가
+    이벤트를 스냅샷 위에 메모리에서 적용한다 (7장, p.113).[^khononov2021]
+- **단서가 강하다** (7장, p.113):[^khononov2021]
+
+> It's worth reiterating that the snapshot pattern is an optimization that has to be justified. If
+> the aggregates in your system won't persist 10,000+ events, implementing the snapshot pattern is
+> just an accidental complexity. But before you go ahead and implement the snapshot pattern, I
+> recommend that you take a step back and double-check the aggregate's boundaries.
+
+  - **마지막 문장이 이 단서의 값이다** — 이벤트가 만 건을 넘는다는 것 자체가 성능 문제이기
+    전에 **애그리게이트를 너무 크게 잡았다는 신호**로 읽힌다. 그 경계를 잡는 규칙은
+    [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 있다.
+- 규모 물음에도 답이 붙는다 (7장, p.114):[^khononov2021]
+
+> The event-sourced model is easy to scale. Since all aggregate-related operations are done in the
+> context of a single aggregate, the event store can be sharded by aggregate IDs: all events
+> belonging to an instance of an aggregate should reside in a single shard
+
+  - **한 트랜잭션에 애그리게이트 하나라는 제약이 여기서 배당금을 낸다.** 연산이 애그리게이트
+    하나 안에서 닫히므로 샤딩 키가 자명해진다. 그 제약은
+    [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 있고,
+    샤딩 일반은 [데이터 샤딩](../synthesis/data-sharding.md)이 허브다.
+
+## 그냥 로그를 남기면 안 되는가
+
+구현 쪽 소스가 "이벤트 소싱을 쓰지 않고 상태 기반 모델에 이력만 곁들이면 안 되는가"라는 물음에
+세 가지 대안을 세우고 각각이 무엇을 못 하는지 적는다 (7장 §Why Can't I Just…?,
+pp.114–115).[^khononov2021] **이 절이 이 페이지의 다른 소스들이 다루지 않는 자리다** — 그쪽은
+이 모델의 이점을 적고, 이쪽은 더 싼 대안이 왜 그 이점을 주지 못하는지를 적는다.
+
+- **텍스트 파일에 로그를 써서 감사 로그로 쓰면** (7장, p.114):[^khononov2021]
+
+  > Writing data both to an operational database and to a logfile is an error-prone operation. In its
+  > essence, it's a transaction against two storage mechanisms: the database and the file. If the
+  > first one fails, the second one has to be rolled back. For example, if a database transaction
+  > fails, no one cares to delete the prior log messages. Hence, such logs are not consistent, but
+  > rather, eventually inconsistent.
+
+  - 같은 두 저장소 문제를 트랜잭션 스크립트에서 다루는 자리가
+    [트랜잭션 스크립트](transaction-script.md)의 데이터 손상 사례 셋이다.
+- **같은 데이터베이스 트랜잭션 안에서 로그 테이블에 덧붙이면** — 인프라 관점에서는 상태와 로그
+  레코드의 일관된 동기화를 실제로 준다. 그러나 (7장, p.115):[^khononov2021]
+
+  > However, it is still error prone. What if the engineer who will be working on the codebase in the
+  > future forgets to append an appropriate log record?
+
+  그리고 둘째 이유가 더 무겁다 (7장, p.115):[^khononov2021]
+
+  > Furthermore, when the state-based representation is used as the source of truth, the additional
+  > log table's schema usually degrades into chaos quickly. There is no way to enforce that all
+  > required information is written and that it is written in the correct format.
+
+- **데이터베이스 트리거로 레코드 스냅샷을 이력 테이블에 복사하면** — 앞 방식의 단점(사람이
+  잊는 것)은 넘어선다. 그러나 (7장, p.115):[^khononov2021]
+
+  > That said, the resultant history only includes the dry facts: what fields were changed. It misses
+  > the business contexts: why the fields were changed. The lack of "why" drastically limits the
+  > ability to project additional models.
+
+  - **"왜"의 부재가 새 투영을 만들 능력을 제한한다는 것이 세 대안을 관통하는 판정이다.**
+    같은 판정을 낮은 추상 수준의 변경 로그에 거는 자리가 위
+    [CDC와 무엇이 다른가](#cdc와-무엇이-다른가)다 — 그쪽도 이벤트 소싱의 이벤트가 상태 갱신의
+    기제가 아니라 **사용자 동작의 의도**를 표현한다는 것을 차이로 든다. **두 소스가 같은 선을
+    긋는다.**
 
 ## CDC와 무엇이 다른가
 
@@ -314,8 +536,60 @@ sources:
   갈랐다면(한 시스템의 상태 표현 대 여러 서비스의 소통), 이 절은 셋째다: **한 애플리케이션
   안에서 읽기 경로를 어디로 낼 것인가.** 세 층위가 같은 이름을 쓴다.
 
+## CQRS를 이벤트 소싱 없이 쓸 수 있다는 주장
+
+- 이 페이지는 두 이름을 한 제목에 묶고 있고, 위 [두 이름의 정의](#두-이름의-정의)가 옮긴 정의도
+  둘을 나란히 세운다. 구현 쪽 소스는 그 결합을 명시적으로 끊는다 (8장,
+  p.129):[^khononov2021]
+
+> That said, this chapter "decouples" CQRS from event sourcing. I intend to show that CQRS is useful
+> even if the business logic is implemented using any of the other business logic implementation
+> patterns.
+
+- 계보는 인정한다 — **원래 CQRS는 이벤트 소싱 모델의 제한된 질의 가능성을 해결하기 위해
+  정의되었다. 한 번에 한 애그리게이트 인스턴스의 이벤트만 질의할 수 있기 때문이다** (8장,
+  p.129).[^khononov2021] 그러나 역방향의 필요만 남긴다 — 맺음에서 **이 패턴이 이벤트 소싱
+  도메인 모델 기반 시스템에는 의무이지만 여러 영속 모델로 일할 방법이 필요한 어떤 시스템에도
+  쓰일 수 있다**고 적는다 (8장, p.135).[^khononov2021]
+- **이 KB는 두 이름을 한 페이지에 둔 채로 둔다.** 이 페이지가 기대는 다른 소스들이 두 이름을
+  한 쌍으로 규정하고, 그중 어느 쪽도 "CQRS는 이벤트 소싱 없이 쓸 수 없다"고 적지는 않기
+  때문이다. 대상이 어긋나는 것이 아니라 **이 판본이 더 넓은 적용 범위를 주장하는 것**이라
+  모순 쌍으로 세우지 않았다.
+  - 그 넓은 범위의 전문 — 폴리글랏 모델링이라는 동기, 명령 실행 모델과 읽기 모델의 규정,
+    체크포인트와 캐치업 구독으로 도는 동기 투영과 메시지 버스를 타는 비동기 투영 — 은
+    [CQRS 아키텍처](../concepts/cqrs-architecture.md)에 있다.
+  - 그리고 이벤트 소싱을 **애그리게이트의 생애에 적용한** 업무 로직 구현 패턴은
+    [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md)에 있다.
+
+## 15장이 이 패턴과 이벤트 주도 아키텍처를 가른다
+
+**같은 낱말을 쓰는 두 패턴이 자주 뒤섞이므로 저자가 15장에서 선을 긋는다.** 위
+[이벤트 기반 아키텍처](#이벤트-기반-아키텍처) 절이 이 데이터 모델 위에 서는 구조를 다뤘다면,
+이 절은 **그 구조와 이 패턴이 같은 것이 아니라는 판정**만 받는다.
+
+- 규정이 한 줄이다 (15장, p.233):[^khononov2021]
+
+> EDA refers to the communication between services, while event sourcing happens inside a service.
+
+- **그래서 두 패턴의 이벤트가 다른 목적으로 설계된다** (15장, p.233):[^khononov2021]
+  - 이 패턴용으로 설계된 이벤트는 그 서비스 안에 구현된 **상태 전이**를 표현한다.
+  - 그 이벤트들의 목적은 **업무 도메인의 세부를 붙잡는 것**이지 다른 구성 요소와 통합하는 것이
+    아니다.
+  - 그래서 경계 밖으로 나가는 세 종류의 이벤트 중 **통합에 더 맞는 것과 덜 맞는 것이 갈린다.**
+- **이 구분이 이 페이지의 함정 하나에 이름을 준다.** 위 [함정](#함정) 절이 적는 스키마 진화
+  문제는 서비스 안에서도 아프지만, 이 모델의 이벤트를 그대로 경계 밖으로 내보내면 그것이
+  **구독자를 생산자의 구현 세부에 묶는 구현 결합**이 된다 — 도메인 이벤트를 하나 더하거나
+  기존 이벤트의 스키마를 바꾸는 것이 남의 경계 컨텍스트를 깨뜨린다 (15장
+  §"Implementation Coupling", p.243).[^khononov2021]
+- 그 결합의 해부와 되돌리는 절차는
+  [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md)에 있다.
+
 ## 이어지는 페이지
 
+- [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 이 모델을 애그리게이트의
+  생애에 적용한 업무 로직 구현 패턴
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 투영을 실제 데이터베이스로 물질화하는
+  아키텍처 패턴
 - [이벤트 주도 애플리케이션 구조](../concepts/event-driven-application-structure.md) — 이
   선택지가 나온 2부의 요지
 - [리포지터리 패턴](repository-pattern.md) — 첫째 선택지가 쓰는 층
@@ -341,6 +615,8 @@ sources:
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 뷰를 어디까지 물질화할지의 선택이
   분석 도구 설정으로 나타난 모습
 - [유지보수성](../concepts/maintainability.md) — 되돌릴 수 없음을 줄이는 것이 왜 이득인가
+- [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 이 모델의 이벤트를 경계 밖으로
+  내보낼 때 무엇이 갈리는가
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture"
 
@@ -354,3 +630,23 @@ sources:
     넷째 줄 비용 칸의 농담 한 줄("Harry는 당신의 취향과 동기를 영원히 의심할 것이다")은
     옮기지 않았다. **이 장은 얇게 반입했다** — 이 KB의 소비 맥락에서 분산 패턴은 참조
     수준이다.
+
+[^khononov2021]: Khononov 2021, 7장 "Modeling the Dimension of Time"(§"Event Sourcing" 도입과
+    상태 기반 표 pp.99–101 · §"Source of Truth" p.107 · §"Event Store" pp.107–108 ·
+    §"Frequently Asked Questions" 중 §Performance pp.112–113·규모 물음 p.114·
+    §"Deleting Data" p.114·§"Why Can't I Just…?" pp.114–115) · 8장 "Architectural Patterns"
+    §"Polyglot Modeling" p.129·§Conclusion p.135. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
+    직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다.
+    이벤트 저장소 인용에서 본문 각주 번호 표지 하나("the events2")를 뺐다. 코드 펜스는
+    `IEventStore` 인터페이스 하나만 두었고 원문 그대로다(언어 표지는 이 KB가 붙였다). 이 장의
+    나머지 코드 목록과 도판(Figure 7-1 이벤트 소싱 애그리게이트 · 7-2 스냅샷 · 7-3 이벤트
+    저장소 샤딩)은 이 페이지에 옮기지 않았다 — 애그리게이트 쪽 코드는
+    [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md)이 대표 하나를 갖는다.
+    저자가 대는 출처 둘(Fred Brooks의 *The Mythical Man-Month* 제사와 GDPR 위키백과 항목)은
+    이 KB가 확인한 원전이 아니다. Table 7-1의 리드 스무 줄은 예시 데이터라 값을 옮기지 않고
+    본문이 그것에서 읽어 내는 것만 산문으로 옮겼다.
+    **15장 "Event-Driven Architecture"(§"Event-Driven Architecture" p.233 ·
+    §"Implementation Coupling" p.243)도 이 페이지에 합류했다** — 세 이벤트 종류와 결합의
+    해부와 설계 휴리스틱 전체는
+    [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md)에 두었고 이 페이지는 두 패턴이
+    갈리는 판정만 받았다.

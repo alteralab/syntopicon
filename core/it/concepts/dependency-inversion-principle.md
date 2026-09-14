@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 의존성 역전 원칙
-description: SOLID의 D를 한 애플리케이션에 끝까지 적용한다는 것이 무슨 뜻인가 — 고수준 모듈과 저수준 모듈을 조직이 관심 갖는가로 가르는 정의, "의존한다"가 임포트나 호출보다 넓은 뜻이라는 한정, 층을 나누고 아래로만 의존하게 하는 3층 구조를 안팎으로 뒤집어 양파 구조로 만드는 수순, 포트와 어댑터라는 이름이 파이썬에서 무엇에 대응하는가, 추상 기반 클래스 없이 덕 타이핑으로도 추상이 성립한다는 판단, 그리고 암묵적 의존(임포트)을 명시적 의존(인수)으로 바꾸는 것이 이 원칙의 실물이라는 규정
-generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
+description: SOLID의 D를 한 애플리케이션에 끝까지 적용한다는 것이 무슨 뜻인가 — 고수준 모듈과 저수준 모듈을 조직이 관심 갖는가로 가르는 정의, "의존한다"가 임포트나 호출보다 넓은 뜻이라는 한정, 층을 나누고 아래로만 의존하게 하는 3층 구조를 안팎으로 뒤집어 양파 구조로 만드는 수순, 포트와 어댑터라는 이름이 파이썬에서 무엇에 대응하는가, 추상 기반 클래스 없이 덕 타이핑으로도 추상이 성립한다는 판단, 암묵적 의존(임포트)을 명시적 의존(인수)으로 바꾸는 것이 이 원칙의 실물이라는 규정, 그리고 도메인 주도 설계 쪽 소스가 같은 뒤집기를 계층 아키텍처에서 단계적으로 유도해 포트와 어댑터 아키텍처로 부르는 수순과 표현·데이터 접근 두 층을 인프라 층 하나로 합치는 첫 단계, 포트와 어댑터의 규정과 해소 수단 둘, 육각형·양파·클린이 같은 패턴의 다른 이름이라는 판정이 유비쿼터스 언어의 예로 제시되는 자리, 그리고 이 아키텍처가 도메인 모델 패턴에 맞는다는 대응
+generated: { by: "claude-opus-5", at: "2026-09-15T00:00:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 의존성 역전 원칙
@@ -17,6 +18,10 @@ sources:
 - [추상 기반 클래스는 필수가 아니다](#추상-기반-클래스는-필수가-아니다)
 - [암묵적 의존과 명시적 의존](#암묵적-의존과-명시적-의존)
 - [이 원칙을 구현하는 네 패턴](#이-원칙을-구현하는-네-패턴)
+- [계층 아키텍처에서 이 뒤집기를 유도하면](#계층-아키텍처에서-이-뒤집기를-유도하면)
+- [포트와 어댑터의 규정](#포트와-어댑터의-규정)
+- [육각형·양파·클린은 같은 패턴이다](#육각형양파클린은-같은-패턴이다)
+- [이 아키텍처가 맞는 자리](#이-아키텍처가-맞는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **업무 코드가 기술 세부에 매이지 않게 하려면 의존의 화살표를 어디서 어떻게
@@ -212,6 +217,158 @@ sources:
 | Unit of Work | 원자적 연산 | [작업 단위 패턴](unit-of-work-pattern.md) |
 | Aggregate | 일관성 경계 | [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) |
 
+## 계층 아키텍처에서 이 뒤집기를 유도하면
+
+[khononov2021](../sources/khononov2021.md)이 같은 뒤집기를 **계층 아키텍처를 리팩터링하는
+수순**으로 보인다. 위 [층 구조를 안팎으로 뒤집기 — 양파 구조](#층-구조를-안팎으로-뒤집기--양파-구조)와
+같은 조작이되, 단계가 명시적이고 결과물에 아키텍처 패턴의 이름이 붙는다.
+
+- 출발점의 진단 (8장 §"Ports & Adapters", p.125):[^khononov2021]
+
+> The ports & adapters architecture addresses the shortcomings of the layered architecture and is a
+> better fit for implementation of more complex business logic. Interestingly, both patterns are
+> quite similar.
+
+  그 계층 아키텍처의 전문은 [계층 아키텍처](../concepts/layered-architecture.md)에 있다.
+- **첫 단계는 층을 줄이는 것이다** (8장 §Terminology, p.126):[^khononov2021]
+
+> Essentially, both the presentation layer and data access layer represent integration with external
+> components: databases, external services, and user interface frameworks. These technical
+> implementation details do not reflect the system's business logic; so, let's unify all such
+> infrastructural concerns into a single "infrastructure layer,"
+
+  - **위아래 두 층이 같은 것이었다는 관찰이 이 단계의 전부다.** 파이썬 쪽 소스의 3층 구조도
+    사용자 인터페이스와 데이터베이스를 양 끝에 두고, 뒤집은 뒤에는 둘 다 안쪽을 가리키게
+    된다 — 같은 자리를 이 판본은 **합치고 나서** 뒤집는다.
+- **둘째 단계가 이 페이지의 원칙이다** (8장 §"Dependency Inversion Principle",
+  p.126):[^khononov2021]
+
+> The dependency inversion principle (DIP) states that high-level modules, which implement the
+> business logic, should not depend on low-level modules. However, that's precisely what happens in
+> the traditional layered architecture. The business logic layer depends on the infrastructure layer.
+
+  뒤집은 결과 (8장, p.126):[^khononov2021]
+
+> Instead of being sandwiched between the technological concerns, now the business logic layer takes
+> the central role. It doesn't depend on any of the system's infrastructural components.
+
+  - **"기술적 관심사 사이에 끼어 있는"이라는 표현이 계층 아키텍처의 그림을 정확히 요약한다.**
+    위 [왜 뒤집는가](#왜-뒤집는가)가 그 이유를 변경 속도의 비대칭으로 대고, 이 판본은 같은
+    조작을 아키텍처 패턴 사이의 변환으로 적는다.
+- **셋째 단계로 애플리케이션 층이 파사드로 얹힌다** (8장, p.126):[^khononov2021]
+
+> As the service layer in the layered architecture, it describes all the operations exposed by the
+> system and orchestrates the system's business logic for executing them.
+
+  - 저자가 이 자리에서 이름을 바꾼다는 것을 각주에 밝힌다 — 계층 아키텍처의 맥락이 아니므로
+    **서비스 계층 대신 애플리케이션 계층**을 쓴다는 것이다 (8장, p.126, 각주 5).[^khononov2021]
+    그 층의 전문은 [서비스 레이어](service-layer-pattern.md)에 있다.
+- 그 결과가 포트와 어댑터 아키텍처다. 그리고 그것이 무엇을 가능하게 하는지가 못 박힌다 —
+  **업무 로직이 아래 층 어디에도 의존하지 않으며, 그것이 도메인 모델과 이벤트 소싱 도메인 모델
+  패턴을 구현하는 데 필요한 조건이다** (8장, p.127).[^khononov2021] 그 둘은
+  [도메인 모델 패턴](domain-model-pattern.md)과
+  [이벤트 소싱 도메인 모델](event-sourced-domain-model.md)에 있다.
+
+## 포트와 어댑터의 규정
+
+- 목표 (8장 §"Integration of Infrastructural Components", p.127):[^khononov2021]
+
+> The core goal of the ports & adapters architecture is to decouple the system's business logic from
+> its infrastructural components.
+
+- 이름의 유래가 되는 기제 (8장, p.127):[^khononov2021]
+
+> Instead of referencing and calling the infrastructural components directly, the business logic
+> layer defines "ports" that have to be implemented by the infrastructure layer. The infrastructure
+> layer implements "adapters": concrete implementations of the ports' interfaces for working with
+> different technologies
+
+  - **위 [포트와 어댑터가 파이썬에서 무엇인가](#포트와-어댑터가-파이썬에서-무엇인가)의 정의와
+    같은 것을 층의 언어로 말한다.** 그쪽은 포트를 "애플리케이션과 추상하려는 무엇 사이의
+    인터페이스"로 규정하고, 이쪽은 **누가 정의하고 누가 구현하는가**를 층으로 못 박는다 —
+    포트는 업무 로직 층이 정의하고 어댑터는 인프라 층이 구현한다. **정적 타입 언어라 포트를
+    짚기 어렵다는 문제가 없고**, 그래서 이 판본에는 그쪽의 덕 타이핑 논의가 없다.
+- 저자가 드는 실물이 메시지 버스의 포트와 그 어댑터다 (8장, p.128):[^khononov2021]
+
+  ```csharp
+  namespace App.BusinessLogicLayer
+  {
+      public interface IMessaging
+      {
+          void Publish(Message payload);
+          void Subscribe(Message type, Action callback);
+      }
+  }
+
+  namespace App.Infrastructure.Adapters
+  {
+      public class SQSBus: IMessaging { ... }
+  }
+  ```
+
+  - **네임스페이스가 층을 말한다는 것이 이 목록의 요점이다.** 인터페이스가
+    `App.BusinessLogicLayer`에, 구현이 `App.Infrastructure.Adapters`에 있다. 같은 분리를
+    폴더로 하는 쪽은 위 [포트와 어댑터가 파이썬에서 무엇인가](#포트와-어댑터가-파이썬에서-무엇인가)의
+    마지막 항목에 있다.
+- **해소 수단이 둘로 규정된다** (8장, p.128):[^khononov2021]
+
+> The abstract ports are resolved into concrete adapters in the infrastructure layer, either through
+> dependency injection or by bootstrapping.
+
+  - 그 둘의 전문이 [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md)에
+    있다. **이 판본이 그 둘을 대등한 선택지로 병렬한다는 데 주의한다** — 그쪽 소스는
+    부트스트랩 스크립트를 합성 루트(composition root)의 다른 이름으로 다루므로 둘이 배타적
+    선택지가 아니다. 대상이 어긋나는 것이 아니라 이 판본이 한 줄로 지나가는 자리다.
+
+## 육각형·양파·클린은 같은 패턴이다
+
+위 [층 구조를 안팎으로 뒤집기 — 양파 구조](#층-구조를-안팎으로-뒤집기--양파-구조)의 마지막
+항목이 파이썬 쪽 소스의 곁글을 옮긴다 — 이 이름들이 "거의 같은 것에 대한 이름"이라는 정리다.
+**다른 소스가 같은 판정을 더 강한 말로 내린다.**
+
+- 규정 (8장 §Variants, p.128):[^khononov2021]
+
+> The ports & adapters architecture is also known as hexagonal architecture, onion architecture, and
+> clean architecture. All of these patterns are based on the same design principles, have the same
+> components, and have the same relationships between them, but as in the case of the layered
+> architecture, the terminology may differ:
+
+  갈리는 것은 이름뿐이라고 표가 따라온다 (8장, p.128):[^khononov2021]
+
+| 이 판본의 이름 | 다른 데서 쓰는 이름 |
+|---|---|
+| Application layer | service layer = use case layer |
+| Business logic layer | domain layer = core layer |
+
+- 그리고 진단이 붙는다 (8장, p.128):[^khononov2021]
+
+> Despite that, these patterns can be mistakenly treated as conceptually different. That's just
+> another example of the importance of a ubiquitous language.
+
+  - **두 소스가 같은 결론에 이르되 근거가 다르다.** 파이썬 쪽은 **전부 의존성 역전 원칙으로
+    환원된다**는 것을 근거로 들고, 이 판본은 **설계 원칙·구성 요소·관계가 전부 같다**는 것을
+    근거로 든 뒤 그 혼동 자체를 유비쿼터스 언어 문제의 사례로 읽는다. 그 요구는
+    [유비쿼터스 언어](ubiquitous-language.md)에 있다.
+  - **이 KB는 이 네 이름에 페이지를 따로 세우지 않는다.** 두 소스가 같은 것이라고 적으므로
+    이 페이지가 넷을 함께 갖는다.
+
+## 이 아키텍처가 맞는 자리
+
+- 판정 (8장 §"When to Use Ports & Adapters", p.128):[^khononov2021]
+
+> The decoupling of the business logic from all technological concerns makes the ports & adapters
+> architecture a perfect fit for business logic implemented with the domain model pattern.
+
+- 장 맺음이 세 아키텍처 패턴의 대응을 한 문단으로 정리하며 같은 판정을 다시 적는다
+  (8장 §Conclusion, p.135):[^khononov2021]
+
+> The ports & adapters architecture inverts the relationships: it puts the business logic at the
+> center and decouples it from all infrastructural dependencies. This pattern is a good fit for
+> business logic implemented with the domain model pattern.
+
+  - 세 패턴과 업무 로직 패턴의 대응표는
+    [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 있다.
+
 ## 이어지는 페이지
 
 - [추상화 고르기](../concepts/choosing-abstractions.md) — 무엇을 추상으로 삼을지 고르는 발견법
@@ -223,6 +380,11 @@ sources:
   재는 잣대
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 같은 결합
   판단이 배치 단위로 커지는 자리
+- [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점이 되는 패턴
+- [서비스 레이어](service-layer-pattern.md) — 뒤집은 구조 위에 얹히는 파사드 층
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 조직 원리 위에서 데이터 관리만 달리하는 패턴
+- [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처 패턴을
+  고를지가 걸리는 입력
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
 
@@ -237,3 +399,15 @@ sources:
     Figure 2-3(양파 구조)은 이미지지만 원본 ditaa 소스가 본문에 함께 실려 있어 층과 화살표
     방향을 실측으로 판독했다. 이 페이지의 펜스 예산은 인용 블록이 쓰고 있어 코드 펜스는
     두지 않았다 — 이 장들의 코드는 다른 페이지가 대표 조각을 갖는다.
+
+[^khononov2021]: Khononov 2021, 8장 "Architectural Patterns" §"Ports & Adapters"
+    (도입 p.125 · §Terminology p.126 · §"Dependency Inversion Principle" p.126과 각주 5 ·
+    §"Integration of Infrastructural Components" pp.127–128 · §Variants p.128 ·
+    §"When to Use Ports & Adapters" p.128) · §Conclusion p.135. 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는
+    곧은 따옴표로 옮겼다. 인프라 층 인용은 원문이 콤마와 따옴표로 끝나고 도판 참조가
+    이어지는 자리라 그 지점까지만 옮겼다. 이름 대응표는 원문이 불릿 목록이고 이 KB가 표로
+    옮겼으며 **값은 번역하지 않았다**(층 이름이 검색 키다). 코드 펜스는 포트와 어댑터 한 쌍
+    (`IMessaging`과 `SQSBus`)만 두었고 원문 그대로다(언어 표지는 이 KB가 붙였다) —
+    원문의 `...`는 저자가 생략을 표시한 것이다. 도판 넷(Figure 8-8~8-11)은 도판이라 본문이
+    그것에 대해 적는 것만 산문으로 옮겼다.

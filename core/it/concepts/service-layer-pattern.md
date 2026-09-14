@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 서비스 레이어
-description: 조율 로직을 담는 층을 따로 두는 판단과 그 대가 — 웹 컨트롤러에 쌓이는 것을 조율(orchestration)이라 이름 붙이고 그것이 웹과 무관하다는 관찰, 전형적인 서비스 함수의 네 단계, 도메인 서비스와 애플리케이션 서비스가 왜 같은 낱말을 쓰는가와 원전이 그 낱말을 세 층으로 가르는 기준, 인수를 원시 타입으로 바꿔 서비스 레이어를 도메인에서 완전히 떼는 수순과 그 부작용으로 빠진 서비스가 드러난다는 관찰, 폴더 넷으로 나눈 프로젝트 구조, 그리고 이 층이 빈혈 도메인 안티패턴으로 가는 길이 될 수 있다는 경고
-generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
+description: 조율 로직을 담는 층을 따로 두는 판단과 그 대가 — 웹 컨트롤러에 쌓이는 것을 조율(orchestration)이라 이름 붙이고 그것이 웹과 무관하다는 관찰, 전형적인 서비스 함수의 네 단계, 도메인 서비스와 애플리케이션 서비스가 왜 같은 낱말을 쓰는가와 원전이 그 낱말을 세 층으로 가르는 기준, 인수를 원시 타입으로 바꿔 서비스 레이어를 도메인에서 완전히 떼는 수순과 그 부작용으로 빠진 서비스가 드러난다는 관찰, 폴더 넷으로 나눈 프로젝트 구조, 이 층이 빈혈 도메인 안티패턴으로 가는 길이 될 수 있다는 경고, 그리고 2021년 실무서가 더하는 것 — 애플리케이션 계층이 이 층의 다른 이름이라는 지정과 애그리게이트 위에서 하는 일 넷, 이 층의 연산이 본질적으로 트랜잭션 스크립트 패턴을 구현한다는 판정과 그래서 동시성 관리가 필수가 되는 자리, 그리고 같은 판본의 8장이 이 층을 계층 아키텍처의 변종으로 세우며 주는 파울러의 정의와 파사드라는 규정과 논리 경계이지 물리 서비스가 아니라는 단서와 이득 넷, 업무 로직이 이미 트랜잭션 스크립트면 이 층이 같은 것의 반복이라 불필요하고 액티브 레코드에는 필수라는 판정
+generated: { by: "claude-opus-5", at: "2026-09-14T23:00:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
 # 서비스 레이어
@@ -19,6 +20,7 @@ sources:
 - [DIP의 실물](#dip의-실물)
 - [폴더 넷](#폴더-넷)
 - [비용 — 빈혈 도메인이라는 반대 방향](#비용--빈혈-도메인이라는-반대-방향)
+- [이 층이 트랜잭션 스크립트라는 판정](#이-층이-트랜잭션-스크립트라는-판정)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **웹 핸들러에 쌓이는 잡일을 어디로 옮겨야 하고, 그 층을 두는 것이 무엇을
@@ -259,8 +261,147 @@ sources:
     관점에서 표현되기 때문이다.** → 5장에서 해소.
   - **서비스 레이어가 세션 객체에 단단히 결합돼 있다.** → 6장에서 해소.
 
+## 이 층이 트랜잭션 스크립트라는 판정
+
+[khononov2021](../sources/khononov2021.md)이 이 층의 정체를 각주 셋에 짧게 적는데, 그 셋이
+합쳐져 이 KB의 다른 페이지들과 이어지는 판정이 된다.
+
+- **이름부터 같은 것으로 지정된다** — **애플리케이션 계층은 서비스 계층(service layer)이라고도
+  하며, 공개 API 동작을 도메인 모델로 전달하는 부분이다** (6장, p.86, 각주 6).[^khononov2021]
+  - 위 [왜 전부 서비스라 부르는가](#왜-전부-서비스라-부르는가)가 다루는 낱말 문제에 대한 이
+    판본의 답이다. 이 책은 **애플리케이션 계층**을 주 용어로 쓰고 서비스 계층을 별칭으로 둔다.
+- **하는 일이 넷으로 규정된다** — 애그리게이트 위의 연산을 조율하는 이 층이 하는 일은
+  **애그리게이트의 현재 상태를 적재하고, 요구된 동작을 실행하고, 바뀐 상태를 영속화하고,
+  연산의 결과를 호출자에게 돌려주는 것**이다 (6장, p.86).[^khononov2021]
+  - **위 [전형적인 서비스 함수의 네 단계](#전형적인-서비스-함수의-네-단계)와 같은 넷이다.**
+    두 소스가 서로를 참조한 적은 없는데 같은 분해에 도착한다.
+- **그리고 이 층이 무엇인지가 못 박힌다** (6장, p.86, 각주 7):[^khononov2021]
+
+> In essence, the application layer's operations implement the transaction script pattern. It
+> has to orchestrate the operation as an atomic transaction. The changes to the whole
+> aggregate either succeed or fail, but never commit a partially updated state.
+
+  - 그 패턴의 전문은 [트랜잭션 스크립트](transaction-script.md)에 있다. 같은 주장을 5장이
+    미리 적어 둔다 — **이 장과 다음 장들에서 논의할 모든 업무 로직 구현 패턴이 어떤 식으로든
+    트랜잭션 스크립트 패턴에 기반한다**(5장, p.69).[^khononov2021]
+- 그 귀결이 동시성 관리로 이어진다 — **애플리케이션 계층이 트랜잭션 스크립트의 모음임을
+  떠올리면, 5장에서 논의했듯 경쟁하는 갱신이 시스템의 데이터를 손상시키는 것을 막는 데
+  동시성 관리가 필수다** (6장, p.86, 각주 8).[^khononov2021] 그 기제는
+  [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 있다.
+- **이 판정이 위 [비용 — 빈혈 도메인이라는 반대 방향](#비용--빈혈-도메인이라는-반대-방향)의
+  경고와 같은 방향이다.** 이 층이 트랜잭션 스크립트라면 그 안에 복잡한 업무 로직을 두는 것은
+  곧 핵심 하위 도메인을 트랜잭션 스크립트로 구현하는 것이고, 이 판본이 그것을 금지한다
+  (그 금지는 [트랜잭션 스크립트](transaction-script.md)에 있다). 두 소스가 서로 다른 어휘로
+  같은 것을 막는다 — 파이썬 쪽은 **빈혈 도메인 안티패턴**이라 부르고, 이 판본은
+  **하위 도메인 종류에 맞지 않는 패턴**이라 부른다.
+  - **다만 이 판본은 그 낱말을 다른 데 쓴다** — 이 책에서 빈혈 도메인 모델은 액티브 레코드
+    패턴을 깎아내리는 이름이고, 저자가 그 이름 자체를 기각한다. 그 대질은
+    [액티브 레코드](../concepts/active-record.md)에 있다.
+
+## 8장이 이 층을 계층 아키텍처의 변종으로 규정한다
+
+같은 판본의 8장이 이 층을 아키텍처 패턴의 관점에서 다시 세운다. 6장의 각주 셋이 **이 층이
+무엇을 하는가**를 적었다면, 8장은 **이 층이 왜 생기고 언제 필요 없는가**를 적는다.
+
+- 정의를 파울러에게서 그대로 가져온다 (8장 §"Service layer", p.121):[^khononov2021]
+
+> Defines an application's boundary with a layer of services that establishes a set of available
+> operations and coordinates the application's response in each operation.
+
+  - 저자가 출처를 *Patterns of Enterprise Application Architecture*로 밝힌다. **이 KB가 확인한
+    원전이 아니라 이 책이 대는 출처다.**
+- 자리가 정해진다 — **서비스 계층은 프로그램의 표현 층과 업무 로직 층 사이의 중개자로
+  작동한다** (8장, p.121).[^khononov2021] 이 층이 계층 아키텍처의 **변종**으로 들어온다는
+  배치는 [계층 아키텍처](../concepts/layered-architecture.md)에 있다.
+- 이 층이 생기는 경로를 저자가 리팩터링으로 보인다 — MVC 컨트롤러가 액티브 레코드 객체를
+  만들어 저장할 뿐 아니라 **오류가 났을 때 적절한 응답이 생기도록 데이터베이스 트랜잭션까지
+  조율하는** 코드에서 출발한다 (8장, pp.121–122).[^khononov2021] 그다음 처방이 온다
+  (8장, p.122):[^khononov2021]
+
+> To further decouple the presentation layer from the underlying business logic, such orchestration
+> logic can be moved into a service layer
+
+  - **위 [무엇이 이 층을 부르는가](#무엇이-이-층을-부르는가)와 같은 출발점이다.** 파이썬 쪽
+    소스도 웹 컨트롤러에 쌓인 조율 로직에서 시작해 같은 곳으로 간다. **두 소스가 서로를
+    참조한 적은 없고 같은 리팩터링에 도착한다.**
+- **못 박아 두는 단서 하나** (8장, p.122):[^khononov2021]
+
+> It's important to note that in the context of the architectural pattern, the service layer is a
+> logical boundary. It is not a physical service.
+
+  - 위 [왜 전부 서비스라 부르는가](#왜-전부-서비스라-부르는가)가 다루는 낱말 혼동의 셋째
+    갈래다 — 도메인 서비스·애플리케이션 서비스에 더해 **배치 단위로서의 서비스**가 같은 낱말을
+    쓴다. 저자가 애플리케이션 계층이라는 이름을 선호하는 이유도 이것이다
+    ([계층 아키텍처 §층 사이의 소통과 이름의 대응](../concepts/layered-architecture.md)).
+- 무엇으로 작동하는가 (8장, p.122):[^khononov2021]
+
+  > The service layer acts as a façade for the business logic layer: it exposes an interface that
+  > corresponds with the public interface's methods, encapsulating the required orchestration of the
+  > underlying layers.
+
+  저자가 드는 인터페이스가 그 모양을 보인다 — 광고 캠페인 관리의 연산 넷이다:
+
+  ```csharp
+  interface CampaignManagementService
+  {
+    OperationResult CreateCampaign(CampaignDetails details);
+    OperationResult Publish(CampaignId id, PublishingSchedule schedule);
+    OperationResult Deactivate(CampaignId id);
+    OperationResult AddDisplayLocation(CampaignId id, DisplayLocation newLocation);
+    ...
+  }
+  ```
+
+  - 그 인터페이스가 만족하는 조건 (8장, p.122):[^khononov2021]
+
+  > All of the preceding methods correspond to the system's public interface. However, they lack
+  > presentation-related implementation details. The presentation layer's responsibility becomes
+  > limited to providing the required input to the service layer and communicating its responses back
+  > to the caller.
+
+  - **표현 관련 세부가 없다는 것이 판정 기준이다.** 위
+    [원시 타입으로 인수를 바꾸면 빠진 서비스가 드러난다](#원시-타입으로-인수를-바꾸면-빠진-서비스가-드러난다)가
+    같은 기준을 반대 방향(도메인 쪽 세부 제거)으로 적용한다.
+- 이득이 넷으로 적힌다 (8장 §Variation, p.124):[^khononov2021]
+  - **같은 서비스 계층을 여러 공개 인터페이스에 재사용할 수 있다** — 예컨대 그래픽 사용자
+    인터페이스와 API에. **조율 로직의 중복이 필요 없다.**
+  - **관련된 메서드를 한자리에 모아 모듈성을 개선한다.**
+  - **표현 층과 업무 로직 층을 더 결합 해제한다.**
+  - **업무 기능을 테스트하기 쉽게 만든다.**
+- **그리고 이 층이 언제 불필요한지가 규정된다** (8장, p.124):[^khononov2021]
+
+> That said, a service layer is not always necessary. For example, when the business logic is
+> implemented as a transaction script, it essentially is a service layer, as it already exposes a set
+> of methods that form the system's public interface. In such a case, the service layer's API would
+> just repeat the transaction scripts' public interfaces, without abstracting or encapsulating any
+> complexity. Hence, either a service layer or a business logic layer will suffice.
+
+- **언제 필수인지도 함께 온다** (8장, p.124):[^khononov2021]
+
+> On the other hand, the service layer is required if the business logic pattern requires external
+> orchestration, as in the case of the active record pattern. In this case, the service layer
+> implements the transaction script pattern, while the active records it operates on are located in
+> the business logic layer.
+
+  - **이 두 문단이 위 [이 층이 트랜잭션 스크립트라는 판정](#이-층이-트랜잭션-스크립트라는-판정)을
+    완성한다.** 6장의 각주가 "이 층의 연산이 트랜잭션 스크립트를 구현한다"고 적었고, 8장이 그
+    항등식의 따름정리를 적는다 — **업무 로직이 이미 트랜잭션 스크립트면 이 층은 같은 것의
+    반복이라 둘 중 하나면 족하다.** 액티브 레코드는 반대로 바깥 조율이 필요하므로 이 층이
+    필수가 된다. 두 패턴은 [트랜잭션 스크립트](transaction-script.md)와
+    [액티브 레코드](../concepts/active-record.md)에 있다.
+- 마지막으로 이름 하나가 8장에서 정리된다 — 포트와 어댑터 아키텍처를 유도하면서 저자가
+  각주에 적는다 (8장, p.126, 각주 5):[^khononov2021]
+
+> Since we are not in the context of the layered architecture, I will take the freedom to use the
+> term application layer instead of service layer, as it better reflects the purpose.
+
+  - **곧 같은 층의 이름이 아키텍처 패턴에 따라 갈린다.** 계층 아키텍처에서는 서비스 계층,
+    포트와 어댑터에서는 애플리케이션 계층이다. 그 아키텍처는
+    [의존성 역전 원칙](../concepts/dependency-inversion-principle.md)의 포트와 어댑터 절에 있다.
+
 ## 이어지는 페이지
 
+- [트랜잭션 스크립트](transaction-script.md) — 이 층이 구현하는 패턴
 - [작업 단위 패턴](unit-of-work-pattern.md) — 이 층의 마지막 결합을 끊는 패턴
 - [높은 기어와 낮은 기어의 TDD](tdd-high-gear-and-low-gear.md) — 이 층이 생기고 나서
   테스트를 어느 수준에 둘 것인가
@@ -268,7 +409,9 @@ sources:
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 이 층이 부르는 대상
 - [도메인 서비스](../concepts/domain-services.md) — 같은 낱말의 도메인 층 판본과 그 원 규정
 - [도메인 객체가 된 프로세스](../concepts/processes-as-domain-objects.md) — 9장이 그 패턴을 다시 부르는 자리
-- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 층의 시그니처가 구현하는 원리
+- [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 층의 시그니처가 구현하는
+  원리이자 포트와 어댑터에서 이 층이 애플리케이션 계층이라 불리는 자리
+- [계층 아키텍처](../concepts/layered-architecture.md) — 이 층이 변종으로 끼어드는 아키텍처 패턴
 - [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — 레거시에서
   이 층을 먼저 만들라는 권고
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
@@ -293,3 +436,16 @@ sources:
     조판한 것을 산문으로 옮겼다 — 표 형태의 전문은 [도메인 서비스](../concepts/domain-services.md)에 있고,
     이 페이지는 이 층의 정체를 가리는 데 필요한 만큼만 들었다. 이 소스에서 온 코드 펜스는
     이 페이지에 없다.
+
+[^khononov2021]: Khononov 2021, 6장 "Tackling Complex Business Logic" §"Consistency
+    enforcement"(p.86 본문과 각주 6·7·8) · 5장 §"When to Use Transaction Script"(p.69) ·
+    8장 "Architectural Patterns" §"Layered Architecture" 중 §Variation과 그 안의
+    §"Service layer"(pp.121–124) · §"Ports & Adapters" 중 §"Dependency Inversion
+    Principle"(p.126 각주 5). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
+    `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다.
+    코드 펜스는 `CampaignManagementService` 인터페이스 하나를 더했고 원문 그대로다
+    (언어 표지는 이 KB가 붙였다) — 원문의 `...`는 저자가 생략을 표시한 것이다. 같은 절의
+    C# 목록 둘(MVC 컨트롤러의 `Create`와 추출된 `UserService`)은 개념당 대표 하나 규약에 따라
+    산문으로 줄였다. 6장의 애플리케이션 계층 대표 코드(`Escalate`)도 산문으로만 옮겼고 전문은
+    [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)에 있다.
+    도판 하나(Figure 8-6 서비스 층)는 도판이라 본문이 그것에 대해 적는 것만 옮겼다.
