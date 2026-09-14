@@ -309,6 +309,18 @@ sources:
   - **이 문장이 이 책의 제목과 서론을 회수한다.** 방법론 이름의 어원을 "(business)
     domain-driven (software) design"으로 푸는 자리는
     [전략 설계](../concepts/strategic-design.md)에 있다.
+- **맺음말이 그 허용을 브라운필드에 명시적으로 건다** (맺음말 §Conclusion,
+  p.271):[^khononov2021]
+
+> Understanding the philosophy of domain-driven design is also the key to leveraging value by
+> incorporating the methodology's concepts individually, especially in brownfield projects.
+
+  - **"개념을 하나씩 들인다"가 이 페이지의 조건이다.** 이미 돌아가는 체계에서는 방법론을 한
+    덩어리로 도입할 수 없으므로, 위 [두 가지 오해를 먼저 걷어 낸다](#두-가지-오해를-먼저-걷어-낸다)와
+    이 절의 허용이 그대로 절차의 전제가 된다. 저자가 그 전제에 붙이는 조건은 **원리를
+    이해하라**는 것 하나다 — 무엇을 남기고 무엇을 뺄지는 그 이해가 정한다.
+  - 같은 맺음말이 방법론 전체에 거는 조항(교리로 따르지 말고 근거를 이해하라)은
+    [전략 설계](../concepts/strategic-design.md)에 있다.
 
 ## 잠행 DDD — 권위 대신 논리로
 
@@ -457,6 +469,12 @@ p.492).[^evans2003] 위 [잠행 DDD](#잠행-ddd--권위-대신-논리로)는 �
     뒤는 이행 경로가 사는
     [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 두었다. 같은 claim을
     두 페이지에 흩지 않는다. 장 끝 연습문제 넷(p.214)은 claim이 아니라 옮기지 않았다.
+    **맺음말 §Conclusion(p.271)의 한 문장도 이 페이지에 합류했다** — 방법론의 개념을 하나씩
+    들이는 것이 특히 브라운필드에서 값을 낸다는 조항이다. 같은 절의 나머지(교리로 따르지
+    말라는 조항과 마지막 당부)는 [전략 설계](../concepts/strategic-design.md)와
+    [유비쿼터스 언어](../concepts/ubiquitous-language.md)에 두었다. 이 방법론을 창업일부터
+    적용한 회사의 기록은 [마켓노버스 사례 연구](marketnovus-case-study.md)에 있다 — 그쪽은
+    그린필드에서 출발하므로 이 페이지의 조건(이미 돌아가는 체계)과 대비된다.
 
 [^evans2003]: Evans 2003, 17장 "Bringing the Strategy Together" §"Six Essentials for Strategic
     Design Decision Making" 중 첫째 필수(p.492). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).

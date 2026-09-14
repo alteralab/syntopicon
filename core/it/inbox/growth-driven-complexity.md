@@ -19,6 +19,7 @@ sources:
 - [애그리게이트를 되짚는다](#애그리게이트를-되짚는다)
 - [세 줄로 요약된 처방](#세-줄로-요약된-처방)
 - [14장이 복잡성을 국소와 전역으로 가른다](#14장이-복잡성을-국소와-전역으로-가른다)
+- [책의 사례 — 우발적 복잡성이 설계 쪽에서 나온 경우](#책의-사례--우발적-복잡성이-설계-쪽에서-나온-경우)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **기능이 계속 늘어나는 것이 설계를 어떻게 망가뜨리며, 그것을 막기 위해 어떤
@@ -205,9 +206,36 @@ sources:
   있고, 경계를 실제로 고르는 어림법은
   [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md)에 있다.
 
+## 책의 사례 — 우발적 복잡성이 설계 쪽에서 나온 경우
+
+**같은 판본의 부록 A가 이 이름을 셋째 자리에 쓴다.** 위
+[지도 원리](#지도-원리--우발적인-것만-없앤다)가 업무 쪽과 설계 쪽 둘을 같은 이름으로 불렀다면,
+부록 A는 **기술적 복잡성이 업무 복잡성을 넘어선 상태**에 같은 이름을 붙인다. 이야기 본체는
+[마켓노버스 사례 연구](marketnovus-case-study.md)에 있다.
+
+- 마케팅 허브는 경영진이 핵심 업무 도메인으로 규정했으므로 이벤트 소싱 도메인 모델과 CQRS와
+  마이크로서비스를 함께 얹었으나, **업무가 핵심이라 여겼음에도 그것에는 기술적 복잡성이 없었고
+  그 복잡한 아키텍처 뒤에 서 있던 것은 평범한 액티브 레코드로 구현할 수 있었을 만큼 단순한
+  업무 로직**이었다 (부록 A §"The real problem", p.283).[^khononov2021]
+- 그 어긋남에 이름이 붙는다 (부록 A, p.283):[^khononov2021]
+
+> The technical complexity ended up being much higher than the business complexity. To
+> describe such discrepancies in complexities, we use the term accidental complexity, and our
+> initial design ended up being exactly that. The system was overengineered.
+
+  - **세 쓰임이 같은 판정 형태를 공유한다** — 업무 쪽(요구 사항이 지나치게 창의적일 때), 설계
+    쪽(낡은 결정이 남아 있을 때), 그리고 여기(처음부터 필요보다 정교한 패턴을 골랐을 때)가
+    그것이다. 셋 다 **값을 내지 않는 복잡성은 없앤다**는 같은 처방을 받는다.
+  - **다만 이 셋째 쓰임은 이 페이지의 처방 방향과 반대다.** 위 세 절이 다루는 것은 **자라서
+    생긴** 복잡성을 되짚는 일이고, 부록 A의 경우는 **처음부터 과잉이던** 설계다. 그 판정을
+    미리 내리는 절차는 [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에
+    있고, 경계 쪽 판정은
+    [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md)에 있다.
+
 ## 이어지는 페이지
 
 - [하위 도메인의 세 종류](subdomain-types.md) — 첫째 경계. 종류가 바뀌는 여섯 갈래도 그곳에 있다
+- [마켓노버스 사례 연구](marketnovus-case-study.md) — 과잉 설계가 우발적 복잡성이 된 기록
 - [비즈니스 도메인과 하위 도메인](business-domain-and-subdomains.md) — 정합적 유스 케이스라는 자
 - [경계 컨텍스트](../concepts/bounded-context.md) — 둘째 경계
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 셋째 경계
@@ -242,3 +270,6 @@ sources:
     *Composite/Structured Design*)는 이 KB가 확인한 원전이 아니다. 그 절의 도판
     하나(Figure 14-5, 서비스 세분성과 체계 복잡성)는 도판이라 본문이 그것에 대해 적는 것만
     산문으로 옮겼다.
+    **부록 A §"The real problem"(p.283)도 이 페이지에 합류했다** — 우발적 복잡성이라는 이름이
+    처음부터 과잉이던 설계에 붙는 셋째 자리다. 다섯 경계 컨텍스트의 이야기 본체는 이 페이지에
+    두지 않고 [마켓노버스 사례 연구](marketnovus-case-study.md)에 두었다.

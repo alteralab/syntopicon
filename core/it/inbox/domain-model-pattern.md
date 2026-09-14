@@ -24,6 +24,7 @@ sources:
 - [무엇을 다루는 패턴인가](#무엇을-다루는-패턴인가)
 - [정의와 두 설계 관심사](#정의와-두-설계-관심사)
 - [불변식이 자유도를 줄인다](#불변식이-자유도를-줄인다)
+- [책의 사례 — 이 패턴을 제대로 세우는 데 든 값](#책의-사례--이-패턴을-제대로-세우는-데-든-값)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **업무 규칙이 사는 자리를 어디에 어떻게 만들고, 그 자리가 인프라에 물들지
@@ -377,9 +378,39 @@ sources:
   (6장, p.95).[^khononov2021] 그 판정의 전체 표는
   [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 있다.
 
+## 책의 사례 — 이 패턴을 제대로 세우는 데 든 값
+
+**같은 판본의 부록 A가 이 패턴을 조항대로 세워 본 프로젝트의 값을 기록한다.** 이야기 본체는
+[마켓노버스 사례 연구](marketnovus-case-study.md)에 있고, 여기 옮긴 것은 이 패턴에 걸리는
+것이다.
+
+- **세 다짐이 이 패턴을 조항대로 세운다는 것의 내용이었다** (부록 A §"Solution design: Take
+  two", p.277):[^khononov2021]
+
+> - Each transaction would affect only one instance of an aggregate.
+> - Instead of an ORM, each aggregate itself would define the transactional scope.
+> - The service layer would go on a very strict diet, and all the business logic would be
+>   refactored into the corresponding aggregates.
+
+  - 세 조항의 전문은 [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md)와
+    [서비스 레이어](service-layer-pattern.md)에 있다.
+- **그리고 그 값이 적힌다** — **제대로 된 도메인 모델을 모델링하는 일이 어렵다는 것이 곧
+  분명해졌다.** 앞의 단순한 패턴으로 지은 시스템에 비해 모든 일이 훨씬 오래 걸렸고,
+  **트랜잭션 경계를 첫 시도에 맞히는 것은 거의 불가능했으며**, 몇 개의 모델을 평가하고 시험해
+  본 뒤에야 생각하지 못했던 쪽이 옳았음을 뒤늦게 알게 되곤 했다. 저자가 그 값을 한 낱말로
+  적는다 — **"올바른" 방식의 값은 매우 높았다. 많은 시간이다** (부록 A,
+  p.277).[^khononov2021]
+- **이 기록이 위 [이 패턴이 필요 없는 경우](#이-패턴이-필요-없는-경우)를 뒷받침한다.** 이 패턴의
+  값은 간접 계층의 수가 아니라 **경계를 맞히기까지의 반복 횟수**로도 나타나고, 그래서 이 소스는
+  이 패턴을 하위 도메인의 종류로 제한한다. 그 판정은
+  [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 있다.
+  - 같은 부록이 반대 방향의 값도 기록한다 — 보조 하위 도메인에 이 패턴을 세우느라 **시간과
+    노력을 낭비했다**는 것이다 (부록 A, p.279).[^khononov2021]
+
 ## 이어지는 페이지
 
 - [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md) — 이 패턴을 고를지 정하는 자리
+- [마켓노버스 사례 연구](marketnovus-case-study.md) — 이 패턴을 조항대로 세우는 데 든 값의 기록
 - [트랜잭션 스크립트](transaction-script.md) · [액티브 레코드](active-record.md) — 이 패턴이
   과할 때 가는 두 쪽
 - [도메인 이벤트](domain-events.md) — 이 모델의 구성 단위 넷 중 하나
@@ -430,3 +461,9 @@ sources:
     구성 단위 각각의 전문은 [값 객체와 엔티티](value-objects-and-entities.md)·
     [애그리게이트와 일관성 경계](aggregates-and-consistency-boundaries.md)·
     [도메인 이벤트](domain-events.md)·[도메인 서비스](domain-services.md)에 있다.
+    **부록 A §"Solution design: Take two"(p.277)와 §"A broader understanding of domain-driven
+    design"(p.279)도 이 페이지에 합류했다** — 이 패턴을 조항대로 세우는 데 든 값이 그 자리다.
+    다섯 경계 컨텍스트의 이야기 본체는 이 페이지에 두지 않고
+    [마켓노버스 사례 연구](marketnovus-case-study.md)에 두었다. 세 다짐의 직인용은 원문이
+    가운뎃점 불릿으로 조판한 목록이고 인용 블록 안에서 마크다운 불릿 기호로만 바꿨다 — 글자는
+    원문 그대로다.
