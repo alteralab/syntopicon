@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 데이터 시스템 아키텍처 트레이드오프
-description: 운영계와 분석계, 클라우드와 자체 호스팅, 분산과 단일 노드, 그리고 사업의 요구와 사용자의 요구 사이의 선택을 모으는 허브
+description: 운영계와 분석계, 클라우드와 자체 호스팅, 분산과 단일 노드와 마이크로서비스, 그리고 사업의 요구와 사용자의 요구 사이의 선택을 모으는 허브
 generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 ---
 
@@ -38,6 +38,10 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — 여러 기계로 갈 아홉 가지 이유와 가지 말아야 할 이유
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 서비스마다 자기 데이터베이스를 두는 이유와 그 대가
+- [모놀리스와 모듈](../concepts/monolith-versus-modular.md) — 한 지붕 아래 다 둘 것인가 갈아 끼울 수 있는 조각으로 쪼갤 것인가, 그리고 모놀리스의 세 종류
+- [독립 배포 가능성](../concepts/independent-deployability.md) — 마이크로서비스를 정의하는 성질이자 쪼개기의 목표
+- [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 쪼갠다면 경계를 어디에 그을 것인가
+- [마이크로서비스의 고통과 채택 판단](../concepts/microservice-pain-points-and-adoption.md) — 그 쪼개기가 청구하는 비용과 누구에게 맞는가의 판단
 
 ## 사업의 요구와 사용자의 요구
 
