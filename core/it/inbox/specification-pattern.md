@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 명세 패턴
-description: 업무 규칙이 어느 도메인 객체의 책임에도 맞지 않을 때 쓰는 패턴의 원전 — 규칙 평가 코드가 청구서의 의미를 삼킨다는 진단과 규칙을 애플리케이션 층으로 옮기면 더 나빠진다는 판정, 논리 프로그래밍의 술어를 빌리되 다 옮기지는 않는다는 절충, 술어 같은 값 객체를 만들라는 처방, 검증과 선택과 주문 생산 셋이 개념적으로 하나라는 규정, 리포지터리와 맞물릴 때 SQL을 어디에 둘지를 놓고 저자가 보인 세 판과 각 판의 대가, 생성기 인터페이스를 명세로 정의할 때 얻는 것 넷, 화학 물질 창고 사례, 그리고 같은 책 10장이 얹는 선언적 확장 셋인 논리 연산자 결합과 구현 선택지와 포섭
-generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
+description: 업무 규칙이 어느 도메인 객체의 책임에도 맞지 않을 때 쓰는 패턴의 원전 — 규칙 평가 코드가 청구서의 의미를 삼킨다는 진단과 규칙을 애플리케이션 층으로 옮기면 더 나빠진다는 판정, 논리 프로그래밍의 술어를 빌리되 다 옮기지는 않는다는 절충, 술어 같은 값 객체를 만들라는 처방, 검증과 선택과 주문 생산 셋이 개념적으로 하나라는 규정, 리포지터리와 맞물릴 때 SQL을 어디에 둘지를 놓고 저자가 보인 세 판과 각 판의 대가, 생성기 인터페이스를 명세로 정의할 때 얻는 것 넷, 화학 물질 창고 사례, 그리고 같은 책 10장이 얹는 선언적 확장 셋인 논리 연산자 결합과 구현 선택지와 포섭, 그리고 16장의 지식 수준이 일반화를 포기하는 근거로 이 패턴을 선례로 드는 자리
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -27,6 +27,7 @@ sources:
 - [패턴은 요리책이 아니다](#패턴은-요리책이-아니다)
 - [명세가 서비스에 인자로 넘어가는 자리](#명세가-서비스에-인자로-넘어가는-자리)
 - [이 패턴의 프레임워크가 정합적 기제로 지목되는 자리](#이-패턴의-프레임워크가-정합적-기제로-지목되는-자리)
+- [일반 술어보다 특화된 제약이 낫다는 선례로 인용되는 자리](#일반-술어보다-특화된-제약이-낫다는-선례로-인용되는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **어느 도메인 객체의 책임에도 맞지 않는 업무 규칙을 어디에 두는가.**
@@ -480,9 +481,30 @@ p.273).[^evans2003]
   명세한 대로 규칙을 해결하거나 계산을 완료한다** (15장, pp.423–424).[^evans2003] 전문은
   [정합적 기제](cohesive-mechanisms.md)에 있다.
 
+## 일반 술어보다 특화된 제약이 낫다는 선례로 인용되는 자리
+
+16장의 [지식 수준](knowledge-level.md)이 반사(REFLECTION) 패턴과 자신을 가를 때 **이 패턴을
+선례로 든다.**
+
+- 두 구분 중 둘째 (16장, p.470):[^evans2003]
+
+> Second, it does not strive for full generality. Just as a SPECIFICATION can be more useful than
+> a general predicate, a very specialized set of constraints on a set of objects and their
+> relationships can be more useful than a generalized framework. The KNOWLEDGE LEVEL is simpler
+> and can communicate the specific intent of the designer.
+
+  - 위 [논리 프로그래밍의 술어를 빌리되 다 옮기지는 않는다](#논리-프로그래밍의-술어를-빌리되-다-옮기지는-않는다)가
+    이 페이지에서 하는 절제를, 16장이 한 층 위에서 되풀이한다. **일반화의 포기가 손실이 아니라
+    설계자의 의도를 소통하는 수단**이라는 논거가 두 자리에서 같다.
+- 지식 수준이 제약을 다루는 방식도 이 페이지와 같은 방향이다 — **모델 안에 우리 모델에 관한
+  또 하나의 모델이 자리 잡고 있다. 지식 수준은 모델의 그 자기 정의적 국면을 분리해 그 제약을
+  명시적으로 만든다** (16장, p.469).[^evans2003] 다른 것은 **누가 그 제약을 고치는가**다 —
+  이 페이지의 명세는 개발자가 조합하고, 지식 수준의 제약은 슈퍼유저가 설정한다.
+
 ## 이어지는 페이지
 
-- [명시적 제약](explicit-constraints.md) — 같은 장에서 제약을 객체로 올리는 넓은 범주. 명세는
+- [명시적 제약](explicit-constraints.md)
+- [지식 수준](knowledge-level.md) — 이 패턴을 선례로 들어 일반화를 포기하는 더 큰 구조 — 같은 장에서 제약을 객체로 올리는 넓은 범주. 명세는
   그 범주의 좁고 흔한 한 경우다
 - [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 명세와 정책이
   같은 서비스 인터페이스에 나란히 넘어가는 자리
@@ -507,7 +529,8 @@ p.273).[^evans2003]
   프로토타입의 지위를 재는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 12장 "Relating Design Patterns to the Model" 예제
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §KNOWLEDGE LEVEL(pp.469–470) ·
+    12장 "Relating Design Patterns to the Model" 예제
     "Route-Finding Policies"(pp.312–313) ·
     9장 "Making Implicit Concepts Explicit" §SPECIFICATION(pp.224–227)
     · §"Applying and Implementing SPECIFICATION"(pp.228–234) · §"Building to Order

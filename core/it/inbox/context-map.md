@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 컨텍스트 지도
-description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지를 담은 색인 표와 각 패턴의 전문이 어디 있는가, 그리고 지도를 그린 다음에 오는 단계가 무엇인가
-generated: { by: "claude-opus-5", at: "2026-09-14T13:00:00Z" }
+description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지를 담은 색인 표와 각 패턴의 전문이 어디 있는가, 그리고 지도를 그린 다음에 오는 단계가 무엇인가, 그리고 세 전략 원리 중 이 지도만 선택 사항이 아니며 대규모 구조는 이 지도가 그리는 경계를 가로질러야 한다는 16장의 판정
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -16,6 +16,8 @@ sources:
 - [이름을 회의에서 써라](#이름을-회의에서-써라)
 - [관계를 고르는 패턴들](#관계를-고르는-패턴들)
 - [무엇이 선택을 가르는가](#무엇이-선택을-가르는가)
+- [지도를 그린 다음](#지도를-그린-다음)
+- [지도는 선택 사항이 아니다](#지도는-선택-사항이-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프로젝트에 있는 여러 모델 컨텍스트와 그 사이의 관계를 어떻게 한눈에 놓는가.**
@@ -160,6 +162,35 @@ sources:
   서술한 지침을 따라 정할 법한 이상적 조직이 아니라 팀들의 진짜 관행을 반영해야 한다** (14장,
   p.388).[^evans2003]
 
+## 지도는 선택 사항이 아니다
+
+16장이 전략 설계의 세 원리 중 이 지도와 대규모 구조의 지위를 한 줄로 가른다.
+
+- 판정 (16장, p.446):[^evans2003]
+
+> Unlike the CONTEXT MAP, a large-scale structure is optional. One should be imposed when costs
+> and benefits favor it, and when a fitting structure is found. In fact, it is not needed for
+> systems that are simple enough to be understood when broken into MODULES.
+
+  - 위 [조항](#조항)에는 이런 단서가 붙지 않는다. **경계가 있으면 지도는 있어야 하고**, 없다면
+    그것은 지도를 안 그린 것이지 필요가 없는 것이 아니다.
+- 그렇다고 두 원리가 무관하지는 않다. 구조 쪽에 **이 지도가 그리는 경계를 가로질러야 한다**는
+  요구가 붙는다 (16장, p.442·445):[^evans2003]
+  - **구조는 하나의 경계 컨텍스트 안에 갇힐 수도 있지만 대개는 하나 이상에 걸치며, 프로젝트에
+    관련된 모든 팀과 서브시스템을 붙들어 두는 개념적 조직을 제공한다** (p.442).
+  - **대규모 구조는 일반적으로 경계 컨텍스트를 가로질러 적용 가능해야 한다.** 실제 프로젝트에서
+    반복하다 보면 구조는 특정 모델에 단단히 묶이는 특징을 잃고 도메인의 개념적 윤곽에 대응하는
+    특징을 키운다 (p.445).
+  - 그래서 구조는 **각 컨텍스트의 개발 팀이 지역적 필요에 답하도록 모델을 달리할 자유를
+    남겨야** 한다 (16장, p.445).[^evans2003]
+- 위 [관계를 고르는 패턴들](#관계를-고르는-패턴들)의 두 항목이 구조 쪽에서 다시 언급된다 —
+  플러그인 컴포넌트 프레임워크의 문제 서술이 **긴밀히 함께 일하지 않는 팀에게 공유 커널은
+  실현 가능하지 않다**고 적고, 허브의 플러그인 인터페이스에 공표된 언어를 쓰는 선택지를 든다
+  (16장, pp.475–476).[^evans2003]
+- 반대로 구조가 지도에 새 관계를 만드는 자리도 하나 있다 — 의사 결정 지원 층이 데이터 웨어하우스
+  기술로 구현되면 **그 층은 별개의 경계 컨텍스트가 되어 운영 소프트웨어와 고객/공급자 관계를
+  맺는다** (16장, p.462).[^evans2003]
+
 ## 이어지는 페이지
 
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 지도가 그리는 대상
@@ -167,6 +198,7 @@ sources:
 - [부패 방지 계층](anticorruption-layer.md) — 표의 한 줄이 따로 선 자리
 - [컨텍스트 전략과 변환](context-strategy-and-transformations.md) — 지도를 그린 다음 단계
 - [전략적 설계](strategic-design.md) — 이 지도가 봉사하는 원리
+- [대규모 구조](large-scale-structure.md) — 같은 원리의 셋째 항목. 이쪽과 달리 선택 사항이다
 - [유비쿼터스 언어](ubiquitous-language.md) — 컨텍스트 이름이 들어가는 자리
 - [모델 주도 설계](model-driven-design.md) — 각 컨텍스트 안에서 지켜지는 조항
 - [모놀리스 대 모듈](../concepts/monolith-versus-modular.md) — 같은 경계 판단이 배치 단위로
@@ -178,7 +210,10 @@ sources:
 - [결합 끊기](decoupling.md) — 컨텍스트 사이 번역이 사는 층
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 14장 "Maintaining Model Integrity" §CONTEXT MAP(pp.344–352,
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure"(장 도입 p.442 ·
+    §EVOLVING ORDER pp.445–446 · §"Choosing Appropriate Layers" p.462 ·
+    §PLUGGABLE COMPONENT FRAMEWORK pp.475–476) ·
+    14장 "Maintaining Model Integrity" §CONTEXT MAP(pp.344–352,
     §Organizing and Documenting CONTEXT MAPS p.352 포함) · §Relationships Between BOUNDED
     CONTEXTS(pp.352–353) · §SHARED KERNEL(pp.354–355) · §CUSTOMER/SUPPLIER DEVELOPMENT
     TEAMS(pp.356–360) · §CONFORMIST(pp.361–363) · §ANTICORRUPTION LAYER(pp.364–370) ·

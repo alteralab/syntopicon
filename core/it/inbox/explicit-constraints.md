@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 명시적 제약
-description: 제약을 객체나 메서드로 올려 이름을 주는 처방의 원전 — 제약이 암묵적으로 나타난다는 관찰과 양동이 불변식으로 보인 최소 사례, 같은 규칙을 이름 붙은 메서드로 뽑아내면 모델과의 관계가 드러나고 규칙이 자랄 방을 얻는다는 논증, 제약이 자기가 붙은 객체의 설계를 일그러뜨리고 있다는 경고 신호 셋, 그리고 제약이 도메인에서는 두드러지는데 모델에서는 두드러지지 않을 때 별도 객체로 분리하라는 조항과 초과 예약 정책이 그 실물인 이유
-generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
+description: 제약을 객체나 메서드로 올려 이름을 주는 처방의 원전 — 제약이 암묵적으로 나타난다는 관찰과 양동이 불변식으로 보인 최소 사례, 같은 규칙을 이름 붙은 메서드로 뽑아내면 모델과의 관계가 드러나고 규칙이 자랄 방을 얻는다는 논증, 제약이 자기가 붙은 객체의 설계를 일그러뜨리고 있다는 경고 신호 셋, 그리고 제약이 도메인에서는 두드러지는데 모델에서는 두드러지지 않을 때 별도 객체로 분리하라는 조항과 초과 예약 정책이 그 실물인 이유, 그리고 제약 자체를 사용자가 설정해야 할 때 경계가 "누가 고칠 수 있는가"로 바뀐다는 16장의 지식 수준
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -16,6 +16,7 @@ sources:
 - [조항](#조항)
 - [초과 예약 정책이 그 실물이다](#초과-예약-정책이-그-실물이다)
 - [규칙을 그것이 지배하는 행동에서 떼어 내라](#규칙을-그것이-지배하는-행동에서-떼어-내라)
+- [규칙을 사용자가 고칠 수 있게 해야 할 때](#규칙을-사용자가-고칠-수-있게-해야-할-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **업무 규칙으로서의 제약을 코드의 어느 자리에 두어야 그것이 보이는가.**
@@ -141,10 +142,38 @@ sources:
 - 두 장의 전문은 [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)와
   [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md)에 있다.
 
+## 규칙을 사용자가 고칠 수 있게 해야 할 때
+
+이 페이지의 제약은 개발자가 코드로 쓰는 것이다. 16장의 [지식 수준](knowledge-level.md)은
+**제약 자체를 사용자가 설정할 수 있어야 할 때** 무엇이 달라지는지를 다룬다.
+
+- 발동 조건 — **모델의 일부 자체를 사용자의 손에서 주무를 수 있게 하되 더 넓은 규칙 집합으로
+  묶어 두어야 할 때. 설치 시점이나 실행 시점에조차 엔티티 사이의 역할과 관계가 바뀌어야 하는,
+  설정 가능한 행동을 갖는 소프트웨어의 요구** (16장, p.465).[^evans2003]
+- 양극이 모두 기각된다 — **정적인 모델은 문제를 일으킬 수 있다. 그러나 가능한 모든 관계를
+  표현하게 하는 완전히 유연한 시스템도 그만큼 나쁠 수 있다. 그런 시스템은 쓰기 불편하고 조직
+  자신의 규칙을 강제하지도 못한다** (16장, p.469).[^evans2003]
+  - **위 [제약이 객체를 일그러뜨린다는 경고 신호 셋](#제약이-객체를-일그러뜨린다는-경고-신호-셋)과
+    같은 증상이 더 큰 규모로 나타난다** — 객체가 여러 경우를 덮으려고 다른 타입 참조를 갖거나
+    상황마다 다르게 쓰이는 속성을 갖고, 같은 데이터와 행동을 가진 클래스가 조립 규칙만 달라
+    불어난다 (16장, p.469).[^evans2003]
+- 처방 (16장, p.471):[^evans2003]
+
+> Create a distinct set of objects that can be used to describe and constrain the structure and
+> behavior of the basic model. Keep these concerns separate as two "levels," one very concrete,
+> the other reflecting rules and knowledge that a user or superuser is able to customize.
+
+  - **경계를 긋는 기준이 이 페이지와 다르다.** 이 페이지는 규칙을 **무엇이 지배하는가**로
+    떼어 내고, 그쪽은 **누가 고칠 수 있는가**로 뗀다.
+- 대가도 크다 — **이 패턴은 아껴 써야 한다. 그것을 설정하는 사용자는 결국 프로그래머의, 그것도
+  메타 수준 프로그래머의 기술이 필요해진다. 실수하면 애플리케이션이 잘못 동작한다** (16장,
+  p.471).[^evans2003]
+
 ## 이어지는 페이지
 
 - [명세 패턴](specification-pattern.md) — 제약을 객체로 올리는 이 범주의 좁고 흔한 한 경우.
   술어 같은 값 객체가 그 형태다
+- [지식 수준](knowledge-level.md) — 제약을 사용자가 설정할 수 있어야 할 때의 구조
 - [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 규칙과 그 규칙이
   지배하는 행동을 가르라는 처방이 있는 자리
 - [도메인 객체가 된 프로세스](processes-as-domain-objects.md) — 같은 장이 다루는 나머지 범주
@@ -159,7 +188,8 @@ sources:
   적는 다른 축
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 빌려 온 요약 "Posting Rules"(p.301) ·
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §KNOWLEDGE LEVEL(pp.465·469·471) ·
+    11장 "Applying Analysis Patterns" 빌려 온 요약 "Posting Rules"(p.301) ·
     12장 "Relating Design Patterns to the Model" §STRATEGY (A.K.A. POLICY)의 처방(p.312) ·
     9장 "Making Implicit Concepts Explicit" §"How to Model Less Obvious
     Kinds of Concepts" 도입(p.219) · §"Explicit Constraints"(pp.220–222) · 예제 "Review:

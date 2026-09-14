@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 분석 패턴을 모델에 들이기
-description: 남이 정리해 둔 분석 패턴을 내 도메인 모델에 어떻게 빌려 쓰는가 — 파울러의 정의와 그 이름이 전하지 못하는 것, 이 패턴이 나르는 것은 모델이 아니라 성숙한 프로젝트의 경험이라는 규정, 맥락 없이 모델 발상만 논하면 분석과 설계 사이의 치명적 균열이 열린다는 경고, 계정과 기표와 보존과 복식부기라는 회계 기본 모델, 빌린 개념 중 거래는 기각되고 발생이라는 낱말은 남은 첫 대화, 객체 관계 매핑이 모델을 한 칸 물린 자리, 기표 규칙과 발화 방식 셋이 어휘로 들어오는 둘째 대화, 원전에서 떠나도 되는 것과 이름의 기본 개념만은 지켜야 한다는 단 하나의 금지, 그리고 이 재적용이 프레임워크나 컴포넌트를 통한 코드 재사용과 완전히 다른 것이라는 판정
-generated: { by: "claude-opus-5", at: "2026-09-14T11:00:00Z" }
+description: 남이 정리해 둔 분석 패턴을 내 도메인 모델에 어떻게 빌려 쓰는가 — 파울러의 정의와 그 이름이 전하지 못하는 것, 이 패턴이 나르는 것은 모델이 아니라 성숙한 프로젝트의 경험이라는 규정, 맥락 없이 모델 발상만 논하면 분석과 설계 사이의 치명적 균열이 열린다는 경고, 계정과 기표와 보존과 복식부기라는 회계 기본 모델, 빌린 개념 중 거래는 기각되고 발생이라는 낱말은 남은 첫 대화, 객체 관계 매핑이 모델을 한 칸 물린 자리, 기표 규칙과 발화 방식 셋이 어휘로 들어오는 둘째 대화, 원전에서 떠나도 되는 것과 이름의 기본 개념만은 지켜야 한다는 단 하나의 금지, 그리고 이 재적용이 프레임워크나 컴포넌트를 통한 코드 재사용과 완전히 다른 것이라는 판정, 그리고 같은 책에서 온 지식 수준이 도메인이 아니라 모델을 구조화하기에 분석 패턴 목록 밖에 서는 예외
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -21,6 +21,7 @@ sources:
 - [원전에서 떠나도 되는 것과 지켜야 하는 것](#원전에서-떠나도-되는-것과-지켜야-하는-것)
 - [코드 재사용과 완전히 다르다](#코드-재사용과-완전히-다르다)
 - [증류에서 이 선택지가 서는 자리](#증류에서-이-선택지가-서는-자리)
+- [같은 책에서 온, 도메인이 아니라 모델을 구조화하는 패턴](#같은-책에서-온-도메인이-아니라-모델을-구조화하는-패턴)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **남이 정리해 출판해 둔 모델 조각을 내 도메인에 빌려 쓰되, 그것이 내 모델을
@@ -302,6 +303,29 @@ sources:
   못 박는다 — **재사용은 일어나지만 언제나 코드 재사용은 아니다. 공표된 설계나 모델을 쓸 때처럼
   모델 재사용이 흔히 더 나은 수준의 재사용이다** (15장, p.413).[^evans2003]
 
+## 같은 책에서 온, 도메인이 아니라 모델을 구조화하는 패턴
+
+16장의 [지식 수준](knowledge-level.md)이 **이 페이지가 다루는 바로 그 책에서 빌려 온 것**이다.
+그런데 저자는 그것을 분석 패턴으로 다루지 않고 대규모 구조 장에 싣는다.
+
+- 출처 — **『분석 패턴』(Fowler 1996, pp.24–27)에서 이 패턴은 조직 안의 책무(accountability)를
+  모델링하는 논의에서 나오고 나중에 회계의 기표 규칙에 적용된다** (16장, p.465).[^evans2003]
+  - 뒤의 것이 위 [둘째 대화 — 기표 규칙과 발화 방식 셋](#둘째-대화--기표-규칙과-발화-방식-셋)이
+    빌려 온 바로 그 규칙이다.
+- 왜 자기 장을 갖지 못했는가 (16장, p.465):[^evans2003]
+
+> Although the pattern appears in several chapters, it doesn't have a chapter of its own because
+> it is different from most patterns in the book. Rather than modeling a domain, as the other
+> analysis patterns do, KNOWLEDGE LEVEL structures a model.
+
+  - **이것이 위 [분석 패턴이란 무엇인가](#분석-패턴이란-무엇인가)의 정의에 걸리는 예외다.**
+    분석 패턴은 도메인의 개념을 담은 모델 조각인데, 이것은 모델을 담는 틀이다. 그래서 빌려 오는
+    방식도 다르다 — 개념을 물려받는 것이 아니라 **모델을 가르는 선을 물려받는다.**
+- 저자 자신이 이 패턴을 쓸 때도 위 [원전에서 떠나도 되는 것과 지켜야 하는 것](#원전에서-떠나도-되는-것과-지켜야-하는-것)의
+  태도를 유지한다. 파울러의 정의를 그대로 인용해 절을 열고, 반사(REFLECTION) 패턴과의 용어
+  대응표(Knowledge Level ↔ Meta Level, Operations Level ↔ Base Level)를 따로 실어 어느 말이
+  누구의 것인지 표시한다 (16장, pp.465·470).[^evans2003]
+
 ## 이어지는 페이지
 
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 9장이 "책을 읽어라"로 이 장을
@@ -315,6 +339,7 @@ sources:
 - [모델 주도 설계](model-driven-design.md) — 분석과 설계의 균열이 이 조항의 반대말인 이유
 - [유비쿼터스 언어](ubiquitous-language.md) — 빌려 온 낱말이 들어가는 곳
 - [명시적 제약](explicit-constraints.md) — 규칙을 객체로 끌어내는 같은 동작
+- [지식 수준](knowledge-level.md) — 같은 책에서 빌려 온, 모델을 구조화하는 쪽의 패턴
 - [지식 정련](knowledge-crunching.md) — 빌린 것이 흘러 들어가는 활동
 - [상태·스트림·불변성](../concepts/state-streams-and-immutability.md) — 같은 회계 관행을
   데이터 시스템 축에서 다루는 자리
@@ -322,7 +347,8 @@ sources:
   이 장의 타협이 속하는 종류
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 전량(pp.293–307 — 장 도입
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §KNOWLEDGE LEVEL(pp.465·470) ·
+    11장 "Applying Analysis Patterns" 전량(pp.293–307 — 장 도입
     pp.293–295 · 예제 "Earning Interest with Accounts"(pp.295–300, 그 안의 빌려 온 요약
     "Accounting Models in Analysis Patterns" pp.295–296 포함) · 예제 계속 "Insight into the
     Nightly Batch"(pp.301–306, 빌려 온 요약 "Posting Rules" p.301과 "Executing Posting

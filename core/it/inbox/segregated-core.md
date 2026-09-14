@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 격리된 핵심과 추상 핵심
-description: 핵심 도메인을 코드 구조에서 직접 드러내는 두 재포장 기법의 원전 — 핵심 요소가 일반 요소와 뒤엉켜 질식한다는 문제와 일반 하위 도메인을 떼어 낸 뒤에도 남는 잔여, 결합이 높은 요소를 갈라놓는 한이 있어도 핵심의 응집을 강화하라는 조항과 다섯 걸음, 관계가 오히려 흐려지고 응집력 있던 모듈이 깨지는 대가와 이 일을 시작할 시점, 핵심의 정의를 얼리지 않으면서 모두가 같은 정의를 쓰게 하는 팀 결정의 조건, 화물 운송 모델을 배송 패키지로 갈라내며 얻은 모델 통찰 둘과 무엇을 핵심에 남길지의 판정, 그리고 모듈 사이 상호작용이 많을 때 수직이 아니라 수평으로 잘라 근본 개념을 별도 모듈에 두는 추상 핵심
-generated: { by: "claude-opus-5", at: "2026-09-14T13:00:00Z" }
+description: 핵심 도메인을 코드 구조에서 직접 드러내는 두 재포장 기법의 원전 — 핵심 요소가 일반 요소와 뒤엉켜 질식한다는 문제와 일반 하위 도메인을 떼어 낸 뒤에도 남는 잔여, 결합이 높은 요소를 갈라놓는 한이 있어도 핵심의 응집을 강화하라는 조항과 다섯 걸음, 관계가 오히려 흐려지고 응집력 있던 모듈이 깨지는 대가와 이 일을 시작할 시점, 핵심의 정의를 얼리지 않으면서 모두가 같은 정의를 쓰게 하는 팀 결정의 조건, 화물 운송 모델을 배송 패키지로 갈라내며 얻은 모델 통찰 둘과 무엇을 핵심에 남길지의 판정, 그리고 모듈 사이 상호작용이 많을 때 수직이 아니라 수평으로 잘라 근본 개념을 별도 모듈에 두는 추상 핵심, 그리고 그 추상 핵심이 16장에서 여러 팀이 공유하는 프레임워크 허브가 될 때 핵심의 지속적 정련이 얼어붙는다는 대가
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -18,6 +18,7 @@ sources:
 - [사례로 든 화물 운송 모델](#사례로-든-화물-운송-모델)
 - [추상 핵심](#추상-핵심)
 - [깊은 모델이 증류한다](#깊은-모델이-증류한다)
+- [추상 핵심이 프레임워크의 허브가 되는 자리](#추상-핵심이-프레임워크의-허브가-되는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **핵심 도메인을 코드의 구조 자체에서 어떻게 보이게 만드는가.**
@@ -229,10 +230,44 @@ sources:
   제공하지만, 프로젝트 전체의 궤적을 바꿀 수 있는 것은 핵심 도메인에서다** (15장,
   p.437).[^evans2003] 그 사건의 성질은 [깊은 모델과 돌파](deep-model.md)에 있다.
 
+## 추상 핵심이 프레임워크의 허브가 되는 자리
+
+16장의 [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md)는 **이 페이지의 추상
+핵심을 선행 조건으로 조항 안에 넣는다.**
+
+- 처방 (16장, p.475):[^evans2003]
+
+> Distill an ABSTRACT CORE of interfaces and interactions and create a framework that allows
+> diverse implementations of those interfaces to be freely substituted. Likewise, allow any
+> application to use those components, so long as it operates strictly through the interfaces of
+> the ABSTRACT CORE.
+
+- 배치가 명시된다 — **고수준 추상이 식별되어 시스템 전역에 공유되고, 특화는 모듈에서 일어난다.
+  애플리케이션의 중앙 허브는 공유 커널 안의 추상 핵심이다** (16장, pp.475–476).[^evans2003]
+  - 위 [추상 핵심](#추상-핵심)이 한 프로젝트 안의 모듈 배치였다면, 여기서는 **여러 팀과 여러
+    애플리케이션이 공유하는 계약**이 된다.
+- **그 확대의 대가가 이 페이지에 없던 것이다** (16장, p.476):[^evans2003]
+
+> Developers can specialize the model, but they can't change the ABSTRACT CORE without changing
+> the protocol of all the diverse components. As a result, the process of continuous refinement of
+> the CORE, refactoring toward deeper insight, is more or less frozen in its tracks.
+
+  - 위 [얼리지 않으면서 하나로 유지하기](#얼리지-않으면서-하나로-유지하기)가 팀 안에서 풀려던
+    문제 — 핵심의 정의를 얼리지 않는 것 — 가 여러 팀 규모에서는 **실제로 얼어붙는다**는 기록이다.
+- 그래서 순서 조항이 붙는다 — **플러그인 컴포넌트 프레임워크는 프로젝트에 적용하는 첫 번째
+  대규모 구조여서도, 두 번째여서도 안 된다. 가장 성공적인 예들은 여러 특화된 애플리케이션이
+  완전히 개발된 다음에 뒤따랐다** (16장, p.476).[^evans2003]
+- 일반 하위 도메인이 구조 안에서 자리를 잡는 방식도 같은 장에 있다 — **플러그인 컴포넌트에서는
+  일반 하위 도메인을 한 컴포넌트가 통째로 소유하거나 관련 컴포넌트 집합의 공유 커널로 둘 수
+  있다** (16장, p.483).[^evans2003]
+
 ## 이어지는 페이지
 
 - [핵심 도메인](core-domain.md) — 이 기법들이 드러내려는 대상
 - [일반 하위 도메인](generic-subdomains.md) — 같은 원리를 반대 방향에서 적용한 형제
+- [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md) — 추상 핵심을 여러 팀의
+  계약으로 확대하는 구조와 그 대가
+- [대규모 구조](large-scale-structure.md) — 그 구조가 속한 층위
 - [정합적 기제](cohesive-mechanisms.md) — 이 기법 앞에 오는 잔여 줄이기
 - [증류 문서와 강조된 핵심](distillation-documents.md) — 코드를 고치지 않는 대응물
 - [도메인의 모듈](modules-in-the-domain.md) — 이 재포장이 따르는 조항
@@ -241,7 +276,9 @@ sources:
 - [지식 정련](knowledge-crunching.md) — 이 작업이 속한 활동
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 15장 "Distillation" §SEGREGATED CORE(pp.428–434) —
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §PLUGGABLE COMPONENT FRAMEWORK
+    (pp.475–476)과 §"Distillation Lightens the Load"(p.483) ·
+    15장 "Distillation" §SEGREGATED CORE(pp.428–434) —
     §"The Costs of Creating a SEGREGATED CORE"(p.429) · §"Evolving Team Decision"(p.430) ·
     예제 "Segregating the CORE of a Cargo Shipping Model"(pp.430–434) 포함 ·
     §ABSTRACT CORE(pp.435–436) · §"Deep Models Distill"(pp.436–437). 쪽은 인쇄판 쪽 번호

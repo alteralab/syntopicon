@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 도메인의 모듈
-description: 모듈을 기술 구획이 아니라 모델의 일부로 다루는 패턴의 원전 — 모듈화의 일차 동기가 기술이 아니라 인지 과부하라는 규정과 모듈이 주는 두 시야, 결합도와 응집도를 기계적 지표가 아니라 개념에 적용하라는 되읽기, 모듈이 이야기의 장이고 그 이름이 유비쿼터스 언어에 들어간다는 조항, 절충이 생기면 개념적 명료함을 고르라는 판정, 모듈 리팩터링이 안 일어나는 이유와 애자일 모듈, 자바 패키지 임포트 규약 예제, 기반 구조가 주도한 패키징이 모델을 조각내는 두 비용과 그 결과 빈혈 도메인이 남은 사례, 그리고 선언적 설계로 생성된 코드라는 예외
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+description: 모듈을 기술 구획이 아니라 모델의 일부로 다루는 패턴의 원전 — 모듈화의 일차 동기가 기술이 아니라 인지 과부하라는 규정과 모듈이 주는 두 시야, 결합도와 응집도를 기계적 지표가 아니라 개념에 적용하라는 되읽기, 모듈이 이야기의 장이고 그 이름이 유비쿼터스 언어에 들어간다는 조항, 절충이 생기면 개념적 명료함을 고르라는 판정, 모듈 리팩터링이 안 일어나는 이유와 애자일 모듈, 자바 패키지 임포트 규약 예제, 기반 구조가 주도한 패키징이 모델을 조각내는 두 비용과 그 결과 빈혈 도메인이 남은 사례, 그리고 선언적 설계로 생성된 코드라는 예외, 그리고 모듈 분해를 제대로 해도 제각각인 설계 결정은 남는다는 16장의 한계 표시와 전역 규칙이 개별 부분을 덜 이상적으로 만든다는 맞바꿈
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -22,6 +22,7 @@ sources:
 - [깊이를 잣대로 쓰는 축과 나란히](#깊이를-잣대로-쓰는-축과-나란히)
 - [패턴별로 가르는 것도 같은 오류다](#패턴별로-가르는-것도-같은-오류다)
 - [증류가 모듈 경계를 다시 정하는 자리](#증류가-모듈-경계를-다시-정하는-자리)
+- [모듈 분해만으로 모자란 자리](#모듈-분해만으로-모자란-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **코드를 무엇을 기준으로 묶어야 그 묶음 자체가 도메인을 말하게 되는가.**
@@ -349,12 +350,60 @@ sources:
   - 위 [모듈은 이야기의 장이다](#모듈은-이야기의-장이다)가 모듈을 모델의 일부로 세웠다면,
     여기서는 그 활동에 **도메인 전문가가 함께한다**는 것이 덧붙는다.
 
+## 모듈 분해만으로 모자란 자리
+
+16장은 **이 조항을 제대로 따른 다음에도 남는 문제**에서 출발한다. 그래서 이 페이지의 바깥
+경계를 표시하는 절이다.
+
+- 장을 여는 사례가 그 상태다 — 위성 통신 시뮬레이터 팀이 모델의 얽힌 관계를 정리하려고 설계를
+  **다룰 만한 크기의 정합적 모듈들로 분해**했는데 모듈이 너무 많아졌고, **어느 패키지를
+  들여다봐야 특정 기능을 찾는지, 새 클래스를 어디에 두는지, 이 작은 패키지들이 대체 무슨
+  뜻인지**를 알 수 없게 됐다 (16장, pp.439–440).[^evans2003]
+- 문제 서술이 이 페이지의 조항을 명시적으로 인용하며 그 한계를 긋는다 (16장,
+  p.441):[^evans2003]
+
+> Even with a MODULAR breakdown, a large model can be too complicated to grasp. The MODULES
+> chunk the design into manageable bites, but there may be many of them. Also, modularity does
+> not necessarily bring uniformity to the design. Object to object, package to package, a jumble
+> of design decisions may be applied, each defensible but idiosyncratic.
+
+  - **"각각 옹호할 만하지만 제각각"**이 이 페이지가 답하지 못하는 것의 이름이다. 위
+    [결합도와 응집도를 개념에 적용한다](#결합도와-응집도를-개념에-적용한다)는 경계를 **어디에**
+    그을지 정하지만, 서로 다른 사람이 그은 경계들이 **같은 원리를 따르게** 만들지는 않는다.
+- 그 위에 얹히는 것이 대규모 구조이고, 그것은 모듈이 아니다 — **이 층들은 모듈도 아니고 코드
+  안의 다른 어떤 산물도 아니었다. 설계 전체에 걸쳐, 심지어 다른 시스템과의 인터페이스에서까지,
+  어떤 모듈이나 객체의 경계와 관계든 제약하는 포괄적인 규칙의 집합이었다** (16장,
+  p.441).[^evans2003]
+  - [책임 층](responsibility-layers.md)의 처방이 그 제약을 이 페이지의 단위에 직접 건다 —
+    **각 도메인 객체와 애그리게이트와 모듈의 책임이 한 층의 책임 안에 말끔히 들어가도록 모델을
+    리팩터링하라** (16장, p.451).[^evans2003]
+  - 구조가 정해진 뒤 특화가 일어나는 자리로도 모듈이 지목된다 — **고수준 추상이 식별되어
+    시스템 전역에 공유되고, 특화는 모듈에서 일어난다** (16장, p.475).[^evans2003]
+- **대가가 명시된다.** 전역 규칙을 부과하면 개별 모듈의 구성이 최적에서 멀어진다 (16장,
+  p.445):[^evans2003]
+
+> Individual parts have natural or useful ways of being organized and expressed that may not
+> apply to the whole, so imposing global rules makes these parts less ideal. Choosing to use a
+> large-scale structure favors manageability of the model as a whole over optimal structuring of
+> the individual parts.
+
+  - #hypothesis 이 맞바꿈은 위 [깊이를 잣대로 쓰는 축과 나란히](#깊이를-잣대로-쓰는-축과-나란히)의
+    잣대와 원리상 갈릴 수 있는 자리다. 인지 부하를 재는 축은 **모듈 하나의 인터페이스 대 구현
+    비율**을 최적화하라고 하는데, 이 조항은 전체의 관리 가능성을 위해 그 최적을 의도적으로
+    포기할 수 있다고 허가한다. 저자 자신이 이 손실을 감추지 않고 **덜 이상적(less ideal)**이라
+    적으므로 두 잣대가 같은 대상에 대해 다른 답을 낼 수 있다. 다만 저자도 손실을 줄이는 조건
+    둘(실제 경험에 근거해 구조를 고를 것·과도하게 조이지 말 것)을 달고, 잘 맞는 구조는 오히려
+    세부 설계를 쉽게 한다고 적는다 (16장, p.445).[^evans2003] 두 소스가 이 대조를 직접
+    다룬 적은 없다.
+
 ## 이어지는 페이지
 
 - [계층 아키텍처](layered-architecture.md) — 패키징이 강제해야 할 유일한 기술 구획
 - [유비쿼터스 언어](ubiquitous-language.md) — 모듈 이름이 들어가야 하는 어휘
 - [암묵적 개념을 파내기](digging-out-implicit-concepts.md) — 결합이 높을 때 찾아야 할 간과된 개념
 - [개념의 윤곽](conceptual-contours.md) — 같은 저자가 요소의 굵기를 다루는 자리
+- [대규모 구조](large-scale-structure.md) — 모듈 분해 위에 얹히는 층위
+- [책임 층](responsibility-layers.md) — 모듈 경계를 직접 구속하는 구조
 - [선언적 설계](declarative-design.md) — 생성된 코드를 따로 두라는 예외의 출처
 - [서비스 레이어](service-layer-pattern.md) — 빈혈 도메인으로 가는 다른 경로
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 같은 대상을 인지 부하로 재는 축
@@ -369,6 +418,8 @@ sources:
     소통 기제 규정(p.110) · 처방 문단 둘(pp.110–111) · 절충 판정(p.111) ·
     §"Agile MODULES"(p.111) · 예제 "Package Coding Conventions in Java"(pp.111–112) ·
     §"The Pitfalls of Infrastructure-Driven Packaging"(pp.112–116) ·
+    16장 "Large-Scale Structure"(장 도입 pp.439–442 · §EVOLVING ORDER p.445 ·
+    §RESPONSIBILITY LAYERS의 처방 p.451 · §PLUGGABLE COMPONENT FRAMEWORK p.475) ·
     15장 "Distillation" §GENERIC SUBDOMAINS의 처방(p.406) · §SEGREGATED CORE(pp.428–429) ·
     §ABSTRACT CORE(pp.435–436) · 예제 "Segregating the CORE of a Cargo Shipping Model"의
     맺음(p.434).

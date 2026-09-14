@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 모델링 패러다임
-description: 모델 주도 설계가 객체를 요구하지 않는다는 규정과 그럼에도 객체가 지배적인 이유 — 단순함과 정교함의 균형이라는 내재적 이유와 성숙도·도구·개발자 공동체라는 정황적 이유, 미성숙한 패러다임에 걸었다가 몇 달을 잃은 객체 데이터베이스 사례와 그 경험이 애그리게이트 사고를 낳은 자리, 객체로 표현되지 않는 도메인이 있다는 인정과 패러다임을 섞을 때의 조건, 규칙 엔진이 실패하는 전형과 두 환경을 잇는 것이 결국 유비쿼터스 언어라는 판정, 비객체 요소를 섞는 네 가지 어림법, 그리고 표현력 없는 구현은 패러다임 추가의 이득을 상쇄한다는 조항
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+description: 모델 주도 설계가 객체를 요구하지 않는다는 규정과 그럼에도 객체가 지배적인 이유 — 단순함과 정교함의 균형이라는 내재적 이유와 성숙도·도구·개발자 공동체라는 정황적 이유, 미성숙한 패러다임에 걸었다가 몇 달을 잃은 객체 데이터베이스 사례와 그 경험이 애그리게이트 사고를 낳은 자리, 객체로 표현되지 않는 도메인이 있다는 인정과 패러다임을 섞을 때의 조건, 규칙 엔진이 실패하는 전형과 두 환경을 잇는 것이 결국 유비쿼터스 언어라는 판정, 비객체 요소를 섞는 네 가지 어림법, 그리고 표현력 없는 구현은 패러다임 추가의 이득을 상쇄한다는 조항, 그리고 규칙 엔진이 16장의 정책 층으로 들어올 때 두 구현 기술에 같은 모델을 쓰라는 같은 조건이 되풀이되는 자리
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -18,6 +18,7 @@ sources:
 - [규칙 엔진이 실패하는 전형](#규칙-엔진이-실패하는-전형)
 - [네 가지 어림법](#네-가지-어림법)
 - [표현력이 조건이다](#표현력이-조건이다)
+- [규칙 엔진이 정책 층으로 들어올 때](#규칙-엔진이-정책-층으로-들어올-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모델 주도 설계가 객체 지향을 전제하는가, 그리고 다른 패러다임을 섞을 때
@@ -236,6 +237,31 @@ p.122):[^evans2003]
   - 같은 잣대를 [선언적 설계](declarative-design.md)가 다른 각도에서 쓴다 — 그쪽은
     선언적 스타일의 이득과 그것이 표현력을 잃을 때의 대가를 다룬다.
 
+## 규칙 엔진이 정책 층으로 들어올 때
+
+16장의 [책임 층](responsibility-layers.md)이 정책(Policy) 층을 규정하면서 **같은 조건을 대규모
+구조의 층위에서 되풀이한다.**
+
+- 관찰 — **정책 층은 다른 층과 같은 언어로 쓸 수도 있지만 때로는 규칙 엔진으로 구현된다. 그것이
+  반드시 별개의 경계 컨텍스트를 만들지는 않는다** (16장, pp.462–463).[^evans2003]
+- 그리고 조건이 붙는다 (16장, p.463):[^evans2003]
+
+> In fact, the difficulty of coordinating such different implementation technologies can be eased
+> by fastidiously using the same model across both. When rules are written based on a different
+> model than the objects they apply to, either the complexity goes way up or the objects get
+> dumbed down to keep things manageable.
+
+  - 위 [패러다임을 섞을 때의 조건](#패러다임을-섞을-때의-조건)과 같은 요구다. 다만 여기서는
+    **실패의 결과가 둘로 구체화된다** — 복잡도가 치솟거나, 다룰 만하게 만들려고 객체가
+    멍청해지거나. 뒤의 것이 위 [규칙 엔진이 실패하는 전형](#규칙-엔진이-실패하는-전형)이 적는
+    결말과 같다.
+- 정책 층이 다른 층과 맺는 관계의 설계도 **미묘하다**고 적힌다 — **규칙과 목표는 대체로
+  수동적이지만 다른 층의 행동을 제약한다. 때로는 정책이 하위 메서드에 인자로 넘어가고, 때로는
+  전략(STRATEGY) 패턴이 적용된다** (16장, p.462).[^evans2003]
+- 아래층에서 위층으로 예외를 알리는 문제도 같은 장이 다룬다 — 운영 층은 위층을 모르므로
+  **양방향 의존을 만들지 않으면서** 알려야 하고, 전형적인 답이 이벤트 기제다 (16장,
+  p.480).[^evans2003] 전문은 [대규모 구조](large-scale-structure.md)에 있다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](../concepts/model-driven-design.md) — 이 절이 조건을 다는 상위 조항
@@ -245,10 +271,14 @@ p.122):[^evans2003]
   패턴이 된 자리
 - [암묵적 개념을 파내기](digging-out-implicit-concepts.md) — 패러다임을 바꾸기 전에 소진할 선택지
 - [선언적 설계](declarative-design.md) — 규칙을 선언적으로 쓰되 모델 안에 두는 길
+- [책임 층](responsibility-layers.md) — 규칙이 한 층으로 승격되는 자리
+- [지식 수준](knowledge-level.md) — 규칙을 모델 위의 별도 객체 집합으로 올리는 구조
 - [도메인 특화 언어](domain-languages.md) — 같은 저자가 별도 언어를 다루는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 축의 허브
 
-[^evans2003]: Evans 2003, 5장 "A Model Expressed in Software" §Modeling Paradigms
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §"Choosing Appropriate Layers"의 정책 층
+    (pp.462–463) · §"How Restrictive Should a Structure Be?"(p.480) ·
+    5장 "A Model Expressed in Software" §Modeling Paradigms
     (pp.116–122) — 도입(p.116) · §"Why the Object Paradigm Predominates"(pp.116–119,
     객체 데이터베이스 사례 p.118 포함) · §"Nonobjects in an Object World"(pp.119–120) ·
     §"Sticking with MODEL-DRIVEN DESIGN When Mixing Paradigms"(pp.120–122) ·

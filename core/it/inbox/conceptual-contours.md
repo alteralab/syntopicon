@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 개념의 윤곽
-description: 설계 요소를 어느 굵기로 쪼갤지 도메인이 정한다는 패턴의 원전 — 잘게 쪼개기와 크게 묶기와 일관된 입도 셋이 전부 일반 규칙으로는 안 통한다는 판정, 뭉뚱그린 덩어리와 지나친 분해가 각각 잃는 것과 우라늄 반쪽의 비유, 요리책 규칙 대신 도메인의 바탕에 있는 일관성에 기대라는 처방과 결정마다 스스로에게 던지는 한 줄짜리 물음, 변경과 안정의 축을 관찰해 윤곽을 찾으라는 조항, 이것이 기술 중심 리팩터링에서는 나오지 않는다는 단서, 연속 리팩터링이 국소적인가가 모델 적합의 지표라는 계측, 그리고 예상하지 못한 변경이 쉽게 들어맞은 발생 사례
-generated: { by: "claude-opus-5", at: "2026-09-14T12:00:00Z" }
+description: 설계 요소를 어느 굵기로 쪼갤지 도메인이 정한다는 패턴의 원전 — 잘게 쪼개기와 크게 묶기와 일관된 입도 셋이 전부 일반 규칙으로는 안 통한다는 판정, 뭉뚱그린 덩어리와 지나친 분해가 각각 잃는 것과 우라늄 반쪽의 비유, 요리책 규칙 대신 도메인의 바탕에 있는 일관성에 기대라는 처방과 결정마다 스스로에게 던지는 한 줄짜리 물음, 변경과 안정의 축을 관찰해 윤곽을 찾으라는 조항, 이것이 기술 중심 리팩터링에서는 나오지 않는다는 단서, 연속 리팩터링이 국소적인가가 모델 적합의 지표라는 계측, 예상하지 못한 변경이 쉽게 들어맞은 발생 사례, 그리고 같은 잣대가 대규모 구조에도 걸려 층이 변화 속도의 전단을 수용해야 한다는 16장의 확장
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -20,6 +20,7 @@ sources:
 - [모델이 맞는지 재는 계측](#모델이-맞는지-재는-계측)
 - [발생의 윤곽 — 예상하지 못한 변경](#발생의-윤곽--예상하지-못한-변경)
 - [깊이를 잣대로 쓰는 축과 나란히](#깊이를-잣대로-쓰는-축과-나란히)
+- [대규모 구조도 이 윤곽을 향해 간다](#대규모-구조도-이-윤곽을-향해-간다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **클래스와 연산을 어느 굵기로 쪼갤지, 그리고 어디에 결을 낼지를 무엇이
@@ -192,6 +193,39 @@ sources:
   다르므로, 두 잣대가 다른 답을 낼 수 있는 경우가 원리상 존재한다** #hypothesis — 이 소스는 그
   경우를 다루지 않는다.
 
+## 대규모 구조도 이 윤곽을 향해 간다
+
+16장이 이 패턴을 설계 요소의 굵기에서 시스템 전체의 구조로 끌어올린다. **같은 잣대가 층에도
+걸린다.**
+
+- 반복이 구조에서 무엇을 깎아 내는가 (16장, p.445):[^evans2003]
+
+> Through iteration on a real project, a structure will lose features that tightly bind it to a
+> particular model and evolve features that correspond to CONCEPTUAL CONTOURS of the domain.
+
+  - 위 [기술 중심 리팩터링에서는 나오지 않는다](#기술-중심-리팩터링에서는-나오지-않는다)와 같은
+    구조의 주장이다 — 윤곽은 설계자가 고안하는 것이 아니라 반복이 드러내는 것이다.
+- [책임 층](responsibility-layers.md)을 고를 때 지켜야 할 성질 셋 중 하나가 이 패턴의 이름을
+  그대로 쓴다 — **서로 다른 층의 객체가 변화의 속도나 출처가 다르다면, 층이 그 사이의
+  전단(shearing)을 수용한다** (16장, p.461).[^evans2003]
+  - 같은 장이 층을 찾는 표지를 **다른 속도로, 다른 이유로, 독립적으로 변하는 배경**으로
+    규정한다 (16장, p.450).[^evans2003] 위 [조항](#조항)이 요구하는 "변경과 안정의 축"과 같은
+    관찰을 더 큰 단위에 적용한 것이다.
+  - 저자는 공장 자동화 시스템과 투자 은행 시스템 두 판의 도해에서 각 층 옆에 **상태 변화
+    속도**를 적고 그 그림을 "개념적 의존과 전단점"이라 부른다 (16장, pp.463·464, Figure
+    16.13·16.14).[^evans2003] 도판이라 옮기지 않았다.
+- 구조를 여러 번 바꾼 시스템에서 무엇이 드러나는가 (16장, p.483):[^evans2003]
+
+> Ever-increasing knowledge is embedded into them and the principal axes of change have been
+> identified and made flexible, while stable aspects have been simplified. The broader CONCEPTUAL
+> CONTOURS of the underlying domain are emerging in the model structure.
+
+  - **"더 넓은(broader)"이 이 자리의 낱말이다.** 10장의 윤곽은 클래스와 연산의 결이고, 16장의
+    윤곽은 시스템 전체의 결이다. 저자는 둘을 같은 이름으로 부른다.
+  - 이 문장이 나오는 절은 대규모 구조를 여러 번 바꾼 설계가 오히려 바꾸기 쉬워진다는 관찰을
+    다루고, 저자 자신이 그 관찰을 완전히 설명하지 못한다고 적는다 (16장, p.482).[^evans2003]
+    전문은 [대규모 구조](large-scale-structure.md)에 있다.
+
 ## 이어지는 페이지
 
 - [단언](assertions-pattern.md) — 같은 장의 앞 패턴
@@ -203,6 +237,8 @@ sources:
 - [추상화 고르기](../concepts/choosing-abstractions.md) — 어디에 이음매를 낼지를 다른 축에서
   묻는 자리
 - [리팩터링](../concepts/refactoring.md) — 이 패턴이 산물로 삼는 활동의 카탈로그 층
+- [대규모 구조](large-scale-structure.md) — 같은 윤곽을 시스템 전체의 결로 다루는 자리
+- [책임 층](responsibility-layers.md) — 전단을 수용하라는 요구가 층 선택의 기준이 되는 자리
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 더 깊은 통찰로의 리팩터링이 무엇을
   캐내는가
 - [유비쿼터스 언어](../concepts/ubiquitous-language.md) — 이 패턴이 목표로 삼는 진술이 쓰이는 언어
@@ -210,7 +246,10 @@ sources:
   예측하지 않는다는 같은 태도를 다른 축에서 다루는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 10장 "Supple Design" §CONCEPTUAL CONTOURS(pp.260–264). 쪽은
+[^evans2003]: Evans 2003, 10장 "Supple Design" §CONCEPTUAL CONTOURS(pp.260–264) ·
+    16장 "Large-Scale Structure"(§EVOLVING ORDER p.445 · §RESPONSIBILITY LAYERS p.450과
+    §"Choosing Appropriate Layers" pp.461·463–464 · §"Restructuring Yields Supple Design"
+    pp.482–483). 쪽은
     인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를
     직인용에서 유지했다. 저자가 대는 앞선 출처는 완전한 값 패턴의 Ward Cunningham이고,
     대규모 구조의 응집도와 결합도는 이 책 16장으로 미룬다. 이 절에는 코드가 없다 —

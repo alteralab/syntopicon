@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 유비쿼터스 언어
-description: 도메인 모델을 팀의 공용어로 삼는다는 패턴의 원전 — 언어가 갈라졌을 때 번역이 무는 비용, 그 공용어의 어휘가 클래스와 연산의 이름이라는 규정, 언어를 바꾸는 것이 곧 모델을 바꾸는 것이라는 조항, 말로 모델을 실험하라는 부칙, 한 팀 한 언어와 개발자용 방언의 경계, 문서와 다이어그램이 이 언어에 대해 갖는 지위, 코드가 이 언어로 쓰여야 한다는 요구와 코드만으로는 부족한 이유, 그리고 이 어휘가 클래스와 연산을 넘어 서비스와 모듈 이름까지 걸리며 패러다임이 섞인 설계를 붙들어 두는 유일한 수단이 된다는 확장
-generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
+description: 도메인 모델을 팀의 공용어로 삼는다는 패턴의 원전 — 언어가 갈라졌을 때 번역이 무는 비용, 그 공용어의 어휘가 클래스와 연산의 이름이라는 규정, 언어를 바꾸는 것이 곧 모델을 바꾸는 것이라는 조항, 말로 모델을 실험하라는 부칙, 한 팀 한 언어와 개발자용 방언의 경계, 문서와 다이어그램이 이 언어에 대해 갖는 지위, 코드가 이 언어로 쓰여야 한다는 요구와 코드만으로는 부족한 이유, 그리고 이 어휘가 클래스와 연산을 넘어 서비스와 모듈 이름까지 걸리며 패러다임이 섞인 설계를 붙들어 두는 유일한 수단이 된다는 확장, 그리고 대규모 구조는 코드가 증언해 주지 않아 이 언어가 유일한 집행 수단이 되며 XP의 시스템 은유 자리를 이 언어가 채울 수 있다는 16장의 확장
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -24,6 +24,7 @@ sources:
 - [패러다임이 섞일 때 남는 유일한 수단](#패러다임이-섞일-때-남는-유일한-수단)
 - [이 언어의 유효 범위](#이-언어의-유효-범위)
 - [빌려 온 낱말을 다룰 때의 두 의무](#빌려-온-낱말을-다룰-때의-두-의무)
+- [대규모 구조의 낱말도 이 언어에 든다](#대규모-구조의-낱말도-이-언어에-든다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **팀이 쓰는 말을 무엇으로 정하고, 그 말이 코드와 어떻게 묶이는가.**
@@ -319,6 +320,44 @@ sources:
     [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에 있다.
 - 빌려 오는 절차의 전문은 [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md)에 있다.
 
+## 대규모 구조의 낱말도 이 언어에 든다
+
+16장이 [대규모 구조](large-scale-structure.md)를 이 언어에 넣으라고 요구하는데, **다른 요소와
+달리 이 경우에는 언어가 유일한 집행 수단이다.**
+
+- 요구 (16장, p.482):[^evans2003]
+
+> The entire team must follow the structure in new development and refactoring. To do this, the
+> structure must be understood by the entire team. The terminology and relationships must enter
+> the UBIQUITOUS LANGUAGE.
+
+- **왜 언어에 기댈 수밖에 없는가**가 같은 절에 적힌다 — **구조가 모델이나 구현의 세부와 맺는
+  관계는 보통 코드에 명시되지 않고, 기능 테스트는 구조에 의존하지 않는다.** 게다가 구조는
+  추상적이라 큰 팀에 걸쳐 일관되게 적용하기 어렵다. **일관되게 지키지 않으면 구조는 부패하는
+  경향이 있다** (16장, p.482).[^evans2003]
+  - 위 [코드가 이 언어로 쓰여야 한다는 요구](#코드가-이-언어로-쓰여야-한다는-요구)가 걸리지
+    않는 자리다. 대규모 구조는 코드 안의 산물이 아니므로 코드가 그것을 증언해 주지 않는다.
+- 그래서 대화만으로는 모자라다고 못 박는다 — **대부분의 팀에서 오가는 종류의 대화로는 시스템
+  안에 일관된 대규모 구조를 유지하기에 충분하지 않다. 그것을 프로젝트의 유비쿼터스 언어에 넣고
+  모두가 그 언어를 끈질기게 쓰는 것이 결정적이다** (16장, p.482).[^evans2003]
+- [시스템 은유](system-metaphor.md)의 처방도 같은 동작을 요구한다 — **이 은유를 중심으로 설계를
+  조직하고 그것을 유비쿼터스 언어에 흡수하라** (16장, p.448).[^evans2003]
+- **그리고 이 언어가 은유의 자리를 대신할 수 있다고 적힌다** (16장, p.449):[^evans2003]
+
+> In the 12 practices of Extreme Programming, the role of a SYSTEM METAPHOR could be fulfilled by
+> a UBIQUITOUS LANGUAGE. Projects should augment that LANGUAGE with SYSTEM METAPHORS or other
+> large-scale structures when they find one that fits well.
+
+  - 그 문단은 성숙한 도메인 모델을 "순진한 은유"라 부르는 용어를 기각하면서 나온다. 근거가
+    이 페이지와 이어진다 — 성숙한 모델은 **도메인 전문가와의 여러 차례 지식 정련의 산물이고
+    동작하는 애플리케이션의 구현에 단단히 엮여 검증된** 것이다 (16장, pp.448–449).[^evans2003]
+- 같은 장의 [지식 수준](knowledge-level.md) 예제에 위
+  [설계에 없는 낱말이 알려 주는 것](#설계에-없는-낱말이-알려-주는-것)의 실물이 하나 더 있다.
+  팀이 요구를 진술하며 쓴 문장에 모델에 없는 낱말 `payroll`이 들어 있었고, 한 개발자가 그것을
+  이렇게 진단한다 — **그것은 실은 유비쿼터스 언어의 진술이 아니었다. 모델에 "payroll"이 없었다.
+  그들은 가진 언어가 아니라 원하는 언어로 말하고 있었다** (16장, p.472).[^evans2003]
+  - 그 알아차림이 `Payroll`을 `Employee Type`에서 떼어 내는 리팩터링으로 이어진다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](../concepts/model-driven-design.md) — 이 언어가 코드와 묶이는 방식. 이 패턴의 짝
@@ -336,6 +375,9 @@ sources:
 - [도메인 서비스](domain-services.md) — 연산 이름이 이 언어에서 와야 하는 자리
 - [도메인의 모듈](modules-in-the-domain.md) — 패키지 이름이 이 언어에 드는 자리
 - [모델링 패러다임](modeling-paradigms.md) — 이 언어가 이질적인 구현들을 잇는 자리
+- [대규모 구조](large-scale-structure.md) — 이 언어가 유일한 집행 수단이 되는 자리
+- [시스템 은유](system-metaphor.md) — 이 언어에 흡수되어야 하는 것이자 이 언어가 대신할 수 있는 것
+- [지식 수준](knowledge-level.md) — 모델에 없는 낱말이 개념을 불러낸 또 하나의 사례
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 같은 발상이 파이썬 실물로 내려온 자리
 - [개발자의 소통](../concepts/developer-communication.md) — 팀 어휘를 다루는 층
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
@@ -350,7 +392,10 @@ sources:
     (§Listen to Language pp.206–207 · 예제 "Hearing a Missing Concept in the Shipping
     Model" p.210 · 예제 "Earning Interest the Hard Way" p.215) ·
     5장 "A Model Expressed in Software"(§SERVICES pp.105–106 · §MODULES pp.110–111 ·
-    §Modeling Paradigms pp.121–122). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    §Modeling Paradigms pp.121–122) ·
+    16장 "Large-Scale Structure"(§SYSTEM METAPHOR의 처방 p.448과 §"The 'Naive Metaphor' and
+    Why We Don't Need It" pp.448–449 · §KNOWLEDGE LEVEL 예제 Part 2 p.472 ·
+    §"Communication and Self-Discipline" p.482). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 화물 라우터 대화 예제
     (Figure 2.1·2.2, pp.28–29)와 설명 모델 예제(Figure 2.4·2.5, pp.42–43)는 도판과
     대화가 한 덩어리라 산문 서술로만 옮겼다.

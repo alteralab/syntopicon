@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 층을 잇는 법과 아키텍처 프레임워크
-description: 층을 나눈 다음의 문제 — 위로 향하는 소통에 콜백과 옵저버가 필요한 이유, 사용자 인터페이스를 잇는 패턴 계보와 어느 방식이든 도메인 층의 격리만 지키면 된다는 판정, 기반 구조가 도메인 층을 먼저 부르지 않는다는 방향 규칙과 메시지 발송 예제가 보여 주는 "언제"와 "어떻게"의 분담, 서비스로 부를 수 없는 기반 구조인 아키텍처 프레임워크의 정의와 그것이 다른 층의 설계를 구속하는 방식, 상속 방향과 층 방향이 어긋나 보이는 자리의 판정 기준, 프레임워크를 목적에 맞게 선택적으로만 쓰라는 조항과 그 이유 둘, 그리고 2003년 J2EE 예시가 시점 서술인 이유
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+description: 층을 나눈 다음의 문제 — 위로 향하는 소통에 콜백과 옵저버가 필요한 이유, 사용자 인터페이스를 잇는 패턴 계보와 어느 방식이든 도메인 층의 격리만 지키면 된다는 판정, 기반 구조가 도메인 층을 먼저 부르지 않는다는 방향 규칙과 메시지 발송 예제가 보여 주는 "언제"와 "어떻게"의 분담, 서비스로 부를 수 없는 기반 구조인 아키텍처 프레임워크의 정의와 그것이 다른 층의 설계를 구속하는 방식, 상속 방향과 층 방향이 어긋나 보이는 자리의 판정 기준, 프레임워크를 목적에 맞게 선택적으로만 쓰라는 조항과 그 이유 둘, 그리고 2003년 J2EE 예시가 시점 서술인 이유, 그리고 16장의 플러그인 컴포넌트 프레임워크가 이름과 달리 기술 프레임워크가 아니라 책임의 개념적 조직이라는 같은 기준
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -17,6 +17,7 @@ sources:
 - [프레임워크가 다른 층을 구속하는 방식](#프레임워크가-다른-층을-구속하는-방식)
 - [선택적으로만 쓰라](#선택적으로만-쓰라)
 - [2003년의 예시를 읽는 법](#2003년의-예시를-읽는-법)
+- [플러그인 프레임워크는 기술 프레임워크가 아니다](#플러그인-프레임워크는-기술-프레임워크가-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **층을 갈라 놓고 나서 그 층들을 다시 잇되, 가른 이득을 잃지 않으려면 무엇을
@@ -145,18 +146,49 @@ sources:
   저쪽은 "기본은 손으로, 필요하면"** 이라 강조점이 다르다. 저자들이 서로를 대조한 적이 없어
   가설로 적는다.
 
+## 플러그인 프레임워크는 기술 프레임워크가 아니다
+
+16장의 [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md)는 이름에 "프레임워크"가
+들어가지만 **이 페이지의 조항과 같은 편에 선다.**
+
+- 판정 (16장, p.475):[^evans2003]
+
+> Several widely used technical frameworks support this pattern, but that is a secondary issue.
+> A technical framework is needed only if it solves some essential technical problem such as
+> distribution, or sharing a component among different applications. The basic pattern is a
+> conceptual organization of responsibilities. It can easily be applied within a single Java
+> program.
+
+  - 위 [선택적으로만 쓰라](#선택적으로만-쓰라)와 같은 기준이다 — **기술 프레임워크는 본질적
+    기술 문제를 풀 때만 필요하다.** 대규모 구조 쪽의 값은 개념의 조직에 있다.
+- 그 구분이 실물로 확인되는 자리가 SEMATECH CIM 사례다. 그 프레임워크는 **영속성과 트랜잭션과
+  이벤트와 그 밖의 기술 서비스를 제공하기 위해 CORBA에 단단히 결합되어 있다.** 그런데 저자가
+  흥미롭다고 말하는 것은 그 결합이 아니라 **플러그인 컴포넌트 프레임워크의 정의이고, 그것이
+  사람들로 하여금 독립적으로 소프트웨어를 개발해 거대한 시스템에 매끄럽게 통합하게 한다**는
+  점이다 (16장, p.478).[^evans2003]
+  - 위 [2003년의 예시를 읽는 법](#2003년의-예시를-읽는-법)이 이 자리에도 걸린다. CORBA는 낡았고
+    판정은 남는다.
+- 같은 장의 다른 절이 프레임워크를 짓고 싶은 유혹 자체를 경계한다 — **프레임워크를 짓고 대규모
+  구조의 구현을 규율하려는 유혹과 싸워야 한다. 대규모 구조의 가장 중요한 기여는 개념적
+  정합성이고 도메인에 대한 통찰을 주는 것이다** (16장, p.481).[^evans2003]
+
 ## 이어지는 페이지
 
 - [계층 아키텍처](layered-architecture.md) — 이 페이지가 이어받는 조항
 - [스마트 UI 안티패턴](smart-ui-antipattern.md) — 같은 장의 다음 절. 층을 나누지 않는 길
 - [도메인 서비스](domain-services.md) — 서비스라는 낱말이 층마다 갈리는 자리
 - [모델 주도 설계](model-driven-design.md) — 프레임워크 최소주의가 지키려는 것
+- [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md) — 같은 기준이 대규모 구조에
+  적용되는 자리
+- [대규모 구조](large-scale-structure.md) — 그 패턴이 속한 층위
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 프레임워크를
   쓸지 말지를 파이썬 실물로 판정하는 자리
 - [정보 은닉과 누출](information-hiding-and-leakage.md) — 서비스 인터페이스가 무엇을 감추는가
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 4장 "Isolating the Domain" §Relating the Layers(pp.72–74) ·
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §PLUGGABLE COMPONENT FRAMEWORK
+    (pp.475·478)과 §"How Restrictive Should a Structure Be?"(p.481) ·
+    4장 "Isolating the Domain" §Relating the Layers(pp.72–74) ·
     §Architectural Frameworks(pp.74–75). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 저자가 가리키는 서지
     (Gamma et al. 1995 · Fowler 2003 · Larman 1998)는 이름만 옮기고 내용은 옮기지 않았다.

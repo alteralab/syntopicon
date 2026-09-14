@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 깊은 모델과 돌파
-description: 리팩터링에 층위가 있다는 구분과 도메인 통찰이 이끄는 리팩터링이 카탈로그로 정리될 수 없는 이유, 깊은 모델의 정의와 그것이 추상을 뜻하지 않는다는 단서, 처음 떠오르는 모델이 얕은 이유를 보이는 선박과 컨테이너 사례, 깊은 모델과 유연한 설계가 서로를 먹여 살리는 되먹임, 돌파가 기법이 아니라 사건이라는 규정과 대출 신디케이션 사례가 보여 주는 도약의 모양, 도약을 결정할 때 던진 물음 넷과 그 위험, 그리고 돌파를 노리지 말고 예측 가능한 지렛대에 힘을 쏟으라는 처방
-generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
+description: 리팩터링에 층위가 있다는 구분과 도메인 통찰이 이끄는 리팩터링이 카탈로그로 정리될 수 없는 이유, 깊은 모델의 정의와 그것이 추상을 뜻하지 않는다는 단서, 처음 떠오르는 모델이 얕은 이유를 보이는 선박과 컨테이너 사례, 깊은 모델과 유연한 설계가 서로를 먹여 살리는 되먹임, 돌파가 기법이 아니라 사건이라는 규정과 대출 신디케이션 사례가 보여 주는 도약의 모양, 도약을 결정할 때 던진 물음 넷과 그 위험, 그리고 돌파를 노리지 말고 예측 가능한 지렛대에 힘을 쏟으라는 처방, 그리고 대규모 구조가 모델을 명료한 쪽으로 밀면서도 플러그인 프레임워크에서는 핵심의 정련을 멈춰 세운다는 16장의 양방향
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -24,6 +24,7 @@ sources:
 - ["깊은 모델"과 "깊은 모듈"은 다른 말이다](#깊은-모델과-깊은-모듈은-다른-말이다)
 - [증류가 이 모델을 향해 몰아간다](#증류가-이-모델을-향해-몰아간다)
 - [통일은 새 모델을 만드는 일이다](#통일은-새-모델을-만드는-일이다)
+- [대규모 구조가 모델을 더 명료한 쪽으로 민다](#대규모-구조가-모델을-더-명료한-쪽으로-민다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모델을 고쳐 나가는 일이 겨냥하는 종착점은 무엇이고, 그것은 어떤 모양으로
@@ -360,6 +361,34 @@ III부를 닫는 13장이 같은 사건을 사례가 아니라 **리듬**으로 
     [컨텍스트 전략과 변환](context-strategy-and-transformations.md)의 공유 커널 병합이 은어가
     갈린 하위 도메인을 미루는 이유가 이것이다.
 
+## 대규모 구조가 모델을 더 명료한 쪽으로 민다
+
+16장이 이 페이지의 대상에 대해 두 방향의 관계를 적는다 — **구조가 모델을 깊게 하는 쪽**과
+**깊은 모델이 있어야 구조가 서는 쪽.**
+
+- 앞쪽. 화물 운송 모델에 층을 입히자 "is preferred" 속성이 정책 객체로 떨어져 나오고, 저자가
+  일반화한다 (16장, p.456):[^evans2003]
+
+> A large-scale structure based on a deep understanding of the domain will often push the model
+> in directions that clarify its meaning.
+
+  - 위 [깊은 모델과 유연한 설계는 서로를 먹인다](#깊은-모델과-유연한-설계는-서로를-먹인다)와
+    같은 형태의 되먹임이 한 층 위에서 일어난다.
+- 뒤쪽. [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md)는 **깊고 증류된 아주
+  성숙한 모델**을 전제로 하고, 적용이 어려운 이유 중 하나로 **추상 핵심에 필요한 행동을 담을
+  만큼 깊은 모델**을 요구한다는 점이 꼽힌다 (16장, pp.475–476).[^evans2003]
+  - 그리고 그 구조는 반대로 돌파를 막는다 — **핵심의 지속적 정련, 더 깊은 통찰로의 리팩터링이
+    거의 멈춰 선다** (16장, p.476).[^evans2003] 위
+    [돌파는 기법이 아니라 사건이다](#돌파는-기법이-아니라-사건이다)가 기다리는 사건이 구조에
+    의해 차단될 수 있다는 기록이다.
+- 구조 자체도 얕게 시작해 깊어진다 — **층은 처음에는 도메인에 대한 피상적 이해에 근거해
+  골라지고, 시스템의 근본 책임을 표현하는 더 깊은 추상으로 점차 대체된다** (16장,
+  p.483).[^evans2003] 위 [처음 떠오르는 모델은 왜 얕은가](#처음-떠오르는-모델은-왜-얕은가)와
+  같은 진행이다.
+- 구조를 여러 번 바꾼 설계에서 무엇이 남는지도 적힌다 — **점점 늘어나는 지식이 거기 박히고
+  변화의 주축이 식별되어 유연해지며 안정된 국면은 단순해진다** (16장, p.483).[^evans2003]
+  저자 자신이 이 관찰을 완전히 설명하지 못한다고 적는다 (16장, p.482).[^evans2003]
+
 ## 이어지는 페이지
 
 - [지식 정련](knowledge-crunching.md) — 깊은 모델이 나오는 과정의 이름
@@ -368,12 +397,17 @@ III부를 닫는 13장이 같은 사건을 사례가 아니라 **리듬**으로 
 - [개념적 윤곽](conceptual-contours.md) — 유연한 설계 쪽 다리
 - [모델 주도 설계](model-driven-design.md) — 두 다리로 선다고 말한 그 설계
 - [핵심 도메인](core-domain.md) — 기본기 넷 중 증류
+- [대규모 구조](large-scale-structure.md) — 모델을 명료한 쪽으로 미는 또 하나의 힘
+- [플러그인 컴포넌트 프레임워크](pluggable-component-framework.md) — 깊은 모델을 요구하면서
+  그 이상의 정련을 멈춰 세우는 구조
 - [유비쿼터스 언어](ubiquitous-language.md) — 돌파가 도착했음을 알려 주는 계측기
 - [리팩터링](../concepts/refactoring.md) — 저자가 "미시 리팩터링"이라 부르는 층위의 정본
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 같은 형용사를 쓰는 다른 개념
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 13장 "Refactoring Toward Deeper Insight"
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure"(§RESPONSIBILITY LAYERS 예제 p.456 ·
+    §PLUGGABLE COMPONENT FRAMEWORK pp.475–476 · §"Refactoring Toward a Fitting Structure"
+    pp.482–483) · 13장 "Refactoring Toward Deeper Insight"
     §"Crisis as Opportunity"(pp.325–326) · III부 "Refactoring Toward Deeper Insight" 도입(pp.187–192 —
     §Levels of Refactoring · §Deep Models · §Deep Model/Supple Design · §The Discovery
     Process) · 8장 "Breakthrough"(pp.193–204 — §Story of a Breakthrough · §The Breakthrough ·
