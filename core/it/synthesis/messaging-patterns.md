@@ -164,6 +164,9 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
   선택에 들어오는 축
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 메시지 어휘를
   경계 컨텍스트 사이 통합의 문제로 세우고 이벤트를 세 종류로 가르는 쪽
+- [마이크로서비스 인터페이스 기술의 다섯 조건](../concepts/microservice-interface-criteria.md)
+  — 메시지 브로커를 포함한 통신 기술 넷을 고르기 전에 그 기술에 요구할 것을 적어 두는
+  체크리스트
 - [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 같은 선택을
   마이크로서비스 사이 통신의 문제로 세우고 다섯 스타일로 가르는 쪽. 이 카탈로그의 네 통합
   스타일이 그 다섯으로 어떻게 대응하는지는

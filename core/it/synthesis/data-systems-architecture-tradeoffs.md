@@ -45,6 +45,7 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [마이크로서비스 경계의 대안 넷](../concepts/microservice-boundary-alternatives.md) — 업무 도메인 말고 무엇으로 가를 수 있는가(변동성·데이터·기술·조직)와 섞어 쓰기
 - [서비스 결합의 네 종류](../concepts/service-coupling-types.md) — 서비스 경계를 넘는 결합의 목록과 무엇이 불가피하고 무엇이 병리적인가
 - [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 쪼갠 서비스들이 무엇으로 말하는가. 동기 블로킹·비동기 논블로킹·요청-응답·이벤트 주도·공통 데이터라는 다섯과 각각을 언제 고르는가
+- [마이크로서비스 인터페이스 기술의 다섯 조건](../concepts/microservice-interface-criteria.md) — 스타일을 정한 다음 기술에 요구할 것들. 후진 호환·명시적 인터페이스·기술 중립·소비자 편의·내부 은닉
 - [모놀리스 분해 패턴](../concepts/monolith-decomposition-patterns.md) — 쪼개기로 했을 때 무엇을 먼저 뽑고 어떤 장치로 옮기는가. 교살자 무화과·병행 운영·기능 토글
 - [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 데이터베이스를 쪼개면 깨지는 것들(조인·무결성·트랜잭션·도구)과 리포팅 데이터베이스
 

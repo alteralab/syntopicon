@@ -458,6 +458,9 @@ p.93).[^newman2021]
   물음에 2003년이 답한 넷. 이 페이지의 다섯과 대응 관계가 그 페이지에 있다.
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 이벤트에 무엇을
   담는가와 이벤트의 세 종류.
+- [마이크로서비스 인터페이스 기술의 다섯 조건](microservice-interface-criteria.md) — 이
+  스타일을 정한 다음 그것을 구현할 기술에 요구할 것들. 이 장이 미룬 기술 선택이 그 자로
+  걸린다.
 - [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) — 프로세스 안
   호출과 프로세스 사이 호출이 갈리는 지점의 본체.
 - [서비스 결합의 네 종류](service-coupling-types.md) — 이 장이 되부르는 시간적 결합·공통
