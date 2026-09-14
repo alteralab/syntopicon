@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 있는 시스템에 이 구조 들이기
-description: 이미 진흙 공이 된 시스템에서 이 패턴들을 조금씩 들이는 절차와 그 실전 회고 — 먼저 어떤 문제를 풀려는지 정하고 기능 작업에 묶어 파는 판단, 사용 사례를 명령형 이름으로 뽑아 서비스 레이어부터 만드는 첫 걸음과 중복을 허용하라는 지침, 양방향 링크를 식별자로 바꿔 애그리게이트를 갈라내는 수순, 이벤트 가로채기와 교살자 무화과 패턴으로 기능을 옮기는 세 단계, 이해관계자를 설득하는 방법으로서의 도메인 모델링, 기술 감수자가 남긴 "작게 시작하라"는 회고, 그리고 저자들이 답한 질문 일곱
+description: 이미 진흙 공이 된 시스템에서 이 패턴들을 조금씩 들이는 절차와 그 실전 회고 — 먼저 어떤 문제를 풀려는지 정하고 기능 작업에 묶어 파는 판단, 사용 사례를 명령형 이름으로 뽑아 서비스 레이어부터 만드는 첫 걸음과 중복을 허용하라는 지침, 양방향 링크를 식별자로 바꿔 애그리게이트를 갈라내는 수순, 이벤트 가로채기와 교살자 무화과 패턴으로 기능을 옮기는 세 단계, 이해관계자를 설득하는 방법으로서의 도메인 모델링, 기술 감수자가 남긴 "작게 시작하라"는 회고, 저자들이 답한 질문 일곱, 그리고 점진적 성장이 마스터 플랜보다 나은 이유를 대는 크리스토퍼 알렉산더 인용과 이 방법론을 "제3의 길"로 요약하는 원전의 맺음
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
 status: draft
 sources:
@@ -21,6 +21,7 @@ sources:
 - [부록 둘 — 프로젝트 구조와 인프라 맞바꾸기](#부록-둘--프로젝트-구조와-인프라-맞바꾸기)
 - [이행이 불가능하다고 적은 소스](#이행이-불가능하다고-적은-소스)
 - [레거시를 반복마다 걷어 내는 다른 소스](#레거시를-반복마다-걷어-내는-다른-소스)
+- [점진적 성장이라는 이름의 앞선 논거](#점진적-성장이라는-이름의-앞선-논거)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **그린필드가 아니라 이미 얽혀 있는 코드베이스에서 이 패턴들을 어디서부터
@@ -334,6 +335,43 @@ Evans 2003의 14장이 같은 문제에 다른 어휘로 답한다. 위
   pp.388–389).[^evans2003] 전문은
   [컨텍스트 전략과 변환](context-strategy-and-transformations.md)에 있다.
 
+## 점진적 성장이라는 이름의 앞선 논거
+
+같은 소스의 마지막 장이 이 페이지의 절차에 **왜 그렇게 해야 하는가**를 대는 바깥 논거를 하나
+들여온다. 절차를 더하지는 않고 근거만 준다.
+
+- 저자가 인용하는 것은 건축 쪽이다 — 크리스토퍼 알렉산더(Christopher Alexander)가 이끄는 건축가
+  집단이 건축과 도시 계획에서 **점진적 성장**(piecemeal growth)을 옹호하며 **마스터 플랜이 왜
+  실패하는지를 아주 잘 설명했다**는 것이다 (17장, pp.496–497).[^evans2003]
+- 인용된 진단의 한 줄 (17장, p.497):[^evans2003]
+
+> . . . in practice master plans fail—because they create totalitarian order, not organic order.
+> They are too rigid; they cannot easily adapt to the natural and unpredictable changes that
+> inevitably arise in the life of a community.
+
+- 대안의 형식이 이 페이지의 형식과 같다 (17장, p.497):[^evans2003]
+
+> Alexander and his colleagues advocated instead *a set of principles* for all community members
+> to apply to every act of piecemeal growth, so that "organic order" emerges, well adapted to
+> circumstances.
+
+  - **위 [작게 시작하라 — 기술 감수자의 회고](#작게-시작하라--기술-감수자의-회고)와 같은
+    처방이고 논거의 출처가 다르다.** 그쪽은 실전에서 큰 변경이 팀을 멈춰 세운 경험이고, 이쪽은
+    전체를 앞서 정하는 계획이 구조적으로 실패한다는 도시 계획 쪽 관찰이다.
+- **그러나 두 페이지의 물음은 여전히 다르다.** 이 페이지는 **이미 있는 레거시에 구조를 점진적으로
+  들이는 절차**를 묻고, 저 인용은 **처음부터 전체를 굳히지 말라**는 조항이다. 같은 낱말을 쓰되
+  적용 시점이 다르므로 이 절은 절차를 고치지 않고 논거만 옮긴다.
+- 저자 자신이 책을 닫으면서 이 방법론을 그 낱말로 요약한다 (결론, p.504):[^evans2003]
+
+> There is a third way. Domain-driven design allows piecemeal growth of big systems with rich
+> functionality, by building on a deep model and supple design.
+
+  - 그 "제3의 길"이 갈라서는 두 길은 **야심 찬 통합 시스템**과 **어떻게 전달할지 아는 작은
+    애플리케이션들**이다. 저자는 뒤엣것에 자리가 있다고 인정하면서도 **통합된 모델 주도 시스템이
+    그 누더기가 줄 수 없는 값을 약속한다**고 적는다 (결론, p.504).[^evans2003]
+- 구조를 미리 굳히지 말라는 조항의 전문은 [질서의 진화](evolving-order.md)에, 마스터 플랜 인용의
+  전문은 [전략 설계 결정하기](strategic-decision-making.md)에 있다.
+
 ## 이어지는 페이지
 
 - [스마트 UI 안티패턴](smart-ui-antipattern.md) — 이 절차가 불가능하다고 적은 경우
@@ -346,6 +384,8 @@ Evans 2003의 14장이 같은 문제에 다른 어휘로 답한다. 위
 - [리포지터리 패턴](repository-pattern.md) — 부록 C가 시험하는 주장
 - [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 같은 레거시 문제를 다른
   소스가 다루는 자리
+- [질서의 진화](evolving-order.md) — 처음부터 구조를 굳히지 말라는 쪽의 조항
+- [전략 설계 결정하기](strategic-decision-making.md) — 마스터 플랜 인용의 전문
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
 
@@ -361,5 +401,9 @@ Evans 2003의 14장이 같은 문제에 다른 어휘로 답한다. 위
 
 [^evans2003]: Evans 2003, 4장 "Isolating the Domain" §THE SMART UI "ANTI-PATTERN"(p.78) ·
     14장 "Maintaining Model Integrity" §Transformations 중 §"Phasing Out a Legacy System"
-    (pp.393–394) · §"When Your Project Is Already Under Way"(pp.388–389).
+    (pp.393–394) · §"When Your Project Is Already Under Way"(pp.388–389) ·
+    17장 "Bringing the Strategy Together" §"Beware the Master Plan"(pp.496–497) ·
+    결론 "Conclusion" §Epilogues(p.504). 마스터 플랜 절의 인용문은 이 책이 Alexander et al.
+    1975, *The Oregon Experiment*, pp.16–28에서 옮겨 실은 것이고, 이 페이지는 그 재인용을 이
+    책의 쪽으로 단다 — 원전을 직접 확인하지 않았다.
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 이 소스에서 온 코드 펜스는 이 페이지에 없다.

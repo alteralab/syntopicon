@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 질서의 진화
-description: 대규모 구조를 미리 정해 놓지 말고 애플리케이션과 함께 진화시키라는 이 소스의 메타 조항 — 규칙의 존재가 아니라 그 경직성과 출처가 문제라는 진단, 앞서 굳힌 아키텍처가 구속복이 되고 개발자가 그것에 맞춰 애플리케이션을 멍청하게 만들거나 뒤엎어 버린다는 두 결말, 구조를 고르는 것이 전체의 관리 가능성을 개별 부분의 최적 구성보다 앞세우는 선택이라는 계산, 구조는 여러 경계 컨텍스트에 걸쳐 쓸 수 있어야 하고 통제 밖의 레거시 같은 현실적 제약을 수용해야 한다는 요구, 컨텍스트 지도와 달리 선택 사항이라는 판정, 그리고 맞지 않는 구조는 없는 것보다 나쁘니 최소한만 찾으라는 "적을수록 낫다"
+description: 대규모 구조를 미리 정해 놓지 말고 애플리케이션과 함께 진화시키라는 이 소스의 메타 조항 — 규칙의 존재가 아니라 그 경직성과 출처가 문제라는 진단, 앞서 굳힌 아키텍처가 구속복이 되고 개발자가 그것에 맞춰 애플리케이션을 멍청하게 만들거나 뒤엎어 버린다는 두 결말, 구조를 고르는 것이 전체의 관리 가능성을 개별 부분의 최적 구성보다 앞세우는 선택이라는 계산, 구조는 여러 경계 컨텍스트에 걸쳐 쓸 수 있어야 하고 통제 밖의 레거시 같은 현실적 제약을 수용해야 한다는 요구, 컨텍스트 지도와 달리 선택 사항이라는 판정, 그리고 맞지 않는 구조는 없는 것보다 나쁘니 최소한만 찾으라는 "적을수록 낫다", 마스터 플랜이 전체주의적 질서를 만들고 전체는 과하게 정밀하되 세부는 모자라며 사용자를 소외시킨다는 크리스토퍼 알렉산더의 진단과 점진적 성장을 위한 원칙 집합이라는 대안, 그리고 이 조항이 중앙 권위 없이 굴러가는 팀의 작동 방식으로 읽히는 17장의 자리
 generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
@@ -18,6 +18,8 @@ sources:
 - [구조는 경계를 가로질러야 하고 현실을 수용해야 한다](#구조는-경계를-가로질러야-하고-현실을-수용해야-한다)
 - [선택 사항이고, 적을수록 낫다](#선택-사항이고-적을수록-낫다)
 - [예외는 표시하되 많아지면 구조를 버린다](#예외는-표시하되-많아지면-구조를-버린다)
+- [마스터 플랜이 실패하는 이유](#마스터-플랜이-실패하는-이유)
+- [이 조항이 조직의 작동 방식이 되는 자리](#이-조항이-조직의-작동-방식이-되는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **전체를 규율하는 규칙을 언제 정하는가 — 시작할 때인가, 아니면 아는 만큼
@@ -160,6 +162,61 @@ sources:
   많이 강요한다면 질서의 진화에 따라 평가해 수정하거나 폐기해야 한다** (16장,
   p.460).[^evans2003]
 
+## 마스터 플랜이 실패하는 이유
+
+17장이 이 조항의 바깥 논거로 건축 쪽 선례를 인용한다. 크리스토퍼 알렉산더(Christopher
+Alexander)가 이끄는 건축가 집단이 건축과 도시 계획에서 **점진적 성장**(piecemeal growth)을
+옹호하며 마스터 플랜의 실패를 설명한 대목이다 (17장, pp.496–497).[^evans2003]
+
+인용된 진단 셋이다. 원전은 Alexander et al. 1975, *The Oregon Experiment*, pp.16–28이고 이
+책이 그것을 옮겨 싣는다 (17장, p.497):[^evans2003]
+
+> . . . in practice master plans fail—because they create totalitarian order, not organic order.
+> They are too rigid; they cannot easily adapt to the natural and unpredictable changes that
+> inevitably arise in the life of a community.
+
+> . . . Thus, as a source of organic order, a master plan is both too precise, and not precise
+> enough. The totality is too precise: the details are not precise enough.
+
+> . . . the existence of a master plan alienates the users [because, by definition] the members
+> of the community can have little impact on the future shape of their community because most of
+> the important decisions have already been made.
+
+- **셋이 위의 세 절과 하나씩 대응한다.** 첫째 진단의 경직성은 위
+  [앞서 굳힌 구조가 무엇을 앗아 가는가](#앞서-굳힌-구조가-무엇을-앗아-가는가)와, 둘째 진단의
+  "전체는 과하게 정밀하고 세부는 모자라다"는 위 [문제는 규칙의 존재가 아니다](#문제는-규칙의-존재가-아니다)와,
+  셋째 진단의 소외는 위 [무엇과 무엇을 맞바꾸는가](#무엇과-무엇을-맞바꾸는가)가 계상한
+  개발자 쪽 손실과 같은 자리다.
+- 그러나 **계획 자체를 기각하는 인용이 아니다.** 같은 인용문이 계획 과정이 아예 없으면 케임브리지
+  대학 같은 깊고 조화로운 질서에 이를 가망이 없다고 적고, 마스터 플랜이 전체의 일관성을 주면서도
+  개별 건물이 지역의 필요에 적응할 자유를 남기려는 시도였다고 적는다 (17장,
+  p.497).[^evans2003] 위 [무질서와 구속복 사이](#무질서와-구속복-사이)가 놓은 양 끝과 같은 구도다.
+- 대안이 이 조항의 형식과 같다 (17장, p.497):[^evans2003]
+
+> Alexander and his colleagues advocated instead *a set of principles* for all community members
+> to apply to every act of piecemeal growth, so that "organic order" emerges, well adapted to
+> circumstances.
+
+  - **전체를 앞서 그리는 대신 모든 구성원이 매번의 성장 행위에 적용할 원칙 집합을 둔다** —
+    이것이 이 패턴의 형식 그대로다. 위 [조항](#조항)이 "규칙을 애플리케이션과 함께 진화시키라"고
+    적은 것의 도시 계획 판본이다.
+
+## 이 조항이 조직의 작동 방식이 되는 자리
+
+17장은 이 패턴을 설계 조항으로만이 아니라 **의사 결정 구조**로 읽는다.
+
+- 첫째 방식의 규정 (17장, p.491):[^evans2003]
+
+> A self-disciplined team made up of very good communicators can operate without central
+> authority and follow EVOLVING ORDER to arrive at a shared set of principles, so that order
+> grows organically, not by fiat.
+
+- 그리고 전략 설계 의사 결정의 여섯 필수 가운데 셋째가 이 패턴을 그대로 호명한다 — **계획은
+  진화를 허용해야 한다. 최상위 결정이 돌에 새겨지면 팀은 변화에 대응해야 할 때 선택지가 줄어드는데,
+  질서의 진화는 깊어지는 통찰에 응답해 대규모 구조를 계속 바꾸는 것을 강조함으로써 이 덫을
+  피한다** (17장, p.493).[^evans2003]
+  - 여섯 필수 전체는 [전략 설계 결정하기](strategic-decision-making.md)에 있다.
+
 ## 이어지는 페이지
 
 - [대규모 구조](large-scale-structure.md) — 이 조항이 지배하는 장의 틀
@@ -172,13 +229,20 @@ sources:
 - [컨텍스트 지도](../concepts/context-map.md) — 선택 사항이 아닌 쪽
 - [있는 시스템에 이 구조 들이기](adopting-architecture-incrementally.md) — 앞서 굳힌 구조를
   나중에 걷어 내는 쪽의 절차
+- [전략 설계 결정하기](strategic-decision-making.md) — 이 조항이 의사 결정 구조로 읽히는 자리와
+  마스터 플랜 인용의 전문
 - [모델 리팩터링의 과정](model-refactoring-process.md) — 이 진화가 속한 활동
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §EVOLVING ORDER(pp.444–446) ·
     예제 "In Depth: Layering a Shipping System" 중 §"How Does This Structure Affect Ongoing
-    Design?"의 맺음(p.460) · §"Refactoring Toward a Fitting Structure" §Minimalism(p.481).
+    Design?"의 맺음(p.460) · §"Refactoring Toward a Fitting Structure" §Minimalism(p.481) ·
+    17장 "Bringing the Strategy Together" §"Who Sets the Strategy?"(p.491) ·
+    §"Six Essentials for Strategic Design Decision Making"의 셋째 항목(p.493) ·
+    §"Beware the Master Plan"(pp.496–497).
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를
     직인용에서 유지했다. 패턴 도비라의 사진(p.444)은 이미지라 옮기지 않았다. 이 절에는 코드
     목록도 도해도 없다 — 이 페이지에 펜스가 없는 이유다. 굵은 글씨는 원문 문장의 한국어
-    재서술이고 괄호 안이 그 쪽이다.
+    재서술이고 괄호 안이 그 쪽이다. 마스터 플랜 절의 인용문은 이 책이 Alexander et al. 1975,
+    *The Oregon Experiment*, pp.16–28에서 옮겨 실은 것이고, 이 페이지는 그 재인용을 이 책의
+    쪽으로 단다 — 원전을 직접 확인하지 않았다.

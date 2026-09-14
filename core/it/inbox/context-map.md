@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 컨텍스트 지도
-description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지를 담은 색인 표와 각 패턴의 전문이 어디 있는가, 그리고 지도를 그린 다음에 오는 단계가 무엇인가, 그리고 세 전략 원리 중 이 지도만 선택 사항이 아니며 대규모 구조는 이 지도가 그리는 경계를 가로질러야 한다는 16장의 판정
+description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지를 담은 색인 표와 각 패턴의 전문이 어디 있는가, 그리고 지도를 그린 다음에 오는 단계가 무엇인가, 그리고 세 전략 원리 중 이 지도만 선택 사항이 아니며 대규모 구조는 이 지도가 그리는 경계를 가로질러야 한다는 16장의 판정, 그리고 대규모 구조가 이 지도 자체를 조직해 구조의 어휘가 프로젝트 전체에 걸리는 17장의 배치
 generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 status: draft
 sources:
@@ -18,6 +18,7 @@ sources:
 - [무엇이 선택을 가르는가](#무엇이-선택을-가르는가)
 - [지도를 그린 다음](#지도를-그린-다음)
 - [지도는 선택 사항이 아니다](#지도는-선택-사항이-아니다)
+- [구조가 이 지도를 조직할 때](#구조가-이-지도를-조직할-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프로젝트에 있는 여러 모델 컨텍스트와 그 사이의 관계를 어떻게 한눈에 놓는가.**
@@ -191,6 +192,39 @@ sources:
   기술로 구현되면 **그 층은 별개의 경계 컨텍스트가 되어 운영 소프트웨어와 고객/공급자 관계를
   맺는다** (16장, p.462).[^evans2003]
 
+## 구조가 이 지도를 조직할 때
+
+17장이 위 절의 관계를 한 걸음 더 끌고 간다. 구조가 경계를 가로지를 수 있다는 데서 그치지 않고,
+**구조가 이 지도 자체를 조직하는 배치**를 따로 든다.
+
+- 그 배치가 발동하는 조건 — **많은 프로젝트에서 더 큰 도전은 이질적인 부분들이 어떻게 맞물리는지를
+  이해하는 것이다. 그것들은 별개의 컨텍스트로 갈려 있을 수 있는데, 그렇다면 각 부분이 통합된
+  전체 시스템에서 무슨 역할을 하고 부분들은 서로 어떻게 관계 맺는가?** (17장,
+  p.486).[^evans2003]
+- 처방 (17장, p.486):[^evans2003]
+
+> Then the large-scale structure can be used to organize the CONTEXT MAP. In this case, the
+> terminology of the structure applies to the whole project (or at least some clearly bounded
+> part of it).
+
+  - **위 [이름을 회의에서 써라](#이름을-회의에서-써라)의 요구가 한 겹 늘어난다.** 컨텍스트
+    이름이 유비쿼터스 언어에 드는 것에 더해, 구조의 층 이름도 프로젝트 공용어가 된다.
+- 그 어휘로 레거시의 자리를 말할 수 있게 된다 — **레거시 시스템이 특정 책임 층 안에 든다고 말할
+  수 있다는 것은 그 시스템의 범위와 역할의 핵심 측면을 간결하게 기술한다** (17장,
+  p.487).[^evans2003] 레거시가 파사드로 접근된다면 **파사드가 제공하는 각 서비스를 한 층 안에
+  들도록 설계할 수 있을지도 모른다** (17장, p.488).[^evans2003]
+- 한 프로젝트에 구조가 여럿일 수도 있다는 허가와 그 경고 (17장, p.488):[^evans2003]
+
+> Of course, because each BOUNDED CONTEXT is its own name space, one structure could be used to
+> organize the model within one CONTEXT, while another was used in a neighboring CONTEXT, and
+> still another organized the CONTEXT MAP. However, going too far down that path can erode the
+> value of the large-scale structure as a unifying set of concepts for the project.
+
+- **지도가 이 배치의 전제다.** 구조가 무엇을 조직하는지 말하려면 조직할 대상의 목록이 먼저
+  있어야 하고, 그 목록이 이 지도다. 17장이 전략 설계의 출발점으로 드는 여섯 물음의 첫 항목이
+  "컨텍스트 지도를 그려라"인 것도 같은 이유다 (17장, p.490).[^evans2003] 여섯 물음 전체는
+  [전략 패턴을 함께 쓰기](combining-strategic-patterns.md)에 있다.
+
 ## 이어지는 페이지
 
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 지도가 그리는 대상
@@ -199,6 +233,7 @@ sources:
 - [컨텍스트 전략과 변환](context-strategy-and-transformations.md) — 지도를 그린 다음 단계
 - [전략적 설계](strategic-design.md) — 이 지도가 봉사하는 원리
 - [대규모 구조](large-scale-structure.md) — 같은 원리의 셋째 항목. 이쪽과 달리 선택 사항이다
+- [전략 패턴을 함께 쓰기](combining-strategic-patterns.md) — 구조가 이 지도를 조직하는 배치의 전문
 - [유비쿼터스 언어](ubiquitous-language.md) — 컨텍스트 이름이 들어가는 자리
 - [모델 주도 설계](model-driven-design.md) — 각 컨텍스트 안에서 지켜지는 조항
 - [모놀리스 대 모듈](../concepts/monolith-versus-modular.md) — 같은 경계 판단이 배치 단위로
@@ -218,7 +253,9 @@ sources:
     CONTEXTS(pp.352–353) · §SHARED KERNEL(pp.354–355) · §CUSTOMER/SUPPLIER DEVELOPMENT
     TEAMS(pp.356–360) · §CONFORMIST(pp.361–363) · §ANTICORRUPTION LAYER(pp.364–370) ·
     §SEPARATE WAYS(pp.371–373) · §OPEN HOST SERVICE(pp.374–375) · §PUBLISHED LANGUAGE
-    (pp.375–378). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
+    (pp.375–378) · 17장 "Bringing the Strategy Together"
+    §"Combining Large-Scale Structures and BOUNDED CONTEXTS"(pp.486–488)와 §"Assessment First"
+    (p.490). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
     조판하는 관례를 직인용에서 유지했다. **관계 패턴 여덟은 이름과 처방 요지만 들였다** —
     각 패턴의 사례·구현 논의·변형은 이 페이지의 물음(전체를 어떻게 놓는가) 밖이다. 표
     안의 굵은 글씨는 각 패턴 처방 문단의 직인용을 한국어로 옮긴 것이고 괄호 안이 그 쪽이다.

@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 지식 정련
-description: 도메인 모델이 어디서 나오는가에 대한 원전의 답 — 정보의 급류에서 관련 있는 실개천을 찾는 활동이라는 규정, 혼자 하는 일이 아니라는 단서, 폭포수와 되풀이 개발이 각각 실패하는 지점, 효과적 모델링의 다섯 재료, 지식이 새어 나간다는 진단과 지속적 학습, 그리고 명사 찾기를 넘어 규칙을 개념으로 승격시키는 지식 풍부한 설계
+description: 도메인 모델이 어디서 나오는가에 대한 원전의 답 — 정보의 급류에서 관련 있는 실개천을 찾는 활동이라는 규정, 혼자 하는 일이 아니라는 단서, 폭포수와 되풀이 개발이 각각 실패하는 지점, 효과적 모델링의 다섯 재료, 지식이 새어 나간다는 진단과 지속적 학습, 그리고 명사 찾기를 넘어 규칙을 개념으로 승격시키는 지식 풍부한 설계, 그리고 어떤 프로젝트가 이 방법을 쓴다고 알아보는 표지 넷과 좋은 소프트웨어를 만드는 일이 배우고 생각하는 활동이라 생각의 산물을 자동화하려는 시도는 순진하고 역효과라는 결론의 규정
 generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 status: draft
 sources:
@@ -19,6 +19,7 @@ sources:
 - [정련이 무엇을 캐는가](#정련이-무엇을-캐는가)
 - [이 활동이 무엇을 위한 예비인가](#이-활동이-무엇을-위한-예비인가)
 - [이 활동이 먹는 것 — 선행 지식 넷](#이-활동이-먹는-것--선행-지식-넷)
+- [책을 닫으며 이 활동에 남기는 것](#책을-닫으며-이-활동에-남기는-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델은 어디서 나오며, 그것을 만드는 활동은 무엇으로 이루어지는가.**
@@ -204,6 +205,46 @@ III부를 닫는 13장이 이 활동의 **재료 목록**을 따로 적는다. �
   [확립된 형식 체계](established-formalisms.md)에 있고, 넷을 한자리에 놓는 절차는
   [모델 리팩터링의 과정](model-refactoring-process.md)이다.
 
+## 책을 닫으며 이 활동에 남기는 것
+
+책의 결론이 마지막으로 두 가지를 적는다. **어떤 프로젝트가 이 방법을 쓴다고 알아보는 표지**와,
+**이 일이 무엇인가에 대한 규정**이다. 둘 다 이 페이지의 활동을 가리킨다.
+
+- 먼저 저자가 기법의 전면 채택을 요구하지 않는다 — **어떤 프로젝트도 이 책의 기법을 전부 쓰지는
+  않을 것이다** (결론, p.505).[^evans2003] 그런데도 알아볼 수 있다고 적고, 그 표지의 첫째가 이
+  페이지의 활동이다 (결론, p.505):[^evans2003]
+
+> The defining characteristic is a priority on understanding the target domain and incorporating
+> that understanding into the software. Everything else flows from that premise.
+
+- 나머지 표지들이 뒤따른다 — 팀 구성원이 **프로젝트에서 말이 쓰이는 방식을 의식하고 그 정련을
+  가꾼다.** 그들은 **도메인에 대해 계속 더 배우기 때문에 도메인 모델의 질에 만족하기 어렵다.
+  계속되는 정련을 기회로, 잘 맞지 않는 모델을 위험으로 본다.** 그리고 **도메인 모델을 뚜렷이
+  반영하는 제품 품질의 소프트웨어를 개발하기가 쉽지 않기 때문에 설계 기술을 진지하게 여긴다**
+  (결론, p.505).[^evans2003]
+  - **표지 넷이 모두 상태가 아니라 태도다.** 산출물의 목록이 아니라 팀이 무엇에 만족하지 못하고
+    무엇을 위험으로 보는가로 적힌다. 위 [지식은 새어 나간다](#지식은-새어-나간다)의 지속적 학습이
+    조직 쪽에서 이렇게 나타난다.
+- 그리고 이 일의 성격이 규정된다 (결론, p.506):[^evans2003]
+
+> But though improved tools will be valuable, we mustn't get distracted by them and lose sight
+> of the core fact that creating good software is a learning and thinking activity. Modeling
+> requires imagination and self-discipline. Tools that help us think or avoid distraction are
+> good. Efforts to automate what must be the product of thought are naive and counterproductive.
+
+  - **도구를 기각하지 않고 도구가 할 수 있는 일의 경계를 긋는다.** 생각을 돕거나 방해를 줄이는
+    도구는 좋고, **생각의 산물이어야 하는 것을 자동화하려는 시도**가 기각 대상이다. 위
+    [혼자 하는 일이 아니다](#혼자-하는-일이-아니다)가 이 활동을 사람 사이의 일로 두는 것과 같은
+    자리에 선다.
+  - 저자가 기대를 거는 방향은 따로 있다 — **필요한 것은 도구를 만드는 사람들이 재능 있는 소프트웨어
+    개발자의 힘과 생산성을 확장하는 과업에 마음을 쏟는 것이고, 도메인 모델을 탐사하고 그것을
+    동작하는 소프트웨어로 표현하는 더 날카로운 방법들이다** (결론, pp.505–506).[^evans2003]
+  - 그 앞에 붙은 판정 — **우리는 보통 사람들이 동작하는 복잡한 소프트웨어를 만드는 시대에 전혀
+    가까이 있지 않다. 기초적인 기술을 가진 프로그래머 군단이 어떤 종류의 소프트웨어는 만들어 낼 수
+    있지만, 회사를 마지막 순간에 구해 내는 종류는 아니다** (결론, p.505).[^evans2003]
+    **2003년 시점의 전망이고 이 KB는 그것을 시점 서술로 둔다** — 적용 범위를 좁히는 경계가 원전에
+    없으므로 버전 조건을 달지 않는다.
+
 ## 이어지는 페이지
 
 - [유비쿼터스 언어](ubiquitous-language.md) — 이 활동이 만들어 내는 언어
@@ -211,6 +252,7 @@ III부를 닫는 13장이 이 활동의 **재료 목록**을 따로 적는다. �
 - [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md) — 재료 둘째의 전문
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 이 활동의 다섯 갈래를 절차로 펼친 자리
 - [모델 주도 설계](model-driven-design.md) — 이 활동의 산물을 코드에 묶는 조항
+- [깊은 모델과 돌파](deep-model.md) — 결론이 사례로 되짚는 판정들
 - [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — 이 활동이 무엇을
   버리는가
 - [핵심 도메인](../concepts/core-domain.md) — 이 노력을 어디에 몰 것인가
@@ -223,7 +265,8 @@ III부를 닫는 13장이 이 활동의 **재료 목록**을 따로 적는다. �
     1장 "Crunching Knowledge"(§Ingredients of Effective Modeling
     pp.12–13 · §Knowledge Crunching pp.13–15 · §Continuous Learning pp.15–16 ·
     §Knowledge-Rich Design pp.17–20) · 9장 "Making Implicit Concepts Explicit"
-    (도입 p.205 · §Digging Out Concepts p.206 · §Read the Book p.217 · §Try, Try Again p.219). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    (도입 p.205 · §Digging Out Concepts p.206 · §Read the Book p.217 · §Try, Try Again p.219) ·
+    결론 "Conclusion" §Epilogues의 맺음(p.505)과 §"Looking Forward"(pp.505–506). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 장 앞머리의 인쇄 회로 기판
     전문가 대화(pp.7–11)와 그에 딸린 도판(Figure 1.1–1.7)은 모델이 대화로 자라는 과정의
     실물이나 도판과 대화가 한 덩어리라 산문 서술로만 옮겼다. 초과 예약 사례의 Java 코드
