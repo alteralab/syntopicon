@@ -1,7 +1,7 @@
 ---
 type: synthesis
 title: 데이터플로 아키텍처
-description: 여러 저장 시스템을 이벤트 로그로 이어 하나의 데이터베이스처럼 굴리는 쪽 진입점 — 통합의 문제 설정, 데이터베이스 기능의 해체와 그 위의 애플리케이션 설계, 쓰기 경로와 읽기 경로라는 관점, 그리고 원자적 커밋 없이 정확성을 얻는 방법들
+description: 여러 저장 시스템을 이벤트 로그로 이어 하나의 데이터베이스처럼 굴리는 쪽 진입점 — 통합의 문제 설정, 데이터베이스 기능의 해체와 그 위의 애플리케이션 설계, 쓰기 경로와 읽기 경로라는 관점, 원자적 커밋 없이 정확성을 얻는 방법들, 그리고 같은 발상을 한 애플리케이션 안으로 좁혀 구현하는 쪽과 맞닿는 자리
 generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 ---
 
@@ -46,6 +46,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 - [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) — 이 아키텍처가 전제하는 구분
 - [상태·스트림·불변성](../concepts/state-streams-and-immutability.md) — 가변 상태와 불변 로그가 같은 동전의 두 면인 이유
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이 발상을 데이터 모델로 민 것
+- [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 같은 발상을 한 애그리게이트의 생애로 좁혀 업무 로직 구현 패턴으로 쓰는 쪽
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 발상을 한 경계 컨텍스트의 코드와 저장소 배치로 구현하는 쪽. 체크포인트와 캐치업 구독으로 투영을 도는 기제가 여기 있다
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — 기존 데이터베이스를 이 그림에 넣는 기제
 - [조정 회피](../concepts/coordination-avoidance.md) — 조율 없이 무결성만 지키는 계열
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 같은 분업을 동기 요청으로 하는 쪽
