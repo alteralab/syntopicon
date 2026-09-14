@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 계층 아키텍처
-description: 도메인 층을 격리하기 위해 프로그램을 층으로 가른다는 패턴의 원전 — 도메인 코드가 다른 코드에 퍼졌을 때 무엇이 불가능해지는가, 네 층의 이름과 각 층의 책임 규정, 애플리케이션 층을 얇게 유지하고 업무 규칙을 도메인 층에 두라는 배분, 층 사이 의존 방향의 원칙, 그리고 이 분리가 노리는 것이 무엇인가
+description: 도메인 층을 격리하기 위해 프로그램을 층으로 가른다는 패턴의 원전 — 도메인 코드가 다른 코드에 퍼졌을 때 무엇이 불가능해지는가, 네 층의 이름과 각 층의 책임 규정, 애플리케이션 층을 얇게 유지하고 업무 규칙을 도메인 층에 두라는 배분, 층 사이 의존 방향의 원칙, 서비스라는 낱말이 세 층에 각각 있다는 구분, 이 분리를 패키징으로 강제하는 것이 유일하게 유용한 기술 구획이라는 판정과 티어 분할이 반대로 모델을 조각내는 대가, 그리고 이 분리가 노리는 것이 무엇인가
 generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 status: draft
 sources:
@@ -14,6 +14,8 @@ sources:
 - [네 개의 층](#네-개의-층)
 - [조항](#조항)
 - [애플리케이션 층과 도메인 층의 경계](#애플리케이션-층과-도메인-층의-경계)
+- [서비스는 세 층 모두에 있다](#서비스는-세-층-모두에-있다)
+- [패키징으로 이 분리를 강제한다](#패키징으로-이-분리를-강제한다)
 - [규칙이 도메인 층을 떠나면 남는 것](#규칙이-도메인-층을-떠나면-남는-것)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -97,6 +99,48 @@ sources:
   [서비스 레이어](service-layer-pattern.md)이고, 그쪽이 경고하는 빈혈 도메인은 이 조항이
   뒤집힌 상태 — 업무 규칙이 애플리케이션 층으로 올라간 상태 — 다.
 
+## 서비스는 세 층 모두에 있다
+
+- 5장이 이 층 구분을 서비스에 적용한다 — **문헌에서 논의되는 서비스 대부분은 순전히 기술적이며
+  기반 층에 속한다** (5장 §"SERVICES and the Isolated Domain Layer", p.106).[^evans2003]
+  그러나 도메인 층과 애플리케이션 층에도 서비스가 있고, **그 셋을 구별하고 구별을 날카롭게
+  유지하도록 책임을 인수분해하는 데 주의가 든다**고 적는다.
+- **판정 기준이 이 페이지의 조항과 같다** — **기술 서비스는 업무적 의미를 전혀 갖지 않아야
+  한다** (5장, p.106).[^evans2003] 은행 계좌이체 예제가 여기서도 쓰이는데, 이체 자체는
+  **은행 도메인 언어에서 의미를 가지며 근본적인 업무 로직을 담고 있으므로** 도메인 서비스이고,
+  거래를 스프레드시트로 내보내는 것은 **도메인에 "파일 형식"의 의미가 없고 업무 규칙도 없으므로**
+  애플리케이션 서비스다 (5장, p.107).[^evans2003]
+  - 위 [애플리케이션 층과 도메인 층의 경계](#애플리케이션-층과-도메인-층의-경계)가 같은 예제로
+    같은 선을 긋는다. **서비스라는 낱말이 층을 말해 주지 않으므로 선은 내용이 긋는다.**
+- 그리고 이 층 구조를 지키는 수단으로 도메인 서비스가 쓰인다 — 잘게 쪼개진 도메인 객체는
+  **도메인에서 애플리케이션 층으로의 지식 누출에 기여할 수 있고**, 중간 굵기의 도메인 서비스를
+  신중하게 들이면 **층 사이의 뚜렷한 선을 유지하는 데 도움이 된다** (5장,
+  p.108).[^evans2003] 전문은 [도메인 서비스](domain-services.md)에 있다.
+
+## 패키징으로 이 분리를 강제한다
+
+- 5장의 모듈 논의가 이 패턴을 패키징 규약으로 옮긴다 (5장, p.112):[^evans2003]
+
+> An example of a very useful framework standard is the enforcement of LAYERED ARCHITECTURE by
+> placing infrastructure and user interface code into separate groups of packages, leaving the
+> domain layer physically separated into its own set of packages.
+
+- **그리고 그것이 유일하게 허가되는 기술 구획으로 좁혀진다** (5장, p.115):[^evans2003]
+
+> Use packaging to separate the domain layer from other code. Otherwise, leave as much freedom
+> as possible to the domain developers to package the domain objects in ways that support
+> their model and design choices.
+
+- 반대 방향의 패키징은 이 패턴을 돕지 않고 모델을 조각낸다 — **티어 아키텍처는 모델 객체의
+  구현을 조각낼 수 있다. 어떤 프레임워크는 단일 도메인 객체의 책임을 여러 객체에 흩고 그
+  객체들을 별개의 패키지에 놓는 방식으로 티어를 만든다** (5장, p.113).[^evans2003]
+  - **층(layer)과 티어(tier)를 가르는 자리다.** 이 페이지의 층은 **관심사**를 가르고, 그쪽
+    티어는 **한 개념 객체의 구현**을 가른다. 앞은 모델을 드러내고 뒤는 가린다.
+  - 저자가 겪은 프로젝트에서 그 결과가 **빈혈 도메인 모델**이었다 (5장, p.114).[^evans2003]
+    위 [애플리케이션 층과 도메인 층의 경계](#애플리케이션-층과-도메인-층의-경계)가 경고하는
+    상태에 **패키징만으로도 도달할 수 있다**는 기록이다. 전문은
+    [도메인의 모듈](modules-in-the-domain.md)에 있다.
+
 ## 규칙이 도메인 층을 떠나면 남는 것
 
 같은 원전이 9장에서 이 경계가 무너지는 두 방향과 각각의 대가를 적는다.
@@ -130,6 +174,8 @@ sources:
 - [명세 패턴](specification-pattern.md) — 규칙이 도메인 층에 남게 하는 형태
 - [핵심 도메인](../concepts/core-domain.md) — 격리된 도메인 층조차 클 때 그 안에서 다시 무엇을 고르는가
 - [서비스 레이어](service-layer-pattern.md) — 애플리케이션 층을 파이썬 실물로 다루는 자리
+- [도메인 서비스](domain-services.md) — 도메인 층에 서는 서비스의 원 규정
+- [도메인의 모듈](modules-in-the-domain.md) — 이 분리를 패키징으로 옮기는 조항과 그 함정
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 도메인 층에 무엇을 두는가
 - [리포지터리 패턴](repository-pattern.md) — 영속성이 인프라스트럭처로 위임되는 실물
 - [층이 다르면 추상도 달라야 한다](../concepts/different-layer-different-abstraction.md) — 층 나누기를
@@ -140,6 +186,9 @@ sources:
 
 [^evans2003]: Evans 2003, 4장 "Isolating the Domain"(§LAYERED ARCHITECTURE pp.68–71 ·
     §Example: Partitioning Online Banking Functionality into Layers pp.71–72) ·
+    5장 "A Model Expressed in Software"(§SERVICES 중 §"SERVICES and the Isolated Domain
+    Layer" pp.106–107·§Granularity p.108 · §MODULES 중 §"The Pitfalls of
+    Infrastructure-Driven Packaging" pp.112–115) ·
     9장 "Making Implicit Concepts Explicit"(예제 "Hearing a Missing Concept in the Shipping
     Model" p.210 · 예제 "Earning Interest the Hard Way" p.215 · §SPECIFICATION pp.224–225 ·
     §"Applying and Implementing SPECIFICATION" p.231). 쪽은 인쇄판

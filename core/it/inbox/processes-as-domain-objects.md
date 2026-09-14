@@ -46,6 +46,11 @@ sources:
   프로세스를 명시적으로 표현하면서도 극도로 복잡한 알고리즘은 계속 캡슐화하는 한 가지
   방법이다** (9장, p.223).[^evans2003] 이 KB에서 서비스라는 낱말이 층마다 다른 뜻으로 쓰이는
   자리를 정리한 페이지는 [서비스 레이어](../concepts/service-layer-pattern.md)다.
+  - **이 패턴의 원 규정은 5장에 있다.** 거기서 서비스는 **상태를 캡슐화하지 않고 모델에서 홀로
+    서는 인터페이스로 제공되는 연산**으로 정의되고, 처방은 **도메인의 중요한 프로세스나 변환이
+    엔티티나 값 객체의 자연스러운 책임이 아닐 때** 그것을 서비스로 선언하라는 것이다 (5장,
+    pp.105–106).[^evans2003] 9장의 이 절은 그 패턴을 **암묵적 프로세스를 명시하는 수단**으로
+    다시 부르는 자리다. 전문은 [도메인 서비스](domain-services.md)에 있다.
 - 둘째 형태는 전략이다 — **프로세스를 수행하는 방법이 둘 이상일 때, 또 하나의 접근은 알고리즘
   자체나 그 핵심 부분을 그 자체로 객체로 만드는 것이다. 프로세스 사이의 선택이 이 객체들
   사이의 선택이 되며, 각 객체는 서로 다른 전략(STRATEGY)을 표상한다** (9장,
@@ -118,6 +123,7 @@ sources:
 - [명시적 제약](explicit-constraints.md) — 같은 장에서 이 범주와 짝을 이루는 첫째 범주
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 무엇을 명시할지 가르는 계측기가
   나온 자리
+- [도메인 서비스](domain-services.md) — 이 패턴의 원 규정과 세 특징
 - [서비스 레이어](../concepts/service-layer-pattern.md) — 서비스라는 낱말이 층마다 다르게 쓰이는
   것을 정리한 자리
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — 정책이 전략이
@@ -128,7 +134,8 @@ sources:
 
 [^evans2003]: Evans 2003, 9장 "Making Implicit Concepts Explicit" §"How to Model Less Obvious
     Kinds of Concepts" 도입(p.219) · §"Processes as Domain Objects"(pp.222–223) · 예제
-    "Chemical Warehouse Packer"(p.238). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    "Chemical Warehouse Packer"(p.238) · 5장 "A Model Expressed in Software" §SERVICES의
+    정의와 처방(pp.105–106). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 펜스의 Java 인터페이스는 p.238
     원문이며, 추출본에서 눌린 줄바꿈과 들여쓰기를 표준 Java 조판으로 되돌린 것 말고 보탠 줄은
     없다 — 주석 안의 문장은 원문 그대로다. 이 코드는 **2003년 Java의 관용**이라 제네릭 없는

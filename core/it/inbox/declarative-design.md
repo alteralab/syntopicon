@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 선언적 설계
-description: 프로그램의 일부를 실행 가능한 명세로 쓰려는 접근의 원전 평가 — 손으로 쓴 코드에는 진짜 보증이 없다는 출발점과 단언을 피해 가는 경로, 선언을 액면 그대로 받아들일 수 있다는 절대적 보증의 약속, 저자가 두 번 넘게 겪은 함정 둘과 그 결과인 모델의 우둔화, 규칙 기반 프로그래밍의 제어 술어가 선언성을 무너뜨리는 기제, 좁은 범위 프레임워크가 가장 값이 컸다는 실측, 도메인 특화 언어가 유비쿼터스 언어와 맺는 가장 강한 연결과 그 대가 넷, 그리고 앞선 세 패턴이 갖춰지면 선언적 스타일에 들어선다는 판정
+description: 프로그램의 일부를 실행 가능한 명세로 쓰려는 접근의 원전 평가 — 손으로 쓴 코드에는 진짜 보증이 없다는 출발점과 단언을 피해 가는 경로, 선언을 액면 그대로 받아들일 수 있다는 절대적 보증의 약속, 저자가 두 번 넘게 겪은 함정 둘과 그 결과인 모델의 우둔화, 규칙 기반 프로그래밍의 제어 술어가 선언성을 무너뜨리는 기제, 좁은 범위 프레임워크가 가장 값이 컸다는 실측, 도메인 특화 언어가 유비쿼터스 언어와 맺는 가장 강한 연결과 그 대가 넷, 앞선 세 패턴이 갖춰지면 선언적 스타일에 들어선다는 판정, 그리고 이 방식으로 생성된 코드는 패키징 규약의 유일한 예외로 따로 치워 두라는 5장의 단서
 generated: { by: "claude-opus-5", at: "2026-09-14T12:00:00Z" }
 status: draft
 sources:
@@ -19,6 +19,7 @@ sources:
 - [도메인 특화 언어](#도메인-특화-언어)
 - [다른 패러다임이면 달라진다](#다른-패러다임이면-달라진다)
 - [선언적 스타일의 설계](#선언적-스타일의-설계)
+- [생성된 코드는 따로 치워 둔다](#생성된-코드는-따로-치워-둔다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프로그램의 일부를 실행 가능한 명세로 쓰려는 시도는 무엇을 약속하고 어디서
@@ -165,6 +166,26 @@ sources:
     명세의 논리 연산자 결합과 지분 수학이고, 각각
     [명세 패턴](specification-pattern.md)과 [확립된 형식 체계](established-formalisms.md)에 있다.
 
+## 생성된 코드는 따로 치워 둔다
+
+- 5장의 모듈 논의가 이 방식에 예외를 하나 둔다. 그 장은 **도메인 개발자가 모델에 맞게 패키지를
+  나눌 자유를 최대한 남기라**고 처방하는데, 그 처방에 단 하나의 예외가 붙는다
+  (5장, p.115):[^evans2003]
+
+> One exception arises when code is generated based on a declarative design (discussed in
+> Chapter 10). In that case, the developers do not need to read the code, and it is better to
+> put it into a separate package so that it is out of the way, not cluttering up the design
+> elements developers actually have to work with.
+
+  - **판정 기준이 "읽을 필요가 있는가"다.** 위
+    [선언적 설계란 무엇인가](#선언적-설계란-무엇인가)가 요구하는 절대적 보증이 실제로
+    성립하면 생성된 코드는 읽히지 않으므로, 모델을 말해야 할 패키지 공간을 쓸 이유가 없다.
+  - **뒤집으면 이 예외가 계측기가 된다.** 위 [우회되면 무너진다](#우회되면-무너진다)가 적은
+    대로 생성물을 손대야 하는 순간이 오면, 그 코드는 "읽을 필요 없는 코드"가 아니게 되고 이
+    예외의 전제도 깨진다. 그때는 패키지를 치워 둔 것이 오히려 모델을 가린다.
+    #hypothesis 저자가 두 절을 이렇게 맞물려 읽지는 않았다.
+- 패키징 조항 전문은 [도메인의 모듈](modules-in-the-domain.md)에 있다.
+
 ## 이어지는 페이지
 
 - [단언](assertions-pattern.md) — 이 절이 "진짜 보증은 아니다"라고 평하는 앞 패턴
@@ -173,6 +194,7 @@ sources:
 - [부수 효과 없는 함수](../concepts/side-effect-free-functions.md) — 세 조건 중 둘째
 - [명세 패턴](specification-pattern.md) — 선언적 스타일이 적용된 실물
 - [확립된 형식 체계](established-formalisms.md) — 같은 스타일을 수학 형식으로 얻는 자리
+- [도메인의 모듈](modules-in-the-domain.md) — 생성된 코드를 따로 두라는 예외의 본문
 - [도메인 언어](../concepts/domain-languages.md) — 도메인 특화 언어를 다른 소스에서 다루는 자리
 - [유비쿼터스 언어](../concepts/ubiquitous-language.md) — 도메인 특화 언어가 가장 강하게
   연결된다는 대상
@@ -184,7 +206,8 @@ sources:
 
 [^evans2003]: Evans 2003, 10장 "Supple Design" §"Declarative Design"(pp.270–272) ·
     §"Domain-Specific Languages"(pp.272–273) · 곁글 "From the Ground Up"(10장, p.273, 곁글) ·
-    §"A Declarative Style of Design"(p.273). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
+    §"A Declarative Style of Design"(p.273) · 5장 "A Model Expressed in Software"
+    §MODULES 중 패키징 조항의 예외(p.115). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
     원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절들에는
     코드가 없어 펜스를 두지 않았다. 곁글은 본문 옆 단에 조판되어 있어 추출본에서 본문과
     섞여 나왔고, 곁글 자신의 문장만 골라 옮겼다.
