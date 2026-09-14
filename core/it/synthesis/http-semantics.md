@@ -27,6 +27,12 @@ generated: { by: "claude-opus-5", at: "2026-09-07T22:05:00Z" }
 HTTP 동사가 모든 자원에서 같게 행동한다는 조항, 그리고 HATEOAS가 실무에서 거의 쓰이지
 않는다는 2021년 마이크로서비스 실무서의 판정이다.
 
+**이 프로토콜 위에 얹은 응용 계약의 판을 가르는 일은 이 허브 밖이다.** URI에 `/v1/`을 두는가
+요청 헤더에 판 번호를 두는가, 그리고 옛 엔드포인트를 언제까지 살려 두는가는
+[계약을 깨는 변경의 관리](../concepts/managing-breaking-api-changes.md)가 갖는다 — 이 허브의
+[HTTP 버전 번호와 의미론의 분리](../concepts/http-version-numbering.md)가 다루는 것은
+**프로토콜 자신의 판**이라 층이 다르다.
+
 ## 자식 허브
 
 - [HTTP 메시지와 필드](http-messages-and-fields.md) — 필드의 문법과 결합, 버전 무관한 네 부분의

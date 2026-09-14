@@ -48,6 +48,8 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [마이크로서비스 인터페이스 기술의 다섯 조건](../concepts/microservice-interface-criteria.md) — 스타일을 정한 다음 기술에 요구할 것들. 후진 호환·명시적 인터페이스·기술 중립·소비자 편의·내부 은닉
 - [모놀리스 분해 패턴](../concepts/monolith-decomposition-patterns.md) — 쪼개기로 했을 때 무엇을 먼저 뽑고 어떤 장치로 옮기는가. 교살자 무화과·병행 운영·기능 토글
 - [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 데이터베이스를 쪼개면 깨지는 것들(조인·무결성·트랜잭션·도구)과 리포팅 데이터베이스
+- [계약을 깨는 변경의 관리](../concepts/managing-breaking-api-changes.md) — 서비스 계약을 깨는 변경이 불가피할 때의 선택지 셋(보조 맞춘 배포·판 공존·옛 인터페이스 흉내)과 유예를 미리 합의하는 사회적 계약
+- [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 테두리를 넘는 남북 트래픽과 안쪽의 동서 트래픽에 각각 놓이는 중개자, 그리고 거기에 업무 로직을 넣지 말라는 규칙
 
 ## 사업의 요구와 사용자의 요구
 
