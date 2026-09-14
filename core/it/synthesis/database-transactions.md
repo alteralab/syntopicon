@@ -62,7 +62,10 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
 - [아웃박스 패턴](../concepts/outbox-pattern.md) — 두 쓰기를 한 데이터베이스 안으로 몰아
   분산 트랜잭션을 피하는 쪽
 - [사가 패턴](../concepts/saga-pattern.md) — 서비스 쪽에서 2PC의 자리를 대신하는 것. 원자성을
-  포기하고 보상 행동과 결국 일관됨을 받는다
+  포기하고 보상 행동과 결국 일관됨을 받는다. 오래 사는 트랜잭션을 짧은 트랜잭션 열로 쪼개
+  잠금을 오래 쥐지 않는 쪽이고, 중앙 조율자를 두느냐 이벤트로 흩느냐가 구현의 갈림이다
+- [프로세스 매니저](../concepts/process-manager.md) — 그 중앙 조율자에 판단이 들어올 때 붙는
+  이름과 조율자 쪽 어휘가 소스마다 갈리는 자리
 - [Calvin과 Spanner](../concepts/calvin-and-spanner.md) — 실행 순서를 먼저 합의하는 쪽과 샤드마다
   합의 그룹을 두는 쪽
 - [Percolator 트랜잭션](../concepts/percolator-transactions.md) — 기존 분산 스토어 위에 스냅샷
