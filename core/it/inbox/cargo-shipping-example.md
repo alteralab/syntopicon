@@ -24,6 +24,7 @@ sources:
 - [새 기능이 부른 것들](#새-기능이-부른-것들)
 - [성능 조율은 어디서 일어나는가](#성능-조율은-어디서-일어나는가)
 - [이 예제가 남기는 것](#이-예제가-남기는-것)
+- [같은 도메인이 12장에서 다시 나온다](#같은-도메인이-12장에서-다시-나온다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **II부의 패턴들을 한 도메인에 동시에 적용하면 결정이 어떤 순서로 나오고, 각
@@ -404,9 +405,35 @@ sources:
   절충을 열어 둔 채 넘어간다(순환 참조의 구현, 컬렉션과 질의의 선택, 캐시 도입). 그래서 이
   페이지는 **판정의 정본이 아니라 판정들이 서로를 제약하는 방식의 기록**으로 읽는다.
 
+## 같은 도메인이 12장에서 다시 나온다
+
+이 장의 모델은 화물과 인도 명세와 취급 사건을 다룬다. **같은 원전의 12장이 같은 운송
+도메인의 다른 조각을 가지고 설계 패턴 둘을 시험한다** — 경로를 찾는 쪽과 경로 자체의
+구조다. 이 페이지와 겹치지 않는 대상이라 결정의 순서는 여기 없고, 두 사례의 판정만 적는다.
+
+- 라우팅 쪽. 경로 명세(Route Specification)가 라우팅 서비스(Routing Service)에 넘어가
+  명세를 만족하는 여정(Itinerary)을 구성하는데, 이 서비스가 `findFastest`와 `findCheapest`
+  둘을 노출하자 **라우팅 코드의 계산마다 조건문이 생겨 빠름과 쌈 사이의 결정이 사방에
+  나타났다** (12장, p.312).[^evans2003] 그 조율 매개변수를 구간 크기 정책
+  (Leg Magnitude Policy)이라는 전략 객체로 떼어 내 인자로 넘기자 서비스가 조건 없이 한
+  가지 일만 하게 되었다 (12장, p.313).[^evans2003]
+- 구조 쪽. 개발자들은 경로(Route)를 구간(Leg)의 구별 없는 열로 보았으나 **도메인 전문가는
+  논리적 구간 다섯의 수열로 본다**는 것이 드러났고, 그 구별을 다 반영하자 운영 계획 처리의
+  균일함이 사라졌다 (12장, pp.317–318).[^evans2003] 컴포지트를 적용해 경로로 이루어진
+  경로로 만든 근거가 개념적 일치다 — **경로의 모든 층위는 컨테이너가 한 지점에서 다른
+  지점으로 이동하는 것이며, 개별 구간에 이르기까지 그렇다** (12장, p.318).[^evans2003]
+- **그리고 이 페이지의 성격과 같은 절제가 거기에도 붙는다.** 저자가 열거한 유연함을 스스로
+  깎으면서 **그런 선택지가 아직 필요하지 않고, 구간 세그먼트와 구별되는 문 구간이 필요해지기
+  전에는 컴포지트 없이도 잘 지내고 있었다**고 적는다 (12장, p.320).[^evans2003] 이 페이지의
+  [리팩터링 중단](#리팩터링-중단--경합이-설계를-되돌린다)과 같은 종류의 기록이다.
+- 두 사례의 전문과 판별 기준은
+  [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에 있다.
+
 ## 이어지는 페이지
 
 - [계층 아키텍처](layered-architecture.md) — 결정 1의 조항
+- [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 같은 도메인의
+  라우팅과 경로 구조에 설계 패턴 둘을 적용하는 장
 - [값 객체와 엔티티](value-objects-and-entities.md) — 결정 2의 분류 기준
 - [엔티티의 정체성 설계](entity-identity-design.md) — 결정 2의 식별자 판정
 - [도메인 연관](domain-associations.md) — 결정 3의 조항
@@ -419,7 +446,9 @@ sources:
 - [모델 주도 설계](model-driven-design.md) — 이 장 전체가 실습하는 것
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 7장 "Using the Language: An Extended Example"(pp.163–186 전량 —
+[^evans2003]: Evans 2003, 12장 "Relating Design Patterns to the Model" 예제
+    "Route-Finding Policies"(pp.312–313)와 예제 "Shipment Routes Made of Routes"(pp.317–320) ·
+    7장 "Using the Language: An Extended Example"(pp.163–186 전량 —
     §Introducing the Cargo Shipping System · §Isolating the Domain: Introducing the
     Applications · §Distinguishing ENTITIES and VALUE OBJECTS · §Designing Associations in the
     Shipping Domain · §AGGREGATE Boundaries · §Selecting REPOSITORIES · §Walking Through

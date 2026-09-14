@@ -15,6 +15,7 @@ sources:
 - [제약이 객체를 일그러뜨린다는 경고 신호 셋](#제약이-객체를-일그러뜨린다는-경고-신호-셋)
 - [조항](#조항)
 - [초과 예약 정책이 그 실물이다](#초과-예약-정책이-그-실물이다)
+- [규칙을 그것이 지배하는 행동에서 떼어 내라](#규칙을-그것이-지배하는-행동에서-떼어-내라)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **업무 규칙으로서의 제약을 코드의 어느 자리에 두어야 그것이 보이는가.**
@@ -119,10 +120,33 @@ sources:
   [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md)이고, 같은
   사례를 지식 정련의 산물로 읽는 자리는 [지식 정련](../concepts/knowledge-crunching.md)이다.
 
+## 규칙을 그것이 지배하는 행동에서 떼어 내라
+
+같은 원전의 12장이 전략 패턴을 도메인 패턴으로 다시 쓰면서 **이 페이지의 동작을 처방의 한
+문장으로 넣는다** (12장, p.312).[^evans2003]
+
+> Factor apart a rule and the behavior it governs.
+
+- **이 문장이 기술적 전략 패턴에는 없는 요구다.** 카탈로그 쪽 동기는 알고리즘을 갈아 끼우는
+  것이고, 여기서는 **규칙을 보이게 만드는 것**이 목적이다. 그래서 같은 장이 이 패턴의
+  둘째 이름을 정책(POLICY)으로 세운다.
+- 이 페이지의 초과 예약 사례가 그 실물로 되돌아온다. 1장이 초과 예약 규칙을 정책이라 부르며
+  **정책은 전략이라 알려진 디자인 패턴의 다른 이름**이라 적은 자리가 있고, 그 사례를 다루는
+  페이지는 [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md)이다.
+- **다만 이 페이지의 조항과 겹치지 않는 자리가 있다.** 이 페이지의 제약은 하나의 규칙을
+  이름 가진 자리로 끌어내는 것이고, 전략의 처방은 **그 규칙이 여러 판으로 갈릴 때** 각 판을
+  객체로 세우는 것이다. 11장의 기표 규칙도 같은 첫걸음을 밟는다 — **의존의 엉킴을 길들이는
+  첫걸음은 새 객체를 도입해 이 규칙들을 명시적으로 만드는 것이다** (11장,
+  p.301).[^evans2003]
+- 두 장의 전문은 [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)와
+  [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [명세 패턴](specification-pattern.md) — 제약을 객체로 올리는 이 범주의 좁고 흔한 한 경우.
   술어 같은 값 객체가 그 형태다
+- [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 규칙과 그 규칙이
+  지배하는 행동을 가르라는 처방이 있는 자리
 - [도메인 객체가 된 프로세스](processes-as-domain-objects.md) — 같은 장이 다루는 나머지 범주
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 이런 제약을 찾아내는 앞 단계
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — 초과 예약
@@ -135,7 +159,9 @@ sources:
   적는 다른 축
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 9장 "Making Implicit Concepts Explicit" §"How to Model Less Obvious
+[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 빌려 온 요약 "Posting Rules"(p.301) ·
+    12장 "Relating Design Patterns to the Model" §STRATEGY (A.K.A. POLICY)의 처방(p.312) ·
+    9장 "Making Implicit Concepts Explicit" §"How to Model Less Obvious
     Kinds of Concepts" 도입(p.219) · §"Explicit Constraints"(pp.220–222) · 예제 "Review:
     Overbooking Policy"(p.222). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을
     작은 대문자로 조판하는 관례를 직인용에서 유지했다. 펜스의 Java 코드는 p.221 원문이며,

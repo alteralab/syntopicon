@@ -23,6 +23,7 @@ sources:
 - [어휘에 서비스와 모듈의 이름도 든다](#어휘에-서비스와-모듈의-이름도-든다)
 - [패러다임이 섞일 때 남는 유일한 수단](#패러다임이-섞일-때-남는-유일한-수단)
 - [이 언어의 유효 범위](#이-언어의-유효-범위)
+- [빌려 온 낱말을 다룰 때의 두 의무](#빌려-온-낱말을-다룰-때의-두-의무)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **팀이 쓰는 말을 무엇으로 정하고, 그 말이 코드와 어떻게 묶이는가.**
@@ -287,9 +288,42 @@ sources:
   모델의 관계를 정의하는 경계 컨텍스트, 그리고 모델과 설계에 적용되는 다른 패턴들** (2장,
   p.27).[^evans2003]
 
+## 빌려 온 낱말을 다룰 때의 두 의무
+
+11장이 출판된 분석 패턴에서 낱말을 들여올 때 이 언어가 무엇을 얻고 무엇을 지켜야 하는지를
+적는다. **이 페이지의 어휘가 팀 밖에서 오는 경우다.**
+
+- 먼저 얻는 것 — 빌린 낱말은 **널리 이해되거나 적어도 잘 설명된 낱말**이라 이 언어를 강화한다
+  (11장, pp.306–307).[^evans2003] 그것이 저자가 드는 두 이유 중 **더 중요한** 쪽이다.
+- **첫째 의무는 기본 개념을 지키는 것이다** (11장, p.306):[^evans2003]
+
+> There is one kind of change you should avoid. When you use a term from a well-known analysis
+> pattern, take care to keep the basic concept it designates intact, however much the
+> superficial form might change.
+
+- **둘째 의무는 그 대칭이다** — **모델의 자연스러운 진화로 모델 정의가 바뀐다면 이름도 바꾸는
+  수고를 하라** (11장, p.307).[^evans2003]
+  - 두 의무가 한 규칙의 앞뒤다. 이름을 남겼으면 뜻을 지키고, 뜻을 바꿨으면 이름을 바꾼다.
+    어느 쪽도 하지 않으면 이 언어가 거짓 신호를 낸다.
+- **그리고 이 언어에 들어오는 것이 클래스 이름만이 아니라는 실물이 같은 장에 있다.** 기표
+  규칙의 발화 방식 셋을 두고 저자가 이렇게 적는다 (11장, p.302):[^evans2003]
+
+> The addition of the three firing modes to the UBIQUITOUS LANGUAGE is as important to the
+> success of the pattern as the model object definitions themselves. It eliminates ambiguity
+> and guides decision making directly to a clearly defined set of choices.
+
+  - **선택지에 붙은 이름이 모델 객체의 정의만큼 중요하다는 진술이다.** 위
+    [다이어그램과 문서가 이 언어에 대해 갖는 지위](#다이어그램과-문서가-이-언어에-대해-갖는-지위)이 다이어그램만으로는 모델이 서지 않는다고 말한
+    것과 같은 방향이고, 12장의 경로 탐색 사례에서도 설계의 산출물이 도메인의 말로 된 문장
+    하나였다 (12장, p.314).[^evans2003] 그 전문은
+    [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에 있다.
+- 빌려 오는 절차의 전문은 [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](../concepts/model-driven-design.md) — 이 언어가 코드와 묶이는 방식. 이 패턴의 짝
+- [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md) — 팀 밖에서 온 낱말을 이 언어에
+  들일 때의 두 의무
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 언어가 어디까지 통용되는지를 긋는 자리
 - [컨텍스트 지도](../concepts/context-map.md) — 경계들의 이름이 이 언어에 들어오는 자리
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — 이 언어가 이름에
@@ -306,7 +340,10 @@ sources:
 - [개발자의 소통](../concepts/developer-communication.md) — 팀 어휘를 다루는 층
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 2장 "Communication and the Use of Language" 전체
+[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" §"Executing Posting Rules"(p.302)와
+    §"Analysis Patterns Are Knowledge to Draw On"(pp.306–307) · 12장 "Relating Design Patterns
+    to the Model" 예제 "Route-Finding Policies"(p.314) ·
+    2장 "Communication and the Use of Language" 전체
     (§UBIQUITOUS LANGUAGE pp.24–29 · §Modeling Out Loud pp.30–32 ·
     §One Team, One Language pp.32–35 · §Documents and Diagrams pp.35–40 ·
     §Explanatory Models pp.41–43) · 9장 "Making Implicit Concepts Explicit"

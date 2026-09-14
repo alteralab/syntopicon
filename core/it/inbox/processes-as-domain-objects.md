@@ -14,6 +14,7 @@ sources:
 - [명시하는 두 형태 서비스와 전략](#명시하는-두-형태-서비스와-전략)
 - [무엇을 명시하고 무엇을 감추는가](#무엇을-명시하고-무엇을-감추는가)
 - [창고 적재기 인터페이스](#창고-적재기-인터페이스)
+- [전략의 문제 서술과 처방은 12장에 있다](#전략의-문제-서술과-처방은-12장에-있다)
 - [제약과 프로세스가 이 장에서 짝을 이루는 이유](#제약과-프로세스가-이-장에서-짝을-이루는-이유)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -104,6 +105,40 @@ sources:
   그 근거로 든다 (9장, p.235).[^evans2003] 같은 발상을 다른 축에서 다루는 자리는
   [계약에 의한 설계](../concepts/design-by-contract.md)다.
 
+## 전략의 문제 서술과 처방은 12장에 있다
+
+9장은 전략을 이름으로만 부른다. **같은 원전의 12장이 그것을 패턴의 온전한 형식으로 다시
+쓴다** — 문제 서술과 처방을 갖추고, 그것이 도메인 패턴이기도 한 근거를 붙여서다.
+
+- 12장이 이 패턴의 두 이름을 함께 세운다. 전략(STRATEGY)이자 정책(POLICY)이다 (12장,
+  p.311).[^evans2003]
+- 도메인 쪽 문제 서술 (12장, p.311):[^evans2003]
+
+> Domain models contain processes that are not technically motivated but actually meaningful
+> in the problem domain. When alternative processes must be provided, the complexity of
+> choosing the appropriate process combines with the complexity of the multiple processes
+> themselves, and things get out of hand.
+
+  - **이 페이지 첫 절의 "어색한 객체 설계를 만드는 경향"이 여기서 두 겹의 복잡성으로
+    분해된다.** 프로세스 자체의 복잡성과 프로세스를 고르는 복잡성이 합쳐지는 것이다.
+- 처방 (12장, p.312):[^evans2003]
+
+> Therefore:
+> Factor the varying part of a process into a separate "strategy" object in the model. Factor
+> apart a rule and the behavior it governs. Implement the rule or substitutable process
+> following the STRATEGY design pattern. Multiple versions of the strategy object represent
+> different ways the process can be done.
+
+- **그리고 9장이 말하지 않은 것이 12장에 있다** — 기술적 설계 패턴을 이 자리에 쓸 때 강조점이
+  어디로 옮겨 가는가다 (12장, p.312):[^evans2003]
+
+> Whereas the conventional view of STRATEGY as a design pattern focuses on the ability to
+> substitute different algorithms, its use as a domain pattern focuses on its ability to
+> express a concept, usually a process or a policy rule.
+
+  - 전문과 판별 기준은
+    [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에 있다.
+
 ## 제약과 프로세스가 이 장에서 짝을 이루는 이유
 
 - 두 범주가 한 문장으로 묶인다 (9장, p.223):[^evans2003]
@@ -120,6 +155,8 @@ sources:
 
 - [명세 패턴](specification-pattern.md) — 같은 장의 셋째 범주이고, 창고 적재기 사례의 규칙이
   사는 자리
+- [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 전략이 패턴의
+  온전한 형식으로 다시 쓰이는 자리
 - [명시적 제약](explicit-constraints.md) — 같은 장에서 이 범주와 짝을 이루는 첫째 범주
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 무엇을 명시할지 가르는 계측기가
   나온 자리
@@ -133,7 +170,8 @@ sources:
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 9장 "Making Implicit Concepts Explicit" §"How to Model Less Obvious
-    Kinds of Concepts" 도입(p.219) · §"Processes as Domain Objects"(pp.222–223) · 예제
+    Kinds of Concepts" 도입(p.219) · §"Processes as Domain Objects"(pp.222–223) · 12장 "Relating Design
+    Patterns to the Model" §STRATEGY (A.K.A. POLICY)(pp.311–312) · 예제
     "Chemical Warehouse Packer"(p.238) · 5장 "A Model Expressed in Software" §SERVICES의
     정의와 처방(pp.105–106). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 펜스의 Java 인터페이스는 p.238

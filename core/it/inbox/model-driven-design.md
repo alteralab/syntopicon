@@ -21,6 +21,7 @@ sources:
 - [이 조항은 객체를 요구하지 않는다](#이-조항은-객체를-요구하지-않는다)
 - [모델에서 오지 않는 구성물이 이 설계를 완성한다](#모델에서-오지-않는-구성물이-이-설계를-완성한다)
 - [이 조항이 겨냥하는 모델은 아무 모델이 아니다](#이-조항이-겨냥하는-모델은-아무-모델이-아니다)
+- [이 조항이 부정하는 것 — 분석과 설계의 균열](#이-조항이-부정하는-것--분석과-설계의-균열)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델과 돌아가는 코드는 어떤 관계여야 하며, 그 관계가 끊어지면
@@ -321,9 +322,36 @@ sources:
     모델의 발견 가능성을 정한다.
 - 겨냥하는 모델의 정의와 도달 경로는 [깊은 모델과 돌파](deep-model.md)에 있다.
 
+## 이 조항이 부정하는 것 — 분석과 설계의 균열
+
+11장이 이 조항의 반대말을 이름으로 부른다. 남이 정리한 모델을 빌려 쓸 때 무엇이 잘못될 수
+있는가를 말하는 자리다.
+
+- 분석 패턴의 값은 설계 방향과 구현 결과에 대한 논의가 모델 통찰과 함께 온다는 데 있다.
+  **그 맥락을 떼면 위험해진다** (11장, p.294):[^evans2003]
+
+> To discuss model ideas out of that context makes them harder to apply and risks opening the
+> deadly divide between analysis and design, which is antithetical to MODEL-DRIVEN DESIGN.
+
+  - **"치명적 균열"과 "이 설계의 반대말"이 한 문장에 있다.** 위 절들이 이 조항을 *무엇을
+    해야 하는가*로 적었다면, 이 문장은 그것을 *무엇이 아닌가*로 적는다.
+- **그리고 같은 장이 이 조항의 실행 조건도 하나 기록한다.** 개발자들이 객체 관계 매핑
+  프레임워크 때문에 방금 얻은 추상 하나를 포기해야 했던 대목에서 저자가 이렇게 적는다
+  (11장, p.300):[^evans2003]
+
+> We have to make calculated compromises and then move on without letting it throw us off our
+> MODEL-DRIVEN DESIGN.
+
+  - **이 조항이 무결성 요구가 아니라는 뜻이다.** 기반 구조에 양보한 자리가 남아도 이 결속을
+    포기하지 않는다는 것이고, 같은 종류의 양보를 다루는 자리가
+    [관계형 데이터베이스를 위한 객체 설계](designing-objects-for-relational-databases.md)다.
+    빌려 쓰기의 절차는 [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [유비쿼터스 언어](ubiquitous-language.md) — 이 결속의 언어 쪽 짝
+- [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md) — 이 조항의 반대말이 이름을
+  얻는 자리
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — "조직된 데이터"와
   모델을 가르는 선이 이름 규약 문제로 나타나는 자리
 - [지식 정련](../concepts/knowledge-crunching.md) — 이 결속이 만드는 피드백 고리
@@ -337,7 +365,9 @@ sources:
 - [리팩터링](refactoring.md) — 이 소스가 모델 갱신 절차로 부르는 활동
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, III부 "Refactoring Toward Deeper Insight" 도입(pp.188·191) ·
+[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 장 도입(p.294)과 예제
+    "Earning Interest with Accounts"(p.300) ·
+    III부 "Refactoring Toward Deeper Insight" 도입(pp.188·191) ·
     3장 "Binding Model and Implementation" 전체
     (§MODEL-DRIVEN DESIGN pp.47–50 · §Modeling Paradigms and Tool Support pp.50–57 ·
     §Letting the Bones Show pp.57–59 · §HANDS-ON MODELERS pp.60–62) ·

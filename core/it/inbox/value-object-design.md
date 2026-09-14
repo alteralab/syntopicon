@@ -81,6 +81,15 @@ sources:
     수백만 개의 중복 객체에 질식해 기어가는 시스템의 차이를 만들 수 있다.**
 - 그리고 그것이 분류의 배당금이라고 못 박는다 — **이것은 엔티티에는 쓸 수 없는 최적화
   요령의 한 예일 뿐이다** (5장, p.100).[^evans2003]
+- **12장이 이 요령의 지위를 한 번 더 못 박는다.** 설계 패턴 중 무엇이 도메인 패턴이기도
+  한가를 가리는 자리에서 저자가 이 패턴을 **반례**로 든다 — **사실 플라이웨이트는 도메인
+  모델에 대응이 없는 설계 패턴의 좋은 예다** (12장, p.320).[^evans2003] 같은 콘센트 예를
+  다시 들면서 **이것은 값 객체에는 열려 있고 엔티티에는 열려 있지 않은 구현 선택지다**라고
+  적는다 (12장, p.320).[^evans2003]
+  - **"모델에 대응이 없다"가 이 페이지 전체의 성격을 정한다.** 이 페이지의 선택들은 분류가
+    끝난 뒤의 구현 결정이지 모델의 진술이 아니다. 모델과 구현 양쪽에 걸리는 패턴과 구현에만
+    걸리는 패턴을 가르는 기준은
+    [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에 있다.
 
 ## 복사와 공유의 경제
 
@@ -189,6 +198,8 @@ sources:
 ## 이어지는 페이지
 
 - [값 객체와 엔티티](value-objects-and-entities.md) — 이 설계에 앞서는 분류
+- [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 플라이웨이트가
+  이쪽에만 열려 있다고 적히는 자리
 - [엔티티의 정체성 설계](entity-identity-design.md) — 정체성이 있는 쪽의 설계
 - [도메인 연관](domain-associations.md) — 값 객체 사이의 양방향 연관이 성립하지 않는 이유
 - [부수 효과 없는 함수](side-effect-free-functions.md) — 불변성이 봉사하는 조항
@@ -198,7 +209,8 @@ sources:
 - [단언 패턴](assertions-pattern.md) — 언어가 강제하지 않는 규칙을 유지하는 다른 수단
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 축의 허브
 
-[^evans2003]: Evans 2003, 5장 "A Model Expressed in Software" §VALUE OBJECTS 중
+[^evans2003]: Evans 2003, 12장 "Relating Design Patterns to the Model"
+    §"Why Not FLYWEIGHT?"(p.320) · 5장 "A Model Expressed in Software" §VALUE OBJECTS 중
     §"Designing VALUE OBJECTS"(pp.99–101, 곁글 "Special Cases: When to Allow Mutability"
     p.101 포함) · 예제 "Tuning a Database with VALUE OBJECTS"(p.102).
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는

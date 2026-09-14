@@ -25,6 +25,7 @@ sources:
 - [구현은 하나가 아니다](#구현은-하나가-아니다)
 - [포섭 — 두 명세를 직접 비교하기](#포섭--두-명세를-직접-비교하기)
 - [패턴은 요리책이 아니다](#패턴은-요리책이-아니다)
+- [명세가 서비스에 인자로 넘어가는 자리](#명세가-서비스에-인자로-넘어가는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **어느 도메인 객체의 책임에도 맞지 않는 업무 규칙을 어디에 두는가.**
@@ -443,10 +444,30 @@ p.273).[^evans2003]
 - 이 패턴의 출처 표기 — **나는 마틴 파울러와 협업해 명세를 개발했다** (9장,
   p.223).[^evans2003]
 
+## 명세가 서비스에 인자로 넘어가는 자리
+
+12장의 경로 탐색 사례가 이 패턴을 **서비스 인터페이스의 입력**으로 쓰는 실물이다.
+
+- 설정 — 경로 명세(Route Specification)가 라우팅 서비스(Routing Service)에 넘어가고, 그
+  서비스의 일은 **명세를 만족하는 상세 여정(Itinerary)을 구성하는 것**이다 (12장,
+  p.312).[^evans2003]
+- 위 [주문 생산](#주문-생산)이 말하는 쓰임이 여기서 서비스 경계에 걸린다. 생성기가 명세를
+  받아 그것을 만족하는 산출물을 내놓는 구조이고, 그 산출물의 검증에도 같은 명세를 쓸 수 있다.
+- **그런데 이 사례에서 명세와 함께 넘어가는 것이 하나 더 있다.** 서비스를 가장 빠른 경로와
+  가장 싼 경로 사이에서 조율하던 조건문이 전략 객체로 떨어져 나가 인자가 된다. 연산이
+  `find(Specification, LegMagnitudePolicy) : Itinerary` 하나가 되는 것이다 (12장,
+  p.313).[^evans2003]
+  - **두 인자의 역할이 다르다.** 명세는 **무엇을 만족해야 하는가**를 말하고, 정책은
+    **여럿 중 무엇을 고르는가**를 말한다. 같은 값 객체 형태를 쓰되 답하는 물음이 갈린다.
+    후자의 전문은 [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md)에
+    있다.
+
 ## 이어지는 페이지
 
 - [명시적 제약](explicit-constraints.md) — 같은 장에서 제약을 객체로 올리는 넓은 범주. 명세는
   그 범주의 좁고 흔한 한 경우다
+- [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md) — 명세와 정책이
+  같은 서비스 인터페이스에 나란히 넘어가는 자리
 - [도메인 객체가 된 프로세스](processes-as-domain-objects.md) — 같은 장의 나머지 범주이고,
   창고 적재기 서비스 인터페이스가 사는 자리
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 이 패턴이 명시하려는 개념을 찾아내는
@@ -468,7 +489,9 @@ p.273).[^evans2003]
   프로토타입의 지위를 재는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 9장 "Making Implicit Concepts Explicit" §SPECIFICATION(pp.224–227)
+[^evans2003]: Evans 2003, 12장 "Relating Design Patterns to the Model" 예제
+    "Route-Finding Policies"(pp.312–313) ·
+    9장 "Making Implicit Concepts Explicit" §SPECIFICATION(pp.224–227)
     · §"Applying and Implementing SPECIFICATION"(pp.228–234) · §"Building to Order
     (Generating)"(pp.234–235) · 예제 "Chemical Warehouse Packer"(pp.235–238) · 예제
     "A Working Prototype of the Warehouse Packer"(pp.239–241). 선언적 확장은 10장

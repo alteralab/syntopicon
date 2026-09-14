@@ -18,6 +18,7 @@ sources:
 - [명사 찾기를 넘어서](#명사-찾기를-넘어서)
 - [정련이 무엇을 캐는가](#정련이-무엇을-캐는가)
 - [이 활동이 무엇을 위한 예비인가](#이-활동이-무엇을-위한-예비인가)
+- [이 활동이 먹는 것 — 선행 지식 넷](#이-활동이-먹는-것--선행-지식-넷)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델은 어디서 나오며, 그것을 만드는 활동은 무엇으로 이루어지는가.**
@@ -177,9 +178,37 @@ sources:
     머무르더라도 모델을 조금씩 깊게 하는 개선을 주저하지 말고, 너무 멀리 내다보다 마비되지도
     말라는 것이다 (8장, p.201).[^evans2003]
 
+## 이 활동이 먹는 것 — 선행 지식 넷
+
+III부를 닫는 13장이 이 활동의 **재료 목록**을 따로 적는다. 전제는 짧다 — **바퀴를 다시
+발명하는 것이 언제나 필요하지는 않다** (13장, p.323).[^evans2003]
+
+- 이 활동의 흡수력이 먼저 규정된다. 빠진 개념과 더 나은 모델을 찾는 브레인스토밍 과정은
+  **어느 출처의 발상이든 흡수해 현지 지식과 결합하고 계속 정련해 현재 상황의 답을 찾는 큰
+  역량**을 가진다 (13장, p.323).[^evans2003]
+- 재료 넷 (13장, pp.323–324).[^evans2003]
+  - **도메인 자체에 관한 책과 다른 지식 출처.** 현장의 사람들이 돌아가는 소프트웨어에 적합한
+    모델을 만들지는 않았을지 몰라도 개념을 조직하고 쓸모 있는 추상을 찾아 두었을 수 있다.
+    이렇게 먹이면 **더 풍부하고 빠른 결과가 나오며 도메인 전문가에게도 더 친숙해 보일 것**이다.
+  - **분석 패턴.** 미묘한 모델 개념을 주고 많은 실수를 피하게 해 주지만 **요리책 조리법을 주지는
+    않는다. 그것은 지식 정련 과정을 먹인다.**
+  - **설계 패턴.** 구현 필요와 모델 개념 둘 다에 맞을 때 도메인 층에 쓰일 수 있다.
+  - **형식 체계.** 산술이나 술어 논리 같은 것이 도메인의 어떤 부분에 맞으면 그 부분을 떼어 내
+    규칙을 적응시킬 수 있다.
+- **넷이 전부 완제품이 아니라 먹이로 규정된다는 것이 이 절의 요점이다.** 위
+  [정련이 무엇을 캐는가](#정련이-무엇을-캐는가)가 이 활동의 산출을 말한다면 여기는 입력을
+  말하고, 어느 입력도 이 활동을 건너뛰게 해 주지 않는다. 9장의 "책을 읽어라"가 같은 조건을
+  붙인 자리는 [암묵적 개념 파내기](digging-out-implicit-concepts.md)에 있다.
+- 재료별 전문은 [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md),
+  [설계 패턴을 도메인 패턴으로 읽기](design-patterns-as-domain-patterns.md),
+  [확립된 형식 체계](established-formalisms.md)에 있고, 넷을 한자리에 놓는 절차는
+  [모델 리팩터링의 과정](model-refactoring-process.md)이다.
+
 ## 이어지는 페이지
 
 - [유비쿼터스 언어](ubiquitous-language.md) — 이 활동이 만들어 내는 언어
+- [모델 리팩터링의 과정](model-refactoring-process.md) — 이 활동을 굴리는 절차와 재료 목록
+- [분석 패턴을 모델에 들이기](analysis-patterns-in-the-model.md) — 재료 둘째의 전문
 - [암묵적 개념 파내기](digging-out-implicit-concepts.md) — 이 활동의 다섯 갈래를 절차로 펼친 자리
 - [모델 주도 설계](model-driven-design.md) — 이 활동의 산물을 코드에 묶는 조항
 - [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — 이 활동이 무엇을
@@ -189,7 +218,8 @@ sources:
 - [설계를 두 번 하라](../concepts/design-it-twice.md) — 여러 모델을 시도하고 기각한다는 같은 형태의 처방
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 8장 "Breakthrough" §"Focus on Basics"(p.201) ·
+[^evans2003]: Evans 2003, 13장 "Refactoring Toward Deeper Insight" §"Prior Art"(pp.323–324) ·
+    8장 "Breakthrough" §"Focus on Basics"(p.201) ·
     1장 "Crunching Knowledge"(§Ingredients of Effective Modeling
     pp.12–13 · §Knowledge Crunching pp.13–15 · §Continuous Learning pp.15–16 ·
     §Knowledge-Rich Design pp.17–20) · 9장 "Making Implicit Concepts Explicit"
