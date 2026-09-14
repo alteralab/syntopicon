@@ -113,6 +113,14 @@ sources:
 - **짧은 기간의 공존은 다르다** — 카나리 릴리스 같은 것을 할 때 동시 판 공존은 완벽히 말이 되고,
   그럴 때의 공존은 **몇 분이나 몇 시간**이며 대개 두 판만 동시에 존재한다 (5장,
   p.150).[^newman2021]
+  - **같은 책 8장이 그 카나리 릴리스를 규정하면서 정확히 이 배치를 기법의 한 갈래로 든다** —
+    **같은 마이크로서비스의 두 판을 나란히 돌리고 토글로 어느 쪽에 라우팅할지 정하는** 방식이고,
+    그때 **카나리 구현은 한 마이크로서비스 안이 아니라 라우팅·네트워킹 경로에 있어야** 한다 (8장
+    §"Canary Release", pp.271–272).[^newman2021] 곧 이 절이 **길게 끌면 값을 못 한다고 판정한
+    바로 그 구조를, 8장은 짧게 쓰는 기법으로 되살린다.** 겨루지 않는다 — 이 절의 잣대가 공존의
+    기간이기 때문이다. 그 기법의 전문은
+    [지속적 통합과 지속적 전달 §카나리 릴리스](continuous-integration-and-delivery.md#카나리-릴리스)에
+    있다.
 - **그래서 기간이 판정 기준이 된다** — 소비자를 새 판으로 올려 릴리스시키는 데 **오래 걸릴수록**,
   서로 다른 판 전체를 공존시키기보다 **같은 마이크로서비스 안에서 서로 다른 엔드포인트를
   공존시키는 쪽**을 봐야 한다. 저자는 **평균적인 프로젝트에 이 일이 값어치를 하는지 여전히
@@ -301,7 +309,8 @@ sources:
     §"Coexist Incompatible Microservice Versions"(pp.149–150) · §"Emulate the Old Interface"
     (pp.150–152) · §"Which Approach Do I Prefer?"(p.152) · §"The Social Contract"
     (pp.152–153) · §"Tracking Usage"(p.153) · §"Extreme Measures"(p.154) — 그리고 8장 "Deployment"
-    §"Zero-Downtime Deployment"(p.234)에서 온 한 줄. 쪽은 인쇄판 쪽
+    §"Zero-Downtime Deployment"(p.234)와 §"Progressive Delivery" 중
+    §"Canary Release"(pp.271–272)에서 온 각 한 줄. 쪽은 인쇄판 쪽
     번호(PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은
     따옴표는 곧은 따옴표로, 줄바꿈 하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 이
     절들의 도판 둘(Figure 5-3 한 서비스의 여러 판을 나란히 돌리는 그림 p.150 · Figure 5-4

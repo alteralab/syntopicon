@@ -724,6 +724,10 @@ sources:
 - [모놀리스와 모듈](../concepts/monolith-versus-modular.md) — 쪼갤 것인가 말 것인가의 축
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 모놀리스 대 모듈과
   서버리스 대 서버가 여덟째·아홉째 고려사항으로 놓이는 목록
+- [마이크로서비스 배포 선택지](microservice-deployment-options.md) — 같은 선택을 배포 선택지의
+  사다리로 세운 쪽. FaaS의 한계와 마이크로서비스 대응 물음이 거기 있다
+- [컨테이너 오케스트레이션과 쿠버네티스](container-orchestration-and-kubernetes.md) — 이 절의
+  컨테이너를 여러 기계에 걸쳐 돌리는 층
 - [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 서버리스 비용
   모델링이 기대는 렌즈
 - [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md) —

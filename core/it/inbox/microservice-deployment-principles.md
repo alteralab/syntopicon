@@ -67,6 +67,9 @@ sources:
   > Use a platform that maintains your microservice in a defined state, launching new
   > instances if required in the event of outages or traffic increases.
 
+- **이 다섯이 도구를 재는 잣대가 된다** — 저자는 곧이어 배포 선택지들을 늘어놓고 **각각이 이
+  발상들을 얼마나 잘 실현하는지**를 본다 (8장 §"Deployment Options", pp.237–238).[^newman2021]
+  그 사다리는 [마이크로서비스 배포 선택지](microservice-deployment-options.md)에 있다.
 - **다섯이 독립적이지 않다.** 셋째(코드형 인프라)는 저자 자신이 둘째(자동화)를 구현하는 한
   방식이라 적고, 다섯째(원하는 상태 관리)는 아래 [전제](#전제--자동-배포와-기동-시간)에서
   보듯 둘째를 전제로 요구한다. 넷째(무중단 배포)는 [독립 배포
@@ -251,8 +254,10 @@ sources:
     쿠버네티스를 들이는 것은 과잉일 가능성이 높고, 블루-그린 배포 같은 단순한 기제로도
     똑같이 효과적으로 할 수 있다** (8장, p.234).[^newman2021] 조문(롤링 업그레이드라는
     기제 자체)에는 조건을 달지 않았다.
-  - 저자는 블루-그린을 8장 §"Separating Deployment from Release"(p.270)로 미룬다. 이 KB에서
-    그 자리는 이 소스의 다음 반입 구간이다.
+  - 저자가 블루-그린 배포(blue-green deployment)를 다루는 자리는 같은 장의 §"Separating
+    Deployment from Release"(p.270)이고, 이 KB에서 그 자리는
+    [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md#8장--점진적-전달)
+    이다. 거기서 블루-그린은 **배포와 릴리스를 가른다는 원칙의 가장 단순한 실물**로 세워진다.
 - **남는 난제 둘** (8장, p.234):[^newman2021]
   - **오래 사는 연결(long-lived connections)** 같은 문제를 다루는 추가 과제가 있을 수 있다.
   - **처음부터 무중단 배포를 염두에 두고 만든 마이크로서비스가, 기존 아키텍처에 이 개념을
@@ -369,6 +374,10 @@ sources:
   변경이 생겼을 때
 - [데이터 분해가 부르는 문제들](data-decomposition-concerns.md) — 배포 물리 층에서 본
   데이터베이스의 자리
+- [마이크로서비스 배포 선택지](microservice-deployment-options.md) — 이 다섯 조문으로 재는
+  수단의 사다리. 물리 기계부터 FaaS까지
+- [컨테이너 오케스트레이션과 쿠버네티스](container-orchestration-and-kubernetes.md) — 원하는
+  상태 관리와 무중단 배포를 대신 떠맡는 층
 - [서비스 디스커버리와 로드 밸런싱](service-discovery-and-load-balancing.md) — 인스턴스가
   여럿이 되는 순간 생기는 문제
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 같은 "시끄러운
@@ -394,5 +403,6 @@ sources:
     옮겼다. 이 절들에는 코드 목록이 없어 이 페이지의 코드 펜스는 0건이다. 저자가 가리키는
     바깥 서지(Kief Morris, *Infrastructure as Code* 2판)와 제품 이름들(Puppet·Chef·Ansible·
     CFEngine·Terraform·Pulumi·AWS CloudFormation·AWS CDK·AWS Lambda·Heroku·쿠버네티스·
-    Nomad·Flux·Weaveworks)은 이 KB가 확인한 원전이 아니다. 블루-그린 배포와 점진적 전달은
-    저자가 8장 뒤쪽(p.270)으로 미루므로 여기에는 그 갈고리만 적었다.
+    Nomad·Flux·Weaveworks)은 이 KB가 확인한 원전이 아니다. 배포 선택지와 쿠버네티스와 점진적
+    전달은 저자가 같은 장의 뒤쪽에서 절을 따로 두어 다루므로 이 페이지에는 원칙 쪽만 두고
+    형제 페이지들을 가리켰다.
