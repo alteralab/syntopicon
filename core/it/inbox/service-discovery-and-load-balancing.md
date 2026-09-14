@@ -121,6 +121,12 @@ sources:
   기제**를 주고, 둘째로 **등록된 뒤 그 서비스를 찾는 길**을 준다 (5장, p.157).[^newman2021]
   - **어려워지는 조건이 명시된다** — 인스턴스를 끊임없이 없애고 새로 배포하는 환경을 생각하면
     문제가 더 복잡해지고, 고르는 해법이 그것을 감당하기를 바란다 (5장, p.157).[^newman2021]
+- **이 문제가 생겨나는 지점을 같은 책 8장이 짚는다** — 마이크로서비스를 논리로만 보면 하나가
+  하나에게 말하는 그림이지만, 물리 배포에서는 **서비스마다 인스턴스가 여럿일 가능성이 높다.**
+  통신이 HTTP 기반 API라면 **요청을 서로 다른 인스턴스로 라우팅하는 데 로드 밸런서 하나면
+  충분하다** (8장 §"Multiple Instances", p.220).[^newman2021] 인스턴스를 여럿 두는 이유와
+  그것을 여러 기계·여러 데이터센터에 흩는 조항은
+  [독립 배포 가능성](independent-deployability.md)에 있다.
 
 ## DNS를 쓸 때 실제로 걸리는 것들
 
@@ -324,7 +330,8 @@ sources:
     (pp.157–159) · §"Dynamic Service Registries"(pp.159–161)와 그 하위 §ZooKeeper(p.159) ·
     §Consul(pp.159–160) · §"etcd and Kubernetes"(pp.160–161) · §"Rolling your own"(p.161) ·
     §"Don't Forget the Humans!"(p.161) — 과 §"Documenting Services"(pp.169–172) 중
-    §"The Self-Describing System"(pp.170–172). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
+    §"The Self-Describing System"(pp.170–172) — 그리고 8장 "Deployment"
+    §"Multiple Instances"(p.220)에서 온 한 줄. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
     이 절들에는 영어 직인용으로 옮길 만한 정의 문장이 없어 전부 한국어 재서술이다 —
     저자가 제품과 실무를 서술하는 산문이고 규정문을 세우지 않는다. 도판 둘(Figure 5-5 DNS가
     로드 밸런서로 풀리게 해 낡은 항목을 피하는 그림 p.158 · Figure 5-8·5-9 Financial Times의

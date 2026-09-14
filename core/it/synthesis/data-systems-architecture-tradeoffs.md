@@ -52,6 +52,7 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 테두리를 넘는 남북 트래픽과 안쪽의 동서 트래픽에 각각 놓이는 중개자, 그리고 거기에 업무 로직을 넣지 말라는 규칙
 - [마이크로서비스 소스와 빌드의 배치](../concepts/microservice-source-layout.md) — 쪼갠 서비스들의 소스 코드와 빌드를 저장소 하나에 둘 것인가 서비스마다 둘 것인가, 그리고 그 선택이 독립 배포 가능성에 거는 조항
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 그 배치가 촉발하는 통합과 파이프라인. 도구를 들여놓은 것과 실천하는 것을 가르는 세 물음, 아티팩트를 한 번만 만든다는 조항
+- [마이크로서비스 배포의 다섯 원칙](../concepts/microservice-deployment-principles.md) — 그 파이프라인이 실어 나른 것을 실제로 놓을 때 지키는 조문 다섯. 격리 실행, 자동화 집중, 코드형 인프라, 무중단 배포, 원하는 상태 관리
 
 ## 사업의 요구와 사용자의 요구
 

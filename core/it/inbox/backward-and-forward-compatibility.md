@@ -56,6 +56,14 @@ sources:
     않을 수 있다.**
 - **이는 코드의 옛 버전과 새 버전, 그리고 옛 데이터 형식과 새 데이터 형식이 잠재적으로 같은 시점에
   시스템에 공존할 수 있다는 뜻이다** (5장, p.162).[^kleppmann2026]
+- **마이크로서비스 실무서는 같은 기제를 반대편에서 세운다.** [newman2021](../sources/newman2021.md)에게
+  롤링 업그레이드는 **호환성을 요구하는 사정**이 아니라 **무중단 배포라는 배포 원칙을 실현하는
+  수단**이다 — 새 판을 배포하기 전에 서비스를 통째로 내리지 않고 옛 판 인스턴스를 줄이면서 새 판
+  인스턴스를 늘린다 (8장 §"Zero-Downtime Deployment", p.234).[^newman2021]
+  - **두 서술이 같은 사실의 원인과 결과로 맞물린다.** 이쪽은 "무중단으로 배포하려니 판이
+    공존한다"이고 저쪽은 "판이 공존하니 인코딩이 호환돼야 한다"이다. 겨루지 않는다. 배포 원칙
+    쪽의 전문은
+    [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md)에 있다.
 
 ## 두 방향의 정의
 
@@ -588,6 +596,8 @@ p.144).[^newman2021] 깨야 할 때의 선택지는 다른 페이지에 있다 �
 - [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — 브로커를 거치는 메시지에 같은
   요구가 걸리는 자리
 - [유지보수성](../concepts/maintainability.md) — 진화성이 비기능 요건으로 정의되는 자리
+- [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md) — 롤링 업그레이드를
+  무중단 배포의 수단으로 세우는 쪽
 - [읽기 스키마와 쓰기 스키마](../concepts/schema-on-read-and-schema-on-write.md) — 스키마를 강제할지
   말지가 이 문제에 어떻게 걸리는가
 - [ML 파이프라인의 데이터 검증](../concepts/data-validation-for-ml-pipelines.md) — 스키마가
@@ -601,7 +611,10 @@ p.144).[^newman2021] 깨야 할 때의 선택지는 다른 페이지에 있다 �
     Breakages"(p.142) · §"Should You Use Schemas?"(p.143) — 과 §"Avoiding Breaking Changes"
     (pp.144–149) — 도입(p.144) · §"Expansion Changes"(p.145) · §"Tolerant Reader"
     (pp.145–146) · §"Right Technology"(p.146) · §"Explicit Interface"(pp.146–147) ·
-    §"Catch Accidental Breaking Changes Early"(pp.148–149)와 그 각주 2(p.148). 곁글
+    §"Catch Accidental Breaking Changes Early"(pp.148–149)와 그 각주 2(p.148) — 그리고
+    8장 "Deployment" §"Zero-Downtime Deployment"(p.234)에서 온 한 줄(직인용이 아니라
+    한국어 재서술이고 그 절의 전문은
+    [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md)에 있다). 곁글
     §"Semantic Versioning"(pp.147–148)과 §"Managing Breaking Changes" 이하는 이 페이지에
     두지 않고 [계약을 깨는 변경의 관리](managing-breaking-api-changes.md)에 두었다.
     §"Avoiding Breaking Changes"의 예제 목록 둘(Example 5-3 Customer 서비스의 응답 XML

@@ -120,6 +120,14 @@ sources:
 - 저자가 선호 절에서 이 기준을 다시 수치 없이 잰다 — 소비자에게 업그레이드 시간을 줘야 할 때
   실제로 걸리는 것은 **몇 주 이상**일 수 있고, 블루-그린 배포나 카나리 릴리스처럼 **걸리는 시간이
   훨씬 짧은** 자리에서는 이 방식의 단점이 상쇄된다 (5장, p.152).[^newman2021]
+- **그 짧은 공존이 사실은 무중단 배포의 기본 형태다** — 같은 책 8장이 무중단 배포를 배포 원칙
+  다섯 중 하나로 세우면서 그 수단으로 **롤링 업그레이드(rolling upgrade)**를 든다. 새 판을
+  배포하기 전에 마이크로서비스를 통째로 내리지 않고 **옛 판 인스턴스를 천천히 줄이면서 새 판
+  인스턴스를 늘리는** 방식이다 (8장 §"Zero-Downtime Deployment", p.234).[^newman2021]
+  - **곧 무중단으로 배포하는 한 판 공존은 선택이 아니라 기본값이다.** 이 절이 재는 것은 그
+    공존을 **얼마나 오래 끄는가**이고, 8장이 재는 것은 **그 공존 없이 배포하면 소비자와 중단을
+    조율해야 한다**는 비용이다. 원칙 쪽의 전문은
+    [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md)에 있다.
 
 ## 옛 인터페이스를 흉내 내기
 
@@ -282,6 +290,8 @@ sources:
   가르기가 더 까다로운 이유
 - [마이크로서비스 인터페이스 기술의 다섯 조건](microservice-interface-criteria.md) — 첫째 조건
   (후진 호환을 쉽게 만들 것)이 실패했을 때 이 페이지가 열린다
+- [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md) — 무중단 배포가
+  판 공존을 기본값으로 만드는 자리
 - [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
   이 축의 허브
 
@@ -290,7 +300,8 @@ sources:
     (pp.147–148) · §"Managing Breaking Changes"(pp.149–154) — §"Lockstep Deployment"(p.149) ·
     §"Coexist Incompatible Microservice Versions"(pp.149–150) · §"Emulate the Old Interface"
     (pp.150–152) · §"Which Approach Do I Prefer?"(p.152) · §"The Social Contract"
-    (pp.152–153) · §"Tracking Usage"(p.153) · §"Extreme Measures"(p.154). 쪽은 인쇄판 쪽
+    (pp.152–153) · §"Tracking Usage"(p.153) · §"Extreme Measures"(p.154) — 그리고 8장 "Deployment"
+    §"Zero-Downtime Deployment"(p.234)에서 온 한 줄. 쪽은 인쇄판 쪽
     번호(PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은
     따옴표는 곧은 따옴표로, 줄바꿈 하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 이
     절들의 도판 둘(Figure 5-3 한 서비스의 여러 판을 나란히 돌리는 그림 p.150 · Figure 5-4
