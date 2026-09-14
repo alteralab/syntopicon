@@ -155,7 +155,7 @@ public class BookingProcessManager
   Integration Patterns: Designing, Building, and Deploying Messaging Solutions*(Addison-Wesley,
   2003)다 (9장, p.151, 각주 2).[^khononov2021]
   - **그 책은 이 KB에 이미 들어와 있다.** 같은 이름의 패턴이 사는 자리가
-    [복합 라우팅 패턴 §Process Manager](../concepts/composed-routing-patterns.md#process-manager--매-단계-중앙으로-돌아온다)이고,
+    [복합 라우팅 패턴 §Process Manager](../concepts/composed-routing-patterns.md)이고,
     거기 실린 원전의 처방이 이 판본의 정의와 같은 대상을 가리킨다 — **중앙 처리 단위인
     *Process Manager*를 써서 시퀀스의 상태를 유지하고 중간 결과에 기반해 다음 처리 단계를
     정하라** (7장, p.313).[^hohpe2004]

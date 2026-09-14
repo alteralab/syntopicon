@@ -386,7 +386,7 @@ Linstedt는 같은 테이블을 정보 마트 계층의 구성물로 다시 서�
   테이블 행이다. 저자 자신이 그 차이를 이름 규칙에서 짚는다. 이벤트 쪽 서술은
   [도메인 이벤트](../concepts/domain-events.md)와
   [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md)에 있고, 뒤엣것에
-  [팩트 테이블과 무엇이 다른가](../concepts/event-sourcing-and-cqrs.md#팩트-테이블과-무엇이-다른가)
+  [팩트 테이블과 무엇이 다른가](../concepts/event-sourcing-and-cqrs.md)
   절이 이미 있다.
 
 

@@ -102,7 +102,7 @@ sources:
   나아가 **경계 컨텍스트 API의 여러 버전을 관리하고 제공하는 과정을 덜어 줄 수 있다** (9장,
   p.139).[^khononov2021]
   - 공표된 언어(published language)가 무엇인지는
-    [컨텍스트 관계 패턴 §공표된 언어](context-relationship-patterns.md#공표된-언어)에 있다.
+    [컨텍스트 관계 패턴 §공표된 언어](context-relationship-patterns.md)에 있다.
 
 ## 교환 컨텍스트
 

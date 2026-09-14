@@ -200,7 +200,7 @@ sources:
     같은 것이다** — 그쪽도 여러 테이블의 삽입·갱신·삭제가 **왜** 그 변이가 수행됐는지를 주지
     않는다고 적는다. **두 소스가 서로를 참조한 적은 없고 같은 결핍을 같은 낱말로 짚는다.**
   - 세 대안의 전문은
-    [이벤트 소싱과 CQRS §그냥 로그를 남기면 안 되는가](../concepts/event-sourcing-and-cqrs.md#그냥-로그를-남기면-안-되는가)에
+    [이벤트 소싱과 CQRS §그냥 로그를 남기면 안 되는가](../concepts/event-sourcing-and-cqrs.md)에
     있고, 그 감사 로그를 낳는 업무 로직 패턴은
     [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md)에 있다.
 

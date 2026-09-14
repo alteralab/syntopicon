@@ -254,7 +254,7 @@ sources:
     부트스트랩 스크립트가 바로 그것이라 실제로는 같은 것을 가리킨다고 읽는다. 저자가 그것을
     밝힌 대목은 없다.
 - 그 아키텍처 전체는
-  [의존성 역전 원칙 §포트와 어댑터의 규정](dependency-inversion-principle.md#포트와-어댑터의-규정)에 있다.
+  [의존성 역전 원칙 §포트와 어댑터의 규정](dependency-inversion-principle.md)에 있다.
 
 ## 이어지는 페이지
 

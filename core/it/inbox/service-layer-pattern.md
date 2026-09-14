@@ -333,7 +333,7 @@ sources:
   - 위 [왜 전부 서비스라 부르는가](#왜-전부-서비스라-부르는가)가 다루는 낱말 혼동의 셋째
     갈래다 — 도메인 서비스·애플리케이션 서비스에 더해 **배치 단위로서의 서비스**가 같은 낱말을
     쓴다. 저자가 애플리케이션 계층이라는 이름을 선호하는 이유도 이것이다
-    ([계층 아키텍처 §층 사이의 소통과 이름의 대응](../concepts/layered-architecture.md#층-사이의-소통과-이름의-대응)).
+    ([계층 아키텍처 §층 사이의 소통과 이름의 대응](../concepts/layered-architecture.md)).
 - 무엇으로 작동하는가 (8장, p.122):[^khononov2021]
 
 > The service layer acts as a façade for the business logic layer: it exposes an interface that

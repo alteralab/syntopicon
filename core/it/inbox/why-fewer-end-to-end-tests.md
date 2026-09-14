@@ -364,7 +364,7 @@ Pyramid").[^wacker2015-e2e]
   #hypothesis 저쪽이 "보조 하위 도메인이라 스위트가 작다"를 암묵적 전제로 삼는 것으로 보이나
   본문에 적혀 있지는 않다.
 - 저쪽의 대응표 전문은
-  [업무 로직 구현 패턴 고르기 §테스트 전략도 여기서 따라 나온다](../concepts/choosing-a-business-logic-pattern.md#테스트-전략도-여기서-따라-나온다)에
+  [업무 로직 구현 패턴 고르기 §테스트 전략도 여기서 따라 나온다](../concepts/choosing-a-business-logic-pattern.md)에
   있다.
 
 ## 이어지는 페이지
