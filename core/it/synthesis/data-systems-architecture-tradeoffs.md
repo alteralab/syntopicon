@@ -55,6 +55,7 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [마이크로서비스 배포의 다섯 원칙](../concepts/microservice-deployment-principles.md) — 그 파이프라인이 실어 나른 것을 실제로 놓을 때 지키는 조문 다섯. 격리 실행, 자동화 집중, 코드형 인프라, 무중단 배포, 원하는 상태 관리
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 그 조문으로 재는 수단의 사다리. 물리 기계부터 가상 기계와 컨테이너와 PaaS와 FaaS까지, 그리고 FaaS가 마이크로서비스를 논리 개념으로 바꾸는 자리
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) — 컨테이너를 여러 기계에 걸쳐 돌리는 층이 떠맡는 일과 쿠버네티스의 핵심 개념, 그리고 들일 것인가의 판단
+- [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 그렇게 놓은 것을 프로덕션에서 시험한다는 것. 이미 하면서 테스트라 부르지 않던 넷과 그것을 안전하게 만드는 조건, 그리고 테스트를 더 쌓는 노력과 빨리 고치는 능력 사이의 저울
 
 ## 사업의 요구와 사용자의 요구
 

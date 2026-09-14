@@ -154,6 +154,9 @@ generated: { by: "claude-opus-5", at: "2026-08-22T16:00:00Z" }
   실패. 맥락 없는 모범 사례가 어떻게 굴러가는지의 진단
 - [기술 선택 기준](../concepts/technology-selection-criteria.md) — 유행이 아니라 맥락으로
   고르라는 같은 규칙이 도구 쪽에 걸리는 자리
+- [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 이 축의 두 글이 다루지
+  않는 자리. 판정을 배포 전에만 두면 무엇을 잃는가와, 한 실무서가 이 축의 분류(사분면)에
+  붙인 한계
 - [대역과 단위 테스트의 가치](test-doubles-and-unit-test-value.md) — 형제 허브. 판정 장치를
   짜는 손 쪽. 무엇을 대역으로 세울 것인가와 단위 테스트에 실린 무게가 거기 있다
 - [테스트 오라클 문제](test-oracle-problem.md) — 형제 허브. 판정의 근거 쪽

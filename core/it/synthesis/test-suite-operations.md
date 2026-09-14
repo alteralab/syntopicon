@@ -188,6 +188,11 @@ generated: { by: "claude-opus-5", at: "2026-08-23T19:30:00Z" }
   `change-detector test`라는 이름을 붙인 자리. 대역과 상호작용 검증이 그 이름과 만난다
 - [가짜와 목](../concepts/fakes-versus-mocks.md) — 다른 소스가 같은 선택을 다룬 자리.
   이 축의 대역 페이지와 결론의 방향이 같다
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 이 축의 배합 물음에서
+  종단 테스트가 내려간 자리를 무엇이 메우는가. 범위는 한 제공자로 좁히고 의미적 깨짐을 잡는
+  테스트 부류
+- [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 배포 전 스위트를 줄인
+  뒤에 무엇이 남는가. 이 축이 배합과 결정성을 다루고 그쪽은 판정을 어디서 돌리는가를 다룬다
 - [자바 스레드 스케줄링과 상태](../concepts/java-thread-scheduling-and-states.md) — 이 축의
   불안정 원인 상위 두 범주가 기대는 아래층 기제
 - [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) — 테스트

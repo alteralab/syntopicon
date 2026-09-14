@@ -71,6 +71,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   세 원천의 발생률과 상관 구조, 무비난 사후 분석
 - [분산 컴퓨팅의 오류](../concepts/fallacies-of-distributed-computing.md) — 원격 통신에 대한
   가정들, 연쇄 장애와 메타안정 장애
+- [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 실패 확률을 0으로 내릴 수
+  없다는 전제 위에서 복구 쪽에 노력을 거는 저울(MTBF 대 MTTR)과 프로덕션에서 무엇을 어떻게
+  확인하는가
 
 ## 확장성
 
