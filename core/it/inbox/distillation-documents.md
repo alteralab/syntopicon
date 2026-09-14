@@ -263,7 +263,7 @@ p.414).[^evans2003] 그리고 뒤의 패턴이 앞의 패턴만으로는 부족�
 - [깊은 모델과 돌파](deep-model.md) — 인계받은 팀이 그 설계를 바꾼 것을 어떻게 읽는가
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 문서가 가로지르는 경계
 - [유비쿼터스 언어](ubiquitous-language.md) — 이 문서가 쓰이는 말
-- [유비쿼터스 언어](ubiquitous-language.md#다이어그램과-문서가-이-언어에-대해-갖는-지위) —
+- [유비쿼터스 언어](ubiquitous-language.md) —
   같은 원전이 문서 일반에 붙이는 조건
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
