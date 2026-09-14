@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 컨텍스트 지도
-description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 그리고 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지
-generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
+description: 프로젝트에 있는 모델 컨텍스트 전부와 그 사이 관계를 하나의 그림으로 놓는다는 패턴의 원전 — 경계 하나만으로는 전체가 보이지 않는다는 문제 설정, 경계 컨텍스트 사이 코드 재사용이 위험이라는 판정, 컨텍스트에 이름을 붙여 유비쿼터스 언어에 넣으라는 조항, 지도는 이상이 아니라 현재를 그린다는 규칙, 회의에서 그 이름을 쓰라는 실천 지침, 컨텍스트 사이 관계를 고르는 여덟 패턴의 이름과 요지를 담은 색인 표와 각 패턴의 전문이 어디 있는가, 그리고 지도를 그린 다음에 오는 단계가 무엇인가, 그리고 세 전략 원리 중 이 지도만 선택 사항이 아니며 대규모 구조는 이 지도가 그리는 경계를 가로질러야 한다는 16장의 판정, 그리고 대규모 구조가 이 지도 자체를 조직해 구조의 어휘가 프로젝트 전체에 걸리는 17장의 배치
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
@@ -15,6 +15,9 @@ sources:
 - [이름을 회의에서 써라](#이름을-회의에서-써라)
 - [관계를 고르는 패턴들](#관계를-고르는-패턴들)
 - [무엇이 선택을 가르는가](#무엇이-선택을-가르는가)
+- [지도를 그린 다음](#지도를-그린-다음)
+- [지도는 선택 사항이 아니다](#지도는-선택-사항이-아니다)
+- [구조가 이 지도를 조직할 때](#구조가-이-지도를-조직할-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **프로젝트에 있는 여러 모델 컨텍스트와 그 사이의 관계를 어떻게 한눈에 놓는가.**
@@ -109,7 +112,9 @@ sources:
 - 이 패턴들의 지위가 두 가지로 규정된다 — **이 패턴들은 두 가지 목적에 봉사한다: 개발 작업을
   성공적으로 조직하는 목표를 제공하는 것, 그리고 기존 조직을 서술하는 어휘를 공급하는 것**
   (14장, p.352).[^evans2003]
-- 이 KB는 이 관계 유형들을 이름과 요지로만 들인다. 각 패턴의 처방 한 줄이 그 요지다.
+- **아래 표는 색인이다.** 각 패턴의 처방 한 줄을 요지로 싣고, 문제 서술과 사례와 구현
+  논의는 따로 있다 — 일곱 패턴은 [컨텍스트 관계 패턴](context-relationship-patterns.md)에,
+  부패 방지 계층은 분량이 따로 서므로 [부패 방지 계층](../concepts/anticorruption-layer.md)에 있다.
 
 | 패턴 | 원어 | 처방의 요지 |
 |---|---|---|
@@ -144,9 +149,90 @@ sources:
   - **그리고 물론 대부분의 프로젝트는 레거시·외부 시스템과 어느 정도 통합해야 하며, 그것이
     열린 호스트 서비스나 부패 방지 계층으로 이끌 수 있다.**
 
+## 지도를 그린 다음
+
+- 이 패턴의 조항이 **지도를 먼저 그리고 변환은 나중에 다루라**고 끝난다. 그 나중의 절차가 이
+  장의 뒷부분에 따로 있다 — 어떤 경계와 관계를 고를지의 판정과, 이미 그어 놓은 경계를 옮기는
+  여섯 가지 수순이다. 전문은 [컨텍스트 전략과 변환](context-strategy-and-transformations.md)에
+  있다.
+- 그 절차의 첫 조항이 이 페이지의 규칙을 그대로 되풀이한다 — **어느 시점에든 현재 상황을
+  반영하도록 컨텍스트 지도를 언제나 그리는 것이 중요하다. 그러나 그것을 하고 나면 그 현실을
+  바꾸고 싶어질 수 있다** (14장, p.381).[^evans2003]
+- 진행 중인 프로젝트에서는 그 순서가 더 강하게 걸린다 — **효과적이려면 컨텍스트 지도는 방금
+  서술한 지침을 따라 정할 법한 이상적 조직이 아니라 팀들의 진짜 관행을 반영해야 한다** (14장,
+  p.388).[^evans2003]
+
+## 지도는 선택 사항이 아니다
+
+16장이 전략 설계의 세 원리 중 이 지도와 대규모 구조의 지위를 한 줄로 가른다.
+
+- 판정 (16장, p.446):[^evans2003]
+
+> Unlike the CONTEXT MAP, a large-scale structure is optional. One should be imposed when costs
+> and benefits favor it, and when a fitting structure is found. In fact, it is not needed for
+> systems that are simple enough to be understood when broken into MODULES.
+
+  - 위 [조항](#조항)에는 이런 단서가 붙지 않는다. **경계가 있으면 지도는 있어야 하고**, 없다면
+    그것은 지도를 안 그린 것이지 필요가 없는 것이 아니다.
+- 그렇다고 두 원리가 무관하지는 않다. 구조 쪽에 **이 지도가 그리는 경계를 가로질러야 한다**는
+  요구가 붙는다 (16장, p.442·445):[^evans2003]
+  - **구조는 하나의 경계 컨텍스트 안에 갇힐 수도 있지만 대개는 하나 이상에 걸치며, 프로젝트에
+    관련된 모든 팀과 서브시스템을 붙들어 두는 개념적 조직을 제공한다** (p.442).
+  - **대규모 구조는 일반적으로 경계 컨텍스트를 가로질러 적용 가능해야 한다.** 실제 프로젝트에서
+    반복하다 보면 구조는 특정 모델에 단단히 묶이는 특징을 잃고 도메인의 개념적 윤곽에 대응하는
+    특징을 키운다 (p.445).
+  - 그래서 구조는 **각 컨텍스트의 개발 팀이 지역적 필요에 답하도록 모델을 달리할 자유를
+    남겨야** 한다 (16장, p.445).[^evans2003]
+- 위 [관계를 고르는 패턴들](#관계를-고르는-패턴들)의 두 항목이 구조 쪽에서 다시 언급된다 —
+  플러그인 컴포넌트 프레임워크의 문제 서술이 **긴밀히 함께 일하지 않는 팀에게 공유 커널은
+  실현 가능하지 않다**고 적고, 허브의 플러그인 인터페이스에 공표된 언어를 쓰는 선택지를 든다
+  (16장, pp.475–476).[^evans2003]
+- 반대로 구조가 지도에 새 관계를 만드는 자리도 하나 있다 — 의사 결정 지원 층이 데이터 웨어하우스
+  기술로 구현되면 **그 층은 별개의 경계 컨텍스트가 되어 운영 소프트웨어와 고객/공급자 관계를
+  맺는다** (16장, p.462).[^evans2003]
+
+## 구조가 이 지도를 조직할 때
+
+17장이 위 절의 관계를 한 걸음 더 끌고 간다. 구조가 경계를 가로지를 수 있다는 데서 그치지 않고,
+**구조가 이 지도 자체를 조직하는 배치**를 따로 든다.
+
+- 그 배치가 발동하는 조건 — **많은 프로젝트에서 더 큰 도전은 이질적인 부분들이 어떻게 맞물리는지를
+  이해하는 것이다. 그것들은 별개의 컨텍스트로 갈려 있을 수 있는데, 그렇다면 각 부분이 통합된
+  전체 시스템에서 무슨 역할을 하고 부분들은 서로 어떻게 관계 맺는가?** (17장,
+  p.486).[^evans2003]
+- 처방 (17장, p.486):[^evans2003]
+
+> Then the large-scale structure can be used to organize the CONTEXT MAP. In this case, the
+> terminology of the structure applies to the whole project (or at least some clearly bounded
+> part of it).
+
+  - **위 [이름을 회의에서 써라](#이름을-회의에서-써라)의 요구가 한 겹 늘어난다.** 컨텍스트
+    이름이 유비쿼터스 언어에 드는 것에 더해, 구조의 층 이름도 프로젝트 공용어가 된다.
+- 그 어휘로 레거시의 자리를 말할 수 있게 된다 — **레거시 시스템이 특정 책임 층 안에 든다고 말할
+  수 있다는 것은 그 시스템의 범위와 역할의 핵심 측면을 간결하게 기술한다** (17장,
+  p.487).[^evans2003] 레거시가 파사드로 접근된다면 **파사드가 제공하는 각 서비스를 한 층 안에
+  들도록 설계할 수 있을지도 모른다** (17장, p.488).[^evans2003]
+- 한 프로젝트에 구조가 여럿일 수도 있다는 허가와 그 경고 (17장, p.488):[^evans2003]
+
+> Of course, because each BOUNDED CONTEXT is its own name space, one structure could be used to
+> organize the model within one CONTEXT, while another was used in a neighboring CONTEXT, and
+> still another organized the CONTEXT MAP. However, going too far down that path can erode the
+> value of the large-scale structure as a unifying set of concepts for the project.
+
+- **지도가 이 배치의 전제다.** 구조가 무엇을 조직하는지 말하려면 조직할 대상의 목록이 먼저
+  있어야 하고, 그 목록이 이 지도다. 17장이 전략 설계의 출발점으로 드는 여섯 물음의 첫 항목이
+  "컨텍스트 지도를 그려라"인 것도 같은 이유다 (17장, p.490).[^evans2003] 여섯 물음 전체는
+  [전략 패턴을 함께 쓰기](../concepts/combining-strategic-patterns.md)에 있다.
+
 ## 이어지는 페이지
 
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 지도가 그리는 대상
+- [컨텍스트 관계 패턴](context-relationship-patterns.md) — 표에 실린 관계들의 전문
+- [부패 방지 계층](../concepts/anticorruption-layer.md) — 표의 한 줄이 따로 선 자리
+- [컨텍스트 전략과 변환](context-strategy-and-transformations.md) — 지도를 그린 다음 단계
+- [전략적 설계](strategic-design.md) — 이 지도가 봉사하는 원리
+- [대규모 구조](large-scale-structure.md) — 같은 원리의 셋째 항목. 이쪽과 달리 선택 사항이다
+- [전략 패턴을 함께 쓰기](../concepts/combining-strategic-patterns.md) — 구조가 이 지도를 조직하는 배치의 전문
 - [유비쿼터스 언어](ubiquitous-language.md) — 컨텍스트 이름이 들어가는 자리
 - [모델 주도 설계](model-driven-design.md) — 각 컨텍스트 안에서 지켜지는 조항
 - [모놀리스 대 모듈](../concepts/monolith-versus-modular.md) — 같은 경계 판단이 배치 단위로
@@ -158,15 +244,22 @@ sources:
 - [결합 끊기](decoupling.md) — 컨텍스트 사이 번역이 사는 층
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 14장 "Maintaining Model Integrity" §CONTEXT MAP(pp.344–352,
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure"(장 도입 p.442 ·
+    §EVOLVING ORDER pp.445–446 · §"Choosing Appropriate Layers" p.462 ·
+    §PLUGGABLE COMPONENT FRAMEWORK pp.475–476) ·
+    14장 "Maintaining Model Integrity" §CONTEXT MAP(pp.344–352,
     §Organizing and Documenting CONTEXT MAPS p.352 포함) · §Relationships Between BOUNDED
     CONTEXTS(pp.352–353) · §SHARED KERNEL(pp.354–355) · §CUSTOMER/SUPPLIER DEVELOPMENT
     TEAMS(pp.356–360) · §CONFORMIST(pp.361–363) · §ANTICORRUPTION LAYER(pp.364–370) ·
     §SEPARATE WAYS(pp.371–373) · §OPEN HOST SERVICE(pp.374–375) · §PUBLISHED LANGUAGE
-    (pp.375–378). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
+    (pp.375–378) · 17장 "Bringing the Strategy Together"
+    §"Combining Large-Scale Structures and BOUNDED CONTEXTS"(pp.486–488)와 §"Assessment First"
+    (p.490). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
     조판하는 관례를 직인용에서 유지했다. **관계 패턴 여덟은 이름과 처방 요지만 들였다** —
     각 패턴의 사례·구현 논의·변형은 이 페이지의 물음(전체를 어떻게 놓는가) 밖이다. 표
     안의 굵은 글씨는 각 패턴 처방 문단의 직인용을 한국어로 옮긴 것이고 괄호 안이 그 쪽이다.
     화물 시스템의 두 컨텍스트 예제(pp.346–351)와 그 도판(Figure 14.2–14.6)은 도판과 번역
-    수순이 한 덩어리라 산문 서술로도 옮기지 않았다. §Unifying an Elephant(pp.378–381) 이후
-    전략 선택·변환 절(pp.381–396)은 이 페이지의 물음 밖이다.
+    수순이 한 덩어리라 산문 서술로도 옮기지 않았다. §"Choosing Your Model Context Strategy"의
+    도입(p.381)과 §"When Your Project Is Already Under Way"(p.388)에서 이 지도의 규칙을 되짚는
+    두 대목만 마지막 절에 옮겼고, 그 절들의 나머지는 다른 물음에 답하므로
+    [컨텍스트 전략과 변환](context-strategy-and-transformations.md)에 있다.

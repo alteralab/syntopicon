@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 연합 컴퓨테이셔널 거버넌스 원칙
-description: "데이터 메시의 넷째 원칙 — 중앙 인증·전역 정규 모델링에 기댄 기존 데이터 거버넌스를 도메인 자율과 전역 상호운용성의 동적 평형 문제로 다시 세우는 설계. 시스템 사고·연합 운영 모델·컴퓨테이셔널 정책이라는 세 구성 요소, 피드백 루프와 지렛점, 도메인 대표가 정책을 만드는 연합 팀의 구성과 유인, 표준과 정책의 코드화·자동 테스트·자동 모니터링이라는 네 실행 방식, 중앙 거버넌스에서 옮겨 가는 여섯 전환(책무 위임·정책 실행 내장·개입 대신 조력 자동화·간극 모델링·네트워크 효과 측정·변화 수용), 그리고 중앙화 계열 처방과 갈리는 자리와 그 조건"
-generated: { by: "claude-opus-5", at: "2026-08-16T02:00:00Z" }
+description: "데이터 메시의 넷째 원칙 — 중앙 인증·전역 정규 모델링에 기댄 기존 데이터 거버넌스를 도메인 자율과 전역 상호운용성의 동적 평형 문제로 다시 세우는 설계. 시스템 사고·연합 운영 모델·컴퓨테이셔널 정책이라는 세 구성 요소, 피드백 루프와 지렛점, 도메인 대표가 정책을 만드는 연합 팀의 구성과 유인, 표준과 정책의 코드화·자동 테스트·자동 모니터링이라는 네 실행 방식, 중앙 거버넌스에서 옮겨 가는 여섯 전환(책무 위임·정책 실행 내장·개입 대신 조력 자동화·간극 모델링·네트워크 효과 측정·변화 수용), 그리고 중앙화 계열 처방과 갈리는 자리와 그 조건, 그리고 빌려 온 원전이 전역 규칙의 양에 대해 더 말하는 것 넷(최소를 기본값으로·전역이 부분을 덜 이상적으로 만든다는 인정·예외를 세어 구조를 재심하는 규칙·구조를 통째로 버릴 수 있다는 허가), 그리고 같은 원전이 \"누가 정하는가\"에 대해 더 말하는 것 셋(조직도로는 갈리지 않는다는 경고·아키텍처 팀이 최고 인재를 빨아들이지 말라는 조문·사람의 순환이라는 피드백 고리)"
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 sources:
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
+  - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
 
 # 연합 컴퓨테이셔널 거버넌스 원칙
@@ -29,6 +30,8 @@ sources:
 - [이행 — 중앙 거버넌스에서 옮겨 가는 여섯](#이행--중앙-거버넌스에서-옮겨-가는-여섯)
 - [저자 자신의 요약](#저자-자신의-요약)
 - [중앙 거버넌스 처방과 갈리는 자리](#중앙-거버넌스-처방과-갈리는-자리)
+- [빌려 온 원전이 전역 규칙에 대해 말하는 것](#빌려-온-원전이-전역-규칙에-대해-말하는-것)
+- [같은 원전이 "누가 정하는가"에 대해 말하는 것](#같은-원전이-누가-정하는가에-대해-말하는-것)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **소유권을 도메인마다 쪼개 놓고도 전역의 보안·법규·상호운용성을 어떻게
@@ -866,6 +869,116 @@ sources:
 **대다수 도메인이 ML로 증강되기 전에는 오지 않는다** (5장, p.91).[^dehghani2022] 두 전제가 서지
 않는 조직에서는 중앙 거버넌스 쪽 처방이 여전히 유효하다.
 
+## 빌려 온 원전이 전역 규칙에 대해 말하는 것
+
+데이터 메시가 [도메인 소유권 원칙](../concepts/domain-ownership-principle.md)에서 빌려 오는
+원전(Evans 2003)이, 이 페이지와 같은 물음 — **전역 규칙을 얼마나 두고 지역 자율을 얼마나
+남기는가** — 을 소프트웨어 모델 쪽에서 따로 다룬다. 이 절은 그 원전이 이쪽에 더하는 것만 든다.
+
+**대상이 다르다.** 원전의 대규모 구조는 **도메인 모델을 논하고 조직하는 개념적 원리**이고, 이
+원칙의 전역 정책은 **데이터 프로덕트 사이의 상호운용과 안전을 보증하는 제약**이다. 그래서
+모순으로 세우지 않았다. 다만 둘 다 "전역 규칙의 양"을 판정하므로 한쪽에만 있는 조항이 있다.
+
+- **기본값이 최소라는 비대칭.** 원전은 구조를 세우는 이득과 잘못 세우는 손실이 같은 크기가
+  아니라고 본다 (16장, p.446):[^evans2003]
+
+> Because an ill-fitting structure is worse than none, it is best not to shoot for
+> comprehensiveness, but rather to find a minimal set that solves the problems that have emerged.
+> Less is more.
+
+  - 위 [정책 — 지역 정책과 전역 정책](#정책--지역-정책과-전역-정책)의 판정은 **무엇을 전역으로
+    올릴 것인가**를 상호운용의 필요로 가른다. 원전은 거기에 **개수 자체를 줄이라**는 기본값을
+    하나 더 얹는다.
+- **전역 규칙이 부분에서 무엇을 앗아 가는지가 손실로 계상된다** (16장, p.445):[^evans2003]
+
+> Individual parts have natural or useful ways of being organized and expressed that may not
+> apply to the whole, so imposing global rules makes these parts less ideal. Choosing to use a
+> large-scale structure favors manageability of the model as a whole over optimal structuring of
+> the individual parts.
+
+  - 위 [동적 평형 — 지역 최적화와 전역 최적화 사이](#동적-평형--지역-최적화와-전역-최적화-사이)가
+    같은 저울을 다루되 평형점을 찾는 쪽에 무게를 둔다면, 원전은 **전역을 고르는 순간 지역이
+    덜 이상적이 된다는 것을 인정하고 시작하라**고 적는다.
+- **예외를 세는 규칙.** 원전에는 구조를 재심하는 계기가 조문으로 있다 (16장,
+  p.446):[^evans2003]
+
+> A large-scale structure can be very helpful and still have a few exceptions, but those
+> exceptions need to be flagged somehow, so that developers can assume the structure is being
+> followed unless otherwise noted. And if those exceptions start to get numerous, the structure
+> needs to be changed or discarded.
+
+  - 위 [피드백 루프로 중복을 지우는 예](#피드백-루프로-중복을-지우는-예)와 위
+    [지렛점 — 무엇을 재느냐가 행동을 바꾼다](#지렛점--무엇을-재느냐가-행동을-바꾼다)가 재는
+    것은 메시의 건강이다. **정책 자체가 틀렸다는 신호를 세는 계측은 이 장에 없다.**
+- **폐기 가능성.** 원전의 처방은 구조가 **완전히 다른 종류의 구조로 바뀔 수 있음**을 허용하고
+  (16장, p.445),[^evans2003] 위 [동적 위상을 기본 상태로 받아들인다](#동적-위상을-기본-상태로-받아들인다)와
+  같은 방향이되 **버릴 수 있다는 것**까지 명시한다.
+
+**반대로 이 원칙이 원전에 없는 것을 준다.** 원전은 대규모 구조의 고유한 취약점을 이렇게 적는다
+— **구조가 모델이나 구현의 세부와 맺는 관계는 보통 코드에 명시되지 않고, 기능 테스트는 구조에
+의존하지 않는다.** 그래서 **일관되게 지키지 않으면 구조는 부패하는 경향이 있고**, 남는 집행
+수단이 유비쿼터스 언어와 자기 규율뿐이다 (16장, p.482).[^evans2003] 위
+[계산 — 거버넌스가 보이지 않게 되는 지점](#계산--거버넌스가-보이지-않게-되는-지점)이 닫으려는
+것이 정확히 그 틈이다.
+
+- #hypothesis 정책을 코드로 심어 자동 집행하면 원전이 걱정하는 **경직성**이 줄어드는지 늘어나는지는
+  두 소스 어느 쪽도 묻지 않는다. 집행이 싸지면 규칙을 지키기도 쉬워지지만 규칙을 쌓기도
+  쉬워지고, 원전의 "예외가 많아지면 구조를 바꾸거나 버려라"에 대응하는 조항이 이쪽에는 없다.
+
+## 같은 원전이 "누가 정하는가"에 대해 말하는 것
+
+위 절이 **전역 규칙을 얼마나 두는가**를 다뤘다면 이 절은 **누가 그 규칙을 정하는가**를 다룬다.
+빌려 온 원전(Evans 2003)의 마지막 장이 그 물음에만 여러 절을 쓴다. 여기서도 대상이 다르므로
+모순으로 세우지 않았다 — 그쪽은 도메인 모델의 조직 원리를 정하는 일이고 이쪽은 데이터 프로덕트
+사이의 정책을 정하는 일이다. 그래도 **양쪽 다 "전역을 정하는 자리를 어떻게 배치하는가"**에
+답하므로, 한쪽에만 있는 조항을 든다.
+
+- **출발 판정이 같다.** 원전은 위에서 내려오는 방식을 성적으로 기각한다 (17장,
+  p.490):[^evans2003]
+
+> Traditionally, architecture is handed down, created before application development begins, by
+> a team that has more power in the organization than the application development team. But it
+> doesn't have to be that way. That way doesn't usually work very well.
+
+  - 위 [이 원칙이 놓이는 자리](#이-원칙이-놓이는-자리)와
+    [중앙 거버넌스 처방과 갈리는 자리](#중앙-거버넌스-처방과-갈리는-자리)가 같은 기각을 데이터
+    쪽에서 한다. **두 소스가 20년 간격으로 같은 실패 양식을 지목한다.**
+- **조직 형태를 둘로 든 것도 같다.** 원전은 중앙 권위 없이 굴러가는 팀과, 애플리케이션 팀의
+  동료로 서는 아키텍처 팀 둘을 든다 (17장, pp.491–492).[^evans2003] 뒤엣것의 규정이
+  위 [연합 팀 — 누가 앉는가](#연합-팀--누가-앉는가)의 그룹 배치와 가장 가깝다 (17장,
+  p.492):[^evans2003]
+
+> An architecture team can act as a peer with various application teams, helping to coordinate
+> and harmonize their large-scale structures as well as BOUNDED CONTEXT boundaries and other
+> cross-team technical issues. To be useful in this, they must have a mind set that emphasizes
+> application development.
+
+- **한쪽에만 있는 조항 셋이다.**
+  - **조직도로는 갈리지 않는다는 경고.** 원전은 **조직도상으로 이 팀은 전통적인 아키텍처 팀과
+    똑같아 보일 수 있지만 모든 활동에서 실제로는 다르다**고 적는다 (17장, p.492).[^evans2003]
+    위 [연합 팀 — 누가 앉는가](#연합-팀--누가-앉는가)는 구성원의 소속과 그룹의 느슨함으로 배치를
+    규정하는데, 원전은 **그 배치가 같아도 활동이 다르면 결과가 갈린다**고 본다. 저자가 드는
+    활동은 개발자와 함께 패턴을 발견하고 여러 팀과 실험해 증류에 이르고 손을 더럽히는 것이다.
+  - **인재 배분을 조문으로 금지한다** (17장, p.494):[^evans2003]
+
+    > Architecture teams must not siphon off all the best and brightest.
+
+    거버넌스 그룹을 세우면 가장 앞선 설계자들이 그쪽으로 빨려 들어가 **실제로 만드는 자리에
+    기술적으로 가장 덜 세련된 사람만 남는다**는 진단이다 (17장, p.494).[^evans2003] 이 장의
+    배치 논의에는 그 유출을 막는 조항이 없다.
+  - **피드백 고리의 실물 장치.** 원전은 아키텍처 팀 구성원을 애플리케이션 팀으로 순환시킨 사례를
+    들며 **전략 설계도 이와 똑같이 빡빡한 피드백 고리를 필요로 한다**고 적는다 (17장,
+    p.493).[^evans2003] 위 [피드백 루프로 중복을 지우는 예](#피드백-루프로-중복을-지우는-예)의
+    피드백은 **계측된 신호**이고, 원전의 것은 **사람의 순환**이다. 둘은 배타적이지 않다.
+- **반대로 이 원칙이 원전에 없는 것을 준다.** 원전의 여섯 필수 중 첫째가 **결정이 팀 전체에
+  닿아야 한다**인데 (17장, p.492),[^evans2003] 그 닿음을 보증하는 수단으로 원전이 드는 것은
+  소통과 공동체의 권위뿐이다. 위 [계산 — 거버넌스가 보이지 않게 되는 지점](#계산--거버넌스가-보이지-않게-되는-지점)이
+  그 자리에 자동 실행을 놓는다.
+- #speculation 정책을 플랫폼이 자동 집행하면 원전이 말한 "결정이 팀 전체에 닿는다"가 충족되는지,
+  아니면 **닿음 없이 집행만 이뤄지는 상태**가 되는지는 두 소스 어느 쪽도 묻지 않는다. 원전의
+  관심은 개발자가 전략과 맺는 실제 관계이지 규칙의 준수율이 아니다 (17장, p.492).[^evans2003]
+  근거가 두 소스의 관심사 대조뿐이라 추측으로 적는다.
+
 ## 이어지는 페이지
 
 - [데이터 메시](../concepts/data-mesh.md) — 네 원칙 전체의 개관과 이 원칙의 자리
@@ -875,6 +988,9 @@ sources:
   정책을 실제로 실행하는 셋째 원칙
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md) — 이 거버넌스가 균형을 잡아야
   하는 자율성의 출처
+- [대규모 구조](large-scale-structure.md) — 빌려 온 원전이 전역 규칙의 양을 판정하는 자리
+- [질서의 진화](../concepts/evolving-order.md) — 그 판정의 조문
+- [전략 설계 결정하기](strategic-decision-making.md) — 빌려 온 원전이 "누가 정하는가"에 답하는 자리
 - [제품으로서의 데이터 원칙](../concepts/data-as-a-product-principle.md) — 품질을 제공자의 공표
   계약(SLO)으로 만드는 자리
 - [데이터 관리](../concepts/data-management-discipline.md) — 거버넌스를 중앙 기능으로 세우는 쪽
@@ -887,6 +1003,13 @@ sources:
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 서비스 메시와 제로
   트러스트라는 원본 계열
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 자동 모니터링이 폴링하는 대상
+
+[^evans2003]: Evans 2003, 16장 "Large-Scale Structure" §EVOLVING ORDER(pp.445–446) ·
+    §"Communication and Self-Discipline"(p.482) · 17장 "Bringing the Strategy Together"
+    §"Who Sets the Strategy?"(pp.490–492) · §"Six Essentials for Strategic Design Decision
+    Making"(pp.492–494). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
+    원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절은 그 소스가
+    이 페이지에 더하는 것만 들고, 각 조항의 전문은 위에 링크한 페이지들에 있다.
 
 [^dehghani2022]: Dehghani 2022, 5장 "Principle of Federated Computational Governance". 이 페이지는
     원서 본문의 텍스트 추출본으로 반입했다 — **그림 5-1부터 5-5까지의 도판 자체는 읽지 않았고**,

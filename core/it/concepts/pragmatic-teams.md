@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 실용주의 팀
-description: 개인의 실용주의 기법을 팀 단위로 다시 쓴 것 — 팀의 정의와 규모 상한, 품질을 팀 책임으로 두고 품질 담당자를 두지 말라는 판정, 팀도 삶은 개구리가 된다는 진단, 개선을 일정에 넣지 않으면 일어나지 않는다는 규칙, 조직 안에서 팀의 존재감과 브랜드, 즉각적이고 마찰 없는 소통이 DRY를 지킨다는 논증, 그리고 게이트와 인계를 없애는 완전 기능 팀
-generated: { by: "claude-opus-5", at: "2026-08-15T23:30:00Z" }
+description: 개인의 실용주의 기법을 팀 단위로 다시 쓴 것 — 팀의 정의와 규모 상한, 품질을 팀 책임으로 두고 품질 담당자를 두지 말라는 판정, 팀도 삶은 개구리가 된다는 진단, 개선을 일정에 넣지 않으면 일어나지 않는다는 규칙, 조직 안에서 팀의 존재감과 브랜드, 즉각적이고 마찰 없는 소통이 DRY를 지킨다는 논증, 그리고 게이트와 인계를 없애는 완전 기능 팀, 그리고 다른 원전이 같은 자리에 두는 조문 — 객체는 전문가로 만들되 개발자는 제너럴리스트로 두라는 판정과 좋은 프로젝트는 "효율적으로 혼돈스럽다"는 관찰
+generated: { by: "claude-opus-5", at: "2026-09-14T21:00:00Z" }
 sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
+  - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
 
 # 실용주의 팀
@@ -19,6 +20,7 @@ sources:
 - [팀 트레이서 탄환 — 완전 기능 팀](#팀-트레이서-탄환--완전-기능-팀)
 - [자동화, 그리고 페인트칠을 멈출 때](#자동화-그리고-페인트칠을-멈출-때)
 - [이 판의 인용 제약](#이-판의-인용-제약)
+- [다른 원전이 같은 자리에 두는 조문](#다른-원전이-같은-자리에-두는-조문)
 - [이어지는 페이지](#이어지는-페이지)
 
 ## 하나의 질문
@@ -61,7 +63,7 @@ sources:
   제품의 품질에 대한 책임을 *반드시* 져야 하며, Topic 3 *Software Entropy*에서 우리가 서술하는
   *깨진 창문 없음* 철학을 이해하는 개발자를 지원하고 아직 그것을 발견하지 못한 사람을 격려해야
   한다** (Topic 49).[^thomas2020]
-  [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md)이 그 자리다.
+  [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md)이 그 자리다.
 - **판정** — **어떤 팀 방법론에는 "품질 담당자"(quality officer) — 팀이 산출물의 품질에 대한 책임을
   위임하는 사람 — 가 있다. 이것은 명백히 우스꽝스럽다: 품질은 *모든* 팀 구성원의 개별 기여에서만
   나올 수 있다. 품질은 지어 넣는 것이지 볼트로 조여 붙이는 것이 아니다** (Topic 49).[^thomas2020]
@@ -86,7 +88,7 @@ sources:
   - 저자들이 각주로 도구를 지정한다 — **이 용도로는 더 흔한 *번다운*(burndown) 차트보다
     *번업*(burnup) 차트가 낫다. 번업 차트로는 추가된 기능이 어떻게 골대를 옮기는지 명확히 볼 수
     있다** (Topic 49, 각주).[^thomas2020] [변화의 촉매와 삶은 개구리](../concepts/catalyst-for-change-and-boiled-frog.md)와
-    [요구사항의 구덩이](requirements-pit.md)의 범위 증식 절이 이 처방의 양쪽 끝이다.
+    [요구사항의 구덩이](../concepts/requirements-pit.md)의 범위 증식 절이 이 처방의 양쪽 끝이다.
 
 ## 지식 포트폴리오를 일정에 넣어라
 
@@ -181,7 +183,7 @@ sources:
   (Topic 49).[^thomas2020]
   - **트레이서 탄환이 여기서 팀 구조의 검사 도구가 된다.** 작은 기능 하나를 종단 간으로 통과시켜
     보면 팀에 빠진 기술과 인계 지점이 즉시 드러난다 — 아키텍처를 재는 도구를 조직에 겨눈 것이고,
-    [함께 일하기](working-together.md)의 콘웨이 역방향과 같은 발상이다.
+    [함께 일하기](../concepts/working-together.md)의 콘웨이 역방향과 같은 발상이다.
 
 ## 자동화, 그리고 페인트칠을 멈출 때
 
@@ -205,18 +207,55 @@ sources:
   옮겼다 — 표기를 보충하면 반입이 아니라 저술이 되기 때문이다. 같은 종류의 유실이 이 아카이브 판
   전반에 있고 정본은 `it/archive/thomas2020/_progress.yaml`의 머리 주석이다.
 
+## 다른 원전이 같은 자리에 두는 조문
+
+이 KB의 다른 원전(Evans 2003)이 전략 설계의 의사 결정 조건을 여섯으로 들면서 마지막 항을 팀
+구성에 쓴다. 위 [팀 트레이서 탄환 — 완전 기능 팀](#팀-트레이서-탄환--완전-기능-팀)과 같은
+방향이되 논거가 다르다.
+
+- 처방문 (17장, p.495):[^evans2003]
+
+> Objects are specialists; developers are generalists.
+
+- 논거는 **소프트웨어 설계의 잣대를 조직에 옮기는 것에 대한 경고**다 — **좋은 객체 설계의 본질은
+  각 객체에 분명하고 좁은 책임을 주고 상호 의존을 절대적 최소로 줄이는 것이다. 때때로 우리는 팀
+  위의 상호작용도 소프트웨어에서 그래야 하는 만큼 가지런하게 만들려 한다** (17장,
+  p.495).[^evans2003] 그런데 좋은 프로젝트는 그렇지 않다 (17장, p.495):[^evans2003]
+
+> A good project has lots of people sticking their nose in other people's business. Developers
+> play with frameworks. Architects write application code. Everyone talks to everyone. It is
+> efficiently chaotic. Make the objects into specialists; let the developers be generalists.
+
+  - **이쪽의 논거가 낭비이고 저쪽의 논거가 잣대의 오용이다.** 이 페이지의 완전 기능 팀은 게이트와
+    인계가 낭비를 만든다는 린 쪽 셈으로 역할 분리를 기각한다. Evans는 **모듈 결합을 줄이라는 설계
+    원리를 사람 사이에 적용하는 것 자체가 오류**라고 본다. 두 논거가 같은 처방으로 수렴한다.
+  - **모순이 아니다.** 이 페이지의 위 [팀이란 무엇인가 — 규모와 안정성](#팀이란-무엇인가--규모와-안정성)이
+    규모 상한을 두는 것과 Evans의 "효율적으로 혼돈스럽다"는 충돌하지 않는다 — 전자는 팀의 크기를
+    제한하고 후자는 그 안에서 역할의 벽을 낮춘다. 대상이 다르다.
+- Evans 쪽에는 이 페이지에 없는 단서가 하나 붙는다 — **두 종류의 설계 활동이 있다는 것이 두 종류의
+  사람이 있다는 뜻은 아니다**이고, **한 개인이 배울 수 있는 양에는 한계가 있지만 과잉 전문화는
+  도메인 주도 설계에서 김을 빼 버린다**는 인정이다 (17장, p.495).[^evans2003]
+  - 제너럴리스트를 요구하면서 학습량의 한계도 함께 인정하는 자리다. 이 페이지의
+    [지식 포트폴리오를 일정에 넣어라](#지식-포트폴리오를-일정에-넣어라)가 그 한계를 관리하는
+    수단을 댄다.
+- 같은 목록의 넷째 항은 인재가 어디에 배치되는가를 다룬다 — **아키텍처 팀이 최고 인재를 전부 빨아
+  들여서는 안 된다**이고, 그 결과로 **실제로 만드는 자리에 기술적으로 가장 덜 세련된 개발자만
+  남는다**는 진단이다 (17장, p.494).[^evans2003] 여섯 항 전체는
+  [전략 설계 결정하기](strategic-decision-making.md)에 있다.
+
 ## 이어지는 페이지
 
 - [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 이 Topic이 요구하는 자동화의 세 다리
 - [코코넛은 통하지 않는다](../concepts/coconuts-dont-cut-it.md) — 팀이 방법론의 형식만 흉내 낼 때
 - [애자일의 본질](../concepts/essence-of-agility.md) — 프로세스 성찰을 일정에 넣는 이유
-- [함께 일하기](working-together.md) — 팀 안의 소통 대역폭을 코딩으로 옮기는 실행
-- [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md) — 품질이 팀 문제인 이유
+- [함께 일하기](../concepts/working-together.md) — 팀 안의 소통 대역폭을 코딩으로 옮기는 실행
+- [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) — 품질이 팀 문제인 이유
 - [변화의 촉매와 삶은 개구리](../concepts/catalyst-for-change-and-boiled-frog.md) — 팀 층의 삶은 개구리
 - [지식 포트폴리오](../concepts/knowledge-portfolio.md) — 일정에 넣어야 하는 투자
 - [DRY 원칙](../concepts/dry-principle.md) — 팀 층에서 정보 문제가 되는 원칙
 - [트레이서 탄환과 프로토타입](tracer-bullets-and-prototypes.md) — 완전 기능 팀의 검사 도구
 - [데이터 메시의 팀 토폴로지](../concepts/data-mesh-team-topologies.md) — 같은 문제를 조직 규모로 다루는 자리
+- [전략 설계 결정하기](strategic-decision-making.md) — 같은 처방을 다른 논거로 세우는 원전
 - [프로젝트 이전](../synthesis/pragmatic-projects-and-postface.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 49 "Pragmatic Teams". 저자들이 관련 절로 지목한 것은
@@ -225,3 +264,9 @@ sources:
     Kit"이다. 인용된 경구는 *The Washington Post Magazine*(1985년 6월 9일)의 "고양이 몰기"
     문장이고, CHALLENGES가 읽기를 권한 책은 Frederick Brooks, *The Mythical Man Month*[Bro96]다.
     CHALLENGES 자체는 독자 과제라 반입하지 않았다.
+
+[^evans2003]: Evans 2003, 17장 "Bringing the Strategy Together" §"Six Essentials for Strategic
+    Design Decision Making"의 넷째·여섯째 항목(pp.494–495). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33,
+    실측). 원문이 패턴 이름을 작은 대문자로 조판하고 처방문을 기울임으로 두는 관례를 직인용에서
+    유지했다. 이 소스가 이 페이지에 더하는 것은 위 한 절뿐이고, 여섯 항목의 전문은 그 절이
+    가리키는 페이지에 있다.

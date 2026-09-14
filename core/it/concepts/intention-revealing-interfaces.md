@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 의도를 드러내는 인터페이스
-description: 인터페이스의 이름이 목적을 말하고 수단은 말하지 않아야 한다는 조항의 원전 — 규칙을 명시하지 않고 효과만 내는 코드가 무엇을 잃는가, 인터페이스가 말해 주지 않으면 캡슐화의 값이 사라진다는 진단, 구현에서 목적을 유추한 개발자가 우연히만 맞는 목적을 유추하게 된다는 위험, 이름이 유비쿼터스 언어를 따라야 한다는 요구와 클라이언트 시점을 강제하는 테스트 우선, 그리고 페인트 혼합 예제에서 이름 하나가 바뀌며 회수된 것
-generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
+description: 인터페이스의 이름이 목적을 말하고 수단은 말하지 않아야 한다는 조항의 원전 — 규칙을 명시하지 않고 효과만 내는 코드가 무엇을 잃는가, 인터페이스가 말해 주지 않으면 캡슐화의 값이 사라진다는 진단, 구현에서 목적을 유추한 개발자가 우연히만 맞는 목적을 유추하게 된다는 위험, 이름이 유비쿼터스 언어를 따라야 한다는 요구와 클라이언트 시점을 강제하는 테스트 우선, 페인트 혼합 예제에서 이름 하나가 바뀌며 회수된 것, 그리고 이 조항만으로는 모자라다는 같은 장의 두 실측
+generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
@@ -15,6 +15,8 @@ sources:
 - [조항](#조항)
 - [클라이언트 시점을 강제하는 테스트](#클라이언트-시점을-강제하는-테스트)
 - [이름 하나로 회수되는 것](#이름-하나로-회수되는-것)
+- [이름을 주는 대상이 규칙과 생성기일 때](#이름을-주는-대상이-규칙과-생성기일-때)
+- [이 조항만으로는 모자란 자리](#이-조항만으로는-모자란-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **인터페이스의 이름은 무엇을 말해야 하고 무엇을 말하지 않아야 하는가.**
@@ -153,10 +155,64 @@ sources:
   의도를 드러내는 인터페이스 뒤에 캡슐화할 수 있다** (10장, p.249).[^evans2003] 그 규모의
   판단을 다루는 자리가 [핵심 도메인](../concepts/core-domain.md)이다.
 
+## 이름을 주는 대상이 규칙과 생성기일 때
+
+9장이 이 조항을 두 자리에 더 건다. 하나는 제약이고 다른 하나는 생성기의 인터페이스다.
+
+- **제약.** 조건 로직을 별도 메서드로 뽑아낼 때 그 메서드가 얻어야 하는 것이 이 조항이 요구하는
+  이름이다 — **제약을 자기 메서드로 뽑아내면 우리가 그것에 의도를 드러내는 이름을 주어 설계에서
+  제약을 명시적으로 만들 수 있다. 그것은 이제 우리가 논의할 수 있는 이름 붙은 사물이다** (9장,
+  p.221).[^evans2003] 두 판본의 차이도 이 조항의 잣대로 판정된다 — **이 코드의 두 판본 모두
+  제약을 강제하지만, 둘째 판은 모델과 더 뻔한 관계를 갖는다** (9장, p.221).[^evans2003]
+  전문은 [명시적 제약](../concepts/explicit-constraints.md)에 있다.
+- **생성기.** 객체를 만들어 내는 구성 요소의 인터페이스를 절차가 아니라 서술적 명세로 정의할
+  때의 이득에서, 이 조항의 문제 설정이 그대로 반복된다 (9장, p.235):[^evans2003]
+
+> The interface communicates its rules explicitly, so developers can know what to expect from the
+> generator without understanding all details of its operation. The only way to predict the
+> behavior of a procedurally defined generator is to run cases or to understand every line of code.
+
+  - **위 [인터페이스가 말해 주지 않으면 캡슐화가 사라진다](#인터페이스가-말해-주지-않으면-캡슐화가-사라진다)와
+    같은 진단이다.** 다른 점은 여기서 대안이 더 나은 이름이 아니라 **명세 객체**라는 것이다.
+    구현과 인터페이스가 결합 해제되고, 요청의 진술이 클라이언트 손에 남으며, 생성기는 명세의
+    문면을 채울 의무만 진다 (9장, p.235).[^evans2003] 그 형태는
+    [명세 패턴](specification-pattern.md)이 다룬다.
+- 그리고 이 소스는 인터페이스가 이름만으로 못 말하는 것을 어디에 적는지도 여기서 보인다. 창고
+  적재기 서비스의 인터페이스에는 단언이 주석으로 붙어 있고, 저자는 그것을 10장 단언의 사례로
+  지목한다 (9장, pp.235·238).[^evans2003] 그 인터페이스의 전문은
+  [도메인 객체가 된 프로세스](processes-as-domain-objects.md)에 있다.
+
+## 이 조항만으로는 모자란 자리
+
+같은 장이 이 조항의 한계를 두 번 실물로 짚는다. 둘 다 이름이 이미 좋은 코드에서 시작한다.
+
+- **부수 효과가 남아 있을 때.** 다음 패턴이 이 조항을 이어받으며 적는다 — 이 조항이 **우리를
+  거기까지 절반은 데려다주지만, 의도에 대한 비형식적 암시가 늘 충분하지는 않다** (10장,
+  p.255).[^evans2003] 이름이 무엇을 하는지 말해도, 연산이 무엇을 바꾸는지는 인터페이스가
+  제한하지 않는다. 그 공백을 [단언](../concepts/assertions-pattern.md)이 메운다.
+- **입도가 어긋나 있을 때.** 10장 끝의 통합 예제가 이 조항을 갖춘 코드에서 출발한다 — **이
+  설계는 이미 의도를 드러내는 인터페이스를 갖추고 있다. 그러나
+  `distributePaymentPrincipal()` 메서드는 위험한 일을 한다** (10장, p.285).[^evans2003]
+  질의와 수정자를 가른 뒤에도 코드는 연산이 늘 때마다 무거워졌고, 저자는 그것을 입도가 너무
+  거친 신호로 읽는다 (10장, p.286).[^evans2003] 그 연쇄는
+  [확립된 형식 체계](../concepts/established-formalisms.md)에 있다.
+- 그래서 이 장은 세 조항을 함께 요구한다 (10장, p.259):[^evans2003]
+
+> The communicativeness of the INTENTION-REVEALING INTERFACES, combined with the predictability
+> given by SIDE-EFFECT-FREE FUNCTIONS and ASSERTIONS, should make encapsulation and abstraction
+> safe.
+
+  - 그리고 셋이 갖춰지면 선언적 영역에 발을 들이게 된다는 판정이
+    [선언적 설계](../concepts/declarative-design.md)에 있다.
+
 ## 이어지는 페이지
 
 - [부수 효과 없는 함수](side-effect-free-functions.md) — 같은 장의 다음 패턴. 이름이 약속한
   것을 예측 가능하게 만드는 쪽
+- [단언](../concepts/assertions-pattern.md) — 이름이 못 말하는 상태 변경을 못 박는 쪽
+- [개념의 윤곽](../concepts/conceptual-contours.md) — 이름을 붙일 단위의 굵기를 정하는 쪽
+- [선언적 설계](../concepts/declarative-design.md) — 이 조항이 세 조건 중 하나가 되는 자리
+- [확립된 형식 체계](../concepts/established-formalisms.md) — 이 조항을 갖춘 코드가 더 나아가는 연쇄
 - [모델의 개념과 도메인의 사실](model-concepts-versus-domain-facts.md) — 이 조항이 이름에
   담으라고 요구하는 것이 어디까지인가
 - [유비쿼터스 언어](ubiquitous-language.md) — 이름의 정본
@@ -166,10 +222,15 @@ sources:
 - [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md) — 인터페이스와 구현의 비율로 같은
   것을 재는 자리
 - [인터페이스 문서화](interface-documentation.md) — 이름으로 못 말하는 것을 어디에 적는가
+- [명시적 제약](../concepts/explicit-constraints.md) — 이 조항이 제약에 걸리는 자리
+- [명세 패턴](specification-pattern.md) — 이 조항이 생성기 인터페이스에 걸리는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 10장 "Supple Design" §INTENTION-REVEALING INTERFACES
-    (pp.246–249). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
+    (pp.246–249) · 9장 "Making Implicit Concepts Explicit"(§Explicit Constraints p.221 ·
+    §"Building to Order (Generating)" p.235 · 예제 "Chemical Warehouse Packer" p.238) ·
+    10장 §ASSERTIONS 도입(p.255)과 마무리(p.259) · 예제 "Integrating the Patterns: Shares
+    Math"(pp.285–286). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
     조판하는 관례를 직인용에서 유지했다. 저자가 밝힌 앞선 출처는 Beck 1997이다. 펜스의
     Java 테스트는 p.248 원문 그대로이며 원문 조판의 빈 줄 배치만 정돈했다 — 보탠 줄은 없다.
     이 코드는 **2003년 Java의 관용**이라 JUnit 3 스타일(`public void test…`)을 쓴다.

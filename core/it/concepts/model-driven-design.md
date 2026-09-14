@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 모델 주도 설계
-description: 모델과 구현을 한 몸으로 묶는다는 조항의 원전 — 분석 모델과 설계 모델을 갈라 두면 둘 다 죽는다는 진단, 하나의 모델이 두 목적을 다 감당해야 한다는 요구와 그 대가, 매핑이 뻔해야 한다는 처방과 코드를 바꾸는 것이 모델을 바꾸는 것이라는 귀결, 모델링 패러다임을 지원하는 언어가 왜 필요한가, 이름 규약으로 개념을 유추하던 스크립트를 개념을 명시한 모델로 바꾼 인쇄 회로 기판 사례, 사용자에게 보이는 모델과 구현 모델이 어긋날 때 생기는 것, 그리고 모델링과 구현을 사람으로 갈라놓으면 안 되는 이유
+description: 모델과 구현을 한 몸으로 묶는다는 조항의 원전 — 분석 모델과 설계 모델을 갈라 두면 둘 다 죽는다는 진단, 하나의 모델이 두 목적을 다 감당해야 한다는 요구와 그 대가, 매핑이 뻔해야 한다는 처방과 코드를 바꾸는 것이 모델을 바꾸는 것이라는 귀결, 모델링 패러다임을 지원하는 언어가 왜 필요한가, 이름 규약으로 개념을 유추하던 스크립트를 개념을 명시한 모델로 바꾼 인쇄 회로 기판 사례, 사용자에게 보이는 모델과 구현 모델이 어긋날 때 생기는 것, 모델링과 구현을 사람으로 갈라놓으면 안 되는 이유, 이 조항이 객체를 요구하지 않되 표현력 있는 구현은 요구한다는 5장의 단서, 그리고 모델에 대응하지 않는 구성물이 오히려 이 설계를 완성한다는 6장의 규정과 이 조항을 규칙으로 오해해 엉킴에 빠진 팀의 기록, 그리고 II부 도입이 밝히는 이 부의 규모와 계보 — 객체 지향 설계 입문서가 아니라 통상적 발상의 강조점을 옮긴다는 자기 규정, 작은 규모의 정성이 III·IV부의 발판이라는 배치, 책임 주도 설계와 계약에 의한 설계에서 빌려 온 설계 양식, 원리가 안 맞아 보일 때 필요한 것은 준수가 아니라 이해라는 조항, 다음 세 장이 패턴 언어로 조직되고 그 이름들이 유비쿼터스 언어에 보태진다는 것
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -17,6 +17,11 @@ sources:
 - [같은 문제를 모델로 푼 판](#같은-문제를-모델로-푼-판)
 - [사용자가 보는 모델과 구현 모델이 어긋날 때](#사용자가-보는-모델과-구현-모델이-어긋날-때)
 - [모델링하는 사람과 코드 쓰는 사람을 가르지 마라](#모델링하는-사람과-코드-쓰는-사람을-가르지-마라)
+- [이 조항은 객체를 요구하지 않는다](#이-조항은-객체를-요구하지-않는다)
+- [모델에서 오지 않는 구성물이 이 설계를 완성한다](#모델에서-오지-않는-구성물이-이-설계를-완성한다)
+- [II부가 자기 규모와 계보를 밝히는 자리](#ii부가-자기-규모와-계보를-밝히는-자리)
+- [이 조항이 겨냥하는 모델은 아무 모델이 아니다](#이-조항이-겨냥하는-모델은-아무-모델이-아니다)
+- [이 조항이 부정하는 것 — 분석과 설계의 균열](#이-조항이-부정하는-것--분석과-설계의-균열)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델과 돌아가는 코드는 어떤 관계여야 하며, 그 관계가 끊어지면
@@ -235,24 +240,219 @@ sources:
 > must learn to express a model through the code. Every developer must be involved in some
 > level of discussion about the model and have contact with domain experts.
 
+## 이 조항은 객체를 요구하지 않는다
+
+위 [모델링 패러다임을 지원하는 언어가 필요하다](#모델링-패러다임을-지원하는-언어가-필요하다)를
+"객체를 쓰라"로 읽으면 안 된다. 5장이 그 조건을 다시 진술하며 범위를 분명히 한다.
+
+- 전술 패턴 넷을 마치며 저자가 못을 박는다 — **모델 주도 설계가 반드시 모든 것을 객체의
+  거푸집에 밀어 넣는다는 뜻은 아니다. 규칙 엔진 같은 도구가 지원하는 다른 모델 패러다임도
+  있다** (5장, p.116).[^evans2003] 그리고 그 도구들의 지위를 정한다 — **이 다른 도구와 기법은
+  모델 주도 설계라는 목적에 이르는 수단이지 그것의 대안이 아니다.**
+- 원리가 한 줄로 나온다 — **도메인 모델이 객체 모델이어야 하는 것은 아니다. 예컨대 프롤로그로
+  구현된 모델 주도 설계가 있으며, 그 모델은 논리 규칙과 사실로 이루어진다**
+  (5장, p.119).[^evans2003]
+- **그렇다면 조건은 무엇인가** (5장, p.121):[^evans2003]
+
+> Although a MODEL-DRIVEN DESIGN does not have to be object oriented, it *does* depend on
+> having an expressive implementation of the model constructs, be they objects, rules, or
+> workflows. If the available tool does not facilitate that expressiveness, reconsider the
+> choice of tools. An unexpressive implementation negates the advantage of the extra paradigm.
+
+  - **위 절이 "객체 지향이 이 조건을 만족한다"고 말한 것이 "객체 지향만 만족한다"가 아니었음이
+    여기서 확인된다.** 조건은 언어의 종류가 아니라 **모델 구성물을 표현력 있게 구현할 수
+    있는가**다.
+  - 그리고 도구 선택이 판정 대상이 된다 — 표현력이 없으면 **도구 선택을 다시 생각하라**가
+    처방이다. 위 [코드를 바꾸는 것이 모델을 바꾸는 것이다](#코드를-바꾸는-것이-모델을-바꾸는-것이다)의
+    되먹임이 도구 층위까지 올라간 형태다.
+- 객체가 실제로 잘 맞지 않는 도메인도 명시된다 — **객체 모델은 수많은 실용적 소프트웨어 문제를
+  다루지만, 캡슐화된 행동의 이산적 꾸러미로 모델링하기 자연스럽지 않은 도메인이 있다. 예컨대
+  수학적 성격이 강하거나 전역적 논리 추론이 지배하는 도메인은 객체 지향 패러다임에 잘 맞지
+  않는다** (5장, p.119).[^evans2003]
+- 패러다임을 섞을 때 모델을 붙들어 두는 수단은 도구가 아니라 언어다 — **부분들을 붙들어 두는
+  가장 효과적인 도구는 이질적인 모델 전체의 바탕에 있는 튼튼한 유비쿼터스 언어다**
+  (5장, p.121).[^evans2003] 전문은 [모델링 패러다임](modeling-paradigms.md)에 있다.
+
+## 모델에서 오지 않는 구성물이 이 설계를 완성한다
+
+6장이 이 조항에 예외처럼 보이는 것을 하나 더한다. 팩토리(FACTORY)와 리포지터리(REPOSITORY)는
+도메인에서 오지 않는데도 이 설계의 일부다.
+
+- 장 도입이 그 지위를 정한다 — **리포지터리와 팩토리는 그 자체로는 도메인에서 오지 않지만,
+  도메인 설계에서 유의미한 역할을 갖는다. 이 구성물들은 모델 객체에 접근 가능한 손잡이를
+  줌으로써 모델 주도 설계를 완성한다** (6장, p.124).[^evans2003]
+  - 저자가 팩토리 절에서 같은 것을 더 분명히 적는다 — **우리는 모델의 무엇에도 대응하지 않는
+    요소를 설계에 더하고 있지만, 그럼에도 그것들은 도메인 층의 책임의 일부다** (6장,
+    p.138).[^evans2003]
+  - **모델과 설계가 같은 범위가 아니라는 것이 이 절의 요점이다.** 위
+    [조항](#조항)이 요구하는 것은 모델과 구현의 매핑이 뻔할 것이지, 설계의 모든 요소가 모델의
+    무엇인가에 대응할 것이 아니다. 두 페이지가 그 구분을 나눠 갖는다 —
+    [팩토리 패턴](../concepts/factories-pattern.md)과 [리포지터리 패턴](repository-pattern.md).
+- **이 조항을 과하게 밀어붙인 팀의 기록이 같은 장에 있다.** 모델 주도 설계를 열성적으로
+  받아들여 **모든** 객체 접근을 생성이나 항해로만 하려 한 팀이 있었다. 객체 데이터베이스에
+  객체를 두고, 기존의 개념적 관계가 필요한 연관을 전부 제공하리라 추론했다 (6장,
+  p.147).[^evans2003]
+  - 결과가 정반대였다 — **이 자기 부과한 제한이 그들을 정확히 앞 몇 장에 걸쳐 피하려 애써 온
+    그 끝없는 엉킴을 만들게 강제했다** (6장, pp.147–148).[^evans2003] 팀은 그 전략을 오래
+    유지하지 못했지만 **다른 일관된 접근으로 대체하지도 못했다. 그들은 임기응변 해법을 이어
+    붙였고 야심이 줄었다** (6장, p.148).[^evans2003]
+  - **조항을 규칙으로 오해했을 때의 실패 사례라 값이 있다.** 이 조항은 "모델에 없는 것을
+    설계에 두지 마라"를 말하지 않는다.
+- **같은 논거가 데이터베이스 스키마에도 적용된다** — 객체 모델과 관계형 스키마를 갈라 두는
+  문제에 대해 저자가 이 조항을 그대로 끌어온다: **분리된 분석 모델과 설계 모델을 피하라고 모델
+  주도 설계에 대해 제시한 논거 다수가 이 불일치에도 적용된다** (6장, p.159).[^evans2003]
+  전문은
+  [관계형 데이터베이스를 위한 객체 설계](../concepts/designing-objects-for-relational-databases.md)에 있다.
+
+## II부가 자기 규모와 계보를 밝히는 자리
+
+이 조항을 가운데 놓은 II부가 도입에서 먼저 하는 일은 **무엇을 하는 부가 아닌지**를 적고,
+설계 양식을 어디서 빌려 왔는지를 밝히는 것이다. 이 페이지의 조항이 앞으로 어떤 수준의
+작업을 요구하는지가 거기서 정해진다.
+
+- **이 책은 객체 지향 설계 입문서가 아니다.** 도입이 자기 성격을 부정형으로 규정한다
+  (II부 도입, p.64):[^evans2003]
+
+> This book is not an introduction to object-oriented design, nor does it propose radical design
+> fundamentals. Domain-driven design shifts the emphasis of certain conventional ideas.
+
+  - 새 기초를 제안하는 것이 아니라 **통상적 발상의 강조점을 옮긴다**는 규정이고, 그래서 위
+    [이 조항은 객체를 요구하지 않는다](#이-조항은-객체를-요구하지-않는다)의 단서와 결이 같다.
+- **작은 규모의 정성이 큰 규모 작업의 발판이다.** 모델과 구현을 서로 맞춰 두는 종류의 결정들은
+  개별 요소의 세부에 대한 주의를 요구하고, 그 세부를 다루는 것이 II부의 일이다
+  (II부 도입, p.64):[^evans2003]
+
+> Careful crafting at this small scale gives developers a steady platform from which to apply the
+> modeling approaches of Parts III and IV.
+
+  - 그 발판 위에 얹히는 것이 [깊은 모델과 돌파](../concepts/deep-model.md)(III부)와
+    [전략적 설계](strategic-design.md)(IV부)다. 이 배치가 아래
+    [이 조항이 겨냥하는 모델은 아무 모델이 아니다](#이-조항이-겨냥하는-모델은-아무-모델이-아니다)에서
+    III부 쪽 서술과 맞물린다.
+- **설계 양식의 출처가 밝혀진다** (II부 도입, p.64).[^evans2003] 이 책의 설계 양식은
+  Wirfs-Brock et al. 1990이 제시하고 Wirfs-Brock 2003이 갱신한 **책임 주도 설계**
+  (responsibility-driven design)의 원리를 대체로 따르며, 특히 III부에서 Meyer 1988이 기술한
+  **계약에 의한 설계**(design by contract)의 발상에 크게 기댄다. Larman 1998 같은 책이 적는
+  객체 지향 설계의 널리 받아들여진 모범 사례와도 어긋나지 않는다고 덧붙인다.
+  - 계약 쪽 계보의 전문은 [계약에 의한 설계](../concepts/design-by-contract.md)에 있다 — 그 페이지도
+    출처로 같은 Meyer 1988을 대고, 10장의 단언이 그 어휘를 애그리게이트 단위까지 넓힌다.
+  - **이 KB에는 Wirfs-Brock 쪽 소스가 없다.** 이름만 기록해 둔다.
+- **원리가 안 맞아 보이는 순간을 위한 조항**이 붙는다. 프로젝트가 크고 작은 요철에 부딪히면
+  개발자는 이 원리들이 적용 불가능해 보이는 상황에 놓이는데, 그때 필요한 것은 규칙의 준수가
+  아니라 기초가 이 조항을 **어떻게** 떠받치는지에 대한 이해다 (II부 도입, p.64):[^evans2003]
+
+> To make the domain-driven design process resilient, developers need to understand *how* the
+> well-known fundamentals support MODEL-DRIVEN DESIGN, so they can compromise without derailing.
+
+  - **타협을 금지하지 않는다는 뜻이다.** 같은 취지가 11장에도 한 번 더 나오고, 그 문장은 위
+    [이 조항이 부정하는 것 — 분석과 설계의 균열](#이-조항이-부정하는-것--분석과-설계의-균열)에
+    "계산된 타협"으로 적혀 있다.
+- **다음 세 장은 패턴 언어(pattern language)로 조직된다** (II부 도입, p.64).[^evans2003]
+  형식의 설명은 부록 A가 맡고, 그 조직이 **미묘한 모델 구분과 설계 결정이 이 과정에 어떤 영향을
+  주는지**를 보이는 장치라고 적힌다.
+- **부 도입의 끝에 항해 지도(navigation map)가 하나 있다** (II부 도입, p.65).[^evans2003]
+  본문이 그것을 이 부에서 제시할 패턴들과 그것들이 서로 관계 맺는 몇 가지 방식을 보이는
+  그림이라고 적는다. 그림 자체는 도판이라 옮기지 않았고, 지도가 이 페이지의 조항과
+  [스마트 UI 안티패턴](smart-ui-antipattern.md)을 **서로 배타적인 선택**으로 갈라 놓는다는 것만
+  기록한다.
+- **표준 패턴을 공유하면 설계에 질서가 생긴다** (II부 도입, p.64).[^evans2003] 팀원이 서로의
+  작업을 이해하기 쉬워지고, 그 패턴들이 [유비쿼터스 언어](ubiquitous-language.md)에 보태져
+  모델과 설계 결정을 논하는 말이 된다. **이 조항의 언어 쪽 짝이 여기서 한 번 더 확인된다** —
+  패턴 이름은 설계의 어휘일 뿐 아니라 대화의 어휘다.
+- **기예와 체계의 분업**이 도입의 맺음이다 (II부 도입, pp.64–65):[^evans2003]
+
+> Developing a good domain model is an art. But the practical design and implementation of a
+> model’s individual elements can be relatively systematic.
+
+  - 체계적인 쪽이 II부의 내용이다 — 도메인 설계를 다른 관심사 더미에서 격리하면 설계와 모델의
+    연결이 크게 뚜렷해지고, 일정한 구분에 따라 모델 요소를 정의하면 그 의미가 날카로워지며,
+    개별 요소에 검증된 패턴을 따르면 구현하기 실용적인 모델이 나온다.
+  - 그리고 왜 이 작은 일이 큰 모델의 전제 조건인지가 한 문장으로 닫힌다
+    (II부 도입, p.65):[^evans2003]
+
+> Elaborate models can cut through complexity only if care is taken with the fundamentals,
+> resulting in detailed elements that the team can confidently combine.
+
+## 이 조항이 겨냥하는 모델은 아무 모델이 아니다
+
+이 페이지의 조항은 **모델과 구현을 묶으라**고 요구하지만 어떤 모델을 묶을지는 말하지 않는다.
+같은 원전의 III부가 그 빈자리를 채운다.
+
+- 저자가 II부와 III부의 분업을 명시한다 — II부가 모델과 구현의 대응을 유지하는 토대를 놓았다면,
+  **진짜 도전은 도메인 전문가의 미묘한 관심사를 포착하고 실용적 설계를 이끌 수 있는 예리한
+  모델을 실제로 찾아내는 것**이라는 것이다 (III부 도입, p.188).[^evans2003]
+- 그리고 이 페이지의 조항이 그 탐색의 **절반**으로 규정된다 — **모델 주도 설계는 두 다리로
+  선다.** 깊은 모델이 표현력 있는 설계를 가능하게 하고, 동시에 설계가 실험할 유연함과 무슨
+  일이 벌어지는지 보여 줄 명료함을 가질 때 **모델 발견 과정에 통찰을 되먹인다** (III부 도입,
+  p.191).[^evans2003]
+  - 되먹임의 실패 조건도 붙는다 — **코드를 리팩터링하기 어려워지면 모델링 과정이 멈춘다.**
+  - 그래서 위 [코드를 바꾸는 것이 모델을 바꾸는 것이다](#코드를-바꾸는-것이-모델을-바꾸는-것이다)의
+    결속이 **양방향**이라는 것이 여기서 분명해진다. 모델이 코드를 정할 뿐 아니라 코드의 성질이
+    모델의 발견 가능성을 정한다.
+- 겨냥하는 모델의 정의와 도달 경로는 [깊은 모델과 돌파](../concepts/deep-model.md)에 있다.
+
+## 이 조항이 부정하는 것 — 분석과 설계의 균열
+
+11장이 이 조항의 반대말을 이름으로 부른다. 남이 정리한 모델을 빌려 쓸 때 무엇이 잘못될 수
+있는가를 말하는 자리다.
+
+- 분석 패턴의 값은 설계 방향과 구현 결과에 대한 논의가 모델 통찰과 함께 온다는 데 있다.
+  **그 맥락을 떼면 위험해진다** (11장, p.294):[^evans2003]
+
+> To discuss model ideas out of that context makes them harder to apply and risks opening the
+> deadly divide between analysis and design, which is antithetical to MODEL-DRIVEN DESIGN.
+
+  - **"치명적 균열"과 "이 설계의 반대말"이 한 문장에 있다.** 위 절들이 이 조항을 *무엇을
+    해야 하는가*로 적었다면, 이 문장은 그것을 *무엇이 아닌가*로 적는다.
+- **그리고 같은 장이 이 조항의 실행 조건도 하나 기록한다.** 개발자들이 객체 관계 매핑
+  프레임워크 때문에 방금 얻은 추상 하나를 포기해야 했던 대목에서 저자가 이렇게 적는다
+  (11장, p.300):[^evans2003]
+
+> We have to make calculated compromises and then move on without letting it throw us off our
+> MODEL-DRIVEN DESIGN.
+
+  - **이 조항이 무결성 요구가 아니라는 뜻이다.** 기반 구조에 양보한 자리가 남아도 이 결속을
+    포기하지 않는다는 것이고, 같은 종류의 양보를 다루는 자리가
+    [관계형 데이터베이스를 위한 객체 설계](../concepts/designing-objects-for-relational-databases.md)다.
+    빌려 쓰기의 절차는 [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [유비쿼터스 언어](ubiquitous-language.md) — 이 결속의 언어 쪽 짝
+- [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md) — 이 조항의 반대말이 이름을
+  얻는 자리
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — "조직된 데이터"와
   모델을 가르는 선이 이름 규약 문제로 나타나는 자리
 - [지식 정련](../concepts/knowledge-crunching.md) — 이 결속이 만드는 피드백 고리
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 모델이 사는 층을 격리하는 자리
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 같은 조항이 파이썬 실물로 내려온 자리
 - [코드는 뻔해야 한다](obvious-code.md) — 코드가 무엇을 말해야 하는가를 다른 축에서 다루는 자리
+- [모델링 패러다임](modeling-paradigms.md) — 이 조항이 객체 밖에서 어떻게 서는가
+- [팩토리 패턴](../concepts/factories-pattern.md) — 모델에 대응하지 않으면서 이 설계를 완성하는 구성물
+- [관계형 데이터베이스를 위한 객체 설계](../concepts/designing-objects-for-relational-databases.md) —
+  같은 논거가 스키마 설계로 넘어가는 자리
 - [리팩터링](refactoring.md) — 이 소스가 모델 갱신 절차로 부르는 활동
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 3장 "Binding Model and Implementation" 전체
+[^evans2003]: Evans 2003, II부 "The Building Blocks of a Model-Driven Design" 도입(pp.64–65) ·
+    11장 "Applying Analysis Patterns" 장 도입(p.294)과 예제
+    "Earning Interest with Accounts"(p.300) ·
+    III부 "Refactoring Toward Deeper Insight" 도입(pp.188·191) ·
+    3장 "Binding Model and Implementation" 전체
     (§MODEL-DRIVEN DESIGN pp.47–50 · §Modeling Paradigms and Tool Support pp.50–57 ·
-    §Letting the Bones Show pp.57–59 · §HANDS-ON MODELERS pp.60–62). 쪽은 인쇄판 쪽
+    §Letting the Bones Show pp.57–59 · §HANDS-ON MODELERS pp.60–62) ·
+    5장 "A Model Expressed in Software" §Modeling Paradigms 중 장을 닫는 단락(p.116)·
+    §"Nonobjects in an Object World"(p.119)·표현력 조항(p.121) ·
+    6장 "The Life Cycle of a Domain Object" 도입(p.124)·§FACTORIES(p.138)·
+    §REPOSITORIES 도입의 일화(pp.147–148)·§"Designing Objects for Relational
+    Databases"(p.159). 쪽은 인쇄판 쪽
     번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서
     유지했다. 펜스의 Java 코드는 p.55 원문 그대로이며, 원문에서 빈 줄 배치만 정돈했다 —
     조판된 줄 간격을 옮긴 것이라 보탠 줄은 없다. 이 코드는 **2003년 Java의 관용**이라
     제네릭 없는 원시 `Set`을 쓴다. 넷 리스트·규칙 파일의 표 형식 예시(pp.53–54)는 실행할
     것이 아니라 표로 옮기지 않고 산문으로 서술했다. 곁글 "A Medieval Sky Computer"(p.47)와
     도판(Figure 3.1·3.2·3.3)은 옮기지 않았다.
+    II부 도입의 항해 지도(p.65)도 도판이라 옮기지 않고, 본문이 그것에 대해 적는 것과 지도가
+    이 조항과 SMART UI를 배타적 선택으로 갈라 놓는다는 것만 산문으로 서술했다.
+    Wirfs-Brock et al. 1990 · Wirfs-Brock 2003 · Meyer 1988 · Larman 1998은 이 책이 대는
+    출처이고 이 KB가 직접 확인한 원전이 아니다.

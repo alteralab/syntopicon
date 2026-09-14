@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 정보 은닉과 정보 누출
-description: 파르나스에서 온 정보 은닉이 깊은 모듈을 만드는 첫째 기법인 이유와 그 반대편의 정보 누출 — 무엇이 숨겨지는 지식인가, private 선언과 정보 은닉이 같지 않은 이유, 인터페이스를 거치지 않는 뒷문 누출이 더 나쁜 이유, 누출의 흔한 원인인 시간적 분해, 클래스를 조금 크게 만들면 은닉이 좋아진다는 일반 주제, 내부 자료 구조를 반환하는 게터가 인터페이스를 얕게 만드는 실물, 기본값이 부분적 은닉이라는 규정, 과잉 노출이라는 붉은 깃발, 그리고 누출되는 것이 구현 세부가 아니라 남의 모델일 때를 더하는 셋째 소스
+description: 파르나스에서 온 정보 은닉이 깊은 모듈을 만드는 첫째 기법인 이유와 그 반대편의 정보 누출 — 무엇이 숨겨지는 지식인가, private 선언과 정보 은닉이 같지 않은 이유, 인터페이스를 거치지 않는 뒷문 누출이 더 나쁜 이유, 누출의 흔한 원인인 시간적 분해, 클래스를 조금 크게 만들면 은닉이 좋아진다는 일반 주제, 내부 자료 구조를 반환하는 게터가 인터페이스를 얕게 만드는 실물, 기본값이 부분적 은닉이라는 규정, 과잉 노출이라는 붉은 깃발, 누출되는 것이 구현 세부가 아니라 남의 모델일 때를 더하는 셋째 소스, 잘게 쪼갠 도메인 객체가 도메인 지식을 애플리케이션 층으로 흘려보낸다는 층 단위의 누출, 그리고 조립과 질의를 감추지 않으면 규칙이 새고 개발자의 행동까지 바뀐다는 진단과 "클라이언트에게는 감추되 개발자에게는 감추지 않는다"는 경계
 generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
@@ -24,6 +24,9 @@ sources:
 - [지나치게 하면](#지나치게-하면)
 - [영속성 무지 — 데이터베이스를 숨기는 실물](#영속성-무지--데이터베이스를-숨기는-실물)
 - [셋째 소스 — 모델이 새는 것](#셋째-소스--모델이-새는-것)
+- [지식이 층을 거슬러 오르는 누출](#지식이-층을-거슬러-오르는-누출)
+- [생성과 저장을 감출 때 지켜지는 것](#생성과-저장을-감출-때-지켜지는-것)
+- [저수준 인터페이스가 앗아 가는 것](#저수준-인터페이스가-앗아-가는-것)
 - [넷째 소스 — 접근 제어는 안전이지 보안이 아니다](#넷째-소스--접근-제어는-안전이지-보안이-아니다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -335,6 +338,102 @@ sources:
     더 강하다. 그쪽은 선언이 은닉을 **보장하지 않는다**고 말하고, 이쪽은 이름 공간 분리가
     문제를 **감춘다**고 말한다. 전문은 [경계 컨텍스트](../concepts/bounded-context.md)에 있다.
 
+## 지식이 층을 거슬러 오르는 누출
+
+같은 원전이 5장에서 누출의 방향을 하나 더 적는다. 앞 절들이 **옆으로**(모듈에서 모듈로,
+모델에서 모델로) 새는 것을 다뤘다면, 이쪽은 **위로**(도메인 층에서 애플리케이션 층으로) 새는
+것이다.
+
+- 기제가 인터페이스의 굵기에 있다 (5장, p.108):[^evans2003]
+
+> As previously discussed, fine-grained domain objects can contribute to knowledge leaks from
+> the domain into the application layer, where the domain object's behavior is coordinated.
+> The complexity of a highly detailed interaction ends up being handled in the application
+> layer, allowing domain knowledge to creep into the application or user interface code, where
+> it is lost from the domain layer.
+
+  - **새는 것이 데이터가 아니라 조율 지식이라는 점이 이 판본의 특색이다.** 도메인 객체가
+    무엇을 숨기느냐와 무관하게, **여러 객체를 어떤 순서로 부르는가**가 도메인 지식인데 그것을
+    담을 자리가 도메인 층에 없으면 호출자가 떠안는다.
+  - 위 [내부 자료 구조를 반환하지 마라](#내부-자료-구조를-반환하지-마라)가 얕은 인터페이스의
+    한 형태를 지목하는데, 여기서는 **인터페이스가 너무 잘게 쪼개진 것** 자체가 같은 결과를
+    낸다. 두 진단이 [깊은 모듈과 얕은 모듈](../concepts/deep-and-shallow-modules.md)의 같은 잣대로
+    모인다.
+- 처방은 중간 굵기의 도메인 서비스다 — **중간 굵기의 무상태 서비스는 큰 시스템에서 재사용하기
+  더 쉬울 수 있는데, 단순한 인터페이스 뒤에 상당한 기능을 캡슐화하기 때문이다.** 그리고
+  **도메인 서비스를 신중하게 들이면 층 사이의 뚜렷한 선을 유지하는 데 도움이 될 수 있다**
+  (5장, p.108).[^evans2003]
+  - 대가도 함께 적혀 있다 — **이 패턴은 클라이언트의 통제와 다재다능함보다 인터페이스의
+    단순함을 선호한다** (5장, p.108).[^evans2003] 전문은
+    [도메인 서비스](../concepts/domain-services.md)에 있다.
+- **패키징에서 오는 같은 종류의 손실도 기록돼 있다.** 프레임워크가 한 개념 객체의 구현을 여러
+  티어로 흩어 놓으면 **여러 객체를 보고 그것을 머릿속에서 하나의 개념적 엔티티로 다시 맞추는
+  일이 그저 너무 큰 수고가 되고, 우리는 모델과 설계 사이의 연결을 잃는다**
+  (5장, p.113).[^evans2003] 전문은 [도메인의 모듈](modules-in-the-domain.md)에 있다.
+  - 이쪽은 은닉의 실패가 아니라 **응집의 실패**다. 저자 자신이 그 결론에 낡은 표준으로도
+    도달할 수 있었다고 적는다 — **업무 로직을 구현하는 "객체"와 데이터베이스 접근을 맡은 객체
+    사이의 연결은 너무 광범위해 결합이 매우 높다** (5장, p.115).[^evans2003]
+
+## 생성과 저장을 감출 때 지켜지는 것
+
+같은 원전이 6장에서 은닉의 대상을 둘 더 든다 — 객체를 **만드는 방법**과 **저장소에서 꺼내는
+방법**이다. 둘 다 감추지 않으면 새는 것이 데이터가 아니라 **규칙**이다.
+
+- 생성 쪽 — 클라이언트가 도메인 객체를 조립하게 두면 **그것은 객체의 내부 구조에 대해 무언가를
+  알아야 한다.** 그리고 부품들의 관계에 걸리는 불변식(invariant)을 전부 강제하려면
+  **클라이언트가 그 객체의 규칙 일부를 알아야 한다** (6장, p.137).[^evans2003]
+  - 그 결과가 캡슐화의 파열로 명시된다 — **객체 생성을 떠맡은 클라이언트는 불필요하게 복잡해지고
+    자기 책임을 흐린다. 그것은 도메인 객체와 생성되는 애그리게이트(AGGREGATE)의 캡슐화를
+    깨뜨린다** (6장, p.137).[^evans2003]
+  - 처방은 조립을 별도 객체 뒤로 옮기는 것이다 — **팩토리(FACTORY)는 복잡한 객체나 애그리게이트를
+    만드는 데 필요한 지식을 캡슐화한다** (6장, p.138).[^evans2003] 전문은
+    [팩토리 패턴](../concepts/factories-pattern.md)에 있다.
+- 저장 쪽 — **자유로운 데이터베이스 질의는 실제로 도메인 객체와 애그리게이트의 캡슐화를
+  깨뜨릴 수 있다. 기술 기반 구조와 데이터베이스 접근 기제의 노출은 클라이언트를 복잡하게
+  만들고 모델 주도 설계를 흐린다** (6장, p.150).[^evans2003]
+  - **은닉이 실패할 때 개발자의 행동이 바뀐다는 진단이 이 자리의 특색이다** — 클라이언트 코드가
+    데이터베이스를 직접 쓰면 **개발자들은 애그리게이트나 심지어 객체 캡슐화 같은 모델의 특징을
+    우회하고 필요한 데이터를 직접 가져와 조작하고 싶은 유혹을 받는다. 점점 더 많은 도메인
+    규칙이 질의 코드에 박히거나 그냥 사라진다** (6장, p.149).[^evans2003]
+
+- **그런데 이 원전은 은닉의 대상에 한계선을 긋는다.** 감추는 것은 **클라이언트 코드**이지
+  **클라이언트의 개발자**가 아니다 (6장, pp.154–155):[^evans2003]
+
+> Encapsulation of the persistence technology allows the client to be very simple, completely
+> decoupled from the implementation of the REPOSITORY. But as is often the case with
+> encapsulation, the developer must understand what is happening under the hood.
+
+  - 근거가 성능이다 — **리포지터리가 다른 방식으로 쓰이거나 다른 방식으로 작동할 때 성능 함의가
+    극단적일 수 있다** (6장, p.154).[^evans2003] 저자가 드는 실물은 "all objects" 질의 하나가
+    데이터베이스 전체를 메모리로 끌어온 사고다.
+  - 요구의 정도도 조절된다 — **그것이 구현에 대한 세세한 친숙함을 뜻할 필요는 없다. 잘 설계된
+    구성 요소는 특징 지을 수 있다** (6장, p.154).[^evans2003]
+  - **위 [부분적 은닉에도 값이 있다](#부분적-은닉에도-값이-있다)와 같은 방향의 단서다.** 은닉은
+    이분법이 아니라 정도이고, 여기서는 **누구에게 감추는가**가 그 정도를 정한다. 사고를
+    포함한 전문은 [리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
+
+## 저수준 인터페이스가 앗아 가는 것
+
+위 절의 번역 계층이 왜 원시 데이터 수준으로 내려가면 안 되는지가 같은 절에 적혀 있고, 그것이
+이 페이지의 누출 개념과 정확히 겹친다.
+
+- 착각의 진단 — 이 문제가 몰래 다가오는 이유는 **우리가 시스템 사이로 나르는 것이 원시
+  데이터이고 그 뜻은 중의성이 없으며 양쪽에서 같아야 한다고 생각하기** 때문인데 **이 가정은
+  보통 틀렸다. 미묘하지만 중요한 뜻의 차이가 각 시스템에서 데이터가 연관되는 방식에서 생긴다**
+  (14장, p.365).[^evans2003]
+- **대가가 양쪽에서 계상된다** (14장, p.365):[^evans2003]
+
+> A low-level interface takes away the power of the other system's model to explain the data and
+> constrain its values and relationships, while saddling the new system with the burden of
+> interpreting primitive data that is not in terms of its own model.
+
+  - **앞 절은 저쪽 모델의 손실이고 뒤 절은 이쪽으로의 누출이다.** 저쪽이 갖고 있던 제약과 설명이
+    사라지면서 그 지식이 이쪽 클라이언트 코드로 옮겨 앉는다. 위
+    [정보 누출](#정보-누출)의 정의가 시스템 경계에서 나타나는 모습이다.
+- 그래서 처방이 모델 수준의 번역으로 올라간다 — **서로 다른 모델을 따르는 부분들 사이에 번역을
+  제공해서 모델이 소화되지 않은 이물질로 오염되지 않게 해야 한다** (14장, p.365).[^evans2003]
+  그 계층의 설계는 [부패 방지 계층](../concepts/anticorruption-layer.md)에 있다.
+
 ## 넷째 소스 — 접근 제어는 안전이지 보안이 아니다
 
 위 [private 선언은 정보 은닉이 아니다](#private-선언은-정보-은닉이-아니다)가 **`private`
@@ -382,7 +481,12 @@ sources:
 - [계층 아키텍처](layered-architecture.md) — 도메인 층에서 무엇을 덜어 내는가
 - [경계 컨텍스트](../concepts/bounded-context.md) — 모델 사이 경계에서의 누출을 다루는 자리
 - [컨텍스트 지도](../concepts/context-map.md) — 번역 계층들의 목록
+- [도메인 서비스](../concepts/domain-services.md) — 조율 지식이 위로 새는 것을 막는 굵기
+- [도메인의 모듈](modules-in-the-domain.md) — 패키징이 응집을 깨뜨려 모델을 가리는 자리
 - [리포지터리 패턴](repository-pattern.md) — 영속성 관심사를 숨기는 층
+- [팩토리 패턴](../concepts/factories-pattern.md) — 조립 지식을 숨기는 구성물
+- [리포지터리의 질의와 구현](repository-querying-and-implementation.md) — 클라이언트에게는 감추고
+  개발자에게는 감추지 않는다는 경계
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 같은 은닉을
   객체 군집 단위로 하는 자리
 - [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 저자가 "일반성이 더 나은 정보
@@ -408,11 +512,15 @@ sources:
     1972다. Figure 5.1(HTTP POST 요청 예시)은 그림이므로 딸린 설명 산문만 옮겼다. 인터페이스
     시그니처는 문장 안의 조각이라 인라인으로 옮겼다.
 
-[^evans2003]: Evans 2003, 4장 §LAYERED ARCHITECTURE(pp.70–71) · 14장 §BOUNDED CONTEXT
+[^evans2003]: Evans 2003, 4장 §LAYERED ARCHITECTURE(pp.70–71) ·
+    5장 §SERVICES 중 §Granularity(p.108) · §MODULES 중
+    §"The Pitfalls of Infrastructure-Driven Packaging"(pp.113·115) · 14장 §BOUNDED CONTEXT
     (p.336 곁글 "BOUNDED CONTEXTS Are Not MODULES") · §CONTEXT MAP(p.344) ·
-    §ANTICORRUPTION LAYER(pp.365–366). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
-    이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절은 이 소스가 이 페이지에
-    더하는 것만 든다 — 각 조항의 전문은 [계층 아키텍처](layered-architecture.md)·[경계 컨텍스트](../concepts/bounded-context.md)·[컨텍스트 지도](../concepts/context-map.md)에 있다.
+    §ANTICORRUPTION LAYER(pp.365–366) — 저수준 인터페이스 논의 p.365 포함 · 6장 §FACTORIES(pp.137–138) ·
+    §REPOSITORIES(pp.149–150)와 §"Client Code Ignores REPOSITORY Implementation; Developers
+    Do Not"(pp.154–155). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 이 절들은 이 소스가 이 페이지에
+    더하는 것만 든다 — 각 조항의 전문은 [계층 아키텍처](layered-architecture.md)·[도메인 서비스](../concepts/domain-services.md)·[도메인의 모듈](modules-in-the-domain.md)·[경계 컨텍스트](../concepts/bounded-context.md)·[컨텍스트 지도](../concepts/context-map.md)·[팩토리 패턴](../concepts/factories-pattern.md)·[리포지터리의 질의와 구현](repository-querying-and-implementation.md)에 있다.
 
 [^percival2020]: Percival & Gregory 2020, 2장 §"The 'Normal' ORM Way: Model Depends on
     ORM"·§"Inverting the Dependency: ORM Depends on Model" · 6장 곁글 "Don't Mock What You

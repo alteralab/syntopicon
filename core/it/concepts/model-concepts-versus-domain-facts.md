@@ -2,7 +2,7 @@
 type: concept
 title: 모델의 개념과 도메인의 사실
 description: 코드의 이름이 담아야 하는 것이 어디까지인가를 원전 근거로 긋는 페이지 — 모델이 선택적 단순화이며 사실을 수백 개 버린 결과라는 규정, 조직된 데이터와 모델을 가르는 선, 이름 규약으로 개별 사실을 알아보던 스크립트가 개념을 명시한 모델로 바뀌면서 그 유추가 한 자리로 격리된 사례, 숨은 규칙을 개념으로 승격시킬 때 수치는 어디에 남는가, 무엇이 아니라 무엇으로가 이름에 온다는 조항, 값 객체가 "무엇인지"만 담고 "어느 것인지"는 담지 않는다는 규정, 그리고 이 소스가 말하는 것과 말하지 않는 것의 경계
-generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-14T05:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
@@ -13,6 +13,7 @@ sources:
 - [조직된 데이터와 모델을 가르는 선](#조직된-데이터와-모델을-가르는-선)
 - [이름 규약이 개별 사실을 나르던 사례](#이름-규약이-개별-사실을-나르던-사례)
 - [숨은 규칙을 개념으로 올릴 때 수치는 어디에 남는가](#숨은-규칙을-개념으로-올릴-때-수치는-어디에-남는가)
+- [무엇이 이름을 얻을 자격이 있는가](#무엇이-이름을-얻을-자격이-있는가)
 - [이름에 오는 것은 무엇이 아니라 무엇으로다](#이름에-오는-것은-무엇이-아니라-무엇으로다)
 - [무엇인지와 어느 것인지](#무엇인지와-어느-것인지)
 - [이 소스가 말하는 것과 말하지 않는 것](#이-소스가-말하는-것과-말하지-않는-것)
@@ -127,6 +128,37 @@ sources:
     소스의 관심사가 아니다. 그 물음을 다루는 자리는
     [외부 설정](../concepts/external-configuration.md)이다.
 
+## 무엇이 이름을 얻을 자격이 있는가
+
+위 절들이 모델이 사실을 버린 결과라고 말했다면, 9장은 반대 방향의 물음에 답한다 — 버려지지
+않고 이름을 얻어야 하는 것은 무엇으로 알아보는가.
+
+- 이 소스가 내놓는 판정 기준은 **도메인에서의 두드러짐과 모델에서의 두드러짐이 어긋나는
+  자리**다 — **제약이 객체의 기본 책임을 가리고 있을 때, 또는 제약이 도메인에서는 두드러지는데
+  모델에서는 두드러지지 않을 때, 당신은 그것을 명시적 객체로 분리해 낼 수 있고 심지어 객체와
+  관계의 집합으로 모델링할 수도 있다** (9장, p.222).[^evans2003]
+- 프로세스에 대해서는 같은 기준이 한 줄짜리 시험으로 주어진다 (9장, p.223):[^evans2003]
+
+> The key to distinguishing a process that ought to be made explicit from one that should be
+> hidden is simple: Is this something the domain experts talk about, or is it just part of the
+> mechanism of the computer program?
+
+  - **심급이 도메인 전문가의 입이다.** 이름을 얻을 자격은 개발자가 보기에 중요한가가 아니라
+    도메인이 그것을 말하는가로 판정된다. 그래서 이 소스에서는 어휘의 차집합이 곧 진단이 된다
+    — **사용자나 도메인 전문가가 설계 어디에도 없는 어휘를 쓸 때, 그것은 경고 신호다** (9장,
+    p.207).[^evans2003]
+- **이 판정이 무엇을 요구하지 않는지도 같은 자리에서 읽힌다.** 화물 여정 사례에서 저자가
+  기록하는 것은 데이터도 행동도 이미 다 있었다는 사실이다 — **사실 모든 데이터는 이미 수집되고
+  있었고, 그 행동은 여정 보고서 안에 암묵적으로 들어 있었다. 그러나 모델의 일부로서의 명시적
+  `Itinerary`가 기회를 열었다** (9장, p.210).[^evans2003] 없던 것은 개별 사실도 계산도 아니라
+  **개념의 이름**이었다.
+- 뒤집힌 경우도 명시된다. 프로그램의 기제일 뿐인 절차는 이름을 얻지 않는다 — **우리는 절차를
+  우리 모델의 두드러진 측면으로 만들고 싶지 않다. 객체는 절차를 캡슐화하고 우리가 대신 그
+  목표나 의도의 관점에서 생각하게 하려고 있는 것이다** (9장, p.222).[^evans2003]
+- 그 절차를 찾아내는 과정 자체는 [암묵적 개념 파내기](../concepts/digging-out-implicit-concepts.md)가,
+  찾아낸 것이 제약일 때의 처방은 [명시적 제약](../concepts/explicit-constraints.md)이,
+  규칙일 때의 형태는 [명세 패턴](specification-pattern.md)이 다룬다.
+
 ## 이름에 오는 것은 무엇이 아니라 무엇으로다
 
 - 10장의 조항이 이름의 내용물을 규정한다 — **어떤 개념을 클래스나 메서드의 형태로 명시적으로
@@ -193,6 +225,10 @@ sources:
 ## 이어지는 페이지
 
 - [유비쿼터스 언어](ubiquitous-language.md) — 이름의 정본이 되는 언어
+- [암묵적 개념 파내기](../concepts/digging-out-implicit-concepts.md) — 이름을 얻을 개념을 찾아내는 절차
+- [명시적 제약](../concepts/explicit-constraints.md) — 찾아낸 것이 제약일 때
+- [명세 패턴](specification-pattern.md) — 찾아낸 것이 규칙일 때
+- [도메인 객체가 된 프로세스](processes-as-domain-objects.md) — 찾아낸 것이 프로세스일 때
 - [모델 주도 설계](model-driven-design.md) — 이 선이 코드 구조로 나타나는 자리
 - [의도를 드러내는 인터페이스](../concepts/intention-revealing-interfaces.md) — 이름이 수단을 말하지
   않는다는 조항의 전문
@@ -207,8 +243,10 @@ sources:
 [^evans2003]: Evans 2003, 1부 도입(pp.2–3) · 1장 "Crunching Knowledge"(§Ingredients of
     Effective Modeling p.12 · §Knowledge-Rich Design pp.17–20) · 2장(p.25) ·
     3장(§Modeling Paradigms and Tool Support pp.51–57 · §HANDS-ON MODELERS p.60) ·
-    5장(§ENTITIES p.92 · §VALUE OBJECTS p.98) · 10장(§INTENTION-REVEALING INTERFACES
-    pp.246–247). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
+    5장(§ENTITIES p.92 · §VALUE OBJECTS p.98) · 9장 "Making Implicit Concepts Explicit"
+    (§Listen to Language p.207 · 예제 "Hearing a Missing Concept in the Shipping Model" p.210 ·
+    §Explicit Constraints p.222 · §Processes as Domain Objects pp.222–223) ·
+    10장(§INTENTION-REVEALING INTERFACES pp.246–247). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로
     조판하는 관례를 직인용에서 유지했다. 펜스의 Java 테스트는 p.56 원문 그대로이며 —
     주석의 줄바꿈 위치까지 원문 조판을 따랐다 — 원문이 문자열에 쓴 굽은 따옴표를 곧은
     따옴표로 바꾼 것만 다르다(Java 문법상 굽은 따옴표는 컴파일되지 않는다). 이 코드는

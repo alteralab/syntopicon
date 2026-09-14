@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 상태·스트림·불변성
-description: 가변 상태와 불변 이벤트의 추가 전용 로그가 서로 모순되지 않고 같은 동전의 두 면인 이유 — 상태를 시간에 대해 미분하면 변경 스트림이라는 비유와 그 한계, 회계 원장이 수 세기 써 온 불변성과 그것이 주는 감사 가능성, 하나의 로그에서 여러 읽기 뷰를 유도하는 것이 정규화 논쟁을 무의미하게 만드는 지점, 동시성 제어에 미치는 두 방향의 효과, 그리고 불변성이 실제로 끝나는 자리
-generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
+description: 가변 상태와 불변 이벤트의 추가 전용 로그가 서로 모순되지 않고 같은 동전의 두 면인 이유 — 상태를 시간에 대해 미분하면 변경 스트림이라는 비유와 그 한계, 회계 원장이 수 세기 써 온 불변성과 그것이 주는 감사 가능성, 하나의 로그에서 여러 읽기 뷰를 유도하는 것이 정규화 논쟁을 무의미하게 만드는 지점, 동시성 제어에 미치는 두 방향의 효과, 그리고 불변성이 실제로 끝나는 자리, 그리고 같은 회계 관행이 데이터 시스템의 저장 방식이 아니라 도메인 모델의 구성 요소로 들어오는 다른 소스의 자리
+generated: { by: "claude-opus-5", at: "2026-09-14T11:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
 
 # 상태·스트림·불변성
@@ -15,6 +16,7 @@ sources:
 - [하나의 로그에서 여러 뷰를](#하나의-로그에서-여러-뷰를)
 - [동시성 제어에 미치는 두 방향](#동시성-제어에-미치는-두-방향)
 - [불변성이 끝나는 자리](#불변성이-끝나는-자리)
+- [같은 관행이 도메인 모델의 구성 요소로 들어올 때](#같은-관행이-도메인-모델의-구성-요소로-들어올-때)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **데이터베이스는 상태를 바꾸는데 이벤트 로그는 불변이라면, 둘은 어떻게 양립하는가.**
@@ -163,6 +165,36 @@ sources:
   어렵게 만드는 것"의 문제다. 그럼에도 여러분은 때때로 시도해야 한다** (12장,
   p.513).[^kleppmann2026]
 
+## 같은 관행이 도메인 모델의 구성 요소로 들어올 때
+
+이 페이지는 회계 원장의 불변성을 **데이터 시스템의 저장 방식**을 논하는 재료로 쓴다. 같은
+관행이 **응용 프로그램의 도메인 모델 그 자체**로 들어오는 자리가 이 KB에 하나 더 있다.
+
+- 도메인 주도 설계의 원전이 파울러의 분석 패턴에서 회계 모델을 빌려 온다. 계정(Account)과
+  기표(Entry) 둘로 된 기본 모델인데, 그 규정이 위
+  [불변 이벤트의 이점](#불변-이벤트의-이점)의 원장 서술과 겹친다 (11장, p.296):[^evans2003]
+
+> Value can be added by inserting an Entry. Value can be removed by inserting a negative
+> Entry. Entries are never removed, so the whole history is retained. The balance is the
+> combined effect of all Entries. This balance could be computed on demand or cached, an
+> implementation decision that is encapsulated by the Account interface.
+
+- 복식부기도 같은 방식으로 들어온다 — **모든 대변에는 짝이 되는 차변이 있다. 물론 다른 보존
+  원리와 마찬가지로 그것은 닫힌 계, 곧 모든 원천과 귀착지를 포함하는 계에만 적용된다. 많은
+  단순한 애플리케이션은 이 엄밀함을 요구하지 않는다** (11장, p.296).[^evans2003]
+- **판정 심급이 다르다는 것이 두 자리의 차이다.** 이 페이지에서 불변 원장의 값은 감사
+  가능성과 파생 뷰의 자유다. 그쪽에서 같은 성질의 값은 **금액의 변화 하나하나를 설명하고
+  통제하는 것이 업무상 필수적**이라는 도메인의 요구다 (11장, p.295).[^evans2003]
+  - **그래서 어느 쪽도 다른 쪽을 대신하지 않는다.** 이 페이지의 논증은 저장 계층을 어떻게
+    조직하느냐이고, 그쪽의 논증은 모델에 어떤 객체가 있어야 하느냐다. 다만 **잔액을 계산할지
+    캐시할지가 계정 인터페이스 뒤에 감춰진다**는 그쪽의 단서는 위
+    [하나의 로그에서 여러 뷰를](#하나의-로그에서-여러-뷰를)과 같은 기제를 말한다.
+- **닫힌 계라는 조건도 양쪽에 공통이다.** 위 [불변성이 끝나는 자리](#불변성이-끝나는-자리)가
+  이 성질의 한계를 적듯이, 그쪽도 보존 원리가 모든 원천과 귀착지를 포함하는 계에만 적용된다고
+  먼저 못 박는다 (11장, p.296).[^evans2003]
+- 빌려 쓰기의 전문은
+  [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md)에 있다.
+
 ## 이어지는 페이지
 
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이 원리를 애플리케이션 설계로 민 것
@@ -175,5 +207,14 @@ sources:
 - [스냅샷 격리와 MVCC](../concepts/snapshot-isolation-and-mvcc.md) — 불변성에 기대는 동시성 제어
 - [복제 지연 이상 현상](../concepts/replication-lag-anomalies.md) — 비동기 뷰가 낳는 문제
 - [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 로그와 상태를 잇는 기제
+- [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md) — 같은 회계 관행이
+  도메인 모델의 구성 요소로 들어오는 자리
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
+
+[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" 중 빌려 온 요약
+    "Accounting Models in Analysis Patterns"(pp.295–296). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33,
+    실측). 이 요약은 Evans가 Fowler 1997의 6장 "Inventory and Accounting"을 자기 예제에
+    필요한 만큼만 줄여 옮긴 것이고, 이 페이지는 그중 이 페이지의 물음에 닿는 진술만
+    합류시켰다. 딸린 클래스 다이어그램(Figure 11.2·11.3)은 이미지라 제약 표기와 클래스
+    이름만 산문으로 옮겼다.

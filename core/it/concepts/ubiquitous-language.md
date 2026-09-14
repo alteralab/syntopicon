@@ -1,8 +1,8 @@
 ---
 type: concept
 title: 유비쿼터스 언어
-description: 도메인 모델을 팀의 공용어로 삼는다는 패턴의 원전 — 언어가 갈라졌을 때 번역이 무는 비용, 그 공용어의 어휘가 클래스와 연산의 이름이라는 규정, 언어를 바꾸는 것이 곧 모델을 바꾸는 것이라는 조항, 말로 모델을 실험하라는 부칙, 한 팀 한 언어와 개발자용 방언의 경계, 문서와 다이어그램이 이 언어에 대해 갖는 지위, 그리고 코드가 이 언어로 쓰여야 한다는 요구와 코드만으로는 부족한 이유
-generated: { by: "claude-opus-5", at: "2026-08-18T02:00:00Z" }
+description: 도메인 모델을 팀의 공용어로 삼는다는 패턴의 원전 — 언어가 갈라졌을 때 번역이 무는 비용, 그 공용어의 어휘가 클래스와 연산의 이름이라는 규정, 언어를 바꾸는 것이 곧 모델을 바꾸는 것이라는 조항, 말로 모델을 실험하라는 부칙, 한 팀 한 언어와 개발자용 방언의 경계, 문서와 다이어그램이 이 언어에 대해 갖는 지위, 코드가 이 언어로 쓰여야 한다는 요구와 코드만으로는 부족한 이유, 그리고 이 어휘가 클래스와 연산을 넘어 서비스와 모듈 이름까지 걸리며 패러다임이 섞인 설계를 붙들어 두는 유일한 수단이 된다는 확장, 그리고 대규모 구조는 코드가 증언해 주지 않아 이 언어가 유일한 집행 수단이 되며 XP의 시스템 은유 자리를 이 언어가 채울 수 있다는 16장의 확장
+generated: { by: "claude-opus-5", at: "2026-09-14T16:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
 ---
@@ -18,7 +18,12 @@ sources:
 - [방언은 허용되고 대체 어휘는 허용되지 않는다](#방언은-허용되고-대체-어휘는-허용되지-않는다)
 - [다이어그램과 문서가 이 언어에 대해 갖는 지위](#다이어그램과-문서가-이-언어에-대해-갖는-지위)
 - [코드가 이 언어로 쓰여야 한다는 요구](#코드가-이-언어로-쓰여야-한다는-요구)
+- [설계에 없는 낱말이 알려 주는 것](#설계에-없는-낱말이-알려-주는-것)
+- [어휘에 서비스와 모듈의 이름도 든다](#어휘에-서비스와-모듈의-이름도-든다)
+- [패러다임이 섞일 때 남는 유일한 수단](#패러다임이-섞일-때-남는-유일한-수단)
 - [이 언어의 유효 범위](#이-언어의-유효-범위)
+- [빌려 온 낱말을 다룰 때의 두 의무](#빌려-온-낱말을-다룰-때의-두-의무)
+- [대규모 구조의 낱말도 이 언어에 든다](#대규모-구조의-낱말도-이-언어에-든다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **팀이 쓰는 말을 무엇으로 정하고, 그 말이 코드와 어떻게 묶이는가.**
@@ -198,6 +203,81 @@ sources:
   - 이것이 [모델 주도 설계](../concepts/model-driven-design.md)로 넘어가는 다리다. 이 페이지는 **말이
     무엇이어야 하는가**를 정하고, 그쪽이 **그 말이 코드에서 어떻게 실현되는가**를 정한다.
 
+## 설계에 없는 낱말이 알려 주는 것
+
+9장이 이 언어를 계측기로 뒤집어 쓴다. 이 페이지의 나머지가 **언어를 코드에 맞추라**고
+요구한다면, 그쪽은 **언어와 설계의 차집합을 빠진 개념의 목록으로 읽으라**고 한다.
+
+- 진단 — **사용자나 도메인 전문가가 설계 어디에도 없는 어휘를 쓸 때, 그것은 경고 신호다.
+  개발자와 도메인 전문가가 둘 다 설계에 없는 용어를 쓰고 있다면 그것은 두 배로 강한 경고다**
+  (9장, p.207).[^evans2003]
+- 그런데 저자가 곧바로 부호를 뒤집으며 그 근거로 이 패턴의 정의를 부른다 — **유비쿼터스 언어는
+  말과 문서와 모델 다이어그램과 심지어 코드에까지 스며 있는 어휘로 이루어진다. 어떤 용어가
+  설계에 없다면, 그것을 포함시켜 모델과 설계를 개선할 기회다** (9장, p.207).[^evans2003]
+- 무엇을 들어야 하는지가 처방으로 주어진다 (9장, p.206):[^evans2003]
+
+> Listen to the language the domain experts use. Are there terms that succinctly state something
+> complicated? Are they correcting your word choice (perhaps diplomatically)? Do the puzzled looks
+> on their faces go away when you use a particular phrase? These are hints of a concept that might
+> benefit the model.
+
+  - **위 [부칙 소리 내어 모델링하기](#부칙-소리-내어-모델링하기)의 계측기와 방향이 반대다.**
+    그쪽은 우리가 낸 표현이 어색하게 들리는지를 우리 귀로 재고, 이쪽은 전문가가 쓰는 표현과
+    그의 표정을 잰다.
+- 저자가 오해를 하나 막는다 — **이것은 "명사는 객체다"라는 옛 통념이 아니다. 새 낱말을 듣는
+  것은 실마리 하나를 낳고, 당신은 대화와 지식 정련으로 그것을 따라가며 깨끗하고 쓸모 있는
+  개념을 깎아 내는 것을 목표로 삼는다** (9장, pp.206–207).[^evans2003]
+- 그리고 이 언어가 자라는 것이 리팩터링의 이득으로 계상된다. 화물 여정 사례에서는 여섯째
+  이득이 **유비쿼터스 언어의 확장**이고, 이자 발생 사례에서는 첫째 이득이 **"발생"이라는 용어로
+  유비쿼터스 언어를 풍부하게 하는 것**이다 (9장, pp.210·215).[^evans2003] 그 절차는
+  [암묵적 개념 파내기](../concepts/digging-out-implicit-concepts.md)에 있다.
+
+## 어휘에 서비스와 모듈의 이름도 든다
+
+위 [공용어의 어휘는 무엇으로 이루어지는가](#공용어의-어휘는-무엇으로-이루어지는가)가 이 언어의
+어휘를 클래스와 두드러진 연산의 이름으로 규정한다. 5장이 그 목록을 두 자리 넓힌다.
+
+- **서비스의 연산 이름이 이 언어에 든다** — **연산 이름은 유비쿼터스 언어에서 와야 하거나 그
+  언어에 도입되어야 한다. 매개변수와 결과는 도메인 객체여야 한다** (5장, p.105).[^evans2003]
+  처방 문단에도 같은 요구가 조문으로 들어 있다 — **인터페이스를 모델의 언어로 정의하고 연산
+  이름이 유비쿼터스 언어의 일부인지 확인하라** (5장, p.106).[^evans2003] 전문은
+  [도메인 서비스](../concepts/domain-services.md)에 있다.
+- **모듈(패키지)의 이름도 든다** (5장, p.110):[^evans2003]
+
+> If your model is telling a story, the MODULES are chapters. The name of the MODULE conveys
+> its meaning. These names enter the UBIQUITOUS LANGUAGE.
+
+  - 실물이 대화로 제시된다 — **"이제 '고객' 모듈 이야기를 해 봅시다"라고 업무 전문가에게 말할
+    수 있고, 그것으로 대화의 맥락이 정해진다** (5장, p.110).[^evans2003] 그리고 처방 문단이
+    그것을 조문으로 만든다 — **모듈에 유비쿼터스 언어의 일부가 되는 이름을 주라. 모듈과 그
+    이름은 도메인에 대한 통찰을 반영해야 한다** (5장, p.111).[^evans2003] 전문은
+    [도메인의 모듈](../concepts/modules-in-the-domain.md)에 있다.
+- **이 확장이 위 [설계에 없는 낱말이 알려 주는 것](#설계에-없는-낱말이-알려-주는-것)의 계측기를
+  넓힌다.** 계측 대상이 클래스 이름만이 아니라 **패키지 이름과 서비스 이름**까지다. 업무
+  전문가에게 말할 수 없는 패키지 이름은 그 자체로 모델이 그 자리에 없다는 신호다.
+
+## 패러다임이 섞일 때 남는 유일한 수단
+
+- 5장 끝의 논의에서 이 언어가 가장 강한 역할을 받는다. 규칙 엔진 같은 비객체 도구를 섞으면
+  **두 구현 환경 사이를 오가는 모델 개념의 관련성을 보여 주는 이음매 없는 시야가 없을 수
+  있고**, 흔한 결과는 **객체를 쓰는 정적 데이터 저장 시스템과, 객체 모델과의 연결을 거의 다
+  잃은 임시 규칙 처리 애플리케이션으로 둘로 쪼개진 애플리케이션**이다
+  (5장, p.121).[^evans2003]
+- 그때 남는 수단이 하나다 (5장, p.121):[^evans2003]
+
+> The most effective tool for holding the parts together is a robust UBIQUITOUS LANGUAGE that
+> underlies the whole heterogeneous model. Consistently applying names in the two environments
+> and exercising those names in the UBIQUITOUS LANGUAGE can help bridge the gap.
+
+  - 어림법 목록에도 같은 조항이 들어 있다 — **유비쿼터스 언어에 기대라. 도구 사이에 엄밀한
+    연결이 없을 때조차, 언어의 매우 일관된 사용이 설계의 부분들이 갈라지는 것을 막을 수 있다**
+    (5장, p.122).[^evans2003]
+  - **이 용례가 이 패턴의 값을 가장 크게 잡는 자리다.** 위
+    [언어를 바꾸는 것이 모델을 바꾸는 것이다](#언어를-바꾸는-것이-모델을-바꾸는-것이다)가
+    언어와 모델을 같은 것으로 두는데, 여기서는 **코드 층위의 연결이 아예 없는 두 환경에서도
+    언어가 모델의 단일성을 유지한다**는 주장으로 나아간다. 전문은
+    [모델링 패러다임](../concepts/modeling-paradigms.md)에 있다.
+
 ## 이 언어의 유효 범위
 
 - 이 패턴에는 전제가 하나 붙어 있다 — **유비쿼터스 언어에 대한 이 논의는 하나의 모델만이
@@ -208,24 +288,113 @@ sources:
   모델의 관계를 정의하는 경계 컨텍스트, 그리고 모델과 설계에 적용되는 다른 패턴들** (2장,
   p.27).[^evans2003]
 
+## 빌려 온 낱말을 다룰 때의 두 의무
+
+11장이 출판된 분석 패턴에서 낱말을 들여올 때 이 언어가 무엇을 얻고 무엇을 지켜야 하는지를
+적는다. **이 페이지의 어휘가 팀 밖에서 오는 경우다.**
+
+- 먼저 얻는 것 — 빌린 낱말은 **널리 이해되거나 적어도 잘 설명된 낱말**이라 이 언어를 강화한다
+  (11장, pp.306–307).[^evans2003] 그것이 저자가 드는 두 이유 중 **더 중요한** 쪽이다.
+- **첫째 의무는 기본 개념을 지키는 것이다** (11장, p.306):[^evans2003]
+
+> There is one kind of change you should avoid. When you use a term from a well-known analysis
+> pattern, take care to keep the basic concept it designates intact, however much the
+> superficial form might change.
+
+- **둘째 의무는 그 대칭이다** — **모델의 자연스러운 진화로 모델 정의가 바뀐다면 이름도 바꾸는
+  수고를 하라** (11장, p.307).[^evans2003]
+  - 두 의무가 한 규칙의 앞뒤다. 이름을 남겼으면 뜻을 지키고, 뜻을 바꿨으면 이름을 바꾼다.
+    어느 쪽도 하지 않으면 이 언어가 거짓 신호를 낸다.
+- **그리고 이 언어에 들어오는 것이 클래스 이름만이 아니라는 실물이 같은 장에 있다.** 기표
+  규칙의 발화 방식 셋을 두고 저자가 이렇게 적는다 (11장, p.302):[^evans2003]
+
+> The addition of the three firing modes to the UBIQUITOUS LANGUAGE is as important to the
+> success of the pattern as the model object definitions themselves. It eliminates ambiguity
+> and guides decision making directly to a clearly defined set of choices.
+
+  - **선택지에 붙은 이름이 모델 객체의 정의만큼 중요하다는 진술이다.** 위
+    [다이어그램과 문서가 이 언어에 대해 갖는 지위](#다이어그램과-문서가-이-언어에-대해-갖는-지위)이 다이어그램만으로는 모델이 서지 않는다고 말한
+    것과 같은 방향이고, 12장의 경로 탐색 사례에서도 설계의 산출물이 도메인의 말로 된 문장
+    하나였다 (12장, p.314).[^evans2003] 그 전문은
+    [설계 패턴을 도메인 패턴으로 읽기](../concepts/design-patterns-as-domain-patterns.md)에 있다.
+- 빌려 오는 절차의 전문은 [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md)에 있다.
+
+## 대규모 구조의 낱말도 이 언어에 든다
+
+16장이 [대규모 구조](../concepts/large-scale-structure.md)를 이 언어에 넣으라고 요구하는데, **다른 요소와
+달리 이 경우에는 언어가 유일한 집행 수단이다.**
+
+- 요구 (16장, p.482):[^evans2003]
+
+> The entire team must follow the structure in new development and refactoring. To do this, the
+> structure must be understood by the entire team. The terminology and relationships must enter
+> the UBIQUITOUS LANGUAGE.
+
+- **왜 언어에 기댈 수밖에 없는가**가 같은 절에 적힌다 — **구조가 모델이나 구현의 세부와 맺는
+  관계는 보통 코드에 명시되지 않고, 기능 테스트는 구조에 의존하지 않는다.** 게다가 구조는
+  추상적이라 큰 팀에 걸쳐 일관되게 적용하기 어렵다. **일관되게 지키지 않으면 구조는 부패하는
+  경향이 있다** (16장, p.482).[^evans2003]
+  - 위 [코드가 이 언어로 쓰여야 한다는 요구](#코드가-이-언어로-쓰여야-한다는-요구)가 걸리지
+    않는 자리다. 대규모 구조는 코드 안의 산물이 아니므로 코드가 그것을 증언해 주지 않는다.
+- 그래서 대화만으로는 모자라다고 못 박는다 — **대부분의 팀에서 오가는 종류의 대화로는 시스템
+  안에 일관된 대규모 구조를 유지하기에 충분하지 않다. 그것을 프로젝트의 유비쿼터스 언어에 넣고
+  모두가 그 언어를 끈질기게 쓰는 것이 결정적이다** (16장, p.482).[^evans2003]
+- [시스템 은유](../concepts/system-metaphor.md)의 처방도 같은 동작을 요구한다 — **이 은유를 중심으로 설계를
+  조직하고 그것을 유비쿼터스 언어에 흡수하라** (16장, p.448).[^evans2003]
+- **그리고 이 언어가 은유의 자리를 대신할 수 있다고 적힌다** (16장, p.449):[^evans2003]
+
+> In the 12 practices of Extreme Programming, the role of a SYSTEM METAPHOR could be fulfilled by
+> a UBIQUITOUS LANGUAGE. Projects should augment that LANGUAGE with SYSTEM METAPHORS or other
+> large-scale structures when they find one that fits well.
+
+  - 그 문단은 성숙한 도메인 모델을 "순진한 은유"라 부르는 용어를 기각하면서 나온다. 근거가
+    이 페이지와 이어진다 — 성숙한 모델은 **도메인 전문가와의 여러 차례 지식 정련의 산물이고
+    동작하는 애플리케이션의 구현에 단단히 엮여 검증된** 것이다 (16장, pp.448–449).[^evans2003]
+- 같은 장의 [지식 수준](../concepts/knowledge-level.md) 예제에 위
+  [설계에 없는 낱말이 알려 주는 것](#설계에-없는-낱말이-알려-주는-것)의 실물이 하나 더 있다.
+  팀이 요구를 진술하며 쓴 문장에 모델에 없는 낱말 `payroll`이 들어 있었고, 한 개발자가 그것을
+  이렇게 진단한다 — **그것은 실은 유비쿼터스 언어의 진술이 아니었다. 모델에 "payroll"이 없었다.
+  그들은 가진 언어가 아니라 원하는 언어로 말하고 있었다** (16장, p.472).[^evans2003]
+  - 그 알아차림이 `Payroll`을 `Employee Type`에서 떼어 내는 리팩터링으로 이어진다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](../concepts/model-driven-design.md) — 이 언어가 코드와 묶이는 방식. 이 패턴의 짝
+- [분석 패턴을 모델에 들이기](../concepts/analysis-patterns-in-the-model.md) — 팀 밖에서 온 낱말을 이 언어에
+  들일 때의 두 의무
 - [경계 컨텍스트](../concepts/bounded-context.md) — 이 언어가 어디까지 통용되는지를 긋는 자리
 - [컨텍스트 지도](../concepts/context-map.md) — 경계들의 이름이 이 언어에 들어오는 자리
 - [모델의 개념과 도메인의 사실](../concepts/model-concepts-versus-domain-facts.md) — 이 언어가 이름에
   담으라고 요구하는 것이 무엇까지인가
 - [지식 정련](../concepts/knowledge-crunching.md) — 이 언어가 자라 나오는 활동
+- [암묵적 개념 파내기](../concepts/digging-out-implicit-concepts.md) — 이 언어와 설계의 차집합을
+  읽어 내는 절차
 - [이름 짓기](../concepts/naming-things.md) — 코드의 이름을 다루는 이 KB의 자리. 이 소스가 그 페이지에
   더하는 것은 이름의 정본이 모델이라는 규정이다
+- [도메인 서비스](../concepts/domain-services.md) — 연산 이름이 이 언어에서 와야 하는 자리
+- [도메인의 모듈](../concepts/modules-in-the-domain.md) — 패키지 이름이 이 언어에 드는 자리
+- [모델링 패러다임](../concepts/modeling-paradigms.md) — 이 언어가 이질적인 구현들을 잇는 자리
+- [대규모 구조](../concepts/large-scale-structure.md) — 이 언어가 유일한 집행 수단이 되는 자리
+- [시스템 은유](../concepts/system-metaphor.md) — 이 언어에 흡수되어야 하는 것이자 이 언어가 대신할 수 있는 것
+- [지식 수준](../concepts/knowledge-level.md) — 모델에 없는 낱말이 개념을 불러낸 또 하나의 사례
 - [도메인 모델 패턴](../concepts/domain-model-pattern.md) — 같은 발상이 파이썬 실물로 내려온 자리
 - [개발자의 소통](../concepts/developer-communication.md) — 팀 어휘를 다루는 층
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
-[^evans2003]: Evans 2003, 2장 "Communication and the Use of Language" 전체
+[^evans2003]: Evans 2003, 11장 "Applying Analysis Patterns" §"Executing Posting Rules"(p.302)와
+    §"Analysis Patterns Are Knowledge to Draw On"(pp.306–307) · 12장 "Relating Design Patterns
+    to the Model" 예제 "Route-Finding Policies"(p.314) ·
+    2장 "Communication and the Use of Language" 전체
     (§UBIQUITOUS LANGUAGE pp.24–29 · §Modeling Out Loud pp.30–32 ·
     §One Team, One Language pp.32–35 · §Documents and Diagrams pp.35–40 ·
-    §Explanatory Models pp.41–43). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
+    §Explanatory Models pp.41–43) · 9장 "Making Implicit Concepts Explicit"
+    (§Listen to Language pp.206–207 · 예제 "Hearing a Missing Concept in the Shipping
+    Model" p.210 · 예제 "Earning Interest the Hard Way" p.215) ·
+    5장 "A Model Expressed in Software"(§SERVICES pp.105–106 · §MODULES pp.110–111 ·
+    §Modeling Paradigms pp.121–122) ·
+    16장 "Large-Scale Structure"(§SYSTEM METAPHOR의 처방 p.448과 §"The 'Naive Metaphor' and
+    Why We Don't Need It" pp.448–449 · §KNOWLEDGE LEVEL 예제 Part 2 p.472 ·
+    §"Communication and Self-Discipline" p.482). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴
     이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다. 화물 라우터 대화 예제
     (Figure 2.1·2.2, pp.28–29)와 설명 모델 예제(Figure 2.4·2.5, pp.42–43)는 도판과
     대화가 한 덩어리라 산문 서술로만 옮겼다.
