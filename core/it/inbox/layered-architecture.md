@@ -18,6 +18,8 @@ sources:
 - [패키징으로 이 분리를 강제한다](#패키징으로-이-분리를-강제한다)
 - [규칙이 도메인 층을 떠나면 남는 것](#규칙이-도메인-층을-떠나면-남는-것)
 - [모델에 없는데 도메인 층에 사는 것들](#모델에-없는데-도메인-층에-사는-것들)
+- [네 층 중 무엇이 이 방법론의 요구인가](#네-층-중-무엇이-이-방법론의-요구인가)
+- [모델을 흐리는 다른 힘들](#모델을-흐리는-다른-힘들)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **도메인 모델이 사는 자리를 어떻게 격리하고, 그 격리는 무엇을 위한 것인가.**
@@ -200,9 +202,55 @@ sources:
   노출은 클라이언트를 복잡하게 만들고 모델 주도 설계를 흐린다** (6장, p.150).[^evans2003]
   전문은 [리포지터리 패턴](repository-pattern.md)에 있다.
 
+## 네 층 중 무엇이 이 방법론의 요구인가
+
+같은 장이 이 패턴을 소개한 뒤 자기 요구를 한 층으로 좁힌다.
+
+- 전제는 넓다 — **계층 아키텍처는 여러 층 구성 방식으로 오늘날 대부분의 시스템에서 쓰이고,
+  많은 개발 스타일이 층 나누기에서 이득을 볼 수 있다.** 그러나 **도메인 주도 설계가 존재를
+  요구하는 층은 하나뿐이다** (4장, p.75).[^evans2003]
+- 그 하나의 정의가 세 문장으로 나뉘어 있다 (4장, p.75):[^evans2003]
+  - **도메인 모델은 개념의 집합이다.**
+  - **"도메인 층"은 그 모델과 직접 관련된 모든 설계 요소의 발현이다.**
+  - **업무 로직의 설계와 구현이 도메인 층을 이룬다.**
+  - 그리고 [모델 주도 설계](model-driven-design.md)에서는 **도메인 층의 소프트웨어 구성물이
+    모델 개념을 그대로 비춘다.**
+- 그래서 격리가 선택이 아니라 선행 조건이 된다 (4장, p.75):[^evans2003]
+
+> It is not practical to achieve that correspondence when the domain logic is mixed with other
+> concerns of the program. Isolating the domain implementation is a prerequisite for
+> domain-driven design.
+
+  - **위 [네 개의 층](#네-개의-층)의 표는 관례를 기술한 것이고, 이 절이 그중 요구 사항을
+    골라낸다.** 나머지 셋은 프로젝트 사정에 따라 합쳐지거나 늘어날 수 있다.
+  - 같은 장 끝이 이 요구를 형태와 분리해 다시 적는다 — 아키텍처가 응집된 도메인 설계를 나머지와
+    느슨하게 결합된 채로 격리한다면 그것이 네 층 구조인지는 묻지 않는다는 것이다. 전문은
+    [스마트 UI 안티패턴 §최소 기준](smart-ui-antipattern.md#최소-기준)에 있다.
+
+## 모델을 흐리는 다른 힘들
+
+- 이 장이 닫히며 **기반 구조와 사용자 인터페이스 말고도 모델을 부패시키는 힘이 있다**고 적고
+  둘을 지목한다 (4장, p.79):[^evans2003]
+  - **모델에 온전히 통합되지 않은 다른 도메인 구성 요소들**을 다뤄야 한다.
+  - **같은 도메인의 다른 모델을 쓰는 다른 개발 팀들**과 지내야 한다.
+  - 그 대가가 같다 — **이런 요인들이 모델을 흐리고 쓸모를 앗아 갈 수 있다.** 그 자리를 다루는
+    장이 14장이고 [경계 컨텍스트](../concepts/bounded-context.md)와 부패 방지 층이 그
+    패턴들이다.
+- 그리고 격리 자체로 풀리지 않는 문제가 하나 더 남는다 — **정말 복잡한 도메인 모델은 그것만으로도
+  다루기 힘들어질 수 있다.** 그래서 도메인 층 **안에서** 다시 구분을 두어 본질적 개념을 주변
+  세부에서 풀어 주는 일이 필요하고, 그것이 15장의 증류다 (4장, p.79).[^evans2003] 이 KB에서는
+  [핵심 도메인](../concepts/core-domain.md)이 그 자리다.
+  - **이 절이 이 페이지의 한계를 표시한다.** 층을 가르는 것은 도메인 코드를 **한자리에** 모으는
+    일이고, 그 자리가 커진 다음의 물음은 이 패턴이 답하지 않는다.
+
 ## 이어지는 페이지
 
 - [모델 주도 설계](model-driven-design.md) — 이 분리가 가능하게 하려는 것
+- [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md) — 가른 층을 다시
+  잇는 기제와 프레임워크를 얼마나 쓸 것인가
+- [스마트 UI 안티패턴](smart-ui-antipattern.md) — 이 패턴을 쓰지 않는 것이 옳은 조건
+- [화물 운송 예제](cargo-shipping-example.md) — 이 조항이 한 도메인에서 애플리케이션 클래스
+  셋으로 구체화되는 자리
 - [명세 패턴](specification-pattern.md) — 규칙이 도메인 층에 남게 하는 형태
 - [핵심 도메인](../concepts/core-domain.md) — 격리된 도메인 층조차 클 때 그 안에서 다시 무엇을 고르는가
 - [서비스 레이어](service-layer-pattern.md) — 애플리케이션 층을 파이썬 실물로 다루는 자리
@@ -218,6 +266,7 @@ sources:
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 4장 "Isolating the Domain"(§LAYERED ARCHITECTURE pp.68–71 ·
+    §THE DOMAIN LAYER IS WHERE THE MODEL LIVES p.75 · §Other Kinds of Isolation p.79 ·
     §Example: Partitioning Online Banking Functionality into Layers pp.71–72) ·
     5장 "A Model Expressed in Software"(§SERVICES 중 §"SERVICES and the Isolated Domain
     Layer" pp.106–107·§Granularity p.108 · §MODULES 중 §"The Pitfalls of
@@ -229,6 +278,7 @@ sources:
     §REPOSITORIES p.150). 쪽은 인쇄판
     쪽 번호(PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서
     유지했다. 계좌이체 시퀀스 다이어그램(Figure 4.1, p.72)은 도판이라 그 안의 판정 한 줄만
-    옮겼다. 이 장의 나머지 절(§Relating the Layers pp.72–74 · §Architectural Frameworks
-    pp.74–75 · §THE SMART UI "ANTI-PATTERN" pp.76–79 · §Other Kinds of Isolation p.79)은
-    이 페이지의 물음 밖이라 옮기지 않았다.
+    옮겼다. 같은 장의 §Relating the Layers(pp.72–74)와 §Architectural Frameworks(pp.74–75)는
+    물음이 달라 [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md)가,
+    §THE SMART UI "ANTI-PATTERN"(pp.76–79)은 [스마트 UI 안티패턴](smart-ui-antipattern.md)이
+    담는다.
