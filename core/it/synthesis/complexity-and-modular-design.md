@@ -131,6 +131,9 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
 - [리팩터링](../concepts/refactoring.md) — 반응 투자로서의 리팩터링과 투자 비율의 셈법
 - [ETC — 바꾸기 쉬운 것이 좋은 설계](../concepts/etc-easier-to-change.md) — 두 책이 각각
   세운 단일 최종 잣대가 나란히 놓이는 자리
+- [서비스 결합의 네 종류](../concepts/service-coupling-types.md) — 이 축의 결합·응집 어휘가
+  네트워크로 갈린 서비스 세분성으로 옮겨 간 자리. 같은 *Structured Design* 계보에서 정의가
+  아니라 **목록**을 가져와 도메인·통과·공통·내용 넷으로 가른다
 
 ## 이 축을 관통하는 한 잣대
 

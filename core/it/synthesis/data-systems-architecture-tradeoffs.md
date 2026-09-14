@@ -42,6 +42,8 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 마이크로서비스를 정의하는 성질이자 쪼개기의 목표
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 쪼갠다면 경계를 어디에 그을 것인가
 - [마이크로서비스의 고통과 채택 판단](../concepts/microservice-pain-points-and-adoption.md) — 그 쪼개기가 청구하는 비용과 누구에게 맞는가의 판단
+- [마이크로서비스 경계의 대안 넷](../concepts/microservice-boundary-alternatives.md) — 업무 도메인 말고 무엇으로 가를 수 있는가(변동성·데이터·기술·조직)와 섞어 쓰기
+- [서비스 결합의 네 종류](../concepts/service-coupling-types.md) — 서비스 경계를 넘는 결합의 목록과 무엇이 불가피하고 무엇이 병리적인가
 
 ## 사업의 요구와 사용자의 요구
 
