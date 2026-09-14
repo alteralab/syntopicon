@@ -162,6 +162,8 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
   푸는 축
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 회사 표준·조직 결정이 기술
   선택에 들어오는 축
+- [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 메시지 어휘를
+  경계 컨텍스트 사이 통합의 문제로 세우고 이벤트를 세 종류로 가르는 쪽
 
 ## 이웃 허브
 

@@ -69,6 +69,10 @@ generated: { by: "claude-opus-5", at: "2026-08-16T03:00:00Z" }
   구성의 문제로 보는 셋째 꼭짓점
 - [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 이것이 한 유형으로
   세어지는 목록
+- [경계 컨텍스트](../concepts/bounded-context.md) — 2021년의 도메인 주도 설계 실무서가 이
+  분해의 단위로 못 박는 경계
+- [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 같은 경계를
+  운영계의 물리 서비스 경계로 고르는 쪽
 
 ## 이어지는 허브
 

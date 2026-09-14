@@ -18,6 +18,7 @@ sources:
 - [7장이 이 패턴의 지위를 바꾼다](#7장이-이-패턴의-지위를-바꾼다)
 - [9장이 발행의 신뢰성을 문제로 세운다](#9장이-발행의-신뢰성을-문제로-세운다)
 - [12장이 이 구성 단위를 붙임쪽지로 만든다](#12장이-이-구성-단위를-붙임쪽지로-만든다)
+- [15장이 이 구성 단위를 세 이벤트 종류 중 하나로 놓는다](#15장이-이-구성-단위를-세-이벤트-종류-중-하나로-놓는다)
 - [같은 낱말을 쓰는 이 KB의 다른 자리들](#같은-낱말을-쓰는-이-kb의-다른-자리들)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -201,6 +202,45 @@ sources:
   기반으로 채택될 수 있고**, 그 길로 가면 **경계 컨텍스트 경계와 애그리게이트와 필요한 도메인
   이벤트의 청사진**을 이미 갖고 있는 것이다 (12장, pp.195–196).[^khononov2021]
 
+## 15장이 이 구성 단위를 세 이벤트 종류 중 하나로 놓는다
+
+**같은 판본의 15장이 이 구성 단위에 형제 둘을 세워 준다.** 9장이 사적 이벤트와 공개 이벤트를
+갈랐다면(위 [9장이 발행의 신뢰성을 문제로 세운다](#9장이-발행의-신뢰성을-문제로-세운다)),
+15장은 **경계 밖으로 나가는 메시지에 종류가 셋 있고 이 패턴은 그중 하나**라고 적는다.
+
+- 분류가 이렇다 — **이벤트 알림(event notification) · 이벤트가 실어 나르는 상태 전이
+  (event-carried state transfer, ECST) · 도메인 이벤트** (15장 §"Types of Events", p.236).
+  [^khononov2021] 저자는 이 패턴을 **앞의 둘 사이 어딘가**에 놓는다 — 업무 도메인의 중요한 사건을
+  서술한다는 점을 알림과 나눠 갖고, 그 사건을 서술하는 데이터를 전부 담는다는 점을 ECST와
+  나눠 갖는다 (15장 §"Domain event", p.239).[^khononov2021]
+- **알림과 갈리는 지점이 둘이다** (15장 §"Domain events versus event notification", p.239):
+  [^khononov2021]
+  - 이 패턴은 사건을 서술하는 정보를 전부 담으므로 **소비자가 전체 그림을 얻으려고 추가 행동을
+    할 필요가 없다.** 위 [무엇을 담는가](#무엇을-담는가)의 조항이 그것이다.
+  - **모델링 의도가 다르다.** 알림은 통합을 수월하게 하려는 의도로 설계되고, 이 패턴은 업무
+    도메인을 모델링하고 서술하려는 의도로 설계된다. 그래서 **외부 소비자가 하나도 없어도 이
+    패턴은 쓸모가 있다.**
+- **ECST와 갈리는 지점도 둘이다** (15장 §"Domain events versus event-carried state transfer",
+  p.240):[^khononov2021]
+  - ECST는 생산자 데이터의 로컬 캐시를 유지하기에 충분한 정보를 주지만, **어떤 단일 도메인
+    이벤트도 그렇게 풍부한 모델을 드러내도록 되어 있지 않다** — 소비자가 구독하지 않은 다른
+    도메인 이벤트가 같은 필드를 건드릴 수 있기 때문이다.
+  - 여기서도 의도가 다르다 — 이 패턴의 데이터는 **애그리게이트의 상태를 서술하려는 것이 아니라
+    그 생애 주기 동안 일어난 업무상의 사건을 서술하려는 것**이다.
+- **이 자리가 위 [7장이 이 패턴의 지위를 바꾼다](#7장이-이-패턴의-지위를-바꾼다)에 조건을
+  하나 더 붙인다.** 이벤트 소싱 체계에서는 모든 상태 전이가 도메인 이벤트로 모델링되는데,
+  저자는 **그 모든 도메인 이벤트에 외부 소비자가 관심을 갖는 상황을 최적이 아닌 설계**라고
+  판정한다 (15장, p.239).[^khononov2021]
+- **그래서 이 패턴을 밖으로 내보내는 데 아끼라는 조항이 온다** (15장 §"Use public and private
+  events", p.246):[^khononov2021]
+
+> Finally, sparingly use domain events for communication with external bounded contexts. Consider
+> designing a set of dedicated public domain events.
+
+  - 위 9장의 사적·공개 구별이 **어느 종류를 공개할 것인가**로 구체화되는 자리다. 셋 중 어느
+    것을 고를지의 어림법과 그 선택이 어긋났을 때 벌어지는 일은
+    [이벤트 주도 통합 설계](event-driven-integration-design.md)에 있다.
+
 ## 같은 낱말을 쓰는 이 KB의 다른 자리들
 
 이 낱말은 이 KB의 여러 축에 이미 퍼져 있다. 이 페이지는 **패턴의 규정**만 갖고 나머지를
@@ -237,6 +277,8 @@ sources:
 - [뒤·앞 호환성](../concepts/backward-and-forward-compatibility.md) — 발행된 페이로드가 바뀔 때
 - [이벤트스토밍](eventstorming.md) — 이 구성 단위에서 모델 전체를 유도하는 워크숍
 - [경계 컨텍스트](../concepts/bounded-context.md) — 중추 사건이 가리키는 경계
+- [이벤트 주도 통합 설계](event-driven-integration-design.md) — 이 패턴이 형제 둘과 나란히
+  놓이고 어느 것을 고를지가 판정되는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 축의 허브
 
 [^khononov2021]: Khononov 2021, 6장 "Tackling Complex Business Logic" §"Domain events"
@@ -257,3 +299,9 @@ sources:
     §"Step 9: Aggregates" p.194 · §Variants pp.195–196)도 이 페이지에 합류했다.** 열 단계의
     전문과 붙임쪽지 색깔 대응표는 이 페이지에 두지 않고 [이벤트스토밍](eventstorming.md)에
     두었다 — 같은 claim을 두 페이지에 흩지 않는다.
+    **15장 "Event-Driven Architecture"(§"Types of Events" p.236 · §"Domain event" p.239 ·
+    §"Domain events versus event notification" p.239 · §"Domain events versus event-carried
+    state transfer" p.240 · §"Use public and private events" pp.245–246)도 이 페이지에
+    합류했다.** 세 종류의 규정과 비교, 결합 셋의 해부, 설계 휴리스틱 셋은 이 페이지에 두지 않고
+    [이벤트 주도 통합 설계](event-driven-integration-design.md)에 두었다 — 이 페이지는 이
+    패턴에 걸리는 것만 받았다.
