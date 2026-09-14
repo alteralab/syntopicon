@@ -164,6 +164,10 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
   선택에 들어오는 축
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 메시지 어휘를
   경계 컨텍스트 사이 통합의 문제로 세우고 이벤트를 세 종류로 가르는 쪽
+- [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 같은 선택을
+  마이크로서비스 사이 통신의 문제로 세우고 다섯 스타일로 가르는 쪽. 이 카탈로그의 네 통합
+  스타일이 그 다섯으로 어떻게 대응하는지는
+  [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md)에 있다
 
 ## 이웃 허브
 

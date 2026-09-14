@@ -69,6 +69,8 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   격리와 2PC를 얹는 길
 - [조정 회피](../concepts/coordination-avoidance.md) — 불변식 합류성(I-Confluence)과 RAMP의
   read atomic 격리
+- [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 한 데이터베이스를
+  여럿으로 쪼갤 때 트랜잭션의 안전이 사라지는 자리와 그 밖에 함께 깨지는 것들
 
 ## 이웃 축
 
