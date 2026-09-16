@@ -19,6 +19,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   이유, 꼬리 지연 증폭, 백분위를 계산하는 법
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지표를 약속으로 바꾸는
   SLI·SLO·SLA·OLA와 소진율 경보
+- [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 앞선 결과를 저장해
+  다시 계산하지 않는 최적화. 어디에 두고 언제 버릴 것인가, 그리고 캐시를 겹치면 낡음이
+  누적된다는 셈
 
 ## 부하를 어떻게 걸어 재는가
 
@@ -109,6 +112,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 
 - [확장성과 부하](../concepts/scalability-and-load.md) — 부하를 서술하는 법, 선형 확장성,
   공유 메모리·공유 디스크·무공유, 만능 비법이 없다는 전제 위의 원칙들
+- [확장의 네 축](../concepts/four-axes-of-scaling.md) — 같은 물음을 결정 목록으로 가른 분류.
+  기계를 키우는 것과 같은 것을 여럿 두는 것과 데이터로 가르는 것과 일의 종류로 가르는 것,
+  각각이 성능과 견고함 가운데 무엇을 사 오는가, 그리고 오토스케일링과 다시 짓기
 - [소셜 네트워크 홈 타임라인 사례](../concepts/social-network-home-timelines.md) — 읽을 때
   조인할 것인가 쓸 때 미리 만들 것인가를 수로 따진 사례
 

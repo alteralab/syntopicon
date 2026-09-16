@@ -56,3 +56,5 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
   이동을 손으로 하는 실제 절차
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) —
   샤딩(sharding)을 피하라는 권고가 놓인 자리
+- [확장의 네 축](../concepts/four-axes-of-scaling.md) — 여기 모인 기제 전체가 확장의 네 축
+  가운데 셋째로 놓이는 자리. 마이크로서비스 쪽에서 파티셔닝을 언제 고르고 언제 기각하는가

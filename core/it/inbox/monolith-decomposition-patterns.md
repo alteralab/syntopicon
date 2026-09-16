@@ -36,6 +36,12 @@ sources:
   생각이라고 보는 **이유**를 확실히 붙들고 나면 그 이해로 **어느 마이크로서비스를 먼저 만들지
   우선순위를 매길 수 있다**고 적는다 (3장 §"What to Split First?", p.74).[^newman2021]
   - **확장이 목표라면** 지금 체계의 부하 감당 능력을 제약하는 기능이 목록 위쪽에 온다.
+    - **13장이 이 조항에 순서를 붙인다.** 같은 책이 확장을 네 축으로 가르고, 여기서 말하는
+      쪼개기(기능 분해)를 **네 축 가운데 마지막에 놓는다** — 애플리케이션 코드에 미치는 영향이
+      가장 크고 단기에는 이익을 주지 않으므로 **다른 가능성을 소진한 다음에야 고려하라**는
+      것이다 (13장 §"Limitations", p.432).[^newman2021] 다만 마이크로서비스로의 전환이 조직이
+      원하는 다른 것들(팀을 키우고 더 많은 기능을 내는 일)을 함께 가져온다면 판단이 달라질 수
+      있다는 단서를 저자가 함께 단다. 축 전체는 [확장의 네 축](four-axes-of-scaling.md)에 있다.
   - **출시까지의 시간이 목표라면** 체계의 변동성(volatility)을 보고 **가장 자주 바뀌는 기능**을
     식별해 그것이 마이크로서비스로 작동할지 본다. 저자가 드는 수단이 **CodeScene 같은 정적 분석
     도구**이고, 그 도구로 코드베이스의 변동이 잦은 부분을 빠르게 찾을 수 있다고 적는다 (3장,
@@ -257,6 +263,8 @@ sources:
   경계로 삼는다는 같은 기준이 경계 선정 쪽에서 쓰이는 자리
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 병행 운영과 기능 토글을
   묶는 상위 이름인 점진적 전달과 그 형제 기법들
+- [확장의 네 축](four-axes-of-scaling.md) — 확장이 목표일 때 이 쪼개기가 네 축 가운데 마지막에
+  놓이는 이유
 
 [^newman2021]: Newman 2021, 3장 "Splitting the Monolith" §"What to Split First?"(pp.74–76) ·
     §"Decomposition by Layer"(pp.76–77) · §"Code First"(pp.77–78) · §"Data First"(p.78) ·
@@ -273,4 +281,6 @@ sources:
     이 절들에는 코드 목록이 없다. MusicCorp 서사(위시리스트 기능)는 저자가 명시한 가상 회사의
     예시라 그 서사가 예시하는 판정만 옮겼다. 저자가 대는 바깥 출처 셋(자기 책
     *Monolith to Microservices* · CodeScene · Pete Hodgson, "Feature Toggles (aka Feature
-    Flags)")은 이 KB가 확인한 원전이 아니다.
+    Flags)")은 이 KB가 확인한 원전이 아니다. **13장 "Scaling"에서 온 것**은
+    §"Functional Decomposition"의 §Limitations(p.432) 한 대목, 곧 이 쪼개기를 확장 축의 순서에
+    놓는 조항뿐이다.

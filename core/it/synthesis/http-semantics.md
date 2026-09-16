@@ -80,6 +80,13 @@ HTTP 동사가 모든 자원에서 같게 행동한다는 조항, 그리고 HATE
 - [콘텐츠 협상 필드와 품질 값](../concepts/http-content-negotiation-fields.md) — 선호에 가중치를
   매기는 문법과 Accept 계열 네 필드, 그리고 협상의 결과를 표기하는 Vary
 
+**캐싱의 규범이 이 KB에 없고, 그것을 부르는 자리가 생겼다.** 위에 적은 대로 캐시 동작의 규범은
+RFC 9111이 정본이고 이 KB는 그 문서를 들이지 않았다. 그 기제를 **쓰는 쪽**의 서술은
+[분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md)에 있다 — 마이크로서비스
+실무서가 `Cache-Control`과 `Expires`로 신선도를 말하고 조건부 GET으로 재검증하는 실무를 적는
+자리다. 그쪽은 전언이고 규범이 아니므로, 이 허브의 페이지들이 쓰는 "저 문서가 맡는다"는 분업은
+그대로다.
+
 ## 조건부 요청과 범위 요청
 
 - [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) —

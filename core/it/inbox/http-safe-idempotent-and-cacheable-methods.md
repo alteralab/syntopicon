@@ -116,6 +116,12 @@ sources:
   — **압도적 다수의 캐시 구현은 GET과 HEAD만 지원한다** (§9.2.3).[^fielding2022-rfc9110]
 - 이 페이지가 담는 것은 여기까지다. 추가 요건은 캐싱 명세(RFC 9111)가 정본이다
   (§9.2.3).[^fielding2022-rfc9110]
+  - **그 명세가 이 KB에 없고, 이제 그것을 부르는 자리가 생겼다.**
+    [분산 체계에서의 캐싱](caching-in-distributed-systems.md)이 옮긴 마이크로서비스 실무서가
+    `Cache-Control`로 TTL을 주고 `Expires`로 만료 시각을 주는 기제를 **실제로 쓰는 쪽에서**
+    서술한다 (13장 §"Time to live (TTL)", p.443).[^newman2021] 곧 이 KB는 지금 **캐시 가능성의
+    조건은 원전으로 갖고 있고, 신선도의 규범은 전언으로만 갖고 있다.** 그 페이지가 적는 것은
+    그 실무서가 적는 만큼이고 규범이 아니다.
 
 ## 세 속성의 분포
 
@@ -154,11 +160,17 @@ sources:
 - [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md) — 같은 낱말을 데이터 처리 잡에 쓰는 쪽
 - [안정성 패턴](stability-patterns.md) — 같은 낱말을 마이크로서비스 사이 재전달의 안전장치로
   쓰는 쪽과, 명세가 공짜로 주지 않는다는 경고
+- [분산 체계에서의 캐싱](caching-in-distributed-systems.md) — 여기서 조건만 정해 둔 캐시 가능성을
+  실제로 쓰는 쪽. `Cache-Control`과 조건부 GET이 실무에서 어떻게 쓰이는가
+- [조건부 요청과 전제 조건 필드](../concepts/http-conditional-requests-and-preconditions.md) —
+  캐시를 갱신할 때 쓰는 조건부 요청의 규정
 
 [^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 12장 "Resiliency"
     §"Idempotency"(pp.406–407). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 이 페이지가 그
     절에서 든 것은 HTTP 동사에 걸린 경고 한 줄뿐이고 직인용은 없다 — 원문 규정은 이 페이지의
-    원전이 소유한다. **이 소스는 이 축의 원전이 아니라 소비자**다.
+    원전이 소유한다. **이 소스는 이 축의 원전이 아니라 소비자**다. 13장 §"Time to live (TTL)"
+    (p.443)에서 온 것도 마찬가지로 한 줄이고, 그 장 전체의 캐싱 서술은
+    [분산 체계에서의 캐싱](caching-in-distributed-systems.md)이 갖는다.
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor
     정본의 원문 그대로다. 분포 표는 §9.2의 세 하위 절이 산문으로 적은 배정을 한자리에 모은 것이고

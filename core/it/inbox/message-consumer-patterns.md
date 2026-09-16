@@ -19,6 +19,7 @@ sources:
 - [병목이 어디로 옮겨 가는가](#병목이-어디로-옮겨-가는가)
 - [메시징 시스템이 정교한가 아닌가로 갈리는 것](#메시징-시스템이-정교한가-아닌가로-갈리는-것)
 - [2021년 브로커에서 이 패턴이 불리는 이름 — 컨슈머 그룹](#2021년-브로커에서-이-패턴이-불리는-이름--컨슈머-그룹)
+- [13장이 이 패턴을 확장의 한 축으로 놓는다](#13장이-이-패턴을-확장의-한-축으로-놓는다)
 - [Message Dispatcher — 짝짓기를 애플리케이션이 한다](#message-dispatcher--짝짓기를-애플리케이션이-한다)
 - [디스패처와 수행자](#디스패처와-수행자)
 - [Reactor 패턴의 메시징판](#reactor-패턴의-메시징판)
@@ -232,6 +233,21 @@ sources:
   기능으로 제공될 때의 이름과 배치**다. 브로커별 실물은
   [발행/구독 메시징](../concepts/publish-subscribe-messaging.md)과
   [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md)에 있다.
+
+### 13장이 이 패턴을 확장의 한 축으로 놓는다
+
+- 같은 실무서가 13장에서 이 패턴을 **같은 것을 여럿 두는 확장 축(수평 복제)의 둘째 구현**으로
+  든다 (13장 §"Implementations", p.423).[^newman2021] 저자는 이 패턴의 출처를 호페와 울프의
+  *Enterprise Integration Patterns*에 귀속하는데, **그 책이 곧 이 페이지의 소스다** — 이 KB에서는
+  전언이 아니라 원전이 위 절들에 있다.
+- 저자가 드는 실물은 새로 올라온 곡을 스트리밍용으로 변환하는 일이다 (13장, p.423).[^newman2021]
+  작업을 공통 큐에 넣고 변환기 인스턴스들이 그 큐에서 꺼내 **작업을 두고 경쟁하며**,
+  **처리량을 올리려면 인스턴스 수를 늘린다.**
+- **이 페이지의 §"병목이 어디로 옮겨 가는가"가 그 처방의 한계를 더 정밀하게 갖는다** — 소비자를
+  더하는 것은 계산 자원이 있는 동안만 듣고, 병목은 소비자의 처리 시간에서 **채널이 소비자를
+  얼마나 빨리 먹일 수 있는가**로 옮겨 간다. 13장에는 그 이동이 없다. 겨루는 것이 아니라
+  해상도가 다르다.
+- 확장 축 전체의 목록은 [확장의 네 축](four-axes-of-scaling.md)에 있다.
 
 ## Message Dispatcher — 짝짓기를 애플리케이션이 한다
 
@@ -647,13 +663,17 @@ sources:
 - [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 처리 못 한
   메시지를 어디로 보내는가
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
+- [확장의 네 축](four-axes-of-scaling.md) — *Competing Consumers*가 수평 복제라는 축의 한
+  구현으로 놓이는 자리
 
 [^newman2021]: Newman 2021, 5장 "Implementing Microservice Communication"
     §"Technology Choices"의 §"Topics and queues"(pp.135–136). 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 26, 실측). 이 절의 나머지(큐와 토픽을 가르는 기준·보장 전달·성질 셋)는
     이 페이지에 두지 않고 [발행/구독 메시징](../concepts/publish-subscribe-messaging.md)에
     두었다. 도판 둘(Figure 5-1·5-2)은 이미지라 본문이 그것에 대해 적는 것만 옮겼다.
-    이 절에는 직인용도 코드 목록도 없다.
+    이 절에는 직인용도 코드 목록도 없다. 13장 몫은 §"Horizontal Duplication"의
+    §"Implementations"(p.423) 가운데 경쟁 소비자를 드는 대목이다 — 도판 하나(Figure 13-2
+    경쟁 소비자로 변환을 확장하는 그림 p.424)는 이미지라 본문이 그것에 대해 적는 것만 옮겼다.
 
 [^hohpe2004]: Hohpe & Woolf 2004, 10장 "Messaging Endpoints" — "Polling Consumer"(pp.494–497) ·
 "Event-Driven Consumer"(pp.498–501) · "Competing Consumers"(pp.502–507) ·
