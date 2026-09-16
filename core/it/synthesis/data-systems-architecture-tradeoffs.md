@@ -58,6 +58,11 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 그렇게 놓은 것을 프로덕션에서 시험한다는 것. 이미 하면서 테스트라 부르지 않던 넷과 그것을 안전하게 만드는 조건, 그리고 테스트를 더 쌓는 노력과 빨리 고치는 능력 사이의 저울
 - [관측 가능성과 모니터링](../concepts/observability-versus-monitoring.md) — 그렇게 놓은 것이 프로덕션에서 무엇을 하고 있는지 알아내는 능력. 모니터링이라는 활동과 관측 가능성이라는 성질을 가르는 축과, 도구를 고르는 다섯 기준
 - [지표의 카디널리티](../concepts/metrics-cardinality.md) — 그 성질을 지표 쪽에서 떠받치는 조건. 나중에 지을 질문을 위해 무엇을 몇 차원으로 저장해 둘 것인가
+- [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 쪼개면 공격 표면이 넓어지는 동시에 심층 방어의 자리도 늘어난다는 역설과, 그 위에 세우는 원칙들과 기본기 셋
+- [자격 증명과 비밀의 수명 주기](../concepts/credentials-and-secrets-lifecycle.md) — 쪼개면 사람 수는 그대로인데 자격 증명만 폭증한다는 문제와 그것을 다루는 수명 주기
+- [암묵적 신뢰와 제로 트러스트](../concepts/zero-trust-and-implicit-trust.md) — 서비스 사이 호출을 어디까지 믿을 것인가의 두 사고방식과 그 사이의 정도
+- [전송 중 데이터와 정지 데이터의 보호](../concepts/securing-data-in-transit-and-at-rest.md) — 쪼개면 데이터가 더 많이 돌아다닌다는 대가와 그것을 흐를 때와 앉아 있을 때 각각 지키는 법
+- [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md) — 인가를 상류 게이트웨이에 모으면 독립 배포 가능성이 깨진다는 판정과 그것을 내려보내는 수단
 
 ## 사업의 요구와 사용자의 요구
 

@@ -56,6 +56,9 @@ generated: { by: "claude-opus-5", at: "2026-08-12T21:00:00Z" }
   요구되는 사례
 - [데이터 파이프라인 고려사항](../concepts/kafka-data-pipeline-considerations.md) — 파이프라인
   관점에서 던지는 보안 질문 다섯
+- [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 같은
+  물음을 제품 하나가 아니라 서비스 여럿에 대고 세운 자리. 이 축의 다섯 절차와 축이 다른 다섯
+  기능(식별·보호·탐지·대응·복구)이 거기 있다
 
 ## 이어지는 허브
 

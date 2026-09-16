@@ -12,6 +12,7 @@ sources:
 
 - [왜 이런 것이 필요한가](#왜-이런-것이-필요한가)
 - [핵심 개념 일곱](#핵심-개념-일곱)
+- [비밀은 평문으로 저장된다](#비밀은-평문으로-저장된다)
 - [멀티테넌시와 페더레이션](#멀티테넌시와-페더레이션)
 - [CNCF](#cncf)
 - [플랫폼과 이식성](#플랫폼과-이식성)
@@ -89,6 +90,35 @@ sources:
   덧붙인다.
   - 레플리카 셋은 **더는 직접 다루지 않는 것으로 기대되고** 디플로이먼트를 통해 대신 처리된다
     (8장, p.261).[^newman2021]
+
+## 비밀은 평문으로 저장된다
+
+**11장이 이 플랫폼에 걸어 오는 한 줄이다.** 개념 일곱에 들지 않은 여덟째가 여기 있다.
+
+- 버전 조건: 2021년 저술 시점. **쿠버네티스가 내장 비밀(secrets) 해법을 제공한다. 기능 면에서
+  다소 제한적이지만 기본 쿠버네티스 설치에 딸려 오므로 많은 용례에 충분할 수 있다** (11장,
+  p.356).[^newman2021]
+- **단서가 각주에 붙어 있고 그것이 이 절의 요점이다** (11장, p.356, 각주 8):[^newman2021]
+
+  > Some people are concerned about the fact that secrets are stored in plain text. Whether or
+  > not this is an issue for you depends largely on your threat model. For the secrets to be
+  > read, an attacker would have to have direct access to the core systems running your
+  > cluster, at which point it's arguable that your cluster is already hopelessly compromised.
+
+  - **저자는 이 사실을 결함으로 판정하지 않고 위협 모델의 문제로 되돌린다.** 그 논거는
+    **비밀을 읽으려면 공격자가 이미 클러스터를 돌리는 핵심 시스템에 직접 접근해야 한다**는
+    것이다.
+  - **"평문"이라는 낱말이 원문의 것이다** — 저자는 인코딩과 암호화를 가르는 서술을 하지 않고
+    `plain text`라고만 적는다. 이 페이지는 **그 문면까지만** 담는다.
+- **폐기와 교체 쪽에서 이 저장소가 다시 나온다** — **마이크로서비스가 쿠버네티스 비밀 저장소에서
+  직접 비밀을 읽고 있으면 값이 바뀔 때 알림을 받아 바뀐 값을 쓸 수 있고**, **기동할 때만
+  읽는다면 롤링 재시작이 필요할 수 있다** (11장, p.358).[^newman2021] 그 전문은
+  [자격 증명과 비밀의 수명 주기](credentials-and-secrets-lifecycle.md)에 있다.
+- **이 플랫폼이 재구축과 패치에 거는 조항 둘도 11장에 있다** — **컨테이너 인스턴스는 자주 날려도
+  기저 컨테이너 플랫폼 자체를 처음부터 다시 지을 수 있는가**라는 물음(11장, p.365)과
+  **클러스터 밑의 층을 전부 자기가 돌리면 그 층을 전부 패치해야 한다**는 것(11장,
+  pp.361–362)이다.[^newman2021] 두 전문은
+  [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md)에 있다.
 
 ## 멀티테넌시와 페더레이션
 
@@ -272,6 +302,10 @@ sources:
   상태 모형화를 복잡성 추상 수단으로 드는 자리
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 층에 실어 보낼
   아티팩트를 만드는 쪽
+- [자격 증명과 비밀의 수명 주기](credentials-and-secrets-lifecycle.md) — 내장 비밀 해법이 놓이는
+  더 큰 물음
+- [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md) — 이 층의 패치와
+  재구축이 걸리는 조항
 - [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
   이 축의 허브
 
@@ -293,4 +327,7 @@ sources:
     않는다. 저자가 가리키는 바깥 서지와 제품 이름들(Brendan Burns 외 "Borg, Omega, and
     Kubernetes" · Apple의 Mesos 사용에 대한 InfoQ 기사 · Rancher·CoreOS·Mesos·Nomad·AWS ECS·
     Docker Swarm Mode·OpenShift·Helm·Operator·Istio·Knative·OpenFaaS·minikube·MicroK8s·
-    Katacoda·Envoy)은 이 KB가 확인한 원전이 아니다.
+    Katacoda·Envoy)은 이 KB가 확인한 원전이 아니다. **11장에서 온 것은 §"비밀은 평문으로
+    저장된다" 한 절이고 그 자리는 11장 "Security" §"Secrets"(p.356, 각주 8 포함) ·
+    §"Revocation"(p.358) · §"Patching"(pp.361–362) · §"Rebuild"(p.365)다. 각주 8의 직인용은
+    `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다.**
