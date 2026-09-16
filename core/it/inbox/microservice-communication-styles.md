@@ -385,6 +385,12 @@ p.93).[^newman2021]
   - **주의 — 이 스타일에는 새로운 복잡성의 원천이 따라오고**, 특히 노출이 적었다면 더 그렇다.
     확신이 없다면 **아키텍처가 여러 상호작용 스타일을 섞을 수 있고 아마 섞을 것**임을 기억하라.
     **전부를 이벤트 주도로 갈 필요는 없고 이벤트 하나로 시작해 거기서 가 보는 것**도 된다.
+- **저자가 같은 스타일을 브라우저 안에서 되부른다** — 14장에서 위젯 기반 분해를 다루며, 화면
+  안의 위젯들이 커스텀 이벤트로 서로 반응하는 방식이 **이 절의 서비스 사이 이벤트 주도
+  상호작용을 흉내 낸 것**이고 **유일한 실질적 차이는 그 이벤트 상호작용이 브라우저 안에서
+  일어난다는 것**이라고 적는다 (14장 §"Communication between in-page widgets",
+  p.472).[^newman2021] 그 자리는
+  [사용자 인터페이스 분해 패턴](ui-decomposition-patterns.md)이다.
 
 ## 곁글 — 이벤트와 메시지는 적재물과 매체다
 
@@ -491,6 +497,8 @@ p.93).[^newman2021]
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 재시도가 중복을
   만들 때의 멱등성
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 동기 요청-응답의 현재형 구현
+- [사용자 인터페이스 분해 패턴](ui-decomposition-patterns.md) — 같은 이벤트 주도 상호작용이
+  브라우저 안의 위젯 사이에서 되풀이되는 자리
 
 [^newman2021]: Newman 2021, 4장 "Microservice Communication Styles"(장 도입 p.89 ·
     §"Technology for Inter-Process Communication: So Many Choices" p.93 ·
@@ -501,7 +509,9 @@ p.93).[^newman2021]
     §"Pattern: Request-Response Communication" pp.104–108(곁글 "Commands Versus Requests"
     p.106 · 곁글 "Parallel Versus Sequential Calls" p.108) ·
     §"Pattern: Event-Driven Communication" pp.108–115(곁글 "Events and Messages" p.110) ·
-    §"Proceed with Caution" pp.116–117). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
+    §"Proceed with Caution" pp.116–117) — 그리고 14장 "User Interfaces"
+    §"Communication between in-page widgets"(p.472)에서 온 한 줄. 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 직인용은
     `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로, 줄바꿈 하이픈
     (U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 다섯 스타일의 규정은 원문이 들여쓴 정의
     목록으로 조판한 것을 인용 블록 안에서 표제 줄과 설명 줄로 옮겼고, 원문이 표제를 기울임으로

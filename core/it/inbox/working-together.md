@@ -213,6 +213,8 @@ sources:
 - [프로젝트 이전](../synthesis/pragmatic-projects-and-postface.md) — 이 축의 허브
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 같은 법칙을 서비스
   경계의 근거로 쓰는 쪽
+- [사용자 인터페이스 분해 패턴](ui-decomposition-patterns.md) — 같은 소스의 14장이 이
+  소유권 논증을 사용자 인터페이스 전달 하나에 적용한 자리
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 47 "Working Together". 곁글 "Conway's Law"를 함께
     옮겼고, 그 안에서 인용된 원출처는 Melvin Conway, *How do Committees Invent?*(1967)[Con68]다.
