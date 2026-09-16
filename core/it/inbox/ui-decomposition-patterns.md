@@ -150,6 +150,10 @@ sources:
   팀이다 — 저자는 이것을 **사내 컨설팅**에 가깝게 보라고 적는다 (14장, p.461).[^newman2021]
 - 그래서 결론은 **전문가가 팀에 상근으로 심기든 다른 이들을 가능하게 하는 일을 하든, 조직 사일로를
   없애면서 동료의 기량도 함께 올릴 수 있다**는 것이다 (14장, p.461).[^newman2021]
+  - **같은 책 15장이 이 개념을 UI 밖으로 넓힌다** — 그 장은 이 절을 되짚으며 인에이블링 팀이
+    **사용자 인터페이스보다 넓은 적용 범위**를 갖는다고 적고, 실천 공동체와의 구분, 아키텍트가
+    앉을 자리, 셀프서비스 플랫폼으로 이어 간다 (15장 §"Enabling Teams", p.503).[^newman2021]
+    그 전문이 [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md)이다.
 
 ## 일관성 — 지키는 법과 버리는 선택
 
@@ -493,6 +497,9 @@ sources:
   법칙으로 서 있는 자리
 - [데이터 메시의 팀 토폴로지](../concepts/data-mesh-team-topologies.md) — 같은 *Team
   Topologies*의 팀 유형을 분석 데이터 조직에 적용한 자리
+- [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md) — 같은 책 15장이 인에이블링 팀을
+  UI 밖으로 넓히는 자리
+- [팀 규모와 소유권 모형](team-ownership-models.md) — 이 장이 UI에만 적용한 소유 모형 논증의 전문
 - [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 페이지 안
   위젯 사이의 커스텀 이벤트가 흉내 내는 그 스타일
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 스트림 정렬
@@ -514,7 +521,8 @@ sources:
     It"(p.468) · §"Pattern: Widget-Based Decomposition"(pp.469–474)와 그 하위
     §Implementation(pp.470–471) · §Dependencies(p.471) · §"Communication between in-page
     widgets"(p.472) · 곁글 "Web Components"(p.473) · §"When to Use It"(pp.473–474) ·
-    §Constraints(pp.474–475). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
+    §Constraints(pp.474–475), 그리고 15장 "Organizational Structures" §"Enabling Teams"(p.503)
+    한 대목. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
     `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로, 줄바꿈
     하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 스트림 정렬 팀 인용 안의 대괄호(`[T]he`)는
     원문 그대로다. 도판 일곱(Figure 14-1 세 계층을 가로지르는 변경 · 14-2 UI를 갈라 서버 쪽까지

@@ -294,6 +294,10 @@ sources:
     않아도 되고, **원하는 상태 정의를 애초에 제대로 쓰는 일**에만 집중하면 된다.
   - 인스턴스가 죽거나 기저 하드웨어가 고장 나거나 데이터센터가 내려가는 일이 생겨도
     **사람의 개입 없이 플랫폼이 처리한다.**
+- **이 플랫폼을 누가 소유하는가는 이 장이 답하지 않는다** — 같은 책 15장이 셀프서비스 도구
+  묶음으로서의 플랫폼과 그것을 운영하는 팀을 다루고, **원하는 상태 관리**를 그 플랫폼이 담는
+  공통 기능의 첫 예로 든다 (15장 §"The Platform", p.507).[^newman2021] 그 자리가
+  [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md)이다.
 - **추상화의 수준이 달라진다** — 이런 플랫폼은 기저 자원의 가용성을 알고 있어 원하는 상태에
   대한 요청을 가용 자원에 맞춘다(맞출 수 없으면 그렇다고 알려 준다). 운영자는 저수준 설정에서
   떨어져 나와 **"두 데이터센터에 걸쳐 인스턴스 넷을 원한다" 같은 단순한 말**을 하고 플랫폼이
@@ -378,6 +382,8 @@ sources:
   수단의 사다리. 물리 기계부터 FaaS까지
 - [컨테이너 오케스트레이션과 쿠버네티스](container-orchestration-and-kubernetes.md) — 원하는
   상태 관리와 무중단 배포를 대신 떠맡는 층
+- [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md) — 그 층을 누가 만들고 운영하며,
+  그것을 강제하지 않는 것이 왜 조건인가
 - [서비스 디스커버리와 로드 밸런싱](service-discovery-and-load-balancing.md) — 인스턴스가
   여럿이 되는 순간 생기는 문제
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 같은 "시끄러운
@@ -393,7 +399,8 @@ sources:
     Automation"(pp.231–232, 하위 절 §"Two case studies on the power of automation" p.232
     포함) · §"Infrastructure as Code (IAC)"(pp.232–233) · §"Zero-Downtime
     Deployment"(pp.233–234) · §"Desired State Management"(pp.234–237, 하위 절
-    §Prerequisites pp.236–237 포함) · 곁글 §GitOps(p.237). 쪽은 인쇄판 쪽 번호
+    §Prerequisites pp.236–237 포함) · 곁글 §GitOps(p.237), 그리고 15장 "Organizational Structures" §"The Platform"(p.507)
+    한 대목. 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 줄바꿈
     하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었으며 굽은 따옴표는 곧은 따옴표로 옮겼다.
     다섯 원칙의 직인용은 원문의 항목 표제와 설명을 그대로 두었고 표제의 기울임만 마크다운
