@@ -56,6 +56,8 @@ generated: { by: "human:me", at: "2026-08-10T21:00:00Z" }
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 그 조문으로 재는 수단의 사다리. 물리 기계부터 가상 기계와 컨테이너와 PaaS와 FaaS까지, 그리고 FaaS가 마이크로서비스를 논리 개념으로 바꾸는 자리
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) — 컨테이너를 여러 기계에 걸쳐 돌리는 층이 떠맡는 일과 쿠버네티스의 핵심 개념, 그리고 들일 것인가의 판단
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 그렇게 놓은 것을 프로덕션에서 시험한다는 것. 이미 하면서 테스트라 부르지 않던 넷과 그것을 안전하게 만드는 조건, 그리고 테스트를 더 쌓는 노력과 빨리 고치는 능력 사이의 저울
+- [회복력의 네 개념](../concepts/resilience-four-concepts.md) — 그렇게 놓은 것이 얼마나 잘 버티는가를 재는 틀. 견고함·되튐·우아한 확장성·지속적 적응력으로 가르고, 쪼갠 구조가 사 오는 것이 거의 견고함뿐이라는 판정
+- [안정성 패턴](../concepts/stability-patterns.md) — 그 견고함을 실제로 사 오는 기제 여덟. 하류 하나의 느림이 체계 전체를 끌어내리지 않게 하는 시간 초과·재시도·벌크헤드·서킷 브레이커·격리·중복·미들웨어·멱등성
 - [관측 가능성과 모니터링](../concepts/observability-versus-monitoring.md) — 그렇게 놓은 것이 프로덕션에서 무엇을 하고 있는지 알아내는 능력. 모니터링이라는 활동과 관측 가능성이라는 성질을 가르는 축과, 도구를 고르는 다섯 기준
 - [지표의 카디널리티](../concepts/metrics-cardinality.md) — 그 성질을 지표 쪽에서 떠받치는 조건. 나중에 지을 질문을 위해 무엇을 몇 차원으로 저장해 둘 것인가
 - [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 쪼개면 공격 표면이 넓어지는 동시에 심층 방어의 자리도 늘어난다는 역설과, 그 위에 세우는 원칙들과 기본기 셋
