@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 장애 모델과 시스템 동기성
-description: 분산 알고리즘이 명시적으로 세우는 두 축의 가정 — 비동기·동기·부분 동기라는 타이밍 모형과 그 대가, 크래시 정지·크래시 복구·누락·임의(비잔틴)라는 장애 모형과 거기에 붙는 절뚝이는 노드, 대부분의 알고리즘이 크래시 모형과 중복으로 문제를 좁히는 이유, 알고리즘이 올바르다는 것을 성질로 정의한다는 것, 안전성과 라이브니스의 형식적 구분이 어려운 모델을 다루게 해 주는 방식, 그리고 그 모델을 현실에 대응시킬 때 무너지는 자리들
+description: 분산 알고리즘이 명시적으로 세우는 두 축의 가정 — 비동기·동기·부분 동기라는 타이밍 모형과 그 대가, 크래시 정지·크래시 복구·누락·임의(비잔틴)라는 장애 모형과 거기에 붙는 절뚝이는 노드, 대부분의 알고리즘이 크래시 모형과 중복으로 문제를 좁히는 이유, 알고리즘이 올바르다는 것을 성질로 정의한다는 것, 안전성과 라이브니스의 형식적 구분이 어려운 모델을 다루게 해 주는 방식, 그리고 그 모델을 현실에 대응시킬 때 무너지는 자리들, 그리고 같은 장애를 마이크로서비스 실무서가 다섯 유형으로 옮겨 적으며 더하는 둘 — 너무 늦거나 너무 이른 타이밍 장애와 응답은 왔는데 그 내용이 틀린 응답 장애, 그리고 그 장애 다수가 일시적이라는 성질과 오류에 풍부한 의미론을 주면 클라이언트가 보상 행동을 할 수 있다는 처방
 generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 장애 모델과 시스템 동기성
@@ -16,6 +17,7 @@ sources:
 - [누락 결함](#누락-결함)
 - [임의 결함 — 비잔틴](#임의-결함--비잔틴)
 - [성능 저하와 부분적 기능](#성능-저하와-부분적-기능)
+- [같은 장애를 마이크로서비스 실무서가 옮겨 적은 다섯 유형](#같은-장애를-마이크로서비스-실무서가-옮겨-적은-다섯-유형)
 - [알고리즘이 올바르다는 것](#알고리즘이-올바르다는-것)
 - [안전성과 라이브니스](#안전성과-라이브니스)
 - [모델을 현실에 대응시키기](#모델을-현실에-대응시키기)
@@ -162,6 +164,68 @@ sources:
   모형이 일반적으로 가장 유용하다. 그것은 무계 네트워크 지연·프로세스 중단·느린 노드를 허용한다**
   (9장, p.381).[^kleppmann2026]
 
+## 같은 장애를 마이크로서비스 실무서가 옮겨 적은 다섯 유형
+
+**위 세 모형(크래시·누락·임의)이 알고리즘의 가정으로 형식화된 것이라면, 이 소스는 같은
+분류를 실무자가 마이크로서비스 사이 통신에서 마주치는 장애의 목록으로 옮긴다.** 저자가
+출처로 드는 것은 판 스테인과 타넨바움의 *Distributed Systems* 3판이고, 스스로 **단순화한
+판본**이라 밝힌다 (4장 §"Error Handling", p.91).[^newman2021] 그 책은 이 KB가 확인한
+원전이 아니다.
+
+- 다섯이 정의 목록으로 온다 (4장, pp.91–92):[^newman2021]
+
+  > *Crash failure*
+  > Everything was fine till the server crashed. Reboot!
+  >
+  > *Omission failure*
+  > You sent something, but you didn't get a response. Also includes situations in which you
+  > expect a downstream microservice to be firing messages (perhaps including events), and it
+  > just stops.
+  >
+  > *Timing failure*
+  > Something happened too late (you didn't get it in time), or something happened too early!
+  >
+  > *Response failure*
+  > You got a response, but it just seems wrong. For example, you asked for an order summary,
+  > but needed pieces of information are missing in the response.
+  >
+  > *Arbitrary failure*
+  > Otherwise known as Byzantine failure, this is when something has gone wrong, but
+  > participants are unable to agree if the failure has occurred (or why). As it sounds like,
+  > this is a bad time all around.
+
+- **셋은 위 절들과 같은 이름이고 둘은 이 KB에 없던 것이다.**
+
+  | 이 소스의 유형 | 이 페이지의 자리 |
+  |---|---|
+  | Crash failure | [크래시 결함](#크래시-결함) — 같은 대상 |
+  | Omission failure | [누락 결함](#누락-결함) — 같은 대상. 다만 **하류가 메시지를 내보내다 멈추는 경우**를 명시적으로 포함시킨다 |
+  | Timing failure | **이 페이지에 없던 것.** 너무 늦거나 **너무 이른** 것 |
+  | Response failure | **이 페이지에 없던 것.** 응답은 왔는데 내용이 틀린 것 |
+  | Arbitrary failure | [임의 결함 — 비잔틴](#임의-결함--비잔틴) — 같은 대상 |
+
+  - **이 표는 원문에 없다** — 두 소스의 목록을 이 KB가 맞대어 놓은 것이다.
+- **두 새 항이 겨루는 주장인가 대질했다. 겨루지 않는다 — 재는 자리가 다르다.**
+  - **타이밍 장애**는 위 [비동기 · 동기 · 부분 동기](#비동기--동기--부분-동기)가 **타이밍
+    모형**으로 다루는 것을 **장애 목록의 한 항**으로 옮겨 놓은 것이다. 이 페이지의 두 축
+    (타이밍과 장애)이 저쪽에서는 한 목록에 섞여 있다. **"너무 이르다"가 그중 이 페이지에
+    정말로 없던 것**이다 — 위 절들은 늦음(느린 노드·절뚝이는 노드)만 세고 이름을 붙인다.
+  - **응답 장애**는 위 [임의 결함 — 비잔틴](#임의-결함--비잔틴)의 부분집합처럼 보이지만
+    같지 않다. 비잔틴의 정의적 성질은 **참여자들이 장애가 일어났는지에 합의하지 못한다**는
+    것인데(이 소스도 그렇게 적는다), 응답 장애는 **받은 쪽이 응답이 틀렸음을 알아볼 수 있는**
+    경우다. 그래서 저자가 둘을 나란히 세운다.
+- **이 소스가 더하는 실무 판정이 둘이다** (4장, p.92):[^newman2021]
+  - **이 오류들 다수가 본성상 일시적(transient)이다** — 사라질 수도 있는 단명한 문제라는
+    것이다. 요청을 보내고 응답을 못 들은 경우(누락 장애의 일종)는 **하류가 애초에 요청을 받지
+    못했다는 뜻일 수 있으므로 다시 보내야** 한다. 반면 **쉽게 다룰 수 없어 사람 운영자의 개입이
+    필요한 문제도 있다.**
+  - 그래서 **오류를 돌려주는 방식에 더 풍부한 의미론 집합을 갖는 것이 중요해진다** —
+    클라이언트가 적절한 행동을 취할 수 있게 하기 위해서다. 저자가 그 예로 드는 것이 HTTP의
+    400번대와 500번대 코드이고, 결론은 프로토콜 중립이다 — **오류의 성질에 대한 풍부한 의미론을
+    갖고 있으면 클라이언트가 보상 행동을 수행하기 쉬워지고 그것이 더 견고한 체계를 짓는 데
+    도움이 된다.** 그 대목의 전문은
+    [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md)에 있다.
+
 ## 알고리즘이 올바르다는 것
 
 - 성질로 정의한다 — **알고리즘이 올바르다는 것이 무엇을 뜻하는지 정의하려면 그 성질을 서술하면
@@ -263,6 +327,10 @@ sources:
 
 ## 이어지는 페이지
 
+- [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) — 이 장애들이 호출
+  하나의 의미론으로 나타나는 자리
+- [마이크로서비스 통신 스타일](microservice-communication-styles.md) — 그 장애를 다루는 통신
+  방식의 분류
 - [두 장군 문제와 FLP 불가능성](../concepts/two-generals-and-flp-impossibility.md) — 비동기
   가정이 실제로 무엇을 불가능하게 만드는가
 - [실패 감지](../concepts/failure-detection.md) — 크래시 모형 위에서 "죽었다"를 판정하는 장치
@@ -281,4 +349,15 @@ sources:
 - [프로세스 중단](../concepts/process-pauses.md) — 무계 중단이라는 가정이 실제로 생기는 경로
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 9장 "The Trouble with Distributed Systems"
+[^newman2021]: Newman 2021, 4장 "Microservice Communication Styles"
+    §"Error Handling"(pp.91–92, 각주 1·2 포함). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
+    직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로
+    옮겼다. 다섯 유형은 원문이 들여쓴 정의 목록으로 조판한 것을 인용 블록 안에서 표제
+    줄과 설명 줄로 옮겼고, 원문이 표제를 기울임으로 조판한 것을 별표로 표시했다.
+    저자가 출처로 드는 Maarten van Steen & Andrew S. Tanenbaum, *Distributed Systems*
+    3판(CreateSpace, 2017)은 이 KB가 확인한 원전이 아니다. 같은 절의 앞부분(프로세스 안
+    호출과 프로세스 사이 호출의 오류가 갈리는 방식)과 HTTP 상태 코드 대목은 이 페이지에
+    두지 않고 [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md)에
+    두었다. 이 절에는 코드 목록도 도판도 없다.
+
 [^petrov2019]: Petrov 2019, 8장 "Introduction and Overview" · 9장 "Failure Detection"

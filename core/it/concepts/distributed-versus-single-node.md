@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 분산 시스템과 단일 노드
-description: 여러 기계로 가야 하는 아홉 가지 이유와 가지 말아야 할 이유 — 네트워크 호출의 대가, 노드를 늘려도 느려지는 경우, 수직 확장이 막히는 자리, 단일 노드와 근본적으로 다른 것(동시성과 공유 상태), 슈퍼컴퓨팅과의 대비, 분산 알고리즘이 갈리는 여섯 부류, 그리고 그 이유 중 복제가 담당하는 다섯과 리전·가용 영역이라는 실제 배치 단위
-generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
+description: 여러 기계로 가야 하는 아홉 가지 이유와 가지 말아야 할 이유 — 네트워크 호출의 대가, 노드를 늘려도 느려지는 경우, 수직 확장이 막히는 자리, 단일 노드와 근본적으로 다른 것(동시성과 공유 상태), 슈퍼컴퓨팅과의 대비, 분산 알고리즘이 갈리는 여섯 부류, 그 이유 중 복제가 담당하는 다섯과 리전·가용 영역이라는 실제 배치 단위, 그리고 마이크로서비스의 고통 대부분이 실은 이 분산의 고통이라는 진단과 서비스 경계를 격벽으로 삼으려면 새 실패 원천을 먼저 이해해야 한다는 단서
+generated: { by: "claude-opus-5", at: "2026-09-15T15:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 분산 시스템과 단일 노드
@@ -495,6 +496,27 @@ p.243):[^kleppmann2026]
   알고 있어야 한다** (6장, p.198).[^reis2022] 그 패러다임은
   [일관성 모델](../concepts/consistency-models.md)에 있다.
 
+## 마이크로서비스의 고통이 실은 이 고통이라는 진단
+
+- 마이크로서비스를 주제로 삼은 소스 하나가 그 아키텍처의 비용을 세면서 출처를 이 페이지로
+  돌린다 — **실제로 마이크로서비스의 고통 대부분은 분산 시스템의 탓으로 돌릴 수 있고,
+  그래서 마이크로서비스 아키텍처에서만큼이나 분산 모놀리스에서도 똑같이 나타날 법하다**
+  (1장 §"Microservice Pain Points", p.26).[^newman2021] 고통의 목록은
+  [마이크로서비스의 고통과 채택 판단](microservice-pain-points-and-adoption.md)에 있다.
+- 같은 소스가 레슬리 램포트를 인용해 그 성질을 한 문장으로 적는다 — **분산 시스템은 존재하는
+  줄도 몰랐던 컴퓨터의 실패가 내 컴퓨터를 쓸 수 없게 만드는 체계**라는 것이다 (1장
+  §"The Distributed Monolith", p.17).[^newman2021] 위
+  [부분 실패라는 정의적 특성](#부분-실패라는-정의적-특성)이 말하는 그 성질이고, 직인용은
+  [모놀리스와 모듈](../concepts/monolith-versus-modular.md)에 있다.
+- **그래서 서비스 경계를 격벽으로 삼는 이득에 조건이 붙는다** — 서비스 경계는 자연스러운
+  격벽(bulkhead)이 되어 일부 서비스의 완전한 실패를 다루고 기능을 낮추는 체계를 짓게 해
+  주지만, 그것을 제대로 얻으려면 **분산 시스템이 다뤄야 하는 새 실패 원천을 이해해야
+  한다.** 네트워크도 기계도 실패할 수 있고 실제로 실패하며, 그 실패를 어떻게 다루고 그것이
+  최종 사용자에게 어떤 영향을 주는지 알아야 한다 (1장 §Robustness, pp.23–24).[^newman2021]
+  - 단서가 관찰로 뒷받침된다 — 저자는 이 관심을 충분히 진지하게 다루지 않아
+    **마이크로서비스로 옮긴 뒤 오히려 덜 견고한 체계에 이른 팀들**과 일해 봤다고 적는다
+    (1장, p.24).[^newman2021] 위 [분산의 대가](#분산의-대가) 절이 재는 것과 같은 대가다.
+
 ## 이어지는 페이지
 
 - [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md) — 그 원자성을 실제로 얻는
@@ -530,3 +552,10 @@ p.243):[^kleppmann2026]
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 2장 "Defining Nonfunctional Requirements" · 6장 "Replication" · 7장 "Sharding" · 8장 "Transactions"
 [^petrov2019]: Petrov 2019, Part II 도입 "Distributed Systems" · 8장 "Introduction and Overview" · Part II 결론"
 [^reis2022]: Reis & Housley 2022, 6장 "Storage"
+
+[^newman2021]: Newman 2021, 1장 "What Are Microservices?" §"The Distributed Monolith"(p.17) ·
+    §Robustness(pp.23–24) · §"Microservice Pain Points"(p.26). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 26, 실측). 이 절에는 직인용이 없다 — 이 소스의 직인용 두 구절(램포트 인용과
+    고통의 출처 진단)은 각각 [모놀리스와 모듈](../concepts/monolith-versus-modular.md)과
+    [마이크로서비스의 고통과 채택 판단](microservice-pain-points-and-adoption.md)이 갖는다.
+    이 절들에는 코드 목록도 도판도 없다.

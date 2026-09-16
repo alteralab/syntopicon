@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 프로토콜 버퍼와 필드 태그
-description: 필드 이름 대신 번호를 인코딩해 공간을 아끼는 이진 형식과 그 번호가 스키마 진화의 규칙을 정하는 방식 — IDL과 코드 생성, 가변 길이 정수, 필드 추가가 전진 호환을, 유일한 태그 번호가 후진 호환을 주는 이유, 필드 제거와 태그 번호 예약, 그리고 타입을 바꿀 때 값이 잘릴 수 있는 지점
+description: 필드 이름 대신 번호를 인코딩해 공간을 아끼는 이진 형식과 그 번호가 스키마 진화의 규칙을 정하는 방식 — IDL과 코드 생성, 가변 길이 정수, 필드 추가가 전진 호환을, 유일한 태그 번호가 후진 호환을 주는 이유, 필드 제거와 태그 번호 예약, 그리고 타입을 바꿀 때 값이 잘릴 수 있는 지점, 그리고 마이크로서비스 사이 통신에서 이 형식이 차지한 자리(2021년 시점 가장 인기 있는 이진 직렬화 형식이고 gRPC 밖에서도 쓰인다)
 generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 프로토콜 버퍼와 필드 태그
@@ -13,6 +14,7 @@ sources:
 - [필드 이름이 사라진 자리에 번호가 온다](#필드-이름이-사라진-자리에-번호가-온다)
 - [스키마 진화 — 필드 추가](#스키마-진화--필드-추가)
 - [스키마 진화 — 필드 제거와 타입 변경](#스키마-진화--필드-제거와-타입-변경)
+- [마이크로서비스 통신에서 이 형식의 자리](#마이크로서비스-통신에서-이-형식의-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **필드 이름을 인코딩에서 빼면 무엇을 얻고, 그 대신 무엇을 영원히 못 바꾸게
@@ -103,6 +105,25 @@ sources:
   코드가 쓴 데이터를 읽으면 옛 코드는 여전히 32비트 변수로 값을 담고 있다. 디코딩된 64비트 값이
   32비트에 들어가지 않으면 잘린다** (5장, p.171).[^kleppmann2026]
 
+## 마이크로서비스 통신에서 이 형식의 자리
+
+- 2021년 마이크로서비스 실무서가 이진 형식을 훑으면서 이 형식에 매긴 순위가 이렇다 (5장
+  §"Binary Formats", p.141):[^newman2021]
+
+  > they probably represent the most popular binary serialization format for
+  > microservice-based communication.
+
+  - 버전 조건: 2021년 저술 시점의 판정이다.
+- **gRPC 밖에서도 쓰인다**는 관찰이 함께 적힌다 — 이 형식은 나온 지 오래됐고 **gRPC의 범위
+  밖에서도 흔히 쓰인다** (5장, p.141).[^newman2021] 거꾸로 gRPC를 고르면 선택의 여지가
+  없어진다 — **보내는 데이터가 무엇이든 프로토콜 버퍼 형식으로 변환되고**(5장, p.140), gRPC는
+  **프로토콜 버퍼 명세의 사용을 요구한다**(5장, p.142).[^newman2021]
+- 같은 소스가 이 형식을 **명시적 스키마를 요구하는 RPC 계열**의 대표로 놓고, 그 명시성이 구조적
+  계약 깨짐을 배포 전에 잡게 해 준다고 적는다 (5장, pp.141–143).[^newman2021] 그 논변은
+  [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md)의 명시적 스키마
+  절에 있고, **생성된 스텁이 배포를 묶는 문제**는 그것과 대상이 다르다 —
+  [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md)가 그 자리다.
+
 ## 이어지는 페이지
 
 - [Avro의 기록자 스키마와 독자 스키마](../concepts/avro-writer-and-reader-schema.md) — 태그 번호를
@@ -115,6 +136,11 @@ sources:
   쓰이는 자리
 - [카프카 직렬화와 스키마 레지스트리](../concepts/kafka-serialization-and-schema-registry.md) —
   같은 선택지가 메시지 브로커 앞에서 비교되는 자리
+
+[^newman2021]: Newman 2021, 5장 "Implementing Microservice Communication" —
+    §"Serialization Formats"의 §"Binary Formats"(p.141), §"Textual Formats"(p.140),
+    §Schemas(pp.141–143). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 직인용은
+    `pdftotext -layout` 추출로 문자 단위 대조했다. 이 대목들에는 코드 목록도 도판도 없다.
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 5장 "Encoding and Evolution". 스키마 정의는 5장
     p.169의 것을 그대로 옮겼다.

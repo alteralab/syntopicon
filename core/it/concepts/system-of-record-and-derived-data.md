@@ -2,9 +2,10 @@
 type: concept
 title: 기록 시스템과 파생 데이터
 description: 어떤 데이터가 정본이고 어떤 것이 다시 만들 수 있는 사본인가 — 도구가 아니라 용법이 정하는 구분, 갱신·삭제가 여기서 어려워지는 이유, 이 구분을 데이터 모델로 밀어붙였을 때 나오는 비정규화와 이벤트 소싱, 같은 규칙(각 사실은 정확히 한 번 표현된다)이 코드 쪽에서 DRY 원칙으로 세워지는 자리, 그리고 같은 구분을 한 애플리케이션의 아키텍처 조항으로 거는 쪽 — 강한 일관성을 갖는 저장소가 하나뿐이라고 못 박고 나머지를 전부 결국 일관되는 투영으로 두는 배치
-generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
@@ -21,6 +22,7 @@ sources:
 - [13장이 이 구분을 아키텍처로 밀어붙인다](#13장이-이-구분을-아키텍처로-밀어붙인다)
 - [코드 쪽의 같은 규칙 — DRY](#코드-쪽의-같은-규칙--dry)
 - [같은 구분을 한 애플리케이션 안의 조항으로 거는 쪽](#같은-구분을-한-애플리케이션-안의-조항으로-거는-쪽)
+- [캐시가 이 구분을 흐리는 자리](#캐시가-이-구분을-흐리는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **한 조직의 여러 데이터 저장소 중에서 무엇이 정본이고 무엇이
@@ -219,8 +221,33 @@ sources:
 - 전문은 [CQRS 아키텍처](../concepts/cqrs-architecture.md)와
   [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md)에 있다.
 
+## 캐시가 이 구분을 흐리는 자리
+
+**캐시는 파생 데이터의 가장 흔한 형태이고, 마이크로서비스 실무서 하나가 그 구분이 실제로
+흐려지는 지점을 지목한다.**
+
+- 그쪽의 어휘에서 정본 쪽은 **오리진(origin)** 이다 — 캐시된 값이 어디서 왔고 바뀌면 무엇을
+  다시 물어야 하는지를 정하는 쪽이다 (13장 §Caching, p.435).[^newman2021] 이 페이지의
+  기록 시스템과 같은 자리를 가리킨다.
+- **라이트 비하인드(write-behind) 캐시가 그 구분을 무너뜨린다** (13장 §"Write-behind",
+  pp.446–447).[^newman2021] 캐시를 **먼저** 갱신하고 오리진을 나중에 갱신하는 방식인데, 저자가
+  그 자리에서 묻는다 — 캐시를 먼저 갱신한다면 **그것이 정말 오리진인가, 진실의 원천은
+  무엇인가**. 그리고 조문을 낸다. 캐싱을 쓸 때는 **무엇이 캐시된 것(따라서 낡았을 수 있는
+  것)이고 무엇이 최신으로 볼 수 있는 것인지를 갈라 두는 것이 중요하며**, 라이트 비하인드는
+  마이크로서비스 맥락에서 그것을 훨씬 덜 분명하게 만든다.
+  - 이 페이지의 §"두 정의"가 세운 구분이 **깨지는 것이 아니라 적용하기 어려워지는** 사례다.
+    저자도 그 어려움을 이 방식이 드물게 쓰이는 이유로 든다.
+- **캐시가 겹치면 낡음이 누적된다** (13장 §"The Golden Rule of Caching", p.447).[^newman2021]
+  서버 쪽 캐시와 클라이언트 쪽 캐시가 각각 1분씩 낡을 수 있으면 클라이언트가 보는 것은 최대
+  2분 낡은 것인데 **클라이언트는 1분이라고 믿는다.** 그래서 저자의 조문은 **가능한 한 적은
+  자리에 캐시하라**이고 이유가 정확히 이 페이지의 축이다 — **파생물이 정본에서 얼마나 떨어져
+  있는지를 따질 수 있어야 한다.**
+- 캐싱 전체는 [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md)이 갖는다.
+
 ## 이어지는 페이지
 
+- [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 파생 데이터의 가장 흔한 형태를
+  어디에 두고 언제 버릴 것인가
 - [데이터 통합](../concepts/data-integration.md) — 이 구분을 여러 저장 시스템에 걸쳐 실제로
   운용하는 방법
 - [언번들드 데이터베이스](../concepts/unbundling-databases.md) — 파생 유지 기능을 데이터베이스
@@ -245,6 +272,12 @@ sources:
   시스템 쪽으로 넘어가는 사례
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture" · 3장 "Data Models and Query Languages" · 13장 "A Philosophy of Streaming Systems"
+[^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 13장 "Scaling"
+    §Caching(p.435) · §"Write-behind"(pp.446–447) · §"The Golden Rule of Caching"(p.447).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 이 페이지가 그 장에서 받은 것은 이 구분에 걸리는
+    대목뿐이고 직인용은 두지 않았다 — 원문 규정은
+    [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md)에 있다.
+
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 9 "DRY—The Evils of Duplication"

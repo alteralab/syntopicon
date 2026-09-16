@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-09-07T06:40:00Z" }
 sources:
   - { id: bronson2021-metastable, resource: /it/sources/bronson2021-metastable.md }
   - { id: huang2022-metastable-wild, resource: /it/sources/huang2022-metastable-wild.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 지속 효과와 증폭 기제
@@ -199,6 +200,20 @@ C_sys(t)를 줄이는 방식으로 나타난다** (§3.3, p.78).[^huang2022-meta
   기제다. 불행히도 재시도 기반 부하 증폭 같은 시나리오에서 타임아웃 말고는 이 지연 구간을
   통제할 여지가 거의 없다** (§3.5.2, p.79).[^huang2022-metastable-wild]
 
+- **같은 두 손잡이를 실무 지침 쪽에서 반대 방향으로 조인다.** 2021년 마이크로서비스 실무서는
+  시간 초과를 **하류의 정상 응답 시간에 맞춰 공격적으로 줄이라**고 권하고(30초를 1초로 줄인
+  사례를 든다), 재시도에는 **사이에 지연을 두라**고 적으며, 시간 초과와 재시도 횟수가
+  **곱해져 연산 전체의 예산을 잡아먹는 셈**을 보인다 (12장, pp.398–400).[^newman2021]
+  - **겨루지 않고 재는 자리가 다르다.** 위 실측은 **짧은 시간 초과가 부하 증폭을 일찍
+    시작시켜 큰 문제를 다룰 능력을 해친다**는 것이고(곧 체계 전체의 안정성 축), 그쪽 조문은
+    **긴 시간 초과가 상류 자원을 묶어 연쇄 장애를 부른다**는 것이다(곧 호출하는 쪽의 자원
+    축). **같은 손잡이에 두 방향의 압력이 걸린다**는 사실이 남고, 어느 값이 옳은가를 두
+    소스 모두 주지 않는다.
+  - **그 실무서에는 이 페이지의 어휘가 없다** — 재시도 폭풍·증폭 지연·취약 상태·메타안정
+    장애라는 낱말이 그 장에 없고, 재시도가 **부하를 스스로 유지하는 상태를 만든다**는 모델도
+    없다. 그쪽이 적는 것은 "부하를 받는 하류에 요청을 퍼붓는 것은 나쁜 생각일 수 있다"까지다.
+    그 목록 전체는 [안정성 패턴](../concepts/stability-patterns.md)에 있다.
+
 ## 용량 저하 증폭과 가비지 컬렉션
 
 정의 논문이 다루지 않은 갈래가 이것이고, 후속 논문의 내부자 사례 연구가 그 실물이다.
@@ -272,8 +287,15 @@ C_sys(t)를 줄이는 방식으로 나타난다** (§3.3, p.78).[^huang2022-meta
   줄이려고 일부러 요청을 늘리는 기법들, 즉 부하 증폭을 예산 안에서 감수하는 쪽
 - [백프레셔 전략](../concepts/backpressure-strategies-in-reactive-streams.md) — 부하 증폭 대신
   상류에 속도를 늦추라고 알리는 쪽
+- [안정성 패턴](../concepts/stability-patterns.md) — 같은 재시도·시간 초과를 호출하는 쪽의 자원 축에서
+  다루는 실무 목록
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
 
+[^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 12장 "Resiliency"
+    §"Time-Outs"(pp.397–399) · §"Retries"(pp.399–400). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26,
+    실측). 이 페이지가 그 절들에서 든 것은 손잡이의 방향 하나뿐이고 직인용은 없다 — 목록
+    전체와 각 기제의 서술은 [안정성 패턴](../concepts/stability-patterns.md)이 소유한다.
+    **이 소스는 이 축의 원전이 아니라 소비자**다.
 [^bronson2021-metastable]: Bronson, Aghayev, Charapko & Zhu 2021, "Metastable Failures in
     Distributed Systems", HotOS '21, pp.221–227. §1 "Introduction"(pp.221–222),
     §2 "Metastable Failure Case Studies"(p.222), §2.1 "Request Retries"(pp.222–223),

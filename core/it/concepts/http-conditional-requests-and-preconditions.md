@@ -2,9 +2,10 @@
 type: concept
 title: 조건부 요청과 전제 조건 필드
 description: 메서드를 적용하기 전에 시험할 조건을 요청에 붙이는 기제 — 조건부 요청과 전제 조건의 정의, 캐시 갱신과 갱신 손실 방지라는 두 용도, 전제 조건이 앞서 얻은 표현의 검증자와 현재 검증자를 견주는 비교라는 것, 확장이 어려운 이유, 그리고 강한 비교를 쓰는 If-Match와 약한 비교를 쓰는 If-None-Match와 날짜로 대신하는 If-Modified-Since와 If-Unmodified-Since와 범위 요청 전용인 If-Range의 개별 판정 규칙
-generated: { by: "claude-opus-5", at: "2026-09-07T20:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
 sources:
   - { id: fielding2022-rfc9110, resource: /it/sources/fielding2022-rfc9110.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 조건부 요청과 전제 조건 필드
@@ -22,6 +23,7 @@ sources:
 - [If-Unmodified-Since](#if-unmodified-since)
 - [If-Range](#if-range)
 - [RFC 9110에서 바뀐 것](#rfc-9110에서-바뀐-것)
+- [이 기제를 쓰는 쪽 하나](#이-기제를-쓰는-쪽-하나)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **내가 아는 상태가 아직 그대로일 때만 이 요청을 적용하라는 말을 어떻게 하고, 서버는
@@ -258,8 +260,32 @@ sources:
 - **If-Unmodified-Since가 수정 시각 개념이 없는 자원에는 적용되지 않는다는 사실이 명확해졌다**
   (부록 B.4, §13.1.4).[^fielding2022-rfc9110]
 
+## 이 기제를 쓰는 쪽 하나
+
+**위 §"두 용도"의 첫째가 실무에서 어떻게 쓰이는지를 적는 소스가 이 KB에 하나 들어왔다.**
+2021년 마이크로서비스 실무서가 조건부 GET을 **간과되는 능력**이라며 절 하나를 준다
+(13장 §"Conditional GETs", p.444).[^newman2021] 원전의 규정을 바꾸지 않고 **언제 값어치가
+있는가**를 더한다.
+
+- 그쪽이 적는 절차는 이 페이지의 §If-None-Match와 같다 — 앞서 받은 ETag를 `If-None-Match`에
+  실어 보내고, 최신판이면 `304 Not Modified`가, 새 판이 있으면 `200 OK`와 바뀐 자원과 새 ETag가
+  온다 (13장, p.444).[^newman2021]
+- **더하는 것은 비용 계산이다** (13장, p.444).[^newman2021] 조건부 GET에서도 클라이언트에서
+  서버로 가는 요청은 여전히 일어나므로 **네트워크 왕복을 줄이려는 캐싱에는 도움이 되지 않는다.**
+  값어치가 있는 자리는 **자원을 쓸데없이 다시 만드는 비용을 피하는 쪽**이다. 신선도 기한만으로
+  무효화하면 자원이 바뀌지 않았어도 클라이언트가 새 복사본을 달라 하고 서버는 똑같은 것을 다시
+  만들어야 하는데, 응답을 만드는 데 비싼 데이터베이스 질의가 여럿 필요하다면 이 기제가 효과적이
+  된다.
+- **그쪽이 기대는 나머지 절반은 이 KB에 원전이 없다.** `Cache-Control`과 `Expires`로 신선도를
+  말하는 부분, 곧 언제 낡은 것으로 보고 언제 재검증해야 하는가는 **RFC 9111(HTTP Caching)** 이
+  정본인데 이 KB는 그 문서를 들이지 않았다. 이 페이지가 위에서 "캐시 동작의 규범 자체는 RFC 9111
+  영역"이라고 적어 둔 그 자리다. **지금 이 KB에서 그 기제를 서술하는 것은 이 실무서의 전언뿐이고,
+  전문은 [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md)에 있다.**
+
 ## 이어지는 페이지
 
+- [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 이 기제를 쓰는 쪽의 서술과, 캐시
+  무효화의 나머지 선택지들
 - [전제 조건의 평가 시점과 순서](../concepts/http-precondition-evaluation-order.md) — 이 다섯 필드가
   둘 이상 함께 올 때 무엇을 먼저 보는가
 - [검증자와 ETag와 Last-Modified](../concepts/http-validators-etag-and-last-modified.md) — 여기서
@@ -273,6 +299,11 @@ sources:
   412의 정의
 - [리다이렉션 3xx와 메서드 보존](../concepts/http-redirection-status-codes.md) — 조건부 GET이
   받는 304의 정의와 그때 보내야 하는 필드들
+
+[^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 13장 "Scaling"
+    §"Conditional GETs"(p.444). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 이 페이지가 그 절에서
+    받은 것은 이 기제를 쓰는 쪽의 비용 계산뿐이고 직인용은 없다 — 규정은 이 페이지의 원전이
+    소유한다. **이 소스는 이 축의 원전이 아니라 소비자**다.
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor

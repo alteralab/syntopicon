@@ -5,6 +5,7 @@ description: 스레드 풀이 별도 장치 없이 해 주던 부하 제한이 �
 generated: { by: "claude-opus-5", at: "2026-09-05T09:00:00Z" }
 sources:
   - { id: rahman2025, resource: /it/sources/rahman2025.md }
+  - { id: newman2021, resource: /it/sources/newman2021.md }
 ---
 
 # 가상 스레드 시대의 속도 제한
@@ -15,6 +16,7 @@ sources:
 - [세마포어라는 문](#세마포어라는-문)
 - [의도적 병목의 대가가 작다](#의도적-병목의-대가가-작다)
 - [세마포어의 딜레마](#세마포어의-딜레마)
+- [이 장치에 다른 축에서 붙은 이름](#이-장치에-다른-축에서-붙은-이름)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **동시성 상한이 사라지면 밑에 있는 자원은 무엇이 지켜 주는가.**
@@ -93,6 +95,24 @@ sources:
   자원에서 병목이 생길 수 있으므로 사용량을 제한할 방법이 여전히 필요할 수 있다 (2장,
   p.87).[^rahman2025]
 
+## 이 장치에 다른 축에서 붙은 이름
+
+- **마이크로서비스 아키텍처 쪽에서는 같은 구조를 벌크헤드(bulkhead)라 부른다.** 배에서 물이
+  새면 문을 닫아 봉하는 칸에서 온 이름이고, 처방의 실물은 **하류 연결마다 커넥션 풀을 따로
+  두어 풀 하나가 말라도 다른 연결이 영향받지 않게 하는 것**이다 (12장 §"Bulkheads",
+  pp.400–401).[^newman2021]
+- **자원이 마르기 전에 칸을 나눈다는 취지가 위 절과 같다.** 그쪽이 그 패턴을 목록에서 가장
+  중요하다고 꼽는 이유도 순서에 있다 — 시간 초과와 서킷 브레이커는 자원이 **마르기 시작했을
+  때** 풀어 주는 쪽이고 벌크헤드는 **애초에 마르지 않게** 하는 쪽이라는 것이다 (12장,
+  p.401).[^newman2021]
+- **그쪽은 요청을 거절하는 쪽에도 이름을 붙인다** — 자원이 더 포화되지 않게 특정 조건에서
+  요청을 거절하는 것을 **부하 떨어내기(load shedding)** 라 부른다 (12장,
+  p.401).[^newman2021] 위 세마포어는 퍼밋을 기다리게 하는 쪽이라 **거절이 아니라 대기**이고,
+  그 차이가 두 장치의 갈리는 자리다 #hypothesis — 두 소스 어느 쪽도 상대를 가리키지 않으므로
+  이 대조는 이 KB의 읽기다.
+- **그쪽에는 구현이 없고 이쪽에는 목록이 없다.** 기제 여덟의 목록과 각각을 어디에 쓰는가는
+  [안정성 패턴](stability-patterns.md)에 있다.
+
 ## 이어지는 페이지
 
 - [자바 세마포어와 퍼밋](../concepts/java-semaphore-permits.md) — 여기 쓴 도구의 규칙과 함정
@@ -106,7 +126,13 @@ sources:
   자리로 모으라는 같은 결의 조언
 - [가상 스레드의 내부와 운영](../synthesis/virtual-thread-internals-and-operations.md) — 이
   페이지가 속한 허브
+- [안정성 패턴](stability-patterns.md) — 같은 장치를 벌크헤드라 부르는 목록과 그 이웃 기제들
 
+[^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 12장 "Resiliency"
+    §"Bulkheads"(pp.400–401). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측). 이 페이지가 그 절에서
+    든 것은 이름과 취지와 부하 떨어내기의 규정까지이고 직인용은 없다 — 그 절에 코드는 없고
+    도판 하나(Figure 12-4)는 이미지라 본문이 그것에 대해 적는 것만 옮겼다.
+    **이 소스는 이 축의 원전이 아니라 소비자**다.
 [^rahman2025]: Rahman 2025, 2장 "Understanding Virtual Threads" — "Managing Resource
     Constraints with Rate Limiting"(pp.51–54), "Practical Tips for Migrating to Virtual
     Threads"(p.87). 인용한 코드는 `ResourceAwareRateLimitExample`에서 속도 제한의 문에
