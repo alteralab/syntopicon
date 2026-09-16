@@ -36,6 +36,12 @@ sources:
   생각거리를 더 늘렸다** (8장 도입, p.219).[^newman2021]
   - 버전 조건: 2021년 저술 시점의 지형 서술이다. 원칙 다섯 자체는 특정 플랫폼에 매이지
     않는다 — 저자가 이 장을 원칙으로 여는 이유가 정확히 그것이다.
+- **같은 책 16장이 "원칙"이라는 낱말에 층을 부여한다** — 전략 목표에서 원칙을 끌어내고 원칙을
+  실천으로 떠받치는 세 층이고, **실천은 기술 특정이며 원칙보다 자주 바뀐다**는 것이 그 틀의
+  조문이다 (16장 §"A Principled Approach", pp.536–537).[^newman2021] 그 틀로 이 장을 읽으면
+  **이 다섯은 원칙 층에 서고, 그것을 실현하는 수단(격리의 구체적 방식, 코드형 인프라의 도구
+  선택, GitOps 제품)은 실천 층**이다. 이 페이지 안에서 이미 그 두 층이 절로 갈려 있다. 세 층의
+  전문은 [전략 목표와 원칙과 실천](strategic-goals-principles-practices.md)에 있다.
 
 ## 다섯 원칙
 
@@ -400,7 +406,8 @@ sources:
     포함) · §"Infrastructure as Code (IAC)"(pp.232–233) · §"Zero-Downtime
     Deployment"(pp.233–234) · §"Desired State Management"(pp.234–237, 하위 절
     §Prerequisites pp.236–237 포함) · 곁글 §GitOps(p.237), 그리고 15장 "Organizational Structures" §"The Platform"(p.507)
-    한 대목. 쪽은 인쇄판 쪽 번호
+    한 대목과 16장 "The Evolutionary Architect" §"A Principled Approach"(pp.536–537) 한 대목.
+    쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고 줄바꿈
     하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었으며 굽은 따옴표는 곧은 따옴표로 옮겼다.
     다섯 원칙의 직인용은 원문의 항목 표제와 설명을 그대로 두었고 표제의 기울임만 마크다운
