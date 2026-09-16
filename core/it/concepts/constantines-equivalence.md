@@ -98,7 +98,7 @@ Larry Constantine이 그렇게 부른 것이 아니라 저자가 *Structured Des
   cost(big changes) ~= coupling
   ```
 
-- **이 항이 [변경에 대한 결합도](coupling-with-respect-to-change.md#결합을-무섭게-만드는-두-성질)의
+- **이 항이 [변경에 대한 결합도](coupling-with-respect-to-change.md)의
   연쇄(cascading) 성질을 값으로 환산한 것이다.** 29장이 "연쇄가 더 큰 문제"라고 말한 근거가
   여기서 비용 분포로 제시된다.
 

@@ -85,7 +85,7 @@ sources:
       테스트나 프로덕션 테스트, 병행 운영·카나리 릴리스 같은 **점진적 전달(progressive
       delivery)** 기법으로 밀려간다.
       - 그 이름 아래 묶이는 기법들과 그것을 세우는 근거는
-        [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md#8장--점진적-전달)에
+        [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md)에
         있다.
   - **지연(latency)** — 예전에 한 프로세서에서 국소적으로 하던 처리가 여러 서비스로
     갈리고, 한 프로세스 안에서 흐르던 정보가 직렬화·전송·역직렬화를 거친다. 전체 지연이

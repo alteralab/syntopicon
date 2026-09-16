@@ -320,7 +320,7 @@ sources:
   p.270).[^newman2021]
   - **이 자리가 7장과 8장 앞쪽이 미뤄 둔 자리다** — 무중단 배포의 수단으로 롤링 업그레이드를
     드는 쪽은
-    [마이크로서비스 배포의 다섯 원칙 §무중단 배포](microservice-deployment-principles.md#무중단-배포)에
+    [마이크로서비스 배포의 다섯 원칙 §무중단 배포](microservice-deployment-principles.md)에
     있고, 판 공존의 기간을 재는 쪽은
     [계약을 깨는 변경의 관리](managing-breaking-api-changes.md)에 있다.
 - 저자는 블루-그린이 이 원칙의 **가장 단순한 예**이고 이 개념을 받아들이면 **더 정교한 기법이
@@ -430,7 +430,7 @@ sources:
 - **나머지는 스텁으로 세운다** — 내 팀의 범위 밖 마이크로서비스는 로컬 스텁으로 흉내 내고,
   **로컬에서 돌리는 진짜 마이크로서비스는 지금 작업 중인 것뿐이어야 한다**
   (9장, p.297).[^newman2021] 스텁을 세우는 도구 쪽은
-  [대역 어휘와 두 TDD 스타일 §스텁 서버라는 물건](../concepts/test-double-vocabulary-and-tdd-styles.md#스텁-서버라는-물건)에
+  [대역 어휘와 두 TDD 스타일 §스텁 서버라는 물건](../concepts/test-double-vocabulary-and-tdd-styles.md)에
   있다.
 - **수백 개를 다뤄야 하는 조직이라면 그것 자체가 더 큰 문제라고 적고** 소유권 물음(15장)으로
   넘긴다 (9장, p.297).[^newman2021]
@@ -496,7 +496,7 @@ sources:
   p.271).[^newman2021] 곧 **트렁크 기반 개발과 점진적 전달이 같은 장치를 서로 다른 목적으로
   쓴다** — 앞은 통합을 앞당기려고 미완성 기능을 감추고, 뒤는 위험을 줄이려고 완성된 기능의
   노출을 조절한다. 그 장치의 전문은
-  [모놀리스 분해 패턴 §8장 — 기능 토글의 다른 쓰임](monolith-decomposition-patterns.md#8장--기능-토글의-다른-쓰임)에
+  [모놀리스 분해 패턴 §8장 — 기능 토글의 다른 쓰임](monolith-decomposition-patterns.md)에
   있다.
 
 ## 이 KB의 다른 자리들과의 분업

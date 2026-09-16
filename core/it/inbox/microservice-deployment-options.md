@@ -298,7 +298,7 @@ sources:
   - **이 모형이 마이크로서비스 채택자들 사이에서 점점 드물어지는 주된 이유가 바로 격리의
     부재**다.
 - 그 자원 희소성 논거의 일반형은
-  [마이크로서비스 배포의 다섯 원칙 §격리는 자원의 희소성과 값을 맞바꾼다](microservice-deployment-principles.md#격리는-자원의-희소성과-값을-맞바꾼다)에
+  [마이크로서비스 배포의 다섯 원칙 §격리는 자원의 희소성과 값을 맞바꾼다](microservice-deployment-principles.md)에
   있다.
 
 ## PaaS
@@ -547,7 +547,7 @@ sources:
   (8장 곁글 §"Role for Puppet, Chef, and Other Tools?", pp.258–259).[^newman2021]
 - **조문 쪽은 바뀌지 않았다** — **코드형 인프라라는 개념 자체는 여전히 결정적으로 중요하고**
   달라진 것은 개발자가 쓸 도구의 종류다 (8장, p.259).[^newman2021] 그 조문의 전문은
-  [마이크로서비스 배포의 다섯 원칙 §코드형 인프라](microservice-deployment-principles.md#코드형-인프라)에
+  [마이크로서비스 배포의 다섯 원칙 §코드형 인프라](microservice-deployment-principles.md)에
   있다.
 
 ## 이 KB의 다른 자리에 있는 같은 선택지

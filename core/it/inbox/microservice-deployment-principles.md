@@ -262,7 +262,7 @@ sources:
     기제 자체)에는 조건을 달지 않았다.
   - 저자가 블루-그린 배포(blue-green deployment)를 다루는 자리는 같은 장의 §"Separating
     Deployment from Release"(p.270)이고, 이 KB에서 그 자리는
-    [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md#8장--점진적-전달)
+    [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md)
     이다. 거기서 블루-그린은 **배포와 릴리스를 가른다는 원칙의 가장 단순한 실물**로 세워진다.
 - **남는 난제 둘** (8장, p.234):[^newman2021]
   - **오래 사는 연결(long-lived connections)** 같은 문제를 다루는 추가 과제가 있을 수 있다.

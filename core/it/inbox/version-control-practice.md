@@ -251,7 +251,7 @@ sources:
     Toggles", p.271).[^newman2021] 곧 같은 장치가 두 목적에 쓰인다 — 여기서는 **통합을
     앞당기려고** 미완성 기능을 감추고, 점진적 전달에서는 **위험을 줄이려고** 완성된 기능의
     노출을 조절한다. 그쪽 전문은
-    [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md#8장--점진적-전달)과
+    [지속적 통합과 지속적 전달 §점진적 전달](continuous-integration-and-delivery.md)과
     [모놀리스 분해 패턴](../concepts/monolith-decomposition-patterns.md)에 있다.
 - 곁글이 처방을 세 줄로 줄인다 — **일찍 통합하고 자주 통합하라. 기능 개발에 오래 사는 브랜치를
   쓰지 말고 트렁크 기반 개발을 고려하라. 정말로 브랜치를 써야 한다면 짧게 유지하라** (7장
