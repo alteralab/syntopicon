@@ -447,8 +447,7 @@ sources:
 - [카프카 플랫폼 보안](../concepts/kafka-platform-security.md) — 위협 모델이 이 KB에서 이미
   서 있던 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 보안을 비기능 요건으로 모으는 허브
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 11장 "Security" — 도입(p.345) · §"Core Principles"(pp.346–350,
     하위 §"Principle of Least Privilege" p.347 · §"Defense in Depth" pp.347–348 · 곁글

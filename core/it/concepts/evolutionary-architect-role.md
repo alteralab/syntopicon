@@ -472,8 +472,7 @@ sources:
   낱말에 대한 다른 어조의 판정
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 결정의 범위를 작게
   만들라는 조문의 다른 소스 판
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) — 이
-  축의 허브
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 16장 "The Evolutionary Architect" — §"What's in a Name?"
     (pp.525–527) · §"What Is Software Architecture?"(pp.527–529) · §"Making Change Possible"

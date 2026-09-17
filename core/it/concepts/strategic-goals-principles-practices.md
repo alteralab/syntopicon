@@ -252,8 +252,7 @@ sources:
 - [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 이 결정을 누가 내리는가의 다른
   소스 판
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 적합도 함수가 재는 속성들이 모이는 자리
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) — 이
-  축의 허브
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 16장 "The Evolutionary Architect" — §"A Principled Approach"
     (pp.536–538)과 그 하위 §"Strategic Goals"(p.536) · §"Principles"(pp.536–537) ·

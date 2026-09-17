@@ -256,8 +256,7 @@ sources:
 - [마이크로서비스 경계의 대안 넷](microservice-boundary-alternatives.md) — 이 법칙을 경계 근거로
   쓰는 자리
 - [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md) — 도메인 축에서 경계를 긋는 쪽
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 15장 "Organizational Structures" — §"Conway's Law"(p.493)와 그
     하위 §Evidence(pp.493–495: "Loosely and tightly coupled organizations" ·

@@ -450,8 +450,7 @@ sources:
 - [암묵적 신뢰와 제로 트러스트](zero-trust-and-implicit-trust.md) — 상호 TLS가 흔해지는 그 환경
 - [안정성 패턴](stability-patterns.md) — 이 층에 얹힐 수 있는 시간 초과·재시도·서킷
   브레이커의 전문과 각각을 어디에 쓰는가
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 5장 "Implementing Microservice Communication"
     §"Service Meshes and API Gateways"(pp.162–169) — 도입(pp.162–163) · §"API Gateways"

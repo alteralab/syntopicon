@@ -325,8 +325,7 @@ sources:
   (후진 호환을 쉽게 만들 것)이 실패했을 때 이 페이지가 열린다
 - [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md) — 무중단 배포가
   판 공존을 기본값으로 만드는 자리
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 5장 "Implementing Microservice Communication"
     §"Handling Change Between Microservices"(p.144) · 곁글 §"Semantic Versioning"

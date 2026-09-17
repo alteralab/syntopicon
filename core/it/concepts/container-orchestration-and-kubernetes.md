@@ -305,8 +305,7 @@ sources:
   더 큰 물음
 - [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md) — 이 층의 패치와
   재구축이 걸리는 조항
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 8장 "Deployment" §"Kubernetes and Container
     Orchestration"(pp.259–269, 하위 절 §"The Case for Container Orchestration" pp.259–260 ·

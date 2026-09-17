@@ -539,7 +539,7 @@ sources:
   여러 기계에 걸쳐 돌리는 층
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 기능 토글과 병행 운영의 규정과
   8장이 더하는 실행 방식
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) — 이 축의 허브
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
 - [프로덕션에서의 테스트](testing-in-production.md) — 같은 기법들(스모크 테스트·카나리
   릴리스)을 출시의 보폭이 아니라 **검증의 수단**으로 다시 보는 자리, 그리고 배포 전 테스트와
   복구 능력 사이의 저울

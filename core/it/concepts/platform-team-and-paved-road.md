@@ -421,8 +421,7 @@ sources:
 - [셀프서브 데이터 플랫폼 원칙](../concepts/self-serve-data-platform-principle.md) — 같은 생각의
   분석 데이터 축 판
 - [데이터 메시의 팀 토폴로지](../concepts/data-mesh-team-topologies.md) — 같은 네 팀 유형의 데이터 축 배치
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 15장 "Organizational Structures" — §"Enabling Teams"(pp.503–505) ·
     §"Communities of Practice"(pp.505–506) · §"The Platform"(pp.506–507)과 그 하위

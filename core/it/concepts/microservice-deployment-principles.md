@@ -396,8 +396,7 @@ sources:
 - [데이터 엔지니어링의 저류](../concepts/data-engineering-undercurrents.md) — 코드형 인프라를
   데브옵스의 한 축으로 놓는 자리
 - [외부 설정](../concepts/external-configuration.md) — 환경별 설정을 아티팩트 밖에 두는 조항
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 8장 "Deployment" 도입(p.219) · §"Principles of Microservice
     Deployment"(p.228) · §"Isolated Execution"(pp.228–231) · §"Focus on

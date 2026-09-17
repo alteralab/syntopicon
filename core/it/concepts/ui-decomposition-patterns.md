@@ -506,8 +506,7 @@ sources:
 - [모놀리스와 모듈](../concepts/monolith-versus-modular.md) — 모놀리식 프런트엔드가 프런트엔드
   쪽에서 되부르는 같은 축
 - [계층형 아키텍처](../concepts/layered-architecture.md) — 이 장이 벗어나려는 그 구조
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 14장 "User Interfaces" — §"Toward Digital"(p.456) ·
     §"Ownership Models"(pp.456–457)와 그 하위 §"Drivers for Dedicated Frontend

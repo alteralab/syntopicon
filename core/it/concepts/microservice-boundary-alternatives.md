@@ -213,8 +213,7 @@ sources:
 - [데이터 암호화와 익명화 패턴](../concepts/data-encryption-and-anonymization-patterns.md) —
   같은 데이터를 구역으로 가르지 않고 다루는 쪽의 수단
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 어느 기제로 갈라도 지켜야 하는 성질
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 2장 "How to Model Microservices"
     §"Alternatives to Business Domain Boundaries"(도입 p.62 · §Volatility pp.62–63 ·

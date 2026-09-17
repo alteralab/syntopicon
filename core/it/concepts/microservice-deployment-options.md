@@ -608,8 +608,7 @@ sources:
   삼는 것에 대한 두 소스의 대질표
 - [사가 패턴](saga-pattern.md) — 상태 전이마다 함수를 두면 들어가게 되는 영역
 - [클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md) — 추상화 사다리의 일반형
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 8장 "Deployment" §"Deployment Options"(pp.237–256, 하위 절
     §"Physical Machines" p.238 · §"Virtual Machines" pp.239–241과 그 안의 §"Cost of

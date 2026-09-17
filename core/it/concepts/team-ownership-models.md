@@ -659,8 +659,7 @@ sources:
   쓰는 자리
 - [모놀리스 분해 패턴](../concepts/monolith-decomposition-patterns.md) — "쪼개기가 너무 어렵다"에 대한 답
 - [실용주의 팀](../concepts/pragmatic-teams.md) — 같은 물음의 팀 내부 판
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 15장 "Organizational Structures" — §"Loosely Coupled
     Organizations"(pp.491–492) · §"Team Size"(p.495) · §"Small Teams, Large

@@ -356,8 +356,7 @@ sources:
   받아들이는 판단이 그 분류의 어디에 앉는가
 - [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 이 집계 층이
   하류로 내는 호출 자체의 분류
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) —
-  이 축의 허브
+- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 14장 "User Interfaces" — §Constraints(pp.474–475) ·
     §"Pattern: Central Aggregating Gateway"(pp.475–479)와 그 하위 §Ownership(pp.476–477) ·

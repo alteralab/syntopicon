@@ -320,7 +320,7 @@ p.205).[^newman2021]
 - [버전 관리](../concepts/version-control-practice.md) — 브랜치와 저장소 호스팅의 일반론
 - [마이크로서비스의 고통과 채택 판단](../concepts/microservice-pain-points-and-adoption.md) — 이 배치의
   고통이 청구서의 어느 항목인가
-- [데이터 시스템 아키텍처 트레이드오프](../synthesis/data-systems-architecture-tradeoffs.md) — 이 축의 허브
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
 
 [^newman2021]: Newman 2021, 7장 "Build" §"Mapping Source Code and Builds to
     Microservices"(pp.205–217) — §"One Giant Repo, One Giant Build"(pp.205–207) ·
