@@ -167,6 +167,30 @@ sources:
     [서비스 세분도](service-granularity.md)에 있다.
   - **문법이 어긋나는 자리 둘을 원문 그대로 두고 표시한다** — 앞 ADR의 `dependent each other`
     (on 누락, p.212)와 뒤 ADR의 `through the use the custom`(of 누락, p.216)이다.
+- **목록의 일곱째와 여덟째(p.241·p.247)가 같은 장의 두 ADR인데 맥락 칸을 다르게 채운다.**
+  - `ADR: Using a Sidecar for Operational Coupling`(8장, p.241, ADR)의 맥락 칸에는 **대안
+    목록이 없다** — 각 서비스가 공통되고 일관된 운영 행위를 요구하는데 그 책임을 팀마다 맡기면
+    **불일치와 조율 문제**가 생긴다는 문제 진술뿐이다.[^ford2021-hard-parts] 위
+    [형식 — 네 자리](#형식--네-자리)가 요구하는 대안 목록이 빠진 셋째 자리이고, 앞의 둘은
+    p.184와 그 뒤에 적은 어긋남이다.
+  - `ADR: Use of a Shared Library for Common Ticketing Database Logic`(8장, p.247, ADR)의
+    맥락 칸에는 **선택지 둘이 명시된다** — **공유 라이브러리를 쓰는 것과 공유 데이터 서비스를
+    만드는 것**이다.[^ford2021-hard-parts] **같은 장의 두 상자가 같은 칸을 다르게 채우는 것을
+    저자들이 말하지 않는다.** 7장의 두 ADR이 귀결 칸에서 갈린 것과 같은 모양이고 이번에는
+    맥락 칸이다. #hypothesis
+- **앞 ADR의 귀결 칸이 이 책에서 드물게 금지를 적는다** — **팀은 사이드카에 도메인 클래스를
+  더하지 말아야 한다. 그것이 부적절한 결합을 조장한다**는 것이다 (8장, p.241,
+  ADR).[^ford2021-hard-parts] 다른 ADR들의 귀결 칸은 **일어날 일**을 적는데 이 칸은 **하지 말
+  것**을 적는다. #hypothesis
+  - **그 결정 칸에는 제공 목록이 들어 있다** — 사이드카가 제공할 것 다섯을 불릿으로
+    나열한다(`Monitoring`·`Logging`·`Service discovery`·`Authentication`·`Authorization`).
+    **열셋 가운데 결정 칸에 목록을 담는 유일한 ADR이다.** #hypothesis
+- **뒤 ADR의 결정 칸이 정당화 셋을 담고 그중 하나에 논리가 어긋나는 자리가 있다** —
+  **`change is less risky for the common database logic because services would need to be
+  tested and redeployed`**라고 적는데, 시험과 재배포가 필요하다는 것은 위험이 낮은 **이유**가
+  아니라 같은 ADR이 귀결 칸에 적는 **대가**다 (8장, p.247, ADR).[^ford2021-hard-parts] 원문
+  그대로 두고 표시한다. #hypothesis
+  - 두 결정의 전문과 그 장면은 [코드 재사용 패턴 넷](code-reuse-patterns.md)에 있다.
 - **쪽 번호가 결정이 내려진 자리를 가리킨다** — 위
   [책 한 권의 ADR을 색인하는 방식](#책-한-권의-adr을-색인하는-방식)이 적는 조판 규약의 실물이다.
   결정은 그 장의 흐름 안 상자에 놓이고 부록이 훑기를 맡는다.
@@ -237,6 +261,8 @@ sources:
 - [데이터베이스 종류 고르기](selecting-a-database-type.md) — 6장의 유일한 ADR이 놓이는 결정
 - [서비스 세분도](service-granularity.md) — 7장의 ADR 둘이 놓이는 결정. 같은 장의 두 상자가
   귀결 칸을 다르게 채우는 자리
+- [코드 재사용 패턴 넷](code-reuse-patterns.md) — 8장의 ADR 둘이 놓이는 결정. 같은 장의 두
+  상자가 맥락 칸을 다르게 채우는 자리
 - [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 무엇을 적어 둘 값이 큰가의 다른 축
 - [데이터 아키텍처의 규정](data-architecture-defined.md) — 되돌릴 수 있는 결정과 없는 결정
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 실천이 걸리는 허브
@@ -274,4 +300,12 @@ sources:
     custom` p.216)은 원문 그대로 옮기고 표시했다. 7장에 ADR이 이 둘뿐이라는 것도 부록 B의 쪽
     목록(p.184 다음이 p.211·p.215이고 그다음이 p.241)과 7장의 쪽 범위(pp.185–216)를 맞대어
     확인했다.
+    **8장의 ADR 둘(p.241 · p.247, 각각 §"Sysops Squad Saga: Common Infrastructure Logic"과
+    §"Sysops Squad Saga: Shared Domain Functionality" 안의 상자)도 목록 절에 합류했다.**
+    위 관찰 넷은 두 상자의 원문과 1장 p.5의 형식 규정을 맞대어 본 것이고, 두 ADR 전문과 그
+    장면은 [코드 재사용 패턴 넷](code-reuse-patterns.md)이 갖는다 — 여기서는 형식과 맞물리는
+    자리만 적었다. **직인용 조각 하나(p.247 결정 칸의 어긋나는 절)만 원문 그대로 인라인 코드로
+    옮겼다** — `pdftotext -layout` 추출로 문자 단위 대조했다. 8장에 ADR이 이 둘뿐이라는 것도
+    부록 B의 쪽 목록(p.215 다음이 p.241·p.247이고 그다음이 p.280)과 8장의 쪽
+    범위(pp.219–247)를 맞대어 확인했다. 두 상자에 도판도 코드 목록도 없다.
 

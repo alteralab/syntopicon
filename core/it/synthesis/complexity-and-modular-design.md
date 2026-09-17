@@ -132,7 +132,10 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
   두 소스가 기술 부채라는 낱말에 같은 판정을 내리는 자리. 원인 진단은 다르다(문화 대 투자
   배분)
 - [DRY 원칙](../concepts/dry-principle.md) — 중복을 지식의 문제로 보는 그쪽 옆에, 중복이
-  변경 증폭이라는 측정 가능한 증상으로 나타난다는 이 책의 서술과 뽑아낼 조건이 붙었다
+  변경 증폭이라는 측정 가능한 증상으로 나타난다는 이 책의 서술과 뽑아낼 조건이 붙었다.
+  **같은 판단이 모듈 대신 배포 단위에 걸릴 때 값을 어떻게 치르는가는
+  [코드 재사용 패턴 넷](../concepts/code-reuse-patterns.md)이 갖고, 그 자리는
+  [마이크로서비스 경계와 통신](microservice-boundaries-and-communication.md)이다**
 - [결합 끊기](../concepts/decoupling.md) — 전역 데이터 처방(API로 감싸라)의 한 구현으로서
   컨텍스트 객체가, 그리고 결합의 다섯째 증상으로서 통과 변수가 합류했다
 - [죽은 프로그램은 거짓말하지 않는다](../concepts/dead-programs-tell-no-lies.md) — "그냥

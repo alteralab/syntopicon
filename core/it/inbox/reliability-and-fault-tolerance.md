@@ -365,6 +365,20 @@ p.302).[^newman2021]
     | 6장, p.143 | 공유 데이터베이스 | 체계의 일부가 **중단 없이 계속**된다 |
     | 7장, p.193 | 서비스 안의 한 기능(치명적 크래시) | **한 도메인 안의** 응용이나 기능이 계속 동작한다 |
 
+  - **같은 책 8장이 네 번째로 이 낱말을 쓰는데 이번에는 규정이 아니라 적용이다** — 공유
+    기능을 별도 서비스에 두면 **그 공유 서비스가 불가용해질 때 그것을 필요로 하는 서비스들이
+    공유 서비스가 돌아올 때까지 작동 불능이 된다**는 것이고, 인스턴스를 여럿 두어 대체로
+    완화할 수 있으나 그래도 고려할 절충이라고 적는다 (8장 §"Fault Tolerance",
+    p.232).[^ford2021-hard-parts]
+    - **6장의 공유 데이터베이스 판정과 같은 모양이고 대상만 코드다.** 위 표의 둘째 줄이
+      데이터베이스를 단일 장애점으로 세운 자리이고, 8장은 **공유 코드를 담은 서비스**를 같은
+      자리에 놓는다. **저자들이 두 자리를 잇지 않는다.** #hypothesis
+    - **그 장의 절충표가 이것을 한 줄로 적는다** — 공유 서비스의 단점 칸에
+      `Fault tolerance and availability issues due to service dependency`가 있고, 같은 장의
+      도판이 공유 라이브러리 쪽에 `No fault tolerance concerns`라고 적는다 (8장, 표 8-3과
+      그림 8-11, p.233).[^ford2021-hard-parts] 네 재사용 패턴 전체는
+      [코드 재사용 패턴 넷](code-reuse-patterns.md)에 있다.
+
   - **7장 판정에는 응집이라는 제동이 붙는다.** 메모리 부족으로 죽는 기능만 떼어 내면 남는
     기능들의 응집이 약해질 수 있으므로, 저자들은 **어떤 분해 구동 요인으로 쪼개든 남는 기능과
     강한 응집이 형성될 수 있는지 늘 확인하라**고 적는다 (7장, p.195).[^ford2021-hard-parts]
@@ -429,7 +443,8 @@ p.302).[^newman2021]
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 3장 "Architectural Modularity"
     §"Availability/Fault Tolerance"(pp.58–59)과 6장 "Pulling Apart Operational Data"
     §"Fault tolerance"(pp.143–144), 그리고 **7장 "Service Granularity" §"Fault
-    Tolerance"(pp.193–195)와 §"Workflow and Choreography"(p.201)**.
+    Tolerance"(pp.193–195)와 §"Workflow and Choreography"(p.201)**, 그리고 **8장
+    "Reuse Patterns" §"Fault Tolerance"(pp.232–233)**.
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측).
     직인용 둘(3장의 내결함성 정의 · 7장의 내결함성 정의)은 `pdftotext -layout` 추출로 문자 단위
     대조했고, 3장 것은 원문 문장의 중간부터라 대문자를 올리지 않고 그대로 옮겼으며 7장 것은
@@ -440,6 +455,11 @@ p.302).[^newman2021]
     한국어 재서술로만 옮겼다** — 그 직인용은
     [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)이 갖는다.
     이 절들에는 도판 재현도 코드 목록도 없다.
+    **8장에서 온 것은 위 §"배포 단위로 범위를 좁힌 셋째 정의"의 마지막 항 하나다** — 그 장은 이
+    낱말을 새로 규정하지 않고 공유 서비스의 절충 축으로 쓴다. 그 절의 절충표(표 8-3)와 도판
+    (그림 8-11)에서 이 페이지가 든 것은 각각 한 줄뿐이고, 표 전량과 네 재사용 패턴은
+    [코드 재사용 패턴 넷](code-reuse-patterns.md)이 소유한다. 6장과 8장을 잇는 읽기는 이 KB의
+    것이고 저자들이 두 자리를 잇지 않는다.
     다섯 구동 요인 전부의 전문과 그 절의 나머지는
     [아키텍처 모듈성의 구동 요인](modularity-drivers.md)이 갖는다. 두 소스를 맞댄 연결은
     **이 KB가 세운 것**이고 두 소스 어느 쪽도 상대를 호명하지 않는다.
