@@ -74,6 +74,10 @@ generated: { by: "claude-opus-5", at: "2026-08-16T03:00:00Z" }
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 같은 경계를
   운영계의 물리 서비스 경계로 고르는 쪽
 
+- [아키텍처 퀀텀](../concepts/architectural-quantum.md) — **이 축이 "퀀텀"이라는 낱말을 빌려 온
+  자리의 원전**(Ford et al. 2022, 5장). 그 책이 데이터 메시를 자기 어휘로 되읽으며 사이드카를
+  직교 결합을 다루는 재사용 패턴으로 규정하고, 데이터 프로덕트 퀀텀에 **협력 퀀텀**이라는 이름을
+  준다. 차용과 원전의 조건 대조는 [데이터 퀀텀](../concepts/data-quantum.md)에 있다
 ## 이어지는 허브
 
 - [데이터 메시 논리 아키텍처](data-mesh-logical-architecture.md) — 이 원칙들이 아키텍처
