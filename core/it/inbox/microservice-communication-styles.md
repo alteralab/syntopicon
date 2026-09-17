@@ -496,6 +496,13 @@ p.93).[^newman2021]
   이벤트 주도 쪽이며, 배경 동기화는 **워크플로 밖 외부 프로세스**라 다섯 어디에도 앉지 않는다.
   #hypothesis 저자들이 그 대응을 적지 않는다. 셋의 전문과 절충표 셋은
   [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)에 있다.
+- **같은 책 11장이 셋째 축(조율)을 펴면서 통신 축과의 맞물림을 한 예로 보인다** — 오케스트레이션
+  워크플로 하나 안에서 주문 기록과 결제는 **동기**로, 이행과 알림은 **비동기**로 부르고, 그
+  가름의 근거를 **엄격한 타이밍 의존이 있는가**로 적는다(이행이 하루에 몇 번뿐이라면 동기 호출의
+  부담을 질 이유가 없다) (11장, p.302).[^ford2021-hard-parts] **이 페이지가 스타일을 고르는
+  단위를 "체계"가 아니라 "상호작용"으로 두는 것과 같은 방향이고**, 그쪽은 그 단위를 **한 워크플로
+  안의 호출 하나**까지 내린다. 두 스타일의 전문은
+  [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)에 있다.
 
 ## 이 KB의 다른 자리들과의 분업
 
@@ -549,6 +556,10 @@ p.93).[^newman2021]
     온 것은 위 절의 마지막 불릿 하나뿐이다** — 세 패턴의 규정과 직인용과 절충표 셋은
     [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)이 갖는다. 다섯 스타일과의
     대응은 원문에 없고 이 KB가 세운 것이라 추정 표시를 붙였다.
+    **11장 "Managing Distributed Workflows" §"Orchestration Communication Style"(p.302)에서 온
+    것도 그 절의 마지막 불릿 하나뿐이고** 직인용을 두지 않았다 — 두 조율 스타일의 규정과 절충표
+    여덟은 [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)가
+    갖는다.
 
 [^newman2021]: Newman 2021, 4장 "Microservice Communication Styles"(장 도입 p.89 ·
     §"Technology for Inter-Process Communication: So Many Choices" p.93 ·

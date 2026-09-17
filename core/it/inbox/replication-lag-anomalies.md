@@ -289,11 +289,22 @@ p.436).[^newman2021]
   스트림과 데이터베이스 트리거를 드는데, 그것은 [변경 데이터 캡처](../concepts/change-data-capture.md)와
   같은 기제다. 그쪽은 이미 따로 커밋된 테이블들을 **되맞추는** 데 쓴다. 세 패턴의 전문은
   [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)에 있다.
+- **같은 소스의 10장이 "복제"라는 낱말도 이 페이지와 다른 대상에 쓴다.** 그쪽의 **컬럼 스키마
+  복제 패턴**은 **테이블 사이에 열을 복제해** 다른 경계 컨텍스트가 그 데이터를 쓸 수 있게 하는
+  것이다 (10장, p.287).[^ford2021-hard-parts] **복제되는 것이 같은 테이블의 복제본이 아니라
+  다른 테이블의 열 하나이고, 맞추는 것도 데이터베이스의 복제 기제가 아니라 소유 서비스가 보내는
+  비동기 알림이다.** 곧 이 페이지가 다루는 복제와 같은 것이 아니다. 넷의 전문은
+  [분산 데이터 접근 패턴 넷](../concepts/distributed-data-access-patterns.md)에 있다.
+  - **파생 데이터라는 쪽에서 보면 방향은 같다** — 복사된 열은 원본에서 파생된 것이고, 그
+    구분의 정본은 [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md)다.
+    **`contradicts`를 걸 자리가 아니다.**
 
 ## 이어지는 페이지
 
 - [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md) — 같은 낱말을 서비스
   사이의 정합성에 쓰는 축
+- [분산 데이터 접근 패턴 넷](../concepts/distributed-data-access-patterns.md) — "복제"라는 낱말이
+  테이블 사이의 열 복사에 걸리는 자리
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 이 구조를 캐시로 읽었을 때의
   어휘와 그 위에 캐시를 더 얹을 때의 경고
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 읽기 복제본이 수평 복제라는 축의 한 구현으로 놓이는
@@ -330,4 +341,7 @@ p.436).[^newman2021]
     Patterns"(pp.267–279). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). **이 페이지가 그 장에서
     쓰는 것은 최종 일관성의 규정과 그것이 걸리는 대상뿐이고** 직인용은 두지 않았다 — 세 패턴의
     직인용과 절충표 셋은 [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)이
-    갖는다. 위 대비표는 원문에 없고 이 KB가 세운 것이며 두 소스는 서로를 호명하지 않는다.
+    갖는다. **10장 §"Column Schema Replication Pattern"(p.287)에서 온 것은 그 패턴의 이름과
+    무엇이 복제되는가 한 줄뿐이고**, 그 패턴의 직인용과 절충표는
+    [분산 데이터 접근 패턴 넷](../concepts/distributed-data-access-patterns.md)이 갖는다.
+    위 대비표는 원문에 없고 이 KB가 세운 것이며 두 소스는 서로를 호명하지 않는다.

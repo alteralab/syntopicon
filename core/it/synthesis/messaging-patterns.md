@@ -142,6 +142,10 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
   이름이고, 그쪽 저자가 이 책을 출처로 댄다.** 다만 구현이 통합 미들웨어의 프로세스 엔진이
   아니라 도메인 모델 안의 애그리게이트다. 원전 쪽 서술은
   [복합 라우팅 패턴](../concepts/composed-routing-patterns.md)에 있다
+- [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md) — 같은
+  조율 선택을 마이크로서비스 쪽에서 축 하나로 세운 자리. 중앙 조율자를 쓰는 쪽이 이 카탈로그의
+  *Process Manager*와 같은 자리이고, 쓰지 않는 쪽은 채널과 방송 메시지 위에 그대로 선다.
+  코레오그래피에서 워크플로 상태를 메시지에 실어 나르는 선택지(스탬프 결합)도 그 페이지에 있다
 - [모델 번역](../concepts/model-translation.md) — *Message Translator*가 데이터 형식의 차이를
   흡수한다면 이쪽은 **경계 컨텍스트의 모델**을 번역한다. 형식이 같아도 남는 층이고, 여러
   메시지를 합치는 대목에서 *Aggregator*와 *Content Enricher*를 가리킨다
