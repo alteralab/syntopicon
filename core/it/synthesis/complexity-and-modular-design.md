@@ -248,6 +248,11 @@ generated: { by: "claude-opus-5", at: "2026-08-17T09:00:00Z" }
   (유지보수성·단순성·진화성)으로 정의되는 축
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 모듈
   경계 판단이 배치 단위(모놀리스 대 모듈)로 커지는 축
+- [소프트웨어 아키텍처](software-architecture.md) — **같은 낱말(모듈성)이 다른 단위에
+  걸리는 축.** 이 허브의 모듈은 한 사람이 읽는 코드의 단위이고 판정자는 읽는 사람이다.
+  그쪽의 모듈은 **배포 단위**이고 판정자는 아키텍처 특성 다섯(유지보수성·테스트 가능성·배포
+  가능성·확장성·가용성)이다. 그 다섯과 층의 경계는
+  [아키텍처 모듈성의 구동 요인](../concepts/modularity-drivers.md)에 있다
 - [분산 시스템의 기초](distributed-systems-basics.md) — 예외 마스킹·오류 승격의 실물
   (TCP·NFS·RAMCloud)이 사는 축
 - [데이터 엔지니어링 디자인 패턴](data-engineering-design-patterns.md) — 같은 설계 판단이

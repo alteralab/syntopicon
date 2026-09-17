@@ -2,7 +2,7 @@
 type: concept
 title: 아키텍처 결정 기록
 status: draft
-description: 아키텍처 결정을 짧은 텍스트 파일 하나로 남기는 형식과 그 형식이 요구하는 네 자리 — 결정을 명사구로 적는 제목과 문제와 대안을 한두 문장으로 적는 맥락과 결정 자체와 그 정당화, 그리고 적용 뒤의 귀결과 고려한 절충을 적는 자리, 승인된 것만 적는다는 전제, 마이클 나이가드의 블로그 글이 원전이고 소트웍스 기술 레이더가 채택으로 올렸다는 계보, 평문도 되지만 대개 AsciiDoc이나 마크다운이나 위키 템플릿을 쓴다는 관행, 책 한 권의 ADR을 부록에 색인한다는 조판, 그리고 결정을 문서화하는 일과 그 결정의 올바른 쓰임을 거버넌스하는 일이 별개라는 경계와 그 별개를 적합도 함수가 받는다는 배치
+description: 아키텍처 결정을 짧은 텍스트 파일 하나로 남기는 형식과 그 형식이 요구하는 네 자리 — 결정을 명사구로 적는 제목과 문제와 대안을 한두 문장으로 적는 맥락과 결정 자체와 그 정당화, 그리고 적용 뒤의 귀결과 고려한 절충을 적는 자리, 승인된 것만 적는다는 전제, 마이클 나이가드의 블로그 글이 원전이고 소트웍스 기술 레이더가 채택으로 올렸다는 계보, 평문도 되지만 대개 AsciiDoc이나 마크다운이나 위키 템플릿을 쓴다는 관행, 책 한 권의 ADR을 부록에 색인한다는 조판과 그 부록이 모은 열셋의 제목과 쪽 그리고 목록 첫 항목이 결정이 아니라 견본이라는 관찰, 그리고 결정을 문서화하는 일과 그 결정의 올바른 쓰임을 거버넌스하는 일이 별개라는 경계와 그 별개를 적합도 함수가 받는다는 배치
 generated: { by: "claude-opus-5", at: "2026-09-17T17:00:00Z" }
 sources:
   - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
@@ -16,6 +16,7 @@ sources:
 - [형식 — 네 자리](#형식--네-자리)
 - [승인된 것만 적는다는 전제](#승인된-것만-적는다는-전제)
 - [책 한 권의 ADR을 색인하는 방식](#책-한-권의-adr을-색인하는-방식)
+- [이 책의 ADR 열셋](#이-책의-adr-열셋)
 - [문서화와 거버넌스는 별개다](#문서화와-거버넌스는-별개다)
 - [이 KB의 다른 소스가 이 형식을 쓰는 자리](#이-kb의-다른-소스가-이-형식을-쓰는-자리)
 - [이어지는 페이지](#이어지는-페이지)
@@ -101,6 +102,38 @@ sources:
     안에 상자로 놓이고, 훑기는 부록이 맡는다.
   - 그 결정들이 대입되는 체계는 [Sysops Squad 사례](sysops-squad-case.md)다.
 
+## 이 책의 ADR 열셋
+
+**부록 B가 이 책의 ADR을 한자리에 모은다.** 제목과 인쇄판 쪽을 원문 그대로 옮긴다 (부록 B
+"Architecture Decision Record References", pp.419–420).[^ford2021-hard-parts]
+
+| 인쇄판 쪽 | ADR 제목 |
+|---|---|
+| 5 | ADR: A short noun phrase containing the architecture decision |
+| 61 | ADR: Migrate Sysops Squad Application to a Distributed Architecture |
+| 79 | ADR: Migration Using the Component-Based Decomposition Approach |
+| 184 | ADR: Use of Document Database for Customer Survey |
+| 211 | ADR: Consolidated Service for Ticket Assignment and Routing |
+| 215 | ADR: Consolidated Service for Customer-Related Functionality |
+| 241 | ADR: Using a Sidecar for Operational Coupling |
+| 247 | ADR: Use of a Shared Library for Common Ticketing Database Logic |
+| 280 | ADR: Single Table Ownership for Bounded Contexts |
+| 281 | ADR: Survey Service Owns the Survey Table |
+| 297 | ADR: Use of In-Memory Replicated Caching for Expert Profile Data |
+| 321 | ADR: Use Orchestration for Primary Ticket Workflow |
+| 380 | ADR: Loose Contract for Sysops Squad Expert Mobile Application |
+
+- **목록 자체가 위 [형식 — 네 자리](#형식--네-자리)의 첫째 규칙을 검증한다.** 열셋 전부가
+  명사구이고 문장이 하나도 없다. **`Migrate`·`Use`로 시작하는 것들도 동사가 아니라 명사구의
+  머리다**(이행 그 자체를 가리킨다).
+- **부록의 안내 문장과 목록이 한 칸 어긋난다.** 부록은 **이 책의 각 Sysops Squad 결정에
+  대응하는 아키텍처 결정 기록이 딸려 있었고 그것들을 여기 모았다**고 적는데, 목록의 첫
+  항목(p.5)은 결정이 아니라 **형식을 보이는 견본**이다. 그래서 실제 결정은 열둘이다.
+  **이 관찰은 이 KB가 원문을 대조해 적는 것이고 책이 그 어긋남을 말하지 않는다.** #hypothesis
+- **쪽 번호가 결정이 내려진 자리를 가리킨다** — 위
+  [책 한 권의 ADR을 색인하는 방식](#책-한-권의-adr을-색인하는-방식)이 적는 조판 규약의 실물이다.
+  결정은 그 장의 흐름 안 상자에 놓이고 부록이 훑기를 맡는다.
+
 ## 문서화와 거버넌스는 별개다
 
 - **저자들이 이 절을 닫으며 경계를 하나 긋는다** — **결정을 문서화하는 일은 아키텍트에게
@@ -155,3 +188,9 @@ sources:
     *Fundamentals of Software Architecture*)은 **이 KB가 확인한 원전이 아니다** —
     귀속은 이 책이 그렇게 귀속한다까지로 둔다. 굵은 글씨는 원문 문장의 한국어 재서술이고
     괄호 안이 그 쪽이다.
+    **부록 B "Architecture Decision Record References"(pp.419–420)가 ADR 목록 절에
+    합류했다.** 그 부록은 열세 줄의 제목과 쪽 번호가 전부이고, 제목과 쪽을 **영어 그대로**
+    옮겼다 — 이 책이 인쇄한 제목 자체가 식별자라 번역하면 본문의 상자와 맞춰 볼 수 없다.
+    원문은 각 제목을 굽은 따옴표로 감싸고 `on page NN`을 붙이는데, 표로 옮기며 따옴표를
+    빼고 쪽을 열로 갈랐다 — 낱말은 보태거나 빼지 않았다. 대조는 `pdftotext -layout`
+    추출로 했다. 부록 B에 도판도 코드 목록도 없다.

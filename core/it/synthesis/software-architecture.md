@@ -23,6 +23,11 @@ generated: { by: "claude-opus-5", at: "2026-09-17T17:00:00Z" }
 - **운영계와 분석계, 클라우드와 자체 호스팅, 여러 기계로 갈 이유**는
   [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md)가 갖는다.
 - **코드 수준의 모듈 경계**는 [복잡성과 모듈 설계](complexity-and-modular-design.md)가 갖는다.
+  이 축이 다루는 모듈성은 그것과 층이 다르다 — 재는 단위가 읽는 사람의 부담이 아니라 **배포
+  단위**이고, 그 규정과 다섯 구동 요인은
+  [아키텍처 모듈성의 구동 요인](../concepts/modularity-drivers.md)에 있으며 자리는 자식 허브
+  [마이크로서비스 경계와 통신](microservice-boundaries-and-communication.md)의 "쪼갤 것인가"
+  절이다.
 
 ## 자식 허브
 
