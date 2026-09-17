@@ -324,6 +324,11 @@ sources:
     [CAP과 PACELC](cap-and-pacelc.md)와 [복제본 일관성](../synthesis/replica-consistency.md)이,
     조율 축은 [사가 패턴](saga-pattern.md)이, 통신 축은
     [마이크로서비스 통신 스타일](microservice-communication-styles.md)이 갖는다.
+- **저자들이 이 셋을 어떻게 골랐는지를 2021년 책 15장이 밝힌다** — 분산 아키텍처의 사례
+  **수백 개**(마이크로서비스와 그 밖의 것들)를 살펴 공통 결합 지점을 찾았고, 그 사례 전부가
+  **통신·일관성·조율의 변화에 민감했다**는 것이다 (15장, p.401).[^ford2021-hard-parts]
+  이 셋이 얽힌 차원의 실물이고, 그것을 스스로 찾아 분석하는 절차는
+  [트레이드오프 분석 방법](trade-off-analysis-method.md)이 갖는다.
 
 ## 여덟 조합에 이름이 붙는다
 
@@ -834,6 +839,8 @@ pp.207–208).[^ford2022-evolutionary]
 
 ## 이어지는 페이지
 
+- [트레이드오프 분석 방법](trade-off-analysis-method.md) — 이 세 축이 얽힌 차원으로 다뤄지는
+  자리. 그 셋을 고른 경위와 여덟 칸을 맞대는 비교 행렬
 - [커네이선스](connascence.md) — 같은 장이 이 단위 앞에 세우는 결합 어휘. 정적·동적 구분의 출처
 - [Sysops Squad 사례](sysops-squad-case.md) — 2021년 책이 이 어휘를 대입하는 운영 예제
 - [아키텍처 결정 기록](architecture-decision-records.md) — 같은 책이 그 대입의 결과를 적는 형식

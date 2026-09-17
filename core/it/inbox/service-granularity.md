@@ -786,6 +786,8 @@ sources:
 
 - [아키텍처 모듈성의 구동 요인](modularity-drivers.md) — 쪼갤 것인가라는 앞 물음과 이 장이 가르는
   모듈성 쪽
+- [트레이드오프 분석 방법](trade-off-analysis-method.md) — 같은 책의 마지막 장이 이 열 요인을
+  "일반적"이라 부르며 도메인 시나리오 모형화로 보강하는 자리
 - [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md) — 경계를 어디에 그을 것인가와
   이 열 요인이 그 사다리에서 서는 자리
 - [마이크로서비스 경계의 대안 넷](../concepts/microservice-boundary-alternatives.md) — 변동성 기반 분해의

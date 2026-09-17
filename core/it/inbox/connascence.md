@@ -303,6 +303,8 @@ sources:
   구심·원심 결합의 본체
 - [콘스탄틴의 등가](constantines-equivalence.md) — 같은 계보에서 결합을 비용으로 환산하는 자리
 - [결합 끊기](decoupling.md) — 결합의 증상과 처방
+- [트레이드오프 분석 방법](trade-off-analysis-method.md) — 같은 책의 마지막 장이 결합을
+  "X를 바꾸면 Y도 바뀌어야 하는가"로 가장 짧게 줄여 방법의 입력으로 쓰는 자리
 - [경계 컨텍스트](../concepts/bounded-context.md) — 저자들이 지역성과 같은 것이라고 잇는 상대
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 어휘가 봉사하는 목표
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 결합과 응집이 사는 허브
