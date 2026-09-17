@@ -503,6 +503,17 @@ p.93).[^newman2021]
   단위를 "체계"가 아니라 "상호작용"으로 두는 것과 같은 방향이고**, 그쪽은 그 단위를 **한 워크플로
   안의 호출 하나**까지 내린다. 두 스타일의 전문은
   [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)에 있다.
+- **같은 책 12장이 세 축을 곱해 여덟 칸으로 펴면서 통신 축을 절반의 가름선으로 쓴다** — 여덟
+  가운데 넷이 `Synchronous`이고 넷이 `Asynchronous`다 (12장, p.324, 표
+  12-1).[^ford2021-hard-parts] 칸마다의 기제와 채점표는
+  [트랜잭셔널 사가 패턴](transactional-saga-patterns.md)이 갖는다.
+  - **그쪽이 동기 쪽 네 칸을 매기면서 이 페이지의 판정에 값을 붙인다** — 동기 네 칸의 응답성이
+    `Low`나 `Medium`에 머물고, 저자들은 **성능의 진짜 차이는 비동기성에서 온다**고 적으며 그
+    확인을 뒤의 칸들로 넘긴다 (12장, p.336).[^ford2021-hard-parts]
+  - **동기를 고르는 근거도 그쪽이 하나 더 준다** — **동기 호출은 각 서비스가 다음을 부르기 전에
+    자기 몫을 끝내도록 보장해 경쟁 조건을 없앤다**는 것이고, 같은 이유로 **동기 쪽이 추론하고
+    구현하고 디버깅하기 쉽다**고 적는다 (12장, pp.332·339).[^ford2021-hard-parts] 이 페이지가
+    동기 블로킹의 이점으로 적는 단순함과 같은 방향이다.
 
 ## 이 KB의 다른 자리들과의 분업
 
@@ -560,6 +571,9 @@ p.93).[^newman2021]
     것도 그 절의 마지막 불릿 하나뿐이고** 직인용을 두지 않았다 — 두 조율 스타일의 규정과 절충표
     여덟은 [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)가
     갖는다.
+    **12장 "Transactional Sagas"의 앞 절반(p.324의 표 12-1과 pp.332·336·339)에서 온 것은 위 절의
+    마지막 불릿 하나뿐이고** 직인용을 두지 않았다 — 여덟 칸의 기제와 채점표 다섯은
+    [트랜잭셔널 사가 패턴](transactional-saga-patterns.md)이 갖는다.
 
 [^newman2021]: Newman 2021, 4장 "Microservice Communication Styles"(장 도입 p.89 ·
     §"Technology for Inter-Process Communication: So Many Choices" p.93 ·
