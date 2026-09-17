@@ -38,6 +38,7 @@ sources:
 - [9장 — 저자들이 내다보는 미래](#9장--저자들이-내다보는-미래)
 - [9장 — 맺음이 이 기제에 거는 자기 제한](#9장--맺음이-이-기제에-거는-자기-제한)
 - [2021년 책 — 같은 정의를 다른 낱말로 인쇄한다](#2021년-책--같은-정의를-다른-낱말로-인쇄한다)
+- [2021년 책 5장 — 분해 패턴마다 딸리는 거버넌스 적합도 함수](#2021년-책-5장--분해-패턴마다-딸리는-거버넌스-적합도-함수)
 - [이 KB의 다른 소스와 만나는 자리](#이-kb의-다른-소스와-만나는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -758,6 +759,53 @@ p.153).[^ford2022-evolutionary]
     거버넌스가 지금 놓인 자리**라는 것이다 (1장, pp.6–7).[^ford2021-hard-parts] 이 논거의 전문은
     [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에 있다.
 
+## 2021년 책 5장 — 분해 패턴마다 딸리는 거버넌스 적합도 함수
+
+**같은 2021년 책이 이 기제를 쓰는 가장 구체적인 자리가 5장이다.** 모놀리스를 쪼개는 패턴마다
+"Fitness Functions for Governance"라는 절이 하나씩 붙고, 그 절들이 이 KB에서 **이행 기간에 거는
+적합도 함수**의 실물이 된다. 패턴 자체는
+[컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md)과 그 자식 페이지들이
+갖는다.
+
+- **왜 패턴마다 하나씩 붙는지가 한 구절로 적힌다** — **대부분의 체계가 이행 중에 움직이는
+  과녁(moving targets)**이므로, 패턴을 적용한 뒤 **계속되는 유지보수 동안 코드베이스의 올바름을
+  지속적으로 분석하고 검증**할 자동 거버넌스를 둔다는 것이다 (5장, p.83).[^ford2021-hard-parts]
+  - **이 용법이 이 페이지의 다른 절들과 다른 점은 시한이다.** 다른 자리의 적합도 함수는 체계가
+    사는 동안 계속 도는데, 이쪽은 **이행이라는 한시적 국면의 결과를 지키려고** 건다. **저자들이
+    그 차이에 이름을 붙이지는 않는다.** #hypothesis
+- **분류는 이 페이지의 어휘로 전부 같다** — 5장이 드는 것은 모두 **자동화된 전체적(automated
+  holistic) 적합도 함수**이고, 주기는 **촉발(triggered)**이며 대개 **배포 시점에 CI/CD
+  파이프라인으로** 돈다 (5장, pp.87·95·107).[^ford2021-hard-parts] 축의 규정은 위
+  [여섯 분류 축](#여섯-분류-축)에 있다.
+- **구현 수단을 저자들이 열어 둔다** — 직접 짠 코드로도, CI/CD 파이프라인의 일부로 쓰는 **오픈
+  소스나 상용 기성품(COTS) 도구**로도 구현할 수 있다 (5장, p.87).[^ford2021-hard-parts]
+  - 버전 조건: 2021년 저술 시점. 저자들이 도구를 지목하지 않는다.
+- **앞 세 패턴에 딸린 여섯을 이름과 하는 일로 적는다.**
+
+| 패턴 | 적합도 함수 | 무엇을 잡는가 | 쪽 |
+|---|---|---|---|
+| Identify and Size Components | Maintain component inventory | 개발팀이 더하거나 없앤 컴포넌트 | 87 |
+| Identify and Size Components | No component shall exceed `<some percent>` of the overall codebase | 전체 코드베이스에서 차지하는 비율이 임계를 넘는 컴포넌트 | 88 |
+| Identify and Size Components | No component shall exceed `<some number of standard deviations>` from the mean component size | 평균 크기에서 표준편차 몇 개를 넘는 이상치 | 88 |
+| Gather Common Domain Components | Find common names in leaf nodes of component namespace | 둘 이상의 컴포넌트에서 끝 노드 이름이 같은 것 | 95 |
+| Gather Common Domain Components | Find common code across components | 둘 이상의 컴포넌트에 나타나는 같은 소스 파일 | 96 |
+| Flatten Components | No source code should reside in a root namespace | 루트 네임스페이스에 남은 고아 클래스 | 107 |
+
+- **여섯 가운데 넷이 경보만 내고 판정은 사람에게 넘긴다.** 저자들이 그 배분을 두 자리에서 명시한다
+  — 공통 도메인 기능의 거버넌스는 **무엇이 도메인 기능이고 무엇이 인프라 기능인지 분류하는 일이
+  주관적**이라 자동화가 **수동 해석을 돕는** 데 그치고 (5장, p.95), 평탄화도 **상당한 주관성**이
+  들어 방향 선택은 기계가 못 한다 (5장, p.107).[^ford2021-hard-parts]
+  - **그 귀결이 제외 목록이다** — 공통 이름 함수와 공통 코드 함수 둘 다 **제외 파일(exclusion
+    file)**을 두어 사람이 기각한 후보를 쌓는다 (5장, pp.95–96).[^ford2021-hard-parts]
+  - **이 KB의 다른 적합도 함수 서술에는 없는 설계다.** 위 §"구현이 아니라 결과"가 적는 것은 함수가
+    무엇을 반환하는가이고, 여기서는 **거짓 양성을 사람이 눌러 두는 상태 저장소**가 함수의 일부로
+    들어간다. **저자들이 이것을 일반 설계로 올려 적지는 않는다.** #hypothesis
+- **한 자리에서 본문과 의사코드의 수치가 어긋난다** — 본문이 적정 크기를 **평균에서 표준편차
+  하나에서 둘 사이**로 적는데(5장, p.85) 표준편차 적합도 함수의 의사코드는 경보 임계를 **셋**으로
+  둔다 (5장, p.89).[^ford2021-hard-parts] 적정 범위와 경보 임계가 같을 필요는 없으나 **어느 쪽
+  수치의 근거도 본문에 없다.** 상세는
+  [컴포넌트를 식별하고 크기를 맞추기](identify-and-size-components.md)에 있다.
+
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **이 페이지가 이 KB에 이미 있던 두 전언의 원전이다.**
@@ -786,6 +834,8 @@ p.153).[^ford2022-evolutionary]
   네이티브 기능을 갈아 끼우는 자리
 - [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 이 기제를 거버넌스로
   돌리는 일과 그 층위들
+- [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md) — 패턴마다 이 기제를
+  하나씩 다는 절차
 - [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 코드 수준에서 무엇을
   수로 재는가
 - [점진적 변경과 배포 파이프라인](incremental-change-and-deployment-pipelines.md) — 이 함수들이
@@ -815,6 +865,13 @@ p.153).[^ford2022-evolutionary]
     Manifesto* · 에퀴팩스 사건 · JDepend · SonarQube · ArchUnit · NetArchTest)은 **이 KB가
     확인한 원전이 아니다** — 귀속은 이 책이 그렇게 귀속한다까지로 둔다. 굵은 글씨는 원문 문장의
     한국어 재서술이고 괄호 안이 그 쪽이다.
+    **5장 "Component-Based Decomposition Patterns"의 §"Fitness Functions for
+    Governance" 셋(pp.87–89 · pp.95–97 · p.107)과 장 도입부(p.83)가 합류했다.** 그 절들에
+    직인용을 두지 않았다 — 옮긴 것이 함수의 이름과 하는 일과 분류이고, 함수 이름은 원문이
+    소제목으로 인쇄한 영어 문장 그대로다. **의사코드 예제 여섯(5-1~5-6)은 펜스로 옮기지
+    않았다** — 실행되는 코드가 아니라 저자들이 만든 의사 언어이고, 이 개념의 대표 펜스는 위
+    §"실물 하나 — 컴포넌트 순환"의 것 하나로 유지한다(SCHEMA.md §3). 위 여섯 함수 표는 원문
+    표가 아니라 **세 절의 소제목과 본문을 이 KB가 표로 모은 것**이고 그 사실을 표 앞에 적었다.
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 2장 "Fitness Functions" —
     도입(p.13) · §"What Is a Fitness Function?"(pp.14–18) · §"Categories"(pp.18–25, 하위
