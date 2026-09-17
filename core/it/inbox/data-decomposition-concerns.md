@@ -116,6 +116,12 @@ sources:
 - **절의 맺음이 기대치를 낮춘다** — 데이터 무결성 때와 마찬가지로, **아주 좋은 이유로
   데이터베이스를 쪼갬으로써 새로운 문제 집합을 만나게 된다는 사실을 받아들여야 한다** (3장,
   p.85).[^newman2021]
+- **셋째 소스가 이 항목의 청구서를 받아 답으로 바꾼다.** [ford2021-hard-parts](../sources/ford2021-hard-parts.md)
+  9장이 **서비스를 가로지르는 업무 요청은 ACID가 아니라 BASE를 지지한다**고 규정하고 (9장,
+  pp.266–267),[^ford2021-hard-parts] 그 잃음을 되메우는 선택지를 최종 일관성 패턴 셋으로 세운다 —
+  배경 동기화·오케스트레이션 요청 기반·이벤트 기반이다 (9장, p.267).[^ford2021-hard-parts]
+  **이 청구서가 "무엇을 잃는가"라면 그쪽은 "잃은 뒤에 무엇을 고르는가"다.** 전문은
+  [최종 일관성 패턴 셋](eventual-consistency-patterns.md)에 있다.
 
 ## 도구 — 상태를 가진 것에는 리팩터링 도구가 없다
 
@@ -443,3 +449,7 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
     [데이터 분해의 구동 요인](data-decomposition-drivers.md)이, 다섯 단계의 전문은
     [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md)가 갖는다. 이 절에는
     직인용도 도판 재현도 코드 목록도 없다. 위 대응표는 원문에 없고 **이 KB가 맞댄 것**이다.
+    **9장 "Data Ownership and Distributed Transactions"(pp.266–267)에서 온 것은 트랜잭션 항의
+    마지막 불릿 하나뿐이다** — BASE 세 글자의 규정은 [트랜잭션과 ACID](acid-transactions.md)가,
+    세 패턴의 전문과 절충표 셋은 [최종 일관성 패턴 셋](eventual-consistency-patterns.md)이
+    갖는다. 그 불릿에 직인용을 두지 않았다.

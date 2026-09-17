@@ -349,6 +349,13 @@ sources:
   - 그 자리를 대신하려는 장치는 [사가 패턴](saga-pattern.md)과
     [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md)에 있고, 트랜잭션 경계 자체의 원전은
     [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md)다.
+  - **같은 책 9장이 그 조문을 데이터 소유권 쪽에서 되풀이한다** — 여러 서비스가 같은 테이블에
+    쓰는 공동 소유권을 푸는 네 기법 가운데 **서비스 통합 기법(service consolidation
+    technique)**이 바로 이 통합 요인의 조작이고, 그 기법의 절충표(표 9-4)에서 **원자적 트랜잭션을
+    보존한다는 것이 이점 칸의 첫 줄**이다 (9장, pp.261–262).[^ford2021-hard-parts] 다만 그쪽은
+    "합쳐야 한다"가 아니라 네 선택지 중 하나로 놓고 굵어짐의 값(더 굵은 확장성·낮은 내결함성·
+    배포 위험·테스트 범위)을 함께 적는다. 전문은
+    [서비스의 데이터 소유권](service-data-ownership.md)에 있다.
 
 ## 워크플로와 코레오그래피
 
@@ -794,6 +801,8 @@ sources:
 - [DRY 원칙](dry-principle.md) — 공유 코드 통합 요인이 걸리는 축
 - [코드 재사용 패턴 넷](code-reuse-patterns.md) — 이 장이 "재사용 패턴의 상세"라며 넘기는
   다음 장의 전문
+- [서비스의 데이터 소유권](service-data-ownership.md) — 첫째 통합 요인의 조작을 네 기법 중
+  하나로 다시 세우는 자리
 - [공통 도메인 컴포넌트 모으기](gather-common-domain-components.md) — 같은 책이 쪼개기 전에 반대
   방향으로 움직이는 자리
 - [신뢰성과 내결함성](reliability-and-fault-tolerance.md) — 이 장이 세 번째로 규정하는 낱말
@@ -849,6 +858,10 @@ sources:
     확인한 원전이 아니다** — 귀속은 이 책이 그렇게 귀속한다까지로 둔다. 저자들이 뒤 장으로
     넘기는 것들(8장 재사용 패턴 · 11장 오케스트레이션 · pp.263·324의 분산 트랜잭션과 사가)은
     예고라 옮기지 않았다. 굵은 글씨는 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
+    **9장 §"Service Consolidation Technique"(pp.261–262)에서 온 것은 위 §"데이터베이스 트랜잭션"의
+    자식 불릿 하나뿐이다** — 그 기법의 규정과 절충표(표 9-4)는
+    [서비스의 데이터 소유권](service-data-ownership.md)이 갖고, 이 페이지는 통합 요인과의 대응만
+    적는다. 그 절에 직인용도 코드 목록도 두지 않았다.
 
 [^newman2021]: Newman 2021, 2장 "How to Model Microservices" §Volatility(pp.62–63)와
     5장 "Implementing Microservice Communication" §"DRY and the Perils of Code Reuse in a

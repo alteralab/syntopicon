@@ -501,6 +501,13 @@ sources:
 - **그리고 사가가 더 주는 것** — 업무 프로세스를 사가로 명시적으로 모형화하면 분산 트랜잭션의
   어려움 다수를 피하면서, 덤으로 **체계의 핵심 업무 프로세스를 일급 개념으로 만드는** 이득이
   따라온다 (6장, p.196).[^newman2021]
+- **셋째 소스가 같은 조율을 정합성 패턴의 이름으로 부른다** —
+  [ford2021-hard-parts](../sources/ford2021-hard-parts.md) 9장의 **오케스트레이션 요청 기반
+  패턴(orchestrated request-based pattern)**이 최종 일관성 패턴 셋 가운데 하나로 놓이고,
+  오류가 났을 때 **오케스트레이터에게 남는 유일한 실질적 선택지가 보상 갱신**이라고 적는다
+  (9장, p.275).[^ford2021-hard-parts] 보상 트랜잭션과 트랜잭셔널 사가의 상세는 그 책이 12장으로
+  넘긴다. 셋의 전문과 절충표 셋은
+  [최종 일관성 패턴 셋](eventual-consistency-patterns.md)에 있다.
 
 ## 두 소스가 사가라는 낱말을 다른 대상에 쓴다
 
@@ -682,6 +689,11 @@ sources:
     여기에는 여덟 이름과 조율 축의 두 규정만 들었고 **표 2-1 전체와 그 직인용 대조는
     [아키텍처 퀀텀](../concepts/architectural-quantum.md)이 보관한다.** 패턴 이름은 원문
     표기 그대로 인라인 코드로 옮겼다.
+    **9장 "Data Ownership and Distributed Transactions" §"Orchestrated Request-Based
+    Pattern"(pp.272–277)에서 온 것은 위 §"사가와 분산 트랜잭션"의 마지막 불릿 하나뿐이다** —
+    그 패턴의 규정과 오류 선택지 넷과 절충표(표 9-6)는
+    [최종 일관성 패턴 셋](eventual-consistency-patterns.md)이 갖는다. 그 불릿에 직인용을 두지
+    않았고, 그 장은 보상 트랜잭션과 트랜잭셔널 사가의 상세를 12장으로 넘긴다(이 시점에 미반입).
 
 [^khononov2021]: Khononov 2021, 9장 "Communication Patterns" §"Integrating Aggregates" 중
     §Saga(pp.147–150, 곁 절 §Consistency p.150). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

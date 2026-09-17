@@ -76,6 +76,10 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   여럿으로 쪼갤 때 트랜잭션의 안전이 사라지는 자리와 그 밖에 함께 깨지는 것들
 - [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md) — 그 상실을 쪼갤지 말지의
   저울에 올리는 자리. 데이터베이스 트랜잭션이 데이터를 붙여 둘 근거 둘 가운데 하나로 놓인다
+- [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md) — 원자적 커밋 프로토콜
+  없이 서비스 여럿에 걸친 업무 요청을 되맞추는 세 가지와 각각의 절충표
+- [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 그 되맞춤의 대상이 되는
+  테이블에 주인을 붙이는 규칙과 여럿이 쓰는 테이블을 푸는 네 기법
 
 ## 이웃 축
 

@@ -145,6 +145,12 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 - [모델 번역](../concepts/model-translation.md) — *Message Translator*가 데이터 형식의 차이를
   흡수한다면 이쪽은 **경계 컨텍스트의 모델**을 번역한다. 형식이 같아도 남는 층이고, 여러
   메시지를 합치는 대목에서 *Aggregator*와 *Content Enricher*를 가리킨다
+- [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md) — 서비스를 가로지르는
+  업무 요청이 남긴 데이터 어긋남을 되맞추는 세 가지를 아키텍처 쪽에서 세운 자리. 셋 가운데
+  이벤트 기반 패턴이 이 카탈로그의 *Publish-Subscribe Channel* 위에 그대로 서고, 전달 보증을
+  *Durable Subscriber*로, 반복 실패를 *Dead Letter Channel*로 받는다. 원전 쪽 서술은
+  [메시징 채널 패턴](../concepts/messaging-channel-patterns.md)과
+  [메시지 구성 패턴](../concepts/message-construction-patterns.md)에 있다
 
 ## 각주 없이 이웃한 페이지
 

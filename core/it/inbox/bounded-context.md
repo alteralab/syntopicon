@@ -893,10 +893,18 @@ p.135):[^ford2021-hard-parts]
     [팀 하나에 컨텍스트 하나](#팀-하나에-컨텍스트-하나)의 규칙과 어긋나 보이는 자리이고, 대질은
     [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)
     §"데이터 도메인은 경계 컨텍스트인가"에 있다.
+- **같은 책 9장이 그 소유 규칙을 테이블 단위로 내린다** — **쓰기 연산을 수행하는 서비스가 그
+  테이블의 주인**이고, 도판에서 테이블을 소유 서비스의 상자 안에 그리는 조판이 **서비스와 그
+  데이터 사이에 맺어진 경계 컨텍스트를 나타내는 효과적인 방법**이라고 적는다 (9장,
+  pp.250–251).[^ford2021-hard-parts] **여럿이 쓰는 테이블은 이 경계를 어떻게 그을지가 문제가
+  되고**, 그 네 기법과 절충표 넷은 [서비스의 데이터 소유권](../concepts/service-data-ownership.md)에
+  있다.
 
 ## 이어지는 페이지
 
 - [서비스 결합의 네 종류](service-coupling-types.md) — 이 경계를 가로지르는 결합의 목록
+- [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 이 경계 안에 어느 테이블을
+  넣을지를 쓰기 연산으로 판정하는 자리
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 이 경계를
   서비스 경계로 삼을 때의 어림법
 - [컨텍스트 지도](context-map.md) — 경계들과 그 사이 관계를 전체로 보는 자리
@@ -1023,3 +1031,6 @@ p.135):[^ford2021-hard-parts]
     [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)과
     [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)가 갖는다.
     이 절에는 도판 재현도 표도 코드 목록도 없다.
+    **9장 "Data Ownership and Distributed Transactions" §"Assigning Data Ownership"(pp.250–251)에서
+    온 것은 위 절의 마지막 불릿 하나뿐이다** — 소유권 규칙의 직인용과 세 시나리오와 네 기법의
+    전문은 [서비스의 데이터 소유권](../concepts/service-data-ownership.md)이 갖는다.
