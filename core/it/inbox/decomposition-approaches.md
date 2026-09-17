@@ -203,6 +203,9 @@ sources:
     이 자리에서 서로를 호명하지 않는다.** #hypothesis
 - 서비스 기반 아키텍처의 상세는 앞 책 *Fundamentals of Software Architecture*로 넘어간다
   (4장, p.72).[^ford2021-hard-parts] 그 책은 이 KB에 없다.
+  - **다만 같은 책 2장의 곁상자가 그 양식을 규정하고, 5장의 마지막 패턴이 그것을 실제로 만들어
+    낸다.** 그 규정과 기본 토폴로지는
+    [도메인 서비스 만들기](create-domain-services.md)에 있다.
 
 ## 전술적 포크
 
@@ -352,6 +355,9 @@ sources:
 
 - [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md) — 이 페이지가 고른
   접근의 실제 내용. 다음 장이 패턴 하나씩으로 푼다
+- [컴포넌트 의존 판정](determine-component-dependencies.md) — 이 페이지의 가부 판정을 컴포넌트
+  사이의 의존으로 다시 묻는 자리
+- [도메인 서비스 만들기](create-domain-services.md) — 위 디딤돌이 실제로 만들어지는 자리
 - [아키텍처 모듈성의 구동 요인](modularity-drivers.md) — 같은 책의 앞 장. 쪼개는 *왜*
 - [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 이 장이 가부 판정에
   쓰는 지표의 공식과 두 판 대조

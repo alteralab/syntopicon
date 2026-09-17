@@ -780,7 +780,7 @@ p.153).[^ford2022-evolutionary]
 - **구현 수단을 저자들이 열어 둔다** — 직접 짠 코드로도, CI/CD 파이프라인의 일부로 쓰는 **오픈
   소스나 상용 기성품(COTS) 도구**로도 구현할 수 있다 (5장, p.87).[^ford2021-hard-parts]
   - 버전 조건: 2021년 저술 시점. 저자들이 도구를 지목하지 않는다.
-- **앞 세 패턴에 딸린 여섯을 이름과 하는 일로 적는다.**
+- **여섯 패턴에 딸린 열을 이름과 하는 일로 적는다.**
 
 | 패턴 | 적합도 함수 | 무엇을 잡는가 | 쪽 |
 |---|---|---|---|
@@ -790,16 +790,29 @@ p.153).[^ford2022-evolutionary]
 | Gather Common Domain Components | Find common names in leaf nodes of component namespace | 둘 이상의 컴포넌트에서 끝 노드 이름이 같은 것 | 95 |
 | Gather Common Domain Components | Find common code across components | 둘 이상의 컴포넌트에 나타나는 같은 소스 파일 | 96 |
 | Flatten Components | No source code should reside in a root namespace | 루트 네임스페이스에 남은 고아 클래스 | 107 |
+| Determine Component Dependencies | No component shall have more than `<some number>` of total dependencies | 총 결합(들어오는 것과 나가는 것)이 임계를 넘는 컴포넌트 | 117 |
+| Determine Component Dependencies | `<some component>` should not have a dependency on `<another component>` | 이름으로 지목해 금지한 컴포넌트 사이의 의존 | 118 |
+| Create Component Domains | All namespaces under `<root namespace node>` should be restricted to `<list of domains>` | 승인된 도메인 목록 밖에 생긴 네임스페이스나 디렉터리 | 122 |
+| Create Domain Services | All components in `<some domain service>` should start with the same namespace | 도메인 서비스 안에서 접두가 어긋난 컴포넌트 | 129 |
 
-- **여섯 가운데 넷이 경보만 내고 판정은 사람에게 넘긴다.** 저자들이 그 배분을 두 자리에서 명시한다
-  — 공통 도메인 기능의 거버넌스는 **무엇이 도메인 기능이고 무엇이 인프라 기능인지 분류하는 일이
-  주관적**이라 자동화가 **수동 해석을 돕는** 데 그치고 (5장, p.95), 평탄화도 **상당한 주관성**이
+- **열 가운데 넷이 경보만 내고 판정은 사람에게 넘긴다** — 앞 세 패턴의 여섯 중 넷이 그렇다.
+  저자들이 그 배분을 두 자리에서 명시한다 — 공통 도메인 기능의 거버넌스는 **무엇이 도메인
+  기능이고 무엇이 인프라 기능인지 분류하는 일이 주관적**이라 자동화가 **수동 해석을 돕는** 데 그치고 (5장, p.95), 평탄화도 **상당한 주관성**이
   들어 방향 선택은 기계가 못 한다 (5장, p.107).[^ford2021-hard-parts]
   - **그 귀결이 제외 목록이다** — 공통 이름 함수와 공통 코드 함수 둘 다 **제외 파일(exclusion
     file)**을 두어 사람이 기각한 후보를 쌓는다 (5장, pp.95–96).[^ford2021-hard-parts]
   - **이 KB의 다른 적합도 함수 서술에는 없는 설계다.** 위 §"구현이 아니라 결과"가 적는 것은 함수가
     무엇을 반환하는가이고, 여기서는 **거짓 양성을 사람이 눌러 두는 상태 저장소**가 함수의 일부로
     들어간다. **저자들이 이것을 일반 설계로 올려 적지는 않는다.** #hypothesis
+- **뒤 세 패턴의 함수 넷은 규칙의 꼴이 앞과 다르다.** 앞 여섯이 **목록을 만들거나 이상치를
+  찾아 사람에게 보이는** 쪽이었다면, 뒤의 넷은 **위반이 곧 실패인 제약**이다 — 임계 초과 ·
+  지목한 의존 금지 · 승인 목록 밖의 도메인 · 접두 불일치 (5장,
+  pp.117·118·122·129).[^ford2021-hard-parts]
+  - **그리고 규칙이 코드베이스를 덮는 방식이 둘로 갈린다** — **하나로 전체를 덮는 것**(총 의존
+    임계 · 도메인 허용 목록)과 **대상마다 하나씩 늘어나는 것**(의존 금지는 제한 하나에 함수
+    하나, 네임스페이스 일관성은 도메인 서비스마다 함수 하나)이다. 저자들이 뒤쪽 둘에 대해서는
+    그 개수 규칙을 명시한다 (5장, pp.118·129).[^ford2021-hard-parts] **앞쪽을 묶어 대비로
+    적지는 않는다.** #hypothesis
 - **한 자리에서 본문과 의사코드의 수치가 어긋난다** — 본문이 적정 크기를 **평균에서 표준편차
   하나에서 둘 사이**로 적는데(5장, p.85) 표준편차 적합도 함수의 의사코드는 경보 임계를 **셋**으로
   둔다 (5장, p.89).[^ford2021-hard-parts] 적정 범위와 경보 임계가 같을 필요는 없으나 **어느 쪽
@@ -836,6 +849,10 @@ p.153).[^ford2022-evolutionary]
   돌리는 일과 그 층위들
 - [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md) — 패턴마다 이 기제를
   하나씩 다는 절차
+- [컴포넌트 의존 판정](determine-component-dependencies.md) — 위 표의 의존 임계와 의존 금지가
+  사는 자리
+- [컴포넌트 도메인 만들기](create-component-domains.md) — 도메인 허용 목록이 사는 자리
+- [도메인 서비스 만들기](create-domain-services.md) — 네임스페이스 일관성 규칙이 사는 자리
 - [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 코드 수준에서 무엇을
   수로 재는가
 - [점진적 변경과 배포 파이프라인](incremental-change-and-deployment-pipelines.md) — 이 함수들이

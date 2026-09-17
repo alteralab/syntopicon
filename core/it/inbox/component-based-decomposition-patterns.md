@@ -146,6 +146,10 @@ sources:
 - [컴포넌트를 식별하고 크기를 맞추기](identify-and-size-components.md) — 첫째 패턴
 - [공통 도메인 컴포넌트 모으기](gather-common-domain-components.md) — 둘째 패턴
 - [컴포넌트 평탄화](flatten-components.md) — 셋째 패턴
+- [컴포넌트 의존 판정](determine-component-dependencies.md) — 넷째 패턴
+- [컴포넌트 도메인 만들기](create-component-domains.md) — 다섯째 패턴
+- [도메인 서비스 만들기](create-domain-services.md) — 여섯째 패턴이자 배포 산출물이 실제로
+  갈라지는 자리
 - [분해 접근 둘](decomposition-approaches.md) — 이 패턴들을 고르기까지의 판정
 - [아키텍처 모듈성의 구동 요인](modularity-drivers.md) — 아키텍처 스토리가 만족시켜야 할 구동 요인
 - [아키텍처 적합도 함수](architecture-fitness-functions.md) — 패턴마다 딸리는 둘째 절의 어휘

@@ -2,7 +2,7 @@
 type: concept
 title: 컴포넌트 평탄화
 status: draft
-description: 네임스페이스가 서로 얹혀 컴포넌트의 경계가 흐려졌을 때 무엇을 옮기는가를 정하는 셋째 분해 패턴 — 컴포넌트 위에 컴포넌트가 얹히면 서비스를 만들 때 무엇을 한 서비스로 볼지 답이 갈린다는 문제 제기, 그 딜레마를 컴포넌트를 네임스페이스의 리프 노드로 규정해 푸는 해법과 거기서 파생되는 루트 네임스페이스와 고아 클래스라는 두 이름, 도판을 아래에서 위로 그려 언덕을 보이는 조판 의도, 내려서 합치거나 올려서 가르는 두 방향과 소스 코드는 리프 노드에만 두라는 조문, 공유 코드도 고아 클래스라는 판정과 그것을 옮길 컴포넌트의 이름을 도메인에 없는 낱말로 고르라는 조언과 거기서 나오는 지표 둘, 루트 네임스페이스의 코드를 잡는 적합도 함수 하나, 그리고 책의 사례가 티켓은 올려서 가르고 설문은 내려서 합치는 두 방향을 한 번에 보이는 자리
+description: 네임스페이스가 서로 얹혀 컴포넌트의 경계가 흐려졌을 때 무엇을 옮기는가를 정하는 셋째 분해 패턴 — 컴포넌트 위에 컴포넌트가 얹히면 서비스를 만들 때 무엇을 한 서비스로 볼지 답이 갈린다는 문제 제기, 그 딜레마를 컴포넌트를 네임스페이스의 리프 노드로 규정해 푸는 해법과 거기서 파생되는 루트 네임스페이스와 고아 클래스라는 두 이름, 도판을 아래에서 위로 그려 언덕을 보이는 조판 의도, 내려서 합치거나 올려서 가르는 두 방향과 소스 코드는 리프 노드에만 두라는 조문, 공유 코드도 고아 클래스라는 판정과 그것을 옮길 컴포넌트의 이름을 도메인에 없는 낱말로 고르라는 조언과 거기서 나오는 지표 둘, 루트 네임스페이스의 코드를 잡는 적합도 함수 하나, 책의 사례가 티켓은 올려서 가르고 설문은 내려서 합치는 두 방향을 한 번에 보이는 자리, 그리고 패턴 셋을 다 적용한 뒤의 컴포넌트 스무 개 목록
 generated: { by: "claude-opus-5", at: "2026-09-17T23:45:00Z" }
 sources:
   - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
@@ -19,6 +19,7 @@ sources:
 - [공유 네임스페이스의 이름과 거기서 나오는 지표 둘](#공유-네임스페이스의-이름과-거기서-나오는-지표-둘)
 - [거버넌스 — 적합도 함수 하나](#거버넌스--적합도-함수-하나)
 - [책의 사례 — 평탄화](#책의-사례--평탄화)
+- [평탄화 뒤의 컴포넌트 목록](#평탄화-뒤의-컴포넌트-목록)
 - [같은 대상을 개념의 응집으로 가르는 소스와 나란히](#같은-대상을-개념의-응집으로-가르는-소스와-나란히)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -220,6 +221,45 @@ sources:
     근거를 댄다 — **변경 빈도와 복잡도**다. **저자들이 그 둘을 방향 선택의 기준으로 일반화해
     적지는 않는다.** #hypothesis
 
+## 평탄화 뒤의 컴포넌트 목록
+
+**패턴 셋을 다 적용한 결과가 표 하나로 정리된다. 이 목록이 넷째 패턴부터의 입력이다** (5장,
+p.111, 표 5-12).[^ford2021-hard-parts]
+
+| Component | Namespace |
+|---|---|
+| Login | `ss.login` |
+| Billing Payment | `ss.billing.payment` |
+| Billing History | `ss.billing.history` |
+| Customer Profile | `ss.customer.profile` |
+| Expert Profile | `ss.expert.profile` |
+| KB Maint | `ss.kb.maintenance` |
+| KB Search | `ss.kb.search` |
+| Notification | `ss.notification` |
+| Reporting Shared | `ss.reporting.shared` |
+| Ticket Reports | `ss.reporting.tickets` |
+| Expert Reports | `ss.reporting.experts` |
+| Financial Reports | `ss.reporting.financial` |
+| **Ticket Shared** | `ss.ticket.shared` |
+| **Ticket Maintenance** | `ss.ticket.maintenance` |
+| **Ticket Completion** | `ss.ticket.completion` |
+| **Ticket Assign** | `ss.ticket.assign` |
+| **Ticket Route** | `ss.ticket.route` |
+| Support Contract | `ss.supportcontract` |
+| **Survey** | `ss.survey` |
+| User Maintenance | `ss.users` |
+
+- **굵은 글씨는 원문의 조판이다** — 이 패턴이 건드린 여섯 행을 원문이 굵게 찍어 표시한다. 티켓
+  다섯은 올려서 갈린 결과이고 설문 하나는 내려서 합친 결과다. 위
+  [책의 사례 — 평탄화](#책의-사례--평탄화)가 그 판정 근거를 갖는다.
+- **개수가 열여덟에서 스물로 늘었다** — 1장이 소개한 원래 컴포넌트 목록과 견주면 그렇다. 목록의
+  원본은 [Sysops Squad 사례](sysops-squad-case.md) §"컴포넌트 열여덟"에 있다. **저자들이 그
+  증감을 세어 적지는 않는다.** #hypothesis
+- **이 목록에는 아직 도메인이 없다.** 네임스페이스 접두가 제각각이고(`ss.billing` ·
+  `ss.customer` · `ss.kb` · `ss.survey` · `ss.supportcontract` · `ss.users`) 그것을 도메인에
+  맞추어 다시 짓는 일이 다섯째 패턴의 몫이다 —
+  [컴포넌트 도메인 만들기](create-component-domains.md).
+
 ## 같은 대상을 개념의 응집으로 가르는 소스와 나란히
 
 **이 KB에는 같은 대상(자바 패키지·네임스페이스)을 다른 기준으로 가르는 소스가 있다. 부딪히는지
@@ -250,6 +290,10 @@ sources:
 - [공통 도메인 컴포넌트 모으기](gather-common-domain-components.md) — 이 패턴 앞에 오는 둘째
 - [컴포넌트를 식별하고 크기를 맞추기](identify-and-size-components.md) — 서브도메인이라는 이름이
   처음 나오는 첫째
+- [컴포넌트 의존 판정](determine-component-dependencies.md) — 이 패턴 뒤에 오는 넷째. 위 결과
+  목록을 입력으로 받는다
+- [컴포넌트 도메인 만들기](create-component-domains.md) — 위 목록의 네임스페이스를 도메인에
+  맞추어 다시 짓는 다섯째
 - [도메인의 모듈](modules-in-the-domain.md) — 같은 대상을 개념의 응집으로 가르는 축
 - [아키텍처 적합도 함수](architecture-fitness-functions.md) — 위 적합도 함수의 분류 어휘
 - [Sysops Squad 사례](sysops-squad-case.md) — 위 사례가 대입되는 체계
@@ -278,8 +322,11 @@ sources:
     5-7 내려서 합치기 · 5-8 올려서 가르기 · 5-9 루트의 공유 코드 · 5-10 공유 코드의 컴포넌트화 ·
     5-11 고아 클래스를 가진 두 컴포넌트 · 5-12 평탄화 결과)은 `pdftoppm`으로 렌더해 눈으로
     읽었고, 도판 자체는 재현하지 않고 본문이 그 도판에 대해 적는 것과 그림 5-6의 배치만
-    옮겼다. 인쇄판 p.110은 다음 절로 넘어가는 표 5-12를 예고하며 끝난다 — 그 표는 이 절
-    바깥이라 옮기지 않았다. 굵은 글씨는 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
+    옮겼다. 인쇄판 p.110은 다음 절로 넘어가는 표 5-12를 예고하며 끝나고 그 표는
+    p.111 첫머리에 있다 — 이 패턴의 결과 목록이므로 이 페이지가 갖는다. **표 5-12도
+    `pdftoppm -r 160 -png`로 렌더해 눈으로 대조한 뒤 원문 열 머리글과 셀 값을 영어 그대로
+    옮겼고, 원문이 여섯 행을 굵게 찍은 조판도 그대로 남겼다** — 네임스페이스는 이 KB의
+    조판 규약에 따라 인라인 코드로 감쌌고 값 자체는 고치지 않았다. 굵은 글씨는 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
 
 [^evans2003]: Evans 2003, 5장 §MODULES (A.K.A. PACKAGES)(pp.109–116). 이 페이지는 그 기준을
     대질에만 쓴다 — 전문과 직인용은 [도메인의 모듈](modules-in-the-domain.md)이 갖는다.
