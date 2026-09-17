@@ -352,7 +352,7 @@ pp.154–161).[^ford2022-evolutionary]
   - **복제하기** — 공유 라이브러리를 복제해 결합 지점 자체를 없앤다. **분산 환경에서는 메시징이나
     서비스 호출로 같은 종류의 공유를 이룰 수도 있다** (7장, p.161).[^ford2022-evolutionary]
   - **어느 쪽을 고를지의 판정을 저자들이 지표에 맡긴다** — 응집을 재는 LCOM이 그것이고, 그
-    전문은 [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md#lcom--응집의-결핍을-재는-지표)에
+    전문은 [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)에
     있다.
   - **이 선택지 둘이 이 KB의 DRY 판정과 같은 자리에 선다** — 중복을 경계 너머로 허용하는
     조항이 [DRY 원칙](dry-principle.md)에 있다.

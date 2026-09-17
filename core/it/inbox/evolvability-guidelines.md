@@ -150,7 +150,7 @@ sources:
   안에 짓는다.** 프로젝트가 변경을 쉽게 흡수할 수 있으면 **아키텍트에게 수정 구슬이 필요 없다.**
   아키텍처는 오로지 선행 활동이 아니다 — 프로젝트는 수명 내내 명시적으로도 뜻밖으로도 계속
   바뀐다 (7장, p.165).[^ford2022-evolutionary]
-  - 동적 평형의 전문은 [진화적 아키텍처](evolutionary-architecture.md#문제--왜-아키텍처가-썩는가)에 있다.
+  - 동적 평형의 전문은 [진화적 아키텍처](evolutionary-architecture.md)에 있다.
 - **그리고 이 절이 다음 절로 넘긴다** — 개발자가 변경으로부터 스스로를 격리하는 데 흔히 쓰는
   안전장치 하나가 **부패 방지 계층(anticorruption layer)**이다 (7장,
   p.165).[^ford2022-evolutionary]
@@ -313,7 +313,7 @@ sources:
     의존 사이의 흔히 중요하지 않은 구분이 유용하게 흐려진다 — **결국 전부 프로젝트 안의
     코드다.**
   - 파이프라인 쪽 전문은
-    [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md#서드파티-의존도-자기-파이프라인을-갖는다)에 있다.
+    [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있다.
 
 ### 책의 사례 — 열한 줄짜리 모듈이 사라진 날
 

@@ -356,7 +356,7 @@ sources:
     p.134).[^ford2022-evolutionary]
     - **그 낱말의 일반형은 7장에 있다** — **일보다 메타워크가 재미있다**는 관찰이고, 전문과
       그 함정의 두 나타남은
-      [진화적 아키텍트의 역할](evolutionary-architect-role.md#같은-소스의-7장--일보다-메타워크가-재미있다는-함정)에
+      [진화적 아키텍트의 역할](evolutionary-architect-role.md)에
       있다 (7장, pp.154–155).[^ford2022-evolutionary]
 - **이 절이 2PC 프로토콜을 설명하지는 않는다.** 절 제목이 그 이름을 쓰지만 본문이 다루는 것은
   결합이고, 서비스를 가로지르는 트랜잭션의 전문은 저자들이 *Software Architecture: The Hard

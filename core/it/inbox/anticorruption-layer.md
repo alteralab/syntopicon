@@ -366,16 +366,16 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
   현대 언어와 IDE가 **인터페이스 추출을 적시에** 해 주므로 **적시 부패 방지 계층(Just In Time
   anticorruption layer)**을 지으라는 것이다 (7장, p.167).[^ford2022-evolutionary] 그 조문과
   사례(메시지 큐를 3년에 걸쳐 두 번 갈아 끼운 이야기)는
-  [진화 가능성을 위한 지침](evolvability-guidelines.md#④-부패-방지-계층을-지어라)에 있다.
+  [진화 가능성을 위한 지침](evolvability-guidelines.md)에 있다.
 - **같은 장이 이 장치를 두 번 더 쓴다** (7장, pp.153·161):[^ford2022-evolutionary]
   - **상용 기성품(COTS)** — 자동화와 시험이 업계 표준에 못 미치는 패키지 소프트웨어를 상대할 때
     **통합 지점 사이에 논리적 장벽을 세우고 체계 전체를 블랙박스로 다루라**는 처방이다. 저자들이
     그 자리에서 이 계층의 이름을 쓰지는 않지만 **같은 모양의 장치**다. 전문은
-    [아키텍처 적합도 함수](architecture-fitness-functions.md#7장--상용-기성품은-이-기제를-가장-어렵게-만든다)에
+    [아키텍처 적합도 함수](architecture-fitness-functions.md)에
     있다.
   - **UI 분리** — 모놀리스를 서비스로 옮기면서 UI를 떼고 매핑 프록시 층을 두면 **그 분리가 부패
     방지 계층도 함께 만들어 UI 변경을 아키텍처 변경에서 격리한다.** 전문은
-    [모놀리스 분해 패턴](monolith-decomposition-patterns.md#ui-분리와-서비스-발견)에 있다.
+    [모놀리스 분해 패턴](monolith-decomposition-patterns.md)에 있다.
 - **다음 장이 넷째 쓰임을 더한다 — 벤더 제품 격리.** 8장이 **벤더 제품을 중심에 놓아 조직을
   도구에 병적으로 결합시키는 아키텍처**를 **벤더 왕(Vendor King) 안티패턴**으로 세우고, 탈출로를
   두 걸음으로 적는다 — **모든 소프트웨어를 처음부터 그저 또 하나의 통합 지점으로 가정하고**,
@@ -387,7 +387,7 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
     차별점이 줄어든다 (8장, p.180).[^ford2022-evolutionary] **번역할 두 모델이 없다는 점은 위
     서드파티 격리와 같고**, 그래서 아래 표의 판정이 이 쓰임에도 그대로 적용된다.
   - 전문과 이 안티패턴의 나머지(마지막 10% 덫과의 관계, "일하기를 멈추고 성공이라 부르자" 원칙)는
-    [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md#②-벤더-왕-안티패턴)에
+    [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)에
     있다.
 - **이 적용이 원전보다 넓다 — 그러나 벗어나지는 않는다.**
 

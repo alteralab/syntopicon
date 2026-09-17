@@ -595,7 +595,7 @@ Enterprise Fitness Functions", p.216).[^ford2022-evolutionary]
   파이프라인에 **아키텍처 특성의 검사**를 실었다면, 이 절은 **우리가 쓰지만 우리가 쓰지 않은
   코드**를 같은 파이프라인의 대상으로 만든다.
 - 이 조문이 속한 지침 전체와 그것을 부른 사건은
-  [진화 가능성을 위한 지침](evolvability-guidelines.md#⑥-외부-변경을-완화하라)에 있다.
+  [진화 가능성을 위한 지침](evolvability-guidelines.md)에 있다.
 
 ## 8장 — 주기 시간이 진화 속도의 상한이 된다
 
@@ -630,7 +630,7 @@ of Speed to Release", pp.186–188).[^ford2022-evolutionary] 그 장의 아홉 �
   > Speed of evolution is a function of cycle time; faster cycle time allows faster evolution.
 
   - 저자들이 이 관계를 식으로도 적는데 **인쇄된 식의 방향과 산문의 방향이 어긋난다.** 그 실측은
-    [진화적 아키텍처의 함정과 안티패턴 §소스 안의 어긋남](evolutionary-architecture-antipatterns.md#소스-안의-어긋남--비례인가-반비례인가)에
+    [진화적 아키텍처의 함정과 안티패턴 §소스 안의 어긋남](evolutionary-architecture-antipatterns.md)에
     적었고, 이 페이지는 식을 쓰지 않고 관계의 방향만 산문으로 적는다.
 - **그래서 주기 시간 자체가 파이프라인에 거는 검사가 된다** — 저자들이 **원자적·절차 기반 적합도
   함수의 훌륭한 후보**로 분류한다. 예가 구체적이다 — 자동화로 세 시간을 달성한 파이프라인에
