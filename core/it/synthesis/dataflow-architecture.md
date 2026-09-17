@@ -54,6 +54,7 @@ generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 - [싱크 엔진과 로컬 우선 소프트웨어](../concepts/sync-engines-and-local-first.md) — 쓰기 경로를 기기까지 민 결과
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 분업을 비동기 이벤트로 하되 어느 종류의 이벤트를 경계 밖으로 낼지를 묻는 쪽
 - [소통 구조 셋](../concepts/communication-structures.md) — 같은 데이터플로를 조직의 소통 구조로 세우고, 이벤트 스트림을 그 셋째 층(데이터 소통 구조)에 놓는 쪽
+- [이벤트 설계 - 상태와 델타](../concepts/event-design-state-versus-delta.md) — 이 파생 데이터의 원료로 무엇을 흘려보낼 것인가. 상태 이벤트를 기본값으로 처방하고 변화만 담은 델타는 도메인 경계 안에 가두라는 쪽
 
 ## 이어지는 허브
 
