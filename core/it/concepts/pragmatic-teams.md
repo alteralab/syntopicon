@@ -7,6 +7,7 @@ sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 실용주의 팀
@@ -23,6 +24,7 @@ sources:
 - [이 판의 인용 제약](#이-판의-인용-제약)
 - [다른 원전이 같은 자리에 두는 조문](#다른-원전이-같은-자리에-두는-조문)
 - [같은 처방에 다른 수를 붙이는 소스](#같은-처방에-다른-수를-붙이는-소스)
+- [셋째 소스가 같은 관계에 식 하나를 붙인다 — 그러나 유실분을 복원하지는 않는다](#셋째-소스가-같은-관계에-식-하나를-붙인다--그러나-유실분을-복원하지는-않는다)
 - [이어지는 페이지](#이어지는-페이지)
 
 ## 하나의 질문
@@ -176,7 +178,7 @@ sources:
   탄환 접근으로 당신은 아주 작은 기능 조각을 아주 빠르게 구현하고 팀이 얼마나 잘 소통하고 전달하는지에
   대한 즉각적 피드백을 얻을 수 있다. 그것이 팀과 프로세스를 빠르고 쉽게 바꾸고 조율할 수 있는 환경을
   만든다** (Topic 49).[^thomas2020]
-  [트레이서 탄환과 프로토타입](tracer-bullets-and-prototypes.md)이 그 원래 자리다.
+  [트레이서 탄환과 프로토타입](../concepts/tracer-bullets-and-prototypes.md)이 그 원래 자리다.
 - 조문 (Topic 49):[^thomas2020]
 
 > **Tip 86** Organize Fully Functional Teams
@@ -243,7 +245,7 @@ sources:
 - 같은 목록의 넷째 항은 인재가 어디에 배치되는가를 다룬다 — **아키텍처 팀이 최고 인재를 전부 빨아
   들여서는 안 된다**이고, 그 결과로 **실제로 만드는 자리에 기술적으로 가장 덜 세련된 개발자만
   남는다**는 진단이다 (17장, p.494).[^evans2003] 여섯 항 전체는
-  [전략 설계 결정하기](strategic-decision-making.md)에 있다.
+  [전략 설계 결정하기](../concepts/strategic-decision-making.md)에 있다.
 
 ## 같은 처방에 다른 수를 붙이는 소스
 
@@ -277,6 +279,38 @@ sources:
   그 근거로 던바 수를 든다. 그 서술은
   [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) §"자율에 대하여"에 있다.
 
+## 셋째 소스가 같은 관계에 식 하나를 붙인다 — 그러나 유실분을 복원하지는 않는다
+
+**위 [이 판의 인용 제약](#이-판의-인용-제약)이 적은 빈자리를 [ford2022-evolutionary](../sources/ford2022-evolutionary.md)가
+건드린다. 메우지는 않는다.**
+
+- 그 소스는 큰 개발 팀이 잘 안 돌아간다는 통념에 설명을 붙이며 **문제는 사람 수가 아니라 그들이
+  유지해야 하는 연결의 수**라고 적고, 사람 수가 `n`일 때의 연결 수를 세는 식을 팀 역학 전문가
+  **J. 리처드 해크먼(J. Richard Hackman)**에게 귀속시킨다 (9장 §"Avoid excessively large teams",
+  pp.202–203).[^ford2022-evolutionary]
+
+  ```math
+  \frac{n(n-1)}{2}
+  ```
+
+  - 그 소스가 대는 수는 **14명이면 91개 연결, 50명이면 1,225개**다 (9장,
+    p.203).[^ford2022-evolutionary]
+- **이 식으로 위 각주 75의 유실된 수식을 복원하지 않는다.** 이 Topic의 저자들은 그 식의 출처를
+  대지 않고 포드 외는 다른 사람에게 귀속시키므로, **두 식이 같은 것인지 판정할 근거가 이 KB에
+  없다.** 유실된 자리는 유실된 채로 두고 이 식은 **다른 소스의 것으로만** 적는다 — 표기를
+  보충하면 반입이 아니라 저술이 된다는 위 절의 판단이 그대로 적용된다.
+- **두 소스가 같은 결론에 이른다는 사실은 남는다** — 팀을 작게 유지하라는 처방과 그 근거(소통
+  경로의 폭발)가 포개진다. 이 소스는 그 처방을 **팀 사이의 연결**에도 걸고 통합 지점이 남는
+  경우에는 적합도 함수로 무결성을 지키라는 조건을 덧붙이는데, 그 서술은
+  [팀 규모와 소유권 모형](../concepts/team-ownership-models.md)과
+  [콘웨이의 법칙](../concepts/conways-law.md)에 있다.
+- **완전 기능 팀 쪽도 셋째 소스를 얻는다** — 위
+  [팀 트레이서 탄환 — 완전 기능 팀](#팀-트레이서-탄환--완전-기능-팀)이 게이트와 인계의 낭비로
+  역할 분리를 기각하는데, 포드 외의 **다중 역할 팀(cross-functional team)** 규정이 같은 배치를
+  **운영 마찰을 없애는 일**로 적고 역할 일곱이 각각 어떻게 바뀌어야 하는지까지 나열한다 (9장
+  §"Default to cross-functional teams", pp.197–199).[^ford2022-evolutionary] 그 목록은
+  [팀 규모와 소유권 모형](../concepts/team-ownership-models.md)에 있다.
+
 ## 이어지는 페이지
 
 - [실용주의 스타터 킷](../concepts/pragmatic-starter-kit.md) — 이 Topic이 요구하는 자동화의 세 다리
@@ -287,10 +321,10 @@ sources:
 - [변화의 촉매와 삶은 개구리](../concepts/catalyst-for-change-and-boiled-frog.md) — 팀 층의 삶은 개구리
 - [지식 포트폴리오](../concepts/knowledge-portfolio.md) — 일정에 넣어야 하는 투자
 - [DRY 원칙](../concepts/dry-principle.md) — 팀 층에서 정보 문제가 되는 원칙
-- [트레이서 탄환과 프로토타입](tracer-bullets-and-prototypes.md) — 완전 기능 팀의 검사 도구
+- [트레이서 탄환과 프로토타입](../concepts/tracer-bullets-and-prototypes.md) — 완전 기능 팀의 검사 도구
 - [데이터 메시의 팀 토폴로지](../concepts/data-mesh-team-topologies.md) — 같은 문제를 조직 규모로 다루는 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 같은 물음의 마이크로서비스 조직 판
-- [전략 설계 결정하기](strategic-decision-making.md) — 같은 처방을 다른 논거로 세우는 원전
+- [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 같은 처방을 다른 논거로 세우는 원전
 - [프로젝트 이전](../synthesis/pragmatic-projects-and-postface.md) — 이 축의 허브
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 49 "Pragmatic Teams". 저자들이 관련 절로 지목한 것은
@@ -312,3 +346,12 @@ sources:
     전문은 [팀 규모와 소유권 모형](../concepts/team-ownership-models.md)에 있고 여기에는 수치
     대질에 필요한 것만 옮겼다. 저자가 드는 바깥 서지(Daniel Rodriguez 외 2012)는 이 KB가
     확인한 원전이 아니다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 9장 "Putting Evolutionary
+    Architecture into Practice" §"Organizational Factors" 중 §"Avoid excessively large
+    teams"(pp.202–203)와 §"Default to cross-functional teams"(pp.197–199) 둘. 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 22, 실측). 이 페이지는 그 소스에서 **식 하나와 그 귀속과 수치 둘**만 받았고
+    나머지는 [팀 규모와 소유권 모형](../concepts/team-ownership-models.md)에 있다. **식은 두 텍스트
+    추출 모두에서 괄호가 사라져 `pdftoppm -r 160 -png`로 렌더해 눈으로 대조한 뒤 옮겼다.**
+    저자들이 대는 바깥 서지(J. Richard Hackman)는 **이 KB가 확인한 원전이 아니다** — 귀속은 그
+    책이 그렇게 귀속한다까지로 둔다.

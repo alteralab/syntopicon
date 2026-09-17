@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 커네이선스
-status: draft
 description: 결합을 아홉 갈래로 갈라 부르는 어휘와 그 정의 — 한쪽이 바뀌면 다른 쪽도 바꿔야 전체가 옳게 남는다는 관계라는 규정, 소스 코드 수준에서 갈리는 정적 다섯(이름·타입·의미·위치·알고리즘)과 실행 시점에 갈리는 동적 넷(실행·타이밍·값·정체), 이 갈래들을 실무에서 쓰게 하는 성질 셋(강도·지역성·정도)과 그것을 함께 보라는 단서, 정적을 동적보다 선호하라는 방향과 강도 사다리, 캡슐화 경계를 기준으로 안에서는 최대화하고 밖으로는 최소화하라는 페이지-존스의 세 지침과 바이리히의 두 규칙, 저자들이 직접 잇는 지역성과 경계 컨텍스트의 같음, 그리고 이 어휘가 이 KB의 다른 결합 어휘(변경에 대한 결합도·서비스 결합의 네 종류·구심 원심 결합)와 어떻게 맞물리는가
 generated: { by: "claude-opus-5", at: "2026-09-17T16:00:00Z" }
 sources:
@@ -50,7 +49,7 @@ sources:
 - **이 장 전체에서 이 개념이 맡은 자리**를 알아 두면 읽기가 쉬워진다. 5장의 전제는
   아키텍처 양식 자체에 진화 능력이 들어 있는 것이 아니라 **그 양식이 떠받치는 결합의 성질**이
   진화 능력을 정한다는 것이고, 저자들은 그 결합을 보는 관점 둘을 과거에서 데려온다 —
-  커네이선스와 [경계 컨텍스트](bounded-context.md)다 (5장, p.85).[^ford2022-evolutionary]
+  커네이선스와 [경계 컨텍스트](../concepts/bounded-context.md)다 (5장, p.85).[^ford2022-evolutionary]
 
 ## 왜 결합을 부르는 낱말이 하나 더 필요한가
 
@@ -120,7 +119,7 @@ sources:
   있다.
 - **동적 쪽은 판정이 어렵다고 저자들이 인정한다** — 호출 그래프를 분석하는 만큼 런타임 호출을
   잘 분석할 도구가 없기 때문이다 (5장, p.88).[^ford2022-evolutionary]
-  - 이 인정이 [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)의 도구 지형과
+  - 이 인정이 [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)의 도구 지형과
     맞물린다. 같은 책 4장의 턴키 도구들이 대부분 **정적** 분석이고, 동적 쪽은 모니터를 쓰는
     연속 적합도 함수로 간다.
 
@@ -193,7 +192,7 @@ sources:
 ## 경계 컨텍스트와 같은 것을 말한다
 
 - **저자들이 직접 이 연결을 긋는다.** 커네이선스의 **지역성**에 대한 조언과
-  [경계 컨텍스트](bounded-context.md)에 대한 조언이 같은 것을 말한다는 것이다 — **결합이 더
+  [경계 컨텍스트](../concepts/bounded-context.md)에 대한 조언이 같은 것을 말한다는 것이다 — **결합이 더
   넓은 범위로 퍼지게 두면 아키텍처가 부서지기 쉬워진다(brittle)** (5장 §"Connascence
   Intersection with Bounded Context", p.90).[^ford2022-evolutionary]
   - 저자들이 붙이는 정의 — **부서지기 쉬운 아키텍처란 한 자리의 작은 변경이 다른 곳에서
@@ -211,7 +210,7 @@ sources:
 - **그러면서도 저자들은 경계 컨텍스트로 만족하지 않는다.** 그 낱말이 도메인 주도 설계에서 왔고
   따라서 체계의 **추상적 설계** 측면을 가리키므로, 같은 것을 **기술 아키텍처의 말로** 표현하는
   개념이 필요하다는 것이다 (5장, p.91).[^ford2022-evolutionary] 그 자리에 놓이는 것이
-  [아키텍처 퀀텀](architectural-quantum.md)이다.
+  [아키텍처 퀀텀](../concepts/architectural-quantum.md)이다.
 
 ## 이 KB의 다른 결합 어휘와 맞물리는 자리
 
@@ -255,7 +254,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [아키텍처 퀀텀](architectural-quantum.md) — 같은 장이 이 어휘 다음에 세우는 것. 커네이선스의
+- [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 같은 장이 이 어휘 다음에 세우는 것. 커네이선스의
   정적·동적 구분이 그대로 퀀텀의 정적·동적 결합이 된다
 - [변경에 대한 결합도](coupling-with-respect-to-change.md) — 이 낱말과 정의가 같다고 판정하는 소스
 - [서비스 결합의 네 종류](service-coupling-types.md) — 같은 결합을 서비스 경계에서 굵게 가른 목록
@@ -263,7 +262,7 @@ sources:
   구심·원심 결합의 본체
 - [콘스탄틴의 등가](constantines-equivalence.md) — 같은 계보에서 결합을 비용으로 환산하는 자리
 - [결합 끊기](decoupling.md) — 결합의 증상과 처방
-- [경계 컨텍스트](bounded-context.md) — 저자들이 지역성과 같은 것이라고 잇는 상대
+- [경계 컨텍스트](../concepts/bounded-context.md) — 저자들이 지역성과 같은 것이라고 잇는 상대
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 어휘가 봉사하는 목표
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 결합과 응집이 사는 허브
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브

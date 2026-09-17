@@ -8,6 +8,7 @@ sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 후진 호환과 전진 호환
@@ -31,6 +32,7 @@ sources:
   - [명시적 인터페이스 — 스키마가 은닉의 경계를 그린다](#명시적-인터페이스--스키마가-은닉의-경계를-그린다)
   - [뜻하지 않은 깨짐을 일찍 잡는다](#뜻하지-않은-깨짐을-일찍-잡는다)
 - [이벤트를 계약으로 삼으면 — 사적 이벤트와 공개 이벤트](#이벤트를-계약으로-삼으면--사적-이벤트와-공개-이벤트)
+- [같은 절차를 데이터베이스 표에 건 소스](#같은-절차를-데이터베이스-표에-건-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **코드와 데이터의 옛 버전과 새 버전이 동시에 도는 동안 시스템이 계속 굴러가려면
@@ -462,6 +464,14 @@ p.144).[^newman2021] 깨야 할 때의 선택지는 다른 페이지에 있다 �
     쓰는 쪽에 걸리는 의무**(모르는 필드를 떨어뜨리지 말 것)이고, 관대한 독자는 **읽기만 하는
     쪽의 자세**(모르는 필드에 걸려 넘어지지 말 것)다. 한쪽은 데이터 손실을 막고 다른 쪽은
     소비자 깨짐을 막는다 — 같은 원칙이 방향을 달리해 걸린다.
+  - **셋째 소스가 같은 원칙을 아키텍처의 일반 원칙으로 올린다.** 포드 외가 그 한 줄을 진화적
+    아키텍처의 원칙 다섯 중 하나로 세우고 **보내는 것은 보수적으로 · 받는 것은 관대하게 ·
+    계약을 깰 때는 판을 매겨라**의 세 조항으로 편다 (7장 §"Postel's Law",
+    pp.148–149).[^ford2022-evolutionary] **이 페이지의 관대한 독자는 그중 둘째 조항에
+    해당하고**, 첫째 조항(필요 이상으로 보내지 마라 — 많이 보내면 소비자가 그것에 기대게 되어
+    계약이 사실상 조여진다)은 **이 KB의 다른 소스가 또렷하게 적지 않는 쪽**이다. 세 조항의
+    전문은 [소비자 주도 계약](../concepts/consumer-driven-contracts.md)에
+    있다.
 
 ### 알맞은 기술 — 형식이 견디는 정도가 다르다
 
@@ -585,6 +595,39 @@ p.144).[^newman2021] 깨야 할 때의 선택지는 다른 페이지에 있다 �
 - 세 이벤트 종류 중 무엇을 공개할지의 어림법은
   [이벤트 주도 통합 설계](event-driven-integration-design.md)에 있다.
 
+## 같은 절차를 데이터베이스 표에 건 소스
+
+**위 [Schema Migrator](#schema-migrator--호환을-깨는-변경을-유예-기간으로-통과시킨다)의 절차가
+데이터베이스 표에서도 같은 모양으로 나타난다.** 두 소스가 서로를 호명하지 않지만 걸음이 같다 —
+새 것을 먼저 만들고, 둘 다 채우고, 읽는 쪽이 옮겨 갈 시간을 주고, 옛 것을 지운다.
+
+- [ford2022-evolutionary](../sources/ford2022-evolutionary.md)는 이것을 **확장/수축
+  패턴(Expand/Contract pattern)**이라 부르고, **전이 단계(transition phase)를 리팩터링 안에
+  지어 넣어 타이밍 문제를 피한다**고 적는다 (6장 §"Shared Database Integration",
+  p.128).[^ford2022-evolutionary]
+- **전이 상태가 이 페이지의 성질에 기댄다** — 그 상태가 주는 것 둘 중 첫째가 **후진 호환을
+  허용하는 것**이고 둘째가 **기업 안의 다른 체계들이 변경을 따라잡을 충분한 시간을 주는 것**이다.
+  어떤 조직에서는 그 전이 상태가 **며칠에서 몇 달까지** 이어진다 (6장,
+  p.129).[^ford2022-evolutionary] 곧 **유예 기간의 길이를 소비자 쪽 사정이 정한다는 위 서술과
+  같은 배치**이고, 이쪽은 그 기간에 구체적인 범위를 준다.
+- **상위 패턴의 이름이 여기서 나온다** (6장, p.132):[^ford2022-evolutionary]
+
+  > Expand/Contract is a subset of a pattern called Parallel Change, a broad pattern used to
+  > safely implement backward-incompatible changes to an interface.
+
+  - 곧 **이 페이지의 Schema Migrator와 확장/수축은 병행 변경(Parallel Change)이라는 한 패턴의
+    두 적용이다.** 대상만 다르다 — 이쪽은 메시지 스키마의 필드, 저쪽은 표의 열이다. **이 대응은
+    이 KB가 세운 것이고 코니에치니 쪽은 이 이름을 쓰지 않는다.** #hypothesis
+- **차이가 하나 있다 — 강제하는 주체다.** 위 Schema Migrator는 스키마 레지스트리 같은 바깥
+  강제자를 전제하고 유예 기간을 소비자와 **합의**하는데, 확장/수축의 전이 상태는 **데이터베이스
+  안의 트리거**가 두 표현을 서로 채워 유지한다. 곧 앞은 조직의 약속으로, 뒤는 데이터베이스 네이티브
+  기능으로 같은 공존을 산다. 그 기제와 세 경우는
+  [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
+- **수축 쪽에는 같은 한계가 남는다.** 위 §"유예 기간의 값"의 **불가능한 제거** 항목이 적는 것
+  — 어떤 소비자가 그 필드를 쓰고 있으면 대체를 주지 않는 한 제거할 수 없다 — 이 저쪽에서도
+  셋째 경우(통합 지점이 있고 레거시 데이터도 있는 경우)로 나타나고, 저자들도 그것을
+  **가장 복잡하고 불행히도 가장 흔한** 경우로 적는다 (6장, p.130).[^ford2022-evolutionary]
+
 ## 이어지는 페이지
 
 - [데이터 품질 강제 패턴](data-quality-enforcement-patterns.md) — 같은 장의 앞 범주. 스키마 제약을
@@ -596,6 +639,7 @@ p.144).[^newman2021] 깨야 할 때의 선택지는 다른 페이지에 있다 �
   동시에 여는 방식
 - [Avro의 기록자 스키마와 독자 스키마](../concepts/avro-writer-and-reader-schema.md) — 태그 없이
   이름으로 맞추는 다른 길
+- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 같은 절차를 표의 열에 건 자리
 - [데이터베이스를 거치는 데이터플로](../concepts/dataflow-through-databases.md) — 데이터가 코드보다
   오래 사는 자리
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 요청과 응답에 방향이 나뉘어 걸리는 자리
@@ -651,3 +695,14 @@ Consistency"(pp.284–293). 그림 9-3과 표 9-1은 도식이므로 본문이 �
     설계 휴리스틱 전체는 이 페이지에 두지 않고
     [이벤트 주도 통합 설계](event-driven-integration-design.md)에 두었다.
     이 절들에는 코드 목록이 없다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"
+    §"Shared Database Integration"(pp.128–132). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측).
+    직인용 하나(병행 변경의 부분집합)는 `pdftotext -layout` 추출로 문자 단위 대조했다.
+    여기에는 이 페이지의 호환 서술에 직접 닿는 대목만 들었고 그 장의 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다. 도판
+    (그림 6-1·6-2·6-3)은 이미지로 조판돼 있어 본문이 그 도판에 대해 적는 것만 옮겼다.
+    **7장 "Building Evolvable Architectures" §"Postel's Law"(pp.148–149)에서 온 것은 위
+    관대한 독자 절에 붙인 셋째 소스 한 대목뿐이다.** 그 절에는 직인용을 두지 않았고 세 조항의
+    전문은
+    [소비자 주도 계약](../concepts/consumer-driven-contracts.md)이 갖는다.

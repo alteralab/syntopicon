@@ -7,6 +7,7 @@ sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 분산 트랜잭션과 2단계 커밋
@@ -450,6 +451,25 @@ sources:
 - **그러므로 [Calvin과 Spanner](../concepts/calvin-and-spanner.md)와도 모순되지 않는다.**
   그 페이지가 다루는 것은 newman2021이 예외로 지목한 바로 그 범주다. **모순 쌍(`contradicts`)을
   걸지 않았다.**
+- **셋째 소스가 같은 눈금에 붙는다.** [ford2022-evolutionary](../sources/ford2022-evolutionary.md)의
+  6장에 §"Two-Phase Commit Transactions"라는 절이 있지만 **그 절은 프로토콜을 설명하지 않는다.**
+  본문이 다루는 것은 **트랜잭션 맥락이 아키텍처 퀀텀 사이의 결합으로 작용한다**는 것이고,
+  서비스를 가로지르는 트랜잭션의 전문은 저자들이 *Software Architecture: The Hard Parts*로
+  넘긴다. 그러므로 **눈금은 newman2021과 같다**(마이크로서비스 사이) — 위 표의 오른쪽 열에
+  붙는 소스이고 왼쪽 열과 겨루지 않는다.
+  - 저자들의 규정이 물리 비유로 온다 (6장, p.134):[^ford2022-evolutionary]
+
+    > Database transactions act as a strong nuclear force, binding quanta together.
+
+  - **판정의 방향은 뉴먼과 다르다.** 뉴먼이 **쓰지 말라**로 닫는 자리에서 포드 외는 **그 결합이
+    이미 있을 때 무엇이 따라 나오는가**를 적는다 — **업무를 떠받치는 데 필요한 트랜잭션 맥락이
+    개발자가 서비스로 만들 수 있는 가장 작은 세분성을 정의하는 경우가 잦다**는 것이다
+    (6장, p.134).[^ford2022-evolutionary] 곧 **기각이 아니라 설계 제약으로 읽는다.** 아키텍트가
+    저지르는 실수로 지목되는 것도 **업무에 자연스러운 것보다 작은 세분성으로 아키텍처를 지으려
+    하는 것**이고, 그 예가 **트랜잭션이 무거운 체계에 마이크로서비스가 잘 맞지 않는다**는 판정이다
+    (6장, p.133).[^ford2022-evolutionary]
+  - **그래서 이 소스에도 `contradicts`를 걸지 않았다.** 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.
 - **한 자리에서는 정말로 눈금이 다르다** — [XA 트랜잭션과 이종 분산 트랜잭션](xa-transactions.md)이
   나누는 두 범주(데이터베이스 내부 대 이종) 중 **이종 쪽이 newman2021이 기각하는 것과 같은
   자리**인데, 그쪽 서술은 "운영 문제를 일으키고 성능을 죽인다"는 평판을 적되 **배울 것이 있으니
@@ -472,6 +492,8 @@ sources:
   내성 합의 쪽
 - [카프카 트랜잭션의 내부 동작](../concepts/kafka-transaction-internals.md) — 메시지 브로커가
   자기 방식으로 원자적 커밋을 푸는 자리
+- [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 트랜잭션 맥락을 퀀텀 사이의
+  결합으로 읽는 셋째 소스
 - [Calvin과 Spanner](../concepts/calvin-and-spanner.md) — 2PC를 합의 그룹 위에 얹거나 아예
   없애는 두 설계
 - [Percolator 트랜잭션](../concepts/percolator-transactions.md) — 클라이언트가 2PC를 주도하는 구현
@@ -498,3 +520,11 @@ sources:
     `VERIFIED`로, `PendingEnrollments` 행 삭제)는 저자가 명시한 가상 회사의 예시라 그 서사가
     예시하는 판정만 옮겼다. 저자가 가리키는 바깥 서지(Robert Kubis의 Spanner 발표 영상)는 이
     KB가 확인한 원전이 아니다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"
+    §"Inappropriate Data Entanglement" 중 §"Two-Phase Commit Transactions"(pp.133–134).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 직인용 하나(강한 핵력 콜아웃)는
+    `pdftotext -layout` 추출로 문자 단위 대조했다. **이 절에는 2PC 프로토콜의 서술이 없다** —
+    절 제목이 그 이름을 쓸 뿐이고 저자들이 서비스를 가로지르는 트랜잭션의 전문을
+    *Software Architecture: The Hard Parts*로 넘긴다. 그 책은 이 KB가 확인한 원전이 아니다.
+    이 절에는 도판도 코드 목록도 없다.

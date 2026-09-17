@@ -5,6 +5,7 @@ description: 리팩터링이 가능해지자 아키텍처를 미리 확정한다
 generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # yagni와 진화적 아키텍처
@@ -13,6 +14,7 @@ sources:
 - [유연성 기제는 공짜가 아니다](#유연성-기제는-공짜가-아니다)
 - [판정 질문 하나](#판정-질문-하나)
 - [yagni는 아키텍처 사고의 포기가 아니다](#yagni는-아키텍처-사고의-포기가-아니다)
+- [설계의 yagni와 아키텍처의 진화는 층이 다르다](#설계의-yagni와-아키텍처의-진화는-층이-다르다)
 - [세 실천이 서로를 떠받친다](#세-실천이-서로를-떠받친다)
 - [이 KB의 다른 소스와 만나는 자리](#이-kb의-다른-소스와-만나는-자리)
 - [이어지는 페이지](#이어지는-페이지)
@@ -100,6 +102,34 @@ sources:
   자라나는 분야로 이어졌는데, 거기서 아키텍트들은 아키텍처 결정을 되풀이할 수 있는 우리
   능력을 활용하는 패턴과 실천을 탐구한다** (2장 §"Refactoring, Architecture, and Yagni",
   p.63).[^fowler2018]
+  - **그 분야가 이제 이 KB 안에 있다** — [진화적 아키텍처](../concepts/evolutionary-architecture.md)가 그
+    규정과 논거를 담는다. 저자가 그 책의 초판 서문을 쓴 사람이기도 하다.
+
+## 설계의 yagni와 아키텍처의 진화는 층이 다르다
+
+**두 페이지를 대질한 결과 겹치지 않는다. 층과 대상이 다르고, `contradicts`를 걸 사실 충돌이 없다.**
+
+| | 이 페이지 (fowler2018 2장) | [진화적 아키텍처](../concepts/evolutionary-architecture.md) (ford2022-evolutionary 1~3장) |
+|---|---|---|
+| 무엇에 대한 조문인가 | **지금 무엇을 짓지 말 것인가** — 쓰이지 않는 매개변수와 유연성 기제 | **지어 둔 것이 썩지 않게 무엇을 계속 잴 것인가** — 아키텍처 특성 |
+| 층 | 함수와 매개변수, 곧 코드 설계 | 도메인 밖의 아키텍처 특성과 그 차원들 |
+| 시간 방향 | 미래 대비를 **미룬다** | 미래의 퇴화를 **감시한다** |
+| 무엇이 그것을 가능하게 하는가 | 리팩터링, 자기 테스트 코드, 지속적 통합 | 지속적 전달과 배포 파이프라인, 그리고 적합도 함수 |
+| 성공의 판정 | 나중에 리팩터링하기가 지금 넣는 것보다 상당히 더 어렵지 않다 | 적합도 함수가 통과 상태를 유지한다 |
+
+- **두 소스가 같은 옛 전제를 공격한다** — 이 페이지가 **코딩 전에 아키텍처를 끝낸다**는 전제를
+  깨고, 포드 외는 **"나중에 바꾸기 어려운 부분"이라는 아키텍처의 정의 자체가 맹점으로 진화했다**고
+  판정한다 (1장, p.10).[^ford2022-evolutionary] **뒤엣것이 더 나아간다** — 이 페이지는 리팩터링이
+  변경을 싸게 만들었다는 데서 멈추고, 그쪽은 **변경 가능성 자체를 아키텍처 안에 지어 넣자**고
+  한다.
+- **그러나 상대 쪽의 조문을 서로에게 그대로 적용하면 안 된다.** 이 페이지의 판정 질문("나중에
+  리팩터링하기가 상당히 더 어려운가")은 **오늘 무엇을 지을지**를 묻고, 적합도 함수는 **오늘 지은
+  것을 내일 무엇으로 확인할지**를 묻는다. 적합도 함수를 미리 많이 짓는 것은 이 페이지가 기각하는
+  추측성 유연성이 아니다 — 그것은 기능이 아니라 검증이고, 포드 외 자신도 **창발적 적합도
+  함수**를 정규 범주로 두어 처음에 전부 알 수 없다는 것을 인정한다 (2장,
+  p.24).[^ford2022-evolutionary]
+- **포드 외는 파울러를 이 대목으로 인용하지 않고 파울러도 그 책을 이 절에서만 지목하므로, 위
+  대비는 이 KB가 세운 것이다.** #hypothesis
 
 ## 세 실천이 서로를 떠받친다
 
@@ -167,6 +197,8 @@ sources:
 - [애자일의 본질](../concepts/essence-of-agility.md) — "이름만 애자일"이라는 진단의 다른 소스
 - [범용 모듈이 더 깊다](../concepts/general-purpose-modules.md) — 반대로 보이는 처방
 - [유지보수성](../concepts/maintainability.md) — 되돌릴 수 있는 결정의 상위 자리
+- [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 이 절이 지목하는 분야의 규정과 논거
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 그 분야가 퇴화를 감시하는 도구
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 2장 "Principles in Refactoring" 중 "Refactoring, Architecture,
@@ -174,3 +206,10 @@ sources:
     (pp.63–64). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22). 직인용에서 워터마크 문자열 `ptg26261585`를
     제거했다 — 이 소스의 표준 규약이며 근거는 `it/archive/fowler2018/_progress.yaml`
     머리말에 있다. 저자가 진화적 아키텍처의 출처로 지목한 것은 Ford 외의 저작이다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 1장 "Evolving Software
+    Architecture" §"How Is Long-Term Planning Possible When Everything Changes All the Time?"
+    (p.10)과 2장 "Fitness Functions" §"Proactivity: Intentional Versus Emergent"(p.24). 본문은
+    [진화적 아키텍처](../concepts/evolutionary-architecture.md)와
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있고, 이 페이지는 두 소스의 층을
+    가르는 데에만 인용한다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측).

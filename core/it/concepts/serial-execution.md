@@ -5,6 +5,7 @@ description: 동시성을 아예 없애 직렬성을 얻는 방법 — 2000년�
 generated: { by: "claude-opus-5", at: "2026-08-14T00:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 직렬 실행
@@ -14,6 +15,7 @@ sources:
 - [무엇이 바뀌어 단일 스레드가 가능해졌나](#무엇이-바뀌어-단일-스레드가-가능해졌나)
 - [트랜잭션을 저장 프로시저에 담기](#트랜잭션을-저장-프로시저에-담기)
 - [저장 프로시저의 장단](#저장-프로시저의-장단)
+- [같은 단점 목록을 반대 방향으로 쓴 소스](#같은-단점-목록을-반대-방향으로-쓴-소스)
 - [샤딩으로 코어 늘리기](#샤딩으로-코어-늘리기)
 - [직렬 실행이 성립하는 조건](#직렬-실행이-성립하는-조건)
 - [이어지는 페이지](#이어지는-페이지)
@@ -133,6 +135,30 @@ sources:
   이 접근법을 상태 기계 복제(state machine replication)라 한다** (8장,
   p.312).[^kleppmann2026]
 
+## 같은 단점 목록을 반대 방향으로 쓴 소스
+
+- **아키텍처 쪽 소스가 이 절과 거의 같은 단점 목록을 댄다.**
+  [ford2022-evolutionary](../sources/ford2022-evolutionary.md)는 저장 프로시저가 **데이터를
+  조작하는 강력하고 성능 좋은 선택지**임을 인정하면서도 셋을 든다 — **단위 테스트가 어렵고,
+  리팩터링 지원이 흔히 빈약하며, 행동을 소스 코드의 다른 행동에서 떼어 놓는다** (6장
+  §"Replacing Triggers and Stored Procedures", pp.140–141).[^ford2022-evolutionary] 위
+  §"저장 프로시저의 장단"이 적는 **디버깅·버전 관리·배포·테스트·모니터링 통합의 어려움**과 같은
+  묶음이다.
+- **그런데 결론이 반대다.** 이 페이지의 소스는 그 문제들이 **극복할 수 있다**고 적고 현대
+  구현이 범용 언어를 쓴다는 것을 근거로 **저장 프로시저를 되살려 단일 스레드 직렬 실행을
+  가능하게** 한다. 저쪽은 같은 문제들을 근거로 **저장 프로시저를 애플리케이션 코드로 뽑아낸다** —
+  마이크로서비스로 옮기면 데이터가 더는 한 데이터베이스에 있지 않으므로 **행동이 코드로 옮겨
+  가야** 하고, 확장/수축 패턴으로 옮긴 뒤 **적합도 함수로 모든 의존이 옮겨 갔는지 확인하고 옛
+  프로시저를 버린다** (6장, pp.141–142).[^ford2022-evolutionary]
+- **모순이 아니라 재는 것이 다르다.** 이 페이지가 재는 것은 **처리량**이고(저장 프로시저가
+  I/O를 기다리지 않으므로 단일 스레드가 성립한다), 저쪽이 재는 것은 **변경 가능성**이다(행동이
+  데이터베이스에 있으면 서비스 경계를 따라 쪼갤 수 없다). **양쪽이 같은 전제를 공유한다** —
+  저장 프로시저는 빠르고, 다루기 불편하다. 갈리는 것은 그 거래에서 무엇을 사는가다.
+  **이 대비는 이 KB가 세운 것이고 두 소스 중 어느 쪽도 상대를 호명하지 않는다.** #hypothesis
+  - 저쪽의 전문과 그 절차(Migrate Method from Database 패턴, 그리고 저자들이 그것을 교살자
+    무화과의 데이터베이스 판이라 부르는 대목)는
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.
+
 ## 샤딩으로 코어 늘리기
 
 - **모든 트랜잭션을 직렬로 실행하면 동시성 제어가 훨씬 단순해지지만, 데이터베이스의 트랜잭션
@@ -170,6 +196,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 같은 단점 목록을 반대
+  방향으로 쓰는 자리
 - [2단계 잠금](../concepts/two-phase-locking.md) — 직렬성을 얻는 두 번째 방법
 - [직렬성 스냅샷 격리](../concepts/serializable-snapshot-isolation.md) — 세 번째 방법
 - [격리 수준과 이상 현상](../concepts/isolation-levels-and-anomalies.md) — 직렬성이 막는
@@ -183,3 +211,11 @@ sources:
   쪽에서 부딪히는 문제
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"
+    §"From Native to Fitness Function" 중 §"Replacing Triggers and Stored
+    Procedures"(pp.140–142). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 직인용은 없다 — 전부
+    한국어 재서술이고 괄호 안이 그 쪽이다. 도판 둘(그림 6-11 데이터베이스 코드를 서비스로
+    빼내기 · 6-12 더 넓은 데이터 맥락)은 이미지로 조판돼 있어 본문이 그 도판에 대해 적는 판정만
+    옮겼다. 이 절에는 코드 목록이 없다. 그 장의 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.

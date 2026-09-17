@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-15T21:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 관계형 모델과 문서 모델
@@ -180,6 +181,21 @@ sources:
     유지하기, 분수 인덱싱(fractional indexing) 쓰기 같은 여러 요령이 쓰인다.**
 - 다대일·다대다 관계 쪽의 판정은
   [정규화와 비정규화](../concepts/normalization-and-denormalization.md)에 있다.
+- **아키텍처 쪽에서 같은 선택을 부르는 계기가 하나 더 있다** —
+  [ford2022-evolutionary](../sources/ford2022-evolutionary.md)는 모놀리스를 마이크로서비스로
+  쪼갤 때 팀이 영속화도 다시 생각하게 된다고 적고, **고도로 분산된 아키텍처의 이점 하나가 임의의
+  표준이 아니라 문제에 따라 다른 영속화 기제를 고를 수 있다는 것**이라고 적는다. 카탈로그화와
+  분석 분류에는 그래프 데이터베이스가, 어떤 도메인에는 이름/값 쌍 데이터베이스가 낫다는 것이
+  저자들이 드는 예다 (6장 §"Case Study: Evolving from Relational to Nonrelational",
+  pp.142–143).[^ford2022-evolutionary]
+  - **곧 이 페이지의 선택 기준에 조건이 하나 붙는다** — 위 논거들은 **한 데이터 집합에 어느
+    모델이 맞는가**를 묻는데, 저쪽은 **경계가 갈라진 뒤에야 그 물음을 따로따로 물을 수 있게
+    된다**고 적는다. 단일 데이터베이스에서는 여러 용도를 수용하느라 **관계형 데이터베이스가
+    쓰이는 방식이 비틀린다**는 것이다 (6장, p.143).[^ford2022-evolutionary]
+  - **단서도 함께 온다** — 단일 타입에서 여러 데이터베이스로 옮기는 것은 같은 타입이더라도
+    문제를 일으킬 수 있고 **소프트웨어 아키텍처의 모든 것은 트레이드오프**라고 저자들이 적는다
+    (6장, p.143).[^ford2022-evolutionary] 그 사례의 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.
 
 ## 읽기와 쓰기의 데이터 지역성
 
@@ -358,6 +374,8 @@ sources:
   없다"는 말이 실제로 뜻하는 것
 - [데이터 모델의 층](../concepts/data-model-layers.md) — 이 선택이 어느 층의 선택인가
 - [그래프 데이터 모델](../concepts/graph-data-models.md) — 다대다 관계가 지배할 때 가는 쪽
+- [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 경계가 갈라진 뒤에야 이
+  선택을 따로따로 물을 수 있게 된다는 자리
 - [단일 객체 연산과 다중 객체 연산](../concepts/single-and-multi-object-operations.md) — 문서
   모델이 트랜잭션 경계와 만나는 자리
 - [샤딩과 2차 색인](../concepts/sharding-and-secondary-indexes.md) — 문서 안 값에 인덱스를 거는
@@ -371,3 +389,11 @@ sources:
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 3장 "Data Models and Query Languages"
 
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems"
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"
+    §"Case Study: Evolving from Relational to Nonrelational"(pp.142–143). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 22, 실측). 직인용은 없다 — 전부 한국어 재서술이고 괄호 안이 그 쪽이다.
+    도판(그림 6-13 모놀리스에서 마이크로서비스로의 이행)은 이미지로 조판돼 있어 본문이 그 도판에
+    대해 적는 것만 옮겼다. 페널티메이트위젯츠(PenultimateWidgets)는 저자들이 명시한 대리
+    회사이고 그 서사가 예시하는 판정만 옮겼다. 그 장의 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 진화적 아키텍처의 함정과 안티패턴
-status: draft
 description: 진화를 막는 나쁜 공학 관행을 두 낱말로 갈라 아홉 항목으로 묶은 목록 — 처음에는 좋아 보였다가 나중에 실수로 드러나는 안티패턴과 겉보기만 좋고 곧바로 나쁜 길임을 드러내는 함정이라는 구분, 도구의 천장에 걸리는 마지막 10% 덫과 로코드, 벤더 제품을 아키텍처의 중심에 놓는 벤더 왕, 모든 비자명한 추상은 샌다는 조문과 낮은 층의 고장이 위로 번지는 원시 추상 침출, 문제가 아니라 이력서를 보고 고르는 이력서 주도 개발, 자원을 공유하던 시대의 통치 규범을 지금 적용하는 부적절한 거버넌스와 스택 셋을 고르는 "딱 그만큼" 거버넌스, 주기 시간이 진화 속도의 상한이라는 릴리스 속도의 부족, 팔기 위한 무한 맞춤화의 비용, 기록 시스템 스키마에 리포트를 직접 붙이는 안티패턴, 그리고 매몰 비용이 산출물에 대한 비합리적 애착으로 바뀌는 긴 계획 지평 — 그리고 모범 사례라는 말을 쓰지 않겠다는 맺음
 generated: { by: "claude-opus-5", at: "2026-09-17T16:40:00Z" }
 sources:
@@ -33,7 +32,7 @@ sources:
 하나의 질문: **무엇이 아키텍처의 진화 능력을 실제로 망가뜨리는가.**
 
 앞 장들이 **무엇을 해야 하는가**를 세웠다면([진화적 아키텍처](evolutionary-architecture.md)의 규정,
-[적합도 함수](architecture-fitness-functions.md)의 도구, [지침 여덟](evolvability-guidelines.md)의
+[적합도 함수](../concepts/architecture-fitness-functions.md)의 도구, [지침 여덟](evolvability-guidelines.md)의
 조문) 이 페이지는 그 반대편을 담는다. 저자들이 여는 말이 그 배치다 — 결합의 **적정 수준**을 오래
 이야기했지만 현실에는 프로젝트의 진화 능력을 **해치는** 결합이 많다는 것이다 (8장, p.177).[^ford2022-evolutionary]
 
@@ -188,7 +187,7 @@ sources:
 
   - 처방의 구체는 장치 이름으로 온다 — **벤더 제품을 그저 또 하나의 통합 지점으로 다루고, 통합
     지점 사이에 부패 방지 계층(anticorruption layer)을 지어** 벤더 도구의 변경이 아키텍처에
-    닿지 못하게 막는다. 그 장치의 전문은 [부패 방지 계층](anticorruption-layer.md)에 있다.
+    닿지 못하게 막는다. 그 장치의 전문은 [부패 방지 계층](../concepts/anticorruption-layer.md)에 있다.
 
 ## ③ 새는 추상 (함정)
 
@@ -462,8 +461,8 @@ sources:
     서로 다른 추상을 허용할 수 있다**고 적는다.
 - **저자들이 더 현대적인 접근으로 넘기는 자리 하나** — 리포팅 일반과 더 넓게 분석 데이터에 대해서는
   5장의 §"Data Mesh: Orthogonal Data Coupling"(p.119)을 보라고 적는다 (8장,
-  p.190).[^ford2022-evolutionary] 그 반입은 [데이터 퀀텀](data-quantum.md)과
-  [데이터 프로덕트의 포트와 사이드카](data-product-ports-and-sidecar.md)에 있다.
+  p.190).[^ford2022-evolutionary] 그 반입은 [데이터 퀀텀](../concepts/data-quantum.md)과
+  [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md)에 있다.
 
 ## ⑨ 지나치게 긴 계획 지평 (함정)
 
@@ -548,7 +547,7 @@ sources:
   뉴먼은 **가장 쉬운 길을 하나 깔아 둔다.** 그리고 **이 책 자신의 4장과 8장이 갈리는 각도**가
   있다 — 4장은 **잴 수 있는 것은 자동화하라**고 하고 8장은 **무엇을 통치 대상으로 삼을지를
   좁히라**고 한다. 대상이 다르므로 겨루지 않는다. 그 전문은
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)와
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)와
   [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md)에 적었다.
 - **⑨는 에번스의 "마스터 플랜을 경계하라"와 같은 주장을 다른 근거로 편다.** 에번스의 근거는
   **위에서 그린 구조가 개발의 실제와 어긋난다**는 것이고, 이 책의 근거는 **매몰 비용이 산출물에
@@ -568,14 +567,14 @@ sources:
 
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 목록이 반대편에서 지키는 규정
 - [진화 가능성을 위한 지침](evolvability-guidelines.md) — 같은 장 묶음의 긍정형 조문 여덟
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — ③과 ⑥의 처방이 부르는 도구
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — ⑤가 좁히는 대상
-- [부패 방지 계층](anticorruption-layer.md) — ②의 탈출 장치
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — ③과 ⑥의 처방이 부르는 도구
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — ⑤가 좁히는 대상
+- [부패 방지 계층](../concepts/anticorruption-layer.md) — ②의 탈출 장치
 - [정보 은닉과 정보 누출](information-hiding-and-leakage.md) — ③의 낱말이 만나는 다른 계보
 - [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md) — ⑧의 구분이 사는 자리
-- [데이터 분해가 부르는 문제들](data-decomposition-concerns.md) — ⑧의 리포팅 데이터베이스 선택지
-- [CQRS 아키텍처](cqrs-architecture.md) — ⑧이 이름 없이 서술하는 읽기 모델
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — ⑥의 주기 시간이 사는 파이프라인
+- [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — ⑧의 리포팅 데이터베이스 선택지
+- [CQRS 아키텍처](../concepts/cqrs-architecture.md) — ⑧이 이름 없이 서술하는 읽기 모델
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — ⑥의 주기 시간이 사는 파이프라인
 - [전략 설계 결정하기](strategic-decision-making.md) — ⑨와 같은 주장을 다른 근거로 펴는 소스
 - [마이크로서비스의 고통과 채택 판단](microservice-pain-points-and-adoption.md) — ④가 만나는 자리
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — ⑦의 기능 토글이 다른 용도로 쓰이는 자리

@@ -5,6 +5,7 @@ description: 리팩터링을 옹호하는 장 안에 저자가 일부러 넣은 
 generated: { by: "claude-opus-5", at: "2026-08-21T06:00:00Z" }
 sources:
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 리팩터링을 가로막는 것들
@@ -235,6 +236,19 @@ sources:
     [뒤로·앞으로 호환성](../concepts/backward-and-forward-compatibility.md)으로 이미 있다.
     **이 절이 그 둘을 코드 리팩터링과 같은 계보로 묶는다** — 확장하고, 이중으로 쓰고,
     읽는 쪽을 옮기고, 수축한다.
+- **저자가 지목한 그 사람이 쓴 책이 이 KB에 들어와 있다.** 사달게이는
+  [ford2022-evolutionary](../sources/ford2022-evolutionary.md)의 공저자이고, 그 책 6장이
+  **이 절이 요약한 기법을 아키텍처 층에서 다시 편다** — 확장/수축 패턴의 세 경우와 전이 단계를
+  떠받치는 트리거, 그리고 한번 돌린 마이그레이션을 복식부기처럼 불변으로 두라는 규약이다
+  (6장 §"Evolving Schemas"·§"Shared Database Integration",
+  pp.126–132).[^ford2022-evolutionary]
+  - **그 책도 전문을 *Refactoring Databases*로 넘긴다** — 저자들이 다루는 것은 **진화적
+    아키텍처에 영향을 주는 부분만**이라고 스스로 적는다 (6장, p.125).[^ford2022-evolutionary]
+    곧 **이 KB가 가진 것은 그 원전 자체가 아니라 그것을 호명하며 아키텍처 층을 맡는 책이다.**
+  - **파울러가 이름만 대는 병행 변경에 그 책이 상위 관계를 준다** — **확장/수축은 인터페이스에
+    후진 비호환 변경을 안전하게 구현하는 넓은 패턴인 병행 변경의 부분집합**이다 (6장,
+    p.132).[^ford2022-evolutionary] 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -246,6 +260,8 @@ sources:
 - [버전 관리 실천](version-control-practice.md) — 브랜치 절의 정본 자리
 - [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md) — 도덕적 논증 쪽
 - [재처리와 점진적 마이그레이션](../concepts/reprocessing-and-gradual-migration.md) — 병행 변경의 데이터 판
+- [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 같은 기법을 아키텍처 층에서
+  다시 펴는 자리
 - [리팩터링과 코드 냄새](../synthesis/refactoring-and-code-smells.md) — 이 축의 허브
 
 [^fowler2018]: Fowler 2018, 2장 "Principles in Refactoring" 중 "Problems with Refactoring"
@@ -255,3 +271,10 @@ sources:
     `it/archive/fowler2018/_progress.yaml` 머리말에 있다. 저자가 CI의 효과 근거로 지목한
     것은 Forsgren 외의 연구이고, 레거시 코드 처방으로 지목한 것은 Michael Feathers의
     *Working Effectively with Legacy Code*다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data" 도입(p.125)과
+    §"Evolutionary Database Design"(pp.125–132). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측).
+    여기에는 이 절의 귀속에 직접 닿는 대목만 들었고 그 장의 전문은
+    [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다. 직인용은 없다 —
+    전부 한국어 재서술이고 괄호 안이 그 쪽이다. 저자들이 전문을 넘기는
+    *Refactoring Databases*(Sadalage·Ambler)는 이 KB가 확인한 원전이 아니다.

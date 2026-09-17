@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 점진적 변경과 배포 파이프라인
-status: draft
 description: 진화적 아키텍처의 점진적 변경을 떠받치는 공학 실천과 적합도 함수가 실제로 도는 자리 — 지속적 전달이 기제를 주고 이 책이 구조를 준다는 분업, 개발 쪽과 운영 쪽으로 갈리는 점진적 변경과 옛 판과 새 판을 나란히 두고 쓰이지 않는 것을 자동 수거하는 별점 서비스 사례, 지속적 통합 서버와 배포 파이프라인을 가르는 단계 분리, 파이프라인이 적합도 함수 실행에 이상적인 세 이유, 현재 상태와 미래 상태를 함께 검증하는 팬아웃과 팬인, 기능 토글이 지속적 배포와 단계적 릴리스를 함께 가능하게 하는 자리와 프로덕션 품질 보증, 청구 서비스의 여섯 단계 파이프라인에서 보안 검토와 감사를 수동 단계로 넣어 병목을 드러낸 사례, 소비자 주도 계약을 통합 아키텍처의 원자적 적합도 함수로 쓰는 API 일관성 사례, 그리고 이 실천이 요구하는 공학 성숙도라는 암묵적 전제
 generated: { by: "claude-opus-5", at: "2026-09-17T14:00:00Z" }
 sources:
@@ -25,8 +24,8 @@ sources:
 
 하나의 질문: **아키텍처를 작은 단계로 바꾸는 일을 무엇이 떠받치고, 적합도 함수는 어디서 도는가.**
 
-정의와 논거는 [진화적 아키텍처](evolutionary-architecture.md)에, 여기서 도는 함수 자체의 규정과
-분류는 [아키텍처 적합도 함수](architecture-fitness-functions.md)에 있다.
+정의와 논거는 [진화적 아키텍처](../concepts/evolutionary-architecture.md)에, 여기서 도는 함수 자체의 규정과
+분류는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있다.
 
 ## 기제는 지속적 전달이 주고 구조는 이 책이 준다
 
@@ -265,13 +264,13 @@ sources:
 
 ## 이 KB의 다른 소스와 만나는 자리
 
-- **[지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)과 층이 다르다.** 그 페이지는
+- **[지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)과 층이 다르다.** 그 페이지는
   뉴먼(Newman)의 서술로 **통합을 얼마나 자주 하는가, 파이프라인이 무엇을 거치는가, 배포와 릴리스를
   어떻게 가르는가**를 담는다. 이 페이지가 더하는 것은 **그 파이프라인이 아키텍처 거버넌스의 실행
   자리가 된다**는 배치 하나다. **두 소스가 파이프라인 단계 분리에 대해 같은 것을 말한다** — 뉴먼도
   빠른 테스트와 느린 테스트를 단계로 가르라고 하고, 이 책도 단계 분리를 지속적 통합 서버와의 차이로
   세운다.
-- **[소비자 주도 계약](consumer-driven-contracts.md)에 이 책이 더하는 것은 낱말 하나다** — 그 패턴을
+- **[소비자 주도 계약](../concepts/consumer-driven-contracts.md)에 이 책이 더하는 것은 낱말 하나다** — 그 패턴을
   **원자적 통합 아키텍처 적합도 함수**로 분류하는 것. 로빈슨(Robinson)의 2006년 원전도 뉴먼의 실무
   층도 그 패턴을 아키텍처 거버넌스의 어휘 안에 놓지는 않았다.
 - **[프로덕션에서의 테스트](testing-in-production.md)와 나란하다.** 이 장의 기능 토글 뒤 품질 보증과
@@ -281,17 +280,17 @@ sources:
 - **4장이 이 파이프라인 위에 거버넌스 층을 더 얹는다.** 이 장이 **파이프라인이 적합도 함수의 실행
   자리**라고 세운 것을 4장은 **수작업 코드 리뷰와 아키텍처 검토 위원회를 대체하는 자리**로 읽고,
   코드 수준부터 엔터프라이즈까지 층위를 배열한다 (4장, pp.43–45).[^ford2022-evolutionary] 그 본문은
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)와
-  [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 받는다.
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)와
+  [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)가 받는다.
 
 ## 이어지는 페이지
 
-- [진화적 아키텍처](evolutionary-architecture.md) — 점진적 변경이 그 정의의 한 부분인 자리
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 여기서 도는 것의 규정과 분류
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 이 파이프라인이 거버넌스
+- [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 점진적 변경이 그 정의의 한 부분인 자리
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 여기서 도는 것의 규정과 분류
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 이 파이프라인이 거버넌스
   자리가 될 때 무엇을 거는가
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 파이프라인의 다른 소스 판
-- [소비자 주도 계약](consumer-driven-contracts.md) — 이 장이 원자적 적합도 함수로 분류하는 패턴
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 파이프라인의 다른 소스 판
+- [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 이 장이 원자적 적합도 함수로 분류하는 패턴
 - [프로덕션에서의 테스트](testing-in-production.md) — 기능 토글 뒤 품질 보증이 사는 이웃 자리
 - [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md) — 나른 것을 놓을 때의 조문
 - [관리되는 파괴적 변경](managing-breaking-api-changes.md) — 옛 판과 새 판을 나란히 두는 전환의 다른

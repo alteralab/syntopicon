@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 자동화된 아키텍처 거버넌스
-status: draft
 description: 아키텍처 거버넌스를 수작업 검토에서 자동 검사로 옮기는 일 — 지속적 통합이 통합의 고통을 자동화해 없앤 것과 같은 회로를 거버넌스에 적용한다는 논거, 코드 수준부터 엔터프라이즈까지 걸치는 지도, 이미 나빠진 지표를 단계적으로 조여 가는 몰아가기, 턴키 도구라는 계열과 그 한계, 이미 쓰고 있던 도구를 적합도 함수로 바꾸는 전환 조건, 마이크로서비스 통신 거버넌스를 어디에 구현할 것인가의 트레이드오프, 데브옵스와 엔터프라이즈 아키텍처 층위, 옛 체계와 새 체계를 나란히 돌리는 충실도 적합도 함수, 몽둥이가 아니라 체크리스트라는 자기 제한, 그리고 거버넌스 규칙을 실행 가능한 문서로 남기는 세 방식
 generated: { by: "claude-opus-5", at: "2026-09-17T20:10:00Z" }
 sources:
@@ -35,7 +34,7 @@ sources:
 하나의 질문: **아키텍트가 정한 규칙이 지켜지고 있다는 것을 사람의 검토 말고 무엇으로
 확인하는가.**
 
-무엇을 재는지의 정의는 [아키텍처 적합도 함수](architecture-fitness-functions.md)가 갖고, 코드
+무엇을 재는지의 정의는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가 갖고, 코드
 수준에서 무엇을 수로 재는지는 [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가
 갖는다. 이 페이지는 **그것을 거버넌스로 돌리는 일**을 받는다.
 
@@ -182,7 +181,7 @@ sources:
   - **그리고 주기 쪽 조건이 하나 더 붙는다** — **이 도구들을 이따금 쓰는 것으로는 적합도 함수가
     되지 않고, 지속적 검증에 엮는 것이 그렇게 만든다** (4장, p.65).[^ford2022-evolutionary]
   - 같은 경계를 2장이 모니터링 도구 쪽에서 긋는다 —
-    [아키텍처 적합도 함수](architecture-fitness-functions.md)의 해당 절을 볼 것.
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)의 해당 절을 볼 것.
 
 ## 통합 아키텍처 — 마이크로서비스의 통신 거버넌스
 
@@ -634,7 +633,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
   지역성 원리를 위반함으로써 경계 컨텍스트를 위반하는 것을 막는 것** (9장,
   p.219).[^ford2022-evolutionary]
 - **이 절차가 이 KB의 브라운필드 쪽 소스와 만나는 자리는
-  [브라운필드에 도메인 주도 설계 들이기](applying-ddd-to-brownfield.md)에 있다** — 두 소스가
+  [브라운필드에 도메인 주도 설계 들이기](../concepts/applying-ddd-to-brownfield.md)에 있다** — 두 소스가
   출발점을 다르게 잡는다는 대질이 거기 있다.
 
 ## 이 KB의 다른 소스와 만나는 자리
@@ -655,7 +654,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
 
 ## 이어지는 페이지
 
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 이 거버넌스가 쓰는 기제의 정의와
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 거버넌스가 쓰는 기제의 정의와
   여섯 분류 축
 - [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 코드 수준에서 무엇을 수로
   재는가

@@ -5,6 +5,7 @@ description: 객체 모델과 관계형 스키마를 얼마나 가깝게 붙여 
 generated: { by: "claude-opus-5", at: "2026-09-14T09:00:00Z" }
 sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 관계형 데이터베이스를 위한 객체 설계
@@ -135,6 +136,21 @@ sources:
     투명성을 잃는다. 저자는 후자를 더 큰 손해로 본다. 이 저울은
     [리포지터리의 질의와 구현](repository-querying-and-implementation.md)의 "바탕 기술이 모델링
     선택을 제약할 수 있다"와 같은 저울이다.
+- **2003년의 이 관찰에 답이 생겼고 이 KB가 그 답을 갖고 있다.** 파울러가 자기 리팩터링 책 초판의
+  같은 판정을 철회하며 지목하는 것이 프라모드 사달게이(Pramod Sadalage)의 진화적 데이터베이스
+  설계이고, 그 기법을 아키텍처 층에서 펴는 책이
+  [ford2022-evolutionary](../sources/ford2022-evolutionary.md)다 — 사달게이가 그 책의
+  공저자다. 절차는 **확장하고, 두 표현을 함께 유지하고, 읽는 쪽을 옮기고, 수축하는** 것이다
+  (6장 §"Shared Database Integration", pp.128–132).[^ford2022-evolutionary]
+  - **그래서 위 저울의 한쪽 추가 가벼워진다.** 에번스가 "제동을 받아들이느냐 벌어지게 두느냐"로
+    세운 양자택일에서 **제동의 크기가 이 기법으로 줄어든다.** 다만 **이 KB는 그 판정을 뒤집지
+    않는다** — 에번스가 재는 것은 두 모델이 벌어질 때의 투명성 손실이고, 그것은 마이그레이션
+    도구가 있어도 남는다. 달라지는 것은 **데이터 이관 문제가 잦은 변경을 억제한다**는 전제
+    쪽이다. #hypothesis
+  - 두 소스는 서로를 호명하지 않는다. 그 사이를 잇는 자리는
+    [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) §"데이터베이스 — 20년
+    사이에 풀린 문제"이고, 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
 
 ## 의식적으로 갈라 두는 경우
 
@@ -156,6 +172,8 @@ sources:
 - [리포지터리의 질의와 구현](repository-querying-and-implementation.md) — 이 스키마 위에서 도는
   구현
 - [저장된 객체의 재구성](reconstituting-stored-objects.md) — 이 간극을 실제로 건너는 연산
+- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 이 절의 관찰에
+  답이 생긴 자리
 - [관계형 모델과 문서 모델](../concepts/relational-versus-document-model.md) — 임피던스 불일치와
   객체-관계 매핑 도구를 데이터 쪽에서 다루는 페이지
 - [정규화와 비정규화](../concepts/normalization-and-denormalization.md) — 여기서 양보 대상이 되는
@@ -173,3 +191,9 @@ sources:
     (PDF 쪽 − 33, 실측). 원문이 패턴 이름을 작은 대문자로 조판하는 관례를 직인용에서 유지했다.
     이 절에는 도판도 코드 목록도 없어 이 페이지에 코드 펜스가 없다. 저자가 매핑 기술의 기술적
     논의를 Fowler 2003으로 미루는 자리는 서지 참조라 옮기지 않았다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"
+    §"Evolutionary Database Design"(pp.125–132). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측).
+    여기에는 이 절의 관찰에 직접 닿는 대목만 들었고 그 장의 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다. 직인용은
+    없다 — 전부 한국어 재서술이고 괄호 안이 그 쪽이다.

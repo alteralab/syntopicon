@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 진화적 아키텍처
-status: draft
 description: 아키텍처가 시간에 따라 썩는 것을 전제로 놓고 그 변경을 안내하겠다는 규정 — 비트 부패와 소프트웨어 개발 생태계의 동적 평형이라는 두 원인, 도메인과 아키텍처 특성("-ilities")으로 가른 아키텍처의 전체 범위와 그 이름이 여럿이라는 저자들의 정리, "안내되고 점진적인 여러 차원에 걸친 변경을 떠받친다"는 세 부분 정의, 진화적 컴퓨팅에서 적합도 함수를 빌려 오는 계보, 점진적 변경의 개발 쪽과 운영 쪽, 기술·데이터·보안·운영이라는 차원들, 모든 것이 늘 바뀌는데 장기 계획이 가능한가라는 물음의 답으로서 변경 가능성을 아키텍처에 넣는다는 뒤집기, 진화 가능성이 다른 특성 전부를 감싸는 메타 특성이라는 배치, 그리고 왜 점진적·연속적·애자일·반응적·창발적·적응적이 아니라 "진화적"인가라는 이름 변론, 그리고 5장이 마이크로서비스를 이 규정에 대 보는 사례 — 퀀텀 크기가 점진적 변경의 하한을 정한다는 조문과 계층 아키텍처의 도메인 진화 가능성이 0이라는 대조와 왜 진작 이러지 못했는가에 대한 생태계 쪽 답, 그리고 7장이 기제와 구조를 묶으며 세우는 원칙 다섯(가장 책임 있는 순간·진화 가능성을 위한 설계·포스텔의 법칙·시험 가능성·콘웨이의 법칙)과 차원 식별부터 파이프라인 자동화까지의 기제 셋과 새 프로젝트 대 기존 아키텍처의 조건들, 그리고 적합도 함수를 먼저 짓고 설계를 이끄는 적합도 함수 주도 아키텍처
 generated: { by: "claude-opus-5", at: "2026-09-17T14:00:00Z" }
 sources:
@@ -34,7 +33,7 @@ sources:
 안내하는가.**
 
 이 페이지는 그 규정과 논거를 담고, 안내의 도구는
-[아키텍처 적합도 함수](architecture-fitness-functions.md)에, 변경을 점진적으로 만드는 공학은
+[아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에, 변경을 점진적으로 만드는 공학은
 [점진적 변경과 배포 파이프라인](incremental-change-and-deployment-pipelines.md)에 있다.
 
 ## 문제 — 왜 아키텍처가 썩는가
@@ -100,7 +99,7 @@ sources:
 - 저자들이 "아키텍트"라는 낱말의 범위도 정한다 — **아키텍처 결정을 내리는 사람이면 조직 안의
   직함과 무관하게 전부 포함**하고, **중요한 아키텍처 결정은 사실상 늘 다른 역할과의 협업을
   요구한다** (1장, p.4).[^ford2022-evolutionary] 같은 취지의 다른 소스 판이
-  [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다.
+  [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)에 있다.
 
 ## 정의 — 세 부분
 
@@ -220,7 +219,7 @@ sources:
   결합을 늘리고 층을 둔 근거를 무효화한다** (1장, p.10).[^ford2022-evolutionary]
   - **거부할 수 없는 요청이라는 것이 이 예의 힘이다** — 거절의 근거가 아키텍트의 권위뿐이면 결국
     닳는다. 그것을 실행 가능한 검사로 바꾸자는 것이
-    [아키텍처 적합도 함수](architecture-fitness-functions.md)의 제안이다.
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)의 제안이다.
 - **답이 메타 특성이라는 배치다** — 진화 가능성(evolvability)을 아키텍처 특성으로 더하는 것은
   **체계가 진화하는 동안 다른 특성들을 보호한다는 뜻**이다. 그래서 **진화 가능성은 메타
   특성(meta-characteristic), 곧 다른 모든 아키텍처 특성을 보호하는 아키텍처 포장지**다 (1장,
@@ -310,15 +309,15 @@ sources:
     코드처럼 지속적으로 통합**해야 하고 아키텍트는 **데이터 의존을 코드 의존과 동등하게** 여겨야
     한다 (7장, p.148).[^ford2022-evolutionary] 전문은
     [진화적 데이터베이스 설계](evolutionary-database-design.md)와
-    [아키텍처 퀀텀](architectural-quantum.md)에 있다.
+    [아키텍처 퀀텀](../concepts/architectural-quantum.md)에 있다.
   - **적용 범위가 소프트웨어 개발 프로세스와 도구까지다** — 둘 다 **마찰이 가장 적고 피드백의
     정도가 가장 높은 쪽으로** 고르라는 것이다 (7장, p.148).[^ford2022-evolutionary]
 - **③ 포스텔의 법칙(Postel's Law).** 저자들이 5장의 계약 논의에 더하는 원칙이고, **결합 지점을
   할 수 있는 만큼 무르게 만들려는 일반 원칙**이다. 계약과 통신에 적용하면 **보내는 것은 보수적으로,
   받는 것은 관대하게, 계약을 깰 때는 판을 매겨라**의 세 항이 된다 (7장,
   pp.148–149).[^ford2022-evolutionary] 세 항의 전문과 이 KB의 다른 두 소스와의 대질은
-  [소비자 주도 계약](consumer-driven-contracts.md)과
-  [후진 호환과 전진 호환](backward-and-forward-compatibility.md)에 있다.
+  [소비자 주도 계약](../concepts/consumer-driven-contracts.md)과
+  [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md)에 있다.
 - **④ 시험 가능성을 위해 아키텍팅하라.** 많은 아키텍트가 자기 아키텍처에 **시험하기 어려운 영역이
   있다**고 불평하는데, **아키텍처를 설계할 때 시험 가능성이 우선순위가 아니었던 것**을 생각하면
   놀랄 일이 아니다. 거꾸로 **시험을 염두에 두고 설계하면 아키텍처의 부분을 격리해 시험할 더 쉬운
@@ -331,7 +330,7 @@ sources:
     행동도 격리해 시험하기 어려워진다**는 것을 알게 됐다는 것이다 (7장,
     p.149).[^ford2022-evolutionary]
   - 이 원칙이 도구 쪽에서 어떻게 집행되는지는
-    [아키텍처 적합도 함수](architecture-fitness-functions.md)가 갖는다.
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가 갖는다.
 - **⑤ 콘웨이의 법칙(Conway's Law).** 놀라운 결합 지점이 소프트웨어 개발의 뜻밖의 자리에서
   생기므로 **팀 구조와 그것이 아키텍처에 주는 영향에 주의를 기울이는 것이 진화적 아키텍처의
   열쇠**라고 적고, 전문은 같은 책 9장으로 넘긴다 (7장, p.149).[^ford2022-evolutionary]
@@ -399,7 +398,7 @@ pp.149–151).[^ford2022-evolutionary]
     최종 세분성을 정한다.** 컴포넌트를 우스운 수준까지 못 쪼갠다는 뜻이 아니라 **문제 맥락에 맞는
     크기가 있다**는 뜻이다. **어떤 업무 문제는 다른 것보다 더 결합돼 있고**(트랜잭션이 많은 체계가
     그 예다), **문제에 반하는 극단적으로 결합 풀린 아키텍처를 지으려는 것은 비생산적**이다 (7장,
-    pp.151–152).[^ford2022-evolutionary] 그 결합 어휘는 [커네이선스](connascence.md)가 갖는다.
+    pp.151–152).[^ford2022-evolutionary] 그 결합 어휘는 [커네이선스](../concepts/connascence.md)가 갖는다.
   - **공학 실천이 상한을 정한다** — **지속적 전달 실천이 진화적 아키텍처를 보장하지는 않지만 그것
     없이는 거의 불가능하다.** 많은 팀이 효율을 위해 공학 실천 개선에 나서는데, **그 실천이 굳고
     나면 진화적 아키텍처 같은 고급 능력을 쌓는 벽돌이 된다.** 그래서 **진화적 아키텍처를
@@ -421,10 +420,10 @@ pp.149–151).[^ford2022-evolutionary]
   기제가 있는데, **아키텍트는 이 둘을 별개 범주로 생각하는 일이 잦지만 의도는 같다 — 아키텍처의
   어떤 특징을 검증하는 것**이다. **모든 아키텍처 검증을 적합도 함수로 생각하면 자동화와 그 밖의
   이로운 상승 작용을 정의할 때 일관성이 커진다** (7장, p.152).[^ford2022-evolutionary]
-  그 분류 체계는 [아키텍처 적합도 함수](architecture-fitness-functions.md)가 갖는다.
+  그 분류 체계는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가 갖는다.
 - **상용 기성품(COTS)에 대한 판정과 아키텍처 이행 절차는 이 페이지가 갖지 않는다** — 앞엣것은
   [부패 방지 계층](../concepts/anticorruption-layer.md)과
-  [아키텍처 적합도 함수](architecture-fitness-functions.md)에, 뒤엣것은
+  [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에, 뒤엣것은
   [모놀리스 분해 패턴](monolith-decomposition-patterns.md)에 있다.
 
 ## 7장 — 적합도 함수 주도 아키텍처
@@ -529,9 +528,9 @@ pp.149–151).[^ford2022-evolutionary]
     흐름을 소프트웨어로 자동화하는 데 더 공격적이었고 **결국 모든 회사가 그 필요를 깨달으면서 큰
     이점을 얻었다**는 것이 저자들이 드는 선례다 (9장, p.226).[^ford2022-evolutionary]
   - 주기 시간이 진화 속도의 상한이라는 8장의 조문은
-    [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)에, 지속적
+    [진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md)에, 지속적
     전달과 지속적 배포를 가르는 기준은
-    [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있다.
+    [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)에 있다.
 - **⑤ 퀀텀 수준에서 아키텍처 특성을 격리하기** — 전통적 비기능 요건을 적합도 함수로 생각하고 잘
   캡슐화된 아키텍처 퀀텀을 지으면 **아키텍트가 퀀텀마다 다른 특성을 떠받칠 수 있다.** 퀀텀마다
   기술 아키텍처가 서로 결합돼 있지 않으므로 **사용 사례마다 다른 아키텍처를 고를 수 있다** —
@@ -541,8 +540,8 @@ pp.149–151).[^ford2022-evolutionary]
   **경쟁하는 우선순위의 트레이드오프를 분석하는 대신 한 퀀텀의 주된 특성에 집중할 수 있다**
   (9장 §"Isolating architectural characteristics at the quantum level",
   pp.226–227).[^ford2022-evolutionary]
-  - 그 단위의 전문은 [아키텍처 퀀텀](architectural-quantum.md)에, 비기능 요건을 적합도 함수로
-    읽는 배치는 [아키텍처 적합도 함수](architecture-fitness-functions.md)에 있다.
+  - 그 단위의 전문은 [아키텍처 퀀텀](../concepts/architectural-quantum.md)에, 비기능 요건을 적합도 함수로
+    읽는 배치는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있다.
 - **⑥ 적응 대 진화** — 저자들이 이 장에서 낱말 하나를 더 가른다 (9장
   §"Adaptation versus evolution", p.227):[^ford2022-evolutionary]
   - **적응(adapting)** — 많은 조직이 기술 부채를 조금씩 늘리고 필요한 재구조화를 꺼리는 덫에
@@ -561,9 +560,9 @@ pp.149–151).[^ford2022-evolutionary]
   - **이 가름이 이 페이지의 정의에 값을 대는 마지막 자리다** — 위 [정의 — 세 부분](#정의--세-부분)이
     적는 "안내되고 점진적인 여러 차원의 변경"이 무엇이 **아닌지**를 여기서 적는다. 그 반대편의
     구체적 진단 아홉은
-    [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)에 있고,
+    [진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md)에 있고,
     서비스 버스를 통합 수단으로 고르는 일의 계보는
-    [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md)에 있다.
+    [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md)에 있다.
 
 ## 9장 — 왜 짓지 말아야 하는가
 
@@ -622,7 +621,7 @@ pp.227–228).[^ford2022-evolutionary]
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **이 책이 "적합도 함수"라는 낱말의 이 KB 안 출처다.** 이 KB는 그 낱말을 두 경로로 전언으로
-  먼저 들였다 — [데이터 메시의 적합성 함수](data-mesh-fitness-functions.md)가 데이터 메시 실행을
+  먼저 들였다 — [데이터 메시의 적합성 함수](../concepts/data-mesh-fitness-functions.md)가 데이터 메시 실행을
   재는 데 그것을 빌려 쓰고, [전략 목표와 원칙과 실천](strategic-goals-principles-practices.md)이
   뉴먼의 16장을 통해 그것을 재인용한다. **이번 반입으로 그 두 자리의 원전이 이 KB 안에 생겼다.**
 - **파울러의 진화적 *설계*와 이 책의 진화적 *아키텍처*는 범위가 다르다.**
@@ -652,7 +651,7 @@ Evolutionary Architecture", pp.107–112).[^ford2022-evolutionary]
   이 양식에서 경계 컨텍스트가 **퀀텀 경계** 노릇을 하고 데이터베이스 서버 같은 의존 컴포넌트를
   포함하며, 검색 엔진이나 보고 도구처럼 **그 서비스가 전달하는 기능에 기여하는 것은 무엇이든**
   들어간다 (5장, p.107).[^ford2022-evolutionary] 그 단위의 전문은
-  [아키텍처 퀀텀](architectural-quantum.md)에 있다.
+  [아키텍처 퀀텀](../concepts/architectural-quantum.md)에 있다.
 - **이 사례가 남기는 조문 하나 — 퀀텀 크기를 명시적으로 정하라.** 어떤 패턴을 고르든 아키텍트는
   자기 퀀텀 크기를 **명시적으로 정의해야** 하고, 퀀텀이 작으면 범위가 작아 변경이 빠르다. 그리고
   **퀀텀 크기가 그 아키텍처에서 가능한 점진적 변경의 하한을 정한다** (5장,
@@ -660,7 +659,7 @@ Evolutionary Architecture", pp.107–112).[^ford2022-evolutionary]
   - 같은 대목에 역할 조항이 하나 붙는다 — **전통적으로 격리돼 있던 아키텍트와 운영의 역할이
     진화적 아키텍처에서는 조율해야 한다.** 아키텍처는 운영에 올려지기 전까지 추상이기 때문이다
     (5장, p.107).[^ford2022-evolutionary] 그 역할의 전문은
-    [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다.
+    [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)에 있다.
 - **저자들이 이 양식의 철학적 기초를 두 항의 결합으로 적는다** — **지속적 전달의 공학 실천 +
   경계 컨텍스트의 물리적 분할**, 그리고 거기에 아키텍처 퀀텀 개념이 더해진다 (5장,
   p.108).[^ford2022-evolutionary] 위 [② 점진적 변경](#②-점진적-변경)이 담은 분업이 여기서 한 양식의
@@ -695,16 +694,16 @@ Evolutionary Architecture", pp.107–112).[^ford2022-evolutionary]
 
 ## 이어지는 페이지
 
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 안내를 실제로 수행하는 도구. 정의와
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 안내를 실제로 수행하는 도구. 정의와
   여섯 분류 축과 누가 쓰는가
 - [진화 가능성을 위한 지침](evolvability-guidelines.md) — 이 규정을 **있는 체계**에 적용할 때의
   조문 여덟과 그 사례들
 - [점진적 변경과 배포 파이프라인](incremental-change-and-deployment-pipelines.md) — 점진적 변경의
   공학과 적합도 함수가 도는 자리
-- [데이터 메시의 적합성 함수](data-mesh-fitness-functions.md) — 이 개념을 데이터 메시로 옮긴 차용
+- [데이터 메시의 적합성 함수](../concepts/data-mesh-fitness-functions.md) — 이 개념을 데이터 메시로 옮긴 차용
 - [전략 목표와 원칙과 실천](strategic-goals-principles-practices.md) — 같은 개념이 원칙을 재는
   수단으로 재인용되는 자리
-- [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 이 일을 하는 사람의 다른 소스 판
+- [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 이 일을 하는 사람의 다른 소스 판
 - [yagni와 진화적 아키텍처](yagni-and-evolutionary-architecture.md) — 같은 낱말의 설계 층
 - [질서의 진화](evolving-order.md) — 구조를 미리 굳히지 말라는 DDD 쪽 조항
 - [소프트웨어 엔트로피와 깨진 창문](software-entropy-and-broken-windows.md) — 같은 부패를 심리로

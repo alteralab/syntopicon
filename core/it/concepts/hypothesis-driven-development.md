@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 가설 주도 개발
-status: draft
 description: 무엇을 지을지를 요구사항이 아니라 가설로 세우고 실험으로 판정한다는 규정 — 기술 쪽의 데이터 주도 개발과 업무 쪽의 가설 주도 개발을 가르는 자리, 가설과 실험과 검증의 세 항으로 짜인 형식과 A/B 테스트로 판정하는 절차, 개별 결정이 하나씩은 말이 되면서 합쳐서 나빠지는 애자일의 함정, 이 방식이 요구하는 움직이는 부품 넷(진화적 아키텍처·현대적 데브옵스·바뀐 요구사항 수집·판을 나란히 돌리는 능력)과 지능적 라우팅, 실험을 조용히 돌리라는 조건, 그리고 적합도 함수를 아키텍처 가설에 답하는 실험 매체로 쓰는 되읽기와 그 사례 넷
 generated: { by: "claude-opus-5", at: "2026-09-17T14:40:00Z" }
 sources:
@@ -36,7 +35,7 @@ sources:
   진화적 아키텍처가 **변경에 대한 확신과 자동화된 거버넌스를 둘 다 개선한다**는 주장을 할 수 있어야
   한다 (9장 §"The Business Case", p.208).[^ford2022-evolutionary]
   - 메타워크가 함정이라는 같은 책 7장의 진단은
-    [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다. 여기서는 **바깥에서 볼 때
+    [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)에 있다. 여기서는 **바깥에서 볼 때
     그렇게 보인다**는 관찰로 쓰인다.
 - **파는 방법이 처방된다** — 아키텍처 배관의 뉘앙스가 아니라 **업무 이해관계자가 알아듣고 값을
   치는 말**로 하라는 것이고, 그 말이 **A/B 테스트와 고객에게서 배우는 능력**이다. 그 앞선 상호작용
@@ -53,7 +52,7 @@ sources:
   - **가설 주도 개발(hypothesis-driven development)** — **같은 접근에 기술이 아니라 업무 관심사를
     넣은 것**이다.
   - 그 깃허브 사례와 거기서 나온 이름(충실도 적합도 함수)은
-    [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에 있다.
+    [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
 
 ## 책의 사례 — 신고된 사진이 감당할 수 없이 늘었을 때
 
@@ -108,7 +107,7 @@ pp.208–209).[^ford2022-evolutionary]
   p.209).[^ford2022-evolutionary]
   - 철학이 다른 접근 셋(더 많은 목록·더 나은 우선순위·더 나은 묶음)이 있었고, **결정을 돕기 위해
     화면의 판 셋을 지어 사용자가 고르게 했다** (9장, p.209).[^ford2022-evolutionary]
-  - 이 관찰이 이 KB의 [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)
+  - 이 관찰이 이 KB의 [진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md)
     쪽 **제품 맞춤화**와 다른 것을 잰다 — 그쪽은 순열의 비용을 재고 여기서는 **누적된 개별 결정의
     총합**을 잰다.
 
@@ -132,7 +131,7 @@ pp.208–209).[^ford2022-evolutionary]
   p.210).[^ford2022-evolutionary]
   - **확장성 때문에 이미 인스턴스를 여럿 돌리고 있다면** 그중 일부를 기능이 다른 판으로 만들고
     일부 사용자를 그리로 보내는 일이 **사소해진다** (9장, p.210).[^ford2022-evolutionary]
-  - 이 조건이 [아키텍처 퀀텀](architectural-quantum.md)의 독립 배포 가능성과 같은 성질에 기댄다 —
+  - 이 조건이 [아키텍처 퀀텀](../concepts/architectural-quantum.md)의 독립 배포 가능성과 같은 성질에 기댄다 —
     **결합이 높으면 판을 가를 수 없다.** 아래
     [이 방식이 진화적 아키텍처를 고를 이유가 되는 자리](#이-방식이-진화적-아키텍처를-고를-이유가-되는-자리)가
     그 함의를 되받는다.
@@ -158,7 +157,7 @@ pp.208–209).[^ford2022-evolutionary]
   아키텍처 관심사에 대해 **교양 있는 추측**을 하게 된다. 그러나 팀이 해법을 구현하고 나면
   **아키텍트는 적합도 함수로 그 가설을 검증할 수 있다** (9장 §"Fitness Functions as Experimental
   Media", p.210).[^ford2022-evolutionary]
-- **이 대목이 이 KB에서 하는 일** — [아키텍처 적합도 함수](architecture-fitness-functions.md)가
+- **이 대목이 이 KB에서 하는 일** — [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가
   적는 것은 **무엇을 재는가와 어떻게 분류하는가**이고, 여기서 더해지는 것은 **왜 재는가의 한
   갈래**다. 거버넌스(정해진 규칙을 계속 지키는지)가 아니라 **판정되지 않은 물음에 답하는 도구**로
   같은 기제를 쓴다.
@@ -187,7 +186,7 @@ pp.208–209).[^ford2022-evolutionary]
 - **② 보안 의존성** — 라이브러리 의존성에서 보안 침해가 나 소프트웨어 공급망을 검증하는 긴 수동
   절차가 애플리케이션 변경마다 붙었고, 그 검토 절차가 **시장이 요구하는 속도로 움직이는 능력을
   해쳤다** (9장, p.212).[^ford2022-evolutionary] 전문은
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에 있다.
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
 - **③ 동시성** — 교살자 무화과로 기능을 하나씩 옮기는 중에 만든 새 마이크로서비스가 프로덕션에서
   **이중 쓰기 전략으로 돌되 진실의 출처는 레거시 데이터베이스에 두고** 있었다. 이런 종류의 서비스를
   처음 만들어 본 팀이라 아키텍트가 예비 데이터로 **초당 120건**을 확장 계수로 추정했는데, 측정으로는
@@ -211,7 +210,7 @@ pp.208–209).[^ford2022-evolutionary]
     데이터를 발견해** 문서가 부실한 레거시 체계의 데이터 의존을 더 잘 알게 됐다 (9장,
     p.215).[^ford2022-evolutionary]
   - 이 이름의 규정과 4장 쪽 기제는
-    [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에,
+    [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에,
     같은 장치를 다른 이름으로 부르는 소스와의 대조는
     [모놀리스 분해 패턴](monolith-decomposition-patterns.md)에 있다.
 - **사례 넷이 공유하는 모양** — **답이 미리 없는 물음이 있고, 답을 내는 수단이 파이프라인에 남는
@@ -230,7 +229,7 @@ pp.208–209).[^ford2022-evolutionary]
   더 벅차져 A/B 테스트를 수행하기가 어렵다** (9장, p.226).[^ford2022-evolutionary]
   - **이 한 줄이 위 [성립 조건](#성립-조건--움직이는-부품-넷)의 넷째 항을 거꾸로 적은 것**이다 —
     판을 나란히 돌릴 수 있어야 실험이 되고, 판을 나란히 돌릴 수 있는지를 정하는 것이 결합이다.
-  - 이 논거의 전문은 [진화적 아키텍처](evolutionary-architecture.md) §"왜 진화적 아키텍처를
+  - 이 논거의 전문은 [진화적 아키텍처](../concepts/evolutionary-architecture.md) §"왜 진화적 아키텍처를
     지어야 하는가"에 있다.
 
 ## 기능 토글이 여기서 의도된 기술 부채가 된다
@@ -243,7 +242,7 @@ pp.208–209).[^ford2022-evolutionary]
   것**이다 (9장, p.227).[^ford2022-evolutionary]
   - 기능 토글의 일반 서술과 다른 쓰임 셋은
     [모놀리스 분해 패턴](monolith-decomposition-patterns.md)에 있고, 옛 토글을 재사용하지 말라는
-    조문은 [진화 가능성을 위한 지침](evolvability-guidelines.md)에 있다.
+    조문은 [진화 가능성을 위한 지침](../concepts/evolvability-guidelines.md)에 있다.
 
 ## A/B 테스트는 테스트인가 — 이 KB의 테스트 축과의 대질
 
@@ -271,21 +270,21 @@ pp.208–209).[^ford2022-evolutionary]
   [프로덕션에서의 테스트](testing-in-production.md)가 그 계열의 owner이고, 그 페이지에 이 소스가
   같은 기법을 **실험 매체로 되읽는** 절이 있다.
 - **파이프라인 쪽 기제도 이 페이지가 갖지 않는다** — 점진적 전달과 카나리 릴리스의 단계 배치는
-  [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있다.
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)에 있다.
 - **이 페이지에 코드도 도판 재현도 없다.** 이 절들의 도판 다섯은 전부 이미지로 조판돼 있어 본문이
   각 도판에 대해 적는 것만 산문으로 옮겼다.
 
 ## 이어지는 페이지
 
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 이 실험의 매체가 되는 기제의 규정과
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 실험의 매체가 되는 기제의 규정과
   여섯 분류 축
-- [진화적 아키텍처](evolutionary-architecture.md) — 이 방식이 요구하는 아키텍처의 규정과 그것을
+- [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 이 방식이 요구하는 아키텍처의 규정과 그것을
   고를 이유들
 - [프로덕션에서의 테스트](testing-in-production.md) — A/B 테스트와 카나리 릴리스의 기법 쪽
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 같은 기제를 규칙 집행으로
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 같은 기제를 규칙 집행으로
   돌리는 쪽
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 기능 토글과 병행 운영의 장치 쪽
-- [아키텍처 퀀텀](architectural-quantum.md) — 판을 나란히 돌릴 수 있게 하는 단위
+- [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 판을 나란히 돌릴 수 있게 하는 단위
 - [테스팅과 체킹의 구분](testing-checking-distinction.md) — "테스트"라는 낱말에 경계를 긋는 축
 - [사용자 피드백](../synthesis/user-feedback.md) — 행동에서 신호를 읽는 쪽의 허브
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브

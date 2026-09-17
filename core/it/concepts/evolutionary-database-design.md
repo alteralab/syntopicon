@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 진화적 데이터베이스 설계
-status: draft
 description: 데이터베이스를 아키텍처의 한 차원으로 놓고 코드와 함께 진화시키는 일 — 스키마를 소스 코드처럼 시험하고 판을 매기고 점진적으로 쌓는다는 세 조건과 마이그레이션 도구가 그 형태를 집행하는 방식, 한번 돌린 마이그레이션을 복식부기처럼 불변으로 두는 규약과 되돌리기 기능을 팀들이 버린 세 이유, 공유 데이터베이스 통합이 스키마를 화석으로 만드는 진단과 그 해법인 확장/수축 패턴의 세 경우와 전이 상태를 떠받치는 트리거, 그 패턴이 병행 변경의 부분집합이라는 규정, 데이터 도구가 개발 도구보다 뒤처진 사정과 벤더 충성이라는 저자들의 진단, 트랜잭션 맥락이 퀀텀을 묶는 강한 핵력이라 서비스 세분성의 하한을 정한다는 판정, 조인 테이블을 덧대며 굳어 가는 스키마와 레거시 데이터가 진화에 매기는 세금, 그리고 참조 무결성과 데이터 중복과 저장 프로시저라는 데이터베이스 네이티브 기능을 적합도 함수로 갈아 끼우는 세 자리
 generated: { by: "claude-opus-5", at: "2026-09-17T20:00:00Z" }
 sources:
@@ -33,9 +32,9 @@ sources:
 하나의 질문: **데이터베이스를 아키텍처의 한 차원으로 놓고 코드와 함께 진화시키려면 무엇을
 해야 하는가.**
 
-[진화적 아키텍처](evolutionary-architecture.md)의 정의에 든 **여러 차원에 걸쳐**라는 마디가
-가리키는 대표 차원이 데이터다. 그 단위를 정의하는 층은 [아키텍처 퀀텀](architectural-quantum.md)이,
-안내하는 도구는 [아키텍처 적합도 함수](architecture-fitness-functions.md)가 갖는다.
+[진화적 아키텍처](../concepts/evolutionary-architecture.md)의 정의에 든 **여러 차원에 걸쳐**라는 마디가
+가리키는 대표 차원이 데이터다. 그 단위를 정의하는 층은 [아키텍처 퀀텀](../concepts/architectural-quantum.md)이,
+안내하는 도구는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가 갖는다.
 
 ## 왜 데이터가 아키텍처의 문제인가
 
@@ -160,7 +159,7 @@ sources:
   - **기업 안의 다른 체계들이 변경을 따라잡을 충분한 시간을 준다.** 어떤 조직에서는 그 전이
     상태가 **며칠에서 몇 달까지** 이어질 수 있다.
 - 호환의 두 방향 자체에 대한 정의와 강제 수단은
-  [후진 호환과 전진 호환](backward-and-forward-compatibility.md)에 있다.
+  [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md)에 있다.
 
 ## 세 경우 — 통합 지점과 레거시 데이터가 있는가
 
@@ -240,7 +239,7 @@ pp.129–131).[^ford2022-evolutionary]
   |---|---|---|
   | 코드 | 선언과 호출자, 그리고 그에 딸린 데이터 | [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) §데이터베이스 |
   | 인터페이스 | 서비스 엔드포인트의 판 | [계약을 깨는 변경의 관리](managing-breaking-api-changes.md) |
-  | 메시지 스키마 | 이벤트 필드의 이름·타입·제거 | [후진 호환과 전진 호환](backward-and-forward-compatibility.md) §Schema Migrator |
+  | 메시지 스키마 | 이벤트 필드의 이름·타입·제거 | [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) §Schema Migrator |
   | 데이터베이스 | 표의 열 | 이 페이지 |
 
   **위 표는 원문에 없다** — 이 KB가 네 소스의 같은 절차를 모은 것이다. 네 자리 모두 **확장하고,
@@ -296,7 +295,7 @@ Choices", pp.132–133).[^ford2022-evolutionary]
   있지만 **트랜잭션 맥락의 범위를 알아내는 일은 훨씬 어렵다.** 스키마 사이의 결합이 진화를
   해치듯 **트랜잭션 결합은 구성 부분들을 구체적인 방식으로 묶어 진화를 더 어렵게 만든다** (6장,
   p.133).[^ford2022-evolutionary] 그 정량 지표 쪽은
-  [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)에 있다.
+  [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)에 있다.
 - **업무 체계에 트랜잭션이 나타나는 이유가 셋으로 든다** (6장,
   p.133):[^ford2022-evolutionary]
   - **업무 분석가들이 트랜잭션이라는 생각을 좋아한다** — 기술적 난점과 무관하게, 어떤 맥락에
@@ -335,7 +334,7 @@ Choices", pp.132–133).[^ford2022-evolutionary]
   - 그린필드 마이크로서비스를 지을 때는 서비스와 데이터 맥락의 크기를 제한하는 데 부지런해야
     하되, **마이크로서비스라는 말을 너무 문자 그대로 받지 마라 — 각 서비스가 작아야 하는 것이
     아니라 쓸모 있는 경계 컨텍스트를 담아야 한다.** 그 경계 쪽 어휘는
-    [경계 컨텍스트](bounded-context.md)에 있다.
+    [경계 컨텍스트](../concepts/bounded-context.md)에 있다.
 - **기존 스키마를 재구조화할 때의 판정** — 알맞은 세분성을 얻기가 자주 어렵다. **많은 데이터 팀이
   수십 년에 걸쳐 스키마를 꿰매 왔고 그 역연산을 수행할 마음이 없다.** 그래서 **업무를 떠받치는 데
   필요한 트랜잭션 맥락이 개발자가 서비스로 만들 수 있는 가장 작은 세분성을 정의하는 경우가 잦다.**
@@ -427,8 +426,8 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 - **답이 이 장의 제목이다** — **그것이 거버넌스의 한 형태이므로**, 아키텍트는 **연속 적합도 함수를
   빌드에 엮어 중요한 부분들이 무결성을 유지하고 다른 문제들도 다뤄지도록 함으로써 데이터 팀을
   안심시킬 수 있다** (6장, p.137).[^ford2022-evolutionary] 그 도구의 정의와 분류는
-  [아키텍처 적합도 함수](architecture-fitness-functions.md)에, 거버넌스로 돌리는 일은
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에 있다.
+  [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에, 거버넌스로 돌리는 일은
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
 
 ### 참조 무결성
 
@@ -560,7 +559,7 @@ Choices", pp.132–133).[^ford2022-evolutionary]
   것이고 두 소스 중 어느 쪽도 상대를 호명하지 않는다.** #hypothesis
 - **④ 이 책의 "데이터 중복은 퀀텀을 가로질러 허용된다" 대 이 KB의 정규화·DRY 서술.** **충돌이
   아니라 이미 좁혀진 규칙이다.** 뉴먼이 DRY를 **한 마이크로서비스 안으로 좁히고 경계를 가로지르는
-  중복을 허용**하는 자리가 [DRY 원칙](dry-principle.md)에 이미 있고, 이 책의 읽기 전용 캐시
+  중복을 허용**하는 자리가 [DRY 원칙](../concepts/dry-principle.md)에 이미 있고, 이 책의 읽기 전용 캐시
   선택지는 그 좁힌 규칙의 데이터 층 사례다. **다만 이 책이 더하는 조건이 하나 있다 — 중복은
   허용하되 소유(갱신 권한)는 한 곳이어야 한다.**
 - **⑤ 이 책의 "데이터의 나이와 품질" 대 이 KB의 데이터 품질 페이지들.** **대상이 다르다.**
@@ -571,14 +570,14 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 
 ## 이어지는 페이지
 
-- [진화적 아키텍처](evolutionary-architecture.md) — "여러 차원에 걸쳐"라는 마디가 이 페이지를
+- [진화적 아키텍처](../concepts/evolutionary-architecture.md) — "여러 차원에 걸쳐"라는 마디가 이 페이지를
   부르는 자리
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 네이티브 기능을 갈아 끼우는 그 도구
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 그 함수를 빌드에 거는 일
-- [아키텍처 퀀텀](architectural-quantum.md) — 트랜잭션 맥락이 묶는 그 단위
-- [데이터 분해가 부르는 문제들](data-decomposition-concerns.md) — 같은 청구서를 뉴먼이 다섯
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 네이티브 기능을 갈아 끼우는 그 도구
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 그 함수를 빌드에 거는 일
+- [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 트랜잭션 맥락이 묶는 그 단위
+- [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 같은 청구서를 뉴먼이 다섯
   항목으로 적은 자리
-- [후진 호환과 전진 호환](backward-and-forward-compatibility.md) — 전이 상태가 기대는 성질과
+- [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — 전이 상태가 기대는 성질과
   같은 절차의 메시지 스키마 판
 - [계약을 깨는 변경의 관리](managing-breaking-api-changes.md) — 같은 절차의 인터페이스 판
 - [리팩터링을 가로막는 것들](obstacles-to-refactoring.md) — 같은 절차의 코드 판이자 이 기법의
@@ -586,14 +585,14 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 - [분산 트랜잭션과 2단계 커밋](two-phase-commit.md) — 절 제목이 가리키지만 이 책이 설명하지 않는 것
 - [직렬 실행](serial-execution.md) — 저장 프로시저를 반대 방향으로 쓰는 자리
 - [관계형 모델과 문서 모델](relational-versus-document-model.md) — 마지막 사례가 고르는 그 선택
-- [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 공유 데이터베이스가
+- [애플리케이션 통합의 네 가지 스타일](../concepts/application-integration-styles.md) — 공유 데이터베이스가
   통합 양식으로 카탈로그화된 자리
 - [관계형 데이터베이스를 위한 객체 설계](../concepts/designing-objects-for-relational-databases.md) —
   관계형 설계가 리팩터링되지 않는다는 2003년의 관찰
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 교살자 무화과의 정본
 - [이벤트 주도 통합 설계](event-driven-integration-design.md) — 참조 무결성을 이벤트로 지키는
   기제의 정본
-- [DRY 원칙](dry-principle.md) — 경계를 가로지르는 중복이 이미 허용된 자리
+- [DRY 원칙](../concepts/dry-principle.md) — 경계를 가로지르는 중복이 이미 허용된 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 스키마 진화를 데이터 쪽에서 보는 허브
 

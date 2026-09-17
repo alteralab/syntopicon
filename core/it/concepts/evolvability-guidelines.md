@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 진화 가능성을 위한 지침
-status: draft
 description: 이미 서 있는 아키텍처에 진화 가능성을 뒤늦게 들일 때 지키라고 저자들이 내놓는 지침 여덟 — 스노플레이크를 불변 인프라로 바꿔 쓸데없는 가변성을 없애기, 블루/그린과 기능 토글과 서비스 라우팅으로 결정을 되돌릴 수 있게 만들기, 알 수 없는 미지 때문에 예측 가능보다 진화 가능을 택하기, 서드파티 라이브러리를 인터페이스 뒤에 두는 적시 부패 방지 계층, 처음부터 버릴 작정으로 짓는 희생 아키텍처와 두 번째 체계 증후군, 이행적 의존을 당김 모형과 전용 파이프라인으로 다스려 외부 변경을 완화하기, 프레임워크는 공격적으로 라이브러리는 수동적으로 갱신하라는 주기 분리, 그리고 엔드포인트 이름 대신 안에서 판을 가르고 판은 둘까지만 떠받치라는 내부 판 매김 — 그리고 별점을 반 개 단위로 넓히는 사례가 그 라우팅 조문을 실물로 보이는 자리, 그리고 같은 III부의 다음 장이 이 조문 넷에 붙이는 반대편(도구의 천장을 먼저 재라는 마지막 10% 덫, 부패 방지 계층의 둘째 쓰임인 벤더 왕, 기능 토글이 영구 맞춤화가 될 때의 시험 부담, 매몰 비용이 산출물 애착으로 굳는 긴 계획 지평)
 generated: { by: "claude-opus-5", at: "2026-09-17T15:30:00Z" }
 sources:
@@ -28,7 +27,7 @@ sources:
 
 하나의 질문: **이미 서 있는 아키텍처에 진화 가능성을 뒤늦게 넣으려면 무엇을 지키는가.**
 
-규정과 기제는 [진화적 아키텍처](evolutionary-architecture.md)가 갖는다. 이 페이지는 그 규정을
+규정과 기제는 [진화적 아키텍처](../concepts/evolutionary-architecture.md)가 갖는다. 이 페이지는 그 규정을
 **있는 체계에 적용할 때의 조문 여덟**을 담는다. 저자들이 지침을 지침으로 내놓는 이유가 아래
 첫 절에 있다 — 큰 진흙 공을 통째로 현대 아키텍처로 바꾸는 일은 누구도 못 하지만, **유연성
 지점 몇 개를 기존 구조에 심는 것만으로도 프로젝트가 이득을 받는다**는 것이다.
@@ -124,7 +123,7 @@ sources:
     마이크로서비스 생태계에서 카나리 릴리스를 구현하는 또 하나의 흔한 방법이다.
 - **이 셋이 이 KB에 흩어져 있다.** 기능 토글과 카나리 릴리스의 전문은
   [모놀리스 분해 패턴](monolith-decomposition-patterns.md)과
-  [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있고, 가역성 자체를 설계
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)에 있고, 가역성 자체를 설계
   성질로 다루는 자리는 [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)이다.
   **블루/그린 배포는 이 반입이 이 KB에 처음 들인 이름이다** — 이 페이지가 갖는 것은 위 한 문단이
   전부이고 그 이상의 서술은 이 소스에 없다.
@@ -150,7 +149,7 @@ sources:
   안에 짓는다.** 프로젝트가 변경을 쉽게 흡수할 수 있으면 **아키텍트에게 수정 구슬이 필요 없다.**
   아키텍처는 오로지 선행 활동이 아니다 — 프로젝트는 수명 내내 명시적으로도 뜻밖으로도 계속
   바뀐다 (7장, p.165).[^ford2022-evolutionary]
-  - 동적 평형의 전문은 [진화적 아키텍처](evolutionary-architecture.md)에 있다.
+  - 동적 평형의 전문은 [진화적 아키텍처](../concepts/evolutionary-architecture.md)에 있다.
 - **그리고 이 절이 다음 절로 넘긴다** — 개발자가 변경으로부터 스스로를 격리하는 데 흔히 쓰는
   안전장치 하나가 **부패 방지 계층(anticorruption layer)**이다 (7장,
   p.165).[^ford2022-evolutionary]
@@ -313,7 +312,7 @@ sources:
     의존 사이의 흔히 중요하지 않은 구분이 유용하게 흐려진다 — **결국 전부 프로젝트 안의
     코드다.**
   - 파이프라인 쪽 전문은
-    [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있다.
+    [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)에 있다.
 
 ### 책의 사례 — 열한 줄짜리 모듈이 사라진 날
 
@@ -363,7 +362,7 @@ sources:
     > Update framework dependencies aggressively; update libraries passively.
 
   - 구심·원심 결합의 전문은
-    [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)에 있다. **이 조문이 그
+    [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)에 있다. **이 조문이 그
     지표를 거버넌스 임계값으로 쓰는 자리 하나다** — 다만 저자들은 그 임계값의 수를 적지 않는다.
 
 ## ⑧ 서비스는 안에서 판을 가르라
@@ -394,7 +393,7 @@ sources:
 - **6장이 이 절로 넘긴 갈고리가 여기서 닫힌다** — 6장의 라우팅 사례가 **옛 판과 새 판을 함께
   떠받치는 일을 서비스 층에서 어떻게 처리하는가**를 7장으로 미뤘고, 그 답이 위 내부 해소와
   아래 별점 사례다. 데이터 층 쪽 절차(확장/수축)는
-  [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
+  [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)에 있다.
 
 ## 책의 사례 — 별점을 반 개 단위로
 
@@ -421,7 +420,7 @@ sources:
   곧 스키마를 바꾸지 않고 더할 수 있었기 때문에** 데이터 진화 관점에서 어렵지 않았다. **새 기능
   때문에 데이터베이스 자체가 바뀌어야 하는 경우는 6장의 진화적 데이터 설계로 넘긴다** (7장,
   p.174).[^ford2022-evolutionary] 그 전문이
-  [진화적 데이터베이스 설계](evolutionary-database-design.md)다.
+  [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md)다.
 - 도판 셋(그림 7-10 별점 서비스의 내부 · 7-11 두 형식을 함께 떠받치는 전이 단계 · 7-12 새 형식만
   남은 끝 상태)은 이미지로 조판돼 있어 본문이 그 도판에 대해 적는 것만 위에 옮겼다.
 - 이 회사는 저자들이 책 전체에서 쓰는 대리 회사이고, 사례는 각각 실제 프로젝트에서 왔다고 저자들이
@@ -432,7 +431,7 @@ sources:
 **같은 III부의 다음 장이 같은 대상을 부정형으로 적는다.** 여기 조문이 "무엇을 하라"라면 8장은
 "무엇이 진화를 망가뜨리는가"이고, 그중 넷이 이 페이지의 조문과 직접 맞물린다. 아홉 항목 전부와
 안티패턴·함정을 가르는 정의는
-[진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)에 있다.
+[진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md)에 있다.
 
 - **도구의 천장이 ④의 격리 대상에 하나 더 붙는다 — 마지막 10% 덫.** 저자들의 관찰은
   **고객이 원하는 것의 80%는 빠르고 쉽게 나오는데 다음 10%는 가능하지만 극도로 어렵고, 해킹으로
@@ -573,7 +572,7 @@ sources:
   [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)에 적었다.
 - **⑦의 갱신 주기 조문은 이 반입 시점에 대질할 상대가 없었다.** 의존 갱신의 잦기를 **밀기와
   당김으로 갈라 조문으로 적는** 소스가 이 코퍼스에서 이것 하나다. 결합의 정도로 갱신 주기를
-  가른다는 논거는 [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)의 수와
+  가른다는 논거는 [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)의 수와
   이어진다.
 - **1판의 지침 하나가 2판에서 독립 절이 아니다** — "스냅샷보다 지속적 전달을 선호하라"는 이름의
   조문은 이 판의 §Guidelines 아래에 별도 절로 없고, 같은 내용(서드파티 저장소가 자기 배포
@@ -581,17 +580,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [진화적 아키텍처](evolutionary-architecture.md) — 이 지침들이 적용하는 규정과 원칙 다섯과 기제 셋
-- [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md) — 같은 대상을 부정형으로 적는 다음 장의 목록 아홉
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 지침이 세운 것을 계속 재는 도구
+- [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 이 지침들이 적용하는 규정과 원칙 다섯과 기제 셋
+- [진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md) — 같은 대상을 부정형으로 적는 다음 장의 목록 아홉
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 지침이 세운 것을 계속 재는 도구
 - [부패 방지 계층](../concepts/anticorruption-layer.md) — ④가 빌려 온 장치의 원전과 그 넓힌 적용
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — ②의 성질을 코드 규모에 놓은 소스
 - [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — ⑤가 겨루지 않는 이행의 보폭
 - [계약을 깨는 변경의 관리](managing-breaking-api-changes.md) — ⑧의 더 넓은 선택지 표
-- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 같은 판 공존을 데이터 층에서 하는 절차
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — ⑥의 당김 모형이 얹히는 파이프라인
+- [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 같은 판 공존을 데이터 층에서 하는 절차
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — ⑥의 당김 모형이 얹히는 파이프라인
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — ②의 기능 토글과 ⑤가 만나는 이행 장치
-- [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — ⑦이 임계값으로 부르는 수들
+- [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md) — ⑦이 임계값으로 부르는 수들
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판). **8장에서 온 것**은

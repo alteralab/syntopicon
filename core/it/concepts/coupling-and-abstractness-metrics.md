@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 결합도와 추상도의 정량 지표
-status: draft
 description: 코드 수준에서 아키텍처 구조를 수로 재는 지표들 — 구심 결합과 원심 결합이라는 두 방향 세기, 추상 산출물과 구상 산출물의 비인 추상도, 원심 결합이 전체 결합에서 차지하는 비인 불안정도, 그 둘을 합쳐 이상선으로부터의 거리를 재는 주계열로부터의 정규화 거리와 쓸모없음의 지대·고통의 지대, 임포트 방향성을 규칙으로 고정하는 것, 그리고 결정점 수로 함수 복잡도를 재는 순환 복잡도와 그 임계값 논쟁, 그리고 7장이 이행 중 공유 모듈을 쪼갤지 판정하는 데 쓰는 응집 결핍 지표 LCOM — 각 공식의 원문 직인용과 이 지표들이 구조만 재고 행동은 재지 못한다는 한계, 그리고 같은 책 5장이 이 두 지표를 아홉 갈래로 세분하며 개수 대신 방향 지침과 지역성이라는 조절 변수를 붙이는 자리
 generated: { by: "claude-opus-5", at: "2026-09-17T20:00:00Z" }
 sources:
@@ -29,8 +28,8 @@ sources:
 하나의 질문: **아키텍처 구조를 코드 수준에서 수로 재는 지표는 무엇이고 그 수는 무엇을 뜻하는가.**
 
 이 지표들이 실제로 쓰이는 자리는 거버넌스다 —
-[자동화된 아키텍처 거버넌스](automated-architectural-governance.md)가 그 자리를 받고, 지표를
-검사로 바꾸는 기제의 정의는 [아키텍처 적합도 함수](architecture-fitness-functions.md)에 있다.
+[자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)가 그 자리를 받고, 지표를
+검사로 바꾸는 기제의 정의는 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있다.
 
 - **이 지표들이 왜 있는가에 대한 저자들의 설명이 자조적이다** — 소프트웨어 아키텍트는 설계가
   어떻게 기능할지 예측하는 분석 기법을 여럿 쌓아 올린 다른 공학 분야를 부러워하고, **공학 수학의
@@ -169,7 +168,7 @@ sources:
   pp.52–53).[^ford2022-evolutionary]
   - 버전 조건: 2022년 저술 시점의 JDepend 사용례다. 이 페이지는 그 코드 목록을 옮기지 않았다 —
     이 KB가 이 소스에서 옮긴 대표 코드는
-    [아키텍처 적합도 함수](architecture-fitness-functions.md)의 ArchUnit 예제 하나다.
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)의 ArchUnit 예제 하나다.
 - **저자들이 가이드라인보다 테스트를 선호한다고 밝힌다** — **엄격한 개발 가이드라인(과 거기 딸린
   관료적 훈계)보다 아키텍처 위반을 잡는 단위 테스트를 짓는 쪽을 선호한다.** 이유가 둘이다. 개발자가
   **배관 관심사보다 도메인 문제에 더 집중하게 하고**, 더 중요하게는 **아키텍트가 규칙을 실행 가능한
@@ -226,7 +225,7 @@ sources:
   높으며 CC가 낮은 메서드**가 나온다 (4장, p.55).[^ford2022-evolutionary]
 - **이미 값이 나빠진 프로젝트를 어떻게 하는가가 이 절의 실제 물음이고, 그 답이 거버넌스 기법
   하나다** — 단단한 임계값을 정하는 대신 팀을 더 나은 값 쪽으로 **몰아가는(herd)** 것이다. 그 방법과
-  근거는 [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)에 있다.
+  근거는 [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
 
 ## LCOM — 응집의 결핍을 재는 지표
 
@@ -276,7 +275,7 @@ sources:
   관계**를 재고, LCOM은 **모듈 *안*의 메서드와 필드 관계**를 잰다. 그래서 답하는 물음이 다르다 —
   앞엣것은 "이 모듈이 무엇에 묶여 있는가", LCOM은 **"이 모듈이 애초에 한 덩어리였어야 하는가"**다.
   커네이선스의 지침(안에서 최대화, 밖으로 최소화)에 대 보면 **LCOM은 그 지침의 안쪽 절반을 재는
-  수**다. 그 어휘는 [커네이선스](connascence.md)에 있다.
+  수**다. 그 어휘는 [커네이선스](../concepts/connascence.md)에 있다.
 
 ## 이 지표들을 내는 도구
 
@@ -331,7 +330,7 @@ sources:
 - **구조를 재지 행동을 재지 않는다.** 이 지표들은 전부 **정적 산출물의 개수와 비**이고, 저자들이
   이것을 **적합도 함수의 한 계열**(코드 지표)로만 놓는 것도 그 때문이다. 실행 시점의 특성(가용성·
   지연·회복력)은 다른 계열의 적합도 함수가 받는다 —
-  [아키텍처 적합도 함수](architecture-fitness-functions.md)의 도구 계열 다섯을 볼 것.
+  [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)의 도구 계열 다섯을 볼 것.
 
 ## 5장이 이 두 지표를 아홉 갈래로 세분한다
 
@@ -353,13 +352,13 @@ sources:
   분석할 도구가 없어 동적 커네이선스는 판정이 어렵다는 것이다 (5장,
   p.88).[^ford2022-evolutionary] 위 [이 지표들을 내는 도구](#이-지표들을-내는-도구)가 전부 정적
   분석 도구인 것과 같은 사정이다.
-- 아홉 갈래의 전문과 성질 셋은 [커네이선스](connascence.md)에 있다.
+- 아홉 갈래의 전문과 성질 셋은 [커네이선스](../concepts/connascence.md)에 있다.
 
 ## 이어지는 페이지
 
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 이 지표들을 검사로 바꿔
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 이 지표들을 검사로 바꿔
   빌드에 거는 자리, 그리고 이미 나빠진 값을 다루는 기법
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 지표를 적합도 함수로 바꾸는 조건과
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 지표를 적합도 함수로 바꾸는 조건과
   그 정의
 - [변경에 대한 결합도](coupling-with-respect-to-change.md) — 같은 낱말의 정성적 정의와 그것이
   소스 코드로 재지지 않는 이유
@@ -394,7 +393,7 @@ sources:
     §"Static connascence"(p.86) · §"Dynamic connascence"(p.88) · §"Connascence
     properties"(pp.88–89)와 규칙 대목(p.90)이다. 그 절에는 직인용을 두지 않았고 그림 5-1은
     이미지 조판이라 재현하지 않았다 — 커네이선스의 전문과 직인용은
-    [커네이선스](connascence.md)가 갖는다.
+    [커네이선스](../concepts/connascence.md)가 갖는다.
     **7장 "Building Evolvable Architectures" §"Evolving Module Interactions"(pp.159–160)이
     LCOM 절에 합류했다.** 그 절에는 직인용을 두지 않았다 — 옮긴 것이 공식이 아니라 지표의 규정과
     쓰임이다. **그림 7-6(응집 수준이 다른 세 클래스)은 정의를 도판이 인코딩하는 자리라

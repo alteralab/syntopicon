@@ -1,11 +1,12 @@
 ---
 type: concept
 title: CQRS 아키텍처
-description: 같은 데이터를 여러 영속 모델로 표현하기 위해 코드베이스를 조직하는 아키텍처 패턴 — 하나의 모델로 모든 필요를 감당할 수 없다는 문제 설정과 폴리글랏 모델링·폴리글랏 영속화라는 두 동기, 이 패턴이 이벤트 소싱에서 나왔으되 그것 없이도 쓸 수 있다는 저자의 분리 선언, 강한 일관성을 갖는 유일한 정본인 명령 실행 모델과 언제든 지우고 다시 만들 수 있는 읽기 모델의 규정, 체크포인트와 캐치업 구독으로 도는 동기 투영과 메시지 버스를 타는 비동기 투영의 기제와 각각의 대가, 명령이 데이터를 돌려줘도 된다는 정정과 그 유일한 제한, 그리고 이 패턴이 필요한 자리
+description: 같은 데이터를 여러 영속 모델로 표현하기 위해 코드베이스를 조직하는 아키텍처 패턴 — 하나의 모델로 모든 필요를 감당할 수 없다는 문제 설정과 폴리글랏 모델링·폴리글랏 영속화라는 두 동기, 이 패턴이 이벤트 소싱에서 나왔으되 그것 없이도 쓸 수 있다는 저자의 분리 선언, 강한 일관성을 갖는 유일한 정본인 명령 실행 모델과 언제든 지우고 다시 만들 수 있는 읽기 모델의 규정, 체크포인트와 캐치업 구독으로 도는 동기 투영과 메시지 버스를 타는 비동기 투영의 기제와 각각의 대가, 명령이 데이터를 돌려줘도 된다는 정정과 그 유일한 제한, 그리고 이 패턴이 필요한 자리, 그리고 이 배치를 패턴 이름 없이 서술하면서 그 반대를 안티패턴으로 세우는 소스
 generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
 sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # CQRS 아키텍처
@@ -358,6 +359,17 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     규정하고, 이 판본은 둘을 뗄 수 있다고 명시한다. 대상이 어긋나는 것이 아니라 **이 판본이
     더 넓은 적용 범위를 주장하는 것**이라 모순 쌍으로 세우지 않았다 — 그쪽 소스도 CQRS를
     이벤트 소싱 없이 쓸 수 없다고 적지는 않는다.
+- **같은 배치를 이름 없이 서술하는 소스가 하나 더 있다.** 진화적 아키텍처 쪽이 **기록 시스템
+  위에 리포팅 얹기**를 안티패턴으로 세우고 그 처방으로 **이벤트 스트림을 듣는 리포팅 서비스
+  묶음이 리포팅에 최적화된 비정규화된 저장소를 채우는 구성**을 적는데, **이 페이지의 어휘로는
+  그것이 비동기 투영으로 유지되는 읽기 모델이다.** 다만 **그쪽은 CQRS라는 이름을 쓰지 않고**
+  경계 컨텍스트가 아니라 서비스 여럿에 걸친 배치로 적으며, 이 페이지가 갖는 것(정본 모델의
+  유일성, 체크포인트와 캐치업 구독, 읽기 모델을 언제든 다시 만들 수 있다는 규정)에 해당하는
+  서술이 없다 (8장 §"Antipattern: Reporting Atop the System of Record",
+  pp.189–190).[^ford2022-evolutionary] **이름의 대응은 이 KB가 세운 것이다.** #hypothesis 그쪽
+  서술의 전문은
+  [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)과
+  [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md)에 있다.
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 뷰를 어디까지 미리 물질화할지의
   선택을 분석 도구 쪽에서 다루는 자리.
 - [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md) — 같은 분리를 데이터
@@ -367,6 +379,7 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
 
 - [이벤트 소싱 도메인 모델](event-sourced-domain-model.md) — 이 패턴을 의무로 만드는 업무 로직 패턴
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 같은 이름의 데이터 모델 판본
+- [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md) — 이 배치를 이름 없이 서술하며 그 반대를 안티패턴으로 세우는 쪽
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 물려받는 조직 원리
 - [계층 아키텍처](../concepts/layered-architecture.md) — 세 아키텍처 패턴 중 첫째
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 이 패턴을 어느 범위에
@@ -418,3 +431,11 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     **부록 B의 8장 5번 답(p.292)도 이 페이지에 합류했다** — 이 패턴의 여러 모델이 경계
     컨텍스트의 모델 경계 요구와 어떻게 양립하는지가 장 본문에 없고 그 답에만 적혀 있다.
     부록 B는 연습문제의 답이고 문항 자체는 claim이 아니라 옮기지 않았다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 8장 "Evolutionary Architecture
+    Pitfalls and Antipatterns" §"Antipattern: Reporting Atop the System of Record"(pp.189–190).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 이 소스는 이 페이지에 **한 줄만** 더한다 —
+    직인용을 두지 않았고, 그 절의 전문은
+    [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md)와
+    [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)이 갖는다.
+    **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.

@@ -7,6 +7,7 @@ sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
 # 브라운필드에 도메인 주도 설계 들이기
@@ -26,6 +27,8 @@ sources:
 - [잠행 DDD — 권위 대신 논리로](#잠행-ddd--권위-대신-논리로)
 - [같은 현대화를 마이크로서비스 쪽에서 세운 소스](#같은-현대화를-마이크로서비스-쪽에서-세운-소스)
 - [원전의 첫째 필수와 잠행이 양립하는가](#원전의-첫째-필수와-잠행이-양립하는가)
+- [같은 일을 통합 아키텍처 쪽에서 시작하는 소스](#같은-일을-통합-아키텍처-쪽에서-시작하는-소스)
+  - [두 절차가 겨루는가 — 출발점이 다르고 도착점이 같다](#두-절차가-겨루는가--출발점이-다르고-도착점이-같다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **이미 돌아가고 있는 체계와 이 방법론을 모르는 조직에 도메인 주도 설계를 어떤
@@ -78,7 +81,7 @@ sources:
 
   - 그리고 **그 단위들이 회사가 자기 업무 도메인에서 경쟁할 수 있도록 어떻게 협력하는지
     살핀다** (13장, p.202).[^khononov2021] 같은 출발점을 1장이 이미 세웠고 그 전문은
-    [비즈니스 도메인과 하위 도메인](business-domain-and-subdomains.md)에 있다.
+    [비즈니스 도메인과 하위 도메인](../concepts/business-domain-and-subdomains.md)에 있다.
 
 ## 종류별로 무엇을 찾는가
 
@@ -111,7 +114,7 @@ sources:
 
   - 대신 **전반 구조를 식별하되 지금 일하고 있는 소프트웨어 체계와 가장 관련이 깊은 하위
     도메인에 더 주의를 기울인다** (13장, p.203).[^khononov2021]
-- 이 세 종류의 규정과 판별 어림법은 [하위 도메인의 세 종류](subdomain-types.md)에 있다.
+- 이 세 종류의 규정과 판별 어림법은 [하위 도메인의 세 종류](../concepts/subdomain-types.md)에 있다.
 
 ## 현재 설계를 탐색한다
 
@@ -140,7 +143,7 @@ sources:
   (13장, p.204).[^khononov2021]
   - **이 대질이 10장의 판정 사슬을 반대 방향으로 쓰는 것이다.** 10장은 하위 도메인의 종류에서
     패턴을 도출했고, 여기서는 **실제로 쓰인 패턴**을 관찰해 분류와 맞는지 본다. 그 사슬은
-    [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 있다.
+    [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 있다.
 
 ## 전략 설계를 평가한다
 
@@ -166,7 +169,7 @@ sources:
   지식을 찾으라**는 것이다. 그 문제는 **핵심 하위 도메인에서 널리 퍼져 있고 심각한데, 거기서
   업무 로직이 복잡하면서 동시에 업무에 결정적이기 때문이다.** 그런 경우를 만나면 **이벤트스토밍
   세션을 진행해 지식을 되찾으려 시도하고, 그 세션을 유비쿼터스 언어를 기르는 기반으로도 쓰라**
-  (13장, p.204).[^khononov2021] 그 워크숍은 [이벤트스토밍](eventstorming.md)이다.
+  (13장, p.204).[^khononov2021] 그 워크숍은 [이벤트스토밍](../concepts/eventstorming.md)이다.
 
 ## 현대화 전략 — 크게 생각하고 작게 시작한다
 
@@ -285,7 +288,7 @@ sources:
   - **트랜잭션 스크립트나 액티브 레코드를 이벤트 소싱 도메인 모델로 곧장 리팩터링하지 말라**는
     금지와 상태 기반 애그리게이트라는 중간 단계.
   - **도메인 모델로 가는 리팩터링이 원자적 변경일 필요가 없고 값 객체부터 찾아 들이라**는 지침.
-  - 전문은 [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 있다.
+  - 전문은 [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 있다.
 - **마지막으로 레거시를 상대하는 두 장치가 다시 불려 나온다** — **레거시 체계를 리팩터링할 때
   필요하면 부패 방지 계층으로 새 코드베이스를 옛 모델에서 보호하고, 열린 호스트 서비스를
   구현해 공표된 언어를 노출함으로써 소비자를 레거시 코드베이스의 변경에서 보호하라** (13장,
@@ -474,15 +477,61 @@ p.492).[^evans2003] 위 [잠행 DDD](#잠행-ddd--권위-대신-논리로)는 �
   설득해 팀이 실제로 그 전략과 관계를 맺게 하는 것.
 - 원전 쪽 전문은 [전략 설계 결정하기](../concepts/strategic-decision-making.md)에 있다.
 
+## 같은 일을 통합 아키텍처 쪽에서 시작하는 소스
+
+**[ford2022-evolutionary](../sources/ford2022-evolutionary.md)가 같은 과업 — 이미 서 있는 체계
+안에서 경계 컨텍스트를 세우는 일 — 을 다루는데 출발점이 반대다** (9장 §"Carving Out Bounded
+Contexts Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary]
+
+- **그쪽의 문제 설정** — 전사 수준의 재사용과 경계 컨텍스트에 의한 격리가 부딪히고, 그 부딪힘이
+  데이터 층에서 자주 드러난다. 기존 아키텍처는 **기술 능력으로 구획된 계층 아키텍처**이고
+  저자들은 그것을 **기술 구획(technical partitioning)**이라 부른다 (9장,
+  pp.217–218).[^ford2022-evolutionary]
+- **그쪽의 판정이 강하다** — **계층 아키텍처와 경계 컨텍스트 기반 토폴로지(모듈형 모놀리스·
+  마이크로서비스)는 근본적으로 양립할 수 없다.** 계층이 미는 횡단 재사용이 **커네이선스의 지역성과
+  경계 컨텍스트의 원리 양쪽에서 비난받기** 때문이다 (9장, p.218).[^ford2022-evolutionary]
+- **그쪽의 절차 셋** (9장, pp.218–219):[^ford2022-evolutionary] 기술 능력으로 구획된 아키텍처가
+  있고, **DDD 연습 중에 팀이 그 통합 아키텍처 안에서 경계 컨텍스트로 격리되어야 할 부분을
+  식별하며**(그 부분은 기술 계층들을 가로질러 놓인다), **경계 컨텍스트를 가로지르는 통신을 막는
+  적합도 함수를 적절한 자리마다 짓는다.**
+  - 저자들은 **그 적합도 함수가 정확히 어떤 모양일지는 팀이 지키려는 자산에 달렸다**고 적고,
+    포괄 목표만 못 박는다 — **지역성 원리를 위반함으로써 경계 컨텍스트를 위반하는 것을 막는 것**
+    (9장, p.219).[^ford2022-evolutionary]
+
+### 두 절차가 겨루는가 — 출발점이 다르고 도착점이 같다
+
+**`contradicts`를 걸지 않았다.**
+
+| | 이 페이지(khononov2021) | ford2022-evolutionary 9장 |
+|---|---|---|
+| 무엇부터 보는가 | **업무 도메인** — 하위 도메인을 종류별로 찾는 전략 분석 | **기존 통합 아키텍처** — 이미 그어져 있는 기술 계층 |
+| 경계를 무엇으로 정당화하는가 | 하위 도메인의 종류와 그 변화 속도, 모델의 언어 | 결합의 성질(커네이선스의 지역성)과 재사용의 부작용 |
+| 무엇으로 지키는가 | 유비쿼터스 언어와 컨텍스트 지도, 그리고 전술 패턴의 정합 | **적합도 함수** — 경계를 가로지르는 통신을 막는 검사 |
+| 남는 것 | 논리 경계를 물리 경계로 옮기는 단계적 현대화 | 계층이 남아도 좋다는 명시적 허용(도메인을 기술 기능으로 더 가르는 것 자체는 해롭지 않다) |
+
+- **두 절차가 같은 순간에 만난다** — 포드 외의 둘째 걸음이 **"DDD 연습 중에"**이고, 그 연습이 바로
+  이 페이지의 [전략 분석 — 업무 도메인을 이해한다](#전략-분석--업무-도메인을-이해한다)다. 곧
+  **포드 외는 이 페이지의 절차를 전제로 두고 그 뒤를 잇는다** — 경계가 식별된 뒤에 그것을 어떻게
+  지키는가가 그쪽의 물음이다.
+- **그래서 이 페이지에 없던 것이 하나 더해진다** — **경계를 지키는 일을 기계 검사로 옮기는 것**이다.
+  이 페이지의 현대화 절차는 경계를 **사람의 규율과 언어**로 지키고, 포드 외는 같은 자리에
+  **빌드를 실패시키는 검사**를 건다. **두 수단이 배타적이지 않다.**
+- **다만 포드 외 쪽에는 이 페이지의 첫 물음이 없다** — 어느 하위 도메인이 핵심이고 어느 것이
+  지원이며 어느 것이 범용인가를 묻지 않으므로, **어디를 먼저 깎아 낼 것인가에 대한 우선순위 근거가
+  그쪽에는 없다.** 위 [현대화 전략 — 크게 생각하고 작게 시작한다](#현대화-전략--크게-생각하고-작게-시작한다)가
+  그 자리를 채운다. **이 판정은 이 KB가 세운 것이다.** #hypothesis
+- 그쪽의 전문과 거버넌스 쪽 배치는
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
+
 ## 이어지는 페이지
 
-- [하위 도메인의 세 종류](subdomain-types.md) — 전략 분석이 산출하는 분류
-- [비즈니스 도메인과 하위 도메인](business-domain-and-subdomains.md) — 조직도에서 시작하는 절차
+- [하위 도메인의 세 종류](../concepts/subdomain-types.md) — 전략 분석이 산출하는 분류
+- [비즈니스 도메인과 하위 도메인](../concepts/business-domain-and-subdomains.md) — 조직도에서 시작하는 절차
 - [컨텍스트 지도](../concepts/context-map.md) — 현재 설계를 그리는 도구
 - [컨텍스트 관계 패턴](../concepts/context-relationship-patterns.md) — 현대화가 고르는 관계들
 - [부패 방지 계층](../concepts/anticorruption-layer.md) — 레거시를 마주하는 장치
 - [경계 컨텍스트](../concepts/bounded-context.md) — 논리 경계를 물리 경계로 올리는 단위
-- [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md) — 전술 현대화의 판정과
+- [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 전술 현대화의 판정과
   이행 경로
 - [아키텍처를 점진적으로 들이기](../concepts/adopting-architecture-incrementally.md) —
   교살자 갈래의 전문
@@ -490,9 +539,9 @@ p.492).[^evans2003] 위 [잠행 DDD](#잠행-ddd--권위-대신-논리로)는 �
   마이크로서비스 쪽에서 실행하는 장치들
 - [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 그 분해가
   데이터베이스에 청구하는 것
-- [이벤트스토밍](eventstorming.md) — 잃어버린 지식을 되찾는 워크숍
-- [성장이 낳는 복잡성](growth-driven-complexity.md) — 진흙 공이 생기는 기제
-- [스마트 UI 안티패턴](smart-ui-antipattern.md) — 이 방법론을 쓰지 않는 것이 옳은 갈림길
+- [이벤트스토밍](../concepts/eventstorming.md) — 잃어버린 지식을 되찾는 워크숍
+- [성장이 낳는 복잡성](../concepts/growth-driven-complexity.md) — 진흙 공이 생기는 기제
+- [스마트 UI 안티패턴](../concepts/smart-ui-antipattern.md) — 이 방법론을 쓰지 않는 것이 옳은 갈림길
 - [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 원전이 같은 물음에 답하는 자리
 - [모델 리팩터링 절차](../concepts/model-refactoring-process.md) — 모델을 고쳐 나가는 원전의 절차
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 축의 허브
@@ -509,13 +558,13 @@ p.492).[^evans2003] 위 [잠행 DDD](#잠행-ddd--권위-대신-논리로)는 �
     본체는 이 페이지에 두지 않았다** — 앞은 같은 패턴의 다른 소스 서술이 이미 모여 있는
     [아키텍처를 점진적으로 들이기](../concepts/adopting-architecture-incrementally.md)에,
     뒤는 이행 경로가 사는
-    [업무 로직 구현 패턴 고르기](choosing-a-business-logic-pattern.md)에 두었다. 같은 claim을
+    [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md)에 두었다. 같은 claim을
     두 페이지에 흩지 않는다. 장 끝 연습문제 넷(p.214)은 claim이 아니라 옮기지 않았다.
     **맺음말 §Conclusion(p.271)의 한 문장도 이 페이지에 합류했다** — 방법론의 개념을 하나씩
     들이는 것이 특히 브라운필드에서 값을 낸다는 조항이다. 같은 절의 나머지(교리로 따르지
     말라는 조항과 마지막 당부)는 [전략 설계](../concepts/strategic-design.md)와
     [유비쿼터스 언어](../concepts/ubiquitous-language.md)에 두었다. 이 방법론을 창업일부터
-    적용한 회사의 기록은 [마켓노버스 사례 연구](marketnovus-case-study.md)에 있다 — 그쪽은
+    적용한 회사의 기록은 [마켓노버스 사례 연구](../concepts/marketnovus-case-study.md)에 있다 — 그쪽은
     그린필드에서 출발하므로 이 페이지의 조건(이미 돌아가는 체계)과 대비된다.
 
 [^newman2021]: Newman 2021, 3장 "Splitting the Monolith" §"Have a Goal"(pp.71–72) ·
@@ -530,3 +579,11 @@ p.492).[^evans2003] 위 [잠행 DDD](#잠행-ddd--권위-대신-논리로)는 �
     Design Decision Making" 중 첫째 필수(p.492). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 33, 실측).
     원문이 처방문을 기울임으로 조판하는 관례는 직인용에서 별도로 표시하지 않았다. 나머지
     다섯 필수의 전문은 [전략 설계 결정하기](../concepts/strategic-decision-making.md)에 있다.
+
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 9장 "Putting Evolutionary
+    Architecture into Practice" §"Carving Out Bounded Contexts Within Existing Integration
+    Architecture"(pp.217–219). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 직인용을 두지 않았다 —
+    옮긴 것이 정의가 아니라 판정과 절차라 한국어 재서술로 충분했다. 도판 넷(그림 9-11~9-14)은
+    전부 이미지로 조판돼 있어 본문이 각 도판에 대해 적는 것만 산문으로 옮겼고, 그 절에 코드
+    목록은 없다. 전문은
+    [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
