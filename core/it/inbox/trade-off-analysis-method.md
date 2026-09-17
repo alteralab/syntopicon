@@ -65,7 +65,7 @@ sources:
     [걸음 하나](#걸음-하나--얽힌-차원-찾기)).
   - 이 세 걸음이 봉사하는 규정 — **아키텍트의 일은 최선의 설계를 찾는 것이 아니라 가장 덜 나쁜
     절충 조합을 찾는 것**이라는 문장은
-    [진화적 아키텍트의 역할](evolutionary-architect-role.md#아키텍트의-일--최선이-아니라-가장-덜-나쁜-조합)에
+    [진화적 아키텍트의 역할](evolutionary-architect-role.md)에
     있다.
   - **이 장의 구조가 그 세 걸음을 그대로 따르지는 않는다.** 목차에서 §"Finding Entangled
     Dimensions" 아래에 §"Coupling"·§"Analyze Coupling Points"·§"Assess Trade-Offs" 셋이 하위
@@ -93,7 +93,7 @@ sources:
   - **이 책이 결합을 규정하는 세 번째 자리다.** 1장의 용어 목록과 2장의 규정과 여기가 낱말이
     다르고, 셋 다 "하나의 변경이 다른 하나의 변경을 부르는가"를 묻는다. 그 대조는
     [변경에 대한 결합도](coupling-with-respect-to-change.md)와
-    [진화적 아키텍트의 역할](evolutionary-architect-role.md#아키텍처와-설계를-가르는-이유)에 있다.
+    [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다.
   - **여기 판이 가장 짧고 가장 조건이 약하다** — 1장 판은 `will possibly require`를 쓰고 2장
     판은 `cause`를 쓰는데, 여기는 **아키텍트가 직접 물어볼 수 있는 물음 꼴**이다. 방법 장이라
     실행할 수 있는 형태로 줄인 것으로 읽힌다. #hypothesis
@@ -209,7 +209,7 @@ sources:
 
   - **이 한 줄이 이 책의 아키텍처와 설계 가름을 방법 쪽에서 되풀이한다** — 얽힌 차원을 다 풀고
     나면 남는 것이 설계라는 것이다. 그 가름의 규정은
-    [진화적 아키텍트의 역할](evolutionary-architect-role.md#아키텍처와-설계를-가르는-이유)에 있다.
+    [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다.
 
 ## 기법 여섯
 
@@ -347,7 +347,7 @@ p.404).[^ford2021-hard-parts]
 
   - 셋째 시나리오에서 저자들이 앞 장의 조문을 되부른다 — **의미적 결합은 구현으로 늘릴 수만
     있고 결코 줄일 수 없다** (15장, p.409).[^ford2021-hard-parts] 그 조문의 전문은
-    [오케스트레이션과 코레오그래피](orchestration-versus-choreography.md#의미적-결합과-구현-결합)에 있다.
+    [오케스트레이션과 코레오그래피](orchestration-versus-choreography.md)에 있다.
 - **셋을 모형화하고 나서야 진짜 절충이 드러난다** — 아키텍트가 깨닫는 것은 **진짜 절충 분석이
   무엇이 더 중요한가로 귀착한다**는 것이다. **성능과 데이터 일관성(결제 서비스 하나)인가,
   확장성과 민첩성(나눈 서비스들)인가** (15장, p.410).[^ford2021-hard-parts]

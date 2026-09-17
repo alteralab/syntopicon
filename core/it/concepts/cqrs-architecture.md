@@ -51,7 +51,7 @@ sources:
 
   - 저자가 드는 예가 온라인 트랜잭션 처리(OLTP)와 온라인 분석 처리(OLAP)가 같은 데이터의 다른
     표현을 요구한다는 것이다 (8장, p.129).[^khononov2021] 그 두 처리의 갈림은
-    [EDW §같은 분리를 OLTP와 OLAP로 부르면](../concepts/enterprise-data-warehouse.md#같은-분리를-oltp와-olap로-부르면)에
+    [EDW §같은 분리를 OLTP와 OLAP로 부르면](../concepts/enterprise-data-warehouse.md)에
     있다.
 - 둘째 동기가 저장소 쪽이다 — **완벽한 데이터베이스는 없다**는 관찰이고, 저자가 Greg Young을
   빌려 그것을 이렇게 적는다 (8장, p.129):[^khononov2021]
