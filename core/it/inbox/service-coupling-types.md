@@ -357,6 +357,21 @@ sources:
 **이 네 종류에 없는 결합 이름 하나가 [ford2021-hard-parts](../sources/ford2021-hard-parts.md)에
 있다. 스탬프 결합(stamp coupling)이다.**
 
+- **그 규정이 이번 반입으로 들어왔다** (13장, p.376):[^ford2021-hard-parts]
+
+  > A common pattern and sometimes anti-pattern in distributed architectures is stamp
+  > coupling, which describes passing a large data structure between services, but each
+  > service interacts with only a small part of the data structure.
+
+  - **재는 것이 이 페이지의 넷과 다르다.** 넷은 **무엇을 통해 묶이는가**(도메인 호출·통과·공통
+    저장소·남의 내부)를 가르는데, 이것은 **넘기는 자료 구조의 크기와 실제로 쓰는 부분의 크기가
+    벌어진 정도**를 잰다. 곧 **축이 다른 이름**이지 다섯째 항목이 아니다.
+  - **저자들이 패턴과 안티패턴 양쪽으로 부른다.** 산업 표준 문서 형식(그들이 드는 실물은 여행
+    일정을 명시하는 전역 표준 XML 문서)을 여러 체계가 돌려 가며 자기 절만 갱신하는 것은 정당한
+    쓰임이고, **필요 없는 세부를 계약에 과하게 명시했거나 평범한 호출에 우발적으로 너무 많은
+    대역폭을 소비할 때** 우발적 안티패턴이 된다 (13장, p.376).[^ford2021-hard-parts]
+  - 과결합·대역폭 산수·워크플로 관리라는 정당한 쓰임의 전문과 절충표는
+    [계약의 스펙트럼](../concepts/contract-spectrum.md)이 갖는다.
 - **그쪽 11장이 그것을 워크플로 상태를 두는 셋째 선택지로 쓴다** — **서비스 사이에 보내는 메시지
   계약에 여분의 워크플로 상태를 담아** 각 도메인 서비스가 자기 몫을 갱신해 다음으로 넘기는
   것이다. 그러면 그 계약의 소비자 누구든 서비스마다 질의하지 않고 워크플로 상태를 확인할 수 있다
@@ -372,14 +387,18 @@ sources:
   [구조적 프로그래밍에서 빌려 온 것과 저자가 새로 지은 것](#구조적-프로그래밍에서-빌려-온-것과-저자가-새로-지은-것)이
   적는 대로 뉴먼의 통과 결합은 페이지-존스의 **tramp coupling**을 고쳐 지은 이름이고, `stamp
   coupling`은 같은 구조적 설계 계보에서 tramp coupling과 나란히 놓이던 이름이다. **그러나
-  포드 외 11장은 그 계보를 대지 않는다** — 이름만 쓰고 규정을 13장으로 넘긴다 (11장,
-  p.313).[^ford2021-hard-parts] **이 KB는 확인하지 않은 계보를 귀속으로 적지 않는다.**
+  포드 외는 11장에서도 13장에서도 그 계보를 대지 않는다** — 11장은 이름만 쓰고 규정을 13장으로
+  넘기며 (11장, p.313), **규정이 놓이는 13장 p.376도 요던·콘스탄틴을 비롯한 어떤 출처도
+  대지 않는다**(이 KB가 책 전체를 훑어 확인했다).[^ford2021-hard-parts]
+  **이 KB는 확인하지 않은 계보를 귀속으로 적지 않는다.**
 - **두 소스가 이 자리에서 서로를 호명하지 않고, 어느 쪽도 다섯째 항목을 인정하지 않는다.**
   뉴먼의 네 종류는 **그의 working model**이므로 다른 저자가 쓰는 이름이 그 목록에 없다는 것은
   모순이 아니다. **`contradicts`를 걸지 않았다.** 이 페이지는 그 이름을 **이 분류 밖에 있는
   이웃**으로만 적는다.
 - 그 용법의 전문과 절충표는
-  [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)에 있다.
+  [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)에 있고,
+  **그 이름의 규정과 안티패턴 판정과 대역폭 산수는
+  [계약의 스펙트럼](../concepts/contract-spectrum.md)에 있다.**
 
 ## 같은 계보를 더 잘게 가르는 어휘 — 커네이선스
 
@@ -434,8 +453,10 @@ sources:
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 시간적 결합을 피하는 비동기 통신 쪽 축
 - [DRY 원칙](../concepts/dry-principle.md) — 공유 코드가 만드는 결합의 전문과, 같은 원칙이
   한 서비스 안에서는 여전히 옳다는 한정
-- [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md) — 이 분류
-  밖의 다섯째 이름인 스탬프 결합이 워크플로 상태를 나르는 자리
+- [계약의 스펙트럼](../concepts/contract-spectrum.md) — 이 분류 밖의 이웃인 스탬프 결합의
+  규정과 안티패턴 판정이 사는 자리
+- [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md) — 그 이름이
+  워크플로 상태를 나르는 자리
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 결합과 응집이 사는 허브
 
 [^newman2021]: Newman 2021, 2장 "How to Model Microservices" §Coupling(p.38) ·
@@ -496,3 +517,9 @@ sources:
     [오케스트레이션과 코레오그래피](../concepts/orchestration-versus-choreography.md)가 갖는다.
     **그 장은 스탬프 결합을 규정하지 않고 13장 p.378로 넘기며, 그 이름의 계보를 대지 않는다**
     (두 추출기로 확인했다). 네 종류 어디에도 들지 않는다는 판정은 이 KB가 대질해 세운 것이다.
+    **13장 "Contracts" §"Stamp Coupling" 도입(p.376)이 같은 절에 합류해 그 규정을 채웠다.**
+    직인용 하나는 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈은 없으며
+    `anti-pattern`의 하이픈은 원문에서 ASCII다. 과결합·대역폭·워크플로 관리 세 절과 표 13-4는
+    [계약의 스펙트럼](../concepts/contract-spectrum.md)이 갖는다. **11장이 넘긴 자리는 p.378이고
+    규정은 p.376에 있다** — 그 어긋남도 그 페이지가 적는다. 그 장의 도판(그림 13-6 네 서비스
+    사이의 스탬프 결합)은 재현하지 않고 본문이 그것에 대해 적는 것만 옮겼다.

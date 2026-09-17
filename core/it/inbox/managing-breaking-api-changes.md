@@ -340,8 +340,17 @@ sources:
 - **가장 느슨한 극의 대가**도 적혀 있다. 이름-값 쌍만 남긴 계약은 극도로 결합이 끊긴 체계를
   가능하게 하지만 **계약 확실성과 검증이 사라지고 응용 로직이 늘어난다.** 그리고 **전에 계약이
   맡던 관심사는 흔히 적합도 함수로 대체된다** (5장, p.106).[^ford2022-evolutionary] 그 대체물이
-  [소비자 주도 계약](../concepts/consumer-driven-contracts.md)이다. 스펙트럼 전체의 배치는
-  [아키텍처 퀀텀](../concepts/architectural-quantum.md)에 있다.
+  [소비자 주도 계약](../concepts/consumer-driven-contracts.md)이다.
+- **같은 저자 계열의 2021년 책이 이 축의 전문을 갖는다.** 위 네 불릿이 옮긴 2022년 5장
+  §"Contracts"는 2021년 13장 "Contracts"의 축약이고, 그쪽에는 **엄격·느슨 각각의 절충표와
+  스탬프 결합의 규정과 대역폭 산수가 더 있다** (13장, pp.365–380).[^ford2021-hard-parts]
+  전문과 두 판의 대조는 [계약의 스펙트럼](../concepts/contract-spectrum.md)에 있다.
+  - **이 페이지에 값을 더하는 것 하나** — 2021년 판은 **판 매김(Versioned)을 엄격한 계약의
+    이점이자 단점으로 표 13-1의 양쪽 열에 동시에 올린다.** 판을 구별해 두는 것이 정밀함을
+    주지만 **명확한 폐기 전략이 없거나 너무 많은 판을 떠받치려 하면 통합의 악몽이 된다**는
+    것이다 (13장, pp.370–371).[^ford2021-hard-parts] 위
+    [사회적 계약 — 유예를 미리 합의한다](#사회적-계약--유예를-미리-합의한다)이
+    그 악몽을 막는 장치를 다루는 자리다.
 
 ## 셋째 선택지를 조문으로 세우는 소스 — 안에서 판을 가르라
 
@@ -536,6 +545,11 @@ pp.225–227).[^ford2021-hard-parts]
     적었다. 저자들이 드는 JFrog Artifactory와 gRPC는 제품 이름이고 **이 KB가 확인한 원전이
     아니다** — 2021년 저술 시점의 예시다. 뉴먼 쪽 조문과 맞댄 판정은 이 KB가 세운 것이고 두
     책은 서로를 호명하지 않는다.
+    **13장 "Contracts" §"Strict Versus Loose Contracts" 중 표 13-1과 그 산문(pp.370–371)이
+    위 §"깨는 변경의 잦기를 계약의 엄격함으로 설명하는 소스" 절에 두 불릿으로 합류했다.**
+    그 절에도 직인용을 두지 않았고 표 13-1 자체는
+    [계약의 스펙트럼](../concepts/contract-spectrum.md)이 갖는다 — 여기에는 판 매김이 이점과
+    단점 양쪽에 오른다는 사실만 옮겼다.
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 5장 "Evolutionary Architecture
     Topologies" §"Contracts"(pp.103–106)와 **6장 "Evolutionary Data" §"Shared Database

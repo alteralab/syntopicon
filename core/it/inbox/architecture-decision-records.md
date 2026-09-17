@@ -16,7 +16,7 @@ sources:
 - [형식 — 네 자리](#형식--네-자리)
 - [승인된 것만 적는다는 전제](#승인된-것만-적는다는-전제)
 - [책 한 권의 ADR을 색인하는 방식](#책-한-권의-adr을-색인하는-방식)
-- [이 책의 ADR 열셋](#이-책의-adr-열셋)
+- [이 책의 ADR 열셋과 목록에 빠진 하나](#이-책의-adr-열셋과-목록에-빠진-하나)
 - [이 책이 리팩터링을 적는 다른 형식](#이-책이-리팩터링을-적는-다른-형식)
 - [문서화와 거버넌스는 별개다](#문서화와-거버넌스는-별개다)
 - [이 KB의 다른 소스가 이 형식을 쓰는 자리](#이-kb의-다른-소스가-이-형식을-쓰는-자리)
@@ -103,7 +103,7 @@ sources:
     안에 상자로 놓이고, 훑기는 부록이 맡는다.
   - 그 결정들이 대입되는 체계는 [Sysops Squad 사례](sysops-squad-case.md)다.
 
-## 이 책의 ADR 열셋
+## 이 책의 ADR 열셋과 목록에 빠진 하나
 
 **부록 B가 이 책의 ADR을 한자리에 모은다.** 제목과 인쇄판 쪽을 원문 그대로 옮긴다 (부록 B
 "Architecture Decision Record References", pp.419–420).[^ford2021-hard-parts]
@@ -124,6 +124,21 @@ sources:
 | 321 | ADR: Use Orchestration for Primary Ticket Workflow |
 | 380 | ADR: Loose Contract for Sysops Squad Expert Mobile Application |
 
+- **그런데 목록이 이 책의 ADR 상자를 전부 담고 있지 않다.** 부록의 안내 문장은 **이 책의 각
+  Sysops Squad 결정에 대응하는 ADR이 딸려 있었고 그것들을 여기 모았다**고 적는데, **14장
+  p.397에 열넷째 ADR 상자가 하나 더 있다** (14장, p.397, ADR):[^ford2021-hard-parts]
+
+| 인쇄판 쪽 | ADR 제목 | 목록에 있는가 |
+|---|---|---|
+| 397 | `ADR: Ensure that Expert Supply DPQ Sources Supply an Entire Day's Data or None` | **없다** |
+
+  - **이 KB가 책 전체에서 `ADR:` 상자를 전수로 훑어 확인했다.** 부록의 열셋과 본문의 상자를
+    맞대면 남는 것이 이 하나이고, **저자들이 그 누락을 적지 않는다.** #hypothesis
+  - **그 ADR만 형식이 하나 더 길다** — 맥락·결정·결과 뒤에 **`Fitness functions:`** 항목이
+    붙어 둘을 적는다(완전한 일별 스냅샷을 검사하는 것과, Ticket DPQ와 Expert Supply DPQ 사이의
+    소비자 주도 계약). **이 책에서 ADR에 적합도 함수가 딸리는 자리는 여기뿐이다** — 위
+    [형식 — 네 자리](#형식--네-자리)가 적는 넷에 없던 다섯째 칸이다. #hypothesis 그 장면의
+    전문은 [Sysops Squad 사례](sysops-squad-case.md)에 있다.
 - **목록 자체가 위 [형식 — 네 자리](#형식--네-자리)의 첫째 규칙을 검증한다.** 열셋 전부가
   명사구이고 문장이 하나도 없다. **`Migrate`·`Use`로 시작하는 것들도 동사가 아니라 명사구의
   머리다**(이행 그 자체를 가리킨다).
@@ -257,7 +272,7 @@ sources:
   (5장, p.84, 곁상자).[^ford2021-hard-parts] 형식과 예문은
   [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md)
   §"아키텍처 스토리 — 리팩터링을 적는 단위"에 있다.
-- **그 장에는 ADR 상자가 없다.** 위 [이 책의 ADR 열셋](#이-책의-adr-열셋)에서 인쇄판 p.79 다음
+- **그 장에는 ADR 상자가 없다.** 위 [이 책의 ADR 열셋과 목록에 빠진 하나](#이-책의-adr-열셋과-목록에-빠진-하나)에서 인쇄판 p.79 다음
   항목이 p.184이고, 5장의 쪽 범위(pp.81–130)에 드는 항목이 하나도 없다 (부록 B,
   pp.419–420).[^ford2021-hard-parts]
   - **이 대조는 이 KB가 부록 목록과 본문 쪽 범위를 맞대어 본 것이고, 저자들이 "이 장에는 ADR을
@@ -345,6 +360,11 @@ sources:
     원문은 각 제목을 굽은 따옴표로 감싸고 `on page NN`을 붙이는데, 표로 옮기며 따옴표를
     빼고 쪽을 열로 갈랐다 — 낱말은 보태거나 빼지 않았다. 대조는 `pdftotext -layout`
     추출로 했다. 부록 B에 도판도 코드 목록도 없다.
+    **14장 §"Sysops Squad Saga: Data Mesh"의 ADR 상자(p.397)가 같은 절에 합류했다** — 그것이
+    부록 B 목록에 없다는 판정은 **이 KB가 책 전체의 `pdftotext -layout` 전문에서 `ADR:` 로
+    시작하는 상자를 전수로 훑어** 부록의 열셋과 맞대 본 실측이다. 제목은 영어 그대로 옮겼고
+    본문 넷과 적합도 함수 둘의 내용은 [Sysops Squad 사례](sysops-squad-case.md)가 갖는다.
+    그 상자에 도판도 코드 목록도 없다.
     **5장 곁상자 "Architecture Stories"(p.84)가 다른 형식 절에 합류했다.** 그 곁상자의
     직인용은 [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md)이
     갖고, 여기서 옮긴 것은 두 형식의 대조다. 5장에 ADR 상자가 없다는 관찰은 **이 KB가 부록 B의
