@@ -170,6 +170,10 @@ generated: { by: "claude-opus-5", at: "2026-09-17T01:20:00Z" }
   데이터라는 다섯과 각각을 언제 고르는가
 - [마이크로서비스 인터페이스 기술의 다섯 조건](../concepts/microservice-interface-criteria.md) —
   스타일을 정한 다음 기술에 요구할 것들. 후진 호환·명시적 인터페이스·기술 중립·소비자 편의·내부 은닉
+- [소통 구조 셋](../concepts/communication-structures.md) — 그 선택을 조직의 소통 구조 문제로
+  되돌리는 쪽. 업무·구현·데이터 세 구조로 가르고, 서비스가 무엇으로 말하는가보다 **조직 전역의
+  데이터가 어느 층을 타고 흐르는가**를 먼저 묻는다. **정본 자리는
+  [메시징 패턴](messaging-patterns.md)이다**
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) —
   주소를 찾고 부하를 나누는 다섯 가지 해법. **정본 자리는
   [인코딩과 진화](encoding-and-evolution.md)다**

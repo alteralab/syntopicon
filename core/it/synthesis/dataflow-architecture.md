@@ -53,6 +53,7 @@ generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 같은 분업을 동기 요청으로 하는 쪽
 - [싱크 엔진과 로컬 우선 소프트웨어](../concepts/sync-engines-and-local-first.md) — 쓰기 경로를 기기까지 민 결과
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 분업을 비동기 이벤트로 하되 어느 종류의 이벤트를 경계 밖으로 낼지를 묻는 쪽
+- [소통 구조 셋](../concepts/communication-structures.md) — 같은 데이터플로를 조직의 소통 구조로 세우고, 이벤트 스트림을 그 셋째 층(데이터 소통 구조)에 놓는 쪽
 
 ## 이어지는 허브
 
