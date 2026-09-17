@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 확장성과 부하
-description: 부하가 늘 때 시스템이 대처하는 능력을 어떻게 논해야 하는가 — "X는 확장 가능하다"가 무의미한 라벨인 이유와 대신 던져야 할 세 질문, 부하를 서술하는 지표와 극단값(그 지표의 선택이 곧 개방 부하 모델과 폐쇄 부하 모델의 갈림이라는 점), 선형 확장성과 그보다 빨리 자라는 비용, 공유 메모리·공유 디스크·무공유 세 아키텍처, 만능 확장 비법이 없다는 전제 위의 설계 원칙들, 그리고 이 어휘 전부가 기계 쪽 축이라는 지적(인간 규모)
+description: 부하가 늘 때 시스템이 대처하는 능력을 어떻게 논해야 하는가 — "X는 확장 가능하다"가 무의미한 라벨인 이유와 대신 던져야 할 세 질문, 부하를 서술하는 지표와 극단값(그 지표의 선택이 곧 개방 부하 모델과 폐쇄 부하 모델의 갈림이라는 점), 선형 확장성과 그보다 빨리 자라는 비용, 공유 메모리·공유 디스크·무공유 세 아키텍처, 만능 확장 비법이 없다는 전제 위의 설계 원칙들, 그리고 이 어휘 전부가 기계 쪽 축이라는 지적(인간 규모), 그리고 같은 두 낱말을 부하가 오는 시간의 모양으로 가르며 탄력성에 기동 평균 시간이라는 구조 조건을 붙이는 셋째 소스
 generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
@@ -9,6 +9,7 @@ sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
   - { id: schroeder2006-open-vs-closed, resource: /it/sources/schroeder2006-open-vs-closed.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 확장성과 부하
@@ -23,6 +24,7 @@ sources:
 - [탄력성 — 확장성이 신뢰성과 만나는 자리](#탄력성--확장성이-신뢰성과-만나는-자리)
 - [기계 규모와 인간 규모](#기계-규모와-인간-규모)
 - [같은 축을 마이크로서비스 실무서가 가르는 방식](#같은-축을-마이크로서비스-실무서가-가르는-방식)
+- [셋째 정의 짝 — 시간의 모양으로 가른다](#셋째-정의-짝--시간의-모양으로-가른다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **부하가 늘어날 때 시스템이 대처하는 능력을 어떤 어휘로 논하고, 자원을 어떤
@@ -274,6 +276,35 @@ sources:
   (13장 §Autoscaling, p.450).[^newman2021] 그쪽이 더하는 것은 **확장에 걸리는 시간과 부하 증가를
   알아챌 여유 사이의 간극**이라는 구체적 제약이다.
 
+## 셋째 정의 짝 — 시간의 모양으로 가른다
+
+**확장성과 탄력성을 짝지어 정의하는 셋째 소스가 있고, 가르는 축이 위 두 소스와 다르다.**
+아키텍처 쪽 소스가 이 둘을 **부하가 오는 시간의 모양**으로 가른다 (3장 §"Scalability",
+p.56):[^ford2021-hard-parts]
+
+> *Scalability* is defined as the ability of a system to remain responsive as user load
+> gradually increases over time. Related to scalability is *elasticity*, which is defined as
+> the ability of a system to remain responsive during significantly high instantaneous and
+> erratic spikes in user load.
+
+- **위 [탄력성](#탄력성--확장성이-신뢰성과-만나는-자리)의 정의와 겨루지 않고 강조가 다르다.**
+  데이터 엔지니어링 쪽 정의는 **자동으로 오르내릴 수 있는가**(기제)를 탄력성의 표지로 삼고,
+  이쪽은 **부하가 순간적이고 불규칙한가**(입력의 성질)를 표지로 삼는다. 이쪽 정의에서
+  확장성은 **정상적 회사 성장의 함수로 더 긴 기간에 걸쳐** 일어나고 탄력성은 **급증에 대한
+  즉각적 반응**이다 (3장, p.56).[^ford2021-hard-parts]
+- **이쪽이 더하는 것은 탄력성이 아키텍처에 거는 조건이다** — **기동 평균 시간(mean time to
+  startup, MTTS)**이고, 짧은 MTTS는 **아키텍처적으로는 아주 작고 잘게 나뉜 서비스를 두어**
+  이룬다. 플랫폼과 런타임을 가볍게 하는 설계 시점 기법은 **알맞은 아키텍처가 자리 잡은
+  다음에야** 효과를 더한다 (3장, pp.56–57).[^ford2021-hard-parts]
+  - **그래서 이쪽은 위 [스케일 업 · 스케일 다운 · 영으로의 축소](#스케일-업--스케일-다운--영으로의-축소)가
+    적는 자동화 기제 앞에 구조 조건을 하나 더 놓는다.** 자동으로 띄울 수 있어도 **띄우는 데
+    오래 걸리면 탄력적이지 않다**는 것이다. **이 대비는 이 KB가 세운 것이고 두 소스는 서로를
+    호명하지 않는다.** #hypothesis
+- **둘이 서로 다른 것에 달려 있다는 판정도 이쪽에만 있다** — **탄력성은 세분성(배포 단위의
+  크기)의 함수이고 확장성은 모듈성(애플리케이션을 별개의 배포 단위로 쪼개는 것)의 함수**다
+  (3장, p.57).[^ford2021-hard-parts] 그 논거와 세 아키텍처 양식의 채점은
+  [아키텍처 모듈성의 구동 요인](../concepts/modularity-drivers.md)에 있다.
+
 ## 이어지는 페이지
 
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 같은 물음을 마이크로서비스 쪽에서 네 축으로 가른
@@ -317,3 +348,11 @@ sources:
 [^schroeder2006-open-vs-closed]: Schroeder, Wierman & Harchol-Balter 2006, "Open Versus
     Closed: A Cautionary Tale", NSDI '06, §1 "Introduction", p.239. 쪽수는 NSDI '06 논문집
     게재본 기준이다.
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 3장 "Architectural Modularity"
+    §"Scalability"(pp.56–57). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 직인용 하나(확장성과
+    탄력성의 정의 짝)는 `pdftotext -layout` 추출로 문자 단위 대조했고 줄바꿈 하이픈(U+2010)으로
+    끊긴 낱말은 한 낱말로 이었다. 원문이 이탤릭으로 조판한 낱말은 인용 안에서 이탤릭을
+    유지했다. 그림 3-8(확장성과 탄력성의 차이)과 3-9(세 양식의 별점)는 이미지 조판이라 이
+    페이지가 재현하지 않았다 — 별점 표는 [아키텍처 모듈성의 구동 요인](../concepts/modularity-drivers.md)이
+    갖는다. 이 구간에 코드 목록은 없다. 두 소스를 맞댄 대비는 **이 KB가 세운 것**이다.

@@ -2,11 +2,12 @@
 type: concept
 title: 도메인 소유권 원칙
 description: "데이터 메시의 첫째 원칙 — 분해 축을 기술이 아니라 조직의 이음매에서 찾는다는 선택, ownership이 product ownership의 줄임말이라는 한정, DDD 전략 설계의 bounded context와 context mapping을 분석 데이터로 옮기는 방법, 원천 정렬·집계·소비자 정렬이라는 도메인 데이터 세 원형, 상류 소유·다중 모델·단일 진실 원천 기각·파이프라인 은닉이라는 네 전환, 빌려 온 전략 설계의 원전이 같은 경계에 대해 무엇을 더 말하는가, 그리고 이 원칙을 아키텍처로 옮길 때 도메인 인터페이스가 분석 데이터 공유 인터페이스로 확장되고 도메인 간 데이터 의존을 하류가 정의·통제하게 되는 귀결"
-generated: { by: "claude-opus-5", at: "2026-09-14T13:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-17T23:00:00Z" }
 sources:
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 도메인 소유권 원칙
@@ -26,6 +27,7 @@ sources:
 - [빌려 온 원전이 같은 경계에 대해 더 말하는 것](#빌려-온-원전이-같은-경계에-대해-더-말하는-것)
 - [그 바깥 자료의 자리에 서는 소스](#그-바깥-자료의-자리에-서는-소스)
 - [이 원칙이 남기는 난제](#이-원칙이-남기는-난제)
+- [같은 낱말을 운영 테이블에 쓰는 소스](#같은-낱말을-운영-테이블에-쓰는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **분석 데이터를 무엇을 기준으로 쪼개고, 그 조각의 책임을 누가 얼마나 오래
@@ -440,6 +442,49 @@ p.143).[^dehghani2022]
 >
 > —George Box
 
+## 같은 낱말을 운영 테이블에 쓰는 소스
+
+[ford2021-hard-parts](../sources/ford2021-hard-parts.md) 9장의 제목이
+"Data Ownership and Distributed Transactions"이고 그 장 전체가 **데이터 소유권**을 다룬다.
+**같은 낱말이되 소유의 대상이 다르므로 섞지 않도록 그 차이를 여기 적는다.**
+
+- **그쪽의 규정은 한 줄이다** (9장, p.250):[^ford2021-hard-parts]
+
+  > The general rule of thumb for assigning table ownership states that services that per-
+  > form write operations to a table own that table.
+
+- **재는 것이 쓰기 연산의 수행 주체다.** 읽기 전용 접근이 필요한 서비스가 몇이든 주인은 바뀌지
+  않고, 여럿이 쓰면 네 기법 가운데 하나로 푼다. 전문은
+  [서비스의 데이터 소유권](../concepts/service-data-ownership.md)에 있다.
+
+| | 이 페이지(dehghani2022 2장) | ford2021-hard-parts 9장 |
+|---|---|---|
+| 소유의 대상 | **분석 데이터**(도메인이 내놓는 데이터 제품) | **운영 테이블 하나** |
+| 소유자 | **도메인**, 곧 업무 갈래와 그 팀 | **서비스**, 곧 배포 단위 |
+| 무엇으로 소유를 판정하는가 | 그 데이터가 어느 도메인의 실재를 표현하는가 | **누가 그 테이블에 쓰기를 수행하는가** |
+| ownership이 무엇의 줄임말인가 | **product ownership** — 위 [ownership은 product ownership의 줄임말이다](#ownership은-product-ownership의-줄임말이다)가 그 한정을 적는다 | 줄임말이 아니다. 쓰기 권한의 배타적 배정이다 |
+| 푸는 문제 | 분석 데이터가 중앙 팀에 모여 병목이 된다 | 데이터베이스를 쪼갠 뒤 테이블에 주인이 없다 |
+
+- **층이 다르다.** 이쪽은 분석 평면(analytical plane)의 제품 책임이고 저쪽은 운영 평면의
+  쓰기 권한이다. 위 [운영 인터페이스 설계 — 데이터 메시가 손대지 않는 쪽](#운영-인터페이스-설계--데이터-메시가-손대지-않는-쪽)이
+  이 원칙은 운영 인터페이스를 손대지 않는다고 적는 자리와 짝을 이룬다 — **ford2021 9장이 하는
+  일이 바로 그 손대지 않는 쪽이다.**
+- **겨루지 않는다.** 최대 하나만 참일 수 있는가를 물으면 답이 아니오다 — 한 조직에서 서비스가
+  자기 테이블을 소유하면서 도메인이 자기 분석 데이터를 소유할 수 있고, 오히려 그것이 이 원칙이
+  그리는 그림이다. **`contradicts`를 걸지 않았다.**
+- **저자 한 사람이 겹친다.** 자마크 데가니(Zhamak Dehghani)가 ford2021-hard-parts의 공저자다.
+  **그럼에도 그 책 9장은 데이터 메시 어휘를 한 번도 쓰지 않는다**(두 추출기로 확인했다). 그 책이
+  분석 데이터를 다루는 자리는 14장이고, **그 장이 이 원칙을 이름과 함께 싣는다** —
+  `Domain ownership of data`가 네 원칙의 첫째로 올라 있고, **데이터를 가장 잘 아는 도메인(그
+  데이터를 만들어 내거나 일급 소비자인 도메인)이 소유하고 공유하며, 중간자도 중앙 레이크나
+  웨어하우스도 전담 데이터 팀도 없이 P2P로 오간다**고 적는다 (14장,
+  pp.389–390).[^ford2021-hard-parts]
+  - **그 장은 이 원칙을 아키텍처로 옮기는 일을 둘째 원칙에 넘긴다** — 데이터 프로덕트 퀀텀이
+    그것이고, 그 장이 집중하는 것도 그쪽이다. 전문은
+    [데이터 퀀텀](../concepts/data-quantum.md)에 있다.
+  - **두 소스는 이 자리에서 서로를 호명하지 않으므로 위 대비표는 이 KB의 것이다** — 9장의 테이블
+    소유권과 14장의 도메인 소유권이 **같은 책 안에서도 서로를 가리키지 않는다.**
+
 ## 이어지는 페이지
 
 - [데이터 메시](../concepts/data-mesh.md) — 네 원칙 전체의 개관과 이 원칙의 자리
@@ -461,6 +506,8 @@ p.143).[^dehghani2022]
 - [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md) — 도메인
   간 의존이 실제로 성립하는 표면
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 운영 인터페이스가 사는 계열
+- [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 같은 낱말을 운영 테이블의
+  쓰기 권한에 쓰는 축
 
 [^evans2003]: Evans 2003, IV부 "Strategic Design" 도입(p.328) · 14장 "Maintaining Model
     Integrity" §CONTEXT MAP의 처방(p.345) · §"Team Decision or Higher"(p.382) ·
@@ -478,3 +525,16 @@ p.143).[^dehghani2022]
     두었다 — 이 페이지는 첫째 원칙에 걸리는 것만 받았다. 그 절의 도판
     하나(Figure 16-12, 분석 모델의 소유권 경계를 경계 컨텍스트 경계에 맞추는 그림)는 도판이라
     본문이 그것에 대해 적는 것만 산문으로 옮겼다.
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 9장 "Data Ownership and
+    Distributed Transactions" §"Assigning Data Ownership"(p.250). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 18, 실측). 직인용 하나는 `pdftotext -layout` 추출로 문자 단위 대조했고 줄바꿈
+    자리는 원문 그대로 두었다. **이 페이지가 그 장에서 쓰는 것은 소유권 규정 한 줄이고**,
+    세 시나리오와 네 기법과 절충표 넷의 전문은
+    [서비스의 데이터 소유권](../concepts/service-data-ownership.md)이 갖는다. 그 장에는 이
+    페이지가 쓸 표도 코드 목록도 없다. 위 대비표는 원문에 없고 이 KB가 세운 것이다.
+    **14장 "Managing Analytical Data" §"Definition of Data Mesh"(pp.389–390)가 같은 절에 한
+    불릿으로 합류했다** — 그 장이 이 원칙을 네 원칙의 첫째로 싣는다는 사실과 그 요지다.
+    그 절에도 직인용을 두지 않았고 도판도 코드 목록도 없다 — 데이터 메시 규정의 직인용과 네
+    원칙의 이름 대조는 [데이터 메시](../concepts/data-mesh.md)가, 데이터 프로덕트 퀀텀의 전문은
+    [데이터 퀀텀](../concepts/data-quantum.md)이 갖는다.

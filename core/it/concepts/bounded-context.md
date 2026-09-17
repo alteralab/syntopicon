@@ -8,6 +8,7 @@ sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 경계 컨텍스트
@@ -39,6 +40,7 @@ sources:
 - [마이크로서비스 쪽 실무서가 이 경계에서 감추는 것과 나누는 것](#마이크로서비스-쪽-실무서가-이-경계에서-감추는-것과-나누는-것)
 - [커네이선스의 지역성과 같은 것이라고 잇는 소스](#커네이선스의-지역성과-같은-것이라고-잇는-소스)
 - [이 경계를 기존 계층 아키텍처에서 깎아 내는 절차](#이-경계를-기존-계층-아키텍처에서-깎아-내는-절차)
+- [데이터 쪽 실무서가 이 경계에 데이터를 넣어 다시 적는 자리](#데이터-쪽-실무서가-이-경계에-데이터를-넣어-다시-적는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **하나의 모델이 통하는 범위를 어디까지로 정하고, 그 안을 어떻게 하나로
@@ -861,9 +863,47 @@ p.85).[^ford2022-evolutionary]
     [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)와
     [브라운필드에 도메인 주도 설계 들이기](../concepts/applying-ddd-to-brownfield.md)에 있다.
 
+## 데이터 쪽 실무서가 이 경계에 데이터를 넣어 다시 적는 자리
+
+**[ford2021-hard-parts](../sources/ford2021-hard-parts.md)가 데이터베이스를 쪼개는 장에서 이
+개념을 다시 규정한다.** 그 장이 **데이터베이스를 잘 정의된 경계 컨텍스트로 쪼개는 것이 깨는
+데이터베이스 변경을 통제하는 데 크게 도움이 된다**고 적으며 원전을 이렇게 호명한다 (6장,
+p.135):[^ford2021-hard-parts]
+
+> The bounded context concept comes from the seminal book *Domain-Driven Design* by Eric Evans
+> (Addison-Wesley) and describes the source code, business logic, data structures, and data all
+> bound together—encapsulated—within a specific context.
+
+- **원전과 겨루지 않되 강조가 옮겨 간다.** 위 [무엇이 경계 안에 드는가](#무엇이-경계-안에-드는가)가
+  적은 원전의 목록과 겹치되, **이 판은 넷 가운데 둘(데이터 구조와 데이터)을 데이터 쪽으로
+  세운다.** 이 책의 물음이 **데이터베이스를 쪼갤 것인가**이기 때문이다. #hypothesis
+- **소유의 뜻을 좁게 고정한다** — 경계 컨텍스트는 대개 **서비스와 그 서비스가 소유하는 데이터**
+  둘레에 형성되고, 여기서 **소유한다**는 것은 **데이터베이스에 쓰는 서비스**를 뜻한다(읽기 전용
+  접근과 대비된다) (6장, p.135).[^ford2021-hard-parts] **원전에는 이 구분이 없다** — 쓰기
+  권한으로 경계의 주인을 가르는 것은 분산 아키텍처 쪽에서 붙은 조건이다.
+- **그리고 데이터 쪽 대응물에 다른 이름을 준다** — **데이터 도메인(data domain)**이고, 그 규칙이
+  이 경계의 규칙과 같다고 적는다 (6장, p.155):[^ford2021-hard-parts]
+
+  > The bounded context rules for data domains apply just the same as individual tables—a
+  > service cannot talk to multiple data domains.
+
+  - **그러나 두 낱말이 같은 것을 가리키지는 않는다.** 데이터 도메인은 **결합된 데이터베이스
+    아티팩트의 모음**이고 **여러 서비스가 함께 소유할 수 있다.** 위
+    [팀 하나에 컨텍스트 하나](#팀-하나에-컨텍스트-하나)의 규칙과 어긋나 보이는 자리이고, 대질은
+    [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)
+    §"데이터 도메인은 경계 컨텍스트인가"에 있다.
+- **같은 책 9장이 그 소유 규칙을 테이블 단위로 내린다** — **쓰기 연산을 수행하는 서비스가 그
+  테이블의 주인**이고, 도판에서 테이블을 소유 서비스의 상자 안에 그리는 조판이 **서비스와 그
+  데이터 사이에 맺어진 경계 컨텍스트를 나타내는 효과적인 방법**이라고 적는다 (9장,
+  pp.250–251).[^ford2021-hard-parts] **여럿이 쓰는 테이블은 이 경계를 어떻게 그을지가 문제가
+  되고**, 그 네 기법과 절충표 넷은 [서비스의 데이터 소유권](../concepts/service-data-ownership.md)에
+  있다.
+
 ## 이어지는 페이지
 
 - [서비스 결합의 네 종류](service-coupling-types.md) — 이 경계를 가로지르는 결합의 목록
+- [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 이 경계 안에 어느 테이블을
+  넣을지를 쓰기 연산으로 판정하는 자리
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 이 경계를
   서비스 경계로 삼을 때의 어림법
 - [컨텍스트 지도](context-map.md) — 경계들과 그 사이 관계를 전체로 보는 자리
@@ -882,6 +922,10 @@ p.85).[^ford2022-evolutionary]
   커지는 자리
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md) — 같은 경계 판단이 데이터
   쪽 조직론으로 나타나는 자리
+- [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md) — 이 경계의
+  데이터 쪽 대응물인 데이터 도메인
+- [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md) — 이 경계를 데이터베이스에
+  긋는 근거들
 - [자기 테스트 코드](self-testing-code.md) — 이 절차가 기대는 자동화된 테스트
 - [버전 관리 실천](version-control-practice.md) — 병합 주기를 다루는 자리
 - [이벤트스토밍](eventstorming.md) — 이 경계의 후보를 집단 모델링에서 뽑는 워크숍
@@ -976,3 +1020,16 @@ p.85).[^ford2022-evolutionary]
     않았고 도판 넷(그림 9-11~9-14)은 이미지로 조판돼 있어 본문이 각 도판에 대해 적는 것만 산문으로
     옮겼다. 그 절에 코드 목록은 없다. 절차 전량은
     [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)에 있다.
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational
+    Data" §"Change control"(p.135)과 §"Decomposing Monolithic Data"(p.155). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 18, 실측). 직인용 둘(경계 컨텍스트의 출처와 범위 · 데이터 도메인의 경계
+    컨텍스트 규칙)은 `pdftotext -layout` 추출로 문자 단위 대조했고 줄바꿈 하이픈(U+2010)으로
+    끊긴 낱말은 한 낱말로 이었으며 원문이 이탤릭으로 조판한 낱말은 인용 안에서 이탤릭을
+    유지했다. 이 페이지가 이 소스에서 옮긴 것은 그 두 대목과 소유의 뜻뿐이다 — 데이터 쪽 전문은
+    [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)과
+    [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)가 갖는다.
+    이 절에는 도판 재현도 표도 코드 목록도 없다.
+    **9장 "Data Ownership and Distributed Transactions" §"Assigning Data Ownership"(pp.250–251)에서
+    온 것은 위 절의 마지막 불릿 하나뿐이다** — 소유권 규칙의 직인용과 세 시나리오와 네 기법의
+    전문은 [서비스의 데이터 소유권](../concepts/service-data-ownership.md)이 갖는다.

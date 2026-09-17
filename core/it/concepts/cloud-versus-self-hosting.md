@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 클라우드와 자체 호스팅
-description: 소프트웨어를 누가 만들고 누가 운영하는가의 스펙트럼 — 클라우드가 싼 조건과 비싼 조건, 통제권 상실의 목록, 그리고 그 선택이 운영 조직을 바꾸는 방식
+description: 소프트웨어를 누가 만들고 누가 운영하는가의 스펙트럼 — 클라우드가 싼 조건과 비싼 조건, 통제권 상실의 목록, 그 선택이 운영 조직을 바꾸는 방식, 그리고 클라우드 전용 데이터베이스에서 운영 부담과 학습 부담이 반대로 움직인다는 관찰
 generated: { by: "claude-opus-5", at: "2026-08-10T20:00:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 클라우드와 자체 호스팅
@@ -21,6 +22,7 @@ sources:
 - [구축 대 구매](#구축-대-구매)
 - [오픈 소스 소프트웨어 — 두 갈래](#오픈-소스-소프트웨어--두-갈래)
 - [독점 담장 정원](#독점-담장-정원)
+- [운영 부담과 학습 부담이 반대로 움직인다](#운영-부담과-학습-부담이-반대로-움직인다)
 - [이어지는 페이지](#이어지는-페이지)
 
 이 페이지의 질문: **데이터 시스템을 직접 운영할 것인가 빌릴 것인가, 무엇을 기준으로
@@ -386,6 +388,22 @@ sources:
     플랫폼에서 정교한 시스템을 만들도록 기존 데이터 팀을 업스킬링하는 데 훌륭한 가치가 있다**
     (4장, p.139).[^reis2022]
 
+## 운영 부담과 학습 부담이 반대로 움직인다
+
+- **분산 아키텍처 쪽 소스 하나가 클라우드 전용 데이터베이스에서 이 선택의 대가를 한 문장으로
+  뒤집는다** — **클라우드 네이티브 데이터베이스가 운영 DBA의 작업 부하를 줄이기는 하지만
+  개발자에게는 학습 곡선이 더 높다** (6장 §"Cloud Native Databases",
+  p.176).[^ford2021-hard-parts]
+  - **줄어드는 부담과 늘어나는 부담이 같은 사람에게 가지 않는다.** 이 페이지가 모은 논거들은
+    대체로 운영 쪽 절감을 세는데, 그 절감이 **개발 쪽 학습 비용**으로 옮겨 간다는 관찰이
+    여기 더해진다.
+  - **저자들이 이 갈래의 절충을 기술이 아니라 값으로 요약한다** — **이 데이터베이스들은 전부
+    클라우드 전용이므로 값을 치르면 자원이 자동으로 할당될 수 있어 확장이 비교적 간단하고,
+    이 결정에서 절충은 보통 값과 관련된다** (6장, p.176).[^ford2021-hard-parts]
+  - **실험 비용에도 문턱이 하나 붙는다** — **실험하려면 클라우드 계정이 필요해 또 다른 장벽이
+    생긴다** (6장, p.176).[^ford2021-hard-parts] 그 갈래의 채점표는
+    [데이터베이스 종류 고르기](selecting-a-database-type.md)에 있다.
+
 ## 이어지는 페이지
 
 - [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 이 선택을 비용
@@ -398,7 +416,17 @@ sources:
   클라우드 시스템이 본질적으로 분산인 이유
 - [카프카 하드웨어와 클러스터 산정](../concepts/kafka-hardware-and-cluster-sizing.md)
   — 같은 선택을 특정 시스템의 산정 수준에서 다룬 사례
+- [데이터베이스 종류 고르기](selecting-a-database-type.md) — 클라우드 전용 데이터베이스가
+  분해된 체계의 선택지로 놓이는 자리
 
 [^reis2022]: Reis & Housley 2022, 4장 "Choosing Technologies Across the Data Engineering Lifecycle"
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 1장 "Trade-Offs in Data Systems Architecture"
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational
+    Data" §"Selecting a Database Type" 가운데 §"Cloud Native Databases"(pp.175–177). 쪽은
+    인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 절에서 운영 부담과 학습 부담의 방향만
+    가져왔다 — 그 갈래의 별점표와 제품별 서술은
+    [데이터베이스 종류 고르기](selecting-a-database-type.md)가 갖는다. 직인용은 두지 않았고
+    전부 한국어 재서술이며 괄호 안이 그 쪽이다. 저자들이 드는 제품 이름은 그쪽에 버전 조건과
+    함께 있다.

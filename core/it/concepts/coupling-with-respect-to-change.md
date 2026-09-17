@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 변경에 대한 결합도
-description: Yourdon과 Constantine이 비싼 프로그램에서 공통으로 찾아낸 성질에 붙인 이름과 그 정의 — 결합은 두 요소 사이가 아니라 "어떤 변경에 대해" 성립한다는 한정어, 소스 코드만 봐서는 결합을 분석할 수 없다는 귀결과 커밋 동시 등장이라는 대리 계측, 결합을 무섭게 만드는 두 성질(1대N과 연쇄), 이 낱말이 "요소 사이의 아무 관계"로 뜻을 잃었다는 진단, connascence와 정의가 같다는 판정, 서문에서 Constantine 본인이 다시 쓴 결합과 응집의 정의, 그리고 같은 계보에서 정의 대신 종류를 세어 서비스 경계의 결합을 넷으로 가르는 소스와 그 목록이 이 정의의 한정어와 곱해진다는 판정, 그리고 그 동일성 판정의 상대인 커네이선스가 페이지를 얻으면서 드러난 것 — 정의는 같되 갈래와 성질이라는 층이 이 페이지 어휘에는 없다
+description: Yourdon과 Constantine이 비싼 프로그램에서 공통으로 찾아낸 성질에 붙인 이름과 그 정의 — 결합은 두 요소 사이가 아니라 "어떤 변경에 대해" 성립한다는 한정어, 소스 코드만 봐서는 결합을 분석할 수 없다는 귀결과 커밋 동시 등장이라는 대리 계측, 결합을 무섭게 만드는 두 성질(1대N과 연쇄), 이 낱말이 "요소 사이의 아무 관계"로 뜻을 잃었다는 진단, connascence와 정의가 같다는 판정, 서문에서 Constantine 본인이 다시 쓴 결합과 응집의 정의, 그리고 같은 계보에서 정의 대신 종류를 세어 서비스 경계의 결합을 넷으로 가르는 소스와 그 목록이 이 정의의 한정어와 곱해진다는 판정, 그리고 그 동일성 판정의 상대인 커네이선스가 페이지를 얻으면서 드러난 것 — 정의는 같되 갈래와 성질이라는 층이 이 페이지 어휘에는 없다, 그리고 한 권 안에서 같은 낱말을 두 번 다르게 정의하는 소스와 그 둘이 요구와 유발로 갈리는 자리
 generated: { by: "claude-opus-5", at: "2026-09-15T18:00:00Z" }
 sources:
   - { id: beck2023, resource: /it/sources/beck2023.md }
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
@@ -24,6 +25,7 @@ sources:
 - [그래서 먼저 정리할 것인가](#그래서-먼저-정리할-것인가)
 - [한정어 없이 같은 정의를 쓰는 소스](#한정어-없이-같은-정의를-쓰는-소스)
 - [정의 대신 종류를 세는 소스](#정의-대신-종류를-세는-소스)
+- [한 권 안에서 세 번 정의하는 소스](#한-권-안에서-세-번-정의하는-소스)
 - [커네이선스의 원전이 이 KB에 들어왔다](#커네이선스의-원전이-이-kb에-들어왔다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -287,6 +289,49 @@ al.)가 그 자리를 채운다. 전문은
   대는 *Structured Design*을 그쪽도 자기 뿌리로 댄다. **이쪽이 가져오는 것은 결합의
   정의이고, 그쪽이 가져오는 것은 결합의 목록이다.**
 
+## 한 권 안에서 세 번 정의하는 소스
+
+**넷째 소스도 한정어를 달지 않는다.** 특이한 것은 **같은 책이 같은 낱말을 세 자리에서 서로 다른
+문장으로 규정한다**는 점이다.
+
+- **1장의 판** — 저자들이 논의를 위해 고정하는 작업 정의 목록 안에 있다 (1장,
+  p.14):[^ford2021-hard-parts]
+
+  > Two artifacts (including services) are coupled if a change in one might require a change
+  > in the other to maintain proper functionality.
+
+- **2장의 판** — 절충 분석의 첫 걸음을 세우면서 **낱말의 가장 단순한 정의**라고 부르며 다시
+  적는다 (2장, p.27):[^ford2021-hard-parts]
+
+  > Two parts of a software system are coupled if a change in one might cause a change in
+  > the other.
+
+- **두 문장이 어디서 갈리는가.**
+  - **대상** — 앞은 **산출물(artifacts, 서비스 포함)**, 뒤는 **소프트웨어 체계의 부분(parts)**이다.
+    뒤가 넓다.
+  - **동사** — 앞은 **요구할 수 있다(might require)**, 뒤는 **유발할 수 있다(might cause)**다.
+  - **목적절** — 앞에만 **제대로 된 기능을 유지하려면(to maintain proper functionality)**이
+    붙어 있다. **뒤에는 그 목적절이 없다.**
+  - **그래서 앞의 것이 위 [정의 — "어떤 변경에 대해"가 정의의 일부다](#정의--어떤-변경에-대해가-정의의-일부다)의
+    원전 문장에 더 가깝다** — 커네이선스의 정의가 쓰는 **전체의 올바름을 유지하려면**과 같은
+    구조이기 때문이다. **뒤의 것은 그 조건을 떼고 변경의 전파만 남긴다.**
+- **그런데 뒤의 것이 그 책의 작업 정의로 쓰인다.** 저자들이 그것을 **가장 단순한 정의**라 부르며
+  절충 분석의 세 걸음을 세우는 자리에 놓기 때문이다. **한 권 안의 두 문장 중 뒤의 것이 이기는
+  셈이고, 그 결과 "어떤 변경에 대해"도 "올바름을 유지하려면"도 없는 판이 남는다.**
+- **15장의 판이 셋째다** — 절충 분석을 스스로 짓는 법을 적으면서 저자들이 **결합의 정의가 아주
+  다양하지만 이 연습을 위해서는 가장 단순하고 가장 직관적인 판을 쓴다**며 물음 꼴로 적는다
+  (15장, p.401):[^ford2021-hard-parts]
+
+  > if someone changes *X*, will it possibly force *Y* to change?
+
+  - **셋 가운데 가장 짧고 조건이 가장 약하다.** 대상이 `X`와 `Y`라는 자리표로 줄고, 동사는
+    **강제할 수 있다(force)**이며, 목적절도 한정어도 없다. **아키텍트가 그대로 물어볼 수 있는
+    형태**라는 점이 앞의 둘과 다르다 — 방법 장이라 실행할 수 있는 꼴로 줄인 것으로 읽힌다.
+    #hypothesis 그 방법의 전문은 [트레이드오프 분석 방법](trade-off-analysis-method.md)에 있다.
+- **한정어 없는 판이 세 소스에서 반복된다는 것이 이 절의 요지다.** 위 절의 파이썬 아키텍처 쪽과
+  여기, 그리고 [커네이선스](../concepts/connascence.md)의 원전만이 목적절을 갖는다. **한정어를 정의의
+  일부로 세우는 쪽이 이 KB의 소스 중에서는 소수다.** 이 셈은 이 KB가 한 것이다. #hypothesis
+
 ## 커네이선스의 원전이 이 KB에 들어왔다
 
 **위 [connascence와 같은 것이다](#connascence와-같은-것이다)가 언급만 하던 상대가 이 KB에
@@ -329,6 +374,14 @@ al.)가 그 자리를 채운다. 전문은
 - [소프트웨어 복잡성이란 무엇인가](software-complexity-defined.md) — 같은 현상을 셋으로 가르는 소스
 - [시간적 결합 끊기](../concepts/breaking-temporal-coupling.md) — 결합의 한 종류를 다루는 자리
 - [정리와 설계의 경제학](../synthesis/tidying-and-design-economics.md) — 이 소스의 허브
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 1장 "What Happens When There
+    Are No 'Best Practices'?" §"Architecture Versus Design: Keeping Definitions Simple"(p.14)와
+    2장 "Discerning Coupling in Software Architecture" 도입(p.27),
+    그리고 15장 "Build Your Own Trade-Off Analysis" §"Coupling"(p.401). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 18, 실측). 직인용 셋(세 정의)은 `pdftotext -layout` 추출로 문자 단위 대조했고
+    원문이 이탤릭으로 조판한 `X`·`Y`는 인용 안에서 유지했다. 앞 두 자리는 들여쓴 정의 항목으로
+    조판돼 있고 셋째는 산문 속 문장이며, 세 자리 모두 도판도 표도 코드 목록도 없다.
 
 [^beck2023]: Beck 2023, 29장 "Coupling" · Foreword(Larry Constantine) ·
     Appendix "Annotated Reading List and References"(Page-Jones 항목). **이 소스의

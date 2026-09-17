@@ -1,13 +1,14 @@
 ---
 type: concept
 title: 분산 트랜잭션과 2단계 커밋
-description: 노드 여러 대에 걸친 트랜잭션에서 원자성을 얻는 문제 — 단일 노드에서는 장치 하나가 커밋을 원자적으로 만든다는 점, 그것이 깨지면 생기는 원자적 커밋 문제, 준비와 커밋 두 단계로 이뤄진 2PC와 그것을 지탱하는 약속의 체계, 코디네이터가 죽으면 참여자가 빠지는 인다우트 상태, 원자적 커밋 알고리즘 계열이 비잔틴 장애에서 성립하지 않는 이유, 그리고 3단계 커밋이 파티션 앞에서 스플릿 브레인을 내는 방식
-generated: { by: "claude-opus-5", at: "2026-09-15T17:00:00Z" }
+description: 노드 여러 대에 걸친 트랜잭션에서 원자성을 얻는 문제 — 단일 노드에서는 장치 하나가 커밋을 원자적으로 만든다는 점, 그것이 깨지면 생기는 원자적 커밋 문제, 준비와 커밋 두 단계로 이뤄진 2PC와 그것을 지탱하는 약속의 체계, 코디네이터가 죽으면 참여자가 빠지는 인다우트 상태, 원자적 커밋 알고리즘 계열이 비잔틴 장애에서 성립하지 않는 이유, 3단계 커밋이 파티션 앞에서 스플릿 브레인을 내는 방식, 그리고 "분산 트랜잭션"이라는 낱말을 원자적 커밋 프로토콜 없는 서비스 사이 업무 요청에 쓰는 셋째 용법, 그리고 그 셋째 용법 안의 Epic Saga 칸과 2PC가 같은 물음에 서로 다르게 답하며 값을 치르는 자리도 다르다는 대조
+generated: { by: "claude-opus-5", at: "2026-09-17T23:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 분산 트랜잭션과 2단계 커밋
@@ -26,6 +27,8 @@ sources:
 - [서비스 쪽에서 같은 알고리즘을 읽으면](#서비스-쪽에서-같은-알고리즘을-읽으면)
 - [분산 트랜잭션에는 그냥 아니라고 하라](#분산-트랜잭션에는-그냥-아니라고-하라)
 - [두 서술이 겨루는가](#두-서술이-겨루는가)
+- [같은 낱말의 셋째 용법 — 원자적 커밋 프로토콜이 없는 분산 트랜잭션](#같은-낱말의-셋째-용법--원자적-커밋-프로토콜이-없는-분산-트랜잭션)
+- [Epic Saga와 2PC — 어느 칸에 무엇이 사는가](#epic-saga와-2pc--어느-칸에-무엇이-사는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **여러 노드가 관여하는 트랜잭션에서 전부 커밋되거나 전부 중단되게 하려면 무엇이
@@ -476,6 +479,118 @@ sources:
   더 살피자**로 닫고 newman2021은 **쓰지 말라**로 닫는다. 같은 대상에 대한 **판정의 세기가
   다른 것**이고, 근거(잠금·인다우트·지연)는 양쪽이 같다. 합치지 않고 그 페이지에 나란히 두었다.
 
+## 같은 낱말의 셋째 용법 — 원자적 커밋 프로토콜이 없는 분산 트랜잭션
+
+[ford2021-hard-parts](../sources/ford2021-hard-parts.md) 9장이 **분산 트랜잭션이 ACID를 지지하지
+않는다**고 단언한다. 이 페이지의 앞 절들은 2PC가 **바로 그 원자성을 노드 여러 대로 넓히는
+프로토콜**이라고 적으므로, 두 서술이 겨루는지를 대질했다. 이 절이 그 결과다.
+
+- **포드 외의 단언은 이것이다** (9장, p.266):[^ford2021-hard-parts]
+
+  > As you can see, distributed transactions do not support ACID properties.
+
+- **그런데 같은 장이 그 낱말을 먼저 규정한다** — **분산 트랜잭션은 여러 데이터베이스 갱신을 담은
+  원자적 업무 요청이 따로따로 배포된 원격 서비스들에 의해 수행될 때 일어난다**는 것이고, 각
+  서비스는 **자기 데이터만 커밋하고 전체 원자적 업무 요청의 한 부분만 수행한다** (9장,
+  pp.265–266).[^ford2021-hard-parts] 그 넷의 부정을 담은 표와 BASE 규정은
+  [트랜잭션과 ACID](../concepts/acid-transactions.md)가 갖는다.
+- **결정적인 실측 하나** — **이 책은 9장 전체에서 2단계 커밋도 XA도 원자적 커밋 프로토콜도 한
+  번도 말하지 않는다.** 두 추출기(`pdftext.py`·`pdftotext -layout`)로 확인했다. 그리고 **책
+  전체에서 "Two-Phase Commit"이라는 낱말이 나오는 자리는 12장 p.364 하나뿐이고, 그것도 프로토콜
+  서술이 아니라 그레고르 호페(Gregor Hohpe)의 에세이
+  "Starbucks Does Not Use Two-Phase Commit"을 인용하는 대목**이다. 그 대목의 전문과 12장이
+  트랜잭션 매니저를 부르는 단 한 자리는 아래
+  [Epic Saga와 2PC — 어느 칸에 무엇이 사는가](#epic-saga와-2pc--어느-칸에-무엇이-사는가)가 갖는다.
+
+**그러므로 겨루는 것은 주장이 아니라 낱말이다.** 이 KB 안에서 "분산 트랜잭션"이 이제 셋을
+가리킨다.
+
+| 용법 | 어디에 있는가 | 무엇을 가리키는가 | 원자성이 있는가 |
+|---|---|---|---|
+| ① 데이터베이스 체계 안의 원자적 커밋 | 이 페이지의 앞 절들(kleppmann2026·petrov2019) | 샤드·파티션·복제 그룹에 걸친 트랜잭션을 **2PC 같은 원자적 커밋 프로토콜**로 묶는다 | **있다** — 그것이 프로토콜의 목적이다 |
+| ② 서비스 사이를 2PC로 묶는 것 | [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md)의 이종 쪽, newman2021의 기각 대상 | 서비스마다 자기 데이터베이스를 갖고 **그 위에 2PC를 얹는다** | **있다.** 다만 잠금·인다우트·지연의 값을 치른다 |
+| ③ 원자적 커밋 프로토콜이 **없는** 서비스 사이 업무 요청 | ford2021-hard-parts 9장 | 서비스들이 **각자 따로 커밋**하고 조율 프로토콜이 없다 | **없다.** 그래서 ACID가 아니라 BASE다 |
+
+- **최대 하나만 참일 수 있는가를 물으면 답이 아니오다.** ①과 ②가 원자성을 준다는 주장과, ③에
+  원자성이 없다는 주장은 **서로 다른 대상에 대한 서술**이므로 동시에 참이다. 포드 외의 문장은
+  자기가 방금 규정한 ③에 대한 것이고, 그 규정이 "각 서비스가 자기 데이터를 커밋한다"를 포함하는
+  순간 원자성의 부재는 **정의에서 따라 나온다.** **`contradicts`를 걸지 않았다.**
+- **다만 포드 외의 문장은 그 범위를 문장 안에 적지 않는다.** `distributed transactions do not
+  support ACID properties`만 떼어 읽으면 ①과 ②까지 부정하는 것으로 읽힌다. **이 책은 그 두
+  범주를 아예 다루지 않으므로 부정할 대상이 없고**, 같은 장이 "ACID 트랜잭션은 각 서비스의 맥락
+  안에 존재할 수 있다"고 적어 범위가 서비스 경계 밖으로 나가지 않음을 스스로 보인다 (9장,
+  p.265).[^ford2021-hard-parts]
+- **뉴먼과도 갈리는 자리다.** 뉴먼은 ②를 가리켜 **쓰지 말라**고 하고, 포드 외는 ②를 선택지로
+  올리지도 않은 채 ③을 전제로 놓고 **그다음 물음**(어느 최종 일관성 패턴을 쓸 것인가)으로
+  간다. 같은 방향이되 뉴먼은 기각하고 포드 외는 기각을 이미 끝난 것으로 둔다. #hypothesis
+  이 책이 그 생략을 설명하지 않는다.
+- **그 "다음 물음"의 전문은 [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)에
+  있다.**
+- **그리고 ford2022가 넘긴 자리를 이 책이 받는다** — 위 [두 서술이 겨루는가](#두-서술이-겨루는가)가
+  ford2022 6장의 §"Two-Phase Commit Transactions"가 프로토콜을 설명하지 않고 전문을
+  *Software Architecture: The Hard Parts*로 넘긴다고 적었다. **그 책이 이 소스이고, 받은
+  내용이 위 ③이다** — 곧 **2PC 프로토콜의 서술이 아니라 2PC 없이 사는 법이다.** 두 책 어느
+  쪽도 이 자리에서 그 사실을 적지 않으므로 이 대응은 이 KB가 세운 것이다.
+
+## Epic Saga와 2PC — 어느 칸에 무엇이 사는가
+
+**[ford2021-hard-parts](../sources/ford2021-hard-parts.md) 12장이 여덟 칸 가운데 넷의 일관성 축
+값을 `Atomic`이라 적는다. 그 넷 가운데 가장 전통적인 `Epic Saga(sao)`를 2단계 커밋의 자리로
+읽어도 되는가.** 앞 절이 낱말의 셋째 용법을 가른 자리라면, 이 절은 **그 용법 안의 한 칸을 이
+페이지의 프로토콜과 맞대는** 자리다.
+
+- **먼저 실측 셋을 놓는다.** 스냅샷 전권을 `pdftotext -layout`으로 한 번에 뽑아 훑었고, 색인
+  (pp.425–)도 대조했다 (전권 실측).[^ford2021-hard-parts]
+
+| 낱말 | 이 책 전체에서 나오는 자리 | 무엇을 하는 문장인가 |
+|---|---|---|
+| `two-phase commit` | **12장 p.364 하나**(색인도 그 한 자리만 올린다) | 프로토콜 서술이 아니라 **에세이 제목의 일부**다 |
+| `transaction manager` | **12장 p.356 하나** | **부정문**이다 — 분산 트랜잭션에는 그런 제품이 없다 |
+| `XA` · `2PC` | **0건** | — |
+
+- **p.356의 부정이 이 대질의 핵심이다** (12장, p.356):[^ford2021-hard-parts]
+
+  > Distributed transactions are not something that can be simply "dropped into" a system.
+  > They cannot be downloaded or purchased using some sort of framework or product like ACID
+  > transaction managers—they must be designed, coded, and maintained by developers and
+  > architects.
+
+  - **이 문장은 ACID 트랜잭션 매니저라는 물건의 존재를 부정하지 않는다** — 오히려 **그런 것이
+    있다는 것을 전제로 삼아 견준다.** 부정되는 것은 **분산 트랜잭션에 그에 해당하는 제품이
+    있다**는 기대다.
+  - **그러므로 이 책이 2PC를 모르거나 기각하는 것이 아니라, 이 책의 "분산 트랜잭션"이 애초에
+    그 프로토콜이 없는 자리를 가리킨다**(위 [같은 낱말의 셋째 용법](#같은-낱말의-셋째-용법--원자적-커밋-프로토콜이-없는-분산-트랜잭션)의
+    ③). 사가 여덟 칸은 **원자적 커밋 프로토콜을 쓸 수 없다는 전제에서 출발한 설계 공간**이다.
+- **p.364의 인용은 이 책이 2PC에 대해 하는 유일한 말이다** — 수석 아키텍트가 트랜잭션을 개념으로
+  되돌려 놓으며 **현실 세계의 많은 부분이 트랜잭셔널하지 않다**고 적고, 그 관찰의 출처로
+  **그레고르 호페(Gregor Hohpe)의 유명한 에세이 "Starbucks Does Not Use Two-Phase Commit"**을
+  든다 (12장, p.364, 사가).[^ford2021-hard-parts]
+  - **그 에세이는 이 KB가 확인한 원전이 아니다.** 이 KB에 있는
+    [hohpe2004](../sources/hohpe2004.md)는 같은 저자의 *Enterprise Integration Patterns*이고
+    **그 에세이가 아니다.** 이 항목은 **포드 외의 귀속을 옮긴 것**이지 에세이 자체를 읽은 것이
+    아니다. 원문은 그 제목을 오라일리 단축 링크로 걸어 두는데 이 KB는 그 링크를 따라가지 않았다.
+  - **그래서 이 페이지가 그 인용에서 가져오는 claim 은 하나뿐이다** — **저자들이 "2단계 커밋을
+    쓰지 않는다"를 현실 세계의 기본값으로 둔다**는 것. 프로토콜에 대한 기술적 주장은 없다.
+- **`Epic Saga(sao)`는 2PC의 자리가 아니다.** 12장이 `sao`를 구현하는 길로 대는 것은 **보상
+  트랜잭션 하나**이고, 원자성은 언제나 **목표·기대·요구**로 적힌다. 저자들이 원자적 분산
+  트랜잭션에 붙이는 단점 넷(격리 없음 · 보상의 부작용 · 보상 실패 · 나쁜 응답성)도 **잠금이나
+  코디네이터가 아니라 보상의 실패 양태**다 (12장, pp.325–329·358–364).[^ford2021-hard-parts]
+  그 전문은 [트랜잭셔널 사가 패턴](../concepts/transactional-saga-patterns.md)이 갖는다.
+- **세 용법의 표에 이 칸을 얹으면 이렇게 앉는다.** 이 대응은 이 KB가 세운 것이고 **어느 소스도
+  이 다리를 놓지 않는다.** #hypothesis
+
+| | 원자성을 무엇으로 얻는가 | 실패하면 무엇이 일어나는가 | 누가 다루는가 |
+|---|---|---|---|
+| ② 서비스 사이를 2PC로 묶기 | **원자적 커밋 프로토콜**(준비–커밋) | 코디네이터가 결정을 내릴 때까지 **인다우트로 잠긴 채 기다린다** | 이 페이지와 [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md), 그리고 그것을 기각하는 newman2021 |
+| `Epic Saga(sao)` | **없다.** 목표로만 남고 기제는 **보상 갱신**이다 | 중재자가 **앞선 갱신을 되돌리는 요청을 낸다.** 격리가 없어 부작용이 남을 수 있고 보상 자체가 실패할 수 있다 | ford2021-hard-parts 12장 |
+
+  - **같은 물음("전부 아니면 전무")에 두 답이고 겨루지 않는다** — ②는 **커밋을 미뤄** 원자성을
+    사고, `sao`는 **커밋을 그대로 두고 되돌려** 원자성을 흉내 낸다. 최대 하나만 참일 수 있는가를
+    물으면 답이 아니오다. **`contradicts`를 걸지 않았다.**
+  - **다만 값을 치르는 자리가 다르다는 것이 이 대조의 소득이다** — ②는 **가용성과 지연**으로 값을
+    치르고(인다우트·잠금), `sao`는 **격리와 보상의 신뢰성**으로 치른다(부작용·보상 실패).
+    **어느 소스도 이 둘을 나란히 세지 않는다.** #hypothesis
+
 ## 이어지는 페이지
 
 - [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md) — 2PC가 서로 다른
@@ -488,6 +603,8 @@ sources:
 - [샤딩과 2차 색인](../concepts/sharding-and-secondary-indexes.md) — 분산 트랜잭션이 필요해지는
   대표 경로
 - [2단계 잠금](../concepts/two-phase-locking.md) — 이름이 닮았을 뿐인 다른 것
+- [트랜잭셔널 사가 패턴](../concepts/transactional-saga-patterns.md) — 원자적 커밋 프로토콜이 없는 자리에서
+  원자성을 목표로만 남기는 여덟 칸과, 그 목표를 보상으로 이루려 할 때 치르는 값
 - [Raft의 리더 선출과 임기](../concepts/raft-leader-election.md) — 코디네이터를 대체할 결함
   내성 합의 쪽
 - [카프카 트랜잭션의 내부 동작](../concepts/kafka-transaction-internals.md) — 메시지 브로커가
@@ -504,6 +621,10 @@ sources:
 - [복제 상태 기계와 합의](../concepts/replicated-state-machine.md) — 이 문제와 동등한 합의의
   정식화들
 - [원자 브로드캐스트](../concepts/atomic-broadcast.md) — 같은 등가성 사슬의 공유 로그 쪽 고리
+- [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md) — 원자적 커밋 프로토콜
+  없이 사는 쪽이 고르는 셋
+- [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 그 셋째 용법이 전제하는
+  테이블 소유권 배정
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions" · 10장 "Consistency and Consensus"
 
@@ -528,3 +649,21 @@ sources:
     절 제목이 그 이름을 쓸 뿐이고 저자들이 서비스를 가로지르는 트랜잭션의 전문을
     *Software Architecture: The Hard Parts*로 넘긴다. 그 책은 이 KB가 확인한 원전이 아니다.
     이 절에는 도판도 코드 목록도 없다.
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 9장 "Data Ownership and
+    Distributed Transactions" §"Distributed Transactions"(pp.263–267). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 18, 실측). 직인용 하나는 `pdftotext -layout` 추출로 문자 단위 대조했다.
+    **이 페이지가 그 절에서 쓰는 것은 낱말의 범위 판정 하나이고**, ACID 넷의 부정과 BASE 세
+    글자의 규정은 [트랜잭션과 ACID](../concepts/acid-transactions.md)가, 최종 일관성 패턴 셋은
+    [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md)이 갖는다.
+    **9장이 2단계 커밋도 XA도 원자적 커밋 프로토콜도 한 번도 말하지 않는다는 것은 두 추출기로
+    확인한 실측이다.**
+    그리고 **12장 §"Techniques for Managing Sagas"(p.356)와 사가 §"Atomic Transactions and
+    Compensating Updates"(p.364)**를 함께 읽었다. 스냅샷 전권을 `pdftotext -layout`으로 한 번에
+    뽑아 훑은 결과 **`two-phase commit`은 p.364 하나(색인도 그 한 자리만 올린다),
+    `transaction manager`는 p.356 하나, `XA`와 `2PC`는 0건**이다. p.364의 에세이
+    "Starbucks Does Not Use Two-Phase Commit"은 **이 KB가 확인한 원전이 아니고**, 이 KB의
+    [hohpe2004](../sources/hohpe2004.md)는 같은 저자의 *Enterprise Integration Patterns*이라
+    **그 에세이가 아니다** — 이 페이지는 포드 외의 귀속만 옮겼고 원문이 건 오라일리 단축 링크를
+    따라가지 않았다. 세 용법을 가른 표와 ford2022의 넘김을 이 소스가 받는다는 대응, 그리고
+    `Epic Saga(sao)`와 2PC를 나란히 세운 표는 원문에 없고 이 KB가 세운 것이다.

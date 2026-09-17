@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 데이터 프로덕트의 포트와 사이드카
-description: "데이터 퀀텀이 바깥과 만나는 표준 표면 — 입력 데이터 포트·출력 데이터 포트·발견과 관측 가능성 API·제어 포트라는 네 인터페이스가 각각 무엇을 받고 무엇을 내주는가, 그리고 모든 데이터 프로덕트에 공통인 횡단 관심사(정책 실행·표준 API)를 중앙 관문 대신 각 프로덕트의 실행 맥락에 주입해 돌리는 사이드카와 계산 컨테이너, 그리고 같은 낱말이 마이크로서비스 쪽 서비스 메시에서 가리키는 것과 무엇이 갈리는가, 그리고 같은 사이드카를 직교 데이터 결합을 다루는 재사용 패턴의 한 적용으로 읽으며 서비스 메시 쪽 적용과 나란히 놓는 소스"
+description: "데이터 퀀텀이 바깥과 만나는 표준 표면 — 입력 데이터 포트·출력 데이터 포트·발견과 관측 가능성 API·제어 포트라는 네 인터페이스가 각각 무엇을 받고 무엇을 내주는가, 그리고 모든 데이터 프로덕트에 공통인 횡단 관심사(정책 실행·표준 API)를 중앙 관문 대신 각 프로덕트의 실행 맥락에 주입해 돌리는 사이드카와 계산 컨테이너, 그리고 같은 낱말이 마이크로서비스 쪽 서비스 메시에서 가리키는 것과 무엇이 갈리는가, 그리고 같은 사이드카를 직교 데이터 결합을 다루는 재사용 패턴의 한 적용으로 읽으며 서비스 메시 쪽 적용과 나란히 놓는 소스, 그리고 그 읽기의 먼저 나온 판에는 데이터 쪽 적용이 없고 도메인 클래스를 사이드카에 넣지 말라는 조문만 있다는 대조"
 generated: { by: "claude-opus-5", at: "2026-09-15T21:00:00Z" }
 sources:
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 데이터 프로덕트의 포트와 사이드카
@@ -235,6 +236,16 @@ sources:
   p.123).[^ford2022-evolutionary]
 - **협력 퀀텀이라는 이름은 포드 외에게만 있다.** 이 페이지의 소스가 그 이름을 쓰지 않는 것으로
   이 KB가 확인했다. 정의와 대조는 [아키텍처 퀀텀](../concepts/architectural-quantum.md)에 있다. #hypothesis
+- **그 읽기의 먼저 나온 판이 같은 저자 무리의 2021년 책 8장이다.** 거기서는 사이드카가 **재사용
+  패턴 넷 가운데 하나**로 서고 직교 결합 곁상자가 낱말 수준에서 같은데, **데이터 쪽 적용은 거기에
+  없다** — 그 책은 사이드카를 **운영 결합**에만 걸고 다른 쓰임이 있다는 것을 14장으로 넘긴다
+  (8장, p.239).[^ford2021-hard-parts] 곧 **데이터 결합이라는 둘째 적용은 2022년 판에서 더해진
+  것이고**, 방향은 이 KB가 서지 사실로 세운 것이다(2021년 10월이 앞선다). #hypothesis
+  - **2021년 판에만 있는 것이 하나 있다 — 무엇을 사이드카에 넣지 말아야 하는가의 조문이다.**
+    **`Address`나 `Customer` 클래스 같은 도메인 공유 컴포넌트를 사이드카에 절대 넣지 말아야
+    한다**는 것이고 (8장, p.240, 사가),[^ford2021-hard-parts] **이 페이지의 사이드카는 정책
+    실행과 표준 API를 담으므로 그 금지의 대상이 아니다.** 두 자리가 겨루지 않는다. #hypothesis
+  - 그 장의 전문은 [코드 재사용 패턴 넷](../concepts/code-reuse-patterns.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -257,11 +268,18 @@ sources:
 
 [^dehghani2022]: Dehghani 2022, 9장 "The Logical Architecture"
 
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 8장 "Reuse Patterns"
+    §"Sidecars and Service Mesh"(pp.234–239)와 §"Sysops Squad Saga: Common Infrastructure
+    Logic"(p.240, 사가). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지가 그 장에서 든
+    것은 두 판의 대조와 도메인 클래스 금지 조문뿐이고 직인용은 두지 않았다 — 직교 결합 곁상자의
+    원문과 절충표는 [코드 재사용 패턴 넷](../concepts/code-reuse-patterns.md)이 갖는다. 두 판의
+    선후 판정은 이 KB가 서지 사실로 세운 것이고 두 책은 서로를 가리키지 않는다.
+
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 5장 "Evolutionary Architecture
     Topologies" §"Reuse Patterns" — §"Sidecars and Service Mesh: Orthogonal Operational
     Coupling"(pp.114–118, 옆글 "Orthogonal Coupling"(p.118) 포함) · §"Data Mesh: Orthogonal Data
     Coupling"(pp.119–123). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 이 절에 직인용은 두지 않았다 —
-    이 소스가 데이터 메시 정의와 네 원칙을 인용하는 대목은 이 KB의 [데이터 메시](data-mesh.md)가
+    이 소스가 데이터 메시 정의와 네 원칙을 인용하는 대목은 이 KB의 [데이터 메시](../concepts/data-mesh.md)가
     원전 서술로 이미 갖고 있어 겹쳐 두지 않았고, 여기에는 이 소스 고유의 판정(직교 결합이라는
     규정과 계보)만 한국어로 옮겼다. 도판 둘(그림 5-21 · 5-22)은 이미지 조판이라 본문이 그것에
     대해 적는 것만 옮겼고, 이 절들에 코드 목록은 없다.

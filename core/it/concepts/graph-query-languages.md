@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 그래프 질의 언어
-description: 그래프를 질의하는 네 가지 언어와 SQL의 대응 — 화살표 표기로 패턴을 적는 Cypher, 같은 질의를 재귀 공통 테이블 표현식으로 옮겼을 때 4줄이 31줄이 되는 SQL, Cypher가 패턴 매칭을 빌려 온 SPARQL, 규칙을 쌓아 올려 재귀를 표현하는 Datalog, 그리고 2024년에 나온 ISO 표준 GQL
+description: 그래프를 질의하는 네 가지 언어와 SQL의 대응 — 화살표 표기로 패턴을 적는 Cypher, 같은 질의를 재귀 공통 테이블 표현식으로 옮겼을 때 4줄이 31줄이 되는 SQL, Cypher가 패턴 매칭을 빌려 온 SPARQL, 규칙을 쌓아 올려 재귀를 표현하는 Datalog, 2024년에 나온 ISO 표준 GQL, 그리고 이 언어들의 진입 비용을 아키텍처 쪽에서 채택 특성으로 채점한 소스
 generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 그래프 질의 언어
@@ -14,6 +15,7 @@ sources:
 - [SQL로 그래프를 질의하면](#sql로-그래프를-질의하면)
 - [SPARQL](#sparql)
 - [Datalog](#datalog)
+- [이 언어들의 진입 비용을 채점한 소스](#이-언어들의-진입-비용을-채점한-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **정점과 간선으로 표현된 데이터를 어떤 언어로 질의하며, 가변 길이 경로를 따라가는
@@ -195,6 +197,26 @@ sources:
   Datalog 규칙도 자기 자신을 호출할 수 있으며(예제의 규칙 2가 그렇다), 이것이 Datalog 질의에서
   그래프 순회를 가능하게 한다** (3장, p.98).[^kleppmann2026]
 
+## 이 언어들의 진입 비용을 채점한 소스
+
+- **아키텍처 쪽 소스 하나가 그래프 질의 언어를 "니치 기술"의 대표 예로 든다.** 포드 외는
+  데이터베이스 종류를 고르는 절에서 학습 난이도 축을 규정하며 **대부분의 소프트웨어 개발자가
+  SQL을 이해한다고 가정되는 반면 Gremlin(그래프 질의 언어) 같은 것은 니치 기술일 수 있다**고
+  적는다 (6장 §"Selecting a Database Type", p.161).[^ford2021-hard-parts]
+  - **그 판단이 별점으로 되돌아온다** — 같은 절에서 그래프 데이터베이스의 학습 난이도는 여덟
+    갈래 가운데 최저인 1/5이고, 근거는 **노드·관계·관계 유형·속성을 어떻게 쓰는지 이해하는 데
+    시간이 걸린다**는 것이다 (6장, p.172).[^ford2021-hard-parts] 그 채점표는
+    [데이터베이스 종류 고르기](selecting-a-database-type.md)에 있다.
+- **그쪽이 언어 지형을 한 문장으로 요약하는데 이 페이지의 계보와 어긋나지 않는다** —
+  **Gremlin이라는 언어 프레임워크가 여러 다른 데이터베이스에 걸쳐 동작해 사용의 용이를 돕고,
+  Neo4J는 Cypher라는 질의 언어를 지원한다**는 것이다 (6장, p.173).[^ford2021-hard-parts]
+  - 버전 조건: 2021년 저술 시점이다. **그쪽에는 2024년 ISO 표준 GQL이 없다** — 이 페이지가
+    적는 그 표준은 그 책보다 뒤의 일이다. SPARQL과 Datalog도 그쪽에 없다.
+- **두 소스가 같은 언어를 다른 이유로 다룬다.** 이 페이지는 **무엇을 표현할 수 있는가**를 묻고,
+  그쪽은 **그 언어를 아는 사람을 구할 수 있는가**를 묻는다. 그래서 그쪽의 별점 축 하나가
+  통째로 **언어 지원·성숙도·SQL 지원·커뮤니티**이고 그 칸이 채용 가능성을 잰다 (6장,
+  p.162).[^ford2021-hard-parts] **표현력 논의와 채택 논의는 다른 물음이다.**
+
 ## 이어지는 페이지
 
 - [그래프 데이터 모델](../concepts/graph-data-models.md) — 이 언어들이 질의하는 그 두 모델
@@ -204,5 +226,15 @@ sources:
   실행할지 고르는 최적화기
 - [관계형 모델과 문서 모델](../concepts/relational-versus-document-model.md) — SQL과 문서 질의
   언어 쪽
+- [데이터베이스 종류 고르기](selecting-a-database-type.md) — 이 언어들의 진입 비용이 종류
+  선택의 한 축이 되는 자리
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 3장 "Data Models and Query Languages"
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational
+    Data" §"Selecting a Database Type" 가운데 축 일곱의 규정(pp.161–162)과
+    §"Graph Databases"(pp.171–173). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그
+    절을 대질에만 쓴다 — 여덟 갈래의 별점표와 직인용은
+    [데이터베이스 종류 고르기](selecting-a-database-type.md)가 갖는다. 별점 값은 그쪽에서
+    도판을 렌더해 눈으로 센 것이고 텍스트 레이어에는 없다. 위 대비(표현력 대 채택 조건)는
+    원문에 없고 **이 KB가 맞댄 것**이다.

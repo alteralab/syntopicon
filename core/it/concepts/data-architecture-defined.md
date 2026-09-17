@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 데이터 아키텍처의 정의
-description: "데이터 아키텍처를 무엇이라 정의하며 무엇이 그것을 '좋다'고 만드는가 — 엔터프라이즈 아키텍처의 부분집합이라는 위치, TOGAF·Gartner·EABOK·DAMA의 정의와 저자들의 정의, 유연하고 되돌릴 수 있는 결정과 일방통행문·양방향문, 변경 관리, 운영 아키텍처와 기술 아키텍처의 분업, 그리고 나쁜 아키텍처의 형태"
+description: "데이터 아키텍처를 무엇이라 정의하며 무엇이 그것을 '좋다'고 만드는가 — 엔터프라이즈 아키텍처의 부분집합이라는 위치, TOGAF·Gartner·EABOK·DAMA의 정의와 저자들의 정의, 유연하고 되돌릴 수 있는 결정과 일방통행문·양방향문, 변경 관리, 운영 아키텍처와 기술 아키텍처의 분업, 그리고 나쁜 아키텍처의 형태, 그리고 아키텍처 쪽 소스가 같은 경계를 반대 방향에서 긋는 자리 — 데이터가 체계보다 오래 산다는 전제와 모든 소프트웨어 아키텍처가 데이터에 봉사한다는 판정, 경계 컨텍스트가 데이터베이스를 서비스 안으로 옮기면서 데이터가 아키텍처 관심사가 되었다는 기제, 운영 데이터와 분석 데이터의 가름, 그리고 이 페이지가 인용하는 가장 덜 나쁜 아키텍처라는 경구의 원문"
 generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 데이터 아키텍처의 정의
@@ -19,6 +20,7 @@ sources:
 - [운영 아키텍처와 기술 아키텍처](#운영-아키텍처와-기술-아키텍처)
 - ["좋은" 데이터 아키텍처](#좋은-데이터-아키텍처)
 - [누가 설계하는가](#누가-설계하는가)
+- [아키텍처 쪽에서 같은 경계를 긋는 소스](#아키텍처-쪽에서-같은-경계를-긋는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **데이터 아키텍처(data architecture)를 무엇이라 정의해야 설계 결정으로
@@ -228,6 +230,65 @@ pp.72–73).[^reis2022] 왜곡을 피하려 원문을 직인용한다.
   선택인가? 이 선택들을 추상적으로 공부해 두는 것이 구체적이고 가치 있는 결정을 내릴 준비를
   해 준다** (3장, p.111).[^reis2022]
 
+## 아키텍처 쪽에서 같은 경계를 긋는 소스
+
+**이 페이지는 데이터 쪽에서 아키텍처를 본다. 반대 방향에서 같은 경계를 긋는 소스가 이 KB에
+있다** — 분산 아키텍처의 절충을 다루는 책이 **데이터의 중요성**에 한 절을 쓴다.
+
+- **그쪽이 여는 인용** (1장 §"The Importance of Data in Architecture",
+  p.4):[^ford2021-hard-parts]
+
+  > Data is a precious thing and will last longer than the systems themselves.
+  >
+  > —Tim Berners-Lee
+
+  - **이 KB는 버너스리의 원문을 확인하지 않았다.**
+- **그쪽의 전제가 이 페이지의 전제와 같다** — 어떤 체계를 짓든 데이터를 다뤄야 하고, 데이터는
+  **체계나 아키텍처보다 오래 사는 경향이 있어 부지런한 사고와 설계를 요구한다** (1장,
+  p.4).[^ford2021-hard-parts]
+  - 그리고 **긴장 하나를 지목한다** — **데이터 아키텍트의 본능 다수가 단단히 결합된 체계를
+    짓는 쪽이고, 그것이 현대 분산 아키텍처 안에서 충돌을 만든다** (1장,
+    p.4).[^ford2021-hard-parts] 위 §""좋은" 데이터 아키텍처"가 **단단히 결합됨**을 나쁜
+    아키텍처의 첫 성질로 드는 것과 같은 방향이다.
+- **그쪽이 내리는 판정이 이 페이지보다 강하다** — **데이터가 회사의 가장 중요한 자산이라는 말이
+  있어 왔고**, 기업의 모든 부분이 이제 데이터로 움직인다. 그 의존이 뜻하는 것은 **모든
+  소프트웨어 아키텍처가 데이터에 봉사한다(all software architecture is in the service of
+  data)**는 것이다 (1장, p.4).[^ford2021-hard-parts]
+- **왜 요즘 결정이 더 어려워졌는가에 대한 그쪽의 진단** — 수십 년 전 분산 체계를 지을 때는
+  **대개 여전히 단일 관계형 데이터베이스에 데이터를 영속화했다.** 그런데 마이크로서비스와,
+  구현 세부 결합의 범위를 제한하는 수단으로서의 **경계 컨텍스트에 대한 철학적 고수**가 들어오며
+  **데이터가 트랜잭션성과 함께 아키텍처 관심사로 옮겨 왔다.** 현대 아키텍처의 하드 파트 다수가
+  **데이터와 아키텍처 관심사 사이의 긴장에서 나온다** (1장, p.4).[^ford2021-hard-parts]
+  - 같은 진단을 2장이 되풀이한다 — **데이터베이스를 서비스 경계 안으로 옮기면서 데이터 관심사가
+    아키텍처 관심사로 옮겨 온다** (2장, p.26).[^ford2021-hard-parts]
+- **그쪽이 책 전체에 걸쳐 쓰는 가름 하나** (1장, pp.4–5):[^ford2021-hard-parts]
+
+| 갈래 | 규정 |
+|---|---|
+| 운영 데이터(operational data) | 업무의 운영에 쓰이는 데이터 — 판매·거래 데이터·재고 따위다. **회사가 그 위에서 돌아가는 데이터이고, 무언가 이것을 끊으면 조직은 오래 기능하지 못한다.** 온라인 트랜잭션 처리(Online Transactional Processing, OLTP)로 정의되는 유형이며 대개 데이터베이스의 삽입·갱신·삭제를 수반한다 |
+| 분석 데이터(analytical data) | 데이터 과학자와 업무 분석가가 예측·추세 분석과 그 밖의 비즈니스 인텔리전스에 쓰는 데이터 — **대개 트랜잭션성이 아니고 흔히 관계형도 아니며**, 그래프 데이터베이스에 있거나 원래의 거래 형태와 다른 형식의 스냅샷일 수 있다. **일상 운영에 결정적이지 않고 장기 전략 방향과 결정에 쓰인다** |
+
+  - **이 KB의 데이터 축이 같은 가름 위에 서 있다** —
+    [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md)이 그 가름을
+    전제로 세 세대를 세고, [데이터 퀀텀](data-quantum.md)이 분석 쪽을 나누는 단위를 규정한다.
+    **아키텍처 쪽 소스가 같은 가름을 자기 용어 목록에 넣는다는 사실이 여기서 확인된다.**
+- **위 §""좋은" 데이터 아키텍처"가 여는 경구의 원문이 이 소스에 있다.** 이 페이지가 인용하는
+  것은 **"Never shoot for the best architecture, but rather the least worst architecture.
+  —Mark Richards and Neal Ford"**인데, 그 두 사람이 자기 책에 적은 문장은 이것이다 (1장,
+  p.2):[^ford2021-hard-parts]
+
+  > Don't try to find the *best* design in software architecture; instead, strive for the
+  > *least worst* combination of trade-offs.
+
+  - **두 문장이 같지 않다.** 대상이 **아키텍처**에서 **설계**로, 목적어가 **아키텍처**에서
+    **절충의 조합**으로 다르고, 이 페이지 쪽 인용은 **출처를 적지 않는다.** **이 KB는 어느 책의
+    어느 문장을 인용한 것인지 판정하지 않는다** — 같은 저자들의 앞 책
+    *Fundamentals of Software Architecture*가 이 KB에 없기 때문이다. 확인된 것은 **같은 저자
+    둘이 같은 취지의 문장을 이 책에도 적었다**는 사실까지다.
+  - 그 문장이 놓인 논증의 전문은
+    [진화적 아키텍트의 역할](evolutionary-architect-role.md) §"아키텍트의 일 — 최선이 아니라
+    가장 덜 나쁜 조합"에 있다.
+
 ## 이어지는 페이지
 
 - [좋은 데이터 아키텍처의 아홉 원칙](../concepts/good-data-architecture-principles.md) — 이 정의를 설계
@@ -252,5 +313,14 @@ pp.72–73).[^reis2022] 왜곡을 피하려 원문을 직인용한다.
 - [분석 데이터 아키텍처 세대론](../concepts/analytical-data-architecture-generations.md) —
   같은 목록을 시간 순으로 세 세대로 끊고 그 공통 가정을 진단하는 쪽
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 이벤트 기반 아키텍처가 놓인 자리
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 1장 "What Happens When There
+    Are No 'Best Practices'?" 도입(p.2)과 §"The Importance of Data in Architecture"(pp.4–5),
+    그리고 2장 "Discerning Coupling in Software Architecture" 도입(p.26). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 18, 실측). 직인용 둘(버너스리의 제사 · 가장 덜 나쁜 절충 조합)은
+    `pdftotext -layout` 추출로 문자 단위 대조했고 원문이 이탤릭으로 조판한 강조를 유지했다.
+    위 운영·분석 데이터 표는 **원문의 들여쓴 정의 항목 둘을 이 KB가 표로 옮긴 것**이다.
+    이 구간에 도판도 코드 목록도 없다. 저자들이 대는 바깥 것들(Tim Berners-Lee ·
+    *Fundamentals of Software Architecture*)은 **이 KB가 확인한 원전이 아니다**.
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture"

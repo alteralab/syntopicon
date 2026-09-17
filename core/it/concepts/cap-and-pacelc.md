@@ -1,12 +1,13 @@
 ---
 type: concept
 title: CAP과 PACELC
-description: 네트워크가 갈라질 때 일관성과 가용성 중 무엇을 포기하는가라는 추측과 그 확장 — 중복이 내결함성을 사 오는 구조, 다중 리전에서 파티션이 났을 때 실제로 벌어지는 일, CP와 AP라는 연속체의 양끝, CAP이 말하지 않는 것들과 그 형식적 진술이 얼마나 좁은가, 이 정리를 오늘날 얼마나 진지하게 받아들여야 하는지에 대해 두 소스가 갈리는 자리, 파티션이 없을 때도 남는 지연 대 일관성의 선택, 절대값을 상대값으로 바꾸는 수확률과 산출률, 그리고 같은 정리를 실무의 결정 어휘로 쓰는 세 번째 읽기 — 서비스마다 그리고 서비스 안의 능력마다 다르게 고르는 방식과 "정리를 이긴다"는 주장에 대한 답, 그리고 그 읽기가 앞의 회의적 평가와 어디서 갈리는가, 그리고 같은 일관성 축을 서비스 통신 결정의 세 차원 중 하나로 쓰는 소스와 그쪽이 정리를 호명하지 않는다는 사실
+description: 네트워크가 갈라질 때 일관성과 가용성 중 무엇을 포기하는가라는 추측과 그 확장 — 중복이 내결함성을 사 오는 구조, 다중 리전에서 파티션이 났을 때 실제로 벌어지는 일, CP와 AP라는 연속체의 양끝, CAP이 말하지 않는 것들과 그 형식적 진술이 얼마나 좁은가, 이 정리를 오늘날 얼마나 진지하게 받아들여야 하는지에 대해 두 소스가 갈리는 자리, 파티션이 없을 때도 남는 지연 대 일관성의 선택, 절대값을 상대값으로 바꾸는 수확률과 산출률, 그리고 같은 정리를 실무의 결정 어휘로 쓰는 세 번째 읽기 — 서비스마다 그리고 서비스 안의 능력마다 다르게 고르는 방식과 "정리를 이긴다"는 주장에 대한 답, 그리고 그 읽기가 앞의 회의적 평가와 어디서 갈리는가, 그리고 같은 일관성 축을 서비스 통신 결정의 세 차원 중 하나로 쓰는 소스와 그쪽이 정리를 호명하지 않는다는 사실, 그리고 그 축을 원자성이라는 작업 정의로 고정하고 서비스를 가로지르는 트랜잭션을 피하라는 일반 조언을 붙이는 소스
 generated: { by: "claude-opus-5", at: "2026-08-14T23:00:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
 ---
 
@@ -391,6 +392,39 @@ sources:
   p.102).[^ford2022-evolutionary] **그래서 이 소스에는 그 문제의 해법 서술이 없다.** 세 축의 요약은
   [아키텍처 퀀텀](../concepts/architectural-quantum.md)에 있다.
 
+- **그 넘김을 받는 책이 이 KB에 있고, 같은 축을 같은 말로 규정한다.** 2021년 책도 일관성을
+  **통신 호출이 지켜야 하는 트랜잭션 무결성의 엄격함**으로 놓고, 한쪽 끝에 **요청 처리 중에
+  일관성을 요구하는 전부 아니면 전무의 원자적 트랜잭션**을, 다른 쪽 끝에 **여러 정도의 결과적
+  일관성**을 둔다 (2장 §"Consistency", p.40).[^ford2021-hard-parts] **두 책 사이에 이 축의
+  표류는 없다.**
+  - **그쪽도 정리를 호명하지 않는다** — CAP도 PACELC도 적지 않고, 이 축을 **설계 결정의 좌표**로만
+    쓴다.
+  - **그쪽이 붙이는 일반 조언** — 여러 서비스가 전부 아니면 전무 트랜잭션에 참여하는 일은
+    **분산 아키텍처에서 모델링하기 가장 어려운 문제 축에 들고**, 그래서 **서비스를 가로지르는
+    트랜잭션을 피하려 하라**는 것이 일반 조언이다. 그 주제의 전문은 그 책의 6장·9장·10장·12장이
+    갖는다 (2장, p.40).[^ford2021-hard-parts]
+  - **1장이 같은 축을 작업 정의로 먼저 고정한다** — **워크플로의 모든 부분이 항상 일관된 상태를
+    유지하면 원자적이고, 반대쪽은 결과적 일관성의 스펙트럼**이다 (1장,
+    p.15).[^ford2021-hard-parts] 표제어가 `Atomicty`로 오식돼 있다는 사실은
+    [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)의 용어 표에 적었다.
+  - **그런데 같은 책이 6장에서는 이 정리의 두 낱말을 채점 축의 이름으로 쓴다** — 데이터베이스
+    종류를 채점하는 일곱 축 가운데 둘이 `Availability/partition tolerance`와 `Consistency`이고,
+    저자들은 그 둘을 정리로 규정하지 않고 **고가용 설정과 파티션 처리 기능을 제공하는가** ·
+    **"항상 일관된" 패러다임을 지원하는가(ACID인가 결과적 일관성의 BASE 쪽으로 기우는가,
+    쓰기 종류마다 일관성을 조율할 수 있는가)**로 규정한 뒤 종류마다 별 하나로 요약한다 (6장,
+    pp.161–162).[^ford2021-hard-parts] 그 채점표는
+    [데이터베이스 종류 고르기](selecting-a-database-type.md)에 있다.
+    - **그 요약이 이 페이지의 읽기보다 거칠다.** 이 페이지가 모은 읽기 셋은 전부 **선택이
+      능력 단위로 갈린다**고 적는데(뉴먼은 서비스마다 그리고 서비스 안의 능력마다 다르게
+      고른다고 적고, 조율 가능한 일관성은 질의 단위로 갈린다), 6장의 별점은 **제품이 아니라
+      종류 하나에 값 하나**를 매긴다. **저자들이 그 거칢을 스스로 완화한다** — 키-값 절에서
+      **모든 키-값 저장소가 같다고 가정하는 것은 실수**라고 적고(6장, p.167), 넷째·다섯째 축의
+      규정 안에 **조율 가능한 일관성**을 명시적으로 넣는다.
+    - **그래서 별점이 CAP의 거친 라벨(CP냐 AP냐)을 전제한다고 읽지 않는다.** 규정의 낱말이
+      정리의 낱말이 아니라 **설정 기능의 유무**이고, 저자들은 CAP 정리 자체의 설명을 9장
+      p.254로 미룬다 (6장, pp.164·171). **다만 종류 단위의 별 하나로 요약되는 순간 그 조율
+      가능성은 표에서 사라진다** — 표를 읽을 때 잃는 것이 그것이다. #hypothesis
+
 ## 이어지는 페이지
 
 - [일관성 모델](../concepts/consistency-models.md) — CAP이 "일관성"이라 부르는 것의 계보 전체
@@ -412,6 +446,8 @@ sources:
 - [안정성 패턴](stability-patterns.md) — 파티션이 났을 때 기능을 깎는 일을 실제로 트리거하는
   기제들
 - [신뢰성과 내결함성](reliability-and-fault-tolerance.md) — 그 깎기를 무엇을 기준으로 정하는가
+- [데이터베이스 종류 고르기](selecting-a-database-type.md) — 같은 두 낱말이 채점 축의 이름으로
+  쓰이는 자리
 
 [^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 12장 "Resiliency"
     §"CAP Theorem"(pp.408–413, 하위 절 §"Sacrificing Consistency" · §"Sacrificing
@@ -425,6 +461,13 @@ sources:
     (강한 일관성 키-값 저장소와 호출 단위로 일관성을 고를 수 있는 데이터베이스)은 버전
     조건을 달아 제품명 없이 성질만 남겼다. **이 소스는 이 축의 원전이 아니라 소비자**다.
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 10장 "Consistency and Consensus"
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 1장 "What Happens When There
+    Are No 'Best Practices'?" §"Architecture Versus Design: Keeping Definitions Simple"(p.15)와
+    2장 "Discerning Coupling in Software Architecture" §"Consistency"(p.40). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 18, 실측). 이 두 자리에서 옮긴 것은 한국어 재서술이고 직인용은 두지 않았다 —
+    원문의 정의 항목 직인용은 [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)의
+    용어 표가 보관한다. 이 구간에 도판도 표도 코드 목록도 없다.
+
 [^petrov2019]: Petrov 2019, 11장 "Replication and Consistency"
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 5장 "Evolutionary Architecture

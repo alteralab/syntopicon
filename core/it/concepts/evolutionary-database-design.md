@@ -5,6 +5,7 @@ description: 데이터베이스를 아키텍처의 한 차원으로 놓고 코�
 generated: { by: "claude-opus-5", at: "2026-09-17T20:00:00Z" }
 sources:
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
 ---
 
 # 진화적 데이터베이스 설계
@@ -26,6 +27,7 @@ sources:
 - [책의 사례 — 라우팅 테이블을 확장/수축으로 바꾸기](#책의-사례--라우팅-테이블을-확장수축으로-바꾸기)
 - [네이티브 기능에서 적합도 함수로](#네이티브-기능에서-적합도-함수로)
 - [책의 사례 — 관계형에서 비관계형으로](#책의-사례--관계형에서-비관계형으로)
+- [같은 저자 무리의 2021년 책이 이 패턴을 절차로 편 자리](#같은-저자-무리의-2021년-책이-이-패턴을-절차로-편-자리)
 - [이 KB의 다른 소스와 만나는 자리](#이-kb의-다른-소스와-만나는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -443,7 +445,7 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 - **그 배경 작업을 다루는 것이 이벤트 주도 아키텍처의 패턴들**이고, 저자들이 드는 예가 **사용자
   인터페이스가 거래를 거부하면 관심 있는 모든 서비스가 감시하는 내구 메시지 큐에 메시지를 전파해
   필요에 따라 갱신하거나 삭제하는** 그림이다 (6장, p.138).[^ford2022-evolutionary] 그 기제의
-  정본은 [이벤트 주도 통합 설계](event-driven-integration-design.md)와
+  정본은 [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md)와
   [발행/구독 메시징](publish-subscribe-messaging.md)에 있다.
 - **절의 저울** — **데이터베이스의 참조 무결성은 강력하지만 때로 바람직하지 않은 결합을 만들고,
   그 이점과 저울질해야 한다** (6장, p.138).[^ford2022-evolutionary]
@@ -526,6 +528,40 @@ Choices", pp.132–133).[^ford2022-evolutionary]
   p.143).[^ford2022-evolutionary] 두 모형의 선택 기준은
   [관계형 모델과 문서 모델](relational-versus-document-model.md)에 있다.
 
+## 같은 저자 무리의 2021년 책이 이 패턴을 절차로 편 자리
+
+**이 페이지가 패턴을 갖는다면 그 책은 절차를 갖는다.** *Software Architecture: The Hard Parts*
+6장이 모놀리식 데이터베이스를 데이터 도메인이라는 매개로 가르는 **다섯 단계**를 적고, 그 전문은
+[모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)에 있다.
+
+- **그 절차가 위 [확장/수축 패턴](#확장수축-패턴)의 꼴을 그대로 밟는다.** 아래 대응은 **이 KB가
+  맞댄 것**이고 두 책 어느 쪽도 이 자리에서 상대를 호명하지 않는다. #hypothesis
+
+  | 국면 | 그 절차의 어디 | 무엇이 잠시 둘이 되는가 |
+  |---|---|---|
+  | 확장 | 2단계 — 스키마를 가로지르는 테이블에 **동의어(synonym)**를 만든다 (6장, p.157)[^ford2021-hard-parts] | 같은 테이블에 이름이 둘 |
+  | 확장 | 4단계 — 스키마를 새 데이터베이스 서버로 **복제(replicate)**한다 (6장, p.160)[^ford2021-hard-parts] | 같은 스키마가 옛 서버와 새 서버 양쪽에 |
+  | 수축 | 3단계 — 동의어를 전부 제거하고 접근을 서비스 호출로 바꾼다 (6장, p.158)[^ford2021-hard-parts] | 이름 하나만 남는다 |
+  | 수축 | 5단계 — 옛 서버로 가는 커넥션과 옛 스키마를 제거한다 (6장, p.161)[^ford2021-hard-parts] | 새 서버만 남는다 |
+
+- **두 책의 격이 다르므로 겨루지 않는다** — 이 페이지는 **왜 둘을 잠시 함께 두는가**를 주고,
+  그 책은 **어느 순서로 무엇을 하는가**를 준다. 그 책이 자기 절차를 확장/수축이라 부르지 않는다.
+- **그 절차가 3단계를 가장 어려운 단계로 못 박는다** — **모든 스키마 교차 접근이 서비스 수준에서
+  해소되어야 하기 때문**이다 (6장, p.158).[^ford2021-hard-parts] 이 페이지의 수축 단계 서술과
+  같은 자리이되, **그 책에는 되돌리기에 대한 서술이 없다.** 위
+  [마이그레이션은 불변이다](#마이그레이션은-불변이다)와
+  [되돌리기를 버린 세 이유](#되돌리기를-버린-세-이유)에 해당하는 조항이 그 다섯 단계에는 없다.
+  저자들이 그 공백을 적지 않는다. #hypothesis
+- **위 [공유 데이터베이스 통합 — 스키마가 화석이 된다](#공유-데이터베이스-통합--스키마가-화석이-된다)의
+  진단을 그 책이 그대로 되부른다** — 그 절차의 1단계가 출발 상태를 **공유 데이터베이스 통합
+  양식**이라 부르고 호페와 울프에게 귀속하며, 그 결합이 **변경 관리를 아주 어렵게 만든다**고
+  적는다 (6장, p.156).[^ford2021-hard-parts] **두 책의 진단이 같다.**
+- **그리고 쪼갤 것인가의 판정을 그 책이 여덟 구동 요인으로 따로 세운다** — 그 가운데 **데이터베이스
+  트랜잭션**이 붙여 둘 근거로 놓이는데, 이는 위
+  [트랜잭션 맥락 — 퀀텀을 묶는 강한 핵력](#트랜잭션-맥락--퀀텀을-묶는-강한-핵력)의 판정과 같은
+  사실을 반대편에서 적은 것이다 (6장, pp.148–149).[^ford2021-hard-parts] 그 여덟은
+  [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)에 있다.
+
 ## 이 KB의 다른 소스와 만나는 자리
 
 **긴장 다섯을 대질했고 `contradicts`는 하나도 걸지 않았다.**
@@ -590,7 +626,11 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 - [관계형 데이터베이스를 위한 객체 설계](../concepts/designing-objects-for-relational-databases.md) —
   관계형 설계가 리팩터링되지 않는다는 2003년의 관찰
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 교살자 무화과의 정본
-- [이벤트 주도 통합 설계](event-driven-integration-design.md) — 참조 무결성을 이벤트로 지키는
+- [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md) — 같은 저자
+  무리가 이 패턴을 절차로 편 자리
+- [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md) — 그 절차에 들어가기
+  전의 판정
+- [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 참조 무결성을 이벤트로 지키는
   기제의 정본
 - [DRY 원칙](../concepts/dry-principle.md) — 경계를 가로지르는 중복이 이미 허용된 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
@@ -625,3 +665,11 @@ Choices", pp.132–133).[^ford2022-evolutionary]
     (*Refactoring Databases*(Sadalage·Ambler) · *Software Architecture: The Hard Parts*)는
     **이 KB가 확인한 원전이 아니다** — 귀속은 이 책이 그렇게 귀속한다까지로 둔다. 굵은 글씨는
     원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational
+    Data" §"Decomposing Monolithic Data"(pp.151–161) · §"Data Integrators"(pp.146–149).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 절차를 대질에만 쓴다 — 다섯 단계의
+    전문과 직인용과 표는 [모놀리식 데이터를 쪼개는 다섯 단계](../concepts/decomposing-monolithic-data.md)가,
+    여덟 구동 요인의 전문은 [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)이
+    갖는다. 이 절에는 직인용도 도판 재현도 코드 목록도 없다. 위 국면 대응표는 원문에 없고
+    **이 KB가 맞댄 것**이다.
