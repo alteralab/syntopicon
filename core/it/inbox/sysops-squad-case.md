@@ -1,0 +1,272 @@
+---
+type: concept
+title: Sysops Squad 사례 — 장마다 되돌아오는 운영 예제
+status: draft
+description: 이 소스가 추상적인 절충 논의를 붙들어 매려고 세운 운영 예제의 설정 — 사가라는 낱말을 트랜잭션 용어가 아니라 사전적 뜻으로 먼저 쓴다는 선언, 전자제품 소매점의 방문 수리 지원 계약이라는 업무 도메인과 관리자·고객·전문가·매니저라는 사용자 넷, 티켓과 무관한 워크플로 넷과 티켓 워크플로 여덟 단계, 티켓 분실과 오배정과 잦은 정지로 사업 철수 위기에 몰린 나쁜 시나리오, 하나의 모놀리스를 이루는 컴포넌트 열여덟과 그 네임스페이스와 책임, 단일 스키마에 놓인 테이블 스물넷과 그 군집, 그리고 장마다 그 장의 기법을 이 사례에 적용해 보이는 사가 상자와 결정 기록이라는 이 책의 조판 규약
+generated: { by: "claude-opus-5", at: "2026-09-17T17:00:00Z" }
+sources:
+  - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
+---
+
+# Sysops Squad 사례 — 장마다 되돌아오는 운영 예제
+
+- [이 페이지가 무엇인가](#이-페이지가-무엇인가)
+- [왜 사가라 부르는가](#왜-사가라-부르는가)
+- [업무 도메인 — 펜얼티밋 일렉트로닉스의 지원 계약](#업무-도메인--펜얼티밋-일렉트로닉스의-지원-계약)
+- [사용자 넷](#사용자-넷)
+- [티켓과 무관한 워크플로](#티켓과-무관한-워크플로)
+- [티켓 워크플로 여덟 단계](#티켓-워크플로-여덟-단계)
+- [나쁜 시나리오](#나쁜-시나리오)
+- [컴포넌트 열여덟](#컴포넌트-열여덟)
+- [데이터 모델](#데이터-모델)
+- [장마다 붙는 사가 상자와 결정 기록](#장마다-붙는-사가-상자와-결정-기록)
+- [이 책이 이 사례에 적용한 것들](#이-책이-이-사례에-적용한-것들)
+- [이어지는 페이지](#이어지는-페이지)
+
+하나의 질문: **분산 아키텍처의 절충을 논할 때 그 논의를 붙들어 맬 구체적인 체계는 어떤
+모습이어야 하는가.**
+
+## 이 페이지가 무엇인가
+
+- **저자들이 이 예제를 세우는 이유를 스스로 적는다** — 소프트웨어 아키텍처는 본성상
+  추상적이고, 독자가 어떤 플랫폼·기술·상용 소프트웨어의 조합을 갖고 있을지 알 수 없으며
+  **둘로 똑같은 경우가 없다.** 그래서 추상적인 착상을 다루되 **구체로 만들려면 구현 세부에
+  얹어야 하고**, 그 자리가 이 예제다 (1장 §"Architecture Versus Design: Keeping Definitions
+  Simple", p.15).[^ford2021-hard-parts]
+- **저자들이 드는 또 하나의 이유는 기존 체계라는 조건이다** — 소프트웨어 아키텍처를 다루는
+  많은 책이 **새로 짓는 일**을 다루지만 **현실의 문제는 이미 있는 체계 안에서 생긴다.** 그래서
+  이 이야기는 **이미 서 있는 Sysops Squad 아키텍처에서 출발한다** (1장,
+  p.15).[^ford2021-hard-parts]
+- 이 KB에는 같은 구실을 하는 페이지가 이미 둘 있다 —
+  [화물 운송 예제](cargo-shipping-example.md)와 [마켓노버스 사례 연구](marketnovus-case-study.md)다.
+  **셋의 성격이 다르다**: 화물 운송은 한 저자가 지어낸 도메인에 패턴들을 함께 세워 보이는
+  설계 연습이고, 마켓노버스는 저자 자신의 회사에서 실제로 일어난 일의 사후 기록이며, 이
+  사례는 **지어낸 도메인이되 장마다 같은 체계를 다시 손대며 절충을 비교하는 매체**다. **이
+  대비는 이 KB가 세운 것이고 세 소스 중 어느 쪽도 상대를 호명하지 않는다.** #hypothesis
+
+## 왜 사가라 부르는가
+
+- **저자들이 이 절을 사전 항목으로 연다** (1장 §"Introducing the Sysops Squad Saga",
+  p.15):[^ford2021-hard-parts]
+
+  > saga
+  >
+  > A long story of heroic achievement.
+  >
+  > —Oxford English Dictionary
+
+- **그리고 곧바로 낱말의 두 쓰임을 가른다** — 이 책은 **문자 그대로의 사가와 비유적인 사가를
+  모두** 다룬다. 아키텍트들이 **사가라는 말을 분산 아키텍처의 트랜잭션 행동을 가리키는 데
+  차용해 왔고** 그쪽은 12장이 자세히 다루지만, 여기서 시작하는 것은 **문자 그대로의 사가**,
+  곧 Sysops Squad의 이야기다 (1장, p.15).[^ford2021-hard-parts]
+  - 차용된 쪽 어휘의 전문은 [사가 패턴](saga-pattern.md)에 있다.
+
+## 업무 도메인 — 펜얼티밋 일렉트로닉스의 지원 계약
+
+- **펜얼티밋 일렉트로닉스(Penultimate Electronics)는 전국에 소매점을 여럿 둔 대형 전자제품
+  업체다.** 고객이 컴퓨터·TV·오디오 같은 전자 장비를 살 때 **지원 플랜(support plan)을 함께
+  구매할 수 있고**, 문제가 생기면 **고객을 직접 상대하는 기술 전문가 집단(the Sysops Squad)이
+  고객의 집이나 사무실로 찾아가 장비를 고친다** (1장, pp.15–16).[^ford2021-hard-parts]
+
+## 사용자 넷
+
+- **Sysops Squad 티켓팅 응용의 주 사용자는 넷이다** (1장, p.16):[^ford2021-hard-parts]
+
+| 사용자 | 하는 일 |
+|---|---|
+| 관리자(Administrator) | 전문가 명단과 그들의 기량·위치·가용성을 포함한 내부 사용자를 유지한다. 고객 청구 처리 전부를 관리하고, 지원 제품 목록이나 이름-값 쌍 같은 **정적 참조 데이터**를 유지한다 |
+| 고객(Customer) | 서비스에 등록하고 자기 프로필·지원 계약·청구 정보를 유지한다. **문제 티켓을 넣고** 작업이 끝난 뒤 설문에 답한다 |
+| Sysops Squad 전문가(expert) | 배정된 문제 티켓을 받아 고친다. **지식 베이스를 뒤져** 해법을 찾고 수리 기록을 남긴다 |
+| 매니저(Manager) | 문제 티켓 운영을 추적하고 전체 티켓 체계에 대한 **운영 보고서와 분석 보고서**를 받는다 |
+
+## 티켓과 무관한 워크플로
+
+- **관리자와 매니저와 고객이 하는 일 중 문제 티켓과 무관한 것들**이다 (1장 §"Nonticketing
+  Workflow", p.16):[^ford2021-hard-parts]
+  1. 전문가가 관리자를 통해 체계에 **추가되고 유지된다** — 관리자가 그들의 지역·가용성·기량을
+     입력한다.
+  2. 고객이 체계에 **등록하고**, 구매한 제품에 따라 **여러 개의 지원 플랜**을 갖는다.
+  3. 고객은 프로필에 담긴 신용카드 정보로 **매달 자동 청구된다.** 청구 이력과 명세서를 체계에서
+     볼 수 있다.
+  4. 매니저가 **재무 보고서·전문가 성과 보고서·티켓 보고서를 포함한 여러 운영 보고서와 분석
+     보고서**를 요청해 받는다.
+
+## 티켓 워크플로 여덟 단계
+
+- **고객이 문제 티켓을 넣는 데서 시작해 수리 뒤 설문을 마치는 데서 끝난다** (1장 §"Ticketing
+  Workflow", p.17):[^ford2021-hard-parts]
+  1. 지원 플랜을 구매한 고객이 **웹사이트로 문제 티켓을 넣는다.**
+  2. 티켓이 들어오면 체계가 **기량·현재 위치·서비스 구역·가용성에 근거해** 어느 전문가가 그 일에
+     가장 맞는지 정한다.
+  3. 배정된 티켓이 **전문가의 모바일 기기에 있는 전용 앱으로 올라가고**, 전문가는 새 티켓이
+     있다는 문자 메시지도 받는다.
+  4. 고객은 **프로필 선호에 따라 SMS 문자나 이메일로** 전문가가 가고 있다는 통지를 받는다.
+  5. 전문가가 모바일 앱으로 티켓 정보와 위치를 받는다. **지식 베이스에도 접근해** 과거에 같은
+     문제를 어떻게 고쳤는지 찾을 수 있다.
+  6. 문제를 고치면 전문가가 티켓을 **"완료"로 표시한다.** 그런 다음 문제와 수리에 대한 정보를
+     지식 베이스에 더할 수 있다.
+  7. 완료 통지를 받은 체계가 고객에게 **설문 링크가 담긴 이메일**을 보내고 고객이 그것을 채운다.
+  8. 체계가 완료된 설문을 받아 **설문 정보를 기록한다.**
+
+## 나쁜 시나리오
+
+- **현재의 문제 티켓 체계는 여러 해 전에 개발된 큰 모놀리식 응용이다.** 저자들이 세는 증상들
+  (1장 §"A Bad Scenario", p.17):[^ford2021-hard-parts]
+  - **티켓이 사라져 기사가 아예 나타나지 않는다**는 고객 불만.
+  - **엉뚱한 기사가 와서** 자기가 모르는 것을 고치려 한다는 불만.
+  - **새 문제 티켓을 넣으려 할 때 체계가 늘 살아 있지는 않다**는 불만.
+- **변경도 어렵고 위험하다** — 이 큰 모놀리스에서 무언가를 바꾸면 **대개 너무 오래 걸리고 다른
+  무언가가 깨진다** (1장, p.17).[^ford2021-hard-parts]
+- **신뢰성 문제로 체계가 자주 "얼어붙거나" 죽고**, 문제를 짚어 응용을 재시작할 때까지 **5분에서
+  두 시간까지** 모든 기능이 어디서도 쓸 수 없게 된다 (1장, p.17).[^ford2021-hard-parts]
+- **판돈이 걸려 있다** — 곧 무언가 하지 않으면 펜얼티밋 일렉트로닉스는 **아주 수익성 높은 지원
+  계약 사업을 접고** Sysops Squad의 관리자·전문가·매니저와 IT 개발 인력 전부를 — **아키텍트를
+  포함해** — 해고해야 한다 (1장, p.18).[^ford2021-hard-parts]
+
+## 컴포넌트 열여덟
+
+- **모놀리스 하나가 티켓 관리·운영 보고·고객 등록·청구와, 사용자 유지·로그인·전문가 기량과
+  프로필 유지 같은 일반 관리 기능까지 전부 처리한다.** 네임스페이스의 `ss.` 부분이 Sysops Squad
+  응용 컨텍스트를 가리킨다 (1장 §"Sysops Squad Architectural Components",
+  p.18).[^ford2021-hard-parts]
+- **표 1-1의 열과 값을 그대로 옮긴다** (1장, p.19):[^ford2021-hard-parts]
+
+| Component | Namespace | Responsibility |
+|---|---|---|
+| Login | `ss.login` | Internal user and customer login and security logic |
+| Billing payment | `ss.billing.payment` | Customer monthly billing and customer credit card info |
+| Billing history | `ss.billing.history` | Payment history and prior billing statements |
+| Customer notification | `ss.customer.notification` | Notify customer of billing, general info |
+| Customer profile | `ss.customer.profile` | Maintain customer profile, customer registration |
+| Expert profile | `ss.expert.profile` | Maintain expert profile (name, location, skills, etc.) |
+| KB maint | `ss.kb.maintenance` | Maintain and view items in the knowledge base |
+| KB search | `ss.kb.search` | Query engine for searching the knowledge base |
+| Reporting | `ss.reporting` | All reporting (experts, tickets, financial) |
+| Ticket | `ss.ticket` | Ticket creation, maintenance, completion, common code |
+| Ticket assign | `ss.ticket.assign` | Find an expert and assign the ticket |
+| Ticket notify | `ss.ticket.notify` | Notify customer that the expert is on their way |
+| Ticket route | `ss.ticket.route` | Send the ticket to the expert's mobile device app |
+| Support contract | `ss.supportcontract` | Support contracts for customers, products in the plan |
+| Survey | `ss.survey` | Maintain surveys, capture and record survey results |
+| Survey notify | `ss.survey.notify` | Send survey email to customer |
+| Survey templates | `ss.survey.templates` | Maintain various surveys based on type of service |
+| User maintenance | `ss.users` | Maintain internal users and roles |
+
+- **그림 1-3이 같은 컴포넌트들을 모놀리스 하나 안에 그린다.** 도판이 이미지 조판이라 재현하지
+  않았고, 본문이 적지 않는 배치 하나만 옮긴다 — **사용자 인터페이스가 맨 위에 한 덩어리로
+  놓이고 나머지 열여덟 컴포넌트가 그 아래에 들어간다** (1장, p.18).[^ford2021-hard-parts]
+
+## 데이터 모델
+
+- **컴포넌트 열여덟이 데이터베이스의 단일 스키마 하나를 함께 쓴다.** 그 스키마가 고객·사용자·
+  계약·청구·결제·지식 베이스·고객 설문을 영속화한다 (1장 §"Sysops Squad Data Model",
+  p.19).[^ford2021-hard-parts]
+- **표 1-2의 열과 값을 그대로 옮긴다** (1장, pp.20–21):[^ford2021-hard-parts]
+
+| Table | Responsibility |
+|---|---|
+| Customer | Entities needing Sysops support |
+| Customer_Notification | Notification preferences for customers |
+| Survey | A survey for after-support customer satisfaction |
+| Question | Questions in a survey |
+| Survey_Question | A question is assigned to the survey |
+| Survey_Administered | Survey question is assigned to customer |
+| Survey_Response | A customer's response to the survey |
+| Billing | Billing information for support contract |
+| Contract | A contract between an entity and Sysops for support |
+| Payment_Method | Payment methods supported for making payment |
+| Payment | Payments processed for billings |
+| SysOps_User | The various users in Sysops |
+| Profile | Profile information for Sysops users |
+| Expert_Profile | Profiles of experts |
+| Expertise | Various expertise within Sysops |
+| Location | Locations served by the expert |
+| Article | Articles for the knowledge base |
+| Tag | Tags on articles |
+| Keyword | Keyword for an article |
+| Article_Tag | Tags associated to articles |
+| Article_Keyword | Join table for keywords and articles |
+| Ticket | Support tickets raised by customers |
+| Ticket_Type | Different types of tickets |
+| Ticket_History | The history of support tickets |
+
+- **그림 1-4가 그 테이블들의 ER 모델이다.** 도판이 이미지 조판이라 **`pdftoppm -r 160 -png`로
+  렌더해 눈으로 읽었고**, 재현하지 않고 도판이 음영으로 묶어 놓은 **군집만** 옮긴다 (1장,
+  p.20):[^ford2021-hard-parts]
+
+| 군집 | 테이블 |
+|---|---|
+| 지식 베이스 | `Tag` · `Keyword` · `Article` · `Article_Tag` · `Article_Keyword` |
+| 고객 | `Customer` · `Customer_Notification` |
+| 청구 | `Contract` · `Billing` · `Payment` · `Payment_Method` |
+| 사용자와 전문가 | `Sysops_User` · `Profile` · `Expert_Profile` · `Expertise` · `Location` |
+| 티켓 | `Ticket` · `Ticket_Type` · `Ticket_History` |
+| 설문 | `Survey` · `Question` · `Survey_Question` · `Survey_Administered` · `Survey_Response` |
+
+  - 도판 안쪽 설명이 **"Tables in the Sysops database (columns and views omitted for
+    brevity)"**라고 적는다 — 열과 뷰는 도판에서 생략돼 있다 (1장, p.20).[^ford2021-hard-parts]
+- **스키마의 성격이 한 문단으로 규정된다** — **표준적인 제3정규형 데이터 모델이고 저장
+  프로시저나 트리거는 몇 개 없다.** 다만 **뷰는 꽤 여럿 있고 주로 Reporting 컴포넌트가 쓴다**
+  (1장, p.21).[^ford2021-hard-parts]
+  - **그리고 이 사실이 뒤의 모든 분해 논의에 조건을 건다** — 아키텍처 팀이 응용을 쪼개
+    분산 아키텍처로 옮기려면 **데이터베이스 팀과 함께 데이터베이스 층의 일을 해야 한다**
+    (1장, p.21).[^ford2021-hard-parts] 그 물음의 이 KB 쪽 자리는
+    [데이터 분해가 부르는 관심사](data-decomposition-concerns.md)다.
+
+## 장마다 붙는 사가 상자와 결정 기록
+
+- **이 사례는 장마다 되돌아온다** — 저자들은 **각 장에서 이 사가를 써서 그 장이 설명한 기법과
+  절충을 보인다**고 적는다 (1장, p.15).[^ford2021-hard-parts] 컴포넌트 목록과 데이터베이스
+  설정도 같은 구실로 쓰인다 — **응용을 분산 아키텍처로 쪼갤 때의 기법과 절충을 보이는 데**
+  뒤의 장들이 이 컴포넌트들을 쓰고 (1장, p.19), **데이터베이스를 쪼개는 기법과 절충을 논하는
+  데** 이 테이블과 뷰 설정을 쓴다 (1장, p.21).[^ford2021-hard-parts]
+- **결정은 ADR 형식의 상자로 붙는다** — 이 책은 **본문에서 내려지는 여러 아키텍처 결정을 ADR로
+  문서화하며**, 책이 만든 모든 ADR의 목록은 **부록 B**에 있다 (1장 §"Architectural Decision
+  Records", p.5).[^ford2021-hard-parts] 그 형식의 전문은
+  [아키텍처 결정 기록](architecture-decision-records.md)에 있다.
+- **사가 상자는 서사체로 조판된다** — 날짜와 시각이 붙은 장면에서 등장인물들이 말을 주고받는
+  형식이고, 이름은 로건(Logan, 펜얼티밋 일렉트로닉스의 수석 아키텍트)·애디슨(Addison)·
+  오스틴(Austen)이다 (2장, pp.25–26, 사가).[^ford2021-hard-parts]
+
+## 이 책이 이 사례에 적용한 것들
+
+**장마다 그 장의 어휘를 이 체계에 대입한 자리를 locator와 함께 모은다.**
+
+| 장 | 이 사례에 무엇을 했는가 | locator |
+|---|---|---|
+| 2장 | **정적 퀀텀 결합과 동적 퀀텀 결합을 자기 서비스에 대입한다** — 서비스 하나를 맨바닥에서 부팅하는 데 필요한 배선이 무엇인지 세고(자바·SpringBoot·프레임워크 15~20개·Postgres·도커·이벤트 브로커), 그 정적 결합 다이어그램을 **신뢰성 분석**에 쓰며, 티켓팅과 배정 사이의 호출을 동기로 할지 비동기로 할지를 **탄력성** 차이로 판정한다 | 2장 §"Sysops Squad Saga: Understanding Quanta"(pp.42–44), 사가 |
+
+- 2장의 그 장면이 남기는 판정 둘 — **아키텍처 퀀텀이 DDD의 경계 컨텍스트를 아키텍처의 말로
+  규정한 것**이라는 등가 진술과, **호출의 성질에 따라 두 퀀텀이 호출이 도는 동안만 일시적으로
+  얽힐 수 있다**는 관찰이다 (2장, pp.42–44, 사가).[^ford2021-hard-parts] 그 어휘의 전문은
+  [아키텍처 퀀텀](architectural-quantum.md)에 있다.
+
+## 이어지는 페이지
+
+- [아키텍처 퀀텀](architectural-quantum.md) — 2장이 이 사례에 대입하는 어휘
+- [아키텍처 결정 기록](architecture-decision-records.md) — 이 책이 결정을 적는 형식
+- [화물 운송 예제](cargo-shipping-example.md) — 같은 구실을 하는 다른 소스의 확장 예제
+- [마켓노버스 사례 연구](marketnovus-case-study.md) — 지어낸 도메인이 아니라 실제 회사의 기록
+- [데이터 분해가 부르는 관심사](data-decomposition-concerns.md) — 단일 스키마를 쪼갤 때 깨지는 것들
+- [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 이미 서 있는 체계에서 출발한다는
+  같은 조건
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+
+[^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021 — 1장 "What Happens When There
+    Are No 'Best Practices'?" §"Introducing the Sysops Squad Saga"(pp.15–21, 하위
+    §"Nonticketing Workflow"(p.16) · §"Ticketing Workflow"(p.17) · §"A Bad Scenario"(pp.17–18) ·
+    §"Sysops Squad Architectural Components"(pp.18–19) · §"Sysops Squad Data Model"(pp.19–21))와
+    §"Architectural Decision Records"(p.5), 그리고 2장 "Discerning Coupling in Software
+    Architecture"의 여는 장면(pp.25–26)과 §"Sysops Squad Saga: Understanding
+    Quanta"(pp.42–44). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 직인용 하나(사가의 사전 정의)는
+    `pdftotext -layout` 추출로 문자 단위 대조했다. **표 1-1(컴포넌트 열여덟)과 표 1-2(테이블
+    스물넷)는 `pdftoppm -r 160 -png`로 렌더해 눈으로 대조한 뒤 원문 열 머리글(Component ·
+    Namespace · Responsibility · Table)과 셀 값을 영어 그대로 옮겼다** — 표 1-2는 인쇄판에서
+    p.20과 p.21에 걸쳐 끊겨 있고 여기서는 한 표로 이었다. 네임스페이스는 원문이 고정폭으로
+    조판한 것이라 인라인 코드로 옮겼다. **그림 1-3(컴포넌트 배치)과 그림 1-4(ER 모델)도 같은
+    방식으로 렌더해 눈으로 읽었고**, 도판 자체는 재현하지 않고 본문이 적지 않는 배치(그림 1-3의
+    사용자 인터페이스 위치, 그림 1-4의 음영 군집과 도판 안 설명)만 옮겼다. 그림 1-4의 결합
+    선(테이블 사이 관계)은 옮기지 않았다 — 원문은 `archive/` 스냅샷이 보존한다. 위 사용자
+    넷의 표와 데이터 모델 군집 표는 원문 표가 아니라 **본문 서술과 도판을 이 KB가 표로 모은
+    것**이고 그 사실을 각 표 앞에 적었다. 등장인물 이름은 원문 표기를 음차했다. 이 구간에
+    코드 목록은 없다.
