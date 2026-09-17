@@ -559,6 +559,15 @@ sources:
   그쪽은 **세 축을 따로 고를 수 없다**는 것을 더한다.
 - 그쪽은 이 패턴을 이름으로 다루지 않고 축의 정의까지만 적으며 전문을 다른 책으로 넘긴다. 세 축의
   요약은 [아키텍처 퀀텀](architectural-quantum.md)에 있다.
+- **같은 소스의 6장이 이 패턴이 필요해지는 앞자리를 적는다.** 트랜잭션 맥락이 퀀텀을 묶는 가장
+  강한 결합이므로, **업무를 떠받치는 데 필요한 트랜잭션 맥락이 개발자가 서비스로 만들 수 있는
+  가장 작은 세분성을 정의하는 경우가 잦다**는 것이다. 그래서 **트랜잭션이 무거운 체계는
+  마이크로서비스에 특별히 잘 맞지 않는다** (6장 §"Two-Phase Commit Transactions",
+  pp.133–134).[^ford2022-evolutionary] 곧 **이 패턴을 꺼내기 전에 경계를 다시 볼 자리가 있다는
+  조언**이고, 뉴먼이 "애초에 쪼개지 마라"로 적는 첫째 답과 같은 방향이다.
+  - 그 책은 **서비스를 가로지르는 트랜잭션의 전문을 *Software Architecture: The Hard Parts*로
+    넘기고 이 패턴을 이름으로 다루지 않는다.** 그 대목의 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -580,6 +589,8 @@ sources:
 - [도메인 이벤트](../concepts/domain-events.md) — 사가가 듣는 것
 - [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 상태를 갖는 사가의 구현 형태
 - [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md) — 원자성을 실제로 주려는 쪽
+- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 이 패턴을 꺼내기 전에
+  경계를 다시 볼 자리
 - [느슨하게 해석되는 제약](../concepts/loosely-interpreted-constraints.md) — 보상으로 푸는
   발상의 다른 자리
 - [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — 같은 문제를 통합 패턴 언어로
@@ -628,4 +639,9 @@ sources:
     Topologies" §"Dynamic Quantum Coupling" 중 §"Coordination"(pp.102–103)과 세 힘의 상호작용
     대목(p.102). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 이 절에 직인용은 두지 않았고 코드
     목록도 없다. 그림 5-12는 이미지 조판이라 축 이름과 양극만 렌더해 읽어 옮겼다 — 그 서술의
-    본체는 [아키텍처 퀀텀](architectural-quantum.md)에 있다.
+    본체는 [아키텍처 퀀텀](architectural-quantum.md)에 있다. **6장 "Evolutionary Data"
+    §"Two-Phase Commit Transactions"(pp.133–134)**에서 온 것은 위 절의 마지막 불릿 하나뿐이고,
+    직인용 없이 한국어 재서술이며 그 장의 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다. 저자들이 서비스를
+    가로지르는 트랜잭션의 전문을 넘기는 *Software Architecture: The Hard Parts*는 이 KB가
+    확인한 원전이 아니다.

@@ -20,6 +20,7 @@ sources:
 - [양식마다 퀀텀이 몇 개인가](#양식마다-퀀텀이-몇-개인가)
 - [동적 퀀텀 결합 — 세 힘이 이루는 공간](#동적-퀀텀-결합--세-힘이-이루는-공간)
 - [계약 — 엄격에서 느슨까지](#계약--엄격에서-느슨까지)
+- [6장 — 트랜잭션 맥락이 퀀텀을 묶는다](#6장--트랜잭션-맥락이-퀀텀을-묶는다)
 - [이 낱말을 빌려 간 자리 — 데이터 퀀텀](#이-낱말을-빌려-간-자리--데이터-퀀텀)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -315,6 +316,48 @@ sources:
 | [계약을 깨는 변경의 관리](managing-breaking-api-changes.md) | 엄격 쪽에서 생기는 문제의 처방 | 계약이 엄격할수록 깨는 변경이 잦아지고 그 선택지 셋이 필요해진다 |
 | [마이크로서비스 인터페이스 기술의 다섯 조건](microservice-interface-criteria.md) | 스펙트럼을 고르는 **잣대** | 뉴먼의 조건 중 "후진 호환을 쉽게 만들라"와 "명시적 인터페이스"가 이 스펙트럼의 양 끝을 각각 당긴다 |
 
+## 6장 — 트랜잭션 맥락이 퀀텀을 묶는다
+
+**같은 책 6장이 이 단위에 결합 하나를 더 붙인다.** 위 [조건 ③ 높은 정적
+결합](#조건-③-높은-정적-결합)이 데이터베이스를 퀀텀 안으로 끌어들였다면, 6장은 그 데이터베이스가
+**왜 특별히 강하게 묶는가**를 적는다.
+
+- **트랜잭션은 결합 측정 도구에 잡히지 않는다** — 아키텍트는 여러 도구로 클래스 사이의 구심·원심
+  결합을 쉽게 알아낼 수 있지만 **트랜잭션 맥락의 범위를 알아내는 일은 훨씬 어렵다.** 스키마
+  사이의 결합이 진화를 해치듯 **트랜잭션 결합은 구성 부분들을 구체적인 방식으로 묶어 진화를 더
+  어렵게 만든다** (6장 §"Two-Phase Commit Transactions", p.133).[^ford2022-evolutionary]
+- **데이터베이스가 만드는 묶임이 전통적 결합보다 위압적인 이유가 트랜잭션 경계**다 — 그 경계가
+  **업무 프로세스가 도는 방식을 자주 정의하기** 때문이다 (6장,
+  p.133).[^ford2022-evolutionary] 저자들이 이것을 물리 비유로 못 박는다 (6장, p.134):
+
+  > Database transactions act as a strong nuclear force, binding quanta together.
+
+- **그래서 아키텍트가 고려해야 할 결합 특성이 다섯으로 확장된다** — **클래스, 패키지/네임스페이스,
+  라이브러리와 프레임워크, 데이터 스키마, 그리고 트랜잭션 맥락**이다. 이 차원들이나 그 상호작용
+  중 어느 것이든 무시하면 아키텍처를 진화시킬 때 문제가 생긴다 (6장,
+  pp.133–134).[^ford2022-evolutionary] 앞의 셋은
+  [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 재고, 넷째와 다섯째가
+  이 페이지와 [진화적 데이터베이스 설계](evolutionary-database-design.md)의 몫이다.
+- **퀀텀 크기의 하한이 여기서 정해진다.** 위 §"양식마다 퀀텀이 몇 개인가"가 **무엇이 퀀텀을 하나로
+  떨어뜨리는가**를 셌다면, 6장은 **얼마나 작게 쪼갤 수 있는가**의 바닥을 적는다 — **업무를
+  떠받치는 데 필요한 트랜잭션 맥락이 개발자가 서비스로 만들 수 있는 가장 작은 세분성을 정의하는
+  경우가 잦다**는 것이다 (6장, p.134).[^ford2022-evolutionary]
+  - **그래서 아키텍트의 실수 하나에 이름이 붙는다** — **업무에 자연스러운 것보다 작은 세분성으로
+    아키텍처를 지으려 하는 것**이고, 그 예가 **마이크로서비스 아키텍처는 목표 서비스 퀀텀이 워낙
+    작아 트랜잭션이 무거운 체계에 특별히 잘 맞지 않는다**는 판정이다 (6장,
+    p.133).[^ford2022-evolutionary]
+  - **처방도 그 하한을 인정하는 쪽이다** — 모놀리스에서 옮길 때는 **먼저 적은 수의 큰 서비스로
+    시작하고**, 그린필드에서도 **마이크로서비스라는 말을 너무 문자 그대로 받지 말고 쓸모 있는
+    경계 컨텍스트를 담으라**고 적는다 (6장, p.134).[^ford2022-evolutionary]
+  - **더 작게 가려는 노력이 실패하는 방식도 적힌다** — 데이터 관심사와 불일치를 만들면 그 노력은
+    **부적절한 결합으로 미끄러지고**, 해결하려는 문제와 구조적으로 충돌하는 아키텍처를 짓는 것을
+    저자들이 **메타워크(metawork)의 해로운 판**이라 부른다 (6장,
+    p.134).[^ford2022-evolutionary]
+- **이 절이 2PC 프로토콜을 설명하지는 않는다.** 절 제목이 그 이름을 쓰지만 본문이 다루는 것은
+  결합이고, 서비스를 가로지르는 트랜잭션의 전문은 저자들이 *Software Architecture: The Hard
+  Parts*로 넘긴다. 이 KB의 2PC 서술과 겨루지 않는 이유는
+  [분산 트랜잭션과 2단계 커밋](two-phase-commit.md) §"두 서술이 겨루는가"에 있다.
+
 ## 이 낱말을 빌려 간 자리 — 데이터 퀀텀
 
 **이 KB는 이 낱말을 차용된 형태로 먼저 들였다.** 데이터 메시 쪽
@@ -379,12 +422,18 @@ sources:
 - [사가 패턴](saga-pattern.md) — 조율 축의 전문
 - [CAP과 PACELC](cap-and-pacelc.md) — 일관성 축의 전문
 - [마이크로서비스 통신 스타일](microservice-communication-styles.md) — 통신 축의 전문
+- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 넷째·다섯째 결합 차원의 전문
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 단위가 봉사하는 목표
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 경계
   쪽 허브
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 
-[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 5장 "Evolutionary Architecture
+[^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판) — **6장 "Evolutionary Data"
+    §"Two-Phase Commit Transactions"(pp.133–134)**에서 온 것은 위 §"6장 — 트랜잭션 맥락이 퀀텀을
+    묶는다" 절뿐이고, 그 절의 직인용 하나(강한 핵력 콜아웃)도 `pdftotext -layout` 추출로 문자
+    단위 대조했다. 그 절에는 도판도 코드 목록도 없고, 저자들이 서비스를 가로지르는 트랜잭션의
+    전문을 넘기는 *Software Architecture: The Hard Parts*는 이 KB가 확인한 원전이 아니다.
+    나머지는 전부 5장 "Evolutionary Architecture
     Topologies" — §"Architectural Quanta and Granularity"(pp.91–103, 하위
     §"Independently Deployable"(pp.92–93) · §"High Functional Cohesion"(p.93) ·
     §"High Static Coupling"(pp.94–99) · §"Dynamic Quantum Coupling"(pp.100–103, 하위

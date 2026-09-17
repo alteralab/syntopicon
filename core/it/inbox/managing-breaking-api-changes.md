@@ -25,6 +25,7 @@ sources:
 - [9장 — 이 대화가 시작되는 자리](#9장--이-대화가-시작되는-자리)
 - [같은 문제를 인코딩 쪽에서 본 자리](#같은-문제를-인코딩-쪽에서-본-자리)
 - [깨는 변경의 잦기를 계약의 엄격함으로 설명하는 소스](#깨는-변경의-잦기를-계약의-엄격함으로-설명하는-소스)
+- [같은 패턴을 데이터베이스 표에 건 자리](#같은-패턴을-데이터베이스-표에-건-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **인터페이스의 후진 호환을 깨는 변경이 불가피해졌을 때, 소비자를 깨뜨리지
@@ -339,10 +340,42 @@ sources:
   [소비자 주도 계약](consumer-driven-contracts.md)이다. 스펙트럼 전체의 배치는
   [아키텍처 퀀텀](architectural-quantum.md)에 있다.
 
+## 같은 패턴을 데이터베이스 표에 건 자리
+
+**같은 소스의 6장이 위 확장-수축 패턴을 데이터베이스 표에 건다.** 서비스 엔드포인트에 쓰던 것과
+같은 절차이고 대상만 다르다.
+
+- 저자들은 그것을 **확장/수축 패턴(Expand/Contract pattern)**이라 부르고, 리팩터링 안에
+  **전이 단계(transition phase)**를 지어 넣어 타이밍 문제를 피한다고 적는다. 시작 상태와 끝
+  상태가 있고 **전이 동안 옛 상태와 새 상태를 둘 다 유지한다** (6장 §"Shared Database
+  Integration", pp.128–129).[^ford2022-evolutionary]
+- **위 [사회적 계약](#사회적-계약--유예를-미리-합의한다)에 해당하는 것이 여기에도 있다** — 전이
+  상태는 **기업 안의 다른 체계들이 변경을 따라잡을 충분한 시간을 주고**, 어떤 조직에서는 그것이
+  **며칠에서 몇 달까지** 이어진다 (6장, p.129).[^ford2022-evolutionary] 뉴먼이 유예를 **미리
+  합의하라**고 적는 자리에 포드 외는 **실제 길이의 범위**를 준다.
+- **상위 패턴의 이름이 이 소스에서 나온다** (6장, p.132):[^ford2022-evolutionary]
+
+  > Expand/Contract is a subset of a pattern called Parallel Change, a broad pattern used to
+  > safely implement backward-incompatible changes to an interface.
+
+  - 곧 뉴먼이 확장-수축이라 부르는 것과 포드 외가 확장/수축이라 부르는 것은 **같은 상위 패턴의
+    두 적용**이고, 그 상위 이름(병행 변경)을 이 KB에서 처음 대는 것은
+    [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md)의 파울러다.
+- **차이가 둘 있다.**
+  - **누가 공존을 떠받치는가** — 이 페이지의 처방은 **서비스가 옛 엔드포인트와 새 엔드포인트를
+    함께 두고 내부에서 변환**하는 것이다. 데이터베이스 쪽은 **트리거가 두 표현을 서로 채워
+    유지한다.** 앞은 응용 코드가, 뒤는 데이터베이스 네이티브 기능이 전이를 산다.
+  - **수축의 신호를 무엇이 주는가** — 이 페이지는 **사용 추적**으로 옛 엔드포인트를 끌 때를
+    안다. 포드 외의 저장 프로시저 사례에서는 **적합도 함수가 모든 의존이 옮겨 갔는지 확인하고**
+    그 뒤에 버린다 (6장, p.142).[^ford2022-evolutionary] 곧 **같은 물음에 사회적 수단과 자동
+    검사로 답한다.**
+- 전문은 [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
+
 ## 이어지는 페이지
 
 - [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — 이 페이지 앞에
   오는 물음. 깨지는 변경을 애초에 피하는 다섯 생각과 그것을 배포 전에 잡는 도구
+- [진화적 데이터베이스 설계](evolutionary-database-design.md) — 같은 패턴을 표의 열에 건 자리
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 보조 맞춘 배포가 거스르는 그 성질
 - [소비자 주도 계약](../concepts/consumer-driven-contracts.md) — 계약을 소비자의 기대에서
   파생시키는 배치. 사회적 계약 절이 미리 합의하자고 하는 것의 산출물 쪽
@@ -384,7 +417,12 @@ sources:
     한 줄. 그 절에도 도판과 코드 목록이 없다.
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 5장 "Evolutionary Architecture
-    Topologies" §"Contracts"(pp.103–106). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 이 절에
+    Topologies" §"Contracts"(pp.103–106)와 **6장 "Evolutionary Data" §"Shared Database
+    Integration"(pp.128–132) · §"Replacing Triggers and Stored Procedures"(p.142)**. 6장에서 온
+    것은 위 §"같은 패턴을 데이터베이스 표에 건 자리" 절뿐이고 그 절의 직인용 하나(병행 변경의
+    부분집합)는 `pdftotext -layout` 추출로 문자 단위 대조했다. 그 장의 전문은
+    [진화적 데이터베이스 설계](evolutionary-database-design.md)에 있다.
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 5장 절에
     직인용은 두지 않았다 — 계약의 정의 직인용과 스펙트럼 배치표는
     [아키텍처 퀀텀](architectural-quantum.md)이 갖는다. 그림 5-13(계약 유형의 스펙트럼)은
     이미지 조판이라 `pdftoppm`으로 렌더해 눈으로 읽었고 도판 자체는 재현하지 않았다.
