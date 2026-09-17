@@ -89,6 +89,10 @@ sources:
     (2장, p.32).[^ford2021-hard-parts]
     - **그래서 이 양식은 모르고 남긴 것이 아니라 판정해서 남긴 것이다.** 데이터베이스를 쪼개지
       않는 선택에 근거가 붙어 있다.
+    - **그리고 그 남겨 둔 데이터베이스를 쪼개는 일이 같은 책의 다음 장이다** — 판정은
+      [데이터 분해의 구동 요인](data-decomposition-drivers.md)이, 절차는
+      [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md)가 갖는다 (6장,
+      pp.131–161).[^ford2021-hard-parts]
   - **이 양식이 이행의 흔한 목적지라는 것도 그 자리에서 적힌다** — 서비스 기반 아키텍처는
     **모놀리스를 재구조화할 때 흔한 목표**이고, **기존 데이터베이스 스키마와 통합 지점을 흔들지
     않고 분해를 할 수 있게** 해 준다 (2장, p.32).[^ford2021-hard-parts]
@@ -250,6 +254,9 @@ sources:
 - [도메인 서비스](../concepts/domain-services.md) — 같은 이름이 코드 안의 한 클래스를 가리키는 자리
 - [마이크로서비스 경계 어림법](../concepts/microservice-boundary-heuristics.md) — 같은 방향의
   처방을 경계의 재료 쪽에서 내는 두 소스
+- [데이터 분해의 구동 요인](data-decomposition-drivers.md) — 이 양식이 남겨 둔 데이터베이스를
+  쪼갤 것인가의 판정
+- [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md) — 그 쪼개기의 절차
 - [아키텍처 퀀텀](architectural-quantum.md) — 이 양식의 배포 단위를 세는 잣대
 - [독립 배포 가능성](independent-deployability.md) — 이 패턴이 겨냥하는 성질
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 뽑아내는 일에 쓰는 이행 장치들
@@ -263,7 +270,11 @@ sources:
     §"Pattern Description"(pp.126–128) · §"Fitness Functions for Governance"(p.129) ·
     §"Sysops Squad Saga: Creating Domain Services"(pp.129–130) · §Summary(p.130), 그리고
     2장 "Discerning Coupling in Software Architecture" §"Service-Based Architecture"
-    곁상자(p.32). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 직인용 여섯(도메인 서비스의 규정 ·
+    곁상자(p.32). 6장 "Pulling Apart Operational Data"(pp.131–161)는 위 §"결과 양식 — 서비스
+    기반 아키텍처"에서 **남겨 둔 데이터베이스를 다음 장이 가른다**는 연결에만 쓴다 — 그 장의
+    전문은 [데이터 분해의 구동 요인](data-decomposition-drivers.md)과
+    [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md)가 갖는다.
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 직인용 여섯(도메인 서비스의 규정 ·
     서비스 기반 아키텍처의 가장 단순한 꼴 · 2장 곁상자의 양식 규정 · 너무 잘게 시작하는 실수 ·
     전부 정리한 뒤에 옮기라는 조언 · 장의 맺음)은 `pdftotext -layout` 추출로 문자 단위
     대조했고 줄바꿈 하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 굽은 따옴표와

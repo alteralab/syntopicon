@@ -74,6 +74,8 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   read atomic 격리
 - [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 한 데이터베이스를
   여럿으로 쪼갤 때 트랜잭션의 안전이 사라지는 자리와 그 밖에 함께 깨지는 것들
+- [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md) — 그 상실을 쪼갤지 말지의
+  저울에 올리는 자리. 데이터베이스 트랜잭션이 데이터를 붙여 둘 근거 둘 가운데 하나로 놓인다
 
 ## 이웃 축
 

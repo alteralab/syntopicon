@@ -414,6 +414,12 @@ sources:
 - **샤딩을 언제 하지 말아야 하는가는 그쪽이 더 세게 적는다.** [샤딩의 기본](../concepts/sharding-basics.md)은
   읽기 처리량이 문제라면 샤딩이 필요하지 않을 수 있다고 못 박는데, 뉴먼도 같은 방향으로 이 축을
   세 번째에 둔다.
+- **같은 데이터 층 확장을 아키텍처 쪽에서 세는 소스가 하나 더 있다.** 포드 외의 2021년 책은
+  확장성을 **데이터를 쪼갤 여섯 근거 가운데 하나**로 놓고, 공유 데이터베이스가 감당하는지를
+  판정하는 요인을 **커넥션·용량·처리량·성능** 넷으로 적는다 (6장,
+  pp.141–143).[^ford2021-hard-parts] 이 축과 겨루지 않는다 — 그쪽은 **무엇으로 나눌 것인가**가
+  아니라 **나눌 것인가**를 묻고, 커넥션이라는 요인 하나를 이 KB의 다른 소스들이 세지 않는다.
+  그 여섯의 전문은 [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)에 있다.
 
 ### 수평 복제의 세 구현이 각각 다른 자리에 있다
 
@@ -493,6 +499,8 @@ sources:
   소비자의 원전 쪽 서술
 - [데이터 분해가 부르는 문제들](../concepts/data-decomposition-concerns.md) — 넷째 축이 데이터
   층에 청구하는 것들
+- [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md) — 같은 데이터 층 확장을
+  쪼갤 근거로 세우는 소스
 - [안정성 패턴](stability-patterns.md) — 확장이 견고함과 갈리는 자리. 중복은 왜 부하 확장과
   다른가
 - [회복력의 네 개념](resilience-four-concepts.md) — 이 장이 말하는 견고함이 회복력의 어느
@@ -509,7 +517,10 @@ sources:
     *The Art of Computer Programming*, 에릭 리스의 일화)는 이 KB가 확인하지 않았다.
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 3장 "Architectural Modularity"
-    §"Scalability"(p.57). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 한 대목만
-    인용한다 — 확장성과 탄력성의 정의와 별점 표를 포함한 전문은
-    [아키텍처 모듈성의 구동 요인](modularity-drivers.md)에 있다. 이 절에는 직인용도 코드
-    목록도 도판 재현도 없다. 두 소스를 맞댄 대비는 **이 KB가 세운 것**이다.
+    §"Scalability"(p.57)과 6장 "Pulling Apart Operational Data" §Scalability(pp.141–143).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 두 대목만
+    인용한다 — 확장성과 탄력성의 정의와 별점 표를 포함한 3장 전문은
+    [아키텍처 모듈성의 구동 요인](modularity-drivers.md)에, 6장 여섯 구동 요인의 전문과 커넥션
+    할당량 표 넷은 [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)에 있다.
+    이 절들에는 직인용도 코드 목록도 도판 재현도 없다. 두 소스를 맞댄 대비는 **이 KB가 세운
+    것**이다.
