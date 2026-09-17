@@ -50,6 +50,10 @@ generated: { by: "claude-opus-5", at: "2026-09-17T01:20:00Z" }
   세우고, [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md)에 산다
 - [분산 시스템과 단일 노드](../concepts/distributed-versus-single-node.md) — **정본 자리는 같은
   데이터 쪽 허브다.** 여러 기계로 갈 아홉 가지 이유와 가지 말아야 할 이유
+- [이벤트 기반 마이크로서비스의 네 모양](../concepts/event-driven-microservice-shapes.md) —
+  **정본 자리는 메시징 쪽이다.** 이벤트로 이어진 서비스가 실제로 어떤 모양으로 지어지는가와
+  그것이 지는 책임 여덟, 그리고 플랫폼 비용 전체를 하나로 묶는 마이크로서비스 세금. 허브는
+  [메시징 패턴](messaging-patterns.md)이다
 
 ## 경계를 어디에 긋는가
 

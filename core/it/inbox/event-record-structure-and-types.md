@@ -20,6 +20,7 @@ sources:
 - [공동 파티셔닝](#공동-파티셔닝)
 - [종류마다 딸려 오는 처리](#종류마다-딸려-오는-처리)
 - [이 KB의 다른 분류들과 맞대기](#이-kb의-다른-분류들과-맞대기)
+- [스트림 하나에 스키마가 몇이나 붙는가](#스트림-하나에-스키마가-몇이나-붙는가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **이벤트 스트림에 쓰이는 레코드는 무엇으로 이뤄지며, 이벤트를 어떤 축으로
@@ -173,8 +174,19 @@ sources:
 - **접점이 하나 분명하다** — 이 페이지의 **엔티티 이벤트**를 저자 자신이 **ECST의 기반**이라고
   적는다(위 절 참조). 곧 **두 분류가 이 자리에서 만난다.**
 
+## 스트림 하나에 스키마가 몇이나 붙는가
+
+- **레코드의 값 칸에 무엇이 들어가는지를 정하는 것이 스키마이고, 그 스키마는 스트림당 하나가 아닐
+  수 있다.** 4장이 데이터 계약의 첫째 구성 요소를 적으며 그 경우를 둘로 든다 — **스키마 진화 때문**
+  이거나 **여러 종류의 이벤트를 한 스트림에 같이 두기(colocating) 때문**이다 (4장 §"What Is a Data
+  Contract?", p.86).[^bellemare2025] 뒤쪽의 상세는 5장으로 미뤄져 있다.
+- 곧 **이 페이지가 가르는 세 종류가 스트림 하나 안에 섞여 있을 수 있다.** 그 배치를 무엇이
+  규율하는가는 [이벤트 스키마와 데이터 계약](event-schemas-and-data-contracts.md)에 있다.
+
 ## 이어지는 페이지
 
+- [이벤트 스키마와 데이터 계약](event-schemas-and-data-contracts.md) — 이 레코드의 값 칸을
+  규정하는 계약
 - [이벤트 스트림과 이벤트 브로커](event-streams-and-brokers.md) — 이 레코드가 놓이는 기반
 - [스트림-테이블 이중성](stream-table-duality.md) — 이 종류들이 상태로 바뀌는 기제
 - [이벤트 주도 통합 설계](event-driven-integration-design.md) — 같은 물음에 다른 축으로 답한 분류
@@ -185,7 +197,8 @@ sources:
 [^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —
     §"The Structure of an Event"(pp.29–30) · §"Unkeyed Events"(p.30) · §"Keyed Events"(pp.30–31) ·
     §"Entity Events"(pp.32–33) · §"Repartitioning Event Streams"(pp.33–34) ·
-    §"Copartitioning Event Streams"(p.34) · §"Aggregating State from Keyed Events"(pp.35–36).
+    §"Copartitioning Event Streams"(p.34) · §"Aggregating State from Keyed Events"(pp.35–36) —
+    과 **4장 "Schemas and Data Contracts" §"What Is a Data Contract?"(p.86)에서 온 한 줄**.
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 두지 않았다 — 옮긴 것이 정의와 분류이고
     한국어 재서술로 담았다. 이 절들에 코드 목록은 없다. 도판 아홉(그림 2-5부터 2-14까지 가운데
     이 절들에 걸리는 것)은 전부 이미지 조판이라 재현하지 않았고, **레코드 구조를 담은 그림 2-5와
