@@ -278,10 +278,18 @@ sources:
   합성 트랜잭션은 그 페이지가 세는 계열의 실물이고, **이 책은 그것을 적합도 함수의 주기 축으로
   다시 분류한다.**
 
+- **4장이 이 파이프라인 위에 거버넌스 층을 더 얹는다.** 이 장이 **파이프라인이 적합도 함수의 실행
+  자리**라고 세운 것을 4장은 **수작업 코드 리뷰와 아키텍처 검토 위원회를 대체하는 자리**로 읽고,
+  코드 수준부터 엔터프라이즈까지 층위를 배열한다 (4장, pp.43–45).[^ford2022-evolutionary] 그 본문은
+  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md)와
+  [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 받는다.
+
 ## 이어지는 페이지
 
 - [진화적 아키텍처](evolutionary-architecture.md) — 점진적 변경이 그 정의의 한 부분인 자리
 - [아키텍처 적합도 함수](architecture-fitness-functions.md) — 여기서 도는 것의 규정과 분류
+- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 이 파이프라인이 거버넌스
+  자리가 될 때 무엇을 거는가
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 파이프라인의 다른 소스 판
 - [소비자 주도 계약](consumer-driven-contracts.md) — 이 장이 원자적 적합도 함수로 분류하는 패턴
 - [프로덕션에서의 테스트](testing-in-production.md) — 기능 토글 뒤 품질 보증이 사는 이웃 자리
@@ -295,7 +303,8 @@ sources:
     옆글 "Continuous Integration Versus Deployment Pipelines"(pp.32–33) 및 "QA in
     Production"(p.36) 포함) · §"Case Study: Adding Fitness Functions to PenultimateWidgets'
     Invoicing Service"(pp.36–39) · §"Case Study: Validating API Consistency in an Automated
-    Build"(pp.39–42)) · §"Summary"(p.42). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 직인용은
+    Build"(pp.39–42)) · §"Summary"(p.42). 4장 도입과 §"Fitness Functions as Architectural Governance"(pp.43–45)도 이
+    페이지가 한 줄 인용한다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 22, 실측). 직인용은
     `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로, 줄바꿈
     하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 이 페이지는 이 장에서 직인용 블록을 쓰지
     않았다 — 이 장의 서술은 정의가 아니라 절차와 사례라 한국어 재서술이 맡는다. 도판

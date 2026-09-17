@@ -131,6 +131,15 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 - [소셜 네트워크 홈 타임라인 사례](../concepts/social-network-home-timelines.md) — 읽을 때
   조인할 것인가 쓸 때 미리 만들 것인가를 수로 따진 사례
 
+## 거버넌스
+
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 위의 특성들이
+  퇴화하지 않았다는 것을 객관적으로 확인하는 기제의 정의와 여섯 분류 축. **이 허브의 거의 모든
+  절이 그 대상이 된다** — 저자들이 비기능 요건·횡단 요구사항·시스템 품질 속성·아키텍처 특성을
+  서로 다른 개념이 아니라고 적기 때문이다
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 그 확인을
+  수작업 검토가 아니라 빌드에서 도는 검사로 거는 일, 그리고 그 층위들
+
 ## 유지보수성
 
 - [유지보수성](../concepts/maintainability.md) — 운영성·단순성·진화성, 추상화, 되돌릴 수 없음
