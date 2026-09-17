@@ -420,6 +420,13 @@ sources:
   pp.141–143).[^ford2021-hard-parts] 이 축과 겨루지 않는다 — 그쪽은 **무엇으로 나눌 것인가**가
   아니라 **나눌 것인가**를 묻고, 커넥션이라는 요인 하나를 이 KB의 다른 소스들이 세지 않는다.
   그 여섯의 전문은 [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)에 있다.
+- **같은 소스의 한 장 뒤가 확장성을 서비스 쪽에서 다시 센다.** 거기서는 확장성과 처리량이
+  **서비스를 더 잘게 쪼갤 여섯 근거 가운데 셋째**이고, 판정 재료가 기능별 처리량 실측이다 —
+  저자들이 한 알림 서비스의 세 기능을 **분당 220,000건·500건·1건**으로 재고, 하나의 서비스로
+  두면 **낮은 쪽이 높은 쪽 수요에 맞추어 불필요하게 확장되어 비용과 기동 평균 시간(MTTS) 관점의
+  탄력성에 영향을 준다**고 적는다 (7장, p.192).[^ford2021-hard-parts] 이 페이지의 **기능
+  분해** 축을 **언제 쓸 것인가**로 좁혀 답한 것이고 축을 겨루지 않는다. 그 여섯과 통합 요인
+  넷의 전문은 [서비스 세분도](../concepts/service-granularity.md)에 있다.
 
 ### 수평 복제의 세 구현이 각각 다른 자리에 있다
 
@@ -517,9 +524,11 @@ sources:
     *The Art of Computer Programming*, 에릭 리스의 일화)는 이 KB가 확인하지 않았다.
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 3장 "Architectural Modularity"
-    §"Scalability"(p.57)과 6장 "Pulling Apart Operational Data" §Scalability(pp.141–143).
-    쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 두 대목만
-    인용한다 — 확장성과 탄력성의 정의와 별점 표를 포함한 3장 전문은
+    §"Scalability"(p.57)과 6장 "Pulling Apart Operational Data" §Scalability(pp.141–143),
+    그리고 **7장 "Service Granularity" §"Scalability and Throughput"(p.192)**.
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 세 대목만
+    인용한다 — 7장 열 요인의 전문은
+    [서비스 세분도](../concepts/service-granularity.md)에, 확장성과 탄력성의 정의와 별점 표를 포함한 3장 전문은
     [아키텍처 모듈성의 구동 요인](modularity-drivers.md)에, 6장 여섯 구동 요인의 전문과 커넥션
     할당량 표 넷은 [데이터 분해의 구동 요인](../concepts/data-decomposition-drivers.md)에 있다.
     이 절들에는 직인용도 코드 목록도 도판 재현도 없다. 두 소스를 맞댄 대비는 **이 KB가 세운

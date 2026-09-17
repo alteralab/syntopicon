@@ -359,6 +359,14 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
   가운데 둘이 이 페이지의 첫 두 항목과 같은 말이다 (6장,
   p.159).[^ford2021-hard-parts] 절차의 전문은
   [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md)에 있다.
+- **같은 책 한 장 뒤가 이 페이지의 첫 두 항목을 서비스 세분도의 근거로 되쓴다** — 쪼갠 서비스
+  둘이 서로가 소유한 테이블을 **모든 오퍼레이션에서 필요로 하면** 경계 컨텍스트 때문에 직접
+  질의할 수 없어 **오가는 서비스 간 통신**이 생기므로, **둘을 하나로 합쳐 지연·내결함성·확장성
+  문제를 피하는 것이 현명하다**는 것이다 (7장, pp.205–207).[^ford2021-hard-parts] 저자들은 그
+  요인을 **절충이 가장 적은 통합 구동 요인**이라 적고, **대부분의 경우 서비스 하나를 쪼개자고
+  데이터베이스 테이블의 개체 관계를 재구성하는 것은 실행 가능하지 않다**고 잇는다 (7장,
+  p.207).[^ford2021-hard-parts] **이 페이지가 세는 비용이 그쪽에서는 쪼개지 말라는 근거가
+  된다.** 열 요인 전부는 [서비스 세분도](service-granularity.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -366,6 +374,7 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
 - [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md) — 그 분리를 정본과 사본의 말로 세우는 자리
 - [확장의 네 축](four-axes-of-scaling.md) — 이 문제들을 감수하고 쪼개는 일이 확장의 한 축으로
   채점되는 자리
+- [서비스 세분도](service-granularity.md) — 같은 비용을 서비스를 다시 붙일 근거로 되쓰는 자리
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 여기서 완화책으로 든 국소 캐시의
   전체 서술
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 읽기 복제본이 내보내는
@@ -427,8 +436,10 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational
     Data" §"Data Decomposition Drivers"(pp.132–151) · §"Step 3: Separate Database Connections to
     Data Domains"(pp.158–159) · §"Sysops Squad Saga: Justifying Database
-    Decomposition"(pp.150–151). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 목록을
-    대질에만 쓴다 — 여덟 구동 요인의 전문과 직인용과 커넥션 할당량 표 넷은
+    Decomposition"(pp.150–151), 그리고 **7장 "Service Granularity" §"Data
+    Relationships"(pp.205–207)**. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 목록을
+    대질에만 쓴다 — 7장 열 요인의 전문과 Table 7-1은
+    [서비스 세분도](service-granularity.md)가, 여덟 구동 요인의 전문과 직인용과 커넥션 할당량 표 넷은
     [데이터 분해의 구동 요인](data-decomposition-drivers.md)이, 다섯 단계의 전문은
     [모놀리식 데이터를 쪼개는 다섯 단계](decomposing-monolithic-data.md)가 갖는다. 이 절에는
     직인용도 도판 재현도 코드 목록도 없다. 위 대응표는 원문에 없고 **이 KB가 맞댄 것**이다.

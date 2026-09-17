@@ -22,6 +22,7 @@ sources:
 - [다섯 전부에 같은 단서가 붙는다](#다섯-전부에-같은-단서가-붙는다)
 - [책의 사례 — 업무 근거 만들기](#책의-사례--업무-근거-만들기)
 - [6장이 같은 구조를 데이터 쪽에서 되풀이한다](#6장이-같은-구조를-데이터-쪽에서-되풀이한다)
+- [모듈성과 세분도를 같은 책이 가른다](#모듈성과-세분도를-같은-책이-가른다)
 - [코드 수준 모듈성과 층이 다르다](#코드-수준-모듈성과-층이-다르다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -368,6 +369,24 @@ sources:
   (6장, pp.141–144).[^ford2021-hard-parts] **층이 다르므로 겨루지 않는다.** 이 대비는 이 KB가
   세운 것이다. #hypothesis
 
+## 모듈성과 세분도를 같은 책이 가른다
+
+- **7장이 이 낱말을 세분도와 명시적으로 가른다.** 저자들은 아키텍트와 개발자가 **모듈성
+  (modularity)과 세분도(granularity)라는 용어를 자주 혼동하고 어떤 경우에는 둘을 같은 뜻으로
+  다루기까지 한다**고 적고 (7장, p.186), 소프트웨어 아키텍처 맥락에서 이렇게 가른다 (7장,
+  p.187):[^ford2021-hard-parts]
+
+  > In our usage, *modularity* concerns breaking up systems into separate parts (see
+  > Chapter 3), whereas *granularity* deals with the *size* of those separate parts.
+
+  - **괄호 안이 이 페이지를 가리킨다.** 저자들이 모듈성 쪽 물음의 자리로 3장을 지목하므로,
+    **이 페이지가 "쪼갤 것인가"를 갖고 7장이 "쪼갠 조각이 얼마나 커야 하는가"를 갖는다.**
+- **무게를 저자들이 뒤쪽에 싣는다** — **분산 시스템 안의 문제와 난제 대부분은 대개 모듈성이
+  아니라 세분도와 관련된다** (7장, p.187).[^ford2021-hard-parts] **이 페이지의 다섯 구동 요인은
+  쪼갤 근거를 업무 언어로 세우는 데까지이고, 그 뒤에 남는 어려움을 저자들이 세분도 쪽에 둔다.**
+- 7장이 그 물음에 내놓는 **분해 요인 여섯과 통합 요인 넷**의 전문은
+  [서비스 세분도](service-granularity.md)에 있다.
+
 ## 코드 수준 모듈성과 층이 다르다
 
 **이 KB에는 모듈성을 다루는 다른 축이 이미 두껍게 있고, 그 축과 이 장은 재는 대상이 다르다.**
@@ -401,6 +420,8 @@ sources:
 - [아키텍처 퀀텀](architectural-quantum.md) — 같은 책이 배포 단위와 결합을 세는 어휘
 - [데이터 분해의 구동 요인](data-decomposition-drivers.md) — 같은 책이 데이터 쪽에서 세우는
   구동 요인 여덟
+- [서비스 세분도](service-granularity.md) — 같은 책이 이 낱말과 가르는 쪽. 쪼갠 조각이 얼마나
+  커야 하는가
 - [Sysops Squad 사례](sysops-squad-case.md) — 이 장의 사가가 대입되는 체계
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 
@@ -410,6 +431,10 @@ sources:
     §"Deployability"(pp.55–56) · §"Scalability"(pp.56–58) · §"Availability/Fault
     Tolerance"(pp.58–59) · §"Sysops Squad Saga: Creating a Business Case"(pp.59–62, ADR 상자
     pp.61–62 포함). 4장 첫머리의 한 문장(왜와 어떻게의 가름, p.64)과 부록 A(p.417)도 인용한다.
+    **7장 "Service Granularity" 장 도입부(pp.186–187)**는 위 §"모듈성과 세분도를 같은 책이
+    가른다" 절이 쓴다 — 그 장의 전문과 나머지 직인용은
+    [서비스 세분도](service-granularity.md)가 갖고, 여기서 옮긴 것은 두 낱말을 가르는 규정
+    하나와 무게가 세분도 쪽에 있다는 판정이다. 그 절에도 도판 재현과 표 전재가 없다.
     6장 §"Data Decomposition Drivers"(pp.132–151)는 위 §"6장이 같은 구조를 데이터 쪽에서
     되풀이한다" 절의 대질에만 쓴다 — 그 여덟 구동 요인의 전문과 직인용은
     [데이터 분해의 구동 요인](data-decomposition-drivers.md)이 갖고, 여기서 옮긴 것은 두 목록의

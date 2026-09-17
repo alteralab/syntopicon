@@ -145,6 +145,28 @@ sources:
     구조적 성격 때문**이다 (6장, p.184, 사가).[^ford2021-hard-parts] **무엇을 ADR로 적을지의
     판정 기준이 이 책에서 드물게 드러나는 자리다** — 어려움과 구조적 성격 둘이다. 그 결정의
     전문과 별점표는 [데이터베이스 종류 고르기](selecting-a-database-type.md)에 있다.
+- **목록의 다섯째와 여섯째(p.211·p.215)가 같은 장의 두 ADR인데 귀결 칸을 다르게 채운다.**
+  - `ADR: Consolidated Service for Ticket Assignment and Routing`(7장, pp.211–212, ADR)의
+    귀결 칸에는 **귀결만 있고 절충 논의가 없다** — 정기적으로 일어나는 배정 알고리즘 변경과 드문
+    라우팅 변경이 두 기능 모두의 시험과 배포를 요구해 **시험 범위가 늘고 배포 위험이 커진다**는
+    한 문단이다.[^ford2021-hard-parts] **절충 분석은 사가 서사 안에서 이루어지고 상자로 넘어오지
+    않았다.**
+  - `ADR: Consolidated Service for Customer-Related Functionality`(7장, pp.215–216, ADR)의
+    귀결 칸에는 **절충 문장이 들어 있다** — **논의된 절충이 트랜잭션성 대 보안**이라고 명시하고,
+    쪼개면 보안 접근이 나아지지만 등록과 탈퇴에 필요한 전부 또는 전무 트랜잭션을 지원하지 못하며
+    보안 우려는 맞춤 라이브러리로 완화된다고 적는다.[^ford2021-hard-parts]
+  - **같은 장의 두 상자가 같은 칸을 다르게 채우는 것을 저자들이 말하지 않는다.** 위
+    [형식 — 네 자리](#형식--네-자리)가 요구하는 넷째 칸의 절반(고려했던 절충)이 앞 것에는
+    없다. **이 관찰은 이 KB가 원문을 형식과 대조해 적는 것이다.** #hypothesis
+  - **둘 다 맥락 칸의 요구는 지킨다** — 앞은 대안 둘(합쳐진 서비스 하나 대 배정과 라우팅의 별도
+    서비스)을, 뒤는 대안 셋(합쳐진 하나·기능마다 별도·민감과 비민감을 가른 둘)을 나열한다
+    (7장, pp.211·215, ADR).[^ford2021-hard-parts] 위 p.184 ADR이 대안 목록을 빠뜨린 것과 대비된다.
+  - **두 상자 모두 결정 칸에 정당화가 여러 문단 붙는다** — 앞은 넷(단단한 결합·같은 확장 수요·
+    완전한 상호 의존·워크플로가 부르는 문제), 뒤는 둘(단일 원자적 작업 단위 요구·보안
+    라이브러리에 의한 위험 완화)이다. 두 결정의 전문과 그 장면은
+    [서비스 세분도](service-granularity.md)에 있다.
+  - **문법이 어긋나는 자리 둘을 원문 그대로 두고 표시한다** — 앞 ADR의 `dependent each other`
+    (on 누락, p.212)와 뒤 ADR의 `through the use the custom`(of 누락, p.216)이다.
 - **쪽 번호가 결정이 내려진 자리를 가리킨다** — 위
   [책 한 권의 ADR을 색인하는 방식](#책-한-권의-adr을-색인하는-방식)이 적는 조판 규약의 실물이다.
   결정은 그 장의 흐름 안 상자에 놓이고 부록이 훑기를 맡는다.
@@ -213,6 +235,8 @@ sources:
   아닌 리팩터링을 적는 다른 형식이 사는 자리
 - [Sysops Squad 사례](sysops-squad-case.md) — 이 책의 ADR들이 대입되는 체계
 - [데이터베이스 종류 고르기](selecting-a-database-type.md) — 6장의 유일한 ADR이 놓이는 결정
+- [서비스 세분도](service-granularity.md) — 7장의 ADR 둘이 놓이는 결정. 같은 장의 두 상자가
+  귀결 칸을 다르게 채우는 자리
 - [되돌릴 수 있는 설계 결정](reversible-design-decisions.md) — 무엇을 적어 둘 값이 큰가의 다른 축
 - [데이터 아키텍처의 규정](data-architecture-defined.md) — 되돌릴 수 있는 결정과 없는 결정
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 실천이 걸리는 허브
@@ -242,3 +266,12 @@ sources:
     전문의 직인용은 [데이터베이스 종류 고르기](selecting-a-database-type.md)가 갖는다 —
     여기서는 형식과 어긋나는 자리만 적었다. 6장에 ADR이 이 하나뿐이라는 것도 같은 방식으로
     부록 B의 쪽 목록(p.79 다음이 p.184)과 6장의 쪽 범위(pp.131–184)를 맞대어 확인했다.
+    **7장의 ADR 둘(p.211 · p.215, 각각 §"Sysops Squad Saga: Ticket Assignment Granularity"와
+    §"Sysops Squad Saga: Customer Registration Granularity" 안의 상자)도 목록 절에 합류했다.**
+    위 관찰 넷은 두 상자의 원문과 1장 p.5의 형식 규정을 맞대어 본 것이고, 두 ADR 전문과 그
+    장면은 [서비스 세분도](service-granularity.md)가 갖는다 — 여기서는 형식과 맞물리는 자리만
+    적었다. 두 상자에 딸린 문법 오식 둘(`dependent each other` p.212 · `through the use the
+    custom` p.216)은 원문 그대로 옮기고 표시했다. 7장에 ADR이 이 둘뿐이라는 것도 부록 B의 쪽
+    목록(p.184 다음이 p.211·p.215이고 그다음이 p.241)과 7장의 쪽 범위(pp.185–216)를 맞대어
+    확인했다.
+
