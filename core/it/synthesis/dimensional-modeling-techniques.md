@@ -23,7 +23,9 @@ generated: { by: "human:me", at: "2026-08-07T16:00:00Z" }
 
 ## 차원 기법
 
-- [완만하게 변하는 차원(SCD)](../concepts/slowly-changing-dimension.md) — 타입 0–7
+- [완만하게 변하는 차원(SCD)](../concepts/slowly-changing-dimension.md) — 타입 0–7. 이 창고 개념이 운영계
+  이벤트 스트림으로 건너가 타입 1·2만 남고 이력의 그릇이 차원 행에서 이벤트 페이로드로 바뀌는
+  자리가 [비정규화와 이벤트화](../concepts/denormalization-and-eventification.md)에 있다
 - [표준 차원](../concepts/conformed-dimension.md) — drill-across의 전제
 - [버스 아키텍처](../concepts/enterprise-bus-architecture.md) — 버스 매트릭스와 애자일 골격
 - [퇴화 차원](../concepts/degenerate-dimension.md) — 차원 없는 트랜잭션 키

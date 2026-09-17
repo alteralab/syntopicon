@@ -175,6 +175,13 @@ sources:
   *Shared Database*로 기각되는데, 저자 자신이 그 기각을 유지하면서 **소유와 계약을 명시하는
   방식으로 같은 편의(SQL 끝점)를 되돌려 준다.** 곧 **기각되는 것은 데이터베이스를 내주는 것이
   아니라 내부 스키마를 내주는 것**이다.
+- **그 밀어 넣기를 이벤트 스트림으로 하는 이름이 이 KB에 있다** — [bellemare2025](../sources/bellemare2025.md)
+  6장의 **싱킹(sinking)** 이 그것이고, **이벤트 데이터를 소비해 데이터 저장소에 삽입하는** 별도
+  프로세스가 **목적지 체계의 바깥에서 그것에 보이지 않게** 동작한다 (6장,
+  p.152).[^bellemare2025] 위 규정의 "마이크로서비스가 내부 저장소에서 밀어 넣는다"를 **생산자가
+  스트림에 내고 싱크가 대신 채우는** 배치로 바꾸면 이 패턴의 둘째 조항(끝점 호환의 책임)이 생산자의
+  스키마 계약으로 옮겨 간다. **이 대응은 이 KB가 두 소스를 맞대어 세운 것이고 어느 쪽도 상대를
+  호명하지 않는다.** #hypothesis 싱킹과 해방의 전문은 [데이터 해방](data-liberation.md)에 있다.
 
 ## 이 다섯이 한 묶음인 이유
 
@@ -448,6 +455,7 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
   전체 서술
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 읽기 복제본이 내보내는
   낡음
+- [데이터 해방](data-liberation.md) — 리포팅 데이터베이스를 이벤트 스트림에서 채우는 쪽
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 이 문제들을 부르는 쪽의 절차
 - [분산 트랜잭션과 2단계 커밋](../concepts/two-phase-commit.md) — 되찾으려다 실패하는 그 보장
 - [XA 트랜잭션과 이종 분산 트랜잭션](../concepts/xa-transactions.md) — 그 구현이 실무에서 겪는 것
@@ -523,6 +531,8 @@ pp.132–151).[^ford2021-hard-parts] **겨루지 않고 보완한다.** 그 여�
 
 [^bellemare2025]: Bellemare 2025(2판), 1장 "Why Event-Driven Microservices" —
     §"Conway's Law and Communication Structures"(p.12)의 완화책 목록 ·
-    §"Pros and Cons of Each Option"(p.14). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 절들에
+    §"Pros and Cons of Each Option"(p.14), 그리고 **6장 §"Sinking Event Data to Data
+    Stores"(p.152)**. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 절들에
     직인용을 두지 않았다 — 옮긴 것이 목록과 판정이고 한국어 재서술로 담았다. 코드 목록도 도판도
-    없다. 전문은 [소통 구조 셋](communication-structures.md)에 있다.
+    없다. 1장의 전문은 [소통 구조 셋](communication-structures.md)에, 6장의 전문은
+    [데이터 해방](data-liberation.md)에 있다.
