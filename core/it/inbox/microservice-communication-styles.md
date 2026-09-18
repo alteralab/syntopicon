@@ -30,6 +30,7 @@ sources:
 - [이 KB의 다른 자리들과의 분업](#이-kb의-다른-자리들과의-분업)
 - [넷째 소스 — 요청-응답이라는 이름으로 고쳐 부르고 단점 일곱을 세는 쪽](#넷째-소스--요청-응답이라는-이름으로-고쳐-부르고-단점-일곱을-세는-쪽)
 - [기본값 물음을 맞대어 본 결과](#기본값-물음을-맞대어-본-결과)
+- [함수로 지은 서비스에서 같은 선택이 되돌아오는 자리](#함수로-지은-서비스에서-같은-선택이-되돌아오는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **마이크로서비스 사이 통신을 무슨 축으로 가르고, 각 스타일을 언제 고르는가.**
@@ -636,8 +637,27 @@ p.93).[^newman2021]
   책의 범위 차이**이고 넷째 소스가 스스로 그것을 밝힌다 — **이 책이 요청-응답 마이크로서비스에
   관한 책은 아니지만 들어가기 전에 짧게 볼 가치가 있다**고 적는다 (1장, p.17).[^bellemare2025]
 
+## 함수로 지은 서비스에서 같은 선택이 되돌아오는 자리
+
+- **넷째 소스의 15장이 같은 선택을 함수 안에서 다시 만난다** — **직접 호출 패턴(direct-call
+  pattern)에서는 함수가 자기 코드에서 다른 함수를 직접 부르고, 요청-응답 마이크로서비스와
+  똑같다.** 호출은 **비동기**(던져 놓고 잊는 방식)이거나 **동기**(부른 쪽이 반환값을 기다리는
+  방식)다 (15장 §"Direct-Call Pattern", p.309).[^bellemare2025]
+  - **값이 위 [동기 블로킹](#동기-블로킹)의 목록과 같은 종류로 청구된다** — 비동기로 부르면
+    **컨슈머 오프셋이 성공 처리일 때만 갱신되게 만들기 어렵고 이벤트가 순서 없이 처리되며**,
+    순서를 지키려면 **이벤트마다 부른 함수가 끝날 때까지 기다려야** 한다. 그렇게 기다리는 쪽이
+    저자가 말하는 **동기 함수 호출**이고 그것이 오케스트레이션 패턴이 된다 (15장,
+    pp.309–311).[^bellemare2025]
+  - **곧 이벤트 스트림으로 잇는 쪽과 직접 부르는 쪽의 선택이 서비스 사이에서 함수 사이로
+    내려온다. 저자는 시간적 결합이라는 이름을 쓰지 않는다** — 그 이름과 대가 목록은 위
+    [동기 블로킹](#동기-블로킹)에 있다. **이 대응은 이 KB가 세운 것이다.** #hypothesis 그 모양의
+    전문은
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
+
 ## 이어지는 페이지
 
+- [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) — 같은 선택이
+  함수 사이에서 되돌아오는 자리
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 이 통신이 오가는
   단위의 정의
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 인터페이스 변경을 한꺼번에 배포하지 않으려는
@@ -709,7 +729,11 @@ p.93).[^newman2021]
 [^bellemare2025]: Bellemare 2025(2판), 1장 "Why Event-Driven Microservices" —
     §"Example Team Using Event-Driven Microservices"(p.17) 한 줄 · §"Request-Response
     Microservices"(pp.18–20: 하위 §"Drawbacks of Request-Response Microservices" ·
-    §"Benefits of Request-Response Microservices"). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측).
+    §"Benefits of Request-Response Microservices"), 그리고 15장 §"Direct-Call Pattern"과
+    그 하위 §"Choreography and asynchronous function calling" ·
+    §"Orchestration and synchronous function calls"(pp.309–311). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 15장 쪽에는 직인용을 두지 않았고 그 장의 전문은
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)가 갖는다.
     직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로 끊긴
     낱말은 한 낱말로 이었다. 이 절들에 코드 목록도 도판도 없다. 이 소스의 나머지 서술은
     [소통 구조 셋](communication-structures.md)에 있다.

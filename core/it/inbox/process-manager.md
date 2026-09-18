@@ -343,8 +343,14 @@ sources:
     불필요하다고 보게 될 수 있다** (10장, p.242).[^bellemare2025]
   - 못 없애는 것도 적는다 — **지속 실행 엔진은 경쟁 조건을 없앨 수 없다. 연산과 요청을 멱등적으로
     유지하는 것이 중요하다** (10장, p.241).[^bellemare2025]
-- 그 소스의 전문(도입 전에 따질 여섯, 추가 전용 로그가 적는 다섯)은
-  [이벤트 기반 워크플로](event-driven-workflows.md)에 있다.
+- **그 런타임이 함수 위에 올라앉은 형태에 따로 이름이 있다** — **지속 함수 오케스트레이션
+  (durable function orchestration, DFO)** 이고, 그 소스가 **더 일반화된 지속 실행 아키텍처의
+  하위형**이라고 스스로 적는다 (15장, p.314).[^bellemare2025] **곧 층이 셋으로 늘어난다** —
+  패턴(이 페이지) · 런타임(지속 실행 엔진) · 그 런타임의 FaaS판(지속 함수 오케스트레이터).
+  **세 층이 겨루지 않고 포개진다.** #hypothesis 그쪽 서술은
+  [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
+- 그 소스의 전문(도입 전에 따질 여섯, 추가 전용 로그가 적는 다섯, 워크플로 정의를 문서에 두는
+  길과 코드에 두는 길)은 [이벤트 기반 워크플로](event-driven-workflows.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -356,6 +362,8 @@ sources:
 - [이벤트 소싱 도메인 모델](../concepts/event-sourced-domain-model.md) — 이 패턴의 두 구현 형태 중 하나
 - [이벤트 기반 워크플로](event-driven-workflows.md) — 이 역할을 맡은 코드를 전용 플랫폼 위에
   올리는 쪽. 지속 실행 엔진과 그 추가 전용 로그
+- [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) — 그 플랫폼이
+  함수 위에 올라앉은 셋째 층
 - [애그리게이트와 일관성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 이 패턴이
   스스로 그 안에 드는 경계
 - [도메인 이벤트](../concepts/domain-events.md) — 이 패턴이 듣고 내는 것
@@ -406,6 +414,6 @@ sources:
     6-10 코레오그래피된 사가)은 이미지로 조판돼 있어 본문이 그것에 대해 적는 것만 옮겼다.
 
 [^bellemare2025]: Bellemare 2025, 10장 "Building Workflows with Microservices",
-    pp.226–227, 230, 238–242. 직인용은 지속 실행 엔진의 규정 하나(p.238)뿐이고 나머지는 한국어
-    재서술이다. 이 장의 코드 목록 둘(오케스트레이션 루프 p.228 · 템포럴 자바 발췌 p.239)은
+    pp.226–227, 230, 238–242와 15장 §"Durable Function Orchestrators"(p.314) 한 줄.
+    직인용은 지속 실행 엔진의 규정 하나(p.238)뿐이고 나머지는 한국어 재서술이다. 이 장의 코드 목록 둘(오케스트레이션 루프 p.228 · 템포럴 자바 발췌 p.239)은
     옮기지 않았다.

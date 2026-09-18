@@ -228,6 +228,15 @@ sources:
     마이크로서비스에 이벤트 스케줄링이 필요하다** (9장, p.204).[^bellemare2025]
   - 이 조항이 [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md)의 네
     모양과 곧장 맞물린다 — 기본 프로듀서/컨슈머로 지으면 이 기제를 **직접 만들어야 한다.**
+  - **15장이 같은 결핍을 함수 기반 해법에도 건다** — **FaaS 해법은 기본 컨슈머 해법과 마찬가지로
+    일관된 처리 결과를 보장하려면 이벤트 스케줄러를 요구한다.** 그래서 저자가 FaaS에 맞는 문제의
+    성질에 **여러 이벤트 스트림의 결정적 처리를 요구하지 않는 것**을 넣는다 (15장,
+    p.298).[^bellemare2025] 그 모양의 전문은
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
+- **14장의 연속 질의는 이 페이지의 시간 서술을 다시 적지 않는다** — **스트리밍 SQL 질의는 스트림
+  위에서 무기한 돌며 받는 이벤트마다 질의 로직을 적용**하고, **관습적 질의는 유계 데이터셋을 다
+  훑으면 끝난다**는 대비뿐이다 (14장, p.286).[^bellemare2025] 유계와 무계의 규정은 아래
+  [유계 데이터는 왜 이 문제를 덜 겪는가](#유계-데이터는-왜-이-문제를-덜-겪는가)에 있다.
 
 ## 커스텀 스케줄러는 결정성을 깰 수 있다
 
@@ -766,7 +775,12 @@ sources:
   모양으로 닮은 쪽
 
 [^bellemare2025]: Bellemare 2025, 9장 "Deterministic Stream Processing", pp.199–220 전량과
-    12장 §"Example: Session Windowing of Clicks and Views"(pp.255–256).
+    12장 §"Example: Session Windowing of Clicks and Views"(pp.255–256), 그리고
+    14장 §"The Basics of the Continuous Query"(p.286) · 15장 도입(p.298) 두 줄.
+    뒤의 두 줄은 이 페이지의 기제를 더하지 않고 **다른 두 모양이 그 기제를 어떻게 만나는지**만
+    적은 것이고, 두 장의 전문은
+    [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md)과
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)가 갖는다.
     직인용은 전부 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)은 원래
     낱말로 이었으며 원문이 이탤릭으로 조판한 낱말은 인용 안에서 이탤릭을 유지했다. **이 장에는
     표도 코드 목록도 하나도 없다** — 이 페이지의 표 여섯은 전부 저자의 정의 목록이나 산문을 이 KB가

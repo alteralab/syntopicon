@@ -776,6 +776,14 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
     체인지로그의 머리까지 따라잡은 뒤 리밸런싱해 입력 파티션 소유권을 주는 것**이고, **브로커의
     추가 대역폭만 요구**한다 (13장, p.283).[^bellemare2025]
     - 버전 조건: 2025년 저술 시점. 저자는 이 기능이 **카프카 스트림즈에서 개발 중**이라고 적는다.
+- **15장의 함수 기반 해법에는 이 선택 자체가 없다** — **함수의 수명이 짧아 상태 있는 FaaS 해법은
+  대개 외부 상태 서비스를 요구**하고, 제공자들이 **"로컬 상태 없음" 정책을 강제**한다. 이유는
+  **이전 실행의 로컬 상태를 요구하는 함수는 그 상태가 같은 자리에 있는 노드로 현재 실행을 묶어
+  제공자의 유연성을 크게 깎기** 때문이다. **웜 스타트로 지난 로컬 상태가 남아 있을 수는 있으나
+  결코 보장되지 않고**, 상태는 전부 함수가 **명시적으로 저장하고 읽어야** 한다 (15장
+  §"Maintaining State", p.307).[^bellemare2025] 곧 **위 [둘을 한자리에서 견주면](#둘을-한자리에서-견주면)의
+  선택지 가운데 외부 쪽만 남는 모양**이고, 그 전문은
+  [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
 
 ## 이 KB의 다른 자리와 어떻게 만나는가
 
@@ -827,6 +835,8 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
   이벤트의 규정
 - [데이터 해방](data-liberation.md) — 남의 저장소 데이터를 이 상태의 재료로 꺼내는 쪽
 - [CQRS 아키텍처](cqrs-architecture.md) — 읽기 모델을 같은 경계 안에서 투영하는 쪽
+- [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) — 같은 책 15장.
+  로컬 상태를 아예 고를 수 없는 모양
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 파티션 수가 상한을 정하는 그 데이터
   파티셔닝 축
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
@@ -835,7 +845,7 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
 [^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices"(pp.169–198) 전량과
     9장의 시간 스큐 대목(p.212), 그리고 12장 §"Handling State and Using Checkpoints"(pp.268–269) ·
     13장 §"Handling State and Using Changelogs"(pp.281–282) · §"State Assignment"(p.283) ·
-    §"State Replication and Hot Replicas"(p.283) —
+    §"State Replication and Hot Replicas"(p.283) · 15장 §"Maintaining State"(p.307) —
     도입(p.169) · §"Event-Stream Partitions and Consumer Assignments"(pp.170–175, 하위
     §"Repartitioning Event Streams" pp.171–172 · §"Copartitioning Event Streams" p.172 ·
     §"Assigning Partitions Within a Consumer Group" pp.173–175) ·

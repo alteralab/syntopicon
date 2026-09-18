@@ -277,6 +277,16 @@ sources:
   그에 맞게 동작하게 한다 (8장, p.173).[^bellemare2025] 위
   [파티션 배정 절차](#파티션-배정-절차)가 다루는 `partition.assignment.strategy`의 자리를 누가
   채우는가에 대한 서술이다.
+- **같은 책 15장이 컨슈머 랙을 촉발 신호로 쓰는 용법을 하나 더 더한다** — **컨슈머 그룹의 오프셋을
+  주기적으로 폴링해 현재 컨슈머 오프셋과 스트림 헤드 오프셋의 차를 구하면 그것으로 함수를 깨울 수
+  있고**, **랙이 높으면 오토스케일러가 인스턴스를 여럿 띄우고 낮으면 수를 유지하거나 줄인다.**
+  **같은 지표로 FaaS가 아닌 마이크로서비스의 확장도 할 수 있다** (15장
+  §"Triggering Based on Consumer Group Lag", pp.304–305).[^bellemare2025]
+  - **그 모양에서 이 페이지의 리밸런스가 병리가 되는 경로도 같은 장이 적는다** — **수명이 짧은
+    함수를 많이 쓰고 컨슈머 배치 크기가 작으면 그룹이 거의 상시 리밸런싱 상태에 빠지고, 극단에서는
+    리밸런싱 교착에 갇혀 함수가 수명 전체를 리밸런싱을 기다리며 쓴다** (15장,
+    pp.306–307).[^bellemare2025] 전문은
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -291,12 +301,16 @@ sources:
 - [토픽과 파티션](topics-and-partitions.md) — 컨슈머 수의 상한을 정하는 단위
 - [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 이
   배정이 상태의 자리를 정한다고 적는 쪽
+- [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) — 랙을 촉발
+  신호로 쓰는 쪽과 리밸런싱 교착
 
 [^shapira2021]: Shapira et al. 2021, 4장 "Kafka Consumers: Reading Data from Kafka" — 코드 펜스는 p.102 예제에서 원문의 주석 번호 표식과 그 뒤에 이어지는 폴 루프를 덜어냈다(보탠 줄 없음)
 
 [^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices" —
     §"Event-Stream Partitions and Consumer Assignments"(p.170)과 그 하위
-    §"Assigning Partitions Within a Consumer Group"(pp.173–174). 쪽은 인쇄판 쪽 번호
+    §"Assigning Partitions Within a Consumer Group"(pp.173–174), 그리고 15장
+    §"Triggering Based on Consumer Group Lag"(pp.304–305) ·
+    §"Scaling Your FaaS Solutions"(pp.306–307). 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 24, 실측). 직인용 하나는 `pdftotext -layout` 추출로 문자 단위 대조했다. 이 절들에
     코드 목록도 표도 없고, 도판 둘(그림 8-3·8-4 라운드 로빈 배정)은 이미지 조판이라 재현하지
     않았다. 8장의 전문은

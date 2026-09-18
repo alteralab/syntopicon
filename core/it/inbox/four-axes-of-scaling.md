@@ -472,6 +472,17 @@ sources:
     스트리밍의 동적 할당**이고, 저자 자신이 **살아 있는 애플리케이션의 능동 오토스케일링은 스파크와
     플링크 양쪽에서 여전히 활발한 개발 영역**이라고 적는다.
   - 전문은 [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)에 있다.
+- **같은 소스의 15장이 함수 기반 해법에 같은 상한과 새 실패 모드를 건다** — **순서가 중요하면
+  병렬도의 상한은 스트림의 파티션 수**이고 그것은 **다른 어떤 마이크로서비스 구현에서도
+  마찬가지**다. 확장 정책의 흔한 기준은 **컨슈머 입력 랙·시각·처리 처리량·성능 특성**이다
+  (15장 §"Scaling Your FaaS Solutions", p.306).[^bellemare2025]
+  - **이 축에 없던 것이 확장 정책 자체가 만드는 병리다** — **수명이 짧은 함수를 많이 쓰고 컨슈머
+    배치 크기가 작으면 그룹이 거의 상시 리밸런싱 상태에 빠지고 극단에서는 리밸런싱 교착에
+    갇히며, 과격한 확장 정책이 그것을 악화시킨다.** 처방이 **단계형 확장 정책이나 히스테리시스
+    루프**다 (15장, pp.306–307).[^bellemare2025] **위 [오토스케일링](#오토스케일링)의 "너무 빨리
+    줄이지 마라"와 같은 방향의 처방이되, 이쪽은 그 대가가 비용이 아니라 처리 정지라는 점이
+    다르다. 이 대비는 이 KB가 세운 것이다.** #hypothesis 전문은
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
 
 ### 수평 복제의 세 구현이 각각 다른 자리에 있다
 
@@ -585,8 +596,10 @@ sources:
     "Heavyweight Framework Microservices" §"Scaling Applications and Handling Event-Stream
     Partitions"(pp.269–274, 하위 §"Scaling an Application by Restarting It" pp.271–272 ·
     §"Scaling an Application While It Is Running" pp.272–273 · §"Autoscaling Applications"
-    p.274). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **상한 하나와 확장
-    절차의 두 길**만 더한다 — 직인용을 두지 않았고 전문은
+    p.274) · 15장 §"Scaling Your FaaS Solutions"(pp.306–307). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **상한 하나와 확장 절차의 두 길과 함수 기반
+    해법의 리밸런싱 교착**만 더한다 — 직인용을 두지 않았고 전문은
     [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)와
-    [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)이 갖는다.
+    [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)과
+    [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)가 갖는다.
     그 절들에 코드 목록도 표도 없다.

@@ -291,6 +291,14 @@ State from Entity Events", p.37):[^bellemare2025]
   다루는 그 연산이 그쪽에서는 **구체화된 두 테이블을 조인하는 것**으로 나타나고, 저자가 그것을
   카파 아키텍처의 코드 예로 든다. 그 코드와 배치는
   [람다 아키텍처와 카파 아키텍처](lambda-and-kappa-architecture.md)에 있다.
+- **같은 책 14장이 이 이중성을 스트리밍 SQL의 첫 단계로 다시 쓴다** — **스트림을 테이블로 보는
+  것(streams-as-tables)이 기본 데이터 추상**이고, 질의를 쓰려면 먼저 **스트리밍 데이터 위에
+  테이블 정의를 선언**해야 한다. 그렇게 선언되는 테이블이 셋인데 **업서트 테이블은 위 표의
+  구체화와 동일하고**(저자가 2장을 그대로 가리킨다), **추가 전용 테이블은 스트림을 받치는 추가
+  전용 로그와 같으며**, **철회 테이블은 행 전체를 키로 삼아 상류 계산의 결과를 반영한다** (14장
+  §"Turning Streams into Tables for Streaming SQL Queries", pp.286–287).[^bellemare2025]
+  셋의 대조와 실행 자리 넷은
+  [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md)에 있다.
 
 ## 체인지로그는 이 이중성의 운영판이다
 
@@ -351,7 +359,10 @@ State from Entity Events", p.37):[^bellemare2025]
     Microservices" §"Using a Changelog Event Stream as State Recovery"(pp.177–178)에서 온 위
     §"체인지로그는 이 이중성의 운영판이다"**. 8장의 전문은
     [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖고,
-    이 페이지는 체인지로그가 이 이중성의 한 방향이라는 것만 받았다. 그 절의 도판 둘(그림 8-6·8-7)은
+    이 페이지는 체인지로그가 이 이중성의 한 방향이라는 것만 받았다. **14장 §"Turning Streams
+    into Tables for Streaming SQL Queries"(pp.286–287)** 에서는 테이블 셋의 규정만 한 줄로
+    받았고, 그 장의 전문은
+    [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md)이 갖는다. 그 절의 도판 둘(그림 8-6·8-7)은
     이미지 조판이라 재현하지 않았고 코드 목록도 표도 없다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
     실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로
     끊긴 낱말은 한 낱말로 이었다. 이 절들에 코드 목록은 없고 도판 셋(그림 2-14·2-15·2-16)은
