@@ -265,7 +265,10 @@ sources:
   | **무기한 저장과 계층 저장** | 계층 저장이 자동으로 지원되는가, 사용 빈도에 따라 데이터를 더 낮거나 높은 계층으로 옮길 수 있는가, 어느 계층에 저장되어 있든 매끄럽게 가져올 수 있는가 |
 
   이 표의 다섯 축과 각 물음은 원문 소절들의 불릿을 그대로 옮긴 것이고 **표 형식은 이 KB가 만든
-  것**이다. 지원 도구의 상세는 19장으로 미뤄져 있다.
+  것**이다. 지원 도구의 상세는 19장으로 미뤄져 있고, 그 자리는
+  [이벤트 기반 마이크로서비스의 지원 도구](supportive-tooling-for-event-driven-microservices.md)다 —
+  이 표의 첫째 축이 던지는 물음(레코드와 스키마 훑기, 쿼터, 접근 제어, 토픽 관리, 랙 측정)이
+  거기서 각각 한 절씩이 된다.
 - 커뮤니티 지원 축에서 저자가 드는 좋은 예가 **아파치 카프카 같은 오픈 소스이고 자유롭게 쓸 수
   있는 프로젝트**다 (2장, p.47).[^bellemare2025]
 
@@ -308,6 +311,8 @@ sources:
 - [발행/구독 메시징](publish-subscribe-messaging.md) — 채널 어휘의 원전 층
 - [람다 아키텍처와 카파 아키텍처](lambda-and-kappa-architecture.md) — 이 스트림 하나만으로 갈
   것인가를 가르는 두 배치
+- [이벤트 기반 마이크로서비스의 지원 도구](supportive-tooling-for-event-driven-microservices.md) —
+  브로커 선택 축의 첫째인 지원 도구를 19장이 펼치는 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —

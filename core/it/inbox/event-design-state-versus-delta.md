@@ -745,6 +745,9 @@ sources:
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 - [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 같은 선택을
   수렴 확률로 다시 재는 자리
+- [이벤트 스트림의 불량 데이터](bad-data-in-event-streams.md) — 같은 선택을 **고칠 수 있는가**로
+  다시 재는 자리. 18장이 상태 이벤트는 압착으로 한 번에 고치고 델타는 빌드 포워드밖에 없다고 적으며,
+  잊힐 권리에 대해서도 여기 크립토 슈레딩과 다른 결론을 낸다
 
 [^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events" 전량 —
     §"Introduction to Event Types"(pp.97–98) ·
