@@ -115,6 +115,11 @@ sources:
 - **대응하는 위험 목록 항목 하나** — **깨진 사용자 인증(Broken User Authentication)**이다. 저자들은
   **이것이 분명히 위장 범주와 관련되므로 인증 흐름이 깨지지 않게 해야 한다**고 적고, 상세를
   7장으로 미룬다 (6장, p.154).[^gough2022]
+  - **그 갈고리가 갚였다** — 7장이 인증의 규정과 수단을 준다.
+    [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)이 그것이고,
+    **이 절이 말하는 "인증 흐름"의 구체가 거기 있다** — 토큰 기반 최종 사용자 인증과 그 수명,
+    시스템 간 인증의 API 키와 그 생성 규칙, 기본 인증을 API에 허용하지 말라는 권고, 그리고
+    제3자가 키만으로 사용자를 대신 주장하지 못하게 하는 OAuth2의 동의 절차다.
 
 ## 변조
 
@@ -332,6 +337,13 @@ sources:
   p.161).[^gough2022]
 - **둘의 공통점** — **둘 다 인가를 강제하고 API로 향하는 요청이 그 연산을 수행할 자격이 있는지
   확실히 하는 데 초점이 있다** (6장, p.161).[^gough2022] 저자들은 상세를 7장으로 미룬다.
+  - **그 갈고리가 갚였다** — 7장 §"Authorization Enforcement"(p.185)가 둘을 각각 규정한다.
+    **객체 수준 인가의 붕괴는 사용자가 접근해서는 안 될 객체의 정보를 요청할 수 있게 되는
+    것**이고 **자원 식별자를 만지작거리다 발견되는 경우가 많으며**, **기능 수준 인가의 붕괴는
+    사용자가 인가되지 않은 작업을 수행할 수 있게 되는 것**이다.[^gough2022] **뒤엣것의 예가 이
+    절이 위에서 든 관리자 전용 작업을 일반 사용자가 실행하는 장면과 같다.** 집행의 조항과
+    스코프와의 관계는
+    [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
 
 ## 어느 범주에도 갇히지 않는 보안 오설정
 
@@ -388,7 +400,7 @@ sources:
   전형적으로 볼 수 있고 **그것이 흔히 CORS 요청**이다 (6장, p.162).[^gough2022]
 - **이 규정은 이 KB에 없던 것이다.** HTTP 의미론 축이 메서드와 헤더를 갖지만 **브라우저의 교차
   출처 정책이라는 층**은 갖지 않았다. OPTIONS 메서드 자체의 규범은
-  [HTTP OPTIONS와 TRACE](http-options-and-trace.md)가 갖는다.
+  [DELETE와 CONNECT와 OPTIONS와 TRACE](http-delete-connect-options-and-trace.md)가 갖는다.
 
 ## 보안 지시 강화
 
@@ -426,6 +438,10 @@ sources:
 - [API 보안 패턴](api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 소스
 - [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md) — 심층 방어와 최소
   권한이 사는 자리
+- [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md) — 위장 범주가
+  미뤄 둔 인증 흐름의 상세
+- [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md) — 권한 상승
+  범주가 미뤄 둔 인가 붕괴 둘의 규정과 집행의 조항
 - [서비스 사이 인증과 인가](service-to-service-authentication-and-authorization.md) — 위 헤더
   강화가 막으려는 사칭이 사는 자리
 - [전송 중 데이터와 정지 데이터의 보호](securing-data-in-transit-and-at-rest.md) — 전송 계층
@@ -447,6 +463,9 @@ sources:
     §"Elevation of Privilege" · §"Security misconfiguration"(런인 §"TLS termination." ·
     §"Cross-Origin Request Sharing (CORS)." · §"Security directive hardening."))과 §"Summary"
     (pp.165–166)의 해당 불릿. 그 앞뒤 절은 [API 위협 모델링](api-threat-modeling.md)이 갖는다.
+    **예외가 하나 있다** — 권한 상승 절이 미뤄 둔 인가 붕괴 둘의 규정은 같은 책 7장
+    §"Authorization Enforcement"(p.185)에서 왔고, 그 절의 나머지는
+    [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 페이지에 직인용은 없다** — 여섯 범주의
     정의는 저자들이 1999년 논문에서 인용한 영어 원문이고 이 페이지는 그것을 한국어로
     재서술했다. 그 논문은 **이 KB가 확인한 원전이 아니라 이 책을 통한 2차 경유**다. 그림

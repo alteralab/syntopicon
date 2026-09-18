@@ -232,11 +232,20 @@ sources:
     과도한 데이터 노출, 자산 관리 부실, 그리고 인가 붕괴 둘(객체 수준과 기능 수준)이다.
     **주입과 서비스 거부는 항목이 있다고만 적히고 이름이 그대로 인용되지 않는다** (6장,
     pp.154–161).[^gough2022] **이 세는 일은 이 KB의 것이다.** #hypothesis
+- **그쪽 7장이 그 목록에 순위 하나를 매긴다** — **이 목록에 오른 인가 관련 보안 문제 가운데 가장
+  흔한 둘이 객체 수준 인가의 붕괴와 기능 수준 인가의 붕괴**라는 것이다 (7장 §"Authorization
+  Enforcement", p.185).[^gough2022] 두 항목의 규정과 그것을 집행하는 조항은
+  [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
+  - **위 [인증과 인가](#인증과-인가)가 규정 둘과 최소 권한 원칙까지만 갖고 있던 자리가
+    그것으로 메워진다** — 이 페이지의 소스는 인가를 원칙으로 적고, 그쪽은 **인가가 무너질 때
+    실제로 무엇이 일어나는가**를 두 항목의 이름으로 적는다. 이 대조는 이 KB의 것이다.
 
 ## 이어지는 페이지
 
 - [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) —
   위 최소 권한과 심층 방어가 원칙으로 서는 자리
+- [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md) — 위
+  인가 붕괴 둘의 규정과 그것을 집행하는 조항
 - [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md) —
   위 인증·인가의 구현 층
 - [전송 중 데이터와 정지 데이터의 보호](../concepts/securing-data-in-transit-and-at-rest.md) —
@@ -268,7 +277,9 @@ sources:
     Evolve API-Based Systems* 초판(O'Reilly, 2022) 6장 "Operational Security: Threat Modeling
     for APIs" §"Case Study: Applying OWASP to the Attendee API"(pp.146–147)과 §"Step 4:
     Identify Threats—Taking This in Your STRIDE"(pp.154–161)에서 목록의 항목을 이름으로 드는
-    대목들. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 절에 직인용은 두지 않았다** —
+    대목들, **그리고 7장 "API Authentication and Authorization" §"Authorization
+    Enforcement"(p.185)에서 그 목록의 인가 관련 항목 둘을 가장 흔한 것으로 꼽는 대목**. 쪽은
+    인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 절에 직인용은 두지 않았다** —
     옮긴 것이 전부 원문 문단의 한국어 재서술이다. 그 구간의 표와 도판은 이 페이지가 담지 않고
     [STRIDE로 API 위협을 식별하기](stride-threats-for-apis.md)와
     [회의 시스템 사례 연구](conference-system-case-study.md)가 갖는다. 위 "두 페이지가 같은
