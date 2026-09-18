@@ -23,6 +23,7 @@ sources:
 - [10장과 11장이 이 셋을 나눠 받는다](#10장과-11장이-이-셋을-나눠-받는다)
 - [복제의 최종 일관성과 같은 것인가](#복제의-최종-일관성과-같은-것인가)
 - [이벤트 기반 패턴과 아웃박스](#이벤트-기반-패턴과-아웃박스)
+- [이벤트 기반 쪽의 대처 전략 넷과는 다른 물건이다](#이벤트-기반-쪽의-대처-전략-넷과는-다른-물건이다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **서비스를 가로지르는 업무 요청이 데이터를 어긋나게 남겼을 때, 그것을 다시 맞추는
@@ -392,6 +393,25 @@ sources:
   KB가 세운 것이고 두 책은 이 자리에서 서로를 호명하지 않는다. 이벤트 설계 쪽 전문은
   [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md)에 있다.
 
+## 이벤트 기반 쪽의 대처 전략 넷과는 다른 물건이다
+
+**같은 낱말이 붙은 목록이 이 KB에 하나 더 들어왔다.** 벨마어 16장이 최종 일관성을 다루는 전략
+넷을 세는데, **이 페이지의 셋과 겨루는 목록이 아니다.**
+
+- **재는 대상이 다르다.** 이 페이지의 셋은 **쓰기가 여러 서비스에 걸쳐 따로 커밋된 뒤 어긋난
+  데이터를 되맞추는 기제**의 선택지이고, 저쪽 넷(상태 이벤트를 쓴다 · 최종 일관성을 서버 응답에
+  드러낸다 · 요청-응답 대신 이벤트로 통신한다 · 장애를 막는다)은 **아직 수렴하지 않은 데이터를
+  읽기가 만났을 때의 대처**이자 그 만남 자체를 줄이는 수단이다 (16장, §"Strategies for Dealing
+  with Eventual Consistency", pp.329–332).[^bellemare2025]
+- **배타성이 다르다.** 이 페이지의 셋은 **하나를 고르는** 선택지이고, 저쪽 넷은 **함께 쓰는**
+  수단이다.
+- **한 칸이 겹친다** — 이 페이지의 이벤트 기반 패턴과 저쪽의 셋째 전략은 둘 다 "직접 호출 대신
+  발행 구독"을 말한다. **다른 것은 그 주장이 답하는 물음이다.**
+- **모순 쌍을 세우지 않았다.** 최대 하나만 참일 수 있는가를 물으면 답이 아니오다 — 이 페이지의
+  이벤트 기반 패턴을 골라 놓고도 저쪽 넷을 전부 적용할 수 있다. 대비표와 저쪽 넷의 전문은
+  [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)에 있다 —
+  같은 claim을 두 페이지에 흩지 않는다.
+
 ## 이어지는 페이지
 
 - [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 같은 장의 앞 절. 이 패턴들이
@@ -419,6 +439,8 @@ sources:
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 지속 구독자와 데드 레터 큐가 사는 층
 - [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 이 장이 채우는 일관성 축과 그 여덟 칸
 - [Sysops Squad 사례](../concepts/sysops-squad-case.md) — 고객 해지 예가 놓이는 운영 예제
+- [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 같은 낱말이
+  이벤트 스트림 위의 수렴으로 걸리는 축과 그 대처 전략 넷
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 9장 "Data Ownership and
     Distributed Transactions" §"Eventual Consistency Patterns"(pp.267–268) · §"Background
@@ -453,5 +475,8 @@ sources:
     조건을 달았다. 셋을 맞댄 비교표와 "세 표가 공통으로 적는 이점이 하나뿐"이라는 대조는
     원문에 없고 이 KB가 세운 것이다.
 
-[^bellemare2025]: Bellemare 2025, 10장 "Building Workflows with Microservices",
-    p.237. 이 페이지에는 한 줄만 들어왔고 직인용은 두지 않았다.
+[^bellemare2025]: Bellemare 2025(2판), 10장 "Building Workflows with Microservices"(p.237)와
+    16장 "Eventual Consistency" §"Strategies for Dealing with Eventual Consistency"(pp.329–332).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 페이지에 들어온 것은 10장에서 한 줄, 16장에서
+    위 대비 절 하나뿐이고 직인용은 두지 않았다 — 16장의 전문과 직인용은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)이 갖는다.

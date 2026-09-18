@@ -23,6 +23,7 @@ sources:
 - [이벤트 기반 데이터 소통 — 이득 여섯](#이벤트-기반-데이터-소통--이득-여섯)
 - [생산자와 소비자의 책임이 갈리는 자리](#생산자와-소비자의-책임이-갈리는-자리)
 - [6장이 이 진단에 이행 전략을 붙인다](#6장이-이-진단에-이행-전략을-붙인다)
+- [16장이 그 두 선택지로 돌아온다](#16장이-그-두-선택지로-돌아온다)
 - [같은 장면을 다른 소스들이 적는 자리](#같은-장면을-다른-소스들이-적는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -278,6 +279,18 @@ sources:
   열어 둔 물음이었고, **6장이 그것을 해방된 교차 도메인 데이터로 한정한다**. 확인의 전문과 그 근거 넷은
   [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md)에 있다.
 
+## 16장이 그 두 선택지로 돌아온다
+
+- **위 [팀 하나의 장면](#팀-하나의-장면--두-선택지)의 선택지 하나(새 서비스를 만든다)가 16장에서
+  정합성의 처방으로 다시 나온다** — 서로 다른 두 서비스에 있는 데이터를 엮어야 하면 **새 서비스를
+  만들고, 두 스트림을 그 서비스에 구체화하고, 그 데이터에 관한 질의는 그 서비스에 직접 던지라**는
+  것이다 (16장, p.331).[^bellemare2025] 근거가 1장과 다르다 — 1장은 **소유권과 팀 경계**를 들었고
+  16장은 **한자리에서 시간과 지각과 일관성을 추론할 수 있다**는 것을 든다.
+  - 대가도 명시된다 — **목적에 맞춘 마이크로서비스를 기꺼이 지을 수 있어야 한다.** 곧 위
+    [이벤트 기반 데이터 소통 — 이득 여섯](#이벤트-기반-데이터-소통--이득-여섯)이 약속한 것이
+    공짜가 아니라 **서비스를 하나 더 짓는 비용으로 청구된다.** 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)에 있다.
+
 ## 같은 장면을 다른 소스들이 적는 자리
 
 - **콘웨이의 법칙 자체**는 이 KB에 [콘웨이의 법칙](conways-law.md)이 있고 원문과 증거와 역방향
@@ -309,6 +322,8 @@ sources:
 - [데이터 해방](data-liberation.md) — 이 진단을 받는 이행 전략
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이
   축의 허브
+- [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 새 서비스를
+  만들라는 선택지가 정합성의 처방으로 다시 나오는 자리
 
 [^bellemare2025]: Bellemare 2025(2판), 1장 "Why Event-Driven Microservices" — §"Microservices,
     Boundaries, and Communication Structures"(pp.9–12: 하위 §"Business Communication
@@ -320,7 +335,10 @@ sources:
     두 대목. 그리고 **6장 "Integrating Event-Driven Architectures with Existing Systems"** —
     §"What Is Data Liberation?"(p.128) · §"Isolating Internal Data Models"(p.141) · §"The Impacts of
     Sinking and Sourcing on a Business"(pp.153–154) · §Summary(p.155). 6장 쪽의 절 전문과 표·도판
-    처리는 [데이터 해방](data-liberation.md)의 각주가 갖는다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout` 추출로 문자
+    처리는 [데이터 해방](data-liberation.md)의 각주가 갖는다.
+    **그리고 16장 §"Use Event-Driven Communication Instead of Request-Response"(p.331)에서 온
+    것은 위 §"16장이 그 두 선택지로 돌아온다"뿐이고** 직인용은 두지 않았다 — 그 장의 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)이 갖는다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout` 추출로 문자
     단위 대조했고, 줄바꿈 하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 이 절들에 코드
     목록은 없다. 도판 여섯(그림 1-1부터 1-6까지)은 전부 이미지 조판이라 재현하지 않았고, 본문이
     그 도판에 대해 적는 것만 옮겼다. 저자가 대는 바깥 서지(Melvin Conway, "How Do Committees

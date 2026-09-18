@@ -25,6 +25,7 @@ sources:
 - [데이터 프라이버시와 잊힐 권리를 위한 설계](#데이터-프라이버시와-잊힐-권리를-위한-설계)
 - [이 장이 남기는 처방](#이-장이-남기는-처방)
 - [7장이 같은 물음을 필드 단위로 내린다 — 무엇을 넣고 무엇을 뺄 것인가](#7장이-같은-물음을-필드-단위로-내린다--무엇을-넣고-무엇을-뺄-것인가)
+- [16장이 이 선택을 수렴 확률로 다시 잰다](#16장이-이-선택을-수렴-확률로-다시-잰다)
 - [이 KB의 다른 자리들과의 분업](#이-kb의-다른-자리들과의-분업)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -691,6 +692,21 @@ sources:
   [비정규화와 이벤트화](denormalization-and-eventification.md)에 있고, 그 타입 체계의 원적은
   [완만하게 변하는 차원(SCD)](slowly-changing-dimension.md)에 있다.
 
+## 16장이 이 선택을 수렴 확률로 다시 잰다
+
+- **16장이 이 페이지의 처방에 근거를 하나 더 얹는다 — 최종 일관성을 다루는 첫째 전략이 "상태
+  이벤트 종류를 쓰라"다.** 이벤트를 오해하는 데서 오는 **우발적 발산(accidental divergence)** 은
+  언제나 가능한데, **델타로도 수렴에 이르는 것은 여전히 가능하되 화해에 덧붙는 복잡도 층이 불일치
+  상태로 끝날 가능성을 딱 그만큼 높인다**는 것이다. 상태 이벤트는 소비자가 읽고 처리하고 통합하기가
+  훨씬 간단해 **다른 소비자와 같은 결과로 수렴한다** (16장, p.329).[^bellemare2025]
+  - 곧 5장은 이 선택을 **소유권과 결합**으로 정당화했고, 16장은 같은 선택을 **수렴 확률**로
+    정당화한다. 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)에 있다.
+- **위 [알림 이벤트](#알림-이벤트)의 안티패턴 판정을 두고 다른 소스와 갈린 자리는 16·17장을
+  대고 다시 봤다** — 대립은 그대로 서되 범위가 좁아지고 셋째 길이 하나 생긴다. 그 재검토의
+  정본은 [이벤트 주도 통합 설계](event-driven-integration-design.md)의
+  §"16장과 17장이 그 대립에 무엇을 더하는가"에 있다.
+
 ## 이 KB의 다른 자리들과의 분업
 
 - **이 페이지가 갖는 것** — 페이로드의 뜻으로 가른 종류들과 그 선택의 처방이다.
@@ -727,6 +743,8 @@ sources:
 - [비정규화와 이벤트화](denormalization-and-eventification.md) — 같은 물음을 필드 단위로 내리는 쪽
 - [완만하게 변하는 차원(SCD)](slowly-changing-dimension.md) — 7장이 빌려 오는 개념의 원적
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 같은 선택을
+  수렴 확률로 다시 재는 자리
 
 [^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events" 전량 —
     §"Introduction to Event Types"(pp.97–98) ·
@@ -761,3 +779,7 @@ sources:
     — §"What Should Go in the Event? And What Should Stay Out?"(pp.164–166) · §"Slowly Changing
     Dimensions"(p.168). 7장 쪽의 절 전문과 표·펜스 처리는
     [비정규화와 이벤트화](denormalization-and-eventification.md)의 각주가 갖는다.
+    **그리고 16장 "Eventual Consistency" §"Use State Event Types"(p.329)에서 온 것은
+    위 §"16장이 이 선택을 수렴 확률로 다시 잰다"의 첫 불릿뿐이고** 직인용은 두지 않았다 —
+    그 장의 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)이 갖는다.

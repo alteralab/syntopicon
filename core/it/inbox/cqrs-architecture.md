@@ -390,6 +390,14 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
   나오고, 그쪽의 구체화는 입력 이벤트 스트림에서 나온다. **그쪽은 CQRS라는 이름을 8장에서 쓰지
   않으므로 이 대응은 이 KB가 세운 것이다.** #hypothesis 전문은
   [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
+  - **같은 소스의 17장이 그 외부 상태 저장소를 요청-응답으로 읽히는 자리까지 적는다** — 상태를
+    구체화하는 서비스와 요청-응답 API를 **한 서비스에 두는 올인원 구성**과 **둘로 가른 컴포지트
+    서비스** 둘인데, 뒤엣것은 **논리적으로 독립이되 단일 경계 컨텍스트를 공유하고 긴밀히 결합된
+    채로 남는다** (17장, pp.346–348).[^bellemare2025] **이 페이지의 "패턴을 쓴다는 사실 자체를
+    소비자에게 감추라"는 조항이 그 구성에도 그대로 걸린다** — 17장도 **상태 저장소에 직접
+    접근하지 말고 마이크로서비스의 요청-응답 API를 통하라**고 못 박는다 (17장,
+    p.346).[^bellemare2025] 전문은
+    [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md)에 있다.
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 뷰를 어디까지 미리 물질화할지의
   선택을 분석 도구 쪽에서 다루는 자리.
 - [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md) — 같은 분리를 데이터
@@ -466,8 +474,10 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
 
 [^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events"
     §"State Events and Event-Carried State Transfer"(p.99)**와 8장 "Stateful Event-Driven
-    Microservices" §"Rebuilding the External State Store"(pp.188–189)**. 쪽은 인쇄판 쪽 번호
-    (PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **두 줄만** 더한다 — 직인용을 두지 않았고, 두 장의
+    Microservices" §"Rebuilding the External State Store"(pp.188–189)**와
+    **17장 §"Serving Data Using a Request-Response API"(pp.346–348)**. 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **세 줄만** 더한다 — 직인용을 두지 않았고, 세 장의
     전문은 [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)와
-    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다.
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)와
+    [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md)이 갖는다.
     **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.

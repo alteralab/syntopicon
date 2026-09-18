@@ -278,6 +278,16 @@ sources:
   오리진이 과부하에 걸려 더 심각한 문제로 번지는 것을 막기 위해서다.
 - 조율할 축이 여럿이라는 사실 자체가 **가능한 한 단순하게 두라는 또 하나의 이유**가 된다 —
   캐시가 적을수록 체계를 따지기 쉽다 (13장, p.448).[^newman2021]
+- **셋째 소스가 이 저울에 넷째 선택지를 놓는다 — 신선도를 고르지 말고 응답에 실으라는 것이다.**
+  이벤트 기반 마이크로서비스가 자기 오프셋 지연을 감시해 **임계를 넘으면 `HTTP 503`과
+  `Retry-After`로 거절하거나, 낡았다는 표시를 적재물에 넣어 그대로 주거나, 준비되면 부르는
+  콜백 API를 주라**는 것이다 (16장 §"Expose Eventual Consistency in the Server Response",
+  pp.329–331).[^bellemare2025] **이 페이지의 TTL 저울은 서버가 신선도를 정하는 것이고, 그쪽은
+  판단 자체를 클라이언트에게 넘긴다.** #hypothesis 그쪽이 재는 것은 캐시의 낡음이 아니라
+  **구체화된 상태의 오프셋 지연**이라 같은 물건이 아니다 — 아래
+  [이 KB의 다른 캐시들과 무엇이 다른가](#이-kb의-다른-캐시들과-무엇이-다른가)가 그어 놓은 경계와
+  같은 선이다. 전문은
+  [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)에 있다.
 
 ## 캐시 오염 — 통제 밖의 캐시에 영원히 남은 것
 
@@ -478,6 +488,8 @@ sources:
 - [안정성 패턴](../concepts/stability-patterns.md) — 캐시가 실패했을 때 기능을 끄는 쪽
 - [분산 데이터 접근 패턴 넷](../concepts/distributed-data-access-patterns.md) — 캐시를 성능이 아니라
   데이터 접근의 수단으로 쓰는 넷째 쓰임과 복제 캐시라는 모형
+- [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 신선도를
+  서버가 정하지 않고 응답에 실어 클라이언트에게 넘기는 쪽
 
 [^newman2021]: Newman 2021, 13장 §"Caching"(pp.435–449). 인쇄판 쪽 = PDF 쪽 − 26. 직인용
     다섯(캐싱의 규정, 견고함을 위한 캐시의 정체, 칼턴의 문장, 황금률 상자, 이상적인 자리 수)은
@@ -499,8 +511,12 @@ sources:
 
 [^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices" —
     §"Materializing State to an Internal State Store"(p.176) · §"Materializing Global
-    State"(pp.178–179). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **경계
-    하나만** 더한다 — 직인용을 두지 않았고 8장의 전문은
+    State"(pp.178–179), **그리고 16장 §"Expose Eventual Consistency in the Server
+    Response"(pp.329–331)** — 뒤엣것에서 온 것은 위 §"신선도와 최적화 사이"의 마지막 불릿뿐이고
+    직인용은 두지 않았다(그 장의 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)이 갖는다).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **경계 하나와 한 불릿만**
+    더한다 — 직인용을 두지 않았고 8장의 전문은
     [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다.
     **이 소스는 그 저장소를 캐시라 부르지 않는다** — 복제 캐시와의 대조는 이 KB가 세운 것이다.
     그 절들의 도판 하나(그림 8-8 전역 구체화 상태와 비전역 구체화 상태)는 이미지 조판이라

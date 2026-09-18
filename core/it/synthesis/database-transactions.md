@@ -90,6 +90,10 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   저울에 올리는 자리. 데이터베이스 트랜잭션이 데이터를 붙여 둘 근거 둘 가운데 하나로 놓인다
 - [최종 일관성 패턴 셋](../concepts/eventual-consistency-patterns.md) — 원자적 커밋 프로토콜
   없이 서비스 여럿에 걸친 업무 요청을 되맞추는 세 가지와 각각의 절충표
+- [이벤트 기반 체계의 최종 일관성](../concepts/eventual-consistency-in-event-driven-systems.md) —
+  같은 낱말이 이벤트 스트림 위에서 걸리는 축. 일관성이 아니라 수렴이라는 낱말 교정과 앨바로의
+  규정, 서비스마다 자기 타임 버블 안에 산다는 모형, 수렴이 어긋나는 두 원천, 그리고 대처
+  전략 넷 — 그중 하나가 지연을 감추지 않고 서버 응답에 드러내는 것이다
 - [서비스의 데이터 소유권](../concepts/service-data-ownership.md) — 그 되맞춤의 대상이 되는
   테이블에 주인을 붙이는 규칙과 여럿이 쓰는 테이블을 푸는 네 기법
 - [분산 데이터 접근 패턴 넷](../concepts/distributed-data-access-patterns.md) — 그 주인이 정해진

@@ -436,6 +436,14 @@ pp.395–397).[^newman2021]
     배치 크기를 줄여야 한다) · **오케스트레이터 실패**(워커의 반환값이 사라진다)다 (15장,
     pp.312–313).[^bellemare2025] 그 목록은
     [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)에 있다.
+  - **같은 소스의 16장이 이 목록 전체에 새 목적을 붙인다** — 최종 일관성을 다루는 넷째 전략이
+    **장애를 막아 불일치를 줄이라**는 것이고, 좋은 데브옵스 관행·모니터링·자원 확장·테스트로
+    장애 확률을 낮추는 것과 **소비자가 최신 이벤트를 따라잡을 자원을 갖게 하는 것**과 **생산자
+    쪽 중단을 빨리 찾아 고치는 것**을 든다 (16장, pp.331–332).[^bellemare2025] **여기서 이
+    기제들이 지키는 것은 가용성만이 아니라 서비스들의 수렴이다** — 지연 없이 읽고 쓰게 하는 데
+    보탬이 되는 것은 무엇이든 최종 일관성의 효과를 줄인다는 것이 저자의 요약이다. 그 전략의
+    전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)에 있다.
 
 ## 16장 — 이 목록이 의무 조항이 되는 자리
 
@@ -473,6 +481,8 @@ pp.395–397).[^newman2021]
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 중복을 위한 확장과 부하를 위한 확장이 갈리는 자리
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 캐시를 견고함의 기제로 쓸 때의
   대가
+- [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 이 기제들이
+  가용성이 아니라 수렴을 지키는 수단이 되는 자리
 - [회복력의 네 개념](../concepts/resilience-four-concepts.md) — 이 목록이 네 갈래 가운데 **견고함
   하나에만** 답한다는 자기 한정
 - [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 기능을 우아하게 깎는 일과
@@ -523,6 +533,10 @@ pp.395–397).[^newman2021]
     [트랜잭셔널 사가 패턴](transactional-saga-patterns.md)과
     [트랜잭셔널 사가 패턴 - 비동기 네 칸](transactional-saga-patterns-asynchronous.md)이 갖는다.
 
-[^bellemare2025]: Bellemare 2025, 10장 "Building Workflows with Microservices",
-    pp.226–227과 15장 §"Handling FaaS Function Failures"(pp.312–313). 이 페이지에는 두 줄만
-    들어왔고 직인용은 두지 않았다.
+[^bellemare2025]: Bellemare 2025, 16장 "Eventual Consistency"
+    §"Prevent Failures to Avoid Inconsistency"(pp.331–332, 한 불릿만 여기서 왔고 직인용은 두지
+    않았다 — 전략 넷의 전문은
+    [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md)이 갖는다)와
+    10장 "Building Workflows with Microservices",
+    pp.226–227과 15장 §"Handling FaaS Function Failures"(pp.312–313). 이 페이지에는 세
+    자리만 들어왔고 직인용은 두지 않았다.
