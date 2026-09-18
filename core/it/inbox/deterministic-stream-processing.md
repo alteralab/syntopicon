@@ -568,6 +568,12 @@ sources:
   | **세션 윈도우**(session window) | **동적으로 크기가 정해지는 윈도우. 비활동으로 인한 타임아웃에 근거해 종료되고, 타임아웃 뒤의 활동에 대해 새 세션이 시작된다** | **주어진 브라우징 세션에서 사용자는 무엇을 보는가** |
 
   규정은 9장 pp.214–215를 옮긴 것이고,[^bellemare2025] 표로 모은 것은 이 KB다.
+  - **같은 책 12장이 세션 윈도우의 실물을 하나 든다** — 광고 회사가 **30분 넘는 공백 없는 연속
+    사용자 활동**을 세션으로 정의하고, 클릭과 광고 노출 두 스트림을 사용자 ID로 묶어 **벽시계가
+    아니라 이벤트 시간으로 30분이 지나면** 내보내는 것이다. 저자 자신이 그 자리에서 **스트림 시간과
+    워터마크는 9장을 다시 보라**고 적는다 (12장 §"Example: Session Windowing of Clicks and Views",
+    pp.255–256).[^bellemare2025] 그 예제가 세우는 주장은
+    [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)에 있다.
 - **이 KB의 기존 분류와 대조해 둔다.** 샤피라 쪽은 **호핑(hopping)** 을 따로 세워 넷으로 가르고,
   데이터 엔지니어링 개론은 셋으로 가른다. 이 소스는 **셋**이고 호핑이라는 이름을 쓰지 않으며, 그
   자리를 슬라이딩이 덮는다. **세밀도의 차이이지 충돌이 아니다** — 같은 판정을
@@ -759,7 +765,8 @@ sources:
 - [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 넷째 선택지가
   모양으로 닮은 쪽
 
-[^bellemare2025]: Bellemare 2025, 9장 "Deterministic Stream Processing", pp.199–220 전량.
+[^bellemare2025]: Bellemare 2025, 9장 "Deterministic Stream Processing", pp.199–220 전량과
+    12장 §"Example: Session Windowing of Clicks and Views"(pp.255–256).
     직인용은 전부 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)은 원래
     낱말로 이었으며 원문이 이탤릭으로 조판한 낱말은 인용 안에서 이탤릭을 유지했다. **이 장에는
     표도 코드 목록도 하나도 없다** — 이 페이지의 표 여섯은 전부 저자의 정의 목록이나 산문을 이 KB가

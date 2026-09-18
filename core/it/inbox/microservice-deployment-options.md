@@ -614,6 +614,16 @@ sources:
   운영체제에서 돌 수 있어야** 하고, **커널의 취약점 하나가 그 호스트의 모든 컨테이너를 위험에
   빠뜨린다.** 뒤쪽이 **클라우드의 공유 테넌시 모델에서 특히 중요하다** (3장,
   p.63).[^bellemare2025]
+- **같은 소스의 12장이 이 사다리 밖에 칸 하나를 더 세운다** — **중량 스트림 처리 프레임워크의
+  전용 클러스터**다. 그 클러스터를 세우는 길이 **호스티드 서비스를 사는 것**과 **직접 짓고
+  운영하는 것** 둘이고, 저자의 채점은 **호스티드 쪽 표시 가격이 대개 가장 높으나 그것이 총비용**
+  이며 자체 운영 쪽 값은 **하드웨어·개발·유지보수·업그레이드·디버깅·모니터링·확장의 비용을 빼놓은
+  것**이라는 것이다 (12장 §"Use a Hosted Service", p.264).[^bellemare2025]
+  - **위 [어느 것이 맞는가 — 어림법 셋](#어느-것이-맞는가--어림법-셋)의 "고통을 남에게 넘겨라"와
+    같은 방향의 판정**이고, 이쪽은 그것을 **회사 크기로 가른다** — **깊은 주머니와 충분한 인력을
+    가진 아주 큰 회사**라면 자체 운영이 감당할 만하고, **작은 회사는 관리형을 고른 뒤 제품-시장
+    적합을 찾고 나서 비용 최적화를 재평가**하라는 것이다 (12장, p.265).[^bellemare2025]
+  - 전문은 [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -680,7 +690,9 @@ sources:
 
 [^bellemare2025]: Bellemare 2025(2판), 3장 "Fundamentals of Event-Driven Microservices"
     §"Putting Microservices into Containers"(p.63) · §"Putting Microservices into Virtual
-    Machines"(pp.63–64). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 절들에 직인용을 두지
+    Machines"(pp.63–64) — 그리고 12장 §"Cluster Setup Options and Execution Modes"의
+    §"Use a Hosted Service"(pp.264–265) · §"Build and Run Your Own Cluster"(p.265).
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 절들에 직인용을 두지
     않았다 — 옮긴 것이 성질 목록과 판정이고 한국어 재서술로 담았다. 도판도 코드 목록도 없다.
     **여기에는 이 페이지의 배포 선택지에 직접 닿는 대목만 들었다** — 같은 장의 나머지는
     [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md)이 갖는다.

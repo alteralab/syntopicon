@@ -310,6 +310,17 @@ sources:
   총합**이고 **피할 수 없다** (3장 §"Paying the Microservice Tax", p.65).[^bellemare2025] 곧 이
   페이지의 "직접 운영하지 말라"는 지침과 같은 방향의 근거다 — 전문은
   [마이크로서비스의 고통과 채택 판단](microservice-pain-points-and-adoption.md)에 있다.
+- **같은 소스의 12장이 이 부품에 일 하나를 더 준다** — 중량 스트림 처리 프레임워크의 클러스터를
+  CMS 위에 올리는 것이고, 모드가 둘이다 (12장 §"Build and Run Your Own Cluster",
+  pp.265–266):[^bellemare2025] **클러스터 자체를 CMS 위에 배포하는 것**(자원 관리자·워커 노드가
+  각자의 컨테이너로 올라와 다른 컨테이너처럼 감시·재시작된다)과 **애플리케이션 하나의 자원을
+  CMS로 지정하는 것**이다. 뒤쪽이 **컨테이너화의 확산과 함께 점점 인기를 얻었다**고 저자가 적는다.
+  - 버전 조건: 2025년 저술 시점. **플링크는 쿠버네티스로 애플리케이션마다 격리된 세션 클러스터
+    안에서 독립 실행**하게 하고, **스파크는 쿠버네티스가 자원 관리자 역할을 맡게** 한다.
+  - **이득으로 저자가 드는 넷 가운데 하나가 이 페이지의 값과 같다** — **중량 스트리밍
+    애플리케이션을 여느 마이크로서비스처럼 같은 배포 절차로 다룰 수 있다**는 것이다 (12장,
+    p.267).[^bellemare2025] 전문은
+    [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -361,7 +372,8 @@ sources:
     `pdftotext -layout` 추출로 문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로 옮겼다.**
 
 [^bellemare2025]: Bellemare 2025(2판), 3장 "Fundamentals of Event-Driven Microservices"
-    §"Managing Containers and Virtual Machines"(p.64)와 §"Paying the Microservice Tax"(p.65).
+    §"Managing Containers and Virtual Machines"(p.64)와 §"Paying the Microservice Tax"(p.65),
+    그리고 12장 §"Build and Run Your Own Cluster"(pp.265–267).
     쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 절들에 직인용을 두지 않았다 — 옮긴 것이 요구
     목록과 지원 관계이고 한국어 재서술로 담았다. 도판도 코드 목록도 없다. **여기에는 이 페이지의
     오케스트레이션에 직접 닿는 대목만 들었다** — 마이크로서비스 세금의 전문은

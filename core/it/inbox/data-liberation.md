@@ -570,6 +570,13 @@ sources:
 - 운영 형태 둘 — **Kafka Connect 같은 공통 플랫폼을 쓰면 단순한 설정으로 싱크를 지정하고 공유 인프라에서
   돌릴 수 있고**, **독립 마이크로서비스 싱크**는 개발자가 마이크로서비스 플랫폼에서 만들어 독립으로
   관리하는 대안이다 (6장, p.153).[^bellemare2025]
+- **같은 책 11장이 그 독립 마이크로서비스 싱크에 배치 형태 하나를 더 준다** — **사이드카
+  패턴(sidecar pattern)** 이다. 레거시 코드베이스를 안전하게 고칠 수 없을 때 기본 프로듀서/컨슈머
+  하나가 스트림을 소비해 **그 체계의 저장소에 업서트**하되, **자기 컨테이너 안에 살면서도 그
+  서비스의 단일 배포 단위의 일부**로 놓인다. 대가는 **복잡도와 조율의 증가**이고 특히 **두 구성
+  요소를 함께 배포하고 함께 되돌릴 수 있어야** 한다는 것이다 (11장 §"Integration with Existing
+  Systems Using the Sidecar Pattern", pp.248–249).[^bellemare2025] 그 모양의 전문은
+  [스트림 처리 프레임워크의 세 모양](stream-processing-framework-shapes.md)에 있다.
 
 ## 싱킹과 소싱이 조직에 주는 영향
 
@@ -657,7 +664,8 @@ sources:
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), **6장 "Integrating Event-Driven Architectures with Existing
-    Systems"(pp.127–156)** — §"What Is Data Liberation?"(p.128) · §"The Dual Write
+    Systems"(pp.127–156)** 과 11장 §"Integration with Existing Systems Using the Sidecar
+    Pattern"(pp.248–249) — §"What Is Data Liberation?"(p.128) · §"The Dual Write
     Antipattern"(p.129) · §"Data Liberation Patterns"(p.130) · §"Data Liberation
     Frameworks"(pp.130–131) · §"Liberating Data Using Change-Data Capture"(pp.131–134, 하위
     §"Snapshotting the Initial Data Set State" · §"Benefits…" · §"Drawbacks…") · §"Liberating Data

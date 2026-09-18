@@ -50,6 +50,7 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 ## 무엇을 쓸지 고를 때
 
 - [스트림 처리 프레임워크 고르기](../concepts/choosing-a-stream-processing-framework.md) — 애플리케이션 유형 넷과 유형 무관 고려사항 넷
+- [스트림 처리 프레임워크의 세 모양](../concepts/stream-processing-framework-shapes.md) — 고른 뒤 마주하는 런타임의 모양들. 전용 클러스터를 요구하는 중량과 브로커에만 기대는 경량과 클라이언트만 쓰는 기본 프로듀서/컨슈머, 체크포인트와 체인지로그, 확장의 두 길
 
 ## 경계에 있는 페이지
 
