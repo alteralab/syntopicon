@@ -598,6 +598,11 @@ sources:
   계약의 규정
 - [이벤트 스트림의 불량 데이터](bad-data-in-event-streams.md) — 이 도구들이 실제로 막으려는 것.
   18장 맺음이 19장을 그 자리로 예고한다
+- [이벤트 기반 마이크로서비스의 테스트](testing-event-driven-microservices.md) — 20장이 이 도구들을
+  되쓰는 자리. 코드형 인프라로 임시 테스트 환경을 만들고, 복제 도구로 프로덕션 이벤트를 채우고,
+  메타데이터 태그로 시험 중인 서비스를 진짜 프로덕션 서비스와 가른다
+- [이벤트 기반 마이크로서비스의 배포 패턴](event-driven-deployment-patterns.md) — 21장이 이 도구들을
+  배포 자율의 조건으로 세우는 자리. 오프셋 리셋·상태 비우기·내부 스트림 삭제가 거기 든다
 - [이벤트 기반 마이크로서비스의 네 모양](event-driven-microservice-shapes.md) — 단일 기록자 원칙과
   컨테이너 관리 체계의 규정
 - [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 애플리케이션

@@ -193,6 +193,11 @@ generated: { by: "claude-opus-5", at: "2026-08-23T19:30:00Z" }
   테스트 부류
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 배포 전 스위트를 줄인
   뒤에 무엇이 남는가. 이 축이 배합과 결정성을 다루고 그쪽은 판정을 어디서 돌리는가를 다룬다
+- [이벤트 기반 마이크로서비스의 테스트](../concepts/testing-event-driven-microservices.md) —
+  같은 물음을 **환경 쪽**에서 받는 자리. 입력이 이벤트 스트림일 때 그 스트림과 브로커와 스키마
+  레지스트리를 어디에 세워 놓고 돌리는가이고, **배합 수치는 한 번도 말하지 않는다.** 이 축의
+  종단 테스트 논거 가운데 "여러 서비스를 함께 띄우는 비용"을 브로커 없는 토폴로지 테스트가
+  낮추는 자리이기도 하다
 - [자바 스레드 스케줄링과 상태](../concepts/java-thread-scheduling-and-states.md) — 이 축의
   불안정 원인 상위 두 범주가 기대는 아래층 기제
 - [에이전트의 테스트 케이스 착취](../concepts/test-case-exploitation-by-agents.md) — 테스트
