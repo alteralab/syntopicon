@@ -389,6 +389,15 @@ sources:
   **모델 번역**이다 — [모델 번역](model-translation.md)에 있다. 전문은
   [이벤트 설계 - 상태와 델타](../concepts/event-design-state-versus-delta.md)에 있다.
 
+- **같은 소스의 8장이 "이벤트에서 상태를 만든다"는 서술을 이 KB에서 셋째로 놓는다.** 거기서는
+  마이크로서비스가 **자기에게 배정된 파티션의 이벤트를 구체화해 상태 저장소를 만들고**, 인스턴스가
+  죽으면 **체인지로그나 입력 스트림에서 그것을 다시 짓는다** (8장 §"Materializing State to an
+  Internal State Store", p.176).[^bellemare2025] **이 페이지의 투영과 기제가 같고 재료의 출처가
+  다르다** — 이 페이지는 **애그리게이트 자신이 낸 도메인 이벤트**에서 상태를 투영하고, 그쪽은
+  **남의 서비스가 낸 이벤트 스트림**에서 구체화한다. **저자가 이벤트 소싱이라는 이름을 8장에서
+  쓰지 않으므로 이 대응은 이 KB가 세운 것이다.** #hypothesis 전문은
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
+
 ## 이 페이지가 다루지 않는 것
 
 이 장이 이 패턴을 세우기 위해 먼저 설명하는 것들은 **이 패턴에만 걸리는 것이 아니라 이벤트
@@ -427,6 +436,8 @@ sources:
 - [감사와 무결성 검사](../concepts/auditing-and-integrity-checking.md) — 감사 로그라는 이점의 전문
 - [상태·스트림·불변성](../concepts/state-streams-and-immutability.md) — 상태를 이벤트에서
   유도한다는 원리
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 남의
+  서비스가 낸 이벤트에서 상태를 구체화하는 셋째 자리
 - [뒤·앞 호환성](../concepts/backward-and-forward-compatibility.md) — 이벤트 스키마를 바꿀 때
 - [핵심 도메인](../concepts/core-domain.md) — 이 패턴이 겨냥하는 하위 도메인
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 축의 허브
@@ -465,7 +476,9 @@ sources:
 
 [^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events" — §"Delta Events"(p.104) ·
     §"Delta Events for Event Sourcing"(pp.104–107) · §"Inversion of ownership"(p.113) ·
-    §"Where Do I Use Delta and State Events?"(p.116) · §Summary(p.125). 쪽은 인쇄판 쪽 번호
+    §"Where Do I Use Delta and State Events?"(p.116) · §Summary(p.125)**와 8장 "Stateful
+    Event-Driven Microservices" §"Materializing State to an Internal State Store"(p.176)에서 온 한
+    줄**. 쪽은 인쇄판 쪽 번호
     (PDF 쪽 − 24, 실측). 직인용 하나는 `pdftotext -layout` 추출로 문자 단위 대조했고, 이 PDF가
     줄바꿈에 쓰는 U+2010 하이픈은 끊긴 낱말을 이을 때 지웠다. 원문이 이탤릭으로 조판한 구절은
     인용 안에서 이탤릭을 유지했다. 이 장의 전문과 델타를 경계 밖으로 냈을 때 터지는 문제

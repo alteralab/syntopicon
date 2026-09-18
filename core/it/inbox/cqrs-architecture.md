@@ -382,6 +382,14 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
   로직을 복제해야 하므로 **읽기 모델을 언제든 지우고 다시 만들 수 있다**는 성질이 값싸지 않게
   된다. **이 맞물림은 이 KB가 두 원문을 맞대어 세운 것이다.** 전문은
   [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)에 있다.
+- **같은 소스의 8장이 그 읽기 모델과 같은 물건을 외부 상태 저장소라 부른다.** 거기서도 **요구가
+  바뀌면 마이그레이션하지 말고 상태 저장소를 다시 지으라**고 처방하고, 절차가 이 페이지의 읽기 모델
+  재생성과 같은 모양이다 — **새 저장소 인스턴스를 만들고 컨슈머 오프셋을 스트림 맨 처음으로 되감아
+  다시 채운다** (8장 §"Rebuilding the External State Store", pp.188–189).[^bellemare2025]
+  **다른 것은 재료의 출처다** — 이 페이지의 투영은 같은 경계 컨텍스트 안의 명령 실행 모델에서
+  나오고, 그쪽의 구체화는 입력 이벤트 스트림에서 나온다. **그쪽은 CQRS라는 이름을 8장에서 쓰지
+  않으므로 이 대응은 이 KB가 세운 것이다.** #hypothesis 전문은
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 뷰를 어디까지 미리 물질화할지의
   선택을 분석 도구 쪽에서 다루는 자리.
 - [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md) — 같은 분리를 데이터
@@ -414,6 +422,8 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
 - [확장의 네 축](four-axes-of-scaling.md) — 이 패턴을 확장 수단으로 놓고 다른 축들과 견주는 자리
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 저자가 이 패턴의 더
   값싼 대안으로 드는 읽기 복제본의 전제와 대가
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 같은
+  읽기 모델을 외부 상태 저장소라 부르고 마이그레이션 대신 다시 지으라고 처방하는 쪽
 
 [^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 13장 "Scaling"
     곁글 §"CQRS and Event Sourcing"(pp.434–435). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
@@ -455,7 +465,9 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.
 
 [^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events"
-    §"State Events and Event-Carried State Transfer"(p.99). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
-    실측). 이 소스는 이 페이지에 **한 줄만** 더한다 — 직인용을 두지 않았고, 그 장의 전문은
-    [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)가 갖는다. **이 소스는 CQRS라는
-    이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.
+    §"State Events and Event-Carried State Transfer"(p.99)**와 8장 "Stateful Event-Driven
+    Microservices" §"Rebuilding the External State Store"(pp.188–189)**. 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **두 줄만** 더한다 — 직인용을 두지 않았고, 두 장의
+    전문은 [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)와
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다.
+    **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.

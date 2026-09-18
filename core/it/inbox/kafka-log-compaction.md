@@ -194,6 +194,12 @@ sources:
   레코드 수** 같은 특정 기준이 충족될 때만 수행되는 **비동기 프로세스**이고 **수동으로 유발할 수도
   있다.** 저자는 **정확한 기제가 이벤트 브로커 선택에 따라 다르므로 각자 문서를 참조하라**고 적는다
   (2장, p.38).[^bellemare2025]
+- **같은 책 8장이 압착의 쓰임 하나를 더 적는다** — 마이크로서비스의 내부 상태 저장소를 복구하는
+  **체인지로그(changelog) 스트림은 흔히 압착되는데, 그 주 목적이 상태 복구이지 엔티티 스트림에서처럼
+  변경 이력을 추적하는 것이 아니기** 때문이다 (8장 §"Using a Changelog Event Stream as State
+  Recovery", p.177).[^bellemare2025] 곧 **위 셋째 보장(구체화 결과의 동등성)이 값을 내는 자리가
+  체인지로그 복구**다. 그 복구 절차는
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
 - **주의가 하나 붙는다** — 이벤트 스트림에서 레코드를 **수동으로 지우게 해 주는 도구를 찾을 수도
   있으나 아주 조심하라.** 수동 삭제는 예상 밖의 결과로 이어질 수 있고, 특히 이미 그 데이터를 읽은
   소비자가 있으면 그렇다. **레코드를 그냥 지운다고 소비자의 파생 상태가 고쳐지지 않는다** (2장,
@@ -201,6 +207,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 압착된
+  체인지로그로 상태를 되살리는 자리
 - [LSM 컴팩션](../concepts/lsm-compaction.md) — 같은 낱말을 쓰는 다른 기제
 - [LSM 트리](../concepts/lsm-tree.md) — 툼스톤과 조정이 일반형으로 서술되는 자리
 - [카프카 물리적 저장소](../concepts/kafka-physical-storage.md) — 압착이 작동하는 무대인
@@ -217,6 +225,7 @@ sources:
 [^petrov2019]: Petrov 2019, 7장 "Log-Structured Storage"
 
 [^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams"
-    §"Deleting Events and Event-Stream Compaction"(pp.37–39). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
+    §"Deleting Events and Event-Stream Compaction"(pp.37–39)**와 8장 "Stateful Event-Driven
+    Microservices" §"Using a Changelog Event Stream as State Recovery"(p.177)에서 온 한 줄**. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
     실측). 이 절에 직인용을 두지 않았다 — 옮긴 것이 규정과 보장 목록이고 한국어 재서술로 담았다.
     코드 목록은 없고 도판 하나(그림 2-17)는 이미지 조판이라 재현하지 않았다.

@@ -33,6 +33,7 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 - [스트림 처리의 시간 윈도우](../concepts/stream-processing-time-windows.md) — 윈도우 크기·진행 간격·갱신 허용 기간과 텀블링·호핑·세션 윈도우
 - [스트림 처리의 상태](../concepts/stream-processing-state.md) — 로컬 상태와 외부 상태의 맞교환, 체인지로그로 상태를 다시 만드는 기제, 대화형 질의
 - [스트림-테이블 이중성과 조인](../concepts/stream-table-duality.md) — 스트림과 테이블을 오가는 두 방향과 그 위에 서는 조인 세 종류
+- [상태 있는 마이크로서비스와 상태 저장소](../concepts/stateful-microservices-and-state-stores.md) — 같은 두 갈래를 서비스 소유자의 물음으로 다시 가른 쪽. 볼륨과 비용과 조직 경계, 체인지로그와 전역 상태와 핫 레플리카, 그리고 브로커 트랜잭션 없이 얻는 효과적으로 한 번 처리
 
 ## 어떻게 조립하는가
 

@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 정확히 한 번 메시지 처리
-description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer, 그리고 도메인 주도 설계 쪽에서 같은 문제를 푸는 아웃박스 패턴이 이 사다리의 어느 칸에 서는가, 그리고 2025년 실무서가 이 문제에 붙이는 이중 쓰기 안티패턴이라는 이름과 카프카 2PC 프로젝트의 진행 상태와 저장소 쪽 답 넷
+description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer, 그리고 도메인 주도 설계 쪽에서 같은 문제를 푸는 아웃박스 패턴이 이 사다리의 어느 칸에 서는가, 그리고 2025년 실무서가 이 문제에 붙이는 이중 쓰기 안티패턴이라는 이름과 카프카 2PC 프로젝트의 진행 상태와 저장소 쪽 답 넷, 그리고 같은 실무서가 8장에서 이 보장에 효과적으로 한 번 처리라는 이름을 붙여 자기 규정을 내놓는 자리와 브로커 수준 멱등적 쓰기가 애플리케이션 수준 멱등성과 갈리는 층
 status: draft
 generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 sources:
@@ -24,6 +24,7 @@ sources:
 - [전달인가 처리인가](#전달인가-처리인가)
 - [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)
 - [이름을 다시 문제 삼는 자리](#이름을-다시-문제-삼는-자리)
+- [셋째 소스가 같은 이름을 골라 다르게 규정한다](#셋째-소스가-같은-이름을-골라-다르게-규정한다)
 - [이 보장의 경계를 13장이 다시 긋는다](#이-보장의-경계를-13장이-다시-긋는다)
 - [이 문제에 처음 이름이 붙은 자리 — Idempotent Receiver](#이-문제에-처음-이름이-붙은-자리--idempotent-receiver)
 - [중복이 오는 세 경로](#중복이-오는-세-경로)
@@ -197,6 +198,62 @@ sources:
 - 스트림 프로세서가 이 보장을 실제로 어떻게 얻는지(마이크로배칭·체크포인팅·좁은 환경의 원자적
   커밋·멱등성)는
   [스트림 처리의 결함 내성](../concepts/stream-processing-fault-tolerance.md)이 담당한다.
+
+## 셋째 소스가 같은 이름을 골라 다르게 규정한다
+
+**위 [이름을 다시 문제 삼는 자리](#이름을-다시-문제-삼는-자리)가 적은 그 낱말을 2025년 이벤트 기반
+실무서가 장 제목에 넣고 자기 규정을 붙인다.** 곧 이 KB에는 같은 보장을 가리키는 이름이 셋이 되었다.
+
+- **규정** (8장 §"Transactions and Effectively Once Processing", p.190):[^bellemare2025]
+
+  > *Effectively once processing* is the guarantee that any updates made to the single source of
+  > truth are consistently applied, regardless of any failure to the producer, the consumer, or the
+  > event broker.
+
+  - **구체적으로는 컨슈머 오프셋과 출력 이벤트 스트림 레코드를 하나의 트랜잭션으로 커밋할 수
+    있다**는 뜻이고, **그 보장을 얻으려면 트랜잭션 지원이 요구된다** (8장,
+    p.190).[^bellemare2025]
+- **그쪽도 "정확히 한 번"이라는 이름을 물린다** (8장, p.190):[^bellemare2025]
+
+  > Effectively once processing is also sometimes described as *exactly once processing*, though
+  > this is not quite accurate.
+
+  - **근거가 부수 효과다** — 서비스는 컨슈머 실패와 복구 때문에 **같은 데이터를 여러 번 처리하고도
+    오프셋 커밋에 실패할 수** 있고, 그래도 **모든 이벤트에 대해 업무 로직을 실행하며 외부 엔드포인트
+    발행이나 서드파티 통신 같은 부수 효과도 실행**한다. 곧 **처리와 부수 효과가 이벤트마다 한 번만
+    일어난다는 뜻이 아니다** (8장, p.190).[^bellemare2025]
+  - **위 [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)가 적은 경계와 같은 경계**다. 세 소스
+    어느 쪽도 부수 효과를 한 번으로 만들 방법을 주장하지 않는다.
+- **두 이름이 겹치는데 고른 이유가 같지 않다.** #hypothesis 위 12장의 기준은 **출력에 보이는
+  효과**이고, 이쪽의 기준은 **단일 진실 원천에 적용된 갱신**이다. 이쪽은 **업무 로직과 부수 효과의
+  실행 횟수를 규정 안에서 명시적으로 배제**하고, 12장 쪽은 같은 경계를 프레임워크 바깥으로 나가는
+  출력의 문제로 따로 다룬다. **두 규정이 어긋나지는 않는다**(같은 경계를 가리킨다) — 그래서 모순
+  쌍으로 세우지 않았다.
+  - **그 책의 추천사를 12장의 저자가 썼는데도 8장은 그를 인용하지 않는다.** 이 KB가 8장에서 확인한
+    것은 각주도 참고 문헌 표시도 없다는 사실까지다.
+- **넷째 낱말이 여기서 한 층 더 갈린다** — 그쪽의 **멱등적 쓰기(idempotent writes)** 는 **브로커
+  수준**의 기능으로, **이벤트가 이벤트 스트림에 한 번만 쓰이게** 하고 **고유 프로세스 ID와 단조 증가
+  시퀀스의 조합으로 한 번 넘게 생성된 레코드를 펜싱해 걸러 낸다** (8장, p.191).[^bellemare2025]
+  - 이것은 위 [분산 트랜잭션 없이 하는 길](#분산-트랜잭션-없이-하는-길)이 적는 **애플리케이션
+    수준의 멱등성**(처리한 메시지 ID를 데이터베이스에 기록)과 **같은 낱말로 다른 층**을 가리킨다.
+    그쪽 소스도 둘을 갈라 적는다 — **잘못된 업무 로직이 들여온 중복은 멱등적 생성이 완화하지
+    못한다** (8장, p.194).[^bellemare2025] 카프카 쪽 구현은
+    [멱등적 프로듀서](../concepts/kafka-idempotent-producer.md)가 갖는다.
+- **세 소스의 처방이 한 점에서 만난다** — **상태와 진행 위치(오프셋)를 같은 트랜잭션 안에 넣어라.**
+  위 [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)가 그 일치를 두 소스에 대해 적었고, 이 소스가
+  셋째로 같은 자리에 선다 — **컨슈머 그룹 입력 오프셋 관리를 이벤트 브로커에서 데이터 저장소로 옮겨
+  계산된 상태와 함께 하나의 트랜잭션으로 원자적으로 갱신하라** (8장, p.197).[^bellemare2025]
+  - **다만 그 설계가 주는 것의 한계를 그쪽이 명시한다** (8장, p.198):[^bellemare2025]
+
+    > Note that this approach gives your processor effectively once *processing*, but not
+    > effectively once event *production*.
+
+    - 이유는 **프로듀서와 브로커 사이의 원자적 트랜잭션이 없기** 때문이고, 그 서비스가 내는 이벤트는
+      **최소 한 번 생성의 한계를 받는다** (8장, p.198).[^bellemare2025]
+- **세 이름을 한자리에 놓은 대조표와 그 설계의 전문**은
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다 —
+  중복 제거 ID를 어떻게 짓고 얼마나 오래 들고 있는가, 상태 저장소 트랜잭션으로 오프셋을 함께
+  커밋하는 설계가 거기다.
 
 ## 이 보장의 경계를 13장이 다시 긋는다
 
@@ -728,6 +785,8 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   소비자 패턴 무리의 나머지
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — 절대값 메시지가 중복 내성을
   얻은 대가로 생기는 순서 의존, 그리고 상태 있는 수신자의 버퍼 문제
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 같은
+  보장을 효과적으로 한 번 처리라 부르고 브로커 트랜잭션이 있을 때와 없을 때의 두 설계를 적는 쪽
 - [데이터 해방](data-liberation.md) — 이 문제에 이중 쓰기 안티패턴이라는 이름을 붙이고 저장소 쪽
   답 넷을 놓는 쪽
 - [아웃박스 패턴](../concepts/outbox-pattern.md) — 발행 쪽에서 메시지를 잃지 않게 하는 쪽. 이 페이지의
@@ -758,8 +817,14 @@ Records"(pp.46–50) · 4장 "Idempotency Design Patterns" — "Database"(pp.100
 
 [^bellemare2025]: Bellemare 2025(2판), **6장 "Integrating Event-Driven Architectures with Existing
     Systems"** — §"The Dual Write Antipattern"(p.129) · §"Data Liberation Patterns"(p.130) ·
-    §"Liberating Data Using Transactional Outbox Tables"(p.139). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
-    실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로 끊긴
+    §"Liberating Data Using Transactional Outbox Tables"(p.139), **그리고 8장 "Stateful
+    Event-Driven Microservices" §"Transactions and Effectively Once Processing"**(pp.190–198 중
+    도입 pp.190–191 · §"Generating duplicate events" p.194 · §"Maintaining consistent state via
+    state store transactions" pp.197–198)**에서 온 위 §"셋째 소스가 같은 이름을 골라 다르게
+    규정한다"**. 8장의 전문은
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다 —
+    이 페이지는 이름의 대조에 걸리는 것만 받았다. 8장의 그 절에 코드 목록도 표도 없다.
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로 끊긴
     낱말은 한 낱말로 이었다. 이 절들에 코드 목록도 표도 없고, 도판(그림 6-3 두 독립 체계에 원자적으로
     쓸 수 없다)은 이미지 조판이라 재현하지 않았다. 6장 쪽의 절 전문은
     [데이터 해방](data-liberation.md)이 갖는다. **저자가 카프카 2PC 프로젝트의 식별자나 링크를 대지
