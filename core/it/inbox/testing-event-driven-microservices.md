@@ -120,7 +120,7 @@ sources:
 - **토폴로지 테스트의 규정** — 단위 테스트 하나보다 복잡하고 **업무 로직 토폴로지 전체를
   돌린다**. 저자가 여기서 3장의 마이크로서비스 토폴로지를 가리킨다 (20장 §"Testing the Full
   Event-Driven Topology", p.404).[^bellemare2025] 그 토폴로지의 규정은
-  [이벤트 기반 마이크로서비스의 네 모양 §토폴로지](event-driven-microservice-shapes.md#토폴로지--두-층위)에 있다.
+  [이벤트 기반 마이크로서비스의 네 모양 §토폴로지](event-driven-microservice-shapes.md)에 있다.
 - **이 방식의 값어치가 한 문장에 있다** (20장, p.404):[^bellemare2025]
 
   > Topology testing frameworks do not require you to create an event broker to hold input events,
@@ -169,7 +169,7 @@ sources:
     p.408).[^bellemare2025]
 - **이 검사가 서는 자리가 배포 파이프라인 안**이다. 21장이 같은 검사를 **배포 전 검증 단계의 한
   항목**으로 다시 세운다 —
-  [이벤트 기반 마이크로서비스의 배포 패턴 §배포 전 검증](event-driven-deployment-patterns.md#배포-전-검증-둘--스트림과-스키마)을 보라.
+  [이벤트 기반 마이크로서비스의 배포 패턴 §배포 전 검증](event-driven-deployment-patterns.md)을 보라.
 
 ## 통합 테스트의 목표와 세 변종
 
