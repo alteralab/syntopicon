@@ -1,7 +1,7 @@
 ---
 type: concept
 title: 정확히 한 번 메시지 처리
-description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer, 그리고 도메인 주도 설계 쪽에서 같은 문제를 푸는 아웃박스 패턴이 이 사다리의 어느 칸에 서는가
+description: 메시지 브로커와 데이터베이스에 걸쳐 부수 효과를 한 번만 남기는 두 가지 길 — 원자적 커밋을 두 시스템에 걸쳐 거는 이종 분산 트랜잭션 쪽과, 메시지 ID를 데이터베이스에 기록해 처리를 멱등적으로 만드는 쪽, 각 단계에서 크래시가 나면 무슨 일이 벌어지는가, 전달과 처리를 갈라야 논쟁이 풀리는 이유, 카프카 쪽 서술과 나란히 놓았을 때 무엇이 같고 무엇이 다른가, 이 문제에 처음 이름을 붙인 원전 패턴 Idempotent Receiver와 그것이 제시한 두 수단(명시적 중복 제거와 메시지 의미론의 재정의) 및 업무 키를 메시지 식별자로 쓰지 말라는 경고, 그리고 같은 문제를 저장소 능력에 맡기는 세 패턴 — 중복 제거 윈도를 정하는 Windowed Deduplicator, 불변 속성으로 키를 짓는 Keyed Idempotency, 실행 하나 안에서만 멱등성을 보장하는 Transactional Writer, 그리고 도메인 주도 설계 쪽에서 같은 문제를 푸는 아웃박스 패턴이 이 사다리의 어느 칸에 서는가, 그리고 2025년 실무서가 이 문제에 붙이는 이중 쓰기 안티패턴이라는 이름과 카프카 2PC 프로젝트의 진행 상태와 저장소 쪽 답 넷, 그리고 같은 실무서가 8장에서 이 보장에 효과적으로 한 번 처리라는 이름을 붙여 자기 규정을 내놓는 자리와 브로커 수준 멱등적 쓰기가 애플리케이션 수준 멱등성과 갈리는 층
 generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
@@ -10,6 +10,7 @@ sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 정확히 한 번 메시지 처리
@@ -22,6 +23,7 @@ sources:
 - [전달인가 처리인가](#전달인가-처리인가)
 - [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)
 - [이름을 다시 문제 삼는 자리](#이름을-다시-문제-삼는-자리)
+- [셋째 소스가 같은 이름을 골라 다르게 규정한다](#셋째-소스가-같은-이름을-골라-다르게-규정한다)
 - [이 보장의 경계를 13장이 다시 긋는다](#이-보장의-경계를-13장이-다시-긋는다)
 - [이 문제에 처음 이름이 붙은 자리 — Idempotent Receiver](#이-문제에-처음-이름이-붙은-자리--idempotent-receiver)
 - [중복이 오는 세 경로](#중복이-오는-세-경로)
@@ -36,6 +38,7 @@ sources:
 - [트랜잭션을 패턴으로 세우면 — Transactional Writer](#트랜잭션을-패턴으로-세우면--transactional-writer)
 - [이 패턴의 멱등성이 끝나는 자리](#이-패턴의-멱등성이-끝나는-자리)
 - [도메인 주도 설계 쪽의 답 — 아웃박스가 서는 칸](#도메인-주도-설계-쪽의-답--아웃박스가-서는-칸)
+- [2025년 실무서가 이 문제에 안티패턴 이름을 붙인다](#2025년-실무서가-이-문제에-안티패턴-이름을-붙인다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지를 처리하면서 그 부수 효과가 정확히 한 번만 남게 하려면 무엇이
@@ -195,6 +198,62 @@ sources:
   커밋·멱등성)는
   [스트림 처리의 결함 내성](../concepts/stream-processing-fault-tolerance.md)이 담당한다.
 
+## 셋째 소스가 같은 이름을 골라 다르게 규정한다
+
+**위 [이름을 다시 문제 삼는 자리](#이름을-다시-문제-삼는-자리)가 적은 그 낱말을 2025년 이벤트 기반
+실무서가 장 제목에 넣고 자기 규정을 붙인다.** 곧 이 KB에는 같은 보장을 가리키는 이름이 셋이 되었다.
+
+- **규정** (8장 §"Transactions and Effectively Once Processing", p.190):[^bellemare2025]
+
+  > *Effectively once processing* is the guarantee that any updates made to the single source of
+  > truth are consistently applied, regardless of any failure to the producer, the consumer, or the
+  > event broker.
+
+  - **구체적으로는 컨슈머 오프셋과 출력 이벤트 스트림 레코드를 하나의 트랜잭션으로 커밋할 수
+    있다**는 뜻이고, **그 보장을 얻으려면 트랜잭션 지원이 요구된다** (8장,
+    p.190).[^bellemare2025]
+- **그쪽도 "정확히 한 번"이라는 이름을 물린다** (8장, p.190):[^bellemare2025]
+
+  > Effectively once processing is also sometimes described as *exactly once processing*, though
+  > this is not quite accurate.
+
+  - **근거가 부수 효과다** — 서비스는 컨슈머 실패와 복구 때문에 **같은 데이터를 여러 번 처리하고도
+    오프셋 커밋에 실패할 수** 있고, 그래도 **모든 이벤트에 대해 업무 로직을 실행하며 외부 엔드포인트
+    발행이나 서드파티 통신 같은 부수 효과도 실행**한다. 곧 **처리와 부수 효과가 이벤트마다 한 번만
+    일어난다는 뜻이 아니다** (8장, p.190).[^bellemare2025]
+  - **위 [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)가 적은 경계와 같은 경계**다. 세 소스
+    어느 쪽도 부수 효과를 한 번으로 만들 방법을 주장하지 않는다.
+- **두 이름이 겹치는데 고른 이유가 같지 않다.** #hypothesis 위 12장의 기준은 **출력에 보이는
+  효과**이고, 이쪽의 기준은 **단일 진실 원천에 적용된 갱신**이다. 이쪽은 **업무 로직과 부수 효과의
+  실행 횟수를 규정 안에서 명시적으로 배제**하고, 12장 쪽은 같은 경계를 프레임워크 바깥으로 나가는
+  출력의 문제로 따로 다룬다. **두 규정이 어긋나지는 않는다**(같은 경계를 가리킨다) — 그래서 모순
+  쌍으로 세우지 않았다.
+  - **그 책의 추천사를 12장의 저자가 썼는데도 8장은 그를 인용하지 않는다.** 이 KB가 8장에서 확인한
+    것은 각주도 참고 문헌 표시도 없다는 사실까지다.
+- **넷째 낱말이 여기서 한 층 더 갈린다** — 그쪽의 **멱등적 쓰기(idempotent writes)** 는 **브로커
+  수준**의 기능으로, **이벤트가 이벤트 스트림에 한 번만 쓰이게** 하고 **고유 프로세스 ID와 단조 증가
+  시퀀스의 조합으로 한 번 넘게 생성된 레코드를 펜싱해 걸러 낸다** (8장, p.191).[^bellemare2025]
+  - 이것은 위 [분산 트랜잭션 없이 하는 길](#분산-트랜잭션-없이-하는-길)이 적는 **애플리케이션
+    수준의 멱등성**(처리한 메시지 ID를 데이터베이스에 기록)과 **같은 낱말로 다른 층**을 가리킨다.
+    그쪽 소스도 둘을 갈라 적는다 — **잘못된 업무 로직이 들여온 중복은 멱등적 생성이 완화하지
+    못한다** (8장, p.194).[^bellemare2025] 카프카 쪽 구현은
+    [멱등적 프로듀서](../concepts/kafka-idempotent-producer.md)가 갖는다.
+- **세 소스의 처방이 한 점에서 만난다** — **상태와 진행 위치(오프셋)를 같은 트랜잭션 안에 넣어라.**
+  위 [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)가 그 일치를 두 소스에 대해 적었고, 이 소스가
+  셋째로 같은 자리에 선다 — **컨슈머 그룹 입력 오프셋 관리를 이벤트 브로커에서 데이터 저장소로 옮겨
+  계산된 상태와 함께 하나의 트랜잭션으로 원자적으로 갱신하라** (8장, p.197).[^bellemare2025]
+  - **다만 그 설계가 주는 것의 한계를 그쪽이 명시한다** (8장, p.198):[^bellemare2025]
+
+    > Note that this approach gives your processor effectively once *processing*, but not
+    > effectively once event *production*.
+
+    - 이유는 **프로듀서와 브로커 사이의 원자적 트랜잭션이 없기** 때문이고, 그 서비스가 내는 이벤트는
+      **최소 한 번 생성의 한계를 받는다** (8장, p.198).[^bellemare2025]
+- **세 이름을 한자리에 놓은 대조표와 그 설계의 전문**은
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다 —
+  중복 제거 ID를 어떻게 짓고 얼마나 오래 들고 있는가, 상태 저장소 트랜잭션으로 오프셋을 함께
+  커밋하는 설계가 거기다.
+
 ## 이 보장의 경계를 13장이 다시 긋는다
 
 같은 책 13장은 이 보장이 어디까지 미치는지를 다시 재고, 그 바깥을 어떻게 메울지를 말한다.
@@ -236,7 +295,7 @@ sources:
   개념은 한 번 받든 여러 번 받든 같은 효과를 갖는 메시지로 번역된다. 이는 수신자가 같은 메시지의
   중복을 받더라도 아무 문제도 일으키지 않고 메시지가 안전하게 재전송될 수 있다는 뜻이다** (10장,
   p.529).[^hohpe2004]
-  - 이 정의가 [멱등적 쓰기 패턴](idempotent-write-patterns.md)의 "멱등성이라는 낱말" 절 및
+  - 이 정의가 [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)의 "멱등성이라는 낱말" 절 및
     [멱등적 프로듀서](../concepts/kafka-idempotent-producer.md)의 정의와 같은 것을 말한다.
     수식의 이름을 병기해 두면 — f(x) = f(f(x)), 곧 **함수를 자기 자신에 적용해도 결과가 같다** —
     검색이 기호를 버려도 이 진술이 남는다.
@@ -357,7 +416,7 @@ sources:
   계정 잔액이 100달러라면 두 메시지는 같은 결과를 낸다. 둘째 메시지는 두 번 받아도 아무 효과가
   없으므로 멱등적이다** (10장, p.531).[^hohpe2004]
   - 이것이 **증분(delta)을 절대값(absolute)으로 바꾸는** 처방이고, 이 코퍼스의
-    [멱등적 쓰기 패턴](idempotent-write-patterns.md)의 Data Overwrite가 저장소 층에서 하는 것과
+    [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)의 Data Overwrite가 저장소 층에서 하는 것과
     같은 동작이다. 원전은 그것을 저장소가 아니라 **메시지의 뜻** 층에서 한다.
 - 그리고 저자들이 스스로 그 한계를 인정한다 — **분명히 이 예는 동시성 상황을 무시하고 있다 — 예컨대
   원래 메시지와 중복 메시지 사이에 "계정 12345의 잔액을 150달러로 설정하라"라는 다른 메시지가
@@ -455,7 +514,7 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   - 스트리밍에서는 여기에 워터마크가 붙는다 — `withWatermark`가 **늦은 데이터 도착 경계**를
     정의하는 동시에 **잡이 주어진 키를 얼마나 오래 기억하는지도 통제한다. 워터마크보다 오래된
     기억 항목은 자동으로 제거된다** (3장, p.50).[^konieczny2025] 그 워터마크의 정의는
-    [늦은 데이터 통합](late-data-integration.md)에 있다.
+    [늦은 데이터 통합](../concepts/late-data-integration.md)에 있다.
 
 ## 키 생성을 멱등적으로 — Keyed Idempotency
 
@@ -515,7 +574,7 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
     덮어쓰는 대신 에러를 얻는다. 그래서 여기서는 쓰기 연산이 `INSERT` 대신 `MERGE`가 되고, 그것은
     앞서 제시한 Merger 패턴과 똑같이 표현식에 여분의 복잡성을 더한다** (4장,
     pp.102–103).[^konieczny2025] 그 `MERGE`가 사는 자리는
-    [멱등적 쓰기 패턴](idempotent-write-patterns.md)이다.
+    [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)이다.
   - 카프카가 가장 좋은 예시라고 저자가 못 박는다 — **각 레코드를 유일하게 식별하는 키를 지원하지만
     추가 전용 로그이므로 삽입 시각에 이벤트를 중복 제거하지 않는다. 대신 데이터를 쓴 뒤에 도는
     비동기 압착(compaction) 메커니즘을 쓴다. 결과적으로 한동안 당신의 소비자는 중복된 항목을 볼 수
@@ -586,7 +645,7 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
     메커니즘에 의존하는데 시간이 좀 걸릴 수 있다. 타임아웃이 너무 짧고 체크포인트가 타임아웃
     파라미터보다 오래 걸리면 Flink는 만료 때문에 트랜잭션을 커밋할 수 없을 것이다** (4장,
     pp.109–110).[^konieczny2025] 그 체크포인팅은
-    [스트림 처리의 결함 내성](stream-processing-fault-tolerance.md)에 있다.
+    [스트림 처리의 결함 내성](../concepts/stream-processing-fault-tolerance.md)에 있다.
 
 ## 이 패턴의 멱등성이 끝나는 자리
 
@@ -618,7 +677,7 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   **그 보장을 잡 하나의 실행 경계 안에서 쓰는 응용 패턴**이다. 그래서 두 서술은 충돌하지 않는다 —
   카프카의 트랜잭션이 "한 실행 안에서 원자적"임을 보장할 때, 저자는 그 원자성이 **재실행과 백필을
   가로질러서는 아무것도 보장하지 않는다**고 덧붙일 뿐이다. 재실행을 가로지르는 몫은 위
-  Windowed Deduplicator나 [멱등적 쓰기 패턴](idempotent-write-patterns.md)의 Stateful Merger가
+  Windowed Deduplicator나 [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)의 Stateful Merger가
   맡는다.
 
 ## 도메인 주도 설계 쪽의 답 — 아웃박스가 서는 칸
@@ -651,15 +710,55 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
 | 카프카 트랜잭션 | 브로커 안의 읽기-처리-쓰기 한 묶음 | 카프카 안에 머무는 동안만. 데이터베이스 갱신은 묶어 주지 않는다 |
 | **아웃박스** | **데이터베이스 하나의 트랜잭션.** 둘째 쓰기를 메시지 시스템이 아니라 같은 데이터베이스로 돌린다 | **멱등한 소비자.** 최소 한 번이 보장의 상한이다 |
 
-- 그 패턴의 전문은 [아웃박스 패턴](outbox-pattern.md)에 있고, 같은 기제를 스키마 결합을 끊는
+- 그 패턴의 전문은 [아웃박스 패턴](../concepts/outbox-pattern.md)에 있고, 같은 기제를 스키마 결합을 끊는
   수단으로 쓰는 쪽은 [변경 데이터 캡처](../concepts/change-data-capture.md)에 있다.
+
+## 2025년 실무서가 이 문제에 안티패턴 이름을 붙인다
+
+**이 페이지가 "두 체계에 부수 효과를 한 번만 남기는 길"을 다룬다면,
+[bellemare2025](../sources/bellemare2025.md) 6장은 그 길을 **택하지 않았을 때** 벌어지는 일에
+이름을 붙인다.**
+
+- 규정 (6장 §"The Dual Write Antipattern", p.129):[^bellemare2025]
+
+  > The dual write antipattern is when a service writes data to two data stores independently of
+  > each other.
+
+  - 장면은 이 페이지의 출발점과 같다 — 서비스가 **상태 저장소와 이벤트 브로커의 스트림 양쪽에**
+    쓰는데 **두 서비스가 서로 완전히 독립이라 단순한 트랜잭션으로 커밋할 수 없다** (6장,
+    p.129).[^bellemare2025]
+- **재시도로 덮이지 않는 이유를 넷 든다** — 커밋이 실패하는 이유에 재시도로 해결되는 것만 있는 것이
+  아니다. **유효하지 않은 스키마, 영구히 이전된 서비스, 하드웨어나 설정 문제로 인한 길게 이어지는
+  대형 장애**가 있고, 결국 생산자가 포기하는 **그 시점에 두 서비스의 데이터는 영구히 갈라진다**
+  (6장, p.129).[^bellemare2025]
+- **위 [분산 트랜잭션으로 얻는 길](#분산-트랜잭션으로-얻는-길)에 대한 그쪽의 채점이 이 페이지와
+  같다** — 2PC를 지원하는 서비스는 분산 트랜잭션에 실제로 낄 수 있으나 **많은 데이터 저장소가 2PC를
+  지원하지 않고 많은 이벤트 브로커도 그렇다** (6장, p.129).[^bellemare2025] 위
+  [그 길이 성립하는 조건](#그-길이-성립하는-조건)이 적는 조건과 같은 판정이다.
+  - **카프카 쪽 상태가 여기서 갱신된다** — **아파치 카프카에 2PC 프로젝트가 있으나 이 책의 출간
+    시점에 진행 중으로 남아 있다** (6장, p.129).[^bellemare2025]
+    - 버전 조건: 2025년 저술 시점의 진행 상태에 대한 서술이다. 위
+      [카프카 쪽 서술과 나란히](#카프카-쪽-서술과-나란히)가 다루는 카프카 트랜잭션은 **브로커 안의
+      읽기-처리-쓰기**를 묶는 것이고, 이 프로젝트는 **브로커 밖의 참여자와 묶는 쪽**이라 대상이
+      다르다. **이 구분은 이 KB가 세운 것이고 그쪽이 그 차이를 적지 않는다.** #hypothesis
+- **그쪽의 답은 브로커가 아니라 저장소 쪽이다** — 저자가 절을 닫으며 **2PC를 쓰지 않고 데이터를
+  해방하는 여러 전략이 있다**고 적고, 그 전략이 **로그 기반 변경 데이터 포착 · 폴링 질의 ·
+  트랜잭셔널 아웃박스 · 트리거**다 (6장, pp.129–130).[^bellemare2025]
+  - **위 [도메인 주도 설계 쪽의 답 — 아웃박스가 서는 칸](#도메인-주도-설계-쪽의-답--아웃박스가-서는-칸)과
+    같은 칸에 선다.** 두 쓰기를 **한 데이터베이스의 트랜잭션 안**에 가두고 최소 한 번을 보장의
+    상한으로 받아들인다 — 그쪽도 **이 패턴이 주는 것은 최소 한 번 전달**이라고 적는다 (6장,
+    p.139).[^bellemare2025]
+  - **보완 관계이지 경합이 아니다.** 이 페이지의 카프카 트랜잭션은 **브로커 안에 머무는 동안**의
+    답이고, 그쪽의 아웃박스·CDC는 **데이터베이스와 브로커 사이**의 답이다. 두 답이 덮는 구간이
+    겹치지 않으므로 함께 쓸 수 있다. **이 대비는 이 KB가 세운 것이다.** #hypothesis
+- 해방 네 패턴의 전문은 [데이터 해방](../concepts/data-liberation.md)에 있다.
 
 ## 이어지는 페이지
 
-- [늦은 데이터 통합](late-data-integration.md) — 중복 제거 윈도를 닫는 그 워터마크의 정의와
+- [늦은 데이터 통합](../concepts/late-data-integration.md) — 중복 제거 윈도를 닫는 그 워터마크의 정의와
   전략
 - [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — 같은 장의 앞 계열
-- [멱등적 쓰기 패턴](idempotent-write-patterns.md) — 같은 장의 나머지 다섯 패턴, 즉 저장소를
+- [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md) — 같은 장의 나머지 다섯 패턴, 즉 저장소를
   다시 쓰는 쪽
 - [데이터 엔지니어링 디자인 패턴](../synthesis/data-engineering-design-patterns.md) — 중복 제거가
   한 패턴으로 등록된 카탈로그
@@ -681,11 +780,15 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
   "전달"이라는 낱말이 정확히 무엇을 보장하는가
 - [두 장군 문제와 FLP 불가능성](../concepts/two-generals-and-flp-impossibility.md) — 공통 지식이
   이론적으로 불가능하다는 결과
-- [메시지 소비자 패턴](message-consumer-patterns.md) — *Idempotent Receiver*가 속한
+- [메시지 소비자 패턴](../concepts/message-consumer-patterns.md) — *Idempotent Receiver*가 속한
   소비자 패턴 무리의 나머지
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — 절대값 메시지가 중복 내성을
   얻은 대가로 생기는 순서 의존, 그리고 상태 있는 수신자의 버퍼 문제
-- [아웃박스 패턴](outbox-pattern.md) — 발행 쪽에서 메시지를 잃지 않게 하는 쪽. 이 페이지의
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 같은
+  보장을 효과적으로 한 번 처리라 부르고 브로커 트랜잭션이 있을 때와 없을 때의 두 설계를 적는 쪽
+- [데이터 해방](../concepts/data-liberation.md) — 이 문제에 이중 쓰기 안티패턴이라는 이름을 붙이고 저장소 쪽
+  답 넷을 놓는 쪽
+- [아웃박스 패턴](../concepts/outbox-pattern.md) — 발행 쪽에서 메시지를 잃지 않게 하는 쪽. 이 페이지의
   둘째 길에 서고 소비자 멱등성을 조건으로 넘긴다
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 원전 층이 속한 카탈로그의 허브
 
@@ -708,5 +811,20 @@ Records"(pp.46–50) · 4장 "Idempotency Design Patterns" — "Database"(pp.100
 [^khononov2021]: Khononov 2021, 9장 "Communication Patterns" §"Integrating Aggregates" 중
     §Outbox와 §"Fetching unpublished events"(pp.145–147). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26,
     실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했다. 그 절의 본체는
-    [아웃박스 패턴](outbox-pattern.md)에 있고, 이 페이지는 그 패턴이 이 사다리의 어느 칸에
+    [아웃박스 패턴](../concepts/outbox-pattern.md)에 있고, 이 페이지는 그 패턴이 이 사다리의 어느 칸에
     서는가만 받았다.
+
+[^bellemare2025]: Bellemare 2025(2판), **6장 "Integrating Event-Driven Architectures with Existing
+    Systems"** — §"The Dual Write Antipattern"(p.129) · §"Data Liberation Patterns"(p.130) ·
+    §"Liberating Data Using Transactional Outbox Tables"(p.139), **그리고 8장 "Stateful
+    Event-Driven Microservices" §"Transactions and Effectively Once Processing"**(pp.190–198 중
+    도입 pp.190–191 · §"Generating duplicate events" p.194 · §"Maintaining consistent state via
+    state store transactions" pp.197–198)**에서 온 위 §"셋째 소스가 같은 이름을 골라 다르게
+    규정한다"**. 8장의 전문은
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다 —
+    이 페이지는 이름의 대조에 걸리는 것만 받았다. 8장의 그 절에 코드 목록도 표도 없다.
+    쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로 끊긴
+    낱말은 한 낱말로 이었다. 이 절들에 코드 목록도 표도 없고, 도판(그림 6-3 두 독립 체계에 원자적으로
+    쓸 수 없다)은 이미지 조판이라 재현하지 않았다. 6장 쪽의 절 전문은
+    [데이터 해방](../concepts/data-liberation.md)이 갖는다. **저자가 카프카 2PC 프로젝트의 식별자나 링크를 대지
+    않으므로** 이 KB는 그 프로젝트를 따로 확인하지 않았고 귀속은 이 책이 그렇게 적는다까지로 둔다.

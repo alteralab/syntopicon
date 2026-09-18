@@ -8,6 +8,7 @@ sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 로그 기반 메시지 브로커
@@ -21,6 +22,7 @@ sources:
 - [재생](#재생)
 - [메시지 큐와 이벤트 스트리밍 플랫폼을 가르는 선](#메시지-큐와-이벤트-스트리밍-플랫폼을-가르는-선)
 - [마이크로서비스 실무서가 카프카를 따로 적는 세 가지](#마이크로서비스-실무서가-카프카를-따로-적는-세-가지)
+- [요구 쪽에서 같은 것을 적는 소스 — 무기한 보존이 표준이 아니라던 관념의 내력](#요구-쪽에서-같은-것을-적는-소스--무기한-보존이-표준이-아니라던-관념의-내력)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **메시지를 지우지 않고 쌓아 두는 브로커는 무엇을 얻고 무엇을 잃는가.**
@@ -293,6 +295,47 @@ sources:
     *Designing Event-Driven Systems*)는 이 KB가 확인한 원전이 아니다 (5장,
     p.140).[^newman2021]
 
+## 요구 쪽에서 같은 것을 적는 소스 — 무기한 보존이 표준이 아니라던 관념의 내력
+
+[bellemare2025](../sources/bellemare2025.md) 2장이 같은 기반을 **기제가 아니라 요구**로 적는다.
+이 페이지가 "로그로 구현하면 이렇게 된다"를 적는다면 그쪽은 "이벤트 기반 마이크로서비스를 지으려면
+기반에 이것을 요구해야 한다"를 적는다. 요구 여섯의 전문은
+[이벤트 스트림과 이벤트 브로커](../concepts/event-streams-and-brokers.md)에 있고, 여기서는 **이 페이지의
+서술과 맞물리는 자리만** 둔다.
+
+- **정의가 이 페이지의 서술과 같은 것을 가리킨다** (2장 §"What's an Event Stream?",
+  p.22):[^bellemare2025]
+
+  > An event stream is a durable and append-only immutable log.
+
+- **위 [메시지 큐와 이벤트 스트리밍 플랫폼을 가르는 선](#메시지-큐와-이벤트-스트리밍-플랫폼을-가르는-선)에
+  셋째 칸이 붙는다.** 그쪽은 **휘발성 메시징(ephemeral messaging)** 을 독립된 양식으로 세우고
+  셋을 **전달 보증**으로 가른다 (2장, pp.24–26):[^bellemare2025] 휘발성 채널은 **최대 한 번**,
+  큐는 **최소 한 번**, 이벤트 스트림은 파티션 배타 구독과 엄격한 순서 처리다. **이 KB의 기존
+  서술은 큐와 스트림 둘만 갈랐다.**
+- **왜 브로커가 데이터를 오래 보관할 수 없다고 여겨져 왔는가에 대한 내력이 그쪽에 있다.** 큐
+  브로커는 역사적으로 레코드 저장의 TTL을 제한했고 처리되지 않은 레코드는 정리되어 더는 전달되지
+  않았다. 휘발성 소통과 함께 그 시간 기반 보존이 **"브로커는 큐든 이벤트든 데이터를 무기한 보존할
+  수 없다"는 잘못된 관념에 영향을 주었다**는 것이 저자의 진단이다 (2장 §"Queues via Modern Queue
+  Brokers", p.27).[^bellemare2025]
+- **그리고 그 관념이 현재는 틀렸다는 실물을 든다** — **RabbitMQ와 ActiveMQ 둘 다 레코드에 무제한
+  TTL을 설정할 수 있고**, **Solace와 RabbitMQ Streams는 개별 소비자가 큐에 든 레코드를 이벤트
+  스트림처럼 재생하게 해 준다.** 곧 **현대 큐 브로커가 내구적 추가 전용 로그를 통해 사실상 이벤트
+  스트림과 같은 것을 제공할 수 있다** (2장, p.27).[^bellemare2025]
+  - 버전 조건: 2025년 저술 시점의 네 제품 기능이다. 위 세 양식을 전달 보증으로 가르는 구분은
+    제품과 무관한 조문이다.
+- **반대 방향의 수렴도 같은 장에 있다** — **카프카용 큐(KIP-932)가 카프카 4.0의 얼리 액세스
+  릴리스로 들어와** 공유 그룹(share group)으로 토픽의 추가 전용 로그를 큐처럼 다루게 한다 (2장
+  §"Queues via Apache Kafka", pp.27–29).[^bellemare2025] 곧 **양쪽이 서로를 향해 수렴하는 중**이고,
+  그것이 이 페이지가 그어 온 선을 흐린다.
+  - 버전 조건: 카프카 4.0. 이 기능은 그 릴리스에 얼리 액세스로 들어왔다.
+  - **이 수렴이 이 페이지의 선을 지우지는 않는다.** 저자가 남기는 구분은 여전히 **파티션 배타
+    구독과 엄격한 순서**(이벤트 스트림) 대 **경쟁 소비와 레코드 단위 확인 응답**(큐)이고,
+    KIP-932도 그 둘을 한 토픽 위의 **다른 소비 방식**으로 둔다.
+- **브로커에 요구되는 기능 넷**(확장성·내구성·고가용성·고성능)도 그쪽에 있다 (2장 §"Powering
+  Microservices with the Event Broker", p.45).[^bellemare2025] 이 페이지가 적는 기제들이 그
+  요구를 어떻게 채우는지의 대응은 이 KB가 세우지 않았다.
+
 ## 이어지는 페이지
 
 - [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — 이 페이지가 내내 대비하는
@@ -316,3 +359,12 @@ sources:
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
 [^shapira2021]: Shapira et al. 2021, 14장 "Stream Processing"
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems"
+
+[^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —
+    §"What's an Event Stream?"(pp.22–24) · §"Ephemeral Messaging"(pp.24–25) ·
+    §"Queuing"(pp.25–26) · §"Queues via Modern Queue Brokers"(pp.26–27) ·
+    §"Queues via Apache Kafka"(pp.27–29) · §"Powering Microservices with the Event
+    Broker"(p.45). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout`
+    추출로 문자 단위 대조했다. 이 절들에 코드 목록은 없고 도판 넷(그림 2-1부터 2-4까지)은
+    이미지 조판이라 재현하지 않았다. 전문은
+    [이벤트 스트림과 이벤트 브로커](../concepts/event-streams-and-brokers.md)에 있다.

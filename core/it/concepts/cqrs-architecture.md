@@ -1,12 +1,13 @@
 ---
 type: concept
 title: CQRS 아키텍처
-description: 같은 데이터를 여러 영속 모델로 표현하기 위해 코드베이스를 조직하는 아키텍처 패턴 — 하나의 모델로 모든 필요를 감당할 수 없다는 문제 설정과 폴리글랏 모델링·폴리글랏 영속화라는 두 동기, 이 패턴이 이벤트 소싱에서 나왔으되 그것 없이도 쓸 수 있다는 저자의 분리 선언, 강한 일관성을 갖는 유일한 정본인 명령 실행 모델과 언제든 지우고 다시 만들 수 있는 읽기 모델의 규정, 체크포인트와 캐치업 구독으로 도는 동기 투영과 메시지 버스를 타는 비동기 투영의 기제와 각각의 대가, 명령이 데이터를 돌려줘도 된다는 정정과 그 유일한 제한, 그리고 이 패턴이 필요한 자리, 그리고 이 배치를 패턴 이름 없이 서술하면서 그 반대를 안티패턴으로 세우는 소스
-generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
+description: 같은 데이터를 여러 영속 모델로 표현하기 위해 코드베이스를 조직하는 아키텍처 패턴 — 하나의 모델로 모든 필요를 감당할 수 없다는 문제 설정과 폴리글랏 모델링·폴리글랏 영속화라는 두 동기, 이 패턴이 이벤트 소싱에서 나왔으되 그것 없이도 쓸 수 있다는 저자의 분리 선언, 강한 일관성을 갖는 유일한 정본인 명령 실행 모델과 언제든 지우고 다시 만들 수 있는 읽기 모델의 규정, 체크포인트와 캐치업 구독으로 도는 동기 투영과 메시지 버스를 타는 비동기 투영의 기제와 각각의 대가, 명령이 데이터를 돌려줘도 된다는 정정과 그 유일한 제한, 그리고 이 패턴이 필요한 자리, 그리고 이 배치를 패턴 이름 없이 서술하면서 그 반대를 안티패턴으로 세우는 소스, 그리고 같은 읽기 모델을 남의 서비스가 낸 상태 이벤트에서 구체화하는 이벤트 기반 쪽 소스
+generated: { by: "claude-opus-5", at: "2026-09-18T12:00:00Z" }
 sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # CQRS 아키텍처
@@ -370,6 +371,32 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
   서술의 전문은
   [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)과
   [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md)에 있다.
+- **읽기 모델의 재료를 남의 서비스에서 받는 경우가 하나 더 있다.** 이벤트 기반 쪽 소스가 상태
+  이벤트의 이득으로 **구체화**를 드는데 — **이벤트 스트림을 소비해 서비스가 필요로 하는 데이터를
+  자기 상태 저장소로 구체화하면 된다**는 것이다 (5장 §"State Events and Event-Carried State
+  Transfer", p.99).[^bellemare2025] **이 페이지의 읽기 모델과 같은 물건인데 재료의 출처가 다르다** —
+  이 페이지의 투영은 **같은 경계 컨텍스트 안의 명령 실행 모델**에서 나오고, 그쪽의 구체화는
+  **다른 서비스가 낸 현재 상태 이벤트 스트림**에서 나온다. 그리고 그쪽이 **델타 이벤트로 그것을
+  하지 말라**고 처방하는 이유가 이 페이지의 읽기 모델 규정과 맞물린다 — 델타로는 소비자마다 집계
+  로직을 복제해야 하므로 **읽기 모델을 언제든 지우고 다시 만들 수 있다**는 성질이 값싸지 않게
+  된다. **이 맞물림은 이 KB가 두 원문을 맞대어 세운 것이다.** 전문은
+  [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)에 있다.
+- **같은 소스의 8장이 그 읽기 모델과 같은 물건을 외부 상태 저장소라 부른다.** 거기서도 **요구가
+  바뀌면 마이그레이션하지 말고 상태 저장소를 다시 지으라**고 처방하고, 절차가 이 페이지의 읽기 모델
+  재생성과 같은 모양이다 — **새 저장소 인스턴스를 만들고 컨슈머 오프셋을 스트림 맨 처음으로 되감아
+  다시 채운다** (8장 §"Rebuilding the External State Store", pp.188–189).[^bellemare2025]
+  **다른 것은 재료의 출처다** — 이 페이지의 투영은 같은 경계 컨텍스트 안의 명령 실행 모델에서
+  나오고, 그쪽의 구체화는 입력 이벤트 스트림에서 나온다. **그쪽은 CQRS라는 이름을 8장에서 쓰지
+  않으므로 이 대응은 이 KB가 세운 것이다.** #hypothesis 전문은
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
+  - **같은 소스의 17장이 그 외부 상태 저장소를 요청-응답으로 읽히는 자리까지 적는다** — 상태를
+    구체화하는 서비스와 요청-응답 API를 **한 서비스에 두는 올인원 구성**과 **둘로 가른 컴포지트
+    서비스** 둘인데, 뒤엣것은 **논리적으로 독립이되 단일 경계 컨텍스트를 공유하고 긴밀히 결합된
+    채로 남는다** (17장, pp.346–348).[^bellemare2025] **이 페이지의 "패턴을 쓴다는 사실 자체를
+    소비자에게 감추라"는 조항이 그 구성에도 그대로 걸린다** — 17장도 **상태 저장소에 직접
+    접근하지 말고 마이크로서비스의 요청-응답 API를 통하라**고 못 박는다 (17장,
+    p.346).[^bellemare2025] 전문은
+    [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md)에 있다.
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 뷰를 어디까지 미리 물질화할지의
   선택을 분석 도구 쪽에서 다루는 자리.
 - [쓰기 경로와 읽기 경로](../concepts/write-path-and-read-path.md) — 같은 분리를 데이터
@@ -396,10 +423,14 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
   커지는 축의 허브
 - [이벤트 주도 통합 설계](event-driven-integration-design.md) — 투영한 모델을 경계 밖으로
   내보내는 쪽
+- [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md) — 읽기 모델의 재료를 남의
+  서비스가 낸 상태 이벤트에서 받는 쪽
 - [데이터 메시](../concepts/data-mesh.md) — 이 패턴이 분석 모델 생성에 쓰이는 자리
 - [확장의 네 축](four-axes-of-scaling.md) — 이 패턴을 확장 수단으로 놓고 다른 축들과 견주는 자리
 - [복제 지연이 만드는 이상](../concepts/replication-lag-anomalies.md) — 저자가 이 패턴의 더
   값싼 대안으로 드는 읽기 복제본의 전제와 대가
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 같은
+  읽기 모델을 외부 상태 저장소라 부르고 마이그레이션 대신 다시 지으라고 처방하는 쪽
 
 [^newman2021]: Newman 2021, *Building Microservices* 2판(O'Reilly, 2021) 13장 "Scaling"
     곁글 §"CQRS and Event Sourcing"(pp.434–435). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
@@ -438,4 +469,14 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     직인용을 두지 않았고, 그 절의 전문은
     [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md)와
     [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md)이 갖는다.
+    **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.
+
+[^bellemare2025]: Bellemare 2025(2판), 5장 "Designing Events"
+    §"State Events and Event-Carried State Transfer"(p.99)**와 8장 "Stateful Event-Driven
+    Microservices" §"Rebuilding the External State Store"(pp.188–189)**와
+    **17장 §"Serving Data Using a Request-Response API"(pp.346–348)**. 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 이 소스는 이 페이지에 **세 줄만** 더한다 — 직인용을 두지 않았고, 세 장의
+    전문은 [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md)와
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)와
+    [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md)이 갖는다.
     **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.

@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-08-16T23:20:00Z" }
 sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 순서 보장 전달 패턴
@@ -222,6 +223,13 @@ sources:
   변환에서 큐에 쌓일 것이다** (7장, p.283).[^hohpe2004]
 - **수신 단에 있다는 것이 이 패턴이 필요해지는 조건이다** — **우리는 메시지 출처에 대한 통제 없이
   순서 밖 메시지 스트림의 수신 단에 있는 자신을 발견하는 일이 많다** (7장, p.284).[^hohpe2004]
+- **같은 사태를 이벤트 스트림 쪽에서 규정하는 소스가 하나 있고, 그쪽은 되돌리는 대신 감수한다** —
+  **이벤트는 그 타임스탬프가 이벤트 스트림에서 앞선 이벤트들의 것과 같거나 크지 않으면 비순차라고
+  말해진다**고 규정하면서도, **단일 파티션의 이벤트는 타임스탬프와 무관하게 언제나 오프셋 순서에
+  따라 처리되어야 하고 그것이 비순차 이벤트로 이어질 수 있다**고 못박는다 (9장,
+  pp.210–211).[^bellemare2025] **곧 로그 기반 브로커 위에서는 재정렬이 선택지가 아니고, 대신
+  윈도우를 언제 닫을 것인가의 문제가 된다.** 그 전문은
+  [결정적 스트림 처리](../concepts/deterministic-stream-processing.md)에 있다.
 - 해법 — **상태 있는 필터인 *Resequencer*를 써서 메시지를 수집하고 재정렬해 지정된 순서로 출력
   채널에 발행될 수 있게 하라** (7장, p.284).[^hohpe2004]
 - **전제 조건이 하나 붙는다** — ***Resequencer*는 완전한 시퀀스가 얻어질 때까지 순서 밖 메시지를
@@ -319,3 +327,6 @@ Ordering"(pp.153–162). 그림 5-9(빈 패커의 세 대량 요청)는 도식�
 (순서가 어긋나는 경로 p.284, Resequencer의 내부 동작 p.286, 능동 확인 응답 p.287)는 도판이므로
 본문이 서술한 내용만 옮겼다. 절 끝의 "Example: Resequencer in Microsoft .NET with
 MSMQ"(pp.288–293)는 반입 전략에 따라 걸렀다.
+
+[^bellemare2025]: Bellemare 2025, 9장 "Deterministic Stream Processing", pp.210–211.
+    이 페이지에는 한 줄만 들어왔고 직인용은 두지 않았다.

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 증분 갱신 전략
-description: 새 행과 바뀐 행을 이미 만들어진 대상 테이블에 어떻게 반영할 것인가 — 추가·병합·삭제 후 삽입·파티션 덮어쓰기·시간 배치의 의미론과 선택 기준, 그리고 어디까지가 갱신이고 어디부터가 이력인가
+description: 새 행과 바뀐 행을 이미 만들어진 대상 테이블에 어떻게 반영할 것인가 — 추가·병합·삭제 후 삽입·파티션 덮어쓰기·시간 배치의 의미론과 선택 기준, 그리고 어디까지가 갱신이고 어디부터가 이력인가, 그리고 같은 증분 물음을 원천에서 꺼내는 쪽에서 받는 폴링 질의 — 하이워터 마크와 세 모드, 원천에 그 필드가 있어야 한다는 전제, 소프트 삭제만 감지한다는 한계, 그리고 이 방식이 낡았다는 시대 판정
 generated: { by: "claude-opus-5", at: "2026-08-11T04:00:00Z" }
 sources:
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 증분 갱신 전략
@@ -12,6 +13,7 @@ sources:
 - [다섯 가지 의미론](#다섯-가지-의미론)
 - [병합이 없는 곳에서는 삭제 후 삽입이 병합이 된다](#병합이-없는-곳에서는-삭제-후-삽입이-병합이-된다)
 - [SCD와의 대응: 어디까지가 갱신이고 어디부터가 이력인가](#scd와의-대응-어디까지가-갱신이고-어디부터가-이력인가)
+- [원천에서 꺼내는 쪽의 같은 문제 — 폴링 질의](#원천에서-꺼내는-쪽의-같은-문제--폴링-질의)
 - [집합이 닫혀 있지 않다](#집합이-닫혀-있지-않다)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -85,6 +87,60 @@ sources:
     **현재 상태를 맞추는** 연산이지 시간 축을 새로 만드는 연산이 아니다. 이력은
     갱신 방식을 고르는 문제가 아니라 별도 자원을 두는 문제가 된다.
 
+## 원천에서 꺼내는 쪽의 같은 문제 — 폴링 질의
+
+**이 페이지가 "대상 테이블에 어떻게 반영할 것인가"를 다룬다면, 원천에서 무엇을 꺼낼 것인가에 같은
+증분 물음이 걸린다.** [bellemare2025](../sources/bellemare2025.md) 6장이 그것을 **질의 기반 데이터
+해방(query-based data liberation)** 으로 세운다. 해방 전체는 [데이터 해방](../concepts/data-liberation.md)에
+있고, 여기서는 이 페이지의 물음에 닿는 것만 적는다.
+
+- **두 단계로 나뉜다** — **초기 스냅샷**과 **증분 단계(incremental phase)** 이고, 증분은 스냅샷이
+  끝난 자리에서 시작한다 (6장 §"Liberating Data with a Polling Query", p.135).[^bellemare2025]
+  위 [다섯 가지 의미론](#다섯-가지-의미론)이 전부 증분 단계의 어휘라면, 그쪽은 **그 앞의 벌크 적재를
+  절차의 일부로 못 박는다** — 증분을 켜기 전에 **기존 데이터 전부를 질의해 생산하는 단일 벌크
+  적재**를 한 번 해야 한다 (6장, p.136).[^bellemare2025]
+- **증분이 딛는 것이 하이워터 마크(high-water mark)** 다 — 마지막 폴링 이후 어느 레코드가 바뀌었는지
+  가려야 하고, 테이블에 흔히 있는 `updated_at`이나 `modified_at` 타임스탬프가 **질의가 지난번 어디서
+  끝났는지의 훌륭한 하이워터 마크**가 된다. n+1 번째 질의가 n 번째의 마크를 써서 그 사이를 고른다
+  (6장, p.135).[^bellemare2025]
+- **그 마크를 무엇으로 삼느냐가 세 모드로 정리된다.** 저자가 Kafka Connect JDBC 커넥터 문서에서
+  그대로 옮긴다 (6장, p.135):[^bellemare2025]
+
+  > *Incrementing* Use a strictly incrementing column (as specified by incrementing.column.name) on
+  > each table to detect only new rows. Note that this will not detect modifications or deletions of
+  > existing rows.
+
+  > *Timestamp* Use a timestamp (as specified by timestamp.column.name) column to detect new and
+  > modified rows. This assumes the column is updated with each write, and that values are
+  > monotonically incrementing, but not necessarily unique.
+
+  > *Timestamp+incrementing* Use two columns, a timestamp column that detects new and modified rows
+  > and a strictly incrementing column that provides a globally unique ID for updates so each row
+  > can be assigned a unique stream offset.
+
+  - 버전 조건: 2025년 저술 시점의 Kafka Connect JDBC 커넥터 문서를 인용한 것이다.
+- **위 [다섯 가지 의미론](#다섯-가지-의미론)이 묻지 않는 것을 그쪽이 묻는다 — 원천에 그 필드가 있는가.**
+  **이미 처리한 레코드를 거를 필드가 없으면 데이터셋에 그 필드를 추가하고 저장소가 그것을 채우도록
+  설정해야 하며, 필드를 추가할 수 없으면 질의 기반 패턴으로는 증분 갱신이 불가능하다** (6장,
+  p.136).[^bellemare2025]
+- **삭제의 처리가 여기서 다시 갈린다** — 질의 기반은 **소프트 삭제만 감지한다.** 저장소에서 레코드를
+  완전히 지우면 질의에 아무 이벤트도 나타나지 않으므로 **`is_deleted` 컬럼으로 삭제를 표시하는 소프트
+  삭제를 써야** 한다 (6장, p.137).[^bellemare2025] 위 [SCD와의 대응](#scd와의-대응-어디까지가-갱신이고-어디부터가-이력인가)이
+  적는 dbt 쪽의 하드 삭제 처리(무시·무효화·삭제 표시 행 추가)가 **대상 쪽에서 같은 문제를 받는
+  자리**다. **이 대응은 이 KB가 두 소스를 맞대어 세운 것이고 어느 쪽도 상대를 호명하지 않는다.**
+  #hypothesis
+- **주기가 짧아지면 경쟁 조건이 된다** — 고빈도 갱신은 하류 지연을 낮추지만 저장소 총 부하를 키우고,
+  **이전 질의가 끝나기 전에 새 질의를 시작하면 오래된 데이터가 새 데이터를 덮어쓰는 경쟁 조건**이
+  생긴다 (6장, p.136).[^bellemare2025]
+- **그쪽의 시대 판정** — 질의 기반 폴링은 **부트스트래핑 방식으로는 전반적으로 낡은 과정**이고,
+  기술적으로 여전히 유효하되 **증분 질의보다 변경 데이터 포착을 쓰는 쪽이 훨씬 흔하며**, 초판 이후
+  **질의 기반 폴링은 대체로 하부 로그 접근을 제공하지 않는 저장소와 API로 밀려났다** (6장,
+  p.136).[^bellemare2025] 그 대안의 전문은 [변경 데이터 캡처](../concepts/change-data-capture.md)에
+  있다.
+- **모순으로 세우지 않았다.** 물음이 다르다 — 이 페이지는 **대상 테이블에 어떤 의미론으로 쓸
+  것인가**를 묻고, 그쪽은 **원천에서 무엇을 어떻게 골라낼 것인가**를 묻는다. 둘이 한 파이프라인의 앞뒤
+  끝이다.
+
 ## 집합이 닫혀 있지 않다
 
 - dbt v1.2부터 사용자 정의 증분 전략을 쓸 수 있다 — 정해진 이름 규약을 따르는
@@ -105,5 +161,16 @@ sources:
   파이프라인(14)이 같은 일을 웨어하우스 백룸에서 맡는다
 - [Data Vault 적재 패턴](../concepts/data-vault-loading-patterns.md) — 삽입만으로
   이력을 만드는 반대편 규약
+- [데이터 해방](../concepts/data-liberation.md) — 같은 증분 물음을 원천에서 받는 쪽
+- [변경 데이터 캡처](../concepts/change-data-capture.md) — 폴링 질의를 밀어낸 대안
 
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절
+
+[^bellemare2025]: Bellemare 2025(2판), **6장 "Integrating Event-Driven Architectures with Existing
+    Systems"** §"Liberating Data with a Polling Query"(pp.135–138, 하위 §"Incremental Updating" ·
+    §"Benefits of Query-Based Updating" · §"Drawbacks of Query-Based Updating"). 쪽은 인쇄판 쪽
+    번호(PDF 쪽 − 24, 실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈
+    하이픈(U+2010)으로 끊긴 낱말은 한 낱말로 이었다. 세 모드의 인용 블록은 **원문이 저자가 Kafka
+    Connect 문서에서 인용한 것임을 명시한 정의 목록**이라 항목마다 인용 블록으로 나눠 옮겼다. 이
+    절에 코드 목록도 표도 없다. 이 절의 이득 셋과 단점 일곱 전문은
+    [데이터 해방](../concepts/data-liberation.md)이 갖는다.

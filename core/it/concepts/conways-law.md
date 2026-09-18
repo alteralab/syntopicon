@@ -7,6 +7,7 @@ sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 콘웨이의 법칙
@@ -21,6 +22,7 @@ sources:
 - [9장 — 같은 소스가 갚는 갈고리](#9장--같은-소스가-갚는-갈고리)
 - [이 법칙이 이 KB에서 쓰이는 자리들](#이-법칙이-이-kb에서-쓰이는-자리들)
 - [16장이 이 법칙에 더하는 한 줄](#16장이-이-법칙에-더하는-한-줄)
+- [넷째 소스 — 이 법칙을 소통 구조 셋으로 다시 읽는다](#넷째-소스--이-법칙을-소통-구조-셋으로-다시-읽는다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **조직의 소통 구조와 그 조직이 만드는 체계의 설계는 어떤 관계이며, 그 관계를
@@ -377,6 +379,41 @@ pp.193–196).[^ford2022-evolutionary]
   잘 안 바뀌므로 거기에 구역을 맞추면 그 구역도 잘 안 바뀐다는 것이다. 그 구역 논의의 전문은
   [진화적 아키텍트의 역할](evolutionary-architect-role.md)에 있다.
 
+## 넷째 소스 — 이 법칙을 소통 구조 셋으로 다시 읽는다
+
+[bellemare2025](../sources/bellemare2025.md) 1장이 이 법칙을 **조직의 소통을 셋으로 가르는
+자기 틀** 안에 놓는다. 그쪽이 인용하는 문장은 위 표의 **셋째 판본(생략 부호가 든 판)과 낱말이
+같다** (1장 §"Conway's Law and Communication Structures", p.11):[^bellemare2025]
+
+> Organizations which design systems...are constrained to produce designs which are copies of
+> the communication structures of these organizations.
+>
+> —Melvin Conway, *How Do Committees Invent?* (April 1968)
+
+- **서지 어긋남에 표 하나가 더 붙는다.** 이 소스는 연도를 **1968년 4월**로 적어 위 표의 첫
+  판본과 맞고, [함께 일하기](working-together.md)가 옮긴 **1967년** 표기와는 어긋난다. 다만
+  *Datamation*이라는 지면 이름은 적지 않는다. 이쪽도 **원논문을 확인하지 않았다** — 보증은 이
+  책이 그렇게 인용한다까지이고, **판정은 여전히 미뤄 둔다.**
+- **함의를 끌어내는 방식이 다르다.** 이 페이지의 셋째 소스까지는 이 법칙을 **경계 설계의
+  도구**(역 콘웨이 기동)나 **결함 예측의 지표**로 쓰는데, 넷째 소스는 **데이터 접근의 진단**으로
+  쓴다. 그쪽의 추론 순서는 이렇다 (1장, p.11):[^bellemare2025]
+  - 업무 소통 구조가 사람을 팀으로 묶고, 그 팀들은 **팀 경계로 구획되는 서비스**를 낸다.
+  - 그 서비스들은 **자기 경계 컨텍스트 안의 데이터에만 접근할 수 있다.**
+  - 그런데 **도메인 개념은 사업 전체에 걸치므로** 그 서비스들은 다른 경계 컨텍스트 안에서
+    만들어진 데이터를 자주 필요로 한다.
+  - 그래서 구현 소통 구조는 **자기 경계 컨텍스트의 필요를 대는 데는 뛰어나지만 데이터 소통을
+    제공하는 데는 일반적으로 서툴다.**
+- **그 서툼이 설계를 미는 힘을 저자가 당근과 채찍으로 적는다** — 공통 도메인 데이터를 조직 전역에
+  소통하기 어려운 것이 **채찍**으로 새 제품을 만들기를 단념시키고, 자기 경계 컨텍스트 안의
+  데이터에는 쉽게 닿는 것이 **당근**으로 새 기능을 같은 자리에 두라고 꾄다. **그 패턴을 구현한
+  것이 모노리식 설계**라는 것이 그쪽의 판정이다 (1장, p.12).[^bellemare2025]
+- **이 법칙의 쓰임이 여기서 하나 늘어난다.** 위 [이 법칙이 이 KB에서 쓰이는 자리들](#이-법칙이-이-kb에서-쓰이는-자리들)에
+  적힌 쓰임들은 전부 **경계를 어디에 그을 것인가**에 관여하는데, 넷째 소스의 쓰임은 **경계가
+  이미 그어진 뒤 그 경계를 넘는 데이터를 어떻게 흐르게 할 것인가**다. 셋 가운데 넷째 소스가
+  더하는 셋째 구조(데이터 소통 구조)가 바로 그 자리이고, 전문은
+  [소통 구조 셋](../concepts/communication-structures.md)에 있다. **이 대비는 이 KB가 네 소스를 맞대어 세운
+  것이다.**
+
 ## 이어지는 페이지
 
 - [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 이 법칙을 구역 설정에 쓰는 자리
@@ -416,3 +453,10 @@ pp.193–196).[^ford2022-evolutionary]
     것이 정의가 아니라 배치다. **저자들이 이 법칙의 전문을 같은 책의 뒷장 §"Don't Fight Conway's
     Law"로 미루므로 이 페이지가 그 소스에서 받은 것은 위 절이 전부다.** 그 절들에 도판과 코드
     목록은 없다.
+
+[^bellemare2025]: Bellemare 2025(2판), 1장 "Why Event-Driven Microservices"
+    §"Conway's Law and Communication Structures"(pp.11–12). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
+    실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했다. 그 절에 코드 목록은 없고
+    도판도 없다. 저자가 대는 바깥 서지(Melvin Conway, "How Do Committees Invent?")는 **이 KB가
+    확인한 원전이 아니다**. 이 소스의 나머지 서술은 [소통 구조 셋](../concepts/communication-structures.md)에
+    있다.

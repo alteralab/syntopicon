@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 카프카 트랜잭션
-description: 원자적 다수 파티션 쓰기로 소비-처리-생산 사슬을 정확히 한 번으로 만드는 기제 — 트랜잭션적 프로듀서와 좀비 펜싱, read_committed와 LSO, 그리고 트랜잭션이 풀어 주지 않는 다섯 가지 상황
+description: 원자적 다수 파티션 쓰기로 소비-처리-생산 사슬을 정확히 한 번으로 만드는 기제 — 트랜잭션적 프로듀서와 좀비 펜싱, read_committed와 LSO, 그리고 트랜잭션이 풀어 주지 않는 다섯 가지 상황, 그리고 같은 보장을 효과적으로 한 번 처리라 부르며 브로커가 그것을 주지 않을 때의 설계까지 펴는 마이크로서비스 쪽 소스
 generated: { by: "claude-opus-5", at: "2026-08-12T22:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 카프카 트랜잭션
@@ -19,6 +20,7 @@ sources:
 - [쓰는 법](#쓰는-법)
 - [트랜잭션 ID와 펜싱](#트랜잭션-id와-펜싱)
 - [데이터베이스 쪽에서 본 같은 문제](#데이터베이스-쪽에서-본-같은-문제)
+- [마이크로서비스 쪽이 이 보장에 다른 이름을 붙인다](#마이크로서비스-쪽이-이-보장에-다른-이름을-붙인다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **카프카 트랜잭션은 무엇을 원자적으로 만들고 무엇은 만들지 못하는가.**
@@ -367,6 +369,58 @@ sources:
     부른다** (8장, p.335).[^kleppmann2026] 자세한 대조는
     [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md)에 있다.
 
+## 마이크로서비스 쪽이 이 보장에 다른 이름을 붙인다
+
+**이 기제를 쓰는 쪽에서 같은 보장을 "효과적으로 한 번"이라 부르는 소스가 들어왔다.**
+[bellemare2025](../sources/bellemare2025.md) 8장이 그렇다. 위
+[무엇을 위해 만들어졌나](#무엇을-위해-만들어졌나)와 같은 사슬을 다루되 **브로커가 그것을 주지
+않을 때 서비스가 무엇을 해야 하는가**까지 간다.
+
+- **규정** (8장 §"Transactions and Effectively Once Processing", p.190):[^bellemare2025]
+
+  > *Effectively once processing* is the guarantee that any updates made to the single source of
+  > truth are consistently applied, regardless of any failure to the producer, the consumer, or the
+  > event broker.
+
+  - **구체적으로는 컨슈머 오프셋과 출력 이벤트 스트림 레코드를 하나의 트랜잭션으로 커밋하는
+    것**이고, **그 보장을 얻으려면 트랜잭션 지원이 요구된다** (8장, p.190).[^bellemare2025]
+    위 [원자적 다수 파티션 쓰기](#원자적-다수-파티션-쓰기)가 적는 그 기제다.
+  - **이름을 저자가 물린다** — **"정확히 한 번 처리"라고도 서술되지만 그것이 썩 정확하지는
+    않다.** 서비스는 **같은 데이터를 여러 번 처리하고도 오프셋 커밋에 실패할 수** 있고, 그래도
+    **모든 이벤트에 대해 업무 로직과 부수 효과를 실행**한다 (8장, p.190).[^bellemare2025] 위
+    [트랜잭션이 풀지 않는 문제들](#트랜잭션이-풀지-않는-문제들)이 적는 경계와 같은 경계다.
+- **원자적 커밋의 범위가 그쪽에서 셋으로 열거된다** — **출력 이벤트와 체인지로그 이벤트와 컨슈머
+  오프셋 출력 이벤트**가 한 묶음으로 브로커에 커밋된다 (8장 §"Effectively Once Processing with
+  Client-Broker Transactions", p.192).[^bellemare2025] 위 절들이 적는 두 가지(출력과 오프셋)에
+  **체인지로그**가 셋째로 더해지는 것이 상태 있는 마이크로서비스 쪽의 특징이다.
+  - **재시도가 안전한 이유도 그쪽이 적는다** — 일시적 오류라면 **프로듀서가 트랜잭션 커밋을 그냥
+    재시도**하면 되는데 **그것이 멱등적 연산**이기 때문이다 (8장, p.192).[^bellemare2025]
+  - **프로듀서가 치명적 예외로 죽으면 대체 인스턴스를 체인지로그에서 복원해 다시 짓고**, 입력
+    스트림의 컨슈머 그룹 오프셋도 **오프셋 이벤트 스트림에 저장된 마지막으로 좋았던 위치로
+    재설정**된다 (8장, p.193).[^bellemare2025]
+- **트랜잭션 지원이 카프카만의 것이 아니라고 적힌다** — **아파치 카프카와 아파치 펄사가 제공**하고,
+  **관계형 데이터베이스가 하나의 트랜잭션으로 여러 테이블 갱신을 받치듯 이벤트 브로커도 여러 별개
+  스트림에 여러 이벤트를 원자적으로 쓰는 것을 받칠 수** 있다 (8장, p.190).[^bellemare2025]
+  - 버전 조건: 2025년 저술 시점의 두 제품 지형이다.
+- **이 페이지가 다루지 않는 쪽이 그쪽의 절반이다 — 트랜잭션이 없을 때.** 그쪽은 **중복 제거
+  ID를 이벤트에 붙여 내고, 컨슈머가 TTL이 걸린 중복 제거 테이블로 걸러 내고, 컨슈머 그룹 입력
+  오프셋 관리를 브로커에서 데이터 저장소로 옮겨 상태와 함께 하나의 로컬 트랜잭션으로 원자적으로
+  갱신**하는 설계를 편다 (8장 §"Effectively Once Processing Without Client-Broker Transactions",
+  pp.193–198).[^bellemare2025]
+  - **위 [데이터베이스 쪽에서 본 같은 문제](#데이터베이스-쪽에서-본-같은-문제)가 적은 그 처방과
+    같은 설계다** — 샤피라 쪽도 **오프셋을 데이터베이스에서 관리해 데이터와 오프셋을 하나의
+    데이터베이스 트랜잭션으로 커밋하라**고 권한다 (8장, pp.191–192).[^shapira2021] **세 소스가 같은
+    자리에 선다.**
+  - **다만 그 설계가 주는 것의 한계를 그쪽이 명시한다** (8장, p.198):[^bellemare2025]
+
+    > Note that this approach gives your processor effectively once *processing*, but not
+    > effectively once event *production*.
+
+    - 이유는 **프로듀서와 브로커 사이의 원자적 트랜잭션이 없기** 때문이다 (8장,
+      p.198).[^bellemare2025] 곧 **이 페이지의 기제가 실제로 사는 자리가 그 차이**다.
+- 그 설계의 전문과 세 어휘의 대조표는
+  [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)에 있다.
+
 ## 이어지는 페이지
 
 - [카프카 트랜잭션의 내부 동작](../concepts/kafka-transaction-internals.md) — 위 API 호출들이
@@ -385,10 +439,20 @@ sources:
   최소 한 번 보장
 - [컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) — 좀비와
   세대(generation)가 생기는 절차
-- [스트림 처리의 상태](../concepts/stream-processing-state.md) — 이 기제가 지키려는 그
+- [스트림 처리의 상태](stream-processing-state.md) — 이 기제가 지키려는 그
   "스트림 처리 애플리케이션의 내부 상태"가 실제로 무엇인가
+- [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md) — 같은
+  보장을 브로커 트랜잭션 없이 얻는 설계
 - [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md) — `processing.guarantee`를 켜는
   그 애플리케이션을 쓰는 법
 
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 8장 "Transactions"
 [^shapira2021]: Shapira et al. 2021, 8장 "Exactly-Once Semantics" — 코드 펜스는 pp.194–195 예제에서 원문의 주석 번호 표식만 덜어냈다(보탠 줄 없음). 컨슈머의 `ENABLE_AUTO_COMMIT_CONFIG` 줄이 `consumerProps`가 아니라 `props`로 시작하는 것도 원문 그대로다
+
+[^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices"
+    §"Transactions and Effectively Once Processing"(pp.190–198). 쪽은 인쇄판 쪽 번호
+    (PDF 쪽 − 24, 실측). 직인용 둘은 `pdftotext -layout` 추출로 문자 단위 대조했고 원문이
+    이탤릭으로 조판한 낱말은 인용 안에서 이탤릭을 유지했다. 그 절에 코드 목록도 표도 없고,
+    도판 일곱(그림 8-13부터 8-20까지 중 그 절에 걸리는 것)은 이미지 조판이라 재현하지 않았다.
+    8장의 전문은
+    [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)가 갖는다.

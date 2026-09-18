@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 스트림-테이블 이중성과 조인
-description: 스트림과 테이블은 같은 것의 두 면이라는 관점과 그 사이를 오가는 두 방향(CDC와 구체화), 그리고 그 관점 위에 서는 조인 세 종류 — 스트림-테이블 조인이 외부 조회를 없애는 방식, 언제나 비윈도우인 테이블-테이블 조인, 언제나 윈도우인 스트리밍 조인, 셋이 공유하는 구조, 그리고 상태가 시간에 따라 변할 때 어느 시점의 상태와 조인할 것인가라는 시간 의존성
+description: 스트림과 테이블은 같은 것의 두 면이라는 관점과 그 사이를 오가는 두 방향(CDC와 구체화), 그리고 그 관점 위에 서는 조인 세 종류 — 스트림-테이블 조인이 외부 조회를 없애는 방식, 언제나 비윈도우인 테이블-테이블 조인, 언제나 윈도우인 스트리밍 조인, 셋이 공유하는 구조, 그리고 상태가 시간에 따라 변할 때 어느 시점의 상태와 조인할 것인가라는 시간 의존성, 그리고 상태 저장소의 테이블을 스트림으로 뒤집은 체인지로그가 이 이중성의 운영판이 되는 자리와 그때 갈리는 보존 정책
 generated: { by: "claude-opus-5", at: "2026-08-15T02:00:00Z" }
 sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 스트림-테이블 이중성과 조인
@@ -20,6 +21,9 @@ sources:
 - [셋이 공유하는 구조](#셋이-공유하는-구조)
 - [조인의 시간 의존성](#조인의-시간-의존성)
 - [미해소](#미해소)
+- [이 이중성을 이름 붙여 규정하는 소스](#이-이중성을-이름-붙여-규정하는-소스)
+- [구체화와 집계 — 두 종류의 이벤트가 상태가 되는 두 길](#구체화와-집계--두-종류의-이벤트가-상태가-되는-두-길)
+- [체인지로그는 이 이중성의 운영판이다](#체인지로그는-이-이중성의-운영판이다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **스트림과 테이블은 어떻게 서로 바뀌고, 그 관점이 조인을 어떻게 가르는가.**
@@ -243,9 +247,95 @@ sources:
   **Kafka Summit 2020 발표 "Crossing the Streams"** 와 **그에 딸린 더 깊은 블로그
   포스트**다 (14장, p.398).[^shapira2021] 같은 책의 다른 장에는 없다.
 
+## 이 이중성을 이름 붙여 규정하는 소스
+
+**이 페이지의 이름이 되는 원리를 한 문장으로 규정하는 소스가 들어왔다.**
+[bellemare2025](../sources/bellemare2025.md) 2장이 그것을 곁글 상자에 둔다 (2장 §"Materializing
+State from Entity Events", p.37):[^bellemare2025]
+
+> Stream-table duality is the principle that a stream can be represented by a table, and a table
+> can be represented as a stream. It is fundamental to the sharing of state between event-driven
+> microservices, without any direct coupling between producer and consumer services.
+
+- **이 규정이 이 페이지의 기존 서술과 어긋나지 않는다.** 위 [두 방향의 변환](#두-방향의-변환)이
+  같은 두 방향을 적고 있고, 이쪽이 더하는 것은 **그 원리가 무엇에 쓰이는가**다 — **생산자와
+  소비자 사이에 직접 결합 없이 상태를 공유하는 일의 기반**이라는 배치다.
+- **양방향의 기제도 그쪽이 짧게 적는다.**
+  - **스트림에서 테이블로** — 위 구체화 절 참조.
+  - **테이블에서 스트림으로** — 테이블이 모든 갱신을 기록하게 하면 **시간에 걸친 테이블 상태를
+    나타내는 데이터 스트림**을 낼 수 있다. 저자의 예에서 어떤 키는 두 번, 다른 키는 한 번
+    업서트되고 출력 스트림에 업서트 이벤트 셋이 나타난다 (2장, p.37).[^bellemare2025]
+  - **관계형 데이터베이스 테이블은 삽입·갱신·삭제 명령의 열로 만들어지고 채워진다. 그 명령들을
+    불변 로그로 낼 수 있다** — **MySQL의 바이너리 로그** 같은 로컬 추가 전용 파일이든 외부 이벤트
+    스트림이든. **그 로그의 전체 내용을 되감아 재생하면 테이블과 그 모든 데이터 내용을 재구성할 수
+    있다** (2장, p.37).[^bellemare2025]
+
+## 구체화와 집계 — 두 종류의 이벤트가 상태가 되는 두 길
+
+같은 소스가 **이벤트에서 상태를 만드는 길을 둘로 가르고 각각을 다른 이벤트 종류에 배정한다.**
+이벤트 종류의 분류는 [이벤트의 구조와 세 종류](../concepts/event-record-structure-and-types.md)에 있다.
+
+| 길 | 입력 | 그쪽의 규정 |
+|---|---|---|
+| **집계(aggregation)** | 키 있는 이벤트 | **둘 이상의 이벤트를 소비해 하나의 결과로 합치는 과정.** 이벤트 기반 아키텍처의 흔한 데이터 처리 기본 단위이고 **일련의 이벤트에서 상태를 만들어 내는 주된 길의 하나**다. 짓는 데 **내구적 상태의 저장과 유지**가 필요하다 — 서비스가 죽어도 집계 진행 상황이 남아야 한다 (2장 §"Aggregating State from Keyed Events", p.35)[^bellemare2025] |
+| **구체화(materialization)** | 엔티티 이벤트 | **스트림을 테이블로 투영하는 것(a projection of a stream into a table).** 엔티티 이벤트 스트림의 이벤트를 **순서대로** 적용해 테이블을 구체화한다. **각 엔티티 이벤트는 테이블에 업서트되어 주어진 키에 대해 가장 최근에 읽은 이벤트가 표현되게 한다** (2장 §"Materializing State from Entity Events", p.36)[^bellemare2025] |
+
+- **집계가 요구하는 전제가 데이터 지역성이다** — 같은 키의 데이터가 같은 파티션에 있으므로
+  **파티션 하나만 읽어 한 키를 집계할 수 있다.** 여러 토픽을 읽는다면 **동일하게 파티셔닝되어
+  있는지 확인해야 하고, 아니면 스트림들이 서로 맞도록 재파티셔닝해야 한다** (2장,
+  p.35).[^bellemare2025]
+- **집계는 복잡해질 수 있다** — 여러 입력 스트림과 여러 이벤트 종류와 **내부 상태 기계**를 엮어
+  더 복잡한 결과를 끌어낼 수 있다 (2장, p.36).[^bellemare2025]
+- **구체화가 이 페이지의 조인 서술과 맞물리는 자리가 하나 있다.** 위 [테이블-테이블 조인](#테이블-테이블-조인)이
+  다루는 그 연산이 그쪽에서는 **구체화된 두 테이블을 조인하는 것**으로 나타나고, 저자가 그것을
+  카파 아키텍처의 코드 예로 든다. 그 코드와 배치는
+  [람다 아키텍처와 카파 아키텍처](../concepts/lambda-and-kappa-architecture.md)에 있다.
+- **같은 책 14장이 이 이중성을 스트리밍 SQL의 첫 단계로 다시 쓴다** — **스트림을 테이블로 보는
+  것(streams-as-tables)이 기본 데이터 추상**이고, 질의를 쓰려면 먼저 **스트리밍 데이터 위에
+  테이블 정의를 선언**해야 한다. 그렇게 선언되는 테이블이 셋인데 **업서트 테이블은 위 표의
+  구체화와 동일하고**(저자가 2장을 그대로 가리킨다), **추가 전용 테이블은 스트림을 받치는 추가
+  전용 로그와 같으며**, **철회 테이블은 행 전체를 키로 삼아 상류 계산의 결과를 반영한다** (14장
+  §"Turning Streams into Tables for Streaming SQL Queries", pp.286–287).[^bellemare2025]
+  셋의 대조와 실행 자리 넷은
+  [이벤트 기반 마이크로서비스의 네 모양](../concepts/event-driven-microservice-shapes.md)에 있다.
+
+## 체인지로그는 이 이중성의 운영판이다
+
+**같은 책 8장이 이 원리에 이름 하나를 더 붙인다** — 상태 저장소의 테이블을 스트림으로 뒤집은 것이
+**체인지로그**이고, 그것이 상태 복구의 수단이 된다.
+
+- 규정 (8장 §"Using a Changelog Event Stream as State Recovery", p.177):[^bellemare2025]
+
+  > A *changelog* is a record of all changes made to the data of the state store. It is the stream
+  > in the table-stream duality, with the table of state transformed into a stream of individual
+  > events.
+
+  - **위 [두 방향의 변환](#두-방향의-변환)의 "테이블에서 스트림으로" 방향을 운영 목적에 건 것**이
+    체인지로그다. 이 페이지가 그 방향의 예로 든 것이 **관계형 데이터베이스의 바이너리 로그**라면,
+    8장이 드는 것은 **마이크로서비스 인스턴스가 들고 있는 상태 저장소**다.
+- **쓰임이 하나로 좁다** — 체인지로그는 **마이크로서비스 인스턴스 바깥에 유지되는 상태의 영구
+  사본**으로서 **상태를 다시 짓는 데 쓰이고 체크포인트 노릇을 한다.** **이전 처리의 결과를
+  저장하므로 복구 중인 프로세서가 모든 입력 이벤트를 다시 처리하지 않아도 되게** 해 준다 (8장,
+  p.177).[^bellemare2025]
+- **그 쓰임이 압착 정책을 정한다** — 체인지로그는 **흔히 압착되는데, 그 주 목적이 상태 복구이지
+  엔티티 스트림에서처럼 변경 이력을 추적하는 것이 아니기** 때문이다 (8장,
+  p.177).[^bellemare2025] 곧 **같은 이중성을 쓰더라도 이력을 남기려는 스트림과 상태만 남기려는
+  스트림에서 보존 정책이 갈린다.** 압착의 기제는 [카프카 로그 압착](../concepts/kafka-log-compaction.md)에
+  있다.
+- **접근 권한에도 조항이 붙는다** — 체인지로그 스트림은 **다른 스트림과 똑같이 이벤트 브로커에
+  저장되지만 읽기·쓰기 권한은 연관된 애플리케이션으로 엄격히 제한되어야 하고, 다른 어떤 서비스도
+  체인지로그의 데이터에 접근해서는 안 된다** (8장, p.177).[^bellemare2025] 곧 **이 이중성이
+  서비스 사이 상태 공유의 기반이라는 위 규정과 체인지로그는 층이 다르다** — 저 규정의 대상은
+  공개된 엔티티 이벤트 스트림이고, 체인지로그는 서비스 하나의 사적 복구 장치다. **이 구분은 이
+  KB가 두 절을 맞대어 세운 것이고 저자가 그 대비를 적지는 않는다.** #hypothesis
+- 복구 절차와 전역 상태와 핫 레플리카는
+  [상태 있는 마이크로서비스와 상태 저장소](../concepts/stateful-microservices-and-state-stores.md)에 있다.
+
 ## 이어지는 페이지
 
 - [스트림 처리의 상태](../concepts/stream-processing-state.md) — 조인이 들고 있어야 하는 것
+- [상태 있는 마이크로서비스와 상태 저장소](../concepts/stateful-microservices-and-state-stores.md) — 이
+  이중성을 상태 복구에 쓰는 자리
 - [스트림 처리 설계 패턴](../concepts/stream-processing-design-patterns.md) — 조인 말고 나머지 패턴들
 - [카프카 스트림즈 DSL](../concepts/kafka-streams-dsl.md) — `KTable`과 `leftJoin`의 실제 코드
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — 테이블을 스트림으로 바꾸는 그 기제
@@ -261,3 +351,18 @@ sources:
 
 [^shapira2021]: Shapira et al. 2021, 14장 "Stream Processing", pp.382, 389–390, 396–399, 410
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
+
+[^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —
+    §"Aggregating State from Keyed Events"(pp.35–36) · §"Materializing State from Entity
+    Events"(pp.36–37, 스트림-테이블 이중성 곁글 상자 포함), **그리고 8장 "Stateful Event-Driven
+    Microservices" §"Using a Changelog Event Stream as State Recovery"(pp.177–178)에서 온 위
+    §"체인지로그는 이 이중성의 운영판이다"**. 8장의 전문은
+    [상태 있는 마이크로서비스와 상태 저장소](../concepts/stateful-microservices-and-state-stores.md)가 갖고,
+    이 페이지는 체인지로그가 이 이중성의 한 방향이라는 것만 받았다. **14장 §"Turning Streams
+    into Tables for Streaming SQL Queries"(pp.286–287)** 에서는 테이블 셋의 규정만 한 줄로
+    받았고, 그 장의 전문은
+    [이벤트 기반 마이크로서비스의 네 모양](../concepts/event-driven-microservice-shapes.md)이 갖는다. 그 절의 도판 둘(그림 8-6·8-7)은
+    이미지 조판이라 재현하지 않았고 코드 목록도 표도 없다. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
+    실측). 직인용은 `pdftotext -layout` 추출로 문자 단위 대조했고, 줄바꿈 하이픈(U+2010)으로
+    끊긴 낱말은 한 낱말로 이었다. 이 절들에 코드 목록은 없고 도판 셋(그림 2-14·2-15·2-16)은
+    이미지 조판이라 재현하지 않았다.

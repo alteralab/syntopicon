@@ -7,6 +7,7 @@ sources:
   - { id: shapira2021, resource: /it/sources/shapira2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
 ---
 
 # 스트림 처리의 시간 의미론
@@ -21,6 +22,7 @@ sources:
 - [누구의 시계인가](#누구의-시계인가)
 - [카프카 스트림즈가 시간을 붙이는 방식](#카프카-스트림즈가-시간을-붙이는-방식)
 - [시간대는 파이프라인 전체가 하나여야 한다](#시간대는-파이프라인-전체가-하나여야-한다)
+- [넷째 시각을 세우는 소스](#넷째-시각을-세우는-소스)
 - [미해소](#미해소)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -239,6 +241,61 @@ sources:
   시간대로 변환할 수 있게 해야 하고, 흔히 이는 레코드 자체에 시간대를 저장하는 것을
   뜻한다** (14장, p.388, "Mind the Time Zone" 박스).[^shapira2021]
 
+## 넷째 시각을 세우는 소스
+
+**위 [세 가지 시간](#세-가지-시간)이 셋으로 가르는 축을 이벤트 기반 마이크로서비스 쪽의 소스가
+넷으로 가른다.** 더해지는 것은 **소비자 쪽 반입 시각**이고, 그것을 따로 세우는 이유가 이 절의
+내용이다.
+
+- 넷의 규정 (9장, p.201):[^bellemare2025]
+
+  > *Event time*
+  > The local timestamp assigned to the event by the producer at the time the event occurred.
+  >
+  > *Broker ingestion time*
+  > The timestamp assigned to the event by the event broker. You can configure this to be
+  > either the event time or the ingestion time, with the former being much more common.
+  >
+  > *Consumer ingestion time*
+  > The time in which the event is ingested by the consumer. This can be set to the event time
+  > specified in the broker record, or it can be the wall-clock time.
+  >
+  > *Processing time*
+  > The wall-clock time at which the event has been processed by the consumer.
+
+  - **브로커 반입 시간이 위 [세 가지 시간](#세-가지-시간)의 로그 추가 시간(= 적재 시간)과 같은
+    자리다.** 다만 이 소스는 **설정으로 이벤트 시간을 그대로 쓸 수도 있다**는 것을 규정 안에 넣고,
+    **전자가 훨씬 흔하다**고 적는다.
+- **넷째를 세우는 값은 재현 가능성에 있다.** 저자가 넷을 다시 둘로 가른다 — **로컬에 배정된 이벤트
+  시간과 브로커 반입 시간은 생산-소비 워크플로에서 각각 한 번씩만 일어나는 반면, 벽시계 시각과
+  컨슈머 반입 시간은 애플리케이션이 언제 실행되느냐에 따라 달라진다** (9장,
+  p.204).[^bellemare2025]
+  - **곧 업무 로직이 쓸 수 있는 것은 앞의 둘뿐이고**, 저자가 그것을 명시한다 — **선택은 로컬에
+    배정된 이벤트 시간과 브로커 반입 시간 둘 사이의 것**이다 (9장, p.204).[^bellemare2025]
+  - 처방의 순서도 같다 — **정확성을 신뢰할 수 있는 한 로컬 이벤트 시간을 쓰고**, **생산자
+    타임스탬프가 믿을 수 없고 고칠 수 없으면 브로커 반입 시간이 차선**이다 (9장,
+    p.204).[^bellemare2025] 이는 위 [세 가지 시간](#세-가지-시간)이 담은 **"실제 이벤트 시간이
+    기록되지 않은 경우 로그 추가 시간이 합리적 근사"** 라는 서술과 같은 방향이고, 이쪽은 그것을
+    **처방의 우선순위**로 세운다.
+- **정상 상태에서는 넷이 붙어 있다** — **모든 소비자와 생산자가 건강하고 어느 컨슈머 그룹에도 이벤트
+  적체가 없으면 네 시점 전부가 서로 몇 초 안에 든다.** 반대로 **역사적 이벤트를 처리하는
+  마이크로서비스에서는 이벤트 시간과 컨슈머 반입 시간이 크게 벌어진다** (9장,
+  p.204).[^bellemare2025]
+- **타임스탬프 추출기가 프레임워크 중립 부품으로 규정된다** — **소비자는 레코드를 처리 순서에 어떻게
+  놓을지 정하기 전에 그 레코드의 타임스탬프를 알아야 하고, 컨슈머 반입 시점에 *타임스탬프
+  추출기(timestamp extractor)* 가 소비된 이벤트에서 타임스탬프를 뽑는다. 이 추출기는 키·값·메타데이터를
+  포함해 이벤트 페이로드의 어느 부분에서든 정보를 가져올 수 있다** (9장, p.205).[^bellemare2025]
+  - 위 [카프카 스트림즈가 시간을 붙이는 방식](#카프카-스트림즈가-시간을-붙이는-방식)의
+    `TimestampExtractor` 인터페이스가 **그 자리를 채우는 제품의 구현**이다. 이쪽은 자리를, 그쪽은
+    구현을 담는다. 두 소스가 서로를 호명하지 않는다.
+- **차선책이 무너지는 조건도 이 소스가 적는다** — **이벤트 브로커와 생산자가 믿을 만하게 통신하지
+  못하는 드문 경우에만 참된 이벤트 시간과 브로커가 배정한 것 사이에 상당한 지연이 있을 수 있다**
+  (9장, p.204).[^bellemare2025] 그 장면의 실물(생산자·브로커 연결 장애)과 거기서 생기는 지각 이벤트는
+  [결정적 스트림 처리](../concepts/deterministic-stream-processing.md)에 있다.
+- **이 페이지가 받는 것은 여기까지다.** 이 시각들을 써서 **여러 입력 파티션에서 다음에 처리할
+  이벤트를 고르는 절차**(이벤트 스케줄링)와 **시간 진행을 재는 두 기제**(워터마크·스트림 시간)는
+  같은 장의 주제이고 [결정적 스트림 처리](../concepts/deterministic-stream-processing.md)가 갖는다.
+
 ## 미해소
 
 - 3.0 이후의 타임스탬프 처리 변경은 **이 소스가 다루지 않는다고 스스로 밝힌** 구간이다.
@@ -265,7 +322,10 @@ sources:
 
 - [원천 시스템과 데이터 생성](../concepts/source-systems-and-generation.md) — 이벤트 시간이
   발생하는 자리
+- [결정적 스트림 처리](../concepts/deterministic-stream-processing.md) — 이 시각들을 써서 여러 입력 파티션에서
+  다음 이벤트를 고르는 절차와 시간 진행을 재는 두 기제
 
 [^shapira2021]: Shapira et al. 2021, 14장 "Stream Processing", pp.382, 386–388
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 12장 "Stream Processing"
 [^reis2022]: Reis & Housley 2022, 5장 "Data Generation in Source Systems"
+[^bellemare2025]: Bellemare 2025, 9장 "Deterministic Stream Processing", pp.201, 204–205
