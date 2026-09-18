@@ -47,6 +47,15 @@ generated: { by: "claude-opus-5", at: "2026-09-17T01:20:00Z" }
   데이터를 다시 짓는 두 길. **위 [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)의
   블루그린이 이 페이지에서 컨슈머 그룹 둘이라는 대가를 얻는다**
 
+- [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md) — 나른
+  것을 **놓는 일과 보이는 일을 아예 다른 행위로 가르는** 쪽. 두 낱말의 규정과 그 분리를 거는 수단
+  둘(코드 안의 기능 플래그와 트래픽 층의 라우팅), 판을 메이저와 마이너와 패치로 갈라 전략에
+  대응시키는 규칙, 그리고 카나리와 트래픽 미러링과 블루그린의 기제와 대가. **위
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)의 배포·릴리스
+  구분이 여기서 두 번째 원전을 얻고**, 위
+  [이벤트 기반 마이크로서비스의 배포 패턴](../concepts/event-driven-deployment-patterns.md)이
+  같은 전략들에 이벤트 스트림이라는 대가를 붙인다
+
 ## 무엇 위에 놓는가
 
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 그 조문으로
