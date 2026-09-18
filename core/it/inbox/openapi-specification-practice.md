@@ -3,7 +3,7 @@ type: concept
 title: OpenAPI 명세를 쓰는 실무
 status: draft
 description: API의 모양을 적은 문서 하나를 계약과 코드와 검증과 문서의 축으로 돌리는 실무 — API 수가 늘면서 모양을 공유할 기제가 필요해졌다는 유래와 OpenAPI 이니셔티브와 스웨거라는 원래 참조 구현, 명세가 담는 것 넷(구조와 도메인 객체와 보안 요건과 메타데이터), 클라이언트 코드와 구현 스텁을 생성하는 쓰임과 거기서 곧바로 나오는 명세가 먼저인가 코드가 먼저인가라는 물음, 명세가 모양만 전하고 조건별 의미론을 모델링하지 않는다는 한계와 그 한계가 소비자 관점 설계와 맞물리는 자리, 인바운드 트래픽을 가리는 존 앞에서 명세로 메시지를 검사해 끊는다는 보안 쪽 쓰임, 예제를 모의 응답으로 돌려 짓기 전에 시험하게 한다는 쓰임과 예제가 문자열이라 따로 검증돼야 한다는 함정, 명세를 맞대어 깨는 변경을 파이프라인에서 잡는 쓰임과 도구가 명세 판에 묶인다는 단서, 그리고 명세 하나에서 다른 명세를 만들어 내려 할 때 알파벳 정렬이 필드 번호를 흔들고 하이퍼미디어 도메인을 함수 호출로 뭉개는 함정과 두 명세를 따로 설계하라는 저자들의 결론
-generated: { by: "claude-opus-5", at: "2026-09-19T03:30:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-19T06:05:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
 ---
@@ -21,6 +21,7 @@ sources:
 - [변경 탐지](#변경-탐지)
 - [명세끼리 변환할 수 있는가](#명세끼리-변환할-수-있는가)
 - [결합된 명세가 지는 것](#결합된-명세가-지는-것)
+- [명세와 계약은 다른 물음이다](#명세와-계약은-다른-물음이다)
 - [이 KB의 다른 OpenAPI 서술과 나란히](#이-kb의-다른-openapi-서술과-나란히)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -239,6 +240,32 @@ sources:
   도구나 생성 기능을 프로젝트에 적용할지 선택해야 한다** (1장 §"Summary",
   p.24).[^gough2022]
 
+## 명세와 계약은 다른 물음이다
+
+**위 [명세는 모양만 전한다](#명세는-모양만-전한다)가 남긴 공백을 같은 책의 2장이 이어받는다.**
+거기서 저자들이 명세와 계약을 갈라 놓는다.
+
+- **명세 준수를 먼저 요구한다** — API는 명세를 가져야 하고 **API 응답이 내가 깔아 둔 명세에
+  부합하는 것이 중요하다**고 적으며 위 절을 가리킨다 (2장 §"Why Contract Testing Is Often
+  Preferable", p.34).[^gough2022]
+- **그러나 계약 테스트는 명세 적합과 같은 것이 아니라고 못 박는다** (2장, p.35):[^gough2022]
+
+  > It is important to note that contract testing is not the same as saying that an API
+  > conforms to a schema. A system is either compatible with a schema (like OpenAPI Spec) or
+  > it is not; a contract is about a defined interaction between parties and provides
+  > examples.
+
+  - **곧 명세는 참·거짓의 적합 판정을 주고, 계약은 두 편 사이의 정의된 상호작용과 예를 준다.**
+    위 절이 적은 한계(**명세가 조건별 의미론을 온전히 모델링하지 않는다**)를 메우는 것이
+    계약이라는 배치이고, **이 책이 그 연결을 스스로 적는다.** 계약 쪽 전문은
+    [소비자 주도 계약](consumer-driven-contracts.md)에 있다.
+- **명세를 계약의 입력으로 쓰는 길이 있으나 도구가 서 있지 않다** — 계약을 들이는 비용을 적은
+  자리에서 **OpenAPI 명세를 바탕으로 계약을 만들어 주는 도구를 찾아볼 만하다**고 적되, 각주에
+  **저술 시점에 몇몇 프로젝트가 있으나 활발히 유지되는 것이 없어 어느 것도 추천하기
+  어렵다**고 단다 (2장 §"Contracts methodology overview", p.39 · 각주 9).[^gough2022]
+  - 버전 조건: 2022년 저술 시점의 관찰이다. 위 [버전 조건](#버전-조건)이 이 페이지 전체에
+    걸리는 것과 같은 조건이다.
+
 ## 이 KB의 다른 OpenAPI 서술과 나란히
 
 - **이 페이지가 들어오기 전 이 KB의 OpenAPI 서술은 둘이었고 둘 다 다른 것을 묻는다.**
@@ -282,14 +309,18 @@ sources:
     서론 §"The Architecture Journey"(p.xxiv), 그리고 1장 "Design, Build, and Specify APIs"
     §"Specifying REST APIs Using OpenAPI"(pp.12–13) · §"Practical Application of OpenAPI
     Specifications"(pp.13–15) · §"OpenAPI Specification and Versioning"(pp.16–18) ·
-    §"Multiple Specifications"(pp.22–24) · §"Summary"(p.24). 쪽은 인쇄판 쪽 번호(앞부속 =
+    §"Multiple Specifications"(pp.22–24) · §"Summary"(p.24), 그리고 2장 "Testing APIs"
+    §"Why Contract Testing Is Often Preferable"(pp.34–35)와 §"Contracts methodology
+    overview"(p.39)와 그 각주 9. 쪽은 인쇄판 쪽 번호(앞부속 =
     PDF 쪽 − 2, 본문 = PDF 쪽 − 38, 실측). **직인용 둘(openapi-diff의 판정 두 줄)은 원문이
     도구 출력이라 `pdftotext -layout` 추출로 문자 단위 대조했다** — p.17(PDF 55)은
     `pdftext.py`가 추출을 거부한 쪽이라 `pdftotext -layout`으로만 읽었고 `pdftoppm` 렌더로도
     대조했다. 그 쪽의 도커 명령과 diff 출력 전문은 옮기지 않고 판정 두 줄만 인용했다 — 전권
     코드 펜스 예산 셋을 이 장에서 쓰지 않았다. **자바 검증기 코드(p.14)와 `.proto`
     조각(p.23)도 펜스로 옮기지 않았고, 그것이 뒷받침하는 claim만 산문으로 옮기며 식별자는
-    인라인 코드로 두었다.** 이 절들에 도판도 표도 없다. **원문 오식 하나** — p.13에서
+    인라인 코드로 두었다.** 이 절들에 도판도 표도 없다. **2장에서 온 절의
+    직인용 하나(계약 테스트와 스키마 적합의 구별)도 `pdftotext -layout` 추출로 문자 단위
+    대조했고, 그 절에 도판과 코드 목록은 없다.** **원문 오식 하나** — p.13에서
     2장의 주제를 `contract tracing`이라 적는데, 이 책의 목차와 2장 본문은
     `Contract Testing`이다. 이 페이지는 한국어로 "계약 테스트"라 옮겼다. 저자들이 대는 바깥
     것들(OpenAPI 이니셔티브, 스웨거, OpenAPI.Tools, OpenAPI Generator,
