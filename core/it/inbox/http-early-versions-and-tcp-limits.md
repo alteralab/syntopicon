@@ -43,7 +43,7 @@ TCP는 어떤 한계를 함께 물려주는가.**
 ## 하이퍼텍스트라는 관념이 먼저 있었다
 
 - 낱말을 들여온 사람은 테드 넬슨(Ted Holm Nelson)이고 1965년이다. 원문 직인용
-  (4장, p.106):[^dynowski2025]
+  (4장 §"What Is Hypertext?", p.105):[^dynowski2025]
 
   > Let me introduce the word *hypertext* to mean a body of written or pictorial material
   > interconnected in such a complex way that it could not conveniently be presented or

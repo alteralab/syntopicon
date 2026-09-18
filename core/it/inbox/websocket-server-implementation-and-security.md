@@ -91,9 +91,11 @@ sources:
 - **고른 해법이 발행-구독이다** — **그 쓸 자리에 맞는 pub/sub 메시징 패턴을 구현하기로 했고,
   그 패턴이 앞쪽 애플리케이션에서 뒤쪽 애플리케이션으로 데이터를 보내게 해 준다** (10장,
   p.314).[^dynowski2025]
-  - 저자들은 그 패턴의 전문을 같은 책 11장으로 미룬다. **이 KB에서 그 패턴의 자리는
-    [발행/구독 메시징](../concepts/publish-subscribe-messaging.md)이고,** 그 페이지는 다른
-    소스들로 이미 두껍다.
+  - 저자들은 그 패턴의 전문을 같은 책 11장으로 미룬다. **그 자리가
+    [브로커 기반 API 스타일과 RabbitMQ](broker-based-api-style-and-rabbitmq.md)의 패턴 절**이고,
+    거기서 이 패턴은 **익스체인지가 큐마다 사본을 라우팅하는 것**으로 규정된다. **이 KB에서
+    이름 층의 정본은 [발행/구독 메시징](../concepts/publish-subscribe-messaging.md)이고,** 그
+    페이지는 다른 소스들로 이미 두껍다.
 - **구현 기술이 Redis다** — **메모리 안에서 도는 키-값 데이터베이스이고 pub/sub 메시지 전달의
   가벼운 구현을 제공한다** (10장, p.314).[^dynowski2025]
   - **저자들이 그 제품의 범위가 자란 내력을 적는다** — **본래 Redis는 메모리 안 키-값
@@ -342,6 +344,11 @@ sources:
 - **온라인 도구에 같은 유보가 붙는다** — **믿는 온라인 서비스에만 정보를 붙여 넣고 지역 대안을
   선호하라** (10장, p.328).[^dynowski2025] 같은 경고를 앞 장의 문서화 절도 달았다 —
   [웹훅과 콜백 스타일](webhooks-and-callback-style.md) §"문서화 — OpenAPI의 두 필드"다.
+- **같은 명세가 AMQP 큐를 서술하는 자리는 같은 책 11장이다** —
+  [RabbitMQ의 전달과 보안과 문서화](rabbitmq-delivery-security-and-documentation.md)가
+  채널과 연산의 AMQP 바인딩과 메시지 버저닝을 담는다. **여기의 "채널은 Redis의 것이 아니다"라는
+  경고와 같은 모양의 경고가 거기에도 있다** — 거기서는 AsyncAPI의 채널이 RabbitMQ의 채널이
+  아니다.
 - **이 KB에 AsyncAPI의 원전은 없었다.** 지금까지는 다른 소스들이 이름으로만 적었다 —
   [웹 서비스와 REST](../concepts/web-services-and-rest.md)가 이벤트 기반 인터페이스 문서화의
   선택지 둘 가운데 하나로, [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md)이

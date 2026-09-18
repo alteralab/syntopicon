@@ -294,7 +294,8 @@ pp.16–17):[^dynowski2025]
   스타일이다(위 전이중). WebSocket 프로토콜이나 gRPC 프레임워크로 지은 API가 여기 든다.
 - **브로커 기반(broker-based)** — 메시지가 **브로커라는 중개자를 지난다**는 것이 특징이다. 여러
   프로토콜로 메시지를 전달하고, 저자들이 드는 브로커 기반 메시징 체계는 Apache ActiveMQ와
-  Apache Kafka와 RabbitMQ다.
+  Apache Kafka와 RabbitMQ다. 이 스타일의 전문은
+  [브로커 기반 API 스타일과 RabbitMQ](broker-based-api-style-and-rabbitmq.md)에 있다.
 - **gRPC가 두 칸에 걸린다는 점을 저자들이 명시한다** — RPC 스타일의 대표 기술이면서 전이중이라
   양방향 스타일에도 든다 (1장, p.17).[^dynowski2025]
 
