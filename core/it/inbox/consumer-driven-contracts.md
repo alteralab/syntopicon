@@ -799,7 +799,7 @@ pp.148–149).[^ford2022-evolutionary]
     [테스트 스위트의 운영 §근거의 격이 같지 않다](../synthesis/test-suite-operations.md#근거의-격이-같지-않다)가
     소유한다.
 - **이 결정을 ADR 지침으로도 낸다** (2장 표 2-2, p.41).[^gough2022] 세 칸의 요지는
-  [API 테스트의 유형과 경계 §ADR 지침 넷](api-test-types-and-boundaries.md#adr-지침-넷)에 있다.
+  [API 테스트의 유형과 경계 §ADR 지침 넷](api-test-types-and-boundaries.md)에 있다.
 
 ## 이어지는 페이지
 
