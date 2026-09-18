@@ -87,6 +87,15 @@ sources:
   마이크로서비스에 공통인 핵심 구성 요소**를 보여 준다고 적는다. **이벤트 스트림 컨슈머, 프로듀서,
   상태 저장소, 그리고 입력 스트림에 새 이벤트가 도착하는 것이 미는 연속 처리 루프** 넷이고,
   **업무 로직은 그 처리 루프 안에 박혀 있다** (3장, p.53).[^bellemare2025]
+- **같은 책 9장이 이 모양에 빠져 있는 부품 하나를 못박는다** — **이벤트 스케줄링은 많은 스트림 처리
+  프레임워크의 기능이지만 기본 컨슈머 구현에는 대체로 없고, 자기 마이크로서비스 구현에 그것이
+  필요한지 판별해야 한다.** 판별 기준은 **이벤트가 소비되고 처리되는 순서가 업무 로직에
+  중요한가**다 (9장, p.204).[^bellemare2025]
+  - **곧 여러 입력 스트림에서 다음에 처리할 이벤트를 시간 순서로 고르는 일이 이 모양에서는 직접
+    써야 하는 코드**이고, 아래 [스트림 처리 프레임워크](#스트림-처리-프레임워크)에서는 프레임워크가
+    준다. 위 [네 모양](#네-모양)의 가름 축에 이 항목이 없는데, **저자가 3장에서 이 차이를 들지
+    않고 9장에 가서야 적기 때문이다.** 이벤트 스케줄링의 규정과 그것이 재처리의 재현 가능성과
+    맞물리는 자리는 [결정적 스트림 처리](deterministic-stream-processing.md)에 있다.
 
 ## 스트림 처리 프레임워크
 
@@ -406,11 +415,15 @@ sources:
   답하려는 요구
 - [기록 시스템과 파생 데이터](system-of-record-and-derived-data.md) — 단일 기록자 원칙이 사는 자리
 - [스트림-테이블 이중성](stream-table-duality.md) — 마이크로서비스 토폴로지 안의 구체화
+- [결정적 스트림 처리](deterministic-stream-processing.md) — 이벤트 스케줄링을 기본으로 주는
+  모양과 직접 만들어야 하는 모양
+- [이벤트 기반 워크플로](event-driven-workflows.md) — 업무 토폴로지를 조율 방식으로 가르는 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) —
   경계 쪽 허브
 
-[^bellemare2025]: Bellemare 2025(2판), 3장 "Fundamentals of Event-Driven Microservices" —
+[^bellemare2025]: Bellemare 2025(2판), 3장 "Fundamentals of Event-Driven Microservices"와
+    9장의 이벤트 스케줄링 대목(p.204) —
     §"The Basics of Event-Driven Microservices"(pp.49–51) · §"The Basic Producer/Consumer"
     (pp.51–53) · §"The Stream-Processing Event-Driven Microservice"(pp.53–55) ·
     §"The Streaming SQL Query"(pp.55–56) · §"The Legacy Application"(p.57) ·

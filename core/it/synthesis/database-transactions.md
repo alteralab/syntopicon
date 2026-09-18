@@ -75,6 +75,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T15:00:00Z" }
   — 그 여덟 가운데 통신이 비동기인 넷과 각각의 채점표
 - [프로세스 매니저](../concepts/process-manager.md) — 그 중앙 조율자에 판단이 들어올 때 붙는
   이름과 조율자 쪽 어휘가 소스마다 갈리는 자리
+- [이벤트 기반 워크플로](../concepts/event-driven-workflows.md) — 그 사가를 이벤트 스트림 기반에서
+  다시 세우는 쪽. 코레오그래피 사가의 사가 스트림과 지시 스트림, 되돌리는 대신 앞으로 나아가는
+  보상 워크플로 패턴, 그리고 조율자를 돌리는 전용 런타임인 지속 실행 엔진
 - [Calvin과 Spanner](../concepts/calvin-and-spanner.md) — 실행 순서를 먼저 합의하는 쪽과 샤드마다
   합의 그룹을 두는 쪽
 - [Percolator 트랜잭션](../concepts/percolator-transactions.md) — 기존 분산 스토어 위에 스냅샷

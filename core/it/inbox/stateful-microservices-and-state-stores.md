@@ -406,7 +406,9 @@ sources:
     시도**할 수 있고, **같은 데이터를 나중에 재처리하면 그 조인이 실행**될 수 있다. 각 인스턴스의
     스트림 처리가 서로 완전히 분리되어 있으므로 **이 방식으로 얻은 결과는 비결정적이고 재현
     불가능할 공산이 크다** (8장, p.187).[^bellemare2025] 스트림 시간과 결정성 자체는 같은 책 9장의
-    주제이고 이 페이지가 받은 것은 이 한 자리뿐이다.
+    주제이고 [결정적 스트림 처리](deterministic-stream-processing.md)가 갖는다 — 그쪽이 적는
+    **인스턴스마다 자기 스트림 시간을 유지하고 둘 사이에 동기화가 없어 생기는 시간
+    스큐(time skew)** 가 여기 말하는 비결정성과 같은 기제다 (9장, p.212).[^bellemare2025]
 
 ### 외부 상태 저장소의 확장과 복구
 
@@ -773,6 +775,8 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
   리밸런스의 기제
 - [카프카 스트림즈 아키텍처](../concepts/kafka-streams-architecture.md) — 핫 레플리카를 스탠바이
   레플리카라는 이름으로 갖는 자리
+- [결정적 스트림 처리](deterministic-stream-processing.md) — 같은 책 9장. 인스턴스마다 따로 도는
+  스트림 시간이 무엇이고 그것이 재처리의 재현 가능성과 어떻게 맞물리는가
 - [이벤트 설계 - 상태와 델타](event-design-state-versus-delta.md) — 재고 회계 예제가 쓰는 델타
   이벤트의 규정
 - [데이터 해방](data-liberation.md) — 남의 저장소 데이터를 이 상태의 재료로 꺼내는 쪽
@@ -782,7 +786,8 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 - [스트림 처리](../synthesis/stream-processing.md) — 이웃 허브
 
-[^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices"(pp.169–198) 전량 —
+[^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices"(pp.169–198) 전량과
+    9장의 시간 스큐 대목(p.212) —
     도입(p.169) · §"Event-Stream Partitions and Consumer Assignments"(pp.170–175, 하위
     §"Repartitioning Event Streams" pp.171–172 · §"Copartitioning Event Streams" p.172 ·
     §"Assigning Partitions Within a Consumer Group" pp.173–175) ·
