@@ -1,10 +1,11 @@
 ---
 type: concept
 title: HTTP 버전 번호와 의미론의 분리
-description: HTTP의 두 자리 버전 번호가 무엇을 선언하는가 — 앞자리는 메시징 구문을 뒷자리는 송신자가 준수하는 최고 minor 버전을 가리킨다는 정의, 핵심 의미론은 버전을 넘어 바뀌지 않고 "선로 위의" 표현만 바뀐다는 원전의 문장, 버전을 올리지 않고 확장점으로 늘리는 길, 버전 표기 하나가 실은 여러 명세의 결합에 대한 준수 선언이라는 것, 그리고 minor 번호가 요건이 아니라 능력 광고로 쓰인다는 것
-generated: { by: "claude-opus-5", at: "2026-09-07T09:00:00Z" }
+description: HTTP의 두 자리 버전 번호가 무엇을 선언하는가 — 앞자리는 메시징 구문을 뒷자리는 송신자가 준수하는 최고 minor 버전을 가리킨다는 정의, 핵심 의미론은 버전을 넘어 바뀌지 않고 "선로 위의" 표현만 바뀐다는 원전의 문장, 버전을 올리지 않고 확장점으로 늘리는 길, 버전 표기 하나가 실은 여러 명세의 결합에 대한 준수 선언이라는 것, minor 번호가 요건이 아니라 능력 광고로 쓰인다는 것, 그리고 그 규칙이 실제로 적용된 자리와 HTTP/1.1의 첫 인터넷 표준이 2022년에야 나왔다는 연표
+generated: { by: "claude-opus-5", at: "2026-09-18T14:00:00Z" }
 sources:
   - { id: fielding2022-rfc9110, resource: /it/sources/fielding2022-rfc9110.md }
+  - { id: dynowski2025, resource: /it/sources/dynowski2025.md }
 ---
 
 # HTTP 버전 번호와 의미론의 분리
@@ -16,6 +17,7 @@ sources:
 - [버전 표기가 가리키는 명세 집합](#버전-표기가-가리키는-명세-집합)
 - [언제 major가 오르고 언제 minor가 오르는가](#언제-major가-오르고-언제-minor가-오르는가)
 - [minor 번호는 능력 광고다](#minor-번호는-능력-광고다)
+- [이 규칙이 실제로 적용된 자리](#이-규칙이-실제로-적용된-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **HTTP의 버전 번호 두 자리는 각각 무엇을 선언하며, 버전이 올라도 바뀌지 않는 것은
@@ -84,6 +86,28 @@ sources:
   앞으로의 요청에서 (§2.5).[^fielding2022-rfc9110]
 - 곧 minor 번호는 "나는 이만큼까지 이해한다"는 선언이지 "나는 이만큼을 쓰고 있다"는 보고가 아니다.
 
+## 이 규칙이 실제로 적용된 자리
+
+이 절만 다른 소스에서 왔다. 위 규범이 실제 연표에서 무엇으로 나타났는지를 채운다.
+
+- 규칙의 요약이 같다. **HTTP major 판 번호의 증가는 프로토콜 안 메시지의 형식이 바뀌었음을
+  가리킨다** (4장, p.133).[^dynowski2025] 저자들이 그 근거로 판 번호의 사용과 해석을 다루는
+  RFC 2145를 각주에 든다. RFC 9110 §2.5의 진술과 같은 것을 다른 문서로 확인해 주는 자리다.
+- 번호가 오른 자리의 연표다 (4장, pp.108, 112, 128, 133, 139):[^dynowski2025]
+  - **HTTP/0.9는 1991년에 규정된 최초의 HTTP다.**
+  - **HTTP/1.0은 1996년에 정보성 RFC로 출판되었고, 당시 HTTP의 통상 쓰임을 서술한 것이다.
+    정보성 RFC는 인터넷 표준이 아니다.**
+  - **HTTP/1.1은 1997년에 이르렀고 1999년의 RFC 초안 표준이 그 뒤를 이었다.**
+  - **HTTP/2는 2009년 공개된 SPDY에서 나와 2015년 RFC로 출판되었다.**
+  - **HTTP/3는 2013년 발표된 전송 프로토콜 QUIC을 바탕으로 한다.**
+- 위 [버전 표기가 가리키는 명세 집합](#버전-표기가-가리키는-명세-집합)에 붙는 사실이 하나 있다.
+  **HTTP/1.1의 첫 인터넷 표준은 2022년에야 출판되었다** (4장, p.128 각주).[^dynowski2025]
+  "HTTP/1.1"이라는 표기가 1997년부터 쓰였으니, 그 표기가 가리키는 명세 집합이 25년 동안 표준
+  트랙을 밟고 있었다는 뜻이다.
+- 각 판이 무엇을 고치려고 나왔는가는
+  [HTTP 초기 판들과 TCP의 한계](../concepts/http-early-versions-and-tcp-limits.md)와
+  [HTTP/2와 HTTP/3의 다중화와 QUIC](../concepts/http-multiplexing-and-quic.md)에 있다.
+
 ## 이어지는 페이지
 
 - [HTTP의 정의와 문서의 범위](../concepts/http-definition-and-scope.md) — 세 major 버전이 같은
@@ -94,7 +118,15 @@ sources:
   낱말의 일반 정의
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 서비스 API의 버저닝이 같은 문제를
   다른 층위에서 만나는 자리
+- [HTTP 초기 판들과 TCP의 한계](../concepts/http-early-versions-and-tcp-limits.md) — 0.9에서
+  1.1까지 각 판이 고치려 한 것
+- [HTTP/2와 HTTP/3의 다중화와 QUIC](../concepts/http-multiplexing-and-quic.md) — major 번호가
+  두 번 오르며 선로 위 형식이 어떻게 갈렸는가
 
 [^fielding2022-rfc9110]: Fielding, Nottingham & Reschke 2022, RFC 9110 "HTTP Semantics"
     (IETF, STD 97). 쪽 번호가 없는 문서이므로 locator는 절 번호다. 인용 블록은 rfc-editor
     정본의 원문 그대로다.
+
+[^dynowski2025]: Dynowski & Dulak 2025, *Learning API Styles* (O'Reilly, 초판), 4장
+    "Web Protocols". locator는 인쇄판 쪽이다. 이 소스가 전하는 RFC 번호와 연도는 2차 경유이고,
+    해당 RFC 자체는 이 KB에 원전으로 들어와 있지 않다.

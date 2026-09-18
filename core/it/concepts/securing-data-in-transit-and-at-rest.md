@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 전송 중 데이터와 정지 데이터의 보호
-description: 데이터가 네트워크를 흐를 때와 디스크에 앉아 있을 때 각각 무엇을 지키는가 — 전송 중 데이터의 관심사 넷(서버 신원, 클라이언트 신원, 데이터의 가시성, 데이터의 조작)과 그것이 HTTP에서 각각 무엇으로 구현되는가, 상호 TLS가 마이크로서비스에서 공공 인터넷보다 흔한 이유, 서명으로 가시성 없이 무결성만 지키는 길, 그리고 정지 데이터의 네 조문(잘 알려진 것을 써라, 대상을 골라라, 인색하라, 결국 키의 문제다)
-generated: { by: "claude-opus-5", at: "2026-09-15T23:30:00Z" }
+description: 데이터가 네트워크를 흐를 때와 디스크에 앉아 있을 때 각각 무엇을 지키는가 — 전송 중 데이터의 관심사 넷(서버 신원, 클라이언트 신원, 데이터의 가시성, 데이터의 조작)과 그것이 HTTP에서 각각 무엇으로 구현되는가, 인증서 검증이 기술만으로 닫히지 않고 외부 신뢰 기점을 요구한다는 것과 어느 인증 기관을 믿을지가 클라이언트 쪽 결정이라는 것, 상호 TLS가 마이크로서비스에서 공공 인터넷보다 흔한 이유, 서명으로 가시성 없이 무결성만 지키는 길, 그리고 정지 데이터의 네 조문(잘 알려진 것을 써라, 대상을 골라라, 인색하라, 결국 키의 문제다)
+generated: { by: "claude-opus-5", at: "2026-09-18T23:50:00Z" }
 sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
+  - { id: dynowski2025, resource: /it/sources/dynowski2025.md }
 ---
 
 # 전송 중 데이터와 정지 데이터의 보호
@@ -15,6 +16,7 @@ sources:
 - [쪼개면 데이터가 더 많이 돌아다닌다](#쪼개면-데이터가-더-많이-돌아다닌다)
 - [전송 중 데이터의 관심사 넷](#전송-중-데이터의-관심사-넷)
 - [서버 신원](#서버-신원)
+- [그 인증서를 믿을지는 누가 정하는가](#그-인증서를-믿을지는-누가-정하는가)
 - [클라이언트 신원과 상호 TLS](#클라이언트-신원과-상호-tls)
 - [데이터의 가시성](#데이터의-가시성)
 - [데이터의 조작](#데이터의-조작)
@@ -73,6 +75,27 @@ sources:
   확인하는 일이 결정적이다 (11장, p.370).[^newman2021]
 - **HTTP를 밑에 깔고 도는 프로토콜은 HTTPS의 덕을 볼 수 있다** — **SOAP이나 gRPC를 HTTPS 위에서
   문제없이 돌릴 수 있다** (11장, p.371).[^newman2021]
+
+## 그 인증서를 믿을지는 누가 정하는가
+
+위 [서버 신원](#서버-신원)은 브라우저가 인증서를 보고 유효한지 확인한다고만 적는다. **그 확인이
+무엇에 기대고 있는지**를 다른 소스가 채운다.
+
+- **인증서가 공개키 암호에 기반한 디지털 서명 알고리즘을 쓰므로 인증서 자체도 중간자 공격에
+  취약하다.** 그래서 **X.509 인증서는 중간자 공격을 막는 데 기술에만 의존하지 않고 외부의 신뢰
+  원천도 요구한다** (3장 곁글 §"X.509 Public-Key Infrastructure Certificates",
+  p.97).[^dynowski2025]
+- **사람이 운영하는 실재 기관인 인증 기관(certificate authority, CA)이 신뢰 기점(trust anchor)으로
+  쓰이고, CA에 대한 최초의 신뢰는 별도의 통신 경로로 세워진다** — 예가 **운영체제 벤더가 신뢰된
+  인증서를 배포하는 것**이다 (3장, p.97).[^dynowski2025]
+- **어느 CA를 믿을지는 클라이언트 쪽 결정**이다. **운영체제나 웹 브라우저는 자기가 믿기로 한 CA의
+  인증서를 담은 신뢰 저장소(trust store)를 갖고 오지만, 클라이언트는 아무 인증서나 그 저장소에
+  넣을 수도 있고 한 번만 어떤 CA를 믿을 수도 있다** (3장 §"TCP ECHO Client with OpenSSL",
+  p.98).[^dynowski2025]
+- **그래서 이 페이지의 "서버 신원" 물음에는 기술 밖의 항이 하나 더 있다.** 서버가 정말 그
+  서버인지의 판정은 암호 연산만으로 닫히지 않고 **누구를 신뢰 기점으로 받아들였는가**에 기댄다.
+  그 기제와 TLS 핸드셰이크에서 인증서가 실제로 언제 어떻게 검증되는지는
+  [네트워크 계층 모형과 패킷 관찰](../concepts/network-layer-models-and-packet-observation.md)에 있다.
 
 ## 클라이언트 신원과 상호 TLS
 
@@ -273,6 +296,8 @@ sources:
 - [HTTP 중개자](../concepts/http-intermediaries.md) — 암호화하면 무엇을 못 하게 되는지의 그 중간자
 - [밖은 위험하다](../concepts/stay-safe-out-there.md) — 자작 암호 금지 조문의 정본
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 보안을 비기능 요건으로 모으는 허브
+- [네트워크 계층 모형과 패킷 관찰](../concepts/network-layer-models-and-packet-observation.md) — 같은 TLS를
+  핸드셰이크 레코드의 순서로 보는 쪽
 
 [^newman2021]: Newman 2021, 11장 "Security" §"Securing Data"(pp.369–375) — 하위
     §"Data in Transit"(pp.369–372, 그 아래 §"Server identity" pp.370–371 · §"Client identity"
@@ -289,6 +314,12 @@ sources:
 
 [^thomas2020]: Thomas & Hunt 2020, Topic 43 "Stay Safe Out There" — "암호는 직접 만들지 마라"
     조문. 전문은 [밖은 위험하다](../concepts/stay-safe-out-there.md)에 있다.
+
+[^dynowski2025]: Dynowski & Dulak 2025, *Learning API Styles* 초판(O'Reilly, 2025) 3장
+    "Network" — 곁글 §"X.509 Public-Key Infrastructure Certificates"(p.97)와
+    §"TCP ECHO Client with OpenSSL"(p.98)의 신뢰 저장소 서술. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 28,
+    실측). 직인용은 이 페이지에 옮기지 않았고 인증서의 규정 문장을 포함한 전문은
+    [네트워크 계층 모형과 패킷 관찰](../concepts/network-layer-models-and-packet-observation.md)에 있다.
 
 [^konieczny2025]: Konieczny 2025, 7장 "Data Security Design Patterns" §"Data
     Protection"(pp.215–225) — Encryptor · Anonymizer · Pseudo-Anonymizer와 데이터셋 결합이

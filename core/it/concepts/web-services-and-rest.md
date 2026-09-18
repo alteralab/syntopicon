@@ -2,7 +2,7 @@
 type: concept
 title: 웹 서비스와 REST
 description: 네트워크 너머로 API를 노출하는 쪽과 부르는 쪽의 배치 — 서비스가 데이터베이스와 닮았으면서도 임의 질의를 허용하지 않는다는 차이, 웹 서비스가 웹 밖에서도 쓰이는 세 맥락, REST가 무엇을 강조하는가, IDL(OpenAPI·프로토콜 버퍼)과 서비스 프레임워크의 분업, RPC 인코딩의 호환성이 서비스 API 버저닝으로 이어지는 경로, 데이터 반입 관점에서 본 REST·웹훅·gRPC, 그리고 이 모든 것이 얹히는 HTTP 자체의 정의가 어느 문서에 있는가, 그리고 2021년 마이크로서비스 실무서가 REST 자체를 규정하며 더하는 것 — 자원과 표현의 분리, HTTP 동사가 모든 자원에서 같게 행동한다는 조항, 하이퍼미디어를 애플리케이션 상태의 엔진으로 삼는 HATEOAS와 그것이 실무에서 거의 쓰이지 않는다는 저자의 채점, 클라이언트 코드 생성과 성능의 도전, 그리고 경계에서는 훌륭하고 마이크로서비스 사이에서도 합리적 기본값이라는 판정, 그리고 같은 책 뒤쪽이 OpenAPI를 문서화 수단으로 다시 세우는 자리와 이벤트 기반 인터페이스의 문서화 선택지 둘, 그리고 계약의 엄격함을 재는 축에서 자원 모델링 덕에 이 양식이 가운데에 놓인다는 판정, 그리고 같은 인터페이스를 이벤트 브로커 앞에 세워 스트림을 HTTP로 열어 주는 REST 프록시라는 쓰임
-generated: { by: "claude-opus-5", at: "2026-09-18T16:30:00Z" }
+generated: { by: "claude-fable-5", at: "2026-09-19T00:40:00Z" }
 sources:
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
@@ -10,6 +10,7 @@ sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
   - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
+  - { id: dynowski2025, resource: /it/sources/dynowski2025.md }
 ---
 
 # 웹 서비스와 REST
@@ -255,9 +256,14 @@ sources:
 ## REST를 마이크로서비스 쪽에서 규정하면
 
 앞 절들이 REST를 **한 문장의 설계 철학**으로 놓고 지나간다면, 2021년 마이크로서비스
-실무서는 그 스타일 자체를 규정하고 채점한다. **이 KB에 로이 필딩의 학위 논문이 없으므로
-(2026-09 판정으로 반입 대상에서 뺐다) REST의 제약을 실제로 서술하는 소스는 지금 이것
-하나다** — RFC 9110은 HTTP를 정의할 뿐 REST를 정의하지 않고 참조만 한다.
+실무서는 그 스타일 자체를 규정하고 채점한다. **이 KB에 로이 필딩의 학위 논문은 없다**
+(2026-09 판정으로 반입 대상에서 뺐다) — RFC 9110은 HTTP를 정의할 뿐 REST를 정의하지 않고
+참조만 한다. 그 자리를 **2차 경유로 메우는 소스가 둘**이고, 둘의 물음이 다르다. 이 절의
+2021년 실무서는 **자원과 HATEOAS에 사정거리를 좁혀** 그 스타일을 채점하고, 2025년 API 스타일
+비교서는 **제약 여섯을 목록으로 세고 그 준수를 재는 눈금(리처드슨 성숙도 모형)까지**
+든다 (5장 §"Origins of REST", pp.157–159).[^dynowski2025] 후자의 전문은
+[REST 아키텍처 스타일의 제약과 성숙도](../concepts/rest-architectural-style-and-maturity.md)에
+있고, **이 페이지는 그것을 되풀이하지 않는다.**
 
 - 규정 (5장 §REST, p.127):[^newman2021]
 
@@ -283,7 +289,9 @@ sources:
     [자원과 표현](../concepts/http-resources-and-representations.md)에 있다.
 - **REST의 스타일이 하나가 아니다** — 저자는 여러 스타일이 있음을 적고 그것들을 견주는
   리처드슨 성숙도 모형(Richardson Maturity Model)을 보라고 권한다 (5장,
-  p.128).[^newman2021] 이 KB는 그 모형의 원전을 반입하지 않았다.
+  p.128).[^newman2021] 이 KB는 그 모형의 원전을 반입하지 않았으나,
+  **그 모형의 레벨 넷을 2차 경유로 서술하는 자리는 생겼다** —
+  [REST 아키텍처 스타일의 제약과 성숙도](../concepts/rest-architectural-style-and-maturity.md)다.
 - **프로토콜과의 관계가 느슨하다** (5장, p.128):[^newman2021]
 
   > REST itself doesn't really talk about underlying protocols, although it is most commonly
@@ -378,9 +386,16 @@ sources:
 - **이 KB의 다른 소스들과 겨루지 않는다.** 위
   [REST와 IDL](#rest와-idl) 절의 REST 규정은 단순한 데이터 형식과 URL과 HTTP 기능을 열거할 뿐
   **하이퍼미디어를 REST의 요건으로 세우지 않고**, 데이터 반입 쪽 서술도 동사와 무상태성만
-  든 뒤 **REST가 완전한 명세가 아니라는 비판**을 적는다. 곧 이 KB의 기존 두 소스는 HATEOAS를
-  권하지도 반대하지도 않았고, 뉴먼의 판정은 **비어 있던 자리에 들어오는 유일한 평가**다.
+  든 뒤 **REST가 완전한 명세가 아니라는 비판**을 적는다. 곧 그 두 소스는 HATEOAS를
+  권하지도 반대하지도 않았고, 뉴먼의 판정이 **비어 있던 자리에 처음 들어온 평가**다.
   모순 쌍으로 세우지 않았다.
+  - **뒤에 들어온 2025년 소스의 평가도 겨루지 않고 겹친다.** 그쪽도 **HATEOAS가 실무에서 거의
+    쓰이지 않는다**고 적으며 구글과 메타의 API를 실물로 든다. 다른 것은 **왜인가에 대한 답의
+    성격**이다 — 뉴먼은 "이유를 온전히 붙잡지 못했다"며 후보 넷을 가설로 남기고, 그쪽은 서버
+    복잡도·클라이언트 복잡도·실용주의·문서화 넷을 단정으로 적는다 (5장 §"Is Being RESTless Good
+    Enough?", pp.162–164).[^dynowski2025] 그 넷의 전문은
+    [REST 아키텍처 스타일의 제약과 성숙도](../concepts/rest-architectural-style-and-maturity.md)에
+    있다.
 
 ### 도전과 어디에 쓸 것인가
 
@@ -522,6 +537,11 @@ sources:
   호환을 무기한 유지하게 된다는 이 페이지의 문제를 다른 쪽에서 붙잡은 2006년의 패턴. 계약을
   제공자가 내리는 대신 소비자가 적은 기대에서 파생시키면 무엇을 뺄 수 있는지가 드러난다는 배치
 - [프로토콜 버퍼와 필드 태그](../concepts/protocol-buffers-encoding.md) — gRPC가 쓰는 그 IDL
+- [REST 아키텍처 스타일의 제약과 성숙도](../concepts/rest-architectural-style-and-maturity.md) — 같은
+  스타일을 제약의 목록과 성숙도 눈금으로 규정하는 쪽. 위 리처드슨 성숙도 모형과 HATEOAS
+  평가의 전문이 거기 있다
+- [REST API 구현 결정](../concepts/rest-api-implementation-decisions.md) — 그 스타일로 API 하나를 실제로
+  지을 때 프레임워크가 대신 결정해 버리는 것들
 - [GraphQL](../concepts/graphql.md) — 클라이언트가 응답 구조를 직접 정하는 다른 API 설계
 - [원천 시스템과 데이터 생성](../concepts/source-systems-and-generation.md) — API가 원천 시스템의
   표면으로 놓이는 자리
@@ -570,3 +590,12 @@ sources:
     조판한 자리를 포함해)과 쓰기 쪽 절차는
     [요청-응답과 이벤트 기반의 통합](../concepts/request-response-and-event-driven-integration.md)이
     갖는다. 자원과 표현의 대응은 원문에 없고 이 KB가 두 소스를 맞대어 세운 것이다.
+
+[^dynowski2025]: Dynowski & Dulak 2025, *Learning API Styles* 초판(O'Reilly, 2025) 5장 "REST"
+    §"Origins of REST"(pp.157–159) · §"API Maturity Models"(pp.159–160) · §"Is Being RESTless
+    Good Enough?"(pp.162–164). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 28, 실측). **이 페이지는 그 장에서
+    이 페이지의 서술을 낡게 만드는 것만 고쳤다** — 곧 REST의 제약을 서술하는 소스가 하나뿐이
+    아니게 됐다는 것과, 리처드슨 성숙도 모형이 2차 경유로나마 서술되는 자리가 생겼다는 것과,
+    HATEOAS 평가가 하나뿐이 아니게 됐다는 것 셋이다. 제약 여섯과 성숙도 레벨 넷과 그 밖의
+    5장 claim은 [REST 아키텍처 스타일의 제약과 성숙도](../concepts/rest-architectural-style-and-maturity.md)가
+    갖고 **여기 되풀이하지 않았다.** 직인용도 코드 목록도 이 개정에서 더하지 않았다.
