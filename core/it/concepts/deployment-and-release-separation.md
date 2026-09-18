@@ -2,7 +2,6 @@
 type: concept
 title: 배포와 릴리스의 분리와 릴리스 전략
 description: 배포와 릴리스를 서로 다른 행위로 규정하고 그 분리를 무엇으로 거는가 — 프로덕션에 프로세스를 띄우는 일과 그것을 사용자에게 켜는 일을 가르는 정의와 그 구분을 규범으로 세운 2016년 기술 레이더의 권고, 가르지 않은 채 API 기반으로 옮긴 팀에서 생기는 일, 기능 플래그의 기제와 세분성과 정리 의무와 그것이 단일 실패점이 되는 자리, 트래픽 관리로 거는 두 자리와 쿠버네티스 배포의 네 단계와 기본값이 교체라는 것, 판의 종류를 메이저와 마이너와 패치로 갈라 릴리스 전략에 대응시키는 표와 메이저 판을 URL에 둘 것인가 헤더에 둘 것인가, 그 분리를 결정으로 적는 ADR 지침, 그리고 카나리와 트래픽 미러링과 블루그린이라는 전략 셋의 기제와 대가와 서로 갈리는 자리, 롤아웃 도구가 그 전략을 선언으로 받아 단계와 가중치로 굴리는 장면, 그리고 의견 있는 플랫폼이 이 결정들을 한 자리로 모으는 선택
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -44,10 +43,10 @@ sources:
 - **담는 것은 두 행위를 가르는 규정과 그 분리를 거는 수단과 그 위에서 고르는 전략까지다.**
 - **담지 않는 것 넷.** 하나는 **릴리스가 성공했는지 무엇으로 읽는가**이고 그 자리는
   [관측 가능성과 모니터링](observability-versus-monitoring.md)이다. 둘은 **이 전략들을 회의
-  시스템에 실제로 거는 장면**이고 그 자리는 [회의 시스템 사례 연구](conference-system-case-study.md)
-  다. 셋은 **판이 살고 죽는 주기 자체**이고 그 자리는 [API 수명 주기](api-lifecycle.md)다.
+  시스템에 실제로 거는 장면**이고 그 자리는 [회의 시스템 사례 연구](../concepts/conference-system-case-study.md)
+  다. 셋은 **판이 살고 죽는 주기 자체**이고 그 자리는 [API 수명 주기](../concepts/api-lifecycle.md)다.
   넷은 **트래픽을 실제로 나누는 층의 기능**이고 그 자리는
-  [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)와
+  [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)와
   [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)다.
 
 ## 배포와 릴리스는 무엇이 다른가
@@ -184,7 +183,7 @@ sources:
     **신중히 고려하지 않으면 기능 플래그는 단일 실패점이 될 잠재력을 갖는다.**
   - **아키텍처 안의 API 사이 결합 종류를 검토하고 상황에 맞는 릴리스 전략을 정하라.**
 - **이 지침의 표에는 상태 칸이 없다.** 이 책이 쓰는 세 이름과 그 차이는
-  [아키텍처 결정 기록](architecture-decision-records.md)이 갖는다.
+  [아키텍처 결정 기록](../concepts/architecture-decision-records.md)이 갖는다.
 
 ## 릴리스 전략이 사는 논거
 
@@ -339,13 +338,13 @@ sources:
 - **이 결정도 ADR 지침으로 적힌다** — 결정 칸이 **"배포와 릴리스를 위해 의견 있는 플랫폼을
   채택할 것인가"**이고, 논의할 점 넷과 권고 셋이 딸린다 (5장 §"ADR Guideline: Opinionated
   Platforms", p.144, 표 5-3).[^gough2022] 전문은
-  [아키텍처 결정 기록](architecture-decision-records.md)에 있다.
+  [아키텍처 결정 기록](../concepts/architecture-decision-records.md)에 있다.
 
 ## 이 KB의 다른 배포 서술과 만나는 자리
 
 - **배포와 릴리스를 가르라는 규정은 이 KB가 이미 갖고 있고 이 소스가 둘째 원전이다.** 그쪽은
   같은 구분을 **낮은 위험의 릴리스를 위한 핵심 원칙**으로 세우고 다른 인용으로 규정한다 —
-  전문은 [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)에 있다.
+  전문은 [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)에 있다.
   **두 소스는 서로를 호명하지 않지만 규정이 겹치고 어긋나지 않는다.**
 - **카나리 릴리스의 규정도 이미 있다.** 그쪽은 **개별 마이크로서비스의 토글**과 **판 둘을 나란히
   돌리고 라우팅으로 고르는 것** 둘을 구현 자리로 들었다. **이 소스가 더하는 것은 뒤쪽 자리의
@@ -367,21 +366,21 @@ sources:
 
 ## 이어지는 페이지
 
-- [API 수명 주기](api-lifecycle.md) — 위 판의 종류가 놓이는 주기와 이 책이 더하는 판 수명 주기
+- [API 수명 주기](../concepts/api-lifecycle.md) — 위 판의 종류가 놓이는 주기와 이 책이 더하는 판 수명 주기
   다섯 단계
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 같은 구분의 첫 원전과
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 같은 구분의 첫 원전과
   점진적 전달이라는 이름
 - [이벤트 기반 마이크로서비스의 배포 패턴](event-driven-deployment-patterns.md) — 같은 전략들이
   이벤트 스트림 위에서 얻는 대가
 - [마이크로서비스 배포의 다섯 원칙](microservice-deployment-principles.md) — 무중단 배포라는
   조문이 이 전략들을 부르는 자리
 - [관측 가능성과 모니터링](observability-versus-monitoring.md) — 릴리스가 성공했는지 읽는 쪽
-- [회의 시스템 사례 연구](conference-system-case-study.md) — 이 전략들을 한 체계에 실제로 거는
+- [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — 이 전략들을 한 체계에 실제로 거는
   장면
-- [아키텍처 결정 기록](architecture-decision-records.md) — 위 지침 둘의 전문
+- [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 위 지침 둘의 전문
 - [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md) — 트래픽
   분할과 미러링을 실제로 제공하는 층
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 같은
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 같은
   기능이 인그레스에서 놓이는 자리
 - [계약을 깨는 변경의 관리](managing-breaking-api-changes.md) — 메이저 판이 공존하는 기간을
   재는 쪽
@@ -393,7 +392,7 @@ sources:
     APIs"(pp.125–144). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **직인용 하나**(2016년
     기술 레이더의 권고 두 문장, p.126)는 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은
     따옴표를 곧은 따옴표로 옮겼다. 표 셋(표 5-1 판 수명 주기, 표 5-2·5-3 ADR 지침)은 각각
-    [API 수명 주기](api-lifecycle.md)와 [아키텍처 결정 기록](architecture-decision-records.md)이
+    [API 수명 주기](../concepts/api-lifecycle.md)와 [아키텍처 결정 기록](../concepts/architecture-decision-records.md)이
     갖고, 이 페이지는 지침의 요지만 옮겼다. 그림 여섯(5-1에서 5-6까지)은 전부 이미지 조판이라
     `pdftoppm -r 160 -png`로 렌더해 눈으로 대조했고, **본문에 없고 그림에만 있는 것**만 위
     본문에 산문으로 적었다. 코드 목록 넷(기능 플래그 의사 코드, 롤아웃 정의, 이미지 교체 명령,

@@ -2,7 +2,6 @@
 type: concept
 title: API 인프라로 하는 클라우드 이전
 description: 이미 돌고 있는 API 기반 체계를 클라우드로 옮길 때 게이트웨이와 서비스 메시가 맡는 일 — 유지·재호스팅·리플랫폼·재구매·리팩터·폐기의 여섯 전략과 각각이 듣는 조건, 게이트웨이가 주는 위치 투명성으로 트래픽을 점차 옮기는 방식과 엣지에서 시작해 안쪽으로 간다는 순서, 네트워크를 넘는 라우팅의 선택지 셋, 이전 중에 남북과 동서 트래픽 관리의 선이 흐려진다는 관찰, API 관리가 이전에서 맡는 중앙 발견 지점의 자리, 그리고 구역 기반 네트워크 아키텍처에서 제로 트러스트로 가는 길과 그 사이를 서비스 메시와 네트워크 정책과 다중 클러스터 피어링이 잇는 방식
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T21:30:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -49,8 +48,8 @@ sources:
 - **담는 것** — 이 책 9장 "Using API Infrastructure to Evolve Toward Cloud Platforms"
   전량(pp.209–224)이다. **애플리케이션을 API로 쪼개는 일(8장)과 짝을 이루는 인프라 쪽**이다.
 - **담지 않는 것** — 애플리케이션 쪽 재설계는
-  [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md)와
-  [API 이행 패턴과 고통 지점](api-migration-patterns-and-pain-points.md)이 갖는다. 이 장이 이
+  [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md)와
+  [API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md)이 갖는다. 이 장이 이
   체계 위에서 실제로 밟는 걸음들은 [회의 시스템 사례 연구](conference-system-case-study.md)에 있다.
 - **이 장이 이 책에서 서는 자리** — **API 프로그램이 인프라 변경을 이끄는 경우**를 다룬다.
   저자들은 인프라가 **하드웨어가 고장 나고 회사와 기술이 합병·인수되고 전사 IT 정책이 업그레이드를
@@ -92,14 +91,14 @@ sources:
   한 결정을 적절하게 내부와 외부에 알려야** 한다 (9장, p.211).[^gough2022]
   - **여기가 ADR이 빛나는 자리다** — **그런 결정의 종이 자취와 근거를 미래를 위해 남기는 일**이다
     (9장, p.211).[^gough2022] 그 양식의 정본은
-    [아키텍처 결정 기록](architecture-decision-records.md)이다.
+    [아키텍처 결정 기록](../concepts/architecture-decision-records.md)이다.
 - **목차에 없는 곁상자 하나가 그 "알리기"를 조문으로 적는다** — **평가 결과 지금은 진화시키지
   않기로 했더라도 행동을 취해야 하는 알려진 날짜를 전달하는 것은 여전히 중요하다.** 예로 드는
   것은 **업무 부문이 알려진 날짜에 문을 닫는 경우 · 체계가 수명 종료(EOL)에 이르는 경우 · 핵심
   소프트웨어나 데이터 저장소 라이선스가 알려진 시점에 만료되는 경우**이고, 그것을 **소비자에게
   폐기 예고(deprecation warning)로 알려야** 한다. **계약과 SLA에 요구되는 폐기 고지가 박혀 있을
   가능성이 크니 반드시 그것들을 확인하라** (9장 곁상자 "Communicating Change and
-  Deprecations", p.212).[^gough2022] 판의 수명 주기 쪽 정본은 [API 수명 주기](api-lifecycle.md)다.
+  Deprecations", p.212).[^gough2022] 판의 수명 주기 쪽 정본은 [API 수명 주기](../concepts/api-lifecycle.md)다.
 - **이 절이 이전 일반에 붙이는 경고 하나** — **애플리케이션을 클라우드로 옮길 때 고려할 핵심
   요인 하나가 진화의 걸음마다 두 서비스 사이에 지연이 들어온다는 것**이다. **트래픽이 많은
   서비스라면 네트워크 경계를 건널 때마다 요청마다 느려짐을 겪는다.** **그 저하가 어떤 모양인지
@@ -155,7 +154,7 @@ sources:
     있다.
 - **분류상의 자리** — **API 관리는 엔터프라이즈 게이트웨이 범주 안에 든다** (9장,
   p.215).[^gough2022] 그 분류의 정본은
-  [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)다.
+  [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)다.
 - **이전에서 가장 중요한 부분** — **뒤에서 계속 변경을 가하는 동안 API를 발견할 중앙 지점을
   제공할 수 있다는 것**이다. **레거시 회의 체계를 API로 앞세우면서 동시에 새로 떼어 낸 참석자
   API를 제공하는 것이 가능**하고, **API에 걸린 계약이 바뀌지 않는다고 가정하면 API 관리 층 뒤에서
@@ -176,7 +175,7 @@ sources:
 - **요약이 그 관찰을 한 문장으로 다시 적는다** — **API 애플리케이션을 클라우드로 이전할 때
   남북(인그레스) 트래픽 관리와 동서(서비스 간) 트래픽 관리 사이의 선이 흐려지는 것을 흔히 보게
   된다** (9장 §"Summary", p.223).[^gough2022] 두 층을 가르는 정본은
-  [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)다.
+  [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)다.
 
 ### 엣지에서 시작해 안쪽으로
 
@@ -406,12 +405,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md) — 같은 이전을 애플리케이션 쪽에서
+- [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md) — 같은 이전을 애플리케이션 쪽에서
   다루는 앞 장
-- [API 이행 패턴과 고통 지점](api-migration-patterns-and-pain-points.md) — 앞 장의 이행 패턴들
+- [API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md) — 앞 장의 이행 패턴들
 - [암묵적 신뢰와 제로 트러스트](zero-trust-and-implicit-trust.md) — 제로 트러스트의 정본
-- [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md) — 남북과 동서를 가르는 정본
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — API 관리가
+- [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 남북과 동서를 가르는 정본
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — API 관리가
   드는 엔터프라이즈 게이트웨이 범주
 - [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md) — 메시 게이트웨이와
   배치 자리
@@ -421,7 +420,7 @@ sources:
   NetworkPolicy가 서는 자리
 - [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md) — 의견 있는 플랫폼이 다시 불리는 자리
 - [클라우드 네이티브 아키텍처](cloud-native-architecture.md) — 도착지의 성질
-- [아키텍처 결정 기록](architecture-decision-records.md) — "아무것도 하지 않는다"를 남기는 양식
+- [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — "아무것도 하지 않는다"를 남기는 양식
 - [회의 시스템 사례 연구](conference-system-case-study.md) — 이 이전을 한 체계 위에 놓는 장면
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 보안 쪽 허브
 

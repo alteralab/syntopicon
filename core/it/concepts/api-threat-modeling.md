@@ -2,7 +2,6 @@
 type: concept
 title: API 위협 모델링
 description: 위협을 찾아내는 일을 방법론으로 다루는 자리 — 외부 API를 지키지 않을 때의 값과 규제가 매기는 벌금, 위협 모델링의 한 문장 규정과 집 비유가 보이는 우선순위, 그것이 개발 수명 주기 안에 들어가야 한다는 조항, 정적 구조를 그리는 모형과 갈리는 데이터 흐름 다이어그램의 구성 요소 다섯과 신뢰 경계의 규정, 보안 전문가가 아니어도 된다는 주장과 공격자처럼 생각하기라는 기량, 목표 식별에서 정보 수집과 분해와 위협 식별과 위험 평가를 지나 검증에 이르는 여섯 단계와 각 단계가 요구하는 것, 위험에 값을 매기는 DREAD의 다섯 축과 그 산식과 값이 주관적이라는 단서와 일관성을 위해 눈금을 먼저 정하라는 처방, 발견 가능성을 빼는 변종과 취약점 점수 체계라는 다른 도구, 그리고 이 과정이 재귀적이어야 한다는 맺음
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -121,7 +120,7 @@ sources:
   쉽고 비용 효율적으로 적응할 수 있다** (6장, p.145).[^gough2022]
   - **저자들이 각주에서 스스로 그 표현을 고쳐 잡는다** — **이상적으로는 보안이 "스타트 레프트"
     해서 기초로 들어와야 한다** (6장 각주 1, p.145).[^gough2022]
-  - 시프트 레프트라는 낱말 자체의 규정은 [API 수명 주기](api-lifecycle.md)가 갖는다.
+  - 시프트 레프트라는 낱말 자체의 규정은 [API 수명 주기](../concepts/api-lifecycle.md)가 갖는다.
 - **저자들이 스스로 긋는 한계 하나** — **모든 위협을 식별할 수는 없다. 공격자는 교활하고 위협
   지형은 끊임없이 진화한다** (6장, p.145).[^gough2022]
 
@@ -314,10 +313,10 @@ sources:
   보안 기능 다섯과 최소 권한과 심층 방어
 - [암묵적 신뢰와 제로 트러스트](zero-trust-and-implicit-trust.md) — 위 신뢰 경계라는 낱말이 사는
   자리
-- [API 보안 패턴](api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 다른 소스
+- [API 보안 패턴](../concepts/api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 다른 소스
 - [회의 시스템 사례 연구](conference-system-case-study.md) — 이 여섯 단계를 한 체계에 실제로
   거는 장면
-- [API 수명 주기](api-lifecycle.md) — 시프트 레프트라는 낱말의 규정
+- [API 수명 주기](../concepts/api-lifecycle.md) — 시프트 레프트라는 낱말의 규정
 - [자격 증명과 비밀의 수명 주기](credentials-and-secrets-lifecycle.md) — 완화 쪽의 인접 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
 

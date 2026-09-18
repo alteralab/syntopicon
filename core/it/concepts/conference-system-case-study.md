@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 회의 시스템 사례 연구
-status: draft
 description: 한 API 아키텍처 운영서가 책 전체에 대입하는 지어낸 체계와 그것을 그리는 도면 — 알아보기 쉬우면서 진화를 모델링할 만큼 복잡하다는 도메인 선정 이유, 웹 애플리케이션과 회의 애플리케이션과 데이터스토어로 된 삼계층 출발점과 그 안의 컴포넌트 넷, 모든 요청이 지나는 프런트 컨트롤러라는 API 컨트롤러의 자리, 같은 그림 안에서 프로세스 안 호출과 프로세스 밖 호출이 갈리는 화살표, 모바일과 외부 CFP 통합과 클라우드라는 바꾸라는 요구 셋과 한 번에 다시 쓰지 않는다는 제약, 참석자 컴포넌트를 독립 서비스로 떼어내는 진화적 한 걸음과 그것이 낳는 트래픽 흐름 둘, 같은 서비스의 소비자 둘이 요구하는 결합의 세기가 다르다는 관찰, 아홉 장이 이 체계에 차례로 하는 일의 로드맵, 그리고 이 체계를 UML이 아니라 C4로 그리는 이유와 맥락과 컨테이너와 컴포넌트 세 층의 규정과 각 층이 막는 실패, 그리고 분리가 낳은 상호작용을 무엇으로 검증하는가 — 소비자 둘이 참석자 API를 쓰는 그림과 테스트 부족이 우발적 깨는 변경을 낳았다는 진단, 그리고 계약·컴포넌트·통합·종단 네 테스트가 이 체계의 어느 자리에 각각 놓이는가, 그리고 세션 기능을 레거시에서 떼어내는 다음 걸음 — 그 변경의 ADR과 결과 다섯, 새 서비스를 게이트웨이로 노출하는 길이 루프백이 되어 기각되는 자리, 서비스 메시로 라우팅과 관측과 통신 구획을 거는 시연 셋, 이 체계가 사이드카를 고르고 프록시 없는 gRPC를 기각하는 근거, 그리고 키노트 뒤 트래픽 급증에 회로 차단과 폴백을 거는 장면
 generated: { by: "claude-opus-5", at: "2026-09-19T11:50:00Z" }
 sources:
@@ -190,7 +189,7 @@ sources:
   - **종단 테스트** — **데이터베이스와 참석자 서비스는 띄우되 레거시 회의 체계는 띄우지
     않는다.** 이 테스트에 군더더기라는 것이 저자들의 판단이고, 그래서 **종단 테스트도 때로 경계를
     필요로 한다**고 적는다.
-- **이 넷의 규정과 경계를 긋는 규칙은 [API 테스트의 유형과 경계](api-test-types-and-boundaries.md)가
+- **이 넷의 규정과 경계를 긋는 규칙은 [API 테스트의 유형과 경계](../concepts/api-test-types-and-boundaries.md)가
   갖고, 계약을 누가 쓰고 어디에 두는가는 [소비자 주도 계약](consumer-driven-contracts.md)이
   갖는다.** 이 절은 **그 기법들이 이 체계의 어디에 떨어지는가**의 색인이다.
 
@@ -208,7 +207,7 @@ sources:
 - **그 노출에 따라오는 제약** — **참석자 서비스가 개인 식별 정보(PII)를 담으므로 API가
   신뢰할 수 있고 관측 가능해야 할 뿐 아니라 안전해야 한다** (3장, p.57).[^gough2022]
   - PII를 URL에 두지 말라는 조문은 같은 책 1장에서 왔고 그 자리는
-    [API 설계 모범 사례](api-design-best-practices.md)다.
+    [API 설계 모범 사례](../concepts/api-design-best-practices.md)다.
 - **저자들이 가장 단순한 길을 먼저 세우고 그것을 물음으로 되돌린다** — **프록시나 로드
   밸런서로 API를 그냥 노출하고 추가 요구는 언어나 프레임워크 고유 기능으로 구현할 수도
   있다.** 그러나 스스로에게 물어야 한다 — **이 해법이 확장되는가, 재사용 가능한가**(잠재적으로
@@ -220,7 +219,7 @@ sources:
   - **이것이 판정의 근거가 무엇인지 보이는 자리다.** 게이트웨이를 고르게 만든 것은 **지금의
     요구**가 아니라 **알려진 미래의 요구**다. 같은 논리가 이 책의 선택 지침에도 들어 있다 —
     가까운 미래와 이미 아는 요구를 함께 보라는 것이다. 그 지침은
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)에 있다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)에 있다.
 - **그림 3-1과 그림 3-9가 같은 도면이다.** 둘 다 이 페이지의 맥락 다이어그램에 **API
   Gateway** 상자를 하나 끼운 것이고, 캡션만 "참석자 서비스"와 "새 참석자 서비스"로 갈린다
   (3장, 그림 3-1 p.57 · 그림 3-9 p.76).[^gough2022] 저자들은 같은 그림을 두 번 싣는 것에
@@ -254,12 +253,12 @@ sources:
   설정을 관리할 직접(셀프서비스) 접근을 가지는 한, 애플리케이션 라우팅과 횡단 관심사를 뽑아
   API 게이트웨이로 모으는 일이 안전성과 속도를 둘 다 준다** (3장, p.76).[^gough2022]
   - **셀프서비스라는 조건이 이 KB의 다른 소스와 같은 자리를 짚는다.**
-    [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)가 게이트웨이의 중앙 통제가
+    [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)가 게이트웨이의 중앙 통제가
     **티켓**을 낳는다는 논거로 기능 추가를 기각하는데, **이 책은 같은 위험을 조건으로 바꿔
     단다** — 셀프서비스가 되면 괜찮다는 것이다. 겨루지 않는다.
 - **이 배치가 이 책의 역사 절에도 나온다** — 1세대 게이트웨이 시기에 **모놀리스 일부가 API
   게이트웨이로 행동하거나 게이트웨이 같은 기능을 제공했다**는 서술이다. 그 자리는
-  [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)에 있다.
+  [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)에 있다.
 - **저자들이 이 이주를 부르는 이름이 있다** — **"교살자 무화과(strangler fig)" 패턴**이고,
   **기존 체계의 조각을 독립 배포와 실행이 가능한 서비스로 점진적으로 뽑아냄으로써 모놀리스에서
   마이크로서비스 기반 아키텍처로 시간에 걸쳐 진화시키는 것**이다. 저자들은 그 상세를 이 책
@@ -301,7 +300,7 @@ sources:
   하위 도메인을 만들어야 할 때 쓸모 있을 수 있다** (3장 §"Configuring Mappings Using
   Host-based Routing", p.78).[^gough2022]
   - **무엇으로 라우팅하지 말아야 하는가**(요청 적재물)는
-    [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)에 있다.
+    [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)에 있다.
 
 ## 그 배치가 곧바로 낳는 문제 하나
 
@@ -316,7 +315,7 @@ sources:
   **대신 레거시 애플리케이션은 어떤 형태의 내부 서비스 디스커버리 기제를 써서 모든 내부 요청을
   내부 네트워크 안에 두어야 한다** (3장, p.82).[^gough2022]
   - **이것이 게이트웨이 루프백 함정이고** 그 전문은
-    [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)에 있다. 이 책은
+    [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)에 있다. 이 책은
     그것을 **서비스 메시로 어떻게 구현하는지는 다음 장에서 배운다**고 미룬다.
   - 위 로드맵 표의 4장 칸이 그 자리다.
 
@@ -361,7 +360,7 @@ sources:
   - **이것이 위 [그 배치가 곧바로 낳는 문제 하나](#그-배치가-곧바로-낳는-문제-하나)가 미뤄
     둔 답이다.** 3장은 이 체계에서 루프백이 고개를 드는 장면까지만 보이고 **어떻게 푸는지는
     4장으로 미뤘다.** 함정의 전문은
-    [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)에 있다.
+    [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)에 있다.
 - **그래서 저자들이 넘어가는 자리가 서비스 메시다** — **이 안티패턴을 피하면서 새 요구를 맞추는
   데 메시가 어떻게 도울 수 있는지 살펴보자**는 것이다 (4장, p.90).[^gough2022]
 
@@ -615,7 +614,7 @@ sources:
 
 - **6장이 이 체계를 위협 모델링 연습의 대상으로 삼는다** (6장 §"Case Study: Applying OWASP to
   the Attendee API", p.146).[^gough2022] 연습의 절차 전체는
-  [API 위협 모델링](api-threat-modeling.md)이 갖는다.
+  [API 위협 모델링](../concepts/api-threat-modeling.md)이 갖는다.
 - **이 연습의 목표가 명시된다** — **참석자 서비스에 대한 목표는 API 보안 위험 목록의 항목들이
   완화되도록 함으로써 제삼자의 외부 소비에 대비시키는 것**이다 (6장, p.150).[^gough2022]
 - **목표가 직접적이어서 지도가 단순해진다** — **이것이 직접적 목표이므로 데이터 흐름
@@ -665,7 +664,7 @@ sources:
 
 - **위험 평가 단계에서 저자들이 이 체계의 위협 하나를 골라 점수를 매긴다** — **속도 제한이 없는
   상태에서 API 게이트웨이에 대한 분산 서비스 거부 공격**이다 (6장, p.163).[^gough2022] DREAD의
-  다섯 축과 산식은 [API 위협 모델링](api-threat-modeling.md)이 갖는다.
+  다섯 축과 산식은 [API 위협 모델링](../concepts/api-threat-modeling.md)이 갖는다.
 - **매겨진 점수와 근거** (6장, p.164):[^gough2022]
 
   | 축 | 점수 | 이 체계에서의 근거 |
@@ -736,7 +735,7 @@ sources:
 - **그래서 이 체계가 바라는 장면이 규정된다** — **CFP가 참석자 서비스를 부르되, 사용자를 대신한
   요청은 자격 증명의 공유 없이 사용자의 구체적 승인으로 이뤄지는 것**이다 (7장,
   p.171).[^gough2022] 그 해법의 전문은
-  [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)에 있다.
+  [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)에 있다.
 - **이 체계에서 게이트웨이가 맡는 역할 이름이 하나 는다** — **게이트웨이를 OAuth2의 자원 서버로
   쓰는 것**이고, **게이트웨이 뒤에 서비스가 여럿 있어도 클라이언트에게는 게이트웨이가 자원
   서버**다. **이 사례의 자원 소유자는 둘** — 모바일 앱을 쓰는 참석자들과 CFP 체계를 쓰는
@@ -826,7 +825,7 @@ sources:
   **전에 프로세스 안 상호작용으로 있던 이음매에 새 API를 들일 때 잘 듣지만 이미 프로세스 밖에서
   그 서비스와 상호작용하는 소비자가 많다면 전부가 플래그를 구현하고 통제하기를 기대하는 것은
   비현실적**이라고 적는다 (8장 §"Strangler Fig", p.203).[^gough2022] 그 패턴의 전문은
-  [API 이행 패턴과 고통 지점](api-migration-patterns-and-pain-points.md)에 있다.
+  [API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md)에 있다.
 
 ## 참석자 서비스를 클라우드로 옮긴다
 
@@ -866,7 +865,7 @@ sources:
   평면을 결합된 제어 평면의 앎 아래로** 가져오는 배치다. **온프레미스가 클라우드처럼 동작하게
   만듦으로써 나머지 서비스를 클라우드로 진화시킬 쉬운 길이 생긴다** (9장, p.222).[^gough2022]
   이전 전략과 제로 트러스트 전체는
-  [API 인프라로 하는 클라우드 이전](cloud-migration-with-api-infrastructure.md)에 있다.
+  [API 인프라로 하는 클라우드 이전](../concepts/cloud-migration-with-api-infrastructure.md)에 있다.
 
 ## 여정의 끝 — 10장이 되돌아보는 아홉 걸음
 
@@ -922,9 +921,9 @@ Journey", pp.225–232).[^gough2022] **위 [아홉 장이 이 체계에 하는 �
   API라는 구분의 규정이 사는 자리
 - [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 이 체계가 낳은
   트래픽 흐름 둘에 각각 놓이는 중개자
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 이
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 이
   체계에 얹은 그 게이트웨이가 무엇이고 무슨 기능을 주는가
-- [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md) — 위 루프백 문제의
+- [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md) — 위 루프백 문제의
   전문과 게이트웨이를 고르는 절차
 - [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md) — 이 체계에
   얹은 메시가 무엇이고 무슨 기능을 주는가
@@ -932,15 +931,15 @@ Journey", pp.225–232).[^gough2022] **위 [아홉 장이 이 체계에 하는 �
   고르고 프록시 없는 gRPC를 기각한 근거가 속한 분류
 - [안정성 패턴](stability-patterns.md) — 트래픽 급증에 거는 시간 초과와 재시도와 회로 차단과
   폴백의 전문
-- [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md) — 이 체계의
+- [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md) — 이 체계의
   두 소비자를 인증하는 수단과 OAuth2의 역할 넷
 - [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md) — 위
   그랜트들과 스코프의 전문
-- [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md) — 이 체계의 도메인 경계와 모듈
+- [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md) — 이 체계의 도메인 경계와 모듈
   분해가 속한 8장의 앞부분
-- [API 이행 패턴과 고통 지점](api-migration-patterns-and-pain-points.md) — 이 체계의 기능
+- [API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md) — 이 체계의 기능
   플래그가 교살자 무화과의 한 갈래로 서는 자리
-- [API 인프라로 하는 클라우드 이전](cloud-migration-with-api-infrastructure.md) — 이 체계를
+- [API 인프라로 하는 클라우드 이전](../concepts/cloud-migration-with-api-infrastructure.md) — 이 체계를
   클라우드로 옮기는 전략 여섯과 제로 트러스트로 가는 길
 - [모놀리스 분해 패턴](../concepts/monolith-decomposition-patterns.md) — 이 이주가 쓰는 교살자
   무화과 패턴의 정본

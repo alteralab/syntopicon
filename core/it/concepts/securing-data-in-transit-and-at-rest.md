@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 전송 중 데이터와 정지 데이터의 보호
-description: 데이터가 네트워크를 흐를 때와 디스크에 앉아 있을 때 각각 무엇을 지키는가 — 전송 중 데이터의 관심사 넷(서버 신원, 클라이언트 신원, 데이터의 가시성, 데이터의 조작)과 그것이 HTTP에서 각각 무엇으로 구현되는가, 인증서 검증이 기술만으로 닫히지 않고 외부 신뢰 기점을 요구한다는 것과 어느 인증 기관을 믿을지가 클라이언트 쪽 결정이라는 것, 상호 TLS가 마이크로서비스에서 공공 인터넷보다 흔한 이유, 서명으로 가시성 없이 무결성만 지키는 길, 그리고 정지 데이터의 네 조문(잘 알려진 것을 써라, 대상을 골라라, 인색하라, 결국 키의 문제다)
-generated: { by: "claude-opus-5", at: "2026-09-18T23:50:00Z" }
+description: 데이터가 네트워크를 흐를 때와 디스크에 앉아 있을 때 각각 무엇을 지키는가 — 전송 중 데이터의 관심사 넷(서버 신원, 클라이언트 신원, 데이터의 가시성, 데이터의 조작)과 그것이 HTTP에서 각각 무엇으로 구현되는가, 인증서 검증이 기술만으로 닫히지 않고 외부 신뢰 기점을 요구한다는 것과 어느 인증 기관을 믿을지가 클라이언트 쪽 결정이라는 것, 상호 TLS가 마이크로서비스에서 공공 인터넷보다 흔한 이유, 서명으로 가시성 없이 무결성만 지키는 길, 그리고 정지 데이터의 네 조문(잘 알려진 것을 써라, 대상을 골라라, 인색하라, 결국 키의 문제다), 그리고 그 상호 TLS를 인프라 층이 대신 구현할 때 무엇이 사라지는가 — 언어마다 갈리던 인증서 관리와 교체의 부담, 라이브러리를 빼는 것만으로 우회되던 구현, 그리고 데이터 평면이 서비스 신원과 인증서를 쥐는 배치
+generated: { by: "claude-opus-5", at: "2026-09-19T11:10:00Z" }
 sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
+  - { id: gough2022, resource: /it/sources/gough2022.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
   - { id: dynowski2025, resource: /it/sources/dynowski2025.md }
@@ -25,6 +26,7 @@ sources:
 - [정지 데이터 — 인색하라](#정지-데이터--인색하라)
 - [정지 데이터 — 결국 키의 문제다](#정지-데이터--결국-키의-문제다)
 - [백업도 암호화한다](#백업도-암호화한다)
+- [상호 TLS를 인프라 층이 대신 구현할 때](#상호-tls를-인프라-층이-대신-구현할-때)
 - [이 KB의 다른 암호화 서술과 나란히](#이-kb의-다른-암호화-서술과-나란히)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -263,6 +265,46 @@ sources:
   [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) §"기본기 둘 —
   백업"에 있다.
 
+## 상호 TLS를 인프라 층이 대신 구현할 때
+
+**위 [클라이언트 신원과 상호 TLS](#클라이언트-신원과-상호-tls)의 마지막 단서가 상호 TLS를
+단순하게 만들고 싶다는 것이 서비스 메시를 구현하는 주된 이유 중 하나라고 적었다. 2022년 API
+아키텍처 운영서가 그 자리에 기제를 붙인다.**
+
+- **언어별 라이브러리로 구현할 때의 고통을 셋으로 적는다** (4장 §"Enforce Security: Transport
+  Security, Authentication, and Authorization", p.100):[^gough2022]
+  - **내부 네트워크 안의 전송 수준 암호화는 비교적 흔한 요구인데 언어 라이브러리마다 인증서
+    관리를 다르게 다뤄 인증서 배포와 교체의 운영 부담이 커졌다.**
+  - **서비스(기계) 신원과 사용자(사람) 신원을 인증과 인가를 위해 관리하는 일도 언어가 다르면
+    어려웠다.**
+  - **필요한 라이브러리를 넣지 않는 것만으로 어떤 보안 구현이든 우연히 또는 고의로 우회하기가
+    흔히 쉬웠다.**
+  - **셋째 항이 이 페이지에 없던 종류의 실패다.** 위 절들은 **암호가 깨지는 경우**와 **신원을
+    잘못 믿는 경우**를 다루는데, 이것은 **보호가 아예 걸리지 않는 경우**다. 이 구별은 이 KB가
+    세운 것이다. #hypothesis
+- **메시가 그 셋을 한꺼번에 없애는 논거** — **메시의 데이터 평면이 체계 안 모든 트래픽의
+  경로에 들어 있으므로 요구된 보안 프로파일을 집행하기가 비교적 사소하다.** 저자들이 드는
+  기제가 **데이터 평면이 서비스 신원(예컨대 SPIFFE를 쓰는 것)과 암호 인증서를 관리해 mTLS와
+  서비스 수준 인증·인가를 가능하게 하는 것**이고, 그래서 **코드 수정 없이** 상호 TLS를
+  구현할 수 있다 (4장, p.100).[^gough2022]
+  - **인증서의 주인이 바뀌는 것이 요점이다.** 위 §"그 인증서를 믿을지는 누가 정하는가"가 세운
+    물음은 그대로 남되, **그 판단을 내리고 인증서를 쥐는 주체가 애플리케이션에서 데이터
+    평면으로 옮겨 간다.** 이 읽기는 이 KB가 세운 것이고 저자들이 그렇게 적지 않는다.
+    #hypothesis
+- **인그레스 쪽과 동서 쪽의 TLS 성질이 다르다고 같은 책이 적는다** — **인그레스는 단방향
+  TLS이고 흔히 강제(예컨대 프로토콜 업그레이드)되는 반면, 서비스 사이는 상호이고 의무로 만들
+  수 있다(엄격 mTLS)** (4장, 표 4-3, p.101).[^gough2022]
+  - **위 절이 공공 인터넷과 마이크로서비스에서 상호 TLS의 쓰임이 갈린다고 적은 것과 같은
+    방향이고, 그 갈림에 "강제할 수 있는가"라는 축이 더해진다.**
+- **우회를 구조적으로 막는 길 하나가 더 적힌다** — 메시를 **운영체제 커널(eBPF)로 구현하면
+  노드의 모든 컨테이너와 프로세스가 같은 커널을 나눠 쓰므로, 커널의 사건에 붙은 프로그램이
+  어느 프로세스가 일으킨 사건이든 발동되고**, 그래서 **우연이든 아니든 메시를 우회하려는
+  시도를 제거해야 한다** (4장, p.110).[^gough2022] **위 셋째 고통에 대한 답이다.**
+- **이 페이지의 판정을 바꾸지 않는다.** 이 소스는 **무엇을 지키는가를 다시 규정하지 않고**
+  **그 보호를 누가 구현하는가**만 옮긴다. 전문은
+  [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)와
+  [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md)에 있다.
+
 ## 이 KB의 다른 암호화 서술과 나란히
 
 - [암호화와 익명화 패턴](../concepts/data-encryption-and-anonymization-patterns.md)이 **같은 문제를
@@ -290,6 +332,10 @@ sources:
 - [자격 증명과 비밀의 수명 주기](../concepts/credentials-and-secrets-lifecycle.md) — 인증서와 암호화 키가
   비밀로 다뤄지는 자리
 - [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 상호 TLS를 대신 구현해 주는 층
+- [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md) — 그 층이
+  서비스 신원과 인증서를 어떻게 쥐는가
+- [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md) — 우회를 구조적으로
+  막는 커널 구현이 사는 자리
 - [암호화와 익명화 패턴](../concepts/data-encryption-and-anonymization-patterns.md) — 같은 문제의
   데이터 플랫폼 패턴
 - [카프카 암호화](../concepts/kafka-encryption.md) — 브로커를 거치는 통신 쪽의 실물
@@ -325,3 +371,17 @@ sources:
     Protection"(pp.215–225) — Encryptor · Anonymizer · Pseudo-Anonymizer와 데이터셋 결합이
     익명화를 무너뜨린다는 경고. 전문은
     [암호화와 익명화 패턴](../concepts/data-encryption-and-anonymization-patterns.md)에 있다.
+
+[^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture* 초판(O'Reilly, 2022)
+    4장 "Service Mesh: Service-to-Service Traffic Management" §"Enforce Security: Transport
+    Security, Authentication, and Authorization"(p.100) · §"Separating Ingress and
+    Service-to-Service Traffic Management"의 표 4-3(p.101) · §"Sidecarless: Operating system
+    kernel (eBPF) implementations"(p.110). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측).
+    **이 페이지에는 직인용을 두지 않았다** — 옮긴 것이 전부 원문 문단의 한국어 재서술이다.
+    **표 4-3은 `pdftoppm -r 160 -png`로 렌더해 눈으로 대조했고** 이 페이지는 그중 TLS 행만
+    든다(표 전체는
+    [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)에 있다).
+    이 구간에 코드 목록은 없고 그림 4-9는 이 페이지가 담지 않는다. SPIFFE와 eBPF와 Cilium은
+    저자들이 드는 규격과 기술이고 **이 KB가 확인한 원전이 아니다.** 위 "보호가 아예 걸리지
+    않는 경우"라는 구별과 "인증서의 주인이 바뀐다"는 읽기는 **이 KB가 세운 것이고 저자들이
+    그렇게 적지 않는다.**

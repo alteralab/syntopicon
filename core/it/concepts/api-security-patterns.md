@@ -5,6 +5,7 @@ description: API를 노리는 위험의 분류와 그에 맞서는 패턴 — Sa
 generated: { by: "claude-fable-5", at: "2026-09-18T23:25:00Z" }
 sources:
   - { id: dynowski2025, resource: /it/sources/dynowski2025.md }
+  - { id: gough2022, resource: /it/sources/gough2022.md }
 ---
 
 # API 보안 패턴
@@ -20,6 +21,7 @@ sources:
 - [드라이 런](#드라이-런)
 - [스크래핑 완화](#스크래핑-완화)
 - [예측 가능한 식별자를 쓰지 않는다](#예측-가능한-식별자를-쓰지-않는다)
+- [그 목록의 판 연도를 적는 소스](#그-목록의-판-연도를-적는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **API를 노리는 위험은 무엇으로 분류되고, 그 위험을 줄이는 패턴은 무엇인가.**
@@ -195,10 +197,54 @@ sources:
   식별자로 6비트가 미리 정해지고 122비트가 무작위로 생성되어, 총 대략 5.32 × 10^36(5.32
   언데실리언)의 유일한 ID 공간을 준다** (2장, p.72).[^dynowski2025]
 
+## 그 목록의 판 연도를 적는 소스
+
+**위 [버전 조건](#버전-조건)이 "저자들은 판의 연도를 본문에 적지 않는다"고 적어 둔 자리가
+다른 소스로 메워진다.** 2022년 API 아키텍처 운영서가 같은 목록을 쓰면서 **그것이 언제 나온
+것인지를 본문에 적는다.**
+
+- **조직의 규정이 겹친다** — 그쪽도 **OWASP를 소프트웨어의 보안을 개선하려 일하는 비영리
+  재단**으로, **가장 잘 알려진 프로젝트를 OWASP Top 10**으로, 그것을 **웹 애플리케이션이
+  마주하는 가장 결정적인 보안 위험의 목록**으로 규정한다 (6장 §"Case Study: Applying OWASP to
+  the Attendee API", p.146).[^gough2022] 위 [OWASP와 Top 10](#owasp와-top-10)과 같다.
+- **그쪽이 더하는 것이 연도다** — **2019년에 OWASP가 새 top 10 목록을 냈고 그것이 API Security
+  Top 10이었다** (6장, p.146).[^gough2022]
+  - 이 페이지의 소스는 2025년 책이고 **그 판을 특정하지 않는다.** 그쪽은 2022년 책이고 **2019년
+    판을 가리킨다.** **두 페이지가 같은 판을 읽고 있다고 가정할 수 없다** — 이 관찰은 이 KB의
+    것이다. #hypothesis
+- **그 목록이 어떻게 만들어졌는지도 그쪽이 적는다** — **보안 침해와 버그 바운티 프로그램을 살핀
+  보안 전문가들의 작업에 기반하고, 침투 테스터들도 이 top 10에 무엇이 들어야 하는지 의견을
+  냈다** (6장, pp.146–147).[^gough2022]
+- **그쪽이 붙이는 단서 둘** (6장, p.147):[^gough2022]
+  - **이것은 마주하게 될 모든 위협의 철저한 목록이 아니다.** 다만 **자기 API가 어떻게 악용될 수
+    있는지 볼 때 염두에 두어야** 한다.
+  - **이 목록들은 주기적으로 갱신되므로 바뀌는 대로 변경과 갱신을 찾아보는 것이 중요하다.**
+    **이 단서가 위 버전 조건이 요구하던 바로 그 조항이다.**
+- **묶는 방식이 두 소스에서 다르다.** 위 [세 범주로 묶어 읽기](#세-범주로-묶어-읽기)는 열
+  항목을 **인증과 인가·인벤토리 관리·자원 관리** 셋으로 묶는다. 그쪽은 **위협 모델링 방법론의
+  여섯 범주 아래로 항목을 흩어 놓고** 각 자리에서 완화를 함께 적는다 (6장,
+  p.154).[^gough2022]
+  - **두 묶음이 겨루지 않는다 — 묶는 축이 다르다.** 이쪽은 **무엇이 잘못되는가**로 묶고 그쪽은
+    **누가 어떻게 공격하는가**로 묶는다. 그쪽의 배치는
+    [STRIDE로 API 위협을 식별하기](stride-threats-for-apis.md)가 갖는다.
+  - **그쪽에서 이름으로 확인되는 항목이 다섯이다** — 깨진 사용자 인증, 불충분한 로깅과 모니터링,
+    과도한 데이터 노출, 자산 관리 부실, 그리고 인가 붕괴 둘(객체 수준과 기능 수준)이다.
+    **주입과 서비스 거부는 항목이 있다고만 적히고 이름이 그대로 인용되지 않는다** (6장,
+    pp.154–161).[^gough2022] **이 세는 일은 이 KB의 것이다.** #hypothesis
+- **그쪽 7장이 그 목록에 순위 하나를 매긴다** — **이 목록에 오른 인가 관련 보안 문제 가운데 가장
+  흔한 둘이 객체 수준 인가의 붕괴와 기능 수준 인가의 붕괴**라는 것이다 (7장 §"Authorization
+  Enforcement", p.185).[^gough2022] 두 항목의 규정과 그것을 집행하는 조항은
+  [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
+  - **위 [인증과 인가](#인증과-인가)가 규정 둘과 최소 권한 원칙까지만 갖고 있던 자리가
+    그것으로 메워진다** — 이 페이지의 소스는 인가를 원칙으로 적고, 그쪽은 **인가가 무너질 때
+    실제로 무엇이 일어나는가**를 두 항목의 이름으로 적는다. 이 대조는 이 KB의 것이다.
+
 ## 이어지는 페이지
 
 - [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) —
   위 최소 권한과 심층 방어가 원칙으로 서는 자리
+- [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md) — 위
+  인가 붕괴 둘의 규정과 그것을 집행하는 조항
 - [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md) —
   위 인증·인가의 구현 층
 - [전송 중 데이터와 정지 데이터의 보호](../concepts/securing-data-in-transit-and-at-rest.md) —
@@ -225,3 +271,16 @@ sources:
     Vulnerability Database", Open Cloud Vulnerability and Security Issue Database,
     Cloudflare 블로그 "Trapping Misbehaving Bots in an AI Labyrinth")는 **이 KB가 확인한
     원전이 아니라 이 책을 통한 2차 경유**다.
+
+[^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture: Design, Operate, and
+    Evolve API-Based Systems* 초판(O'Reilly, 2022) 6장 "Operational Security: Threat Modeling
+    for APIs" §"Case Study: Applying OWASP to the Attendee API"(pp.146–147)과 §"Step 4:
+    Identify Threats—Taking This in Your STRIDE"(pp.154–161)에서 목록의 항목을 이름으로 드는
+    대목들, **그리고 7장 "API Authentication and Authorization" §"Authorization
+    Enforcement"(p.185)에서 그 목록의 인가 관련 항목 둘을 가장 흔한 것으로 꼽는 대목**. 쪽은
+    인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 절에 직인용은 두지 않았다** —
+    옮긴 것이 전부 원문 문단의 한국어 재서술이다. 그 구간의 표와 도판은 이 페이지가 담지 않고
+    [STRIDE로 API 위협을 식별하기](stride-threats-for-apis.md)와
+    [회의 시스템 사례 연구](conference-system-case-study.md)가 갖는다. 위 "두 페이지가 같은
+    판을 읽고 있다고 가정할 수 없다"는 판정과 이름으로 확인되는 항목을 세는 일은 이 KB의
+    것이고, 두 책은 서로를 호명하지 않는다.

@@ -2,7 +2,6 @@
 type: concept
 title: API 이행 패턴과 고통 지점
 description: 이미 돌고 있는 체계를 API로 옮겨 가는 동안 어떤 패턴으로 트래픽을 옮기고 어디를 먼저 손댈 것인가 — 교살자 무화과의 두 구현 갈래(기능 플래그와 프록시·게이트웨이 파사드)와 각각이 듣는 조건과 뒤에서 관리할 때의 어려움 넷, 파사드와 어댑터를 가르는 선과 게이트웨이가 그 선을 넘을 때 결합이 즉시 늘어난다는 경고, 엔터프라이즈에서 이야기되는 API 층 케이크와 그것을 쓰지 말라는 권고, 그리고 손댈 곳을 고르는 고통 지점 셋(업그레이드와 유지보수의 신호 다섯·성능·강하게 결합된 API)과 레거시 의존을 끊는 기법 둘
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T21:00:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -29,7 +28,7 @@ sources:
 - **담는 것** — 이 책 8장 "Redesigning Applications to API-Driven Architectures"의 뒤
   절반(pp.202–207)이다. **이행 패턴 셋과 고통 지점 셋**이다.
 - **담지 않는 것** — 같은 장의 앞부분(왜 API가 지렛대인가, 응집과 결합, 최종 상태 선택지 넷,
-  진화 과정을 관리하는 여섯 걸음)은 [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md)가
+  진화 과정을 관리하는 여섯 걸음)은 [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md)가
   갖는다. **인프라를 클라우드로 옮기는 쪽**은
   [API 인프라로 하는 클라우드 이전](cloud-migration-with-api-infrastructure.md)이 갖는다.
 
@@ -101,7 +100,7 @@ sources:
     어댑터 패턴 쪽으로 선을 넘으면 결합이 즉시 늘어난다. 이 과업에 여전히 맞는 구성 요소를 쓰고
     있는지 꼭 물어라** (8장, p.204).[^gough2022]
   - 게이트웨이가 파사드·어댑터로 결합을 줄이는 쓰임의 정본은
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)다.
 
 ### API 층 케이크 — 피하라고 권하는 패턴
 
@@ -166,7 +165,7 @@ sources:
   - **기존 체계를 측정하고 · 성능을 어디서 개선할 수 있을지 가설을 세우고 · 시험하고 검증하라.**
   - **특정 컴포넌트를 격리해 최적화하려 하지 말고 체계를 전체로 볼 것.**
   - **측정 과정을 자동화하면 성능 측정을 빌드 과정의 일부로 들일 수 있다.** 그것이 같은 장의
-    적합도 함수 절에서 성능 분류가 가리키던 자리다([API 주도 재설계와 이음매](api-driven-redesign-and-seams.md)).
+    적합도 함수 절에서 성능 분류가 가리키던 자리다([API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md)).
 
 ### 의존 끊기 — 강하게 결합된 API
 
@@ -201,11 +200,11 @@ sources:
   많은가)을 적는다. **생물학적 단서(상리공생)도 이 책에만 있다.**
 - **API 층 케이크와 게이트웨이 층 쌓기** — **둘은 다른 것을 금지한다.** 위 절은
   **책임을 티어로 갈라 요청이 티어를 차례로 통과하게 만드는 것**을 금지하고,
-  [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)의 ESB 함정은 **한 요청
+  [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)의 ESB 함정은 **한 요청
   경로에 같은 종류의 중개자를 여러 겹 두는 것**을 금지한다. **모순이 아니라 같은 방향의 서로 다른
   금지다.**
 - **파사드와 어댑터** — 이 책 3장이 게이트웨이를 쓸 이유 여섯 가운데 첫째로 **파사드와 어댑터로
-  결합을 줄이는 것**을 든다([API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)).
+  결합을 줄이는 것**을 든다([API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)).
   **이 절은 그 쓰임에 선을 그어 준다** — 게이트웨이가 변환까지 떠맡으면 어댑터가 되고 결합이
   즉시 늘어난다는 것이다.
 - **고통 지점의 신호 다섯** — **변경 실패율과 요동은 이 KB의 다른 소스들이 배포 성과 지표와
@@ -215,15 +214,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md) — 같은 장의 앞부분. 무엇을 목표로
+- [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md) — 같은 장의 앞부분. 무엇을 목표로
   어떤 단위로 쪼개는가
 - [API 인프라로 하는 클라우드 이전](cloud-migration-with-api-infrastructure.md) — 같은 이행을
   인프라 쪽에서 이어 가는 다음 장
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 교살자 무화과의 정본
 - [계층 아키텍처](layered-architecture.md) — API 층 케이크가 되받는 패턴
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 파사드와
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 파사드와
   어댑터를 실제로 맡는 구성 요소
-- [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md) — 층 쌓기의 다른 금지
+- [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md) — 층 쌓기의 다른 금지
 - [독립 배포 가능성](independent-deployability.md) — 릴리스 동기화가 신호가 되는 이유
 - [OpenAPI 명세 실무](openapi-specification-practice.md) — grpc-gateway가 명세 쪽에 지우는 대가
 - [회의 시스템 사례 연구](conference-system-case-study.md) — 이 패턴들을 한 체계에 얹는 장면
@@ -236,7 +235,7 @@ sources:
     §"Identifying Pain Points and Opportunities"(pp.205–207: 하위 §"Upgrade and Maintenance
     Issues" · §"Performance Issues" · §"Breaking Dependencies: Highly Coupled APIs") ·
     §"Summary"(p.207). 같은 장의 앞부분(pp.191–202)은
-    [API 주도 재설계와 이음매](api-driven-redesign-and-seams.md)가 갖는다. **이 구간의 목차에 없는
+    [API 주도 재설계와 이음매](../concepts/api-driven-redesign-and-seams.md)가 갖는다. **이 구간의 목차에 없는
     상자는 하나**이고 제목이 없다(p.204 파사드에서 어댑터로 선을 넘는 것). 제목 층은
     `pdftotext -bbox` 글자 높이로 갈랐다(큰 22.7 · 중간 18.9 · 곁상자 본문 13.0 · 본문 14.2).
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 구간에 직인용은 없다** — 규정과 조문을

@@ -2,7 +2,6 @@
 type: concept
 title: OAuth2 그랜트와 스코프와 신원 계층
 description: 자원 소유자의 동의를 어떤 절차로 받아 클라이언트에 토큰을 쥐여 주고 그 토큰이 무엇까지 허용하는지를 어디서 집행하는가 — 인가 코드 그랜트의 걸음 다섯과 기밀 클라이언트와 공개 클라이언트의 구별과 PKCE가 막는 가로채기, 리프레시 토큰과 두 번 쓰였을 때의 즉시 폐기와 남는 창, 클라이언트 자격 증명 그랜트와 걸음이 둘뿐인 이유, 추가 그랜트 셋과 쓰지 말라는 둘과 그 두 처지를 적는 낱말이 다르다는 것, 어느 그랜트를 지원할 것인가를 묻는 ADR 지침, 스코프의 규정과 동의 화면, 종단점 목록을 스코프로 깎아 보는 장면과 읽기와 쓰기를 가르는 두 번째 깎기, 스코프에 정해진 표준이 없다는 것과 JWT의 클레임으로 실리는 형식, 인가를 반드시 집행해야 한다는 조문과 객체 수준 인가의 붕괴와 기능 수준 인가의 붕괴, 역할 기반 접근 통제와 모든 종단점에 인가 검사를 두라는 조항, 클라이언트가 인가받은 것과 사용자가 가진 것이 겹치는 자리와 그 셋을 그린 벤 다이어그램, 게이트웨이에서 스코프를 집행하는 자리, OAuth2가 신원을 주지 않는다는 공백과 OIDC가 그것을 메우는 방식과 openid 스코프와 ID 토큰과 그 토큰을 두껍게 하는 스코프 넷, OIDC의 흐름 셋과 권고, OAuth2와 OIDC를 같은 것으로 보지 말라는 경고와 ID 토큰을 액세스 토큰 대신 쓰지 말라는 금지, 그리고 기업의 SAML 2.0과 그것으로 액세스 토큰을 얻게 하는 OAuth2 확장
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T16:00:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -56,14 +55,14 @@ sources:
 - **담는 것** — 이 책 7장의 §"OAuth2" 뒷부분(pp.177–186: 그랜트들과 스코프와 인가 집행)과
   §"Introducing OIDC"(pp.186–187)와 §"SAML 2.0"(pp.187–188)이다.
 - **담지 않는 것** — 인증과 인가의 구별부터 OAuth2의 어휘와 토큰까지는
-  [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)이 갖는다. 같은 장의
+  [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)이 갖는다. 같은 장의
   앞머리(pp.167–177)다. **자원 소유자·인가 서버·클라이언트·자원 서버라는 역할 넷과 액세스 토큰과
   JWT의 규정과 그랜트들이 공유하는 추상 프로토콜 여섯 걸음은 그쪽에 있고 이 페이지는 그것을
   전제한다.**
 - **이 책에 OIDC와 SAML을 맞대어 고르는 절은 없다** — 저자들은 SAML을 **기업 환경의 현실**과
   **OAuth2로 이행할 때 알아 둘 확장**으로만 적고, 선택 기준의 표나 ADR 지침을 세우지 않는다
   (7장, pp.187–188).[^gough2022] **이 장의 ADR 지침 둘은 모두 OAuth2 쪽**이고 그 둘은
-  [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)에 있다. 이 관찰은
+  [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)에 있다. 이 관찰은
   이 KB가 실측해 적은 것이다.
 
 ## 인가 코드 그랜트
@@ -146,7 +145,7 @@ sources:
   사례 문서의 이름이나 판을 본문에 적지 않는다.**
 - **리프레시 토큰은 추가 자격 증명이고 긴 수명이므로 안전하게 보관하고 새지 않게 하는 것이
   중요하다** (7장, p.181).[^gough2022] 그 보관의 규정은
-  [자격 증명과 비밀의 수명 주기](credentials-and-secrets-lifecycle.md)에 있다.
+  [자격 증명과 비밀의 수명 주기](../concepts/credentials-and-secrets-lifecycle.md)에 있다.
 - **폐기가 접근을 끊는 수단이다** — **어느 시점에든 클라이언트의 접근을 거부해야 하면(자원
   소유자가 그 클라이언트에 더 이상 접근을 주고 싶지 않은 경우를 포함해) 리프레시 토큰을 폐기할
   수** 있고, **클라이언트 애플리케이션이 다음에 새 액세스 토큰을 요청할 때 막힌다** (7장,
@@ -318,7 +317,7 @@ sources:
   접근할 올바른 스코프를 갖고 있지 않을 때 요청을 거절하는 데 쓸모 있다** (7장,
   p.186).[^gough2022]
   - **이것이 이 KB에서 게이트웨이가 떠맡는 기능 목록에 더해지는 항목이다** —
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)에 그 줄을
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)에 그 줄을
     두었다.
   - **다만 위 [역할 기반 접근 통제와 종단점마다의 검사](#역할-기반-접근-통제와-종단점마다의-검사)
     의 조항이 그대로 남는다** — 게이트웨이가 스코프를 거른다고 해서 종단점의 인가 검사가 면제되지
@@ -343,7 +342,7 @@ sources:
   p.186).[^gough2022]
 - **얻는 것** — **`openid` 스코프를 쓰면 클라이언트는 ID 토큰을 받고, 그것은 사용자에 대한
   클레임을 담은 JWT**다 (7장, p.186).[^gough2022] JWT의 규정은
-  [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)에 있다.
+  [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)에 있다.
 
 ## ID 토큰을 두껍게 하는 스코프 넷
 
@@ -370,7 +369,7 @@ sources:
   **OIDC 명세는 ID 토큰을 얻는 걸음들을 "흐름"이라 부른다** (7장, p.187).[^gough2022]
 - **권고 하나** — **인가 코드 흐름을 쓰라**는 것이고, 근거는 **인가 코드 그랜트(+ PKCE)와 같은
   이유 — 더 안전하기 때문**이다 (7장, p.187).[^gough2022] 그 그랜트의 절차는
-  [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)에 있다.
+  [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)에 있다.
   - **이 책이 낱말을 갈라 쓴다** — OAuth2 쪽은 **그랜트**, OIDC 쪽은 **흐름**이다. 이 대조는
     이 KB가 실측해 적은 것이다.
 
@@ -388,7 +387,7 @@ sources:
   **ID 토큰이 그 목적으로 의도되지 않았으므로 매우 위험한 관행**이다. **ID 토큰은 클라이언트에
   사용자에 대한 정보를 주려는 목적의 긴 수명 토큰이고 자원에 접근하기 위한 것이 아니다.**
   - **이것이 액세스 토큰의 수명 조문과 정면으로 대비된다** —
-    [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)의 토큰 수명 절이
+    [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)의 토큰 수명 절이
     액세스 토큰을 1분에서 60분으로 잡는데, **ID 토큰은 여기서 긴 수명이라고 규정된다.**
     **모순이 아니라 쓰임이 다른 두 토큰**이다.
 
@@ -417,7 +416,7 @@ sources:
 
 - **[STRIDE로 API 위협을 식별하기](stride-threats-for-apis.md)의 권한 상승 절이 미뤄 둔 인가
   붕괴 두 항목의 규정이 이 페이지에 있다.** 그 페이지에서 이리로 오는 줄을 두었다.
-- **[API 보안 패턴](api-security-patterns.md)이 같은 목록을 인증과 인가·인벤토리 관리·자원 관리
+- **[API 보안 패턴](../concepts/api-security-patterns.md)이 같은 목록을 인증과 인가·인벤토리 관리·자원 관리
   세 범주로 묶어 읽는다.** **이 페이지가 그 인증·인가 범주에서 가장 흔한 둘의 규정을 준다.**
 - **[서비스 사이 인증과 인가](service-to-service-authentication-and-authorization.md)의 상류
   인가와 이 페이지의 집행 자리가 부딪히지 않는다.** 그쪽은 **인가의 판단을 게이트웨이에 모으면
@@ -432,18 +431,18 @@ sources:
 
 ## 이어지는 페이지
 
-- [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md) — 같은 장의 앞머리.
+- [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md) — 같은 장의 앞머리.
   이 페이지가 전제하는 역할 넷과 토큰과 추상 프로토콜
 - [STRIDE로 API 위협을 식별하기](stride-threats-for-apis.md) — 인가 붕괴 둘이 위협으로 서는 자리
-- [API 보안 패턴](api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 자리
+- [API 보안 패턴](../concepts/api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 자리
 - [서비스 사이 인증과 인가](service-to-service-authentication-and-authorization.md) — 굵은 인가와
   세밀한 인가를 어디에 둘 것인가
 - [암묵적 신뢰와 제로 트러스트](zero-trust-and-implicit-trust.md) — 요청마다 검사한다는 조항이
   서 있는 신뢰 모형
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 스코프
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 스코프
   집행이 놓이는 층
 - [REST API 구현 결정](rest-api-implementation-decisions.md) — OIDC의 한 줄 규정이 있는 자리
-- [회의 시스템 사례 연구](conference-system-case-study.md) — 이 스코프들을 한 체계에 실제로
+- [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — 이 스코프들을 한 체계에 실제로
   얹는 장면
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
 
@@ -456,7 +455,7 @@ sources:
     §"ADR Guideline: Choosing Which OAuth2 Grants to Support"와 표 7-2 · §"OAuth2 Scopes"(작은
     §"Case Study: Applying OAuth2 scopes to the Attendee API") · §"Authorization Enforcement")과
     §"Introducing OIDC"(pp.186–187)와 §"SAML 2.0"(pp.187–188)과 §"Summary"(p.188)의 해당 불릿.
-    같은 장의 앞머리는 [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)
+    같은 장의 앞머리는 [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)
     이 갖는다. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 페이지에 직인용은 없다** —
     규정과 조문은 전부 한국어로 재서술했다. 그림 다섯(7-6·7-7·7-8·7-9·7-10)은 `pdftoppm -r 160
     -png`로 렌더해 눈으로 대조했고 **본문에 없고 그림에만 있는 것**을 위 본문에 적었다(인가 코드

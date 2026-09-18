@@ -8,6 +8,7 @@ sources:
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
   - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
+  - { id: gough2022, resource: /it/sources/gough2022.md }
 ---
 
 # 콘웨이의 법칙
@@ -23,6 +24,7 @@ sources:
 - [이 법칙이 이 KB에서 쓰이는 자리들](#이-법칙이-이-kb에서-쓰이는-자리들)
 - [16장이 이 법칙에 더하는 한 줄](#16장이-이-법칙에-더하는-한-줄)
 - [넷째 소스 — 이 법칙을 소통 구조 셋으로 다시 읽는다](#넷째-소스--이-법칙을-소통-구조-셋으로-다시-읽는다)
+- [다섯째 소스 — 네 팀이 일하면 API 층이 넷 나온다](#다섯째-소스--네-팀이-일하면-api-층이-넷-나온다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **조직의 소통 구조와 그 조직이 만드는 체계의 설계는 어떤 관계이며, 그 관계를
@@ -414,6 +416,50 @@ pp.193–196).[^ford2022-evolutionary]
   [소통 구조 셋](../concepts/communication-structures.md)에 있다. **이 대비는 이 KB가 네 소스를 맞대어 세운
   것이다.**
 
+## 다섯째 소스 — 네 팀이 일하면 API 층이 넷 나온다
+
+2022년 API 아키텍처 운영서가 마무리 장에서 이 법칙을 불러 **API 아키텍처에도 그대로 적용된다**고
+적는다 (10장 §"APIs, Conway's Law, and Your Organization", p.232).[^gough2022]
+
+- **이 소스가 옮기는 판이 위 표의 어느 판과도 낱말이 다르다** (10장, p.232):[^gough2022]
+
+  > Any organization that designs a system (defined broadly) will produce a design whose
+  > structure is a copy of the organization's communication structure.
+  >
+  > —Melvin Conway in *How Do Committees Invent?*
+
+  - **다른 자리 둘** — 괄호 안이 **"(defined broadly)"**로 줄었고(뉴먼 판은 "defined more
+    broadly here than just information systems"), **"inevitably"가 빠졌다.** **연도도 지면
+    이름도 적지 않는다.**
+  - **그래서 위 [서지 어긋남 표](#법칙의-원문--이-책이-옮기는-판)의 세 판본 어느 것과도 낱말이
+    다른 판본이 하나 더 생긴다.** 이 KB는 **여전히 원논문을 확인하지 않았고** 판정을 미뤄 둔다.
+    **다만 어긋남이 연도 표기만이 아니라 문장 자체에도 있다는 것이 이 소스로 분명해진다** —
+    앞의 넷째 소스는 낱말이 표의 셋째 판본과 같았다.
+- **축약판의 귀속이 갈린다.** 이 소스는 **"더 간결하게 말하면, 컴파일러 하나에 네 그룹이
+  일하면 4패스 컴파일러를 얻는다"**를 인용 부호에 넣어 적으면서 **누구의 말인지 대지 않는다**
+  (10장, p.232).[^gough2022] 위 [법칙의 원문](#법칙의-원문--이-책이-옮기는-판) 절에서 뉴먼은
+  같은 문장을 **에릭 레이먼드의 *The New Hacker's Dictionary***로 귀속한다. **이 KB는 그 귀속을
+  뉴먼 쪽에 둔 채로 두고, 이 소스가 귀속을 생략한다는 사실만 적는다.**
+- **이 소스가 더하는 것은 그 농담의 API 판이다** — 저자들은 **"우리가 즐겨 하는 농담으로, 한
+  마이크로서비스 체계에 네 그룹이 일하면 API 층이 넷 생긴다"**고 적고, **API 세계에서 이것을
+  확실히 보아 왔다**고 덧붙인다 (10장, p.232).[^gough2022]
+  - **이 한 줄이 이 KB의 다른 페이지 하나와 맞물린다** — 같은 책 8장이 **API 층 케이크**를
+    안티패턴으로 세우고 **쓰지 말라고 권한다**
+    ([API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md)).
+    **곧 저자들은 그 안티패턴의 원인을 조직 구조에 돌린다.** 같은 책 안에서 8장의 금지와 10장의
+    농담이 이렇게 이어지지만 **저자들이 두 자리를 명시적으로 잇지는 않는다** — 이 연결은 이 KB가
+    세운 것이다. #hypothesis
+- **저자들이 조직 설계를 다루지 않는 대신 책 셋을 권한다** — ***Team Topologies*(IT Revolution
+  Press) · *Agile IT Organization Design: For Digital Transformation and Continuous
+  Delivery*(Addison-Wesley) · *The Art of Scalability*(Addison-Wesley)**이고, **큰 조직 이동이나
+  "디지털 전환"을 하려 한다면 앞의 저작들을 꼭 참고하라**고 적는다 (10장, p.233).[^gough2022]
+  **셋 다 이 KB에 들어와 있지 않다.**
+- **절을 닫는 한 줄** — **어떤 API 기반 체계든 본래 사회기술 체계(socio-technical system)이므로,
+  "기술" 만큼이나 "사회" 측면도 늘 고려해야 한다** (10장, p.233).[^gough2022]
+  - **이 낱말이 이 KB에 이미 있다** — [진화적 아키텍트의 역할](evolutionary-architect-role.md)이
+    **아키텍처를 사회적 구성물**로 규정하는 자리다. **두 서술이 겨루지 않는다** — 그쪽은 **아키텍처가
+    무엇인가**를 말하고, 이쪽은 **그래서 무엇을 고려하라**고 말한다.
+
 ## 이어지는 페이지
 
 - [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 이 법칙을 구역 설정에 쓰는 자리
@@ -460,3 +506,12 @@ pp.193–196).[^ford2022-evolutionary]
     도판도 없다. 저자가 대는 바깥 서지(Melvin Conway, "How Do Committees Invent?")는 **이 KB가
     확인한 원전이 아니다**. 이 소스의 나머지 서술은 [소통 구조 셋](../concepts/communication-structures.md)에
     있다.
+
+[^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture: Design, Operate, and
+    Evolve API-Based Systems* 초판(O'Reilly, 2022) 10장 "Wrap-up" §"APIs, Conway's Law, and Your
+    Organization"(pp.232–233) 전량. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). 직인용 하나는
+    `pdftotext -layout` 추출로 문자 단위 대조했고, 굽은 따옴표는 곧은 따옴표로 옮겼다. 원문은
+    출처 줄을 인용 블록 안에 이탤릭으로 조판하고 **연도와 지면을 적지 않는다.** 이 절에 도판도
+    표도 코드 목록도 없다. 저자들이 대는 바깥 서지(Melvin Conway, "How Do Committees Invent?" ·
+    *Team Topologies* · *Agile IT Organization Design* · *The Art of Scalability*)는 **이 KB가
+    확인한 원전이 아니다.**

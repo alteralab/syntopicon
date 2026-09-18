@@ -2,7 +2,6 @@
 type: concept
 title: STRIDE로 API 위협을 식별하기
 description: 위협 식별 단계에서 실제로 무엇을 세는가 — 위장과 변조와 부인과 정보 노출과 서비스 거부와 권한 상승이라는 여섯 범주의 규정과 그 출처가 1999년 논문이라는 것, 여섯 범주를 API 표면에 적용했을 때 각각이 부르는 공격과 그에 대응하는 API 보안 위험 목록의 항목, 페이로드 주입을 계약 검증으로 앞에서 막되 뒤에서도 정제하라는 다중 방어, 대량 할당이 게이트웨이에서 풀리지 않고 구현 안에서 막혀야 한다는 판정, 과도한 데이터 노출과 자산 관리 부실이라는 정보 노출의 두 안티패턴, 서비스 거부에 거는 속도 제한과 부하 덜기의 구별과 창 기반과 버킷 기반의 전략 넷과 실패 시 열 것인가 닫을 것인가, 권한 상승이 가리키는 인가 항목 둘, 그리고 어느 범주에도 갇히지 않는 보안 오설정과 전송 계층 보안 종단과 교차 출처 요청 공유와 헤더 강화
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -49,10 +48,10 @@ sources:
 - **담는 것은 위협 식별 단계가 실제로 세는 것이다.** 여섯 범주의 규정과, 그 각각을 API 표면에
   적용했을 때 서는 공격과 완화다.
 - **담지 않는 것 셋.** 하나는 **이 단계를 둘러싼 절차 전체**이고 그 자리는
-  [API 위협 모델링](api-threat-modeling.md)이다. 둘은 **회의 시스템에 이것을 거는 장면**이고
-  그 자리는 [회의 시스템 사례 연구](conference-system-case-study.md)다. 셋은 **API 보안 위험
+  [API 위협 모델링](../concepts/api-threat-modeling.md)이다. 둘은 **회의 시스템에 이것을 거는 장면**이고
+  그 자리는 [회의 시스템 사례 연구](../concepts/conference-system-case-study.md)다. 셋은 **API 보안 위험
   목록 자체를 세 범주로 묶어 읽는 다른 소스의 서술**이고 그 자리는
-  [API 보안 패턴](api-security-patterns.md)이다.
+  [API 보안 패턴](../concepts/api-security-patterns.md)이다.
 
 ## 여섯 글자의 규정
 
@@ -116,7 +115,7 @@ sources:
   **이것이 분명히 위장 범주와 관련되므로 인증 흐름이 깨지지 않게 해야 한다**고 적고, 상세를
   7장으로 미룬다 (6장, p.154).[^gough2022]
   - **그 갈고리가 갚였다** — 7장이 인증의 규정과 수단을 준다.
-    [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md)이 그것이고,
+    [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md)이 그것이고,
     **이 절이 말하는 "인증 흐름"의 구체가 거기 있다** — 토큰 기반 최종 사용자 인증과 그 수명,
     시스템 간 인증의 API 키와 그 생성 규칙, 기본 인증을 API에 허용하지 말라는 권고, 그리고
     제3자가 키만으로 사용자를 대신 주장하지 못하게 하는 OAuth2의 동의 절차다.
@@ -143,7 +142,7 @@ sources:
   버려질 수 있다** (6장, p.154).[^gough2022]
   - 저자들은 **API 명세가 HTTP 요청 검증에 점점 더 쓰인다**고 적는다 (6장,
     p.155).[^gough2022] 그 명세로 검증한다는 실천의 전문은
-    [OpenAPI 명세의 실무](openapi-specification-practice.md)가 갖는다.
+    [OpenAPI 명세의 실무](../concepts/openapi-specification-practice.md)가 갖는다.
 - **뒤쪽 완화가 반드시 함께 간다** — **API 게이트웨이에서 수행하는 입력 검증이 값어치 있다고 해서
   백엔드 서비스 안에서의 추가 입력 검증과 정제를 생략해도 된다는 뜻은 아니다.** 저자들이 그
   자리에 붙이는 말이 **믿되 검증하라**다 (6장, p.155).[^gough2022]
@@ -152,7 +151,7 @@ sources:
     정제해야 하고 데이터베이스와 통신할 때 준비된 구문(prepared statements)을 써야** 한다.
     **방어선이 여럿이어야 하나가 실패해도 버틴다** (6장, p.155).[^gough2022]
   - 이 조항은 이 KB의
-    [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md)가 **심층 방어**로
+    [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md)가 **심층 방어**로
     이미 갖고 있는 것과 같은 결이고, **이 소스는 그것을 API 요청 경로의 두 지점으로 구체화한다.**
 
 ## 대량 할당
@@ -173,7 +172,7 @@ sources:
   문제를 1장이 사용성 관점에서 이미 논했고 그것이 그러지 말아야 할 추가 근거를 준다**고
   가리킨다. 이 KB의 그 자리는
   [정보 은닉과 정보 누출](information-hiding-and-leakage.md)과
-  [API 설계 모범 사례](api-design-best-practices.md)다.
+  [API 설계 모범 사례](../concepts/api-design-best-practices.md)다.
 - **판정 하나가 이 범주를 다른 것들과 가른다** — **이 취약점은 전형적으로 API 게이트웨이 수준에서
   풀 수 있는 것이 아니고, 대신 API 구현 자체 안에서 막아야 한다** (6장, p.156).[^gough2022]
 
@@ -198,7 +197,7 @@ sources:
   - **재해 복구와 업무 연속성 능력과 마찬가지로 로깅과 모니터링도 기대한 것을 실제로 잡고 있는지
     정기적으로 검증되어야 한다.**
 - 이 조항이 요구하는 로그의 종류 구별은
-  [로그와 트레이스](logs-and-traces.md)가 갖는다.
+  [로그와 트레이스](../concepts/logs-and-traces.md)가 갖는다.
 
 ## 정보 노출
 
@@ -248,7 +247,7 @@ sources:
     있다.** **많은 API 관리 해법이 이 기능을 표준으로 포함하는데, API의 수명 주기를 관리하는 데
     필수 구성 요소로 여겨지기 때문**이다.
   - 그 플랫폼의 규정은
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)가 갖는다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)가 갖는다.
 
 ## 서비스 거부
 
@@ -271,7 +270,7 @@ sources:
   - **체계가 진화하면서 순환 의존을 실수로 들이는 일이 드물지 않고, 조건이 맞으면 내부 서비스들이
     서로의 API를 무한 루프로 호출하는 일이 생길 수 있다.**
   - **그래서 내부 API 호출에도 속도 제한과 오류 모니터링을 구현하는 것이 값어치가 크다.**
-  - 이 구도는 이 KB의 [안정성 패턴](stability-patterns.md)이 다루는 연쇄 장애와 같은 결이고,
+  - 이 구도는 이 KB의 [안정성 패턴](../concepts/stability-patterns.md)이 다루는 연쇄 장애와 같은 결이고,
     **이 소스는 그것을 위협 범주 안에 놓는다.**
 
 ## 속도 제한과 부하 덜기
@@ -324,7 +323,7 @@ sources:
   - **단 하나의 옳은 구현은 없고 기본값이 자기 요구를 채워야 한다.** 저자들이 드는 대비가
     **금융 API의 대다수는 기본으로 실패 시 닫기를 원할 것이고 공개 날씨 서비스는 실패 시 열기를
     구현할 수 있다**는 것이다.
-- **이 결정은 이 KB에 없던 것이다.** [안정성 패턴](stability-patterns.md)이 회로 차단과 폴백을
+- **이 결정은 이 KB에 없던 것이다.** [안정성 패턴](../concepts/stability-patterns.md)이 회로 차단과 폴백을
   갖지만 **테두리 보안 도구가 스스로 고장 났을 때의 기본값**을 정책으로 세우지는 않았다.
 
 ## 권한 상승
@@ -343,7 +342,7 @@ sources:
     사용자가 인가되지 않은 작업을 수행할 수 있게 되는 것**이다.[^gough2022] **뒤엣것의 예가 이
     절이 위에서 든 관리자 전용 작업을 일반 사용자가 실행하는 장면과 같다.** 집행의 조항과
     스코프와의 관계는
-    [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
+    [OAuth2 그랜트와 스코프와 신원 계층](../concepts/oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
 
 ## 어느 범주에도 갇히지 않는 보안 오설정
 
@@ -384,7 +383,7 @@ sources:
     허용하므로, 알려진 취약점이 있는 약한 판이 필요하면 그것을 따로 켜야 한다** (6장 각주 12,
     p.162).[^gough2022]
   - 전송 보호의 관심사 전체는
-    [전송 중 데이터와 정지 데이터의 보호](securing-data-in-transit-and-at-rest.md)가 갖는다.
+    [전송 중 데이터와 정지 데이터의 보호](../concepts/securing-data-in-transit-and-at-rest.md)가 갖는다.
 
 ## 교차 출처 요청 공유
 
@@ -414,7 +413,7 @@ sources:
   꼴의 추가 HTTP 헤더를 참석자 API로 보내는 것**이고, 공격자는 **그 헤더들이 제거되지 않고
   내부적으로 쓰여 추가 특권을 줄 것을 바란다** (6장, p.162).[^gough2022]
   - 이 공격은 이 KB의
-    [서비스 사이 인증과 인가](service-to-service-authentication-and-authorization.md)가 갖는
+    [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md)가 갖는
     **혼란한 대리인 문제**와 같은 결이고, 5장이 같은 책 안에서 **하류로 무엇을 보낼지에 대한
     의견을 가지라**고 적는 자리와 맞물린다.
 
@@ -434,23 +433,23 @@ sources:
 
 ## 이어지는 페이지
 
-- [API 위협 모델링](api-threat-modeling.md) — 이 단계를 둘러싼 여섯 단계 전체와 DREAD
-- [API 보안 패턴](api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 소스
-- [마이크로서비스 보안의 원칙과 기본기](microservice-security-principles.md) — 심층 방어와 최소
+- [API 위협 모델링](../concepts/api-threat-modeling.md) — 이 단계를 둘러싼 여섯 단계 전체와 DREAD
+- [API 보안 패턴](../concepts/api-security-patterns.md) — 같은 위험 목록을 세 범주로 묶어 읽는 소스
+- [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 심층 방어와 최소
   권한이 사는 자리
-- [API 인증과 OAuth2의 역할과 토큰](api-authentication-and-oauth2-tokens.md) — 위장 범주가
+- [API 인증과 OAuth2의 역할과 토큰](../concepts/api-authentication-and-oauth2-tokens.md) — 위장 범주가
   미뤄 둔 인증 흐름의 상세
-- [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md) — 권한 상승
+- [OAuth2 그랜트와 스코프와 신원 계층](../concepts/oauth2-grants-scopes-and-identity-layer.md) — 권한 상승
   범주가 미뤄 둔 인가 붕괴 둘의 규정과 집행의 조항
-- [서비스 사이 인증과 인가](service-to-service-authentication-and-authorization.md) — 위 헤더
+- [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md) — 위 헤더
   강화가 막으려는 사칭이 사는 자리
-- [전송 중 데이터와 정지 데이터의 보호](securing-data-in-transit-and-at-rest.md) — 전송 계층
+- [전송 중 데이터와 정지 데이터의 보호](../concepts/securing-data-in-transit-and-at-rest.md) — 전송 계층
   보안의 전문
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 위 완화
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 위 완화
   대부분이 놓이는 층
-- [안정성 패턴](stability-patterns.md) — 부하 덜기와 연쇄 장애가 사는 자리
-- [OpenAPI 명세의 실무](openapi-specification-practice.md) — 계약으로 요청을 검증한다는 실천
-- [회의 시스템 사례 연구](conference-system-case-study.md) — 이 위협들을 한 체계에 실제로 세는
+- [안정성 패턴](../concepts/stability-patterns.md) — 부하 덜기와 연쇄 장애가 사는 자리
+- [OpenAPI 명세의 실무](../concepts/openapi-specification-practice.md) — 계약으로 요청을 검증한다는 실천
+- [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — 이 위협들을 한 체계에 실제로 세는
   장면
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
 
@@ -462,15 +461,15 @@ sources:
     management.") · §"Denial of service"(런인 §"Rate limiting and load shedding.") ·
     §"Elevation of Privilege" · §"Security misconfiguration"(런인 §"TLS termination." ·
     §"Cross-Origin Request Sharing (CORS)." · §"Security directive hardening."))과 §"Summary"
-    (pp.165–166)의 해당 불릿. 그 앞뒤 절은 [API 위협 모델링](api-threat-modeling.md)이 갖는다.
+    (pp.165–166)의 해당 불릿. 그 앞뒤 절은 [API 위협 모델링](../concepts/api-threat-modeling.md)이 갖는다.
     **예외가 하나 있다** — 권한 상승 절이 미뤄 둔 인가 붕괴 둘의 규정은 같은 책 7장
     §"Authorization Enforcement"(p.185)에서 왔고, 그 절의 나머지는
-    [OAuth2 그랜트와 스코프와 신원 계층](oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
+    [OAuth2 그랜트와 스코프와 신원 계층](../concepts/oauth2-grants-scopes-and-identity-layer.md)이 갖는다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). **이 페이지에 직인용은 없다** — 여섯 범주의
     정의는 저자들이 1999년 논문에서 인용한 영어 원문이고 이 페이지는 그것을 한국어로
     재서술했다. 그 논문은 **이 KB가 확인한 원전이 아니라 이 책을 통한 2차 경유**다. 그림
     셋(6-4·6-5·6-6)은 이미지 조판이라 `pdftoppm -r 160 -png`로 렌더해 눈으로 대조했고 **본문에
-    없고 그림에만 있는 것**만 위 본문과 [회의 시스템 사례 연구](conference-system-case-study.md)
+    없고 그림에만 있는 것**만 위 본문과 [회의 시스템 사례 연구](../concepts/conference-system-case-study.md)
     에 적었다. 이 구간에 표는 없고, 요청·응답 페이로드 예시 넷(주입 요청, 조회 응답, 갱신 요청,
     과도 노출 응답)은 **펜스로 옮기지 않았다** — 실행 코드가 아니라 JSON 본문 예시이고 claim은
     산문으로 옮겼다. 저자들이 대는 바깥 것(API 보안 위험 목록, STRIDE 정의의 원논문, 다른 위협

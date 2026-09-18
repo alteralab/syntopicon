@@ -2,7 +2,6 @@
 type: concept
 title: 서비스 메시의 진화와 선택
 description: 같은 중개자가 어떻게 여기까지 왔고 어떻게 무너지고 어떻게 고르는가 — 낱말이 생기기 전 유니콘 기업들의 사내 플랫폼과 한 바퀴를 돌아 다시 라이브러리와 커널로 돌아가는 흐름, 분산 컴퓨팅의 여덟 오류와 그것을 무시하지 말라는 경고와 마이크로서비스 전제 조건이라는 목록, 구현 패턴 넷(라이브러리·사이드카·프록시 없는 gRPC·사이드카 없는 eBPF)과 각각의 값과 한계, 사이드카를 규모에서 돌릴 때의 메모리 산수, 세 양식을 다섯 축으로 맞댄 분류표, 메시가 임계 경로에 있어 장애 반경 전체를 멈춘다는 것, 안티패턴 셋(ESB가 되는 것·게이트웨이 노릇만 하는 것·네트워킹 층을 너무 많이 쌓는 것), 요구 식별과 지을 것인가 살 것인가의 오산 넷과 고르는 체크리스트, 그리고 요약에만 있고 본문에 없는 주장 둘
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T10:40:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -53,9 +52,9 @@ sources:
 - **담는 것은 이 물건이 어떻게 여기까지 왔고 어떻게 무너지고 어떻게 고르는가다.** 진화와
   구현 패턴 넷과 분류표, 장애 관리, 안티패턴 셋, 그리고 고르는 절차와 체크리스트다.
 - **담지 않는 것 둘.** 하나는 **이 물건이 무엇이고 무엇을 해 주고 어디에 놓이는가**이고 그
-  자리는 [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)다.
+  자리는 [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md)다.
   둘은 **한 체계에서 실제로 설정하는 장면**이고 그 자리는
-  [회의 시스템 사례 연구](conference-system-case-study.md)다.
+  [회의 시스템 사례 연구](../concepts/conference-system-case-study.md)다.
 
 ## 한 바퀴를 도는 진화
 
@@ -283,7 +282,7 @@ sources:
   **어느 프로세스가 그 사건을 일으켰든, 그것이 애플리케이션 컨테이너에서 돌든 호스트에서 바로
   돌든 발동된다.** 그래서 **우연이든 아니든 서비스 메시를 우회하려는 시도를 제거해야 한다**
   (4장, p.110).[^gough2022]
-  - **이것이 [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)가
+  - **이것이 [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md)가
     든 라이브러리 방식의 세 번째 고통에 대한 답이다** — 필요한 라이브러리를 넣지 않는 것만으로
     보안 구현을 우회할 수 있다는 문제다. 이 연결은 이 KB가 세운 것이고 저자들이 두 자리를
     서로 가리키지 않는다. #hypothesis
@@ -334,7 +333,7 @@ sources:
     있다.** 그래서 **문제를 탐지하고 해결하고 위험을 완화할 수 있어야 한다는 것이 결정적이다.**
   - **3장의 "API 게이트웨이가 단일 장애점일 때"에서 논의한 여러 점을 메시 장애의 이해와 관리에
     적용할 수 있다**고 저자들이 스스로 넘긴다. 그 자리는
-    [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)이고, **탐지와 소유와
+    [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)이고, **탐지와 소유와
     사고 대응과 위험 완화라는 네 절이 그쪽에 있다.**
   - **같은 기제를 게이트웨이와 메시 양쪽에서 세는 셈이 이 KB의 위험 서술과 이어진다** —
     기능을 바깥 층으로 옮기면 그 층 자체가 단일 장애점이 된다는 대조는
@@ -352,7 +351,7 @@ sources:
   더하거나 너무 많은 "똑똑함"을 플랫폼이나 인프라와 결합시키는 것을 강하게 만류한다**
   (4장 §"Service Mesh as ESB", p.118).[^gough2022]
   - **3장의 같은 이름의 함정과 짝이다.** 그쪽은 게이트웨이가 ESB가 되는 것을 함정으로 세웠고
-    그 자리는 [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)이다.
+    그 자리는 [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)이다.
     **이 소스가 같은 위험을 두 층에서 두 번 센다.**
 - **둘 — 게이트웨이 노릇만 하는 메시** — 메시 구현 다수가 **어떤 형태의 인그레스 게이트웨이를
   주므로**, **API 게이트웨이를 채택하고 싶으면서도 대신 메시를 배치해 그 게이트웨이 기능만
@@ -365,7 +364,7 @@ sources:
   - **이것이 3장의 분류 셋과 거울이다.** 3장은 **서비스 메시 게이트웨이**를 게이트웨이의 한
     종류로 세었는데, 4장은 **그 하나만 쓰려고 메시를 들이는 것**을 안티패턴으로 센다. 그
     분류의 자리는
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)다.
 - **셋 — 네트워킹 층이 너무 많은 것** — **어떤 조직은 현재의 서비스 사이 통신 요구를 맞추는
   풍부한 네트워킹 추상과 기능을 이미 주는데도 개발 팀이 그것을 모르거나 어떤 이유로 채택을
   거부한다.** 개발 팀이 **기존 네트워킹 기술 위에 메시를 구현하려 하면 문제가 더 생긴다**
@@ -390,7 +389,7 @@ sources:
   돌아가 고를 때 고려할 높은 수준의 요구를 더 자세히 살피라**는 것이다. 그리고 **지금의 고통과
   미래의 로드맵 양쪽에 초점을 둔 물음을 묻는 것이 중요하다** (4장, p.119).[^gough2022]
   그 다섯의 전문은
-  [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)에 있다.
+  [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md)에 있다.
 
 ## 지을 것인가 살 것인가
 
@@ -421,14 +420,14 @@ sources:
     최신을 따라가기 어렵지만, 그럼에도 알고 깨어 있는 것이 기술 리더 역할의 핵심**이다.
   - **이 넷 가운데 셋이 3장의 게이트웨이 쪽 오산 목록과 같다.** 3장에서 저자들이 든 것이
     총소유비용과 기회비용과 기술 해법 인식이었고, **여기서 운영 비용 하나가 더 붙는다.** 그
-    목록의 자리는 [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)이다.
+    목록의 자리는 [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)이다.
 
 ## 체크리스트 메시 고르기
 
 - **표제 이름이 또 갈린다** — 본문의 중간 제목은 "Checklist: Selecting a Service Mesh"인데
   표의 이름은 "ADR Guideline: Selecting a service mesh checklist"다 (4장,
   p.120).[^gough2022] **이 책에서 이 형식의 표제 이름이 갈리는 세 번째 자리**이고 그 관찰의
-  자리는 [아키텍처 결정 기록](architecture-decision-records.md)이다.
+  자리는 [아키텍처 결정 기록](../concepts/architecture-decision-records.md)이다.
 - **결정 문장** — **우리 조직을 위한 서비스 메시 선택에 어떻게 접근해야 하는가** (4장, 표 4-5,
   p.120).[^gough2022]
 - **논의할 점 일곱** (4장, 표 4-5, p.120):[^gough2022]
@@ -458,7 +457,7 @@ sources:
   단순화와 과용·남용 방어와 소비 이해와 제품으로서의 관리는 **게이트웨이를 쓸 이유 여섯의
   이름들**이다. **두 체크리스트가 같은 문장을 쓴다는 것을 저자들이 적지 않는다.** 그 여섯의
   자리는
-  [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)이고, 이
+  [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)이고, 이
   관찰은 이 KB가 두 표를 맞대어 세운 것이다. #hypothesis
 
 ## 요약에만 있고 본문에 없는 것 둘
@@ -480,7 +479,7 @@ sources:
     것**이고, 저자들은 **특히 큰 기업 맥락에서 API 게이트웨이나 서비스 메시 같은 API 지원 기술을
     고르는 것이 매우 분명한 1형 결정**이라고 적는다 (10장, p.233).[^gough2022]
   - **결정의 되돌리기 어려움이라는 축은 이 KB에 이미 있다.** 그 자리는
-    [아키텍처 결정 기록](architecture-decision-records.md)과
+    [아키텍처 결정 기록](../concepts/architecture-decision-records.md)과
     [절충 분석 방법](../concepts/trade-off-analysis-method.md)과
     [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)이다.
 
@@ -517,7 +516,7 @@ sources:
   - **두 축이 겨루지 않고 같은 방향을 가리킨다** — 둘 다 **필요가 실측되기 전에는 들이지
     말라**고 적는다. 갈리는 것은 **미루는 근거가 시장의 미성숙인가 요구의 부재인가**이고,
     그것은 사실의 충돌이 아니다. `contradicts`를 걸지 않았다. 전문은
-    [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)에 있다.
+    [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)에 있다.
 - **재시도와 서킷 브레이커가 어느 층에 앉는가라는 이 KB의 열린 물음을 이 장이 닫는다.** 그
   자리는 [안정성 패턴](stability-patterns.md)이고, 3장이 인그레스 쪽만 답한 뒤 남아 있던
   절반이다.
@@ -527,20 +526,20 @@ sources:
 
 ## 이어지는 페이지
 
-- [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md) — 같은 물건이
+- [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md) — 같은 물건이
   무엇이고 무엇을 해 주는가. 규정과 두 평면과 기능과 배치와 쓸 이유 다섯
-- [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md) — 저자들이 장애 관리를
+- [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md) — 저자들이 장애 관리를
   통째로 넘기는 자리이고, 함정 셋이 거울처럼 짝을 이루는 곳
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 메시
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 메시
   게이트웨이를 게이트웨이 분류의 하나로 세는 자리
-- [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md) — 메시를 들일지의 다른 축과
+- [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 메시를 들일지의 다른 축과
   그 판정의 이력
 - [분산 컴퓨팅의 오류](../concepts/fallacies-of-distributed-computing.md) — 이 장이 동기로 드는
   그 목록의 전문
 - [안정성 패턴](stability-patterns.md) — 메시가 떠맡는 회복력 기제들의 전문
-- [아키텍처 결정 기록](architecture-decision-records.md) — 이 장의 지침 둘과 표제 이름이 갈리는
+- [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 이 장의 지침 둘과 표제 이름이 갈리는
   자리
-- [회의 시스템 사례 연구](conference-system-case-study.md) — 이 선택이 한 체계에서 내려지는
+- [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — 이 선택이 한 체계에서 내려지는
   장면
 - [맥락 전달의 부담](../concepts/context-passing-burden.md) — 분류표의 관측 가능성 칸이 두 번
   청구하는 그 값

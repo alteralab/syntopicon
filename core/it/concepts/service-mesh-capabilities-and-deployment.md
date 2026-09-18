@@ -2,7 +2,6 @@
 type: concept
 title: 서비스 메시의 규정과 기능과 배치
 description: 동서 트래픽을 다루는 중개자 하나만 두껍게 보는 자리 — 메시만이 답은 아니라는 첫 문단과 라이브러리와 메시 가운데 무엇을 고를지의 ADR 지침, 서비스 메시의 한 문장 규정과 게이트웨이와 갈리는 차이 둘, 메시 네트워킹과 혼동하지 말라는 경고와 사이드카와 프록시가 같은 낱말이 아니라는 구별, 제어 평면과 데이터 평면이 언제나 따로 배치된다는 것과 쿠버네티스에서의 설정 경로, 전 프록시로 도는 까닭과 반 프록시와의 차이, 대응이 일대일이라 호출을 집계하지 않는다는 것, 내부 네트워크와 클러스터라는 배치 자리와 메시 게이트웨이라는 테두리 쪽 예외, 다른 네트워킹 층과 만나는 자리와 CNI를 덮어쓴다는 것, 그리고 쓸 이유 다섯 — 투명 라우팅과 이름 정규화, 회복력, 트래픽 셰이핑과 폴리싱과 분할과 미러링, 투명한 관측, 상호 TLS와 서비스 신원, 여러 언어에 걸친 일관성, 그리고 인그레스와 서비스 사이 트래픽의 성질을 여덟 축으로 맞댄 표
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-19T10:30:00Z" }
 sources:
   - { id: gough2022, resource: /it/sources/gough2022.md }
@@ -53,9 +52,9 @@ sources:
 - **담지 않는 것 셋.** 하나는 **이 물건이 어떻게 여기까지 왔고 어떻게 무너지고 어떻게
   고르는가**이고 그 자리는 [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md)
   이다. 둘은 **게이트웨이와 메시를 짝지어 무엇을 넣지 말아야 하는가**이고 그 자리는
-  [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)다. 셋은 **한 체계에서 이
+  [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)다. 셋은 **한 체계에서 이
   기능들을 실제로 거는 장면**이고 그 자리는
-  [회의 시스템 사례 연구](conference-system-case-study.md)다.
+  [회의 시스템 사례 연구](../concepts/conference-system-case-study.md)다.
 
 ## 메시만이 답은 아니다
 
@@ -78,7 +77,7 @@ sources:
   (4장, p.88).[^gough2022]
   - **이것이 3장의 같은 자리와 짝이다.** 게이트웨이 쪽도 "게이트웨이만이 답인가"로 장을 열고
     가장 단순한 해법을 쓰라는 지침을 먼저 깔았다 — 전문은
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)에 있다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)에 있다.
 
 ## ADR 지침 메시인가 라이브러리인가
 
@@ -100,7 +99,7 @@ sources:
 - **표제의 이름이 또 갈린다** — 본문의 큰 제목은 "Guideline: Should You Adopt Service Mesh?"
   인데 표의 이름은 "ADR Guideline: Service mesh or libraries guidelines"이다 (4장,
   p.88).[^gough2022] 같은 관찰이 3장에도 있었고 그 자리는
-  [아키텍처 결정 기록](architecture-decision-records.md)이다.
+  [아키텍처 결정 기록](../concepts/architecture-decision-records.md)이다.
 
 ## 무엇인가 규정과 두 평면
 
@@ -116,7 +115,7 @@ sources:
   - **그것에서 따라 나오는 둘째 차이가 통신을 시작하는 쪽의 정체**다. 사용자의 장치나 바깥에서
     도는 체계가 아니라 **(어느 정도) 알려진 내부 서비스**다.
   - **신뢰의 비대칭이 여기서 다시 나온다.** 같은 책 서론이 세운 그 구분의 자리는
-    [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)다.
+    [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)다.
 - **낱말의 나이가 짧다** — **이 패턴을 많이 들어보지 못했어도 걱정할 것 없다**고 저자들이 적는다.
   **Buoyant 팀이 자기네 Linkerd 기술의 기능을 설명하려고 이 용어를 만든 것이 2016년**이고,
   **구글이 후원한 Istio 같은 관련 기술의 등장과 맞물려** 클라우드 컴퓨팅과 데브옵스와 아키텍처의
@@ -172,7 +171,7 @@ sources:
   않고도 애플리케이션에 여러 능력을 더할 수 있다** (4장, 곁상자, p.91).[^gough2022]
   - **이 KB는 같은 낱말을 네 자리에서 더 쓴다** — 재사용 패턴으로서의 사이드카와 데이터
     프로덕트의 사이드카와 레거시에 이벤트 기능을 붙이는 사이드카다. 그 대조표는
-    [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)가 갖는다.
+    [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)가 갖는다.
 
 ## 무슨 기능을 주는가
 
@@ -186,7 +185,7 @@ sources:
   - **이것이 이 KB의 오래된 물음 하나에 닿는다.** 게이트웨이에 호출 집계를 넣을 것인가를 두고
     두 소스가 처방의 세기로 갈렸는데, **메시 쪽에서는 그 물음이 아예 생기지 않는다** — 구조가
     집계를 허용하지 않는다. 그 물음의 자리는
-    [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)이고 집계를 옮겨 받는 층은
+    [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)이고 집계를 옮겨 받는 층은
     [프런트엔드를 위한 백엔드](backend-for-frontend.md)다. 이 대조는 이 KB가 세운 것이고
     저자들이 그렇게 적지 않는다. #hypothesis
 - **메시가 주는 횡단 기능의 목록** — **사용자 검증과 요청 속도 제한과 시간 초과·재시도**이고,
@@ -197,7 +196,7 @@ sources:
   서비스 API를 쓰는 개발자의 온보딩과 관리를 돕거나, **개발자 포털**이 계정 관리와 접근 통제를
   줄 수 있다. 일부는 **엔터프라이즈 거버넌스 요건을 맞추려고 정책과 트래픽 관리의 감사**도
   제공한다 (4장, p.93).[^gough2022]
-  - 그 수명 주기라는 물음의 자리는 [API 수명 주기](api-lifecycle.md)다.
+  - 그 수명 주기라는 물음의 자리는 [API 수명 주기](../concepts/api-lifecycle.md)다.
 
 ## 전 프록시와 반 프록시
 
@@ -242,7 +241,7 @@ sources:
   (4장, 곁상자, p.93).[^gough2022]
   - **이 논쟁이 3장의 분류 셋 가운데 하나와 짝이다.** 3장은 게이트웨이의 한 종류로 **서비스 메시
     게이트웨이**를 세었다 — 그 분류의 자리는
-    [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)다.
+    [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)다.
 
 ## 다른 네트워킹 기술과 만나는 자리
 
@@ -304,7 +303,7 @@ sources:
   배치한다면 요구되는 컴퓨팅 자원과 사람의 유지 비용 양쪽에서 운영 비용이 극적으로 오른다**
   (4장, p.96).[^gough2022]
   - **이것이 3장의 게이트웨이 루프백 함정과 짝이다.** 그쪽은 같은 배치를 안티패턴으로 세웠고
-    그 자리는 [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md)이다.
+    그 자리는 [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md)이다.
 - **라우팅의 규정과 옛 자리** — **라우팅은 네트워크 안이나 여러 네트워크 사이에서 트래픽의 경로를
   고르는 과정**이다. 웹 애플리케이션에서 네트워크 수준 라우팅은 전형적으로 **TCP/IP 스택과
   거기 딸린 네트워킹 인프라(OSI 3·4계층)**가 다뤄 왔고, 그래서 **연결의 목적지와 발신자의 IP
@@ -330,7 +329,7 @@ sources:
     바깥에서 도는 서비스 레지스트리에서 찾아온다.** 같은 코드를 스테이징에 배치하면 같은 이름이
     `internal-staging-server-a/stage/sessions/v3`로 라우팅된다.
   - **이것이 이 KB의 서비스 디스커버리 페이지가 남겨 둔 자리를 채운다** —
-    [서비스 디스커버리와 로드 밸런싱](service-discovery-and-load-balancing.md)이 다섯째 해법으로
+    [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md)이 다섯째 해법으로
     세운 것이 메시인데, **그 해법이 등록과 조회를 어떻게 감추는가**는 거기 없었다.
 
 ## 회복력
@@ -364,7 +363,7 @@ sources:
   **네트워크의 테두리에는 그 요구를 맞추는 전용 장비가 나타났지만 그 인프라를 내부 서비스마다
   앞에 두는 것은 적절하지 않았다** (4장 §"Advanced traffic routing", p.98).[^gough2022]
   그 테두리 쪽 장비의 계보는
-  [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md)에 있다.
+  [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md)에 있다.
 - **트래픽 셰이핑(traffic shaping)의 규정** — **원하는 트래픽 프로파일에 맞추려고 네트워크
   트래픽의 일부나 전부를 지연시키는 대역폭 관리 기법**이다. **성능을 최적화하거나 보장하고
   지연을 개선하거나, 어떤 종류의 트래픽을 지연시켜 다른 종류의 쓸 수 있는 대역폭을 늘리는 데**
@@ -467,7 +466,7 @@ sources:
   여러 기여자가 남북과 동서의 사용이 대체로 무의미하며 체계 사이 경계가 더 분명했던 이전 세대
   컴퓨터 네트워킹의 잔재에 가깝다고 주장**해 왔고, 저자들은 그 논의를 **9장에서 더 자세히**
   본다고 미룬다 (4장, p.101).[^gough2022]
-  - **이 KB의 그 어휘의 정본은** [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)
+  - **이 KB의 그 어휘의 정본은** [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)
     이고, 거기서는 **2021년 소스가 데이터센터라는 낱말을 네트워크로 둘러친 테두리로 바꿔
     쓰며** 같은 흐릿함을 다룬다. **겨루지 않고 같은 진단이다.**
 - **여덟 축으로 맞댄 표** (4장, 표 4-3, p.101):[^gough2022]
@@ -497,7 +496,7 @@ sources:
 
 **위 [셰이핑과 폴리싱과 분할과 미러링](#셰이핑과-폴리싱과-분할과-미러링)이 "분할과 미러링이
 릴리스로 이어진다"고 적으며 5장으로 미룬 자리가 갚인다.** 전략의 전문은
-[배포와 릴리스의 분리와 릴리스 전략](deployment-and-release-separation.md)이 갖고, 이 절은
+[배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md)이 갖고, 이 절은
 **그 장이 메시의 기능 서술에 되돌려 주는 것만** 적는다.
 
 - **트래픽 이동이 무엇을 가능하게 하는가** — **서비스 메시와 API 게이트웨이에서는 트래픽
@@ -550,7 +549,7 @@ p.222).[^gough2022]
   자기가 돌고 있는 플랫폼에 대해 구체적인 단언을 할 수 없고**, 그래서 **쿠버네티스 네트워크
   정책으로 파드를 전부 거부 기본값에 두는 층**을 아래에 깔아야 한다 (9장,
   pp.220–222).[^gough2022] 그 층의 전문은
-  [API 인프라로 하는 클라우드 이전](cloud-migration-with-api-infrastructure.md)에 있다.
+  [API 인프라로 하는 클라우드 이전](../concepts/cloud-migration-with-api-infrastructure.md)에 있다.
 - **이 KB가 이미 갖는 "다중 클러스터"와 대상이 다르다** — 카프카 쪽의 클러스터 간 미러링과
   이벤트 기반 마이크로서비스의 다중 클러스터 복제는 **데이터 복제**이고, 이 배치는 **트래픽
   라우팅의 제어 평면 결합**이다. **합치지 않는다.**
@@ -559,7 +558,7 @@ p.222).[^gough2022]
 
 - **이 페이지의 기능 목록과 2021년 마이크로서비스 실무서의 메시 서술을 맞대었고 판정은 모순
   아님이다.** 그 대조의 전문은
-  [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md)의 메시 절들이 갖는다 —
+  [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md)의 메시 절들이 갖는다 —
   거기 §"메시는 똑똑한 파이프가 아닌가"가 세운 절대 조건(메시에 넣는 행위는 완전히 범용이어야
   한다)과 이 페이지의 기능 목록이 **겨루지 않는다.** 이 페이지의 기능은 전부 라우팅·신뢰성·
   관측·보안이고 **업무 로직이 없다.**
@@ -576,15 +575,15 @@ p.222).[^gough2022]
 - [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md) — 같은 물건이 어떻게
   여기까지 왔고 어떻게 무너지고 어떻게 고르는가. 여덟 오류와 구현 패턴 넷과 분류표와 함정 셋과
   고르는 체크리스트
-- [API 게이트웨이와 서비스 메시](api-gateway-and-service-mesh.md) — 같은 두 중개자를 짝지어
+- [API 게이트웨이와 서비스 메시](../concepts/api-gateway-and-service-mesh.md) — 같은 두 중개자를 짝지어
   무엇을 넣지 말아야 하는가로 보는 자리
-- [API 게이트웨이의 규정과 기능과 배치](api-gateway-capabilities-and-deployment.md) — 같은
+- [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 같은
   소스가 남북 쪽 중개자에 대해 쓴 짝이 되는 장
-- [API 게이트웨이의 함정과 선택](api-gateway-pitfalls-and-selection.md) — 게이트웨이 루프백이
+- [API 게이트웨이의 함정과 선택](../concepts/api-gateway-pitfalls-and-selection.md) — 게이트웨이 루프백이
   이 페이지의 배치를 부르는 자리
-- [회의 시스템 사례 연구](conference-system-case-study.md) — 이 기능들을 한 체계에 실제로 거는
+- [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — 이 기능들을 한 체계에 실제로 거는
   장면
-- [서비스 디스커버리와 로드 밸런싱](service-discovery-and-load-balancing.md) — 다섯째 해법인
+- [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 다섯째 해법인
   메시가 이름 조회를 어떻게 감추는가
 - [안정성 패턴](stability-patterns.md) — 이 층이 떠맡는 시간 초과와 재시도와 서킷 브레이커의
   전문
@@ -620,7 +619,7 @@ p.222).[^gough2022]
     §"Traffic Mirroring"(pp.133–134) · §"Case Study: Performing Rollouts with Argo Rollouts"의
     범위 단서(p.138)**. 5장 절에는 이 페이지가 담는 표도 도판도 코드 목록도 없고 직인용도 두지
     않았다 — 그 장의 도판과 직인용은
-    [배포와 릴리스의 분리와 릴리스 전략](deployment-and-release-separation.md)이 갖는다.
+    [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md)이 갖는다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). 직인용 셋은 `pdftotext -layout` 추출로
     문자 단위 대조했고 굽은 따옴표는 곧은 따옴표로, 줄바꿈 하이픈(U+2010)으로 끊긴 낱말은 한
     낱말로 이었다. 표 4-1과 4-3, 그림 4-1·4-2·4-3·4-4는 `pdftoppm -r 160 -png`로 렌더해 눈으로

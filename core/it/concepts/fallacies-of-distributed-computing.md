@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 분산 컴퓨팅의 오류
-description: 원격 통신에 대해 무심코 하는 가정 중 무엇이 틀리는가 — Deutsch가 1994년에 적은 목록과 그 바깥의 가정들(처리 시간·큐·시계·상태 일관성·로컬과 원격의 동일시), 네트워크 파티션과 부분 실패, 요청 하나가 실패할 수 있는 여섯 경로와 그것들이 서로 구별되지 않는다는 사실, 데이터센터 네트워크가 실제로 얼마나 자주 고장 나는지의 실측, 연쇄 장애를 막는 서킷 브레이커·백오프·지터, 그리고 재시도가 부하를 스스로 키워 재부팅 전까지 회복하지 못하게 만드는 메타안정 장애와 그 원전의 좁은 정의, 그리고 마이크로서비스 실무서가 로컬과 원격의 동일시에 붙이는 한 줄 — 세부를 감추는 추상이 때때로 너무 많이 감추므로 개발자는 자기가 네트워크 호출을 낳고 있는지 알아야 한다는 것
-generated: { by: "claude-opus-5", at: "2026-09-07T07:00:00Z" }
+description: 원격 통신에 대해 무심코 하는 가정 중 무엇이 틀리는가 — Deutsch가 1994년에 적은 목록과 그 바깥의 가정들(처리 시간·큐·시계·상태 일관성·로컬과 원격의 동일시), 네트워크 파티션과 부분 실패, 요청 하나가 실패할 수 있는 여섯 경로와 그것들이 서로 구별되지 않는다는 사실, 데이터센터 네트워크가 실제로 얼마나 자주 고장 나는지의 실측, 연쇄 장애를 막는 서킷 브레이커·백오프·지터, 그리고 재시도가 부하를 스스로 키워 재부팅 전까지 회복하지 못하게 만드는 메타안정 장애와 그 원전의 좁은 정의, 그리고 마이크로서비스 실무서가 로컬과 원격의 동일시에 붙이는 한 줄 — 세부를 감추는 추상이 때때로 너무 많이 감추므로 개발자는 자기가 네트워크 호출을 낳고 있는지 알아야 한다는 것, 그리고 그 목록을 여덟 문장으로 그대로 옮겨 적는 소스와 그 문장들이 컴퓨팅의 유물이 아니라는 경고와 마이크로서비스 전제 조건이라는 후속 목록
+generated: { by: "claude-opus-5", at: "2026-09-19T11:30:00Z" }
 sources:
   - { id: petrov2019, resource: /it/sources/petrov2019.md }
+  - { id: gough2022, resource: /it/sources/gough2022.md }
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: bronson2021-metastable, resource: /it/sources/bronson2021-metastable.md }
@@ -27,6 +28,7 @@ sources:
 - [실무에서 네트워크는 얼마나 자주 고장 나는가](#실무에서-네트워크는-얼마나-자주-고장-나는가)
 - [연쇄 장애](#연쇄-장애)
 - [과부하가 스스로를 키울 때 — 메타안정 장애](#과부하가-스스로를-키울-때--메타안정-장애)
+- [여덟을 문장 그대로 세는 소스](#여덟을-문장-그대로-세는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **원격 통신에 대해 우리가 무심코 하는 가정 중 무엇이 틀리고, 틀렸을 때
@@ -413,6 +415,54 @@ sources:
   [공개 사후 분석에서 본 메타안정 장애](../concepts/metastable-failures-in-incident-reports.md),
   [메타안정 장애에서 복구하기](../concepts/recovering-from-metastable-failures.md).
 
+## 여덟을 문장 그대로 세는 소스
+
+**위 [Deutsch의 목록](#deutsch의-목록)은 목록을 산문으로 풀어 옮긴다. 2022년 API 아키텍처
+운영서가 같은 목록을 여덟 문장 그대로 싣는다.**
+
+- **여덟이 이렇다** (4장 §"Early History and Motivations", p.103):[^gough2022]
+
+  > The network is reliable
+  >
+  > Latency is zero
+  >
+  > Bandwidth is infinite
+  >
+  > The network is secure
+  >
+  > Topology doesn't change
+  >
+  > There is one administrator
+  >
+  > Transport cost is zero
+  >
+  > The network is homogeneous
+
+- **원저자의 채점 한 문장** — 이 오류들은 **"all prove to be false in the long run and all
+  cause big trouble and painful learning experiences."** 그러므로 **엔지니어는 이 문제들을 그냥
+  무시할 수 없고 명시적으로 다뤄야 한다** (4장, p.103).[^gough2022]
+- **귀속이 위 절과 미세하게 다르다.** 위 절의 소스는 **1994년에 피터 도이치가 발표했다**고
+  적고, 이쪽은 **90년대에 선 마이크로시스템즈의 피터 도이치와 다른 이들이 엮었다**고 적는다
+  (4장, p.103).[^gough2022] **모순으로 걸지 않았다** — 연도의 범위가 겹치고 "다른 이들"이 한
+  사람의 이름을 부정하지 않는다. **둘 다 원전을 대지 않는 2차 경유이고 이 KB에도 그 원전이
+  없다.**
+- **곁상자 하나가 시효를 못박는다** — **여덟 오류가 90년대에 만들어졌으므로 컴퓨팅의 유물로
+  여기고 싶어지지만 그것은 실수일 것이다.** **70년대와 80년대에 도출된 다른 시대를 타지 않는
+  컴퓨팅 법칙과 패턴이 그렇듯, 기술이 바뀌어도 문제는 그대로다.** 아키텍트 역할을 맡을 때는
+  **이 오류들에 담긴 네트워킹 과제 다수가 오늘도 참이라는 것을 팀에 끊임없이 일깨우고 그에
+  맞게 체계를 설계해야 한다** (4장, 곁상자 "Ignore the Fallacies of Distributed Computing at
+  Your Peril!", p.104).[^gough2022]
+  - **위 소스의 "충분하지만 충분하지 않다"는 평가와 겨루지 않는다.** 그쪽은 **목록이 다루지
+    않는 가정이 더 있다**고 적고, 이쪽은 **목록이 다루는 가정이 아직도 참이다**라고 적는다.
+    **범위와 시효라는 서로 다른 축이다.**
+- **이 목록이 낳은 후속 목록이 있다** — **마틴 파울러의 초기 "마이크로서비스 전제 조건"에
+  기대어 필 칼사두가 "칼사두의 마이크로서비스 전제 조건"을 만들었고, 거기에 "표준화된 RPC"를
+  핵심 전제 조건으로 넣었다.** 그것이 **이 오류들에서 배운 실무적 교훈 다수를 감싼 것**이다
+  (4장, p.104).[^gough2022]
+  - **그리고 그 목록이 서비스 메시라는 인프라 층의 동기가 된다.** 그 계보의 자리는
+    [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md)이다.
+  - **이 KB는 세 목록(파울러·칼사두·필의 블로그)을 2차 경유로만 갖는다.** 원전을 들이지 않았다.
+
 ## 이어지는 페이지
 
 - [메타안정 장애의 정의와 세 상태](../concepts/metastable-failure-definition.md) — 위 절이
@@ -444,6 +494,8 @@ sources:
   벌크헤드를 포함한 기제 여덟의 목록과 각각을 어디에 쓰는가
 - [회복력의 네 개념](resilience-four-concepts.md) — 그 기제들이 회복력의 어느 갈래에만
   답하는가
+- [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md) — 이 목록을
+  동기로 삼아 지어진 인프라 층의 계보
 
 [^newman2021]: Newman 2021, 4장 "Microservice Communication Styles" §Performance(p.90) ·
     12장 "Resiliency" §"Stability Patterns"(pp.395–407, 여기서는 §"Time-Outs" p.397과
@@ -465,3 +517,15 @@ sources:
     Aghayev, Zhu & Charapko 2022, "Metastable Failures in the Wild", OSDI '22, pp.73–89.
     Abstract(p.73), §2.2 "Summary of Metastable Failures in the Wild"(p.75). 쪽수는 USENIX
     논문집 인쇄 쪽 기준이며 PDF 스냅샷 2–19쪽이 pp.73–89에 해당한다.
+[^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture* 초판(O'Reilly, 2022)
+    4장 "Service Mesh: Service-to-Service Traffic Management" §"Early History and
+    Motivations"(pp.103–104, 곁상자 "Ignore the Fallacies of Distributed Computing at Your
+    Peril!"(p.104)과 각주 5 포함). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 38, 실측). 직인용
+    둘(여덟 문장과 원저자의 채점)은 `pdftotext -layout` 추출로 문자 단위 대조했고 굽은
+    따옴표는 곧은 따옴표로 옮겼다 — 원문은 여덟을 불릿으로 조판하고 여기서는 인용 블록의
+    줄들로 옮겼으며 낱말은 보태거나 빼지 않았다. 이 절에 표도 도판도 코드 목록도 없다.
+    저자들이 대는 바깥 것들(피터 도이치와 선 마이크로시스템즈의 목록, 마틴 파울러의
+    "Microservice Prerequisites", 필 칼사두의 전제 조건 목록과 2017년 블로그 글, 제임스
+    루이스, 샘 뉴먼)은 **이 KB가 이 책을 통해 확인한 2차 경유**다. 이 장의 나머지는
+    [서비스 메시의 규정과 기능과 배치](service-mesh-capabilities-and-deployment.md)와
+    [서비스 메시의 진화와 선택](service-mesh-evolution-and-selection.md)이 갖는다.
