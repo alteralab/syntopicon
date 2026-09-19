@@ -173,11 +173,12 @@ def test_시점_상대_낱말을_잡되_인용_블록과_저술_시점_문장은
         "\n- **오늘날 대부분의 데이터베이스가 SSD를 쓴다.**\n"
         "- 현대화 절차는 세 단계다.\n"
         "- 2017년 저술 시점의 요즘 관행은 이렇다.\n"
+        "- 2026년 KB 작성 시점에 지금은 다른 대응물이 있다.\n"
         "\n> 오늘날 직접 인용은 저자의 말 그대로다.\n"))
     lint(repo)
     reported = " ".join(findings(repo, "time-relative-wording"))
     assert "'오늘날' 1회" in reported
-    assert "현대" not in reported and "요즘" not in reported
+    assert "현대" not in reported and "요즘" not in reported and "지금은" not in reported
 
 
 def test_역어_드리프트를_잡되_산문_접두는_무시한다(repo: Repo):

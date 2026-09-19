@@ -62,8 +62,9 @@ kind("wikilink", "warn", "Obsidian 전용 위키링크 문법",
      "GFM 인라인 링크로 바꾼다 — 이 저장소는 GFM 부분집합만 쓴다.")
 kind("time-relative-wording", "warn", "읽는 시점 상대 낱말(현시점·오늘날·모던 등)",
      "그 claim의 각주 소스 `it/sources/<citekey>.md`의 issued 연도로 '20XX년 저술 시점에'라 "
-     "못 박는다(SCHEMA §3 저작 규칙). 인용 블록 안은 저자의 말이라 검사하지 않고, 같은 "
-     "문장에 '저술 시점'이 이미 있으면 넘어간다. 어휘는 schema/vocabulary.yaml time-relative "
+     "못 박는다(SCHEMA §3 저작 규칙); 각주 없는 KB 편저자 산문은 'NNNN년 KB 작성 시점에'. "
+     "인용 블록 안은 저자의 말이라 검사하지 않고, 같은 문장에 '저술 시점'이나 'KB 작성 "
+     "시점'이 이미 있으면 넘어간다. 어휘는 schema/vocabulary.yaml time-relative "
      "— 현재·최신·아직은 명사 용법이 대부분이라 기계 밖(사람·반입 에이전트 판단).")
 kind("version-condition-stale", "warn", "버전 조건과 stale_after 동시 보유",
      "버전 조건이 시효를 대신하므로 stale_after를 뗀다(SCHEMA §3). 집세 심사 실측: "
@@ -277,7 +278,7 @@ def _check_time_relative_wording(ctx: Context, kb: str, path: str, md: MdFile):
     # 시점 상대 낱말 — 인용 블록 밖 산문만, 페이지·낱말당 한 건(개수 포함)으로 묶는다.
     hits: dict[str, int] = {}
     for text in md.prose_texts:
-        if "저술 시점" in text:
+        if "저술 시점" in text or "KB 작성 시점" in text:
             continue
         for word in ctx.time_relative:
             if n := _count_word(text, word, ctx.time_relative_except):
