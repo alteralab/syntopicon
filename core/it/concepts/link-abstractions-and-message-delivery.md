@@ -168,7 +168,7 @@ sources:
   애플리케이션은 패킷 하나에 담기에는 너무 큰 메시지(요청·응답)를 보내야 한다. 이 애플리케이션들은
   대개 TCP(Transmission Control Protocol)를 써서, 큰 데이터 스트림을 개별 패킷으로 쪼개고 받는
   쪽에서 다시 합치는 연결을 세운다** (9장, p.348).[^kleppmann2026]
-  - 범위 — **TCP에 대해 말하는 것 대부분은 더 최근의 대안인 QUIC, WebRTC에 쓰이는
+  - 범위 — **TCP에 대해 말하는 것 대부분은 2026년 저술 시점 기준 더 최근의 대안인 QUIC, WebRTC에 쓰이는
     SCTP(Stream Control Transmission Protocol), BitTorrent uTP 프로토콜, 그 밖의 전송
     프로토콜에도 적용된다** (9장, p.348).[^kleppmann2026] UDP와의 비교는
     [네트워크 지연과 혼잡](../concepts/network-delay-and-congestion.md)에 있다.

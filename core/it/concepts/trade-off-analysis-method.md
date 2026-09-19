@@ -42,7 +42,7 @@ sources:
   특수한 아키텍처와 그것이 가져오는 고유한 문제에는 대체로 불완전하다.** 그래서 저자들은
   2장이 다룬 통신 분석이 **망라적이라고 보지 않고 출발점으로 본다** — 독자가 자기 문제 공간에
   얽힌 고유한 요소를 위해 **열을 더 붙이라는 것**이다 (15장, p.400).[^ford2021-hard-parts]
-- **현대적 절충 분석의 세 걸음** (15장, p.400):[^ford2021-hard-parts]
+- **2021년 저술 시점 절충 분석의 세 걸음** (15장, p.400):[^ford2021-hard-parts]
 
   > - Find what parts are entangled together.
   > - Analyze how they are coupled to one another.

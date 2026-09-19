@@ -45,7 +45,7 @@ sources:
 ## 스트림 중심과 버퍼 중심
 
 - 곁글 하나가 둘을 나란히 놓는다 — 자바는 I/O를 다루는 방식을 둘 가진다. 전통적인 `java.io`
-  패키지와 더 현대적인 `java.nio`다 (6장 곁글 "Java I/O Versus NIO: A Quick Comparison",
+  패키지와 2025년 저술 시점 기준 더 현대적인 `java.nio`다 (6장 곁글 "Java I/O Versus NIO: A Quick Comparison",
   p.257).[^rahman2025]
 - 핵심 차이가 접근 방식에 있다 — 자바 I/O는 스트림 기반이고 일반적으로 블로킹이어서 스레드가 연산이
   끝나기를 기다려야 한다. 반면 자바 NIO는 버퍼 기반이고 논블로킹이라 큰 데이터 전송과 고성능

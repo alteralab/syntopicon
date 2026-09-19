@@ -322,7 +322,7 @@ sources:
   - 버전 조건: z노드를 직접 지우던 그 방식이 성립하던 것은 Kafka 3.9 이하다 — 그 뒤로는 주키퍼
     자체가 없다([주키퍼와 KRaft](../concepts/zookeeper-and-kraft.md)). 그런 조작이 왜 위험한지는
     [안전하지 않은 작업](../concepts/kafka-unsafe-operations.md)에 있다.
-- 지금은 **`kafka-reassign-partitions.sh` 스크립트(그리고 그것이 감싸고 있는 AdminClient)가
+- 2021년 저술 시점에는 **`kafka-reassign-partitions.sh` 스크립트(그리고 그것이 감싸고 있는 AdminClient)가
   `--cancel` 옵션을 지원해 클러스터에서 진행 중인 활성 재할당을 취소**한다 (12장,
   p.332).[^shapira2021]
 - 취소가 무해하지는 않다 — **진행 중인 파티션 이동을 멈출 때 `--cancel` 명령은 레플리카 집합을

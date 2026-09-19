@@ -124,7 +124,7 @@ sources:
   실패시키고 싶으면 `--feature kraft.version=1`을 주는데, **이 플래그는 컨트롤러를
   포맷할 때만 주고 브로커에는 주지 않는다** (kraft, "Static versus Dynamic KRaft
   Quorums").[^kafka2025-kraft]
-- 제약 하나: **정적 컨트롤러 쿼럼을 쓰는 클러스터를 동적 쿼럼으로 전환하는 것은 현재
+- 제약 하나: **정적 컨트롤러 쿼럼을 쓰는 클러스터를 동적 쿼럼으로 전환하는 것은 2025년 저술 시점에
   불가능하다** (kraft, "Static versus Dynamic KRaft Quorums").[^kafka2025-kraft]
   - 버전 조건: Kafka 4.0 기준 — 문서가 "향후 릴리스에서 지원될 것"이라고만 적으므로,
     후속 버전에서 뒤집힐 수 있는 서술이다.
@@ -202,7 +202,7 @@ sources:
   쪽을 따로 둘 수 없다 (zk2kraft, "Dynamic Log Levels").[^kafka2025-kraft]
 - **동적 설정의 적용 범위** — 컨트롤러는 적용 가능한 클러스터 수준 동적 설정을 전부
   적용한다. 그래서 `--entity-default`로 건 `max.connections` 변경은 클러스터의 모든
-  브로커와 모든 컨트롤러에 걸린다. **컨트롤러 한 대에만 동적 설정을 거는 것은 현재
+  브로커와 모든 컨트롤러에 걸린다. **컨트롤러 한 대에만 동적 설정을 거는 것은 2025년 저술 시점에
   불가능하다** (zk2kraft, "Dynamic Controller Configurations").[^kafka2025-kraft]
 - **메트릭** — `ControlPlaneNetworkProcessorAvgIdlePercent`와
   `ControlPlaneExpiredConnectionsKilledCount`가 제거되고 각각

@@ -29,7 +29,7 @@ sources:
 - 답은 **그렇지 않은 듯하다** — **직렬성 스냅샷 격리(serializable snapshot isolation, SSI)
   라는 알고리즘이 스냅샷 격리 대비 작은 성능 벌점만으로 완전한 직렬성을 제공한다. SSI는
   비교적 새로우며 2008년에 처음 서술됐다** (8장, p.318).[^kleppmann2026]
-- 채택 — **오늘날 SSI와 유사 알고리즘은 단일 노드 데이터베이스(PostgreSQL의 직렬성 격리
+- 채택 — **2026년 저술 시점에 SSI와 유사 알고리즘은 단일 노드 데이터베이스(PostgreSQL의 직렬성 격리
   수준, SQL Server의 In-Memory OLTP/Hekaton, HyPer), 분산 데이터베이스(CockroachDB와
   FoundationDB), 그리고 BadgerDB 같은 내장 저장 엔진에 쓰인다** (8장,
   p.318).[^kleppmann2026]

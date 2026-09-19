@@ -121,7 +121,7 @@ sources:
 ## 순수 함수와 다른 한 가지
 
 - 저자 스스로 유비의 한계를 그어 둔다 — 순수 함수(pure function)와 달리 **순수 태스크는
-  프로그래밍적 의미에서 객체를 "반환"하지 않는다.** 오늘날 흔한 SQL ELT 방식에서는 그저
+  프로그래밍적 의미에서 객체를 "반환"하지 않는다.** 2018년 저술 시점에 흔한 SQL ELT 방식에서는 그저
   테이블의 일부(파티션)를 덮어쓸 가능성이 높다 (「Pure tasks」
   절).[^beauchemin2018-functional-data-engineering]
   - 그리고 그것이 부수 효과처럼 보이더라도 **전형적인 순수 함수가 반환할 불변 객체와 비슷한
@@ -169,7 +169,7 @@ sources:
 
 ## 지속되고 불변인 스테이징 영역
 
-- 물리 창고의 하역장과 달리 현대 데이터 웨어하우스에서는 **스테이징 영역**(staging area)에
+- 물리 창고의 하역장과 달리 2018년 저술 시점 데이터 웨어하우스에서는 **스테이징 영역**(staging area)에
   원천 데이터를 전부 쌓아 두고 **영원히 바꾸지 않은 채로 보존하고 싶어질 것**이라고 적는다
   (「A persistent and immutable staging area」
   절).[^beauchemin2018-functional-data-engineering]

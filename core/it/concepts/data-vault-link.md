@@ -100,7 +100,7 @@ Link는 [Hub](../concepts/data-vault-hub.md)들 사이의 관계·트랜잭션·
   링크. 갱신이 불가능하며, 트랜잭션 취소는 원천에서 역트랜잭션(reverse
   transaction)을 만들어 적재한다. 오류 교정도 Data Vault 안에서 하지 않는다.
   "transactional link"라는 옛 이름은 오해 소지가 있다 — CCTV 사진 스트림처럼
-  트랜잭션이 아니어도 무갱신인 관계를 담을 수 있어 지금은 nonhistorized link라
+  트랜잭션이 아니어도 무갱신인 관계를 담을 수 있어 2016년 저술 시점에는 nonhistorized link라
   부른다 (§5.2.4, p.154).[^linstedt2016]
 - 트랜잭션 식별자(예: 송장 번호)는 종속 자식 키로 링크 자체에 붙고, 해시 키는
   참조 Hub들의 업무 키 + 트랜잭션 식별자에서 계산한다 (§5.2.4, p.155).[^linstedt2016]

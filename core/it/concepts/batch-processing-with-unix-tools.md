@@ -28,7 +28,7 @@ sources:
   `$remote_addr - $remote_user [$time_local] "$request"` 다음에
   `$status $body_bytes_sent "$http_referer" "$http_user_agent"` 가 오며, 뒤에 쓰이는
   일곱째 공백 구분 필드가 요청된 URL이다 (11장, p.454).[^kleppmann2026]
-- 왜 이것이 장난감 예제가 아닌가 — **로그 파싱은 억지스러워 보일지 모르지만 많은 현대 기술
+- 왜 이것이 장난감 예제가 아닌가 — **로그 파싱은 억지스러워 보일지 모르지만 많은 2026년 저술 시점 기술
   기업의 운영에서 결정적인 부분이고, 광고 파이프라인부터 결제 처리까지 모든 것에 쓰인다. 실제로
   그것은 MapReduce와 "빅 데이터" 운동의 급속한 채택 뒤에 있던 추동력이었다** (11장,
   p.454).[^kleppmann2026]

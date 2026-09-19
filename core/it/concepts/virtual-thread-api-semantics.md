@@ -91,7 +91,7 @@ sources:
 - 전체 조회가 반쪽이다 — 정적 `Thread::getAllStackTraces` 메서드는 플랫폼 스레드의 스택
   트레이스만 돌려주고 가상 스레드는 뺀다 (2장, p.40).[^rahman2025]
 - 캐리어를 알 수 없다 — 주어진 가상 스레드를 어느 플랫폼 스레드가 실행하고 있는지 알아낼 방법이
-  현재 없다 (2장, p.40).[^rahman2025] 이것은 결함이 아니라 설계된 투명성의 뒷면이다 —
+  2025년 저술 시점에 없다 (2장, p.40).[^rahman2025] 이것은 결함이 아니라 설계된 투명성의 뒷면이다 —
   [가상 스레드의 마운트와 스택 프레임](../concepts/virtual-thread-mounting-and-stack-frames.md)이
   그 이유를 담는다. 대신 실행 중인 캐리어 이름은
   [가상 스레드 모니터링](../concepts/monitoring-virtual-threads.md)의 도구들이 보여 준다.

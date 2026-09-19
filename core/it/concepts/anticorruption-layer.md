@@ -362,7 +362,7 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
   필요한 것의 *의미*를 생각하게 되고 특정 API의 *구문*을 생각하지 않게 된다**는 것이다 (7장,
   p.166).[^ford2022-evolutionary]
 - **시점에 조문이 붙는다** — 선제적 추상화 층을 산만할 정도로 좋아하는 것은 경계 대상이고,
-  현대 언어와 IDE가 **인터페이스 추출을 적시에** 해 주므로 **적시 부패 방지 계층(Just In Time
+  2022년 저술 시점 언어와 IDE가 **인터페이스 추출을 적시에** 해 주므로 **적시 부패 방지 계층(Just In Time
   anticorruption layer)**을 지으라는 것이다 (7장, p.167).[^ford2022-evolutionary] 그 조문과
   사례(메시지 큐를 3년에 걸쳐 두 번 갈아 끼운 이야기)는
   [진화 가능성을 위한 지침](evolvability-guidelines.md)에 있다.

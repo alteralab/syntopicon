@@ -236,7 +236,7 @@ sources:
 - 비동기 갈래도 같은 이름 아래 있다 — **파이썬 3.5부터 `async def`로 선언하는 비동기
   제너레이터(asynchronous generator)도 있다** (같은 절, p.614).[^ramalho2022] 그쪽은
   [동시 실행기와 asyncio](../concepts/concurrent-executors-and-asyncio.md)가 다룬다.
-- 용어집이 최근 *generator iterator*라는 낱말을 들여왔고 제너레이터 식 항목은 "이터레이터"를
+- 용어집이 2022년 저술 시점 기준 최근 *generator iterator*라는 낱말을 들여왔고 제너레이터 식 항목은 "이터레이터"를
   돌려준다고 적지만, **파이썬 자신에게 물으면 두 경우 다 제너레이터 객체다** — `type()`이
   둘 다 `<class 'generator'>`를 낸다 (같은 절, p.615).[^ramalho2022]
 

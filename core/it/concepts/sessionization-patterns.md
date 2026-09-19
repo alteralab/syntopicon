@@ -184,7 +184,7 @@ sources:
   - **임의 상태 처리**(arbitrary stateful processing) — **세션 윈도보다 더 많은 구현 노력을
     요구하지만 더 많은 유연성을 제공한다. 갭 기간 로직을 정의하는 것이 당신에게 달렸는데, 앞 예처럼
     정적 타이머일 수도 있고 각 세션 키마다 다를 수 있는 동적 연산일 수도 있다. Apache Spark
-    Structured Streaming·Apache Flink, 심지어 GCP Dataflow 같은 현대 데이터 엔지니어링
+    Structured Streaming·Apache Flink, 심지어 GCP Dataflow 같은 2025년 저술 시점 데이터 엔지니어링
     프레임워크가 이 능력을 기본으로 제공한다.**
 - Flink의 세션 윈도가 이 패턴의 대표 코드다 — **세션 키를 추출하는 코드로 시작해 10분 갭 기간과
   15분 허용 지각으로 세션 윈도를 설정한다. 마지막 파라미터는 이미 방출된 세션 윈도에 통합될 이벤트가

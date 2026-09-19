@@ -43,7 +43,7 @@ sources:
   그래서 새 해법을 찾아야 했다는 것이 저자의 전제다 (1장, p.28).[^rahman2025] 그 어려움의 목록이
   [자바 리액티브 프레임워크의 대가](../concepts/reactive-frameworks-tradeoffs-in-java.md)와
   [CompletableFuture와 비동기 조합](../concepts/completable-future-composition.md)에 있다.
-- 그 자리에 오는 것이 프로젝트 룸(Project Loom)이고, 저자는 이것을 자바에서 현대적 동시성을 일급으로
+- 그 자리에 오는 것이 프로젝트 룸(Project Loom)이고, 저자는 이것을 자바에서 2025년 저술 시점의 동시성을 일급으로
   만드는 핵심 걸음이라고 부른다. 룸이 들인 새로운 종류의 스레드가 가상 스레드(virtual threads)다
   (1장, p.28).[^rahman2025]
 - 무게가 약속의 전부다 — 매우 가볍고, 전통적인 스레드 생성에 따라붙던 부담이 거의 없이 필요할 때

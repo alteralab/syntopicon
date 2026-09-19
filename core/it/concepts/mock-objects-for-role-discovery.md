@@ -67,7 +67,7 @@ sources:
   **뒤 문장이 이 논문의 방향이다.** 서드파티 라이브러리로부터 테스트를 격리하는 것은 이
   기법의 **덜 흥미로운 쓰임**이라고 저자들이 적는다.
 - **저자들이 자기 앞판에서 무엇이 바뀌었는지도 적는다** (§1) — 2001년 논문에서는 캡슐화
-  보존·의존 감소·상호작용 명료화를 이득으로 들었는데, 지금은 **"the most important benefit
+  보존·의존 감소·상호작용 명료화를 이득으로 들었는데, 2004년 저술 시점에는 **"the most important benefit
   of Mock Objects is what we originally called 'interface discovery'"**라고 적는다.
   강조점이 테스트에서 설계로 옮겨 갔다는 자기 서술이다.[^freeman2004-mock-roles]
 - **결론이 그 이동을 한 번 더 적는다** (§9) — **"in particular we now have a much stronger
@@ -274,7 +274,7 @@ sources:
   > this does not test that all objects that use the same interface use that interface in a
   > consistent way, or are consistent with implementers of that interface.
 
-  - **현재의 대응이 통합 테스트와 종단 수용 테스트라고 적는다** (같은 절) — 그것이 통합
+  - **2004년 저술 시점의 대응이 통합 테스트와 종단 수용 테스트라고 적는다** (같은 절) — 그것이 통합
     오류를 잡기는 하지만 **원인을 짚어 내기가 복잡하다**는 것이다. 객체 사이의 프로토콜을
     명시적으로 서술해 클라이언트와 구현자의 일관성을 검사하는 API를 만들고 있다고 적는다.
   - **곧 "목한 역할이 실제 구현과 맞는가"는 이 기법 안에서 풀리지 않는다.** 이것은 이

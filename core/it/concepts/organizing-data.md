@@ -64,7 +64,7 @@ sources:
 > Show me your flowcharts and conceal your tables, and I shall continue to be mystified.
 > Show me your tables, and I won't usually need your flowcharts; they'll be obvious.
 
-  - 그리고 시대 보정을 붙인다 — **요즘 순서도를 그리는 사람을 많이 보지는 못하지만 그 격언은
+  - 그리고 시대 보정을 붙인다 — **2018년 저술 시점에 순서도를 그리는 사람을 많이 보지는 못하지만 그 격언은
     여전히 유효하다. 자료 구조가 무슨 일이 일어나는지 이해하는 열쇠다** (9장 §"Rename Field",
     p.244).[^fowler2018]
 - **이름 고치기가 이해의 축적 장치라는 규정** — **이 자료 구조가 그토록 중요하므로 그것을 명료하게
