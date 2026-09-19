@@ -210,6 +210,9 @@ sources:
 - **저자가 다음으로 넘기는 것** — **6장이 본질적인 보완 요소 하나를 들이고**, **이후 장들이 신뢰를
   세우고 북돋우는 선택적 보조 요소들을 내놓는다**는 것이며, **당장은 이 프로세스를 굴리는 세 가지
   다른 방법을 볼 차례**라는 것이다 (4장, p.99).[^harmellaw2024]
+  - 그 **본질적인 보완 요소의 이름을 6장이 댄다** — 아키텍처 결정 기록이고, 그 규정은
+    [ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md)가 갖는다. **세 가지 다른 방법**은
+    [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md)가 갖는다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -254,6 +257,9 @@ sources:
   묶여 있던 자리
 - [중앙집중 아키텍처 실천의 몰락과 새 실천의 전제](fall-of-centralized-architecture-practice.md) —
   창발과 사회기술 체계의 규정
+- [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md) — 이 장이 예고하는 세 가지
+  도입 방법
+- [ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md) — 이 장이 예고하는 본질적인 보완 요소
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 취해진 결정을 남기는 형식
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 같은 역할을 다른 면에서
   보는 축

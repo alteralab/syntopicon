@@ -239,7 +239,8 @@ sources:
     있다.
 - **그 신뢰를 쌓는 방법 넷** (4장, p.76):[^harmellaw2024]
   - **적절한 사람들을 그들의 조언을 통해 내 결정에 참여시킨다**(누구인지를 식별하는 방법은
-    5장 몫이라고 저자가 미룬다).
+    5장 몫이라고 저자가 미룬다). 그 식별 방법은
+    [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md)가 갖는다.
   - **그 조언을 제대로 경청하고 이해한다.**
   - **내가 빚고 고르는 옵션에 그 조언을 셈에 넣는다.**
   - **취해진 결정을 적절히 공유해 옳은 사람들이 알게 한다.**
@@ -327,6 +328,8 @@ sources:
 - [연합 컴퓨팅 거버넌스 원칙](../concepts/federated-computational-governance-principle.md) —
   탈중앙 조직에서 전역 규칙을 정하는 다른 모형
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 취해진 결정을 남기는 형식
+- [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md) — 이 규칙을 실제 조직에서
+  굴리기 시작하는 법과 조언을 구할 사람의 식별
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 4장 "The Architecture Advice Process" 가운데 장 도입(p.69) ·
