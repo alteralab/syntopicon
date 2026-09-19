@@ -287,7 +287,7 @@ pp.208–209).[^ford2022-evolutionary]
 - [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 판을 나란히 돌릴 수 있게 하는 단위
 - [테스팅과 체킹의 구분](testing-checking-distinction.md) — "테스트"라는 낱말에 경계를 긋는 축
 - [사용자 피드백](../synthesis/user-feedback.md) — 행동에서 신호를 읽는 쪽의 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 9장 "Putting Evolutionary
     Architecture into Practice" — §"The Business Case" 도입(p.208) ·

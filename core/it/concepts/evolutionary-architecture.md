@@ -710,7 +710,7 @@ Evolutionary Architecture", pp.107–112).[^ford2022-evolutionary]
   설명하는 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 책이 "아키텍처 특성"이라 부르는
   것들이 모여 있는 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 1장 "Evolving Software
     Architecture" — §"The Challenges of Evolving Software"(pp.1–4, 옆글 "Why We Didn't Have

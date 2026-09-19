@@ -270,7 +270,7 @@ sources:
 - [스캐터/개더 서빙 패턴](../concepts/scatter-gather-serving-pattern.md) — 팬아웃과 팬인이 한 쌍으로
   묶이는 쪽
 - [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md) — 엣지 컴퓨팅의 수집 쪽 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 5장 "Evaluating the Emergence of Flow"의
     §"Flow Pattern Challenges and Opportunities"(pp.128–133) — 도입부(p.128)와 소절 넷

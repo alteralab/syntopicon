@@ -571,7 +571,7 @@ and Components", pp.6–8).[^burns2025]
 
 ## 이어지는 페이지
 
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 페이지가 걸린 허브
+- [분산 시스템 패턴 카탈로그](../synthesis/distributed-system-patterns-catalog.md) — 이 페이지가 걸린 허브
 - [사이드카 컨테이너 패턴](sidecar-container-pattern.md) — II부의 첫째 패턴. 애플리케이션
   컨테이너 곁에서 그 기능을 늘린다
 - [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md) — II부의 둘째 패턴. 애플리케이션

@@ -226,7 +226,7 @@ sources:
 - [독립 배포 가능성](independent-deployability.md) — 릴리스 동기화가 신호가 되는 이유
 - [OpenAPI 명세 실무](openapi-specification-practice.md) — grpc-gateway가 명세 쪽에 지우는 대가
 - [회의 시스템 사례 연구](conference-system-case-study.md) — 이 패턴들을 한 체계에 얹는 장면
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 페이지가 속한 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 속한 허브
 
 [^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture: Design, Operate, and
     Evolve API-Based Systems* 초판(O'Reilly, 2022) 8장 "Redesigning Applications to API-Driven

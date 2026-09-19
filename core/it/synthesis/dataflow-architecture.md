@@ -63,3 +63,5 @@ generated: { by: "claude-opus-5", at: "2026-08-15T09:00:00Z" }
 - [데이터베이스 트랜잭션](database-transactions.md) — 여기서 피하려는 그 보장의 본가
 - [분산 합의](distributed-consensus.md) — 유일성 제약이 결국 요구하는 것
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 무엇을 정본으로 삼을 것인가라는 상위 선택
+- [플로 아키텍처](flow-architecture.md) — 같은 통합을 조직 경계 너머로 넓혀 그 다음 상태를
+  규정하는 쪽

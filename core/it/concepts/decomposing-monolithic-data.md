@@ -461,7 +461,7 @@ sources:
 - [애플리케이션 통합의 네 가지 스타일](application-integration-styles.md) — 1단계의 출발 상태가
   카탈로그에 실린 자리
 - [Sysops Squad 사례](sysops-squad-case.md) — 표 6-5의 테이블 목록이 온 곳
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이
   페이지가 걸리는 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational

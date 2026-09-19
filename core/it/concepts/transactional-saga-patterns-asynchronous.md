@@ -360,7 +360,7 @@ sources:
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — `Anthology Saga(aec)`가 메시지
   큐로 실어 나르는 것을 어떤 종류의 이벤트로 설계할 것인가
 - [견고함 패턴 목록](../concepts/stability-patterns.md) — 이 칸들의 보상과 재시도가 기대는 기제
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이 축의 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, **12장 "Transactional Sagas"의
     §"Fantasy Fiction Saga(aao) Pattern"(pp.340–342) · §"Horror Story(aac) Pattern"(pp.343–345) ·

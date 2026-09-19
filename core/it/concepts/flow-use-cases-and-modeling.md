@@ -583,7 +583,7 @@ pp.149–151).[^urquhart2021]
   요청을 이벤트로 바꾸는 기제 쪽
 - [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — 생산자 쪽에서 가르기와 소비자 쪽에서
   버리기의 이름
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 6장 "Building for a Flow Future" — 도입부(pp.135–136)와
     §"Identifying Flow in Your Business"(pp.136–151)이다. 그 절은 소절 둘(Flow Use Cases p.137 ·

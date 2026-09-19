@@ -736,7 +736,7 @@ sources:
 - [클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md) — 일곱째 갈래가 걸리는 선택
 - [애그리게이트와 정합성 경계](../concepts/aggregates-and-consistency-boundaries.md) — 애그리게이트 지향이 빌려 온 개념의 원전
 - [진화적 데이터베이스 설계](../concepts/evolutionary-database-design.md) — 고른 뒤에 그것을 바꾸는 일
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이
   페이지가 걸리는 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational

@@ -869,7 +869,7 @@ pp.207–208).[^ford2022-evolutionary]
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 단위가 봉사하는 목표
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 경계
   쪽 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021 — 2장 "Discerning Coupling in
     Software Architecture" §"Architecture (Quantum | Quanta)"(pp.28–42, 하위

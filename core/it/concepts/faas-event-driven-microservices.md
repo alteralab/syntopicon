@@ -430,7 +430,7 @@ sources:
 - [안정성 패턴](stability-patterns.md) — 멱등성과 재시도가 이름을 얻는 자리
 - [마이크로서비스 통신 스타일](../concepts/microservice-communication-styles.md) — 직접 호출
   패턴이 되불러오는 동기 블로킹의 대가
-- [메시징 패턴](../synthesis/messaging-patterns.md) · [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md)
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) · [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md)
   — 이 축의 두 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 15장 "Microservices Using Functions as a Service",

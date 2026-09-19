@@ -748,7 +748,7 @@ sources:
 - [지표 카디널리티](metrics-cardinality.md) — 측정 이벤트와 갈리는 운영 지표 쪽
 - [비정규화와 이벤트화](../concepts/denormalization-and-eventification.md) — 같은 물음을 필드 단위로 내리는 쪽
 - [완만하게 변하는 차원(SCD)](slowly-changing-dimension.md) — 7장이 빌려 오는 개념의 원적
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 - [이벤트 기반 체계의 최종 일관성](eventual-consistency-in-event-driven-systems.md) — 같은 선택을
   수렴 확률로 다시 재는 자리
 - [이벤트 스트림의 불량 데이터](../concepts/bad-data-in-event-streams.md) — 같은 선택을 **고칠 수 있는가**로

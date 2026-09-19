@@ -676,8 +676,8 @@ Micro Frontends", p.362).[^bellemare2025]
   UI 쪽에서 규정하고 구현 둘로 가르는 자리
 - [프런트엔드를 위한 백엔드](../concepts/backend-for-frontend.md) — 같은 집계 층 문제에 다른 답을
   주는 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 기반이 사는 이름 층
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 기반이 사는 이름 층
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이
   통합이 놓이는 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 17장 "Integrating Event-Driven and Request-Response

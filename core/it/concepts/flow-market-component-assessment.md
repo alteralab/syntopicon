@@ -529,7 +529,7 @@ sources:
   정본 자리
 - [스트림 처리 프레임워크 고르기](../concepts/choosing-a-stream-processing-framework.md) — 여기 이름만
   나열되는 프로세서들을 성질로 가르는 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 부록 "Evaluating the Current Flow Market"(pp.171–218)이다.
     **부록은 p.218에서 끝나고 색인이 p.219(PDF 245)에서 시작하며 사이에 백지가 없다**(러닝 푸터와

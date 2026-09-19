@@ -684,7 +684,7 @@ sources:
 - [카프카 커넥트](../concepts/kafka-connect.md) — 중앙 프레임워크의 실물
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 이중 쓰기의 다른 답
 - [데이터 프로덕트](../concepts/data-products.md) — 싱크된 분석 저장소가 제품으로 다뤄지는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), **6장 "Integrating Event-Driven Architectures with Existing
     Systems"(pp.127–156)** 과 11장 §"Integration with Existing Systems Using the Sidecar

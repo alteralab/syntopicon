@@ -647,7 +647,7 @@ sources:
   1장이 이득으로 든 "높은 시험 가능성"의 전문
 - [이벤트 기반 마이크로서비스의 배포 패턴](../concepts/event-driven-deployment-patterns.md) — 같은 책 21장.
   세금 항목 가운데 CI·CD와 CMS가 실제로 하는 일
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) —
   경계 쪽 허브
 

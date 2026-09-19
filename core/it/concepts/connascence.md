@@ -307,7 +307,7 @@ sources:
 - [경계 컨텍스트](../concepts/bounded-context.md) — 저자들이 지역성과 같은 것이라고 잇는 상대
 - [진화적 아키텍처](evolutionary-architecture.md) — 이 어휘가 봉사하는 목표
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 결합과 응집이 사는 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, I부 "Pulling Things
     Apart" 도입(pp.23–24). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 두 쪽에서 옮긴 것은

@@ -517,7 +517,7 @@ sources:
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 호스티드와 직접
   운영의 사다리
 - [데이터 해방](../concepts/data-liberation.md) — 사이드카가 붙는 레거시 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 - [스트림 처리](../synthesis/stream-processing.md) — 이웃 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 11장 "Basic Producer and Consumer Microservices"(pp.247–252)

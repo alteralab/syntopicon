@@ -409,7 +409,7 @@ sources:
 - [이벤트 기반 마이크로서비스의 지원 도구](supportive-tooling-for-event-driven-microservices.md) —
   여기서 유일한 정량값이라 부른 컨슈머 오프셋 지연을 19장이 확장 결정의 입력으로 삼고 그것을
   재는 도구에 요구를 다는 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 기반이 사는 이름 층
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 기반이 사는 이름 층
 - [트랜잭션과 데이터베이스](../synthesis/database-transactions.md) — 이 KB의 일관성 재료가 모이는
   허브
 

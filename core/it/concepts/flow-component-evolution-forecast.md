@@ -321,7 +321,7 @@ sources:
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — WWF와 플로 상호작용의 규정
 - [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md) — 네트워크 효과와 생태계의
   정본 자리. 게임플레이의 수 둘이 그 위에 선다
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 5장 "Evaluating the Emergence of Flow"의 앞쪽 절반(pp.93–107) —
     도입부(pp.93–94) · §"Mapping the Evolution to Flow"(pp.94–97) ·

@@ -510,7 +510,7 @@ sources:
   기법이 안티패턴으로 적히는 자리
 - [이벤트 기반 워크플로](../concepts/event-driven-workflows.md) — 워크플로를 두 방식으로 가르는 자리
 - [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 순서와 재생의 기제 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 6장 "Building for a Flow Future"의
     §"'Event-First' Use Cases for Flow"(pp.151–162)이다. 그 절은 소절 셋(Messaging Versus Eventing

@@ -320,7 +320,7 @@ sources:
   "리드 타임"을 전달 파이프라인 전체의 한 수치로 쓰는 쪽
 - [소통 구조 셋](../concepts/communication-structures.md) — 같은 문제를 조직의 소통 구조로
   되돌리는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 2장 "The Business Case for Flow" 앞쪽 절반 —
     도입부(pp.17–18)와 §"Drivers for Flow Adoption"(pp.18–26)이다. 그 절의 소절 셋은

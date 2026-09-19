@@ -870,7 +870,7 @@ p.198).[^bellemare2025] 아래는 **이 KB가 그 네 절을 한자리에 모은
   로컬 상태를 아예 고를 수 없는 모양
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 파티션 수가 상한을 정하는 그 데이터
   파티셔닝 축
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 - [스트림 처리](../synthesis/stream-processing.md) — 이웃 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 8장 "Stateful Event-Driven Microservices"(pp.169–198) 전량과

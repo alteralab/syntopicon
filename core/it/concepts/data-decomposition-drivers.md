@@ -575,7 +575,7 @@ sources:
 - [사가 패턴](saga-pattern.md) — 저자들이 뒤 장으로 넘기는 대안
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 커넥션 사용을 재라는 권고의 장치
 - [Sysops Squad 사례](sysops-squad-case.md) — 이 장의 사가가 붙는 운영 예제
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이
   페이지가 걸리는 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 6장 "Pulling Apart Operational

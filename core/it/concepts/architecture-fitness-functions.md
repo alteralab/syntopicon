@@ -901,7 +901,7 @@ pp.198–199).[^gough2022]
   이웃 자리
 - [소비자 주도 계약](consumer-driven-contracts.md) — 통합 지점에 걸리는 원자적 적합도 함수의 실물
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 함수들이 지키는 특성들의 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 1장 "What Happens When There
     Are No 'Best Practices'?" §"Architecture Fitness Functions"(pp.6–13, 하위 §"Using Fitness

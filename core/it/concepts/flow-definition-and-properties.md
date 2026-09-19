@@ -529,7 +529,7 @@ sources:
   경계 컨텍스트 사이 통합의 설계 문제로 세우는 쪽
 - [FaaS로 짓는 이벤트 기반 마이크로서비스](../concepts/faas-event-driven-microservices.md) — 이
   책이 플로의 걸음마로 읽는 서버리스를 마이크로서비스 쪽에서 다루는 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 1장 "Introduction to Flow"(pp.1–16) —
     도입부(pp.1–3) · §"What Is Flow?"(pp.3–6, 곁상자 p.4 포함) ·

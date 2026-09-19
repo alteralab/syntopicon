@@ -920,7 +920,7 @@ sources:
   `@ServiceEntrypoint`와 그 대표 펜스
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 이 책의 ADR 열셋과, 12장에 그것이
   하나도 없다는 자리
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) — 이 축의 허브
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 이 축의 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, **12장 "Transactional Sagas"** —
     여는 사가(p.323) · 장 도입부(pp.323–324) · §"Transactional Saga Patterns"의 프레임

@@ -339,7 +339,7 @@ sources:
 - [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 타입 1이 기대는 기제
 - [부패 방지 계층](../concepts/anticorruption-layer.md) — 맞대어 보았으나 같은 물건이 아닌 쪽
 - [데이터 프로덕트](../concepts/data-products.md) — "데이터 프로덕트 사용자 경험"이라는 말이 사는 자리
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), **7장 "Denormalization and Eventification"(pp.157–168)** —
     도입(pp.157–160) · §"Eventification at the Transactional Outbox"(pp.160–162) · §"Eventification

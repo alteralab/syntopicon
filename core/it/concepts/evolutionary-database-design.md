@@ -633,7 +633,7 @@ Choices", pp.132–133).[^ford2022-evolutionary]
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 참조 무결성을 이벤트로 지키는
   기제의 정본
 - [DRY 원칙](../concepts/dry-principle.md) — 경계를 가로지르는 중복이 이미 허용된 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 스키마 진화를 데이터 쪽에서 보는 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 6장 "Evolutionary Data"

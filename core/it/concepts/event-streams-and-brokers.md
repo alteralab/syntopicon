@@ -384,7 +384,7 @@ sources:
   브로커 선택 축의 첫째인 지원 도구를 19장이 펼치는 자리
 - [브로커 기반 API 스타일과 RabbitMQ](../concepts/broker-based-api-style-and-rabbitmq.md) — 위 큐 브로커
   하나를 원전으로 다루는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —
     §"What's an Event?"(pp.21–22) · §"What's an Event Stream?"(pp.22–24) ·

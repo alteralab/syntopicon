@@ -667,7 +667,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
 - [프로덕션에서의 테스트](testing-in-production.md) — 운영 쪽 확인 기법들의 자리
 - [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md) — 강제하지 않는 쪽의 거버넌스 처방
 - [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md) — 8장이 이 일을 부정형으로 적은 목록 아홉
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판). **§"8장 — 무엇을 거버넌스
     대상으로 삼을 것인가"만 8장** "Evolutionary Architecture Pitfalls and Antipatterns"

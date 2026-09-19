@@ -255,7 +255,7 @@ pp.97–98).[^bellemare2025] 둘은 서로를 대체하지 않는다 — **한 �
 - [이벤트 주도 통합 설계](../concepts/event-driven-integration-design.md) — 같은 물음에 다른 축으로 답한 분류
 - [도메인 이벤트](../concepts/domain-events.md) — 도메인 모델 쪽에서 규정된 이벤트
 - [카프카 로그 압착](kafka-log-compaction.md) — 엔티티 이벤트 스트림의 크기를 줄이는 기제
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 2장 "Fundamentals of Events and Event Streams" —
     §"The Structure of an Event"(pp.29–30) · §"Unkeyed Events"(p.30) · §"Keyed Events"(pp.30–31) ·

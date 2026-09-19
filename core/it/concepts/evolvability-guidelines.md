@@ -591,7 +591,7 @@ sources:
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — ⑥의 당김 모형이 얹히는 파이프라인
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — ②의 기능 토글과 ⑤가 만나는 이행 장치
 - [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md) — ⑦이 임계값으로 부르는 수들
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판). **8장에서 온 것**은
     §"8장이 이 지침들에 붙이는 반대편" 하나뿐이고 그 출처는 8장 "Evolutionary Architecture Pitfalls

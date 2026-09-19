@@ -389,7 +389,7 @@ sources:
   조직 안에서 나누는 쪽
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 거버넌스를 조직
   안의 문제로 다루는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 6장 "Building for a Flow Future"의
     §"Driving Flow Forward"(pp.162–170)와 §"We Will Make Flow Happen"(p.170)이다. 앞 절은 소절

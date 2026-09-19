@@ -61,3 +61,5 @@ generated: { by: "claude-opus-5", at: "2026-09-17T01:20:00Z" }
   조직을 갖는 축. 이 절의 마이크로서비스 항목들이 옮겨 간 자리다
 - [데이터플로 아키텍처](dataflow-architecture.md) — 여러 시스템을 이어 붙이기로 했을 때의 그다음 선택들
 - [데이터 메시 원칙](data-mesh-principles.md) — 위 유형 중 하나를 원전 수준으로 펼친 쪽
+- [데이터 분해와 정합성](data-decomposition-and-consistency.md) — 서비스마다 자기 데이터베이스를
+  두기로 한 다음의 물음들. 공유 데이터베이스를 가르는 절차와 소유권과 최종 일관성이 그쪽에 산다

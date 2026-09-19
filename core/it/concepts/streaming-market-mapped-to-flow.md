@@ -586,7 +586,7 @@ p.88).[^urquhart2021]
   층에서 다루는 쪽
 - [함수와 이벤트 기반 처리 패턴](../concepts/function-and-event-driven-processing-pattern.md) —
   서버리스 함수를 처리 패턴으로 다루는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 4장 "Evaluating the Current Streaming Market"(pp.73–91) —
     도입부(pp.73–74) · §"Service Buses and Message Queues"(pp.74–78, 소절 Message Queues p.75 ·

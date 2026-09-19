@@ -492,7 +492,7 @@ sources:
   패턴에서 테이블 스키마가 계약이 될 때 무엇이 걸리는가
 - [Sysops Squad 사례](sysops-squad-case.md) — 전문가 프로필 예가 놓이는 운영 예제
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 이 장의 결정이 적히는 형식
-- [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) —
+- [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) —
   이 축의 허브
 
 [^ford2021-hard-parts]: Ford·Richards·Sadalage·Dehghani 2021, 10장 "Distributed Data Access"

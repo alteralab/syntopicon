@@ -566,7 +566,7 @@ sources:
 - [데이터 메시](../concepts/data-mesh.md) — 같은 낱말을 분석용 데이터 제품에 쓰는 쪽
 - [데이터 해방](../concepts/data-liberation.md) — 이 계약이 강제되는 물리적 자리 셋
 - [비정규화와 이벤트화](../concepts/denormalization-and-eventification.md) — 계약의 모양을 만드는 절차
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [이벤트 기반 마이크로서비스](../synthesis/event-driven-microservices.md) — 이 축의 허브
 - [인코딩과 진화](../synthesis/encoding-and-evolution.md) — 스키마 축의 허브
 
 [^bellemare2025]: Bellemare 2025(2판), 4장 "Schemas and Data Contracts"와

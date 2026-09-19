@@ -21,7 +21,7 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   절 전부가 그 기제의 적용 대상이다
 - [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 그 기제가 떠받치는 규정. 진화
   가능성을 **다른 모든 특성을 감싸는 메타 특성**으로 놓는 배치가 이 허브의 구성과 맞닿는다
-- 두 페이지의 자리는 [소프트웨어 아키텍처](software-architecture.md)의 진화와 거버넌스 절이고,
+- 두 페이지의 자리는 [진화와 거버넌스](evolution-and-governance.md) 허브이고,
   여기서는 이 허브의 속성들을 재는 쪽으로만 가리킨다
 
 ## 성능

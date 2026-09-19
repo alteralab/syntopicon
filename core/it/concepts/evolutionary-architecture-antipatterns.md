@@ -578,7 +578,7 @@ sources:
 - [전략 설계 결정하기](strategic-decision-making.md) — ⑨와 같은 주장을 다른 근거로 펴는 소스
 - [마이크로서비스의 고통과 채택 판단](microservice-pain-points-and-adoption.md) — ④가 만나는 자리
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — ⑦의 기능 토글이 다른 용도로 쓰이는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 축의 부모 허브
 
 [^ford2022-evolutionary]: Ford·Parsons·Kua·Sadalage 2022(2판), 8장 "Evolutionary Architecture
     Pitfalls and Antipatterns"(pp.177–191) — §"Technical Architecture"(pp.177–184, 하위

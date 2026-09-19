@@ -479,7 +479,7 @@ sources:
 - [안정성 패턴](../concepts/stability-patterns.md) — 서킷 브레이커의 정본 자리
 - [관측 탐지 패턴](../concepts/observability-detector-patterns.md) — 관측 가능성의 2025년 쪽 자리
 - [카프카 암호화](../concepts/kafka-encryption.md) — 종단 간 암호화를 기제까지 펼치는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 5장 "Evaluating the Emergence of Flow"의
     §"Flow Requirements, Challenges, and Opportunities"(pp.108–128, 소절 Security p.108 ·

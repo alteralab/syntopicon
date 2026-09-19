@@ -417,7 +417,7 @@ sources:
   값을 내는 자리
 - [회의 시스템 사례 연구](conference-system-case-study.md) — 참석자 도메인 경계와 모듈 분해 제안을
   한 체계 위에 놓는 장면
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 페이지가 속한 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 속한 허브
 
 [^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture: Design, Operate, and
     Evolve API-Based Systems* 초판(O'Reilly, 2022) 8장 "Redesigning Applications to API-Driven

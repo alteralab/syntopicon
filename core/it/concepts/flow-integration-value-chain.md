@@ -409,7 +409,7 @@ sources:
 - [API 개념과 스타일 분류](../concepts/api-concepts-and-styles.md) — 인터페이스와 프로토콜이라는 같은
   두 낱말을 다른 층으로 쓰는 쪽
 - [소통 구조 셋](../concepts/communication-structures.md) — 같은 문제를 한 조직 안으로 세우는 쪽
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 3장 "Understanding the Flow Value Chain"(pp.45–71) —
     도입부(p.45) · §"Recap: The High-Level Properties for Flow"(pp.45–46) ·

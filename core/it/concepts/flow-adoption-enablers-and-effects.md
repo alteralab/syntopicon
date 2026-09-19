@@ -654,7 +654,7 @@ sources:
   상품이 되는 과정 쪽에서 세는 쪽
 - [데이터 메시 원칙](../synthesis/data-mesh-principles.md) — 조직 안에서 같은 데이터 공유 문제를
   도메인 소유권과 연합 거버넌스로 푸는 처방
-- [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
+- [플로 아키텍처](../synthesis/flow-architecture.md) — 이 축의 허브
 
 [^urquhart2021]: Urquhart 2021 초판, 2장 "The Business Case for Flow" 뒤쪽 절반 —
     §"Enablers of Flow Adoption"(pp.26–36, 소절 Lowering the Cost of Stream Processing p.26 ·
