@@ -3,7 +3,6 @@ type: concept
 title: 이벤트 우선 아키텍처 선택
 description: 플로에 대비하려면 오늘 어떤 아키텍처로 지어야 하는가를 이벤트의 성격에 대한 물음 셋으로 가르는 결정 트리 — 아키텍처를 고르는 요인 셋(기능·규모·회복력)과 클레멘스 바스터스에게서 빌려 온 갈래 셋, 의도를 둘러싼 협력이면 메시징이고 사실의 방송이면 이벤팅이라는 이 책 고유의 규정과 그것이 이 KB의 메시징 카탈로그와 같은 낱말을 다르게 가르는 자리, 메시징이 분산 상태 관리 때문에 규모에서 지는 자리와 그것을 엣지로 국소화하는 "줄기-가지-잎" 처방, 이벤팅의 결합이 느슨한 이유 넷과 그것이 플로에 바람직한 근거, 이산 이벤트가 요구하는 약속의 최소화와 푸시를 API 호출이 아니라 웹훅 콜백으로 하는 근거, 적재물을 URL로 바꿔 네트워크 효율을 얻는 기법과 그 조건, 시리즈 이벤트가 풀 모형이 되는 이유와 로그 기반 큐가 순서라는 조건을 채우는 자리와 ksqlDB, 그리고 단일 행동을 이벤트 라우터와 함수로 처리하는 배치와 워크플로 엔진이 프로세스 정의를 행동에서 떼어 내는 이점과 제3자가 걸음을 맡을 수 있다는 통합 쪽 이점
 generated: { by: "claude-opus-5", at: "2026-09-19T09:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -494,7 +493,7 @@ sources:
 
 - [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 같은 장의 첫째 자리. 오늘
   할 일 셋 가운데 **첫째**를 맡는다. 사용 사례 범주 넷과 이벤트스토밍이다
-- [플로를 앞당기는 일](driving-flow-forward.md) — 같은 장의 셋째 자리. 오늘 할 일 셋 가운데
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 같은 장의 셋째 자리. 오늘 할 일 셋 가운데
   **셋째**를 맡는다
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 이 책의 "이벤트"가 넓게 쓰이던 자리
 - [약속 이론](promise-theory.md) — 약속의 최소화라는 처방이 빌려 오는 어휘의 자리
@@ -521,7 +520,7 @@ sources:
     §"Identifying Flow in Your Business"(pp.135–151)는
     [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md)가,
     §"Driving Flow Forward"(pp.162–170)와 §"We Will Make Flow Happen"(p.170)은
-    [플로를 앞당기는 일](driving-flow-forward.md)이 맡는다.
+    [플로를 앞당기는 일](../concepts/driving-flow-forward.md)이 맡는다.
     이 범위의 내용 각주 둘(6번 p.152 · 7번 p.159)과 제목 없는 곁주 상자 하나(p.154)를 전부 반입했다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).
     **제목 층은 `pdftotext -bbox` 글자 높이로 갈랐다** — 절 제목 22.7, 소절 제목 18.9, 셋째 층 13.8,

@@ -3,7 +3,6 @@ type: concept
 title: 업무에서 플로를 식별하고 모델링하기
 description: 표준이 아직 없는 2021년에 조직이 오늘 할 수 있는 첫째 일 — 플로를 쓸 자리를 업무에서 찾아내는 기준과 절차. 표준 인터페이스와 프로토콜이 없어 "플로를 구현"할 수 없다는 전제와 그럼에도 지금 할 일 셋, 업무 근거 없이 아키텍처부터 짓지 말라는 경계와 기존 애플리케이션 논리를 최소로 건드리라는 처방, 데릭 콜리슨에게서 빌려 온 사용 사례 범주 넷(주소 지정과 디스커버리·명령과 제어·질의와 관측 가능성·원격 측정과 분석)과 각각에서 던질 물음 하나씩, 등록 서비스와 디스커버리 서비스라는 두 기제와 중복 발견이라는 함정, SCADA에서 추상한 명령과 제어와 중앙집중 방식과 엣지로 분산하는 방식과 자연의 "잎-가지-줄기" 위상, 관측 가능성이라는 낱말을 이 책이 시장과 다르게 쓴다는 단서, 토픽으로 미리 가르기와 소비자가 걸러 내기의 맞교환, 사용 사례 넷과 플로 패턴 넷이 딱 맞지는 않는다는 대응, 그리고 사용 사례로 안 잡히는 복잡한 활동을 위한 이벤트스토밍의 일곱 걸음과 붙임쪽지 색깔과 그것이 외부 체계 통합에서 플로의 기회를 드러내는 자리
 generated: { by: "claude-opus-5", at: "2026-09-19T09:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -95,7 +94,7 @@ sources:
   감지되자마자 반응해야 하는 필요에 도전받아 왔고, **1장의 고빈도 거래 체계도 "이벤트 기반
   아키텍처"가 형식적 개념이 되기 훨씬 전에 살아 있는 데이터 스트림으로 차익 기회를 판정하려고
   개발되었다** (6장, p.136).[^urquhart2021] 그 자리는
-  [플로의 규정과 다섯 성질](flow-definition-and-properties.md)에 있다.
+  [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md)에 있다.
 
 ## 사용 사례 범주 넷
 
@@ -113,7 +112,7 @@ sources:
   추론하는 것이 더 나은 체계를 설계하는 데 도움이 되었다는 것이다 (6장, p.137).[^urquhart2021]
 - **저자는 이 범주들이 IT 포트폴리오에서 플로가 효과적일 자리를 평가할 때 잘 버틴다고 적고, 5장의
   플로 패턴 넷을 보완하되 완벽하게 정렬되지는 않는다고 명시한다** (6장, p.137).[^urquhart2021]
-  그 패턴 넷의 규정은 [플로 아키텍처 패턴 넷](flow-architecture-patterns.md)에 있다.
+  그 패턴 넷의 규정은 [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md)에 있다.
 - **각주 하나가 순서의 근거를 적는다** — **거꾸로 할 수도 있다**. 아키텍처에서 해당하는 플로 패턴을
   먼저 식별하고 그다음에 콜리슨의 어느 범주가 적용되는지 판정하는 것이다. **저자가 범주에서 시작한
   이유는 경험상 사람이 패턴보다 자기가 풀고 있는 활동을 먼저 이해할 가능성이 크기 때문이다** (6장
@@ -260,7 +259,7 @@ sources:
   에이전트가 입력을 제공한 에이전트와 같을 수 있다. 그 양방향 대화는 더 메시징 지향적인 플로를
   가리킬 수 있다.** 반면 **에이전트가 서로 다르면(입력은 센서에서, 출력은 로봇 제어 기제로) 플로
   규정에 더 친화적인 이벤팅 접근을 쓰고 있음을 알게 될 것**이다 (6장, p.144).[^urquhart2021]
-  그 가름이 [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md)이다.
+  그 가름이 [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md)이다.
 
 ## 질의와 관측 가능성
 
@@ -537,7 +536,7 @@ pp.149–151).[^urquhart2021]
   조직 안에서 서비스 인스턴스를 찾는 것**이고, 이 소스는 **조직 경계를 넘어 에이전트에 정체를
   부여하고 그것을 여러 체계에 알리는 일**을 말한다. **겨루지 않고 같은 낱말이 다른 범위에 붙는다.**
   이 소스의 디스커버리 구성 요소 자리는
-  [플로 통합 가치 사슬 지도](flow-integration-value-chain.md)에 있다.
+  [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md)에 있다.
 - **명령과 제어의 엣지 분산은 이 KB의 엣지 서술과 방향이 같다.**
   [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md)가 엣지를 수집 단계의 배치로 다루고,
   이 소스는 **의사 결정 자체를 엣지로 옮기는 쪽**을 적는다. **이 소스가 더하는 것은 자연의 확장
@@ -563,18 +562,18 @@ pp.149–151).[^urquhart2021]
 
 ## 이어지는 페이지
 
-- [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md) — 같은 장의 둘째 자리. 오늘 할 일
+- [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md) — 같은 장의 둘째 자리. 오늘 할 일
   셋 가운데 **둘째**를 맡는다. 메시징과 이벤팅, 이산 이벤트와 시리즈 이벤트, 단일 행동과 워크플로다
-- [플로를 앞당기는 일](driving-flow-forward.md) — 같은 장의 셋째 자리. 오늘 할 일 셋 가운데
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 같은 장의 셋째 자리. 오늘 할 일 셋 가운데
   **셋째**를 맡는다. 표준 기구와 오픈 소스와 창업, 업계 단체와 생태계 파트너십과 오픈 소스 동맹이다
-- [플로 아키텍처 패턴 넷](flow-architecture-patterns.md) — 이 페이지가 사용 사례마다 대는 패턴 넷의
+- [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md) — 이 페이지가 사용 사례마다 대는 패턴 넷의
   규정 자리
-- [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 고빈도 거래 선례와 네 가상 사례가
+- [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md) — 고빈도 거래 선례와 네 가상 사례가
   먼저 들어온 자리
-- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 디스커버리가 구성 요소로 놓인 자리
+- [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md) — 디스커버리가 구성 요소로 놓인 자리
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 상태 있는 스트림
   처리와 디지털 트윈과 서버리스의 규정 자리
-- [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 이 장이 전제로 삼는 "오늘 표준이 없다"를
+- [플로 요구가 남긴 공백](../concepts/flow-requirement-gaps.md) — 이 장이 전제로 삼는 "오늘 표준이 없다"를
   요구별로 세는 자리
 - [이벤트스토밍](../concepts/eventstorming.md) — 같은 워크숍을 열 걸음으로 적는 두 소스의 자리
 - [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 같은
@@ -593,9 +592,9 @@ pp.149–151).[^urquhart2021]
     p.142 · Distributed control p.143)로 나뉘고, 목차에 없는 곁상자 하나(The 10,000-Foot View of
     EventStorming, pp.149–151)를 품는다. 6장의 나머지는 둘이 맡는다 —
     §"Event-First" Use Cases for Flow(pp.151–162)는
-    [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md)이,
+    [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md)이,
     §"Driving Flow Forward"(pp.162–170)와 §"We Will Make Flow Happen"(p.170)은
-    [플로를 앞당기는 일](driving-flow-forward.md)이 맡는다.
+    [플로를 앞당기는 일](../concepts/driving-flow-forward.md)이 맡는다.
     이 범위의 내용 각주 다섯(1번 p.138 · 2번 p.140 · 3번 p.146 · 4번 p.146 · 5번 p.149)을 전부
     반입했다. 제목 없는 곁주 상자 둘(p.136 · p.145)도 담았다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).

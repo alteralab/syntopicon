@@ -3,7 +3,6 @@ type: concept
 title: 플로 통합 가치 사슬 지도
 description: 조직 사이 이벤트 기반 통합을 하나의 사용자 요구로 놓고 그것을 채우는 구성 요소를 찾아 진화 축에 배치한 2021년의 워들리 맵 — 범위 진술과 그 범위가 제외하는 것들, 생산자와 소비자라는 두 역할과 플로 통합이라는 사용자 요구, 연결을 맺는 두 갈래인 인터페이스(논리 연결·디스커버리)와 프로토콜(메타데이터 형식·적재물 데이터 형식)의 정의 표, 값어치를 만드는 상호작용 구성 요소 넷(소스·프로세서·큐·싱크)의 정의 표, 그 구성 요소들이 서로에게 하는 약속과 약속이 없어 선이 없는 자리들, 모든 계산 과업에 용량과 상품 서비스를 약속하는 인프라, 그리고 저술 시점에 각 구성 요소가 놓인 진화 단계 판정과 그 근거 — 디스커버리가 제네시스이고 적재물 형식과 메타데이터 형식이 맞춤이며 논리 연결이 제품이고 프로세서와 큐와 싱크와 인프라가 상품이라는 배치
 generated: { by: "claude-opus-5", at: "2026-09-19T16:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -40,8 +39,8 @@ sources:
   플로에 요구하는 다섯(보안·기민함·시의성·기억·관리 가능성)이다. **되풀이일 뿐 새로 더하는 것이 없어
   이 페이지는 그 목록을 다시 적지 않는다** (3장 §"Recap: The High-Level Properties for Flow",
   pp.45–46).[^urquhart2021] 성질 다섯의 정본 자리는
-  [플로의 규정과 다섯 성질](flow-definition-and-properties.md)이고 요구 다섯의 정본 자리는
-  [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)다.
+  [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md)이고 요구 다섯의 정본 자리는
+  [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md)다.
 - **저자는 그 요구들을 내놓으려면 복잡성을 뚫고 작동하는 힘을 이해할 기법이 필요하다고 적고 둘을
   고른다** — 지형을 이해하는 데 [워들리 매핑](wardley-mapping.md), 그 지형 안 구성 요소들의 가치
   사슬을 검증하는 데 [약속 이론](promise-theory.md)이다 (3장, p.46).[^urquhart2021]
@@ -387,23 +386,23 @@ sources:
   진화 배치가 어긋나는 자리도 거기 적었다**
 - [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 이 지도의 디스커버리가
   업무 사용 사례로 되불리는 자리
-- [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md) — 이 지도의 큐와 프로세서가
+- [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md) — 이 지도의 큐와 프로세서가
   아키텍처 선택의 갈래로 되불리는 자리
-- [플로를 앞당기는 일](driving-flow-forward.md) — 이 지도의 인터페이스와 프로토콜을 누가 표준으로
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 이 지도의 인터페이스와 프로토콜을 누가 표준으로
   만드는가
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 이 지도로 시장을
   재는 첫 자리. 저자가 예고한 대응이 실제로 표 셋으로 이뤄지고, 인터페이스 쪽 구성 요소가 그 표에 한
   번도 나오지 않는다
-- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 이 지도가 **움직이는** 자리.
+- [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md) — 이 지도가 **움직이는** 자리.
   같은 소스의 다음다음 장이 여기 배치한 구성 요소 가운데 여섯(플로 통합·인터페이스·디스커버리·
   프로토콜·메타데이터 형식·적재물 데이터 형식)을 상품 구간으로 옮기고, 그 이동을 막는 관성과 밀어
   주는 게임플레이를 함께 적는다. **"논리 연결"이 거기서 "Connection"으로 이름이 바뀌고 움직이지
   않는다는 것은 그림에만 있다**
 - [워들리 매핑](wardley-mapping.md) — 이 지도를 만든 기법 자체. 두 축과 진화 단계 넷의 규정
 - [약속 이론](promise-theory.md) — 이 지도의 선을 검증한 이론. 자율 에이전트와 상호 약속 표기
-- [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 이 지도가 채우려는 사용자 요구가
+- [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md) — 이 지도가 채우려는 사용자 요구가
   무엇인가의 규정. 장 머리의 되풀이가 가리키는 자리
-- [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 업무가 플로에 요구하는
+- [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md) — 업무가 플로에 요구하는
   다섯의 정본 자리
 - [이벤트 스트림과 이벤트 브로커](../concepts/event-streams-and-brokers.md) — 이 지도가 큐라 부르는
   자리의 내부 성질을 다루는 쪽

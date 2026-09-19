@@ -3,7 +3,6 @@ type: concept
 title: 플로 구성 요소의 진화 예측
 description: 3장 지도의 구성 요소들이 2021년에서 어디로 옮겨 갈 것인가에 대한 저자의 예측 — 지도를 다시 그린 이동 여섯(플로 통합·인터페이스·디스커버리·프로토콜·메타데이터 형식·적재물 데이터 형식)과 그것들이 함께 진화해야 한다는 논증과 디스커버리가 온라인 유틸리티로 공진화하리라는 근거 둘, 워들리의 게임플레이 예순하나와 범주 열하나 가운데 저자가 고른 셋(표준 게임·네트워크 효과 활용·공동 창조)과 각각의 근거, 이동을 막는 관성 둘(벤더 관성과 기업 관성)과 기업 변혁 삼 년 시간표와 주류 채택까지 오 년에서 십 년이라는 예측과 기업이 제기할 반대 셋, 모든 것이 상품이 된 뒤의 지도가 예측에 쓸모없어지는 자리와 거기 그려 넣는 "여기 용이 있다", 그리고 그 예측들을 이 KB의 다른 소스가 보이는 현재와 나란히 놓은 대조표와 워들리 맵 다섯 장에만 있고 본문에 없는 것 여섯
 generated: { by: "claude-opus-5", at: "2026-09-19T23:30:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -245,7 +244,7 @@ sources:
   그림에만 있는 것**이고 전부 `pdftoppm -r 160 -png` 렌더로 눈으로 대조했다 (5장,
   pp.95·96·102·106·107).[^urquhart2021] **나머지 도판 일곱은
   [플로 요구가 남긴 공백](flow-requirement-gaps.md)과
-  [플로 아키텍처 패턴 넷](flow-architecture-patterns.md)이 맡는다.**
+  [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md)이 맡는다.**
 - **그림 5-2와 5-3에 지도 구역 이름 둘이 새로 붙는다** — 왼쪽 위에 **Uncharted**, 오른쪽 위에
   **Industrialized**다. 3장의 지도 도판에는 없던 표기이고 본문도 적지 않는다.
 - **이동하는 노드는 여섯이다** — 플로 통합 · 인터페이스 · 디스커버리 · 프로토콜 · 메타데이터 형식 ·
@@ -302,16 +301,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [플로를 앞당기는 일](driving-flow-forward.md) — 이 예측을 **오늘 무엇을 해서 앞당길 것인가**로
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 이 예측을 **오늘 무엇을 해서 앞당길 것인가**로
   옮기는 자리. **이 책이 세우는 시간 눈금 넷의 대조표가 거기 있다**
 - [2021년 플로 시장의 구성 요소별 평가](flow-market-component-assessment.md) — 이 이동이 출발하는
   지점을 부록이 구성 요소별로 다시 재는 자리
-- [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md) — 이 예측과 무관하게 오늘 지을 수
+- [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md) — 이 예측과 무관하게 오늘 지을 수
   있는 아키텍처의 갈래
 - [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 같은 장의 뒤쪽 절반. 이 페이지가 **지도 위에서
   무엇이 움직이는가**를 다룬다면 그쪽은 **그 이동이 이뤄지려면 무엇이 약속되어야 하는데 오늘 아무도
   그것을 약속하지 못하는가**를 다룬다
-- [플로 아키텍처 패턴 넷](flow-architecture-patterns.md) — 같은 장의 셋째 자리. 같은 진화를 **쓰임의
+- [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md) — 같은 장의 셋째 자리. 같은 진화를 **쓰임의
   위상**으로 보는 곳
 - [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 페이지가 움직이는 지도의 원본과
   2021년 진화 배치
@@ -320,7 +319,7 @@ sources:
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 이 이동이
   출발하는 저술 시점의 시장
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — WWF와 플로 상호작용의 규정
-- [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 네트워크 효과와 생태계의
+- [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md) — 네트워크 효과와 생태계의
   정본 자리. 게임플레이의 수 둘이 그 위에 선다
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 축의 허브
 
@@ -333,7 +332,7 @@ sources:
     **5장의 나머지는 둘이 맡는다** — §"Flow Requirements, Challenges, and Opportunities"(pp.108–128)와
     §"The Unexpected"(pp.133–134)는 [플로 요구가 남긴 공백](flow-requirement-gaps.md)이,
     §"Flow Pattern Challenges and Opportunities"(pp.128–133)는
-    [플로 아키텍처 패턴 넷](flow-architecture-patterns.md)이 맡는다.
+    [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md)이 맡는다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).
     **5장이 끝나는 쪽은 러닝 푸터로 실측했다** — p.134가 PDF 160쪽이고 푸터가 "Chapter 5: Evaluating
     the Emergence of Flow"이며, **PDF 161쪽이 p.135이고 6장의 첫 쪽이다. 사이에 백지가 없다.**

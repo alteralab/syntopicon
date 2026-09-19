@@ -3,7 +3,6 @@ type: concept
 title: 플로 요구가 남긴 공백
 description: 2장이 세운 업무 요구 다섯이 오늘의 기술로는 무엇을 약속받지 못하는가에 대한 저자의 2021년 분석 — 진화의 문제가 프로세서와 큐가 아니라 표준 인터페이스와 프로토콜의 채택에 있다는 못 박기, 보안을 암호화와 연결 보안과 데이터 출처 증명 셋으로 갈라 각각에서 아무도 할 수 없는 약속을 세는 자리, 기민함을 느슨히 결합된 인터페이스와 알 수 있는 프로토콜로 갈라 메타데이터와 적재물의 표준화 전망을 나누는 자리, 시의성을 지연과 보존으로 갈라 엣지 컴퓨팅과 성능 예산과 보존 정책의 약속을 다루는 자리, 관리 가능성을 관측 가능성과 제어 가능성으로 갈라 순환 의존과 연쇄 장애와 서킷 브레이커에 이르는 자리, 스트림 재생으로서의 기억, 2장의 다섯에 여섯째로 더해지는 지적 재산 통제와 수익화 체계, 저자가 마지막에 붙이는 모형의 불완전성과 나비 효과 단서, 그리고 그 예측들을 이 KB의 2025년 쪽 소스가 보이는 현재와 나란히 놓은 대조표
 generated: { by: "claude-opus-5", at: "2026-09-19T23:30:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -62,7 +61,7 @@ sources:
   어디인지를 이해하며, **특히 HTTP와 월드 와이드 웹의 진화를 자주 끌어와 평행선을 찾는다** (5장,
   p.108).[^urquhart2021]
 - **2장의 요구 다섯의 정본 자리는
-  [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)의 "업무가 플로에 요구하는
+  [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md)의 "업무가 플로에 요구하는
   다섯" 절이다.** 이 페이지는 그 다섯을 되풀이하지 않고 **5장이 각각에 붙이는 공백 분석만** 담고,
   **5장이 여섯째로 더하는 지적 재산 통제**를 함께 담는다.
 
@@ -249,7 +248,7 @@ sources:
   취할 수 있어야 한다(**제어 가능성(controllability)**) (5장, p.120).[^urquhart2021]
   - **2장이 같은 자리를 관측 가능성과 운영 가능성(operability)으로 적었다** — 5장은 둘째 낱말을
     제어 가능성으로 바꿔 쓴다. 정본 자리는
-    [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)이고 **저자는 이 바뀜을
+    [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md)이고 **저자는 이 바뀜을
     다루지 않는다.**
 - **관측 가능성은 플로 체계를 이루는 애플리케이션과 서비스와 인프라가 만들어 내는 운영 데이터에서
   뜻있는 신호를 찾는 일**이고, 흔히 **미리 필요하리라 예상할 수 없었던 신호**다. 예로 저자가 드는
@@ -375,7 +374,7 @@ sources:
 있는 다른 소스가 보이는 것을 옮긴 것일 뿐 **예측의 실현 여부를 판정하지 않는다.** 판정이 아니라
 **재심 트리거의 목록**으로 읽어야 한다 — 왼쪽 칸이 뒤에 참으로 드러나면 이 소스의 L3 부분을 다시
 읽을 때가 온다. #hypothesis 두 칸을 같은 사태의 두 면으로 읽는 것 자체가 이 KB의 읽기다.
-**같은 형식의 표가 [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)에도 있고,
+**같은 형식의 표가 [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md)에도 있고,
 그쪽은 지도 위의 이동에 붙는 예측을 맡는다.**
 
 | 저자의 2021년 예측 (locator) | 이 KB의 다른 소스가 보이는 것 |
@@ -412,7 +411,7 @@ sources:
   "the Dow Jones securities market"인데 다우존스는 지수이지 증권 시장이 아니다 (5장,
   pp.124·133).[^urquhart2021]
 - **이 장의 나머지 오식 셋**(그림의 "Disocvery", "integregrate", "messaging busses")**은
-  [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)에 적혀 있다.**
+  [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md)에 적혀 있다.**
 
 ## 이 KB의 이웃과 맞대는 자리
 
@@ -449,32 +448,32 @@ sources:
 - **엣지 컴퓨팅은 이 KB에 이름이 있으나 얇다.** [IoT 데이터 아키텍처](../concepts/iot-data-architecture.md)가
   수집 단계의 배치로 다룬다. **국소화가 체계 전체의 확장성을 높인다는 스케일링 논거로 엣지를 플로에
   묶는 것은 이 소스뿐이고, 그 논거의 출처인 알로메트릭 스케일링은
-  [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)에 있다.**
+  [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md)에 있다.**
 - **2장과 5장이 같은 요구에 다른 이름을 쓴다.** 2장은 관리 가능성을 관측 가능성과 **운영 가능성**으로
   적고 5장은 같은 자리를 관측 가능성과 **제어 가능성**으로 적는다. 정본 자리는
-  [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)이고 **저자는 이 바뀜을 다루지
+  [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md)이고 **저자는 이 바뀜을 다루지
   않는다.** 같은 소스 안의 어휘 표류라 쌍을 걸지 않았다.
 - **데이터 값어치 반감기와 성능 예산은 이 KB의 첫 서술이다.** 둘 다 얇게 들였다.
 
 ## 이어지는 페이지
 
-- [플로를 앞당기는 일](driving-flow-forward.md) — 이 공백 목록을 **누가 메울 것인가**로 옮기는 자리.
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 이 공백 목록을 **누가 메울 것인가**로 옮기는 자리.
   6장이 이 목록을 "해야 할 일의 긴 목록"이라 되부른다
 - [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 이 공백이 남아 있는데도
   오늘 무엇을 할 수 있는가의 첫 걸음
-- [2021년 플로 시장의 구성 요소별 평가](flow-market-component-assessment.md) — 같은 공백을 구성
+- [2021년 플로 시장의 구성 요소별 평가](../concepts/flow-market-component-assessment.md) — 같은 공백을 구성
   요소별 관찰로 다시 적는 부록의 자리
-- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 같은 장의 앞쪽 절반. 이
+- [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md) — 같은 장의 앞쪽 절반. 이
   페이지가 **무엇이 약속되지 못하는가**를 다룬다면 그쪽은 **지도 위에서 무엇이 어디로 움직이고
   무엇이 그것을 막는가**를 다룬다
-- [플로 아키텍처 패턴 넷](flow-architecture-patterns.md) — 같은 장의 셋째 자리. 같은 공백을 **쓰임의
+- [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md) — 같은 장의 셋째 자리. 같은 공백을 **쓰임의
   위상**마다 다시 묻는 곳
-- [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 이 페이지가 되부르는 요구
+- [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md) — 이 페이지가 되부르는 요구
   다섯의 정본 자리
 - [약속 이론](promise-theory.md) — 이 페이지가 공백을 재는 데 쓰는 어휘
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 이 공백을 재는
   기준이 되는 저술 시점의 시장
-- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 공백이 붙는 구성 요소의 규정
+- [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md) — 공백이 붙는 구성 요소의 규정
 - [이벤트 스키마와 데이터 계약](../concepts/event-schemas-and-data-contracts.md) — 적재물 표준화
   예측과 맞대는 2025년 쪽 자리
 - [안정성 패턴](../concepts/stability-patterns.md) — 서킷 브레이커의 정본 자리
@@ -491,9 +490,9 @@ sources:
     §"The Unexpected"(pp.133–134)다. 이 범위의 내용 각주 셋(2번 p.114 Synadia의 subject 설명 문서,
     3번 p.115 모질라 재단의 HTTP 명령 문서, 4번 p.133 나비 효과 은유)도 함께 읽었다.
     **5장의 나머지는 둘이 맡는다** — 도입부와 §"Mapping the Evolution to Flow"와 §"Gameplay"와
-    §"Inertia"(pp.93–107)는 [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)이,
+    §"Inertia"(pp.93–107)는 [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md)이,
     §"Flow Pattern Challenges and Opportunities"(pp.128–133)는
-    [플로 아키텍처 패턴 넷](flow-architecture-patterns.md)이 맡는다.
+    [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md)이 맡는다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).
     **5장이 끝나는 쪽은 러닝 푸터로 실측했다** — p.134가 PDF 160쪽이고 푸터가 "Chapter 5: Evaluating
     the Emergence of Flow"이며, **PDF 161쪽이 p.135이고 6장의 첫 쪽이다. 사이에 백지가 없다.**

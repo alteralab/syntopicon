@@ -3,7 +3,6 @@ type: concept
 title: 약속 이론
 description: 자율적인 에이전트가 자기 행동에 대해서만 내놓는 약속으로 협력을 모형화하는 이론 — 왜 상위 기술이 하위 기술에 요구를 부과하는 모형이 틀렸는가라는 출발점과 도시처럼 짓는다는 비유, 의도의 표명이라는 약속의 규정과 그 의도가 가능한 행동의 주제나 종류라는 정의, 어떤 개체든 될 수 있는 에이전트, 원문 그대로 옮긴 핵심 조문 다섯(자율성·관찰자에게 정보를 넘김·지킴 여부의 독립 평가·의도 해석의 독립성·내부 동작은 모른다고 가정하되 경계는 우리가 고른다), 강요라는 개념과 그것을 무시하는 이유, 약속자와 피약속자와 본문이라는 표기와 본문이 매번 적히지 않아도 늘 존재해야 한다는 조건, 상호 약속을 나타내는 더하기와 빼기 표기와 받아들이는 약속이 없으면 행동이 되지 않는다는 조문, 그리고 이 이론을 가치 사슬의 선을 검증하는 데 쓰는 방식
 generated: { by: "claude-opus-5", at: "2026-09-19T16:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -35,7 +34,7 @@ Promise Theory", pp.48–49).[^urquhart2021]
 - **이 소스가 이 이론을 쓰는 목적은 하나다** — 워들리 맵의 구성 요소 사이에 그은 선이 옳은지를
   검증하는 것이다. 저자는 이 이론이 플로 통합을 내놓는 데 필요한 구성 요소를 식별하고 그 구성 요소
   사이의 관계를 검증하는 데 대단히 쓸모 있으리라고 적는다. 그 적용은
-  [플로 통합 가치 사슬 지도](flow-integration-value-chain.md)에 있다 (3장, p.49).[^urquhart2021]
+  [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md)에 있다 (3장, p.49).[^urquhart2021]
 
 ## 왜 요구가 아니라 약속인가
 
@@ -200,14 +199,14 @@ p.49).[^urquhart2021]
 
 ## 이어지는 페이지
 
-- [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md) — **이 이론의 어휘가 설계
+- [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md) — **이 이론의 어휘가 설계
   처방으로 바뀌는 유일한 자리.** 생산자와 소비자 사이의 약속을 절대적으로 최소화하라는 것이고,
   이산 이벤트 스트림이 관리해야 할 약속 셋도 거기 적혀 있다
-- [2021년 플로 시장의 구성 요소별 평가](flow-market-component-assessment.md) — 부록이 구성 요소마다
+- [2021년 플로 시장의 구성 요소별 평가](../concepts/flow-market-component-assessment.md) — 부록이 구성 요소마다
   "핵심 약속"을 세는 자리
 - [워들리 매핑](wardley-mapping.md) — 같은 장이 이 이론과 짝으로 쓰는 다른 모형화 도구. 지형을 두 축
   위에 놓는 자리
-- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 이론을 실제로 한 가치 사슬에 적용해
+- [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md) — 이 이론을 실제로 한 가치 사슬에 적용해
   구성 요소 사이의 선을 검증한 결과
 - [계약에 의한 설계](../concepts/design-by-contract.md) — 같은 "무엇을 약속하는가"를 한 프로그램 안의
   의무로 세우는 쪽

@@ -3,7 +3,6 @@ type: concept
 title: 2021년 스트리밍 시장의 플로 구성 요소 대응
 description: 저술 시점의 이벤트 기반 아키텍처 세 범주를 플로 가치 사슬의 구성 요소에 하나씩 대응시킨 표 셋과 그 표들이 함께 보이는 것 — 파일과 데이터베이스 공유에서 메시지 지향 미들웨어로 갈라져 나온 메시지 큐의 규정과 발행-구독이 끊는 결합, 서비스 버스가 통제점을 만들어 얻은 것과 중앙집중이 부딪힌 한계, 사물 인터넷 프로토콜의 폭발과 MQTT의 다섯 걸음 동작과 브로커가 큐일 필요는 없다는 단서, 점대점에 가까운 HTTP와 WebSocket과 채택률 수치, 이벤트 처리 엔진 셋(함수와 로우코드·노코드, 로그 기반 스트림 처리, 디지털 트윈을 쓰는 상태 있는 스트림 처리)의 규정과 각각의 대응, 커넥터 생태계가 맥락 의존이고 서비스 버스 그림과 닮았다는 판정과 조합 가능 쪽으로 옮겨 갈 것이라는 전망, 그리고 세 표에 인터페이스 쪽 구성 요소가 한 번도 나오지 않는다는 관찰과 같은 책 3장이 물리 연결에 넣었던 HTTP·MQTT를 4장 표가 프로토콜 구성 요소로 대응시키는 어긋남
 generated: { by: "claude-opus-5", at: "2026-09-19T20:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -42,9 +41,9 @@ sources:
   p.73).[^urquhart2021]
   - **범위 전체를 읽은 실측으로는 4장 본문에 그 넷의 개관이 없다** — 이름 넷이 도입부에 한 번
     나오고 장이 끝날 때까지 다시 나오지 않는다. 그 넷의 이름은 1장 표 1-1을 경유해
-    [플로의 규정과 다섯 성질](flow-definition-and-properties.md)에 이미 들어와 있다.
+    [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md)에 이미 들어와 있다.
   - **본체는 5장 §"Flow Pattern Challenges and Opportunities"(pp.128–133)에 있다**(본문 실측).
-    정본 자리는 [플로 아키텍처 패턴 넷](flow-architecture-patterns.md)이다.
+    정본 자리는 [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md)이다.
 
 ## 버전 조건 — 저술 시점의 시장
 
@@ -554,28 +553,28 @@ p.88).[^urquhart2021]
 
 ## 이어지는 페이지
 
-- [2021년 플로 시장의 구성 요소별 평가](flow-market-component-assessment.md) — **이 장이 앞질러
+- [2021년 플로 시장의 구성 요소별 평가](../concepts/flow-market-component-assessment.md) — **이 장이 앞질러
   가리킨 부록 "Queue/Log" 항목(p.203)의 본체.** 큐가 본질적으로 일시적이고 전달 보장이 수집
   확장성을 제약하는 반면 로그는 시간 순서의 기억을 위해 지어졌으며 분산 토픽과 일부 전달 보장은 줄 수
   없다는 가름, 그리고 워크플로를 그 구성 요소의 셋째 범주로 세우는 배치가 거기 있다. **이 장의 큐
   서술과 맞댄 대조표도 거기 있다**
-- [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 여기 규정된 상태 있는 스트림
+- [업무에서 플로를 식별하고 모델링하기](../concepts/flow-use-cases-and-modeling.md) — 여기 규정된 상태 있는 스트림
   처리와 디지털 트윈과 서버리스가 업무 사용 사례에 쓰이는 자리
-- [이벤트 우선 아키텍처 선택](event-first-architecture-choices.md) — 여기 규정된 로그 기반 처리가
+- [이벤트 우선 아키텍처 선택](../concepts/event-first-architecture-choices.md) — 여기 규정된 로그 기반 처리가
   시리즈 이벤트를 떠받치는 조건으로 되불리는 자리
-- [플로를 앞당기는 일](driving-flow-forward.md) — 여기 이름만 오간 명세와 프로젝트를 누가 미는가
-- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 페이지의 대응이 가리키는 지도. 구성
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 여기 이름만 오간 명세와 프로젝트를 누가 미는가
+- [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md) — 이 페이지의 대응이 가리키는 지도. 구성
   요소의 규정과 저술 시점의 진화 배치가 거기 있다
-- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 이 페이지가 재는 저술 시점의
+- [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md) — 이 페이지가 재는 저술 시점의
   시장에서 **어디로 갈 것인가**를 같은 소스의 다음 장이 예측하는 자리
-- [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 그 이동에 무엇이 모자라는가의 목록.
+- [플로 요구가 남긴 공백](../concepts/flow-requirement-gaps.md) — 그 이동에 무엇이 모자라는가의 목록.
   **HTTP·WebSocket·MQTT를 3장과 4장이 다른 구성 요소에 넣는 어긋남을 5장이 풀지 않고 양쪽을 다
   쓴다는 실측이 거기 있다**
-- [플로 아키텍처 패턴 넷](flow-architecture-patterns.md) — 이 장이 예고하고 담지 않은 패턴 넷의 본체
+- [플로 아키텍처 패턴 넷](../concepts/flow-architecture-patterns.md) — 이 장이 예고하고 담지 않은 패턴 넷의 본체
 - [워들리 매핑](wardley-mapping.md) — 그 지도를 만든 기법. 진화 단계 넷의 규정
-- [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 플로 패턴 넷의 이름이 표 1-1을 경유해
+- [플로의 규정과 다섯 성질](../concepts/flow-definition-and-properties.md) — 플로 패턴 넷의 이름이 표 1-1을 경유해
   먼저 들어와 있는 자리
-- [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 업무가 플로에 요구하는 다섯의
+- [플로 채택의 조력자와 그 효과](../concepts/flow-adoption-enablers-and-effects.md) — 업무가 플로에 요구하는 다섯의
   정본 자리
 - [로그 기반 메시지 브로커](../concepts/log-based-message-brokers.md) — 이 페이지가 한 절로 접은 것을
   기제까지 펼치는 쪽

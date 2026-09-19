@@ -3,7 +3,6 @@ type: concept
 title: 2021년 플로 시장의 구성 요소별 평가
 description: 3장이 만든 워들리 맵의 구성 요소 하나하나를 저술 시점의 시장으로 채워 본 부록의 평가 — 구성 요소마다 범위와 핵심 약속과 진화 배치와 예시 기술을 같은 틀로 적겠다는 부록 자신의 평가 규약과 그것이 포괄적 조사가 아니라는 단서, 인프라와 연결과 인터페이스와 프로토콜과 디스커버리와 생산자와 소스와 프로세서와 큐/로그와 소비자와 싱크 열한 자리의 핵심 약속과 2021년 관찰, 인터페이스 절에서 저자가 인터페이스와 프로토콜을 완벽히 가르는 선은 불가능하다며 플로 중심의 작업 규정을 새로 세우는 자리, 4장이 앞질러 가리킨 큐/로그 항목이 실제로 무엇을 적는가 — 큐는 본질적으로 일시적이고 전달 보장이 수집 확장성을 제약하는 반면 로그는 시간 순서의 기억을 위해 지어졌으며 분산 토픽과 일부 전달 보장은 줄 수 없다는 가름과 워크플로를 셋째 범주로 세우는 자리, 그리고 이 배치가 3장 지도의 판정과 어긋나는 두 자리와 부록이 스스로 약속한 틀을 지키지 않는 자리
 generated: { by: "claude-opus-5", at: "2026-09-19T09:00:00Z" }
-status: draft
 sources:
   - { id: urquhart2021, resource: /it/sources/urquhart2021.md }
 ---
@@ -36,7 +35,7 @@ sources:
 - **부록은 이 책의 마지막 본문이고 앞의 다섯 장과 성격이 다르다** — **3장에서 만든 워들리 맵 모형을
   써서 거기 규정된 구성 요소의 말로 시장의 현재 상태를 담는 것**이 부록 자신이 적는 목적이다 (부록,
   p.171).[^urquhart2021] 그 지도의 정본은
-  [플로 통합 가치 사슬 지도](flow-integration-value-chain.md)다.
+  [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md)다.
 - **이 페이지는 얇다.** 부록이 48쪽이고 그 대부분이 제품별 서술인데, **제품 이름은 아래 버전 조건
   블록 하나에 모으고 claim으로 담은 것은 구성 요소마다의 핵심 약속과 2021년 관찰뿐이다.** 부패가
   빠른 시장 서술이라 그렇다.
@@ -178,9 +177,9 @@ sources:
   - **프로토콜은 연결이 세워진 뒤 이어받아 데이터 스트림을 쓸 수 있게 하는 기제 무엇이든이다.**
   - **저자 자신이 "두 개념 사이에 완벽한 선을 긋는 것은 불가능하다"고 적는다.**
 - **이 규정이 3장·4장·5장에 걸친 프로토콜 배치 어긋남의 네 번째 자리다** — 앞 셋의 실측은
-  [플로 통합 가치 사슬 지도](flow-integration-value-chain.md)와
+  [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md)와
   [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md)과
-  [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)에 있다. **부록은 어긋남을 풀지
+  [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md)에 있다. **부록은 어긋남을 풀지
   않되 그것이 어려운 이유를 처음으로 명시한다.**
 
 ## 통합 — 프로토콜
@@ -421,7 +420,7 @@ sources:
 ## 3장 지도의 배치와 어긋나는 자리
 
 **이 절의 대조는 이 KB가 세운 것이다.** 3장 배치의 정본은
-[플로 통합 가치 사슬 지도](flow-integration-value-chain.md)다.
+[플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md)다.
 
 | 구성 요소 | 3장(pp.65–70) | 부록 | 맞는가 |
 |---|---|---|---|
@@ -442,7 +441,7 @@ sources:
   상품/유틸리티 배치가 3장의 "물리 연결 기제는 대체로 상품"과 맞고, **어긋나는 것은 같은 낱말이 두
   곳에서 다른 것을 가리킨다는 사실 자체**가 된다. **5장 그림 5-2가 그 노드를 그냥 "Connection"으로
   개명한 것이 이 혼동을 굳힌다**(실측 기록은
-  [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)). **저자는 어느 자리에서도 이
+  [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md)). **저자는 어느 자리에서도 이
   어긋남을 다루지 않는다.**
 - **프로토콜 쪽 어긋남은 한 문단 안에 있어 해석의 여지가 없다.** **"Custom—"으로 시작하는 문단이
   "이 구성 요소는 오늘 상품 국면에 있다"로 끝난다.** **3장·5장과 일관되는 쪽은 맞춤이므로 마지막
@@ -478,7 +477,7 @@ sources:
   **"5장에서 설명하겠지만, 인터페이스와 프로토콜 아래 나열된 기술 가운데 어느 것을 '표준'이라 선언할
   수 있기까지 십 년에서 십오 년이 걸릴 수 있다"** 고 적는데 **5장은 부록보다 앞에 있고 거기 적힌
   것은 오 년과 다시 오 년에서 칠 년이다** (부록, p.175).[^urquhart2021] 눈금 전체의 대조표는
-  [플로를 앞당기는 일](driving-flow-forward.md)에 있다.
+  [플로를 앞당기는 일](../concepts/driving-flow-forward.md)에 있다.
 - **오식 셋** — **"AWS Kenesis"**(Kinesis), **"AWS Manages Streaming for Kafka"**(Managed),
   **"Confluence KSQL"**(Confluent). **셋째 오식은 6장 본문의 "Confluence"와 같은 것이 되풀이된
   것이다** (부록, pp.206·216).[^urquhart2021]
@@ -515,12 +514,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 부록이 채우는 지도의 정본 자리.
+- [플로 통합 가치 사슬 지도](../concepts/flow-integration-value-chain.md) — 이 부록이 채우는 지도의 정본 자리.
   구성 요소의 규정과 3장의 진화 배치가 거기 있다
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 4장이 시장을 이
   지도에 대응시킨 자리. **큐/로그 항목을 앞질러 가리킨 쪽이다**
-- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 5장이 이 배치를 움직이는 자리
-- [플로를 앞당기는 일](driving-flow-forward.md) — 여기 든 표준 기구와 명세가 처방으로 다시 불리는
+- [플로 구성 요소의 진화 예측](../concepts/flow-component-evolution-forecast.md) — 5장이 이 배치를 움직이는 자리
+- [플로를 앞당기는 일](../concepts/driving-flow-forward.md) — 여기 든 표준 기구와 명세가 처방으로 다시 불리는
   자리이고, 시간 눈금 넷의 대조표가 있는 자리
 - [약속 이론](promise-theory.md) — 핵심 약속이라는 어휘의 자리
 - [워들리 매핑](wardley-mapping.md) — 진화 단계 넷의 규정 자리
