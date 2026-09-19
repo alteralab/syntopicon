@@ -248,8 +248,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 같은 장의 앞쪽. 지도 위의
-  이동과 게임플레이와 관성과 요구 다섯이 남긴 공백
+- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 같은 장의 첫째 자리. 지도
+  위의 이동과 게임플레이와 관성
+- [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 같은 장의 둘째 자리. 요구 다섯이 남긴 공백과
+  지적 재산 통제. **이 패턴 넷이 던지는 물음들이 거기서 요구별로 다시 세어진다**
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 네 가상 사례와 패턴 넷의 이름이
   먼저 들어온 자리
 - [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 4장이 이 넷을
@@ -267,9 +269,12 @@ sources:
 [^urquhart2021]: Urquhart 2021 초판, 5장 "Evaluating the Emergence of Flow"의
     §"Flow Pattern Challenges and Opportunities"(pp.128–133) — 도입부(p.128)와 소절 넷
     (The Collector Pattern p.128 · The Distributor Pattern p.129 · The Signal Pattern p.130 ·
-    The Facilitator Pattern p.132)이다. 5장의 나머지는
-    [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)이 맡는다. 이 범위에 내용
-    각주와 표와 곁상자는 없다.
+    The Facilitator Pattern p.132)이다. 5장의 나머지는 둘이 맡는다 — 도입부와
+    §"Mapping the Evolution to Flow"와 §"Gameplay"와 §"Inertia"(pp.93–107)는
+    [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md)이,
+    §"Flow Requirements, Challenges, and Opportunities"(pp.108–128)와 §"The Unexpected"(pp.133–134)는
+    [플로 요구가 남긴 공백](flow-requirement-gaps.md)이 맡는다. 이 범위에 내용 각주와 표와 곁상자는
+    없다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).
     **제목 층은 `pdftotext -bbox` 글자 높이로 갈랐다** — 절 제목 22.7, 소절 제목 18.9, 본문 14.2,
     그림 캡션 14.3이다. 이 범위에 셋째 층 소제목은 없다.

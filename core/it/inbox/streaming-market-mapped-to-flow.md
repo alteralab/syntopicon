@@ -557,8 +557,10 @@ p.88).[^urquhart2021]
 - [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 페이지의 대응이 가리키는 지도. 구성
   요소의 규정과 저술 시점의 진화 배치가 거기 있다
 - [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 이 페이지가 재는 저술 시점의
-  시장에서 **어디로 갈 것인가**를 같은 소스의 다음 장이 예측하는 자리. **HTTP·WebSocket·MQTT를 3장과
-  4장이 다른 구성 요소에 넣는 어긋남을 5장이 풀지 않고 양쪽을 다 쓴다는 실측도 거기 있다**
+  시장에서 **어디로 갈 것인가**를 같은 소스의 다음 장이 예측하는 자리
+- [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 그 이동에 무엇이 모자라는가의 목록.
+  **HTTP·WebSocket·MQTT를 3장과 4장이 다른 구성 요소에 넣는 어긋남을 5장이 풀지 않고 양쪽을 다
+  쓴다는 실측이 거기 있다**
 - [플로 아키텍처 패턴 넷](flow-architecture-patterns.md) — 이 장이 예고하고 담지 않은 패턴 넷의 본체
 - [워들리 매핑](wardley-mapping.md) — 그 지도를 만든 기법. 진화 단계 넷의 규정
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 플로 패턴 넷의 이름이 표 1-1을 경유해
