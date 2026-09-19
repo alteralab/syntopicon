@@ -384,8 +384,8 @@ p.122).[^burns2025]
     제목(B-head, 18.9) 넷은 §"The Source Container Interface"(p.120) · §"Work Queue
     API"(p.121) · §"The Worker Container Interface"(p.122) · §"The Shared Work Queue
     Infrastructure"(p.124)다.
-    **앞 런들이 관찰한 "Hands On은 언제나 소절 제목"이 이 장에서 깨진다** — 이 장의 실습 절은
-    실측 22.7이라 절 제목이고 목차의 들여쓰기도 절 층이다.
+    **이 책은 실습 절의 제목 층이 장마다 다르다** — 3~10장과 13장의 실습 절은 실측 18.9라 소절
+    제목인데 이 장과 12장의 실습 절은 실측 22.7이라 절 제목이고, 목차의 들여쓰기도 절 층이다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 18, 실측). 기계 추출은 `tools/pdftext.py`로 하고
     **모든 claim을 `pdftotext -layout` 추출본과 교차 확인**했다. **원문 직인용은 한 곳**(워크
     큐의 규정, p.119)이고 문자 단위로 대조했으며, 줄바꿈 하이픈으로 끊긴 낱말은 한 낱말로
