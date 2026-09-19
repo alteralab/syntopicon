@@ -181,7 +181,7 @@ election)·복제까지 떠안는** 흐름이다.
   - **제로 디스크 아키텍처(zero-disk architecture, ZDA)** — **모든 데이터를 오브젝트 스토리지에
     영속시키고 디스크와 메모리는 캐싱 전용으로만 쓴다. 그래서 노드가 영속 상태를 전혀 갖지 않고
     운영이 극적으로 단순해진다.** **WarpStream·Confluent Freight·Buf의 Bufstream·Redpanda
-    Serverless가 전부 제로 디스크 아키텍처로 지은 카프카 호환 시스템**이고, **거의 모든 현대
+    Serverless가 전부 제로 디스크 아키텍처로 지은 카프카 호환 시스템**이고, **거의 모든 2026년 저술 시점의
     클라우드 데이터 웨어하우스도 그런 아키텍처를 채택하며 Turbopuffer(벡터 검색 엔진)와
     SlateDB(클라우드 네이티브 LSM 저장 엔진)도 그렇다.**
   - 마지막 항목이 [카프카 물리 저장](../concepts/kafka-physical-storage.md)이 전제하는 로컬

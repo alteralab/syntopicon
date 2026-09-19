@@ -33,7 +33,7 @@ sources:
 - **전제부터 절충이다** — **분산 아키텍처는 성능·확장성·탄력성·내결함성·가용성 같은 더 나은
   운영 아키텍처 특성을 얻기 위한 절충으로 최종 일관성(eventual consistency)에 크게 기댄다**
   (9장 §"Eventual Consistency Patterns", p.267).[^ford2021-hard-parts]
-- **데이터 원천과 체계 사이에서 최종 일관성을 이루는 방법은 여럿이지만 오늘날 쓰이는 주된 패턴이
+- **데이터 원천과 체계 사이에서 최종 일관성을 이루는 방법은 여럿이지만 2021년 저술 시점에 쓰이는 주된 패턴이
   셋**이라고 저자들이 적는다 — 배경 동기화 패턴(background synchronization pattern),
   오케스트레이션 요청 기반 패턴(orchestrated request-based pattern), 이벤트 기반 패턴(event-based
   pattern)이다 (9장, p.267).[^ford2021-hard-parts]

@@ -107,7 +107,7 @@ sources:
   합성곱을 1 × 1 합성곱으로 바꾸는 것을 포함한 여러 인수분해 전략을 적용해 SqueezeNet(Iandola et
   al., 2016)은 50배 적은 파라미터로 ImageNet에서 AlexNet 수준의 정확도를 달성했다** (7장,
   p.341).[^huyen2025]
-- 더 최근의 시도 — **저차원 LLM을 훈련하려는 더 최근의 시도로 ReLoRA(Lialin et al., 2023)와
+- 더 최근의 시도 — **저차원 LLM을 훈련하려는 2025년 저술 시점 기준 더 최근의 시도로 ReLoRA(Lialin et al., 2023)와
   GaLore(Zhao et al., 2024)가 있다. ReLoRA는 최대 1.3B 파라미터의 트랜스포머 기반 모델에 대해
   작동한다. GaLore는 1B 파라미터에서 full-rank 모델에 필적하는 성능을, 7B 파라미터에서 유망한
   성능을 달성한다** (7장, p.341).[^huyen2025]

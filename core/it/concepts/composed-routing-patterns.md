@@ -426,7 +426,7 @@ sources:
     내용에 기반해 바뀔 수 있다. 이 기능은 *Content-Based Router*(230)와 등가다. 많은 모델링 도구가
     루프 구성을 설계하는 능력을 포함하지만 이것은 사실 분기의 특수한 경우다.**
 - 표준화 시도가 셋 있었다 — **Microsoft는 BizTalk 오케스트레이션 모델링 도구 계열이 지원하는
-  XLANG을 정의했다. IBM은 WSFL, 곧 Web Services Flow Language를 초안했다. 최근 두 회사가 힘을
+  XLANG을 정의했다. IBM은 WSFL, 곧 Web Services Flow Language를 초안했다. 2004년 저술 시점 기준 최근에 두 회사가 힘을
   합쳐 BPEL4WS, 곧 Business Process Execution Language for Web Services의 명세를 만들었다.
   BPEL4WS는 프로세스 모델을 XML 문서로 서술하는 강력한 언어다. 의도는 프로세스 모델링 도구와
   *Process Manager* 엔진 사이의 표준화된 중간 언어를 정의하는 것이다** (7장,

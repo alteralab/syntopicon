@@ -148,7 +148,7 @@ sources:
 ## 보상 ① 내재 동기 — 자율·숙달·목적
 
 - 출처 — **데이터 메시 접근은 사람이 내재적으로 동기 부여되는 방식 위에 짓는다. Daniel Pink는
-  자기 책 *Drive: The Surprising Truth About What Motivates Us*에서 현대 비즈니스가 내재적
+  자기 책 *Drive: The Surprising Truth About What Motivates Us*에서 2022년 저술 시점의 비즈니스가 내재적
   보상과 내적 만족을 갖는 유형의 행동과 활동을 길러야 한다고 강조한다. 그는 이것을 **Type I
   행동**이라 부르며, 그것이 더 강한 성과와 더 큰 건강과 전반적 웰빙으로 이어진다고 한다. 그다음
   그는 Type I 행동으로 이끄는 동기의 세 근본 요소를 서술한다: **자율(autonomy)·숙달(mastery)·

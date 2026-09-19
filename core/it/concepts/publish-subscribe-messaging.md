@@ -121,7 +121,7 @@ kleppmann이 같은 배치를 **데이터플로 모드**의 하나로 다시 세
   p.491).[^kleppmann2026]
 - 지형 — **과거에는 메시지 브로커의 지형이 TIBCO·IBM WebSphere·webMethods 같은 회사의 상용 엔터프라이즈
   소프트웨어가 지배했고, 그 뒤 RabbitMQ·ActiveMQ·HornetQ·NATS·Redpanda·아파치 카프카 같은 오픈 소스
-  구현이 인기를 얻었다. 더 최근에는 Amazon Kinesis·Azure Service Bus·Google Cloud Pub/Sub 같은 클라우드
+  구현이 인기를 얻었다. 2026년 저술 시점 기준 더 최근에는 Amazon Kinesis·Azure Service Bus·Google Cloud Pub/Sub 같은 클라우드
   서비스가 채택을 늘렸다** (5장, p.190).[^kleppmann2026]
 - 12장은 전통적 관점의 계보를 표준으로 못박는다 — **이것이 메시지 브로커에 대한 전통적 관점이며, JMS와
   AMQP 같은 표준에 담기고 RabbitMQ·ActiveMQ·HornetQ·Qpid·TIBCO Enterprise Message Service·IBM MQ·
@@ -685,7 +685,7 @@ kleppmann이 같은 배치를 **데이터플로 모드**의 하나로 다시 세
   - **소비자마다 큐를 따로 둔다** — 각 소비자가 자기 큐로 레코드 사본을 얻는다.
   - **내구적 이벤트 스트림을 쓴다** — 각 소비자가 **하나의 논리적 큐에서** 온 레코드 사본을 각자
     얻는다.
-- **첫째 답의 기제가 익스체인지다.** 현대 큐 브로커는 **발행-구독 기제**를 제공해 생산자와 관심
+- **첫째 답의 기제가 익스체인지다.** 2025년 저술 시점의 큐 브로커는 **발행-구독 기제**를 제공해 생산자와 관심
   있는 소비자 사이를 느슨하게 결합한다. 생산자는 레코드가 필요할 수 있는 모든 큐에 직접 발행하는
   대신 브로커에 호스팅된 **익스체인지(exchange)** 로 메시지를 보내고, 익스체인지가 **받은 시점에
   등록되어 있는 구독 큐마다 레코드의 사본을 라우팅**한다 (2장 §"Queues via Modern Queue Brokers",

@@ -343,7 +343,7 @@ sources:
   **좋은 테스트의 두 조건이 서로 반대 방향이다** — 중요하지 않은 구현 세부에는
   무관심해야 하고(좁아지지 않기), 동시에 지름길 해답에는 견고해야 한다(넓어지지 않기).
   감사가 센 35.5%와 18.8%가 각각 그 두 조건이 깨진 자리다.
-- **대안 권고** (같은 절):[^openai2026-swebench-verified-retire] 최근 몇 달간 SWE-bench
+- **대안 권고** (같은 절):[^openai2026-swebench-verified-retire] 2026년 저술 시점까지 몇 달간 SWE-bench
   Pro의 공개 분할로 결과를 보고해 왔고 다른 모델 개발자에게도 그러기를 권한다. 단서를
   같은 자리에 적는다 — `SWE-bench Pro is not perfect, but empirically seems to suffer
   less from contamination issues`이고, 자기 오염 파이프라인이 거기서도 사례를 찾았으나

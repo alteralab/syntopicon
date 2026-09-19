@@ -338,7 +338,7 @@ sources:
     압착이다(`SCHEMA.md` §3의 확정 역어 표). **이 장의 쓰임은 그 둘 중 어느 것도 아니므로**
     이 페이지는 원어를 그대로 둔다.
   - **각주가 실험적 대안을 하나 든다** — **`WebSocketStream`이 스트림으로 WebSocket의 배압을
-    다루지만 지금은 실험적이고 웹 브라우저 호환이 제한적이다** (10장, p.332 각주
+    다루지만 2025년 저술 시점에는 실험적이고 웹 브라우저 호환이 제한적이다** (10장, p.332 각주
     13).[^dynowski2025]
   - **배압(backpressure)이라는 낱말의 일반형이 이 KB에 이미 있다** —
     [리액티브 스트림의 배압 전략](../concepts/backpressure-strategies-in-reactive-streams.md)이

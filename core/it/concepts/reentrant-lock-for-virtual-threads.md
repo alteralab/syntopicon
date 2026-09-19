@@ -90,7 +90,7 @@ sources:
 ## 차이의 자리는 park와 unpark다
 
 - 핵심 차이가 구현에 있다 — `synchronized` 블록은 객체 모니터(object monitor)를 쓰는데 그것이
-  현재로서는 핀닝을 요구하고, `ReentrantLock`은 가상 스레드를 아는 park/unpark 기제를 쓴다 (2장,
+  2025년 저술 시점에는 핀닝을 요구하고, `ReentrantLock`은 가상 스레드를 아는 park/unpark 기제를 쓴다 (2장,
   p.66).[^rahman2025] 객체 모니터가 가상 머신 안에서 받는 최적화들은
   [락 최적화](../concepts/lock-optimization.md)에 있다.
 - park/unpark는 자바의 낮은 수준 스레드 협조 원시 장치이고, 더 높은 수준의 동시성 유틸리티 여럿의

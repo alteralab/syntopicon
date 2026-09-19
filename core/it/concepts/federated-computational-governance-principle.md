@@ -88,7 +88,7 @@ sources:
 > specializations such as legal and security to ensure a trustworthy, secure, and interoperable
 > ecosystem.
 
-- 이 모델이 정면으로 고치려는 실패는 조직 배치다 — 오늘날 데이터 거버넌스의 가장 흔한 실수
+- 이 모델이 정면으로 고치려는 실패는 조직 배치다 — 2022년 저술 시점에 데이터 거버넌스의 가장 흔한 실수
   중 하나로 꼽히는 것, 곧 **업무와 나란히 놓인 조직 모델을 갖고 업무 안에 내장되지 않은 IT
   이니셔티브가 되는 것**이다 (5장, p.68, 각주 1은 Nicola Askham, "The 9 Biggest Mistakes
   Companies Make When Implementing Data Governance", 2012).[^dehghani2022]

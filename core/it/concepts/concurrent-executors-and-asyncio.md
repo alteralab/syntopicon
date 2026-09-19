@@ -104,7 +104,7 @@ sources:
 
 - 규정 — **`concurrent.futures.Future`와 `asyncio.Future` 두 클래스는 같은 목적에 복무한다:
   어느 쪽 `Future` 클래스의 인스턴스든 완료됐을 수도 아닐 수도 있는 지연된 계산을
-  나타낸다. Twisted의 `Deferred` 클래스, Tornado의 `Future` 클래스, 현대 JavaScript의
+  나타낸다. Twisted의 `Deferred` 클래스, Tornado의 `Future` 클래스, 2022년 저술 시점 JavaScript의
   `Promise`와 다소 비슷하다** (20장 §"Where Are the Futures?", p.751).[^ramalho2022]
 - 쓸모 — **future는 보류 중인 연산을 캡슐화해서 우리가 그것을 큐에 넣고, 끝났는지 검사하고,
   가능해졌을 때 결과(또는 예외)를 회수할 수 있게 한다** (같은 절, p.751).[^ramalho2022]
