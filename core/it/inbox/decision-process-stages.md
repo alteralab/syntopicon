@@ -254,6 +254,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [아키텍처 어드바이스 프로세스](architecture-advice-process.md) — 이 세 걸음 가운데 옵션 만들기
+  동안 조언을 구하도록 요구하는 프로세스. 4장의 규칙이 걸리는 자리가 바로 이 걸음이다
 - [규모의 결정 프로세스](decision-processes-at-scale.md) — 같은 장의 뒷절. 사람이 한 명을 넘을
   때 이 세 걸음에 누구를 어떻게 참여시키는가
 - [아키텍처적으로 유의한 결정](architecturally-significant-decisions.md) — 이 프로세스를 통과할
