@@ -108,6 +108,10 @@ class MdFile:
     #: 인용 블록의 줄 범위 (1-기준, 끝 포함) — 버전 조건 자리 검사(R62)의 허용 구역.
     blockquote_ranges: tuple[tuple[int, int], ...] = ()
 
+    #: 인용 블록 **밖**의 순수 텍스트 노드. 저자의 말을 그대로 옮긴 인용 블록은 KB의
+    #: 산문이 아니므로, 산문 저작 규칙 검사(시점 상대 낱말)는 이것 위에서 돈다.
+    prose_texts: tuple[str, ...] = ()
+
     #: 저장 바이트가 NFC인가(R69) — 아니면 형태소·리터럴 검색이 영원히 못 만난다.
     nfc: bool = True
 
@@ -279,6 +283,18 @@ def read(absolute: Path, relative: Path) -> MdFile:
     ]
 
     bullets, fences = _bullets_and_fences(tokens)
+    blockquote_ranges = tuple(
+        (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "blockquote_open" and t.map
+    )
+
+    def in_blockquote(line: int) -> bool:
+        return any(start <= line <= end for start, end in blockquote_ranges)
+
+    prose_texts = tuple(
+        child.content
+        for t in tokens if t.type == "inline" and t.map and not in_blockquote(t.map[0] + 1)
+        for child in (t.children or []) if child.type == "text" and child.content.strip()
+    )
     return MdFile(
         path=relative,
         frontmatter=frontmatter,
@@ -292,10 +308,8 @@ def read(absolute: Path, relative: Path) -> MdFile:
         html_ranges=tuple(
             (t.map[0] + 1, t.map[1]) for t in tokens if t.type == "html_block" and t.map
         ),
-        blockquote_ranges=tuple(
-            (t.map[0] + 1, t.map[1]) for t in tokens
-            if t.type == "blockquote_open" and t.map
-        ),
+        blockquote_ranges=blockquote_ranges,
+        prose_texts=prose_texts,
         nfc=source == unicodedata.normalize("NFC", source),
         fences=tuple(fences),
     )

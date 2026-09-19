@@ -59,6 +59,8 @@ def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str
     return Context(
         layout=layout, connection=connection, files=files, changed=changed, meta=meta,
         epistemic=frozenset(vocabulary["epistemic"]["tokens"]),
+        time_relative=frozenset(vocabulary.get("time-relative", {}).get("words", ())),
+        time_relative_except=frozenset(vocabulary.get("time-relative", {}).get("except", ())),
         progress_validator=Draft202012Validator(
             {"$ref": "progress.yaml#"}, registry=schemas.load().registry),
     )

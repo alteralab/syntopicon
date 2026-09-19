@@ -164,6 +164,22 @@ def test_미정의_epistemic_토큰을_잡고_정의된_것은_통과시킨다(r
     assert "#hypothesis" not in reported and "#nottoken" not in reported
 
 
+def test_시점_상대_낱말을_잡되_인용_블록과_저술_시점_문장은_넘긴다(repo: Repo):
+    """'오늘날·모던·현대' 같은 낱말은 읽는 시점마다 뜻이 바뀌어 10–20년 KB에서 곧 거짓이
+    된다(사용자 교정 2026-09-19). 저자의 말을 그대로 옮긴 인용 블록과 이미 '저술 시점'으로
+    못 박은 문장, 기술 명사 합성어(현대화)는 검사하지 않는다."""
+    base(repo)
+    repo.write("it/concepts/alpha-page.md", cited() + (
+        "\n- **오늘날 대부분의 데이터베이스가 SSD를 쓴다.**\n"
+        "- 현대화 절차는 세 단계다.\n"
+        "- 2017년 저술 시점의 요즘 관행은 이렇다.\n"
+        "\n> 오늘날 직접 인용은 저자의 말 그대로다.\n"))
+    lint(repo)
+    reported = " ".join(findings(repo, "time-relative-wording"))
+    assert "'오늘날' 1회" in reported
+    assert "현대" not in reported and "요즘" not in reported
+
+
 def test_역어_드리프트를_잡되_산문_접두는_무시한다(repo: Repo):
     """같은 원어에 다른 역어 = 저장 어휘와 미래 검색어의 분열(실사례: 집계/애그리게이트).
     산문이 앞에 붙은 병기("모든 것이 비즈니스 역량(business capability)")는 접미
@@ -365,7 +381,7 @@ def test_결과_종류_레지스트리가_완결이다():
     발단이다."""
     from syntopicon.checks import KINDS
 
-    assert len(KINDS) == 51      # 41 + 집세 심사(08) 이관 1파 6종 + 2파 4종
+    assert len(KINDS) == 52      # 41 + 집세 심사(08) 이관 1파 6종 + 2파 4종 + time-relative-wording(2026-09-19)
     for k in KINDS.values():
         assert k.severity in ("error", "warn", "info"), k.name
         assert k.doc and k.guidance, f"{k.name}: doc·guidance는 필수다"

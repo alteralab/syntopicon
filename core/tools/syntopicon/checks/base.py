@@ -81,6 +81,9 @@ class Context:
     overlap_full: bool = False        # 전쌍 비교 (부트스트랩·분기) — 기본은 changed×전체
     meta: dict[str, dict] = field(default_factory=dict)
     epistemic: frozenset[str] = frozenset()
+    #: 읽는 시점 상대 낱말의 폐쇄 어휘(schema/vocabulary.yaml time-relative)와 예외 합성어.
+    time_relative: frozenset[str] = frozenset()
+    time_relative_except: frozenset[str] = frozenset()
     #: `_progress.yaml` 검증기 — 스키마 적재는 실행당 1회여야 하므로(schemas.load는
     #: 부를 때마다 파일을 읽는다) 페이지 루프 밖에서 만들어 들고 다닌다.
     progress_validator: Draft202012Validator | None = None

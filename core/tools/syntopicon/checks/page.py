@@ -22,7 +22,9 @@ MAX_HEADING_DEPTH = 4          # H4가 필요해지면 분할 신호(§2.6, 자�
 
 # 본문 인라인 토큰. AST가 "코드도 링크도 아닌 텍스트"까지 갈라 준 **뒤에** 그 텍스트
 # 안에서 어휘를 보는 것이라, PLAN §3이 허용한 정규 언어 검증에 해당한다.
+# ast-grep-ignore: regex-on-structure — 어휘: AST가 가른 순수 텍스트 노드 안의 `#토큰` 문자 집합, 중첩 없음
 EPISTEMIC_TOKEN = re.compile(r"(?<![\w#])#([a-z][a-z0-9-]*)")
+# ast-grep-ignore: regex-on-structure — 어휘: `[[…]]` 고정 형식 검출, 중첩 없음(AST 텍스트 노드 안)
 WIKILINK = re.compile(r"!?\[\[[^\]]+\]\]")
 
 kind("page-too-long", "warn", "500줄 백스톱 초과",
@@ -58,6 +60,11 @@ kind("epistemic-token", "warn", "미정의 해시 토큰",
      "(태그 체계 없음).")
 kind("wikilink", "warn", "Obsidian 전용 위키링크 문법",
      "GFM 인라인 링크로 바꾼다 — 이 저장소는 GFM 부분집합만 쓴다.")
+kind("time-relative-wording", "warn", "읽는 시점 상대 낱말(현시점·오늘날·모던 등)",
+     "그 claim의 각주 소스 `it/sources/<citekey>.md`의 issued 연도로 '20XX년 저술 시점에'라 "
+     "못 박는다(SCHEMA §3 저작 규칙). 인용 블록 안은 저자의 말이라 검사하지 않고, 같은 "
+     "문장에 '저술 시점'이 이미 있으면 넘어간다. 어휘는 schema/vocabulary.yaml time-relative "
+     "— 현재·최신·아직은 명사 용법이 대부분이라 기계 밖(사람·반입 에이전트 판단).")
 kind("version-condition-stale", "warn", "버전 조건과 stale_after 동시 보유",
      "버전 조건이 시효를 대신하므로 stale_after를 뗀다(SCHEMA §3). 집세 심사 실측: "
      "버전 조건 44페이지 중 동시 보유 0건이라 이 경고는 새 위반만 잡는다.")
@@ -86,11 +93,33 @@ kind("numeric-confidence", "info", "숫자 신뢰도 표기 흔적",
 
 
 def check_page(ctx: Context, path: str, md: MdFile):
+    """페이지 하나의 검사 전부 — 관심사별 도우미를 차례로 부르는 조율자다.
+
+    검사 하나 = 함수 하나. 새 검사는 도우미를 더하고 여기 한 줄을 늘린다 — 한 함수에
+    분기를 쌓지 않는다(C-BRANCH-1, 게이트가 강제).
+    """
     meta = ctx.meta.get(path)
     if meta is None:
         return
     kb, front = meta["kb"], md.frontmatter or {}
 
+    yield from _check_length_and_toc(kb, path, md, front)
+    yield from _check_headings(kb, path, md)
+    yield from _check_anchor_links(kb, path, md)
+    yield from _check_sources_cited(kb, path, md, front)
+    yield from _check_claim_bullets(kb, path, md, front)
+    yield from _check_concept_fences(kb, path, md, front)
+    yield from _check_hub_grammar(kb, path, md, front)
+    yield from _check_nfc_and_fence_prompt(kb, path, md)
+    yield from _check_version_condition_place(kb, path, md)
+    yield from _check_frontmatter_consistency(kb, path, md, front)
+    yield from _check_inline_tokens(ctx, kb, path, md)
+    yield from _check_time_relative_wording(ctx, kb, path, md)
+    yield from check_snapshot(kb, path, front)
+    yield from check_progress(kb, path, front, ctx.progress_validator)
+
+
+def _check_length_and_toc(kb: str, path: str, md: MdFile, front: dict):
     if md.line_count > PAGE_LINE_BACKSTOP:
         yield Finding("page-too-long",
                       f"{md.line_count}줄 — 분할 판단은 목적 기준으로(§2.6). "
@@ -103,8 +132,8 @@ def check_page(ctx: Context, path: str, md: MdFile):
             md.line_count > TOC_REQUIRED_ABOVE and not _has_toc(md)):
         yield Finding("toc-missing", f"{md.line_count}줄인데 상단 TOC가 없습니다", kb, path)
 
-    yield from _check_headings(kb, path, md)
 
+def _check_anchor_links(kb: str, path: str, md: MdFile):
     # 페이지 안 앵커 링크(`](#…)`)가 실제 헤딩을 가리키는가. rename은 앵커를 재작성하지
     # 않으므로(PLAN §2.5-2) 여기가 유일한 검출 지점이다. 클릭해도 안 움직이는 링크는
     # 렌더도 성공하고 validate도 통과해서 조용히 남는다.
@@ -119,6 +148,8 @@ def check_page(ctx: Context, path: str, md: MdFile):
                           f"#{target} 가 이 페이지의 헤딩과 맞지 않습니다 — "
                           f"구두점 주변 공백이 하이픈 둘로 남는 경우가 흔합니다", kb, path)
 
+
+def _check_sources_cited(kb: str, path: str, md: MdFile, front: dict):
     # 각주 = 출처 귀속 전용 채널이므로, 선언한 소스가 인용되지 않으면 둘 중 하나다:
     # 죽은 소스 항목이거나, 정의가 빠져 평문이 된 각주(validate가 못 보는 그 경우).
     declared = {s["id"] for s in front.get("sources", []) if isinstance(s, dict) and "id" in s}
@@ -127,73 +158,89 @@ def check_page(ctx: Context, path: str, md: MdFile):
                       f"sources에 {unused} 를 선언했지만 각주가 없습니다 "
                       "(각주 정의 누락이면 본문에 [^…] 가 평문으로 남아 있습니다)", kb, path)
 
-    if front.get("type") == "concept":
-        for bullet in md.bullets:
-            # 하위 열거 불릿은 부모 불릿의 각주를 상속하고(§2.1), 링크로 시작하는
-            # 불릿은 claim이 아니라 포인터 문법이다(§2.6) — "이어지는 페이지" 절의
-            # `- [제목](경로) — 설명` 꼴이 허브 문법으로는 필수이면서 여기서는
-            # 위반으로 찍히던 것이 리포트의 84%(649/769)를 채운 오검출이었다.
-            if (not bullet.cites and not bullet.pointer_only
-                    and not bullet.inherits_cite and not bullet.link_led):
-                yield Finding("claim-unfootnoted",
-                              f"{bullet.line}행: {bullet.text[:40]}…", kb, path)
-            if bullet.cites and not bullet.locator_before_cite:
-                yield Finding("locator-missing",
-                              f"{bullet.line}행: 각주 앞에 locator 괄호가 없습니다 — "
-                              f"claim은 각주+locator(§4.4-4)", kb, path)
 
-        # 코드 펜스는 각주 달린 claim 아래에 있어야 한다(SCHEMA.md §3). 소스에 없는
-        # 코드를 지어내면 예제가 아니라 발명한 claim이고, 문법이 맞으면 그럴듯해
-        # 보여서 산문보다 눈에 안 띈다. 검사 대상은 소속뿐 — 코드가 정말 그 소스에서
-        # 왔는지는 기계가 못 본다(리뷰 양식이 담당).
-        for fence in md.fences:
-            if not fence.sourced:
-                yield Finding("code-unsourced",
-                              f"{fence.line}행: 코드 펜스가 각주 달린 claim 밖에 "
-                              f"있습니다 — 출처 없는 코드는 넣지 않는다(§3)", kb, path)
-            if not fence.introduced:
-                yield Finding("fence-lead-in",
-                              f"{fence.line}행: 펜스를 소개하는 산문이 없습니다 — "
-                              f"무엇으로 찾을 것인가(§3)", kb, path)
+def _check_claim_bullets(kb: str, path: str, md: MdFile, front: dict):
+    if front.get("type") != "concept":
+        return
+    for bullet in md.bullets:
+        # 하위 열거 불릿은 부모 불릿의 각주를 상속하고(§2.1), 링크로 시작하는
+        # 불릿은 claim이 아니라 포인터 문법이다(§2.6) — "이어지는 페이지" 절의
+        # `- [제목](경로) — 설명` 꼴이 허브 문법으로는 필수이면서 여기서는
+        # 위반으로 찍히던 것이 리포트의 84%(649/769)를 채운 오검출이었다.
+        if (not bullet.cites and not bullet.pointer_only
+                and not bullet.inherits_cite and not bullet.link_led):
+            yield Finding("claim-unfootnoted",
+                          f"{bullet.line}행: {bullet.text[:40]}…", kb, path)
+        if bullet.cites and not bullet.locator_before_cite:
+            yield Finding("locator-missing",
+                          f"{bullet.line}행: 각주 앞에 locator 괄호가 없습니다 — "
+                          f"claim은 각주+locator(§4.4-4)", kb, path)
 
+
+def _check_concept_fences(kb: str, path: str, md: MdFile, front: dict):
+    # 코드 펜스는 각주 달린 claim 아래에 있어야 한다(SCHEMA.md §3). 소스에 없는
+    # 코드를 지어내면 예제가 아니라 발명한 claim이고, 문법이 맞으면 그럴듯해
+    # 보여서 산문보다 눈에 안 띈다. 검사 대상은 소속뿐 — 코드가 정말 그 소스에서
+    # 왔는지는 기계가 못 본다(리뷰 양식이 담당).
+    if front.get("type") != "concept":
+        return
+    for fence in md.fences:
+        if not fence.sourced:
+            yield Finding("code-unsourced",
+                          f"{fence.line}행: 코드 펜스가 각주 달린 claim 밖에 "
+                          f"있습니다 — 출처 없는 코드는 넣지 않는다(§3)", kb, path)
+        if not fence.introduced:
+            yield Finding("fence-lead-in",
+                          f"{fence.line}행: 펜스를 소개하는 산문이 없습니다 — "
+                          f"무엇으로 찾을 것인가(§3)", kb, path)
+
+
+def _check_hub_grammar(kb: str, path: str, md: MdFile, front: dict):
     # 허브·overview 링크 불릿 문법(§2.6): 링크로 시작하는 불릿은 한 줄 설명을 진다.
-    if front.get("type") in ("synthesis", "guide"):
-        for bullet in md.bullets:
-            if bullet.link_led and bullet.pointer_only:
-                yield Finding("hub-grammar",
-                              f"{bullet.line}행: 링크 불릿에 설명이 없습니다 — "
-                              f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
+    if front.get("type") not in ("synthesis", "guide"):
+        return
+    for bullet in md.bullets:
+        if bullet.link_led and bullet.pointer_only:
+            yield Finding("hub-grammar",
+                          f"{bullet.line}행: 링크 불릿에 설명이 없습니다 — "
+                          f"`- [제목](경로) — 한 줄 설명`(§2.6)", kb, path)
 
+
+def _check_nfc_and_fence_prompt(kb: str, path: str, md: MdFile):
     if not md.nfc:
         yield Finding("nfc-violation",
                       "저장 바이트가 NFC가 아닙니다 — 재정규화 저장 필요(검색 불가 원인)",
                       kb, path)
-
     for fence in md.fences:
         if fence.first_line.startswith("$ "):
             yield Finding("fence-prompt",
                           f"{fence.line}행: 펜스 첫 줄에 셸 프롬프트 `$ ` — 복사 실행이 "
                           "깨집니다(SCHEMA §3)", kb, path)
 
+
+def _check_version_condition_place(kb: str, path: str, md: MdFile):
     # 버전 조건의 자리(R62): 허용 구역은 인용 블록과 불릿(자식 불릿 포함)뿐이다.
     # 고정 낱말의 줄 위치가 필요해 원문을 다시 읽는다 — 정확 문자열 대조라
     # 파서 우선 규약의 예외 부류(plaincheck과 같은 방식)다.
-    if any("버전 조건:" in text for text in md.texts):
-        allowed_lines = {b.line for b in md.bullets}
-        excluded = [(f.line, f.end) for f in md.fences] + list(md.html_ranges)
-        for number, line in enumerate((ROOT / path).read_text().splitlines(), 1):
-            if "버전 조건:" not in line:
-                continue
-            if any(start <= number <= end for start, end in md.blockquote_ranges):
-                continue
-            if any(start <= number <= end for start, end in excluded):
-                continue
-            if number in allowed_lines:
-                continue
-            yield Finding("version-condition-place",
-                          f"{number}행: 버전 조건이 인용 블록도 불릿도 아닌 자리에 "
-                          "있습니다(SCHEMA §3)", kb, path)
+    if not any("버전 조건:" in text for text in md.texts):
+        return
+    allowed_lines = {b.line for b in md.bullets}
+    excluded = [(f.line, f.end) for f in md.fences] + list(md.html_ranges)
+    for number, line in enumerate((ROOT / path).read_text().splitlines(), 1):
+        if "버전 조건:" not in line:
+            continue
+        if any(start <= number <= end for start, end in md.blockquote_ranges):
+            continue
+        if any(start <= number <= end for start, end in excluded):
+            continue
+        if number in allowed_lines:
+            continue
+        yield Finding("version-condition-place",
+                      f"{number}행: 버전 조건이 인용 블록도 불릿도 아닌 자리에 "
+                      "있습니다(SCHEMA §3)", kb, path)
 
+
+def _check_frontmatter_consistency(kb: str, path: str, md: MdFile, front: dict):
     if front.get("stale_after") and any("버전 조건:" in text for text in md.texts):
         yield Finding("version-condition-stale",
                       "버전 조건이 있는데 stale_after도 있습니다 — 버전 조건이 시효를 "
@@ -204,6 +251,8 @@ def check_page(ctx: Context, path: str, md: MdFile):
                       "synthesis에 sources 선언이나 각주가 있습니다 — 각주 달린 주장은 "
                       "concept 소관입니다(SCHEMA §5)", kb, path)
 
+
+def _check_inline_tokens(ctx: Context, kb: str, path: str, md: MdFile):
     for text in md.texts:
         if "confidence:" in text or "확신도:" in text:
             yield Finding("numeric-confidence",
@@ -223,8 +272,35 @@ def check_page(ctx: Context, path: str, md: MdFile):
             yield Finding("wikilink",
                           f"Obsidian 전용 문법 {match.group()} — GFM 부분집합만 씁니다", kb, path)
 
-    yield from check_snapshot(kb, path, front)
-    yield from check_progress(kb, path, front, ctx.progress_validator)
+
+def _check_time_relative_wording(ctx: Context, kb: str, path: str, md: MdFile):
+    # 시점 상대 낱말 — 인용 블록 밖 산문만, 페이지·낱말당 한 건(개수 포함)으로 묶는다.
+    hits: dict[str, int] = {}
+    for text in md.prose_texts:
+        if "저술 시점" in text:
+            continue
+        for word in ctx.time_relative:
+            if n := _count_word(text, word, ctx.time_relative_except):
+                hits[word] = hits.get(word, 0) + n
+    for word, n in sorted(hits.items()):
+        yield Finding("time-relative-wording",
+                      f"읽는 시점 상대 낱말 '{word}' {n}회 — 각주 소스의 issued 연도로 "
+                      f"'20XX년 저술 시점에'라 못 박습니다(SCHEMA §3)", kb, path)
+
+def _count_word(text: str, word: str, excepts: frozenset[str]) -> int:
+    """`word`의 출현 수 — 다만 그 자리가 예외 합성어(`현대화`)의 앞부분이면 세지 않는다.
+
+    한국어는 낱말 경계 문자가 없어 `현대적`(시점 뜻)과 `현대화`(기술 명사)를 경계로 가를 수
+    없다. 그래서 예외는 폐쇄 목록(schema/vocabulary.yaml)이고, 판별은 그 목록의 문자열
+    일치뿐이다 — 문자 집합·리터럴 일치라 PLAN §3이 허용하는 정규 언어 검증에 든다.
+    """
+    count, start = 0, 0
+    while (i := text.find(word, start)) != -1:
+        start = i + len(word)
+        if any(exc.startswith(word) and text.startswith(exc, i) for exc in excepts):
+            continue
+        count += 1
+    return count
 
 
 def _inline_dollar_math(text: str) -> bool:
