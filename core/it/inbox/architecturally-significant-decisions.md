@@ -315,7 +315,8 @@ sources:
   [서비스 수준 목표](../concepts/service-level-objectives.md)가 **지표를 약속으로 바꾸는 형식**을
   갖고 있고, 이 장의 사용자 스토리 양식은 **그 약속을 요구사항 쪽에서 적는 형식**이다. 두 형식이
   같은 수(500밀리초·99%)를 다른 자리에 적는다. **두 소스는 서로를 호명하지 않는다.** 이 책의 CFR
-  전문은 9장 몫이다.
+  전문은 [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md)에 있고,
+  거기서 그 정의 칸이 백분위 셋으로 적힌다는 것이 실측된다.
 - **테스트 가능한 기준을 요구한다는 점이 적합도 함수와 같은 모양이다** —
   [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)도 **아키텍처 특성에 대한
   객관적 평가**를 요구하고, 이 장도 **CFR에 인수 기준이 없으면 유의함을 말할 수 없다**고 적는다.
@@ -333,6 +334,8 @@ sources:
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 같은 결정을 다른
   잣대로 재는 축
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 유의한 결정 안에서의 계산
+- [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md) — 같은 책이 이
+  양식을 CFR 자체의 표준 형식으로 다시 쓰는 자리
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 인수 기준을 기계가
   거는 자리
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 같은 수를 약속 쪽에서 적는 형식

@@ -117,8 +117,8 @@ sources:
   [^harmellaw2024]
   - **그리고 이해관계가 다르다** — **문제가 생기면 해고되거나 심지어 법정에 서게 되는 사람이 그
     도메인 전문가인 경우가 잦다.** 이 요인들이 합쳐져 **그들이 아는 것을 CFR 묶음으로 담아 내고
-    그들을 제 일로 돌려보낼 수는 없다**는 결론이 나온다 (8장, p.198).[^harmellaw2024] CFR을 다루는
-    것은 9장 몫이다.
+    그들을 제 일로 돌려보낼 수는 없다**는 결론이 나온다 (8장, p.198).[^harmellaw2024] CFR의 전문은
+    [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md)에 있다.
 - **그래서 요구되는 것** — **이 전문가들이 결정이 취해지기 전에 만들어지는 모든 아키텍처 결정을
   자각하고 필요에 따라 자기 전문성을 기여할 큰 필요**가 있다. **그들이 자기 도메인의 현재 최신
   상태에 비추어 제안된 아키텍처 결정을 해석할 수 있게 대기해야 하는데, 그것을 할 수 있는 유일한
@@ -421,7 +421,10 @@ sources:
     모두와 그들이 하는 모든 일에 워낙 명시적이고 배어 있어 보충할 필요가 없을 때가 있고, 모든 것이
     그냥 "일어난다".** **그러나 그런 상황은 드물다** (8장, p.207).[^harmellaw2024]
   - **그래서 9장이 다음 보조 요소로 온다** — **모두를 정렬된 채로 유지하는 수단, 곧 검증 가능한
-    CFR과 실행 가능한 기술 전략**이다 (8장, p.207).[^harmellaw2024]
+    CFR과 실행 가능한 기술 전략**이다 (8장, p.207).[^harmellaw2024] 그 셋이
+    [조직 정렬과 최소 실행 가능한 합의](organizational-alignment-and-agreement.md)와
+    [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md)과
+    [실행 가능한 기술 전략](actionable-technology-strategy.md)이다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -434,7 +437,11 @@ sources:
 - **"종단 간 응답 시간과 오류 예산은 아키텍트에게만 제한되면 안 된다"는 이 절의 실물이
   [비기능 요건](../synthesis/nonfunctional-requirements.md) 축이 다루는 그 수치들이다.** 겨루지
   않는다 — 저쪽은 **그 수치를 무엇으로 정의하고 어떻게 재는가**를 묻고 이 절은 **그 수치를 누가 볼
-  수 있어야 하는가**를 묻는다. **이 책에서 그 값을 세우는 일은 9장 몫이다.**
+  수 있어야 하는가**를 묻는다. **이 책에서 그 값을 세우는 일은
+  [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md)이 맡는데, 거기서도
+  "오류 예산"이라는 낱말은 쓰이지 않는다** — 이 책 전권에 그 낱말은 이 한 번뿐이다(전수 실측).
+  9장이 그 자리에 놓는 것은 **응답 시간 예산에서 자기 팀 몫의 할당**이고, 그것을 모두가 알고 있어야
+  한다는 요구가 [조직 정렬과 최소 실행 가능한 합의](organizational-alignment-and-agreement.md)에 있다.
 - **"가상 중앙집중화"로 소집되는 타이거 팀은
   [팀 규모와 소유권 모형](../concepts/team-ownership-models.md)의 팀 편성 논의와 대상이 같고 기간이
   다르다.** 저쪽은 **상설 팀의 소유권 모형**을 다루고 이 절은 **문제 하나를 위해 모였다 흩어지는
@@ -459,6 +466,11 @@ sources:
   보조 요소로 예고되는 자리
 - [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 이 포럼이 기르려는
   그 신뢰. 무엇을 더하기 전에 동기를 점검하라는 조건도 거기 있다
+- [조직 정렬과 최소 실행 가능한 합의](organizational-alignment-and-agreement.md) — 다음 장. 이 장이
+  과소 대표했다고 밝히는 그 정렬
+- [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md) — 이 장이 미루는
+  CFR의 전문
+- [실행 가능한 기술 전략](actionable-technology-strategy.md) — 그 짝인 "어떻게" 쪽
 - [아키텍처 어드바이스 프로세스](architecture-advice-process.md) — 조언을 구할 두 집단의 규정
 - [ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md) — 첫 포럼 전에 세워 두라는 템플릿
 - [결정을 취한 ADR을 완성하고 관리하기](completing-and-curating-adrs.md) — 첫 포럼 전에 비워 둔 채

@@ -255,6 +255,11 @@ sources:
     대신 검증하는가**를 답하지 않고 **검증 가능한 CFR**(9장)로 미룬다.
     [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가 그 자리를 다른 소스에서
     채운다. **두 소스는 서로를 호명하지 않는다.** #hypothesis
+    - **9장이 실제로 내놓는 답은
+      [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md)에 있다** —
+      **인수 기준을 붙인 CFR**이고, 그 인수 기준을 **자동 테스트로 돌릴지 수동으로 돌릴지, 빌드
+      파이프라인에서 돌릴지 프로덕션에서 돌릴지는 열어 둔다.** **이 책 전권에 "적합도 함수"라는
+      낱말이 0건**이라는 것도 거기서 실측했다.
 - **"모호하고 검증 불가능한 CFR 스프레드시트"라는 이 장의 비판은
   [비기능 요건](../synthesis/nonfunctional-requirements.md) 축이 다루는 그 요건과 같은 것을
   가리킨다.** 겨루지 않는다 — 이 장이 치는 것은 **요건 자체가 아니라 검증 불가능한 형태**이고,
@@ -294,6 +299,11 @@ sources:
   이 장이 그것을 ADR의 저자 자리에 못 박는다
 - [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md) — "필수 하나에 선택 넷"을
   세어 둔 자리
+- [조직 정렬과 최소 실행 가능한 합의](organizational-alignment-and-agreement.md) — 이 부가 예고하는
+  둘째 보조 요소가 왜 필요한가
+- [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md) — 그 요소의 "무엇" 쪽.
+  이 장이 미룬 "무엇이 대신 검증하는가"의 답
+- [실행 가능한 기술 전략](actionable-technology-strategy.md) — 그 요소의 "어떻게" 쪽
 - [ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md) — 감당하는 사람의 이름이 적히는 저자 자리
 - [결정을 취한 ADR을 완성하고 관리하기](completing-and-curating-adrs.md) — 6장 결론이 보조 요소를
   다음 부 몫으로 미루는 자리
