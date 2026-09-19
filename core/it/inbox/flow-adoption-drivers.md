@@ -311,6 +311,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 이 구동 요인을 **내
+  조직의 어느 통합 문제에서 찾을 것인가**로 옮기는 자리
 - [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 같은 장의 뒤쪽 절반.
   조직이 이것을 원하게 되었다고 할 때 **무엇이 그 채택을 떠받치고 채택이 무엇을 낳는가**
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 이 페이지가 업무 근거를 붙이는

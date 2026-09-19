@@ -36,6 +36,10 @@ sources:
   도입부가 개관을 예고했으나 그 장 본문에 개관이 없었다(실측 기록은
   [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md)). **범위 전권을
   읽은 실측으로 넷의 규정과 그림과 과제 분석은 5장 이 절에 있다.**
+- **6장이 이 넷을 다시 쓰되 규정을 더하지 않는다** — 같은 책 6장이 업무 사용 사례 범주 넷에 각각
+  해당하는 플로 패턴을 대는데, 저자 자신이 **그 범주들이 이 패턴 넷을 보완하되 완벽하게 정렬되지는
+  않는다**고 미리 적는다. 그림 6-1이 이 넷을 한 장에 다시 모은다 (6장, pp.137·138).[^urquhart2021]
+  대응표는 [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md)에 있다.
 - **네 가상 사례가 여기서 되불린다** — Distributor의 예로 1장의 WeatherFlow, Signal의 예로 Real Time
   Economy, Facilitator의 예로 LoadLeader다. **Collector 자리의 AnyRent만 이 절에서 이름으로 불리지
   않는다** (5장, pp.128·129·130·132).[^urquhart2021]
@@ -248,6 +252,9 @@ sources:
 
 ## 이어지는 페이지
 
+- [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md) — 이 패턴 넷이 업무 사용
+  사례 범주 넷에 대응되는 자리. **그림 6-1이 넷을 한 장에 다시 모으고 Collector의 소비자 수 표기가
+  여기와 같은 어긋남을 되풀이한다**
 - [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 같은 장의 첫째 자리. 지도
   위의 이동과 게임플레이와 관성
 - [플로 요구가 남긴 공백](flow-requirement-gaps.md) — 같은 장의 둘째 자리. 요구 다섯이 남긴 공백과
@@ -275,6 +282,8 @@ sources:
     §"Flow Requirements, Challenges, and Opportunities"(pp.108–128)와 §"The Unexpected"(pp.133–134)는
     [플로 요구가 남긴 공백](flow-requirement-gaps.md)이 맡는다. 이 범위에 내용 각주와 표와 곁상자는
     없다.
+    **6장이 이 넷을 되부르는 대목(pp.137·138)도 이 페이지가 한 줄로 든다** — 그 범위의 정본은
+    [업무에서 플로를 식별하고 모델링하기](flow-use-cases-and-modeling.md)다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측).
     **제목 층은 `pdftotext -bbox` 글자 높이로 갈랐다** — 절 제목 22.7, 소절 제목 18.9, 본문 14.2,
     그림 캡션 14.3이다. 이 범위에 셋째 층 소제목은 없다.
