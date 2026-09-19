@@ -233,6 +233,9 @@ sources:
   사이에 그은 선이 옳은지 검증하는 자리
 - [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 기법을 실제로 한 지형에 적용한
   결과. 범위 진술과 사용자 요구와 구성 요소 아홉과 그 진화 배치
+- [플로 구성 요소의 진화 예측](flow-component-evolution-forecast.md) — 이 기법의 **게임플레이**가
+  이 KB에서 처음 서술되는 자리. 워들리가 식별한 행동 예순하나와 범주 열하나, 그리고 관성을 실선
+  막대로 그리는 표기가 거기 있다
 - [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 같은 철자를 한 체계의 변경 능력에
   쓰는 쪽
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 같은 물음을 도구 선택의 기준으로
