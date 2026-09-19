@@ -385,6 +385,8 @@ sources:
 
 ## 이어지는 페이지
 
+- [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md) — 같은 책 10장이 이
+  형식의 맨 위에 적용 원칙 목록 한 절을 더하라고 처방하는 자리
 - [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md) — 책임과 감당이
   어디로 옮겨 가고 전통 거버넌스 실천에 무슨 일이 생기는가
 - [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 그렇게 비워진

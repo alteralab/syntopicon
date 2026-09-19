@@ -343,6 +343,14 @@ sources:
   [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md)의 "강제하지 않는다"와
   방향이 같다.** 대상이 다르다 — 저쪽은 **경로를 제공하되 쓰라고 강제하지 않고**, 이 장은
   **결과를 요구하되 경로를 정하지 않는다.**
+- **같은 책 10장이 CFR과 아키텍처 원칙을 가르는 잣대 셋을 준다**(10장, p.244).[^harmellaw2024]
+  **CFR은 아주 특정하고 원칙은 훨씬 일반적**이며, **CFR은 협상 불가능하고 원칙은 맹목적으로 따를
+  것이 아니며**, **CFR은 "무엇"을 말하고 "어떻게"는 말하지 않는 반면 원칙은 그 반대**다. 저자는
+  **원칙이 변장한 CFR일 수 있다**고 적고 그것을 알아보는 법으로 이 셋을 든다. 대조표 전량은
+  [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)에 있다.
+  - **거꾸로 가는 길도 같은 장에 있다** — **ADR 안에 숨어 있던 CFR을 끄집어내 CFR 백로그에 넣은
+    사례**이고, 그 CFR이 이 장의 사용자 스토리 양식으로 적힌다.
+    [원칙을 펴내고 살아 있게 두기](keeping-principles-useful.md)의 곁상자다.
 - **CFR의 하위 유형 열이 이 KB의 [비기능 요건](../synthesis/nonfunctional-requirements.md) 허브의
   절 구성과 거의 겹친다**(실측). 허브에 절로 선 것이 성능·신뢰성·관측 가능성·보안·확장성·
   유지보수성이고, 이 목록의 열 가운데 **법률/규제와 접근성/사용성과 비용과 통합성/확장성 넷은
@@ -355,6 +363,10 @@ sources:
   앞절. CFR이 어느 합의 수단인지 자리를 정하는 곳
 - [실행 가능한 기술 전략](actionable-technology-strategy.md) — 같은 장의 다음 절. "어떻게"를
   맡는 반대편 끝
+- [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md) — 같은 책이 CFR과 가르는
+  반대편 수단
+- [원칙을 펴내고 살아 있게 두기](keeping-principles-useful.md) — ADR에 숨어 있던 CFR이
+  끌려 나오는 자리
 - [아키텍처 결정의 규정과 다섯 범주](architectural-decision-defined.md) — 이 이름을 고른 근거와
   조어의 출처
 - [아키텍처적으로 유의한 결정](architecturally-significant-decisions.md) — 같은 두 양식이
@@ -373,7 +385,12 @@ sources:
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 요건들이 사는 축
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
 
-[^harmellaw2024]: Harmel-Law 2024, 9장 "Testable CFRs and Technology Strategy" 가운데
+[^harmellaw2024]: Harmel-Law 2024. 본문은 9장이고 **마지막 대비 절의 한 항목만 같은 책 10장
+    §"Principles Can Be Cross-Functional Requirements in Disguise"(pp.244–245)와 곁상자
+    "New CFRs Can Also Arise from the Advice Process"(p.270)를 인용한다** — 그 상술은
+    [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)과
+    [원칙을 펴내고 살아 있게 두기](keeping-principles-useful.md)가 갖는다. 9장 "Testable CFRs
+    and Technology Strategy" 가운데
     §"Minimum Viable Agreement"의 소절 §"Cross-Functional Requirements"(pp.220–230,
     **목차에 없는 소소절 둘** §"CFR example 1: A testable access logging requirement"(pp.222–225) ·
     §"CFR example 2: Multiple testable performance requirements"(pp.225–230) 포함).

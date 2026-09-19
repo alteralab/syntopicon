@@ -422,6 +422,8 @@ sources:
   내놓는 답. 단 하나의 규칙과 사회적 계약, 그리고 이 그래프의 빈 사분면을 채우는 논증
 - [결정 프로세스의 단계와 권한의 자리](decision-process-stages.md) — 같은 장의 앞절. 여기서
   누구를 참여시키는지를 가르는 그 세 걸음
+- [원칙을 펴내고 살아 있게 두기](keeping-principles-useful.md) — 같은 책 10장이 민주와 동의
+  둘을 원칙 개정의 채택 프로세스로 지목하는 자리
 - [아키텍처적으로 유의한 결정](architecturally-significant-decisions.md) — 이 프로세스들이 다룰
   결정을 고르는 잣대
 - [아키텍처 결정의 규정과 다섯 범주](architectural-decision-defined.md) — 그 잣대의 다섯 기준
