@@ -491,6 +491,9 @@ sources:
   그것을 채울 구성 요소를 찾아 진화 축에 배치하는 자리. 여기의 인터페이스와 프로토콜이 거기서 각각
   두 하위 구성 요소로 갈리고, 값어치가 생기는 자리인 플로 상호작용이 소스와 프로세서와 큐와 싱크
   넷으로 갈린다
+- [2021년 스트리밍 시장의 플로 구성 요소 대응](streaming-market-mapped-to-flow.md) — 표 1-1이 이름만
+  적어 둔 플로 패턴 넷(Distributor·Collector·Signal Processor·Facilitator)을 4장이 다시 예고하되
+  본체는 5장에 둔다는 실측이 거기 있다. 저술 시점의 아키텍처가 그 구성 요소에 어떻게 대응하는지도
 - [이벤트 스트림과 이벤트 브로커](../concepts/event-streams-and-brokers.md) — 이벤트와 이벤트
   스트림을 브로커 쪽에서 규정하는 자리, 그리고 이 책이 거기 붙이는 데이터 스트림과의 경계
 - [소통 구조 셋](../concepts/communication-structures.md) — 같은 기제를 한 조직 안의 문제로 세우는 쪽
