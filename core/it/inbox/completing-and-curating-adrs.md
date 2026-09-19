@@ -192,7 +192,11 @@ sources:
   될 수 있다** (6장 §"Conclusion", p.157).[^harmellaw2024]
   - **저자가 곧바로 한계를 단다** — **이 하나의 추가 요소가 어드바이스 프로세스를 보완해 그것이
     돌아갈 공간과 모든 당사자 사이에 신뢰가 자랄 공간을 열지만 모든 우려를 고치지는 않는다.**
-    **II부가 네 개의 떠받치는 요소를 들이고 각각이 특정한 문제를 완화한다.**
+    **II부가 네 개의 떠받치는 요소를 들이고 각각이 특정한 문제를 완화한다.** 그 넷의 이름은
+    [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md)가 받고,
+    첫째 요소의 실물은
+    [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md)이 갖는다 — 그 장이
+    **포럼 의제 기록을 이 ADR 라이브러리 바로 옆에 두라**고 적는다.
 
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
@@ -216,6 +220,16 @@ sources:
 
 ## 이어지는 페이지
 
+- [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md) — 책임과 감당이
+  어디로 옮겨 가고 전통 거버넌스 실천에 무슨 일이 생기는가
+- [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 그렇게 비워진
+  공간을 무엇이 채우고 어떻게 지키는가
+- [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md) — 첫째 보조 요소의 규정과
+  의제와 운영 절차
+- [어드바이스 포럼이 낳는 집단 역학](advice-forum-group-dynamics.md) — 그 포럼에서 세 역할이 각각
+  무엇을 겪는가
+- [포럼이 잇는 개념 무결성과 사회적 응집](advice-forum-cohesion-and-rollout.md) — 그 포럼이 조직
+  수준에서 무엇을 하고 첫 포럼을 어떻게 여는가
 - [ADR을 써 가며 결정을 빚기](deciding-with-adrs.md) — 같은 장의 앞부분. 여기까지 오는 네 걸음과
   조언을 구하고 반영하는 절차
 - [ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md) — 여기서 확정하는 상태와 자리들의 규정

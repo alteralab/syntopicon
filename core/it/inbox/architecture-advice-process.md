@@ -309,6 +309,16 @@ sources:
 
 ## 이어지는 페이지
 
+- [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md) — 책임과 감당이
+  어디로 옮겨 가고 전통 거버넌스 실천에 무슨 일이 생기는가
+- [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 그렇게 비워진
+  공간을 무엇이 채우고 어떻게 지키는가
+- [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md) — 첫째 보조 요소의 규정과
+  의제와 운영 절차
+- [어드바이스 포럼이 낳는 집단 역학](advice-forum-group-dynamics.md) — 그 포럼에서 세 역할이 각각
+  무엇을 겪는가
+- [포럼이 잇는 개념 무결성과 사회적 응집](advice-forum-cohesion-and-rollout.md) — 그 포럼이 조직
+  수준에서 무엇을 하고 첫 포럼을 어떻게 여는가
 - [조언의 중심성과 책임의 자리](advice-and-accountability.md) — 같은 장의 뒷절. 이 프로세스가
   실제로 도는 모습 둘과 조언이 의견과 무엇이 다른가, 그리고 책임이 어디에 붙는가
 - [규모의 결정 프로세스](decision-processes-at-scale.md) — 이 프로세스가 답하려는 요건 넷이

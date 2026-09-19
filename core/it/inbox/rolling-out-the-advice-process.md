@@ -39,7 +39,11 @@ sources:
   시킨다는 것이다 (5장, p.101).[^harmellaw2024]
   - **그 추가 요소의 수를 저자가 여기서 미리 센다** — **필수 하나에 그것을 떠받치는 선택 넷**
     이다 (5장, p.101).[^harmellaw2024] 필수 하나가 ADR이고
-    ([ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md)) 선택 넷은 뒤의 부가 갖는다.
+    ([ADR의 형식과 수명 주기](adr-structure-and-lifecycle.md)), **선택 넷은 어드바이스 포럼과
+    검증 가능한 CFR·기술 전략과 집단이 만드는 원칙과 기술 레이더**다 —
+    [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md)가 그 넷의
+    이름을 받는 자리이고, 첫째 요소의 실물은
+    [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md)이 갖는다.
 
 ## 이미 결정권을 쥐고 있다면
 
@@ -447,6 +451,16 @@ sources:
 
 ## 이어지는 페이지
 
+- [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md) — 책임과 감당이
+  어디로 옮겨 가고 전통 거버넌스 실천에 무슨 일이 생기는가
+- [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 그렇게 비워진
+  공간을 무엇이 채우고 어떻게 지키는가
+- [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md) — 첫째 보조 요소의 규정과
+  의제와 운영 절차
+- [어드바이스 포럼이 낳는 집단 역학](advice-forum-group-dynamics.md) — 그 포럼에서 세 역할이 각각
+  무엇을 겪는가
+- [포럼이 잇는 개념 무결성과 사회적 응집](advice-forum-cohesion-and-rollout.md) — 그 포럼이 조직
+  수준에서 무엇을 하고 첫 포럼을 어떻게 여는가
 - [아키텍처 어드바이스 프로세스](architecture-advice-process.md) — 여기서 도입하는 그 프로세스의
   규정. 하나의 규칙과 조언을 주는 두 집단과 사회적 계약
 - [어드바이스 프로세스가 도는 두 사례](advice-process-in-action.md) — 그 규칙이 실제로 돌 때의
