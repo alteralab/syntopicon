@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 소유권 선출 패턴
-status: draft
 description: 서빙 패턴 묶음의 다섯째이자 III부의 마지막 — 마스터 선출을 배정의 확장 문제이자 소유권 문제로 규정하는 이 책 고유의 틀, 가장 쉬운 답인 단일 레플리카와 그 가용성을 오케스트레이터의 보장 셋으로 계산한 산수와 배포 시간이 그 산수를 되돌리는 자리, 합의 알고리즘을 직접 구현하지 말라는 판정과 그 자리를 키-값 스토어에 외주 주는 처방, CAS와 TTL만으로 분산 잠금을 세우는 절차와 TTL이 들여오는 언락 버그와 리소스 버전이라는 해법, 오래 쥐는 소유권을 위한 갱신 가능한 리스와 절반 주기 갱신과 잃었을 때 프로세스를 죽이는 처방, 두 소유자가 겹치는 짧은 구간이 완전히 없어지지 않는다는 인정과 호출받는 쪽이 소유자를 되확인하는 배치와 요청마다 리소스 버전을 실어 보내는 마무리, 최대 한 번인가 최소 한 번인가의 선택, 그리고 이 지식 베이스의 합의·펜싱·리더 선출 원전들과의 정박 관계와 2판이 라이브러리를 처방한다는 실측
 generated: { by: "claude-opus-5", at: "2026-09-19T18:30:00Z" }
 sources:
@@ -440,9 +439,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 속한 카탈로그와 III부의 자리
-- [함수와 이벤트 기반 처리 패턴](function-and-event-driven-processing-pattern.md) — 같은 묶음의
+- [함수와 이벤트 기반 처리 패턴](../concepts/function-and-event-driven-processing-pattern.md) — 같은 묶음의
   넷째
 - [샤딩된 서비스 패턴](sharded-service-pattern.md) — 이 장이 소유권의 앞선 사례로 되짚는 자리
 - [스캐터/개더 서빙 패턴](scatter-gather-serving-pattern.md) — III부가 확장하던 앞의 축 셋 가운데

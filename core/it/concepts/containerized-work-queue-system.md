@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 컨테이너 단위 워크 큐 체계
-status: draft
 description: 배치 계산 패턴 묶음의 첫째 — 이 책이 워크 큐라 부르는 것이 메시징 카탈로그의 경쟁 소비자도 자바 실행자의 작업 큐도 아니라는 층 대조, 로직 대부분이 실제 작업과 무관하다는 관찰에서 나오는 재사용 가능한 라이브러리 컨테이너와 사용자 컨테이너의 경계, 두 개의 인터페이스 규정과 소스 쪽이 앰배서더로 서는 배치, 완료 기록을 일부러 넣지 않은 HTTP API 두 URL과 처음부터 판을 붙이라는 곁상자, 워커 쪽만 파일 기반 API를 쓰는 세 이유와 ConfigMap 마운트, 저장소를 스스로 두지 않고 쿠버네티스 Job과 어노테이션에 상태를 맡기는 알고리즘 네 단계, 도착 간격과 처리 지연으로 안정 조건을 세우는 산수와 병렬도로 나누는 보정과 축소 때의 90퍼센트 어림과 KEDA, 어댑터의 특수화로 규정되는 멀티워커 패턴, 도판에만 있는 것 넷과 캡션의 색 설명이 그림과 뒤집혀 있다는 실측, 그리고 이 장의 요약이 이 장을 요약하지 않는다는 실측
 generated: { by: "claude-opus-5", at: "2026-09-19T21:00:00Z" }
 sources:
@@ -33,7 +32,7 @@ sources:
 체계의 어느 부분까지를 미리 만들어 둔 컨테이너로 돌려 쓸 수 있는가.**
 
 이 페이지는 이 책 IV부의 첫 장이다. IV부가 무엇을 묶는지는
-[컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md)에 있다.
+[컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md)에 있다.
 
 ## 워크 큐라는 낱말이 이 지식 베이스에서 이미 가리키던 것들
 
@@ -110,7 +109,7 @@ sources:
   이것은 **앰배서더 패턴의 사례**다. **일반 워크 큐 컨테이너가 주 애플리케이션 컨테이너이고,
   응용에 매인 소스 컨테이너가 앰배서더**로서 일반 워크 큐의 요청을 바깥 세상의 구체적인 큐 정의로
   중계한다 (11장, p.120).[^burns2025] 앰배서더 자체의 규정은
-  [앰배서더 컨테이너 패턴](ambassador-container-pattern.md)에 있다.
+  [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md)에 있다.
 - **그런데 앰배서더도 대개는 사서 쓰는 것이다** — 앰배서더 컨테이너가 분명히 응용에 매여 있는데도
   **워크 큐 소스 API의 일반 구현이 여러 가지 있다.** 저자가 드는 예가 셋이다 — **클라우드 스토리지
   API에 저장된 사진 목록, 네트워크 스토리지에 저장된 파일 모음, 그리고 카프카나 레디스 같은
@@ -258,7 +257,7 @@ p.122).[^burns2025]
   일종의 특수화**다. 이 패턴은 **서로 다른 워커 컨테이너의 모음을 워커 인터페이스를 구현하는 하나의
   통합 컨테이너로 변환하되, 실제 작업은 재사용 가능한 여러 컨테이너에 위임한다** (11장,
   p.129).[^burns2025] 어댑터 자체의 규정은
-  [어댑터 컨테이너 패턴](adapter-container-pattern.md)에 있다.
+  [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md)에 있다.
 - **얻는 것은 두 가지로 적힌다** — 코드 재사용이 늘고 **배치 지향 분산 시스템을 설계하는 사람의
   수고가 준다** (11장, p.129).[^burns2025]
 - **이 패턴이 11장에 있다는 것을 적어 둔다.** 13장이 두 자리에서 이 패턴을 부르며 **"12장에서
@@ -349,14 +348,14 @@ p.122).[^burns2025]
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 카탈로그의 기획과 IV부가 놓인 자리
 - [이벤트 기반 배치 처리 패턴](event-driven-batch-processing-patterns.md) — IV부의 둘째. 워크 큐
   여럿을 이어 붙이는 다섯 패턴과 워크 큐의 내구성
 - [조율된 배치 처리 패턴](coordinated-batch-processing-patterns.md) — IV부의 셋째. 일감의
   독립성이라는 이 장의 전제가 깨지는 자리
-- [앰배서더 컨테이너 패턴](ambassador-container-pattern.md) — 소스 컨테이너가 서는 자리의 규정
-- [어댑터 컨테이너 패턴](adapter-container-pattern.md) — 멀티워커가 특수화하는 패턴
+- [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md) — 소스 컨테이너가 서는 자리의 규정
+- [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md) — 멀티워커가 특수화하는 패턴
 - [사이드카 컨테이너 패턴](sidecar-container-pattern.md) — 매개변수화로 재사용 가능한 컨테이너를
   만드는 규정
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —

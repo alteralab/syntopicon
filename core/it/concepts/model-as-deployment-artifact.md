@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 배포 산출물로서의 모델
-status: draft
 description: 추론을 분산 시스템이 제공하는 또 하나의 함수로 놓고 모델을 배포되고 캐시되고 점진적으로 노출되는 산출물로 다루는 자리 — 프레임워크마다 다른 파일 형식과 그것을 가로지르는 공개 형식, 모델 허브가 컨테이너 이미지 레지스트리와 같은 자리에 선다는 유비, 모델이 커서 시작할 때마다 받으면 시작에 몇 분이 붙으므로 공유 저장소나 인메모리 키-값 저장소에 캐시해 모든 추론 인스턴스가 같은 캐시에서 적재하게 하라는 처방과 그것이 콜드 스타트 논쟁에 더하는 것, 모델 변경도 코드 변경과 같은 안전 배포를 거쳐 사용자의 작은 부분집합부터 점진 노출해야 한다는 조문, 그리고 추론 API에 모델 매개변수를 두어 개발·테스트 환경은 값싼 작은 모델을 프로덕션은 전체 모델을 가리키게 하는 배치 — 이 KB의 두꺼운 AI 축이 성능과 아키텍처로 묻던 것을 배포와 운영의 물음으로 다시 세우는 얇은 자리
 generated: { by: "claude-opus-5", at: "2026-09-19T15:45:00Z" }
 sources:
@@ -75,7 +74,7 @@ sources:
   비슷하다**는 것이다 (15장, p.174).[^burns2025]
   - **이 유비가 이 책 1장의 셋째 값어치를 모델에 거는 자리다** — 그쪽이
     **쉬운 재사용을 위한 공유 컴포넌트**를 패턴의 값어치로 세우고 컨테이너 이미지를 그 실물로
-    들었다([컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md)).
+    들었다([컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md)).
     **다만 이 장은 그 자리를 가리키지 않는다**(실측) — 이 연결은 이 지식 베이스가 세운
     것이다. #hypothesis
 - **허브가 주는 것이 배포만은 아니다** — 저자가 드는 허브 하나는 **모델 배포뿐 아니라 모델을
@@ -105,7 +104,7 @@ sources:
 
 **이 지식 베이스에 이미 있는 갈고리에 이 절이 정확히 걸린다.**
 
-- [함수와 이벤트 기반 처리 패턴](function-and-event-driven-processing-pattern.md)이 같은 책 9장을
+- [함수와 이벤트 기반 처리 패턴](../concepts/function-and-event-driven-processing-pattern.md)이 같은 책 9장을
   담고 있고, 거기서 **FaaS를 쓰지 말아야 할 둘째 자리**가 메모리에 얹을 데이터가 많을 때다.
   그 페이지가 세운 가름이 **런타임이 떠오르는 시간**과 **떠오른 뒤 애플리케이션이 데이터를
   메모리에 적재하는 시간**의 구분이었고, 이 책 9장은 뒤엣것에 대해 아무 수치도 적지 않았다.
@@ -234,12 +233,12 @@ sources:
 - [모델 게이트웨이](../concepts/model-gateway.md) — 모델 앞에 층을 하나 두는 같은 배치의 더 넓은 판
 - [배포와 릴리스의 분리](../concepts/deployment-and-release-separation.md) — 점진 노출의 어휘가
   사는 자리
-- [함수와 이벤트 기반 처리 패턴](function-and-event-driven-processing-pattern.md) — 같은 책
+- [함수와 이벤트 기반 처리 패턴](../concepts/function-and-event-driven-processing-pattern.md) — 같은 책
   9장. **적재 시간이라는 갈고리가 걸린 자리**
 - [복제 로드 밸런스 서비스 패턴](replicated-load-balanced-service-pattern.md) — 같은 책 6장.
   복제본 전부가 함께 읽는 캐싱 계층
 - [AI를 심판으로 쓰기](../concepts/ai-as-a-judge.md) — 이 장이 한 문단으로 훑는 품질 평가의 원전
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 장이 속한 V부의 자리
 - [AI 애플리케이션 아키텍처](../synthesis/ai-application-architecture.md) — 이 페이지가 걸린 허브
 

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 분할·집계·재정렬 패턴
-description: "메시지의 개수와 순서를 바꾸는 세 라우터 — 복합 메시지를 자기 완결적인 자식 메시지로 쪼개는 Splitter와 그 두 갈래(반복·정적), 상관·완료 조건·집계 알고리즘 셋을 정해야 하는 상태 있는 Aggregator와 완료 조건 다섯 전략·집계 알고리즘 세 전략·닫힌 집합체의 정리 문제, 그리고 병렬 처리가 깨뜨린 순서를 버퍼에 모아 되돌리는 Resequencer와 연속 순번·버퍼 오버런 대책"
+description: "메시지의 개수와 순서를 바꾸는 세 라우터 — 복합 메시지를 자기 완결적인 자식 메시지로 쪼개는 Splitter와 그 두 갈래(반복·정적), 상관·완료 조건·집계 알고리즘 셋을 정해야 하는 상태 있는 Aggregator와 완료 조건 다섯 전략·집계 알고리즘 세 전략·닫힌 집합체의 정리 문제, 그리고 병렬 처리가 깨뜨린 순서를 버퍼에 모아 되돌리는 Resequencer와 연속 순번·버퍼 오버런 대책, 그리고 2025년의 분산 시스템 패턴 카탈로그 하나가 Splitter라는 같은 철자로 이 카탈로그의 Content-Based Router에 해당하는 것을 가리킨다는 대조"
 generated: { by: "claude-opus-5", at: "2026-08-17T00:10:00Z" }
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: burns2025, resource: /it/sources/burns2025.md }
 ---
 
 # 분할·집계·재정렬 패턴
@@ -22,6 +23,7 @@ sources:
 - [Resequencer — 병렬 처리가 깨뜨린 순서를 되돌린다](#resequencer--병렬-처리가-깨뜨린-순서를-되돌린다)
 - [순번은 메시지 식별자도 상관 식별자도 아니다](#순번은-메시지-식별자도-상관-식별자도-아니다)
 - [버퍼 오버런을 피하는 세 방법](#버퍼-오버런을-피하는-세-방법)
+- [다른 카탈로그가 같은 철자로 다른 것을 가리킨다](#다른-카탈로그가-같은-철자로-다른-것을-가리킨다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **들어온 메시지의 개수와 순서를 바꾸는 라우터는 무엇을 저장해야 하는가.**
@@ -374,8 +376,26 @@ sources:
   하기 때문이다** (7장, p.288).[^hohpe2004]
 
 
+## 다른 카탈로그가 같은 철자로 다른 것을 가리킨다
+
+**2025년의 분산 시스템 패턴 카탈로그 하나가 "Splitter"라는 이름으로 이 절과 다른 것을 규정한다.**
+그쪽의 분할기는 **일감을 버리지 않고 기준에 따라 서로 다른 큐로 보내는 것**이라 흐르는 항목의 수가
+그대로다.[^burns2025] 이 절의 *Splitter*(259)는 **복합 메시지 하나를 자식 메시지 여럿으로
+쪼개는 것**이라 수가 1에서 여럿으로 는다.
+
+- **그쪽의 분할기에 대응하는 이 카탈로그의 이름은 *Content-Based Router*(230)** 이고, 규정은
+  [메시지 라우팅 패턴](../concepts/message-routing-patterns.md)에 있다.
+- **그쪽 카탈로그는 이 카탈로그를 한 번도 대지 않는다.** 그래서 이름이 겹친 것이 차용인지 우연인지
+  알 수 없다. 그쪽의 다섯 패턴(복사기·필터·분할기·샤더·병합기)을 이 카탈로그의 이름들과 하나씩
+  맞댄 판정표는
+  [이벤트 기반 배치 처리 패턴](../concepts/event-driven-batch-processing-patterns.md)이 갖는다.
+- **겨루지 않는다.** 두 카탈로그가 각자의 대상에 각자의 이름을 붙인 것이고, 규정은 참거짓을
+  다투는 진술이 아니다. 이 절은 그 대조를 적어 둘 뿐 어느 쪽 규정도 고치지 않는다.
+
 ## 이어지는 페이지
 
+- [이벤트 기반 배치 처리 패턴](../concepts/event-driven-batch-processing-patterns.md) — 같은
+  철자에 다른 규정을 붙인 카탈로그와 그 판정표
 - [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — 같은 장의 앞쪽. 개수를 바꾸지 않는 라우터
   넷(Content-Based Router·Message Filter·Dynamic Router·Recipient List)
 - [복합 라우팅 패턴](../concepts/composed-routing-patterns.md) — 이 셋을 조합해 만드는 것. *Splitter*와
@@ -409,3 +429,10 @@ JMS pp.276–282, Resequencer in Microsoft .NET with MSMQ pp.288–293)은 반�
 근거는 저자 자신의 진술이다(Introduction, p.xlv: 예제를 읽는 것은 엄격히 선택이며 관련 논점은
 전부 패턴 서술에 있다). 예제가 개념을 말한 대목만 본문으로 옮겼다(자식 메시지의 자기 완결성
 p.263, Aggregator를 누락 메시지 탐지기로 쓰기 pp.275–276).
+
+[^burns2025]: Burns 2025, *Designing Distributed Systems: Patterns and Paradigms for Scalable,
+Reliable Systems* 2판(O'Reilly, 2025) 12장 "Event-Driven Batch Processing" §"Splitter"(p.134).
+**이 페이지로 옮긴 것은 그쪽 분할기의 규정 한 줄과 그 이름이 이 카탈로그의 것과 다르다는 대조뿐**
+이고, 그 장의 전문과 다섯 패턴을 이 카탈로그와 맞댄 판정표는
+[이벤트 기반 배치 처리 패턴](../concepts/event-driven-batch-processing-patterns.md)이 갖는다. 쪽은 인쇄판
+쪽 번호(본문 = PDF 쪽 − 18, 실측)다.

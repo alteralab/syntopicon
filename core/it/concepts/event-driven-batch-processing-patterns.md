@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 이벤트 기반 배치 처리 패턴
-status: draft
 description: 배치 계산 패턴 묶음의 둘째 — 워크 큐 여럿을 이어 붙인 것을 워크플로라 부르고 그 흐름을 비순환 유향 그래프로 보는 배치, 큐를 잇는 다섯 패턴(복사기·필터·분할기·샤더·병합기)의 규정과 그 다섯이 통합 카탈로그의 이름들과 무엇이 같고 무엇이 다른가의 판정표, 특히 분할기가 같은 이름으로 다른 것을 가리킨다는 실측, 복사기를 신뢰성과 꼬리 지연에 쓰는 이중 처리의 산수, 큐를 무엇 위에 얹을 것인가의 답인 발행 구독 API와 카프카, 그리고 이 장이 뒤늦게 더하는 워크 큐의 내구성 층 — 느린 줄에서 짧은 줄로 옮겨 가는 작업 훔치기와 큐의 뒤에서 가져가는 이유, 워커가 죽었을 때의 숨김과 시간 초과와 멱등성, 워커를 100퍼센트 죽이는 독 일감과 지수 백오프, 그리고 재시도 큐를 따로 두어 새 작업이 밀린 줄 뒤에 서지 않게 하는 우선순위 큐
 generated: { by: "claude-opus-5", at: "2026-09-19T21:20:00Z" }
 sources:
@@ -35,7 +34,7 @@ sources:
 필요한가.**
 
 앞 장의 워크 큐는 입력 하나를 출력 하나로 바꾸는 데까지였다. 그 규정은
-[컨테이너 단위 워크 큐 체계](containerized-work-queue-system.md)에 있다.
+[컨테이너 단위 워크 큐 체계](../concepts/containerized-work-queue-system.md)에 있다.
 
 ## 큐를 이으면 워크플로가 된다
 
@@ -179,7 +178,7 @@ sources:
   경우의 어댑터는 **여러 개의 돌고 있는 소스 컨테이너를 하나의 병합된 소스로 적응시킨다** (12장,
   p.137).[^burns2025] 저자는 그것을 **멀티어댑터 패턴(multiadapter pattern)** 이라 부른다 (12장,
   p.138).[^burns2025] 어댑터의 규정은
-  [어댑터 컨테이너 패턴](adapter-container-pattern.md)에 있다.
+  [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md)에 있다.
 
 ## 큐를 무엇 위에 얹는가
 
@@ -381,19 +380,19 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 워크 큐 체계](containerized-work-queue-system.md) — IV부의 첫째. 이 장이 잇기
+- [컨테이너 단위 워크 큐 체계](../concepts/containerized-work-queue-system.md) — IV부의 첫째. 이 장이 잇기
   시작하는 그 큐
-- [조율된 배치 처리 패턴](coordinated-batch-processing-patterns.md) — IV부의 셋째. 이 장의
+- [조율된 배치 처리 패턴](../concepts/coordinated-batch-processing-patterns.md) — IV부의 셋째. 이 장의
   병합기가 보장하지 못하는 완결성을 세우는 자리
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 카탈로그의 기획
 - [분할·집계·재정렬 패턴](../concepts/splitter-aggregator-resequencer-patterns.md) — 같은 철자에
   다른 규정을 붙인 카탈로그
 - [메시지 라우팅 패턴](../concepts/message-routing-patterns.md) — 이 장의 분할기가 실제로
   대응하는 이름이 있는 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 그 이름 층의 허브
-- [어댑터 컨테이너 패턴](adapter-container-pattern.md) — 병합기가 자기를 귀속시키는 패턴
-- [앰배서더 컨테이너 패턴](ambassador-container-pattern.md) — 필터가 자기를 귀속시키는 패턴
+- [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md) — 병합기가 자기를 귀속시키는 패턴
+- [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md) — 필터가 자기를 귀속시키는 패턴
 - [샤딩된 서비스 패턴](sharded-service-pattern.md) — 같은 낱말이 서빙 쪽에서 가리키는 것
 - [함수와 이벤트 기반 처리 패턴](function-and-event-driven-processing-pattern.md) — 저자가 이
   장의 동작을 견주는 자리

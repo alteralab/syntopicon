@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 복제 로드 밸런스 서비스 패턴
-status: draft
 description: 서빙 패턴 묶음의 첫째 — 모든 서버가 서로 똑같고 아무 클라이언트의 트래픽이나 받을 수 있는 서버 무리 앞에 로드 밸런서를 세우는 배치와 그 규정, 아무리 작은 서비스라도 복제본이 둘은 있어야 하는 이유를 스리 나인 가용성의 산수로 세운 논증, 준비됨 탐침이 재시작이 아니라 로드 밸런서에게 말한다는 구분과 그것이 요구하는 특별한 URL, 같은 사용자의 요청을 같은 복제본으로 보내는 세션 추적과 출발지·목적지 IP 해싱과 NAT가 막는 자리와 일관 해싱이 재확장의 충격을 줄이는 자리, 응용 계층을 알면 더 할 수 있는 것들, 캐싱 계층을 사이드카가 아니라 둘째 무상태 복제 티어로 두라는 판단과 그 근거인 적중률 산수, 캐싱이 IP 친화도 기반 세션 추적을 깨뜨린다는 경고, 그리고 그 계층 위에 얹히는 속도 제한과 429와 남은 호출 수 헤더와 클라우드 DDoS 방어, SSL 종료를 그 계층이 못 해서 셋째 티어가 붙는다는 구성, 그리고 무상태·복제·캐시·세션이라는 낱말이 이 지식 베이스에서 이미 가리키던 것들과의 대조표
 generated: { by: "claude-opus-5", at: "2026-09-19T16:00:00Z" }
 sources:
@@ -105,7 +104,7 @@ sources:
 - **그래서 애플리케이션 쪽에 요구되는 것이 하나 있다** — **복제 서비스 패턴을 위한 애플리케이션을
   지을 때는 이 준비됨 검사를 구현하는 특별한 URL을 반드시 포함하라** (6장, p.56).[^burns2025]
 - **살아 있음과 준비됨이라는 구분 자체의 규정은 되풀이하지 않는다.** 그 자리는 같은 책 2장이고
-  [컨테이너 오케스트레이션과 쿠버네티스](container-orchestration-and-kubernetes.md)가 갖는다.
+  [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md)가 갖는다.
   **이 장이 그 위에 더하는 것은 소비자가 둘이라는 것**이다 — 재시작과 롤아웃 중단을 정하는 쪽은
   오케스트레이터이고, 트래픽을 보낼지 정하는 쪽은 로드 밸런서다.
 
@@ -335,7 +334,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 속한 카탈로그와 그 III부의 자리
 - [샤딩된 서비스 패턴](sharded-service-pattern.md) — 같은 묶음의 둘째. 이쪽이 모든 복제본이
   모든 요청을 받는다면 그쪽은 복제본마다 받을 요청이 정해진다
@@ -346,7 +345,7 @@ sources:
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 캐시를 어디에 두고
   언제 버리는가의 정본 자리
 - [일관 해싱](../concepts/consistent-hashing.md) — 위 세션 추적이 쓰는 함수 계열의 정본 자리
-- [컨테이너 오케스트레이션과 쿠버네티스](container-orchestration-and-kubernetes.md) —
+- [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —
   살아 있음과 준비됨이라는 구분의 자리
 - [HTTP 클라이언트와 서버와 무상태성](../concepts/http-clients-servers-and-statelessness.md) —
   무상태라는 낱말의 프로토콜 쪽 규정

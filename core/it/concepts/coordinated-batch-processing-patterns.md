@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 조율된 배치 처리 패턴
-status: draft
 description: 배치 계산 패턴 묶음의 셋째 — 병렬로 흩은 것을 다시 모으는 자리에 붙는 두 이름과 그 둘이 갈리는 기준, 조인을 배리어 동기화로 규정하고 스레드를 조인하는 것에 유비하는 자리와 그 낱말이 이 지식 베이스의 다른 세 층에서 가리키던 것들의 대조표, 병합으로는 완결성을 보장하지 못한다는 판정과 애니메이션 프레임 예제, 조인이 병렬성을 깎아 지연을 늘린다는 대가와 이중 처리로 그것을 되사는 처방, 맵과 리듀스를 이 카탈로그의 샤딩과 조율로 다시 읽는 계보와 그 알고리즘의 원전이 어디 있는가, 조인과 달리 앞 단계가 끝나기 전에 시작할 수 있다는 리듀스의 성질과 그것이 주는 속도, 낱말 세기와 합과 히스토그램이라는 세 형태와 히스토그램을 인구로 가중해 합치는 절차, 리듀스 횟수의 양끝이 각각 낭비와 조인이 된다는 판정, 이미지 태깅 파이프라인이 다섯 패턴을 엮는 순서, 그리고 이 장이 멀티워커 패턴의 소재지를 두 번 틀리게 적는다는 실측
 generated: { by: "claude-opus-5", at: "2026-09-19T21:40:00Z" }
 sources:
@@ -31,7 +30,7 @@ sources:
 **병렬로 흩어 놓은 일감의 출력을 다시 하나로 모아야 할 때, 모으는 자리에 무엇을 놓는가.**
 
 앞 장까지의 패턴은 일감을 가르고 옮기는 쪽이었다. 그 규정들은
-[컨테이너 단위 워크 큐 체계](containerized-work-queue-system.md)와
+[컨테이너 단위 워크 큐 체계](../concepts/containerized-work-queue-system.md)와
 [이벤트 기반 배치 처리 패턴](event-driven-batch-processing-patterns.md)에 있다.
 
 ## 조인이라는 낱말이 이 지식 베이스에서 이미 가리키던 것들
@@ -211,7 +210,7 @@ sources:
 
 - **멀티워커 패턴은 11장 §"The Multiworker Pattern"(p.129)에 있다.** 12장에는 그 이름의 절이
   없고 본문에도 그 낱말이 나오지 않는다(전문 검색으로 확인). 그 규정은
-  [컨테이너 단위 워크 큐 체계](containerized-work-queue-system.md)가 갖는다.
+  [컨테이너 단위 워크 큐 체계](../concepts/containerized-work-queue-system.md)가 갖는다.
 - **같은 절의 다른 참조는 맞다** — 복사기 패턴을 "12장에서"라고 부르는 자리(13장, p.153)는
   옳다.
 - 이 지식 베이스는 어긋난 참조를 claim으로 옮기지 않았다. 옮긴 것은 **어긋난다는 실측**이다.
@@ -258,11 +257,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 워크 큐 체계](containerized-work-queue-system.md) — IV부의 첫째. 멀티워커
+- [컨테이너 단위 워크 큐 체계](../concepts/containerized-work-queue-system.md) — IV부의 첫째. 멀티워커
   패턴의 실제 소재지
 - [이벤트 기반 배치 처리 패턴](event-driven-batch-processing-patterns.md) — IV부의 둘째. 이
   장이 부족하다고 판정하는 병합기가 있는 자리
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 카탈로그의 기획
 - [MapReduce](../concepts/mapreduce.md) — 이 장이 이름으로만 드는 모델의 원전
 - [셔플](../concepts/shuffle-algorithm.md) — 맵과 리듀스 사이에서 실제로 무엇이 일어나는가

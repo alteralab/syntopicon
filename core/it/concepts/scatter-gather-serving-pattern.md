@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 스캐터/개더 서빙 패턴
-status: draft
 description: 서빙 패턴 묶음의 셋째 — 요청 수도 데이터 크기도 아닌 시간에 대해 확장하려고 요청 하나를 모든 리프로 동시에 펼치고 부분 결과를 루트가 합치는 배치의 규정, 리프가 전부 동질인 루트 분배형과 30코어 산수가 보이는 단일 기계의 한계와 느린 리프를 루트가 동적으로 피할 수 있다는 것, 용어로 나눈 문서 검색 예와 교집합을 루트가 맡는 자리, 리프마다 다른 문서를 담는 리프 샤딩과 그때 루트가 합집합으로 바뀌는 자리, 리프를 늘릴수록 오버헤드가 유용한 계산을 잡아먹어 병렬화의 이득이 점근적이라는 것과 스트래글러 문제와 99번째 백분위가 다른 체계보다 중요해진다는 결론 셋과 같은 산수가 가용성에도 적용된다는 것, 샤드마다 복제 서비스를 두어 장애와 롤아웃을 견디게 만드는 마무리, 그리고 같은 이름이 메시지 라우팅 쪽에서 가리키던 것과의 대조표, 그리고 이 책의 팬아웃 서술이 꼬리 지연 원전과 어디까지 겹치고 어디서 느슨해지는가
 generated: { by: "claude-opus-5", at: "2026-09-19T16:20:00Z" }
 sources:
@@ -280,9 +279,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 속한 카탈로그와 그 III부의 자리
-- [복제 로드 밸런스 서비스 패턴](replicated-load-balanced-service-pattern.md) — 같은 묶음의
+- [복제 로드 밸런스 서비스 패턴](../concepts/replicated-load-balanced-service-pattern.md) — 같은 묶음의
   첫째. 요청 수에 대해 확장하는 쪽
 - [샤딩된 서비스 패턴](sharded-service-pattern.md) — 같은 묶음의 둘째. 데이터 크기에 대해
   확장하는 쪽이자 이 패턴이 리프에 합성하는 것

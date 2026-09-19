@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 사이드카 컨테이너 패턴
-status: draft
 description: 애플리케이션 컨테이너 곁에 둘째 컨테이너를 코스케줄해 그 기능을 늘리는 단일 노드 패턴의 원전 — 두 컨테이너와 공유 자원이라는 규정, 소스를 못 고치는 레거시에 HTTPS를 붙이고 설정 파일을 클라우드 API와 동기화하는 두 적응 사례, 언어마다 플러그인을 구현하는 대신 PID 네임스페이스를 공유해 한 번만 짓는 모듈 재사용 논거와 기성복 대 맞춤이라는 절충, 사이드카만으로 짓는 PaaS, 그리고 재사용 가능한 사이드카를 만드는 셋 — 컨테이너를 함수로 보는 매개변수화와 환경 변수 선호, 상호작용의 모든 측면이 API라는 규정과 오류 없이도 깨지는 변경의 사례, Dockerfile의 EXPOSE·ENV·LABEL로 하는 문서화와 OCI 주석 스키마, 그리고 이 KB가 같은 낱말을 쓰는 다섯 자리의 대조표
 generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
 sources:
@@ -76,7 +75,7 @@ sources:
   - **같은 기계에 스케줄되는 것에 더해 애플리케이션 컨테이너와 사이드카 컨테이너가 자원을
     여럿 공유한다** — **파일 시스템의 일부, 호스트 이름, 네트워크, 그 밖의 많은 네임스페이스**다.
   - 그 묶음이 왜 이 카탈로그의 원자 요소인지는
-    [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md)이
+    [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md)이
     갖는다.
 - **도판이 공유의 목록을 본문보다 좁게 적는다** — 그림 3-1은 상자를 **Container group
   (a.k.a. pod)**으로 두르고 두 컨테이너 사이에 **Shared state: Disk · Network · Etc.**라고만
@@ -337,7 +336,7 @@ sources:
   **이미지의 맥락에서 이치에 맞는 라벨은 무엇이든 더 추가할 수 있다** (3장, p.30).[^burns2025]
   - **이 논거가 이 카탈로그의 값어치 셋 가운데 둘째와 같다** — 공유 어휘가 도구를 공유하게
     만든다는 것이다. 그 자리는
-    [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md)에
+    [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md)에
     있다.
 
 ## 이 장이 되돌려 주는 것
@@ -393,11 +392,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 첫째로 놓이는 카탈로그와 그 단위
-- [앰배서더 컨테이너 패턴](ambassador-container-pattern.md) — 같은 묶음의 둘째 패턴.
+- [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md) — 같은 묶음의 둘째 패턴.
   이쪽이 기능을 더한다면 그쪽은 바깥과의 상호작용을 중개한다
-- [어댑터 컨테이너 패턴](adapter-container-pattern.md) — 같은 묶음의 셋째 패턴.
+- [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md) — 같은 묶음의 셋째 패턴.
   이쪽이 기능을 더한다면 그쪽은 내보이는 인터페이스를 바꾼다
 - [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md) —
   이 패턴을 프록시로 구현해 동서 트래픽에 쓰는 자리

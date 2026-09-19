@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 함수와 이벤트 기반 처리 패턴
-status: draft
 description: 서빙 패턴 묶음의 넷째 — 요청 하나를 처리하려고 잠깐 존재했다가 사라지는 코드를 서빙 체계의 부품으로 두는 배치, 서버리스와 이벤트 기반이 같은 말이 아니라는 가름과 네 조합, 개발자 쪽으로만 오는 이득 셋과 강제된 디커플링이 되돌려 주는 운영 비용, 함수 셋이 서로를 부르는 순환을 코드에서 찾아낼 수 없다는 구체적 실패, 쓰지 말아야 할 세 자리인 배경 처리와 메모리에 얹을 데이터와 요청이 꾸준해졌을 때의 요금 역전, 요청과 응답을 고쳐 끼우는 데코레이터 패턴과 그것을 어댑터 컨테이너로 두지 않는 이유, 요청과 이벤트를 세션의 유무로 가르는 저자의 규정, 이벤트 기반 파이프라인이 마이크로서비스 아키텍처와 갈리는 두 자리와 사람의 승인까지 노드로 넣을 수 있다는 것, 그리고 이 지식 베이스가 이미 FaaS를 재던 세 축과의 대조표
 generated: { by: "claude-opus-5", at: "2026-09-19T18:00:00Z" }
 sources:
@@ -38,7 +37,7 @@ sources:
 | 어디서 | 무엇을 묻는가 | 대답의 모양 |
 |---|---|---|
 | 이 페이지 (burns2025 9장) | **언제 쓰고 언제 쓰지 않는가**, 그리고 **서빙 체계 안에서 어떤 배치로 쓰는가** | 이득 셋과 도전 하나, 쓰지 말아야 할 자리 셋, 그리고 배치 패턴 셋 |
-| [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) (bellemare2025 15장) | **함수를 무엇이 깨우고 이벤트를 누가 가져오는가** | 촉발 다섯과 구성 요소 넷, 콜드 스타트 비용 모형 |
+| [FaaS로 짓는 이벤트 기반 마이크로서비스](../concepts/faas-event-driven-microservices.md) (bellemare2025 15장) | **함수를 무엇이 깨우고 이벤트를 누가 가져오는가** | 촉발 다섯과 구성 요소 넷, 콜드 스타트 비용 모형 |
 | [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) (newman2021) | **서버리스라는 낱말 일반의 규정과 서버와의 선택** | 추상화의 사다리와 그 위에서의 판정 |
 | [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) (newman2021 8장) | **배포 단위의 알갱이** | 함수 하나에 마이크로서비스 하나인가 애그리게이트마다 함수 하나인가 |
 | [웹훅과 콜백 방식](../concepts/webhooks-and-callback-style.md) (dynowski) | **요청을 이벤트로 바꾸는 전달 방식** | 콜백 URL을 등록해 두고 사건이 나면 부르는 계약 |
@@ -89,7 +88,7 @@ sources:
   p.92).[^burns2025]
   - **그런데 저자가 그 자리에서 곧바로 뒤집는다** — **디커플링은 강점이면서 약점**이라는 것이고,
     이것이 다음 절의 주제다 (9장, p.92).[^burns2025] **컨테이너를 쪼개는 동기 넷**이 사는 자리는
-    [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md)이다.
+    [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md)이다.
 
 ## 강제된 디커플링이 청구하는 것
 
@@ -199,7 +198,7 @@ sources:
   - **어댑터로 두면 기본값 채우기 서비스의 확장이 API 서비스의 확장과 묶인다.**
   - **기본값 채우기는 실제로 가벼운 연산이라 부하를 감당하는 데 서비스 자체보다 훨씬 적은 수의
     인스턴스만 있으면 될 공산이 크다.**
-  - **곧 가르는 기준이 독립적으로 확장할 수 있는가다.** [어댑터 컨테이너 패턴](adapter-container-pattern.md)
+  - **곧 가르는 기준이 독립적으로 확장할 수 있는가다.** [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md)
     쪽이 같은 일을 사이드카로 하는 자리이고, **이 두 절을 맞대면 이 카탈로그가 단일 노드 패턴과
     서빙 패턴을 가르는 기준 하나가 더 드러난다.** 이 읽기는 이 지식 베이스가 두 장을 맞대어 세운
     것이고 이 책이 그렇게 정리하지는 않는다. #hypothesis
@@ -320,7 +319,7 @@ sources:
 
 - **콜드 스타트의 채점** — **겨루는 것처럼 보이는 자리가 여기다.** 이 지식 베이스의 FaaS 대조표는
   뉴먼 쪽 칸에 **콜드 스타트가 실제로는 드물게만 일어난다**는 채점을 적어 두었다
-  ([FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md)). 이 책은
+  ([FaaS로 짓는 이벤트 기반 마이크로서비스](../concepts/faas-event-driven-microservices.md)). 이 책은
   **함수가 사용자 요청에 반응해 떠오르는 동안 사용자가 기다리므로 적재 비용이 체감 지연에
   실린다**고 적는다 (9장, p.94).[^burns2025]
   - **모순으로 걸지 않은 이유는 재는 대상이 다르기 때문이다.** 뉴먼 쪽 채점은 **런타임이
@@ -373,7 +372,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 속한 카탈로그와 III부의 자리
 - [복제 로드 밸런스 서비스 패턴](replicated-load-balanced-service-pattern.md) — 같은 묶음의
   첫째. 이쪽이 오래 도는 서버를 전제하는 자리
@@ -381,7 +380,7 @@ sources:
 - [스캐터/개더 서빙 패턴](scatter-gather-serving-pattern.md) — 같은 묶음의 셋째. 메모리에 색인을
   얹는 리프가 이 장의 둘째 판정과 맞물린다
 - [소유권 선출 패턴](ownership-election-pattern.md) — 같은 묶음의 다섯째이자 III부의 마지막
-- [FaaS로 짓는 이벤트 기반 마이크로서비스](faas-event-driven-microservices.md) — 같은 낱말을
+- [FaaS로 짓는 이벤트 기반 마이크로서비스](../concepts/faas-event-driven-microservices.md) — 같은 낱말을
   촉발과 상태의 축으로 재는 자리
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 서버리스라는 낱말
   일반의 규정
@@ -389,7 +388,7 @@ sources:
 - [요청 응답과 이벤트 기반 통합](../concepts/request-response-and-event-driven-integration.md) —
   요청과 이벤트를 다른 축으로 가르는 자리
 - [이벤트 기반 워크플로](../concepts/event-driven-workflows.md) — 파이프라인을 어디에 적는가
-- [어댑터 컨테이너 패턴](adapter-container-pattern.md) — 같은 일을 사이드카로 하는 쪽과 이 장이
+- [어댑터 컨테이너 패턴](../concepts/adapter-container-pattern.md) — 같은 일을 사이드카로 하는 쪽과 이 장이
   그것을 고르지 않는 이유
 - [표준 라이브러리의 함수 데코레이터](../concepts/standard-library-function-decorators.md) —
   데코레이터라는 낱말의 언어 쪽 용법

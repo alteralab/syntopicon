@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 샤딩된 서비스 패턴
-status: draft
 description: 서빙 패턴 묶음의 둘째 — 복제본마다 받을 요청이 정해지고 루트가 요청을 살펴 알맞은 샤드로 보내는 배치의 규정, 상태가 한 기계에 안 들어가는 것이 주된 이유지만 무상태 서비스도 독 요청의 격리 경계로 샤딩한다는 둘째 이유, 샤딩된 캐시가 같은 메모리로 열 배를 담는 산수와 적중률이 체계 전체 용량과 지연을 정한다는 셈과 캐시를 실제 용량보다 낮게 등급 매기라는 조문과 새 샤드를 데워야 한다는 제약, 샤드마다 복제 서비스를 두면 얻는 것, 샤드 라우터 서비스와 앰배서더 사이의 절충 둘, 샤딩 함수의 규정과 결정성과 균일성과 모듈로, 키가 너무 일반해도 너무 구체해도 실패한다는 것과 나라 함수를 끼우는 해법, 일관 해싱이 재샤딩의 충격을 줄이는 자리, 게임 월드처럼 요청 밖의 맥락으로 나누는 자리, 그리고 뜨거운 샤드를 복제로 푸는 처방과 그것이 데이터 샤딩 쪽 처방과 어떻게 갈리는가, 그리고 이 책의 서비스 샤딩이 데이터 샤딩과 같은 낱말 다른 대상이라는 대조표
 generated: { by: "claude-opus-5", at: "2026-09-19T16:10:00Z" }
 sources:
@@ -65,7 +64,7 @@ sources:
 
 - **복제 서비스와 갈리는 지점이 앞 문장에 적힌다** — **앞 장에서 들여온 복제 서비스에서는 각
   복제본이 완전히 동질이고 모든 요청을 서빙할 수 있었다** (7장, p.69).[^burns2025] 그쪽 자리는
-  [복제 로드 밸런스 서비스 패턴](replicated-load-balanced-service-pattern.md)이다.
+  [복제 로드 밸런스 서비스 패턴](../concepts/replicated-load-balanced-service-pattern.md)이다.
 - **쓰임의 일반적 대응이 적힌다** — **복제 서비스는 일반적으로 무상태 서비스를 짓는 데 쓰이고
   샤딩된 서비스는 일반적으로 상태 있는(stateful) 서비스를 짓는 데 쓰인다. 데이터를 샤딩하는 주된
   이유는 상태의 크기가 너무 커서 기계 한 대가 서빙할 수 없기 때문이고, 샤딩은 서빙해야 할 상태의
@@ -172,7 +171,7 @@ sources:
 - **이 둘은 이 지식 베이스가 이미 세 배치로 갈라 둔 자리에 놓인다** —
   [요청 라우팅](../concepts/request-routing.md)의 세 배치 가운데 **라우팅 계층**과 **클라이언트
   인식** 둘이다. **이 책이 더하는 것은 그 둘 사이의 절충을 배포 단위로 적는 것**이고, 앰배서더
-  쪽 전문은 [앰배서더 컨테이너 패턴](ambassador-container-pattern.md)이 갖는다.
+  쪽 전문은 [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md)이 갖는다.
 
 ## 샤딩 함수
 
@@ -358,13 +357,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [컨테이너 단위 분산 시스템 패턴의 분류 틀](container-based-distributed-system-patterns.md) —
+- [컨테이너 단위 분산 시스템 패턴의 분류 틀](../concepts/container-based-distributed-system-patterns.md) —
   이 패턴이 속한 카탈로그와 그 III부의 자리
-- [복제 로드 밸런스 서비스 패턴](replicated-load-balanced-service-pattern.md) — 같은 묶음의
+- [복제 로드 밸런스 서비스 패턴](../concepts/replicated-load-balanced-service-pattern.md) — 같은 묶음의
   첫째. 이 장이 대조 대상으로 삼는 배치이자 복제 샤드가 합성하는 것
-- [스캐터/개더 서빙 패턴](scatter-gather-serving-pattern.md) — 같은 묶음의 셋째. 샤딩이 요청을
+- [스캐터/개더 서빙 패턴](../concepts/scatter-gather-serving-pattern.md) — 같은 묶음의 셋째. 샤딩이 요청을
   한 샤드로 보낸다면 그쪽은 모든 리프로 보낸다
-- [앰배서더 컨테이너 패턴](ambassador-container-pattern.md) — 같은 라우팅을 파드 안에서 맡는
+- [앰배서더 컨테이너 패턴](../concepts/ambassador-container-pattern.md) — 같은 라우팅을 파드 안에서 맡는
   배치. 그 장이 이 장으로 미뤄 둔 것이 여기 있다
 - [데이터 샤딩](../synthesis/data-sharding.md) — 같은 낱말이 데이터를 대상으로 서는 축의 허브
 - [샤딩의 기본](../concepts/sharding-basics.md) — 샤딩 자체의 규정과 치르는 값
