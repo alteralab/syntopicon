@@ -631,6 +631,9 @@ sources:
   하여금 이것을 찾게 만드는가**와 가치 흐름 매핑으로 잰 리드 타임과 프로세스 타임
 - [플로의 규정과 다섯 성질](flow-definition-and-properties.md) — 이 페이지가 업무 근거를 붙이는
   대상. 플로가 무엇인가의 규정과 다섯 성질
+- [플로 통합 가치 사슬 지도](flow-integration-value-chain.md) — 이 업무 근거 위에 모형을 얹는 자리.
+  같은 소스의 다음 장이 여기 적힌 요구 다섯을 장 머리에서 되풀이한 뒤 그것을 채울 구성 요소를 찾아
+  진화 축에 배치한다
 - [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) — 같은
   "통합은 비싸다"를 정치와 의미론 쪽에서 진단하는 쪽
 - [하위 도메인의 세 종류](../concepts/subdomain-types.md) — 핵심과 맥락의 가름을 도메인 주도
