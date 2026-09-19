@@ -66,7 +66,7 @@ sources:
 ## 외부 함수와 메모리 API
 
 - 도구의 정체가 명시된다 — 외부 함수·메모리 API(Foreign Function & Memory API, FFM)는 네이티브
-  상호운용에 대한 자바의 현대적 접근이며 더 오래된 JNI(Java Native Interface)를 대체한다.
+  상호운용에 대한 자바의 2025년 저술 시점 접근이며 더 오래된 JNI(Java Native Interface)를 대체한다.
   네이티브 코드를 부르고 힙 밖 메모리를 다루는 더 안전하고 성능 좋은 길을 준다 (2장,
   p.69).[^rahman2025]
   - 버전 조건: JDK 19에서 미리 보기 기능으로 도입되었고 JDK 22에서 확정되었다 (2장, p.69).

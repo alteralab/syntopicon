@@ -87,7 +87,7 @@ sources:
 - HTTP/0.9와 HTTP/1.0 초기 배치는 **밑에 깔린 연결을 닫는 것으로** 응답을 끝냈다. 후진 호환을 위해
   이 암묵적 프레이밍이 HTTP/1.1에서도 허용된다 (§6.1).[^fielding2022-rfc9110]
   - 버전 조건: HTTP/1.1 이하. 암묵적 프레이밍은 **연결이 일찍 닫혔을 때 불완전한 응답을 구별하지
-    못할 수 있고**, 그래서 거의 모든 현대 구현이 길이로 구획된 명시적 프레이밍을 쓴다.
+    못할 수 있고**, 그래서 거의 모든 2022년 저술 시점 구현이 길이로 구획된 명시적 프레이밍을 쓴다.
 - 완결의 정의는 프레이밍에 매여 있다 (§6.1).[^fielding2022-rfc9110]
 
   > A message is considered "complete" when all of the octets indicated by its framing are

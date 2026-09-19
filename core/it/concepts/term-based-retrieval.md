@@ -154,7 +154,7 @@ sources:
     "The Probabilistic Relevance Framework: BM25 and Beyond"(Robertson and Zaragoza, *Foundations
     and Trends in Information Retrieval* 3 No. 4, 2009)를 권한다** (6장, p.260 각주 6).[^huyen2025]
 - 오늘의 위치 — **BM25와 그 변형(BM25+·BM25F)은 산업에서 여전히 널리 쓰이며, 임베딩 기반 검색 같은
-  현대적이고 더 정교한 검색 알고리즘과 겨루는 만만찮은 기준선(baseline) 노릇을 한다** (6장,
+  2025년 저술 시점의 더 정교한 검색 알고리즘과 겨루는 만만찮은 기준선(baseline) 노릇을 한다** (6장,
   p.260).[^huyen2025][^karpukhin2020-dpr]
   - 각주의 한 마디 — **퍼플렉시티의 CEO 아라빈드 스리니바스(Aravind Srinivas)는 "BM25나 전문 검색을
     진짜로 개선하는 것은 어렵다"고 트윗했다** (6장, p.260 각주 7).[^huyen2025]

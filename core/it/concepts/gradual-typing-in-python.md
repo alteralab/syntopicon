@@ -222,7 +222,7 @@ sources:
   > Given those caveats, type hints cannot be the mainstay of software quality, and making
   > them mandatory without exception would amplify the downsides.
 
-  - 자리매김도 함께 준다 — **정적 타입 검사기를 테스트 러너·린터 등과 함께 현대 CI 파이프라인의
+  - 자리매김도 함께 준다 — **정적 타입 검사기를 테스트 러너·린터 등과 함께 2022년 저술 시점의 CI 파이프라인의
     도구 중 하나로 여기라. CI 파이프라인의 요점은 소프트웨어 실패를 줄이는 것이고, 자동화된
     테스트는 타입 힌트가 닿지 못하는 많은 버그를 잡는다. 파이썬으로 쓸 수 있는 어떤 코드든
     파이썬으로 테스트할 수 있다 — 타입 힌트가 있든 없든** (8장 §"Imperfect Typing and Strong

@@ -156,7 +156,7 @@ sources:
   Data with the Polymorphic Calculator", pp.42–43).[^fowler2018] 즉 이 예제가 보이는 것은
   다형성이 언제나 낫다는 것이 아니라 **의존하는 함수의 수가 손익분기를 정한다**는 것이다.
 - 균형에 대한 저자의 규칙은 야영 격언의 변주다 — **나는 언제나 내가 할 수 있는 모든 리팩터링과
-  새 기능을 더하는 것 사이에서 균형을 잡아야 한다. 현재 대부분의 사람들은 리팩터링의 우선순위를
+  새 기능을 더하는 것 사이에서 균형을 잡아야 한다. 2018년 저술 시점에 대부분의 사람들은 리팩터링의 우선순위를
   낮게 두지만 — 그래도 균형은 있다** (1장 §"Status: Separated into Two Files (and Phases)",
   p.34).[^fowler2018] 조문 (1장 §"Status: Separated into Two Files (and Phases)",
   p.34):[^fowler2018]

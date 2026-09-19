@@ -96,7 +96,7 @@ sources:
 - 위에서 한 줄로 정리된 동시성 제어(concurrency control)는 실제로는 선택지가 여럿인 자리다.
   **동시성 제어는 단일 노드 데이터베이스와 분산 데이터베이스 양쪽에 관련된다** (8장,
   p.278).[^kleppmann2026]
-- **오늘날 직렬성(serializability)을 제공하는 대부분의 데이터베이스는 세 기법 중 하나를 쓴다 —
+- **2026년 저술 시점에 직렬성(serializability)을 제공하는 대부분의 데이터베이스는 세 기법 중 하나를 쓴다 —
   직렬 순서로 문자 그대로 트랜잭션을 실행하기, 2단계 잠금(two-phase locking), 그리고 직렬성
   스냅샷 격리(serializable snapshot isolation) 같은 낙관적 동시성 제어(optimistic concurrency
   control) 기법** (8장, p.309).[^kleppmann2026] 잠금 관리자가 전면에 나서는 것은 그중 둘째

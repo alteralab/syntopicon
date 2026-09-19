@@ -615,7 +615,7 @@ Konieczny는 같은 문제를 오류 관리 카탈로그의 한 패턴으로 다
     강한 보장을 제공하지만 더 어렵기도 하다. 예컨대 Apache Spark와 Delta Lake에서는 라이터가
     커밋 로그 디렉토리에 새 항목을 만들 때 트랜잭션이 커밋된다. 그러나 이 단계가 실패하면 데이터
     파일은 여전히 거기 있을 것이고 옆으로 치워야 한다.**
-- 지원 범위 — **트랜잭션을 지원하는 클라이언트 라이브러리와 데이터 저장 중에는 현대 테이블 파일
+- 지원 범위 — **트랜잭션을 지원하는 클라이언트 라이브러리와 데이터 저장 중에는 2025년 저술 시점의 테이블 파일
   형식(Delta Lake·Apache Iceberg·Apache Hudi), 스트리밍 브로커(Apache Kafka), 데이터
   웨어하우스(AWS Redshift·GCP BigQuery), 심지어 관계형 데이터베이스 관리 시스템(PostgreSQL·
   MySQL·Oracle·SQL Server)이 있다** (4장, p.107).[^konieczny2025]

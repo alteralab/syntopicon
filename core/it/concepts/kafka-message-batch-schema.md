@@ -16,7 +16,7 @@ p.4).[^shapira2021]
 
 ## 분산 커밋 로그라는 관점
 
-- 카프카는 흔히 "분산 커밋 로그(distributed commit log)", 더 최근에는 "분산
+- 카프카는 흔히 "분산 커밋 로그(distributed commit log)", 2021년 저술 시점 기준 더 최근에는 "분산
   스트리밍 플랫폼(distributing streaming platform)"으로 서술된다 (1장,
   p.4).[^shapira2021]
 - 원문 직인용 (1장, p.4):[^shapira2021]

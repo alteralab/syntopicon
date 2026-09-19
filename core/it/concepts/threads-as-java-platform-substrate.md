@@ -26,7 +26,7 @@ sources:
   덕분에 개발자가 동시성을 얻으려고 운영 체제별 기능에 의존할 필요가 없어졌다 (1장, pp.1–2).[^rahman2025]
 - 진화는 네 걸음으로 서술된다 — 기본 동기화와 스레드 관리에서 시작해, Java 5의
   `java.util.concurrent`가 실행자 프레임워크(Executor framework)와 락과 동시 컬렉션을 들이고,
-  Java 7의 포크/조인 프레임워크(Fork/Join framework)가 멀티코어 성능을 끌어들였으며, 가장 최근에는
+  Java 7의 포크/조인 프레임워크(Fork/Join framework)가 멀티코어 성능을 끌어들였으며, 2025년 저술 시점 기준 가장 최근에는
   프로젝트 룸(Project Loom)이 경량 사용자 모드 스레드와 구조적 동시성(structured concurrency)으로
   전통적 스레드 기반 동시성의 복잡성과 한계를 다뤘다 (1장, p.1).[^rahman2025]
   - 같은 계보를 가상 머신 안쪽에서 본 서술이

@@ -146,7 +146,7 @@ sources:
   코드에서 그 문제의 흔한 발현은 전방 참조처럼 전혀 보이지 않는다: 메서드가 같은 클래스의 새
   객체를 돌려줄 때다. 클래스 객체는 파이썬이 클래스 본문을 완전히 평가하기 전까지 정의되지
   않으므로 타입 힌트는 클래스 이름을 문자열로 써야 한다** (같은 절, p.538).[^ramalho2022]
-- **현재 상태의 요약이 이 절의 조문이다** (15장 §"Problems with Annotations at Runtime",
+- **2022년 저술 시점 상태의 요약이 이 절의 조문이다** (15장 §"Problems with Annotations at Runtime",
   p.540):[^ramalho2022]
 
 > To summarize: reading type hints at runtime is not 100% reliable as of Python 3.10 and is
