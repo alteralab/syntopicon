@@ -364,7 +364,7 @@ sources:
   적는 자리는 **의미 차이의 해소**이고("공통 표현의 존재가 공통 의미론을 함의하지 않는다"),
   그 소스가 없애겠다고 말하는 것은 **연결을 맺는 값**이다. **그 소스가 남겨 두는 적재물 해석
   코드가 정확히 이 장이 가장 비싸다고 적은 자리다.** 어느 한쪽만 참일 수 있는 문장 쌍이 아니다.
-  전문은 [플로 채택의 업무 근거](business-case-for-flow.md)에 있다.
+  전문은 [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -381,7 +381,7 @@ sources:
   원칙으로 성문화된 자리
 - [브로커 기반 API 스타일과 RabbitMQ](../concepts/broker-based-api-style-and-rabbitmq.md) — 위 규정과 남는
   결합 셋이 놓인 자리
-- [플로 채택의 업무 근거](business-case-for-flow.md) — 같은 "통합은 어렵다"를 비용 쪽에서
+- [플로 채택의 조력자와 그 효과](flow-adoption-enablers-and-effects.md) — 같은 "통합은 어렵다"를 비용 쪽에서
   진단하고 그 비용이 떨어지면 무엇이 열리는가를 세는 쪽
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
 
