@@ -342,6 +342,7 @@ sources:
   내려지는 환경에 관해 본질적인 모든 것을 담아내지는 못한다.** 저자가 남기는 물음이
   **주변의 빠르게 변하는 기술 지형과 기후를 어떻게 함께 기록하는가**이고, 그 답으로
   **마지막 보조 요소인 자기만의 기술 레이더**를 예고한다 (10장, p.272).[^harmellaw2024]
+  그 답의 자리가 [조직의 기술 레이더](organizational-technology-radar.md)다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -375,6 +376,8 @@ sources:
 - [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md) — 개별 원칙 페이지의 앞
   네 자리와 ADR에 적용 원칙을 적으라는 처방
 - [실행 가능한 기술 전략](actionable-technology-strategy.md) — 피드백이 위로 올라가 닿는 층
+- [조직의 기술 레이더](organizational-technology-radar.md) — 장의 마지막 줄이 예고하는 마지막
+  보조 요소
 - [조직 정렬과 최소 실행 가능한 합의](organizational-alignment-and-agreement.md) — 빠진 원칙을
   알려 주는 안티패턴의 원 자리
 - [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md) — 곁상자가

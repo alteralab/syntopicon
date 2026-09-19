@@ -54,7 +54,8 @@ sources:
     [^harmellaw2024]
   - **기술 레이더**(11장) — **조직의 기술 지형 전체를 정기적으로 훑어** 모두의 경험과 통찰과 배움의
     현재 기후를 포착하고, 그 결과 얻은 지침을 소비 가능하고 소화 가능한 형태로 표현하는 수단이다
-    (II부 도비라, p.160).[^harmellaw2024]
+    (II부 도비라, p.160).[^harmellaw2024] 그 상술은
+    [조직의 기술 레이더](organizational-technology-radar.md)에 있다.
 - **II부가 끝에 거는 약속** — **감당 있는 정렬(accountable alignment)에 이르는 여러 탈중앙적
   방법**을 배우게 되고, 그 전부가 **탈중앙 신뢰의 문화를 기르고 진화시키는 방식**이라는 것이다
   (II부 도비라, p.160).[^harmellaw2024]
@@ -241,7 +242,8 @@ sources:
     기술 전략**(9장)
   - **모두가 전략적 초점을 이해하도록 보장하는 원칙 집합**(10장) —
     [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)
-  - **배운 교훈을 포착하고 지침을 제공해 문제가 한 번만 풀리면 되게 하는 수단**(11장)
+  - **배운 교훈을 포착하고 지침을 제공해 문제가 한 번만 풀리면 되게 하는 수단**(11장) —
+    [조직의 기술 레이더](organizational-technology-radar.md)
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -292,6 +294,8 @@ sources:
   비워진 공간으로 무엇이 흘러들고 그것을 어떻게 지키는가
 - [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md) — 이 부가 예고하는 첫째
   보조 요소의 실물
+- [조직의 기술 레이더](organizational-technology-radar.md) — 이 부가 예고하는 넷째 보조 요소의
+  실물이자 II부를 닫는 자리
 - [어드바이스 포럼이 낳는 집단 역학](advice-forum-group-dynamics.md) — 그 포럼이 참석자 각자에게
   실제로 무엇을 하는가
 - [포럼이 잇는 개념 무결성과 사회적 응집](advice-forum-cohesion-and-rollout.md) — 그 포럼이 조직

@@ -188,7 +188,8 @@ sources:
   - **"강제 함수(또는 가드레일)"는 셋으로 쪼갠다.** 첫째와 둘째인 **약속(commitments)과
     지침(guidelines)은 이름을 그대로 두고** 각각 **10장에서 공유된 아키텍처 원칙 집합으로,
     11장에서 집단의 경험을 담은 기술 레이더로** 다룬다. 앞의 것이
-    [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)이다.
+    [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)이고 뒤의 것이
+    [조직의 기술 레이더](organizational-technology-radar.md)다.
   - **셋째인 "제약과 요구사항"을 저자가 검증 가능한 가로지르는 기능 요건 집합으로 개명한다.**
     그러고서 **그것을 써서 설계 공간에 영향을 주는 구체적이고 협상 불가능한 힘을 명료하게 하는
     법**을 설명하겠다고 적는다.
@@ -217,7 +218,8 @@ sources:
   분명히 함으로써** 그렇게 된다 (9장, p.216).[^harmellaw2024]
 - **약속과 지침은 이 장에서 가볍게만 건드리고 10장과 11장으로 미룬다** (9장,
   p.216).[^harmellaw2024] 약속 쪽 상술은
-  [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)에 있다.
+  [아키텍처 원칙의 규정과 특성](architectural-principles-defined.md)에 있고, 지침 쪽 상술은
+  [조직의 기술 레이더](organizational-technology-radar.md)에 있다.
 
 ## 놀라지 않으면 정렬된 것이다
 
@@ -382,6 +384,7 @@ sources:
 - [검증 가능한 가로지르는 기능 요건](testable-cross-functional-requirements.md) — 같은 장의
   다음 절. 넷 가운데 가장 구체적이고 가장 덜 지시적인 수단
 - [실행 가능한 기술 전략](actionable-technology-strategy.md) — 같은 장의 마지막 절. 그 반대편 끝
+- [조직의 기술 레이더](organizational-technology-radar.md) — 네 수단 가운데 "지침" 칸의 상술
 - [위계를 탈중앙 신뢰로 바꾸기](replacing-hierarchy-with-decentralized-trust.md) — 보조 요소
   넷을 세는 자리
 - [신뢰와 학습의 문화를 위한 공간](culture-of-trust-and-the-practice-space.md) — 여기서 말하는
