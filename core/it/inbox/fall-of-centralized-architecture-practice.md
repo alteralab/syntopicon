@@ -334,6 +334,10 @@ sources:
     결정과 그렇지 않은 결정의 가름은
     [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md)이다. **이 장은 그 셋
     가운데 어느 것도 다루지 않는다** — 결정의 규정 자체가 2장 몫이고 기록 형식은 6장 몫이다.
+  - **그 2장의 규정은 [아키텍처 결정의 규정과 다섯 범주](architectural-decision-defined.md)와
+    [아키텍처적으로 유의한 결정](architecturally-significant-decisions.md)에 있고, 결정을 내리는
+    행위 자체의 분해는 [결정 프로세스의 단계와 권한의 자리](decision-process-stages.md)와
+    [규모의 결정 프로세스](decision-processes-at-scale.md)에 있다.**
 - **13장으로 넘기는 갈고리 둘** — **변화가 우리 삶의 특징이라 13장이 그것이 주는 도전을 다루는 데
   바쳐진다**는 것 (1장, p.7)과 **가변성의 상세가 13장에 있다**는 것 (1장, p.23)이다.
   [^harmellaw2024]
@@ -366,6 +370,8 @@ sources:
 
 - [전통 아키텍처 실천과 그 두 극단](traditional-architecture-practice.md) — 이 진단의 대상
 - [다섯 혁명과 탈중앙화](five-software-revolutions-and-decentralization.md) — 이 진단의 전제
+- [아키텍처 결정의 규정과 다섯 범주](architectural-decision-defined.md) — 이 장이 예고하는 2장
+- [결정 프로세스의 단계와 권한의 자리](decision-process-stages.md) — 그다음 장이 세우는 결정 행위의 분해
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 같은 병목에
   다른 지렛대를 잡는 쪽
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 그 지렛대의 도구

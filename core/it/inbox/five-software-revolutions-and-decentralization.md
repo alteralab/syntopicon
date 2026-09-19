@@ -261,6 +261,8 @@ sources:
   이 혁명들이 흔든 그 실천이 무엇인가
 - [중앙집중 아키텍처 실천의 몰락과 새 실천의 전제](fall-of-centralized-architecture-practice.md) —
   같은 장의 다음 절들. 이 혁명들이 중앙집중 실천을 어디서 무너뜨리는가
+- [규모의 결정 프로세스](decision-processes-at-scale.md) — 이 혁명들이 결정 프로세스에 거는
+  두 요구(빠른 응답과 결정권의 탈중앙화)로 표준 접근 일곱을 평가하는 자리
 - [콘웨이의 법칙](../concepts/conways-law.md) — 팀과 소프트웨어가 정렬되어야 한다는 조문의 근거
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 탈중앙 팀을 실제로 어떻게 가르는가
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 그 자율을 떠받치는 지원 구조

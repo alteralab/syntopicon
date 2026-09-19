@@ -300,6 +300,9 @@ sources:
   같은 장의 마지막 절들. 이 실천들이 어디서 무너지고 대안은 무엇을 전제해야 하는가
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 이 장이 진단하는 그 역할을
   다른 소스들이 어떻게 다시 세우는가
+- [아키텍처 결정의 규정과 다섯 범주](architectural-decision-defined.md) — 부치와 파울러가 꺼낸
+  "유의함"이라는 낱말이 다음 장에서 규정을 얻는 자리
+- [아키텍처적으로 유의한 결정](architecturally-significant-decisions.md) — 그 규정의 뒷절
 - [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 같은 상아탑을 2003년에 기각한 자리
 - [전략 목표와 원칙과 실천](../concepts/strategic-goals-principles-practices.md) — 결정을 무엇에
   비추어 내리는가
