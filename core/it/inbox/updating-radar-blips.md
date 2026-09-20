@@ -258,7 +258,7 @@ sources:
   단위로 묻는 축
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 낡은 것을
   코드에서 찾는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 규칙 자신이 아직 맞는가를 묻는
   쪽 축
 

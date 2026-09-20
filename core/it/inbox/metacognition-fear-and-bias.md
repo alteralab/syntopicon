@@ -482,7 +482,7 @@ sources:
 - [사용자 피드백의 편향](../concepts/user-feedback-biases.md) — 같은 낱말을 데이터 쪽에 거는 축
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 같은 역할을 다른
   동사로 적는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 12장 "The Art of Deciding" 가운데 §"Develop Your
     Metacognition"(pp.311–316, 소절 넷 포함) · §"Selecting a Decision Option"(pp.316–319,

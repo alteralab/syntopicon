@@ -359,7 +359,7 @@ sources:
   배치하는 실패 양식과 맞닿는 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 인정과 성장의 축
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 자율을 떠받치는 기술 쪽
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 17장 "Fitting the Advice Process Within

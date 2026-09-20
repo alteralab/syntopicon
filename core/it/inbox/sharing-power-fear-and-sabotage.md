@@ -345,7 +345,7 @@ pp.414–415).[^harmellaw2024]
   우회당한다는 같은 기제의 도구 쪽
 - [하드웨어와 소프트웨어와 사람의 결함](../concepts/hardware-software-and-human-faults.md) —
   비난 없는 사후 검토를 운영 쪽에서 갖는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 15장 "The Transition of Power and

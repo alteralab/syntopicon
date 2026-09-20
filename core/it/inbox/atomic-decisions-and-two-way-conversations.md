@@ -398,7 +398,7 @@ pp.380–381):[^harmellaw2024]
 - [ADR의 구조와 수명 주기](adr-structure-and-lifecycle.md) — 결정의 불변성이 걸리는 자리
 - [어드바이스 프로세스](architecture-advice-process.md) — 아래쪽 압력이 실행될 수단
 - [워들리 매핑](../concepts/wardley-mapping.md) — 진화 축을 기법으로 쓰는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 14장 "Variability and the

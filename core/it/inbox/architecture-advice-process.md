@@ -340,7 +340,7 @@ sources:
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 취해진 결정을 남기는 형식
 - [어드바이스 프로세스 도입하기](rolling-out-the-advice-process.md) — 이 규칙을 실제 조직에서
   굴리기 시작하는 법과 조언을 구할 사람의 식별
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 4장 "The Architecture Advice Process" 가운데 장 도입(p.69) ·
     §"The Need for a Faster, Decentralized Decision Process"(pp.69–70) · §"The Architecture

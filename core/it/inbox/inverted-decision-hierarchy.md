@@ -410,7 +410,7 @@ pp.369–370):[^harmellaw2024]
 - [위계를 탈중앙적 신뢰로 대체하기](replacing-hierarchy-with-decentralized-trust.md) — 같은
   낱말을 사람 쪽에 거는 자리
 - [콘웨이의 법칙](conways-law.md) — 3층이 다루는 매핑의 다른 이름
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 14장 "Variability and the

@@ -209,7 +209,7 @@ sources:
 - [전통 아키텍처 실천과 그 두 극단](traditional-architecture-practice.md) — 상아탑의 규정
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 팀 경계를 다루는 축
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 자율을 떠받치는 지원 구조 쪽
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 8장 "An Architecture Advice Forum" 가운데 §"Advice Forums
     Catalyze Powerful Group Dynamics"(pp.190–195, 소절 넷 §"The Experience for Advice

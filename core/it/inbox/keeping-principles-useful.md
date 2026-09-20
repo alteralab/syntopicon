@@ -396,7 +396,7 @@ sources:
 - [로그와 트레이스](../concepts/logs-and-traces.md) — 곁상자가 부르는 트레이스 ID의 자리
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 합의가 시간에 따라 갱신되는
   쪽 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 10장 "Collectively Sourced Architectural Principles"
     가운데 §"Capturing Your Architectural Principles with a Principles Workshop"의 마지막 소절

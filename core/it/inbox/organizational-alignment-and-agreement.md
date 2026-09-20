@@ -404,7 +404,7 @@ sources:
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 중복을 없애는 수단 쪽
 - [DDD 전략 설계](../synthesis/ddd-strategic-design.md) — 각주가 드는 "낭비인가 투자인가"의 출처
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — CFR이 사는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 9장 "Testable CFRs and Technology Strategy"의 앞쪽
     (pp.209–220) — 장 도입(p.209) · §"The Importance of Organizational Alignment"(pp.209–220,

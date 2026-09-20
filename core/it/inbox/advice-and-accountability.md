@@ -299,7 +299,7 @@ sources:
   보는 축
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 조언을 받은 뒤 옵션 사이의
   선택을 실제로 계산하는 절차
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 4장 "The Architecture Advice Process"와 **15장 "The Transition
     of Power and Accountability"의 한 대목(§"Does Everyone Understand Their

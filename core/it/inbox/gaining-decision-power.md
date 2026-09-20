@@ -470,7 +470,7 @@ sources:
   역할이 최신으로 유지하는 것
 - [결정의 프레이밍과 옵션 만들기](framing-and-option-making.md) — 곁상자가 가리키는 셋째 자리
 - [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 같은 일 목록을 사람에게 붙이는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) **IV부 도비라 "Centering the 'Social' in

@@ -286,7 +286,7 @@ sources:
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 둘째 이야기의 역할을 다른
   소스에서 보는 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 이너 소스 제안이 닿는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 4장 "The Architecture Advice Process" 가운데 §"Two Examples of
     the Architecture Advice Process in Action"(pp.76–92, 하위 소절 둘 §"Story 1: A Development

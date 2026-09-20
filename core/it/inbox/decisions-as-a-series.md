@@ -220,7 +220,7 @@ p.361):[^harmellaw2024]
 - [어드바이스 프로세스](architecture-advice-process.md) — 스파이크가 앞지르는 절차
 - [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 피드백이 닿는
   거리를 속도 제한으로 읽는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 14장 "Variability and the

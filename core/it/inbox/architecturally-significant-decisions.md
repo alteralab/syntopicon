@@ -342,7 +342,7 @@ sources:
 - [DDD 전략 설계](../synthesis/ddd-strategic-design.md) — 곁상자가 드는 패턴 책 가운데 이 KB에
   원전으로 들어와 있는 하나
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 가로지르는 기능 특성이 사는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 2장 "To Practice Architecture Is to Decide" 가운데
     §"Architecturally Significant Decisions"(pp.39–47, 하위 §"What Makes an Architectural

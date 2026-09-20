@@ -453,7 +453,7 @@ sources:
   회의체를 반대 권한으로 채우는 자리
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 실천 공동체가 사는 자리
 - [함께 일하기](../concepts/working-together.md) — 회의가 아니라 코딩 중의 대화를 처방하는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 8장 "An Architecture Advice Forum"의 앞쪽(pp.179–190) —
     장 도입(p.179) · §"Introducing the Architecture Advice Forum"(pp.179–182, 소절 둘

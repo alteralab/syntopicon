@@ -365,7 +365,7 @@ sources:
 - [결정을 더 작게 쪼개기와 흐름](smaller-decisions-and-flow.md) — 파단면의 원 자리
 - [아키텍처 어드바이스 프로세스](architecture-advice-process.md) — 지켜야 할 핵심 목표 넷의 원 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 스트림 정렬과 플랫폼 팀의 구분
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 17장 "Fitting the Advice Process Within

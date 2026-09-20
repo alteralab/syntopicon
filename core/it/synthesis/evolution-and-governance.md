@@ -186,3 +186,7 @@ generated: { by: "claude-opus-5", at: "2026-09-19T05:00:00Z" }
 - [API 설계 패턴](api-design-patterns.md) — 그 인터페이스의 설계 물음들
 - [비기능 요건](nonfunctional-requirements.md) — 적합도 함수가 재는 특성들이 정의되는 축
 - [인코딩과 진화](encoding-and-evolution.md) — 스키마가 판을 넘어 살아남는 형식 층
+- [아키텍처 결정 실천](architecture-decision-practice.md) — **같은 "거버넌스"라는 낱말을 다른
+  층에 거는 축.** 여기는 지어진 것이 규칙을 지키는가를 기계 검사로 묻고, 그쪽은 누가 그 규칙을
+  정하는가를 결정의 권한과 기록으로 묻는다. 위 자동화된 아키텍처 거버넌스와 가설 주도 개발
+  항목이 길 표시로 가리키던 페이지들이 그 허브에 산다

@@ -269,7 +269,7 @@ sources:
 - [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 적응 가능성을 규정으로 세우는 쪽
 - [복잡성의 정의와 증상](../concepts/software-complexity-defined.md) — 같은 낱말을 코드 쪽에서
   조작적으로 정의하는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 1장 "Centralized Architecture Practices in a Decentralized
     World" 가운데 §"Five Revolutions Unlocked the Power of Software"(pp.7–11, 곁줄 하나 포함)와

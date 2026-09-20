@@ -437,7 +437,7 @@ p.285):[^harmellaw2024]
 - [이벤트스토밍](../concepts/eventstorming.md) — 같은 낱말의 다른 워크숍
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 재평가 주기를 다른 단위로
   재는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 11장 "Using a Technology Radar" 가운데
     §"Creating Your Technology Radar"(pp.282–294)와 그 소절 여섯 §"Blip Gathering"(pp.283–286) ·

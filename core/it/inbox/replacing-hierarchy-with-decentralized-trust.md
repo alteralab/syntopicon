@@ -336,7 +336,7 @@ sources:
   연합체를 세우는 반대편 처방
 - [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — TOGAF가 이 KB에 나오는 다른 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 검증 가능한 CFR이 사는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, **II부 도비라 "Nurturing and Evolving Your Culture of
     Decentralized Trust"(pp.159–160, 산문 두 쪽 전량)**와 **7장 "Replacing Hierarchy with

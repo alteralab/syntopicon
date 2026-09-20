@@ -438,7 +438,7 @@ sources:
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 무엇을 누가 바꿀 수 있는가의 축
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 같은 병목에
   다른 지렛대를 잡는 쪽
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 3장 "Decisions at Scale" 가운데 §"Decision Processes at
     Scale"(pp.55–66, 하위 §"Standard Approaches to Decisions at Scale"와 그 아래 목차에 없는

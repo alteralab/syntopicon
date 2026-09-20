@@ -471,7 +471,7 @@ sources:
   같은 방향의 조문
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 이 문화를 설계 대상으로
   삼는 역할
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 7장 "Replacing Hierarchy with Decentralized Trust"의 뒤쪽
     (pp.166–177) — §"Keeping Space for a Culture of Learning and Trust"(pp.166–172, 소절 다섯

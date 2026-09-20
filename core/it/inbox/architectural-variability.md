@@ -262,7 +262,7 @@ sources:
 - [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 피드백이 닿는
   거리를 속도 제한으로 읽는 축
 - [가설 주도 개발](../concepts/hypothesis-driven-development.md) — 미지를 실험으로 판정하는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 13장 "Tackling Architectural Variability" 가운데 장
     도입(pp.325–326) · §"The Effect of Variability on the Practice of Architecture"

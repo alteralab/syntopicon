@@ -429,7 +429,7 @@ sources:
   거는 축
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 강제하지 않는 기본값을
   다른 손잡이로 세우는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 규칙 자신이 아직 맞는가를 묻는
   쪽 축
 

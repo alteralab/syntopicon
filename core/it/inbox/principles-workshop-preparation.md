@@ -306,7 +306,7 @@ sources:
 - [이벤트스토밍](../concepts/eventstorming.md) — 같은 낱말 "워크숍"을 다른 대상에 쓰는 축
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 규칙을 쉽게 따르게
   만드는 반대 방향의 수단
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 10장 "Collectively Sourced Architectural Principles"
     가운데 §"Capturing Your Architectural Principles with a Principles Workshop"의 앞부분

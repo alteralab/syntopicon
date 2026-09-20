@@ -383,7 +383,7 @@ sources:
   다른 축
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 옵션 사이의 비교를 실제로
   계산하는 절차
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 6장 "Architectural Decision Records" 가운데
     §"Drafting an ADR to Support Deciding"(pp.125–135, 소절 넷과 곁상자 넷 포함) ·

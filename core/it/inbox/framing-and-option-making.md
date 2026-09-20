@@ -412,7 +412,7 @@ sources:
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 같은 행위의 평가 구간을
   절차로 적는 축
 - [워들리 매핑](../concepts/wardley-mapping.md) — 지도를 비유가 아니라 기법으로 쓰는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, III부 도비라 "Finding Your Way Through the Decision
     Landscape"(pp.299–300) 전량과 12장 "The Art of Deciding" 가운데 §"The Importance of the

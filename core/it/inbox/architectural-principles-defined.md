@@ -375,7 +375,7 @@ in Disguise", p.244).[^harmellaw2024] **가르는 잣대가 셋이다.**
   조문을 가리키는 축
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 검증을 산출물 쪽에
   거는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 10장 "Collectively Sourced Architectural Principles"
     가운데 §"Source Architectural Principles from Everyone Involved"(pp.239–246)와 그 소절

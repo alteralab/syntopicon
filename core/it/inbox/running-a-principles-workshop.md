@@ -288,7 +288,7 @@ pp.258–260).[^harmellaw2024] 원칙 둘의 전문은
   그 운영 절차
 - [이벤트스토밍](../concepts/eventstorming.md) — 같은 형태의 다른 목적을 가진 워크숍
 - [DRY 원칙](../concepts/dry-principle.md) — 이 절이 아키텍처 원칙 자리에서 기각하는 그것
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 10장 "Collectively Sourced Architectural Principles"
     가운데 §"Capturing Your Architectural Principles with a Principles Workshop"의 소절

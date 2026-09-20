@@ -491,7 +491,7 @@ sources:
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 강제하지 않는 것이
   조건이라는 같은 방향의 조문
 - [안정성 패턴](../concepts/stability-patterns.md) — 이 장 각주가 부르는 *Release It!*이 사는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 5장 "Rolling Out the Architecture Advice Process"
     (pp.101–113) 전량 — §"First Steps"(pp.101–105, 소절 셋) · §"Overcoming Early-Stage

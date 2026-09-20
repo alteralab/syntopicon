@@ -358,7 +358,7 @@ sources:
 - [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 무엇이 아키텍처적인가의 다른 잣대
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 판정 다음의 계산
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 둘째 기준이 가리키는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, I부 도비라 "First Principles"(pp.29–30) 전량과 2장 "To
     Practice Architecture Is to Decide" 가운데 장 도입의 시각화 연습(p.31) · §"Decisions Are the

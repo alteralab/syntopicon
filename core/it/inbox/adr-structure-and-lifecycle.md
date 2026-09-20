@@ -418,7 +418,7 @@ sources:
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 되돌릴 수 없는 결정일수록
   기록의 값이 크다는 다른 축
 - [안정성 패턴](../concepts/stability-patterns.md) — 나이가드가 이 KB에 들어와 있는 다른 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 6장 "Architectural Decision Records" 가운데 장 도입(p.115) ·
     §"Introducing Architectural Decision Records"(pp.115–117, 곁상자 "Further ADR

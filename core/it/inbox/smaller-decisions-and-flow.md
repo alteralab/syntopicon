@@ -354,7 +354,7 @@ Uncover Value", p.345).[^harmellaw2024]
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 한 결정 안을 재는 축
 - [아키텍처 퀀텀](../concepts/architectural-quantum.md) — 독립 배포 가능성으로 단위를 세는 축
 - [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 결정의 수를 줄이는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 13장 "Tackling Architectural Variability" 가운데
     §"Tackle Variability with Smaller Decisions"(pp.334–342, 목차에 없는 소소절 둘과 본문

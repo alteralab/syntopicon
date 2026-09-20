@@ -309,7 +309,7 @@ sources:
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 내린 결정을 무엇으로 남기는가
 - [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 부치의 같은 정의를 데이터
   쪽에서 쓰는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 1장 "Centralized Architecture Practices in a Decentralized
     World" 가운데 §"Both the Practice and the End Result of Software Architecture Are Essential

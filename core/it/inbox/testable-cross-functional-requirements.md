@@ -383,7 +383,7 @@ sources:
   요구하는 그 성질
 - [로그와 트레이스](../concepts/logs-and-traces.md) — 그 실물이 다루는 로그 쪽
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 요건들이 사는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024. 본문은 9장이고 **마지막 대비 절의 한 항목만 같은 책 10장
     §"Principles Can Be Cross-Functional Requirements in Disguise"(pp.244–245)와 곁상자

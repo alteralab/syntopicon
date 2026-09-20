@@ -476,7 +476,7 @@ sources:
   사라지는 근거
 - [아키텍처 어드바이스 포럼의 규정과 운영](architecture-advice-forum.md) — 순환을 강제하라는
   역할이 사는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 16장 "On Leadership"의 뒤 절반 —

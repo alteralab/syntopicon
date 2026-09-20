@@ -248,7 +248,7 @@ sources:
 - [OpenAPI 명세 실무](../concepts/openapi-specification-practice.md) — 같은 낱말이 인터페이스 쪽을
   가리키는 자리
 - [인터페이스 문서화](../concepts/interface-documentation.md) — 같은 낱말의 또 다른 층
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 6장 "Architectural Decision Records" 가운데
     §"Taking Your Decision and Completing the ADR"(pp.146–150, 소절 넷 포함) ·

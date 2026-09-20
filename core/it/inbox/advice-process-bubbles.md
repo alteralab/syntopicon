@@ -373,7 +373,7 @@ sources:
   전제의 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 팀 토폴로지와 조직 설계 쪽
 - [콘웨이의 법칙](../concepts/conways-law.md) — 조직 구조와 체계 설계의 인과
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 17장 "Fitting the Advice Process Within

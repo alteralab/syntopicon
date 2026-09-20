@@ -374,7 +374,7 @@ sources:
   마지막 예가 드는 규제 요건이 사는 자리
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 합의가 시간에 따라 갱신되어야
   한다는 쪽 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 9장 "Testable CFRs and Technology Strategy"의 뒤쪽
     (pp.230–237) — §"Minimum Viable Agreement"의 소절 §"Technology Strategy"(pp.230–236,

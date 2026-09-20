@@ -272,7 +272,7 @@ sources:
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 옵션 사이의 선택을 실제로
   계산하는 절차
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 취해진 결정을 남기는 형식
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 3장 "Decisions at Scale" 가운데 장 도입(p.49) ·
     §"Decision Processes"(pp.49–54, 하위 §"Stage 1: Decision Required"·"Stage 2: The Act of

@@ -385,7 +385,7 @@ sources:
   비추어 내리는가
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 내린 결정을 무엇으로 남기는가
 - [되돌릴 수 있는 설계 결정](../concepts/reversible-design-decisions.md) — 결정을 성질로 가르는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 1장 "Centralized Architecture Practices in a Decentralized
     World" 가운데 §"The Effects of the Five Revolutions on Architecture Practice"의 하위 §"The

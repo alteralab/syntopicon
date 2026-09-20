@@ -362,7 +362,7 @@ p.359):[^harmellaw2024]
 - [아키텍처 어드바이스 포럼](architecture-advice-forum.md) — 계획된 스파이크를 올리는 자리
 - [어드바이스 프로세스](architecture-advice-process.md) — 스파이크가 비용을 인정하는 대상
 - [가설 주도 개발](../concepts/hypothesis-driven-development.md) — 미지를 실험으로 판정하는 축
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 14장 "Variability and the

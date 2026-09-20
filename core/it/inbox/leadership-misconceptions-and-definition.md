@@ -391,7 +391,7 @@ sources:
   혁명 다섯의 자리
 - [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 같은 물음에 다른 소스가 답하는 축
 - [규모의 결정 프로세스](decision-processes-at-scale.md) — 결정 절차 쪽의 층
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
     Make Architectural Decisions* 초판(O'Reilly, 2024) 16장 "On Leadership"의 앞 절반 —
