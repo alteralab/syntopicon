@@ -133,7 +133,7 @@ sources:
   `JMSException`), 런타임 예외는 프로그래머 오류로 간주된다. 런타임 예외가 발생하면 JMS 제공자는
   다음 메시지를 전달함으로써 응답하므로, 예외를 일으킨 그 메시지는 유실된다** (10장,
   p.501).[^hohpe2004]
-  - **처리 실패한 메시지가 조용히 사라지는 실물 사례**다. 이 자리가 오늘날
+  - **처리 실패한 메시지가 조용히 사라지는 실물 사례**다. 이 자리가 2026년 KB 작성 시점에
     [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md)가 채우는
     구멍이다. 저자들의 2004년 처방은 **트랜잭션적이면서 이벤트 구동인 동작을 얻으려면 메시지
     구동 EJB를 쓰라**는 것이었다 (10장, p.501).[^hohpe2004]
@@ -548,7 +548,7 @@ sources:
   저장된 메시지의 수가 과도해질 수 있다. *Message Expiration*(176)이 이 문제를 완화하는 데 도움이
   될 수 있다. 메시징 시스템은 또한 비활성 구독을 위해 저장될 수 있는 메시지의 수를 제한하고 싶을 수
   있다** (10장, p.525).[^hohpe2004]
-  - 이 두 완화책 — 시간으로 끊기와 개수로 끊기 — 이 오늘날 브로커의 보존 정책(`retention.ms`·
+  - 이 두 완화책 — 시간으로 끊기와 개수로 끊기 — 이 2026년 KB 작성 시점 브로커의 보존 정책(`retention.ms`·
     `retention.bytes`)으로 남아 있다.
 - 예제가 개념을 말한 대목 — **같은 채널에서 어느 구독자가 영속이어야 하고 어느 것이 아니어야
   하는지를 판정하는 기준이 제시된다: 현재 가격을 표시하는 GUI의 구독은 비영속이어도 되는데,
@@ -654,7 +654,7 @@ sources:
   구독 상태가 오프셋과 보존으로 옮겨 간 자리
 - [카프카 컨슈머 그룹과 리밸런스](../concepts/kafka-consumer-groups-and-rebalance.md) —
   *Competing Consumers*가 파티션 소유로 구현된 실물
-- [카프카 폴 루프](../concepts/kafka-consumer-poll-loop.md) — *Polling Consumer*의 현재형
+- [카프카 폴 루프](../concepts/kafka-consumer-poll-loop.md) — *Polling Consumer*의 2026년 KB 작성 시점 대응물
 - [메시지 라우팅 패턴](message-routing-patterns.md) — *Selective Consumer*와 갈리는
   *Message Filter*·*Content-Based Router*가 정의된 자리
 - [메시징 채널 패턴](messaging-channel-patterns.md) — *Datatype Channel*·*Invalid Message

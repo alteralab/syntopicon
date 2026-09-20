@@ -321,7 +321,7 @@ Konieczny 10장의 둘째 기둥인 **추적**(tracking)은 관측을 데이터 
   패턴이 속한 카탈로그
 - [시스템 관리 패턴](system-management-patterns.md) — *Message History*가 속한 관측
   패턴 무리의 나머지(Control Bus·Wire Tap·Message Store·Smart Proxy·Test Message)
-- [변경 데이터 캡처](change-data-capture.md) — 계보로 자기가 만든 변경을 걸러 내는 현재형
+- [변경 데이터 캡처](change-data-capture.md) — 계보로 자기가 만든 변경을 걸러 내는 2026년 KB 작성 시점의 대응물
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 원전 층이 속한 카탈로그의 허브
 
 [^hohpe2004]: Hohpe & Woolf 2004, 11장 "System Management" — "Message History"(pp.551–554).

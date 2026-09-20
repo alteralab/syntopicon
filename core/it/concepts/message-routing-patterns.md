@@ -207,7 +207,7 @@ p.227).[^hohpe2004]
   중복 메시지를 제거하는 데 *Message Filter*를 쓰는 것이다. 각 메시지가 고유한 메시지 식별자를
   갖는다고 가정하면, *Message Filter*는 과거 메시지의 식별자를 저장해 각 메시지의 식별자를
   저장된 식별자 목록과 비교함으로써 중복 메시지를 인식할 수 있다** (7장, p.239).[^hohpe2004]
-  이것이 현재형 스트리밍의 중복 제거와 만나는 자리다 —
+  이것이 2026년 KB 작성 시점 스트리밍의 중복 제거와 만나는 자리다 —
   [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md)를 보라.
 
 ### 메시징 시스템에 내장된 필터링
@@ -475,7 +475,7 @@ p.227).[^hohpe2004]
 - [메시징 채널 패턴](messaging-channel-patterns.md) — 라우터가 읽고 쓰는 채널의 설계 결정들.
   *Datatype Channel*의 역다중화가 *Content-Based Router*에 배정되는 자리이기도 하다
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 상태 있는 *Message
-  Filter*로 중복을 거르는 쪽의 현재형
+  Filter*로 중복을 거르는 쪽의 2026년 KB 작성 시점 대응물
 - [요청 라우팅](../concepts/request-routing.md) — *Dynamic Router*의 서비스 디스커버리가 데이터
   시스템 쪽에서 같은 이름으로 사는 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브

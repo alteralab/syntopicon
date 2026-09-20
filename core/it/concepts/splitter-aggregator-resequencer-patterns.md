@@ -404,7 +404,7 @@ sources:
 - [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Correlation Identifier*·*Message
   Sequence*·*Message Expiration*이 정의된 자리. 이 페이지의 상관·순번·정리가 전부 거기서 온다
 - [순서 보장 전달 패턴](../concepts/ordered-delivery-patterns.md) — *Resequencer*가 푸는 문제를
-  현재형 데이터 파이프라인 쪽에서 예방으로 다시 세운 자리
+  2026년 KB 작성 시점 데이터 파이프라인 쪽에서 예방으로 다시 세운 자리
 - [배치 조인과 그룹핑](../concepts/batch-joins-and-grouping.md) — *Aggregator*의 배치 판
   (Distributed Aggregator·Local Aggregator)
 - [스트림 처리의 시간 윈도](../concepts/stream-processing-time-windows.md) — 완료 조건이 시간 축

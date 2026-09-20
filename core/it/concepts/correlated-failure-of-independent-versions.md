@@ -368,7 +368,7 @@ Littlewood & Miller 쪽 기록이다.
 - [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 결함을 견딘다는
   것이 무엇을 뜻하는가의 어휘
 - [모델 사이의 오류 상관](../concepts/correlated-errors-across-llms.md) — 이 실험과 같은
-  물음을 언어 모델에 건 현대 대응물. 판본 대신 모델을, 동시 실패 대신 같은 오답을 세고,
+  물음을 언어 모델에 건 2026년 KB 작성 시점의 대응물. 판본 대신 모델을, 동시 실패 대신 같은 오답을 세고,
   개별 정확도와 상관의 관계까지 잰 자리
 - [자기인식과 자기선호](../concepts/self-recognition-and-self-preference.md) — 판정자와
   대상을 아예 갈라 두지 않은 자리. 이 페이지가 "따로 만들면 따로 틀린다"를 반증한다면

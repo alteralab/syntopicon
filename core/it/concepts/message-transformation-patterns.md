@@ -580,7 +580,7 @@ Translator*(85)에 서술했듯 메시징 시스템으로 통합돼야 하는 �
 - **정규 모델도 변한다** — **늘 그렇듯 유일한 상수는 변화다. 그러므로 *Canonical Data Model*에
   부합하는 메시지는 *Format Indicator*(180)를 지정해야 한다** (8장, p.359).[^hohpe2004]
   *Format Indicator*는 [메시지 구성 패턴](../concepts/message-construction-patterns.md)에 있고, 같은 문제의
-  현재형이 [하위·상위 호환성](../concepts/backward-and-forward-compatibility.md)이다.
+  2026년 KB 작성 시점 대응물이 [하위·상위 호환성](../concepts/backward-and-forward-compatibility.md)이다.
 - 예제가 개념을 말한 대목 — **WSDL이 사실상 Canonical Data Model이다.** **애플리케이션에서 외부
   서비스에 접근할 때 그 서비스가 이미 쓸 *Canonical Data Model*을 지정하고 있을 수 있다. XML 웹
   서비스의 세계에서 데이터 형식은 WSDL(Web Services Definition Language) 문서로 지정된다. WSDL은
@@ -602,7 +602,7 @@ Translator*(85)에 서술했듯 메시징 시스템으로 통합돼야 하는 �
   자리, *Datatype Channel*이 형식마다 채널을 가르는 자리
 - [메시지 구성 패턴](../concepts/message-construction-patterns.md) — *Format Indicator*가 정의된 자리
 - [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) —
-  *Content Enricher*가 현재형 데이터 파이프라인에서 Static Joiner·Dynamic Joiner·Wrapper·
+  *Content Enricher*가 2026년 KB 작성 시점 데이터 파이프라인에서 Static Joiner·Dynamic Joiner·Wrapper·
   Metadata Decorator로 갈라진 자리
 - [하위·상위 호환성](../concepts/backward-and-forward-compatibility.md) — 공통 형식이 시간 축으로
   변할 때의 문제

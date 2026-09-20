@@ -704,7 +704,7 @@ p.93).[^newman2021]
   정의된 카탈로그
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 재시도가 중복을
   만들 때의 멱등성
-- [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 동기 요청-응답의 현재형 구현
+- [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 동기 요청-응답의 2026년 KB 작성 시점 구현
 - [사용자 인터페이스 분해 패턴](ui-decomposition-patterns.md) — 같은 이벤트 주도 상호작용이
   브라우저 안의 위젯 사이에서 되풀이되는 자리
 - [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md) — 두

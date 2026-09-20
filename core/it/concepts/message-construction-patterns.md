@@ -519,7 +519,7 @@ sources:
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — *Event Message*의 내용/시점
   구분이 상태와 이벤트의 이중성으로 자란 쪽
 - [변경 데이터 캡처](../concepts/change-data-capture.md) — 데이터베이스의 변화를 *Event
-  Message*로 바꾸는 현재형 기제
+  Message*로 바꾸는 2026년 KB 작성 시점의 기제
 - [후진 호환과 전진 호환](../concepts/backward-and-forward-compatibility.md) — *Format
   Indicator*가 풀려던 문제가 스키마 진화의 두 방향으로 정식화된 자리
 - [데이터 인코딩 형식](../concepts/data-encoding-formats.md) — 세 구현 중 외래 키(스키마 ID)를

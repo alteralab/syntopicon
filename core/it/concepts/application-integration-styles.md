@@ -534,7 +534,7 @@ sources:
   Invocation*이 20년 뒤에 어떻게 채점되는가
 - [마이크로서비스 통신 스타일](microservice-communication-styles.md) — 같은 물음에
   다섯으로 답한 2021년판
-- [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — *Messaging* 스타일의 현재형
+- [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — *Messaging* 스타일의 2026년 KB 작성 시점 대응물
 - [데이터를 반입하는 방법들](../concepts/data-ingestion-methods.md) — 같은 네 갈래가 데이터
   엔지니어링 어휘(직접 DB 연결·API·메시지 큐·파일)로 다시 나오는 자리
 - [웹 서비스와 REST](../concepts/web-services-and-rest.md) — 2003년에 *Remote Procedure

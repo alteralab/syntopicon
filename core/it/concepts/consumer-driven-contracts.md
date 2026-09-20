@@ -78,7 +78,7 @@ WS-Policy가 예시의 재료이고, 지금 실무에서 그 자리를 다른 �
   > contracts should adopt, nor does it determine how consumer expectations are communicated
   > to the provider and asserted during the provider's lifetime.
 
-- **후대 구현체는 이 글 밖이다.** 계약을 파일로 주고받는 오늘날의 도구들은 2006년 이
+- **후대 구현체는 이 글 밖이다.** 계약을 파일로 주고받는 2026년 KB 작성 시점의 도구들은 2006년 이
   글에 이름조차 나오지 않는다. 이 페이지는 그 도구들을 이 소스에 기대어 서술하지 않는다.
 
 ## 문제 — 계약이 서비스를 묶는다

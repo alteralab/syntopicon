@@ -23,7 +23,7 @@ generated: { by: "claude-opus-5", at: "2026-09-19T05:00:00Z" }
 
 **가르는 기준은 층이다.** 채널과 라우팅과 소비자 패턴이라는 **이름 층**은 부모 허브
 [메시징 패턴](messaging-patterns.md)이 갖고, 여기는 그 기반 위에 **서비스를 세우는 층**을
-갖는다. 브로커와 시간과 상태의 **현재형 기반**은 [스트림 처리](stream-processing.md)가,
+갖는다. 브로커와 시간과 상태의 **2026년 KB 작성 시점 기반**은 [스트림 처리](stream-processing.md)가,
 제품 하나의 구현은 [카프카](kafka-basics.md)가 갖는다.
 
 ## 기반과 이벤트 설계
@@ -151,7 +151,7 @@ generated: { by: "claude-opus-5", at: "2026-09-19T05:00:00Z" }
 - [메시징 패턴](messaging-patterns.md) — **부모 허브.** 같은 기반에 이름을 붙이는 카탈로그 층.
   이 허브의 이벤트 기반 패턴들이 그쪽의 *Publish-Subscribe Channel*과 *Durable Subscriber*와
   *Dead Letter Channel* 위에 그대로 선다
-- [스트림 처리](stream-processing.md) — 브로커와 시간과 상태와 스트림-테이블 이중성의 현재형 기반
+- [스트림 처리](stream-processing.md) — 브로커와 시간과 상태와 스트림-테이블 이중성의 2026년 KB 작성 시점 기반
 - [카프카](kafka-basics.md) — 그 기반이 한 제품에서 어떻게 구현됐는가
 - [마이크로서비스 경계와 통신](microservice-boundaries-and-communication.md) — 같은 서비스를
   경계와 통신 스타일 쪽에서 보는 축

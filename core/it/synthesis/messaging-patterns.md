@@ -116,7 +116,7 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 | [데이터베이스를 거치는 데이터플로](../concepts/dataflow-through-databases.md) | *Shared Database* 통합 스타일의 정의와 그 대가 | 2장 |
 | [원격 프로시저 호출의 문제](../concepts/remote-procedure-call-problems.md) | *Remote Procedure Invocation*의 원전 서술과 20년 뒤의 채점 | 2장 |
 | [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) | 채널 어휘의 원전 — 점대점과 발행-구독이 갈리는 자리 | 3·4장 |
-| [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) | *Invalid Message Channel*·*Dead Letter Channel*의 원전 정의와 현대 용법의 경계 이동, 그리고 데드레터 큐가 서버를 무너뜨린 사고 | 4·13장 |
+| [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) | *Invalid Message Channel*·*Dead Letter Channel*의 원전 정의와 2026년 KB 작성 시점 용법의 경계 이동, 그리고 데드레터 큐가 서버를 무너뜨린 사고 | 4·13장 |
 | [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) | *Resequencer* — 예방이냐 교정이냐의 판정 | 7장 |
 | [배치 워크플로와 DAG](../concepts/batch-workflows-and-dags.md) | *Routing Slip*·*Process Manager*가 오케스트레이션의 선조인 자리 | 7장 |
 | [데이터 강화와 장식 패턴](../concepts/data-enrichment-and-decoration-patterns.md) | *Content Enricher*·*Envelope Wrapper*의 이름 계보 | 8장 |
@@ -133,7 +133,7 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 - [아웃박스 패턴](../concepts/outbox-pattern.md) — 데이터베이스 갱신과 메시지 발행을 어긋나지
   않게 하는 기제. 2004년의 답인 *Transactional Client*와 XA가
   [메시징 엔드포인트 패턴](../concepts/messaging-endpoint-patterns.md)에 있고, 이쪽이 그것을
-  피하는 현재형 답이다. 보장은 최소 한 번이라 *Idempotent Receiver*를 조건으로 넘긴다
+  피하는 2026년 KB 작성 시점의 답이다. 보장은 최소 한 번이라 *Idempotent Receiver*를 조건으로 넘긴다
 - [사가 패턴](../concepts/saga-pattern.md) — 여러 구성 요소에 걸치는 업무 프로세스를 롤백이
   아니라 보상으로 푸는 쪽. [패턴과 표준](../concepts/patterns-and-standards.md)이 2003년 시점의
   전망으로 적은 "오래 사는 프로세스"가 이쪽에서 이름과 정의를 얻는다. **소스가 둘이고 둘이 이
@@ -173,10 +173,10 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 - [카프카 단일 메시지 변환](../concepts/kafka-single-message-transformations.md) — 변환을
   파이프라인 안에 두는 실물
 - [카프카 커넥트와 파이프라인](kafka-connect-and-pipelines.md) — 애플리케이션을
-  스트리밍 시스템에 붙이는 어댑터 층. *Channel Adapter*의 현재형
+  스트리밍 시스템에 붙이는 어댑터 층. *Channel Adapter*의 2026년 KB 작성 시점 대응물
 - [링크 추상과 메시지 전달 보장](../concepts/link-abstractions-and-message-delivery.md) —
   "성공할 때까지 전달을 다시 시도한다"가 서 있는 보장의 사다리
-- [토픽과 파티션](../concepts/topics-and-partitions.md) — 채널 세밀도의 현재형 한계
+- [토픽과 파티션](../concepts/topics-and-partitions.md) — 채널 세밀도의 2026년 KB 작성 시점 한계
 - [느슨하게 해석되는 제약](../concepts/loosely-interpreted-constraints.md) — 롤백 대신 보상으로
   푸는 축
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 회사 표준·조직 결정이 기술
@@ -293,7 +293,7 @@ generated: { by: "claude-opus-5", at: "2026-09-15T10:00:00Z" }
 
 ## 이웃 허브
 
-- [스트림 처리](stream-processing.md) — 이 이름 층이 얹히는 현재형 기반. 브로커·시간·상태·이중성
+- [스트림 처리](stream-processing.md) — 이 이름 층이 얹히는 2026년 KB 작성 시점의 기반. 브로커·시간·상태·이중성
 - [카프카](kafka-basics.md) — 여섯 뿌리가 하나의 제품에서 어떻게 구현됐는가
 - [데이터 엔지니어링 디자인 패턴](data-engineering-design-patterns.md) — 같은 방식으로 원리 위에
   얹힌 다른 이름 층. 데드레터·멱등성처럼 겹치는 이름이 있고, 거기서는 데이터 파이프라인 쪽 결과가

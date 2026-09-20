@@ -521,7 +521,7 @@ patterns)** 이라 부르고, 각 뿌리마다 장 하나를 붙였다.
 - [통합의 도전과 느슨한 결합](../concepts/integration-challenges-and-loose-coupling.md) — 채널·메시지·변환기가
   가정을 하나씩 떼는 장치로 먼저 도출되는 자리
 - [발행/구독 메시징](../concepts/publish-subscribe-messaging.md) — *Message Channel*의 두 갈래
-  중 하나가 현재형 브로커에서 어떻게 구현되는가
+  중 하나가 2026년 KB 작성 시점 브로커에서 어떻게 구현되는가
 - [링크 추상과 메시지 전달 보장](../concepts/link-abstractions-and-message-delivery.md) —
   "성공할 때까지 반복해서 전달을 시도한다"가 어떤 보장의 사다리 위에 서 있는가
 - [데드레터와 빠져나가는 레코드](../concepts/dead-letter-and-dropped-records.md) — *Dead Letter
