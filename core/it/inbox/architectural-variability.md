@@ -244,6 +244,10 @@ sources:
 
 - [결정을 더 작게 쪼개기와 흐름](smaller-decisions-and-flow.md) — 같은 장의 뒷부분. 결정
   크기를 줄이는 이득과 쪼개는 어림
+- [아키텍처 스파이크](architectural-spikes.md) — 다음 장. 같은 가변성을 프로덕션 앞에서
+  재는 도구
+- [결정의 원자성과 양방향 대화](atomic-decisions-and-two-way-conversations.md) — 다음 장.
+  워킹 스켈레톤을 스파이크가 더 효율적으로 만드는 자리
 - [결정의 메타인지와 두려움과 편향](metacognition-fear-and-bias.md) — 앞 장. 같은 어려움을
   사람 쪽에서 다룬다
 - [중앙집중 아키텍처 실천의 몰락과 새 실천의 전제](fall-of-centralized-architecture-practice.md) —
