@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 기술 선택의 기준
-description: "데이터 엔지니어링 수명 주기 전반에서 기술을 고를 때 무엇을 저울에 올리는가 — 아키텍처가 먼저이고 도구가 나중인 이유, 열 가지 고려사항, 팀 규모와 카고 컬트 엔지니어링, 시장 출시 속도, 상호운용성, 린디 효과로 가르는 불변 기술과 일시 기술, 2년 재평가 주기, 그리고 벤더 벤치마크에 쓰이는 세 가지 속임수"
-generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
+description: "데이터 엔지니어링 수명 주기 전반에서 기술을 고를 때 무엇을 저울에 올리는가 — 아키텍처가 먼저이고 도구가 나중인 이유, 열 가지 고려사항, 팀 규모와 카고 컬트 엔지니어링, 시장 출시 속도, 상호운용성, 린디 효과로 가르는 불변 기술과 일시 기술, 2년 재평가 주기, 벤더 벤치마크에 쓰이는 세 가지 속임수, 후보를 알려 주는 바깥 출처와 그 편향, 그리고 같은 레이더라는 낱말을 조직 안쪽으로 돌려 자기가 쓴 것만 싣게 하는 넷째 소스"
+generated: { by: "claude-opus-5", at: "2026-09-19T21:30:00Z" }
 sources:
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: thomas2020, resource: /it/sources/thomas2020.md }
   - { id: gough2022, resource: /it/sources/gough2022.md }
+  - { id: harmellaw2024, resource: /it/sources/harmellaw2024.md }
 ---
 
 # 기술 선택의 기준
@@ -22,6 +23,7 @@ sources:
 - [벤치마크 전쟁](#벤치마크-전쟁)
 - [저류가 기술 선택에 거는 조건](#저류가-기술-선택에-거는-조건)
 - [셋째 소스 — 후보를 어디서 알게 되는가와 그 출처의 편향](#셋째-소스--후보를-어디서-알게-되는가와-그-출처의-편향)
+- [넷째 소스 — 같은 레이더를 조직 안쪽으로 돌린다](#넷째-소스--같은-레이더를-조직-안쪽으로-돌린다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **아키텍처 청사진이 정해진 뒤 실제 도구를 고를 때 무엇을 기준으로 삼는가.**
@@ -310,6 +312,40 @@ How to Keep Learning About API Architecture", pp.235–236).[^gough2022]
   알려 주는 매체 자체가 편향돼 있다**고 적는다. **겨루지 않고 층이 다르다** — 하나는 판단의
   순서를, 다른 하나는 판단의 입력을 다룬다. 이 대조는 이 KB가 세운 것이다.
 
+## 넷째 소스 — 같은 레이더를 조직 안쪽으로 돌린다
+
+**위 셋째 소스가 "소트웍스 기술 레이더"를 바깥 출처의 하나로 들었다.** 2024년 아키텍처 의사결정
+실천서가 **같은 레이더의 규정을 가져다 조직 안에서 자기 것으로 만드는 방식**을 한 장에 걸쳐
+적는다. **같은 낱말이되 대상이 다르다.**
+
+- **안쪽 레이더의 초점** — **조직 자신의 레이더는 아주 특정한 틈새에 들어맞는다. 자기 결정
+  프로세스와 그것을 감싸는 사회기술 체계다.** **소트웍스 레이더가 고객이 좋은 결정을 내리고
+  나쁜 결정을 피하도록 돕기 위해 존재한다면, 자기 레이더는 자기 내부 지형과 기후 안에서의
+  분산된 의사결정을 떠받치는 데 초점을 맞춘다** (11장 §"Your Internal Technology Radar Will Be
+  Structured Differently", p.279).[^harmellaw2024]
+- **그래서 실리는 것이 다르다** — **소트웍스는 고객이 만들었을지 모르는 사내 도구를 하나도
+  싣지 않지만**(고객의 지적 재산이므로) **자기 내부 레이더에는 그런 제약이 없다** (11장,
+  p.279).[^harmellaw2024]
+- **그리고 오르는 조건이 다르다** — 이쪽 블립은 **그 기술을 실제로 쓴 사람이 제출하고**,
+  **제출자를 적는 칸**(source)**이 스프레드시트에 따로 있으며**, **그 기술에 대한 이견이 있으면
+  그것까지 설명 칸에 적으라고 한다** (11장, p.284).[^harmellaw2024]
+- **위 셋째 소스가 다는 벤더 후원 편향 경고는 비교 스프레드시트에 걸린 것이지 레이더에 걸린
+  것이 아니고, 이 넷째 소스의 자체 레이더에는 그대로 옮겨 붙지 않는다.** 블립을 후원하는
+  바깥 벤더가 없기 때문이다. **대신 다른 편향이 생긴다** — **훑기 범위 안에 있는 사람들의
+  경험만 오른다.** 이 책 자신이 **부서나 조직이나 역할의 선으로 경계 지어진 훑기는 중요한
+  블립을 놓치기 쉽다**고 적으며 그 위험을 인정한다 (11장, p.283).[^harmellaw2024] **편향이라는
+  낱말로 이 자리를 적는 것은 이 KB이고 저자는 그렇게 적지 않는다.** #hypothesis
+- **위 [2년 주기로 재평가한다](#2년-주기로-재평가한다)와 재는 단위가 다르다. 겨루지 않는다.**
+  그쪽은 **한 기술을 다시 저울에 올릴 주기**를 적고, 이쪽은 **조직 전체의 지형을 다시 훑을
+  주기**를 적으며 **분기나 반년을 든다** (11장, p.294).[^harmellaw2024] **촉발자도 다르다** —
+  그쪽은 달력이고, **이쪽은 저자가 달력보다 소비 관찰을 앞세운다**. **핵심은 레이더가 어드바이스
+  포럼과 다른 곳에서 어떻게 소비되고 있는지(또는 소비되지 않고 있는지)에 주의를 기울이는
+  것**이라고 적는다 (11장, p.294).[^harmellaw2024] **두 소스는 서로를 호명하지 않는다.**
+  #hypothesis
+- **상술은 새 페이지 셋이 갖는다** — [조직의 기술 레이더](../concepts/organizational-technology-radar.md)와
+  [기술 레이더를 만드는 여섯 걸음](../concepts/creating-a-technology-radar.md)과
+  [블립을 갱신하고 이력을 남기기](updating-radar-blips.md)다.
+
 ## 이어지는 페이지
 
 - [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — "아키텍처가 먼저"의
@@ -325,6 +361,11 @@ How to Keep Learning About API Architecture", pp.235–236).[^gough2022]
 
 - [헤드라이트를 앞지르지 마라](../concepts/dont-outrun-your-headlights.md) — 미래 기술 추측을 "점치기"로
   분류하고 교체 가능성으로 대체하는 실천 쪽 판정
+- [조직의 기술 레이더](../concepts/organizational-technology-radar.md) — 같은 낱말을 조직 안쪽으로
+  돌리는 넷째 소스
+- [기술 레이더를 만드는 여섯 걸음](../concepts/creating-a-technology-radar.md) — 그 레이더를 실제로
+  세우는 절차
+- [블립을 갱신하고 이력을 남기기](updating-radar-blips.md) — 그 레이더를 살아 있게 두는 일
 
 [^gough2022]: Gough·Bryant·Auburn 2022, *Mastering API Architecture: Design, Operate, and
     Evolve API-Based Systems* 초판(O'Reilly, 2022) 10장 "Wrap-up" §"What's Next: How to Keep
@@ -336,6 +377,16 @@ How to Keep Learning About API Architecture", pp.235–236).[^gough2022]
     Feedly · 트위터 · QCon · CraftConf · APIDays · KubeCon · Devoxx/JavaOne · 오라일리 온라인
     행사)은 **2022년 시점의 L3라 옮기지 않았다.** 같은 §의 나머지 하위 둘(실무자로 남기 ·
     가르치기)은 [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)에 있다.
+
+[^harmellaw2024]: Harmel-Law 2024, *Facilitating Software Architecture: Empowering Teams to
+    Make Architectural Decisions* 초판(O'Reilly, 2024) 11장 "Using a Technology Radar" 가운데
+    §"Technology Radars Continually Collect and Share Guidance"의 소절
+    §"Your Internal Technology Radar Will Be Structured Differently"(pp.279–280)와
+    §"Creating Your Technology Radar"의 소절 §"Blip Gathering"(pp.283–286)과
+    §"Updating Your Blips"(p.294). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 30, 실측). 이 절은
+    **같은 낱말이 가리키는 대상을 가르는 데 필요한 만큼만** 옮겼고 그 장의 상술 전량은
+    위에 링크한 새 페이지 셋이 갖는다. **소트웍스 기술 레이더 자체는 이 KB가 원전으로 갖고
+    있지 않다** — 이 절의 그 서술도 위 셋째 소스의 것도 전부 경유한 2차 서술이다.
 
 [^reis2022]: Reis & Housley 2022, 4장 "Choosing Technologies Across the Data Engineering Lifecycle"
 
