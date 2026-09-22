@@ -334,6 +334,8 @@ sources:
   첫 구간. 의미장의 규정이 거기 있다
 - [소프트웨어 아키텍처 은유의 기원](../concepts/software-architecture-metaphor-origins.md) — 이
   방법이 대신하려는 은유의 출처
+- [해체를 설계 방법으로 쓰기](../concepts/deconstruction-as-a-design-method.md) — 다음 장.
+  여기서 다듬은 개념을 스스로 해체하는 걸음
 - [결정의 메타인지와 두려움과 편향](../concepts/metacognition-fear-and-bias.md) — 같은 낱말을
   결정 쪽에서 쓰는 자리
 - [기초 기술로서의 자기 인식](../concepts/self-awareness-as-a-foundational-skill.md) — 같은 낱말을
