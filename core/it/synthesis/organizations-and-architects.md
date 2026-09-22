@@ -160,3 +160,8 @@ generated: { by: "claude-opus-5", at: "2026-09-18T12:00:00Z" }
   소스 배치와 파이프라인
 - [DDD 전략 설계](ddd-strategic-design.md) — 전략 결정의 권위를 묻는 원전 쪽
 - [실용주의 프로그래머](pragmatic-programmer.md) — 협업을 개별 개발자의 실천으로 보는 축
+- [학습하는 시스템 사고](learning-systems-thinking.md) — **위계를 없애지 않고 그 성질을 관리
+  구조에서 소통 구조로 갈아 끼우는 쪽.** 그 원전의 11장이 시스템 리더 역할이 포함할 전문성
+  여덟을 적고 평평한 조직을 명시적으로 기각하며, 12장이 정보가 위에서 아래가 아니라 아래에서
+  위로 흐른다고 적는다 — 자리는 [시스템 리더십의 규정](../concepts/systems-leadership-defined.md)과
+  [체계에서 성공을 다시 규정하기](../concepts/redefining-success-in-systems.md)다

@@ -305,6 +305,8 @@ Thinking*(2024)이 열두 장 전체를 시스템 사고에 바치고, 그 1장�
   고리에 쓰는 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 - [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 같은 주제를 열두 장으로
+  받치는 2024년 전권 원전의 자식 허브. **이 페이지가 그 열두 장의 압축판이다**
 
 [^hohpe2020]: Hohpe 2020, 10장 "Every System Is Perfect…: For What It Was Designed to
     Do!"(pp.79–85) 전문 — 도입부(p.79) · §"Heater as a System"(pp.79–80) ·

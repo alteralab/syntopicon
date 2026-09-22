@@ -285,7 +285,7 @@ sources:
   "고치려다 더 나쁘게 만든다"의 기술 층 실측
 - [결정을 위한 심리적 안전](../concepts/psychological-safety-for-deciding.md) — 비난 없는 문화를
   조건 쪽에서 다루는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 3장 "Shifting Your Perspective"의 뒤쪽(pp.43–50) —
     §"The Iceberg That Sinks Our Initiatives"(pp.43–46, 소제목 넷 Events · Patterns and Trends ·

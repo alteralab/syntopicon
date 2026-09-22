@@ -296,7 +296,7 @@ sources:
   세는 자리
 - [가설 주도 개발](../concepts/hypothesis-driven-development.md) — 같은 루프를 제품 하나의
   가설로 자르는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 6장 "A System of Learning"의 앞쪽(pp.89–95) — 장
     머리(pp.89–93, 제사와 DIKW와 정의 넷과 재고·흐름) · §"A Learning-Driven Career"(pp.93–94) ·

@@ -474,7 +474,7 @@ sources:
   잡는 자리
 - [결정의 프레이밍과 옵션 만들기](../concepts/framing-and-option-making.md) — 틀 짓기를 결정
   하나의 단위로 규정하는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 7장 "Collective Systemic Reasoning"의 뒤쪽(pp.123–133) —
     §"Systemic Reasoning Structures (and Frames) Ambiguity"(pp.123–125) · §"The Top-Down

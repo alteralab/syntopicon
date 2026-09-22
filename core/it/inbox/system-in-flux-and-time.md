@@ -273,7 +273,7 @@ sources:
   고리에 쓰는 자리
 - [아키텍트는 1차 도함수에 산다](../concepts/architects-in-the-first-derivative.md) — 같은 시간
   축을 결정의 구동 요인으로 세우는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 2장 "Crafting Conceptual Integrity"의 뒤쪽(pp.27–35) —
     §"A System in Flux"(pp.27–30) · §"A System of Ideas"(pp.30–31) · §"Time Is Always a

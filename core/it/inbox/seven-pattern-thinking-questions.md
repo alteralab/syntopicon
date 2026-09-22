@@ -251,7 +251,7 @@ sources:
   조직되는가"가 닿는 자식 허브
 - [마이크로서비스 경계와 통신](../synthesis/microservice-boundaries-and-communication.md) —
   "경계는 무엇인가"가 닿는 자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 9장 "Pattern Thinking"의 뒤쪽(pp.167–173) —
     §"Seven Pattern Thinking Questions"(p.168) · §"MAGO: Looking at the Patterns"(pp.168–172)와

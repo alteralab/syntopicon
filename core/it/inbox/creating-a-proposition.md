@@ -398,7 +398,7 @@ sources:
   같은 동작이 조언 쪽에서 규정되는 자리
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 이유가 아니라 옵션을
   재는 절차
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 7장 "Collective Systemic Reasoning"의 가운데(pp.116–123) —
     §"Systemic Reasoning Is Building an Idea"의 그림 7-1과 뒷부분(p.116) · §"Your Practice:

@@ -385,7 +385,7 @@ sources:
   하나라는 단위로 다루는 자리
 - [결정을 위한 심리적 안전](../concepts/psychological-safety-for-deciding.md) — 리더십의
   규정이 맞닿는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 5장 "Replace Reacting with Responding"의 앞쪽(pp.69–79) —
     장 머리(pp.69–70) · §"Noticing Your Reactions"(pp.71–73) · §"Opinion-Driven as

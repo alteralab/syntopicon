@@ -327,7 +327,7 @@ claim이다.
 - [빙산 모형과 비난 게임](../concepts/iceberg-model-and-the-blame-game.md) — 구조가 행동을
   낳는다는 조문이 사는 자리
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 프로세스 패턴이 닿는 자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 9장 "Pattern Thinking"의 가운데(pp.160–167) —
     §"How Relationships Produce Effect"(pp.160–167, 제사는 Donella Meadows)와 그 소제목 셋

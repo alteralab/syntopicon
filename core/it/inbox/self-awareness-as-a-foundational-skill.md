@@ -282,7 +282,7 @@ sources:
 - [결정의 메타인지와 두려움과 편향](../concepts/metacognition-fear-and-bias.md) — 같은 낱말을
   하나의 결정이라는 단위로 다루는 자리
 - [절충 분석을 스스로 짓기](../concepts/trade-off-analysis-method.md) — 이 장의 제사가 온 원전
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, II부 도비라 "You Are a System of Thinking"(p.51)과 4장
     "Self-Awareness as a Foundational Skill"의 앞쪽(pp.53–59) — 도입부(pp.53–55) ·

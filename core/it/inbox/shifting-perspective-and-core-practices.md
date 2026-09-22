@@ -253,7 +253,7 @@ sources:
   왼쪽 칸이 되는 메도스의 기본 체계 모형이 거기 있다
 - [아키텍트의 시스템 사고](../concepts/systems-thinking-for-architects.md) — 같은 격언을 장 제목으로
   쓰는 2020년 에세이
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 3장 "Shifting Your Perspective"의 앞쪽(pp.37–43) —
     도입부(pp.37–39) · §"Five Core Practices"(pp.39–41, 소제목 다섯 You Are Constantly

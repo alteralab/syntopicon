@@ -371,7 +371,7 @@ sources:
   세는 자리
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 되먹임을 기계 측정으로 만드는
   자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 6장 "A System of Learning"의 뒤쪽(pp.95–106)과 III부
     도비라(p.107) — §"Designing Your Learning Activities"(pp.95–98, 소제목 넷 Generate

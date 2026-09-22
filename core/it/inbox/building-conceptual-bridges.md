@@ -322,7 +322,7 @@ sources:
 - [개념 무결성 빚기](../concepts/crafting-conceptual-integrity.md) — 이 장이 되부르는 2장
 - [조언의 중심성과 책임의 자리](../concepts/advice-and-accountability.md) — 저자가 각주로
   가리키는 책이 사는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 8장 "Designing Feedback Loops"의 앞쪽(pp.135–142) — 장 머리
     산문(pp.135–137, 제사는 Kevin Kelly) · §"Building Conceptual Bridges"(pp.137–142)와 그

@@ -240,7 +240,7 @@ sources:
 - [디자인 패턴의 해부](../concepts/design-pattern-anatomy.md) — 같은 낱말을 카탈로그 형식으로
   재는 자리
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 저자가 계보로 드는 책이 사는 자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 9장 "Pattern Thinking"의 앞쪽(pp.155–160) — 장 머리
     산문(pp.155–156, 제사는 Christopher Alexander) · §"What Is Pattern Thinking?"(pp.156–157) ·

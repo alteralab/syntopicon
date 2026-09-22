@@ -412,7 +412,7 @@ sources:
   메타인지 항목이 닿는 자리
 - [퇴행적 피드백 루프](../concepts/degenerate-feedback-loop.md) — 되먹임 고리라는 낱말을 AI 축의
   특정 고리에 쓰는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, I부 도비라 "A System of Thinking"(p.1)과 1장 "What Is Systems
     Thinking?"(pp.3–16) 전문 — 도입부(pp.3–5) · §"Linear Thinking Is the Default"(pp.5–7) ·

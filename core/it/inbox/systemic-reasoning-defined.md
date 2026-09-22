@@ -414,7 +414,7 @@ sources:
   쪽에서 세우는 자리
 - [아키텍처 어드바이스 포럼의 규정과 운영](../concepts/architecture-advice-forum.md) — 적대적이지
   않은 논증에 다른 이름이 붙는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 7장 "Collective Systemic Reasoning"의 앞쪽(pp.109–115) —
     장 도입과 제사(p.109) · §"What Is Systemic Reasoning?"(pp.110–115, 소제목 셋 §"How Systemic

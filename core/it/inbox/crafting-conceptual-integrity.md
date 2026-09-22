@@ -314,7 +314,7 @@ sources:
 - [아키텍트의 시스템 사고](../concepts/systems-thinking-for-architects.md) — 같은 주제의 2차 서술
 - [신뢰의 문화와 연습 공간](../concepts/culture-of-trust-and-the-practice-space.md) — 심리적
   안전을 실천으로 다루는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 2장 "Crafting Conceptual Integrity"의 앞쪽(pp.19–27) —
     도입부(pp.19–21) · §"Relationships Produce Effect"(pp.21–22) · §"Systems Thinking Is

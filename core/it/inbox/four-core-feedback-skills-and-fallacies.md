@@ -292,7 +292,7 @@ sources:
   조건 쪽에서 적는 자리
 - [패턴 사고의 규정](../concepts/pattern-thinking-defined.md) — 다음 장. III부의 셋째 기량이
   거기서 시작한다
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 8장 "Designing Feedback Loops"의 뒤쪽(pp.146–153) —
     §"Four Core Skills"(pp.146–151)와 그 소제목 넷 §"How to Listen"(p.147) · §"Change Your Own

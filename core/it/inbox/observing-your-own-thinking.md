@@ -278,7 +278,7 @@ sources:
   하나의 결정이라는 단위로 다루는 자리
 - [결정을 위한 심리적 안전](../concepts/psychological-safety-for-deciding.md) — 열두 가지 목록의
   둘째 항목이 가리키는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 4장 "Self-Awareness as a Foundational Skill"의 뒤쪽(pp.59–67) —
     §"Observe Your Thinking"(pp.59–63, 소제목 둘 Your Practice: Flow with Your Thinking,

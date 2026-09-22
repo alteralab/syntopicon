@@ -284,7 +284,7 @@ sources:
 - [결정의 메타인지와 두려움과 편향](../concepts/metacognition-fear-and-bias.md) — 같은 가름을
   결정 하나라는 단위로 다루는 자리
 - [시스템 사고의 규정](../concepts/systems-thinking-defined.md) — I부의 1장. MAGO의 곤경이 거기 있다
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 5장 "Replace Reacting with Responding"의 뒤쪽(pp.79–86) —
     §"Your Practice: Options When Reacting"(pp.79–83, 소제목 일곱 "Yes, and…" · The 24-Hour

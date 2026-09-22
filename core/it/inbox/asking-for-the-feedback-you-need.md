@@ -214,7 +214,7 @@ sources:
 - [조언의 중심성과 책임의 자리](../concepts/advice-and-accountability.md) — 같은 규칙을 조직
   프로세스로 세우는 자리
 - [사용자 피드백](../synthesis/user-feedback.md) — 같은 낱말을 제품 사용자 쪽에서 세는 자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — 이 축의 허브
 
 [^montalion2024]: Montalion 2024, 8장 "Designing Feedback Loops"의 가운데(pp.142–146) —
     §"Systems Thinking Needs Feedback Loops"(pp.142–146)와 그 소제목 넷 §"Ask for the Feedback
