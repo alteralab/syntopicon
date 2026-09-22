@@ -329,7 +329,7 @@ sources:
   결정 하나에 쓰인 자리
 - [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — C4 세 층이 이 KB에서
   사는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 21장 "Emphasis Over Completeness: Show the Forest, Not the
     Trees"(pp.171–180) 전문 — 도입부(p.171) · §"Diagrams Are Models"(p.172) · §"The

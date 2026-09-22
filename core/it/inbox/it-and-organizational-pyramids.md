@@ -279,7 +279,7 @@ sources:
 - [아키텍트 엘리베이터](architect-elevator.md) — 펜트하우스 아키텍트의 규정
 - [설정 대 코드](configuration-versus-code.md) — 피라미드 꼭대기의 고객별 설정이 사는 자리
 - [선 긋기](drawing-the-line.md) — 정적 구조와 동적 구조의 표현력 차이
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **28장 "They Don't Build 'Em Quite Like That Anymore: No One Lives
     in a Foundation"(pp.233–240)** 전문 — 도입부(p.233) · §"Why IT Architects Love

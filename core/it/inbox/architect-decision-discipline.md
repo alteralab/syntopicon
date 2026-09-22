@@ -251,7 +251,7 @@ sources:
 - [아키텍처적으로 유의한 결정](../concepts/architecturally-significant-decisions.md) — 어떤 결정에
   이 규율을 쓸 것인가를 고르는 잣대
 - [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 결정 축의 허브
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 6장 "Making Decisions"(pp.45–52) 전문 — 도입부(pp.45–46) ·
     §"The Law of Small Numbers"(pp.46–47) · §"Bias"(pp.47–48) · §"Priming"(pp.48–49) ·

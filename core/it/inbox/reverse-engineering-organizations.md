@@ -357,7 +357,7 @@ sources:
 - [모든 것에 질문하기](questioning-in-architecture-reviews.md) — 믿음을 캐는 도구로 이 장이 부르는 절차
 - [아키텍트의 결정 규율](architect-decision-discipline.md) — 프라이밍의 전문
 - [콘웨이의 법칙](../concepts/conways-law.md) — 조직과 설계 사이의 다른 방향들
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **IV부 도비라 "Organizations"(pp.211–214)**와 **26장
     "Reverse-Engineering Organizations: Learning Is Hard; Unlearning Is Much

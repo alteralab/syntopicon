@@ -244,7 +244,7 @@ sources:
   목록에 오르는 자리
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 반복 가능한
   배포의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **31장 "Slow Chaos Is Not Order: Going Fast? Bring
     Discipline!"(pp.255–262)** 전문 — 도입부(pp.255–256) · §"Fast Versus Agile"(p.256) ·

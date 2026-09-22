@@ -259,7 +259,7 @@ sources:
   잣대
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 미리보기 판을
   만들어 내는 그 툴체인의 원전 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 25장 "Software Is Collaboration: Got Git?"(pp.203–210) 전문 —
     도입부(pp.203–204) · §"Who Says Software Is for Computers Only?"(p.204) · §"Version

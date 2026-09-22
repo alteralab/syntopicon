@@ -208,7 +208,7 @@ sources:
   다른 자리. 그쪽은 결정과 가정을 캐고 이쪽은 구조를 캔다
 - [원칙 워크숍의 진행](../concepts/running-a-principles-workshop.md) ·
   [이벤트스토밍](../concepts/eventstorming.md) — 이 KB의 다른 끌어내기 기법 둘
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 24장 "Sketching Bank Robbers: Architects as Police Sketch
     Artists"(pp.197–201, p.202 백지) 전문 — 도입부(pp.197–198) · §"Everyone Saw the

@@ -279,6 +279,7 @@ sources:
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 추상의 저울을 코드
   수준에서 다루는 축
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 11장 "Code Fear Not!: Programming in a Poorly Designed Language
     Without Tool Support Is No Fun"(pp.87–94) 전문 — 도입부(p.87) · §"Fear of Code"(p.88) ·

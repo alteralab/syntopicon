@@ -198,7 +198,7 @@ sources:
 - [자동화와 셀프서비스](automation-and-self-service.md) — 아래쪽 파이 껍질이 지켜야 할 조건
 - [가설 주도 개발](../concepts/hypothesis-driven-development.md) — 루프 한 바퀴 안의 절차를
   다른 소스가 자르는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **36장 "The Infinite Loop: Sometimes Running in Circles Can Be
     Productive"(pp.297–302)** 전문 — 도입부(p.297) · §"Build-Measure-Learn"(p.298) ·

@@ -243,6 +243,7 @@ sources:
   재시도를 받치는 자리
 - [데이터베이스 트랜잭션](../synthesis/database-transactions.md) — 트랜잭션 축의 허브
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 장의 네 이름이 사는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 17장 "Your Coffee Shop Doesn't Use Two-Phase Commit: Learn About
     Distributed System Design While in the Queue!"(pp.135–140) 전문 — 도입부(p.135) ·

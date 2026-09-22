@@ -184,7 +184,7 @@ sources:
   전에 세우는 자리
 - [아키텍트의 상과 값어치](../concepts/architect-personas-and-value.md) — 복잡한 것을 소화하기
   쉽게 만드는 일이 아키텍트의 일이라는 규정
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 7장 "Question Everything"(pp.53–57) 전문 — 도입부(p.53) ·
     §"Five Whys"(p.54) · §"Whys Reveal Decisions and Assumptions"(pp.54–55) · §"A Workshop for

@@ -231,7 +231,7 @@ sources:
 - [변환의 단계와 변하지 않음의 고통](transformation-stages-and-pain.md) — 변화에 대한 식욕이
   꺾이는 자리
 - [IT와 조직의 피라미드](it-and-organizational-pyramids.md) — 기초 층에 얹히는 비용의 다른 얼굴
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **38장 "Money Can't Buy Love: Or a Culture Change"(pp.309–314)**
     전문 — 도입부(p.309) · §"Innovator's Dilemma"(p.310) · §"Beware of the HiPPO"(p.310) ·

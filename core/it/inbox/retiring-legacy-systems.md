@@ -258,6 +258,7 @@ sources:
 - [신뢰성과 결함 내성](../concepts/reliability-and-fault-tolerance.md) — MTBF와 MTTR이 사는 자리
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 지은 것이 썩지 않게 지키는 축
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 12장 "If You Never Kill Anything, You Will Live Among Zombies: And
     They Will Eat Your Brain"(pp.95–101) 전문 — 도입부(p.95) · §"Legacy"(p.96) ·

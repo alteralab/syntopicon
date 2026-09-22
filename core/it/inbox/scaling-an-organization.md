@@ -268,7 +268,7 @@ sources:
   위계 쪽에서 받는 자리
 - [경계 컨텍스트](../concepts/bounded-context.md) — 잘못 그은 도메인 경계의 전문
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 같은 물음을 구조 쪽에서 잡는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **30장 "Scaling an Organization: How to Scale an Organization? The
     Same Way You Scale a System!"(pp.247–254)** 전문 — 도입부(p.247) · §"Component

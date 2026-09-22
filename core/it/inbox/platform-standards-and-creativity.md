@@ -282,6 +282,7 @@ sources:
 - [HTTP 의미론](../synthesis/http-semantics.md) — 이 장이 최대 인터페이스 표준으로 드는 규격
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 표준을 무엇으로 지키는가의 축
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 15장 "A4 Paper Doesn't Stifle Creativity: A Solid Platform Gives
     Developers a Blank Sheet of Paper"(pp.117–124) 전문 — 도입부(pp.117–118) · §"A4 Paper"

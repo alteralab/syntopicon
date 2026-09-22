@@ -235,7 +235,7 @@ pp.185–187).[^hohpe2020]
   하는 "설계 결정"의 규정
 - [조합 라우팅 패턴](../concepts/composed-routing-patterns.md) · [Splitter·Aggregator·Resequencer](../concepts/splitter-aggregator-resequencer-patterns.md) —
   그림 22-1이 조합해 보이는 패턴들의 원전 페이지
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 22장 "Diagram-Driven Design: Cheating in a Picture Is Much Harder
     Than Cheating in Words"(pp.181–188) 전문 — 도입부(pp.181–182) · §"Presentation Skills:

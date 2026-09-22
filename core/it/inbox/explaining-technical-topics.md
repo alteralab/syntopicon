@@ -312,7 +312,7 @@ sources:
 - [개발자의 소통](../concepts/developer-communication.md) — 소통을 개별 개발자의 실천으로 적는 쪽
 - [주석을 왜 쓰는가](../concepts/why-write-comments.md) — "코드가 곧 문서"를 코드 층위에서
   기각하는 쪽
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, III부 도비라 "Communication"(pp.141–144)과 18장 "Explaining Stuff:
     Build a Ramp for the Reader, Not a Cliff!"(pp.145–150) 전문. III부 도비라의 절은

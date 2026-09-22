@@ -234,7 +234,7 @@ sources:
   범주로 두는 데이터 쪽 배치
 - [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 사업과 기술의 연결을 2003년에
   묻는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 4장 "Enterprise Architect or Architect in the Enterprise?"(pp.29–35)
     전문 — 도입부(pp.29–30) · §"Enterprise Architecture"(pp.30–31) · §"Connecting Business and

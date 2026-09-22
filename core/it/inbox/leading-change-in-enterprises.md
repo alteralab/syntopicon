@@ -245,7 +245,7 @@ sources:
   대목의 전문
 - [인셉션을 통한 거버넌스](governance-through-inception.md) — 카오스 몽키로 목표를 강제한다는
   대목의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **34장 "Leading Change: The Island of Sanity in the Sea of
     Desperation"(pp.281–288)** 전문 — 도입부(p.281) · §"A Tractor Passing the Race

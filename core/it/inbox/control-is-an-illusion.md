@@ -282,7 +282,7 @@ sources:
 - [아키텍트를 위한 시스템 사고](systems-thinking-for-architects.md) — 되먹임 고리의 전문
 - [위계를 탈중앙 신뢰로 바꾸기](../concepts/replacing-hierarchy-with-decentralized-trust.md) — 같은
   진단에 다른 처방을 내는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **27장 "Control Is an Illusion: It's When You're Told Exactly What
     You Want to Hear"(pp.225–232)** 전문 — 도입부(p.225) · §"The Illusion"(p.226) ·

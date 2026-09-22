@@ -321,7 +321,7 @@ sources:
 - [속도의 경제](economies-of-speed.md) — 50년의 학습을 1년에 따라잡는다는 대목의 근거
 - [변화를 이끄는 섬](leading-change-in-enterprises.md) — 사람을 물결로 모집하는 절차
 - [아키텍트의 상과 값어치](architect-personas-and-value.md) — 변화 촉매자라는 규정의 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **VI부 도비라 "Epilogue: Architecting IT Transformation"(pp.327–329)**
     과 **41장 "All I Have to Offer Is the Truth: Giving Folks the Red Pill"(pp.331–336)**

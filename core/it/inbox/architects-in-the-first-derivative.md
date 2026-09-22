@@ -254,7 +254,7 @@ sources:
   이 장이 1차 도함수라 부르는 그 툴체인이 거버넌스의 운반체가 되는 자리
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 그 파이프라인 위에서
   변화가 규칙을 깨지 않는지 재는 장치
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 3장 "Architects Live in the First Derivative"(pp.21–28) 전문 —
     도입부(p.21) · §"Rate of Change Defines Architecture"(p.22) · §"Change = Business as

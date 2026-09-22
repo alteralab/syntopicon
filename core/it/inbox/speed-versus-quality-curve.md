@@ -235,7 +235,7 @@ sources:
 - [변화를 이끄는 섬](leading-change-in-enterprises.md) — 이 장이 가리키는 출구
 - [아키텍트의 결정 규율](architect-decision-discipline.md) — 단순한 모형이 사고를 날카롭게
   한다는 대목의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **40장 "Thinking in Four Dimensions: More Degrees of Freedom Can
     Make Your Head Hurt"(pp.321–326)** 전문 — 도입부(p.321) · §"Living Along a Line"(p.322) ·

@@ -308,7 +308,7 @@ sources:
 - [조직의 암시장](black-markets-in-organizations.md) — 표준을 세운 사람이 그 도구를 쓰지 않는 지형
 - [선 긋기](drawing-the-line.md) — 상자보다 선이 흥미롭다는 조문의 전문
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 같은 낱말을 기계 검사 쪽에서 받는 허브
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **32장 "Governance Through Inception: I Am from Headquarters, I Am
     Here to Help You"(pp.263–270)** 전문 — 도입부(p.263) · §"Living in Perfect

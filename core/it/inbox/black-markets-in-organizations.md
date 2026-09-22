@@ -221,7 +221,7 @@ sources:
   개입과 체계가 변화에 저항하는 방식
 - [결정하기 위한 심리적 안전](../concepts/psychological-safety-for-deciding.md) — 같은 형태의 우회를
   결정 쪽에서 보는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **29장 "Black Markets Are Not Efficient: But They Reveal How Things
     Actually Get Done"(pp.241–246)** 전문 — 도입부(p.241) · §"Black Markets to the

@@ -271,7 +271,7 @@ sources:
   약해진다는 대목의 전문
 - [아키텍트의 결정 규율](architect-decision-discipline.md) — 편향이 결정을 어떻게 비트는가
 - [레거시 시스템을 은퇴시키기](retiring-legacy-systems.md) — 변화를 위험으로 보는 문화의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **V부 도비라 "Transformation"(pp.271–273)**과 **33장 "No Pain, No
     Change!: And Watching Late-Night TV Does Not Help…"(pp.275–280)** 전문. 도비라의 절은

@@ -260,6 +260,7 @@ sources:
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 승인된 변경이
   자동 배포를 촉발한다는 사슬의 실천 쪽
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 13장 "Never Send a Human to Do a Machine's Job: Automate Everything;
     What You Can't Automate, Make a Self-Service"(pp.103–108) 전문 — 도입부(p.103) ·

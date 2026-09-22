@@ -274,6 +274,7 @@ sources:
   결정 하나에 쓰인 자리
 - [기술 선택의 기준](../concepts/technology-selection-criteria.md) — 벤더 정보의 편향을 세는 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 16장 "The IT World Is Flat: Without a Map, Any Road Looks Promising"
     (pp.125–134) 전문 — 도입부(pp.125–126) · §"Vendors' Middle Kingdoms"(pp.126–127) ·

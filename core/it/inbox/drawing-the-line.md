@@ -233,7 +233,7 @@ sources:
   아키텍처 정의가 있는 자리
 - [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — C4 세 층과 이 KB의
   아키텍처 도면 실물
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 23장 "Drawing the Line: Architecture Without Lines Likely Isn't
     One"(pp.189–195, p.196 백지) 전문 — 도입부(pp.189–190) · §"Behold the Line!"(pp.190–191) ·

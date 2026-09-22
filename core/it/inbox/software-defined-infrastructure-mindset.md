@@ -265,6 +265,7 @@ sources:
 - [기업 아키텍처는 접착제다](enterprise-architecture-as-glue.md) — 같은 속담("도구를 든 바보")이
   곁상자로 쓰인 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 14장 "If Software Eats the World, Better Use Version Control!:
     When Your Infrastructure Becomes Software-Defined, You Need to Think Like a Software

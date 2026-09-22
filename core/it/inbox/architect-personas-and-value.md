@@ -285,7 +285,7 @@ sources:
   범위로 아키텍트를 가르는 다른 분류
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 위 "절충을 본다"가 절차로
   펼쳐지는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, I부 도비라 "Architects"(pp.1–5) 전문 — 도입부(p.1) · §"What
     Architects Are Not"(pp.1–2) · §"Many Kinds of Architects"(pp.2–3) · §"Architects Deal with

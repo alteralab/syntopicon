@@ -272,7 +272,7 @@ sources:
   필요하다는 조건문이 기대는 변화율의 언어
 - [회의 시스템 사례 연구](../concepts/conference-system-case-study.md) — C4 세 층과 맥락
   다이어그램이 이 KB에서 사는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 19장 "Show the Kids the Pirate Ship!: Why the Whole Is Much More
     Than the Parts"(pp.151–158) 전문 — 도입부(pp.151–152) · §"Grab Attention"(p.152) ·

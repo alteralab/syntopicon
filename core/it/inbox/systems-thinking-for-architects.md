@@ -260,6 +260,7 @@ sources:
 - [퇴행적 피드백 루프](../concepts/degenerate-feedback-loop.md) — 같은 낱말을 AI 축의 특정
   고리에 쓰는 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 10장 "Every System Is Perfect…: For What It Was Designed to
     Do!"(pp.79–85) 전문 — 도입부(p.79) · §"Heater as a System"(pp.79–80) ·

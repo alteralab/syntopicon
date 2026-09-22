@@ -242,7 +242,7 @@ sources:
   가정을 가르는 자리
 - [조직을 확장하기](scaling-an-organization.md) — 회의를 동기화 지점으로 읽는 같은 책의 장
 - [자동화와 셀프서비스](automation-and-self-service.md) — 대기를 없애는 수단의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **39장 "Who Likes Standing in Line?: Good Things Don't Come to
     Those Who Wait"(pp.315–320)** 전문 — 도입부(pp.315–316) · §"Looking Between the

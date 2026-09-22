@@ -225,7 +225,7 @@ sources:
 - [리더십의 통념과 규정](../concepts/leadership-misconceptions-and-definition.md) — 리더십을
   자리에서 떼어 내는 다른 규정
 - [호페·울프 2004](../sources/hohpe2004.md) — 저자가 자기 예로 드는 그 책
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 5장 "An Architect Stands on Three Legs"(pp.37–43) 전문 —
     도입부(p.37) · §"Skill, Impact, Leadership"(pp.38–39, 작은 대문자 소절 셋 "SKILL"·

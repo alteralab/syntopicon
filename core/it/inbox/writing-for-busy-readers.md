@@ -358,7 +358,7 @@ sources:
   기계 독자 쪽에 쓰는 자리
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 같은 물음을 코드 층위로
   내린 허브
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, 20장 "Writing for Busy People: Don't Expect Everyone to Read Word
     for Word"(pp.159–169, p.170 백지) 전문 — 도입부(p.159) · §"Writing Scales"(p.160) ·

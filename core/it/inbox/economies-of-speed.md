@@ -262,7 +262,7 @@ sources:
   저자의 다른 계산
 - [인셉션을 통한 거버넌스](governance-through-inception.md) — 강한 거버넌스가 흐름을 막는다는
   대목의 전문
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **35장 "Economies of Speed: Death by Efficiency Is Slow and
     Painful"(pp.289–296)** 전문 — 도입부(p.289) · §"30,000 Times Faster"(pp.289–290) ·

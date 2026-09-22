@@ -364,6 +364,7 @@ sources:
   안내하는 도구
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 축의 허브
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, 9장 "Architecture Is Selling Options: In Uncertain Times It’s Good to
     Have a Few Options"(pp.69–78) 전문 — 도입부(pp.69–70) ·

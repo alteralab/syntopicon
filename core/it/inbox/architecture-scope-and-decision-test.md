@@ -339,6 +339,7 @@ sources:
 - [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md) — 아키텍처 정의 넷을
   다른 소스로 모아 둔 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 같은 원전의 여섯 부를 한자리에 모으는 자식 허브
 
 [^hohpe2020]: Hohpe 2020, II부 도비라 "Architecture"(pp.59–62)와 8장 "Is This Architecture?
     Look for Decisions!"(pp.63–68) 전문. 도비라의 절은 §"Beyond Software Architecture"(p.59) ·

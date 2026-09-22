@@ -268,7 +268,7 @@ sources:
 - [전통 아키텍처 실천과 그 두 극단](../concepts/traditional-architecture-practice.md) — 상아탑과 손을 대는
   아키텍트라는 두 극단의 규정
 - [전략 설계 결정하기](../concepts/strategic-decision-making.md) — 위에서 내려오는 아키텍처를 2003년에 기각한 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 축의 허브
 
 [^hohpe2020]: Hohpe 2020, 1장 "The Architect Elevator"(pp.7–13) 전문 — §"The Architect
     Elevator"(p.8) · §"Some Organizations Have More Floors Than Others"(pp.8–9) · §"Not a

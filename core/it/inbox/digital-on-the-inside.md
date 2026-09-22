@@ -243,7 +243,7 @@ sources:
 - [자동화와 셀프서비스](automation-and-self-service.md) — 프로비저닝의 셀프서비스화
 - [인셉션을 통한 거버넌스](governance-through-inception.md) — 밀어내기 거버넌스의 전문
 - [조직을 확장하기](scaling-an-organization.md) — 온에어 표시등 일화가 처음 나오는 자리
-- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 페이지가 걸리는 허브
+- [소프트웨어 아키텍트 엘리베이터](../synthesis/software-architect-elevator.md) — 이 페이지가 걸리는 허브
 
 [^hohpe2020]: Hohpe 2020, **37장 "You Can't Fake IT: To Be Digital on the Outside, You First
     Need to Be Digital on the Inside"(pp.303–308)** 전문 — 도입부(pp.303–304) · §"Laying the
