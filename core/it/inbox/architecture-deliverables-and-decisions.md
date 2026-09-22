@@ -16,7 +16,7 @@ sources:
 - [이 KB의 다른 소스들과 맞대어 본 자리](#이-kb의-다른-소스들과-맞대어-본-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
-하나의 질문: **아키텍처 역할들은 무엇을 내놓는가.**
+하나의 질문: **엔터프라이즈 아키텍처(enterprise architecture, EA)의 역할들은 무엇을 내놓는가.**
 
 이 페이지는 [아키텍처 역할과 조직 모형](../concepts/architecture-roles-and-organizational-models.md)의
 다음 자리다. 산출물 넷이 거기 적힌 역할 셋에 하나씩 대응한다.
