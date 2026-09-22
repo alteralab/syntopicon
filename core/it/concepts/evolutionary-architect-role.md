@@ -2,7 +2,7 @@
 type: concept
 title: 진화적 아키텍트의 역할
 description: 아키텍트라는 이름을 다른 직업에서 빌려 온 대가와 그 이름이 부른 나쁜 실천, 소프트웨어 아키텍처를 "공유된 이해"이자 사회적 구성물로 규정하는 랠프 존슨의 정의와 "바꾸기 어렵다고 여겨지는 것"이라는 파울러의 정의의 한계, 건축가가 아니라 도시 계획가라는 대체 비유와 구역 사이를 걱정하고 구역 안은 관대하게 두라는 조문, 팀 수준의 정보 은닉으로서의 구역, 아키텍처는 계획이 아니라 일어나는 것이라는 판정과 컴캐스트의 아키텍처 길드, 거주 가능성이라는 요구와 팀과 함께 코딩하라는 처방, 인에이블링 팀 안에 앉는 아키텍처 기능과 그룹 결정을 언제 뒤집는가, 기술 부채를 보는 것이 아키텍트의 일이라는 배치, 그리고 진화적 아키텍트의 여섯 책임, 그리고 같은 이름을 엔터프라이즈 쪽에서 쓰는 소스가 이 역할에 더하는 일 — 엔지니어의 습관과 보상 구조를 설계 대상으로 삼는 문화 진단 물음 여섯과 과잉 공학을 경계하는 단서, 그리고 배움의 속도를 조직 설계로 올리는 실험 문화의 방법 여섯, 그리고 같은 저자가 2021년 책에서 더하는 넷째 정의 — 나중에 바꾸기 어려운 것이라는 농담 섞인 규정과 하드웨어 대 소프트웨어에서 빌려 온 아키텍처 대 설계의 가름, 어떻게보다 왜가 먼저라는 둘째 법칙, 그리고 아키텍트의 일이 최선의 설계를 찾는 것이 아니라 가장 덜 나쁜 절충 조합을 찾는 것이라는 규정과 얽힌 것을 풀고 결합을 분석하고 변화의 영향을 재는 세 걸음, 그리고 여섯째 소스가 같은 물음에 답하며 끝 결과와 실천을 가르는 자리와 호칭이 아니라 권한 범위로 아키텍트를 셋으로 가르는 규정
-generated: { by: "claude-opus-5", at: "2026-09-17T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-22T14:20:00Z" }
 sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
@@ -415,7 +415,11 @@ sources:
     [진화적 아키텍처](evolutionary-architecture.md)와
     [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)와
     [점진적 변경과 배포 파이프라인](incremental-change-and-deployment-pipelines.md)에 들어와 있다.
-    **뒤엣것은 이 KB가 확인하지 않았다.**
+    **뒤엣것도 2026년 KB 작성 시점에 이 KB 안에 있다** — 그 책이 말하는 "고위의 전략적 사고와
+    현장의 전달 사이"가 [아키텍트 엘리베이터](../concepts/architect-elevator.md)의 펜트하우스와
+    엔진룸이고, 같은 책이 아키텍트의 성숙도를 재는 틀은
+    [아키텍트를 떠받치는 세 다리](../concepts/three-legs-of-an-architect.md)에, 페르소나와 값어치는
+    [아키텍트의 상과 값어치](../concepts/architect-personas-and-value.md)에 있다.
     - **두 소스가 같은 방향을 가리키고 뉴먼이 그 책을 인용하므로 대립이 아니다.** 뉴먼의 아키텍트
       책임 여섯 가운데 **거버넌스**("지어지는 체계가 기술 비전에 맞는지 보증하고, 사람들이 옳은
       일을 하기 쉽게 만들라")가 포드 외의 **자동화된 아키텍처 거버넌스**와 같은 자리다. 갈리는
@@ -941,6 +945,12 @@ Architecture", pp.237).[^gough2022]
 - [진화적 아키텍처](evolutionary-architecture.md) — 저자가 더 깊이 볼 것으로 지목한 책의 규정.
   안내되고 점진적인 여러 차원에 걸친 변경
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 그 책이 거버넌스 책임에 주는 도구
+- [아키텍트 엘리베이터](../concepts/architect-elevator.md) — 뉴먼이 더 볼 것으로 지목한 책이
+  이 역할을 세우는 비유
+- [아키텍트의 상과 값어치](../concepts/architect-personas-and-value.md) — 같은 책이 이 역할이
+  무엇이 아니고 무엇으로 값어치가 재어지는가를 적는 자리
+- [아키텍트를 떠받치는 세 다리](../concepts/three-legs-of-an-architect.md) — 같은 책이 이 역할의
+  성숙도를 재는 틀
 - [전통 아키텍처 실천과 그 두 극단](traditional-architecture-practice.md) — 여섯째
   소스가 이 역할의 두 원형을 규정하는 자리
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 축의 허브
@@ -961,8 +971,7 @@ Architecture", pp.237).[^gough2022]
     장에 코드 목록은 없다. 저자가 대는 바깥 것들(Ralph Johnson의 메일과 Martin Fowler의 "Who
     Needs an Architect?" · Grady Booch의 트윗 · Jon Moore의 InfoQ 글 · Frank Buschmann ·
     Richard Gabriel의 *Patterns of Software* · Erik Doernenburg · Mies van der Rohe와 시그램
-    빌딩 · Margaret Hamilton · Gregor Hohpe의 *The Software Architect Elevator* · COBIT 5 ·
-    심시티와 시티즈: 스카이라인)은
+    빌딩 · Margaret Hamilton · COBIT 5 · 심시티와 시티즈: 스카이라인)은
     **이 KB가 확인한 원전이 아니다** — 귀속은 이 책이 그렇게 귀속한다까지로 둔다.
 
 [^evans2003]: Evans 2003, 17장 "Bringing the Strategy Together" §"Who Sets the Strategy?"
