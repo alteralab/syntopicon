@@ -303,6 +303,9 @@ sources:
   부르는 5장의 뒤쪽
 - [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 둘째
   추세가 부르는 2장의 이해관계자 이해가 펼쳐진 자리
+- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 그 셋째
+  국면이 이 장을 이름으로 되받는다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 11장 "Evolution over
     Frameworks" — 도입(pp.195–196)과 목차에 없는 테두리 곁상자 "A Short History of Enterprise

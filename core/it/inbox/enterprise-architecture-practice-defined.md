@@ -410,7 +410,9 @@ sources:
   상위 범주로 놓고 그 부분집합을 규정하는 자리. TOGAF·Gartner·EABOK의 정의를 나란히 놓는다
 - [프레임워크보다 진화](../concepts/evolution-over-frameworks.md) — 11장. 이 장이 적은 실패
   형태들에 데이터로 말하라와 엔지니어의 자리로 내려가라와 차단하지 말고 활성화하라로 응답하는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md) —
+  12장. 이 장의 실패 형태 셋을 뒤집은 사업 성과 셋이 거기서 평가의 출발점이 된다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, 서문 "Preface"(pp.ix–xii) 전문과 1장 "Key Enterprise Architecture
     Concepts"(pp.1–28)의 앞쪽 — 도입부(p.1) · §"Why Enterprise Architecture?"(pp.2–7, 하위

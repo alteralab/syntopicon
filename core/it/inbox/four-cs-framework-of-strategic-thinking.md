@@ -419,6 +419,9 @@ sources:
   파는 일의 앞쪽. 왜를 파는 세 물음과 사업 이익 네 종류가 거기 있다
 - [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 대화의
   태도 다섯과 소통 최적화 표가 있는 자리
+- [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
+  13장. 그 셋째 걸음이 이 장의 소통을 이름으로 부르며 더 나아간다고 적는다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 6장 "Proactive and
     Reactive" — §"The 4 Cs Framework"(pp.144–155, 하위 절 "Curiosity"·"Challenge"·"Credibility"·

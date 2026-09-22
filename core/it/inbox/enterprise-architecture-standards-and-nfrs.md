@@ -498,6 +498,9 @@ sources:
   산출물로 규정된 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 다섯 군의 낱말 하나하나가 무엇이고
   어떻게 얻는가를 답하는 페이지들이 모인 허브
+- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 결정 훈련이
+  이 장의 비기능 요건을 결정 유형마다 고려하라고 가리킨다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 5장 "Enable and Enforce" —
     도입(pp.111–112)과 §"What Is an Enterprise Architecture Standard?"(pp.113–124, 하위 절

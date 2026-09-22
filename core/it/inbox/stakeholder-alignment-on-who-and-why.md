@@ -456,6 +456,7 @@ sources:
   목표가 속한 넷의 틀과 핵심 결과와 지표의 규정
 - [아키텍처 역할과 조직 모형](architecture-roles-and-organizational-models.md) — RACI에 들어가는
   아키텍트 역할 셋의 규정과 결정 범위에 따른 배치
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 3장 "Shared Alignment" —
     장 도입(pp.59–60)과 §"Align on Who"(pp.60–67, 그림 3-1과 표 3-1에서 3-4까지 포함)와

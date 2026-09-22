@@ -451,6 +451,7 @@ sources:
   담는가
 - [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 9장. 이 장의
   문서 논의를 명시로 되받아 다이어그램 표준과 갱신 기제를 얹는 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 4장 "Embedded and
     Accessible" — §"Knowledge Management and UI/UX Principles"(pp.94–99, 팁 곁상자 셋 포함)와

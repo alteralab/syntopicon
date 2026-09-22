@@ -321,6 +321,7 @@ sources:
   목표. 정렬한 사람들이 무엇을 보고 결정하는가를 지식 관리 쪽에서 받는 자리
 - [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 문서화된 결정이 무엇이고
   무엇을 담는가
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 3장 "Shared Alignment" —
     §"Align on the Decision"(pp.71–76, 팁 곁상자 하나와 표 3-5 포함)과 §"Case Studies"(pp.76–80)와

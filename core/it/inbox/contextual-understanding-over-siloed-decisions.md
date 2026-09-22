@@ -319,6 +319,9 @@ sources:
   산출물이 규정된 자리. 이 장의 능력 개념이 거기서 처음 쓰였다
 - [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 공통
   어휘가 만든다는 그 공유된 정렬의 절차가 있는 자리
+- [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md) —
+  12장. 이 장의 능력과 도메인 모형을 엔터프라이즈 아키텍처 자신에게 되돌려 쓰는 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 8장 "Contextual
     Understanding over Siloed Decision Making" — 도입(pp.165–167)과 §"Architectural Domain

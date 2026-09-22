@@ -319,7 +319,9 @@ sources:
 - [아키텍처 어드바이스 프로세스](../concepts/architecture-advice-process.md) — 결정 권한을 다른
   자리에 놓는 소스
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 물음의 자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 이 장의
+  역할 셋에 부문 최고 아키텍트와 엔터프라이즈 최고 아키텍트라는 직함이 거기서 더해진다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, 1장 "Key Enterprise Architecture Concepts"(pp.1–28)의 가운데 토막 —
     §"What Are Typical Architecture Roles?"(pp.11–17, 하위 §"Enterprise Architect Role" pp.11–12 ·

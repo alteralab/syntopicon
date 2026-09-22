@@ -247,6 +247,7 @@ sources:
   그 문서 여섯이 규정된 자리
 - [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 이 장이
   부르는 6장의 아키텍처 전략과 증분 마일스톤이 있는 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 9장 "Tangible Direction
     over Stale Documentation" — 도입(pp.177–178, 표 9-1 포함)과 §"The Importance of

@@ -266,6 +266,7 @@ sources:
   펼치는 5장의 뒤쪽
 - [아키텍처 역할과 조직 모형](architecture-roles-and-organizational-models.md) — 전략적 사고를
   요구받는 역할이 어느 자리에 있는지 규정한 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 6장 "Proactive and
     Reactive" — 도입(pp.139–141)과 §"Principles of Strategic Thinking"(pp.141–144, 하위 절

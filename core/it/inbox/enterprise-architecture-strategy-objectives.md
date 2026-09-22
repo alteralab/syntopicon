@@ -258,6 +258,11 @@ sources:
   받아 드는 1장의 규정들. 북극성과 기능 셋이 거기 있다
 - [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
   7장. 여기 세운 목표 넷과 그 선언문의 가치 넷이 일대일로 맞물리는지를 대조한 자리
+- [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md) —
+  12장. 이 장의 지표가 실행 중의 계기판이라면 그쪽의 격차 분석은 계획 전의 진단이다
+- [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
+  13장. 이 장의 목표 넷이 거기서 선언문 원칙 넷과 저자 손으로 짝지어진다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 2장 "Key Strategy
     Objectives" — 도입과 §"Overview"(pp.29–31), §"The Proactive and Reactive OKR"(pp.56–57),

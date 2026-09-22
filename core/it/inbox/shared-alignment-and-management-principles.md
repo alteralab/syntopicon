@@ -308,6 +308,7 @@ sources:
   결정이 표준이 되었을 때 어떻게 지켜지게 하는가
 - [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
   비롯한 인도물 넷의 규정
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 2장 "Key Strategy
     Objectives" — §"The Shared Alignment OKR"(pp.32–37, 곁상자 "A Culture of

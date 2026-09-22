@@ -228,7 +228,9 @@ sources:
   판단의 절차 쪽
 - [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 결정을 통째로 받는
   자식 허브
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
+- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 이 장의
+  결정 기록 템플릿을 이름으로 가리키되 요소를 다시 열거하지 않고 저장소와 워크플로와 훈련을 더한다
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, 1장 "Key Enterprise Architecture Concepts"(pp.1–28)의 끝 토막 —
     §"What Are Typical Architecture Deliverables?"(pp.21–23, 하위 §"Architecture Decision

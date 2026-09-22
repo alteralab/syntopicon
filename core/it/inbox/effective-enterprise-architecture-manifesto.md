@@ -170,6 +170,9 @@ sources:
   위 대조표의 왼쪽. 목표 넷의 이름과 그 측정이 거기 있다
 - [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 저자가
   "효과적"이라는 수식어를 왜 계속 붙이는지 규정한 자리
+- [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
+  13장. 저자가 이 선언문의 원칙 넷과 2장의 OKR 넷을 손수 짝짓는 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 7장 "A Very Short
     Manifesto for Effective Enterprise Architecture"(pp.161–163, 절 구분 없는 네 쪽 장이며

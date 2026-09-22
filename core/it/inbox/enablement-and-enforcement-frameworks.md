@@ -348,8 +348,8 @@ sources:
   유도**이고 **11장 제목이 프레임워크보다 진화**다. 5장은 **강제 프레임워크를 세우고 의무를 정도의
   최고 단계로 둔다.** 그런데 **5장 자신이 그 긴장을 이미 품고 있다** — 강제 프레임워크의 셋째
   걸음이 **인간 행동이 바뀌고 있는가**를 묻고, 질식 사례가 **표준을 진화시킬 접근을 빼먹지 말라고**
-  적는다. **두 제목이 5장을 뒤집기보다 5장이 이미 세운 단서를 장 제목으로 올렸을 가능성이 크고,
-  판정은 런 05의 몫이다.** #hypothesis
+  적는다. **두 제목은 5장을 뒤집기보다 5장이 이미 세운 단서를 장 제목으로 올린 것이고**, 그 확정
+  판정은 [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -363,6 +363,7 @@ sources:
   넷째이자 마지막 목표를 펼치는 6장의 앞쪽
 - [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 10장. 이 장의 강제를
   뒤집지 않고 그 위에 최소 준수와 최적 준수라는 목표 수준을 얹는 자리
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 5장 "Enable and Enforce" —
     §"What Is Enable?"(pp.127–130, 하위 절 "Principles of Enablement Mechanisms"와 "The Enablement
