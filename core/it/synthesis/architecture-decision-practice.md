@@ -74,6 +74,10 @@ generated: { by: "claude-opus-5", at: "2026-09-21T02:40:00Z" }
   결정 지원 도구로 쓰는 네 걸음
 - [결정을 취한 ADR을 완성하고 관리하기](../concepts/completing-and-curating-adrs.md) — 닫는 규칙
   넷과 어디에 둘 것인가와 아키텍처 변경 로그
+- [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](../concepts/stakeholder-alignment-on-who-and-why.md) —
+  같은 물음에 엔터프라이즈 아키텍처 쪽 원전이 답하는 자리. 영향과 권한과 주제 전문성이라는
+  기준 셋과 영향력·중요도 사분면과 RACI. **정본 자리는 부모 허브
+  [소프트웨어 아키텍처](software-architecture.md)의 엔터프라이즈 아키텍처 절이다**
 
 ## 그 실천이 바꾸는 권력과 문화
 
@@ -145,6 +149,10 @@ generated: { by: "claude-opus-5", at: "2026-09-21T02:40:00Z" }
   관리와 리더십을 가르는 선과 리더 자리와 리더십을 떼어 놓는 CCL 정의
 - [리더-리더 리더십과 도덕적 리더십](../concepts/leader-leader-and-moral-leadership.md) —
   이행을 이끄는 도전 넷과 도덕적 도전의 원형 넷과 영구적 리더를 막는 장치 셋
+- [결정에 대한 정렬 — 긍정적 갈등과 헌신](../concepts/positive-conflict-and-decision-commitment.md) —
+  갈등을 없애지 않고 일어나게 하는 쪽. 관점 헤아리기와 대화의 태도 다섯과 우려·정렬의 문서화와
+  타임박스와 에스컬레이션, 그리고 동의를 넘어선 헌신. **정본 자리는 부모 허브
+  [소프트웨어 아키텍처](software-architecture.md)의 엔터프라이즈 아키텍처 절이다**
 
 ## 조직의 나머지와 어떻게 사는가
 

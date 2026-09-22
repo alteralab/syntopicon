@@ -263,6 +263,10 @@ sources:
   아키텍처 결정의 기록 요소
 - [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md) — 이 정보를
   보고 내린 결정을 사람들이 지키게 하는 첫째 목표
+- [아키텍처 정보의 지식 관리와 UI/UX 설계](architecture-knowledge-management-and-ui-ux.md) — 이
+  여섯을 이용 가능하게 만드는 일을 한 장으로 펼친 앞쪽. 지식 관리 수명 주기와 지식 유형과 UI/UX
+- [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md) —
+  그 장의 뒤쪽. 수명 주기 단계마다 붙는 원칙 여덟과 Define·Do·Dare 틀
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 2장 "Key Strategy
     Objectives" — §"The Embedded and Accessible OKR"(pp.40–43)과 §"What Is Architecture

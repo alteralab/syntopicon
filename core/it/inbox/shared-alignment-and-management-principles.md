@@ -62,7 +62,9 @@ sources:
   - **엔터프라이즈에 영향을 주는 결정**은 이상적으로 **리더십 팀과 조직 전체에 걸쳐** 공유된
     정렬을 갖는다.
   - **애플리케이션에 한정된 결정**은 **영향받는 애플리케이션 팀의 지역 정렬만** 있으면 된다.
-  - **어느 이해관계자를 결정에 포함해야 하는가**의 구체는 이 책 3장이 맡는다.
+  - **어느 이해관계자를 결정에 포함해야 하는가**의 구체는
+    [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md)에 있다 —
+    영향과 권한과 주제 전문성이라는 기준 셋과 영향력·중요도 사분면과 RACI가 그 답이다.
 
 ## 투명성과 신뢰
 
@@ -298,6 +300,10 @@ sources:
   이 목표가 속한 넷의 틀과 OKR·KPI의 규정
 - [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 정렬한 사람들이 무엇을 보고
   결정하는가
+- [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 이
+  목표를 한 장으로 펼친 앞쪽. 누구를 부르고 문제의 왜를 어떻게 파는가
+- [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 그
+  장의 뒤쪽. 갈등 해소 셋과 헌신과 사례 넷
 - [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 정렬한
   결정이 표준이 되었을 때 어떻게 지켜지게 하는가
 - [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
