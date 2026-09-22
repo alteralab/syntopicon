@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 조언의 중심성과 책임의 자리
-description: 조언이 제시된 방향에 그 이유를 더한 것이라는 규정과 이유가 빠진 의견이 조언의 가까운 적이라는 가름, 가까운 적이라는 불교 개념과 데브옵스 팀·위에서 강요된 애자일 전환이라는 예, 왜 물음이 의견을 조언으로 바꿀 수 있고 이유를 감추는 것이 권력을 남기려는 일일 수 있는가, 조언이 옵션 만드는 이와 결정 취하는 이를 강화하되 운전석은 여전히 결정하는 이의 것이고 적절하지 않은 조언은 인정하되 치워 둘 수 있다는 조문, 조언을 주는 것은 감당을 지우지 않고 결정을 취하는 것이 지운다는 판정과 전통 접근에서 고무도장만 찍은 아키텍트가 감당을 졌던 대비, 필요한 대화가 일어나게 하는 것이 아키텍처의 일이라는 말란의 인용과 대화가 동등한 사람들 사이의 비영합 상호작용이라는 규정, 그리고 팀 안의 신뢰가 이미 높다는 관찰에서 조직 차원 신뢰의 가능성을 끌어내는 논증
-generated: { by: "claude-opus-5", at: "2026-09-19T20:50:00Z" }
+description: 조언이 제시된 방향에 그 이유를 더한 것이라는 규정과 이유가 빠진 의견이 조언의 가까운 적이라는 가름, 가까운 적이라는 불교 개념과 데브옵스 팀·위에서 강요된 애자일 전환이라는 예, 왜 물음이 의견을 조언으로 바꿀 수 있고 이유를 감추는 것이 권력을 남기려는 일일 수 있는가, 조언이 옵션 만드는 이와 결정 취하는 이를 강화하되 운전석은 여전히 결정하는 이의 것이고 적절하지 않은 조언은 인정하되 치워 둘 수 있다는 조문, 조언을 주는 것은 감당을 지우지 않고 결정을 취하는 것이 지운다는 판정과 전통 접근에서 고무도장만 찍은 아키텍트가 감당을 졌던 대비, 필요한 대화가 일어나게 하는 것이 아키텍처의 일이라는 말란의 인용과 대화가 동등한 사람들 사이의 비영합 상호작용이라는 규정, 그리고 팀 안의 신뢰가 이미 높다는 관찰에서 조직 차원 신뢰의 가능성을 끌어내는 논증, 그리고 이유가 있는지를 가르는 이 장의 잣대가 멈춘 자리에서 그 이유가 얼마나 좋은지를 재는 다섯 잣대로 이어받는 다른 소스와의 대조
+generated: { by: "claude-opus-5", at: "2026-09-23T18:40:00Z" }
 sources:
   - { id: harmellaw2024, resource: /it/sources/harmellaw2024.md }
+  - { id: montalion2024, resource: /it/sources/montalion2024.md }
 ---
 
 # 조언의 중심성과 책임의 자리
@@ -263,6 +264,19 @@ sources:
   [전략 목표와 원칙과 실천](../concepts/strategic-goals-principles-practices.md)은 **무엇에 비추어
   고를 것인가**를 주고, 이 장의 계약은 **고르기 전에 무엇을 해야 하는가**를 정한다. **층이
   다르다.** #hypothesis
+- **이 장이 멈춘 자리에서 다른 소스가 이어받는다 — "그 이유를 무엇으로 재는가".** 이 장은
+  **조언이 방향에 이유를 더한 것이고 이유 없는 의견은 가까운 적**이라는 데까지 간다. 이유가
+  **있는지 없는지**를 가르는 잣대이지, 있는 이유가 **얼마나 좋은지**를 재는 잣대는 아니다.
+  **그 다음 잣대를 몬탈리온이 준다** — 저자는 **이유를 강하게 하는 것이 체계적 추론에서 가장
+  결정적인 걸음**이라 적고 그것을 재는 다섯을 든다: **understandable(잘 쓰였다) ·
+  reliable(참이고 정당화되었다) · relevant(서로와 맥락에 잘 이어져 있다) · cohesive(통일된
+  전체로 흐른다) · cogent(납득시킨다)** (몬탈리온 7장, p.129).[^montalion2024] **같은 문턱을
+  공유하고** — 저자는 **체계적 추론을 실천할 때 자기 의견을 나누는 데서 벗어난다**고 적는다
+  (몬탈리온 7장, p.110)[^montalion2024] — **모순이 아니라 한쪽이 다른 쪽이 멈춘 자리에서
+  이어받는 관계**다. 그 잣대 다섯이 사는 자리는
+  [모호성 틀 짓기와 이유 강하게 하기](../concepts/framing-ambiguity-and-strengthening-reasons.md)이고,
+  두 저자가 서로의 원고를 읽은 사이라는 판정은
+  [결정의 메타인지와 두려움과 편향](../concepts/metacognition-fear-and-bias.md)에 있다.
 
 ## 이어지는 페이지
 
@@ -298,6 +312,10 @@ sources:
   보는 축
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — 조언을 받은 뒤 옵션 사이의
   선택을 실제로 계산하는 절차
+- [체계적 추론의 규정](../concepts/systemic-reasoning-defined.md) — "의견을 나누는 데서
+  벗어난다"는 같은 문턱을 다른 소스가 세우는 자리
+- [모호성 틀 짓기와 이유 강하게 하기](../concepts/framing-ambiguity-and-strengthening-reasons.md) —
+  이 장이 멈춘 자리에서 이어받는 잣대 다섯
 - [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 축의 허브
 
 [^harmellaw2024]: Harmel-Law 2024, 4장 "The Architecture Advice Process"와 **15장 "The Transition
@@ -319,3 +337,12 @@ sources:
     이 장의 앞 두 절(pp.69–92)은
     [아키텍처 어드바이스 프로세스](architecture-advice-process.md)와
     [어드바이스 프로세스가 도는 두 사례](advice-process-in-action.md)가 갖는다.
+
+[^montalion2024]: Montalion 2024, 7장 "Collective Systemic Reasoning" — §"What Is Systemic
+    Reasoning?"의 규정 문장(p.110)과 §"Strengthening the Reasons"의 다섯 목록(p.129). 쪽은
+    인쇄판 쪽 번호(본문 = PDF 쪽 − 26, 실측). 본문은 `pdftotext -layout` 추출로 교차 확인했다.
+    **이 페이지가 그 소스에서 가져오는 것은 이 절의 대조 하나뿐**이고, 7장 전량은
+    [체계적 추론의 규정](../concepts/systemic-reasoning-defined.md) ·
+    [주장 만들기의 실천](../concepts/creating-a-proposition.md) ·
+    [모호성 틀 짓기와 이유 강하게 하기](../concepts/framing-ambiguity-and-strengthening-reasons.md)
+    셋이 갖는다.
