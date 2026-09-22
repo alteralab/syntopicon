@@ -435,9 +435,14 @@ sources:
     **지위**는 **자기 인식 없이는 개념 무결성을 만들 수 없고 반직관성을 넘을 수 없으며 정신
     모형을 볼 수 없다**는 것이다 (4장, pp.54–55).[^montalion2024] 이 장이 메타인지를 결정
     하나를 잘 고르기 위한 기량으로 다룬다면 그쪽은 시스템 사고 전체의 바닥으로 둔다.
-- **"반응과 대응"이라는 가름을 두 소스가 공유한다** — 위 연습 둘의 가름을 **그 책은 II부 도비라에
-  부의 전제로 올려 놓고 한 장(5장 "Replace Reacting with Responding") 전체를 거기에 바친다**
-  (II부 도비라, p.51).[^montalion2024] **어느 쪽도 다른 쪽을 인용하지 않는다.**
+- **"반응과 대응"이라는 가름을 두 소스가 공유하고, 이 장이 그 상술 자리로 그 책을 지목한다** —
+  위 연습 셋에 붙은 각주가 **그 책을 "이것들을 훨씬 자세히 다루는" 자리로 가리키고**(12장,
+  p.311, 각주 10),[^harmellaw2024] 그 책은 같은 가름을 II부 도비라의 전제로 올려
+  [반응과 응답과 공감](../concepts/reacting-responding-and-empathy.md)과
+  [반응할 때의 선택지들](../concepts/reacting-practice-options.md)에 한 장을 통째로 바친다
+  (II부 도비라, p.51).[^montalion2024] **거꾸로 그 책 6장은 이 책의 저자를 자기 초고를 읽어 준
+  사람으로 이름 들어 적는다**(6장, p.103)[^montalion2024] — **두 소스는 독립된 증언이 아니라
+  서로를 읽은 사이다.** 옮기는 낱말만 갈린다(여기 "대응", 그쪽 "응답" — 같은 respond다).
 - **편향의 취급은 갈리되 겨루지 않는다** — 위 표 12-1이 **전망 이론 계보의 결정 편향 일곱을
   이름으로 센다면, 그 책에는 그런 목록이 없고 신호와 소음을 가르는 분별과 레이더 아래에서
   작동하는 목표와 자전거 창고 짓기를 기제로 든다** (4장, pp.56–58).[^montalion2024] **같은
@@ -531,8 +536,10 @@ sources:
     괄호 안이 그 쪽이다.
 
 [^montalion2024]: Montalion 2024, II부 도비라 "You Are a System of Thinking"(p.51)과 4장
-    "Self-Awareness as a Foundational Skill"(pp.53–67). 이 페이지가 그 책에서 옮기는 것은
-    **이 장의 각주가 가리킨 상술이 무엇을 말하는가**뿐이고, 전문은
-    [기초 기술로서의 자기 인식](../concepts/self-awareness-as-a-foundational-skill.md)과
-    [사고를 관찰하는 실천](../concepts/observing-your-own-thinking.md)에 있다. 쪽은 인쇄판 쪽
+    "Self-Awareness as a Foundational Skill"(pp.53–67)과 6장 "A System of Learning"(p.103).
+    이 페이지가 그 책에서 옮기는 것은 **이 장의 각주가 가리킨 상술이 무엇을 말하는가**뿐이고,
+    전문은 [기초 기술로서의 자기 인식](../concepts/self-awareness-as-a-foundational-skill.md) ·
+    [사고를 관찰하는 실천](../concepts/observing-your-own-thinking.md) ·
+    [반응과 응답과 공감](../concepts/reacting-responding-and-empathy.md) ·
+    [반응할 때의 선택지들](../concepts/reacting-practice-options.md)에 있다. 쪽은 인쇄판 쪽
     번호(본문 = PDF 쪽 − 26, 실측).
