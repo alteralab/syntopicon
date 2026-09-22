@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 엔터프라이즈 아키텍처 평가 프레임워크 — 성숙도 모형을 물리는 네 근거와 결과 기반 능력 모형
-status: draft
 description: 이 책의 마지막 세 장 가운데 첫째이자 조직이 어디에 서 있는지를 재는 서식 — 저자 자신이 성숙도 모형을 써 보고 이익도 보았다는 자백과 그럼에도 모자란다고 판정하는 네 근거인 정적임과 맥락 결여와 선형 가정과 용어 문제, 그 자리를 대신하는 결과 기반 능력 모형의 규정과 거기에 우선순위 스키마를 더한 평가 프레임워크의 세 걸음, 사업 성과를 이해관계자와 함께 정량으로 규정하고 1장의 일반 성과 셋에서 조직 고유 성과로 내려가는 첫 걸음, 엔터프라이즈 아키텍처 자체를 하나의 도메인으로 놓고 사람과 프로세스와 도구라는 세 범주로 능력을 식별하는 둘째 걸음, 격차를 캐는 물음들과 이익과 노력 두 축의 1에서 5까지 점수 척도와 그 척도를 클라우드 이전 예에 걸어 본 격차 분석표, 그리고 한 달 안에 타임박스하고 연간 전략 주기의 일부로 수행하라는 기간 조건
 generated: { by: "claude-opus-5", at: "2026-09-23T23:40:00Z" }
 sources:
@@ -161,7 +160,7 @@ sources:
   (12장, p.209).[^mccabe2024]
   - **8장의 도구를 자기 자신에게 되돌려 쓴다** — 8장이 사업 능력과 기술 능력으로 조직을 지도화하는
     도구를 세웠고, 12장은 그 도구의 대상 자리에 엔터프라이즈 아키텍처 기능을 놓는다. 그 자리는
-    [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md)에 있다.
+    [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md)에 있다.
 - **출발점 능력 모형(그림 12-3)** — **사람(문화)과 프로세스와 도구를 넓은 범주로 삼아, 효과적
   엔터프라이즈 아키텍처 기능과 실천을 확립하는 데 조직이 강화해야 할 구체적 능력을 알아내는 데 쓸 수
   있는 모형**이다 (12장, p.209).[^mccabe2024] 도판의 세 상자와 그 사이의 동사 라벨을 표로 복원한다
@@ -304,7 +303,7 @@ sources:
   잰다. 자동과 수동, 상시와 주기, 체계와 조직이라는 세 축이 모두 갈린다. 다만 14장이 적합도 함수를
   이름으로 불러 결정의 정렬을 검증하는 쪽에 쓰므로, 이 책 안에서 두 도구가 만나는 자리는 12장이
   아니라 14장이다. 그 자리는
-  [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md)에 있다.
+  [아키텍처 의사결정 프레임워크](../concepts/architecture-decision-making-framework.md)에 있다.
 - **모순은 아니다** — 이 장이 이 KB의 어떤 페이지와도 사실에서 충돌하지 않는다. 성숙도 모형에
   대한 판정은 방법의 선택이지 사실 주장의 충돌이 아니고, 이 KB에 성숙도 모형을 조직 평가 도구로
   권하는 원전이 없다.
@@ -313,13 +312,13 @@ sources:
 
 - [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
   13장. 이 평가의 산출이 그 프레임워크 첫 걸음의 입력이다
-- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 이 장의
+- [아키텍처 의사결정 프레임워크](../concepts/architecture-decision-making-framework.md) — 14장. 이 장의
   능력 모형이 기술 능력으로 든 "아키텍처 결정하기"가 거기서 펼쳐진다
 - [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
   2장. 이 장이 재는 대상과 그 장이 재는 대상의 가름
 - [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 1장.
   이 장이 다시 부르는 일반 사업 성과 셋과 기능 셋이 거기 있다
-- [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md) —
+- [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md) —
   8장. 이 장이 자기 자신에게 되돌려 쓰는 능력과 도메인 모형이 거기 있다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) —
   이 축의 허브

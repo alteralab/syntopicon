@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 결정에 대한 정렬 — 긍정적 갈등과 헌신
-status: draft
 description: 아키텍처 결정 자체에 이해관계자를 정렬시키는 갈등 해소의 세 걸음과 그 뒤에 오는 헌신을 다루는 자리 — 결정 프로세스의 갈등이 실제로는 긍정적일 수 있다는 규정과 다양한 관점이 고려되고 우려가 투명하게 제기되어 권고를 강화한다는 기제, 상대의 자리에 서서 동기를 헤아리는 첫 걸음과 동기 유발 요인 여섯을 그린 도판과 동기를 판단하지 말고 호기심으로 들으라는 조문, 대화에서 긍정적 갈등을 북돋우는 태도 다섯과 열린 물음 대신 구체적으로 묻고 들은 것을 되짚어 말하고 상대의 관점을 인정하며 감사로 닫는 소통 최적화 표, 우려를 절충 분석에 문서화하고 정렬 자체도 문서화하라는 처방과 타임박스와 아껴 써야 하는 에스컬레이션, 동의만으로는 모자라고 헌신이 필요하다는 조문과 헌신이 구현 계획의 이행과 성공의 자축과 사람이 바뀔 때의 인수인계를 뜻한다는 규정, 그리고 지령과 재논의와 사일로와 끝없는 논쟁이라는 사례 넷의 해야 할 것과 하지 말아야 할 것, 장을 닫는 세 묶음의 진단 물음
 generated: { by: "claude-opus-5", at: "2026-09-23T21:10:00Z" }
 sources:
@@ -317,9 +316,9 @@ sources:
   앞쪽. 이해관계자의 규정과 매핑과 RACI와 문제 진술을 파는 법
 - [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md) — 이 장이
   구체를 맡은 목표의 규정과 반대하되 헌신·명령과 통제·합의 지향이라는 관리 원칙 셋
-- [아키텍처 정보의 지식 관리와 UI/UX 설계](architecture-knowledge-management-and-ui-ux.md) — 다음
+- [아키텍처 정보의 지식 관리와 UI/UX 설계](../concepts/architecture-knowledge-management-and-ui-ux.md) — 다음
   목표. 정렬한 사람들이 무엇을 보고 결정하는가를 지식 관리 쪽에서 받는 자리
-- [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 문서화된 결정이 무엇이고
+- [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md) — 문서화된 결정이 무엇이고
   무엇을 담는가
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

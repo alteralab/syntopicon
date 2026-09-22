@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 엔터프라이즈 아키텍처 전략 정의 프레임워크 — 도그푸딩과 세 걸음
-status: draft
 description: 전략을 내놓는 기능이 자기 자신을 위한 전략을 갖는다는 자기 적용의 장 — 자기 제품을 스스로 써 보는 도그푸딩으로 전략을 스스로에게 먹인다는 규정과 그것이 메타처럼 들리되 값어치 제안과 노력의 초점을 위해 본질적이라는 배치, 맥락화와 지속적 개선과 흥분 만들기라는 세 걸음, 엔터프라이즈 아키텍처가 정보 기술보다 넓다는 상기와 사업 모형은 소유하지 않되 사업 능력 모형은 소유한다는 소유권의 가름과 기술 추세를 좇아 사업 모형에 기여하는 길, 기능과 역할을 향한 묶음과 아키텍처 실천을 향한 묶음이라는 OKR 두 갈래와 2장에서 6장까지의 OKR 넷이 7장 선언문의 원칙 넷에 각각 대응한다고 저자가 직접 적는 대조표와 사분면마다 다섯에서 열까지로 제한하라는 SWOT 분석 서식과 OKR이 삼 년에서 오 년 로드맵이 된다는 조문과 잘린 항목을 함께 보이라는 처방, 그리고 관련성과 인센티브가 사람을 흥분시킨다는 답과 기능에도 브랜드를 붙이라는 처방과 부정적 브랜드에는 리셋을 선언하라는 조문과 왜에 호소하고 무엇과 어떻게로 관료제를 선점당하지 말라는 경고
 generated: { by: "claude-opus-5", at: "2026-09-23T23:45:00Z" }
 sources:
@@ -69,7 +68,7 @@ sources:
   저자는 **8장이 맥락화된 이해의 원칙을 논했다**고 적고, 따라서 **자기 엔터프라이즈 아키텍처 전략을
   정의하는 첫 걸음은 자기 사업 전략과 사업 성장 기회와 사업 능력을 깊이 이해하는 것**이라고 잇는다
   (13장, p.216).[^mccabe2024] 그 원칙의 자리는
-  [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md)다.
+  [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md)다.
 - **어디서 그것을 얻는가** — **잘 규정되어 있고 새 정보에 응답해 해마다 반복적으로 바뀌는 전사 사업
   전략이 있을 공산이 크다.** 먼저 **전사 전략 그룹과 협력하거나 상급 리더십과 논의해 그것이
   무엇인지 이해해야 한다** (13장, p.217).[^mccabe2024]
@@ -99,7 +98,7 @@ sources:
 - **12장이 이 걸음의 입력이다** — 저자는 **12장에서 서술한 평가 프레임워크에 기반해 바라는 사업
   성과와 그것을 달성하는 데 극복해야 할 능력 격차에 초점을 맞추었을 것**이라고 적고, 그것이 **2번
   걸음으로 데려간다**고 잇는다 (13장, p.217).[^mccabe2024] 그 자리는
-  [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md)다.
+  [엔터프라이즈 아키텍처 평가 프레임워크](../concepts/enterprise-architecture-assessment-framework.md)다.
 
 ## 걸음 둘 지속적으로 개선한다
 
@@ -132,7 +131,7 @@ sources:
     7장은 대응을 한 번도 말하지 않고, **저자가 그 대응을 적는 자리는 13장의 이 대목**이다. 곧 7장
     쪽에서 대응이 없다는 판정은 7장 본문에 대한 판정이고, 여기서 저자가 뒤늦게 자기 손으로 넷을
     짝짓는다. 7장 자리는
-    [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md)이다.
+    [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](../concepts/effective-enterprise-architecture-manifesto.md)이다.
   - **짝짓는 근거가 "관계된다(relates to)"까지다** — 저자는 같다고 적지 않고 관계된다고 적는다.
     OKR 쪽은 달성할 목표이고 원칙 쪽은 무엇을 더 값지게 여기는가의 선언이라는 성격 차이가 그대로다.
 
@@ -284,17 +283,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md) —
+- [엔터프라이즈 아키텍처 평가 프레임워크](../concepts/enterprise-architecture-assessment-framework.md) —
   12장. 그 산출이 이 프레임워크 첫 걸음의 입력이다
-- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 이 장의
+- [아키텍처 의사결정 프레임워크](../concepts/architecture-decision-making-framework.md) — 14장. 이 장의
   마지막 문단이 부르는 자리
 - [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 6장.
   셋째 걸음이 이름으로 되받으며 더 나아간다고 적는 자리
-- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
+- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](../concepts/effective-enterprise-architecture-manifesto.md) —
   7장. 저자가 이 장에서 OKR 넷과 짝지어 놓는 원칙 넷이 거기 있다
 - [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
   2장. 이 장이 다시 부르는 OKR 넷의 원자리
-- [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md) —
+- [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md) —
   8장. 첫 걸음이 이름으로 부르는 맥락화된 이해의 원칙과 사업 능력이 거기 있다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) —
   이 축의 허브

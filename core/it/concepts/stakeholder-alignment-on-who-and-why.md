@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 이해관계자 정렬 — 누구를 넣고 왜를 파는 일
-status: draft
 description: 아키텍처 결정에 누구를 관여시키고 그들에게 문제의 왜를 어떻게 파는가를 다루는 자리 — 엔터프라이즈 아키텍처가 전사 관점을 가진 유일한 기능이라 개인들의 팀을 집합적 전체의 팀으로 바꾸기에 고유하게 놓였다는 논증과 청사진과 시공 관리자와 전기 기술자의 집 짓기 비유, 이해관계자를 영향과 권한과 주제 전문성 셋으로 규정하고 영향력과 중요도 둘로 걸러 사분면에 놓는 매핑과 사분면마다 달라지는 관여 방식, 이해관계자 매핑 표의 서식과 집 짓기 예시, 참여를 실행 책임과 결과 책임과 자문과 통보 넷으로 가르는 RACI와 결과 책임자는 활동마다 하나여야 한다는 조문과 아키텍처 결정에 채운 예시 차트, 참여를 규모 확장하는 세 기제인 신뢰받는 대표자와 의견 요청 기간과 타임박스 그리고 투명한 문서화, 문제 진술을 파는 세 물음과 사업 이익 네 종류와 정량화 요구와 같은 문제를 네 번 고쳐 쓴 실물, 우선순위 불일치에 놓인 아키텍트의 선택지 셋과 상대의 우선순위 틀을 익히라는 처방, 그리고 같은 물음에 조언을 구할 두 집단으로 답하는 2024년 소스와 맞대어 본 자리
 generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 sources:
@@ -429,7 +428,7 @@ sources:
     승인자를 두지 않는다.** **둘 다 하나를 세운다는 점에서 구조가 같고, 그 하나가 승인권을 갖는지가
     갈린다.** **처방의 차이이지 사실의 차이가 아니므로 `contradicts`를 걸지 않는다.**
   - **앞 런이 [조직 정렬과 최소 실행 가능한 합의](../concepts/organizational-alignment-and-agreement.md)와
-    [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md)을 "묻는
+    [공유된 정렬과 정렬을 만드는 원칙 셋](../concepts/shared-alignment-and-management-principles.md)을 "묻는
     것이 다르다"로 갈라 세운 판정을 이 장이 뒤집지 않는다.** 이 장은 **정렬의 사회적 조건**을 더
     아래로 — **누구를 넣고 어떻게 관여시키는가**로 — 내려가지만, **무엇에 합의해야 하는가**는 여전히
     묻지 않는다.
@@ -448,13 +447,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 같은 장의
+- [결정에 대한 정렬 — 긍정적 갈등과 헌신](../concepts/positive-conflict-and-decision-commitment.md) — 같은 장의
   뒤쪽. 부른 사람들을 결정 자체에 정렬시키는 갈등 해소 셋과 사례 넷
-- [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md) — 이 장이
+- [공유된 정렬과 정렬을 만드는 원칙 셋](../concepts/shared-alignment-and-management-principles.md) — 이 장이
   구체를 맡은 목표의 규정과 신뢰의 문화와 관리 원칙 셋
-- [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) — 이
+- [엔터프라이즈 아키텍처 전략 목표와 그 측정](../concepts/enterprise-architecture-strategy-objectives.md) — 이
   목표가 속한 넷의 틀과 핵심 결과와 지표의 규정
-- [아키텍처 역할과 조직 모형](architecture-roles-and-organizational-models.md) — RACI에 들어가는
+- [아키텍처 역할과 조직 모형](../concepts/architecture-roles-and-organizational-models.md) — RACI에 들어가는
   아키텍트 역할 셋의 규정과 결정 범위에 따른 배치
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

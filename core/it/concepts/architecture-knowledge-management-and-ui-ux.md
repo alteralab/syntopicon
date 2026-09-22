@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 아키텍처 정보의 지식 관리와 UI/UX 설계
-status: draft
 description: 아키텍처 정보를 지식으로 다루고 제품처럼 설계한다는 규정을 세우는 자리 — 지식 관리를 조직 전반에서 지식을 만들고 쓰는 프로세스와 도구로 규정하고 그 목표를 아키텍처 정보의 사용자에게 지식을 적용하는 법을 가르치는 데 두는 조문, 신뢰의 문화가 이 목표에도 전제이며 그 반대가 투명성과 개방과 공유를 적극 방해하는 경쟁 문화라는 대비와 기밀 데이터라는 단서, 수학으로 그린 지식 진행과 단순한 지식을 아는 사람이 더 많다는 관찰, 만들기와 승인과 배포와 소비라는 지식 관리 수명 주기 넷과 승인이 큐레이션이 필요한 것에만 든다는 조건과 패턴과 표준의 승인 워크플로 대비, 배포의 두 기제인 푸시와 풀의 규정과 장단 대비와 저장소만으로는 모자라고 프로세스에 심어야 한다는 조문, 구체와 추상으로 가르는 지식 유형과 주제적·명시적·암묵적·경험의 규정과 빙산 도판, 경험에는 지름길이 없다는 곁상자와 아키텍처적 사고방식의 규정과 문제 해결 구의 진행, 지식 관리의 이점 넷, 그리고 UI와 UX 설계의 규정과 소프트웨어 개발 수명 주기의 물음들을 그린 도판과 UI/UX의 이점 셋
 generated: { by: "claude-opus-5", at: "2026-09-23T21:20:00Z" }
 sources:
@@ -352,11 +351,11 @@ sources:
 
 - [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md) —
   같은 장의 뒤쪽. 수명 주기 단계마다 붙는 원칙 여덟과 Define·Do·Dare 틀과 사례 셋
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 이 장이 다루는 정보가 무엇인지를
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 이 장이 다루는 정보가 무엇인지를
   2장이 규정한 자리
 - [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 앞 목표의
   뒤쪽. 정렬한 사람들이 무엇을 보고 결정하는가로 넘어오는 다리
-- [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
+- [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
   비롯한 인도물 넷의 규정
 - [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 9장. 이 절의
   지식 관리와 사용성 논의를 이름으로 되받아 다이어그램 표준과 갱신 기제를 얹는 자리

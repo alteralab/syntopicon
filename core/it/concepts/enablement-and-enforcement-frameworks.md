@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 활성화와 강제의 프레임워크와 그 정도
-status: draft
 description: 선언한 아키텍처 표준을 어떻게 쉽게 만들고 어떻게 지키게 하는가를 두 개의 세 걸음 프레임워크로 답하는 자리 — 활성화를 훈련과 프로세스와 도구로 표준을 따르기 쉽게 만드는 일로 규정하고 훈련 전달 셋과 공식적이고 재원이 붙는 우수성 센터와 자발적인 실천 공동체를 가르는 표, 구체적일 것과 자동화할 것과 왼쪽으로 옮길 것이라는 활성화 기제의 원칙 셋, 활동을 열거하고 노력을 재고 마찰을 없애는 명시와 크기 산정과 단순화라는 활성화 프레임워크와 커피 내리기로 그린 활성화의 정도 셋, 강제를 표준이 실제로 채택되고 지켜졌는지 보장하는 일로 규정하고 비준수가 아예 일어날 수 없게 만드는 예방적 통제와 일어나면 탐지해 교정하는 탐지적 통제의 가름, 중앙화와 자동화와 예방이라는 강제 기제의 원칙 셋, 잘못된 결과를 막는 것이 북극성이라는 조문과 정책 강제 지점을 찾고 개발자 작업 흐름에 녹이고 되먹임으로 다듬는 식별과 통합과 추론이라는 강제 프레임워크와 사설 네트워킹 선택지 셋에 대한 저자의 권고, 정지 표지로 그린 강제의 정도 셋인 옵트인과 장려와 의무, 그리고 언어 표준이 없어 혼돈에 이른 자유방임과 모범 사례까지 지시해 혁신이 질식한 질식과 예방 없이 탐지만 한 고자질꾼이라는 사례 셋의 진단과 해야 할 것과 하지 말아야 할 것
 generated: { by: "claude-opus-5", at: "2026-09-23T20:10:00Z" }
 sources:
@@ -33,7 +32,7 @@ sources:
   만드는 것**이다 (5장, p.127).[^mccabe2024]
   - 이 규정은 2장의 규정을 좁힌다 — 거기서는 **표준에 맞추는 프로세스가 잘 규정되고 고도로
     자동화되어 필요한 마찰을 제한하는 상태**였고, 여기서는 **그 상태를 만드는 수단 셋**이 이름을
-    얻는다([아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md)).
+    얻는다([아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md)).
 - **훈련 자료는 세 방식으로 전달된다** (5장, p.127):[^mccabe2024]
 
   | 방식 | 무엇인가 |
@@ -43,7 +42,7 @@ sources:
   | 적시 프로세스(just-in-time process) | **비공식적 방법**이고, **사용자가 따르고 있는 프로세스 안에서 적시에 자료가 직접 제공된다** |
 
   - **적시 프로세스에 저자가 4장을 가리켜 둔다** — 그 방식의 규정과 원칙은
-    [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md)에
+    [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](../concepts/embedded-and-accessible-information-principles.md)에
     있다 (5장, p.127).[^mccabe2024]
 
 ## 우수성 센터와 실천 공동체
@@ -138,7 +137,7 @@ sources:
   | 자동(automated, 타이머 쓰기) | **개발자나 엔지니어의 인지 부하가 온전히 줄어 표준을 지키는 방법을 알아내는 데 아무 노력도 들이지 않아도 된다.** **안내된 경험이나 자동화된 프로세스·도구가 대신 해 준다** |
 
   - **"안내된 경험"은 4장의 낱말이다** — 아키텍처 정보가 수동 소비인가 안내된 경험인가를 가르는
-    자리가 [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md)에
+    자리가 [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](../concepts/embedded-and-accessible-information-principles.md)에
     있고, 그 가름이 여기서 활성화의 최고 정도로 다시 나온다.
 
 ## 강제의 규정과 통제 두 종류
@@ -233,7 +232,7 @@ sources:
 
   - **교정 행동에 적용할 일관된 심각도 스키마는 2장을 보라고 저자가 가리킨다** (5장,
     p.133).[^mccabe2024] 치명·높음·보통·낮음 네 단계와 배포 중·배포 후 대응표는
-    [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md)에 있다.
+    [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md)에 있다.
 - **팁 곁상자 하나가 이 정도를 프레임워크의 셋째 걸음에 묶는다** (5장, p.133):[^mccabe2024]
 
   > Use data from monitoring the control in the infer stage to understand whether you have the
@@ -349,19 +348,19 @@ sources:
   최고 단계로 둔다.** 그런데 **5장 자신이 그 긴장을 이미 품고 있다** — 강제 프레임워크의 셋째
   걸음이 **인간 행동이 바뀌고 있는가**를 묻고, 질식 사례가 **표준을 진화시킬 접근을 빼먹지 말라고**
   적는다. **두 제목은 5장을 뒤집기보다 5장이 이미 세운 단서를 장 제목으로 올린 것이고**, 그 확정
-  판정은 [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md)에 있다.
+  판정은 [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md)에 있다.
 
 ## 이어지는 페이지
 
 - [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](enterprise-architecture-standards-and-nfrs.md) —
   이 장의 앞쪽 절반. 무엇을 활성화하고 강제할 것인가, 곧 표준 자체가 무엇인가
-- [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 이 장이
+- [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) — 이 장이
   펼치는 2장의 셋째 목표. 활성화 원칙 넷과 강제 원칙 넷과 리스크 스키마가 거기 있다
-- [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md) —
+- [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](../concepts/embedded-and-accessible-information-principles.md) —
   적시 프로세스와 안내된 경험이라는 활성화 수단의 규정이 있는 자리
 - [선제와 반응 그리고 전략적 사고의 원칙 셋](proactive-and-reactive-architecture-decisions.md) —
   넷째이자 마지막 목표를 펼치는 6장의 앞쪽
-- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 10장. 이 장의 강제를
+- [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md) — 10장. 이 장의 강제를
   뒤집지 않고 그 위에 최소 준수와 최적 준수라는 목표 수준을 얹는 자리
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

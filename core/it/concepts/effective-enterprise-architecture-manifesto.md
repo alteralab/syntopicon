@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문
-status: draft
 description: 이 KB에 "X보다 Y" 꼴의 선언문이 원전으로 들어오는 첫 자리 — 저자가 애자일 선언문을 겪은 경험에서 형식을 빌려 왔다는 유래와 엔터프라이즈 아키텍처 실천 자체가 무거운 프로세스와 거버넌스와 과한 이론에서 사업 성과를 몰아내는 쪽으로 필연에 의해 전환 중이라는 진단, 저자가 20여 년간 목격한 세 가지 인식인 멸시와 무지와 인정과 각각의 실물, 효과적이었던 아키텍트들이 공유하던 다섯 가치인 개인의 이익보다 집합적 전체와 아키텍트이기 앞서 선제적 기술 리더라는 자기 규정과 사업 필요의 깊은 이해와 지속적 학습과 협업, 그리고 왼쪽 항목을 오른쪽보다 값지게 여긴다는 애자일 선언문의 문법을 그대로 빌린 네 조항인 맥락적 이해와 손에 잡히는 방향과 행동 유도와 진화, 그리고 2장이 세운 전략 목표 넷과 이 가치 넷이 일대일로 맞물리지 않는다는 이 KB의 대조 판정
 generated: { by: "claude-opus-5", at: "2026-09-23T22:10:00Z" }
 sources:
@@ -158,11 +157,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md) — 첫째
+- [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md) — 첫째
   조항. 아키텍처 도메인 모형과 능력의 규정이 거기 있다
 - [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 둘째 조항.
   실험과 문서 표준과 코드로서의 문서가 거기 있다
-- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 셋째 조항. 조건화와
+- [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md) — 셋째 조항. 조건화와
   동기의 프레임워크가 거기 있다
 - [프레임워크보다 진화](evolution-over-frameworks.md) — 넷째 조항. 진화 추세 셋과 엔터프라이즈
   아키텍처 약사가 거기 있다

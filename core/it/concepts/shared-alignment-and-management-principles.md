@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 공유된 정렬과 정렬을 만드는 원칙 셋
-status: draft
 description: 효과적 엔터프라이즈 아키텍처 전략의 첫째 목표인 공유된 정렬을 규정하고 그것을 만드는 조직 원칙 셋을 가르는 자리 — 동의를 넘어 지키는 일을 진짜로 믿게 하는 것이 목표라는 규정과 buy-in이 없어도 결정은 따라지지만 결과의 품질이 갈린다는 기제와 숙제라는 실물, 정렬의 범위와 정도가 결정의 영향에 달렸다는 조건과 엔터프라이즈 영향 결정 대 애플리케이션 특정 결정의 대비, 신뢰 문화가 정렬을 가속한다는 조문과 규모 있는 공유 결정에 투명한 결정 프로세스가 필요한 이유, 신뢰 문화를 역량과 신빙성과 협력적 협업 세 물음으로 요약하는 곁상자와 그 셋이 아키텍처에 적용될 때 무너지는 세 자리와 회사 문화와 무관하게 개인이 보일 수 있는 신뢰 유발 행동 둘, 첫 목표의 견본 핵심 결과 넷과 선행 지표 셋인 전달 기간과 고유성과 직원 만족도 그리고 후행 지표인 여섯 달 안에 재검토된 결정의 수, 그리고 필요한 합의의 양이 조직 문화에 달렸다는 전제 위에 서는 관리 원칙 셋 — 반대하되 헌신과 명령과 통제와 합의 지향·합의 추구의 규정과 장단과 아키텍처에 각각 어울리는 자리, 그리고 같은 물음에 조언과 거부권 없음으로 답하는 2024년 소스와 통제를 환상으로 규정하는 2020년 소스와 맞대어 본 자리
 generated: { by: "claude-opus-5", at: "2026-09-23T14:10:00Z" }
 sources:
@@ -119,7 +118,7 @@ sources:
   - **아키텍트의 기여를 아무도 신경 쓰지 않으면** — 사업 파트너나 기술 파트너가 **아키텍트의
     역할과 기여를 신경 쓰거나 값있게 여기지 않으면**, 개별 아키텍트가 이 도전을 넘어 그들과 함께
     능력 목표 아키텍처를 성공적으로 전달하기란 **거의 불가능하다.**
-  - 능력 목표 아키텍처가 무엇인지는 [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md)에 있다.
+  - 능력 목표 아키텍처가 무엇인지는 [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md)에 있다.
 - **회사 문화와 무관하게 개인이 보일 수 있는 신뢰 유발 행동이 둘 있다** (2장,
   p.34):[^mccabe2024]
   - **적극적 경청(active listening)** — 사업 파트너와 기술 파트너의 **필요를 이해하게 하고, 그
@@ -296,17 +295,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
+- [엔터프라이즈 아키텍처 전략 목표와 그 측정](../concepts/enterprise-architecture-strategy-objectives.md) —
   이 목표가 속한 넷의 틀과 OKR·KPI의 규정
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 정렬한 사람들이 무엇을 보고
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 정렬한 사람들이 무엇을 보고
   결정하는가
 - [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 이
   목표를 한 장으로 펼친 앞쪽. 누구를 부르고 문제의 왜를 어떻게 파는가
-- [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 그
+- [결정에 대한 정렬 — 긍정적 갈등과 헌신](../concepts/positive-conflict-and-decision-commitment.md) — 그
   장의 뒤쪽. 갈등 해소 셋과 헌신과 사례 넷
-- [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 정렬한
+- [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) — 정렬한
   결정이 표준이 되었을 때 어떻게 지켜지게 하는가
-- [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
+- [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
   비롯한 인도물 넷의 규정
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

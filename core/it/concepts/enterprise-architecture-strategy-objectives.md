@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 엔터프라이즈 아키텍처 전략 목표와 그 측정
-status: draft
 description: 효과적 엔터프라이즈 아키텍처 실천을 세우는 일에도 전략이 필요하다는 전제에서 그 전략의 목표를 무엇으로 세우고 무엇으로 재는가를 답하는 자리 — 1970년대에 규정되고 구글이 대중화한 OKR 프레임워크를 빌려 오는 이유와 그 틀의 특별한 점이 목표가 아니라 측정에 있다는 판정, 측정이 아키텍처에 새롭다는 진단과 아키텍처의 값어치를 묻는 물음에 답하기 어려운 첫째 이유가 성과가 아니라 산출물만 보이는 데 있다는 귀속, 스토리지 비용을 줄인 패턴의 공을 누가 받는가와 플랫폼보다 먼저 전달된 전략이 산출물로 인정받는가라는 사례 둘과 거기서 나오는 처방인 패턴 채택 추적과 전략의 이익 정량화, 결과 기반과 노력 기반이라는 핵심 결과 두 종류와 결과 기반이 KPI가 되는 자리와 선행 지표와 후행 지표의 가름, KPI 규정을 완성하는 세 자리인 분명한 데이터 출처와 분명한 소유권과 빈도 그리고 아키텍처에는 분기가 충분하다는 판단, 지표가 행동을 몰아가므로 재지 말아야 할 것 셋인 표준의 수와 산출물의 수와 컴플라이언스 만족 애플리케이션의 수와 그 셋이 각각 유인하는 잘못된 행동, 목표 넷의 이름과 한 줄 규정, 넷째 목표인 선제와 반응의 규정과 양 극단이 모두 실패하는 이유와 아이 옷장이라는 실물, 그리고 아키텍처의 값어치를 옵션으로 값매기는 소스와 이 KB에 OKR 원전이 없다는 실측
 generated: { by: "claude-opus-5", at: "2026-09-23T14:00:00Z" }
 sources:
@@ -32,7 +31,7 @@ sources:
   **북극성 곧 전략 방향을 주어 일련의 아키텍처 결정으로 조직의 기술 로드맵을 규정한다**는 것이
   1장이 세운 것이다. 그렇다면 **효과적 엔터프라이즈 아키텍처 실천 자체를 이끌고 세우는 데도
   전략이 필요하다**는 것이 이 장의 출발점이다 (2장, p.29).[^mccabe2024]
-  - 1장이 세운 그 규정들은 [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md)에 있다.
+  - 1장이 세운 그 규정들은 [엔터프라이즈 아키텍처의 규정과 실천](../concepts/enterprise-architecture-practice-defined.md)에 있다.
 - **이 장이 답하는 물음은 "어떻게 시작하는가"다** — 모든 전략은 **자기 목표를 규정하는 데서
   시작**하므로, 이 장은 **효과적 엔터프라이즈 아키텍처 전략의 목표**를 다룬다 (2장,
   p.29).[^mccabe2024]
@@ -152,8 +151,8 @@ sources:
   | 선제와 반응(proactive and reactive) | **선제 아키텍처 결정과 반응 아키텍처 결정의 균형**을 촉진한다 | 6장 |
 
   - 앞의 셋은 각각 [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md) ·
-    [아키텍처 정보의 여섯 종류](architecture-information-types.md) ·
-    [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md)에 있고,
+    [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) ·
+    [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md)에 있고,
     넷째는 짧아 아래 절에 담는다.
   - 이 넷은 **1장이 이름으로 부르지 않은 채 예고한 효과적 엔터프라이즈 아키텍처의 네 성질**이고,
     2장에서 처음으로 목표의 이름을 얻는다.
@@ -238,29 +237,29 @@ sources:
   함수로 자동화하는 그 검사와 같은 대상을 센다 — 한쪽은 검사를 자동화하고 다른 쪽은 그 검사
   결과를 지표로 굴린다.
 - **"재지 말아야 할 것 셋"은 이 KB의 거버넌스 축과 같은 방향으로 선다.** 표준의 수와 산출물의
-  수를 유인하지 말라는 조문은 [상아탑 아키텍처를 실패 형태로 지목하는 이 책의 곁상자](enterprise-architecture-practice-defined.md)와
+  수를 유인하지 말라는 조문은 [상아탑 아키텍처를 실패 형태로 지목하는 이 책의 곁상자](../concepts/enterprise-architecture-practice-defined.md)와
   같은 경계이고, 이 소스의 10장 제목이 그대로 **표준 강제보다 행동 유도**다.
 
 ## 이어지는 페이지
 
 - [공유된 정렬과 정렬을 만드는 원칙 셋](shared-alignment-and-management-principles.md) —
   첫째 목표의 규정과 신뢰 문화, 그리고 반대하되 헌신과 명령과 통제와 합의 지향·합의 추구
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 둘째 목표의 규정과 그 목표가
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 둘째 목표의 규정과 그 목표가
   다루는 대상인 아키텍처 정보가 무엇인가
-- [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 셋째
+- [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) — 셋째
   목표의 규정과 표준 자체를 재는 KPI, 그리고 활성화 원칙 넷과 강제 원칙 넷
 - [선제와 반응 그리고 전략적 사고의 원칙 셋](proactive-and-reactive-architecture-decisions.md) —
   넷째 목표를 한 장으로 펼치는 6장의 앞쪽. 일방문 결정과 양방향문 결정의 가름과 전략적 사고의
   원칙 셋이 거기 있다
 - [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 같은 장의
   뒤쪽. 호기심과 도전과 신빙성과 소통이라는 네 단계와 사례 셋
-- [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 이 장이
+- [엔터프라이즈 아키텍처의 규정과 실천](../concepts/enterprise-architecture-practice-defined.md) — 이 장이
   받아 드는 1장의 규정들. 북극성과 기능 셋이 거기 있다
-- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
+- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](../concepts/effective-enterprise-architecture-manifesto.md) —
   7장. 여기 세운 목표 넷과 그 선언문의 가치 넷이 일대일로 맞물리는지를 대조한 자리
-- [엔터프라이즈 아키텍처 평가 프레임워크](enterprise-architecture-assessment-framework.md) —
+- [엔터프라이즈 아키텍처 평가 프레임워크](../concepts/enterprise-architecture-assessment-framework.md) —
   12장. 이 장의 지표가 실행 중의 계기판이라면 그쪽의 격차 분석은 계획 전의 진단이다
-- [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
+- [엔터프라이즈 아키텍처 전략 정의 프레임워크](../concepts/enterprise-architecture-strategy-framework.md) —
   13장. 이 장의 목표 넷이 거기서 선언문 원칙 넷과 저자 손으로 짝지어진다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

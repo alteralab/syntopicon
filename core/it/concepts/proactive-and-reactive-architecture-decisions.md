@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 선제와 반응 그리고 전략적 사고의 원칙 셋
-status: draft
 description: 정렬과 접근성과 표준을 다 갖추고도 남는 물음인 결정 자체의 성질을 다루는 자리 — 아키텍처가 빛나는 자리는 바꾸면 재작업이 큰 결정이라는 판정과 그것을 일방문 결정과 양방향문 결정으로 가르는 어휘와 클라우드 계정 설계라는 실물, 아키텍처 역량이 유한한 자원이므로 일방문 결정을 높이 우선하고 선제적으로 다루라는 처방, 미래의 목표 상태 비전을 규정하고 다루는 선제와 자극이 일어난 뒤 푸는 반응의 규정과 인시던트를 예방하는 쪽과 진단하는 쪽의 대비, 포부와 제약을 저울질하는 일이 효과적 아키텍처에 본질적이라는 조문과 비전이 목적지이고 전략이 거기 이르는 계획이라는 가름, 선제 전략은 눈앞을 최적화하는 것이 아니라 고객 필요에 정박한 포부여야 한다는 조문과 과거를 선형으로 외삽하는 것과 패턴을 식별하는 것을 가르는 함정, 그리고 전략적 사고의 원칙 셋인 올바른 문제를 이해하라와 혁신을 개시하라와 변화 주도자가 되라 — 고객 필요를 묻는 체크리스트 넷과 클라우드 전략이 무엇에 답해야 했는가라는 되물음, 논리적 사고와 비판적 사고와 창의적 사고의 규정과 귀납과 연역의 걸음 셋씩과 지출 효율이라는 결론에 이르는 세 사고의 합작, 그리고 충격과 분노를 지나 수용과 헌신에 이르는 변화 곡선과 공감과 재기량화가 그 곡선을 앞당긴다는 처방
 generated: { by: "claude-opus-5", at: "2026-09-23T20:20:00Z" }
 sources:
@@ -65,7 +64,7 @@ sources:
   이미 일어난 뒤에 문제를 풀거나 결정을 내리는 일에 관한 것**이고, **자극의 예는 새롭거나 바뀐
   요건, 새롭거나 바뀐 의도, 인시던트**다 (6장, p.140).[^mccabe2024]
   - 2장이 이 두 낱말을 처음 규정한 자리는
-    [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md)이고,
+    [엔터프라이즈 아키텍처 전략 목표와 그 측정](../concepts/enterprise-architecture-strategy-objectives.md)이고,
     거기서는 **전략과 전술**로 짝지어졌다. 6장이 더하는 것은 **그 짝을 실제로 만드는 사고의 방법**이다.
 - **인시던트라는 자극으로 둘을 나란히 보인다** (6장, p.140):[^mccabe2024]
   - **선제 아키텍트**는 **고객이 애플리케이션이나 인프라 장애로 악영향을 겪지 않는 목표 상태
@@ -74,7 +73,7 @@ sources:
   - **반응 아키텍트**는 **인시던트가 났을 때 뛰어들어 엔지니어링 팀이 근본 원인을 진단하고 운영을
     복구하도록 돕는다.** **인시던트에 반응하는 급박한 순간에 반응 아키텍처는 도움이 된다.**
   - 장애 모드 분석의 서식은
-    [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](enterprise-architecture-standards-and-nfrs.md)에
+    [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](../concepts/enterprise-architecture-standards-and-nfrs.md)에
     있다.
 - **저자가 되묻고 스스로 단서를 단다** — **아키텍처적으로 선제적이어서 애초에 인시던트를 막는
   것이 낫지 않은가**에 저자도 동의하는 쪽이되, **모든 가능한 상황을 다 예측하지 못할 수 있다고
@@ -213,7 +212,7 @@ sources:
   것보다, 전략을 만들어 가는 동안 정렬을 얻는 편이 더 낫다** (6장, p.144).[^mccabe2024]
   - 그 "만들어 가는 동안의 정렬"이 3장의 주제다 —
     [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md)과
-    [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md)이 그
+    [결정에 대한 정렬 — 긍정적 갈등과 헌신](../concepts/positive-conflict-and-decision-commitment.md)이 그
     절차를 적는다.
 - **실물은 데이터 센터에서 퍼블릭 클라우드로 이전하는 조직이다** (6장, p.144):[^mccabe2024]
   - **데이터 센터를 운영하는 네트워크 엔지니어들은 자기 업무 범위 전체가 바뀌는 데 충격이나
@@ -258,13 +257,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 이 장의
+- [4 Cs 프레임워크와 전략적 아키텍처 결정](../concepts/four-cs-framework-of-strategic-thinking.md) — 이 장의
   뒤쪽. 이 원칙 셋을 실제로 수행하는 네 단계와 사례 셋
-- [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
+- [엔터프라이즈 아키텍처 전략 목표와 그 측정](../concepts/enterprise-architecture-strategy-objectives.md) —
   이 장이 펼치는 2장의 넷째 목표. 선제와 반응의 첫 규정과 KR과 지표가 거기 있다
-- [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 셋째 목표를
+- [활성화와 강제의 프레임워크와 그 정도](../concepts/enablement-and-enforcement-frameworks.md) — 셋째 목표를
   펼치는 5장의 뒤쪽
-- [아키텍처 역할과 조직 모형](architecture-roles-and-organizational-models.md) — 전략적 사고를
+- [아키텍처 역할과 조직 모형](../concepts/architecture-roles-and-organizational-models.md) — 전략적 사고를
   요구받는 역할이 어느 자리에 있는지 규정한 자리
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 프레임워크보다 진화 — 진화 추세 셋과 엔터프라이즈 아키텍처 약사
-status: draft
 description: 선언문 넷째 조항을 펼치는 장이자 이 KB가 Zachman Framework와 TOGAF와 DoDAF라는 이름을 아키텍처 프레임워크로 처음 다루는 자리 — 프레임워크로 가득한 책의 저자가 프레임워크를 매우 쓸모 있는 도구로 여긴다는 전제와 그럼에도 진화를 더 값지게 여기는 두 이유인 변화에 효과적으로 응답하는 일과 다양화의 인정, 어떤 프레임워크든 조직의 맥락에서 쓸 줄 알아야 생산적이라는 조문과 아키텍처 리뷰 보드가 관문이던 초기 방식이 기술 변화 속도를 못 따라가 거버넌스 걸음 자체가 소프트웨어 전달 프로세스에 심긴 뒤의 배치로 바뀌었다는 실물, 1980년대 Zachman에서 1990년대 중반 TOGAF를 지나 애자일과 데브옵스와 클라우드와 기계 학습에 이르는 곁상자 하나 분량의 약사, 그리고 이론에서 데이터로와 외부자에서 내부자로와 차단자에서 조력자로라는 진화 추세 셋과 완강한 아키텍트와 대담한 아키텍트라는 사례 둘
 generated: { by: "claude-opus-5", at: "2026-09-23T22:50:00Z" }
 sources:
@@ -287,23 +286,23 @@ sources:
   상아탑과 과도한 프로세스와 무관함이라는 증상들에 대해**, 11장의 세 추세가 각각 **데이터로
   말하라·엔지니어의 자리로 내려가라·차단하지 말고 활성화하라**는 처방으로 응답한다. **저자가
   이 대응을 명시하지는 않는다.** #hypothesis 그 자리는
-  [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md)이다.
+  [엔터프라이즈 아키텍처의 규정과 실천](../concepts/enterprise-architecture-practice-defined.md)이다.
 
 ## 이어지는 페이지
 
-- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
+- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](../concepts/effective-enterprise-architecture-manifesto.md) —
   이 조항이 속한 선언문. 네 조항 가운데 마지막이다
-- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 셋째 조항. 이 장이
+- [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md) — 셋째 조항. 이 장이
   이름으로 되받는다
 - [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 첫째 추세가
   되받는 9장의 실험 문화가 거기 있다
-- [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 1장. 실패
+- [엔터프라이즈 아키텍처의 규정과 실천](../concepts/enterprise-architecture-practice-defined.md) — 1장. 실패
   형태 셋과 기능 셋이 거기 있다
-- [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 셋째 추세가
+- [활성화와 강제의 프레임워크와 그 정도](../concepts/enablement-and-enforcement-frameworks.md) — 셋째 추세가
   부르는 5장의 뒤쪽
 - [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 둘째
   추세가 부르는 2장의 이해관계자 이해가 펼쳐진 자리
-- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 그 셋째
+- [아키텍처 의사결정 프레임워크](../concepts/architecture-decision-making-framework.md) — 14장. 그 셋째
   국면이 이 장을 이름으로 되받는다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

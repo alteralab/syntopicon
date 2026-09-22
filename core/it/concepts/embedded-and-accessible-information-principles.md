@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀
-status: draft
 description: 아키텍처 정보를 지식 관리 수명 주기의 단계마다 어떤 원칙으로 다루고 어떤 틀로 조직에 걸 것인가를 다루는 자리 — 만들기에 붙는 지식 공유를 앞장서 이끈다와 승인에 붙는 소수보다 다수와 배포에 붙는 적시·찾기 투명하게·단일 진실 원천과 소비에 붙는 쉽고 즐겁게·표시하거나 고치거나·개선하려면 재라라는 원칙 여덟의 규정, 위키와 백과사전을 양 끝으로 놓고 아키텍처 정보를 그 사이에 두는 판정, 옷 입기 결정으로 그린 적시의 실물과 구성 관리 데이터베이스에 링크되지 않으면 산출물이 존재하지 않는다던 수석 아키텍트 일화, 블로그 글의 패턴과 승인된 패턴 카탈로그를 권위로 가르는 단일 진실 원천, 비가시성과 직관성과 즐거움과 효율과 유연성과 접근성으로 펼쳐지는 쉽고 즐겁게, 그리고 제품 관리 수명 주기와 소프트웨어 개발 수명 주기에 겹쳐 놓은 Define·Do·Dare 틀과 상호작용 지점 여덟과 그 역할과 정보 유형의 대응, 새 표준과 모범 사례와 정적 산출물이라는 사례 셋과 다이어그램을 살아 있는 문서로 질의 가능하게 두라는 처방
 generated: { by: "claude-opus-5", at: "2026-09-23T21:30:00Z" }
 sources:
@@ -438,16 +437,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [아키텍처 정보의 지식 관리와 UI/UX 설계](architecture-knowledge-management-and-ui-ux.md) — 같은
+- [아키텍처 정보의 지식 관리와 UI/UX 설계](../concepts/architecture-knowledge-management-and-ui-ux.md) — 같은
   장의 앞쪽. 이 원칙들이 딛고 선 지식 관리 수명 주기와 지식 유형과 UI/UX의 규정
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 이 원칙들이 다루는 정보가
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 이 원칙들이 다루는 정보가
   무엇인지를 2장이 규정한 자리
-- [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 표준이
+- [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) — 표준이
   실제로 지켜지게 하는 쪽. 사례 하나가 빠뜨렸다고 지목한 강제 기제가 거기 있다
 - [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 그 강제 기제를
   어디에 꽂을지 고르는 절차. 이 페이지의 적시 프로세스와 안내된 경험이 거기서 활성화의 수단과
   최고 정도로 다시 나온다
-- [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 다이어그램과 결정이 무엇을
+- [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md) — 다이어그램과 결정이 무엇을
   담는가
 - [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 9장. 이 장의
   문서 논의를 명시로 되받아 다이어그램 표준과 갱신 기제를 얹는 자리

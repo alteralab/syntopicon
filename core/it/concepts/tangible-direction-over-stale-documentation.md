@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 낡은 문서보다 손에 잡히는 방향 — 문서 표준과 코드로서의 문서
-status: draft
 description: 선언문 둘째 조항을 펼치는 장 — 손에 잡힌다는 말이 만져진다는 뜻이 아니라 측정 가능한 값어치를 갖는다는 비유이고 그 값어치가 곧 사업 값어치라는 규정과, 문서가 방향을 전달하는 통상의 수레임에도 그것만으로는 손에 잡히는 방향이 되지 못한다는 논증, 잘된 문서가 주는 이익 셋인 협업과 소통의 활성화와 명료성과 리스크 기반 통찰, 2장의 아키텍처 문서 여섯마다 사업 값어치를 붙여 보이는 표와 정량화가 어려운 아키텍처 전략에는 문제의 크기를 재라는 처방, 이론과 추상에 머무는 함정을 깨는 실험의 중요성과 개념 증명과 파일럿과 업계 사례의 한계 그리고 실험이 불가능할 때 계산된 리스크를 받아들이는 문화 특질, 기호와 색과 세밀도라는 다이어그램 표준 셋과 계층 위계 뷰와 온톨로지 뷰와 배포 뷰와 시퀀스 뷰라는 네 뷰, 모델링 언어를 코드로 보고 릴리스 패키지에 넣고 자동 생성하고 질의 가능하게 만드는 코드로서의 문서 넷, 그리고 고고학적 아키텍트와 야심 찬 아키텍트라는 사례 둘
 generated: { by: "claude-opus-5", at: "2026-09-23T22:30:00Z" }
 sources:
@@ -226,8 +225,8 @@ sources:
 - **9장은 4장을 되갚되 대체하지 않는다.** 저자가 **4장이 이미 잘된 문서의 지식 관리와 사용성을
   다뤘다**고 명시하고 그 위에 **다이어그램 표준과 갱신 기제**를 얹는다 (9장,
   p.179).[^mccabe2024] 이 KB에서 그 4장은
-  [아키텍처 정보의 지식 관리와 UI/UX 설계](architecture-knowledge-management-and-ui-ux.md)와
-  [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](embedded-and-accessible-information-principles.md)이다.
+  [아키텍처 정보의 지식 관리와 UI/UX 설계](../concepts/architecture-knowledge-management-and-ui-ux.md)와
+  [내장되고 접근 가능한 아키텍처 정보의 원칙 여덟과 틀](../concepts/embedded-and-accessible-information-principles.md)이다.
 - **문서마다 사업 값어치를 붙이라는 표는
   [아키텍처는 옵션을 파는 일이다](../concepts/architecture-as-selling-options.md)와 같은 물음에
   다른 답을 낸다. 모순 아님이다.** 호페는 **불확실 아래의 값어치를 옵션으로 값매기고**, 매케이브는
@@ -236,16 +235,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
+- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](../concepts/effective-enterprise-architecture-manifesto.md) —
   이 조항이 속한 선언문
-- [사일로화된 의사결정보다 맥락적 이해](contextual-understanding-over-siloed-decisions.md) — 첫째
+- [사일로화된 의사결정보다 맥락적 이해](../concepts/contextual-understanding-over-siloed-decisions.md) — 첫째
   조항. 이 장의 뷰들이 그리는 그 도메인 모형이 거기 있다
-- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 셋째 조항
-- [아키텍처 정보의 지식 관리와 UI/UX 설계](architecture-knowledge-management-and-ui-ux.md) — 이
+- [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md) — 셋째 조항
+- [아키텍처 정보의 지식 관리와 UI/UX 설계](../concepts/architecture-knowledge-management-and-ui-ux.md) — 이
   장이 명시로 되받는 4장의 앞쪽
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 표 9-1이 사업 값어치를 붙이는
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 표 9-1이 사업 값어치를 붙이는
   그 문서 여섯이 규정된 자리
-- [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 이 장이
+- [4 Cs 프레임워크와 전략적 아키텍처 결정](../concepts/four-cs-framework-of-strategic-thinking.md) — 이 장이
   부르는 6장의 아키텍처 전략과 증분 마일스톤이 있는 자리
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군
-status: draft
 description: 아키텍처 표준이 무엇을 규정하는 문서이고 그 안에 어떤 요건이 들어가며 언제 선언해야 하는가를 답하는 자리 — 규칙으로서의 표준과 그것을 이루는 검증된 방법으로서의 모범 사례를 가르는 규정과 표준이 주는 이익 세 범주인 운영 효율과 리스크 관리와 혁신, 정책과 표준과 절차와 패턴과 통제를 왜·무엇·어떻게로 배치하는 거버넌스 문서 온톨로지, 특정 해법 품질에 대해 무엇이 참이어야 하는가라는 비기능 요건의 규정과 안정성 여섯과 릴리스 셋과 운영 효율 아홉과 상호운용성 다섯과 보안 둘이라는 다섯 군의 전량과 각 군이 불러오는 애플리케이션 아키텍처 결정들, 장애 모드 영향 분석 표와 테스트 영역 아홉과 배포 전략 셋과 규모 확장 두 방향의 도판, 비기능 요건이 곧 설계의 제약이므로 우선순위 절충을 이해해야 한다는 조문과 패턴은 모범 사례이지 규칙이 아니라는 단서, 승인된 기술을 정하는 기술 참조 모형과 표준이 낡지 않게 하는 챔피언·챌린저 모형, 공통 어휘와 공통 구조를 세우고 속성으로 거버넌스를 정박시키는 메타모델 표준, 그리고 표준을 언제 선언할 것인가를 이익과 노력 두 축의 사분면으로 가르는 판정과 리스크가 위협으로 인식되지 않으면 표준이 무시된다는 관찰과 컴플라이언스 활동으로만 보이면 아키텍처 기능이 실패한 것이라는 진단
 generated: { by: "claude-opus-5", at: "2026-09-23T20:00:00Z" }
 sources:
@@ -36,7 +35,7 @@ sources:
   전략 목표가 **아키텍처 표준을 활성화하고 강제하는 것**이라고 2장이 적었고, 5장이 그 목표를 한
   장으로 펼친다 (5장, p.111).[^mccabe2024]
   - 그 목표의 규정과 원칙 여덟과 리스크 스키마는
-    [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md)에 있다.
+    [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md)에 있다.
 - **표준이라는 낱말이 먼저 떠올리게 하는 것은 규칙**이다 — **법과 규제처럼 따라야 하고 그러지
   않으면 결과가 따르는 것**이다. 저자가 드는 실물은 **속도 제한**이고, 과속 단속 카메라를 지나친
   운전자는 가리지 않고 벌금을 문다 (5장, p.111).[^mccabe2024]
@@ -64,7 +63,7 @@ sources:
 
   - **혁신 항목은 1장을 되부른다** — **효과적 엔터프라이즈 아키텍처의 핵심 이익 하나가 사일로를
     허무는 것**이라고 1장이 적었다 (5장, p.112).[^mccabe2024] 그 규정은
-    [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md)에 있다.
+    [엔터프라이즈 아키텍처의 규정과 실천](../concepts/enterprise-architecture-practice-defined.md)에 있다.
 - **운영 효율을 겨냥하는 표준의 실물은 형식(format)이다** — **플러그와 전압의 표준화가 기기에
   전기를 공급하는 공통 방식을 허용해**, 제조사는 **기기가 전력망에서 전력을 끌어오는 방식의 맞춤
   해법을 걱정할 필요 없이** 더 값어치 있는 사업 선택에 집중할 수 있다 (5장, p.112).[^mccabe2024]
@@ -102,7 +101,7 @@ sources:
   | 엔터프라이즈 아키텍처 표준 | **사업 목표에 정렬해 기술 해법을 사고 만들고 배포하고 관리하는 결정을 받치고 안내하는 요건을 규정한다** |
 
   - 패턴과 결정과 목표 아키텍처라는 산출물 넷의 규정은
-    [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md)에 있다.
+    [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md)에 있다.
 
 ## 비기능 요건의 규정
 
@@ -436,7 +435,7 @@ sources:
 
 - **그래서 절이 셋째 목표의 요점으로 닫힌다** — **표준의 이익을 실현하려면 아키텍처 표준을 활성화하고
   강제하는 일을 둘 다 해야 한다** (5장, p.127).[^mccabe2024] 그 둘의 기제와 프레임워크는
-  [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md)에 있다.
+  [활성화와 강제의 프레임워크와 그 정도](../concepts/enablement-and-enforcement-frameworks.md)에 있다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -488,17 +487,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 이 장의
+- [활성화와 강제의 프레임워크와 그 정도](../concepts/enablement-and-enforcement-frameworks.md) — 이 장의
   뒤쪽 절반. 선언한 표준을 어떻게 쉽게 만들고 어떻게 지키게 하는가
-- [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 이 장이
+- [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) — 이 장이
   펼치는 2장의 셋째 목표. 활성화 원칙 넷과 강제 원칙 넷과 리스크 스키마가 거기 있다
-- [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 여섯 가운데 표준만이 위반 시
+- [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md) — 여섯 가운데 표준만이 위반 시
   거버넌스 행동을 낳는다는 규정이 있는 자리
-- [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 패턴과 목표 아키텍처가
+- [아키텍처 산출물과 결정](../concepts/architecture-deliverables-and-decisions.md) — 패턴과 목표 아키텍처가
   산출물로 규정된 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 다섯 군의 낱말 하나하나가 무엇이고
   어떻게 얻는가를 답하는 페이지들이 모인 허브
-- [아키텍처 의사결정 프레임워크](architecture-decision-making-framework.md) — 14장. 결정 훈련이
+- [아키텍처 의사결정 프레임워크](../concepts/architecture-decision-making-framework.md) — 14장. 결정 훈련이
   이 장의 비기능 요건을 결정 유형마다 고려하라고 가리킨다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 

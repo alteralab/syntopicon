@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 4 Cs 프레임워크와 전략적 아키텍처 결정
-status: draft
 description: 전략적 사고의 원칙 셋을 실제로 수행하는 네 단계를 적는 자리 — 호기심과 도전과 신빙성과 소통이라는 네 단계가 각각 올바른 전략적 문제 식별과 입력·해법 선택지·리스크 분석과 비전 및 이룰 수 있는 경로의 규정과 비전을 향해 일하도록 정렬을 고취하는 일을 맡는다는 배치, 큰 그림 물음을 캐는 호기심의 전략적 물음 넷과 고객에게 던지는 물음 넷과 물음이 전략을 더 온전하게 만든 시장 점유율 사례, 분별적·정보적·선택적·동정적·공감적·포괄적·비판적이라는 경청 일곱을 적고 호기심 단계에 그 전부가 필요하다고 못 박는 곁상자, 시장 조사와 반대 관점과 가정 검사로 결론을 단단하게 하는 도전의 물음 넷과 리스크 평가의 조문, 반응 아키텍처 결정이 반응하는 자극 열둘과 마일스톤마다 측정 가능한 증분 값어치를 두라는 처방과 빠른 승리가 신뢰를 짓는다는 기제와 기술·재무·운영·시장·규제라는 타당성 조사 다섯, 단순화가 힘든 일이라는 조문과 쉬운 자료를 위한 팁 다섯과 같은 아키텍처 결정을 사실 나열형과 이야기형으로 두 번 제시해 보이는 대조와 좋은 경청자 되기부터 감정을 현명하게 쓰기까지의 소통 개선 다섯과 비전형·관습형·협력형이라는 소통 스타일 셋과 발표 팁 여섯과 실행 내내 되풀이할 소통 계획, 그리고 올바른 문제 대신 경쟁사를 좇은 클라우드 이전과 소통이 모호해 사기가 꺾인 AI 변곡점과 큰 그림을 볼 시간을 내지 않은 전술 부하라는 사례 셋
 generated: { by: "claude-opus-5", at: "2026-09-23T20:30:00Z" }
 sources:
@@ -156,8 +155,8 @@ sources:
   > 문화 · 산업 추세 · 운영 제약 · 표준 · 복잡도 → 결정
 
   - **자극 열둘 가운데 표준과 비기능 요건과 원칙은 이 책의 앞 장들이 각각 한 절씩 규정한
-    것들**이다([엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](enterprise-architecture-standards-and-nfrs.md)과
-    [아키텍처 정보의 여섯 종류](architecture-information-types.md)).
+    것들**이다([엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](../concepts/enterprise-architecture-standards-and-nfrs.md)과
+    [아키텍처 정보의 여섯 종류](../concepts/architecture-information-types.md)).
 - **마일스톤마다 붙여야 하는 것** — **전략이 규정하는 마일스톤마다 그 마일스톤으로 이루어지는
   측정 가능한 증분 값어치를 반드시 규정하라.** 그것이 **이해관계자가 보일 만한 진전과 원래 전략
   방향의 값어치를 보게 함으로써 방향을 바꾸려는 성향을 완충하는 데 도움이 된다** (6장,
@@ -413,13 +412,13 @@ sources:
 
 - [선제와 반응 그리고 전략적 사고의 원칙 셋](proactive-and-reactive-architecture-decisions.md) —
   이 장의 앞쪽. 일방문 결정과 선제·반응의 규정과 이 프레임워크가 받는 원칙 셋
-- [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
+- [엔터프라이즈 아키텍처 전략 목표와 그 측정](../concepts/enterprise-architecture-strategy-objectives.md) —
   이 장이 펼치는 2장의 넷째 목표. 선제와 반응의 첫 규정과 KR과 지표가 거기 있다
 - [이해관계자 정렬 — 누구를 넣고 왜를 파는 일](stakeholder-alignment-on-who-and-why.md) — 전략을
   파는 일의 앞쪽. 왜를 파는 세 물음과 사업 이익 네 종류가 거기 있다
 - [결정에 대한 정렬 — 긍정적 갈등과 헌신](positive-conflict-and-decision-commitment.md) — 대화의
   태도 다섯과 소통 최적화 표가 있는 자리
-- [엔터프라이즈 아키텍처 전략 정의 프레임워크](enterprise-architecture-strategy-framework.md) —
+- [엔터프라이즈 아키텍처 전략 정의 프레임워크](../concepts/enterprise-architecture-strategy-framework.md) —
   13장. 그 셋째 걸음이 이 장의 소통을 이름으로 부르며 더 나아간다고 적는다
 - [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 이 축의 허브
 
