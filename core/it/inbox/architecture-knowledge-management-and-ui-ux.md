@@ -358,6 +358,8 @@ sources:
   뒤쪽. 정렬한 사람들이 무엇을 보고 결정하는가로 넘어오는 다리
 - [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 능력 목표 아키텍처를
   비롯한 인도물 넷의 규정
+- [낡은 문서보다 손에 잡히는 방향](tangible-direction-over-stale-documentation.md) — 9장. 이 절의
+  지식 관리와 사용성 논의를 이름으로 되받아 다이어그램 표준과 갱신 기제를 얹는 자리
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 4장 "Embedded and
     Accessible" — 장 도입(p.83)과 §"Knowledge Management in Embedded and Accessible

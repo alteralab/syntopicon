@@ -408,6 +408,8 @@ sources:
   기능이 기계 검사로 옮겨 가는 자리
 - [데이터 아키텍처의 정의](../concepts/data-architecture-defined.md) — 엔터프라이즈 아키텍처를
   상위 범주로 놓고 그 부분집합을 규정하는 자리. TOGAF·Gartner·EABOK의 정의를 나란히 놓는다
+- [프레임워크보다 진화](../concepts/evolution-over-frameworks.md) — 11장. 이 장이 적은 실패
+  형태들에 데이터로 말하라와 엔지니어의 자리로 내려가라와 차단하지 말고 활성화하라로 응답하는 자리
 - [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 부모 허브
 
 [^mccabe2024]: McCabe 2024, 서문 "Preface"(pp.ix–xii) 전문과 1장 "Key Enterprise Architecture

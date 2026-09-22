@@ -256,6 +256,8 @@ sources:
   뒤쪽. 호기심과 도전과 신빙성과 소통이라는 네 단계와 사례 셋
 - [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 이 장이
   받아 드는 1장의 규정들. 북극성과 기능 셋이 거기 있다
+- [효과적 엔터프라이즈 아키텍처를 위한 아주 짧은 선언문](effective-enterprise-architecture-manifesto.md) —
+  7장. 여기 세운 목표 넷과 그 선언문의 가치 넷이 일대일로 맞물리는지를 대조한 자리
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 2장 "Key Strategy
     Objectives" — 도입과 §"Overview"(pp.29–31), §"The Proactive and Reactive OKR"(pp.56–57),

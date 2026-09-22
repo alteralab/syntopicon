@@ -291,6 +291,8 @@ sources:
   선언하는 자리에 명령과 통제를 두는 저자의 단서
 - [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 전략과
   인에이블먼트와 오버사이트라는 기능 셋이 규정된 자리
+- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 10장. 이 목표의 강제를
+  인간 행동의 말로 다시 규정하는 자리. 조건화와 동기의 프레임워크가 거기 있다
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 2장 "Key Strategy
     Objectives" §"The Enable and Enforce OKR"(pp.48–56) — 하위 절 "Architecture Standard

@@ -361,6 +361,8 @@ sources:
   적시 프로세스와 안내된 경험이라는 활성화 수단의 규정이 있는 자리
 - [선제와 반응 그리고 전략적 사고의 원칙 셋](proactive-and-reactive-architecture-decisions.md) —
   넷째이자 마지막 목표를 펼치는 6장의 앞쪽
+- [표준 강제보다 행동 유도](driving-behavior-over-enforcing-standards.md) — 10장. 이 장의 강제를
+  뒤집지 않고 그 위에 최소 준수와 최적 준수라는 목표 수준을 얹는 자리
 
 [^mccabe2024]: McCabe 2024, *Fundamentals of Enterprise Architecture*, 5장 "Enable and Enforce" —
     §"What Is Enable?"(pp.127–130, 하위 절 "Principles of Enablement Mechanisms"와 "The Enablement
