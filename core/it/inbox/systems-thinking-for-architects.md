@@ -238,6 +238,17 @@ Thinking*(2024)이 열두 장 전체를 시스템 사고에 바치고, 그 1장�
   본다** — **몬탈리온이 말하는 유동은 체계와 그 주위 세계의 상태가 시간에 따라 바뀐다는 것이고**
   (2장, p.27),[^montalion2024] **이 장이 말하는 저항은 조직 체계가 이전 상태로 되돌아가려는
   힘이다.** 한쪽만 참일 수 있는 문장 쌍이 아니다.
+- **이 장의 제목이 쓰는 격언에 저쪽이 귀속을 단다** — **몬탈리온의 3장은 제사로 "Every system
+  is perfectly designed to get the results it gets"를 걸고 그것을 도널드 버윅(Donald Berwick)에게
+  귀속한다** (3장, p.37).[^montalion2024] **이 장의 제목 "Every System Is Perfect…: For What It
+  Was Designed to Do!"는 같은 격언의 다른 표기이고, 이 책은 본문 어디에서도 그것을 누구에게도
+  귀속하지 않는다**(10장 전문 대조). **저자가 자기 말이라고 주장하는 자리가 없으므로 둘은 겨루지
+  않는다** — 문구가 다르되(이쪽은 "설계된 그 일에 대해서는 완벽하다", 저쪽은 "완벽하게 설계되어
+  자기가 내는 결과를 낸다") 뜻은 같고 강조가 다르다. `contradicts`를 걸지 않았다.
+  **2026년 KB 작성 시점에 버윅의 원전은 이 KB에 들어와 있지 않고**, 몬탈리온도 출처를 대지
+  않으므로 귀속은 그 책이 그렇게 적는다까지로 둔다.
+  [관점 바꾸기와 핵심 실천 다섯](../concepts/shifting-perspective-and-core-practices.md)이 그
+  제사의 자리다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -277,6 +288,10 @@ Thinking*(2024)이 열두 장 전체를 시스템 사고에 바치고, 그 1장�
   무결성을 시스템 사고 쪽에서 다시 세운다
 - [흐름 속의 체계와 시간](../concepts/system-in-flux-and-time.md) — 그 둘째 장의 뒤쪽. 이 장이
   드는 되먹임 고리가 공유하는 뼈대를 모형으로 그린다
+- [관점 바꾸기와 핵심 실천 다섯](../concepts/shifting-perspective-and-core-practices.md) — 그
+  원전의 셋째 장. 이 장의 제목이 쓰는 격언을 제사로 걸고 버윅에게 귀속한다
+- [빙산 모형과 비난 게임](../concepts/iceberg-model-and-the-blame-game.md) — 그 셋째 장의 뒤쪽.
+  이 장이 가르는 사건·행동·구조의 층위를 넷으로 늘려 이름 붙인다
 - [아키텍처는 옵션을 파는 일이다](../concepts/architecture-as-selling-options.md) — 같은 II부의 앞 장
 - [설정과 코드를 가르는 선](../concepts/configuration-versus-code.md) — 같은 II부의 다음 장
 - [아키텍처의 범위와 결정 시험](../concepts/architecture-scope-and-decision-test.md) — 이 장이 마주 세우는
