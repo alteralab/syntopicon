@@ -444,6 +444,9 @@ sources:
   무엇인지를 2장이 규정한 자리
 - [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 표준이
   실제로 지켜지게 하는 쪽. 사례 하나가 빠뜨렸다고 지목한 강제 기제가 거기 있다
+- [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 그 강제 기제를
+  어디에 꽂을지 고르는 절차. 이 페이지의 적시 프로세스와 안내된 경험이 거기서 활성화의 수단과
+  최고 정도로 다시 나온다
 - [아키텍처 산출물과 결정](architecture-deliverables-and-decisions.md) — 다이어그램과 결정이 무엇을
   담는가
 

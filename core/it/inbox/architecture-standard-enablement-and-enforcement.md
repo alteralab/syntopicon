@@ -52,7 +52,9 @@ sources:
   > both to ensure the standard is effectively adopted.
 
   - **기제와 프레임워크와 활성화·강제의 정도에 본래적인 절충**은 이 책 5장이 맡는다 (2장,
-    p.48).[^mccabe2024]
+    p.48).[^mccabe2024] 그 자리는
+    [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](enterprise-architecture-standards-and-nfrs.md)과
+    [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md)다.
 
 ## 핵심 결과와 지표
 
@@ -275,6 +277,12 @@ sources:
 
 ## 이어지는 페이지
 
+- [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](enterprise-architecture-standards-and-nfrs.md) —
+  이 목표를 한 장으로 펼치는 5장의 앞쪽. 표준이라는 문서가 무엇이고 그 안에 어떤 요건이 들어가며
+  언제 선언하는가
+- [활성화와 강제의 프레임워크와 그 정도](enablement-and-enforcement-frameworks.md) — 같은 장의
+  뒤쪽. 명시·크기 산정·단순화라는 활성화 프레임워크와 식별·통합·추론이라는 강제 프레임워크,
+  그리고 활성화와 강제의 정도 셋씩
 - [엔터프라이즈 아키텍처 전략 목표와 그 측정](enterprise-architecture-strategy-objectives.md) —
   이 목표가 속한 넷의 틀과 재지 말아야 할 지표 셋
 - [아키텍처 정보의 여섯 종류](architecture-information-types.md) — 여섯 가운데 표준만이 위반 시

@@ -249,6 +249,11 @@ sources:
   다루는 대상인 아키텍처 정보가 무엇인가
 - [아키텍처 표준의 활성화와 강제](architecture-standard-enablement-and-enforcement.md) — 셋째
   목표의 규정과 표준 자체를 재는 KPI, 그리고 활성화 원칙 넷과 강제 원칙 넷
+- [선제와 반응 그리고 전략적 사고의 원칙 셋](proactive-and-reactive-architecture-decisions.md) —
+  넷째 목표를 한 장으로 펼치는 6장의 앞쪽. 일방문 결정과 양방향문 결정의 가름과 전략적 사고의
+  원칙 셋이 거기 있다
+- [4 Cs 프레임워크와 전략적 아키텍처 결정](four-cs-framework-of-strategic-thinking.md) — 같은 장의
+  뒤쪽. 호기심과 도전과 신빙성과 소통이라는 네 단계와 사례 셋
 - [엔터프라이즈 아키텍처의 규정과 실천](enterprise-architecture-practice-defined.md) — 이 장이
   받아 드는 1장의 규정들. 북극성과 기능 셋이 거기 있다
 
