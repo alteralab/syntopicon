@@ -2,13 +2,14 @@
 type: concept
 title: 주석을 왜 쓰는가
 description: 주석이 코드로 대체될 수 없는 이유를 네 변명에 대한 반박으로 세우는 장 — 코드가 형식적으로 담을 수 있는 것은 인터페이스의 일부뿐이라는 진단, 주석 없이는 추상이 성립하지 않는다는 논증과 부분 문자열 예제, 시간이 없다는 변명에 맞서는 10퍼센트 셈법, 낡는다는 변명의 실제 크기, 주석이 복잡성의 세 증상 중 어느 둘을 덜어 주는가, 그리고 "주석은 실패다"라는 클린 코드의 반대 의견과 그에 대한 조목별 반박
-generated: { by: "claude-opus-5", at: "2026-08-17T12:00:00Z" }
+generated: { by: "claude-opus-5", at: "2026-09-23T21:05:00Z" }
 contradicts: [code-smells, comments-as-failure]
 sources:
   - { id: ousterhout2021, resource: /it/sources/ousterhout2021.md }
   - { id: fowler2018, resource: /it/sources/fowler2018.md }
   - { id: martin2008, resource: /it/sources/martin2008.md }
   - { id: ousterhout2024-aposd, resource: /it/sources/ousterhout2024-aposd.md }
+  - { id: hewitt2019, resource: /it/sources/hewitt2019.md }
 ---
 
 # 주석을 왜 쓰는가
@@ -25,6 +26,7 @@ sources:
 - [모순 — 좋은 이름이 주석을 대신할 수 있는가](#모순--좋은-이름이-주석을-대신할-수-있는가)
 - [반대 의견의 원전이 이 KB에 들어왔다](#반대-의견의-원전이-이-kb에-들어왔다)
 - [두 저자가 직접 맞붙었을 때 어디까지 좁혀졌는가](#두-저자가-직접-맞붙었을-때-어디까지-좁혀졌는가)
+- [두 진영의 처방을 시간 순서로 배열하는 셋째 자리](#두-진영의-처방을-시간-순서로-배열하는-셋째-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **코드가 이미 있는데 주석이 왜 따로 필요하며, 안 쓰는 사람들의 이유는 어디서
@@ -323,6 +325,31 @@ sources:
   [주석은 코드에서 뻔하지 않은 것을 서술한다](../concepts/comments-describe-the-nonobvious.md)를 합의
   자리로 적어 둔 것과 일치한다.
 
+## 두 진영의 처방을 시간 순서로 배열하는 셋째 자리
+
+의미론적 설계를 다루는 2019년 실무서가 서비스 설계 장의 끝에 주석에 대한 짧은 논평을 둔다.
+**이 페이지와 `contradicts` 상대 가운데 어느 쪽으로도 떨어지지 않고 두 조문을 한 문단에 나란히
+둔다.**
+
+- **앞쪽 조문은 이 페이지 쪽이다** — **개발 팀이 코드에 대한 주석을 쓰도록 권장하라. 사실은
+  요구하라**고 적고, **코드 저장소에 체크인되는 모든 것**(YAML·파이프라인 스크립트·CSS를 포함해
+  누군가 읽고 이해하고 써야 할 모든 것)이 의미 있는 주석을 가져야 한다고 적는다 (7장 §"A Comment
+  on Comments", p.179).[^hewitt2019]
+- **뒤쪽 조문은 반대편 쪽이다** — **그러나 개발자들이 몰래 겨냥하기는, 코드가 아주 잘 이름 붙고
+  응집이 높으며 명료하고 뻔하게 행동해서 주석에 쓸 무엇이든 군더더기가 되도록 만드는
+  것이게 하라** (7장, p.179).[^hewitt2019]
+  - **절차로 옮긴다** — **주석을 쓰고 난 뒤 다시 읽어, 주석을 다는 대신 코드를 손봐 주석의 내용을
+    동작하는 코드 안에 넣을 수 있는지 보게 하라** (7장, p.179).[^hewitt2019]
+- **이것이 제3의 사실 주장인가** — 아니다. **요구를 먼저 걸고 그다음 제거를 겨냥하는 시간 순서의
+  배열**이지, 주석이 필요한가라는 물음에 새 답을 주지 않는다. 그래서 이 페이지의 `contradicts`
+  목록은 바뀌지 않는다.
+- **이 소스가 더하는 자료는 본보기 목록이다** — 좋은 주석의 예를 원칙이 아니라 **자바 표준
+  라이브러리의 실제 문서**에서 일곱 고른다(`Enum`·`UUID`·`TimeUnit`·`PhantomReference`·
+  `List<E>`와 `Set<E>`·`String`·`Formatter`). 특히 **`Formatter`의 JavaDoc이 여러 쪽에 이르는
+  것을 두고 그런 문서에 한 주가 걸린다면 대개 클래스를 잘못 설계한 신호이되 이 경우는 1970년대
+  C의 `printf`를 일부러 복제하므로 예외**라고 적는다 (7장, pp.180–181).[^hewitt2019] 전문은
+  [서비스 구현의 관례](../concepts/service-implementation-conventions.md)에 있다.
+
 ## 이어지는 페이지
 - [주석은 실패다](../concepts/comments-as-failure.md) — **`contradicts` 상대이자 반대 의견의 원전.**
   진실은 코드에만 있다는 쪽
@@ -361,3 +388,6 @@ sources:
 [^ousterhout2021]: Ousterhout 2021, 12장 "Why Write Comments? The Four Excuses". 쪽은 인쇄판
     쪽 번호. 이 장에는 코드 예제도 도판도 없다. 클린 코드 인용은 이 장이 Robert Martin,
     *Clean Code*에서 옮긴 것을 그대로 실었고, 원문의 두 문단을 한 인용 블록으로 합쳤다.
+
+[^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 7장 §"A Comment on
+    Comments"(pp.179–181).
