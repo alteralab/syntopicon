@@ -417,7 +417,9 @@ Delta로 바꾸어 질의 가능하게 만드는 쪽 — 과 반대 방향의 �
 - [표준 차원](../concepts/conformed-dimension.md) — 팩트 여럿이 차원을 공유하는 구조의 원전
 - [마스터 데이터 관리](../concepts/master-data-management.md) — 참조 데이터의 정본이 놓이는 자리
 - [메달리온 메시와 데이터 관리의 탈중앙](../concepts/medallion-mesh-and-decentralization.md) — 이 사례의 규모와 연합 정도가 놓이는 규칙 쪽 눈금
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

@@ -369,7 +369,9 @@ sources:
 - [데이터 저장 레이아웃 패턴](../concepts/data-storage-layout-patterns.md) — 경로와 파티션의 설계
 - [분산 잡 오케스트레이션](../concepts/distributed-job-orchestration.md) — 활동을 엮는 층
 - [메타데이터 관리](../concepts/metadata-management.md) — 메타데이터 주도 파이프라인이 기대는 저장소
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

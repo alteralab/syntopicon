@@ -325,7 +325,9 @@ sources:
 - [ZEISS 사례 연구](../concepts/zeiss-case-study.md) — 전역·지역 제품으로 통제 세기를 가르는 사례
 - [AP Pension 사례 연구](../concepts/ap-pension-case-study.md) — 카탈로그·분류·품질의 순서를 정한 사례
 - [이벤트 스키마와 데이터 계약](../concepts/event-schemas-and-data-contracts.md) — 사례들이 회색 지대라 부르는 장치의 원전
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

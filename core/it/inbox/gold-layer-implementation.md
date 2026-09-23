@@ -480,13 +480,13 @@ sources:
 - [완만하게 변하는 차원(SCD)](../concepts/slowly-changing-dimension.md) — 타입 2의 전문
 - [업무 키](../concepts/business-key.md) · [Data Vault 해싱](../concepts/hashing-in-data-vault.md) —
   팩트가 조인에 쓰는 키, 그리고 키 자리에 해시를 넣는 다른 방법론
-- [지각 도착 데이터](../concepts/late-arriving-data.md) — 플레이스홀더 레코드가 푸는 그 문제
-- [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md) — 같은 낱말을 쓰기 패턴 쪽에서 세우는 쪽
+- [지각 도착 데이터](../concepts/late-arriving-data.md) · [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md) — 플레이스홀더 레코드가 푸는 문제와 쓰기 패턴 쪽 정본
 - [시맨틱 계층과 메트릭 계층](../concepts/semantic-and-metrics-layers.md) — 시맨틱 모델이 속한 계보
 - [작은 파일 문제와 컴팩션](../concepts/small-files-and-compaction.md) — 1 GB 기본값이 사는 자리
 - [데이터를 서빙하는 방식](../concepts/data-serving-methods.md) — 물리 서빙 계층이 고르는 경로들
 - [데이터 제품 지침](../concepts/data-product-guidelines.md) — 이 계층의 산출을 제품으로 내놓는 쪽
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가 걸린 허브**
+  (부모 축은 [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md))
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

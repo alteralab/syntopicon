@@ -345,7 +345,9 @@ Considerations").[^strengholt2025] 개수를 정하는 이유가 다섯이다.
 - [셀프서브 데이터 플랫폼 원칙](../concepts/self-serve-data-platform-principle.md) — 플랫폼이 팀에
   무엇을 대신해 주는가
 - [데이터 레이크](../concepts/data-lake.md) — 저장 계정과 컨테이너가 놓이는 자리
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

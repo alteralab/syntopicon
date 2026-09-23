@@ -401,7 +401,9 @@ sources:
 - [데이터 웨어하우스의 데이터 품질 관리](../concepts/data-quality-management.md) — 품질의 세 특성과
   교정 기법의 원전
 - [품질 관측 패턴](../concepts/quality-observation-patterns.md) — 막지 않고 보는 쪽
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

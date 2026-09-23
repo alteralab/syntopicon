@@ -454,7 +454,9 @@ Gold 셋이 무엇인지를 규정한다면, 이 페이지는 그 셋 **바깥**
   저자가 지목한 방법
 - [기록 시스템과 파생 데이터](../concepts/system-of-record-and-derived-data.md) ·
   [수명 주기의 저장 단계](../concepts/storage-in-the-lifecycle.md) — 원시 층의 불변을 세우는 쪽
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고

@@ -468,8 +468,9 @@ sources:
 - [트랜잭션과 ACID](../concepts/acid-transactions.md) — DeltaLog가 제공하겠다는 네 글자
 - [데이터 메시](../concepts/data-mesh.md) — 이 장 맺음이 지목하는 대상
 - [메타데이터 관리](../concepts/metadata-management.md) — 저자의 3계층 좌표에서 전체를 덮는 띠
-- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는
-  허브
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **이 페이지가
+  걸린 허브.** 이 원전의 스물두 페이지가 부 단위로 모여 있다
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 그 허브의 부모 축
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
