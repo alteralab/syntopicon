@@ -3,7 +3,7 @@ type: concept
 title: 레이크하우스 스키마 정의 접근 여덟
 status: draft
 description: "레이크하우스에서 테이블 스키마를 어디에 어떻게 두는가의 선택지 여덟과 그것을 가장 유연한 것에서 가장 엄격한 것으로 세운 축 — 스키마를 아예 정의하지 않고 저장 형식에 진화를 맡기는 쪽, DataFrame API로 코드 안에 두는 쪽, SQL DDL로 선언하는 쪽, YAML이나 JSON 설정 파일로 코드와 분리해 따로 버전 관리하는 쪽, 중앙 메타데이터 저장소에서 실행 시점에 생성하는 메타데이터 주도 접근, 도구가 추론과 병합을 대신하는 쪽, 그래픽 모델링 도구에 맡기는 쪽, 그리고 각 선택이 되사는 대가와 스키마 진화를 다루는 모범 관행 여섯"
-generated: { by: "claude-opus-5", at: "2026-09-23T24:00:00Z" }
+generated: { by: "claude-fable-5", at: "2026-09-23T13:35:00Z" }
 sources:
   - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
@@ -141,6 +141,16 @@ Management").[^strengholt2025]
   내는 규칙**을 두는 것이다.
 - **대가는 구축 비용이다** — 메타데이터 주도 프레임워크의 구현이 **복잡하고 시간이 많이 들 수
   있다** (같은 소절).[^strengholt2025] 실물 예는 6장으로 미룬다.
+- **미뤄 둔 그 실물이 다음 계층에서 온다.** 같은 저자가 Silver를 구축하며 관계형 데이터베이스에
+  표 하나를 만들어 원천의 시스템 카탈로그를 질의해 채우고, 그 저장소를 파이프라인의 조회·조건·
+  노트북 셋으로 읽어 **검증 규칙을 실행 시점에 구성한다** (6장 §"Implementation of a
+  Metadata-Driven Approach").[^strengholt2025] 그 구현과 확장 방향 아홉은
+  [Silver 계층의 기술 검증과 데이터 정제](../concepts/silver-layer-validation-and-cleansing.md)에 있다.
+- **그 구현이 이 눈금의 범위를 되비춘다** — 6장의 개선 영역 목록이 **Silver에 스키마 프로비저닝을
+  구현하는 것**을 아직 남은 일로 들고 이 절을 가리킨다 (6장 §"Implementation of a Metadata-Driven
+  Approach" ▸ "Improvement Areas").[^strengholt2025] 곧 저자가 실제로 구현한 것은 스키마를
+  **생성하는** 쪽이 아니라 스키마에 비추어 **검증하는** 쪽이고, 이 눈금의 온전한 모습은 책 안에서도
+  예고로 남는다.
 
 ## 여섯 — 도구가 추론과 병합을 대신한다
 

@@ -3,7 +3,7 @@ type: concept
 title: 메타데이터 관리
 status: draft
 description: 데이터 웨어하우스 메타데이터를 business/technical/process execution 3종으로 분류하고, DMBOK의 네 범주와 나란히 놓으며, Meta Mart·Metrics Vault·Metrics Mart·Error Mart가 각각 무엇을 재서 어디에 두는지, Meta Mart가 실제로 무엇을 담고 왜 재구축 불가능한 마트인지를 구분하며, 같은 메타데이터를 사람의 조회 대상이 아니라 파이프라인이 실행 시점에 읽는 입력으로 쓰는 메타데이터 주도 접근을 나란히 놓는다
-generated: { by: "claude-opus-5", at: "2026-09-23T24:00:00Z" }
+generated: { by: "claude-fable-5", at: "2026-09-23T13:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
@@ -259,6 +259,25 @@ Data Vault 2.0의 3종 분류와 층위가 다른 분류가 하나 더 있다. R
     Layer" ▸ "Technical Validation Checks").[^strengholt2025]
 - **대가는 구축 비용**이고 저자가 명시한다 — 메타데이터 주도 프레임워크의 구현이 **복잡하고 시간이
   많이 들 수 있다** (5장 §"Schema Management" ▸ "Metadata-Driven Approach").[^strengholt2025]
+
+- **프레임워크의 뼈대는 부품 셋이다** — 이 데이터가 저장되는 **메타데이터 저장소**, 메타데이터를
+  읽어 **잡과 검증과 변환을 동적으로 만들어 내는 오케스트레이터**, 그리고 여러 잡의 상태를
+  **감시하고 추적하는 장치**다 (6장 §"Implementation of a Metadata-Driven Approach" ▸ "Improvement
+  Areas").[^strengholt2025] 앞 절들의 저장소 하나만으로는 이 배치가 서지 않는다는 뜻이다.
+- 저장소에 무엇을 넣을지의 확장 축도 함께 주어진다 — 도메인 고유 정보, 여러 원천의 메타데이터,
+  민감도 라벨이나 행 필터링 같은 보안 메타데이터, 원천에서 대상으로의 컬럼 개명이나 단순 조인·
+  유니온이나 무관 데이터 필터링 같은 처리 로직, 그리고 CI/CD를 위한 환경·배포·버전 정보다.
+  **결국 메타데이터 프레임워크의 범위는 요구사항에 달렸다** (같은 소절).[^strengholt2025]
+- 이 배치가 코드 기반 전략 대비 갖는 이점으로 저자가 넷을 센다 — 형식·스키마·주기가 다른 여러
+  원천과 목적지를 감당하는 **다재다능함**, 노트북 여럿 대신 **범용 파이프라인 한 벌**만 유지하게
+  되는 코드량 감소, 코드 수정이나 재배포 없이 메타데이터만으로 검증과 수정을 더하는 **개발·배포의
+  단순화**, 그리고 여러 활동을 동시에 돌리는 **병렬성**이다 (같은 소절).[^strengholt2025]
+  - 앞 셋은 같은 뿌리다. **무엇을 할지가 코드가 아니라 데이터에 적혀 있으면 코드를 고치지 않고
+    무엇을 할지를 바꿀 수 있다**는 것이다.
+- 같은 저자가 이 배치를 실물로 구현해 보이는 자리는
+  [Silver 계층의 기술 검증과 데이터 정제](../concepts/silver-layer-validation-and-cleansing.md)다.
+  메타데이터 저장소의 컬럼 구성과 그것을 파이프라인에 거는 부품 셋, 그리고 확장 방향 아홉이 거기
+  있다.
 
 ## 관련 페이지
 
