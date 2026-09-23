@@ -64,6 +64,7 @@ generated: { by: "human:me", at: "2026-08-12T22:00:00Z" }
 - [지각 도착 데이터](../concepts/late-arriving-data.md) — 비순차 이벤트를 ETL 쪽에서 본 것
 - [구체화 스펙트럼](../concepts/materialization-spectrum.md) — 스트림을 구체화한다는 말의 일반형
 - [데이터 레이크](../concepts/data-lake.md) — 배치 대 스트림의 대비가 분석 쪽에 놓인 자리
+- [메달리온 계층 이전의 결정과 Delta 테이블 관리](../concepts/medallion-groundwork-and-delta-table-management.md) — 레이크하우스 반입에서 Spark Structured Streaming·change data feed·CDC 셋이 갈리는 자리
 
 ## 이어지는 허브
 
