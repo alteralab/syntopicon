@@ -404,8 +404,13 @@ II부가 맡는다고 못 박는다 (3장 도입).[^strengholt2025]
   그 페이지의 늦은 데이터·하드 삭제 함정과 **같은 자리를 다른 말로 짚는다** — 그쪽은 반입 잡이 레코드를
   놓치는 기제를 말하고 이쪽은 그때 CDC로 갈아타라는 처방을 말한다.
 - **CDC의 자리.** [변경 데이터 캡처](../concepts/change-data-capture.md)가 CDC를 리더-팔로워 기제로
-  규정한다면, 이 소스에서 CDC는 **증분 적재가 성립하지 않는 조건에서의 탈출구**다. 저자 자신이 상세를
-  5장으로 미뤄 두었다.
+  규정한다면, 이 소스에서 CDC는 **증분 적재가 성립하지 않는 조건에서의 탈출구**다. 저자가 미뤄 둔
+  상세 — 미러링이라는 구현 이름과 운영 비용 다섯 — 은
+  [Bronze 계층 구현](../concepts/bronze-layer-implementation.md)이 받는다.
+- **스키마 관리의 실물.** 이 페이지의 [스키마 진화와 관리](#스키마-진화와-관리)와
+  [mergeSchema와 스키마 강제](#mergeschema와-스키마-강제)가 강제 시점의 선택을 이론으로 다룬다면,
+  스키마 정의를 **어느 파일에 두고 누가 읽게 할 것인가**의 선택지 여덟은
+  [레이크하우스 스키마 정의 접근 여덟](../concepts/lakehouse-schema-definition-approaches.md)에 있다.
 - **읽기 스키마와 쓰기 스키마.** [읽기 스키마와 쓰기 스키마](../concepts/schema-on-read-and-schema-on-write.md)는
   둘을 **강제 시점의 선택**으로 다룬다. 이 소스가 더하는 것은 **한 계층 안에서 둘을 잇달아 쓰는 배치**다
   — 랜딩에서 읽기 스키마, 질의 가능해지는 자리에서 쓰기 스키마.
@@ -432,6 +437,12 @@ II부가 맡는다고 못 박는다 (3장 도입).[^strengholt2025]
   Gold 셋의 정의와 계보
 - [메달리온 계층 이전의 결정과 Delta 테이블 관리](../concepts/medallion-groundwork-and-delta-table-management.md)
   — 랜딩 존과 "원시"의 경계, 배치와 실시간의 선택
+- [Bronze 계층 구현](../concepts/bronze-layer-implementation.md) — 이 계층의 규정을 같은 저자가
+  파이프라인과 테이블 기법 다섯으로 되받는 자리
+- [레이크하우스 스키마 정의 접근 여덟](../concepts/lakehouse-schema-definition-approaches.md) —
+  스키마 정의를 어느 파일에 둘 것인가
+- [메달리온 기반의 플랫폼 층 설정](../concepts/medallion-platform-foundation.md) — 이 계층이
+  올라가는 도메인·워크스페이스·용량의 경계
 - [메달리온 Silver 계층](../concepts/medallion-silver-layer.md) — 이 계층이 넘기는 다음 자리
 - [메달리온 Gold 계층](../concepts/medallion-gold-layer.md) — 계층 셋의 마지막과 3장의 맺음
 - [배치 반입 패턴](../concepts/batch-ingestion-patterns.md) — Full Loader·Incremental Loader의 원전
