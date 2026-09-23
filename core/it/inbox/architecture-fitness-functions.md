@@ -43,6 +43,7 @@ sources:
 - [2021년 책 5장 — 분해 패턴마다 딸리는 거버넌스 적합도 함수](#2021년-책-5장--분해-패턴마다-딸리는-거버넌스-적합도-함수)
 - [셋째 소스 — 대상 영역으로 가른 일곱 분류](#셋째-소스--대상-영역으로-가른-일곱-분류)
 - [넷째 소스 — 같은 분류를 필수 여섯과 선택 넷으로 다시 자른 자리](#넷째-소스--같은-분류를-필수-여섯과-선택-넷으로-다시-자른-자리)
+- [넷째 소스 8장 — 정의의 셋째 인쇄본](#넷째-소스-8장--정의의-셋째-인쇄본)
 - [이 KB의 다른 소스와 만나는 자리](#이-kb의-다른-소스와-만나는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -955,6 +956,41 @@ pp.198–199).[^gough2022]
   촉발 둘만**으로 아키텍처 테스트를 층으로 쌓는 유비가
   [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md)에 있다.
 
+## 넷째 소스 8장 — 정의의 셋째 인쇄본
+
+**같은 사례집의 8장을 이 개념의 원저자 가운데 한 사람이 직접 쓴다.** 그래서 이 절이 기록하는 것은
+분류가 아니라 **정의의 낱말**이다.
+
+- **그 장에 인쇄된 정의가 이 페이지의 §"정의"와도, 위 2021년 책의 판과도 다르다** (8장(포드),
+  p.126):[^ciceri2022]
+
+  > An architecture fitness function is any mechanism that provides objective evaluation
+  > criteria for architecture characteristics(s).
+
+- **세 판을 맞대면 갈리는 자리가 둘이다.**
+
+| 어디에 인쇄되었나 | 무엇을 제공하는가 | 대상을 어떻게 적는가 |
+|---|---|---|
+| 2022년 책 2장(이 페이지 §"정의") | `provides an objective integrity assessment` | `some architectural characteristic(s)` |
+| 2021년 책 1장 | `performs an objective integrity assessment` | `some architecture characteristic or combination of architecture characteristics` |
+| 2022년 사례집 8장 | `provides objective evaluation criteria` | `architecture characteristics(s)` |
+
+  - **셋째 판에서 바뀐 것이 명사구 자체다** — 앞 둘이 **무결성 평가(integrity assessment)**라
+    적는 자리에 셋째는 **평가 기준(evaluation criteria)**을 적는다. **뜻이 갈리지는 않지만 앞
+    둘끼리의 차이(동사 하나)보다 크다.**
+  - **셋째 판의 대상 표기는 조판 오류로 보인다** — `characteristics(s)`는 복수형 뒤에 또 단수
+    괄호가 붙은 꼴이다. #hypothesis
+  - **세 판 모두 2017년 1판을 정의의 출처로 지목한다.** 이 KB에 그 1판이 없으므로 **어느 쪽이 1판의
+    문장인지는 여전히 판정할 수 없다.**
+- **그 장이 정의에 더하는 배치 하나가 이 페이지의 §"도메인의 단위 테스트에 해당하는 자리"를
+  넓힌다** — 그때까지 아키텍처 특성의 검증은 **빌드 시점 검사와 프로덕션 모니터와 포렌식 로깅과 그
+  밖의 숱한 도구에 흩어진 임시방편**이었고, **적합도 함수는 그 검증들을 하나의 우산 아래
+  통합한다**는 것이다. 늘 관련돼 있었지만 균일하게 다뤄지지 않던 것들이라는 이유가 붙는다
+  (8장(포드), p.126).[^ciceri2022]
+- **그 장의 나머지, 곧 지표가 언제 공학이 되는가의 논제와 사례 셋은
+  [지표에서 공학으로](from-metrics-to-engineering.md)가 갖는다** — 같은 책 7장과 같은 저자의 다른
+  두 책과 겹치는 자리의 대조표도 그 페이지에 있다.
+
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **이 페이지가 이 KB에 이미 있던 두 전언의 원전이다.**
@@ -983,6 +1019,10 @@ pp.198–199).[^gough2022]
   네이티브 기능을 갈아 끼우는 자리
 - [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 이 기제를 거버넌스로
   돌리는 일과 그 층위들
+- [지표에서 공학으로](from-metrics-to-engineering.md) — 같은 사례집 8장. 이 기제가 **지표를 공학으로
+  바꾸는 조건**으로 읽히는 자리와 사례 셋
+- [아키텍처에서 측정의 역할](measurement-in-software-architecture.md) — 같은 사례집 7장. 이 기제를
+  **측정 접근법 다섯 가운데 하나**로 나열하되 측정 기제가 아니라고 못 박는 자리
 - [컴포넌트 기반 분해 패턴 여섯](component-based-decomposition-patterns.md) — 패턴마다 이 기제를
   하나씩 다는 절차
 - [컴포넌트 의존 판정](determine-component-dependencies.md) — 위 표의 의존 임계와 의존 금지가
@@ -1085,11 +1125,15 @@ pp.198–199).[^gough2022]
     [API 이행 패턴과 고통 지점](../concepts/api-migration-patterns-and-pain-points.md)에 있다.
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics*, O'Reilly 2022
-    ([소스](../sources/ciceri2022.md)). 위 §"넷째 소스 — 같은 분류를 필수 여섯과 선택 넷으로
-    다시 자른 자리" 하나가 이 소스에서 왔고, 출처는 2장(바이스) §"Introduction to Fitness Function
+    ([소스](../sources/ciceri2022.md)). **열 사람이 한 장씩 쓴 사례집이라 locator에 장 저자를
+    밝힌다.** 위의 두 절이 이 소스에서 왔다. §"넷째 소스 — 같은 분류를 필수 여섯과 선택 넷으로
+    다시 자른 자리"의 출처는 2장(바이스) §"Introduction to Fitness Function
     Categories"(pp.25–30, 하위 §"Mandatory Fitness Function Categories"(pp.25–28) ·
     §"Optional Fitness Function Categories"(pp.28–30) · §"Fitness Function Categories: Catalog
-    Overview"(p.30))다. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 14, 실측). 그 절에 직인용을 두지
+    Overview"(p.30))이고, §"넷째 소스 8장 — 정의의 셋째 인쇄본"의 출처는 8장(포드)
+    §"The Path to Fitness Functions"(pp.125–127)다. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 14,
+    실측). **8장 절의 직인용 하나(정의 문장)는 `pdftotext -layout`으로 그 쪽을 다시 뽑아 맞췄고,
+    그 장이 인쇄한 `characteristics(s)`를 고치지 않고 그대로 옮겼다.** 2장 절에는 직인용을 두지
     않았다 — 옮긴 것이 분류의 이름과 가르는 기준이라 한국어 재서술로 충분했다. **표 셋(2-1 ISO
     품질 속성, 2-2 필수 분류, 2-3 선택 분류)은 원문 표이고 텍스트 레이어에서 읽었다.** 필수 여섯과
     선택 넷을 한 표씩으로 모은 것은 원문 조판이 아니라 **원문의 소소제목별 해설을 이 KB가 표로 모은

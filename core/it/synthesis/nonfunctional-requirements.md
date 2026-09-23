@@ -198,6 +198,9 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   서로 다른 개념이 아니라고 적기 때문이다
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 그 확인을
   수작업 검토가 아니라 빌드에서 도는 검사로 거는 일, 그리고 그 층위들
+- [아키텍처에서 측정의 역할](../concepts/measurement-in-software-architecture.md) — 이 허브의
+  성능·확장성·가용성·보안 넷을 각각 무엇으로 재고 그 측정이 어디서 흔히 깨지는가, 그리고 그
+  수치를 아키텍처 작업의 우선순위 근거로 쓰는 배치
 
 ## 유지보수성
 
