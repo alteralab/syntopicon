@@ -113,3 +113,8 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 - [데이터 시스템 아키텍처 트레이드오프](data-systems-architecture-tradeoffs.md) — 운영계와
   분석계의 갈림, 저장 선택의 축
 - [DW 운영과 프로세스](dw-operations-and-process.md) — 같은 흐름을 웨어하우스 절차로 본 쪽
+- [의미론적 데이터 모델링 전략과 여러 모형](../concepts/semantic-data-modeling-strategies.md) —
+  같은 축을 2019년 아키텍처 실무서가 훨씬 얇게 훑되 **모델링 규칙을 "실제로 무엇이 참인가"라는
+  물음에서 끌어내는** 자리. 그 장의 뒤 구간이 수집·정제·색인·최적화의 네 역할로 기계 학습
+  파이프라인을 배열하는 자리는
+  [서비스를 받치는 데이터 저장소와 파이프라인](../concepts/data-stores-and-pipelines-for-services.md)이다

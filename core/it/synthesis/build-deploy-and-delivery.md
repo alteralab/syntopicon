@@ -34,6 +34,11 @@ generated: { by: "claude-opus-5", at: "2026-09-17T01:20:00Z" }
   단계 분리, 현재 상태와 미래 상태를 함께 보는 팬아웃과 팬인, 기능 토글, 그리고 보안 검토와
   규제 감사를 수동 단계로 안에 넣어 병목을 드러내는 배치. **형제 허브
   [진화와 거버넌스](evolution-and-governance.md)에도 걸려 있다**
+- [서비스를 받치는 데이터 저장소와 파이프라인](../concepts/data-stores-and-pipelines-for-services.md) —
+  같은 파이프라인을 2019년 설계 실무서가 여는 자리. **파이프라인을 프로젝트 앞에서 먼저 설계하고
+  "Hello World" 애플리케이션을 그 파이프라인의 목 오브젝트로 쓰라**는 순서의 조문이고, 같은 책이
+  인프라 쪽에서 그것을 되풀이하며 재사용이라는 근거를 더하는 자리는
+  [코드형 인프라와 지표 우선](../concepts/infrastructure-as-code-and-metrics-first.md)이다
 
 ## 놓을 때 지키는 것
 
