@@ -29,7 +29,9 @@ sources:
 모델링 원전이 이미 가진 것 위에 레이크하우스가 무엇을 더하는가.**
 
 [메달리온 Silver 계층](../concepts/medallion-silver-layer.md)이 넘긴 정제 데이터를 받는 자리이고,
-3장의 마지막 계층이다. 3장의 맺음도 이 페이지가 받는다.
+3장의 마지막 계층이다. 3장의 맺음도 이 페이지가 받는다. 같은 저자가 7장에서 이 규정을 구현으로
+되받는 자리는 [Gold 계층 구현](../concepts/gold-layer-implementation.md)이다 — 여기 적힌 적재 순서와
+대리 키와 서빙 계층이 거기서 실물을 얻는다.
 
 ## 버전 조건
 
@@ -391,6 +393,11 @@ sources:
 
 ## 이어지는 페이지
 
+- [Gold 계층 구현](../concepts/gold-layer-implementation.md) — 같은 저자가 7장에서 이 규정을 구현으로
+  되받는 자리
+- [데이터 제품 지침](../concepts/data-product-guidelines.md) — 이 계층의 산출을 제품으로 규정하는 쪽
+- [데이터 거버넌스의 도메인 경계](../concepts/data-governance-domain-boundaries.md) — 그 제품이 놓이는
+  거버넌스 경계
 - [메달리온 Silver 계층](../concepts/medallion-silver-layer.md) — 이 계층이 받는 앞자리
 - [메달리온 Bronze 계층](../concepts/medallion-bronze-layer.md) — 계층 셋의 첫자리
 - [메달리온 아키텍처의 정의와 계보](../concepts/medallion-architecture-origins.md) — 계층 셋의 정의

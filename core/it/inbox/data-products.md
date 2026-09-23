@@ -20,6 +20,7 @@ sources:
 - [셀프서비스인가 아닌가](#셀프서비스인가-아닌가)
 - [같은 낱말의 다른 용법 — 데이터 메시 쪽](#같은-낱말의-다른-용법--데이터-메시-쪽)
 - [셋째 용법 — 카탈로그 안의 논리적 표현](#셋째-용법--카탈로그-안의-논리적-표현)
+- [셋째 용법의 규정이 굳는 자리](#셋째-용법의-규정이-굳는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **서빙 단계가 내놓는 것을 "데이터"가 아니라 "제품"으로 부르면 무엇이 달라지며,
@@ -163,8 +164,33 @@ Dehghani 쪽은 데이터·메타데이터·코드·정책·인프라 의존성�
   속성과 같은 방향을 가리킨다. 전모는
   [Silver 파이프라인의 오케스트레이션과 데이터 제품](../concepts/silver-layer-orchestration-and-data-products.md)에 있다.
 
+## 셋째 용법의 규정이 굳는 자리
+
+**같은 소스의 7장이 이 용법에 정의 문장을 붙인다.** 6장이 "카탈로그 안의 논리적 표현"까지만 갔다면
+7장은 그 표현이 무엇을 참조하는지를 적는다.
+
+- 저자가 제안하는 규정 — 메달리온 아키텍처의 맥락에서 데이터 제품을 **비정규화된 Delta 테이블이나
+  시맨틱 모델로 참조되는, 쉽게 소비할 수 있는 재사용 가능한 논리적 엔티티**로 정의하는 것을
+  고려하라 (7장 §"Data Products" ▸ "Introduction to data product
+  guidelines").[^strengholt2025]
+- 계층 배치도 못 박는다 — 메달리온에서 데이터 제품은 **핵심 구성 요소**이고 **흔히 소비자 지향
+  계층에 자리 잡아** 최종 사용자나 하류 애플리케이션의 소비를 위해 정제·최적화된다 (7장 §"Design of
+  the Gold Layer" ▸ "Microsoft Fabric in Practice").[^strengholt2025]
+- **저자가 정의 논쟁을 알고 있고 판정을 비킨다는 점이 이 절에서 가장 중요하다** — 곁줄이 **업계에
+  만능 표준이 없고 보편적 분류 체계도 메타데이터 표준도 상호운용성 표준도 없다**고 적은 뒤,
+  **데이터 제품이 데이터·메타데이터·처리 코드·뒷받침 인프라를 포함해야 하는가를 진행 중인
+  논쟁**으로 든다. 그리고 **남을 기다리지 말고 조직에 맞는 표준을 스스로 만들라**고 권한다 (7장
+  §"Data Products" 곁줄).[^strengholt2025]
+  - 곧 위 [같은 낱말의 다른 용법](#같은-낱말의-다른-용법--데이터-메시-쪽) 절이 가른 그 차이를 **이
+    소스가 쟁점으로 인지하면서도 정의를 조직에 위임**하는 셈이다. 그래서 여기에도 `contradicts`를
+    걸지 않는다.
+- 어떤 물리적 표현이 제품으로 견디는가를 여덟 시나리오로 매긴 표, 그리고 지침이 덮어야 할 데이터
+  모델링 여덟 항목과 거버넌스 열한 항목은
+  [데이터 제품 지침](../concepts/data-product-guidelines.md)이 받는다.
+
 ## 이어지는 페이지
 
+- [데이터 제품 지침](../concepts/data-product-guidelines.md) — 셋째 용법을 쓰기로 한 조직이 적어야 할 것
 - [수명 주기의 서빙 단계](../concepts/serving-in-the-lifecycle.md) — 이 제품이 나오는 단계
 - [데이터를 서빙하는 방식](../concepts/data-serving-methods.md) — 제품이 실제로 전달되는 경로들
 - [시맨틱 계층과 메트릭 계층](../concepts/semantic-and-metrics-layers.md) — 셀프서비스의 가드레일이
@@ -182,5 +208,7 @@ Dehghani 쪽은 데이터·메타데이터·코드·정책·인프라 의존성�
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
-    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로). 이
-    페이지가 받는 것은 6장 §"Silver-Layer Data as a Product" 하나다.
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로), 소절·
+    소소절은 `▸`로 잇고 곁줄은 제목 뒤에 `곁줄`을 붙인다. 이 페이지가 받는 것은 6장 §"Silver-Layer
+    Data as a Product"와 7장 §"Data Products"의 규정 대목이고, 7장의 지침 전량은
+    [데이터 제품 지침](../concepts/data-product-guidelines.md)이 받는다.

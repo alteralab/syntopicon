@@ -392,6 +392,24 @@ p.166):[^bellemare2025]
   계층에 둘 것인가의 조건을 저자가 양쪽으로 가르는 자리는
   [Silver 계층의 변형과 이력화](../concepts/silver-layer-transformation-and-historization.md)이고,
   같은 논쟁의 앞 장 쪽 서술은 [메달리온 Silver 계층](../concepts/medallion-silver-layer.md)에 있다.
+- **같은 저자가 7장에서 타입 2를 소비자 지향 계층에도 쓴다.** 의사결정과 이력 정확성이 결정적인
+  맥락에서 **SCD, 특히 타입 2를 정기적으로 써서** 데이터가 현재 상태와 이력 상태를 모두 정확히
+  표현하게 한다는 것이다 (7장 §"Design of the Gold Layer" ▸ "Transform Data Using a Star
+  Schema").[^strengholt2025]
+  - **그러나 곁줄이 조건을 단다** — 원천 지향 계층에 타입 2를 적용하는 것은 **진정한 맥락으로**
+    모든 이력 변경을 저장하므로 매우 이로운 반면, **소비자 지향 계층에서의 적용 가능성은 구체적
+    업무 요구가 이끌어야 한다.** 최종 사용자가 **리포팅이나 분석 목적으로 이력 상태에 직접 접근해야
+    할 때** 값어치를 갖는다 (같은 소절 곁줄).[^strengholt2025] 실습에서 양쪽에 다 쓴 것은 저자가
+    밝히듯 **학습 목적**이다.
+  - **날짜 차원만은 이력화하지 않는다** — **날짜의 속성이 고정이고 시간에 따라 바뀌지 않기
+    때문**이다 (7장 §"Design of the Gold Layer" ▸ "Transform Data Using a Star Schema" ▸ "Creation
+    of the dimensional table for date").[^strengholt2025]
+- **타입 2에 멱등성 논거를 붙이는 자리가 이 소스에만 있다** — 곁글이 파이프라인을 여러 번 돌려도
+  같은 결과를 내는 성질을 설계 원칙으로 세우고, 그 근거로 **타입 2가 진정한 멱등성을 보장하는
+  유일한 완만하게 변하는 차원 방법**이라고 적는다 (7장 §"Idempotency as a Key Design Principle"
+  곁글).[^strengholt2025] **"유일한"의 근거는 곁글 안에 없다.** 같은 낱말을 쓰기 패턴 쪽에서 세우는
+  자리는 [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)이고, 그쪽은 같은 성질을 병합과
+  소프트 삭제의 조합으로도 얻는다. 층위가 다른 두 답이다.
 - **모순 관계로 걸지 않는다.** 이 쪽은 타입 카탈로그를 부정하지 않고 그 가운데 하나를 골라 다른
   저장 기술 위에 놓으며, 나머지 타입을 다루지 않을 뿐이다. 타입 2를 기본기로 보는 판정도 같다.
 
@@ -411,10 +429,12 @@ p.166):[^bellemare2025]
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
     Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
-    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로), 곁줄과
-    곁글은 제목 뒤에 각각 `곁줄`·`곁글`을 붙인다. 이 페이지가 받는 것은 6장 §"Data Historization"
-    하나와 그 아래 곁줄 하나·곁글 하나·각주 하나다. 6장 전체는
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로), 소절은
+    `▸`로 잇고 곁줄과 곁글은 제목 뒤에 각각 `곁줄`·`곁글`을 붙인다. 이 페이지가 받는 것은 6장
+    §"Data Historization" 하나와 그 아래 곁줄 하나·곁글 하나·각주 하나, 그리고 7장 §"Design of the
+    Gold Layer"의 타입 2 관련 대목과 곁글 §"Idempotency as a Key Design Principle"이다. 6장 전체는
     [Silver 계층의 기술 검증과 데이터 정제](../concepts/silver-layer-validation-and-cleansing.md) ·
     [Silver 계층의 변형과 이력화](../concepts/silver-layer-transformation-and-historization.md) ·
     [Silver 파이프라인의 오케스트레이션과 데이터 제품](../concepts/silver-layer-orchestration-and-data-products.md)
-    셋이 나눠 받는다. **코드는 펜스 없이 구조만 산문으로 받았다.**
+    셋이, 7장 전체는 [Gold 계층 구현](../concepts/gold-layer-implementation.md)이 받는다.
+    **코드는 펜스 없이 구조만 산문으로 받았다.**
