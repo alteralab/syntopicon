@@ -2,7 +2,6 @@
 type: concept
 title: 프라이빗 빌드
 description: 변경이 공유 주 라인에 들어가기 전에 전용 환경에서 통합 빌드를 흉내 내는 실천의 규정과 그것이 필요해지는 조직 조건 — 자동화 팀과 개발 팀과 QA가 갈라지며 통제권은 옮겨 가고 검증만 위임되는 소유권 이동이라는 안티패턴, 결함이 늦게 잡힐수록 비싸다는 조문과 DevOps의 어원·세 축·문화 우선이라는 규정, 깨진 빌드는 즉시 고치라는 CI 원칙이 기대는 전제 둘과 그것이 성립하지 않을 때 파이프라인을 검증의 핵심에 두는 것이 개념적 실수라는 판정, 2007년 책에서 가져온 프라이빗 빌드의 규정과 도는 자리와 프라이빗이라는 낱말의 뜻, 완전 자동화가 어려운 이유 다섯, 그리고 불가피해 보이던 버그 넷이 피할 수 있는 것으로 뒤집히는 불안정한 트렁크 사례와 통제되지 않는 자동화에 기대지 않기로 하는 막힌 컨설턴트 사례
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T18:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -30,7 +29,7 @@ sources:
 
 이 페이지의 출처는 열 사람이 한 장씩 쓴 2022년 아키텍처 측정 사례집의 5장이고, 그 장의 저자는
 그 책을 엮은 크리스티안 치체리(Christian Ciceri)다. **같은 장이 그 실천에 붙이는 지표 셋과 그
-값을 읽는 법은 [프라이빗 빌드 지표](private-build-metrics.md)에 있다.** 같은 책의 다른 장들은 자식 허브
+값을 읽는 법은 [프라이빗 빌드 지표](../concepts/private-build-metrics.md)에 있다.** 같은 책의 다른 장들은 자식 허브
 [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md)에 모여 있다.
 
 ## 이 장이 겨냥하는 상황
@@ -85,7 +84,7 @@ sources:
   - 저자는 각주에서 **CI/CD의 CD가 지속적 전달일 수도 지속적 배포일 수도 있는데 이 장에서는
     지속적 전달을 뜻한다**고 못 박는다 (5장(치체리), p.67).[^ciceri2022] 이 KB에서 그 둘의
     포함 관계는
-    [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)이 갖는다.
+    [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)이 갖는다.
 
 ## 결함이 늦게 잡힐수록 비싸다
 
@@ -384,13 +383,13 @@ pp.70–71).[^ciceri2022]
 
 - **프라이빗 빌드는 CI 원칙과 어긋나지 않는다.** 겉보기에는 **로컬 검증을 늘리는 것**이 **자주
   통합하라**는 CI 원칙과 부딪히는 것처럼 보이고, 저자 자신이 개발자의 그 반론을 인용한 뒤
-  비용으로 답한다(그 대목은 [프라이빗 빌드 지표](private-build-metrics.md)에 있다).
+  비용으로 답한다(그 대목은 [프라이빗 빌드 지표](../concepts/private-build-metrics.md)에 있다).
   그런데 이 장이 세우는 목표는
   **통합을 미루는 것이 아니라 공유 주 라인을 깨뜨리는 변경을 게시하지 않는 것**이고, 저자는 그
   목표를 위 [CI/CD — 이 장이 쓰는 뜻](#cicd--이-장이-쓰는-뜻)에서 **파울러의 CI 규정에서 직접
   뽑아낸다.** 곧 **같은 원칙을 지키는 다른 수단**이다. #hypothesis
 - **다른 점은 전제다.** 이 KB의
-  [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)이 담는 규정들은 **팀이
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)이 담는 규정들은 **팀이
   파이프라인을 소유한다**는 전제 위에 서 있다. 이 장은 **그 전제가 깨진 조직**을 대상으로 하고,
   그래서 같은 파이프라인 그림(그림 5-1)을 **검증의 핵심이 아니라 검증이 잘못 옮겨 간 자리**로
   읽는다.
@@ -412,9 +411,9 @@ pp.70–71).[^ciceri2022]
 
 ## 이어지는 페이지
 
-- [프라이빗 빌드 지표](private-build-metrics.md) — 같은 장의 나머지. 이 실천이 자리 잡았는지를
+- [프라이빗 빌드 지표](../concepts/private-build-metrics.md) — 같은 장의 나머지. 이 실천이 자리 잡았는지를
   재는 지표 셋과 그 비용과 세 값의 조합 넷을 읽는 법
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 장이 전제로 삼는
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 장이 전제로 삼는
   실천의 규정과 파이프라인의 단계 구분, 그리고 이 장이 그 앞에 프라이빗 빌드를 붙이는 절
 - [점진적 변경과 배포 파이프라인](../concepts/incremental-change-and-deployment-pipelines.md) —
   같은 파이프라인을 적합도 함수를 거는 자리로 보는 쪽
@@ -423,7 +422,7 @@ pp.70–71).[^ciceri2022]
 - [버전 관리](../concepts/version-control-practice.md) — 트렁크와 브랜치 모델의 어휘
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 이 장이 맺음에서 드는
   지속적으로 배포 가능한 소프트웨어라는 조건의 서비스 쪽 규정
-- [네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md) — 같은 책 1장. 같은 파이프라인에서
+- [네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md) — 같은 책 1장. 같은 파이프라인에서
   전달 성과를 재는 쪽
 - [기술 부채](technical-debt.md) — 같은 책 4장. 이 장의 트렁크 불안정과 달리 **코드 구조 쪽의
   부채**를 규정하는 자리
@@ -440,7 +439,7 @@ pp.70–71).[^ciceri2022]
     §"The Private Build"(pp.70–71) · §"Case Study: The Unstable Trunk"(pp.72–74) ·
     §"Case Study: The Blocked Consultant"(pp.74–75). 같은 장의 나머지 절 셋(§"Metrics" pp.75–78 ·
     §"Metrics in Practice" pp.78–79 · §"Conclusion" p.80)은
-    [프라이빗 빌드 지표](private-build-metrics.md)가 갖는다.
+    [프라이빗 빌드 지표](../concepts/private-build-metrics.md)가 갖는다.
     **이 장의 소제목은 열넷이고 소소제목은 0이다**(`pdftotext -bbox-layout` 글자 높이 실측 — 절
     22.67이 아홉 번, 소제목 18.89가 열네 번, 소소제목 13.85가 0건). **목차와 높이 실측이 열넷에서
     일치한다**(목차는 PDF 6–7쪽). 이 페이지 범위의 소제목은 여섯이다 — CI/CD(66) · DevOps(67) ·

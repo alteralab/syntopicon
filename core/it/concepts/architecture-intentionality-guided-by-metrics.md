@@ -2,7 +2,6 @@
 type: concept
 title: 지표로 안내되는 아키텍처 의도성
 description: 아키텍처의 의도성을 어떤 수치의 사슬로 세우고 유지하는가 — 운영 가치 흐름 하나로 내려가 KPI 정의를 수렴시키고 핫스팟과 린의 낭비 여덟을 보는 프로세스 모델링 워크숍과 지식을 꾀어낸다는 규정과 회사가 어디서 돈을 버는가라는 물음과 천천히가 빠르다는 휴리스틱, 결과에서 목표와 지표로 내려오는 도메인 분해와 목표보다 지표가 더 자주 바뀐다는 변화 속도의 층위와 지표를 적합도 함수로 구현할 수 있다는 연결, 물음 셋으로 설계한 실험과 이중 기록 프록시와 배포 빈도·변경 실패율을 가설 검증에 쓰는 자리, 조직 KPI와 도메인 KPI와 지표를 잇는 KPI 가치 트리 세 층과 후행·선행 지표의 구분과 그것이 시점의 스냅샷이며 정렬과 경영진의 동의를 요구한다는 비용, 지표를 목표로 삼지 말라는 굿하트 인용과 SLA라는 예외, DORA 넷에 더하는 발견까지의 평균 시간과 처리량과 직원 순추천지수와 팀 간 비교 금지, 배포 빈도를 올리라는 통념이 뒤집히는 모바일 반례와 배포 링, 기대 관리와 지표를 갈아 끼우는 프랙탈 패턴, 그리고 추세를 조합해 아키텍처의 약한 자리와 조직의 사회적 결을 함께 읽는 법
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -28,7 +27,7 @@ sources:
 
 이 페이지의 출처는 열 사람이 한 장씩 쓴 2022년 아키텍처 측정 사례집의 6장 뒷부분이고, 그 장의
 저자는 주앙 로사(João Rosa)다. **아키텍처가 왜 표류하며 의도적이라는 것이 무엇인가는
-[아키텍처 표류와 의도성](architectural-drift-and-intentionality.md)이 갖는다** — 같은 장의
+[아키텍처 표류와 의도성](../concepts/architectural-drift-and-intentionality.md)이 갖는다** — 같은 장의
 머리글과 앞 네 절이고, 이 페이지는 나머지 다섯 절이다. 이 페이지도 그 허구의 서사를 요약하고
 저자가 서사 밖에서 직접 내리는 판정을 claim으로 담는다.
 
@@ -334,7 +333,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [아키텍처 표류와 의도성](architectural-drift-and-intentionality.md) — 같은 장의 머리글과 앞 네
+- [아키텍처 표류와 의도성](../concepts/architectural-drift-and-intentionality.md) — 같은 장의 머리글과 앞 네
   절. 여기 쌓는 수치의 사슬이 무엇을 고치려는 것인가
 - [네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md) — 같은 책 1장. 이 장이 트리의 셋째
   층에 매다는 지표들의 정의와 계기 지점
@@ -360,7 +359,7 @@ sources:
     Metrics"(pp.91–99) · §"Managing Expectations with Communication"(pp.99–102) ·
     §"Learning and Evolving the Architecture"(pp.102–104) · §"And What About Anna?"(p.104) ·
     §"Conclusion"(p.104). 같은 장의 머리글과 앞 네 절은
-    [아키텍처 표류와 의도성](architectural-drift-and-intentionality.md)이 갖는다. 쪽은 인쇄판 쪽
+    [아키텍처 표류와 의도성](../concepts/architectural-drift-and-intentionality.md)이 갖는다. 쪽은 인쇄판 쪽
     번호(본문 = PDF 쪽 − 14, 실측)이고 **이 장 뒤에 백지가 없다** — p.104 다음이 바로 7장
     p.105(PDF 119)다.
     **이 장은 절 아홉에 소제목과 소소제목이 0건**이다(`pdftotext -bbox-layout` 글자 높이 실측 —

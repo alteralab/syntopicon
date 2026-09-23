@@ -2,7 +2,6 @@
 type: concept
 title: 기술 부채
 description: 잘못되거나 차선인 기술 결정이 나중에 추가 작업을 낳아 유지보수와 확장을 비싸게 만든다는 규정과 그 규정을 1992년 커닝햄에게 돌리는 귀속, 아키텍처 리뷰로 찾는 설계·아키텍처 부채와 도구로 찾는 구현 부채라는 두 갈래, 문서 부재와 낮은 테스트 커버리지와 나쁜 사용성과 부적절한 하드웨어를 부채의 범주에서 잘라 내는 배제 목록, 낮고 안정한 유지보수 비용의 회랑과 거기서 벗어나는 아키텍처 침식이라는 발생 모형과 단위 시간당 기능이 줄어든다는 그 효과, 리팩터링과 교체라는 두 출구, 그리고 같은 낱말을 더 넓게 또는 더 비관적으로 쓰는 이 KB의 다른 자리들과 이 규정이 갈리는 폭, 그리고 같은 사례집의 다른 장이 같은 부채를 구조적 기술 부채라 부르며 그 양을 순환을 끊는 데 드는 일로 재는 자리
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T18:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -25,7 +24,7 @@ sources:
 
 이 페이지의 출처는 열 사람이 한 장씩 쓴 2022년 아키텍처 측정 사례집의 4장이고, 그 장의 저자는
 카롤라 릴리엔탈(Carola Lilienthal)이다. 그 장이 부채를 재는 지수를 세우기 전에 무엇을 재는지부터
-규정하는 대목이 이 페이지이고, 지수 쪽은 [모듈성 성숙도 지수](modularity-maturity-index.md)에 있다.
+규정하는 대목이 이 페이지이고, 지수 쪽은 [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)에 있다.
 
 - **이 규정이 겨냥하는 대상이 처음부터 레거시다** — 2022년 저술 시점을 기준으로 지난 20년 동안 많은
   시간과 돈이 자바·C#·PHP 같은 언어로 구현된 체계에 들어갔는데, 개발 프로젝트의 초점은 흔히
@@ -63,7 +62,7 @@ sources:
   p.50).[^ciceri2022]
 - **이 한 문장이 두 갈래의 처리 방식을 완전히 가른다.** 앞엣것은 예산 없이 일상에서, 뒤엣것은
   워크숍과 리뷰어를 동원해서다. 그 리뷰의 절차와 그 안에서 지표가 마지막에 오는 이유는
-  [모듈성 성숙도 지수](modularity-maturity-index.md)에 있다.
+  [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)에 있다.
 
 ## 기술 부채가 아닌 것
 
@@ -127,7 +126,7 @@ sources:
 - **교체(replacing)** — 또는 레거시 체계를 기술 부채가 더 적은 다른 소프트웨어로 갈아 끼울 수 있다
   (그림 4-1의 원) (4장(릴리엔탈), p.51).[^ciceri2022]
 - **둘 가운데 무엇을 고를지가 이 장이 지수를 세우는 이유다.** 그 선택을 수 하나와 두 문턱으로
-  내리는 규칙은 [모듈성 성숙도 지수](modularity-maturity-index.md)에 있다.
+  내리는 규칙은 [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)에 있다.
 
 ## 이 모형이 겨냥하는 청중
 
@@ -146,7 +145,7 @@ sources:
 **그 물음에 대한 이 저자의 답이 모듈성 성숙도 지수(modularity maturity index, MMI)다.** 인지과학의
 기제 셋에서 끌어온 원칙 셋으로 체계를 재어 0에서 10 사이의 수 하나를 내고, 그 수의 두 문턱이 위
 [빠져나오는 길 둘](#빠져나오는-길-둘)의 선택을 가른다. 지수의 구성과 계산과 그것을 정하는 리뷰
-절차는 [모듈성 성숙도 지수](modularity-maturity-index.md)에 있다.
+절차는 [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)에 있다.
 
 ## 이 규정이 이 KB의 다른 자리들과 갈리는 폭
 
@@ -178,7 +177,7 @@ sources:
 ## 같은 사례집의 9장이 같은 부채를 부르는 이름
 
 **같은 책의 다른 장이 이 낱말을 또 쓰는데, 범주를 이 장보다 더 좁히고 그 양을 재는 방법을 다르게
-놓는다.** 그 장의 지표 전문은 [유지보수성 지표](maintainability-metrics.md)에 있고, 여기는
+놓는다.** 그 장의 지표 전문은 [유지보수성 지표](../concepts/maintainability-metrics.md)에 있고, 여기는
 **이 페이지의 규정에 직접 걸리는 것만** 적는다.
 
 - **그 장이 맺음에서 쓰는 이름이 구조적 기술 부채(structural technical debt)이고, 괄호 안에
@@ -210,12 +209,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [유지보수성 지표](maintainability-metrics.md) — 같은 사례집 9장이 이 부채의 양을 재는 지표
+- [유지보수성 지표](../concepts/maintainability-metrics.md) — 같은 사례집 9장이 이 부채의 양을 재는 지표
   다섯. 구조 부채 지수의 공식과 그것이 상대 순환성의 결함에서 나온 경로
-- [구조 침식과 지표 기반 피드백 고리](structural-erosion-and-metric-feedback-loops.md) — 그 장이
+- [구조 침식과 지표 기반 피드백 고리](../concepts/structural-erosion-and-metric-feedback-loops.md) — 그 장이
   이 부채가 쌓이는 경로로 그리는 엔트로피와 순환 그룹, 그리고 그것을 막는 규칙 여섯
 
-- [모듈성 성숙도 지수](modularity-maturity-index.md) — 같은 장의 나머지. 이 부채의 양을 0에서 10의
+- [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) — 같은 장의 나머지. 이 부채의 양을 0에서 10의
   수로 내리는 평가 체계와 그것을 정하는 리뷰 절차
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) — 같은
   부패를 물리가 아니라 심리로 설명하고 이 낱말 자체를 문제 삼는 쪽
@@ -234,7 +233,7 @@ sources:
     **4장 "Improve Your Architecture with the Modularity Maturity Index"(Dr. Carola Lilienthal)**의
     머리글(p.49)과 절 둘 — §"Technical Debt"(pp.49–50) · §"Origination of Technical
     Debt"(pp.50–52)이다. 같은 장의 나머지 절 일곱은
-    [모듈성 성숙도 지수](modularity-maturity-index.md)가 갖는다. **이 장에 소제목과 소소제목은
+    [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)가 갖는다. **이 장에 소제목과 소소제목은
     하나도 없다**(`pdftotext -bbox-layout` 글자 높이 실측 — 절 22.67만 아홉 번 나오고 소제목
     18.89는 0건이다). 이탤릭 정의 목록 표제어(14.30) 넷이 위 두 갈래와 두 출구다.
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 14, 실측). 직인용 둘(커닝햄 규정 · 그림 4-1 라벨 묶음)은
@@ -253,6 +252,6 @@ sources:
     §"Why Are Metrics Not More Widely Used?"(p.148) · §"Useful Metrics" 아래 소소제목
     "Structural debt index"(pp.154–155) · §"A Few Golden Rules for Better Software"(p.168) ·
     §"Conclusion"(p.169)이다. 그 절에는 직인용도 도판도 표도 두지 않았다 — 그 장의 공식과
-    도판은 [유지보수성 지표](maintainability-metrics.md)가 갖고, 여기서 옮긴 것은 이 페이지의
+    도판은 [유지보수성 지표](../concepts/maintainability-metrics.md)가 갖고, 여기서 옮긴 것은 이 페이지의
     규정에 걸리는 이름과 재는 물음의 차이다. **두 장을 맞댄 판정은 원문에 없고 이 KB가 세운
     것이다.**

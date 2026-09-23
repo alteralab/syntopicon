@@ -2,7 +2,6 @@
 type: concept
 title: 아키텍처에서 측정의 역할
 description: 아키텍처 작업이 효과적인지를 무엇으로 아는가 — 선행 설계를 대신한 연속적 아키텍처가 남긴 "충분히 했는가"라는 물음과 그 답으로서의 측정, 정의와 설계와 빌드와 배포의 주기에 측정을 꽂아 아키텍처 결정으로 되먹이는 배치, 산출물 측정과 운영 측정을 외부와 내부로 다시 가른 사분면 넷과 각 칸의 장점과 한계, 런타임 측정과 소프트웨어 분석과 설계 분석과 추정 모델과 적합도 함수라는 측정 접근법 다섯과 적합도 함수가 측정 기제가 아니라 측정을 쓰는 기제라는 단서, 성능과 확장성과 가용성과 보안 넷을 각각 무엇으로 재고 그 측정이 어디서 흔히 깨지는가, 작게 시작하고 중요한 것을 재고 행동하고 일찍 시작하고 보이게 하고 지속하라는 지침 여섯, 시민 참여 플랫폼 하나에 측정을 일곱 걸음으로 들이는 가상 사례, 그리고 기제에 빠지는 것부터 너무 많이 재는 것까지의 함정 여섯
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T22:30:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -429,9 +428,9 @@ sources:
   다섯 가운데 하나**로 나열하면서도 같은 절 안에서 **그것이 측정을 만드는 기제가 아니라 측정을
   쓰는 기제**라고 못 박는다. 같은 책 8장의 포드는 그것을 **서로 다른 검증을 하나의 우산 아래
   통합하는 이름**으로 놓는다 —
-  [지표에서 공학으로](from-metrics-to-engineering.md)에 그 배치가 있다. **두 배치는 부딪히지
+  [지표에서 공학으로](../concepts/from-metrics-to-engineering.md)에 그 배치가 있다. **두 배치는 부딪히지
   않는다** — 우즈 자신이 그것을 측정 기제의 목록에서 빼내 따로 규정하기 때문이다. 이 KB의 정본
-  규정은 [아키텍처 적합도 함수](architecture-fitness-functions.md)에 있다.
+  규정은 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있다.
 - **품질 넷의 목록이 이 KB의 다른 분류와 겹치되 완결을 주장하지 않는다.** 이 장은 넷만 골라
   "중요한 시스템 품질의 일부"로 다룬다. [비기능 요건](../synthesis/nonfunctional-requirements.md)
   허브는 같은 이름들을 더 많은 절로 갖고,
@@ -460,15 +459,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [지표에서 공학으로](from-metrics-to-engineering.md) — 같은 책의 바로 다음 장. **이 장이 잰
+- [지표에서 공학으로](../concepts/from-metrics-to-engineering.md) — 같은 책의 바로 다음 장. **이 장이 잰
   값을 무엇이 공학으로 바꾸는가**에 답하고, 이 장이 접근법 하나로 나열한 적합도 함수를 그쪽은
   논제의 중심에 둔다
-- [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md) — 같은 책 2장. **적합도
+- [적합도 함수 테스트 피라미드](../concepts/fitness-function-testing-pyramid.md) — 같은 책 2장. **적합도
   함수에서 목표 지표를 끌어내는 방향**이라 이 장과 방향이 반대다
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 이 KB의 정본 규정과 분류 축들
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 KB의 정본 규정과 분류 축들
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 장이 재려는 품질들이 모여 있는
   허브
-- [네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md) — 같은 책 1장. **전달 성과를 재는
+- [네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md) — 같은 책 1장. **전달 성과를 재는
   쪽**이라 이 장의 품질 속성 측정과 재는 대상이 다르다
 - [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
   허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다

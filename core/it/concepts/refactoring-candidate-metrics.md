@@ -2,7 +2,6 @@
 type: concept
 title: 리팩터링 후보를 찾는 지표
 description: 체계 전체가 아니라 파일과 클래스 하나를 짚기 위해 드는 지표 갈래 셋 — 코드 줄과 전체 줄과 문장 수와 그 문턱 둘, 1976년의 순환 복잡도를 switch와 단락 평가와 가중 평균으로 다시 자른 변종 셋과 24 위에서 오류율이 빠르게 오른다는 근거와 문턱 15, 깊이를 그대로 복잡도로 읽는 들여쓰기 부채, 버전 관리에서 캐는 변경 빈도와 코드 처닝과 저자 수와 그것이 드러내는 지식 독점, 그 셋을 건물의 면적과 높이와 음영으로 겹쳐 보이는 소프트웨어 도시 시각화, 페이지랭크를 나가는 의존에 옮겨 먼저 읽을 클래스를 고르는 컴포넌트 순위, 그리고 메서드와 필드의 의존 그래프에서 연결 성분을 세어 단일 책임 위반을 잡는 LCOM4와 클래스 위계에서 듣지 않는다는 단서 — 아울러 같은 두 지표에 이 KB의 다른 소스가 거는 문턱·쓰임과의 대조
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -24,7 +23,7 @@ sources:
 하나의 질문: **어느 파일과 어느 클래스를 먼저 손대야 하는가.**
 
 이 페이지의 지표는 전부 **체계 전체가 아니라 요소 하나를 짚는다.** 같은 장이 의존 그래프 전체를
-하나의 수로 접는 갈래는 [유지보수성 지표](maintainability-metrics.md)가 갖고, 그것을 왜 재고
+하나의 수로 접는 갈래는 [유지보수성 지표](../concepts/maintainability-metrics.md)가 갖고, 그것을 왜 재고
 어떻게 돌리는가는
 [구조 침식과 지표 기반 피드백 고리](structural-erosion-and-metric-feedback-loops.md)가 갖는다.
 
@@ -61,7 +60,7 @@ sources:
 ## 순환 복잡도의 변종 셋
 
 **순환 복잡도 자체의 정의와 이 KB의 다른 소스가 거는 문턱은
-[결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 갖는다.** 여기는 **이 장이
+[결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)가 갖는다.** 여기는 **이 장이
 더하는 것**만 적고, 두 소스의 문턱 대조는 아래
 [겹치는 두 지표를 이 KB의 다른 소스와 맞대기](#겹치는-두-지표를-이-kb의-다른-소스와-맞대기)에 있다.
 
@@ -175,7 +174,7 @@ sources:
 ## LCOM4
 
 **LCOM 계열 자체와 이 KB의 다른 소스가 그것을 쓰는 자리는
-[결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 갖는다.** 여기는 **이 장이
+[결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)가 갖는다.** 여기는 **이 장이
 주는 네 번째 판의 정확한 정의**를 적는다.
 
 - **LCOM은 Lack of Cohesion of Methods를 가리키고 숫자는 이 지표의 네 번째 판**을 뜻한다.
@@ -205,7 +204,7 @@ sources:
 (Total Lines · Number of Statements · 들여쓰기 부채 · 변경 이력 지표 셋 · 컴포넌트 순위)은
 **이 페이지가 이 KB의 첫 자리**다. **아래 대조는 원문에 없고 이 KB가 세운 것이다.** #hypothesis
 
-| 물음 | 이 장(폰 치체비츠) | [마틴 계열 쪽 소스](coupling-and-abstractness-metrics.md)(포드 외) | [모듈성 성숙도 지수](modularity-maturity-index.md)(릴리엔탈) |
+| 물음 | 이 장(폰 치체비츠) | [마틴 계열 쪽 소스](../concepts/coupling-and-abstractness-metrics.md)(포드 외) | [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md)(릴리엔탈) |
 |---|---|---|---|
 | 순환 복잡도의 권고 문턱 | **15.** 근거는 **24를 넘는 모든 값에서 오류율이 빠르게 증가한다**는 연구다 | **5 미만을 선호한다.** 업계 문턱 10을 아주 높다고 본다 | **기준 1.3.4는 "높은 순환 복잡도 메서드의 비율"에 열한 칸의 고정 문턱을 건다.** 3.6% 이상이면 0점, 0.2% 미만이면 10점 |
 | 무엇을 "높다"고 보는가 | 위 문턱 | 값보다 **그 값의 출처**를 보라 — 문제 도메인 때문인가 형편없는 코딩 때문인가 | **표에 적지 않는다** |
@@ -233,14 +232,14 @@ sources:
 
 ## 이어지는 페이지
 
-- [유지보수성 지표](maintainability-metrics.md) — 같은 장의 첫째 갈래. 의존 그래프 전체를 수로
+- [유지보수성 지표](../concepts/maintainability-metrics.md) — 같은 장의 첫째 갈래. 의존 그래프 전체를 수로
   접는 지표 다섯과 마틴 계열·모듈성 성숙도 지수와의 삼자 대조
 - [구조 침식과 지표 기반 피드백 고리](structural-erosion-and-metric-feedback-loops.md) — 같은
   장이 이 지표들을 왜 재고 어떻게 돌리는가. 파일 크기 800줄과 들여쓰기 4와 수정 순환 복잡도
   15가 황금률로 다시 나오는 자리
-- [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 순환 복잡도와 LCOM이
+- [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md) — 순환 복잡도와 LCOM이
   이 KB에서 사는 자리
-- [모듈성 성숙도 지수](modularity-maturity-index.md) — 같은 책 4장이 순환 복잡도를 기준 스물둘
+- [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) — 같은 책 4장이 순환 복잡도를 기준 스물둘
   가운데 하나로 쓰는 자리
 - [복잡성의 정의와 증상](software-complexity-defined.md) — 같은 낱말을 수가 아니라 사람이 겪는
   것으로 규정하는 자리

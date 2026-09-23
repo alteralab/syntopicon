@@ -2,7 +2,6 @@
 type: concept
 title: 지표에서 공학으로
 description: 지표는 척도를 이룰 뿐이고 그 척도를 쓸모 있는 맥락 안에서 평가할 때에야 공학 실천이 된다는 논제 — 물리학이 기계공학이 되는 길에 빗댄 유비와 수십 년 임시방편으로 쓰여 온 아키텍처 검증, 적합도 함수 정의를 특성과 객관적 평가 기준과 어떤 기제든으로 역순으로 뜯는 순서와 복합 아키텍처 특성이라는 분해 신호와 업계가 특성의 표준 목록을 세우지 못한 이유, 흩어져 있던 검증을 하나의 우산 아래 통합한다는 배치와 자동화가 있어야만 실천이 공학이 된다는 조건, 객관적 문턱 없이 정기적으로 돌지 않는 지표는 선제적 힘이 아니라 사후 증거라는 판정, 컴포넌트 순환과 계층 구조를 도구로 막는 사례와 도구가 없는 분산 아키텍처에서 로그 계약 위에 직접 얽어 만드는 사례, 보안 팀이 모든 파이프라인의 한 칸을 갖는 제로데이 거버넌스, 옛 구현과 새 구현을 나란히 돌려 결과를 견주는 충실도 적합도 함수와 그것이 공격적 전달이 위험을 키운다는 통념에 내는 구멍, 그리고 상아탑의 도당이 되지 말고 실행 가능한 체크리스트를 지으라는 자기 제한
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T22:45:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -68,7 +67,7 @@ sources:
   > criteria for architecture characteristics(s).
 
   - **이 KB가 갖고 있는 다른 두 인쇄본과 낱말이 다르다.** 대조는
-    [아키텍처 적합도 함수](architecture-fitness-functions.md)에 있다.
+    [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)에 있다.
   - 각주가 대는 자리는 *Building Evolutionary Architectures*의 2장이다 (8장(포드),
     p.126).[^ciceri2022]
 
@@ -167,7 +166,7 @@ sources:
   프로비저닝이 두 번째이며, **아키텍처 거버넌스가 세 번째라는 것**이 이 절의 배치다 (8장(포드),
   pp.130–131).[^ciceri2022]
   - **이 논거 전체가 이 KB에 이미 있다.** 같은 저자가 낀 2022년 원전의 같은 논증이
-    [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) §"논거 — 자동화는 이미 두
+    [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) §"논거 — 자동화는 이미 두
     번 같은 일을 했다"에 있고, **이 장은 그것을 쪽 수를 줄여 다시 쓴다.**
   - 버전 조건: 2022년 저술 시점의 도구 예다 — 자동 머신 프로비저닝으로 Puppet과 Chef를, 통합
     단계를 강제하던 버전 관리 도구로 ClearCase를 든다.
@@ -364,15 +363,15 @@ sources:
 
 | 이 장의 자리 | 이 KB의 어디에 이미 있는가 | 이 장이 더하는 것 |
 |---|---|---|
-| 적합도 함수의 정의 | [아키텍처 적합도 함수](architecture-fitness-functions.md) §"정의"와 §"2021년 책 — 같은 정의를 다른 낱말로 인쇄한다" | **셋째 인쇄본이다.** 같은 개념을 또 다른 낱말로 적는다 |
+| 적합도 함수의 정의 | [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) §"정의"와 §"2021년 책 — 같은 정의를 다른 낱말로 인쇄한다" | **셋째 인쇄본이다.** 같은 개념을 또 다른 낱말로 적는다 |
 | 정의를 조각내 푸는 순서 | 같은 페이지의 2021년 책 절이 세 조각으로 푼다 | **등장 역순이라는 순서**와 **업계가 특성의 표준 목록을 세우지 못한 이유로 생태계의 변화 속도를 대는 문단** |
 | 복합 아키텍처 특성 | 같은 페이지에 있다(2021년 책의 예는 민첩성) | **이 장의 예는 신뢰성**이다 |
-| 자동화가 두 번 같은 일을 했다는 논거 | [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) §"논거" | 없다. **압축 재서술이다** |
+| 자동화가 두 번 같은 일을 했다는 논거 | [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) §"논거" | 없다. **압축 재서술이다** |
 | 오케스트레이터 통신 적합도 함수 | 같은 페이지 §"통합 아키텍처 — 마이크로서비스의 통신 거버넌스" | **의사코드 예제 하나**와 **토폴로지 그림의 서비스 이름들** |
-| 제로데이 보안 칸 | 같은 페이지 §"9장 — 엔터프라이즈 적합도 함수를 어디에 꽂는가"와 [아키텍처 적합도 함수](architecture-fitness-functions.md)의 2021년 책 절 | **에퀴팩스 타임라인을 다섯 날짜로 푼 것** |
-| 충실도 적합도 함수 | [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) §"충실도 적합도 함수" | **use와 try 두 절의 이름과 코드 모양**, **대시보드 셋의 실측 수치**, 그리고 **공격적 전달이 위험을 키운다는 통념에 구멍을 낸다는 판정** |
+| 제로데이 보안 칸 | 같은 페이지 §"9장 — 엔터프라이즈 적합도 함수를 어디에 꽂는가"와 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)의 2021년 책 절 | **에퀴팩스 타임라인을 다섯 날짜로 푼 것** |
+| 충실도 적합도 함수 | [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) §"충실도 적합도 함수" | **use와 try 두 절의 이름과 코드 모양**, **대시보드 셋의 실측 수치**, 그리고 **공격적 전달이 위험을 키운다는 통념에 구멍을 낸다는 판정** |
 | 계층 구조 시험 | [계층 아키텍처](layered-architecture.md) §"같은 규칙을 실행 가능한 검사로 만드는 소스" | **계층 셋의 패키지 이름과 위반 주석 셋** |
-| 상아탑의 도당과 체크리스트 | [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) §"몽둥이가 아니라 체크리스트" | 없다. **재서술이다** |
+| 상아탑의 도당과 체크리스트 | [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) §"몽둥이가 아니라 체크리스트" | 없다. **재서술이다** |
 
 - **그래서 이 장에만 있는 것이 둘로 좁혀진다.** 첫째가 **물리학과 기계공학의 유비로 세운 논제** —
   지표는 척도를 이룰 뿐이고 **그 척도를 맥락 안에서 평가하고 자동으로 정기 적용할 때에야 공학이
@@ -390,8 +389,8 @@ sources:
   적합도 함수로 옮길 수 있다**고 적고 지나간다. 이 장은 **적합도 함수를 서로 다른 검증을 통합하는
   우산이자 지표를 공학으로 바꾸는 기제**로 둔다. **세 판이 겨루지 않는다** — 층위가 다르고 저자마다
   적합도 함수를 부르는 목적이 다르기 때문이다. 대조는
-  [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md)와
-  [지표로 안내되는 아키텍처 의도성](architecture-intentionality-guided-by-metrics.md)에 각각 있다.
+  [적합도 함수 테스트 피라미드](../concepts/fitness-function-testing-pyramid.md)와
+  [지표로 안내되는 아키텍처 의도성](../concepts/architecture-intentionality-guided-by-metrics.md)에 각각 있다.
 - **같은 책 7장과의 관계가 이 장의 바로 앞 자리다.** 7장(우즈)은 적합도 함수를 **측정 접근법 다섯
   가운데 하나**로 나열하면서 **그것이 측정을 만드는 기제가 아니라 측정을 쓰는 기제**라고 적고,
   이 장은 같은 기제를 **흩어진 검증을 통합하는 우산**으로 놓는다. **두 배치가 부딪히지 않는다** —
@@ -400,7 +399,7 @@ sources:
   [아키텍처에서 측정의 역할](measurement-in-software-architecture.md)이다.
 - **이 장이 "결합"이라 부르는 것은 이 KB의 결합 지표 계열이 아니다.** 이 장의 사례는 **계층 접근
   규칙과 서비스 사이 통신 규칙이라는 구조 거버넌스**이고,
-  [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md)가 다루는 구심·원심 결합과
+  [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)가 다루는 구심·원심 결합과
   불안정도와 주계열 거리는 이 장에 나오지 않는다. **겹치는 것은 순환 의존 하나**이고, 그쪽 페이지는
   그것을 순환 복잡도와 함께 도구가 내는 값으로 다룬다. **그 페이지를 이 런에서 고치지 않은 이유가
   이것이다** — 이 장이 그 지표들에 claim을 더하지 않는다.
@@ -413,11 +412,11 @@ sources:
 
 - [아키텍처에서 측정의 역할](measurement-in-software-architecture.md) — 같은 책의 바로 앞 장.
   **무엇을 어떻게 잴 것인가**에 답하고, 이 장은 **그 값이 언제 공학이 되는가**에 답한다
-- [아키텍처 적합도 함수](architecture-fitness-functions.md) — 이 KB의 정본 규정과 세 인쇄본의
+- [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 KB의 정본 규정과 세 인쇄본의
   대조, 그리고 분류 축들
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 같은 저자가 낀 2022년
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 같은 저자가 낀 2022년
   원전의 같은 논증이 사례와 함께 더 깊이 있는 자리
-- [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md) — 같은 책 2장. 적합도 함수를
+- [적합도 함수 테스트 피라미드](../concepts/fitness-function-testing-pyramid.md) — 같은 책 2장. 적합도 함수를
   층으로 나누는 쪽
 - [계층 아키텍처](layered-architecture.md) — 이 장의 첫 사례가 지키려는 구조
 - [기술 부채](technical-debt.md) — 맺음이 대는 "나중은 오지 않는다"가 무엇의 원인인지의 규정

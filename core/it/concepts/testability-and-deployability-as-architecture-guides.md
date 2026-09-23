@@ -2,7 +2,6 @@
 type: concept
 title: 테스트 가능성과 배포 가능성이라는 안내자
 description: 아키텍처를 안내하는 것으로 테스트 가능성과 배포 가능성 둘을 고르는 여섯 쪽짜리 논증 — 아키텍처가 중요하면서 덧없다는 규정과 관광 지도 유비, 예견을 그만두라는 학습·발견 전제, 지속 가능한 변경을 떠받치는 설계 속성 다섯(모듈성·응집·관심사 분리·추상화와 정보 은닉·결합)과 그것이 정보 일반에 보편적이라는 주장, 테스트 가능한 코드의 속성이 작업하기 쉬운 코드의 속성과 같다는 관찰과 테스트 가능성을 위한 설계가 재능을 증폭한다는 대체 명제, 릴리스 가능성의 결정적 평가로서의 배포 파이프라인과 그 올바른 범위가 늘 독립적으로 배포 가능한 소프트웨어 단위라는 조문, 그리고 미래 필요를 겨냥한 과잉 공학 대신 본질적 복잡성과 우발적 복잡성을 가르라는 맺음
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T15:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -244,7 +243,7 @@ sources:
   자기 접근으로 드는 실천
 - [점진적 변경과 배포 파이프라인](../concepts/incremental-change-and-deployment-pipelines.md) —
   같은 파이프라인을 거버넌스 쪽에서 보는 자리
-- [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md) — 같은 책의 앞 장이
+- [적합도 함수 테스트 피라미드](../concepts/fitness-function-testing-pyramid.md) — 같은 책의 앞 장이
   아키텍처 테스트의 배합을 정하는 자리
 - [자기 테스트 코드](../concepts/self-testing-code.md) — 테스트 가능성을 코드 쪽에서 보는 자리
 

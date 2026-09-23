@@ -2,7 +2,6 @@
 type: concept
 title: 목표-질문-지표 접근법
 description: 잘 모르는 것을 재려 할 때 무엇을 잴지 고르는 분석 기법 — 잘 재려면 왜 재는지를 먼저 이해해야 한다는 핵심 가정과 목표를 뿌리에 두고 질문으로 갈라지고 지표로 다시 갈라지며 데이터를 잎으로 삼는 트리와 그것이 만드는 추적 가능성, 목적과 대상과 쟁점과 관점 넷을 담는 목표 진술과 불완전한 목표도 쓸모 있다는 단서, 운영적으로 초점을 맞춘 질문과 성공과 실패를 함께 가리키는 지표를 두라는 규칙, 신호가 세고 계산이 싼 것부터 고르는 가지치기와 데이터 수집 전략, 제삼자 서비스 요청 한도를 넘긴 사고 하나를 사후 분석에서 GQM으로 되짚어 심장 박동 컴포넌트를 아키텍처에 더하고 재시도 책임을 큐로 옮긴 사례와 아홉 달 뒤 같은 서비스가 열네 시간 멈췄을 때 사용자보다 먼저 알아차린 결말, 그리고 이해관계자를 모아 돌리는 워크숍의 참가자와 준비물과 산출물 다섯과 아홉 걸음과 진행 지침 — 아울러 같은 책 6장의 KPI 가치 트리와 층을 맞대는 대조
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -408,7 +407,7 @@ sources:
 지표이지만 **가운데 층이 다르다.** **아래 대조는 원문에 없고 이 KB가 두 도구를 맞대어 세운
 것이다.** #hypothesis
 
-| 물음 | GQM 트리(10장, 킬링) | [KPI 가치 트리](architecture-intentionality-guided-by-metrics.md)(6장, 로사) |
+| 물음 | GQM 트리(10장, 킬링) | [KPI 가치 트리](../concepts/architecture-intentionality-guided-by-metrics.md)(6장, 로사) |
 |---|---|---|
 | 뿌리가 무엇인가 | **목표** — 목적과 대상과 쟁점과 관점을 담은 진술 | **조직 KPI** — 회사의 건강을 재는 넓은 것. 대개 재무 결과 |
 | 가운데 층이 무엇인가 | **질문** — 목표에 가까워지는지 알려면 무엇에 답해야 하는가 | **도메인 KPI** — 도메인 하나로 좁힌 같은 종류의 수 |
@@ -454,14 +453,14 @@ sources:
 
 ## 이어지는 페이지
 
-- [지표로 안내되는 아키텍처 의도성](architecture-intentionality-guided-by-metrics.md) — 같은
+- [지표로 안내되는 아키텍처 의도성](../concepts/architecture-intentionality-guided-by-metrics.md) — 같은
   책 6장의 KPI 가치 트리. 위 대조표의 상대
 - [아키텍처에서 측정의 역할](measurement-in-software-architecture.md) — 같은 책 7장. 재는 일
   자체를 아키텍처 활동으로 놓고 접근법 다섯을 드는 쪽
 - [구조 침식과 지표 기반 피드백 고리](structural-erosion-and-metric-feedback-loops.md) — 같은
   책 9장. **이쪽이 무엇을 잴지 고르는 기법이라면 그쪽은 이미 정해진 지표 목록을 돌리는
   고리다**
-- [지표에서 공학으로](from-metrics-to-engineering.md) — 같은 책 8장. 재어 놓은 값에 자동화와
+- [지표에서 공학으로](../concepts/from-metrics-to-engineering.md) — 같은 책 8장. 재어 놓은 값에 자동화와
   객관적 문턱이라는 조건을 거는 쪽
 - [네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md) — 같은 책 1장. 이미
   정해진 지표 넷을 한 조직에서 돌려 본 사례

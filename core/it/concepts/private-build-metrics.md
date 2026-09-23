@@ -2,7 +2,6 @@
 type: concept
 title: 프라이빗 빌드 지표
 description: 검증을 로컬로 되돌린 팀이 그 이행기에 무엇을 재고 세 값을 어떻게 읽는가 — 정성적·간접이고 비용과 출시 시간을 재는 피드백까지의 시간, 정량적·간접이고 내부 품질 통제 과정을 재는 반복 주기당 피할 수 있었던 통합 문제와 그 분류 문턱이 QA에서 나온 버그 수와 갈리는 자리, 정량적·직접이고 코드베이스 안정성과 그것을 유지하는 역량을 재는 반복 주기당 트렁크 안정성 복구 시간과 그 값이 나쁠 때 가리키는 것 둘, 프라이빗 빌드의 비용을 트렁크 안정화·QA 왕복·티켓 관리 비용과 견주는 답과 수동 검증은 한시적이어야 한다는 단서, 세 값의 높낮이 조합 넷마다의 가설과 확인 방법, 그리고 이 지표가 정적·런타임 속성이 아니라 소프트웨어를 짓는 과정을 잰다는 자기 규정과 거기서 나오는 트렁크 안정성 선행 조건
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T18:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -182,7 +181,7 @@ p.78).[^ciceri2022] 조합마다 가설과 그것을 확인하거나 배제하�
 
 ## 같은 책 1장의 네 지표와 층이 다르다
 
-[네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md)가 재는 것은 **전달 성과**이고 이
+[네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md)가 재는 것은 **전달 성과**이고 이
 장이 재는 것은 **짓는 과정**이다. 저자 자신이 맺음에서 그 구분을 적는다(위
 [이 장이 재는 것은 짓는 과정이다](#이-장이-재는-것은-짓는-과정이다)). **두 지표 묶음이 한쪽만
 참일 수 있는 문장으로 부딪히지 않는다.** 오히려 이 장의 트렁크 안정성 조문은 **1장의 지표를
@@ -192,13 +191,13 @@ p.78).[^ciceri2022] 조합마다 가설과 그것을 확인하거나 배제하�
 
 - [프라이빗 빌드](private-builds.md) — 같은 장의 앞 여섯 절. 이 지표들이 재는 실천의 규정과
   소유권 이동이라는 안티패턴과 사례 둘
-- [네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md) — 같은 책 1장. 같은 파이프라인에서
+- [네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md) — 같은 책 1장. 같은 파이프라인에서
   전달 성과를 재는 쪽
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 지표들이 겨누는
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 지표들이 겨누는
   파이프라인의 규정
-- [모듈성 성숙도 지수](modularity-maturity-index.md) — 같은 책 4장. 짓는 과정이 아니라 지어진
+- [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) — 같은 책 4장. 짓는 과정이 아니라 지어진
   구조를 재는 쪽
-- [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md) — 같은 책 2장. 아키텍처
+- [적합도 함수 테스트 피라미드](../concepts/fitness-function-testing-pyramid.md) — 같은 책 2장. 아키텍처
   특성을 직접 판정하는 검사를 층으로 쌓는 쪽
 - [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
   허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다

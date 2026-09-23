@@ -2,7 +2,6 @@
 type: concept
 title: 구조 침식과 지표 기반 피드백 고리
 description: 엔트로피를 소프트웨어의 최대 적으로 놓고 그것을 수로 감지해 되먹이는 고리를 세우는 한 장 — 구조 침식과 큰 진흙 공의 규정, 한 오픈 소스 프로젝트의 판을 거치며 450에서 1,300으로 자란 순환 그룹과 그것을 코드 암이라 부르는 진단, 순환 의존이 해로운 이유 셋과 그것을 끊는 기법 넷, 목표 정의에서 구현과 검증과 개선으로 도는 네 칸의 고리와 레거시에서 목표를 느슨하게 시작하는 순서, 지표가 널리 쓰이지 않는 이유 여섯과 규칙 대여섯 개라는 스위트 스팟, 지표를 직접 모으지 말라는 권고와 도구 다섯의 비교표, 그 지표를 적합도 함수로 걸 때의 문턱 넷과 최대 세 특성에 유지보수성을 더하라는 우선순위 권고, 하루 한 번 수집해 추세를 보는 법과 하드 문턱·소프트 문턱의 구분, 그리고 구조 침식을 멈추는 황금률 여섯
-status: draft
 generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 sources:
   - { id: ciceri2022, resource: /it/sources/ciceri2022.md }
@@ -31,8 +30,8 @@ sources:
 막는가.**
 
 무엇을 재는가의 목록은 두 페이지가 나눠 갖는다 — 의존 그래프 전체를 수로 접는 갈래는
-[유지보수성 지표](maintainability-metrics.md)가, 파일과 클래스 하나를 짚는 갈래 셋은
-[리팩터링 후보를 찾는 지표](refactoring-candidate-metrics.md)가 갖는다. 이 페이지는 **그 목록을
+[유지보수성 지표](../concepts/maintainability-metrics.md)가, 파일과 클래스 하나를 짚는 갈래 셋은
+[리팩터링 후보를 찾는 지표](../concepts/refactoring-candidate-metrics.md)가 갖는다. 이 페이지는 **그 목록을
 왜 재고 어떻게 돌리는가**를 갖는다.
 
 - **이 장이 지표에 거는 기대가 머리글에 적혀 있다** — 저자가 소개하는 지표들은 **코드 결합,
@@ -236,7 +235,7 @@ sources:
   - 저자가 드는 짝 둘 — **확장성은 동시 사용자 수와 평균 응답 시간 같은 프로덕션 데이터로**
     잴 수 있고, **코드의 유지보수성은 상대 순환성과 유지보수성 수준으로** 잴 수 있다 (9장(폰
     치체비츠), p.166).[^ciceri2022] 뒤 둘의 정의는
-    [유지보수성 지표](maintainability-metrics.md)에 있다.
+    [유지보수성 지표](../concepts/maintainability-metrics.md)에 있다.
 - **트레이드오프가 우선순위를 강제한다** — 소프트웨어 아키텍트의 가장 중요한 일 가운데 하나가
   **트레이드오프를 하는 것**이고, **복잡도를 감당할 수 없는 수준으로 올리지 않고는 한 체계에서
   바람직한 특성을 모두 가질 수 없다.** 그래서 **사업 목표를 가장 잘 반영하도록 원하는 특성에
@@ -341,7 +340,7 @@ sources:
 |---|---|
 | [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) | **집행 방식은 같고 규칙의 출처가 다르다.** 양쪽 모두 검사를 빌드에 걸라고 적는다. 그쪽은 **팀이 자기 체계의 아키텍처 특성에서 규칙을 끌어내도록** 하고, 이 장은 **어느 체계에나 그대로 적용할 규칙 여섯을 고정해 인쇄한다.** 여섯이라는 개수는 이 장이 스스로 세운 "규칙 대여섯 개"라는 스위트 스팟과 맞는다 |
 | [원칙 워크숍의 진행](../concepts/running-a-principles-workshop.md) | **누가 정하는가가 반대다.** 그쪽은 규칙을 조직이 워크숍에서 합의해 만들고, 이 장은 **저자의 경험에서 나온 목록을 그대로 채택하라**고 적는다 |
-| [모듈성 성숙도 지수](modularity-maturity-index.md) | **같은 책 4장이 같은 대상을 재지만 산출이 다르다.** 그쪽은 기준 스물둘을 0에서 10으로 채점해 **하나의 점수**를 내고 **리팩터링할지 교체할지**를 판정한다. 이 장은 점수를 합치지 않고 **규칙마다 문턱을 걸어 빌드를 깨뜨린다** |
+| [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) | **같은 책 4장이 같은 대상을 재지만 산출이 다르다.** 그쪽은 기준 스물둘을 0에서 10으로 채점해 **하나의 점수**를 내고 **리팩터링할지 교체할지**를 판정한다. 이 장은 점수를 합치지 않고 **규칙마다 문턱을 걸어 빌드를 깨뜨린다** |
 | [네 핵심 지표를 풀어 놓기](../concepts/four-key-metrics-in-practice.md) | **같은 책 1장의 지표가 전달 성과를 재는 데 견주어 이 장의 지표는 코드 구조를 잰다.** 이 장의 규칙은 어느 것도 배포 빈도나 복구 시간을 부르지 않는다 |
 
 ## 저자의 이해관계
@@ -355,7 +354,7 @@ sources:
 
 - **이 장에서 이름이 오르는 Sonargraph 제품군은 그 회사의 것이다** — 위 표들의
   Sonargraph-Explorer와 Sonargraph-Architect와 Sonargraph-Enterprise와 Sonargraph SonarQube
-  플러그인이 그것이다. **[유지보수성 지표](maintainability-metrics.md)가 다루는 지표 둘
+  플러그인이 그것이다. **[유지보수성 지표](../concepts/maintainability-metrics.md)가 다루는 지표 둘
   (구조 부채 지수와 유지보수성 수준)은 저자 자신이 개발한 것이고, 그 가운데 뒤의 것은 저자가
   직접 "Sonargraph가 이 실험적 지표를 계산하는 유일한 도구"라 적는다.** 이 KB는 그 사실을
   판정 없이 기록한다 — **이 장의 claim을 무르게 하지도 않고, 도구 비교표를 중립적 실측으로
@@ -373,22 +372,22 @@ sources:
 
 ## 이어지는 페이지
 
-- [유지보수성 지표](maintainability-metrics.md) — 같은 장이 이 고리에 먹이는 지표 가운데
+- [유지보수성 지표](../concepts/maintainability-metrics.md) — 같은 장이 이 고리에 먹이는 지표 가운데
   의존 그래프 전체를 수로 접는 갈래. 평균 컴포넌트 의존과 전파 비용, 상대 순환성, 구조 부채
   지수, 유지보수성 수준, 그리고 마틴 계열 지표·모듈성 성숙도 지수와의 삼자 대조
-- [리팩터링 후보를 찾는 지표](refactoring-candidate-metrics.md) — 같은 장의 나머지 갈래 셋.
+- [리팩터링 후보를 찾는 지표](../concepts/refactoring-candidate-metrics.md) — 같은 장의 나머지 갈래 셋.
   크기와 복잡도와 변경 이력, 그리고 컴포넌트 순위와 LCOM4. 위 황금률의 800줄·들여쓰기 4·수정
   순환 복잡도 15가 나온 자리
 - [기술 부채](technical-debt.md) — 이 장이 맺음에서 "구조적 기술 부채"라 부르는 것의 규정
-- [모듈성 성숙도 지수](modularity-maturity-index.md) — 같은 책 4장이 같은 대상을 하나의 점수로
+- [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) — 같은 책 4장이 같은 대상을 하나의 점수로
   내리는 쪽
-- [결합도와 추상도의 정량 지표](coupling-and-abstractness-metrics.md) — 이 장이 드는 순환
+- [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md) — 이 장이 드는 순환
   복잡도와 LCOM이 이 KB에서 사는 자리
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 장이 문턱을 거는
   기제의 정의와 분류
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 검사를
   빌드에 거는 실천의 정본 자리
-- [지표에서 공학으로](from-metrics-to-engineering.md) — 같은 책 8장이 "지표가 언제 공학이
+- [지표에서 공학으로](../concepts/from-metrics-to-engineering.md) — 같은 책 8장이 "지표가 언제 공학이
   되는가"에 같은 조건(자동화와 객관적 문턱)을 거는 자리
 - [소프트웨어 엔트로피와 깨진 창문](../concepts/software-entropy-and-broken-windows.md) — 같은
   낱말을 심리 쪽 기제로 푸는 자리
@@ -408,8 +407,8 @@ sources:
     Time"(p.167) · §"A Few Golden Rules for Better Software"(p.168) · §"Conclusion"(p.169),
     그리고 권말 **About the Authors**(pp.200–202 가운데 p.202)다. **저자 소개 세 쪽에는 쪽 번호가 인쇄돼 있지 않아 위 locator의 쪽은 색인 마지막 쪽(p.199)과 쪽 오프셋에서 셈한 값이다.** 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 14, 실측).
     **이 장에 직인용으로 옮긴 원문은 두지 않았다** — 공식과 정의의 직인용은
-    [유지보수성 지표](maintainability-metrics.md)와
-    [리팩터링 후보를 찾는 지표](refactoring-candidate-metrics.md)가 갖고, 이 페이지가 옮긴 것은
+    [유지보수성 지표](../concepts/maintainability-metrics.md)와
+    [리팩터링 후보를 찾는 지표](../concepts/refactoring-candidate-metrics.md)가 갖고, 이 페이지가 옮긴 것은
     진단과 절차와 규칙이다. **도판 여섯(그림 9-1 지표 기반 피드백 고리 · 9-2 순환 그룹 시각화 · 9-3 아파치
     카산드라의 102 요소 패키지 순환 그룹 · 9-4 의존 역전 원칙으로 순환 끊기 · 9-9 소프트웨어
     도시 · 9-12 지표 추세 차트)은 전부 이미지로 조판돼 있어 `pdftoppm -r 160 -png`로 렌더해 눈으로
