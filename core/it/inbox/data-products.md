@@ -22,6 +22,7 @@ sources:
 - [셋째 용법 — 카탈로그 안의 논리적 표현](#셋째-용법--카탈로그-안의-논리적-표현)
 - [셋째 용법의 규정이 굳는 자리](#셋째-용법의-규정이-굳는-자리)
 - [같은 책의 사례 둘이 더 넓은 규정을 쓴다](#같은-책의-사례-둘이-더-넓은-규정을-쓴다)
+- [셋째 용법이 아키텍처의 계층이 되는 자리](#셋째-용법이-아키텍처의-계층이-되는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **서빙 단계가 내놓는 것을 "데이터"가 아니라 "제품"으로 부르면 무엇이 달라지며,
@@ -216,6 +217,29 @@ Dehghani 쪽은 데이터·메타데이터·코드·정책·인프라 의존성�
 없으니 조직이 자기 표준을 만들라**고 적어 둔 대로, 사례들이 각자 다른 표준을 쓴 것이다. 규정의 폭이
 조직마다 다르다는 사실 자체가 이 소스의 관측이다.
 
+## 셋째 용법이 아키텍처의 계층이 되는 자리
+
+같은 책 11장은 이 낱말을 규정에서 **배치**로 한 걸음 더 민다. 제품이 무엇인가가 아니라 제품이 어느
+계층에 사는가를 정하는 대목이다.
+
+- 탈중앙 모델이 **데이터 모델을 인터페이스 모델로 바꾸고 그것이 데이터 제품이라 불리는 것**이므로,
+  여러 도메인 팀이 각자 반입·처리·큐레이션을 맡는 설정에서는 **데이터 제품 설계와 배포에 전용인 계층을
+  추가로 도입**할 수 있다. 그 여분의 계층이 **팀 내부 소비와 다른 팀에 공유하는 것을 구별**하게 하고,
+  구별이 필요한 이유는 **재사용 가능한 일반적 데이터 제품이 특정 유스케이스 요건을 맞추지 못하는 일이
+  잦기** 때문이다 (11장 §"Medallion Inner Architecture Variations" ▸ "Separate Data Product
+  Layers").[^strengholt2025]
+- 물리 배치는 **Silver나 Gold 가운데 하나를 둘로 가르는 것**이다 — 한쪽은 **카탈로그에 등재되고 다른
+  팀에 승격되며 분명한 소유권이 붙는 안정된 "데이터 제품" 데이터**, 다른 쪽은 **팀의 애플리케이션이
+  쓰는 동적인 "도메인·유스케이스 특정" 데이터**다. 이 갈림은 **더 성숙한 조직에서 흔히 보인다** (같은
+  소절).[^strengholt2025]
+- 세분화의 값어치도 이 낱말에 달린다 — **세밀한 도메인 정렬을 쓰는 큰 조직에서 데이터 제품은 팀 사이
+  의존을 관리하는 데 결정적 역할**을 하며, 팀은 **다른 팀의 내부 작동 대신 어떤 데이터가 있고 어떻게
+  접근하는가를 적은 인터페이스에 집중**한다 (11장 §"Decentralization of Data Management" ▸ "Number of
+  Medallion Architectures" 곁줄(note)).[^strengholt2025]
+
+이 배치가 놓이는 전체 그림은
+[메달리온 안쪽 아키텍처의 변형](../concepts/medallion-inner-architecture-variations.md)에 있다.
+
 ## 이어지는 페이지
 
 - [데이터 제품 지침](../concepts/data-product-guidelines.md) — 셋째 용법을 쓰기로 한 조직이 적어야 할 것
@@ -242,5 +266,7 @@ Dehghani 쪽은 데이터·메타데이터·코드·정책·인프라 의존성�
     소소절은 `▸`로 잇고 곁줄은 제목 뒤에 `곁줄`을 붙인다. 이 페이지가 받는 것은 6장 §"Silver-Layer
     Data as a Product"와 7장 §"Data Products"의 규정 대목, 그리고 9장 §"Medallion
     Architecture"·10장 §"Data Products and Sharing"·§"Recommendations and Best Practices"의
-    사례 쪽 규정이고, 7장의 지침 전량은
+    사례 쪽 규정이고, 거기에 11장 §"Medallion Inner Architecture Variations" ▸ "Separate Data
+    Product Layers"와 §"Decentralization of Data Management" ▸ "Number of Medallion
+    Architectures"의 곁줄이 더해진다. 7장의 지침 전량은
     [데이터 제품 지침](../concepts/data-product-guidelines.md)이 받는다.

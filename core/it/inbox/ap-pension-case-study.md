@@ -32,6 +32,7 @@ sources:
 - [데이터 계약을 쓰지 않는 이유](#데이터-계약을-쓰지-않는-이유)
 - [카탈로그와 분류와 품질의 순서](#카탈로그와-분류와-품질의-순서)
 - [최종 권고](#최종-권고)
+- [11장이 이 사례를 규칙으로 되받는 자리](#11장이-이-사례를-규칙으로-되받는-자리)
 - [앞 장 규정과 이 사례가 갈리는 자리](#앞-장-규정과-이-사례가-갈리는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -433,6 +434,19 @@ sources:
   **전략적 목표와 운영 역량에 정렬**해야 한다. 응답자에게 **모든 것은 데이터 품질과 거버넌스와 보안에서
   시작한다** (8장 §"Final Recommendations").[^strengholt2025]
 
+## 11장이 이 사례를 규칙으로 되받는 자리
+
+- 같은 책 11장이 Gold 변형을 말하며 **이 사례를 자기 예로 명시적으로 되짚는다** — 어떤 조직은
+  **여러 플랫폼이나 팀에 데이터를 배포하려 계층을 더 두고**, 그것은 **특정 시나리오용 데이터를 골라
+  미리 걸러 새로 만든 계층에 저장**하는 일이며 **8장 AP Pension 아키텍처에서 이미 그 접근을
+  보였다**고 적는다 (11장 §"Medallion Inner Architecture Variations" ▸ "Gold Layer
+  Variations").[^strengholt2025] 이 사례의 물리 하위 계층 여덟은 그래서 **규정의 예외가 아니라
+  규칙의 근거로 인용된 실례**다.
+- 11장이 Gold를 쪼개는 둘째 기준으로 드는 것도 이 사례가 쓴 기준과 같은 축이다 — **데이터 종류마다
+  다른 거버넌스 정책이 필요하다면 Gold를 여러 하위 계층으로 쪼개고 각각에 자기 정책 집합과 소유자를
+  두라**는 것이다 (같은 소절).[^strengholt2025] 규칙 쪽 전문은
+  [메달리온 안쪽 아키텍처의 변형](../concepts/medallion-inner-architecture-variations.md)에 있다.
+
 ## 앞 장 규정과 이 사례가 갈리는 자리
 
 | 앞 장의 규정 | 이 사례의 실무 | 어긋나는가 |
@@ -462,6 +476,7 @@ sources:
 - [메타데이터 관리](../concepts/metadata-management.md) — 메타스토어와 카탈로그가 걸리는 자리
 - [데이터 거버넌스의 도메인 경계](../concepts/data-governance-domain-boundaries.md) — 카탈로그 안 데이터 제품의 경계
 - [데이터 메시](../concepts/data-mesh.md) — 이 사례가 유보를 둔 대상
+- [메달리온 메시와 데이터 관리의 탈중앙](../concepts/medallion-mesh-and-decentralization.md) — 이 사례의 메시 유보가 놓이는 규칙 쪽 눈금
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
@@ -472,3 +487,4 @@ sources:
     §"Other Considerations" · §"Final Recommendations")이다. 도판 여섯 가운데 **개념
     다이어그램 넷**(8-1·8-2·8-3·8-6)만 열어 읽었고 그림에만 있는 배치를 옮겼다. 8-4·8-5는
     노트북 실행 결과 갈무리라 열지 않았다. 각주 하나는 옮겼다.
+    여기에 11장이 이 사례를 규칙으로 되받는 대목이 더해진다 — locator는 그 절에 적은 대로다.

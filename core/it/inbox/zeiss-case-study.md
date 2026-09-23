@@ -27,6 +27,7 @@ sources:
 - [계층을 몇 번 되풀이할 것인가](#계층을-몇-번-되풀이할-것인가)
 - [세운 뒤의 거버넌스가 비어 있다](#세운-뒤의-거버넌스가-비어-있다)
 - [전역 데이터 제품과 지역 데이터 제품](#전역-데이터-제품과-지역-데이터-제품)
+- [11장이 이 사례를 규칙으로 되받는 자리](#11장이-이-사례를-규칙으로-되받는-자리)
 - [앞 장 규정과 이 사례가 갈리는 자리](#앞-장-규정과-이-사례가-갈리는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -343,6 +344,22 @@ sources:
 세운 경계 규정에 **거버넌스 강도라는 축**을 더한다. 앞 장이 **어디에 경계를 긋는가**를 물었다면, 이 사례는
 **같은 경계 안에서도 제품마다 통제의 세기를 달리한다**고 답한다.
 
+## 11장이 이 사례를 규칙으로 되받는 자리
+
+- 이 사례가 계층 수를 인스턴스마다 열어 둔 것은 11장의 해법 패턴 목록이 규칙으로 적은 것과 같다 —
+  **모든 도메인이 같은 계층 구성을 필요로 하지는 않고**, 제공자와 소비자의 일곱 패턴마다 권하는 계층
+  수가 **하나에서 다섯 이상까지** 달라진다 (11장 §"Medallion Inner Architecture Variations" ▸
+  "Tailored Medallions Architectures").[^strengholt2025] 이 사례의 "하나나 둘의 계층만으로 일하는
+  인스턴스"는 그 목록의 **기본 소비자**와 **통합 소비자**에 해당한다.
+- 인스턴스 서른이라는 규모도 11장의 동인 여섯 가운데 **지역 경계**와 **조직 성숙도**로 설명되는
+  자리다 — **더 성숙한 조직에서는 더 작고 특화된 도메인이 더 많이 보인다** (11장 §"Decentralization
+  of Data Management" ▸ "Number of Medallion Architectures").[^strengholt2025]
+- 다만 이 사례가 규칙과 어긋나 보이는 자리가 하나 있다. 11장은 **도메인과 워크스페이스의 표준과
+  지침을 세우는 것은 중앙 권한, 즉 중앙 팀**이라 못 박는데 (같은 소절),[^strengholt2025] 이 사례는
+  기술 스택을 강제하지 않고 권고까지만 둔다. 사실이 부딪치는 것이 아니라 **이 사례가 그 권고를 덜
+  따랐고 그 대가를 스스로 적은 것**이다. 규칙 쪽 전문은
+  [메달리온 메시와 데이터 관리의 탈중앙](../concepts/medallion-mesh-and-decentralization.md)에 있다.
+
 ## 앞 장 규정과 이 사례가 갈리는 자리
 
 | 앞 장의 규정 | 이 사례의 실무 | 어긋나는가 |
@@ -371,6 +388,7 @@ sources:
 - [이벤트 스키마와 데이터 계약](../concepts/event-schemas-and-data-contracts.md) — 이 사례가 집행 수단으로 기대하는 장치의 원전
 - [메타데이터 관리](../concepts/metadata-management.md) — 카탈로그의 카탈로그가 걸리는 자리
 - [완만하게 변하는 차원](../concepts/slowly-changing-dimension.md) — 인스턴스마다 다른 이력화 정책의 원전
+- [메달리온 메시와 데이터 관리의 탈중앙](../concepts/medallion-mesh-and-decentralization.md) — 이 사례의 인스턴스 수와 계층 수 이완이 놓이는 규칙 쪽 눈금
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 이 페이지가 걸리는 허브
 
 [^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
@@ -380,3 +398,4 @@ sources:
     §"Data Platform Evolution" · §"Medallion Architecture" · §"Data Products and Sharing" ·
     §"Recommendations and Best Practices")이다. 도판 하나(10-1)는 개념 다이어그램이라 열어
     읽었고 그림에만 있는 배치를 옮겼다. 이 장에는 각주가 없다.
+    여기에 11장이 이 사례를 규칙으로 되받는 대목이 더해진다 — locator는 그 절에 적은 대로다.
