@@ -371,6 +371,7 @@ sources:
 - [외부 설정](../concepts/external-configuration.md) — 같은 처방의 온건한 판
 - [설계 정의 문서와 어프로치](../concepts/design-definition-document.md) — 서비스와 소유자를 나열하는
   칸이 있는 문서
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 7장 §"Performance Improvement
     Checklist"부터 §"Summary"까지(pp.170–181). 목차에 없는 곁상자 하나("Original Specification

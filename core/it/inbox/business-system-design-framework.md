@@ -419,6 +419,7 @@ sources:
 - [엔터프라이즈 아키텍처 평가 프레임워크](../concepts/enterprise-architecture-assessment-framework.md) —
   같은 낱말의 능력 모형을 성숙도 모형의 대안으로 쓰는 자리
 - [유비쿼터스 언어](../concepts/ubiquitous-language.md) — 낱말의 불일치를 다루는 다른 처방
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 6장 "The Business Aspect",
     pp.125–133. 표 6-1(p.127)은 머리 행만 있는 표이고, 그림 6-2(p.128)의 행·열 라벨과 점수는

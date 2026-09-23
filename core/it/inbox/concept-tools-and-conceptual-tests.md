@@ -411,6 +411,7 @@ sources:
   읽는 자리
 - [디자인 씽킹을 설계 절차로 옮기기](../concepts/design-thinking-as-a-design-procedure.md) —
   발산 국면의 절차가 있는 자리
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 11장 §"Strategy and Tooling"부터
     §"Demos"까지(pp.245–255). 목차의 절 여섯이 글자 높이 실측과 정확히 일치했고 이 구간에

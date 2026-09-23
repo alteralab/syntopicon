@@ -473,6 +473,7 @@ sources:
 - [감사와 무결성 검사](../concepts/auditing-and-integrity-checking.md) — 감사 로그의 격을 재는
   자리
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지표를 목표로 옮기는 자리
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 8장 §"Classpath Deployment and Network
     Proxies"부터 §"Summary"까지(pp.195–208). 그림 8-1(p.204)의 상자와 화살표 라벨은

@@ -410,7 +410,7 @@ sources:
 - [개념의 생산과 파르티](../concepts/producing-concepts-and-the-parti.md) — 극단 사용자라는
   낱말이 규정되는 자리
 - [비기능 요건](../synthesis/nonfunctional-requirements.md) — 실패와 회복력을 패턴으로 다루는 축
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 3장 "Deconstruction and Design"의 뒤쪽(pp.57–67) —
     §"Affordance"(pp.57–58) · §"Give Intention and Use Value to Negative Space"(pp.58–61,

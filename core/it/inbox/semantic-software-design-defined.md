@@ -265,7 +265,7 @@ sources:
 - [깊은 모델과 돌파](../concepts/deep-model.md) — 모델이 도메인의 표상이라는 자리
 - [모델 주도 설계](../concepts/model-driven-design.md) — 그 표상과 코드를 묶는 자리
 - [유비쿼터스 언어](../concepts/ubiquitous-language.md) — 언어가 설계의 재료라는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 2장 "The Production of Concepts"의 앞쪽(pp.17–22) — 제사와
     §"Semantics and the Software Factory"(pp.17–19) · §"The Myth of Requirements"(p.19) ·

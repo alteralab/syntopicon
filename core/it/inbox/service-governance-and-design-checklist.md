@@ -398,6 +398,7 @@ sources:
   자동화 조문이 닿는 자리
 - [메타데이터 관리](../concepts/metadata-management.md) — 같은 목록 작업을 데이터 쪽에서 하는 자리
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 거버넌스 축의 진입점
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 11장 §"Governance"부터 §"Further
     Reading on Organizational Design"까지(pp.270–279). 11장 본문은 p.279에서 끝나고 p.280

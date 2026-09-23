@@ -318,6 +318,7 @@ sources:
 - [외부 설정](../concepts/external-configuration.md) — 설정을 코드 밖으로 빼는 쪽의 조문
 - [명세 패턴](../concepts/specification-pattern.md) — 같은 장 뒤쪽이 전략 패턴 위에 세우는 또 하나의
   패턴
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 7장 §"Independently Buildable"부터
     §"Interactive Documentation"까지(pp.151–158). 그림 7-1(p.152)의 상자 라벨은 텍스트 레이어에

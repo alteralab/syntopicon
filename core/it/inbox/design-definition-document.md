@@ -439,7 +439,7 @@ pp.107–108).[^hewitt2019]
   같은 비기능 요건을 요건의 성질로 가르는 자리
 - [낡은 문서보다 손에 잡히는 방향](../concepts/tangible-direction-over-stale-documentation.md) —
   문서의 값어치에 다른 처방을 내는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 5장 "Semantic Design Practices and Artifacts"의 가운데(pp.99–111) —
     §"Approaches"(pp.99–100) · §"Design Definition Document"(pp.100–111, 템플릿 블록 전량과

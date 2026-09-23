@@ -350,6 +350,7 @@ sources:
   "의미론적 설계자"라는 이름이 규정된 자리
 - [소프트웨어 아키텍처 은유의 기원](../concepts/software-architecture-metaphor-origins.md) —
   저자가 청사진 은유를 물리는 이유가 놓인 자리
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 6장 "The Business Aspect",
     pp.117–124. 그림 6-1(p.119)의 상자 라벨과 화살표는 텍스트 레이어에 없어 렌더로 읽었다.

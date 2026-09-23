@@ -226,7 +226,7 @@ sources:
   푸는 자리
 - [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md) — MECE가 이 KB에서 먼저
   쓰인 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 5장 "Semantic Design Practices and Artifacts"의 끝
     구간(pp.111–115) — §"Position Papers"(pp.111–112) · §"RAID"(pp.112–113, 좁은 곁상자

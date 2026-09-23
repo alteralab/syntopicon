@@ -491,6 +491,7 @@ sources:
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 확장을 축으로 가르는 자리
 - [시험 가능한 교차 기능 요건](../concepts/testable-cross-functional-requirements.md) — 확장성
   진술의 문법이 속하는 계열
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 7장 §"Anatomy of a Service"부터
     §"Contextual Services and Service Mixins"까지(pp.158–170). 그림 7-2(p.166)의 상자와 화살표

@@ -427,7 +427,7 @@ sources:
   모델링
 - [아키텍처 결정의 규정과 다섯 범주](../concepts/architectural-decision-defined.md) — 결정이라는
   낱말이 이 KB에서 규정된 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 2장 "The Production of Concepts"의 가운데(pp.23–37) —
     §"Designers Are Producers of Concepts"(pp.23–25, 소제목 "Designing Concepts" 포함) ·

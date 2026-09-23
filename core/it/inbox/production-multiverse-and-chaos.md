@@ -413,6 +413,7 @@ sources:
   자리
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 코드형
   거버넌스가 놓이는 자리
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 9장 §"The Production Multiverse and
     Feature Toggling"부터 §"Summary"까지(pp.218–228). 목차에 없는 곁상자 둘("Strategy Pattern"

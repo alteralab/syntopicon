@@ -340,7 +340,7 @@ sources:
   결정 쪽에서 쓰는 자리
 - [기초 기술로서의 자기 인식](../concepts/self-awareness-as-a-foundational-skill.md) — 같은 낱말을
   시스템 사고 쪽에서 쓰는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 2장 "The Production of Concepts"의 뒤쪽(pp.38–47) —
     §"Understanding Ideas"(pp.38–41, 소제목 "Sense Certainty"와 "Metacognition" 포함) ·

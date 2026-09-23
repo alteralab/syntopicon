@@ -489,6 +489,7 @@ sources:
 - [설계 정의 문서와 어프로치](../concepts/design-definition-document.md) — 이 역할의 첫 책임이
   가리키는 문서
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 역할과 조직 축의 진입점
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, III부 도비라(p.229)와 10장 전체
     (pp.231–243). 도비라 뒷면 p.230과 장 끝 p.244는 백지다(`pdftotext -layout` 출력 1바이트로

@@ -236,6 +236,7 @@ sources:
   들어가는 문서의 템플릿
 - [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](../concepts/enterprise-architecture-standards-and-nfrs.md) —
   비기능 요건을 품질 속성 쪽에서 규정하는 자리
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 6장 §"Business Architecture in
     Applications"와 §"Summary"(pp.133–137). 이 구간에 도판·표·곁상자·예제는 없다.

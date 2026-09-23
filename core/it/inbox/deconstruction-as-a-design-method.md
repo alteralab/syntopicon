@@ -338,7 +338,7 @@ sources:
   이 이론적 틀 다음에 오는 II부의 첫 장
 - [복잡성과 모듈 설계](../synthesis/complexity-and-modular-design.md) — 복잡성을 코드 쪽에서
   재는 축
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 3장 "Deconstruction and Design"의 앞쪽(pp.49–57) — 제사와
     §"Introduction to Deconstruction"(pp.49–53, 곁상자 "The Paper" p.50 ·

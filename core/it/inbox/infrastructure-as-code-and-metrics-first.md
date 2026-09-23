@@ -363,6 +363,7 @@ sources:
   같은 계열
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 지표를 목표로 옮기는 자리
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 파이프라인 축의 진입점
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 9장 §"Considerations for Architects"부터
     §"Automated Pipelines Also First"까지(pp.209–218). 이 구간에 도판과 표와 번호 붙은 예제와

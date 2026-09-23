@@ -469,6 +469,7 @@ sources:
 - [스트림 처리](../synthesis/stream-processing.md) — 스트림 축의 진입점
 - [데이터셋 공학](../synthesis/dataset-engineering.md) — 특성 공학이 속하는 자리
 - [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — 데이터 축의 진입점
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 8장 §"Business Glossary"부터
     §"Feature Engineering for Machine Learning"까지(pp.183–195). 표 8-1(p.189)은

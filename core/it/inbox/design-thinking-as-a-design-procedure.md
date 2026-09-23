@@ -439,7 +439,7 @@ sources:
   쪽에서 적고 일곱 걸음을 대조하는 자리
 - [제안 만들기](../concepts/creating-a-proposition.md) — 결정 앞에서 선택지를 다듬는 다음 층
 - [사용자 되먹임](../synthesis/user-feedback.md) — 되먹임을 모으고 편향을 가리는 축
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, II부 도비라 "Semantic Design in Practice"(p.69) · 4장
     "Design Thinking"(pp.71–84) — 제사와 §"Why Design Thinking?"(pp.71–72) ·

@@ -442,6 +442,7 @@ sources:
   이 절이 조문으로 인용하는 스타일의 규정
 - [안전한 메서드와 멱등한 메서드와 캐시 가능한 메서드](../concepts/http-safe-idempotent-and-cacheable-methods.md) —
   멱등성 규정의 표준 원전
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 7장 장 머리와 §"Embrace Constraints"부터
     §"Cacheability and Idempotence"까지(pp.139–151). 이 구간의 곁상자 둘("Conway's Law" p.146 ·

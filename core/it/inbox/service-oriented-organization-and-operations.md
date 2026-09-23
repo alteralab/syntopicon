@@ -452,6 +452,7 @@ sources:
 - [코드형 인프라와 지표 우선](../concepts/infrastructure-as-code-and-metrics-first.md) — 지표를
   먼저 세우라는 같은 책의 조문
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 조직 축의 진입점
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, *Semantic Software Design*, 11장 §"The Operational Scorecard"부터
     §"Change Management"까지(pp.255–269). 목차의 절 다섯과 소제목 하나("Cross-Functional Teams"

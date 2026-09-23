@@ -461,7 +461,7 @@ sources:
   목록을 다르게 세는 자리
 - [진화 가능성을 위한 지침](../concepts/evolvability-guidelines.md) — 같은 낱말을 설계 처방
   쪽에서 쓰는 자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 5장 "Semantic Design Practices and Artifacts"의 앞쪽(pp.85–99) —
     장 머리(p.85) · §"Design Principles"(pp.86–88, 넓은 곁상자 "No Empty Slogans" p.87 포함) ·

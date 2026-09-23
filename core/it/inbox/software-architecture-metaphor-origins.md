@@ -438,7 +438,7 @@ sources:
   넓게 쓰자는 반대편
 - [패턴 사고의 규정](../concepts/pattern-thinking-defined.md) — 알렉산더의 계보가 이 KB에서 지나는
   자리
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 이 축의 허브
+- [의미론적 소프트웨어 설계](../synthesis/semantic-software-design.md) — 이 책의 허브
 
 [^hewitt2019]: Hewitt 2019, 서문(pp.ix–xiii) · I부 도비라 "Episteme: The Philosophy of Design"
     (p.1) · 1장 "Origins of Software Architecture"(pp.3–15) — §"Software's Conceptual Origins"
