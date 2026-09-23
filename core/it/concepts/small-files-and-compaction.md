@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 작은 파일 문제와 컴팩션
-description: "데이터셋이 작은 파일 수천 개로 흩어질 때 메타데이터 연산이 처리 자체보다 비싸지는 문제와 그것을 되감는 Compactor 패턴 — 하둡 시대부터 이어진 문제의 정체, 테이블 형식별 구현(Iceberg·Delta Lake·Hudi)과 키 기반 저장에서 의미가 달라지는 지점, 비용과 성능의 맞교환, 그리고 컴팩션만으로는 공간이 돌아오지 않는 이유"
-generated: { by: "claude-opus-5", at: "2026-08-15T10:50:00Z" }
+description: "데이터셋이 작은 파일 수천 개로 흩어질 때 메타데이터 연산이 처리 자체보다 비싸지는 문제와 그것을 되감는 Compactor 패턴 — 하둡 시대부터 이어진 문제의 정체, 테이블 형식별 구현(Iceberg·Delta Lake·Hudi)과 키 기반 저장에서 의미가 달라지는 지점, 비용과 성능의 맞교환, 컴팩션만으로는 공간이 돌아오지 않는 이유, 그리고 되감는 대신 쓰는 도중에 막는 반대 방향인 Delta Lake의 최적화된 쓰기와 그것이 물리는 쓰기 지연"
+generated: { by: "claude-opus-5", at: "2026-09-23T20:00:00Z" }
 sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 작은 파일 문제와 컴팩션
@@ -13,6 +14,7 @@ sources:
 - [Compactor 패턴](#compactor-패턴)
 - [키 기반 저장에서는 뜻이 달라진다](#키-기반-저장에서는-뜻이-달라진다)
 - [결과 셋](#결과-셋)
+- [되감는 대신 쓰는 도중에 막는 쪽](#되감는-대신-쓰는-도중에-막는-쪽)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **데이터를 자주 반입한 대가를 언제 어떻게 되갚는가.**
@@ -138,8 +140,34 @@ sources:
     들었던 시간 여행이 여기서 보존 임계 아래로 잘린다
     ([배치 반입 패턴](../concepts/batch-ingestion-patterns.md)의 Full Loader 절).
 
+## 되감는 대신 쓰는 도중에 막는 쪽
+
+위 Compactor 패턴은 전부 **이미 쓰인 작은 파일을 사후에 되감는** 연산이다. 2025년 메달리온
+원전이 같은 문제에 반대 방향의 손잡이를 하나 더 건다.
+
+- 문제 규정은 같다 — Delta Lake의 `OPTIMIZE` 연산은 **작은 파일 문제를 다루려고 만들어진
+  것**이고, 갱신·삭제·추가가 일어나면 Delta Lake가 그 변경을 더 작은 파일에 담아 시간이 지나면
+  쌓여 조회를 느리게 한다. 최적화 잡이 작은 파일들을 더 크고 다루기 쉬운 파일로 컴팩션한다
+  (2장 §"Managing Delta Tables" ▸ "Compaction and Optimized Writes").[^strengholt2025] 위
+  [Compactor 패턴](#compactor-패턴) 절의 Delta Lake 칸과 같은 명령이다.
+- **반대 방향이 최적화된 쓰기(optimized writes)다** — 기본값은 꺼져 있고
+  `delta.autoOptimize.optimizeWrite` 테이블 속성을 `true`로 두면 켜진다. 켜면 Delta Lake가
+  **쓰기 도중에** 데이터 파일 배치를 자동으로 최적화해 질의 성능을 높인다
+  (같은 소절).[^strengholt2025]
+  - 버전 조건: Delta Lake 3.1 이상 — 저자가 이 기능을 켤 수 있는 버전으로 명시한 경계다.
+  - 대가가 수치로 온다 — 약간의 추가 부하가 생기고, **200만에서 500만 행을 다루는 중간 규모
+    잡에서 5초에서 10초 정도의 지연이 더해질 것으로 예상**할 수 있다
+    (같은 소절, 각주 2).[^strengholt2025]
+- **두 손잡이는 겨루지 않고 같은 축의 양 끝에 있다.** 위 [결과 셋](#결과-셋)의 첫째가 컴팩션 잡을
+  드물게 돌릴수록 아직 컴팩션되지 않은 데이터를 다루는 잡이 손해를 본다는 맞교환을 세우는데,
+  쓰기 시점 최적화는 **그 손해의 크기 자체를 줄이는 쪽**이다. 대신 쓰기 지연을 산다.
+- 같은 소스가 이 기법들을 메달리온 계층별 결정으로 배열하는 자리는
+  [메달리온 계층 이전의 결정과 Delta 테이블 관리](../concepts/medallion-groundwork-and-delta-table-management.md)다.
+
 ## 이어지는 페이지
 
+- [메달리온 계층 이전의 결정과 Delta 테이블 관리](../concepts/medallion-groundwork-and-delta-table-management.md)
+  — 컴팩션이 Delta 테이블 관리 기법 여섯 중 하나로 배열되는 자리
 - [배치 반입 패턴](../concepts/batch-ingestion-patterns.md) — 작은 파일을 만들어 내는 그 증분 반입, 그리고
   시간 여행이 이 페이지의 청소와 부딪히는 자리
 - [카프카 로그 압착](../concepts/kafka-log-compaction.md) — 같은 이름의 키 기반 연산
@@ -152,3 +180,8 @@ sources:
 [^konieczny2025]: Konieczny 2025, 2장 "Data Ingestion Design Patterns" — "Data
 Compaction"(pp.27–30). 코드 펜스는 예제 2-22·2-23을 "컴팩션 뒤 청소" 순서로 이어 붙인 것이다
 (원문은 두 예제로 나뉘어 있다).
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`, 소절은 `▸`로 잇는다.
+    SQL 코드 목록은 이 페이지에 옮기지 않았다.

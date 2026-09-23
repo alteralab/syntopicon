@@ -1,11 +1,12 @@
 ---
 type: concept
 title: 차원 테이블
-description: 측정 이벤트의 서술 맥락(누가·무엇을·어디서)을 담는 테이블 — 분석력은 속성 품질에 비례, 키는 대리 키, 다국가 달력과 시간대를 날짜 차원이 감당하는 방식, 추상 차원을 표현 영역에 두지 말라는 규칙, 그리고 Data Vault가 그 자리에 해시 키를 넣는 선택과 계층·드릴다운
-generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
+description: 측정 이벤트의 서술 맥락(누가·무엇을·어디서)을 담는 테이블 — 분석력은 속성 품질에 비례, 키는 대리 키, 다국가 달력과 시간대를 날짜 차원이 감당하는 방식, 추상 차원을 표현 영역에 두지 말라는 규칙, Data Vault가 그 자리에 해시 키를 넣는 선택과 계층·드릴다운, 그리고 플랫폼이 identity 컬럼을 주지 않을 때 행 전체의 해시가 그 자리를 대신하는 셋째 위치
+generated: { by: "claude-opus-5", at: "2026-09-23T12:00:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 차원 테이블
@@ -20,6 +21,7 @@ sources:
 - [null 처리 규칙](#null-처리-규칙)
 - [추상 차원을 표현 영역에 두지 마라 — 지리 위치의 사례](#추상-차원을-표현-영역에-두지-마라--지리-위치의-사례)
 - [Data Vault 쪽 서술 — 키 자리에 해시가 들어온다](#data-vault-쪽-서술--키-자리에-해시가-들어온다)
+- [레이크하우스 쪽 서술 — 플랫폼이 키를 고르는 자리](#레이크하우스-쪽-서술--플랫폼이-키를-고르는-자리)
 - [계층과 드릴다운](#계층과-드릴다운)
 
 차원 테이블(dimension table)은 측정 이벤트에 붙는 서술 맥락 — "누가, 무엇을,
@@ -251,6 +253,40 @@ pp.321–323).[^kimball2013]
   테이블의 서술 속성이 될지는 업무 요구에 달렸다** (§7.2.2, p.205).[^linstedt2016]
   Kimball의 "계산이면 팩트, 필터링·그루핑이면 속성" 판별법과 같은 자리다.
 
+## 레이크하우스 쪽 서술 — 플랫폼이 키를 고르는 자리
+
+**셋째 위치가 있다.** 위 두 절이 대리 키를 **웨어하우스가 순차 발급하는 정수**와 **업무 키에서
+계산한 해시**로 갈랐다면, 2025년에 나온 레이크하우스 설계서 하나는 **행의 선택된 열 전부를 이어
+붙인 해시**를 쓰고, 그렇게 고른 이유를 방법론이 아니라 **플랫폼 제약**으로 댄다.
+
+- 구현의 골격 — 원천 지향 계층의 이력 테이블에서 현재 행만 읽어 업무 키로 중복을 제거하고 필요한
+  열만 남긴 뒤, **남은 열 전부를 구분자로 이어 붙여 SHA-2 256으로 해시**한 값을 식별자 열에
+  담는다. 저자는 **이 해시들이 대리 키 역할을 하며 차원 테이블의 모든 레코드에 유일 식별자를
+  제공한다**고 적고, 각주에서 **이 차원들에서 대리 키가 기본 키 역할을 한다**고 덧붙인다 (7장
+  §"Design of the Gold Layer" ▸ "Transform Data Using a Star Schema" ▸ "Creation of the dimensional
+  table for address"; 7장 각주 3).[^strengholt2025]
+- **이유가 곁글에 있다** — **2025년 저술 시점에 이 레이크하우스는 identity 컬럼을 지원하지
+  않는다.** identity 컬럼은 통상 데이터베이스에서 **새 행마다 유일 ID를 자동 생성해** 삽입을 쉽게
+  하고 겹침 없는 유일 식별자를 보장하는 장치다. 저자는 **저장 형식의 다음 판이 지원되면 바뀔
+  공산이 크다**고 적고, 그 사이 **SHA-2 함수가 자동 증가의 역할을 넘겨받는다**고 밝힌다 (7장
+  §"Identity Columns" 곁글).[^strengholt2025] 각주가 대안 하나를 적는다 — **단조 증가 식별자
+  함수**를 쓰는 것이다 (7장 각주 4).[^strengholt2025]
+- 대리 키의 값어치에 대한 서술은 위 Kimball 쪽과 같은 쪽을 가리킨다 — **업무 식별자나 데이터가
+  시간에 따라 바뀌어도 안정적 참조를 제공하고 이력 데이터의 무결성을 유지한다**는 것이다 (같은
+  소소절).[^strengholt2025]
+- **갈리는 것은 해시의 재료다.** Data Vault의 해시 키는 **업무 키만** 해시하므로 서술 속성이
+  바뀌어도 같은 값이 나온다. 이 소스의 해시는 **선택된 전 열**을 해시하므로 **속성이 하나만 바뀌어도
+  값이 달라지고**, 그래서 병합의 일치 판정이 곧 변경 탐지가 된다. 곧 위 Data Vault 절이 적은 "키는
+  데이터가 바뀔 때마다 바뀐다"는 성질을 **전 열 해시로 구현한 판**이다. 구현 전문은
+  [Gold 계층 구현](../concepts/gold-layer-implementation.md)에 있다.
+- **날짜 차원에서 규칙이 갈린다.** 위 [date 차원의 특성](#date-차원의-특성) 절의 Kimball 규정은
+  날짜 차원을 **미리 전부 만들어 두는 유일한 차원**으로 보고 `yyyymmdd` 꼴의 의미 있는 정수 키를
+  대리 키 규칙의 유일한 예외로 허용한다. 이 소스는 **관측된 주문 날짜에서만** 행을 만들고 **다른
+  차원과 같은 해시 키**를 쓰며, 그 이유로 **다른 테이블과의 일관성 유지**를 든다 (7장 §"Design of
+  the Gold Layer" ▸ "Transform Data Using a Star Schema" ▸ "Creation of the dimensional table for
+  date").[^strengholt2025] **일관성을 택하고 달력의 완전성을 포기한 설계 선택**이지 사실 충돌이
+  아니다.
+
 ## 계층과 드릴다운
 
 - 계층(hierarchy)은 차원 모델링의 또 하나의 중요한 개념으로, **데이터를 더 상세히 분석하기
@@ -281,3 +317,10 @@ pp.321–323).[^kimball2013]
 
 [^kimball2013]: Kimball & Ross 2013, 1장 "Data Warehousing, Business Intelligence, and Dimensional Modeling Primer" · 2장 "Kimball Dimensional Modeling Techniques Overview" · 3장 "Retail Sales" · 11장 "Telecommunications" · 12장 "Transportation" · 21장 "Big Data Analytics"
 [^linstedt2016]: Linstedt & Olschimke 2016, 7장 "Dimensional Modeling"
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로),
+    소절·소소절은 `▸`로 잇고 곁글은 제목 뒤에 `곁글`을 붙인다. 이 페이지가 받는 것은 7장 §"Design
+    of the Gold Layer"의 차원 적재 소소절들과 곁글 §"Identity Columns", 그리고 각주 3·4다.
+    **코드는 펜스 없이 구조만 산문으로 받았다.**

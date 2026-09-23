@@ -2,11 +2,12 @@
 type: concept
 title: 마스터 데이터 관리
 description: 마스터 데이터를 골든 레코드로 통일해 원천 시스템에 되먹이는 MDM의 목표·성숙 단계와, 운영적/분석적 MDM 구분 및 managed self-service BI·TQM enabler 역할, 분석 마스터 데이터가 실제 산출물이 되는 날짜 차원 사례, 그리고 같은 실무를 데이터 엔지니어링 저류로 본 자리
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+generated: { by: "claude-fable-5", at: "2026-09-23T16:00:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 마스터 데이터 관리
@@ -21,6 +22,7 @@ sources:
 - [분석 마스터 데이터의 실물 — 날짜 차원](#분석-마스터-데이터의-실물--날짜-차원)
 - [데이터 엔지니어링 쪽에서 본 같은 실무](#데이터-엔지니어링-쪽에서-본-같은-실무)
 - [데이터 메시가 MDM을 반례로 드는 자리](#데이터-메시가-mdm을-반례로-드는-자리)
+- [메달리온이 여럿일 때 MDM이 놓이는 자리](#메달리온이-여럿일-때-mdm이-놓이는-자리)
 - [관련 페이지](#관련-페이지)
 
 ## 마스터 데이터란 무엇인가
@@ -166,6 +168,43 @@ Reis & Housley는 MDM을 데이터 엔지니어링 수명 주기의 **데이터 
 전제가 유지되고, 도메인 자율이 우선인 조직에서는 데이터 메시의 전제가 유지된다. 후자의 정본은
 [데이터 메시 원칙](../synthesis/data-mesh-principles.md) 허브가 받는다.
 
+## 메달리온이 여럿일 때 MDM이 놓이는 자리
+
+2025년의 레이크하우스 실무서가 같은 실무를 **탈중앙 아키텍처의 부품**으로 되읽는다. 위 §9.4가
+"운영 시스템이 구독자다"라고 답한 자리에 이 소스는 "어느 **도메인**이 마스터하는가"를 하나 더 얹는다.
+
+- 두 실무를 가르는 기준 — **MDM과 큐레이티드 데이터 생성은 둘 다 큰 조직 안의 데이터 사용을
+  간소화하는 것을 목표로 하고 ETL·데이터 정제·데이터 과학·메타데이터 관리 같은 공통 기법**을 쓴다.
+  **그러나 MDM에는 고유한 초점이 있다 — 필수 업무 데이터, 곧 마스터 데이터에 대한 단일하고 정확하며
+  권위 있는 진실의 원천을 세우려 한다** (11장 §"Medallion Inner Architecture Variations" ▸ "Master
+  Data Management").[^strengholt2025]
+- 성격 규정 — **본질적으로 MDM은 데이터 품질 실무이며, 모두가 여러 시스템과 업무 단위에 걸쳐
+  일관되고 최신인 마스터 데이터에 기댈 수 있게 보장한다.** 그리고 **금융이나 의료처럼 규제가 심한
+  산업에서 MDM은 규제 준수 유지와 데이터 정확성 보장에 결정적이라 선택이 아니라 필수**다 (같은
+  소절).[^strengholt2025] 위 §9.3이 규제를 **외부 동인**으로 든 것과 같은 방향이되, 이쪽은 그것을
+  **필수 여부의 판정**으로 쓴다.
+- 탈중앙 아키텍처에서의 배치가 이 소스의 기여다 — **MDM은 특화된 접근을 취한다. 조화된(마스터된)
+  엔티티의 관리를 담당할 특정 도메인들을 지정하며 그 도메인은 중앙집중일 수도 탈중앙일 수도 있다.
+  다른 도메인들은 그 표준화된 엔티티를 활용하는데, 그것은 보통 Silver와 Gold 계층에서 발견된다**
+  (같은 소절).[^strengholt2025] 곧 **MDM 시스템 하나가 아니라 MDM 도메인**이 단위가 되고, 중앙집중이냐
+  탈중앙이냐가 그 도메인을 어디에 두느냐의 선택으로 바뀐다.
+- 되먹임에 이름이 붙는다 — **MDM 도메인이 생성한 마스터 데이터는 여러 방식으로 다른 도메인에
+  되돌아가고, 효과적인 방법 하나는 그것을 (마스터된) 데이터 제품으로 배포하는 것**이다. 나아가
+  **이 정제되고 정확한 데이터를 원래 원천 시스템으로 되돌려 공유하면 그 시스템의 성능이 크게
+  개선**되며, 이 재배포는 **공존 패턴**(coexistence pattern)이라 불리고 **흔히 이벤트나 API 호출로
+  일어난다** (같은 소절).[^strengholt2025] 위 §9.5의 닫힌 루프(closed loop)와 같은 것을 가리키되,
+  이쪽은 그 루프를 **이벤트 브로커와 API 게이트웨이를 지나는 통합 패턴의 이름**으로 부른다.
+- 참조 데이터는 갈라 둔다 — **마스터 데이터와 달리 참조 데이터는 특정 도메인 안에서 관리할 수 있는데,
+  여러 도메인에 걸쳐 비교될 필요가 없기 때문**이다. 다만 **통화 코드·국가 코드·제품 코드 같은 흔한
+  예는 MDM 시스템에서 중앙 발행**될 수 있고, 도메인이 데이터 제품을 배포할 때 **MDM 참조 데이터의
+  식별자를 쓰는 것이 필수**다 (11장 §"Medallion Inner Architecture Variations" ▸ "Reference Data
+  Management").[^strengholt2025]
+
+**데이터 메시 쪽 판정과 어긋나는가.** 위 절이 적은 데가니의 기각은 **MDM 구현이 공유 데이터 자산의
+모든 면을 한자리에 한 모델로 집계하려 한다**는 것이었다. 스트렝홀트의 MDM은 **집계 범위를 마스터
+엔티티로 좁히고 그 소유를 도메인에 지정**하므로 그 기각의 표적과 정확히 겹치지 않는다 — 2026년 KB
+작성 시점에 두 진술은 **같은 이름의 다른 구현 형태**를 가리킨다고 보아 `contradicts`를 걸지 않았다.
+
 ## 관련 페이지
 
 - [데이터 볼트 아키텍처](../concepts/data-vault-architecture.md) — MDM 파라미터가 영향을 주는 비즈니스 규칙(soft rule)이 배치되는 계층 구조
@@ -175,9 +214,18 @@ Reis & Housley는 MDM을 데이터 엔지니어링 수명 주기의 **데이터 
 - [메타데이터 관리](../concepts/metadata-management.md) — 온톨로지·택소노미를 MDM과 나눠 갖는 축
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md) — MDM을 반례로 들며 다의어와
   전역 식별 체계를 대안으로 내놓는 쪽
+- [메달리온 안쪽 아키텍처의 변형](../concepts/medallion-inner-architecture-variations.md) — 위
+  마지막 절이 나온 자리. 전사 데이터 모델·도메인 집계와 나란히 놓인다
+- [DV 참조 테이블](../concepts/reference-table.md) — 참조 데이터를 모델의 어느 엔터티에 둘 것인가의 축
 
 [^linstedt2016]: Linstedt & Olschimke 2016, 9장 "Master Data Management" · 15장 "Multidimensional Database"
 
 [^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle"
 
 [^dehghani2022]: Dehghani 2022, 2장 "Principle of Domain Ownership"
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로), 소절은
+    `▸`로 잇는다. 이 페이지가 받는 것은 11장 §"Medallion Inner Architecture Variations"의
+    "Master Data Management"와 "Reference Data Management" 두 소절이다.

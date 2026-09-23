@@ -1,13 +1,14 @@
 ---
 type: concept
 title: 차원 모델링
-description: 이해 가능성과 질의 성능을 동시에 겨냥한 분석 데이터 표현 기법 — 정규화 모델과의 관계와 5대 오해, 같은 구조를 데이터 시스템 쪽에서 다시 서술한 스타 스키마·스노플레이크 스키마·원 빅 테이블의 대비, 그리고 Data Vault가 이 기법을 어느 계층에 배치하는가
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+description: 이해 가능성과 질의 성능을 동시에 겨냥한 분석 데이터 표현 기법 — 정규화 모델과의 관계와 5대 오해, 같은 구조를 데이터 시스템 쪽에서 다시 서술한 스타 스키마·스노플레이크 스키마·원 빅 테이블의 대비, Data Vault가 이 기법을 어느 계층에 배치하는가, 그리고 레이크하우스 쪽이 스타 스키마를 성능이 아니라 사용자용 공개 인터페이스로 규정하며 킴벌 접근을 설계 원칙의 집합으로 낮춰 잡는 자리
+generated: { by: "claude-opus-5", at: "2026-09-23T23:45:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: kleppmann2026, resource: /it/sources/kleppmann2026.md }
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 차원 모델링
@@ -19,6 +20,7 @@ sources:
 - [질의 패턴](#질의-패턴)
 - [스노플레이크 — 세 소스가 갈리는 자리](#스노플레이크--세-소스가-갈리는-자리)
 - [제3자가 보는 킴벌 — 데이터 엔지니어링 개론의 서술](#제3자가-보는-킴벌--데이터-엔지니어링-개론의-서술)
+- [레이크하우스 쪽에서 본 스타 스키마 — 인터페이스라는 기준](#레이크하우스-쪽에서-본-스타-스키마--인터페이스라는-기준)
 
 차원 모델링(dimensional modeling)은 분석 데이터를 내놓는 기법으로, 두 요구를
 동시에 만족시키는 것이 존재 이유다: **업무 사용자가 이해할 수 있는 데이터**와
@@ -325,8 +327,38 @@ Kimball은 이 구조를 **방법론**으로 서술한다. 다른 소스는 같�
     전한다 (8장, p.308)[^reis2022] — 그쪽은
     [데이터 모델링의 기초](../concepts/data-modeling-fundamentals.md)에 있다.
 
+## 레이크하우스 쪽에서 본 스타 스키마 — 인터페이스라는 기준
+
+2025년에 나온 레이크하우스 설계서 하나는 같은 구조를 또 다른 각도로 서술한다. 더하는 것은 기법이
+아니라 **무엇을 기준으로 잘 만들었다고 판정하는가**이다.
+
+- 역할 규정부터 성능 너머다 — 스타 스키마를 설계할 때 **그 역할이 성능을 끌어올리는 것을 넘는다**
+  는 것을 기억하라. **스타 스키마는 사용자가 데이터와 상호작용하는 방식에 따라 형태가 정해진다.**
+  그래서 저자는 **데이터 모델을 API나 함수 같은 공개 인터페이스(public interface)로 생각하라**고
+  적고, 사용자 상호작용을 위해 설계된 어떤 도구와도 마찬가지로 이 인터페이스를 직관적이고
+  논리적으로 구조화하는 것이 필수적이라고 못 박는다 (3장 §"Gold Layer" ▸ "Star
+  Schema").[^strengholt2025]
+- 판정 기준이 거기서 나온다 — **명확성과 업무 사용자에 대한 적합성이 최우선이고, 데이터 모델이
+  뛰어난 성능을 자랑해도 사용자가 자기 도메인을 개념화하고 탐색하는 방식과 맞지 않으면 부족하다.**
+  업무 사용자가 자기 일상 업무 프로세스에 따라 데이터를 잘라 보고 분석하기에 모델이 부자연스럽다고
+  느끼면 **그 모델은 효과적이지 않다** (3장 §"Gold Layer" ▸ "Star Schema").[^strengholt2025]
+  그러므로 우선할 구조는 **최종 사용자의 직관적 정신 모델을 반영하는 것**, 곧 스타 스키마다.
+- **킴벌 접근 자체에 대한 규정도 여기서 한 단계 낮춰 잡힌다** — **스타 스키마를 개발하는 킴벌
+  접근은 본질적으로 설계 원칙의 집합(a set of design principles)이고, 따를 지침과 공통 관례를
+  준다. 그러나 조직마다 자기 모델을 관리하는 방식에는 상당한 다양성이 있다** (3장 §"Gold Layer" ▸
+  "Star Schema Design Nuances").[^strengholt2025] 위 [5대 오해](#5대-오해)가 오해를 교정하는
+  쪽이라면 이 서술은 **규범의 강도를 낮추는 쪽**이다.
+- 개발 절차도 위 4단계와 나란히 놓인다 — 이 소스의 네 걸음은 **업무 요구 이해 → granularity 선언
+  → 차원 식별 → 팩트 식별**이다 (3장 §"Gold Layer" ▸ "Star Schema").[^strengholt2025]
+  [4단계 차원 설계](../concepts/four-step-dimensional-design.md)의 프로세스 → grain → 차원 → 팩트와
+  **첫 걸음만 다르다.**
+- 이 기준이 놓이는 계층 맥락은 [메달리온 Gold 계층](../concepts/medallion-gold-layer.md)에 있다.
+
 [^kimball2013]: Kimball & Ross 2013, 1장 "Data Warehousing, Business Intelligence, and Dimensional Modeling Primer" · 3장 "Retail Sales"
 
 [^reis2022]: Reis & Housley 2022, 8장 "Queries, Modeling, and Transformation"
 [^kleppmann2026]: Kleppmann & Riccomini 2026, 3장 "Data Models and Query Languages"
 [^linstedt2016]: Linstedt & Olschimke 2016, 7장 "Dimensional Modeling"
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`이고 소절은 `▸`로 잇는다.

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: AP Pension 사례 연구
-status: draft
 description: "덴마크 연금 기금이 메달리온 계층 셋을 여덟 개의 물리 하위 계층으로 쪼개어 구현한 사례 — 업무 전략을 네 문장으로 압축한 데이터 전략과 그것이 기술 선택을 어떻게 되규정했는가, 웨어하우스 대신 레이크하우스를 고른 근거 넷과 웨어하우스를 다시 부를 조건 둘, Landing·PreArchive·Archive로 갈린 Bronze와 고객별 대칭 키로 PII를 암호화해 잊힐 권리를 키 삭제로 구현한 설계, 무제한 시간 여행을 실측으로 기각하고 물리 파티셔닝을 고른 판정, Base와 Enriched로 갈린 Silver와 중첩 배열을 자동으로 펼치는 잔여 JSON 역직렬화, Curated·Modeled·Modeled PII로 갈린 Gold와 데이터 볼트를 버리고 PIT 테이블만 남겨 여러 타임라인을 다루는 SCD 타입 7 혼성, 소비자 무리마다 워크스페이스를 띄우고 바로가기로만 데이터를 나르는 서빙 계층, 데이터 메시를 프로토타입 수준으로만 받아들이는 유보, 데이터 계약을 카탈로그와 품질 사이 회색 지대로 보고 채택하지 않은 판정, 그리고 전략 정렬과 조기 지지 확보라는 최종 권고"
 generated: { by: "claude-opus-5", at: "2026-09-23T14:00:00Z" }
 sources:
@@ -462,7 +461,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [Amadeus 사례 연구](amadeus-case-study.md) — 같은 부의 둘째 사례, 메시와 메달리온을 겹쳐 놓은 쪽
+- [Amadeus 사례 연구](../concepts/amadeus-case-study.md) — 같은 부의 둘째 사례, 메시와 메달리온을 겹쳐 놓은 쪽
 - [ZEISS 사례 연구](zeiss-case-study.md) — 같은 부의 셋째 사례, 인스턴스 서른 개에 계층을 흩은 쪽
 - [메달리온 아키텍처의 정의와 계보](../concepts/medallion-architecture-origins.md) — 이 사례가 따르는 규정의 원전
 - [메달리온 Bronze 계층](../concepts/medallion-bronze-layer.md) — Landing과 Archive가 갈리는 규정

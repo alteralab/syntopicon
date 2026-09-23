@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 스테이징 영역
-description: 원천 부하를 줄이고 시스템 열(해시·적재 시각·레코드 소스)을 계산해 붙이는 일시적 완충 계층 — 이력 없음, FK 없음, 적재 후 비움, 그리고 일시성이 허락하는 물리 설계(RAID 0·빠른 디스크·Simple 복구)
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+description: 원천 부하를 줄이고 시스템 열(해시·적재 시각·레코드 소스)을 계산해 붙이는 일시적 완충 계층 — 이력 없음, FK 없음, 적재 후 비움, 그리고 일시성이 허락하는 물리 설계(RAID 0·빠른 디스크·Simple 복구), 그리고 같은 자리를 레이크하우스 쪽이 랜딩 존이라 부르며 비움 규칙 대신 원천 특성과 팀 경계로 정당화하는 대조
+generated: { by: "claude-opus-5", at: "2026-09-23T20:00:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 스테이징 영역
@@ -15,6 +16,7 @@ sources:
 - [truncate 주기](#truncate-주기)
 - [관계형이냐 NoSQL이냐](#관계형이냐-nosql이냐)
 - [일시성이 허락하는 물리 설계](#일시성이-허락하는-물리-설계)
+- [레이크하우스 쪽에서 같은 자리를 부르는 이름](#레이크하우스-쪽에서-같은-자리를-부르는-이름)
 
 스테이징 영역(staging area)은 원천 시스템과 데이터 웨어하우스 사이의 일시적
 완충 계층이다. 원천에서 최대한 빨리 데이터를 받아내리고, 웨어하우스 적재에
@@ -177,4 +179,36 @@ sources:
     최선은 웨어하우스 서버의 기본 정렬을 그대로 두는 것이며, 설치 시 제대로 선택됐는지
     확인한다.
 
+## 레이크하우스 쪽에서 같은 자리를 부르는 이름
+
+위 절들이 세우는 스테이징 영역은 **데이터 볼트 웨어하우스의 규약**이다. 같은 자리를 메달리온
+아키텍처 원전이 다시 여는데, 이름도 여럿이고 정당화의 근거도 다르다.
+
+- 그쪽 이름은 **랜딩 존(landing zone)** 이고, 정의는 **원시 데이터가 메달리온 아키텍처에 착지하기
+  전에 반입되는 예비 영역**이다 (2장 §"Extra Landing Zones").[^strengholt2025]
+- **이름이 고정돼 있지 않다** — 어떤 조직은 그 계층을 "tin layer"·"pre-Bronze"·"pre-refinement"·
+  "staging"·"landing area"라 부르며 통상의 메달리온 아키텍처 **밖**에 두고, 다른 조직은 Bronze 계층
+  설계 안에 포함시킨다. 저자는 그 계층을 Bronze라 부를지는 각자가 정할 일이고 중요한 것은 조직의
+  기능·비기능 요건을 충족하는 방식으로 반입·저장하는 것이라고 적는다
+  (2장 §"Landing Zones Takeaway" 곁글).[^strengholt2025]
+- **정당화의 근거가 다르다.** 위 "목적" 절이 스테이징을 원천 부하 감소와 적재 실패 대비로
+  정당화한다면, 이 소스는 **원천의 특성과 팀 경계**로 정당화한다 — 외부 서비스나 SaaS 벤더를
+  상대할 때 필요한 안전한 예비 저장, 그리고 추출 과정을 직접 관리하려는 애플리케이션 팀이
+  요구하는 전용 랜딩 존이다. 그래서 원천과 레이크하우스 사이에 **랜딩 영역이 여럿** 있는 것이
+  드물지 않다 (2장 §"Extra Landing Zones").[^strengholt2025]
+- **건너뛰어도 되는 조건도 명시된다** — 원천 시스템이 튼튼한 보안 수단과 안정적인 직접 반입
+  기법을 갖췄다면 중간 랜딩 존을 건너뛰고 Bronze 계층으로 곧장 먹이는 쪽이 더 효율적일 수 있고,
+  그럴 때는 스테이징할 필요가 없다 (2장 §"Extra Landing Zones").[^strengholt2025]
+- 이 소스에는 **비움 규칙이 없다.** 위 [truncate 주기](#truncate-주기) 절이 스테이징의 정의에
+  가깝게 두는 "적재 후 비움"이 랜딩 존에는 조항으로 나오지 않는다. 두 규약이 같은 낱말을 다르게
+  쓰는 것이라 서로를 부정하지 않는다.
+- 이 랜딩 존 결정이 놓이는 더 큰 맥락은
+  [메달리온 계층 이전의 결정과 Delta 테이블 관리](../concepts/medallion-groundwork-and-delta-table-management.md)에
+  있다.
+
 [^linstedt2016]: Linstedt & Olschimke 2016, 11장 "Data Extraction"·12장 "Loading the Data Vault"·8장 "Physical Data Warehouse Design"
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`이고 곁글은 제목 뒤에
+    `곁글`을 붙인다.

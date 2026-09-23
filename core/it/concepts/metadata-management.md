@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 메타데이터 관리
-description: 데이터 웨어하우스 메타데이터를 business/technical/process execution 3종으로 분류하고, DMBOK의 네 범주와 나란히 놓으며, Meta Mart·Metrics Vault·Metrics Mart·Error Mart가 각각 무엇을 재서 어디에 두는지, 그리고 Meta Mart가 실제로 무엇을 담고 왜 재구축 불가능한 마트인지를 구분한다
-generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
+description: 데이터 웨어하우스 메타데이터를 business/technical/process execution 3종으로 분류하고, DMBOK의 네 범주와 나란히 놓으며, Meta Mart·Metrics Vault·Metrics Mart·Error Mart가 각각 무엇을 재서 어디에 두는지, Meta Mart가 실제로 무엇을 담고 왜 재구축 불가능한 마트인지를 구분하며, 같은 메타데이터를 사람의 조회 대상이 아니라 파이프라인이 실행 시점에 읽는 입력으로 쓰는 메타데이터 주도 접근을 나란히 놓는다
+generated: { by: "claude-fable-5", at: "2026-09-23T13:30:00Z" }
 sources:
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: reis2022, resource: /it/sources/reis2022.md }
   - { id: dehghani2022, resource: /it/sources/dehghani2022.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 메타데이터 관리
@@ -16,6 +17,7 @@ sources:
 - [저장소별 역할 구분: 무엇을 재고 어디에 두나](#저장소별-역할-구분-무엇을-재고-어디에-두나)
 - [데이터 카탈로그](#데이터-카탈로그)
 - [카탈로그를 데이터 쪽으로 미는 반대 배치](#카탈로그를-데이터-쪽으로-미는-반대-배치)
+- [조회의 대상이 아니라 실행의 입력으로 쓰는 배치](#조회의-대상이-아니라-실행의-입력으로-쓰는-배치)
 - [관련 페이지](#관련-페이지)
 
 ## 메타데이터란 무엇인가
@@ -231,8 +233,57 @@ Data Vault 2.0의 3종 분류와 층위가 다른 분류가 하나 더 있다. R
 자리에서는 카탈로그가 여전히 유일한 진입점이다. 데이터 메시 쪽 정본은
 [데이터 메시 원칙](../synthesis/data-mesh-principles.md) 허브가 받는다.
 
+## 조회의 대상이 아니라 실행의 입력으로 쓰는 배치
+
+위 절들과 데이터 카탈로그가 메타데이터를 **사람과 도구가 찾아 읽는 대상**으로 다룬다면, 레이크하우스
+쪽에는 같은 저장소를 **파이프라인이 실행 시점에 읽는 입력**으로 쓰는 배치가 있다. 소비자가 다르므로
+두 배치는 겨루지 않고, 실은 같은 저장소 하나가 둘 다 감당할 수 있다.
+
+- 규정 — **메타데이터 주도 접근(metadata-driven approach)은 스키마 정의를 데이터베이스나 데이터
+  카탈로그 같은 중앙화된 메타데이터 저장소에 두는 것**이고, 그 저장소가 **컬럼 이름·데이터 타입·
+  제약·데이터 요소 사이의 관계**를 담는다 (5장 §"Schema Management" ▸ "Metadata-Driven
+  Approach").[^strengholt2025]
+- **차이는 시점이다** — 이 메타데이터로 **실행 시점에 스키마 정의를 동적으로 생성**할 수 있고,
+  그래서 서로 다른 원천과 목적지에 맞춰 스키마를 적응시킬 수 있다 (같은 소절).[^strengholt2025]
+  카탈로그가 "무엇이 있는가"에 답한다면 이쪽은 "이번 실행에서 무엇을 만들 것인가"에 답한다.
+- 같은 배치가 파이프라인 전체로도 확장된다 — 데이터 유형마다 별도 파이프라인을 만드는 대신
+  메타데이터 주도 프레임워크로 **주어진 메타데이터에 따라 스스로 조정되는 범용 파이프라인**을
+  구성하면 방대한 코드를 쓰고 유지할 필요가 크게 준다 (5장 §"Building the Data Pipeline" ▸
+  "Additional Considerations").[^strengholt2025]
+  - 같은 저자가 앞 장에서 **메타데이터 통제 표(metadata control table)**를 권고한 것도 이 갈래다 —
+    처리된 레코드를 추적해 복잡한 시스템에서 데이터 흐름 관리와 일관성 보장을 돕는다 (3장
+    §"Bronze Layer" ▸ "Processing Incremental Data Loads").[^strengholt2025]
+  - 검증 규칙도 같은 저장소에 얹힌다 — 많은 회사가 원천의 기술 스키마 상세를 담은 메타데이터
+    저장소를 유지해 **검증 규칙을 선언적으로도 동적으로도 자동 강제**하게 한다 (3장 §"Bronze
+    Layer" ▸ "Technical Validation Checks").[^strengholt2025]
+- **대가는 구축 비용**이고 저자가 명시한다 — 메타데이터 주도 프레임워크의 구현이 **복잡하고 시간이
+  많이 들 수 있다** (5장 §"Schema Management" ▸ "Metadata-Driven Approach").[^strengholt2025]
+
+- **프레임워크의 뼈대는 부품 셋이다** — 이 데이터가 저장되는 **메타데이터 저장소**, 메타데이터를
+  읽어 **잡과 검증과 변환을 동적으로 만들어 내는 오케스트레이터**, 그리고 여러 잡의 상태를
+  **감시하고 추적하는 장치**다 (6장 §"Implementation of a Metadata-Driven Approach" ▸ "Improvement
+  Areas").[^strengholt2025] 앞 절들의 저장소 하나만으로는 이 배치가 서지 않는다는 뜻이다.
+- 저장소에 무엇을 넣을지의 확장 축도 함께 주어진다 — 도메인 고유 정보, 여러 원천의 메타데이터,
+  민감도 라벨이나 행 필터링 같은 보안 메타데이터, 원천에서 대상으로의 컬럼 개명이나 단순 조인·
+  유니온이나 무관 데이터 필터링 같은 처리 로직, 그리고 CI/CD를 위한 환경·배포·버전 정보다.
+  **결국 메타데이터 프레임워크의 범위는 요구사항에 달렸다** (같은 소절).[^strengholt2025]
+- 이 배치가 코드 기반 전략 대비 갖는 이점으로 저자가 넷을 센다 — 형식·스키마·주기가 다른 여러
+  원천과 목적지를 감당하는 **다재다능함**, 노트북 여럿 대신 **범용 파이프라인 한 벌**만 유지하게
+  되는 코드량 감소, 코드 수정이나 재배포 없이 메타데이터만으로 검증과 수정을 더하는 **개발·배포의
+  단순화**, 그리고 여러 활동을 동시에 돌리는 **병렬성**이다 (같은 소절).[^strengholt2025]
+  - 앞 셋은 같은 뿌리다. **무엇을 할지가 코드가 아니라 데이터에 적혀 있으면 코드를 고치지 않고
+    무엇을 할지를 바꿀 수 있다**는 것이다.
+- 같은 저자가 이 배치를 실물로 구현해 보이는 자리는
+  [Silver 계층의 기술 검증과 데이터 정제](../concepts/silver-layer-validation-and-cleansing.md)다.
+  메타데이터 저장소의 컬럼 구성과 그것을 파이프라인에 거는 부품 셋, 그리고 확장 방향 아홉이 거기
+  있다.
+
 ## 관련 페이지
 
+- [레이크하우스 스키마 정의 접근 여덟](../concepts/lakehouse-schema-definition-approaches.md) —
+  메타데이터 주도 접근이 다른 일곱과 나란히 놓이는 자리
+- [Bronze 계층 구현](../concepts/bronze-layer-implementation.md) — 원천 카탈로그를 질의해 대상
+  목록을 얻는 메타데이터 주도 파이프라인의 실물
 - [데이터 볼트 아키텍처](../concepts/data-vault-architecture.md) — Meta Mart·Metrics Vault·Error Mart가 배치되는 전체 계층
 - [마스터 데이터 관리](../concepts/master-data-management.md) — 온톨로지·택소노미 등 비즈니스 메타데이터가 저장되는 MDM 시스템
 - [데이터 볼트 새틀라이트](../concepts/data-vault-satellite.md) — 명명 규약(원천 시스템 약어, 변경률 분할)이 적용되는 대표 엔터티
@@ -248,3 +299,7 @@ Data Vault 2.0의 3종 분류와 층위가 다른 분류가 하나 더 있다. R
 [^reis2022]: Reis & Housley 2022, 2장 "The Data Engineering Lifecycle" · 6장 "Storage"
 
 [^dehghani2022]: Dehghani 2022, 3장 "Principle of Data as a Product"
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`, 소절은 `▸`로 잇는다.

@@ -1,13 +1,14 @@
 ---
 type: concept
 title: 완만하게 변하는 차원(SCD)
-description: 차원 속성 값이 바뀔 때의 대응 전략 타입 0–7 — 각 타입의 구조·용도·비용, 타입 2가 기본기인 이유, 미니 차원과 하이브리드의 요지, 정밀 유효·만료 타임스탬프와 변경 이유가 차원 단독으로 시간을 자르게 만드는 방식, 타입 2를 어디까지 밀지의 경계, 타입 2가 도구에서 어떤 모양이 되는가, 그리고 Data Vault 쪽이 같은 체계를 정보 마트에서 어떻게 쓰는가, 그리고 이 창고 개념이 운영계 이벤트 스트림으로 건너가 타입 1과 타입 2만 남고 이력을 담는 그릇이 차원 행에서 이벤트 페이로드로 바뀌며 기본값 판정까지 뒤집히는 자리
-generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
+description: 차원 속성 값이 바뀔 때의 대응 전략 타입 0–7 — 각 타입의 구조·용도·비용, 타입 2가 기본기인 이유, 미니 차원과 하이브리드의 요지, 정밀 유효·만료 타임스탬프와 변경 이유가 차원 단독으로 시간을 자르게 만드는 방식, 타입 2를 어디까지 밀지의 경계, 타입 2가 도구에서 어떤 모양이 되는가, 그리고 Data Vault 쪽이 같은 체계를 정보 마트에서 어떻게 쓰는가, 그리고 레이크하우스 메달리온 쪽이 같은 타입 2를 이력화 방법 셋 가운데 하나로 놓고 어느 계층에 둘지를 조건으로 가르는 자리, 그리고 이 창고 개념이 운영계 이벤트 스트림으로 건너가 타입 1과 타입 2만 남고 이력을 담는 그릇이 차원 행에서 이벤트 페이로드로 바뀌며 기본값 판정까지 뒤집히는 자리
+generated: { by: "claude-fable-5", at: "2026-09-23T13:40:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
   - { id: dbtlabs2026-materialization, resource: /it/sources/dbtlabs2026-materialization.md }
   - { id: linstedt2016, resource: /it/sources/linstedt2016.md }
   - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 완만하게 변하는 차원(SCD)
@@ -29,6 +30,7 @@ sources:
 - [Data Vault 쪽에서 본 SCD](#data-vault-쪽에서-본-scd)
 - [이벤트 스트림 쪽에서 본 SCD — 운영계로 건너간 창고 개념](#이벤트-스트림-쪽에서-본-scd--운영계로-건너간-창고-개념)
 - [함수형 쪽에서 본 SCD — 스냅샷으로 대신하자는 제안](#함수형-쪽에서-본-scd--스냅샷으로-대신하자는-제안)
+- [레이크하우스 쪽에서 본 SCD — 어느 계층에 둘 것인가](#레이크하우스-쪽에서-본-scd--어느-계층에-둘-것인가)
 
 하나의 질문: **[차원 테이블](../concepts/dimension-table.md)의 속성 값이 운영계에서 바뀌면 차원 모델은 어떻게 응답해야 하는가.** 차원 속성은 비교적 정적이지만 영원히 고정은 아니다 — 제품 라인이 재편되고 고객이 이사한다. 킴벌이 1995년 도입한 완만하게 변하는 차원(slowly changing dimension, SCD)은 이 변화에 대한 대응 기법 묶음으로, 3판에서 기존 타입 1·2·3에 타입 0·4·5·6·7이 추가됐다 (5장, pp.141, 148).[^kimball2013]
 
@@ -352,6 +354,64 @@ p.166):[^bellemare2025]
 합리적일 수 있다고 스스로 적는다. 근거의 격도 다르다 — 이 페이지의 소스는 표준 교과서이고
 그쪽은 측정이 없는 실무자 에세이다.
 
+## 레이크하우스 쪽에서 본 SCD — 어느 계층에 둘 것인가
+
+2025년 메달리온 원전이 이 기법 묶음 가운데 **타입 2 하나만 꺼내 쓰고**, 물음을 타입의 선택에서
+**계층의 배치**로 옮긴다.
+
+- **타입 2가 이력화 방법 셋 가운데 하나로 놓인다** — 나머지 둘은 반입 계층에서 데이터를
+  파티셔닝해 전달 시점에 이력을 구조화하는 쪽과, 테이블 형식이 버전 메타데이터로 제공하는
+  타임 트래블이다 (6장 §"Data Historization").[^strengholt2025]
+- **앞 둘 대비 타입 2의 값어치를 저자가 대가로 센다** (같은 절):[^strengholt2025]
+  - 파티셔닝은 접근이 쉽지만 **통합하기 어려운 고립된 데이터셋**을 낳는다.
+  - 타임 트래블은 특정 시점의 상태에 접근하게 하고 기본 보존 기간을 무기한 연장할 수 있지만,
+    **두 버전 사이의 변경을 자동으로 나열하지 않아** 비교에 수동 노력이 든다.
+  - 타입 2는 그 둘과 달리 **변경을 자동으로 좇고 되찾는 더 직선적인 방법**을 주고, 모든 이력을
+    단일 중앙 테이블로 통합해 접근과 분석을 단순하게 한다.
+  - **셋은 배타적이지 않다** — 프로젝트 요구에 따라 이 기법들의 조합이 가장 포괄적인 접근일 수 있다.
+- **시간 축을 무엇으로 삼을지가 따로 갈린다** (6장 §"Data Historization" 곁줄):[^strengholt2025]
+  - **기능적 타임라인(functional timeline)** — 원천 운영 시스템이 유효일이나 타당성 날짜를 자체로
+    가지고 있으면 그것을 써서 **데이터 솔루션에 도착한 순서와 무관하게** 변경을 이해할 수 있다.
+  - **기술적 타임라인(technical timeline)** — 기능적 타임라인이 없으면 여기에 의존해야 하고, 이
+    타임라인은 반입 계층이 제공하는 **적재 날짜나 타임스탬프**를 쓴다.
+  - 이 KB의 [정밀 유효·만료 타임스탬프와 변경 이유](#정밀-유효만료-타임스탬프와-변경-이유) 절이
+    타임스탬프의 **해상도**를 다룬다면 이 갈림은 그 타임스탬프의 **출처**를 다룬다. 뒤쪽을 쓰면
+    늦게 도착한 변경이 늦은 시점의 변경으로 기록된다.
+- **비교의 키를 무엇으로 삼을지의 기본값도 다르다** — 이 페이지의 원전이 대리 키를 중심에 두는 데
+  비해 레이크하우스 쪽 구현은 **원천 시스템에서 할당된 업무 키**로 이전 데이터셋과 새 데이터셋을
+  비교하고, **기본 키가 없으면 전체 컬럼에서 생성한 해시를 유일 식별자로 삼는다** (6장 §"Data
+  Historization").[^strengholt2025] 저자가 각주에서 업무 키와 기본 키가 많은 시스템에서 같은
+  것이라고 덧붙인다 (6장 각주 7).[^strengholt2025]
+- **삭제가 잦으면 저장 형식의 기능이 갱신 비용에 닿는다** — 삭제된 행의 위치를 실제 데이터 파일과
+  분리해 표시하는 소프트 삭제 방식을 켜면 삭제 시 기존 파일을 다시 쓰지 않고 **읽을 때만 변경을
+  병합**하게 되며, 저자는 이것이 **SCD 관리처럼 갱신과 삭제가 규칙적인 경우에 연산의 효율을
+  높인다**고 적는다 (6장 §"Enhancing SCDs with Delta Lake Deletion Vectors"
+  곁글).[^strengholt2025] 2025년 저술 시점의 제품 기능이다.
+- **계층 배치의 논쟁은 이 페이지의 밖에 있다.** 타입 2를 원천 지향 계층에 둘 것인가 소비자 지향
+  계층에 둘 것인가의 조건을 저자가 양쪽으로 가르는 자리는
+  [Silver 계층의 변형과 이력화](../concepts/silver-layer-transformation-and-historization.md)이고,
+  같은 논쟁의 앞 장 쪽 서술은 [메달리온 Silver 계층](../concepts/medallion-silver-layer.md)에 있다.
+- **같은 저자가 7장에서 타입 2를 소비자 지향 계층에도 쓴다.** 의사결정과 이력 정확성이 결정적인
+  맥락에서 **SCD, 특히 타입 2를 정기적으로 써서** 데이터가 현재 상태와 이력 상태를 모두 정확히
+  표현하게 한다는 것이다 (7장 §"Design of the Gold Layer" ▸ "Transform Data Using a Star
+  Schema").[^strengholt2025]
+  - **그러나 곁줄이 조건을 단다** — 원천 지향 계층에 타입 2를 적용하는 것은 **진정한 맥락으로**
+    모든 이력 변경을 저장하므로 매우 이로운 반면, **소비자 지향 계층에서의 적용 가능성은 구체적
+    업무 요구가 이끌어야 한다.** 최종 사용자가 **리포팅이나 분석 목적으로 이력 상태에 직접 접근해야
+    할 때** 값어치를 갖는다 (같은 소절 곁줄).[^strengholt2025] 실습에서 양쪽에 다 쓴 것은 저자가
+    밝히듯 **학습 목적**이다.
+  - **날짜 차원만은 이력화하지 않는다** — **날짜의 속성이 고정이고 시간에 따라 바뀌지 않기
+    때문**이다 (7장 §"Design of the Gold Layer" ▸ "Transform Data Using a Star Schema" ▸ "Creation
+    of the dimensional table for date").[^strengholt2025]
+- **타입 2에 멱등성 논거를 붙이는 자리가 이 소스에만 있다** — 곁글이 파이프라인을 여러 번 돌려도
+  같은 결과를 내는 성질을 설계 원칙으로 세우고, 그 근거로 **타입 2가 진정한 멱등성을 보장하는
+  유일한 완만하게 변하는 차원 방법**이라고 적는다 (7장 §"Idempotency as a Key Design Principle"
+  곁글).[^strengholt2025] **"유일한"의 근거는 곁글 안에 없다.** 같은 낱말을 쓰기 패턴 쪽에서 세우는
+  자리는 [멱등적 쓰기 패턴](../concepts/idempotent-write-patterns.md)이고, 그쪽은 같은 성질을 병합과
+  소프트 삭제의 조합으로도 얻는다. 층위가 다른 두 답이다.
+- **모순 관계로 걸지 않는다.** 이 쪽은 타입 카탈로그를 부정하지 않고 그 가운데 하나를 골라 다른
+  저장 기술 위에 놓으며, 나머지 타입을 다루지 않을 뿐이다. 타입 2를 기본기로 보는 판정도 같다.
+
 [^kimball2013]: Kimball & Ross 2013, 5장 "Procurement" · 9장 "Human Resources Management" · 12장 "Transportation" · 13장 "Education"
 [^dbtlabs2026-materialization]: dbt Labs 2026, dbt 공식 문서 "Build" 절
 [^linstedt2016]: Linstedt & Olschimke 2016, 7장 "Dimensional Modeling"
@@ -365,3 +425,15 @@ p.166):[^bellemare2025]
     [비정규화와 이벤트화](../concepts/denormalization-and-eventification.md)가 갖는다. 이 절에 표도 도판도 없다.
     저자는 여덟 하위 모델의 출처를 대지 않는다 — 이 페이지의 타입 0–7과 수가 맞는다는 것은 이 KB의
     관찰이다.
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`(원문 절 제목 그대로), 소절은
+    `▸`로 잇고 곁줄과 곁글은 제목 뒤에 각각 `곁줄`·`곁글`을 붙인다. 이 페이지가 받는 것은 6장
+    §"Data Historization" 하나와 그 아래 곁줄 하나·곁글 하나·각주 하나, 그리고 7장 §"Design of the
+    Gold Layer"의 타입 2 관련 대목과 곁글 §"Idempotency as a Key Design Principle"이다. 6장 전체는
+    [Silver 계층의 기술 검증과 데이터 정제](../concepts/silver-layer-validation-and-cleansing.md) ·
+    [Silver 계층의 변형과 이력화](../concepts/silver-layer-transformation-and-historization.md) ·
+    [Silver 파이프라인의 오케스트레이션과 데이터 제품](../concepts/silver-layer-orchestration-and-data-products.md)
+    셋이, 7장 전체는 [Gold 계층 구현](../concepts/gold-layer-implementation.md)이 받는다.
+    **코드는 펜스 없이 구조만 산문으로 받았다.**

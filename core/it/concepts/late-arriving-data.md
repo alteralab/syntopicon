@@ -1,13 +1,20 @@
 ---
 type: concept
 title: 지각 도착 데이터
-description: 팩트와 차원 맥락이 함께 도착한다는 가정이 깨질 때의 처리 규칙 — 지각 팩트는 과거 키를 찾고, 지각 차원은 더미 행으로 버틴다, 그리고 이것이 예외가 아니라 지배적 처리 방식이 되는 업종
-generated: { by: "claude-opus-5", at: "2026-08-15T18:00:00Z" }
+description: 팩트와 차원 맥락이 함께 도착한다는 가정이 깨질 때의 처리 규칙 — 지각 팩트는 과거 키를 찾고, 지각 차원은 더미 행으로 버틴다, 그리고 이것이 예외가 아니라 지배적 처리 방식이 되는 업종, 그리고 레이크하우스 쪽이 같은 상황을 팩트를 기준으로 뒤집어 부르는 이름
+generated: { by: "claude-opus-5", at: "2026-09-23T23:30:00Z" }
 sources:
   - { id: kimball2013, resource: /it/sources/kimball2013.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 지각 도착 데이터
+
+- [지각 팩트(late arriving fact): 그때의 키를 찾아라](#지각-팩트late-arriving-fact-그때의-키를-찾아라)
+- [지각 차원(late arriving dimension): 두 가지 상황, 두 가지 규칙](#지각-차원late-arriving-dimension-두-가지-상황-두-가지-규칙)
+- [왜 대리 키 체계가 이를 가능하게 하나](#왜-대리-키-체계가-이를-가능하게-하나)
+- [예외가 아니라 지배적 처리 방식이 될 때](#예외가-아니라-지배적-처리-방식이-될-때)
+- [레이크하우스 쪽에서 같은 상황을 부르는 이름 — 조기 도착 팩트](#레이크하우스-쪽에서-같은-상황을-부르는-이름--조기-도착-팩트)
 
 데이터 웨어하우스는 보통 측정 활동(팩트 레코드)과 그 활동의 맥락(차원
 레코드)이 **동시에** 도착한다는 이상적 가정 위에 세워진다. 둘 다 제때 오면
@@ -86,4 +93,30 @@ sources:
 - 완화 전망은 원천 쪽에 있다 — **더 효과적인 원천 데이터 캡처 시스템이 결국 이 지각 도착
   이상 현상의 빈도를 줄일 것**이다 (14장, p.352).[^kimball2013]
 
+## 레이크하우스 쪽에서 같은 상황을 부르는 이름 — 조기 도착 팩트
+
+- 2025년에 나온 레이크하우스 설계서 하나는 위 **상황 2**(팩트가 차원보다 먼저 도착)를 지각
+  차원이 아니라 **조기 도착 팩트(early arriving fact)**라 부른다. 스타 스키마의 팩트 테이블을
+  적재하는 중에 **차원과 팩트 사이의 특정 관계를 성립시킬 수 없는** 상황이고, 실무자들이 그것을
+  그렇게 부른다고 적는다 (3장 §"Gold Layer" ▸ "Star Schema" ▸ "Loading the fact
+  tables").[^strengholt2025]
+- **처방은 같다** — 그런 경우 **플레이스홀더 레코드(placeholder records)의 생성이 필요해진다.**
+  이 레코드가 빠진 항목을 표현하고 차원과 팩트 사이 관계의 무결성을 유지해 스타 스키마가 올바르게
+  기능하게 한다 (3장 §"Gold Layer" ▸ "Star Schema" ▸ "Loading the fact tables").[^strengholt2025]
+- 곧 **이름만 반대 방향에서 붙은 같은 것**이다. 위 절들은 늦게 오는 **차원**을 기준으로 이름
+  짓고, 이 소스는 일찍 오는 **팩트**를 기준으로 이름 짓는다. 어느 이름으로 찾아와도 서로를
+  가리키도록 여기 남긴다.
+- 같은 소스가 순서 규칙도 못 박는다 — **차원 테이블을 팩트 테이블보다 먼저 만드는 것이 결정적이다.
+  팩트 테이블이 대리 키를 위해 차원 테이블에 의존하기 때문이고, 차원 테이블에 업무 키가 없으면
+  적절한 대리 키를 찾아 부여하는 것이 불가능해진다** (3장 §"Gold Layer" ▸ "Star Schema" ▸
+  "Loading the fact tables" 곁줄).[^strengholt2025] 위
+  [왜 대리 키 체계가 이를 가능하게 하나](#왜-대리-키-체계가-이를-가능하게-하나)가 그 의존의
+  기제다. 이 규칙이 놓이는 계층 맥락은 [메달리온 Gold 계층](../concepts/medallion-gold-layer.md)에
+  있다.
+
 [^kimball2013]: Kimball & Ross 2013, 14장 "Healthcare", 19장 "ETL Subsystems and Techniques", 20장 "ETL System Design and Development Process and Tasks"
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`이고 소절은 `▸`로 이으며
+    곁줄은 제목 뒤에 `곁줄`을 붙인다.

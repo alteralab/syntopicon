@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 멱등적 쓰기 패턴
-description: "같은 잡을 다시 돌려도 대상 데이터셋이 같아지게 하려고 이전 결과를 치우는 다섯 패턴 — 메타데이터 연산으로 테이블을 통째로 비우고 뷰로 다시 묶는 Fast Metadata Cleaner와 그것이 정하는 멱등성 입도, 데이터 계층을 직접 갈아 끼우는 Data Overwrite와 vacuum이 없으면 공간이 돌아오지 않는 이유, MERGE로 증분을 합치는 Merger와 백필 중 소비자가 다른 데이터를 보게 되는 구멍, 테이블 버전을 상태 테이블에 적어 백필 전에 되돌리는 Stateful Merger, 그리고 매번 새 테이블에 쓰고 뷰로만 노출하는 Proxy"
-generated: { by: "claude-opus-5", at: "2026-08-15T14:10:00Z" }
+description: "같은 잡을 다시 돌려도 대상 데이터셋이 같아지게 하려고 이전 결과를 치우는 다섯 패턴 — 메타데이터 연산으로 테이블을 통째로 비우고 뷰로 다시 묶는 Fast Metadata Cleaner와 그것이 정하는 멱등성 입도, 데이터 계층을 직접 갈아 끼우는 Data Overwrite와 vacuum이 없으면 공간이 돌아오지 않는 이유, MERGE로 증분을 합치는 Merger와 백필 중 소비자가 다른 데이터를 보게 되는 구멍, 테이블 버전을 상태 테이블에 적어 백필 전에 되돌리는 Stateful Merger, 매번 새 테이블에 쓰고 뷰로만 노출하는 Proxy, 그리고 같은 병합 명령을 레이크하우스 계층 배치의 문제로 다시 세우는 쪽"
+generated: { by: "claude-opus-5", at: "2026-09-23T24:00:00Z" }
 sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 멱등적 쓰기 패턴
@@ -20,6 +21,7 @@ sources:
 - [Stateful Merger — 합치기 전에 되돌린다](#stateful-merger--합치기-전에-되돌린다)
 - [상태 테이블이 거짓말하는 두 자리](#상태-테이블이-거짓말하는-두-자리)
 - [Proxy — 지우지 않고 한 번만 쓴다](#proxy--지우지-않고-한-번만-쓴다)
+- [레이크하우스 쪽이 같은 병합을 계층 배치의 문제로 세운다](#레이크하우스-쪽이-같은-병합을-계층-배치의-문제로-세운다)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **잡을 다시 돌려도 대상 데이터셋이 같아지게 하려면 이전 실행이 남긴 것을 어떻게
@@ -405,8 +407,34 @@ Konieczny의 4장은 그 답을 네 범주로 가른다 — **덮어쓰기**(Ove
     한다. 그러지 않으면 사용자가 실수로라도 이전에 생성된 내부 테이블을 삭제해 Proxy 패턴이 제공하는
     불변성 보장을 깰 수 있다** (4장, p.113).[^konieczny2025]
 
+## 레이크하우스 쪽이 같은 병합을 계층 배치의 문제로 세운다
+
+2025년에 나온 레이크하우스 설계서 하나가 같은 `MERGE` 명령을 다루되 **다른 물음에 매단다.** 이
+페이지의 물음이 "다시 돌려도 같아지려면 무엇을 치우는가"라면, 그쪽의 물음은 "**증분 변경만 다뤄야
+할 때 무엇으로 합치는가**"다. 층위가 달라 겹치지 않고, 그래서 `contradicts`도 걸지 않는다.
+
+- 그쪽이 병합을 부르는 이유는 재실행이 아니라 **증분 적재**다 — 복잡한 필터로 변경분(갱신과 신규
+  항목)만 다뤄야 하는 시나리오에서 병합 연산이 결정적이 된다 (5장 §"Implementation of Lakehouse
+  Tables" ▸ "Updating Tables with MERGE Operations").[^strengholt2025]
+- **조건절의 어휘를 더 넓게 센다** — 이 페이지의 대표 코드가 일치·불일치 둘을 쓴다면, 그쪽은
+  `WHEN MATCHED`·`WHEN NOT MATCHED`·`WHEN MATCHED AND`·`WHEN NOT MATCHED BY TARGET`·
+  `WHEN NOT MATCHED BY SOURCE` 다섯을 나열하고 이 조건들이 증분 적재 관리의 강력한 도구가 된다고
+  적는다 (같은 소절).[^strengholt2025] 마지막 둘은 **원천에 없는 대상 행**을 다루는 자리라, 이
+  페이지가 "Merger 패턴이 삭제를 지원하지 않는다"며 소프트 삭제로 우회한 그 구멍과 맞닿는다.
+- **그쪽이 더하는 것은 대가의 종류다.** 이 페이지가 유일성·I/O·백필 셋을 세운다면, 그쪽은 **원천
+  데이터의 더러움**을 센다 — 원천이 깨끗하지 않거나 조인 조건이 단순하지 않으면 복잡성이 생기고,
+  데이터셋에 중복 항목이 있으면 **병합 전에 중복을 제거해야 할 수 있다** (같은
+  소절).[^strengholt2025] 이 페이지의 대가 ①(유일성)이 요구하는 것과 같은 전제를 다른 각도에서
+  적은 것이다.
+- **그 대가에서 나오는 배치 규칙이 이 절에서 가장 옮길 값어치가 있다** — 그래서 **복잡한 병합
+  연산은 흔히 메달리온의 다음 계층들에서 수행된다** (같은 소절).[^strengholt2025] 곧 그쪽의 처방은
+  패턴을 바꾸는 것이 아니라 **패턴을 돌릴 계층을 옮기는 것**이다. 이 페이지가 Stateful Merger로
+  푸는 문제(병합의 전제가 깨지는 자리)를 그쪽은 **아키텍처의 계층 경계로** 푼다.
+
 ## 이어지는 페이지
 
+- [Bronze 계층 구현](../concepts/bronze-layer-implementation.md) — 같은 병합을 레이크하우스 반입
+  기법 다섯 중 하나로 배치하는 쪽
 - [함수형 데이터 엔지니어링](../concepts/functional-data-engineering.md) — 이 다섯 패턴이 지키려는 성질을
   왜 지켜야 하는지, 그 논거가 실린 원전
 - [정확히 한 번 메시지 처리](../concepts/exactly-once-message-processing.md) — 같은 장의 데이터베이스 범주
@@ -432,3 +460,9 @@ Konieczny의 4장은 그 답을 네 범주로 가른다 — **덮어쓰기**(Ove
 4-7·4-10은 도식이므로 본문이 서술한 내용만 옮겼다. 표는 원서 표 4-1을 옮긴 것이고, 코드 펜스는
 예제 4-1·4-3·4-6·4-11·4-25를 조판 줄바꿈만 정돈한 것이다. 예제 4-10은 한 줄이므로 인라인으로
 옮겼다.
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`, 소절은 `▸`로 잇는다. 이
+    페이지가 받는 것은 5장 §"Implementation of Lakehouse Tables" ▸ "Updating Tables with MERGE
+    Operations" 하나이고, 그 소절의 SQL·Python 예제는 펜스 없이 구조만 산문으로 받았다.

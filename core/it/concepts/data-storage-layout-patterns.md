@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 데이터 저장 레이아웃 패턴
-description: "저장 계층의 물리 배치를 어떻게 잡아 읽을 데이터를 미리 줄이는가를 네 패턴으로 가른 것 — 행 전체를 값별 자리로 보내는 Horizontal Partitioner와 그것이 저카디널리티에서만 성립하는 이유(입도·메타데이터 오버헤드·스큐·불변성), 행을 가변·불변으로 쪼개 다른 곳에 쓰는 Vertical Partitioner와 그 대가인 도메인 분열, 고카디널리티 열을 해시 나머지로 묶어 프루닝과 셔플 제거를 얻는 Bucket, 그리고 저장 순서로 데이터 블록을 건너뛰는 Sorter와 사전식 순서가 다차원 술어에서 지는 자리(Z-order)"
-generated: { by: "claude-opus-5", at: "2026-08-15T21:40:00Z" }
+description: "저장 계층의 물리 배치를 어떻게 잡아 읽을 데이터를 미리 줄이는가를 네 패턴으로 가른 것 — 행 전체를 값별 자리로 보내는 Horizontal Partitioner와 그것이 저카디널리티에서만 성립하는 이유(입도·메타데이터 오버헤드·스큐·불변성), 행을 가변·불변으로 쪼개 다른 곳에 쓰는 Vertical Partitioner와 그 대가인 도메인 분열, 고카디널리티 열을 해시 나머지로 묶어 프루닝과 셔플 제거를 얻는 Bucket, 저장 순서로 데이터 블록을 건너뛰는 Sorter와 사전식 순서가 다차원 술어에서 지는 자리(Z-order), 그리고 이 네 패턴이 공통으로 요구하는 고정 배치와 사전 계획을 없애겠다고 2024년 중반 등장한 liquid clustering"
+generated: { by: "claude-opus-5", at: "2026-09-23T20:00:00Z" }
 sources:
   - { id: konieczny2025, resource: /it/sources/konieczny2025.md }
+  - { id: strengholt2025, resource: /it/sources/strengholt2025.md }
 ---
 
 # 데이터 저장 레이아웃 패턴
@@ -25,6 +26,7 @@ sources:
 - [Sorter — 저장 순서로 블록을 건너뛴다](#sorter--저장-순서로-블록을-건너뛴다)
 - [Z-order — 사전식 순서가 다차원에서 지는 자리](#z-order--사전식-순서가-다차원에서-지는-자리)
 - [정렬이 쓰는 쪽에서 되사는 것](#정렬이-쓰는-쪽에서-되사는-것)
+- [고정 배치라는 공통 전제를 없애겠다는 쪽 — liquid clustering](#고정-배치라는-공통-전제를-없애겠다는-쪽--liquid-clustering)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **저장 계층의 물리 배치를 어떻게 잡아, 질의가 읽어야 할 데이터를 읽기 전에
@@ -381,8 +383,37 @@ Konieczny의 8장은 그 답을 두 범주·네 패턴으로 가른다 — **파
   할 수 있음을 알아야 한다. 테이블 크기에 따라 이는 비쌀 수 있다** (8장,
   p.250).[^konieczny2025]
 
+## 고정 배치라는 공통 전제를 없애겠다는 쪽 — liquid clustering
+
+위 네 패턴은 전부 **사람이 미리 고른 열**로 배치를 못 박는다 — 분할 키, 버킷 열, 정렬 열이
+그것이다. 같은 2025년의 메달리온 원전이 그 전제 자체를 겨냥하는 Delta Lake 기능을 하나 더 적는다.
+
+- 문제 규정이 위 세 절과 정확히 맞물린다 — Z-order와 파티셔닝을 최적으로 구현하는 데는 도전과
+  맞교환이 따르고, **이 최적화들은 고정된 데이터 배치(fixed data layout)를 요구하므로 사전 계획을
+  세심히 해야 한다** (2장 §"Managing Delta Tables" ▸ "Liquid Clustering").[^strengholt2025]
+  그 사전 계획의 비용은 위 [버킷 개수는 미래를 예측하는 일이다](#버킷-개수는-미래를-예측하는-일이다)와
+  [분할 키는 바꾸기 어렵다](#분할-키는-바꾸기-어렵다)가 이미 세워 둔 것이다.
+- 그 문제를 다루려고 Delta Lake 프로젝트가 **2024년 중반 liquid clustering을 도입**했고, 저자는
+  이것이 **전통적 Z-ordering과 파티셔닝을 대체하게 되어 있다**고 적는다 (같은 소절).[^strengholt2025]
+- 어떻게 다른가 — liquid clustering은 **클러스터링 키에 기반해 데이터 배치를 동적으로 적응시킨다.**
+  Hive 방식 파티셔닝의 정적 배치와 달리 이 유연한("liquid") 배치는 변해 가는 질의 패턴에 반응해
+  바뀌고, 그래서 최적이 아닌 파티셔닝과 열 카디널리티 문제를 다룬다. **증분 최적화를 적용하고
+  데이터를 다시 쓰지 않고도 열을 재클러스터링할 수 있다** (같은 소절).[^strengholt2025]
+  - 곧 위 "분할 키는 바꾸기 어렵다"와 "가변성"(정렬 키 변경이 테이블 전체 재정렬을 부를 수 있다는
+    것)이 이 기능의 판매 문구가 지목하는 바로 그 비용이다.
+- 같은 소스가 **Z-order와 파티셔닝을 함께 쓸 때의 제약**도 남긴다 — 둘을 결합할 수는 있으되
+  **Z-order 클러스터링은 파티션 안에서만 일어나고 같은 필드를 두 기법에 함께 쓸 수 없다**
+  (2장 §"Managing Delta Tables" ▸ "Table Partitioning").[^strengholt2025]
+- **이 페이지의 카탈로그에는 liquid clustering이 없다.** 두 소스가 같은 2025년인데 한쪽에만 있는
+  기능이므로, 이것은 카탈로그가 틀렸다는 뜻이 아니라 **패턴 카탈로그가 굳은 뒤에 제품이 움직인
+  자리**로 읽는다. 저자의 "대체하게 되어 있다"는 예고이지 실측이 아니므로 #hypothesis 로 둔다.
+- 이 기능이 메달리온 계층별 결정으로 배열되는 자리는
+  [메달리온 계층 이전의 결정과 Delta 테이블 관리](medallion-groundwork-and-delta-table-management.md)다.
+
 ## 이어지는 페이지
 
+- [메달리온 계층 이전의 결정과 Delta 테이블 관리](medallion-groundwork-and-delta-table-management.md)
+  — 같은 기법들을 Delta 테이블 관리 기법 여섯으로 배열한 2025년 메달리온 원전
 - [읽기 경로 최적화 패턴](read-path-optimization-patterns.md) — 같은 장의 나머지 세 패턴.
   Sorter가 기대는 블록 메타데이터(Metadata Enhancer), 수직 파티셔닝이 되사는 질의를 메우는
   Dataset Materializer, 나열 자체를 없애는 Manifest
@@ -406,3 +437,8 @@ Konieczny의 8장은 그 답을 두 범주·네 패턴으로 가른다 — **파
 내용만 옮겼다. 코드 펜스는 예제 8-2·8-8·8-9·8-12를 패턴당 하나씩 고른 것이고 조판 줄바꿈만
 정돈했다. 나머지 예제(8-1·8-3~8-7·8-10·8-11)는 같은 패턴의 다른 제품 판이거나 한 줄짜리여서
 산문·인라인으로 옮겼다.
+
+[^strengholt2025]: Piethein Strengholt, *Building Medallion Architectures: Designing with Delta
+    Lake and Spark*, O'Reilly 2025 ([소스](../sources/strengholt2025.md)). 스냅샷이 EPUB이고
+    인쇄판 쪽 앵커가 없어 locator는 장·절 단위다 — `N장 §"절 제목"`, 소절은 `▸`로 잇는다.
+    SQL 코드 목록은 이 페이지에 옮기지 않았다.

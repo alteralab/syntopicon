@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 메달리온 계층 이전의 결정과 Delta 테이블 관리
-status: draft
 description: "메달리온 아키텍처의 Bronze 계층에 데이터가 닿기 전에 정해 두어야 하는 것들과 그 뒤 테이블을 관리하는 기법들 — 랜딩 존을 따로 둘지 Bronze로 곧장 반입할지, \"원시\"라는 말이 중개(mediation)를 허용하는 범위, 배치와 실시간을 가르는 기준과 오류 계층, Spark Structured Streaming·change data feed·CDC 셋의 분업과 실시간 복제 데이터를 Bronze로 볼지 pre-Bronze로 볼지, ETL·오케스트레이션 도구 선택이 아키텍처를 되규정한다는 판정, 그리고 2025년 저술 시점의 Delta 테이블 관리 기법 여섯(Z-Ordering·V-Ordering·파티셔닝·liquid clustering·컴팩션과 최적화된 쓰기·DeltaLog)과 DeltaLog가 이력 데이터베이스가 아니라는 한계"
 generated: { by: "claude-opus-5", at: "2026-09-23T20:00:00Z" }
 sources:

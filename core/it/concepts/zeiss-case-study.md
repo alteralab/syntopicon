@@ -1,7 +1,6 @@
 ---
 type: concept
 title: ZEISS 사례 연구
-status: draft
 description: "광학 기업이 플랫폼 인스턴스 서른 개에 메달리온을 흩어 놓은 사례 — 사일로를 한 팀으로 모은 뒤 강한 코어와 권한 있는 부문으로 연합해 간 조직 이행, 유스케이스를 따라 유기적으로 자란 아키텍처를 되돌아 클라우드 채택 틀 위에 다시 세운 판정과 랜딩 존을 인스턴스라 고쳐 부르는 이유, 중앙·탈중앙·혼성이라는 인스턴스 패턴 셋, 기술 스택을 강제하지 않고 도메인이 고르게 하는 원칙과 그 대가, 인스턴스마다 계층 수가 셋이 아닐 수 있다는 허용과 Gold와 Silver의 경계가 흐려지는 자리, 보고 도구 쪽 모델링이 계층 판정을 흔드는 문제, 카탈로그 셋이 통합되지 않은 상태와 카탈로그의 카탈로그라는 구상, 데이터 계약을 개념 검증까지만 하고 멈춘 상태와 정책 집행의 수단으로 기대하는 자리, 전역 데이터 제품과 지역 데이터 제품을 거버넌스 강도로 가르는 규정, 그리고 데이터 메시를 기술부터 시작한 것이 성급했다는 자기 판정"
 generated: { by: "claude-opus-5", at: "2026-09-23T14:20:00Z" }
 sources:
@@ -374,8 +373,8 @@ sources:
 
 ## 이어지는 페이지
 
-- [AP Pension 사례 연구](ap-pension-case-study.md) — 같은 부의 첫 사례, 계층을 여덟으로 쪼갠 쪽
-- [Amadeus 사례 연구](amadeus-case-study.md) — 같은 부의 둘째 사례, 메시와 메달리온을 겹쳐 놓은 쪽
+- [AP Pension 사례 연구](../concepts/ap-pension-case-study.md) — 같은 부의 첫 사례, 계층을 여덟으로 쪼갠 쪽
+- [Amadeus 사례 연구](../concepts/amadeus-case-study.md) — 같은 부의 둘째 사례, 메시와 메달리온을 겹쳐 놓은 쪽
 - [메달리온 아키텍처의 정의와 계보](../concepts/medallion-architecture-origins.md) — 이 사례가 권고로만 깐 규정의 원전
 - [메달리온 Gold 계층](../concepts/medallion-gold-layer.md) — 경계가 흐려진다고 말하는 계층의 규정
 - [메달리온 기반의 플랫폼 층 설정](../concepts/medallion-platform-foundation.md) — 플랫폼 인스턴스라는 낱말의 원전
