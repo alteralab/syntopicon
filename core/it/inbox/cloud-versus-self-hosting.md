@@ -124,6 +124,9 @@ sources:
   수 있다는 유럽 연합의 우려에 **일리가 있다**고 인정하면서도, **같은 집중이 더 적은 기계와 더
   적은 전기를 낳는다**며 효율 쪽을 고른다 (4장, pp.70–71).[^currie2024] 아래
   [가장 큰 단점 — 통제권이 없다](#가장-큰-단점--통제권이-없다) 절과 서로 반대로 당기는 자리다.
+- **같은 책 6장이 저활용의 대가를 하나 더 든다** — 큰 가상 머신 값을 치르고 일부만 쓰면
+  데이터센터를 더 지으라는 신호가 되어 탄소 집약적 반도체를 더 만든다 (6장, p.97).[^currie2024]
+  나머지는 [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md)가 갖는다.
 - **이 축은 위 절의 판정과 어긋나지 않는다.** 부하가 시간에 따라 크게 변할 때 클라우드가
   값어치를 한다는 판정과 같은 기제 — 자원을 놀리지 않는 것 — 를 배출로 다시 읽는 것이다.
   갈리는 것은 **무엇을 아끼는가**뿐이고, 어느 쪽을 골라야 하는지에 대한 사실 주장이 서로
@@ -482,16 +485,15 @@ sources:
     인쇄판 쪽 번호(PDF 쪽 − 18, 실측). 이 페이지는 그 절에서 운영 부담과 학습 부담의 방향만
     가져왔다 — 그 갈래의 별점표와 제품별 서술은
     [데이터베이스 종류 고르기](selecting-a-database-type.md)가 갖는다. 직인용은 두지 않았고
-    전부 한국어 재서술이며 괄호 안이 그 쪽이다. 저자들이 드는 제품 이름은 그쪽에 버전 조건과
-    함께 있다.
+    전부 한국어 재서술이며 괄호 안이 그 쪽이다. 저자들이 드는 제품 이름은 그쪽에 버전 조건과 함께 있다.
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 1장 "Introduction to Green Software"
-    pp.7·14 · 2장 "Building Blocks" pp.23·25 · 4장 "Operational Efficiency" pp.63·70–71.
-    쪽은 인쇄판 쪽(PDF 쪽 − 22, 실측). 이 페이지는 그
-    책에서 **클라우드와 온프레미스를 가르는 대목만** 가져왔다 — 규정과 우선순위는
+    pp.7·14 · 2장 "Building Blocks" pp.23·25 · 4장 "Operational Efficiency" pp.63·70–71 ·
+    6장 "Hardware Efficiency" p.97. 쪽은 인쇄판 쪽(PDF 쪽 − 22, 실측). 이 페이지는 그 책에서
+    **클라우드와 온프레미스를 가르는 대목만** 가져왔다 — 규정과 우선순위는
     [그린 소프트웨어의 규정](green-software-definition.md)이, 어휘와 셈은
     [탄소 회계의 기본](carbon-accounting-basics.md)이, 사용률을 올리는 기제와 운영 실천은
     [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md)과
-    [그린 운영의 실천](green-operations-practices.md)이 갖는다. 직인용은 두지 않았고
-    전부 한국어 재서술이다.
+    [그린 운영의 실천](green-operations-practices.md)이 갖는다. 직인용은 두지 않았고 전부
+    한국어 재서술이다.

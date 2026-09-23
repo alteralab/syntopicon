@@ -336,6 +336,11 @@ sources:
 - 저술 시점의 기대도 함께 적는다 — **하이퍼스케일러가 스팟 인스턴스 워크로드를 스케줄할 때
   지역 전력망의 탄소 강도를 고려하기를 바라며 2025년까지 그렇게 되리라 본다. 구글은 이미 그런
   움직임을 말하고 있다** (4장, p.64).[^currie2024]
+- **이 시간 축을 애플리케이션 쪽으로 가져오는 것이 5장이다.** 여기서는 작업을 시간에 둔감하다고
+  라벨링해 제공자의 스케줄러에 맡기지만, 5장은 애플리케이션이 전력망의 탄소 강도 예보를 직접
+  읽어 언제 돌릴지 정하게 한다. 그 쪽이 이 라벨링을 대체하지 않는다 — 5장 자신이 지연에 둔감한
+  워크로드를 스팟 인스턴스로 돌리면 훨씬 싸다며 이 절을 가리킨다 (5장, p.85).[^currie2024]
+  기제는 [수요 이동과 수요 조형](demand-shifting-and-shaping.md)에 있다.
 
 ## 사례 — 스카이스캐너와 카오스 엔지니어링
 
@@ -422,6 +427,10 @@ sources:
 - [그린 설계 패턴](green-design-patterns.md) — 같은 비교의 설계 쪽
 - [그린 소프트웨어의 규정](green-software-definition.md) — 운영 효율이 놓이는 우선순위
 - [탄소 회계의 기본](carbon-accounting-basics.md) — 사용률과 전력의 비선형 관계, PUE, 내재 탄소
+- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 같은 시간 유연성을 애플리케이션이
+  직접 쓰는 자리
+- [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 사용률과 나란한
+  다른 길인 수명 연장
 - [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md) — 사용률을 올릴 때
   깎이는 것이 무엇인지 묻는 반대쪽 원전
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —
@@ -438,7 +447,7 @@ sources:
     Utilization" pp.56–64와 그 하위 §Rightsizing · §Autoscaling · §"Infrastructure as code" ·
     §"Cluster scheduling"과 그 런인 제목 §"Information underload" · §"What about the cloud?" ·
     §"Mixed workloads" · §"Time shifting and spot instances" · 곁상자 §"Case Study: Chaos
-    Engineering"). locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가 없는 세 사람의
+    Engineering") · 5장 p.85. locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가 없는 세 사람의
     공저라 claim은 저자 셋에 함께 건다. 직인용 다섯은 `pdftotext -layout` 출력으로 문자 단위
     대조했고 원문의 굽은 따옴표를 그대로 두었다. 도판 둘(그림 4-1 CNCF의 GreenOps 삼각형 p.59,
     그림 4-2 데브옵스 테트리스 p.60)은 이미지로 조판되어 안쪽 글자가 텍스트 레이어에 없으므로

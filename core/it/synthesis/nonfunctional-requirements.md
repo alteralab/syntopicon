@@ -227,6 +227,12 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
   같은 기능을 더 적은 하드웨어로 내는 일, 적정 크기화와 오토스케일링과 클러스터 스케줄링
 - [그린 운영의 실천](../concepts/green-operations-practices.md) — 멀티테넌시와 서버리스,
   SRE 실천, 끌 수 있어야 끈다는 LightSwitchOps, 전력망으로 리전 고르기
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 전기가 깨끗한지 더러운지를 무엇으로
+  아는가. 탄소 강도의 변동, 전력망의 디스패치와 한계 배출, 그 신호를 읽어 주는 도구
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 그 신호를 받아 일을
+  옮길 것인가 줄일 것인가. 시간 이동과 위치 이동, 그리고 공급에 맞춰 일의 양을 바꾸는 쪽
+- [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md) — 이미
+  치러진 제조 배출을 더 오래 나눠 쓰는 일. 기기 수명, 소프트웨어 정의 노후화, 전자 폐기물
 
 이 축이 이 허브의 다른 절과 만나는 자리가 셋 있다. 가동률을 올릴수록 일 한 단위당 전력이
 좋아진다는 곡선은 성능 절의 큐잉 곡선과 **같은 손잡이를 반대 방향으로 당기고**, 하드웨어의
