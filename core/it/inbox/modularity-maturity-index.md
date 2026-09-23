@@ -28,8 +28,8 @@ sources:
 하나의 질문: **한 체계에 쌓인 기술 부채의 양을 어떤 수로 재고, 그 수로 무엇을 결정하는가.**
 
 이 페이지의 출처는 열 사람이 한 장씩 쓴 2022년 아키텍처 측정 사례집의 4장이고, 그 장의 저자는
-카롤라 릴리엔탈(Carola Lilienthal)이다. 같은 책의 다른 장들은
-[진화와 거버넌스](../synthesis/evolution-and-governance.md) 허브의 같은 절에 모여 있다.
+카롤라 릴리엔탈(Carola Lilienthal)이다. 같은 책의 다른 장들은 자식 허브
+[소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md)에 모여 있다.
 
 **이 지수가 재는 대상의 규정은 [기술 부채](technical-debt.md)에 있다** — 같은 장의 앞 두 절이고,
 이 페이지는 그 부채의 양을 수로 내리는 나머지 일곱 절이다. 아래의 두 문턱은 그쪽이 적은 두 출구
@@ -452,7 +452,9 @@ p.62).[^ciceri2022] 그림 4-8이 그 순서에 번호를 붙이고, 걸음마�
   붙이는 실천
 - [프라이빗 빌드 지표](private-build-metrics.md) — 같은 책 5장. 저쪽은 소프트웨어를
   **짓는 과정**을 잰다
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
     Quality of Your Architecture*, O'Reilly 2022 ([소스](../sources/ciceri2022.md)). 열 사람이

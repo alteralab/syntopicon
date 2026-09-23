@@ -200,7 +200,9 @@ p.78).[^ciceri2022] 조합마다 가설과 그것을 확인하거나 배제하�
   구조를 재는 쪽
 - [적합도 함수 테스트 피라미드](fitness-function-testing-pyramid.md) — 같은 책 2장. 아키텍처
   특성을 직접 판정하는 검사를 층으로 쌓는 쪽
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
     Quality of Your Architecture*, O'Reilly 2022 ([소스](../sources/ciceri2022.md)). 열 사람이

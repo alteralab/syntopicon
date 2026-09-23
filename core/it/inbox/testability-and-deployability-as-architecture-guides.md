@@ -233,7 +233,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 - [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 같은 낱말을 2017년 원전이
   규정하는 자리
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 이 장이 파이프라인 범위의

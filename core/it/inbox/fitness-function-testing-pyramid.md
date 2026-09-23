@@ -192,7 +192,8 @@ sources:
   | 가운데 층(middle layer) | **서비스 테스트와 통합 테스트.** (때로 컴포넌트 테스트와 API 테스트도 여기 놓인다) | — |
   | 꼭대기 층(top layer) | **종단(E2E) 테스트**, 흔히 애플리케이션의 사용자 인터페이스(UI) 층을 통해 직접 실행된다 | **실세계 사용 사례가 어떻게 부정적 영향을 받을지 보기 쉽다.** 그러나 **오류를 일으킨 컴포넌트를 짚어 내기는 더 어려울 수 있다** — 이 수준에서는 많은 컴포넌트가 함께 돌기 때문이다 |
 
-- 그림 2-2는 이미지로 조판돼 있다. 쪽 렌더로 읽은 라벨 전문이다 (그림 2-2):[^ciceri2022]
+- 그림 2-2는 이미지로 조판돼 있다. 쪽 렌더로 읽은 라벨 전문이다 (2장(바이스) 그림 2-2,
+  p.31):[^ciceri2022]
 
   > 왼쪽 세로축 `Execution`: 위 `Slow` — 아래 `Fast`
   > 오른쪽 세로축 `Maintenance/running cost`: 위 `Expensive` — 아래 `Cheap`
@@ -465,7 +466,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 이 유비가 층으로 쌓는
   그 기제의 정의와 분류 축
 - [진화적 아키텍처](../concepts/evolutionary-architecture.md) — 적합도 함수가 왜 필요한지를

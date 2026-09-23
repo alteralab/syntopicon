@@ -347,7 +347,9 @@ sources:
   다른 답
 - [아키텍처 표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) —
   또 다른 답
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 조직 쪽 허브
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the

@@ -470,6 +470,8 @@ sources:
   허브
 - [네 핵심 지표를 풀어 놓기](four-key-metrics-in-practice.md) — 같은 책 1장. **전달 성과를 재는
   쪽**이라 이 장의 품질 속성 측정과 재는 대상이 다르다
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
     Quality of Your Architecture*, O'Reilly 2022 ([소스](../sources/ciceri2022.md)). 열 사람이

@@ -66,7 +66,7 @@ status: draft
 | 이 페이지(이 책 15장) | **1968년 4월 *Datamation*** | 생략 없는 한 문장, "Any organization that designs a system (defined more broadly…)" |
 | [함께 일하기](working-together.md) 중 thomas2020 | **1967년** | "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations."[^thomas2020] |
 | 같은 페이지 중 이 책 1장 | 연도 없음 | 위와 같은 문장이되 **생략 부호가 들어간 판** |
-| [지표로 안내되는 아키텍처 의도성](architecture-intentionality-guided-by-metrics.md) 쪽 소스(2022년 사례집 6장) | **1968년 4월 *Datamation* 31쪽** | "organizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations."[^ciceri2022] |
+| [지표로 안내되는 아키텍처 의도성](architecture-intentionality-guided-by-metrics.md) 쪽 소스(2022년 사례집 6장) | **1968년 4월 *Datamation* 31쪽** | "organizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations." (6장(로사), p.83)[^ciceri2022] |
 
   - **네 판본을 합치지 않는다.** 이 KB가 원논문을 확인하지 않았으므로 어느 표기가 옳은지 판정할
     자리가 없다. 연도가 갈리는 사실 자체를 남긴다.

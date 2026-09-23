@@ -30,8 +30,8 @@ sources:
 
 이 페이지의 출처는 열 사람이 한 장씩 쓴 2022년 아키텍처 측정 사례집의 5장이고, 그 장의 저자는
 그 책을 엮은 크리스티안 치체리(Christian Ciceri)다. **같은 장이 그 실천에 붙이는 지표 셋과 그
-값을 읽는 법은 [프라이빗 빌드 지표](private-build-metrics.md)에 있다.** 같은 책의 다른 장들은
-[진화와 거버넌스](../synthesis/evolution-and-governance.md) 허브의 같은 절에 모여 있다.
+값을 읽는 법은 [프라이빗 빌드 지표](private-build-metrics.md)에 있다.** 같은 책의 다른 장들은 자식 허브
+[소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md)에 모여 있다.
 
 ## 이 장이 겨냥하는 상황
 
@@ -427,7 +427,9 @@ pp.70–71).[^ciceri2022]
   전달 성과를 재는 쪽
 - [기술 부채](technical-debt.md) — 같은 책 4장. 이 장의 트렁크 불안정과 달리 **코드 구조 쪽의
   부채**를 규정하는 자리
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
     Quality of Your Architecture*, O'Reilly 2022 ([소스](../sources/ciceri2022.md)). 열 사람이

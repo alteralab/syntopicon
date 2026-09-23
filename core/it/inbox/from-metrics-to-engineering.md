@@ -421,6 +421,8 @@ sources:
   층으로 나누는 쪽
 - [계층 아키텍처](layered-architecture.md) — 이 장의 첫 사례가 지키려는 구조
 - [기술 부채](technical-debt.md) — 맺음이 대는 "나중은 오지 않는다"가 무엇의 원인인지의 규정
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
     Quality of Your Architecture*, O'Reilly 2022 ([소스](../sources/ciceri2022.md)). 열 사람이

@@ -473,7 +473,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 여기서 계기를 꽂는 그
   파이프라인이 사는 축
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 계기 지점

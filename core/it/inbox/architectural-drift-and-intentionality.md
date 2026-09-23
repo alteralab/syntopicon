@@ -272,7 +272,9 @@ sources:
 - [모듈성의 동인](../concepts/modularity-drivers.md) — 인지 부하를 경계의 동인으로 세우는 자리
 - [아키텍처 역할과 조직 모형](../concepts/architecture-roles-and-organizational-models.md) — 이
   장이 서사에 들이는 솔루션 아키텍트라는 역할이 놓이는 자리
-- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 페이지가 걸린 허브
+- [소프트웨어 아키텍처 지표](../synthesis/software-architecture-metrics.md) — **이 페이지가 걸린
+  허브.** 이 사례집의 열다섯 페이지가 장 저자 단위로 모여 있다
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 그 허브의 부모 축
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 조직 쪽 허브
 
 [^ciceri2022]: Christian Ciceri 외, *Software Architecture Metrics: Case Studies to Improve the
