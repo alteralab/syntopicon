@@ -91,6 +91,20 @@ sources:
 - **사실 충돌은 아니다.** 두 소스가 같은 기법의 값을 부정하지 않고, 그쪽 소스는 꼬리 지연을
   다루지 않으며 이쪽 소스는 배출을 다루지 않는다. 그래서 `contradicts`를 걸지 않았다.
 
+- **같은 소스의 7장이 이 기법에 이름과 원형을 하나 더 준다.** **브라운아웃(brownout)**은
+  **전력이 부족할 때 한 지역의 에너지 관련 서비스 품질을 떨어뜨리는 것**이고, 그것이
+  **우아한 다운그레이드(graceful downgrade)**, 곧 **전면 실패 대신 문제 앞에서 제한된 기능을
+  유지하는 것**의 물리적 예다 (7장, p.120).[^currie2024]
+- **그쪽이 드는 구현이 이 페이지의 규칙과 같은 모양이다** — 영상 통화 서비스는 **고품질 오디오가
+  통화에 필수이지만 네트워크로는 싸고, 영상은 자원 집약적이되 품질을 낮춰도 통화가 크게 상하지
+  않는다**는 이유로 **오디오 데이터에 라벨을 붙여 영상보다 우선한다** (7장, p.121).[^currie2024]
+  **무엇이 결과의 본질인지 먼저 정하고 나머지를 깎는다**는 점이 이 페이지의 기법과 같다.
+- **그리고 그쪽은 이 기법이 예외가 아니라 기본이라고 본다** — **잘 설계된 애플리케이션 대부분은
+  부실한 네트워크에 대처하는 기제를 어느 정도 갖는다**는 관찰이고, 그것이 **인터넷 쪽 사고가
+  수요 이동과 수요 조형에서 앞선 이유**라고 적는다 (7장, p.121).[^currie2024] **이 페이지 원전이
+  드물게 유지하라고 못 박는 것과 층이 다르다** — 그쪽은 기제의 존재를 말하고 이쪽은 발동 빈도를
+  말한다.
+
 ## 이어지는 페이지
 
 - [꼬리 내성이라는 설계 태도](../concepts/tail-tolerance-as-a-design-stance.md) — 이 두 기법이 놓인 분류
@@ -99,11 +113,14 @@ sources:
 - [지연의 백분위](../concepts/latency-percentiles.md) — 표 1과 꼬리 지연 증폭의 산수
 - [전문 검색 인덱스](../concepts/full-text-search-indexes.md) — 여기서 말하는 정보 검색 시스템의 내부
 - [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 같은 품질 저하를 배출을 위해 쓰는 자리
+- [위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md) —
+  브라운아웃과 우아한 다운그레이드의 규정과 영상 통화의 QoS 우선순위
 
 [^dean2013-tail-at-scale]: Dean & Barroso 2013, "The Tail at Scale", CACM 56(2), pp.74–80.
     쪽수는 CACM 게재본 기준(PDF 스냅샷 1–7쪽 = pp.74–80).
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 5장 "Carbon Awareness"
-    §"Demand Shaping" pp.83–84. locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가
+    §"Demand Shaping" pp.83–84과 7장 "Networking" §"Brownouts, Graceful Downgrades, and Demand
+    Shaping" pp.120–121. locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가
     없는 세 사람의 공저라 claim은 저자 셋에 함께 건다. **이 소스는 이 축의 원전이 아니라
     소비자다.**
