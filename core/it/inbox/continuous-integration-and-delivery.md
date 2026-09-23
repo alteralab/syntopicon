@@ -844,7 +844,7 @@ of Speed to Release", pp.186–188).[^ford2022-evolutionary] 그 장의 아홉 �
     아니다. 제임스 거버너와 애덤 지먼의 말은 저자가 인용한 대로 옮겼고 그 출처 글은 이 KB가
     확인하지 않았다. §"Progressive Delivery"에 A/B 테스트를 다루는 절은 없다 — 저자가 이 이름
     아래 펴는 기법은 블루-그린 배포·기능 토글·카나리 릴리스·병행 운영 넷이다. **그 기법의
-    규정은 같은 책 10장 p.336에 있고**(런 08 실측) 이 KB에서는
+    규정은 같은 책 10장 p.336에 있고** 이 KB에서는
     [프로덕션에서의 테스트](testing-in-production.md)가 소유한다. 브랜치 모델 절(pp.199–200)의 본문은
     [버전 관리](../concepts/version-control-practice.md)에 옮겼고 여기에는 그쪽을 가리키는
     줄만 두었다. — 그리고 9장 "Testing" §"Implementing (Those Tricky) End-to-End
