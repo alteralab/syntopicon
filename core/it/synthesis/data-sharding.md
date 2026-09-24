@@ -72,3 +72,5 @@ generated: { by: "human:me", at: "2026-08-13T17:00:00Z" }
 - [멀티테넌트 배포 모델과 풀 스택 사일로](../concepts/multi-tenant-deployment-models.md) — 같은
   테넌트 격리를 데이터셋이 아니라 애플리케이션 플레인의 자원 전부에 대고 거는 자리. 전용과
   공유를 가르는 사일로·풀이라는 어휘가 거기서 오고, 셀 기반 아키텍처와 갈리는 지점도 거기 있다
+- [저장 기술별 파티셔닝과 테넌트 샤딩](../concepts/storage-technology-partitioning-and-tenant-sharding.md) —
+  저장 서비스의 내장 구성물로 모자랄 때 애플리케이션 코드가 테넌트 묶음을 샤드에 대응시키는 자리
