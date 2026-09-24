@@ -40,7 +40,7 @@ sources:
   조문이다 (16장 §"A Principled Approach", pp.536–537).[^newman2021] 그 틀로 이 장을 읽으면
   **이 다섯은 원칙 층에 서고, 그것을 실현하는 수단(격리의 구체적 방식, 코드형 인프라의 도구
   선택, GitOps 제품)은 실천 층**이다. 이 페이지 안에서 이미 그 두 층이 절로 갈려 있다. 세 층의
-  전문은 [전략 목표와 원칙과 실천](strategic-goals-principles-practices.md)에 있다.
+  전문은 [전략 목표와 원칙과 실천](../concepts/strategic-goals-principles-practices.md)에 있다.
 
 ## 다섯 원칙
 
@@ -141,16 +141,23 @@ sources:
 
 ### 이 KB의 다른 "시끄러운 이웃"
 
-- **같은 현상의 이름이 이 KB에 셋으로 들어와 있고 층이 다르다.** 합치지 않는다.
+- **같은 이름의 층이 이 KB에 여럿 들어와 있고 서로 다르다.** 합치지 않는다. **개수를 세지 않고
+  자리만 가리킨다** — 소스가 들어올 때마다 층이 늘기 때문이다.
 
 | 자리 | 무엇이 무엇을 방해하는가 | 경계는 어디에 긋는가 |
 |---|---|---|
 | 이 페이지(newman2021 8장) | 같은 호스트의 **마이크로서비스 인스턴스**가 서로의 자원을 먹는다 | 실행 환경. 인스턴스마다 자기 자원과 자기 의존 |
 | [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) | 같은 체계를 쓰는 **테넌트**가 서로의 성능을 떨어뜨린다 | 테넌시. 어느 알갱이에서 공유할 것인가의 결정 |
 | [네트워크 지연과 혼잡](../concepts/network-delay-and-congestion.md) | 공유 데이터센터의 **다른 고객**이 링크와 CPU를 포화시킨다 | 통제 불가. 지연의 변동으로 관측될 뿐이다 |
+| [멀티테넌트 서비스 설계와 시끄러운 이웃](../concepts/multi-tenant-service-design-and-noisy-neighbor.md) | 한 **테넌트의 연산**이 같은 서비스를 쓰는 다른 테넌트를 굶긴다 | 서비스의 책임 범위. 병목 연산을 떼어 낼 것인가 |
+| [서버리스 위의 테넌트 온보딩 자동화와 격리 넷과 동시성](../concepts/tenant-onboarding-isolation-and-concurrency-on-serverless.md) | 한 테넌트가 **동시성 한도**를 다 써 다른 테넌트의 호출이 스로틀링된다 | 컴퓨트 플랫폼의 할당. 예약·프로비저닝 동시성 |
 
-- **가운데와 오른쪽은 격리가 선택지가 아니거나 다른 축에서 결정되는 자리**이고, 이 페이지의
+- **위에서 둘째와 셋째는 격리가 선택지가 아니거나 다른 축에서 결정되는 자리**이고, 이 페이지의
   원칙은 **내가 배포 구조로 고를 수 있는 자리**를 말한다. 그래서 겨루지 않는다.
+- **넷째와 다섯째는 [golding2024](../sources/golding2024.md)가 연 층**이다. 가르는 축이 실행
+  환경도 테넌시의 알갱이도 아니라 **서비스의 책임 범위**와 **컴퓨트 플랫폼의 할당**이다. 그
+  원전의 전체 지도는 [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md)이
+  갖는다.
 
 ## 자동화에 집중
 
@@ -302,7 +309,7 @@ sources:
 - **이 플랫폼을 누가 소유하는가는 이 장이 답하지 않는다** — 같은 책 15장이 셀프서비스 도구
   묶음으로서의 플랫폼과 그것을 운영하는 팀을 다루고, **원하는 상태 관리**를 그 플랫폼이 담는
   공통 기능의 첫 예로 든다 (15장 §"The Platform", p.507).[^newman2021] 그 자리가
-  [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md)이다.
+  [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md)이다.
 - **추상화의 수준이 달라진다** — 이런 플랫폼은 기저 자원의 가용성을 알고 있어 원하는 상태에
   대한 요청을 가용 자원에 맞춘다(맞출 수 없으면 그렇다고 알려 준다). 운영자는 저수준 설정에서
   떨어져 나와 **"두 데이터센터에 걸쳐 인스턴스 넷을 원한다" 같은 단순한 말**을 하고 플랫폼이
@@ -375,7 +382,7 @@ sources:
   첫째 원칙이 지키려는 것
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 둘째 원칙이 요구하는
   자동화가 파이프라인으로 구현되는 자리
-- [마이크로서비스 소스와 빌드의 배치](microservice-source-layout.md) — 그 파이프라인이
+- [마이크로서비스 소스와 빌드의 배치](../concepts/microservice-source-layout.md) — 그 파이프라인이
   무엇에서 촉발되는가
 - [후진 호환과 상위 호환](../concepts/backward-and-forward-compatibility.md) — 롤링 업그레이드가
   호환성을 요구하는 근거
@@ -387,9 +394,9 @@ sources:
   수단의 사다리. 물리 기계부터 FaaS까지
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) — 원하는
   상태 관리와 무중단 배포를 대신 떠맡는 층
-- [플랫폼 팀과 포장된 길](platform-team-and-paved-road.md) — 그 층을 누가 만들고 운영하며,
+- [플랫폼 팀과 포장된 길](../concepts/platform-team-and-paved-road.md) — 그 층을 누가 만들고 운영하며,
   그것을 강제하지 않는 것이 왜 조건인가
-- [서비스 디스커버리와 로드 밸런싱](service-discovery-and-load-balancing.md) — 인스턴스가
+- [서비스 디스커버리와 로드 밸런싱](../concepts/service-discovery-and-load-balancing.md) — 인스턴스가
   여럿이 되는 순간 생기는 문제
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 같은 "시끄러운
   이웃"을 테넌시 층에서 본 자리
