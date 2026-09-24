@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 더 그린한 머신러닝
-status: draft
 description: ML 생애 주기 네 단계에 탄소라는 분모를 거는 2024년 저술 시점의 처방 — 모델 크기가 2012년 이후 무어의 법칙을 벗어나 폭발했고 채택률도 함께 늘었다는 진단, 종이 제품일 때 설계를 바꾸는 것이 싸다는 계획 단계의 조항과 과하게 명세된 SLA를 완화하는 것이 흔히 가장 큰 승리라는 판단, 이미 모은 데이터셋을 쓰면 파이프라인을 짓는 배출이 들지 않는다는 데이터 수집의 처방, 크기를 줄이는 기법 넷을 탄소의 수단으로 다시 드는 훈련 단계와 훈련이 급한 적이 드물어 수요 이동의 좋은 후보라는 조항과 사전 훈련 모델과 전이 학습과 연합 학습, 특수 AI 칩이 범용 하드웨어보다 열 배에서 천 배 효율적일 수 있다는 인용, 전체 훈련은 한 번이고 추론은 여러 번이므로 배포와 유지가 가장 많은 탄소를 쓸 자리라는 저자들의 논리적 추정과 그 영역의 연구 부재, 그리고 어디서 시작할지를 시나리오별로 가르는 권고
 generated: { by: "claude-fable-5", at: "2026-09-23T23:45:00Z" }
 sources:
@@ -228,15 +227,15 @@ sources:
   이 장은 같은 물음을 **모으는 데 드는 배출**로 묻고 **이미 모인 데이터셋을 먼저 찾으라**는 처방을
   낸다. 이 KB에 없던 조항이다.
 - **특수 하드웨어의 수치는 이 KB의 가속기 페이지와 마주 본다.**
-  [AI 가속기](ai-accelerators.md)가 CPU와 GPU를 가르는 코어 설계와 정밀도별 FLOP/s를 갖고, 같은
+  [AI 가속기](../concepts/ai-accelerators.md)가 CPU와 GPU를 가르는 코어 설계와 정밀도별 FLOP/s를 갖고, 같은
   페이지가 이미 같은 책 6장의 내재 탄소 대질을 갖는다. 이 장의 **열 배에서 천 배**는 그 대질의
   **분자 쪽 수치**다.
 - **훈련 대 추론의 비중에 대해서는 두 축 어느 쪽에도 측정치가 없다.** #hypothesis 이 소스는
   **전체 훈련 한 번 대 추론 다수**라는 논리로 배포와 유지를 지목하면서도 그 영역이 잘 연구되어 있지
   않다고 스스로 적고, 이 KB의 AI 축도 그 비율을 재는 소스를 갖고 있지 않다.
 - **수요 이동을 ML 훈련에 거는 조항은 이 KB에 이미 같은 소스의 다른 장으로 들어와 있다.**
-  [수요 이동과 수요 조형](demand-shifting-and-shaping.md)이 그 자리이고,
-  [그린 설계 패턴](green-design-patterns.md)이 같은 책 3장의 ML 처방 한 쪽을 갖는다. 이 장은 그
+  [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md)이 그 자리이고,
+  [그린 설계 패턴](../concepts/green-design-patterns.md)이 같은 책 3장의 ML 처방 한 쪽을 갖는다. 이 장은 그
   조항을 **생애 주기의 어느 단계에 걸 것인가**로 배치한다.
 
 ## 같은 책의 맺음이 이 축에 되돌려 놓는 것 둘
@@ -251,8 +250,8 @@ sources:
   - **이 장의 데이터 수집 절과 층이 다르다.** 여기는 **훈련 데이터를 모으는 일의 배출**을
     다루고, 그쪽은 **모인 데이터를 다루는 실무 일반**을 다룬다. 그쪽의 처방은 모델을 건드리지
     않으므로 이 장의 기법 목록에 더해지는 것이 없고, **데이터 양 자체가 탄소**라는 전제만
-    공유한다. 그 절의 전문은 [그린 소프트웨어의 공동 이익](green-software-co-benefits.md)과
-    [데이터 모델링의 기초](data-modeling-fundamentals.md)가 갖는다.
+    공유한다. 그 절의 전문은 [그린 소프트웨어의 공동 이익](../concepts/green-software-co-benefits.md)과
+    [데이터 모델링의 기초](../concepts/data-modeling-fundamentals.md)가 갖는다.
 - **다른 하나는 물이다. 이 책이 스스로 밝히는 가장 큰 공백이다.** 13장 에필로그는 책 내내 탄소만
   이야기했으나 **물 공급(특히 깨끗한 물)과 플라스틱 오염과 하드웨어용 귀금속 채굴의 생태 피해**를
   무시할 수 없다고 적고, **물이 주목받기 시작한 이유를 대규모 언어 모델에 돌린다** — **훈련과
@@ -286,7 +285,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [AI 가속기](ai-accelerators.md) — 특수 칩의 기제와 같은 선택을 내재 탄소로 재는 대질
+- [AI 가속기](../concepts/ai-accelerators.md) — 특수 칩의 기제와 같은 선택을 내재 탄소로 재는 대질
 - [양자화](../concepts/quantization.md) — 이 장이 그린 기법으로 다시 드는 기법의 기제
 - [모델 압축과 프루닝](../concepts/model-compression-and-pruning.md) — 같은 기법 무리의 기제
 - [모델 증류](../concepts/model-distillation.md) — 크기를 줄이는 넷째 갈래
@@ -294,8 +293,8 @@ sources:
 - [모델 규모의 세 수치](../concepts/model-size-and-scale.md) — 크기를 무엇으로 세는가
 - [훈련 데이터 수량](../concepts/training-data-quantity.md) — 데이터가 얼마나 필요한가를 성능으로
   묻는 쪽
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 훈련을 옮기라는 조항의 규정
-- [그린 설계 패턴](green-design-patterns.md) — 같은 책 3장의 ML 처방 한 쪽
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 훈련을 옮기라는 조항의 규정
+- [그린 설계 패턴](../concepts/green-design-patterns.md) — 같은 책 3장의 ML 처방 한 쪽
 - [위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md) — 같은 두 기법을
   네트워크에 거는 앞 장
 - [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**

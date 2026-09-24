@@ -2,7 +2,6 @@
 type: concept
 title: 그린 소프트웨어는 어디로 가는가
 description: "이 원전이 맺음에서 내리는 최종 규정과 처방 — 기술 산업이 최대 배출원이 아니어도 면제되지 않는다는 논거와 전기 시장의 변화가 만드는 상업적 유인, 탄소 국경 조정 제도라는 규제 압력과 GDPR을 유비로 든 대비 시한, 여섯 달 안에 배출을 반으로 줄이라는 50% 도전과 데이터 없이 할 수 있는 조치 목록, 성숙도 수준 3까지의 처방과 수준 4·5를 2판으로 미루는 판정, 운영 효율이 코드 효율보다 근본이라는 우선순위 조문, 그린 프리미엄이 호스팅 비용에는 없으나 개발자 생산성에는 있다는 위험 판정, 코드 재사용과 그린 플랫폼을 요구하라는 해법, 그리고 탄소 효율과 인지만으로는 충분하지 않다고 규정을 다시 쓰는 맺음과 1장의 규정이 이미 그 확장을 담고 있었다는 대조"
-status: draft
 generated: { by: "claude-fable-5", at: "2026-09-24T10:20:00Z" }
 sources:
   - { id: currie2024, resource: /it/sources/currie2024.md }
@@ -324,22 +323,22 @@ p.14가 그린 소프트웨어는 틈새가 아니며 앞으로 모든 소프트
 
 ## 이어지는 페이지
 
-- [그린 소프트웨어의 규정](green-software-definition.md) — 1장의 규정과 이 장이 그것을 확장하는
+- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 1장의 규정과 이 장이 그것을 확장하는
   자리의 원문
-- [그린 소프트웨어 성숙도 행렬](green-software-maturity-matrix.md) — 이 장이 올라가라고 말하는
+- [그린 소프트웨어 성숙도 행렬](../concepts/green-software-maturity-matrix.md) — 이 장이 올라가라고 말하는
   그 눈금
-- [그린 소프트웨어의 공동 이익](green-software-co-benefits.md) — "전부 다"라는 주장이 11장에서
+- [그린 소프트웨어의 공동 이익](../concepts/green-software-co-benefits.md) — "전부 다"라는 주장이 11장에서
   펼쳐지는 자리
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 수준 1→2 조치
   목록의 전문
-- [그린 운영의 실천](green-operations-practices.md) — LightSwitchOps와 좀비 정리와 하이퍼스케일러
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — LightSwitchOps와 좀비 정리와 하이퍼스케일러
   유인의 전문
-- [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md) — 코드 효율을
+- [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md) — 코드 효율을
   뒤로 미루는 판정의 근거
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 싼 전기를 받는 기법
-- [FinOps와 비용 최적화](finops-and-cost-optimization.md) — 그린 프리미엄이 없다는 판정이
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 싼 전기를 받는 기법
+- [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 그린 프리미엄이 없다는 판정이
   합류하는 자리
-- [완벽한 탄소 측정과 충분히 좋은 측정](carbon-measurement-perfect-and-good-enough.md) —
+- [완벽한 탄소 측정과 충분히 좋은 측정](../concepts/carbon-measurement-perfect-and-good-enough.md) —
   호스팅 청구서 대리 지표의 한계
 - [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 기기를 죽이지
   말라는 처방의 전문

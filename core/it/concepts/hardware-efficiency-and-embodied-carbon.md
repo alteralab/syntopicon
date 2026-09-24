@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 하드웨어 효율과 내재 탄소
-status: draft
 description: 이미 치러진 제조 배출을 더 오래·더 많이 나눠 쓰는 일이라는 하드웨어 효율의 규정과 그것을 줄이는 두 길(수명 연장과 가동률 증가) — 스마트폰 2~3년부터 공용 클라우드 서버 4~6년까지의 기기별 수명과 그 수치가 재무 관행이라는 단서, 소프트웨어가 지원을 끊어 멀쩡한 기기를 버리게 만드는 소프트웨어 정의 노후화라는 판정과 그 처방인 후진 호환, 클라우드에서 큰 인스턴스를 놀리는 것이 데이터센터를 더 짓게 만드는 신호가 된다는 논증과 AWS Graviton의 60% 절감, 자체 호스팅이 쥐는 수명 통제와 상각 산수와 옴의 법칙과 끄는 일, 특수 하드웨어가 범용 하드웨어보다 그린한지에 결정적 답이 없는 까닭과 제번스 역설, 그리고 전자 폐기물의 규모와 수리할 권리 입법과 제조사들의 2030년 목표
 generated: { by: "claude-fable-5", at: "2026-09-23T22:35:00Z" }
 sources:
@@ -53,7 +52,7 @@ sources:
   부른다.** 서버나 전화기 같은 기기의 제조는 꽤 복잡한 과정이어서, **재료를 어딘가에서 채굴하고
   (아마 여러 번) 세계를 가로질러 운송해 흔히 에너지 집약적인 절차로 조립한 뒤에야** 기기가 손에
   들어온다 (6장 §"Embodied Carbon", p.92).[^currie2024] 그 규정의 원전은 같은 책 2장이고 그
-  자리는 [탄소 회계의 기본](carbon-accounting-basics.md)이다.
+  자리는 [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)이다.
 - **구성 요소 가운데 가장 큰 것을 짚는다** — **하드웨어의 내재 탄소 비용은 여러 구성 요소로
   이루어지는데 집적 회로가 단일 배출원으로는 가장 크다** (6장, p.92).[^currie2024]
 - **정확한 수치를 얻기는 어렵다** — 일반적으로 **정확한 내재 탄소 수치를 얻는 것이 언제나
@@ -177,7 +176,7 @@ sources:
   있는데, **공용 클라우드 제공자의 규모 때문에 그것은 약을 먹은 에너지 비례성 같다.** 그래서
   **PUE와 운영 비용이 저활용 자원에 에너지 비용 면에서 엄청나게 더해진다** (6장,
   p.97).[^currie2024] 에너지 비례성과 PUE의 규정은
-  [탄소 회계의 기본](carbon-accounting-basics.md)에 있다.
+  [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)에 있다.
 - **이 장에서 가장 날카로운 논증이 여기 있다** — **큰 가상 머신 값을 치르고 그 가운데 작은
   비율만 쓰면, 데이터센터를 더 지으라는 신호를 클라우드 제공자에게 보내는 것이고, 그것은 다시
   반도체 같은 탄소 집약적 하드웨어 부품을 더 만든다는 뜻이다** (6장, p.97).[^currie2024]
@@ -233,7 +232,7 @@ sources:
     고장 날 위험**이고, 저자들은 이 둘을 4장의 LightSwitchOps 절에서 더 깊이 다뤘다고 가리킨다.
     **끄는 데서 얻는 지속가능성 이익은 놀고 있는 서버가 에너지를 먹는 일을 피해 아끼는 에너지
     사용량**이다 (6장, p.99).[^currie2024] 그 절은
-    [그린 운영의 실천](green-operations-practices.md)에 있다.
+    [그린 운영의 실천](../concepts/green-operations-practices.md)에 있다.
 - **곁상자가 고장에서 그린 통찰을 끌어낸다** — **수리를 다루는 일은 자산 관리에서 더 지겨운 축에
   들지만, 은빛 테두리를 찾자면 하드웨어 고장이 어떤 경우에는 드문 그린 통찰을 준다. 이를테면
   늘 디스크가 먼저 죽는가? 기계식 디스크를 쓴다면 꽤 있을 법한 시나리오다. 그것을 안다면 실제로
@@ -283,7 +282,7 @@ sources:
     많이 하게 된다는 역사적 관찰**이고, **특수 하드웨어가 특수한 사용 사례에서 에너지 효율에
     좋을 수 있다는 것과 나란히 놓인다. 핵심은 무언가가 더 효율적이 되면(곧 싸지면) 그것을 더
     많이 한다는 것이다** (6장, pp.100–101).[^currie2024] 그 역설의 원전 서술은
-    [그린 설계 패턴](green-design-patterns.md)에 있다.
+    [그린 설계 패턴](../concepts/green-design-patterns.md)에 있다.
   - **실측 서사도 붙는다** — **이미지 처리 같은 초기 AI 응용에서 그것을 보았다. 칩이 더
     효율적이 되었고 그래서 더 많은 이미지 처리가 수행되었으며 그 결과 더 많은 칩이 생산되었다.
     그것은 다시 더 많은 내재 탄소를 뜻한다 — 효율 이득이 내재 탄소의 동등한 감소로 매핑되지 않기
@@ -391,7 +390,7 @@ sources:
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **내재 탄소의 규정은 같은 책 2장에 있고 이 장이 그것을 설계 축으로 바꾼다.**
-  [탄소 회계의 기본](carbon-accounting-basics.md)이 정의와 애플 보고서 수치를 갖고, 이 페이지는
+  [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)이 정의와 애플 보고서 수치를 갖고, 이 페이지는
   **그 빚을 갚는 두 길**과 **소프트웨어가 그 빚을 새로 만드는 경로**를 더한다.
 - **소프트웨어 정의 노후화는 이 KB의 첫 자리다.** 소프트웨어가 하드웨어의 수명을 정한다는 판정은
   이 책이 들어오기 전 이 KB의 어느 페이지에도 없었다. 가장 가까운 자리인
@@ -418,7 +417,7 @@ sources:
   [저장의 원재료](../concepts/storage-raw-ingredients.md)가 기계식 디스크의 성질을 다루고, 이
   장은 그 성질을 **쓰기를 줄여 수명을 늘리는 설계 근거**로 읽는다.
 - **끄는 일과 놀리는 일은 4장에 이미 있다.**
-  [그린 운영의 실천](green-operations-practices.md)의 LightSwitchOps와
+  [그린 운영의 실천](../concepts/green-operations-practices.md)의 LightSwitchOps와
   [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md)의 적정 크기화가
   그 자리이고, 이 장은 그 처방들을 **내재 탄소 상각**이라는 다른 근거로 다시 정당화한다.
 - **기기 수명 연장과 보안 처방이 부딪치는 자리를 이 소스가 스스로 처리한다.** 오래 쓰라는
@@ -445,13 +444,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — 전기 쪽 배출을 보는 앞 장
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 그 신호에 응답하는 설계
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 내재 탄소와 에너지 비례성과 PUE의 규정
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 전기 쪽 배출을 보는 앞 장
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 그 신호에 응답하는 설계
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 내재 탄소와 에너지 비례성과 PUE의 규정
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 내재 탄소를
   갚는 다른 길인 가동률
-- [그린 운영의 실천](green-operations-practices.md) — 끄는 일(LightSwitchOps)의 자리
-- [그린 설계 패턴](green-design-patterns.md) — 제번스 역설의 원전 서술
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — 끄는 일(LightSwitchOps)의 자리
+- [그린 설계 패턴](../concepts/green-design-patterns.md) — 제번스 역설의 원전 서술
 - [클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md) — 같은 선택을 비용과
   통제권으로 보는 자리
 - [AI 가속기](../concepts/ai-accelerators.md) — 같은 특수 하드웨어를 속도와 비용으로 고르는 쪽

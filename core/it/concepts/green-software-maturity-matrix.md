@@ -2,7 +2,6 @@
 type: concept
 title: 그린 소프트웨어 성숙도 행렬
 description: "조직이 그린 실천을 어디까지 들였는지를 스스로 재는 GSF의 자기 평가 도구 — 성숙도 행렬이라는 서식의 1986년 CMMI 유래와 다섯 수준의 일반형, 그 다섯을 그린 쪽으로 옮겨 적은 수준별 규정과 수준마다 요구되는 범위와 데이터의 해상도, 재지 못해도 개선할 수 있다는 판정과 수준 1에서 2로 가는 데 데이터가 필요 없는 조치 넷, 조직 전체가 한 수준에 있지 않으므로 축으로 펴야 한다는 논거와 축 아홉, 축마다 다섯 수준을 적은 체크리스트, 행렬 도판이 축 이름을 본문과 다르게 줄여 적는 자리, 저술 시점에 거의 모두가 수준 1이라는 자기 판정, 그리고 성숙도를 재는 다른 세 방식과 맞대어 본 대조"
-status: draft
 generated: { by: "claude-fable-5", at: "2026-09-24T10:10:00Z" }
 sources:
   - { id: currie2024, resource: /it/sources/currie2024.md }
@@ -333,20 +332,20 @@ sources:
 
 ## 이어지는 페이지
 
-- [그린 소프트웨어의 규정](green-software-definition.md) — 이 행렬이 재려는 그 규정과 세 원칙
-- [그린 소프트웨어의 공동 이익](green-software-co-benefits.md) — 설득의 순서 셋이 이 행렬의
+- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 이 행렬이 재려는 그 규정과 세 원칙
+- [그린 소프트웨어의 공동 이익](../concepts/green-software-co-benefits.md) — 설득의 순서 셋이 이 행렬의
   수준에 달렸다고 적는 자리
 - [그린 소프트웨어는 어디로 가는가](green-software-what-next.md) — 이 행렬을 실제로 올라가는
   절차와 50% 도전
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 수준 2·3이
   요구하는 적정 크기화와 좀비 정리의 전문
-- [그린 운영의 실천](green-operations-practices.md) — LightSwitchOps와 SRE 실천의 전문
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 범위 1·2·3과 내재 탄소의 규정
-- [완벽한 탄소 측정과 충분히 좋은 측정](carbon-measurement-perfect-and-good-enough.md) —
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — LightSwitchOps와 SRE 실천의 전문
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 범위 1·2·3과 내재 탄소의 규정
+- [완벽한 탄소 측정과 충분히 좋은 측정](../concepts/carbon-measurement-perfect-and-good-enough.md) —
   수준 3·4가 요구하는 데이터의 조건
-- [프로덕션 모니터링에 탄소를 얹기](carbon-in-production-monitoring.md) — 수준 5의 탄소 오류
+- [프로덕션 모니터링에 탄소를 얹기](../concepts/carbon-in-production-monitoring.md) — 수준 5의 탄소 오류
   예산이 오는 자리
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 수준 4·5의 전기 축이 요구하는 기법
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 수준 4·5의 전기 축이 요구하는 기법
 - [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 기기와 서버 축의
   수명 요건이 오는 자리
 - [모듈성 성숙도 지수](../concepts/modularity-maturity-index.md) — 성숙도를 한 수로 접는 쪽

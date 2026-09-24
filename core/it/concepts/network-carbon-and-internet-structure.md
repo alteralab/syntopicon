@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 네트워크의 탄소와 인터넷의 구조
-status: draft
 description: 인터넷의 탄소가 실제로 어디서 나오는가 — 선과 컴퓨트와 저장이라는 세 구성 요소와 백본·메트로·라스트 마일이라는 세 구간, 전기가 운영비의 큰 몫이라 통신 장비 쪽이 이미 비트당 와트를 핵심 지표로 삼아 왔다는 사정, 라스트 마일에서만 성립하는 선의 효율 순위와 그것이 선택 규칙이 아닌 까닭, 잘 설계된 데이터센터 전기 요금의 10% 미만만 선과 라우터와 스위치에 쓰이고 광 네트워크가 연산보다 효율적이 되어 압축이 늘 이득은 아니라는 뒤집힘, 수천 개의 자율 시스템으로 이뤄진 네트워크의 네트워크라는 규정, 저궤도 위성의 손익 대차표와 케슬러 증후군과 보편 접속 논변의 한계, 소프트웨어가 할 수 있는 셋, 그리고 BGP가 다음 홉만 계산한다는 규정과 거기에 그린함을 인자로 넣는 일의 보상과 위험과 저자들의 기각 판정, 비효율은 라우팅이 아니라 소프트웨어 아키텍처에서 온다는 결론
 generated: { by: "claude-fable-5", at: "2026-09-23T23:40:00Z" }
 sources:
@@ -30,7 +29,7 @@ sources:
 하나의 질문: **인터넷의 탄소는 어디서 나오고, 그 가운데 소프트웨어가 손댈 수 있는 것은 무엇인가.**
 
 이 페이지는 진단 쪽을 담는다. 같은 장이 이어서 내는 처방과 2020년 록다운의 실례는
-[위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md)에 있다.
+[위에서 아래로 인터넷을 그린하게](../concepts/greening-the-internet-from-the-top-down.md)에 있다.
 
 ## 네트워크는 이미 충분히 그린한가
 
@@ -326,7 +325,7 @@ sources:
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **같은 책 안에서 가장 먼저 대질해야 할 것은 전송 비용의 수치다.** 이 KB의
-  [그린 설계 패턴](green-design-patterns.md)이 같은 책 3장에서 **한 기계에서 다른 기계로 메시지를
+  [그린 설계 패턴](../concepts/green-design-patterns.md)이 같은 책 3장에서 **한 기계에서 다른 기계로 메시지를
   보내는 것이 한 구성 요소에서 다른 구성 요소로 내부에서 넘기는 것보다 백 배 더 오래 걸리고 에너지도
   더 들 수 있다**는 수치를 갖는데, 이 장은 **잘 설계된 데이터센터 전기 요금의 10% 미만만 선과
   라우터와 스위치에 쓰인다**고 적는다. **사실 충돌이 아니다 — 두 진술의 분모가 다르다.** 3장의
@@ -343,7 +342,7 @@ sources:
   경로를 고르는 프로토콜에 그린함을 인자로 넣을 수 있는가**라는 물음과 **넣지 말라는 판정**이다.
   어느 쪽도 상대의 사실 주장을 부정하지 않는다.
 - **선과 라우터에 든 내재 탄소는 같은 책 6장이 일반화한다.**
-  [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md)가 제조 배출을 갚는 두
+  [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md)가 제조 배출을 갚는 두
   길을 수명과 가동률로 가르는데, 이 장은 그 분모에 **네트워크 장비**를 넣고 위성이라는 극단 사례로
   같은 셈을 시험한다.
 - **전송 지연을 비용으로 재는 쪽은 이 KB에 따로 있다.**
@@ -374,14 +373,14 @@ sources:
 
 ## 이어지는 페이지
 
-- [위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md) — 같은 장의
+- [위에서 아래로 인터넷을 그린하게](../concepts/greening-the-internet-from-the-top-down.md) — 같은 장의
   처방 쪽과 2020년 록다운의 실례
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 이 장이 네트워크에 적용하는 두 갈래의
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 이 장이 네트워크에 적용하는 두 갈래의
   규정과 전력 쪽 실례
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — 저탄소 전기를 언제 어디서 얻는가의 규정
-- [그린 설계 패턴](green-design-patterns.md) — 데이터센터 안의 비효율을 짚는 처방들과 전송 비용의
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 저탄소 전기를 언제 어디서 얻는가의 규정
+- [그린 설계 패턴](../concepts/green-design-patterns.md) — 데이터센터 안의 비효율을 짚는 처방들과 전송 비용의
   다른 수치
-- [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 장비에 든 제조 배출을
+- [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md) — 장비에 든 제조 배출을
   일반화한 자리
 - [요청 라우팅](../concepts/request-routing.md) — 애플리케이션 층에서 같은 낱말을 쓰는 자리
 - [네트워크 계층 모형과 패킷 관찰](../concepts/network-layer-models-and-packet-observation.md) —
@@ -409,4 +408,4 @@ sources:
     적었다. 이 장에 표와 코드 목록은 없다. 7장은 번호 각주를 쓰지 않고 본문 안 링크로만 출처를 단다 —
     라스트 마일의 선 효율 순위, 연 30 TW, 인용된 전문가들의 발언, 토니 블레어 연구소와 Project
     Drawdown의 판단이 그 링크로만 주어지고 이 KB가 원문을 확인하지 않았다. 같은 장 pp.118–123은
-    [위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md)가 갖는다.
+    [위에서 아래로 인터넷을 그린하게](../concepts/greening-the-internet-from-the-top-down.md)가 갖는다.

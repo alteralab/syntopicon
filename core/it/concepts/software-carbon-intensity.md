@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 소프트웨어 탄소 강도 규격
-status: draft
 description: 그린 소프트웨어 파운데이션이 소프트웨어만을 겨냥해 만든 탄소 규격 SCI를 2024년 원전이 옮긴 대로 받는 페이지 — 조직의 총량이 아니라 기능 단위당 비율이라는 자기 규정과 낮을수록 좋되 0은 불가능하다는 성질, 에너지와 탄소 강도와 내재 탄소와 기능 단위라는 네 구성 요소와 SCI = ((E × I) + M) per R이라는 식, 탄소 강도에 위치 기반 값만 허용하고 시장 기반 조치를 금지하는 조항, 유의하게 기여하는 모든 시스템과 인프라를 안에 넣으라는 소프트웨어 경계의 규정, 0이 될 수 없는 이유 셋, COP26 베타와 COP27 1판과 ISO/IEC DIS 21031이라는 판의 내력, 그리고 라즈베리 파이 한 대에 이 식을 적용한 사례와 그 셈에 남은 인쇄 오식 둘
 generated: { by: "claude-fable-5", at: "2026-09-24T02:10:00Z" }
 sources:
@@ -129,22 +128,22 @@ sources:
 - `stale_after`는 달지 않았다 — 이 소스에 공표된 만료 날짜가 없다.
 - **이 규격이 같은 책의 다른 장에도 나온다.** 6장이 **SCI Guidance의 데이터셋**을 내재 탄소
   값의 출처로 들고, 그 서술은
-  [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md)가 갖는다. 저자 가운데
+  [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md)가 갖는다. 저자 가운데
   한 사람이 이 규격에 기여한 GSF 개인 기여자라는 사실은 [소스 메타](../sources/currie2024.md)에
   적혀 있다.
 
 ## 이어지는 페이지
 
-- [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md) — 이 규격이
+- [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md) — 이 규격이
   GHG 프로토콜·ISO 14064와 나란히 놓이는 자리와 도구들의 범위 지원 여부
-- [완벽한 탄소 측정과 충분히 좋은 측정](carbon-measurement-perfect-and-good-enough.md) — 이
+- [완벽한 탄소 측정과 충분히 좋은 측정](../concepts/carbon-measurement-perfect-and-good-enough.md) — 이
   식의 E와 I와 M을 실제로 어떻게 구하는가, 그리고 시장 기반 감축을 빼는 같은 판정
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 탄소 강도와 내재 탄소와 CO2e의 규정,
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 탄소 강도와 내재 탄소와 CO2e의 규정,
   GHG 프로토콜의 세 범위
-- [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — M을 상각하는 쪽과
+- [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md) — M을 상각하는 쪽과
   같은 책 6장이 드는 SCI Guidance 데이터셋
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — I를 어디서 받는가
-- [그린 소프트웨어의 규정](green-software-definition.md) — 이 규격을 낸 GSF가 세 원칙을 규정하는
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — I를 어디서 받는가
+- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 이 규격을 낸 GSF가 세 원칙을 규정하는
   자리
 - [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
   이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다

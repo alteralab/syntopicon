@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 탄소 인지 컴퓨팅
-status: draft
 description: 전기가 깨끗할 때 더 하고 더러울 때 덜 한다는 설계 축의 규정과 그 축이 서려면 먼저 읽어야 하는 신호 — 탄소 인지 컴퓨팅이 언제·어디서 돌리는가를 설계 변수로 세운다는 판정, 전기의 탄소 강도가 자리와 시각에 따라 흔들리는 두 축과 구글 클라우드가 저탄소 리전을 가르는 200 gCO2e/kWh 문턱, 국가 전력망이 공급과 수요를 맞추는 기제인 디스패치 가능성과 브라운아웃·블랙아웃과 커테일먼트, 추가 수요를 채우는 발전소가 화석 연료 쪽이라 한계 배출이 생기는 까닭, 그리고 그 신호를 읽어 주는 도구 넷(영국의 Carbon Intensity API·Electricity Maps·WattTime·GSF의 Carbon Aware SDK)과 24/7 무탄소 에너지라는 목표의 규정, 그리고 같은 책 9장이 이 신호에 요구하는 두 조건(실시간·자리와 시각의 세분성)과 LRMER·SRMER·AER이라는 신호 세 종류
 generated: { by: "claude-fable-5", at: "2026-09-23T22:10:00Z" }
 sources:
@@ -41,7 +40,7 @@ sources:
 - 전제는 2장에서 온다 — **모든 전기가 같지 않다.** 석유나 석탄처럼 고탄소 자원에서 나온 것은
   더럽다고 여겨지고, 수력이나 원자력처럼 재생 가능하거나 저탄소인 원천에서 만들어진 것은
   깨끗하다고 여겨진다 (5장, p.73).[^currie2024] 그 어휘의 규정은
-  [탄소 회계의 기본](carbon-accounting-basics.md)에 있다.
+  [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)에 있다.
 - 규정은 한 문장이다 — **전기가 깨끗할 때 애플리케이션에서 더 하고 더러울 때 덜 한다는 발상,
   그것을 탄소 인지 컴퓨팅(carbon-aware computing)이라 부른다** (5장, p.73).[^currie2024]
 - **이 축이 세우는 것은 새 설계 변수다.** 앞 장들이 같은 일에 드는 코드와 기계를 줄이라고
@@ -237,7 +236,7 @@ sources:
   그림 9-1의 캡션이 **그 값을 가상(fictional)이라고 스스로 밝힌다** (9장 그림 9-1,
   p.139).[^currie2024]
 - **도구 목록의 갱신은 9장의 몫이다.** 하이퍼스케일러 셋과 오픈 소스 둘과 클라이언트 쪽 도구의
-  비교는 [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md)가 갖고,
+  비교는 [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md)가 갖고,
   그 표가 드러내는 것은 **셋 다 월별 집계이고 지연이 14일에서 3개월**이라는 사실이다 —
   이 절이 요구한 실시간과 거리가 멀다.
 
@@ -252,7 +251,7 @@ sources:
 ## 이 KB의 다른 소스와 만나는 자리
 
 - **탄소 강도라는 지표 자체의 원전은 같은 책 2장이고 그 자리는
-  [탄소 회계의 기본](carbon-accounting-basics.md)이다.** 그 페이지가 규정과 단위를 갖고, 이
+  [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)이다.** 그 페이지가 규정과 단위를 갖고, 이
   페이지는 그 지표를 **실행 시점 신호로 쓰려면 무엇을 더 알아야 하는가**를 더한다 — 변동의 두 축,
   전력망의 디스패치 기제, 한계 발전소, 그리고 신호를 주는 도구들이다.
 - **전력망과 전력 시장의 기제는 이 KB에서 이 소스가 첫 자리다.** 디스패치 가능성·브라운아웃·
@@ -288,7 +287,7 @@ sources:
 ## 이어지는 페이지
 
 - [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 이 신호를 받아 무엇을 바꾸는가
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 탄소 강도와 CO2e와 내재 탄소의 규정
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 탄소 강도와 CO2e와 내재 탄소의 규정
 - [그린 소프트웨어의 규정](green-software-definition.md) — 탄소 인지가 세 원칙 가운데 하나로
   놓이는 자리
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 시간 이동을
@@ -299,7 +298,7 @@ sources:
   스케줄러가 무엇을 입력으로 받는가
 - [완벽한 탄소 측정과 충분히 좋은 측정](carbon-measurement-perfect-and-good-enough.md) — 이 신호를
   완벽한 탄소 지표의 한 항으로 놓는 자리
-- [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md) — 9장이 도구의
+- [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md) — 9장이 도구의
   강점과 결점을 표로 견주는 자리
 - [소프트웨어 탄소 강도 규격](software-carbon-intensity.md) — 이 신호가 식의 I 항으로 들어가고
   위치 기반 값만 허용되는 규격
@@ -323,6 +322,6 @@ sources:
     [수요 이동과 수요 조형](demand-shifting-and-shaping.md)이 갖는다. **9장 §"Perfect Carbon
     Intensity Data" pp.138–139**는 5장이 예고한 "도구의 강점과 결점"의 앞쪽 — 신호에 요구할
     조건과 신호 세 종류 — 만 이 페이지로 받았고, 도구 비교표는
-    [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md)가 갖는다.
+    [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md)가 갖는다.
     그림 9-1(세계 탄소 강도 지도)도 이미지 조판이라 `pdftoppm -r 160 -png` 렌더로 읽었고
     범례에 "Carbon intensity"라는 이름만 있어 옮길 수치가 없었다.

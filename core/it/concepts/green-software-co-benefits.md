@@ -2,7 +2,6 @@
 type: concept
 title: 그린 소프트웨어의 공동 이익
 description: "탄소 효율을 좇는 일이 다른 품질 속성과 어디서 같은 방향을 보는가 — 저자들이 고른 다섯 영역(비용·신뢰성과 탄력성·성능·보안·데이터)과 영역마다의 판정, 알맞은 것을 고르라는 최적 적합 처방이 비용과 성능과 배출에서 동시에 갚는다는 논거, 중복에서 탄력성으로 갈아타는 것이 신뢰성과 배출 양쪽에 이득이라는 주장과 그 근거인 대기 하드웨어의 유휴, 가용성과 신뢰성과 탄력성을 셋으로 가르는 이 소스의 어휘, DDoS가 전기와 내재 탄소를 함께 버린다는 보안 쪽 논거와 좀비 정리가 공격 면 축소와 겹치는 자리, 데이터 양이 곧 탄소라는 전제와 변환을 덜 요구하는 모델이 더 그린하다는 처방, 지속 가능성을 다른 기둥들의 바닥에 놓는 그림 11-1, 그리고 이 판정 다섯을 같은 문제를 다루는 이 KB의 원전들과 맞대어 본 자리"
-status: draft
 generated: { by: "claude-fable-5", at: "2026-09-24T10:00:00Z" }
 sources:
   - { id: currie2024, resource: /it/sources/currie2024.md }
@@ -321,10 +320,10 @@ sources:
 
 | 영역 | 이 소스의 판정(2024년) | 이 KB의 원전이 같은 자리에 갖는 것 | 관계 |
 |---|---|---|---|
-| 비용 | 비용 최적화 관행 가운데 환경 이득도 갖는 것이 있고 FinOps와 GreenOps는 같은 일을 다른 목적 함수로 한다 | [FinOps와 비용 최적화](finops-and-cost-optimization.md)가 TCO·capex/opex·TOCO의 렌즈와 비용 귀속 지점을 갖는다 | **층이 다르다.** 그쪽은 비용을 어떤 렌즈로 보는가, 이쪽은 그 렌즈로 본 조치 가운데 배출도 줄이는 것이 무엇인가 |
+| 비용 | 비용 최적화 관행 가운데 환경 이득도 갖는 것이 있고 FinOps와 GreenOps는 같은 일을 다른 목적 함수로 한다 | [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md)가 TCO·capex/opex·TOCO의 렌즈와 비용 귀속 지점을 갖는다 | **층이 다르다.** 그쪽은 비용을 어떤 렌즈로 보는가, 이쪽은 그 렌즈로 본 조치 가운데 배출도 줄이는 것이 무엇인가 |
 | 신뢰성·탄력성 | 중복은 낭비이자 신뢰성에도 최선이 아니고, 탄력성이 더 효율적이며 예약 하드웨어를 덜 쓴다 | [회복력의 네 개념](../concepts/resilience-four-concepts.md)이 이 낱말을 견고함·되튐·우아한 확장성·지속적 적응력 넷으로 가른다 | **가르는 수가 다르고 겹치는 갈래가 하나다.** 이 소스의 탄력성 규정은 넷 가운데 되튐에 해당한다 |
-| 신뢰성·탄력성 | 효율이 탄력성과 같은 방향이다 | [취약 상태를 알아보는 법](detecting-the-vulnerable-state.md)이 사용률 처방과 여유 용량을 맞대어 둔다 | **자기 책 안에서 먼저 갈린다.** 4장은 효율이 복잡도와 취약함을 더한다고 적는다 — 아래 단락 참조 |
-| 성능 | 성능 모범 관행의 대부분이 효율을 통해 그린 이득으로 파급되고, 더 그린한 것이 대개 더 빠르다 | [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md)이 3장의 세 낱말 가름(성능·효율·그린함이 동의어가 아니다)을 갖는다 | **어긋나지 않는다.** 3장이 부정하는 것은 동일성이고 11장이 주장하는 것은 상관이다 |
+| 신뢰성·탄력성 | 효율이 탄력성과 같은 방향이다 | [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md)이 사용률 처방과 여유 용량을 맞대어 둔다 | **자기 책 안에서 먼저 갈린다.** 4장은 효율이 복잡도와 취약함을 더한다고 적는다 — 아래 단락 참조 |
+| 성능 | 성능 모범 관행의 대부분이 효율을 통해 그린 이득으로 파급되고, 더 그린한 것이 대개 더 빠르다 | [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md)이 3장의 세 낱말 가름(성능·효율·그린함이 동의어가 아니다)을 갖는다 | **어긋나지 않는다.** 3장이 부정하는 것은 동일성이고 11장이 주장하는 것은 상관이다 |
 | 보안 | DDoS는 에너지와 내재 탄소를 함께 버리고, 공격 면 축소와 좀비 정리는 같은 조치다 | [마이크로서비스 보안 원칙](../concepts/microservice-security-principles.md)과 [API 보안 패턴](../concepts/api-security-patterns.md)이 공격 면과 완화 기법을 갖는다 | **더해지는 것은 목적 함수 하나다.** 기제는 같고, 이 소스는 같은 조치의 배출 효과를 센다 |
 | 데이터 | 데이터의 양 자체가 탄소이고 변환을 덜 요구하는 모델이 더 그린하다 | [데이터 모델링의 기초](../concepts/data-modeling-fundamentals.md)가 모델의 단계와 grain과 비정규화를 갖는다 | **새 판정 기준 하나가 붙는다.** 그 축의 판정 기준에 배출이 없었다 |
 
@@ -336,7 +335,7 @@ sources:
 대기 사본에서 자동 회복으로 바꾸면 하드웨어가 덜 든다"고 말한다. **주어가 다르므로 사실
 충돌이 아니고, 두 장 모두 효율과 탄력성을 함께 다루라고 처방한다는 점에서 결론도 같다.**
 
-**다만 갚지 못한 물음이 남는다.** [취약 상태를 알아보는 법](detecting-the-vulnerable-state.md)이
+**다만 갚지 못한 물음이 남는다.** [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md)이
 적는 숨은 용량은 관측되는 유휴 자원이 아니라 **체계가 스스로 낫는 한계**이고, 11장이
 회수하라는 것은 눈에 보이는 대기 사본이다. **자동 회복이 대기 사본을 대신할 때 숨은 용량이
 어떻게 되는지는 어느 쪽 소스도 재지 않았다.** #hypothesis 실시간 회복은 트리거가 오는 동안
@@ -364,13 +363,13 @@ sources:
   다음 장. 어디서 시작할지를 정하는 눈금
 - [그린 소프트웨어는 어디로 가는가](green-software-what-next.md) — 같은 다섯을 맺음에서
   최종 규정으로 되받는 자리
-- [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md) — 성능과 효율과
+- [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md) — 성능과 효율과
   그린함을 갈라 둔 자리
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 과잉 할당을
   치는 논거의 전문
-- [그린 운영의 실천](green-operations-practices.md) — 좀비 정리와 효율 대 탄력성의 원문
-- [FinOps와 비용 최적화](finops-and-cost-optimization.md) — 비용 쪽 판정이 합류하는 자리
-- [취약 상태를 알아보는 법](detecting-the-vulnerable-state.md) — 여유 용량을 반대 방향에서
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — 좀비 정리와 효율 대 탄력성의 원문
+- [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 비용 쪽 판정이 합류하는 자리
+- [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md) — 여유 용량을 반대 방향에서
   당기는 쪽
 - [회복력의 네 개념](../concepts/resilience-four-concepts.md) — 같은 낱말을 넷으로 가르는 쪽
 - [신뢰성과 내결함성](../concepts/reliability-and-fault-tolerance.md) — 신뢰성을 다른 어휘로

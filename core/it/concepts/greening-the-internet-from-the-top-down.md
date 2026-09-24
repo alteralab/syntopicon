@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 위에서 아래로 인터넷을 그린하게
-status: draft
 description: 인터넷의 낮은 층이 아니라 애플리케이션 층에 손대라는 처방과 그 증거 — 네트워크 인프라를 조금도 더하지 않고 50% 수요 급증을 감당한 2020년 록다운이 엔지니어에게 급히 가르친 개념 셋, CDN의 사전 전송과 사전 처리와 사전 캐싱이 전부 수요 이동 기법이고 그 이름이 실은 일과 수요의 분리라는 저자들의 자기 정정, 넷플릭스의 화질 강등과 영상 통화의 QoS 오디오 우선과 고양이 필터로 본 브라운아웃과 우아한 다운그레이드와 수요 조형의 규정, 30분마다 바뀌는 동적 전기 요금제가 요구하는 사고 전환, 100%가 아니라 90% 신뢰 플랫폼에서 출발하는 편이 낮추기 쉽다는 비대칭, 그리고 낮게 달린 열매가 스택 꼭대기에 있다는 결론과 처방 셋
 generated: { by: "claude-fable-5", at: "2026-09-23T23:40:00Z" }
 sources:
@@ -24,7 +23,7 @@ sources:
 
 이 페이지는 처방 쪽을 담는다. 인터넷의 탄소가 어디서 나오는가라는 진단과 라우팅에 손대지 말라는
 판정은 [네트워크의 탄소와 인터넷의 구조](network-carbon-and-internet-structure.md)에 있고, 여기
-쓰이는 두 기법의 규정은 [수요 이동과 수요 조형](demand-shifting-and-shaping.md)에 있다.
+쓰이는 두 기법의 규정은 [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md)에 있다.
 
 ## 2020년 록다운의 교훈
 
@@ -211,10 +210,10 @@ sources:
 
 - [네트워크의 탄소와 인터넷의 구조](network-carbon-and-internet-structure.md) — 같은 장의 진단
   쪽과 라우팅에 손대지 말라는 판정
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 여기 쓰인 두 기법의 규정과 전력 쪽 실례
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — 브라운아웃과 커테일먼트를 전력망 쪽에서 규정하는 자리
-- [그린 운영의 실천](green-operations-practices.md) — 스팟 인스턴스를 비롯한 상용 연장 쪽
-- [더 그린한 머신러닝](greener-machine-learning.md) — 같은 두 기법을 ML 생애 주기에 거는 다음 장
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 여기 쓰인 두 기법의 규정과 전력 쪽 실례
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 브라운아웃과 커테일먼트를 전력망 쪽에서 규정하는 자리
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — 스팟 인스턴스를 비롯한 상용 연장 쪽
+- [더 그린한 머신러닝](../concepts/greener-machine-learning.md) — 같은 두 기법을 ML 생애 주기에 거는 다음 장
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — CDN의 기제
 - [충분히 좋은 결과와 카나리 요청](../concepts/good-enough-results-and-canary-requests.md) — 같은
   품질 저하 기법을 꼬리 지연으로 쓰는 쪽

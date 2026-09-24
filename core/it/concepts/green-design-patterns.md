@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 그린 설계 패턴
-status: draft
 description: 코드를 다시 쓰지 않고 배출을 줄이는 아키텍처 처방 일곱과 그 한계 — 계층을 겹으로 두지 말라는 조항, 마이크로서비스 사이 트래픽이 CPU를 먹는 기제와 기계 사이 전송이 내부 전달보다 백 배 비싸다는 수치와 RPC가 REST보다 스무 배 빠르다는 수치, 사이드카 방식 서비스 메시가 메시지마다 처리를 더한다는 진단과 모놀리스가 더 그린한가에 대한 양쪽 답, 프라임 비디오 사례가 보여 준 맞바꿈, 비효율 서비스와 라이브러리를 바꾸라는 장보기 처방, 린 사고방식과 가장 효율적인 코드는 코드가 없는 것이라는 조문과 데이터 보존 정책, 클라이언트 기기를 활용해 내재 탄소를 정당화하라는 처방, 머신러닝의 데이터 수집과 훈련에 걸리는 처방과 훈련은 급하지 않으니 탄소 인지로 돌리라는 조항, 마이크로소프트 팀스가 팬데믹에 강제로 효율을 얻은 사례, 제번스 역설과 생산성 발목이라는 두 반론과 그 둘이 모순이 아니라는 판정, 그리고 코드 효율의 장단과 그 대신 할 수 있는 일곱 가지
 generated: { by: "claude-fable-5", at: "2026-09-23T15:10:00Z" }
 sources:
@@ -30,7 +29,7 @@ sources:
 어떤 것을 골라야 하는가.**
 
 이 페이지는 처방 쪽을 담고, 그 처방이 대신하는 코드 효율이라는 연장의 규정과 값은
-[코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md)에 있다.
+[코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md)에 있다.
 
 ## 설계가 먼저다
 
@@ -399,7 +398,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md) — 이 처방들이
+- [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md) — 이 처방들이
   대신하는 그 연장의 규정과 값
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 저자들이 더
   먼저 하라고 미루는 자리
@@ -436,6 +435,6 @@ sources:
     소통이라 각주에 밝힌 것이고 이 KB가 원출처를 확인하지 않았다. 저자들이 드는 바깥 책
     (샘 뉴먼 *Building Microservices*)은 이 KB가 [소스로 이미 가진 것](../sources/newman2021.md)이며,
     여기서는 이 소스가 그것을 권한다는 사실만 옮겼다. 3장의 앞쪽 pp.31–41은
-    [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md)이 갖는다.
+    [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md)이 갖는다.
     **§"이 KB의 다른 소스와 만나는 자리"의 마지막 항목만 7장 "Networking"에서 온다** —
     곁상자 p.111과 p.118이며, 7장도 번호 각주를 쓰지 않는다.

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 완벽한 탄소 측정과 충분히 좋은 측정
-status: draft
 description: 소프트웨어의 탄소를 재는 일을 완벽한 쪽과 충분히 좋은 쪽으로 갈라 놓는 2024년 원전의 두 절 — 재기 전에 시스템 경계와 시간 경계를 먼저 정해야 한다는 조항, 실시간과 충분한 세분성이라는 완벽한 데이터의 두 기준, 전력량계를 벽과 하드웨어 사이에 꽂는 가장 확실한 방법과 정적 전력 소모·정상 상태·배터리라는 단서 셋, 탄소 강도 데이터가 제삼자에게서 오는 이유와 LRMER·SRMER·AER이라는 신호 셋, 전력 구매 계약과 추가성과 탄소 상쇄와 자발적 탄소 시장의 규정 및 시장 기반 감축을 완벽한 탄소 지표에서 빼겠다는 저자들의 판정과 그 근거인 행동 가능성, 내재 탄소를 제조사의 시작 값과 상각으로 다루는 길과 Cloud Carbon Footprint, 실시간 탄소 모니터링이라는 저자들의 지향과 시계열과 지표 표준화라는 두 열쇠, 그리고 에너지와 비용과 하드웨어와 지연이라는 대리 지표 넷의 이점과 한계, 불완전한 데이터를 일관되게 쓰는 것이 과학적일 수 있는 조건
 generated: { by: "claude-fable-5", at: "2026-09-24T02:00:00Z" }
 sources:
@@ -27,9 +26,9 @@ sources:
 하나의 질문: **소프트웨어의 탄소를 완벽하게 재려면 무엇이 있어야 하고, 그것이 없을 때
 무엇으로 대신하는가.**
 
-측정에 쓰는 어휘와 셈은 [탄소 회계의 기본](carbon-accounting-basics.md)이 갖는다. 여기 있는
+측정에 쓰는 어휘와 셈은 [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)이 갖는다. 여기 있는
 것은 그 셈을 실제로 돌리려 할 때 걸리는 조건과 그 조건이 깨졌을 때의 차선이다. 표준과 도구의
-비교는 [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md)가 받는다.
+비교는 [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md)가 받는다.
 
 ## 이 장이 답하려는 물음
 
@@ -348,15 +347,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md) — 같은 장의
+- [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md) — 같은 장의
   뒤쪽. GHG 프로토콜과 ISO 14064, 하이퍼스케일러와 오픈 소스와 클라이언트 쪽 도구의 비교
 - [소프트웨어 탄소 강도 규격](software-carbon-intensity.md) — 시장 기반 감축을 아예 금지하고
   기능 단위당 비율로 재는 규격
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 여기 쓰이는 어휘와 셈. 탄소 강도, 에너지
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 여기 쓰이는 어휘와 셈. 탄소 강도, 에너지
   비례성, 정적 전력 소모, 내재 탄소, GHG 프로토콜의 세 범위
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — 탄소 강도 신호를 실제로 읽어 주는 도구들과
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 탄소 강도 신호를 실제로 읽어 주는 도구들과
   그 신호의 세 종류
-- [프로덕션 모니터링에 탄소를 얹기](carbon-in-production-monitoring.md) — 이 장이 바라는
+- [프로덕션 모니터링에 탄소를 얹기](../concepts/carbon-in-production-monitoring.md) — 이 장이 바라는
   실시간 지표를 서비스 수준 어휘에 끼워 넣는 다음 장
 - [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 상각할 내재 탄소가
   어디서 오는가

@@ -1,10 +1,11 @@
 ---
 type: concept
 title: AI 가속기
-description: 모델이 얼마나 빠르고 싼가를 아래에서 정하는 하드웨어 — 모델과 하드웨어가 얽혀 온 내력, CPU와 GPU를 가르는 코어 설계와 행렬 곱, 훈련용 칩과 추론용 칩이 갈리는 이유, 스칼라·벡터·텐서라는 컴퓨트 프리미티브, 정밀도마다 달라지는 FLOP/s, CPU DRAM에서 GPU SRAM까지의 세 층 메모리 계층, 그리고 전력이 컴퓨트 확장의 병목이 되는 자리
-generated: { by: "claude-opus-5", at: "2026-08-17T08:00:00Z" }
+description: 모델이 얼마나 빠르고 싼가를 아래에서 정하는 하드웨어 — 모델과 하드웨어가 얽혀 온 내력, CPU와 GPU를 가르는 코어 설계와 행렬 곱, 훈련용 칩과 추론용 칩이 갈리는 이유, 스칼라·벡터·텐서라는 컴퓨트 프리미티브, 정밀도마다 달라지는 FLOP/s, CPU DRAM에서 GPU SRAM까지의 세 층 메모리 계층, 전력이 컴퓨트 확장의 병목이 되는 자리, 그리고 같은 선택을 내재 탄소로 다시 재는 2024년 그린 소프트웨어 원전 — 특수 하드웨어가 범용보다 그린한지에 결정적 답이 없는 까닭과 범용 쪽이 재용도화로 수명을 번다는 논증과 제번스 역설
+generated: { by: "claude-fable-5", at: "2026-09-23T22:50:00Z" }
 sources:
   - { id: huyen2025, resource: /it/sources/huyen2025.md }
+  - { id: currie2024, resource: /it/sources/currie2024.md }
 ---
 
 # AI 가속기
@@ -21,6 +22,7 @@ sources:
 - [메모리 계층 세 층](#메모리-계층-세-층)
 - [전력 소비](#전력-소비)
 - [가속기를 고르는 세 질문](#가속기를-고르는-세-질문)
+- [같은 선택을 내재 탄소로 재는 소스](#같은-선택을-내재-탄소로-재는-소스)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **소프트웨어가 얼마나 빠르고 싼지를 아래에서 정하는 칩의 무엇을 봐야 하는가.**
@@ -230,6 +232,49 @@ sources:
   직접 산다면 비용은 초기 가격과 지속적인 전력 소비에 근거해 계산될 수 있다** (9장,
   p.425).[^huyen2025]
 
+## 같은 선택을 내재 탄소로 재는 소스
+
+2024년의 그린 소프트웨어 입문서가 같은 선택에 **하드웨어를 만드느라 이미 배출된 탄소**라는
+축을 하나 더 얹는다. 위 절들이 묻는 것은 워크로드가 도는가·얼마나 걸리는가·얼마가 드는가인데,
+그 소스는 **그 칩을 얼마나 오래 쓸 수 있는가**를 함께 묻는다.
+
+- 그 소스가 특수 하드웨어로 묶는 것은 **주문형 반도체(ASIC)·필드 프로그래머블 게이트
+  어레이(FPGA)·텐서 처리 장치(TPU)**이고, 보통 처리 장치의 역할을 맡지만 다른 목적에도 쓰일 수
+  있다고 적는다 (6장, pp.99–100).[^currie2024]
+- **판정은 결정적 답이 없다는 것이다.** 인텔의 수석 주임 지속가능성 기술자 데브라 번스타인의
+  말을 그 소스가 옮긴다 (6장, p.100):[^currie2024]
+
+  > When it comes to sustainability and general-purpose versus specialized hardware, there is
+  > no definitive answer that covers all scenarios. Specialized hardware is good if you deeply
+  > understand the problem space and can maximize the utilization of your hardware, because it
+  > is more efficient in terms of energy use. It also becomes more sustainable from an
+  > embodied-carbon perspective, if you will keep the hardware for longer.
+
+- **범용 쪽이 버는 것은 수명이다** — **범용 하드웨어는 나중에 새 문제 공간으로 다시 쓸 수 있어
+  수명이 늘고 따라서 내재 탄소라는 값어치에 견줘 더 많은 것을 얻는다. 특수 하드웨어에서는 그것이
+  더 어려워, 단기 에너지 효율의 승리가 시간이 지나면서 내재 탄소 비용을 능가하지 못할 수 있다 —
+  특히 짧은 기간 뒤에 하드웨어를 폐기해야 한다면** (6장, p.100).[^currie2024]
+- **효율이 수요를 키운다는 되먹임도 든다.** 그 소스는 **GPU가 본래 그래픽 처리용으로 설계되었지만
+  머신러닝과 암호화폐의 행렬 수학에 이상적인 것으로 드러났다**고 적고, 거기에 제번스 역설을
+  붙인다 — **어떤 일을 더 효율적으로 하게 되면 그것이 싸지고 우리 모두가 훨씬 더 많이 한다**
+  (6장, pp.100–101).[^currie2024]
+  - 실측 서사는 이미지 처리다 — **칩이 더 효율적이 되었고 그래서 더 많은 이미지 처리가
+    수행되었으며 그 결과 더 많은 칩이 생산되었다. 효율 이득이 내재 탄소의 동등한 감소로 매핑되지
+    않으므로 칩이 늘면 탄소가 는다** (6장, p.101).[^currie2024]
+- **두 소스가 다투지 않는다.** 이 페이지의 원전은 특수 하드웨어가 같은 일에 전력을 덜 쓴다는
+  것을 근거로 칩을 고르라 하고, 그린 쪽 소스도 **에너지 사용이라는 뜻에서 더 효율적**이라는 것을
+  인정한다. 갈리는 것은 **회계의 범위**다 — 한쪽은 도는 동안의 전력과 값을, 다른 쪽은 그
+  하드웨어를 만드느라 이미 치른 탄소까지를 분모에 넣는다. 그래서 `contradicts`를 걸지 않았다.
+- **전력이 컴퓨트 확장의 병목이라는 이 페이지의 진단과는 방향이 같다.** 이 페이지가 드는
+  H100 한 대의 연 7,000 kWh와 데이터센터 입지 문제는 운영 전력 쪽이고, 그린 쪽 소스가 더하는
+  것은 **그 칩을 만드는 데 든 탄소가 몇 해에 걸쳐 나뉘는가**다.
+
+- **같은 소스의 8장이 그 대질의 분자 쪽 수치를 낸다** — AI 칩은 **훈련과 추론 모두에 쓰이며
+  통상 GPU와 FPGA와 AI 과업에 특화된 ASIC**을 포함하고, 과업에 특화되어 있어 **CPU 같은 범용
+  하드웨어와 달리 대단히 효율적**이다. 그 장이 인용하는 수치는 **훈련에 특수 AI 칩을 쓰는 것이
+  범용 하드웨어를 쓰는 것보다 열 배에서 천 배 더 효율적일 수 있다**는 것이고, 그러면서도
+  **생산된 하드웨어의 내재 비용을 함께 고려해야 한다**고 6장으로 넘긴다 (8장,
+  p.132).[^currie2024] **이 KB가 그 수치의 원출처(2020년 CSET 보고서)를 확인하지 않았다.**
 ## 이어지는 페이지
 
 - [추론 서버와 계산 병목](../concepts/inference-server-and-bottlenecks.md) — 컴퓨트 바운드와 메모리
@@ -246,6 +291,8 @@ sources:
 - [AI 엔지니어링과 ML 엔지니어링](../concepts/ai-engineering-versus-ml-engineering.md) — GPU 클러스터를
   다루는 능력이 수요가 되는 자리
 - [클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md) — 하드웨어를 소유할지의 일반론
+- [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 같은 칩 선택을
+  내재 탄소와 재용도화 가능성으로 재는 자리
 
 [^huyen2025]: Huyen 2025, 9장 "Inference Optimization" (책 pp.405–448). 이 페이지는 "AI
     Accelerators" 절 전체(pp.419–425)를 담았다 — 하위 절 "What's an accelerator?"·"Computational
@@ -256,3 +303,12 @@ sources:
     Ivanov et al.(2021)·Zhu et al.(2024)·Desislavov et al.(2023)·Chen et al.(2018)·Jon Peddie·
     젠슨 황(Stratechery, 2022)은 huyen2025를 통한 전언이다. Cerebras의 제품 이름은 원문에
     "Wafer-Scale Quant Processing Unit (QPU)"로 인쇄된 그대로 옮겼다.
+
+[^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
+    Software Development and Operations*, O'Reilly(초판). 6장 "Hardware Efficiency"
+    §"Specialized Hardware" pp.99–101. locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자
+    표시가 없는 세 사람의 공저라 claim은 저자 셋에 함께 건다. 직인용은 `pdftotext -layout`
+    출력으로 대조했다. 데브라 번스타인의 인용은 저자들이 개인적 소통이라 밝힌 것이고 이 KB가
+    원출처를 확인하지 않았다.
+    **열 배에서 천 배라는 수치 한 줄만 8장 "Greener Machine Learning, AI, and LLMs"
+    §"Size Isn't All" p.132에서 온다.**

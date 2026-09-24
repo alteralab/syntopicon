@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 수요 이동과 수요 조형
-status: draft
 description: 탄소 강도라는 신호를 받아 무엇을 바꾸는가의 두 갈래 — 일의 양은 그대로 두고 언제·어디서 하는가만 옮기는 수요 이동(시간 이동과 위치 이동)과 공급이 나쁠 때 일의 양 자체를 줄이는 수요 조형의 가름, 시간 이동이 위치 이동보다 쉬운 세 이유와 ML 훈련 45~99%·윈도 업데이트 99%라는 보고 수치, 위치 이동을 막는 것이 과부하 걱정이 아니라 데이터 관련 법과 SLA와 자원 가용성이라는 반론, 영상 통화의 화질 저하와 점진적 로딩이 이미 같은 기법이었다는 계보, 그리고 구글·Xbox·아이폰·Carbon Hack 22라는 실례 넷과 애플리케이션이 아니라 로드 밸런서나 DNS 층에서 탄소 인지를 거는 제안
 generated: { by: "claude-fable-5", at: "2026-09-23T22:20:00Z" }
 sources:
@@ -30,7 +29,7 @@ sources:
 하나의 질문: **전기가 더러울 때 무엇을 바꾸는가 — 일을 옮기는가, 일을 줄이는가.**
 
 이 페이지가 받는 신호의 규정과 그 신호를 주는 도구는
-[탄소 인지 컴퓨팅](carbon-aware-computing.md)에 있다.
+[탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md)에 있다.
 
 ## 두 갈래를 가르는 자리
 
@@ -363,7 +362,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [탄소 인지 컴퓨팅](carbon-aware-computing.md) — 이 페이지가 받는 신호와 그 신호를 주는 도구
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 이 페이지가 받는 신호와 그 신호를 주는 도구
 - [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 전기가 아니라
   하드웨어 쪽 배출을 보는 다음 장
 - [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md) — 시간 유연성을
@@ -399,4 +398,4 @@ sources:
     §"Brownouts, Graceful Downgrades, and Demand Shaping" pp.120–121이고, 7장도 번호 각주를 쓰지
     않는다. 5장은 번호 각주를 쓰지 않고 본문 안 링크로 출처를 단다 —
     UCD 연구·윈도 업데이트 99%·Lowcarb 벤치마크는 그 링크로만 주어지고 이 KB가 원문을 확인하지
-    않았다. 5장 pp.73–79와 p.89는 [탄소 인지 컴퓨팅](carbon-aware-computing.md)이 갖는다.
+    않았다. 5장 pp.73–79와 p.89는 [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md)이 갖는다.

@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 운영 효율과 기계 사용률
-status: draft
 description: 같은 기능을 더 적은 하드웨어로 내는 일이라는 운영 효율의 규정과 그 하나의 근본 개념인 기계 사용률 — 코드 효율이 백 배를 노리는 데 견줘 운영 효율이 다섯에서 열 배에 그치되 기성 도구로 낮게 달린 열매라는 판정, 응용만 줄이고 기계를 줄이지 않으면 최적화가 헛것이 된다는 조항, 과잉 할당이 훌륭한 위험 관리인 까닭과 적정 크기화가 어려운 두 이유, 오토스케일링이 내려가지 않는 문제와 버스터블 인스턴스의 장단, 코드형 인프라와 GitOps와 CNCF가 GitOps 더하기 FinOps로 규정한 GreenOps, 클러스터 스케줄링을 데브옵스 테트리스로 그린 개념과 최대 80%라는 사용률 수치와 스케줄러가 요구하는 세 조건, 스케줄러가 정보 없이는 일을 못 한다는 진단과 쿠버네티스 요청·제한 설정의 어려움, 혼합 워크로드가 클수록 유리해 하이퍼스케일러가 온프레미스의 사분의 일 이하 하드웨어로 같은 일을 한다는 추정, 그리고 시간을 축으로 더한 스팟 인스턴스와 그것을 카오스 엔지니어링 때문에 고른 스카이스캐너 사례
 generated: { by: "claude-fable-5", at: "2026-09-23T15:20:00Z" }
 sources:
@@ -31,7 +30,7 @@ sources:
 개념인 기계 사용률은 무엇을 요구하는가.**
 
 이 페이지는 사용률을 올리는 기제를 담고, 그 위에 얹히는 운영 실천과 도구 목록은
-[그린 운영의 실천](green-operations-practices.md)에 있다.
+[그린 운영의 실천](../concepts/green-operations-practices.md)에 있다.
 
 ## 저항과의 싸움
 
@@ -40,7 +39,7 @@ sources:
   §"The Battle Against the Machines", p.53).[^currie2024]
 - 그 싸움에 이미 이름이 둘 있다 — **데이터센터의 PUE를 개선하려는 일이 저항과 싸우는 일이며,
   운영 효율이라는 개념의 동기도 같다** (4장, p.53).[^currie2024] PUE의 규정은
-  [탄소 회계의 기본](carbon-accounting-basics.md)에 있다.
+  [탄소 회계의 기본](../concepts/carbon-accounting-basics.md)에 있다.
 - 지난 30년의 수단이 한계에 닿았다는 것이 이 장의 출발점이다 — **지난 30년 동안 데이터센터의
   전기 낭비를 CPU 설계의 발전과 그 밖의 하드웨어 효율 개선으로 상대해 왔고, 그 덕에 개발자들이
   점점 더 적은 기계와 더 적은 전력으로 같은 기능적 산출을 낼 수 있었다. 그러나 그 무어의 법칙식
@@ -340,7 +339,7 @@ sources:
   라벨링해 제공자의 스케줄러에 맡기지만, 5장은 애플리케이션이 전력망의 탄소 강도 예보를 직접
   읽어 언제 돌릴지 정하게 한다. 그 쪽이 이 라벨링을 대체하지 않는다 — 5장 자신이 지연에 둔감한
   워크로드를 스팟 인스턴스로 돌리면 훨씬 싸다며 이 절을 가리킨다 (5장, p.85).[^currie2024]
-  기제는 [수요 이동과 수요 조형](demand-shifting-and-shaping.md)에 있다.
+  기제는 [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md)에 있다.
 
 ## 사례 — 스카이스캐너와 카오스 엔지니어링
 
@@ -420,16 +419,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [그린 운영의 실천](green-operations-practices.md) — 이 사용률 위에 얹히는 멀티테넌시·서버리스·
+- [그린 운영의 실천](../concepts/green-operations-practices.md) — 이 사용률 위에 얹히는 멀티테넌시·서버리스·
   SRE·LightSwitchOps·위치 선택과 운영 도구 목록
-- [코드 효율과 개발자 생산성](code-efficiency-and-developer-productivity.md) — 이 장이 견주는
+- [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md) — 이 장이 견주는
   그 백 배짜리 연장
-- [그린 설계 패턴](green-design-patterns.md) — 같은 비교의 설계 쪽
-- [그린 소프트웨어의 규정](green-software-definition.md) — 운영 효율이 놓이는 우선순위
-- [탄소 회계의 기본](carbon-accounting-basics.md) — 사용률과 전력의 비선형 관계, PUE, 내재 탄소
-- [수요 이동과 수요 조형](demand-shifting-and-shaping.md) — 같은 시간 유연성을 애플리케이션이
+- [그린 설계 패턴](../concepts/green-design-patterns.md) — 같은 비교의 설계 쪽
+- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 운영 효율이 놓이는 우선순위
+- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 사용률과 전력의 비선형 관계, PUE, 내재 탄소
+- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 같은 시간 유연성을 애플리케이션이
   직접 쓰는 자리
-- [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 사용률과 나란한
+- [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md) — 사용률과 나란한
   다른 길인 수명 연장
 - [취약 상태를 알아보는 법](../concepts/detecting-the-vulnerable-state.md) — 사용률을 올릴 때
   깎이는 것이 무엇인지 묻는 반대쪽 원전
@@ -456,4 +455,4 @@ sources:
     `pdftoppm -r 160 -png` 렌더로 읽었고, 그림 4-2에는 수치가 없어 성격만 적었다. 이 구간에
     표와 코드 목록은 없다. 로스 페어뱅크스·폴 존스턴·스튜어트 데이비드슨의 인용은 저자들이
     개인적 소통이라 밝힌 것이고 이 KB가 원출처를 확인하지 않았다. 4장의 pp.65–72는
-    [그린 운영의 실천](green-operations-practices.md)이 갖는다.
+    [그린 운영의 실천](../concepts/green-operations-practices.md)이 갖는다.
