@@ -242,6 +242,22 @@ sources:
   다르므로 비용만으로는 그 차이가 보이지 않는다. 그 조항과 수치는
   [그린 소프트웨어의 규정](green-software-definition.md)의 비용 절과
   [클라우드와 자체 호스팅](cloud-versus-self-hosting.md)이 갖는다.
+- **같은 책 9장이 비용을 대리 지표 넷 가운데 하나로 다시 세우며 조건을 분명히 한다.** 이점은
+  **이 대리 지표가 재무 책임자(CFO)의 언어로 말한다**는 것이고, 저자들은 **CFO를 자기 편으로
+  두는 힘을 결코 과소평가하지 말라**고 적는다 (9장 §"Use of Proxies", p.144).[^currie2024]
+  - **완벽한 대리 지표가 아닌 까닭이 둘로 못 박힌다** — **클라우드 제공자가 워크로드의 탄소
+    인지 여부를 청구서에 반영하지 않는다는 것**과, **전기 요금이 생산의 그린함과 관련되어야 할
+    이유가 없다는 것**이다 (9장, p.144).[^currie2024]
+  - **그럼에도 판정은 유지된다** — **일반적으로 운영 비용을 낮추면 탄소 배출이 낮아지므로 충분히
+    좋은 대리 지표**다 (9장, p.144).[^currie2024]
+  - **4장의 조문과 9장의 조건을 함께 읽으면 이 축의 자리가 또렷해진다.** 4장이 **더 싼 것이 거의
+    언제나 더 그린하다**는 방향을 주고, 9장이 **그 "거의"가 어디서 깨지는지**를 준다. 두 서술이
+    부딪치지 않는다 — 앞엣것은 추세를 말하고 뒤엣것은 예외를 센다.
+- **청구 데이터가 측정 도구의 입력이 되기도 한다.** 같은 책 9장이 견주는 오픈 소스 도구 하나
+  (Cloud Carbon Footprint)는 **청구 정보에 근거해 컴퓨트와 GPU와 스토리지와 네트워킹과 메모리를
+  배분**하고, 그 때문에 **시간 민감도를 각 퍼블릭 클라우드의 청구 데이터 지연에서 물려받는다**
+  (9장 표 9-3, p.154).[^currie2024] 그 표의 전문은
+  [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md)가 갖는다.
 - **이 축이 위 절들과 어긋나지는 않는다.** FinOps가 돈을 아끼는 것이 아니라 버는 것이라는 이
   페이지의 조문과, 싼 서비스가 제공자에게 더 이익이라는 이 소스의 관찰은 같은 방향이다.
   갈리는 것은 **무엇을 최적화 대상으로 부르는가**일 뿐이고, 어느 쪽도 상대의 사실 주장을
@@ -263,6 +279,10 @@ sources:
   운영 목록
 - [그린 소프트웨어의 규정](green-software-definition.md) — 비용이 탄소의 대리 지표인 자리와
   그 한계
+- [완벽한 탄소 측정과 충분히 좋은 측정](carbon-measurement-perfect-and-good-enough.md) — 비용이
+  대리 지표 넷 가운데 하나로 놓이는 자리
+- [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md) — 청구 데이터를
+  입력으로 삼는 측정 도구들
 
 [^reis2022]: Reis & Housley 2022, 3장 "Designing Good Data Architecture" · 4장 "Choosing Technologies Across the Data Engineering Lifecycle"
 
@@ -273,10 +293,12 @@ sources:
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 4장 "Operational Efficiency"
-    pp.59·65–66·71–72. 쪽은 인쇄판 쪽(PDF 쪽 − 22, 실측). 이 페이지는 그 책에서 **비용과
+    pp.59·65–66·71–72 · 9장 "Measurement" pp.144·154. 쪽은 인쇄판 쪽(PDF 쪽 − 22, 실측). 이 페이지는 그 책에서 **비용과
     배출이 같은 방향인가를 다루는 대목만** 가져왔다 — 사용률과 스케줄링은
     [운영 효율과 기계 사용률](operational-efficiency-and-machine-utilization.md)이, 운영
-    실천 목록은 [그린 운영의 실천](green-operations-practices.md)이 갖는다. 직인용은 두지
+    실천 목록은 [그린 운영의 실천](green-operations-practices.md)이 갖는다. 9장
+    §"Use of Proxies" p.144와 표 9-3 p.154에서는 **비용이 대리 지표로서 갖는 한계와 청구
+    데이터가 측정 도구의 입력이 되는 자리**만 가져왔다. 직인용은 두지
     않았고 전부 한국어 재서술이다. 그림 4-1의 안쪽 글자는 텍스트 레이어에 없어
     `pdftoppm -r 160 -png` 렌더로 읽었다. 애덤 잭슨의 인용은 저자들이 개인적 소통이라 밝힌
     것이고 이 KB가 원출처를 확인하지 않았다.
