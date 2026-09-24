@@ -335,6 +335,9 @@ pp.251–254).[^golding2024] **일부는 플랫폼의 묶음 구성물로 얻고
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 컨테이너가 놓인 배포 사다리 전체
 - [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md) — 라우팅 통제를 들이는 층의 전문
 - [API 게이트웨이의 규정과 기능과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 인그레스 컨트롤러가 놓이는 칸
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 10장 "EKS (Kubernetes) SaaS: Architecture Patterns and Strategies"

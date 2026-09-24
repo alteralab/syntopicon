@@ -345,7 +345,9 @@ sources:
   원격 자원의 운영 데이터가 되돌아와야 하는 그 단일 뷰
 - [테넌트 소비와 테넌트당 비용과 지표 집계](tenant-consumption-cost-per-tenant-and-metrics-aggregation.md) —
   원격 자원이 비용 산수에 어떻게 들어가는지를 이 장이 비워 둔 축
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — **이 페이지가 걸린 허브**
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     15장 "SaaS Anywhere" pp.391–402. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

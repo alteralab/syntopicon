@@ -459,7 +459,9 @@ sources:
   어떻게 서빙되는가
 - [메달리온과 생성형 AI가 만나는 자리](../concepts/medallion-and-generative-ai.md) — 같은 벡터
   저장소를 데이터 수명 주기 축으로 재는 쪽
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — **이 페이지가 걸린 허브**
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     16장 "GenAI and Multi-Tenancy" pp.403–429(p.430은 백지). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

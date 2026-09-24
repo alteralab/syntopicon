@@ -324,7 +324,6 @@ pp.23–24).[^golding2024] 그 구성물이 왜 SaaS의 규정에서 나오는�
 
 - [SaaS 사고방식](../concepts/saas-mindset.md) — **이 페이지의 앞 장.** 이 구성물들이 나오는
   SaaS의 규정과 경계, 그리고 멀티테넌시를 인프라 공유와 끊는 판정
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — **이 페이지가 걸린 허브**
 - [서비스 메시의 역량과 배치](../concepts/service-mesh-capabilities-and-deployment.md) — 같은
   낱말을 프록시 설정 층으로 쓰는 자리
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —
@@ -336,6 +335,9 @@ pp.23–24).[^golding2024] 그 구성물이 왜 SaaS의 규정에서 나오는�
   격리 세기로 세우는 쪽
 - [데이터 분해와 정합성](../synthesis/data-decomposition-and-consistency.md) — 데이터를 가를 때
   깨지는 것들을 모으는 허브
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures: Principles, Practices,
     and Patterns Using AWS*, O'Reilly(초판, 2024-04-24 첫 릴리스).

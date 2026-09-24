@@ -355,6 +355,9 @@ sources:
 - [카프카 클라이언트 쿼터](../concepts/kafka-client-quotas.md) — 같은 쿼터를 메시징 브로커에서 거는 쪽
 - [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md) — 카나리
   릴리스의 정의와 기제
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     14장 "Tiering Strategies" pp.372–384. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

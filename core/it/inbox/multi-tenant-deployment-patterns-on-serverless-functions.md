@@ -426,6 +426,9 @@ sources:
 - [FaaS로 짓는 이벤트 기반 마이크로서비스](../concepts/faas-event-driven-microservices.md) — 콜드 스타트를 비용 모형으로 놓는 자리와 로컬 상태 금지 정책
 - [API 게이트웨이의 능력과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 게이트웨이를 체계에 하나로 전제하는 어휘
 - [그린 운영의 실천](../concepts/green-operations-practices.md) — 서버리스를 다른 층의 멀티테넌시로 채점하는 자리
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 11장 "Serverless SaaS: Architecture Patterns and Strategies"

@@ -471,6 +471,9 @@ sources:
   기각의 정본
 - [API 인프라로 하는 클라우드 이전](../concepts/cloud-migration-with-api-infrastructure.md) —
   인프라 차원의 리프트앤시프트와 그 여섯 전략
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     13장 "SaaS Migration Strategies" pp.344–362. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

@@ -409,6 +409,9 @@ sources:
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 컨테이너 탈출과 서버리스 컴퓨트 선택의 다른 근거
 - [마이크로서비스 배포의 다섯 원칙](../concepts/microservice-deployment-principles.md) — 선언적 배포 원리의 자리
 - [세밀한 접근과 자격 증명 패턴](../concepts/fine-grained-access-and-credential-patterns.md) — 같은 선행 키 기제를 사용자 축으로 쓰는 소스
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 10장 "EKS (Kubernetes) SaaS: Architecture Patterns and Strategies"

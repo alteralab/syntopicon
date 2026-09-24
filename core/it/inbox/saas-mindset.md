@@ -331,7 +331,6 @@ sources:
 - [멀티테넌트 아키텍처 기초](../concepts/multi-tenant-architecture-fundamentals.md) — 이 규정이
   아키텍처의 어느 자리에 들어오는가. 컨트롤 플레인과 애플리케이션 플레인이라는 두 절반,
   테넌트 컨텍스트와 격리와 파티셔닝과 라우팅
-- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — **이 페이지가 걸린 허브**
 - [클라우드 네이티브 아키텍처](../concepts/cloud-native-architecture.md) — 같은 낱말을 데이터
   시스템의 성질로 쓰는 자리
 - [멀티테넌시를 위한 샤딩](../concepts/sharding-for-multitenancy.md) — 테넌트를 격리 단위로
@@ -342,6 +341,9 @@ sources:
   결정으로 내리는 절차 층
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 전용과 공유를
   가르는 격리의 사다리
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures: Principles, Practices,
     and Patterns Using AWS*, O'Reilly(초판, 2024-04-24 첫 릴리스). 서문 pp.xiii–xxi ·

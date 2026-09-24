@@ -485,6 +485,9 @@ CCPA 같은 프라이버시 규제가 정의하는 개인 데이터 제거 요�
   주체의 데이터만 골라 지우는 같은 기제
 - [점진적 변경과 배포 파이프라인](../concepts/incremental-change-and-deployment-pipelines.md) —
   기능 토글의 규정과 그 본래 목적
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 5장 "Tenant Management". 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

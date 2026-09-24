@@ -313,6 +313,9 @@ DORA 지표와 겹치는 자리라고만 적는다 (12장, p.313).[^golding2024]
   모은 지표를 무엇으로 바꿀 것인가
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 티어마다 다른 약속을 수로 못 박는
   자리
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     12장 "Tenant-Aware Operations" pp.307–315. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

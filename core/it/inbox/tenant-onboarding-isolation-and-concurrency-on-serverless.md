@@ -475,6 +475,9 @@ sources:
 - [API 게이트웨이의 능력과 배치](../concepts/api-gateway-capabilities-and-deployment.md) — 게이트웨이에 정책이 얹히는 자리
 - [API 보안 패턴](../concepts/api-security-patterns.md) — 같은 집행 지점을 사용자 축으로 쓰는 어휘
 - [SaaS 사고방식](../concepts/saas-mindset.md) — 맺음이 청구하는 사업 목표의 자리
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 11장 "Serverless SaaS: Architecture Patterns and Strategies"

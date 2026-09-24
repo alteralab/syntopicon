@@ -298,6 +298,9 @@ konieczny를 근거로 **DynamoDB에서 행 접근 정책을 흉내 내려면 IA
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) — 테넌트별 클러스터가 놓이는 자리
 - [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) — 격리 시험을 담을 수 있는 틀
 - [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md) — 정책을 어디서 설정하고 실행할 것인가의 이웃 논쟁
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 9장 "Tenant Isolation". 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

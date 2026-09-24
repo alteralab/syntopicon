@@ -278,6 +278,9 @@ sources:
 - [있는 시스템에 이 구조 들이기](../concepts/adopting-architecture-incrementally.md) — 큰 재작성을
   기각하고 점진으로 가는 조문의 정본
 - [사용자 피드백](../synthesis/user-feedback.md) — 피드백 고리를 짧게 유지하는 쪽의 축
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, *Building Multi-Tenant SaaS Architectures* 초판(O'Reilly, 2024)
     13장 "SaaS Migration Strategies" pp.337–344. 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

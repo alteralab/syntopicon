@@ -401,6 +401,9 @@ sources:
 - [안정성 패턴](../concepts/stability-patterns.md) — 부하를 미리 갈라 두는 벌크헤드와 떨어내기
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 서버리스라는 낱말이
   컴퓨트 쪽에서 쓰이는 자리
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 8장 "Data Partitioning". 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).

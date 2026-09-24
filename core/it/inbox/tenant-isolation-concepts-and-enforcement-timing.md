@@ -487,14 +487,14 @@ sources:
 - [멀티테넌트 아키텍처 기초](../concepts/multi-tenant-architecture-fundamentals.md) — 격리가 아키텍처의 구성물로 세워지는 자리이자 사일로와 풀이라는 어휘의 앞자리
 - [테넌트의 정문과 테넌트 인지 라우팅](../concepts/tenant-front-door-and-tenant-aware-routing.md) — 층진 격리의 맨 위 층인 정문
 - [암묵적 신뢰와 제로 트러스트](../concepts/zero-trust-and-implicit-trust.md) — 신뢰를 어디까지 줄 것인가의 일반형
-- [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 최소 권한과 심층 방어
-- [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md) — 굵은 인가와 세밀한 인가
+- [마이크로서비스 보안의 원칙과 기본기](../concepts/microservice-security-principles.md) — 최소 권한과 심층 방어. 그 옆 [서비스 사이 인증과 인가](../concepts/service-to-service-authentication-and-authorization.md)는 굵은 인가와 세밀한 인가를 가른다
 - [OAuth2 그랜트와 스코프와 신원 계층](../concepts/oauth2-grants-scopes-and-identity-layer.md) — 역할 기반 접근 통제와 스코프
 - [STRIDE로 API 위협을 식별하기](../concepts/stride-threats-for-apis.md) — 격리 실패가 드는 위협 범주
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) — **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 9장 "Tenant Isolation". 쪽은 인쇄판 쪽 번호(PDF 쪽 − 26, 실측).
-    인용 블록은 `pdftotext -layout` 출력과 글자 단위로 맞췄고 줄 끝 분철은 이었다. 도판
-    9-1~9-10의 안쪽 라벨은 텍스트 레이어에 없어 쪽 렌더로 읽었고 본문이 말하지 않는 라벨은
-    "그림에만 있음"이라 적었다. 이 장에는 번호 붙은 표와 곁상자와 곁주와 소소제목과 코드
-    목록이 없다.
+    인용 블록은 `pdftotext -layout` 출력과 글자 단위로 맞췄고 줄 끝 분철은 이었다. 도판 9-1~9-10의
+    안쪽 라벨은 텍스트 레이어에 없어 쪽 렌더로 읽었고 본문이 말하지 않는 라벨은 "그림에만 있음"이라
+    적었다. 번호 붙은 표와 곁상자와 곁주와 소소제목과 코드 목록이 이 장에는 없다.

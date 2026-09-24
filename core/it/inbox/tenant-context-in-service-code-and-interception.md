@@ -474,13 +474,10 @@ KB에서 **확장을 목적으로 하는 파티셔닝**의 전문은
   컨텍스트와 격리와 파티셔닝이 아키텍처 구성물로 세워지는 자리
 - [스레드 로컬 문맥 전파](../concepts/thread-local-context-propagation.md) — 같은 문제의 일반형
 - [문맥 전달의 부담](../concepts/context-passing-burden.md) — 인자로 문맥을 나를 때의 곤란
-- [스코프드 값과 스레드 로컬의 대조](../concepts/scoped-value-vs-thread-local.md) — 문맥을 권한
-  객체로 가두는 쪽
+- [스코프드 값과 스레드 로컬의 대조](../concepts/scoped-value-vs-thread-local.md) — 권한 객체로 가두는 쪽
 - [지표의 카디널리티](../concepts/metrics-cardinality.md) — 테넌트 식별자를 실을 수 있는 자리
-- [관측 가능성과 모니터링](../concepts/observability-versus-monitoring.md) — 인프라 층이 업무
-  의미를 대신 줄 수 없다는 판정
-- [사이드카 컨테이너 패턴](../concepts/sidecar-container-pattern.md) — 이 절의 사이드카가
-  담기는 그릇의 규정
+- [관측 가능성과 모니터링](../concepts/observability-versus-monitoring.md) — 인프라 층이 업무 의미를 못 준다
+- [사이드카 컨테이너 패턴](../concepts/sidecar-container-pattern.md) — 이 절의 사이드카가 담기는 그릇
 - [데이터 프로덕트의 포트와 사이드카](../concepts/data-product-ports-and-sidecar.md) — 정책을
   중앙 관문에서 지역 맥락으로 옮기는 같은 논증
 - [서비스 메시의 규정과 기능과 배치](../concepts/service-mesh-capabilities-and-deployment.md) —
@@ -491,6 +488,9 @@ KB에서 **확장을 목적으로 하는 파티셔닝**의 전문은
   게이트웨이에 무엇을 얹어도 되는가
 - [마이크로서비스와 서버리스](../concepts/microservices-and-serverless.md) — 그 레이어의 런타임
 - [멀티테넌시를 위한 샤딩](../concepts/sharding-for-multitenancy.md) — 확장 쪽 파티셔닝
+- [멀티테넌트 SaaS 아키텍처 구축](../synthesis/building-multi-tenant-saas-architectures.md) —
+  **이 페이지가 걸린 허브.** 이 원전의 서른 페이지가 두 플레인과 주제 축으로 모여 있다
+- [소프트웨어 아키텍처](../synthesis/software-architecture.md) — 그 허브의 부모 축
 
 [^golding2024]: Golding 2024, "Building Multi-Tenant SaaS Architectures", 초판(O'Reilly, 첫
     릴리스 2024-04-24), 7장 "Building Multi-Tenant Services". 쪽은 인쇄판 쪽 번호(PDF 쪽 −
