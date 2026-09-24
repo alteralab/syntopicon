@@ -177,6 +177,10 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 - [SaaS 신원과 테넌트 컨텍스트 클레임](../concepts/saas-identity-and-tenant-context-claims.md) —
   같은 토큰 기제를 멀티테넌트 조건에서 다시 보는 자리. 커스텀 클레임에 무엇을 넣고 무엇을 넣지
   말 것인가의 기준과, **인증을 통과했다는 사실이 테넌트 격리가 아니라는 판정**
+- [테넌트 격리의 규정과 배포 시점 대 런타임](../concepts/tenant-isolation-concepts-and-enforcement-timing.md) —
+  그 판정이 부르는 별개 층. 인가와도 배포 모델과도 다른 축으로 범위를 좁히는 강제이고, 실물과
+  정책 관리는 [격리 모델의 실물 셋과 격리 정책 관리](../concepts/tenant-isolation-implementations-and-policy-management.md)에
+  있다
 
 ## 확장성
 

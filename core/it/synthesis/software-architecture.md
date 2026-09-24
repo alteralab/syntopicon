@@ -297,6 +297,14 @@ generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
 - [저장 기술별 파티셔닝과 테넌트 샤딩](../concepts/storage-technology-partitioning-and-tenant-sharding.md) —
   그 모델이 관계형·NoSQL·객체·검색에서 갖는 실제 구성물과 각 기술의 한도, 내장 구성물로 모자랄 때
   코드가 테넌트를 샤드에 대응시키는 맞춤 파티셔닝, 그리고 티어 승급·폐기·백업과 테넌트별 키 소유
+- [테넌트 격리의 규정과 배포 시점 대 런타임](../concepts/tenant-isolation-concepts-and-enforcement-timing.md) —
+  배포와 격리를 갈라 놓는 선. 코드와 자원 사이에 문지기를 앉히는 논거, 풀 스택·자원 수준·항목
+  수준이라는 격리 모델 셋, 역할 기반 접근 통제와 격리가 가르는 축의 구별, 층으로 거는 격리,
+  그리고 사일로가 허락하는 배포 시점 격리와 풀이 부르는 런타임 격리
+- [격리 모델의 실물 셋과 격리 정책 관리](../concepts/tenant-isolation-implementations-and-policy-management.md) —
+  그 모델 셋이 2024년 저술 시점의 클라우드 구성물이 되는 자리와 정책의 수명 주기. 계정·망·클러스터
+  경계, 데이터 접근 라이브러리가 자격 증명을 얻는 자리, 조건절로 선행 키를 제한하는 항목 수준 정책,
+  정책 소유의 두 학파, 그리고 교차 테넌트 사건을 흉내 낼 기제가 없다는 시험의 어려움
 
 **이 절이 이 KB의 다른 축과 만나는 자리가 셋 있다.** 격리와 파티셔닝은
 [데이터 분해와 정합성](data-decomposition-and-consistency.md)과
