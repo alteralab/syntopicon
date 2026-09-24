@@ -323,6 +323,15 @@ generated: { by: "claude-opus-5", at: "2026-09-19T14:00:00Z" }
   구성과 테넌트를 자기 스택에 결부시키는 매핑 표, 게이트웨이 앞단의 자격 증명 주입과 실행 역할로
   끝내는 배포 시점 격리와 경로를 여닫는 인가자 정책, 그리고 예약 동시성이 시끄러운 이웃과 티어링의
   손잡이가 되는 자리
+- [SaaS 운영 사고방식과 테넌트 활동·민첩성 지표](../concepts/saas-operations-mindset-and-tenant-activity-metrics.md) —
+  운영의 단위가 테넌트가 되는 자리. 운영을 기술 팀의 사일로에서 여러 역할로 넓히라는 사고방식과
+  기능이 운영 투자를 계속 미룬다는 진단, 지표와 계량의 가름, 그리고 활동 지표 셋과 민첩성 지표 여섯
+- [테넌트 소비와 테넌트당 비용과 지표 집계](../concepts/tenant-consumption-cost-per-tenant-and-metrics-aggregation.md) —
+  여럿이 나눠 쓰는 자원의 몫을 세는 자리. 풀 자원의 귀속에 기성 도구가 없다는 판정과 계측 지점 셋,
+  소비에 청구를 곱해 얻되 회계가 아니라 근사치인 테넌트당 비용, 그리고 집계 경로와 기준 지표의 한계
+- [테넌트 인지 운영 콘솔과 멀티테넌트 배포 자동화](../concepts/tenant-aware-operations-console-and-deployment-automation.md) —
+  그 데이터가 사람에게 닿고 변경이 나가는 자리. 전역이 초록인데 한 테넌트가 아픈 시나리오와 티어가
+  관측의 축이라는 판정, 기능 플래그를 전역 기제로 두라는 조항, 그리고 테넌트를 묶는 겨냥한 릴리스
 
 **이 절이 이 KB의 다른 축과 만나는 자리가 셋 있다.** 격리와 파티셔닝은
 [데이터 분해와 정합성](data-decomposition-and-consistency.md)과
