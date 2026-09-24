@@ -44,3 +44,7 @@ generated: { by: "claude-fable-5", at: "2026-08-17T11:30:00Z" }
 - [프롬프트 캐싱](../concepts/prompt-caching.md) — 추론 서빙 쪽의 캐시와 게이트웨이 캐시의 경계
 - [평가 파이프라인 설계](../concepts/evaluation-pipeline-design.md) — 모니터링과 평가가 서로를
   먹이는 관계
+- [멀티테넌트 GenAI 정제와 멀티테넌시가 더하는 것](../concepts/multi-tenant-genai-refinements.md) — 토큰
+  소비가 시끄러운 이웃과 티어링의 새 축이 되고 정제 자원이 격리의 새 대상이 되는 자리
+- [더 그린한 머신러닝](../concepts/greener-machine-learning.md) — 모델 크기·훈련·배포의 결정을 탄소
+  분모로 다시 읽는 자리

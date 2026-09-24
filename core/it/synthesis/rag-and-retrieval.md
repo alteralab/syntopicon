@@ -54,3 +54,7 @@ generated: { by: "claude-fable-5", at: "2026-08-17T01:30:00Z" }
 - [컨텍스트 길이와 효율](../concepts/context-length-and-efficiency.md) — 긴 컨텍스트 논쟁과 컨텍스트
   리랭킹
 - [사실 일관성](../concepts/factual-consistency.md) — 검색이 환각을 줄이는 근거가 평가되는 자리
+- [메달리온과 생성형 AI가 만나는 자리](../concepts/medallion-and-generative-ai.md) — 레이크하우스 쪽에서
+  벡터 저장소를 Gold 계층의 서빙 자리로 놓고 청킹을 어느 계층에 미루는가를 정하는 자리
+- [멀티테넌트 GenAI 정제와 멀티테넌시가 더하는 것](../concepts/multi-tenant-genai-refinements.md) — 테넌트별
+  RAG 색인을 사일로와 풀로 가르는 자리

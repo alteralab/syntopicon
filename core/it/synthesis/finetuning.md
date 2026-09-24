@@ -58,3 +58,7 @@ generated: { by: "claude-fable-5", at: "2026-08-17T04:00:00Z" }
   얹히는 자리
 - [데이터셋 엔지니어링이란](../concepts/dataset-engineering-defined.md) — 파인 튜닝 데이터의 형식과
   수량이 넘어가는 축
+- [멀티테넌트 GenAI 정제와 멀티테넌시가 더하는 것](../concepts/multi-tenant-genai-refinements.md) — 전역
+  파인 튜닝과 테넌트 수준 파인 튜닝이 갈리고 논리 모델이 서는 자리
+- [더 그린한 머신러닝](../concepts/greener-machine-learning.md) — 훈련과 추론의 탄소를 갈라 재고 파인
+  튜닝의 반복이 배출로 환산되는 자리
