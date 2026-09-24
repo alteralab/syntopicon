@@ -359,7 +359,9 @@ sources:
 - [회복력의 네 개념](../concepts/resilience-four-concepts.md) — 효율이 깎는다는 그 성질
 - [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 더 싼 것이 더 그린하다는
   조문이 만나는 자리
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 4장 "Operational Efficiency"

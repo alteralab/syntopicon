@@ -213,47 +213,25 @@ generated: { by: "claude-opus-5", at: "2026-08-14T22:00:00Z" }
 많다고 적는다. 그래서 이 축이 묻는 것은 이 허브가 모으는 물음과 같은 층에 선다 — 애플리케이션이
 무엇을 하는가가 아니라 **같은 일을 하면서 얼마나 적은 전력과 하드웨어와 탄소를 쓰는가**이다.
 
-- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 돌아갈 때 배출이 최소인
-  소프트웨어라는 규정과 세 원칙(에너지 효율·하드웨어 효율·탄소 인지), 무엇을 먼저 하는가의
-  우선순위와 규모라는 선별 기준
-- [탄소 회계의 기본](../concepts/carbon-accounting-basics.md) — 그 규정이 쓰는 어휘와 셈.
-  온실가스와 CO2e, 전기의 탄소 강도, 에너지 비례성과 정적 전력 소모, PUE, 내재 탄소
-- [코드 효율과 개발자 생산성](../concepts/code-efficiency-and-developer-productivity.md) —
-  왜 대부분의 코드가 일부러 비효율적인가, 기계 생산성과 개발자 생산성의 맞바꿈, 성능과 효율과
-  그린함이 동의어가 아닌 자리
-- [그린 설계 패턴](../concepts/green-design-patterns.md) — 코드를 다시 쓰지 않고 배출을 줄이는
-  아키텍처 처방 일곱과 제번스 역설
-- [운영 효율과 기계 사용률](../concepts/operational-efficiency-and-machine-utilization.md) —
-  같은 기능을 더 적은 하드웨어로 내는 일, 적정 크기화와 오토스케일링과 클러스터 스케줄링
-- [그린 운영의 실천](../concepts/green-operations-practices.md) — 멀티테넌시와 서버리스,
-  SRE 실천, 끌 수 있어야 끈다는 LightSwitchOps, 전력망으로 리전 고르기
-- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 전기가 깨끗한지 더러운지를 무엇으로
-  아는가. 탄소 강도의 변동, 전력망의 디스패치와 한계 배출, 그 신호를 읽어 주는 도구
-- [수요 이동과 수요 조형](../concepts/demand-shifting-and-shaping.md) — 그 신호를 받아 일을
-  옮길 것인가 줄일 것인가. 시간 이동과 위치 이동, 그리고 공급에 맞춰 일의 양을 바꾸는 쪽
-- [하드웨어 효율과 내재 탄소](../concepts/hardware-efficiency-and-embodied-carbon.md) — 이미
-  치러진 제조 배출을 더 오래 나눠 쓰는 일. 기기 수명, 소프트웨어 정의 노후화, 전자 폐기물
-- [네트워크의 탄소와 인터넷의 구조](../concepts/network-carbon-and-internet-structure.md) —
-  인터넷의 탄소가 실제로 어디서 나오는가. 선의 세 구간, 데이터센터 전기 요금에서 네트워크 장비의
-  몫, 자율 시스템과 저궤도 위성, BGP에 그린함을 넣지 말라는 판정
-- [위에서 아래로 인터넷을 그린하게](../concepts/greening-the-internet-from-the-top-down.md) —
-  낮게 달린 열매가 스택 꼭대기에 있다는 처방. 2020년 록다운이 증명한 CDN의 수요 이동과 브라운아웃과
-  우아한 다운그레이드, 동적 전기 요금제
-- [더 그린한 머신러닝](../concepts/greener-machine-learning.md) — 같은 축을 ML 생애 주기 네
-  단계에 거는 자리. 크기를 줄이는 기법들의 탄소 동기, 훈련은 급하지 않다는 성질, 전체 훈련 한 번
-  대 추론 다수라는 논리
-- [완벽한 탄소 측정과 충분히 좋은 측정](../concepts/carbon-measurement-perfect-and-good-enough.md) —
-  재려 할 때 무엇이 갖춰져야 완벽한가. 시스템 경계와 시간 경계, 전력량계와 그 단서 셋, 시장 기반
-  감축을 지표에서 빼겠다는 판정, 그리고 에너지·비용·하드웨어·지연이라는 대리 지표 넷
-- [탄소 회계 방법론과 측정 도구](../concepts/carbon-accounting-methodologies-and-tooling.md) —
-  이미 나와 있는 표준과 도구가 무엇을 주고 무엇을 주지 않는가. GHG 프로토콜이 소프트웨어에서
-  걸리는 자리, ISO 14064와의 대비, 하이퍼스케일러 셋과 오픈 소스 둘의 비교표
-- [소프트웨어 탄소 강도 규격](../concepts/software-carbon-intensity.md) — 조직의 총량이 아니라
-  기능 단위당 비율로 재는 규격. 네 구성 요소와 식, 위치 기반만 허용하는 조항, 0이 될 수 없는
-  이유 셋
-- [프로덕션 모니터링에 탄소를 얹기](../concepts/carbon-in-production-monitoring.md) — 탄소 지표를
-  새 체제로 짓지 말고 기존 SRE 어휘에 끼워 넣으라는 쪽. 가용성의 탄소 비용, 탄소 SLO와 양쪽으로
-  작동하는 오류 예산, 관측 가능성이 그린에 주는 것
+한 원전이 여섯 런으로 전권 들어와 **열아홉 페이지**가 되었다. 한 절이 감당할 크기를 넘겼으므로
+그 목록은 **자식 허브 [그린 소프트웨어 구축](building-green-software.md)**이 그 책의 세 원칙과
+측정과 조직 축으로 나눠 갖는다. 여기에는 그 진입점과, 이 허브의 다른 절들과 가장 자주 엮이는
+셋만 둔다.
+
+- [그린 소프트웨어 구축](building-green-software.md) — **자식 허브.** 이 원전의 열아홉 페이지를
+  규정·에너지 효율(코드와 운영)·탄소 인지·하드웨어 효율·ML·측정과 모니터링·맺음으로 나눠 갖고,
+  이 책이 다른 원전의 페이지에 닿아 고친 열 자리도 거기서 한 줄씩 가리킨다
+- [그린 소프트웨어의 규정](../concepts/green-software-definition.md) — 1장. 돌아갈 때 배출이
+  최소인 소프트웨어라는 규정과 **세 원칙**(에너지 효율·하드웨어 효율·탄소 인지), 그리고 무엇을
+  먼저 하는가의 우선순위. 이 축으로 들어가는 문이다
+- [탄소 인지 컴퓨팅](../concepts/carbon-aware-computing.md) — 5장. **이 축에만 있는 손잡이**다.
+  같은 일을 같은 양으로 하면서 전기가 깨끗한 때와 곳을 골라 쓰는 쪽이라 이 허브의 다른 절 어디에도
+  대응이 없다
+- [소프트웨어 탄소 강도 규격](../concepts/software-carbon-intensity.md) — 9장. 이 요건을
+  **기능 단위당 비율**로 재는 규격이라 위 [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)가
+  검사로 걸 수 있는 꼴에 가장 가깝다
+- [그린 소프트웨어의 공동 이익](../concepts/green-software-co-benefits.md) — 11장. **이 축이 이
+  허브의 성능·신뢰성·보안 절과 어디서 같은 방향을 보는가**의 판정 다섯이 여기 있다
 
 이 축이 이 허브의 다른 절과 만나는 자리가 셋 있다. 가동률을 올릴수록 일 한 단위당 전력이
 좋아진다는 곡선은 성능 절의 큐잉 곡선과 **같은 손잡이를 반대 방향으로 당기고**, 하드웨어의

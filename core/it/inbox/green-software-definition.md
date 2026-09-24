@@ -445,7 +445,9 @@ sources:
 
 - [탄소 회계의 기본](carbon-accounting-basics.md) — 이 규정이 쓰는 어휘의 뜻. 온실가스와 CO2e,
   전기의 탄소 강도, 에너지 비례성과 정적 전력 소모, PUE, 내재 탄소
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 요건이 합류하는 품질 속성들의 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 - [클라우드와 자체 호스팅](../concepts/cloud-versus-self-hosting.md) — 같은 선택을 비용·숙련도·통제권으로
   보는 자리
 - [FinOps와 비용 최적화](../concepts/finops-and-cost-optimization.md) — 대리 지표가 되는 지출 관리 쪽

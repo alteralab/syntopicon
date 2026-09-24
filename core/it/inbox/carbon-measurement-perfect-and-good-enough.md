@@ -365,7 +365,9 @@ sources:
 - [목표-질문-지표 접근법](../concepts/goal-question-metric-approach.md) — 무엇을 잴지 고르는
   절차를 목표에서 끌어내는 쪽
 - [지표에서 공학으로](../concepts/from-metrics-to-engineering.md) — 잰 값이 언제 공학이 되는가
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판, 2024-03-08 첫 릴리스). 9장

@@ -290,7 +290,9 @@ sources:
 - [하드웨어 효율과 내재 탄소](hardware-efficiency-and-embodied-carbon.md) — 표의 범위 3 칸이
   가리키는 내재 탄소가 어디서 오는가
 - [더 그린한 머신러닝](greener-machine-learning.md) — ML CO₂ impact가 재려는 훈련 비용의 축
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 9장 "Measurement" 가운데

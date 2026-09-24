@@ -19,6 +19,7 @@ sources:
 - [배포와 유지](#배포와-유지)
 - [어디서 시작하나](#어디서-시작하나)
 - [이 KB의 AI 축과 만나는 자리](#이-kb의-ai-축과-만나는-자리)
+- [같은 책의 맺음이 이 축에 되돌려 놓는 것 둘](#같은-책의-맺음이-이-축에-되돌려-놓는-것-둘)
 - [버전 조건](#버전-조건)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -238,6 +239,28 @@ sources:
   [그린 설계 패턴](green-design-patterns.md)이 같은 책 3장의 ML 처방 한 쪽을 갖는다. 이 장은 그
   조항을 **생애 주기의 어느 단계에 걸 것인가**로 배치한다.
 
+## 같은 책의 맺음이 이 축에 되돌려 놓는 것 둘
+
+**이 장 밖에서 LLM이 다시 불려 나오는 자리가 둘 있고 둘 다 이 장의 범위를 넓힌다.**
+
+- **하나는 데이터 쪽이다.** 11장이 LLM과 AI의 부상이 데이터 분석·데이터 엔지니어링·데이터
+  관측 가능성에 새 자료를 쏟아 냈다고 적고, **그 분야들의 모범 관행 지침이 그린 소프트웨어
+  원칙과 잘 정렬되므로 그것을 따르라**는 처방을 낸다. 든 예가 데이터 정제인데, **더 정확하고
+  재현 가능한 결과를 내면서 저장과 연산의 소요도 줄이므로 깨끗하고 올바른 데이터가 지속
+  가능성을 촉진한다**는 것이다 (11장 §"Control LLMs", p.176).[^currie2024]
+  - **이 장의 데이터 수집 절과 층이 다르다.** 여기는 **훈련 데이터를 모으는 일의 배출**을
+    다루고, 그쪽은 **모인 데이터를 다루는 실무 일반**을 다룬다. 그쪽의 처방은 모델을 건드리지
+    않으므로 이 장의 기법 목록에 더해지는 것이 없고, **데이터 양 자체가 탄소**라는 전제만
+    공유한다. 그 절의 전문은 [그린 소프트웨어의 공동 이익](green-software-co-benefits.md)과
+    [데이터 모델링의 기초](data-modeling-fundamentals.md)가 갖는다.
+- **다른 하나는 물이다. 이 책이 스스로 밝히는 가장 큰 공백이다.** 13장 에필로그는 책 내내 탄소만
+  이야기했으나 **물 공급(특히 깨끗한 물)과 플라스틱 오염과 하드웨어용 귀금속 채굴의 생태 피해**를
+  무시할 수 없다고 적고, **물이 주목받기 시작한 이유를 대규모 언어 모델에 돌린다** — **훈련과
+  운영에 데이터센터를 잔뜩 요구하기 때문**이다 (13장 §"Epilogue", p.202).[^currie2024]
+  - **곧 이 소스는 LLM의 환경 비용이 탄소만이 아니라고 인정하면서 그 나머지를 다루지 않는다.**
+    12장의 성숙도 행렬도 같은 이유로 물 사용을 범위에서 뺀다. **이 KB의 AI 축에도 물 사용을
+    재는 소스가 없다** — 공백을 사실로 적어 둔다.
+
 ## 버전 조건
 
 - **이 페이지는 급변하는 층을 다루므로 수치를 시점에 못 박아 격리한다.** 다음은 전부 **2024년
@@ -275,15 +298,18 @@ sources:
 - [그린 설계 패턴](green-design-patterns.md) — 같은 책 3장의 ML 처방 한 쪽
 - [위에서 아래로 인터넷을 그린하게](greening-the-internet-from-the-top-down.md) — 같은 두 기법을
   네트워크에 거는 앞 장
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 8장 "Greener Machine Learning, AI, and
     LLMs" pp.125–134 — 장 도입 pp.125–126 · §"Growth in Size and Usage" pp.126–127 ·
     §"Project Planning" p.128 · §"Data Collection" pp.128–130 · §"Design and Training of ML
     Models" pp.130–132(§"Size Matters" pp.130–131 · §"Size Isn't All" pp.131–132) ·
-    §"Deployment and Maintenance" pp.132–133 · §"Where Should You Start?" p.134. locator는
-    인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가 없는 세 사람의 공저라 claim은 저자 셋에
+    §"Deployment and Maintenance" pp.132–133 · §"Where Should You Start?" p.134. 그리고
+    같은 책이 LLM을 다시 부르는 두 자리 — 11장 "Co-Benefits" p.176 · 13장 "Where Do We Go
+    from Here?" p.202. locator는 인쇄판 쪽이다(PDF 쪽 − 22, 실측). 장별 저자 표시가 없는 세 사람의 공저라 claim은 저자 셋에
     함께 건다. 추출본은 `pdftotext -layout` 출력으로 교차 확인했다. 그림 8-1(생애 주기 순환)과
     그림 8-2(MLOps 벤 다이어그램)는 이미지로 조판되어 안쪽 글자가 텍스트 레이어에 없으므로
     `pdftoppm -r 160 -png` 렌더로 읽었고, 둘 다 읽을 수치가 없어 상자 이름만 옮겼다. 이 장에

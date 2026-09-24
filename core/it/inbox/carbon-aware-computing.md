@@ -303,7 +303,9 @@ sources:
   강점과 결점을 표로 견주는 자리
 - [소프트웨어 탄소 강도 규격](software-carbon-intensity.md) — 이 신호가 식의 I 항으로 들어가고
   위치 기반 값만 허용되는 규격
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 5장 "Carbon Awareness" pp.73–79와

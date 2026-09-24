@@ -445,7 +445,9 @@ sources:
 - [탄소 회계 방법론과 측정 도구](carbon-accounting-methodologies-and-tooling.md) — 세 범위가
   소프트웨어에서 걸리는 자리와 표준 셋의 대비
 - [소프트웨어 탄소 강도 규격](software-carbon-intensity.md) — 같은 셈을 기능 단위당 비율로 세우는 규격
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 요건이 합류하는 품질 속성들의 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판, 2024-03-08 첫 릴리스). 2장 "Building

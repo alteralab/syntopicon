@@ -380,7 +380,9 @@ sources:
   네트워크에서 먼저 쓰인 자리와 이름 둘의 정정
 - [네트워크의 탄소와 인터넷의 구조](network-carbon-and-internet-structure.md) — 그 장의 진단 쪽
 - [더 그린한 머신러닝](greener-machine-learning.md) — 훈련을 옮기라는 조항이 생애 주기에 놓이는 자리
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 5장 "Carbon Awareness" pp.80–88 —

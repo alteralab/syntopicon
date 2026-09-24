@@ -389,7 +389,9 @@ sources:
 - [네트워크 지연과 혼잡](../concepts/network-delay-and-congestion.md) — 이 장이 재지 않는 비용
 - [분산 체계에서의 캐싱](../concepts/caching-in-distributed-systems.md) — 컴퓨트와 저장이 선의
   부하를 더는 기제
-- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 페이지가 속한 허브
+- [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
+  이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 그 허브의 부모 축
 
 [^currie2024]: Currie·Hsu·Bergman 2024, *Building Green Software: A Sustainable Approach to
     Software Development and Operations*, O'Reilly(초판). 7장 "Networking" pp.107–118 —
