@@ -55,6 +55,11 @@ sources:
   것이기 때문이다** (1장 §"1.3. Why the name "Hexagonal" Architecture?").[^cockburn2024] 저자는
   "헥사고날 아키텍처"가 패턴으로 들어오는 갈고리로는 잘 기능했다고 — 기억하기 쉽고 대화를
   일으킨다고 — 인정하면서도, 올바른 이름은 포트와 어댑터라고 못 박는다.
+- 저자는 책을 요약하는 7장에서 이 이름 문제를 실무 처방으로 되돌린다 — "헥사고날 아키텍처"라는
+  이름의 진짜 문제는 사람들이 실제 포트와 어댑터 아키텍처를 구현하지도 않은 채 여기저기 육각형만
+  그리며 "헥사곤"을 들먹이게 만드는 데 있다는 것이다. 그래서 저자는 **기술적 논의에 들어가거든
+  "헥사곤"이라는 낱말을 버리고 대신 "포트"라 말하라**고 처방한다 — 그것이 아키텍처를 더 낫게 하고
+  많은 오해를 걷어 낸다고 본다 (7장 §"7.4. Why the name "Hexagonal" Architecture?").[^cockburn2024]
 
 ## 짧은 역사
 
@@ -150,6 +155,20 @@ sources:
   (1장 §"1.4. The costs and benefits of this pattern").[^cockburn2024] 인터페이스 몇 개와 인스턴스
   변수 몇 개를 더하는 수고가 값어치가 있다고 사람들이 결정하는 데에는 대개 프로젝트에서 고생을
   겪는 일이 필요하다는 것이다.
+- 저자 후안이 책을 요약하는 7장에서 이 회계를 다시 정리하며, 위 1.4절이 들지 않은 항목을 더한다
+  (7장 §"7.3. The costs and benefits of this pattern"):[^cockburn2024]
+  - 편익 쪽에 더한 것 — 시험 개선이 여러 갈래로 나타난다는 것(업무 로직 시험이 인메모리라 빠르고,
+    앱과 어댑터를 서로 격리해 따로 시험한 뒤 나중에 통합하며, 이미 끝낸 시험이 회귀 시험이 된다),
+    TDD·BDD 같은 방법론을 적용하기 쉬워지되 **패턴이 그 방법론을 처방하는 것은 아니라는** 단서(앱
+    전체를 먼저 짜고 나중에 시험하는, 안에서 밖으로의 방법론도 쓸 수 있다), 유지보수성이 오르면
+    기술 부채가 준다는 연결, 그리고 어떤 기술을 쓸지 몰라도 업무 로직을 개발할 수 있어 **기술
+    결정을 미룰 수 있다**는 것.
+  - 비용 쪽에 더한 것 — 전체 구조와 시작 과정과 빌드가 고전적 3층 아키텍처보다 복잡하다는 것,
+    어댑터가 요구 인터페이스를 각 기술의 특정 인터페이스로 번역해야 하므로 피구동 쪽에 **간접이 한
+    겹 더** 든다는 것, 도메인 모델의 개체를 영속 모델의 개체로 오가며 옮기는 **매퍼가 더 필요할 수
+    있다**는 것, 이 아키텍처를 배우기가 어려워 경험이 필요하고 초보 프로그래머에게 버겁다는 것,
+    그리고 새 프로젝트를 시작하는 데 시간이 더 들어 **중간 규모에서 큰 규모의 프로젝트에 가장
+    알맞다**는 것.
 - 저자 자신의 판단은 분명하다 — 2024년 저술 시점에 이것이 두 저자가 애플리케이션·시스템을 짓는
   기본 방식이며, 일회성 프로그램을 쓰는 것 같은 특별한 사정이 아니라면 이 패턴을 쓰지 않을 이유가
   없다고 적는다 (1장 §"1.4. The costs and benefits of this pattern").[^cockburn2024] 같은 회계
@@ -161,9 +180,10 @@ sources:
 
 - [포트와 어댑터 규정](ports-and-adapters-defined.md) — 이 패턴의 규정과 다섯 요소
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 이 KB에서 사는 자리
-- [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 1장 §"1.2. Short history of the pattern" ·
     §"1.3. Why the name "Hexagonal" Architecture?" · §"1.4. The costs and benefits of this pattern" ·
     6장 §"6.1. The longer history"(그림 6.1 "가장 이른 육각형 그림, 1994년" 포함 — 본문 서술이
-    그 내용을 담으므로 이미지를 열지 않았다). EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.
+    그 내용을 담으므로 이미지를 열지 않았다) · 7장 §"7.3. The costs and benefits of this pattern" ·
+    §"7.4. Why the name "Hexagonal" Architecture?". EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.

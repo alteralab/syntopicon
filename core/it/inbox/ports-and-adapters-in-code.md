@@ -26,6 +26,14 @@ sources:
 (3장 도입).[^cockburn2024] 여기 담는 것은 각 사례가 규정의 무엇을 보이는가일 뿐, 코드 자체의
 정본은 사례를 공개한 저자의 저장소다.
 
+저자는 책을 요약하는 7장에서 이 코드로 되돌아와 그 무게를 못 박는다 — **이 책의 모든 쪽은
+결국 이 코드 조각을 당신의 더 큰 시스템에 복제하도록 돕는 것일 뿐**이라는 것이다
+(7장 §"7.2. The sample code to copy").[^cockburn2024] 세금 계산기의 자바 판과 루비 판을 다시
+실은 뒤, 그 작은 코드가 어떻게 짜였고 왜 그렇게 하며 당신의 환경에서 어떻게 돌아가게 하는지를
+풀어내는 데 그토록 많은 말이 든 것이니 그 코드를 작업 공간에 복사해 거기서부터 바꾸고 키우라고
+적는다 (7장 §"7.2").[^cockburn2024] 맺음말에서도 같은 것을 다른 말로 짚는다 — **코드가 패턴의
+서술보다 훨씬 단순하며, 바로 그래서 이 책이 처음과 마지막 절에 코드를 보인다** (Fin).[^cockburn2024]
+
 ## 세금 계산기 — 코드에서 요소가 서는 자리
 
 - 첫 사례는 세금 계산기다. 저자는 계산기가 필요한 만큼 단순하거나 복잡할 수 있어 골랐다고 적고,
@@ -146,11 +154,12 @@ sources:
   주입·의존성 조회가 사는 자리
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 이 KB에서 사는
   자리이자 2차 서술의 정박점
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 3장 도입 · §"3.1. The simplest example: the tax
     calculator"(하위 "The simplest tax calculator (Java)"·"(Ruby)"·"Using a setter instead of
     constructor argument (Java)"·"Using a broker instead of a fixed rate repository (Ruby)") ·
     §"3.2. Another simple example, the web-hexagon" · §"3.3. The BlueZone example"(그림 3.1
-    포함). 자바 코드는 원문 그대로이며 조판 줄바꿈만 폈다(없는 줄을 보태지 않았다). 그림 3.1의
+    포함) · 7장 §"7.2. The sample code to copy" · Fin. 자바 코드는 원문 그대로이며 조판 줄바꿈만 폈다(없는 줄을 보태지 않았다). 그림 3.1의
     액터·포트는 본문 목록이 그대로 열거하므로 이미지를 열지 않았다. EPUB(Calibre 변환본), 쪽
     앵커 없음 — locator는 장·절 번호.

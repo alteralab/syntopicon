@@ -303,7 +303,7 @@ sources:
   일반형(같은 원전 6장)
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처
   패턴을 고를지가 걸리는 입력
-- [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 1장 §"1.1. Copy this code" · 2장 §"2.1. Glossary" ·
     §"The difficulty of naming" · §"2.2. The pattern elements: App, Ports, Actors, Adapters" ·

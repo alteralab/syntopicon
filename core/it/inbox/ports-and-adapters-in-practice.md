@@ -184,6 +184,7 @@ sources:
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — Configurator 역할을
   채우는 수단
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 경계 긋기의 출발점이 되는 패턴
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 4장 §"4.1. The dinner boat analogy" · §"4.2. The
     hardware chip analogy" · §"4.3. What is a port?" · §"4.4. Where do I put the "app" boundary?" ·

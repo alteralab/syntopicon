@@ -190,7 +190,7 @@ Ports & Adapters"):[^cockburn2024]
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — Configurator 역할을
   채우는 주입·조회 수단이 사는 자리
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 요구 인터페이스가 지키는 원리
-- [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 6장 §"6.4. The article: "Component + Strategy
     generalizes Ports & Adapters"" — 2022년 아티클(HaT Technical Report 2022.01)의 원문 재수록.

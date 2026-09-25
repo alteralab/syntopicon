@@ -66,6 +66,7 @@ sources:
 - [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md) — 이 패턴이 실린 원전 5장
 - [포트와 어댑터 규정](ports-and-adapters-defined.md) — 워킹 스켈레톤이 짓는 대상인 아키텍처
 - [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md) — BlueZone 사례가 사는 자리
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 5장 §"5.2. How does this relate to Walking
     Skeleton?". 직인용한 워킹 스켈레톤 정의는 콕번이 자기 위키(web.archive.org 보존본)에서

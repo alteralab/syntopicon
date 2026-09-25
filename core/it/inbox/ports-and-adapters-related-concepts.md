@@ -234,7 +234,7 @@ sources:
 - [Component + Strategy 패턴](component-plus-strategy-pattern.md) — 5.6·5.7·5.8이 기대는 일반형(6.4)
 - [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) — 5.4의 대역이 닿는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 5.6·5.7이 닿는 허브
-- [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
+- [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 5장 §"5.1. How does this relate to use cases?" ·
     §"5.3. Is the pattern symmetric or asymmetric?" · §"5.4. Is the test suite a driving actor or an
