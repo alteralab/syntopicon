@@ -3,7 +3,6 @@ type: concept
 title: 포트와 어댑터 규정
 description: 헥사고날(포트와 어댑터) 아키텍처를 그 원저자 콕번이 직접 규정한 원전 — 패턴이 요구하는 것("UI도 DB도 없이 돌아가게 만들라"와 "외부 기술을 이름으로 부르지 말고 언제나 인수로 받으라")과 약한 준수·강한 준수의 가름, 패턴의 네 요소(앱·포트·액터·어댑터)와 패턴 밖이지만 반드시 필요한 다섯째 요소 Configurator, 앱이 정의하는 제공 인터페이스(API)와 요구 인터페이스(SPI)의 어휘와 요구 인터페이스가 이 패턴의 힘이라는 규정, 대칭인 패턴 안에 있는 구현상의 비대칭(누가 누구를 아는가)이 구동/피구동 액터를 가르는 근거, 포트가 의도별 대화라는 규정과 "For doing" 이름 짓기, 그리고 패턴이 필수로 요구하는 것·선택인 것·패턴 밖인 것의 구분과 이 패턴이 내부 구조에 대해 아무 말도 하지 않아 클린·양파와 갈린다는 갈고리
 generated: { by: "claude-opus-5", at: "2026-09-25T00:00:00Z" }
-status: draft
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
@@ -178,7 +177,7 @@ sources:
 
   - 2005년 원문에서 저자는 착취할 비대칭이 앱의 좌우가 아니라 안과 밖의 것이며, 지켜야 할 규칙은
     안쪽에 속한 코드가 바깥쪽으로 새지 않게 하는 것이라 적는다.
-- 구동/피구동이라는 말은 2017년에야 생겼고(위 [이름과 역사](hexagonal-architecture-name-and-history.md)
+- 구동/피구동이라는 말은 2017년에야 생겼고(위 [이름과 역사](../concepts/hexagonal-architecture-name-and-history.md)
   참조), 2005년 원문은 같은 가름을 유스케이스의 **primary·secondary 액터**로 적었다
   (6장 §"6.2. 원문"):[^cockburn2024]
 
@@ -290,7 +289,7 @@ sources:
   세금 계산기·web-hexagon·BlueZone 세 사례로 보이는 자리
 - [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md) — 같은 규정을 실무 문답으로 되풀이한
   자리(포트란 무엇인가·앱 경계·포트 수·파일 배치·개발 순서)
-- [헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md) — 왜 "육각형"인가,
+- [헥사고날 아키텍처의 이름과 역사](../concepts/hexagonal-architecture-name-and-history.md) — 왜 "육각형"인가,
   포트와 어댑터로 이름을 고친 내력, 그리고 이 패턴의 비용과 편익
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 이 KB에서 사는
   자리이자 2차 서술의 정박점
@@ -299,7 +298,7 @@ sources:
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점이 되는 패턴
 - [서비스 레이어](../concepts/service-layer-pattern.md) — 뒤집은 구조 위에 얹히는 조율 층
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 조직 원리 위에서 데이터 관리만 달리하는 패턴
-- [Component + Strategy 패턴](component-plus-strategy-pattern.md) — 이 패턴이 특수 경우로 속하는
+- [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md) — 이 패턴이 특수 경우로 속하는
   일반형(같은 원전 6장)
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처
   패턴을 고를지가 걸리는 입력

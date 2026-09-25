@@ -3,7 +3,6 @@ type: concept
 title: 포트와 어댑터와 이웃 개념
 description: 헥사고날(포트와 어댑터) 아키텍처를 그 원저자 콕번이 이웃 개념들과 나란히 놓고 답하는 원전 5장 — 유스케이스의 구동/피구동 액터가 포트와 어댑터의 액터와 같은 물건이라는 대응, 패턴은 대칭이나 구현은 비대칭이며 MVC와 달리 피구동 쪽까지 결합을 끊는다는 규정, 시험 스위트를 구동 액터로 그리고 어댑터를 따지지 않기로 한 판정, 계층·양파·클린과 포트와 어댑터가 무엇이 같고 무엇이 다른가 — 의존 구조는 같으나 포트를 요구하지 않고 층을 더 요구한다는 콕번의 두 차이가 "이름만 다른 같은 패턴"이라는 2차 서술의 근거 문장과 정면으로 갈리는 대질, DDD와 포트와 어댑터가 독립적으로 생겨 서로 무관하나 잘 맞물린다는 규정과 경계 컨텍스트가 포트를 가질 수는 있으나 다 포트와 어댑터 구현은 아니라는 답, 부패 방지 계층이 어댑터인지는 두 경계 컨텍스트가 포트와 시험을 갖추었느냐에 달렸다는 조건부 답, 헥사고날은 중첩하지 않으나 그 일반형인 Component + Strategy는 중첩한다는 판정, 그리고 CQRS는 포트와 어댑터를 쓸 수는 있으나 그 자체로 포트와 어댑터의 예는 아니라는 결론
 generated: { by: "claude-opus-5", at: "2026-09-25T00:00:00Z" }
-status: draft
 contradicts: [dependency-inversion-principle]
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
@@ -24,10 +23,10 @@ sources:
 
 ## 이 페이지가 담는 것
 
-이 KB는 포트와 어댑터 패턴의 규정을 [포트와 어댑터 규정](ports-and-adapters-defined.md)에,
-그 이름과 내력을 [헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md)에,
-코드와 실무를 [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md)와
-[포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md)에 두었다. 이 페이지는 그 원전의
+이 KB는 포트와 어댑터 패턴의 규정을 [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)에,
+그 이름과 내력을 [헥사고날 아키텍처의 이름과 역사](../concepts/hexagonal-architecture-name-and-history.md)에,
+코드와 실무를 [코드로 본 포트와 어댑터](../concepts/ports-and-adapters-in-code.md)와
+[포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md)에 두었다. 이 페이지는 그 원전의
 5장 "FAQ – Related Concepts"를 담는다 — 콕번(Alistair Cockburn)과 후안 마누엘 가리도 데
 파스(Juan Manuel Garrido de Paz)가 이 패턴을 이웃 개념들(유스케이스·계층/양파/클린 아키텍처·
 도메인 주도 설계·부패 방지 계층·CQRS)과 나란히 놓고 "무엇이 같고 무엇이 다른가"를 답하는 장이다.
@@ -57,7 +56,7 @@ sources:
 - 이 대응이 이 KB에서 두 개념을 잇는 다리다 — **유스케이스의 "설계 대상 체계"가 우리가 앱이라
   부르는 것이고, 유스케이스 언어의 주 액터가 포트와 어댑터 언어의 구동 액터, 부차 액터가 피구동
   액터다** (5장 §"5.1").[^cockburn2024] 주 액터와 부차 액터를 가르는 유일한 실질 차이는 대화를
-  누가 먼저 여는가뿐이라고 콕번은 못 박는다 — 이 갈림이 곧 [포트와 어댑터 규정](ports-and-adapters-defined.md)의
+  누가 먼저 여는가뿐이라고 콕번은 못 박는다 — 이 갈림이 곧 [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)의
   "액터 — 대칭 속의 비대칭"이 담은 구동/피구동 비대칭이다.
 - 다만 두 개념이 포개지지는 않는다 — **포트라는 개념은 유스케이스 모델링에 없다**. 그래도 각 외부
   액터에게 그 대화의 일반적 의도로 이름 붙인 포트를 하나씩 주는 것이 (적어도 처음에는) 자연스럽다.
@@ -65,7 +64,7 @@ sources:
   대해서는 아무 말도 하지 않기 때문이다 (5장 §"5.1").[^cockburn2024]
 - 포트 수를 정하는 지침도 이 대응에서 나온다 — 주 액터를 너무 잘게 쪼개면 더는 쓸모없어지듯,
   포트도 너무 잘게 쪼개지 말라고 콕번은 경고한다. 그 실무 판정의 전문은
-  [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md)의 포트 수 절에 있다.
+  [포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md)의 포트 수 절에 있다.
 
 ## 대칭인 패턴, 비대칭인 구현
 
@@ -82,7 +81,7 @@ sources:
   부차 액터) 사이에 강한 결합이 남을 수 있다** (5장 §"5.3").[^cockburn2024] 포트와 어댑터는
   구동이든 피구동이든 앱이 외부 연결의 정체를 알 수 없어야 한다고 요구하는 점에서 다르다 — 앱에서
   외부 액터로 향하는 컴파일 시점 의존이 어디에도 없다.
-- 구현에서 비대칭이 생기는 까닭은 [포트와 어댑터 규정](ports-and-adapters-defined.md)의 "액터 —
+- 구현에서 비대칭이 생기는 까닭은 [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)의 "액터 —
   대칭 속의 비대칭"이 이미 담았다 — 구동 액터는 앱을 부르려면 앱을 알아야 하고, 앱은 부차 액터를
   부르려면 그것을 알아야 한다. Configurator가 앱에 부차 액터를 쥐여 주어야 하므로 코드에 비대칭이
   생기고, 그래서 구동 포트에는 제공 인터페이스가, 피구동 포트에는 요구 인터페이스가 선다
@@ -157,7 +156,7 @@ sources:
   다른 개념이다. 둘은 독립적으로 생겨 따로 진화했다. 두 아키텍처 패턴은 실제로 서로 관련이 없고
   명시적으로 묶여 있지도 않지만, 양립한다. 포트와 어댑터 없이 DDD를 할 수 있고, DDD 없이 포트와
   어댑터를 쓸 수 있다** (5장 §"5.6. How does this relate to DDD?").[^cockburn2024] 이 규정은
-  [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md)에 옮긴 후안의 교정("헥사고날 아키텍처는
+  [포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md)에 옮긴 후안의 교정("헥사고날 아키텍처는
   DDD와 아무 상관이 없다")과 같은 판정을 원저자의 말로 되풀이한다.
 - 콕번은 포트와 어댑터를 DDD의 선행 조건으로 놓는다 — 포트와 어댑터가 외부 기술을 앱 밖으로 전부
   밀어내 안에 도메인 개념만 남기므로, 그 위에서 방해 없이 도메인 주도 설계를 할 수 있다는 것이다.
@@ -171,7 +170,7 @@ sources:
     6장 §"6.4"의 Component + Strategy 패턴으로 부르고, **포트와 어댑터를 그 특수한 경우 — 기술
     요소가 앱에 닿는 자리, 또는 한 팀의 결정 권한이 끝나는 자리를 보호 경계로 삼는 경우 — 로
     규정한다** (5장 §"5.6").[^cockburn2024] 그 일반형의 전문은
-    [Component + Strategy 패턴](component-plus-strategy-pattern.md)에 있다.
+    [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md)에 있다.
 
 ## 부패 방지 계층은 어댑터인가
 
@@ -198,10 +197,10 @@ sources:
   (5장 §"5.8. What about nested hexagons?").[^cockburn2024]
 - 그 까닭은 이 패턴의 목적에 있다 — 포트와 어댑터는 외부 기술 변화로부터 팀을 지키는 것을
   겨냥하므로 체계 경계를 각 외부 기술 바로 앞에 선언하기를 권한다. 이 판정은
-  [포트와 어댑터 규정](ports-and-adapters-defined.md)의 "필수와 선택과 패턴 밖"이 2장에서 이미
+  [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)의 "필수와 선택과 패턴 밖"이 2장에서 이미
   건 갈고리("패턴은 중첩하지 않는다")를 5장에서 되풀이하며, 앱 경계를 어디에 두는가의 물음으로
   되돌린다. 헥사고날은 중첩하지 않으나 그 일반형은 중첩하도록 설계됐다는 이 갈림의 근거는
-  [Component + Strategy 패턴](component-plus-strategy-pattern.md)에 있다.
+  [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md)에 있다.
 
 ## CQRS는 포트와 어댑터의 예인가
 
@@ -222,16 +221,16 @@ sources:
 
 ## 이어지는 페이지
 
-- [포트와 어댑터 규정](ports-and-adapters-defined.md) — 이 장이 이웃 개념과 견주는 그 규정의 원전
+- [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md) — 이 장이 이웃 개념과 견주는 그 규정의 원전
 - [워킹 스켈레톤](walking-skeleton.md) — 5.2가 이 패턴과 함께 쓰라고 든 프로젝트 관리 패턴
-- [헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md) — 같은 원전의 이름과 내력
-- [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md) — 포트 수·앱 경계·개발 순서의 실무 문답
+- [헥사고날 아키텍처의 이름과 역사](../concepts/hexagonal-architecture-name-and-history.md) — 같은 원전의 이름과 내력
+- [포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md) — 포트 수·앱 경계·개발 순서의 실무 문답
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 KB가 2차 서술로 담은
   같은 패턴이자 §5.5 대질의 상대
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점
 - [부패 방지 계층](../concepts/anticorruption-layer.md) — 5.7이 어댑터인지 묻는 대상
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 5.9가 포트와 어댑터의 예인지 묻는 대상
-- [Component + Strategy 패턴](component-plus-strategy-pattern.md) — 5.6·5.7·5.8이 기대는 일반형(6.4)
+- [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md) — 5.6·5.7·5.8이 기대는 일반형(6.4)
 - [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) — 5.4의 대역이 닿는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 5.6·5.7이 닿는 허브
 - [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브

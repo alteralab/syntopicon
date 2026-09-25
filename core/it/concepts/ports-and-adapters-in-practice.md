@@ -3,7 +3,6 @@ type: concept
 title: 포트와 어댑터 적용 실무
 description: 헥사고날(포트와 어댑터) 아키텍처를 실무에 적용할 때 원저자 콕번이 되풀이하는 규정 — 만찬 보트와 하드웨어 칩 두 유비로 옮긴 요지, 포트가 클래스가 아니라 의도별 대화의 상호작용 지점이고 포트마다 테스트 드라이버·대역이 있어야 진짜 경계라는 규정과 피구동 포트는 도메인 개념이 아니라 외부 시스템을 위해 두라는 후안의 교정, 앱 경계는 포트가 정하고 외부 시스템은 팀이 인터페이스를 바꿀 수 없는 것이라는 규정, 포트 수는 액터 종류마다 하나에서 출발하되 잘게 쪼개면 복잡도가 급증한다는 지침(구동 둘 이상·피구동 여덟 안팎), 패턴이 앱 내부 구조도 어댑터 구조도 규정하지 않고 중첩하지 않는다는 것, 파일 배치는 패턴 밖이나 의도에 안 맞는 폴더가 해를 끼친다는 관찰과 폴더를 코드보다 먼저 만들라는 가르침, 그리고 테스트와 목을 먼저 두는 네 단계 개발 순서와 "어댑터가 필요 없는 액터"를 부르는 interactor라는 말
 generated: { by: "claude-opus-4.8", at: "2026-09-25T00:00:00Z" }
-status: draft
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
@@ -22,8 +21,8 @@ sources:
 
 ## 이 페이지가 담는 것
 
-이 패턴의 규정은 [포트와 어댑터 규정](ports-and-adapters-defined.md)에 있고, 그 규정이 코드에서
-어디에 서는지는 [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md)에 있다. 이 페이지는 콕번
+이 패턴의 규정은 [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)에 있고, 그 규정이 코드에서
+어디에 서는지는 [코드로 본 포트와 어댑터](../concepts/ports-and-adapters-in-code.md)에 있다. 이 페이지는 콕번
 (Alistair Cockburn)과 후안 마누엘 가리도 데 파스(Juan Manuel Garrido de Paz)가 4장 "무엇을,
 어떻게?" FAQ에서 그 규정을 **실무 문답으로 되풀이한 것**을 담는다. 파이썬 구현서(percival)와 도메인
 주도 설계 입문서(khononov)가 이미 답한 실무(폴더 배치·어댑터 구조)는 그 페이지에 정박하고, 여기에는
@@ -116,7 +115,7 @@ sources:
 - 앱 내부를 어떻게 짤지는 **전적으로 자유**다 — 함수형이든 객체지향이든, 모듈러 모놀리스든 진흙
   공이든, 클린 아키텍처든 도메인 주도 설계든 무엇이든 좋고, **패턴은 이 주제에 대해 정확히 아무
   말도 하지 않는다** (4장 §"4.6. How do I structure the inside of my app?").[^cockburn2024] 이것은
-  [포트와 어댑터 규정](ports-and-adapters-defined.md)의 "패턴 밖" 선언(§2.4)을 실무 물음으로 되풀이한
+  [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)의 "패턴 밖" 선언(§2.4)을 실무 물음으로 되풀이한
   것이다. 다만 저자는 경고 하나를 단다 — **육각형 안에 육각형을 만들려 하면 어려움에 부딪히기 쉽다.
   포트와 어댑터 패턴은 중첩하지 않기 때문**이다(중첩 헥사곤의 판정은 5장 §"5.8"에 있다).
 - 어댑터 구조도 마찬가지다 — **어댑터를 어떻게 짤지에 대해서도 패턴은 아무 말도 하지 않는다.
@@ -177,8 +176,8 @@ sources:
 
 ## 이어지는 페이지
 
-- [포트와 어댑터 규정](ports-and-adapters-defined.md) — 이 실무 문답이 되풀이하는 규정의 원전
-- [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md) — 같은 규정이 코드에서 서는 자리
+- [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md) — 이 실무 문답이 되풀이하는 규정의 원전
+- [코드로 본 포트와 어댑터](../concepts/ports-and-adapters-in-code.md) — 같은 규정이 코드에서 서는 자리
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 파이썬 폴더 배치와 포트·어댑터의
   2차 서술이 사는 자리
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — Configurator 역할을

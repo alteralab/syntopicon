@@ -8,6 +8,7 @@ sources:
   - { id: newman2021, resource: /it/sources/newman2021.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
   - { id: bellemare2025, resource: /it/sources/bellemare2025.md }
+  - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
 
 # CQRS 아키텍처
@@ -22,6 +23,7 @@ sources:
 - [15장이 이 패턴을 경계 밖으로 내보내는 자리](#15장이-이-패턴을-경계-밖으로-내보내는-자리)
 - [16장이 이 패턴을 분석 모델 생성에 쓴다](#16장이-이-패턴을-분석-모델-생성에-쓴다)
 - [확장 수단으로 볼 때의 채점](#확장-수단으로-볼-때의-채점)
+- [포트와 어댑터의 예인가 — 원전의 답](#포트와-어댑터의-예인가--원전의-답)
 - [이 KB의 다른 자리들과의 분업](#이-kb의-다른-자리들과의-분업)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -346,6 +348,22 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     감추라**는 인터페이스 조항이다.
 - 그 실무서가 이 패턴을 놓은 확장 축 전체는 [확장의 네 축](four-axes-of-scaling.md)에 있다.
 
+## 포트와 어댑터의 예인가 — 원전의 답
+
+- 포트와 어댑터의 원저자 콕번이 이 물음에 직접 답한 자리가 있다. 그는 2010년 강연에서 CQRS가
+  헥사고날 아키텍처의 예인지 물었고, 팻 매독스(Pat Maddox)와 함께 그 전개를 짚은 뒤 이렇게
+  결론지었다 — **CQRS는 포트와 어댑터를 쓸 수 있으나, 그 자체로는 포트와 어댑터의 예가 아니다**
+  (5장 §"5.9. Is CQRS an example of Ports & Adapters?").[^cockburn2024]
+- 이 답은 위 [무엇을 푸는 패턴인가](#무엇을-푸는-패턴인가)가 도메인 주도 설계 입문서를 근거로
+  적은 것("CQRS가 업무 로직과 인프라를 가르는 조직 원리는 포트와 어댑터와 같다")과 **충돌하지
+  않는다.** 콕번도 부분에서는 같은 것을 인정한다 — 명령 부분과 조회 부분은 둘 다 경계 지어진
+  하위 체계이고, 구동·피구동 기술로부터 분리되면 각각 포트와 어댑터의 예가 된다는 것이다. 다만
+  콕번은 층위를 좁힌다 — **온전한 CQRS 체계는 업무 로직 부분만이 아니라 외부 기술 부분(저장소와
+  UI)까지 포함하므로, 체계 전체는 포트와 어댑터의 예가 아니다** (5장 §"5.9").[^cockburn2024]
+  두 서술은 대상의 층위가 다르므로(입문서는 조직 원리의 동일성, 원전은 체계 전체의 정체) 모순 쌍으로
+  세우지 않았다. 전문은 [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md)의
+  "CQRS는 포트와 어댑터의 예인가"에 있다.
+
 ## 이 KB의 다른 자리들과의 분업
 
 이 낱말은 이 KB에 이미 있고, 이 페이지는 **경계 컨텍스트 하나를 조직하는 아키텍처 패턴**만
@@ -408,6 +426,8 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
 - [이벤트 소싱과 CQRS](../concepts/event-sourcing-and-cqrs.md) — 같은 이름의 데이터 모델 판본
 - [진화적 아키텍처의 함정과 안티패턴](evolutionary-architecture-antipatterns.md) — 이 배치를 이름 없이 서술하며 그 반대를 안티패턴으로 세우는 쪽
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 물려받는 조직 원리
+- [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md) — 원전이 CQRS가
+  포트와 어댑터의 예인지 답하는 자리
 - [계층 아키텍처](../concepts/layered-architecture.md) — 세 아키텍처 패턴 중 첫째
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 이 패턴을 어느 범위에
   거는가와 업무 로직 패턴과의 대응
@@ -480,3 +500,9 @@ pp.434–435).[^newman2021] 그쪽의 규정은 위 절들과 어긋나지 않�
     [상태 있는 마이크로서비스와 상태 저장소](stateful-microservices-and-state-stores.md)와
     [요청-응답과 이벤트 기반의 통합](request-response-and-event-driven-integration.md)이 갖는다.
     **이 소스는 CQRS라는 이름을 쓰지 않는다** — 이름의 대응은 이 KB가 세운 것이다.
+
+[^cockburn2024]: Cockburn & Garrido de Paz 2024, 5장 §"5.9. Is CQRS an example of Ports &
+    Adapters?". 이 소스는 이 페이지에 **한 절만** 더한다 — 직인용을 두지 않았고(콕번의 결론은
+    강연 회고의 산문이라 옮길 정의 문장이 없다), 그 절의 전문은
+    [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md)이 갖는다.
+    EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.

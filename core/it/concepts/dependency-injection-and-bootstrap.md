@@ -1,12 +1,13 @@
 ---
 type: concept
 title: 의존성 주입과 부트스트랩
-description: 명시적 의존을 실제로 누가 어떻게 꽂아 넣는가 — 파이썬 세계에서 DI가 의심받는다는 인정과 그럼에도 쓰게 되는 통증, 클로저·partial·클래스라는 세 가지 수동 주입 방식과 늦은 바인딩이라는 차이, 합성 루트를 부트스트랩 스크립트라 부르는 판단과 그것이 맡는 네 가지 일, 시그니처를 검사해 이름으로 의존을 맞추는 구현과 그것을 과잉 설계라 부른 공저자의 반론 및 더 단순한 판본, 테스트에서 기본값을 덮어써 가짜를 꽂는 방법, 단순한 의존을 "제대로 된" 어댑터로 승격시키는 여섯 단계, 그리고 다른 소스가 포트를 어댑터로 해소하는 수단으로 주입과 부트스트랩을 대등하게 병렬하는 자리와 그 배치가 이 페이지의 배치와 어긋나 보이는 이유
+description: 명시적 의존을 실제로 누가 어떻게 꽂아 넣는가 — 파이썬 세계에서 DI가 의심받는다는 인정과 그럼에도 쓰게 되는 통증, 클로저·partial·클래스라는 세 가지 수동 주입 방식과 늦은 바인딩이라는 차이, 합성 루트를 부트스트랩 스크립트라 부르는 판단과 그것이 맡는 네 가지 일, 시그니처를 검사해 이름으로 의존을 맞추는 구현과 그것을 과잉 설계라 부른 공저자의 반론 및 더 단순한 판본, 테스트에서 기본값을 덮어써 가짜를 꽂는 방법, 단순한 의존을 "제대로 된" 어댑터로 승격시키는 여섯 단계, 다른 소스가 포트를 어댑터로 해소하는 수단으로 주입과 부트스트랩을 대등하게 병렬하는 자리와 그 배치가 이 페이지의 배치와 어긋나 보이는 이유, 그리고 포트와 어댑터의 원저자 콕번이 의존성 주입과 의존성 조회를 한 이름 Configurable Receiver로 아우르고 그것이 컴파일 시점 원칙(의존성 역전)과 실행 시점 두 수단을 어떻게 가르는가
 generated: { by: "claude-opus-5", at: "2026-08-17T23:30:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: evans2003, resource: /it/sources/evans2003.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
+  - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
 
 # 의존성 주입과 부트스트랩
@@ -20,6 +21,7 @@ sources:
 - [언제 DI 프레임워크가 필요한가](#언제-di-프레임워크가-필요한가)
 - [프레임워크를 얼마나 쓸 것인가 — 다른 소스의 같은 판정](#프레임워크를-얼마나-쓸-것인가--다른-소스의-같은-판정)
 - [포트를 어댑터로 해소하는 두 수단](#포트를-어댑터로-해소하는-두-수단)
+- [원전이 이름 붙인 패턴 — Configurable Receiver](#원전이-이름-붙인-패턴--configurable-receiver)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **의존을 전부 명시적으로 선언하기로 했다면, 그것을 실제로 조립하는 일은 누가
@@ -255,6 +257,43 @@ sources:
 - 그 아키텍처 전체는
   [의존성 역전 원칙 §포트와 어댑터의 규정](dependency-inversion-principle.md)에 있다.
 
+## 원전이 이름 붙인 패턴 — Configurable Receiver
+
+위 [포트를 어댑터로 해소하는 두 수단](#포트를-어댑터로-해소하는-두-수단)이 든 "주입이나 부트스트랩"이라는
+두 갈래에, 포트와 어댑터의 원저자 콕번이 정확한 이름을 붙였다. 그는 이 둘을 아우르는 패턴을 2023년에
+**Configurable Receiver**로 규정하고 그것을 책 6장 6.5절에 원문으로 재수록했다.
+
+- 패턴의 규정은 한 줄이다 — **실행 시점에 수신자(receiver)를 설정하거나 바꾼다.** 그리고 이 패턴이
+  **의존성 주입과 의존성 조회(dependency lookup)를 함께 포섭한다**고 못 박는다
+  (6장 §"6.5. Configurable Receiver").[^cockburn2024]
+- 발신자가 수신자를 실행 시점에 고르려면 Configurator가 있어야 하고, 그 Configurator가 수신자를
+  발신자에게 건네는 방식이 둘이다 (6장 §"6.5. Configurable Receiver"):[^cockburn2024]
+  - **Configurator가 발신자에게 어느 수신자를 쓸지 알려 준다 — 이것이 의존성 주입이다.**
+  - **발신자가 Configurator에게 어느 수신자를 쓸지 물어본다 — 이것이 의존성 조회이고, 그 Configurator를
+    서비스 로케이터(service locator)나 브로커(broker)라 부른다.**
+  - 그래서 콕번은 **Configurator의 첫 설계 결정이 의존성 주입과 의존성 조회 사이의 선택**이라고
+    적는다. 위 khononov 인용이 "주입이나 부트스트랩"으로 지나간 자리를, 원전은 "주입이냐 조회냐"라는
+    더 정확한 갈림으로 세운다 — 부트스트랩은 그 선택을 어디서 수행하느냐(시작 시점의 배선)이지 이 갈림의
+    한 항이 아니다.
+- 콕번은 이 패턴이 흔히 뭉뚱그려지는 세 가지와 어떻게 구별되는지도 정리한다 — **Configurable Receiver는
+  의존성 역전 원칙·의존성 주입·의존성 조회 셋을 모두 쓰되, 제어의 역전(Inversion of Control)은 그것들과
+  무관한데도 자주 뒤섞인다** (6장 §"6.5. Configurable Receiver", §7).[^cockburn2024]
+  - **의존성 역전 원칙은 컴파일 시점 주제**다 — 발신자가 요구 인터페이스를 소유하고, 수신자가 발신자에
+    의존하며, 발신자는 어느 수신자에도 의존하지 않게 하는 것이다.
+    [의존성 역전 원칙](dependency-inversion-principle.md)의 "포트와 어댑터가 파이썬에서 무엇인가"
+    절이 담은 것이 그 컴파일 시점 구조다.
+  - **의존성 주입과 의존성 조회는 실행 시점 주제**다 — 컴파일 시점에 뒤집힌 그 구조 위에서, 실제
+    수신자를 실행 중에 어떻게 발신자에게 건네느냐의 두 방식이다.
+  - 콕번이 2023년 5월에 밥 마틴(Bob Martin)에게 이 관계를 물었고, 마틴은 **의존성 역전 원칙은 발신자가
+    요구 인터페이스를 선언해 최소한의 재컴파일로 다른 수신자를 쓸 수 있게 하는 것이며, 그 원칙은 요구
+    인터페이스를 서술할 뿐 Configurator는 언급하지 않는다**고 답했다고 적는다
+    (6장 §"6.5. Configurable Receiver", §7.1).[^cockburn2024] 즉 Configurable Receiver가 그 원칙에
+    Configurator를 더한다.
+- 포트와 어댑터에서 이 패턴이 서는 자리는 [포트와 어댑터 규정](ports-and-adapters-defined.md)의 다섯째
+  요소 Configurator이고, 그 일반형은 [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md)이
+  숨은 넷째 객체로 같은 Configurator를 든다. 이 KB에 들인 콕번의 세금 계산기 코드가 브로커로 의존성
+  조회를 예시하는 실물은 [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md)에 있다.
+
 ## 이어지는 페이지
 
 - [층을 잇는 법과 아키텍처 프레임워크](relating-layers-and-frameworks.md) — 프레임워크를 얼마나
@@ -267,6 +306,11 @@ sources:
 - [이벤트 주도 애플리케이션 구조](event-driven-application-structure.md) — 주입 대상이
   되는 핸들러들이 사는 곳
 - [외부 설정](external-configuration.md) — 기본값을 한자리에 모으는 같은 판단의 다른 소스
+- [포트와 어댑터 규정](ports-and-adapters-defined.md) — 이 주입·조회가 채우는 다섯째 요소
+  Configurator의 규정
+- [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md) — 같은 Configurator를 숨은 넷째
+  객체로 드는 일반형
+- [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md) — 브로커로 의존성 조회를 예시하는 실물
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
   이 축의 허브
 
@@ -287,3 +331,11 @@ sources:
     (PDF 쪽 − 26, 실측). 직인용은 `pdftotext -layout` 추출로 대조했다. 같은 절의 C# 목록
     (`IMessaging` 포트와 `SQSBus` 어댑터)은
     [의존성 역전 원칙](dependency-inversion-principle.md)이 대표 펜스를 갖는다.
+
+[^cockburn2024]: Cockburn & Garrido de Paz 2024, 6장 §"6.5. The article: "Configurable Receiver""
+    (2023년 아티클 HaT Technical Report 2023.01의 원문 재수록) — §"1. Motivation and informal
+    structure" · §"3. Implementing the Pattern"(The configurator) · §7 "Discussion of Dependency
+    Inversion, Injection, Lookup"(§7.1 밥 마틴의 2023년 5월 논평 포함). 아티클의 Ruby·Java 코드
+    샘플과 Spring 코드는 산문으로만 옮기고 펜스는 쓰지 않았다(코드 정본은 3장). 그림 6.23~6.27의
+    내용은 본문 서술이 담으므로 이미지를 열지 않았다. EPUB(Calibre 변환본), 쪽 앵커 없음 —
+    locator는 장·절 번호.

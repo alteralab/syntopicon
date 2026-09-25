@@ -3,7 +3,6 @@ type: concept
 title: 코드로 본 포트와 어댑터
 description: 헥사고날(포트와 어댑터) 아키텍처의 규정이 코드에서 어디에 서는지를 원저자 콕번의 세 코드 사례로 보이는 페이지 — 세금 계산기(자바·루비)에서 구동 포트가 앱이 구현하는 인터페이스이고 피구동 포트가 앱이 생성자 인수로 요구하는 인터페이스이며 main()이 Configurator이자 구동 액터라는 대응, 생성자 주입과 세터 주입의 가름과 세터 주입의 위험, 의존성 주입과 의존성 조회(브로커·Configurable Receiver)의 가름, web-hexagon 사례가 보이는 "목 저장소로 첫 시험이 통과하면 아키텍처는 이미 선다"와 인메모리에서 파일과 웹으로 자라도 앱은 그대로라는 것, 그리고 BlueZone 사례가 보이는 액터 종류 수가 포트 수를 정한다는 것과 포트마다 다른 기술·다른 테스트 대역을 꽂는 실물
 generated: { by: "claude-opus-4.8", at: "2026-09-25T00:00:00Z" }
-status: draft
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
@@ -18,7 +17,7 @@ sources:
 
 ## 이 페이지가 담는 것
 
-패턴의 규정은 [포트와 어댑터 규정](ports-and-adapters-defined.md)에 있다. 이 페이지는 그 규정이
+패턴의 규정은 [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md)에 있다. 이 페이지는 그 규정이
 **코드에서 어디에 서는지** — 어느 줄이 포트이고 어느 클래스가 어댑터이며 무엇이 Configurator인지 —
 를 원저자 콕번(Alistair Cockburn)과 후안 마누엘 가리도 데 파스(Juan Manuel Garrido de Paz)의
 세 코드 사례로 짚는다. 저자는 이 패턴을 이해하는 가장 좋은 길이 여러 언어·여러 환경의 코드를 읽고
@@ -139,7 +138,7 @@ sources:
   구동 `ForParkingCars`·`ForCheckingCars`, 피구동 `ForObtainingRates`·`ForStoringTickets`·`ForPaying`,
   그리고 구동 `ForConfiguringApp`이다. 피구동 액터는 앱의 생성자에서 설정되고, 그 밖의 설정은 "for
   configuring" 포트를 지난다. 포트가 의도별 대화라는 규정은 [포트와 어댑터
-  규정](ports-and-adapters-defined.md)에 있다.
+  규정](../concepts/ports-and-adapters-defined.md)에 있다.
 - 마지막으로 이 사례는 **포트마다 다른 기술과 다른 테스트 대역**을 꽂아 보인다 — 후안은 운전자에
   웹, 단속원에 명령줄, 요율에 파일, 티켓에 SQL 데이터베이스, 결제에 결제 시스템 게이트웨이를 골랐고,
   포트마다 다른 대역(파일에 스텁, 데이터베이스에 가짜, 결제 게이트웨이에 스파이)을 두어 서로 다른
@@ -147,7 +146,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [포트와 어댑터 규정](ports-and-adapters-defined.md) — 이 코드 사례들이 보이는 규정의 원전
+- [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md) — 이 코드 사례들이 보이는 규정의 원전
 - [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md) — 같은 원전의 실무 문답(포트 수·앱
   경계·개발 순서)
 - [의존성 주입과 부트스트랩](../concepts/dependency-injection-and-bootstrap.md) — 생성자 주입·세터

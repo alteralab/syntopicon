@@ -3,7 +3,6 @@ type: concept
 title: 워킹 스켈레톤
 description: 콕번이 세운 프로젝트 관리 패턴 — 최종 아키텍처를 쓰지 않아도 좋으니 주요 아키텍처 구성 요소를 이어 붙여 작은 끝에서 끝까지 기능을 수행하는 아주 작은 구현을 먼저 만들고, 그 위에서 아키텍처와 기능을 나란히 키워 간다는 규정, 이것이 무엇보다 위험 관리 결정이라는 근거 — 최종 기술을 잇는 데서 어려움과 뒤엉킴이 흔히 생기므로 그것을 일찍 붙여 두면 복잡함을 미리 점검하고 시험·배포 파이프라인을 곧바로 세운다는 것, 포트와 어댑터의 개발 순서와 어떻게 맞물리는가, 그리고 후안이 이 패턴을 뒤늦게 알아채며 드러난 흔한 오해 — 1단계에서 업무 로직을 다 구현하고 실제 기술을 나중에 붙이는 것이 아니라 각 단계에서 조금씩 구현하며 단계를 오간다는 교정
 generated: { by: "claude-opus-5", at: "2026-09-25T00:00:00Z" }
-status: draft
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
@@ -45,7 +44,7 @@ sources:
 - 워킹 스켈레톤을 반드시 써야 하는 것은 아니고, 콕번은 이것을 개발 순서를 설명하는 대목에서만
   언급한다 (5장 §"5.2").[^cockburn2024] 그 개발 순서 네 단계는 시험만으로 앱을 세운 뒤 구동 쪽과
   피구동 쪽에 실제 기술을 번갈아 붙이는 절차이고, 전문은
-  [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md)의 개발 순서 절에 있다. 워킹
+  [포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md)의 개발 순서 절에 있다. 워킹
   스켈레톤은 그 첫 단계에서 앱 전체를 다 짓지 말고 거의 빈 트랜잭션으로 시작하라는 조언을 더한다.
 
 ## 흔한 오해 — 후안의 교정
@@ -62,10 +61,10 @@ sources:
 
 ## 이어지는 페이지
 
-- [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md) — 이 패턴이 언급되는 개발 순서 네 단계
-- [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md) — 이 패턴이 실린 원전 5장
-- [포트와 어댑터 규정](ports-and-adapters-defined.md) — 워킹 스켈레톤이 짓는 대상인 아키텍처
-- [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md) — BlueZone 사례가 사는 자리
+- [포트와 어댑터 적용 실무](../concepts/ports-and-adapters-in-practice.md) — 이 패턴이 언급되는 개발 순서 네 단계
+- [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md) — 이 패턴이 실린 원전 5장
+- [포트와 어댑터 규정](../concepts/ports-and-adapters-defined.md) — 워킹 스켈레톤이 짓는 대상인 아키텍처
+- [코드로 본 포트와 어댑터](../concepts/ports-and-adapters-in-code.md) — BlueZone 사례가 사는 자리
 - [헥사고날 아키텍처](../synthesis/hexagonal-architecture.md) — 이 축의 허브
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 5장 §"5.2. How does this relate to Walking

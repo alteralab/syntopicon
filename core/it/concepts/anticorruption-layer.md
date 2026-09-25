@@ -7,6 +7,7 @@ sources:
   - { id: evans2003, resource: /it/sources/evans2003.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: ford2022-evolutionary, resource: /it/sources/ford2022-evolutionary.md }
+  - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
 
 # 부패 방지 계층
@@ -27,6 +28,7 @@ sources:
 - [13장이 레거시 쪽 두 쓰임만 남긴다](#13장이-레거시-쪽-두-쓰임만-남긴다)
 - [14장이 이 계층을 인터페이스 압축 수단으로 쓴다](#14장이-이-계층을-인터페이스-압축-수단으로-쓴다)
 - [넷째 소스가 이 계층을 도메인 밖으로 넓힌다 — 서드파티 격리](#넷째-소스가-이-계층을-도메인-밖으로-넓힌다--서드파티-격리)
+- [포트와 어댑터의 원전이 묻는다 — 이 계층은 어댑터인가](#포트와-어댑터의-원전이-묻는다--이-계층은-어댑터인가)
 - [이어지는 페이지](#이어지는-페이지)
 
 하나의 질문: **모델이 다른 시스템과 크게 맞물려야 할 때 우리 모델이 그쪽을 닮아 가는 것을
@@ -410,6 +412,28 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
   - **겨루지 않으므로 `contradicts`를 걸지 않았다.** 같은 이름의 장치를 더 넓은 대상에 건
     것이고, 원전의 조건을 어기지 않는다.
 
+## 포트와 어댑터의 원전이 묻는다 — 이 계층은 어댑터인가
+
+- 포트와 어댑터 아키텍처의 원저자 콕번이 이 계층을 자기 패턴의 어댑터와 견주며 답을 하나 건다.
+  먼저 규모를 다르게 잡는다 — **도메인 주도 설계의 부패 방지 계층 개념은 포트와 어댑터의 어댑터보다
+  넓다. 이 계층의 일부는 포트와 어댑터 체계 안에, 일부는 밖에 놓일 수 있다**
+  (5장 §"5.7. DDD's anti-corruption layers").[^cockburn2024]
+- 이 계층이 어댑터인지는 조건부다 — **두 경계 컨텍스트가 정의된 인터페이스와 시험을 갖춘
+  Component + Strategy 패턴에 맞게 설계되었다면, 그때는 이 계층을 어댑터로 보는 것이 뜻이 통한다**
+  (5장 §"5.6. How does this relate to DDD?"·§"5.7").[^cockburn2024] 포트도 그 포트의 시험도 없는
+  경계 컨텍스트 주위라면 이 계층은 그 책의 용어로 여전히 "체계"의 일부다. 이 답이
+  [구현을 셋으로 가른다](#구현을-셋으로-가른다)와 [이것이 아닌 것](#이것이-아닌-것)이 이미 세운
+  구분 — 이 계층이 파사드·어댑터·번역기로 나뉘고 각 조각의 소속 컨텍스트가 다르다는 것 — 을
+  포트와 어댑터 쪽에서 되짚는다. 콕번의 어댑터도 앱 밖에 있고 앱의 시험에 들지 않기 때문이다.
+- 콕번이 이 자리에서 되풀이해 못 박는 것은 경계를 실재하게 만드는 것이 시험이라는 것이다 —
+  **시험이 하위 체계 둘레에 그은 선을 실재하게 만든다. 시험이 없으면 어디에나 선을 그을 수 있고
+  아무 함의도 없다. 시험이 진짜 경계를 정의한다** (5장 §"5.7").[^cockburn2024] 그래서 이 계층은
+  체계 경계에 걸쳐 일부는 안, 일부는 밖에 놓일 수 있다.
+- **`contradicts`를 걸지 않았다.** 콕번은 이 계층을 다른 대상으로 다시 규정하는 것이 아니라, 그것이
+  자기 패턴의 어댑터와 언제 같고 언제 다른가라는 관계만 묻는다 — evans의 규정과 겨루지 않는다.
+  이 물음의 전문은 [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md)의
+  "부패 방지 계층은 어댑터인가"에 있다.
+
 ## 이어지는 페이지
 
 - [모델 번역](model-translation.md) — 이 계층의 구현 선택지 전부. 9장이 두 패턴에 함께 거는 층
@@ -429,6 +453,8 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
   현대화의 점검 목록에 오르는 자리
 - [마이크로서비스 경계 어림법](microservice-boundary-heuristics.md) — 이 계층이 서비스
   인터페이스를 압축하는 수단으로 서는 자리
+- [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md) — 원전이 이
+  계층을 자기 패턴의 어댑터와 견주며 조건부 답을 거는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 이 소스의 허브
 
 [^evans2003]: Evans 2003, 14장 "Maintaining Model Integrity" §ANTICORRUPTION LAYER
@@ -474,3 +500,10 @@ Anticorruption Layers", pp.165–167).[^ford2022-evolutionary]
     [진화 가능성을 위한 지침](evolvability-guidelines.md)이 갖는다. 그 절들에 도판과 코드 목록은
     없고, 저자들이 대는 바깥 것들(BackgrounDRb · Starling · Rich Hickey)은 이 KB가 확인한 원전이
     아니다.
+
+[^cockburn2024]: Cockburn & Garrido de Paz 2024, 5장 §"5.6. How does this relate to DDD?"와
+    §"5.7. DDD's anti-corruption layers". 이 소스는 이 페이지에 **한 절만** 더한다 — 직인용을
+    두지 않았고(콕번의 답은 조건부 산문이라 옮길 정의 문장이 없다), 그 절의 전문은
+    [포트와 어댑터와 이웃 개념](../concepts/ports-and-adapters-related-concepts.md)이 갖는다.
+    그림 5.10·5.11(ACL 예시와 헥사곤 경계에 걸친 ACL)은 본문 서술이 그 내용을 담으므로 이미지를
+    열지 않았다. EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.

@@ -6,6 +6,8 @@ generated: { by: "claude-opus-5", at: "2026-09-15T00:00:00Z" }
 sources:
   - { id: percival2020, resource: /it/sources/percival2020.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
+  - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
+contradicts: [ports-and-adapters-related-concepts]
 ---
 
 # 의존성 역전 원칙
@@ -21,6 +23,7 @@ sources:
 - [계층 아키텍처에서 이 뒤집기를 유도하면](#계층-아키텍처에서-이-뒤집기를-유도하면)
 - [포트와 어댑터의 규정](#포트와-어댑터의-규정)
 - [육각형·양파·클린은 같은 패턴이다](#육각형양파클린은-같은-패턴이다)
+- [포트와 어댑터의 원전 규정](#포트와-어댑터의-원전-규정)
 - [이 아키텍처가 맞는 자리](#이-아키텍처가-맞는-자리)
 - [이어지는 페이지](#이어지는-페이지)
 
@@ -30,8 +33,10 @@ sources:
 이 물음에 붙은 이름이 여럿이다 — **헥사고날 아키텍처(hexagonal architecture)**, 그것을 2005년에
 고쳐 부른 **포트와 어댑터(ports and adapters)**, 양파 아키텍처(onion architecture), 클린
 아키텍처(clean architecture). 이 KB는 그 이름들을 따로 페이지로 세우지 않고 이 페이지에 둔다.
-2026년 KB 작성 시점에 콕번(Cockburn)의 원문은 아직 이 KB의 소스가 아니라, 아래 규정은 파이썬
-구현서와 도메인 주도 설계 입문서 둘을 경유한 2차 서술이다.
+아래 규정은 파이썬 구현서와 도메인 주도 설계 입문서 둘을 경유한 2차 서술이고, 같은 패턴을 그
+원저자 콕번(Cockburn)이 직접 규정한 원전은 [포트와 어댑터 규정](ports-and-adapters-defined.md)과
+[헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md)에 있다. 원전이 이
+2차 서술에 더하는 프레이밍은 아래 [포트와 어댑터의 원전 규정](#포트와-어댑터의-원전-규정)이 짚는다.
 
 ## 정의와 그 해설
 
@@ -357,6 +362,45 @@ sources:
     [유비쿼터스 언어](ubiquitous-language.md)에 있다.
   - **이 KB는 이 네 이름에 페이지를 따로 세우지 않는다.** 두 소스가 같은 것이라고 적으므로
     이 페이지가 넷을 함께 갖는다.
+- **그러나 이 패턴의 원저자 콕번은 위 "같은 구성 요소"를 부정한다.** 콕번은 양파·클린이 포트와
+  어댑터와 **의존 구조는 같으나**, 포트의 명시를 요구하지 않고 포트와 어댑터가 두지 않는 층을 더
+  요구한다는 두 가지로 다르다고 못 박는다 — 차이가 이름뿐이 아니라 구조에 있다는 것이다
+  (5장 §"5.5. Layered, onion, clean, hexagonal: what is the difference?").[^cockburn2024] 위
+  판정은 도메인 주도 설계 입문서를 근거로 세운 2차 서술이고, 원전의 이 반론과 **"구성 요소가
+  같은가"라는 한 명제에서 사실로 충돌한다**(둘 다 참일 수 없다). 그래서 이 페이지가 원전 쪽
+  [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md)을 `contradicts`로 가리킨다.
+  다만 두 서술이 갈리지 않는 축 — **의존 방향의 동일성** — 은 콕번도 같다고 적으므로 대질에
+  넣지 않는다. 이 판정의 전문과 근거는 그 페이지의 "계층·양파·클린과 무엇이 다른가"에 있다.
+
+## 포트와 어댑터의 원전 규정
+
+위 두 절이 담은 규정은 파이썬 구현서와 도메인 주도 설계 입문서를 경유한 2차 서술이다. 같은
+패턴을 만든 콕번(Cockburn)이 직접 세운 원전이 그 둘에 더하는 프레이밍을 짚어 둔다 — 전문은
+[포트와 어댑터 규정](ports-and-adapters-defined.md)과
+[헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md)에 있다.
+
+- 원전은 패턴의 요구를 한 문장으로 앞세운다 — **외부 객체나 기술을 명시적으로 이름 부르지 말고,
+  접근하려는 외부 객체·기술은 언제나 인수로 받으라** (1장 §"1.1. Copy this code").[^cockburn2024]
+  위 [암묵적 의존과 명시적 의존](#암묵적-의존과-명시적-의존)이 파이썬 축에서 옮긴 것과 같은
+  처방을, 원전은 패턴의 정의적 요구로 든다.
+- 원전이 2차 서술에 더하는 것은 네 갈래다 — 규칙의 자구만 지키는 **약한 준수**와 앱이 외부 기술을
+  전혀 모르는 **강한 준수**의 가름, 네 요소(앱·포트·액터·어댑터)에 더해 패턴 밖이지만 필수인
+  **다섯째 요소 Configurator**, 제공 인터페이스(API)와 요구 인터페이스(SPI)의 어휘와 요구
+  인터페이스가 패턴의 힘이라는 규정, 그리고 대칭인 패턴 속의 구현상 비대칭(누가 누구를 아는가)이
+  구동/피구동을 가르는 근거다 (2장 §"2.2. The pattern elements: App, Ports, Actors,
+  Adapters"·§"2.3. The 5th element: The Configurator").[^cockburn2024]
+- 위 [포트와 어댑터의 규정](#포트와-어댑터의-규정)이 든 "주입이나 부트스트랩으로 해소한다"는
+  2차 서술의 한 줄을, 원전은 **Configurator라는 역할**로 다시 놓는다 — 프로덕션에서는 "main"이나
+  합성 루트가 그 역할을 맡고, 주입·부트스트랩은 그 역할을 채우는 구현 방식이다
+  (2장 §"2.3. The 5th element: The Configurator").[^cockburn2024] 대상이 어긋나는 것이 아니라
+  2차 서술이 수단으로 지나간 자리를 원전이 역할로 이름 붙인다.
+- 위 [육각형·양파·클린은 같은 패턴이다](#육각형양파클린은-같은-패턴이다)와 한 대목에서 갈린다 —
+  원전은 패턴이 애플리케이션 내부 구조에 대해 아무것도 규정하지 않으며 **바로 그 점이 이 패턴을
+  클린·양파 아키텍처와 다르게 만든다**고 못 박는다
+  (2장 §"2.4. What is required, optional, and outside the pattern").[^cockburn2024] 두 서술의
+  이 갈림을 원전이 정면으로 대는 자리가 5장 §"5.5"이고, 그 대질과 `contradicts` 판정은 위
+  [육각형·양파·클린은 같은 패턴이다](#육각형양파클린은-같은-패턴이다)와
+  [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md)에 있다.
 
 ## 이 아키텍처가 맞는 자리
 
@@ -389,6 +433,8 @@ sources:
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점이 되는 패턴
 - [서비스 레이어](service-layer-pattern.md) — 뒤집은 구조 위에 얹히는 파사드 층
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 조직 원리 위에서 데이터 관리만 달리하는 패턴
+- [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md) — 원전이 이 패턴을
+  유스케이스·계층/양파/클린·DDD·CQRS와 견주는 5장이자 §5.5 대질의 상대
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처 패턴을
   고를지가 걸리는 입력
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
@@ -417,3 +463,8 @@ sources:
     (`IMessaging`과 `SQSBus`)만 두었고 원문 그대로다(언어 표지는 이 KB가 붙였다) —
     원문의 `...`는 저자가 생략을 표시한 것이다. 도판 넷(Figure 8-8~8-11)은 도판이라 본문이
     그것에 대해 적는 것만 산문으로 옮겼다.
+
+[^cockburn2024]: Cockburn & Garrido de Paz 2024, 1장 §"1.1. Copy this code" · 2장 §"2.2. The
+    pattern elements: App, Ports, Actors, Adapters" · §"2.3. The 5th element: The Configurator" ·
+    §"2.4. What is required, optional, and outside the pattern" · 5장 §"5.5. Layered, onion, clean,
+    hexagonal: what is the difference?". EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.

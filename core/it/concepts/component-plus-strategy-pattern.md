@@ -3,7 +3,6 @@ type: concept
 title: Component + Strategy 패턴
 description: 포트와 어댑터를 특수 경우로 품는 일반형을 그 원저자 콕번이 2022년에 규정한 원전 — 객체를 함수 인수로 넘기는 평범한 설계가 매개변수화·Strategy·Required Interface·의존성 주입을 한꺼번에 구현한다는 웜업, UML의 Component(제공/요구 인터페이스와 포트를 갖고 환경에 갈아 끼울 수 있는 모듈 단위, 몇 겹으로든 중첩 가능)와 Strategy(같은 호출에 응하는 후보 중 하나를 문맥이 손에 쥔다)를 합쳐 하위 체계를 조금씩 다른 환경에 맞추는 패턴이라는 규정, 어댑터가 Strategy의 특수 경우(한 겹 더한 간접)라 이름을 Component + Adapter가 아니라 더 일반적인 Component + Strategy로 삼은 근거, 포트와 어댑터가 그 일반형에서 경계를 기술 바로 앞에 두어 기술 변화로부터 지키는 특수 경우이며 그래서 중첩하지 않는 반면 일반형은 중첩하도록 설계됐다는 핵심 차이, 조각들을 서로 소개하는 숨은 넷째 객체 Configurator, 그리고 "컴포넌트"라 부르는 한 경계마다 시험을 써야 진짜 컴포넌트라는 못
 generated: { by: "claude-opus-4.8", at: "2026-09-25T00:00:00Z" }
-status: draft
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 ---
