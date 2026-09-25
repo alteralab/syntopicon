@@ -112,6 +112,11 @@ class MdFile:
     #: 산문이 아니므로, 산문 저작 규칙 검사(시점 상대 낱말)는 이것 위에서 돈다.
     prose_texts: tuple[str, ...] = ()
 
+    #: 본문 어절 수 — 위키백과 "readable prose" 규약을 이 KB에 옮긴 것(§2.6). 인용 블록·
+    #: 표·각주 정의·코드 펜스·링크 텍스트(목차 항목 포함)를 뺀 순수 텍스트 노드의
+    #: 공백 분리 낱말 수다. 줄 수와 달리 줄바꿈 폭에 좌우되지 않는다.
+    prose_words: int = 0
+
     #: 저장 바이트가 NFC인가(R69) — 아니면 형태소·리터럴 검색이 영원히 못 만난다.
     nfc: bool = True
 
@@ -262,6 +267,35 @@ def page_anchors(headings) -> set[str]:
     return set(anchors_by_line(headings).values())
 
 
+def _count_prose_words(tokens: list[Token]) -> int:
+    """본문 어절을 센다 — 토큰 스트림을 한 번 걸으며 인용 블록·표·각주 정의 안의 인라인을
+    건너뛰고, 인라인 자식 가운데 링크 안의 텍스트(목차 항목이 여기 든다)를 뺀 텍스트와
+    인라인 코드(`한 낱말` 꼴은 문장의 일부다)를 공백으로 나눠 센다. 코드 펜스는 인라인이
+    아니라 자연히 빠지고, 이미지 대체 텍스트는 image 토큰의 손자라 세지 않는다(코덱스
+    리뷰 2026-09-25 — 의도한 제외).
+    줄 범위가 아니라 열림/닫힘 깊이로 가르는 이유는 각주 블록 토큰에 map이 없어서다.
+    """
+    excluded = {"blockquote": 0, "table": 0, "footnote_block": 0}
+    words = 0
+    for token in tokens:
+        for name in excluded:
+            if token.type == f"{name}_open":
+                excluded[name] += 1
+            elif token.type == f"{name}_close":
+                excluded[name] -= 1
+        if token.type != "inline" or any(excluded.values()):
+            continue
+        link_depth = 0
+        for child in token.children or []:
+            if child.type == "link_open":
+                link_depth += 1
+            elif child.type == "link_close":
+                link_depth -= 1
+            elif child.type in ("text", "code_inline") and not link_depth:
+                words += len(child.content.split())
+    return words
+
+
 def read(absolute: Path, relative: Path) -> MdFile:
     # BOM은 벗겨서 파싱한다 — 앞에 붙으면 frontmatter 구분선 인식이 통째로 죽어
     # "type 없음"이라는 엉뚱한 오류가 된다(적대 배터리 실측).
@@ -295,6 +329,7 @@ def read(absolute: Path, relative: Path) -> MdFile:
         for t in tokens if t.type == "inline" and t.map and not in_blockquote(t.map[0] + 1)
         for child in (t.children or []) if child.type == "text" and child.content.strip()
     )
+    prose_words = _count_prose_words(tokens)
     return MdFile(
         path=relative,
         frontmatter=frontmatter,
@@ -310,6 +345,7 @@ def read(absolute: Path, relative: Path) -> MdFile:
         ),
         blockquote_ranges=blockquote_ranges,
         prose_texts=prose_texts,
+        prose_words=prose_words,
         nfc=source == unicodedata.normalize("NFC", source),
         fences=tuple(fences),
     )

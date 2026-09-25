@@ -217,13 +217,44 @@ def test_wikilink를_잡는다(repo: Repo):
     assert any("Obsidian 전용 문법" in f for f in findings(repo, "wikilink"))
 
 
-def test_500줄_백스톱과_TOC_부재(repo: Repo):
+def test_어절_백스톱과_TOC_부재(repo: Repo):
     base(repo)
-    long_body = "\n".join(f"문단 {i}." for i in range(520))
+    # 6,000어절 이상·8,000 미만 — 경고만. 링크 텍스트·인용 블록·표는 셈에서 빠진다.
+    long_body = "\n".join(f"문단 {i} 어절 둘 셋 넷 다섯 여섯 일곱 여덟 아홉 열." for i in range(600))
+    long_body += "\n\n> 인용 " + " ".join(["어절"] * 3000) + "\n"
+    long_body += "\n| 표 | " + " ".join(["칸"] * 3000) + " |\n|---|---|\n"
     repo.write("it/concepts/huge.md", cited() + "\n" + long_body + "\n")
     lint(repo)
-    assert any("줄 —" in f for f in findings(repo, "page-too-long"))
+    assert any("어절" in f for f in findings(repo, "page-too-long"))
+    assert not findings(repo, "page-split-recommended")
     assert any("TOC가 없습니다" in f for f in findings(repo, "toc-missing"))
+
+
+def test_어절_셈의_포함과_제외(repo: Repo):
+    from syntopicon.mdfile import read
+    body = (
+        "alpha `beta gamma` delta\n\n"                    # 텍스트 2 + 인라인 코드 2 = 4
+        "[링크 텍스트 둘](x.md) 밖 하나\n\n"                # 링크 안 제외 → 2
+        "> 인용 안 낱말 셋 넷\n\n"                          # 제외
+        "| 표 머리 | 칸 |\n|---|---|\n| 셀 하나 | 셀 둘 |\n\n"  # 제외
+        "![대체 텍스트 둘](i.png)\n\n"                       # 이미지 대체 텍스트 제외
+        "본문[^n] 끝.\n\n[^n]: 각주 정의 낱말 다섯 여섯 일곱 여덟\n"  # 각주 정의 제외 → 2
+    )
+    from pathlib import Path
+    repo.write("it/concepts/count.md", cited() + "\n" + body)
+    repo.write("it/concepts/empty.md", cited() + "\n")
+    counted = read(repo.root / "it/concepts/count.md", Path("it/concepts/count.md")).prose_words
+    baseline = read(repo.root / "it/concepts/empty.md", Path("it/concepts/empty.md")).prose_words
+    assert counted - baseline == 4 + 2 + 2
+
+
+def test_어절_8000_분할_권고(repo: Repo):
+    base(repo)
+    long_body = "\n".join(f"문단 {i} 어절 둘 셋 넷 다섯 여섯 일곱 여덟 아홉 열." for i in range(800))
+    repo.write("it/concepts/vast.md", cited() + "\n" + long_body + "\n")
+    lint(repo)
+    assert any("분할" in f for f in findings(repo, "page-split-recommended"))
+    assert not findings(repo, "page-too-long")     # 두 층은 배타다
 
 
 def test_헤딩_구조를_본다(repo: Repo):
@@ -382,7 +413,7 @@ def test_결과_종류_레지스트리가_완결이다():
     발단이다."""
     from syntopicon.checks import KINDS
 
-    assert len(KINDS) == 52      # 41 + 집세 심사(08) 이관 1파 6종 + 2파 4종 + time-relative-wording(2026-09-19)
+    assert len(KINDS) == 53      # 41 + 집세 심사(08) 이관 1파 6종 + 2파 4종 + time-relative-wording(2026-09-19) + page-split-recommended(2026-09-25)
     for k in KINDS.values():
         assert k.severity in ("error", "warn", "info"), k.name
         assert k.doc and k.guidance, f"{k.name}: doc·guidance는 필수다"

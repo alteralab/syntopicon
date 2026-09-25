@@ -43,6 +43,9 @@ def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str
                   incremental: bool, only_kb: str | None) -> Context:
     files, meta, changed = {}, {}, set()
     for row in connection.execute("SELECT * FROM files"):
+        if "prose_words" not in row.keys():
+            raise SystemExit("중단: 파생 색인이 옛 스키마입니다(files.prose_words 없음) — "
+                             "`uv run tools/reindex.py`로 다시 만드십시오.")
         path = row["path"]
         if only_kb and row["kb"] != only_kb:
             continue
@@ -50,7 +53,8 @@ def build_context(layout: layout_mod.Layout, connection, baseline: dict[str, str
         meta[path] = {
             "kb": row["kb"], "directory": row["directory"], "type": row["type"],
             "status": row["status"], "stale_after": row["stale_after"],
-            "sha256": row["sha256"], "frontmatter": json.loads(row["frontmatter"]),
+            "sha256": row["sha256"], "prose_words": row["prose_words"],
+            "frontmatter": json.loads(row["frontmatter"]),
         }
         if not incremental or baseline.get(path) != row["sha256"]:
             changed.add(path)

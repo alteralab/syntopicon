@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS files (
   stale_after TEXT,               -- YYYY-MM-DD
   unreviewed  INTEGER NOT NULL,   -- inbox 경로 + verified 부재 (PLAN §3)
   sha256      TEXT NOT NULL,      -- lint 증분 실행의 기준
+  prose_words INTEGER NOT NULL,   -- 본문 어절 수(§2.6 백스톱) — 페이지가 아니라 여기 둔다(산문 카운터는 썩는다)
   frontmatter TEXT NOT NULL       -- 필터 컬럼 외 전부 JSON
 );
 
@@ -146,7 +147,7 @@ def staleness(connection: sqlite3.Connection, kbs: tuple[str, ...]) -> str | Non
     return None
 
 
-def _link_target(layout: Layout, src: Path, href: str) -> tuple[str, str, str | None, bool]:
+def _link_target(src: Path, href: str) -> tuple[str, str, str | None, bool]:
     """링크 하나를 (kind, dst, anchor, resolved)로 푼다. 저장소 밖 링크는 None을 뜻하는 빈 kind."""
     target, _, anchor = href.partition("#")
     anchor = anchor or None
@@ -204,26 +205,31 @@ def build(layout: Layout) -> Counts:
             front.get("stale_after"),
             int(directory == "inbox" and "verified" not in front),
             hashlib.sha256(raw).hexdigest(),
+            md.prose_words,
             json.dumps(front, ensure_ascii=False, sort_keys=True, default=str),
         ))
 
         for href in md.links:
-            kind, dst, anchor, resolved = _link_target(layout, relative, href)
+            kind, dst, anchor, resolved = _link_target(relative, href)
             if kind:   # 저장소 밖(http 등)은 그래프의 간선이 아니다
                 edges.append((str(relative), dst, kind, anchor, int(resolved)))
 
     # INSERT는 컬럼을 명명한다 — 위치 기반은 스키마 컬럼 순서에 암묵 결합돼
     # 순서 변경이 조용한 어긋남이 된다(2026-08-13 감사).
     with connect() as connection:
+        # 파생 DB는 통째로 다시 만든다 — DELETE는 옛 스키마의 표를 남겨 열 추가 뒤
+        # INSERT가 "no column"으로 죽는다(코덱스 리뷰 2026-09-25, prose_words 도입 실측).
         for table in ("files", "edges", "morph", "fragments", "meta"):
-            connection.execute(f"DELETE FROM {table}")
+            connection.execute(f"DROP TABLE IF EXISTS {table}")
+        connection.executescript(SCHEMA)
         connection.executemany(
             "INSERT INTO meta (key, value) VALUES (?,?)",
             [("fingerprint", fingerprint),
              ("built_at", datetime.now(timezone.utc).isoformat())])
         connection.executemany(
             "INSERT INTO files (path, kb, directory, type, status, stale_after, "
-            "unreviewed, sha256, frontmatter) VALUES (?,?,?,?,?,?,?,?,?)", files)
+            "unreviewed, sha256, prose_words, frontmatter) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            files)
         connection.executemany(
             "INSERT INTO edges (src, dst, kind, anchor, resolved) VALUES (?,?,?,?,?)", edges)
         connection.executemany(

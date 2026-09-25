@@ -14,9 +14,12 @@ from ..repo import ROOT
 from .base import Context, Finding, kind
 from .provenance import check_progress, check_snapshot
 
-# PLAN이 규정한 것: 500줄 백스톱·100줄 TOC(§2.6). 나머지는 자체 상수이고,
+# PLAN이 규정한 것: 본문 어절 6,000 경고·8,000 분할 권고·100줄 TOC(§2.6). 어절 문턱은
+# 영어 위키백과 Article size 규칙(6,000단어 미만은 길이만으로 나눌 이유 없음·8,000 초과는
+# 나눌 수도)을 이 KB 실측(1,400쪽, 2026-09-25)에 맞댄 값이다. 나머지는 자체 상수이고
 # PLAN §6대로 운영 데이터로 보정할 자리다.
-PAGE_LINE_BACKSTOP = 500
+PROSE_WORDS_WARN = 6000
+PROSE_WORDS_SPLIT = 8000
 TOC_REQUIRED_ABOVE = 100
 MAX_HEADING_DEPTH = 4          # H4가 필요해지면 분할 신호(§2.6, 자체 휴리스틱)
 
@@ -27,9 +30,12 @@ EPISTEMIC_TOKEN = re.compile(r"(?<![\w#])#([a-z][a-z0-9-]*)")
 # ast-grep-ignore: regex-on-structure — 어휘: `[[…]]` 고정 형식 검출, 중첩 없음(AST 텍스트 노드 안)
 WIKILINK = re.compile(r"!?\[\[[^\]]+\]\]")
 
-kind("page-too-long", "warn", "500줄 백스톱 초과",
-     "500줄은 백스톱이지 분할 기준이 아니다. 1차 완화는 TOC + 섹션 앵커이고, "
+kind("page-too-long", "warn", "본문 어절 6,000 백스톱 초과",
+     "6,000어절은 백스톱이지 분할 기준이 아니다. 1차 완화는 TOC + 섹션 앵커이고, "
      "분할은 '한 페이지 = 하나의 질문'이 깨졌을 때만 한다.")
+kind("page-split-recommended", "warn", "본문 어절 8,000 초과 — 분할 권고",
+     "위키백과가 '나눌 수도 있다'고 보는 크기다. 절 경계에서 갈랐을 때 각 조각이 다른 "
+     "물음에 답하면 나누고, 아니면 TOC를 갖춘 채 두되 그 판정을 기록한다.")
 kind("toc-missing", "info", "100줄 초과인데 상단 TOC 부재",
      "H1 바로 아래에 링크 불릿 목차를 단다(§2.6).")
 kind("heading-h1", "warn", "H1이 하나가 아님",
@@ -104,7 +110,10 @@ def check_page(ctx: Context, path: str, md: MdFile):
         return
     kb, front = meta["kb"], md.frontmatter or {}
 
-    yield from _check_length_and_toc(kb, path, md, front)
+    words = ctx.meta.get(path, {}).get("prose_words")
+    if words is None:              # 색인 밖 파일(시험 저장소 등)만 — 저장값 0은 0이다
+        words = md.prose_words
+    yield from _check_length_and_toc(kb, path, md, front, words)
     yield from _check_headings(kb, path, md)
     yield from _check_anchor_links(kb, path, md)
     yield from _check_sources_cited(kb, path, md, front)
@@ -120,10 +129,14 @@ def check_page(ctx: Context, path: str, md: MdFile):
     yield from check_progress(kb, path, front, ctx.progress_validator)
 
 
-def _check_length_and_toc(kb: str, path: str, md: MdFile, front: dict):
-    if md.line_count > PAGE_LINE_BACKSTOP:
+def _check_length_and_toc(kb: str, path: str, md: MdFile, front: dict, words: int):
+    if words >= PROSE_WORDS_SPLIT:
+        yield Finding("page-split-recommended",
+                      f"분할 권고 — 본문 {words:,}어절({md.line_count}줄). 절 경계마다 '다른 "
+                      "물음인가'를 묻고 나누거나 판정을 기록한다(§2.6)", kb, path)
+    elif words >= PROSE_WORDS_WARN:
         yield Finding("page-too-long",
-                      f"{md.line_count}줄 — 분할 판단은 목적 기준으로(§2.6). "
+                      f"본문 {words:,}어절({md.line_count}줄) — 분할 판단은 목적 기준으로(§2.6). "
                       "1차 완화책은 분할이 아니라 TOC + 섹션 앵커", kb, path)
     # 허브(synthesis)는 면제 — 본문 자체가 링크 목록이고, hub-grammar 가 링크
     # 불릿에 설명을 요구해 pointer_only 기준의 TOC 와 상호 배제된다(2026-08-16
