@@ -55,6 +55,19 @@ sources:
     인수로 받으라는 것이다. 같은 처방을 파이썬 축이 "암묵적 의존(임포트)을 명시적 의존(인수)으로
     바꾼다"로 적는다 — 그 전문은 [의존성 역전 원칙](../concepts/dependency-inversion-principle.md)의
     "암묵적 의존과 명시적 의존"에 있다. 원전은 그것을 패턴의 **정의적 요구**로 앞세운다.
+- 위 목적의 목록은 2005년 원문의 것에서 자라 온 것이다 — 6장 6.2절에 재수록된 2005년 원문의 첫
+  문장(패턴의 "thumbnail")은 이렇다 (6장 §"6.2. 원문"):[^cockburn2024]
+
+  > Create your application to work without either a UI or a database so you can run automated
+  > regression-tests against the application, work when the database becomes unavailable, and link
+  > applications together without any user involvement.
+
+  - 2005년 원문에서는 목적이 셋이었다 — UI도 데이터베이스도 없이 돌아가게 만들어 자동 회귀 시험을
+    걸고, 데이터베이스가 끊겨도 동작하고, 사용자 개입 없이 애플리케이션끼리 잇는 것이다. **2024년
+    저술 시점의 판(위 1.1절 인용)은 여기에 두 조항을 더했다** — "연결된 기술을 갈아 끼운다(change
+    connected technologies)"와 "업무 로직과 기술 사이의 누출을 막는다(protect it from leaks between
+    business logic and technologies)"다. 요구의 골자(외부 기술을 인수로 받으라)는 2005→2024 사이
+    바뀌지 않았고, 목적의 목록만 두 항목 자라났다.
 
 ## 약한 준수와 강한 준수
 
@@ -157,6 +170,28 @@ sources:
   액터는 체계와 상호작용하는 이유로 특징지어지므로, **액터마다 포트를 하나 만드는 데서 출발하고,
   인터페이스마다 그것이 어느 액터를 섬기는지 묻는다** (2장 §"2.2. The pattern
   elements…").[^cockburn2024]
+- 이 비대칭의 착상은 2005년 원문에 이미 있었다. 원문은 안과 밖의 가름이 왼쪽·오른쪽의 가름보다
+  근본이라고 못 박는다 (6장 §"6.2. 원문"):[^cockburn2024]
+
+  > The asymmetry to exploit is not that between _left_ and _right_ sides of the application but
+  > between _inside_ and _outside_ of the application.
+
+  - 2005년 원문에서 저자는 착취할 비대칭이 앱의 좌우가 아니라 안과 밖의 것이며, 지켜야 할 규칙은
+    안쪽에 속한 코드가 바깥쪽으로 새지 않게 하는 것이라 적는다.
+- 구동/피구동이라는 말은 2017년에야 생겼고(위 [이름과 역사](hexagonal-architecture-name-and-history.md)
+  참조), 2005년 원문은 같은 가름을 유스케이스의 **primary·secondary 액터**로 적었다
+  (6장 §"6.2. 원문"):[^cockburn2024]
+
+  > A _primary actor_ is an actor that drives the application (takes it out of quiescent state to
+  > perform one of its advertised functions). A _secondary actor_ is one that the application drives,
+  > either to get answers from or to merely notify. The distinction between _primary _and_ secondary
+  > _lies in who triggers or is in charge of the conversation.
+
+  - 2005년 원문에서 primary 액터는 앱을 잠잠한 상태에서 걷어차 광고된 기능을 수행하게 하는 쪽,
+    secondary 액터는 앱이 답을 얻거나 알리려고 구동하는 쪽이며, 둘을 가르는 것은 누가 대화를
+    촉발하거나 주관하는가다. 원문은 또 이 관례에서 primary 포트·어댑터를 왼쪽(또는 위)에, secondary
+    포트·어댑터를 오른쪽(또는 아래)에 그린다고 밝힌다 — 이것이 [포트와 어댑터와 이웃
+    개념](ports-and-adapters-related-concepts.md)의 유스케이스 대응(5.1)과 같은 어휘다.
 
 ## 어댑터
 
@@ -164,6 +199,14 @@ sources:
   어댑터가 없어도 된다. 시험 케이스를 짜서 앱을 구동할 때 앱의 제공 인터페이스를 시험 케이스에
   바로 코딩하거나, 두 앱을 처음부터 인터페이스가 맞도록 함께 설계하는 경우가 그렇다
   (2장 §"2.2. The pattern elements…").[^cockburn2024]
+- 이 점이 구동 쪽에서 오해를 부른 자리이고, 저자가 2023년 주석에서 그것을 바로잡는다. 2005년
+  원문은 "이벤트가 포트에 도착하면 기술에 특정한 어댑터가 그것을 변환해 앱에 넘긴다"고 적었는데,
+  이 문장이 헷갈리고 부정확하다는 지적을 받아 웹에서 고쳤으나 그래도 살짝 오해를 남긴다고 저자는
+  적는다 — **구동 액터는 어댑터가 필요할 때도, 필요 없을 때도 있으며, 패턴은 그것을 구별하지도
+  신경 쓰지도 않는다. 그 전부가 앱 바깥에서 일어난다** (6장 §"6.3. 2023 주석").[^cockburn2024]
+  그래서 "어댑터가 필요 없으면 그 구동자, 필요하면 그 구동자의 어댑터"를 뭉뚱그릴 낱말이 없어
+  **interactor**라는 말을 더했다고 밝힌다 — 이 용어의 실무 쓰임은 [포트와 어댑터 적용
+  실무](ports-and-adapters-in-practice.md)의 개발 순서 절에 있다.
 - 어댑터의 규정은 번역이다 — **어댑터는 앱의 인터페이스를 구동·피구동 액터의 인터페이스에 맞추는
   데 필요한 코드로, 기술에 특정한 외부 액터의 메시지를 포트에서의 기술 중립적 요청으로, 그리고
   그 반대로 번역한다** (2장 §"2.1. Glossary").[^cockburn2024] 컴퓨터 앞의 사람이 앱을 직접
@@ -200,6 +243,15 @@ sources:
   ID를 얻고), 그다음 앱을 인스턴스화해 앱 생성자에 피구동 액터를 넣고, 마지막으로 각 구동
   어댑터를 인스턴스화하며 앱을 건네는 순서다 (2장 §"2.3. The 5th element: The Configurator",
   그림 2.1).[^cockburn2024]
+- Configurator를 어떤 형태로 지을지를 저자가 2023년에 별도 패턴 **Configurable Receiver**로 규정했고,
+  그것을 6장 6.5절에 원문으로 재수록한다. 그 패턴의 규정은 "실행 시점에 수신자(receiver)를 설정하거나
+  바꾼다"이며, **의존성 주입(dependency injection)과 의존성 조회(dependency lookup)를 함께 아우른다** —
+  Configurator가 발신자에게 어느 수신자를 쓸지 알려 주면 의존성 주입이고, 발신자가 Configurator(서비스
+  로케이터 또는 브로커)에게 물어보면 의존성 조회다 (6장 §"6.5. Configurable Receiver").[^cockburn2024]
+  저자는 포트와 어댑터가 **어느 형태의 Configurator를 써야 하는지는 말하지 않으며, Configurable
+  Receiver가 서술한 어느 것이든 쓸 수 있다**고 못 박는다 (6장 §"6.5. Configurable
+  Receiver").[^cockburn2024] 그 두 수단의 규정과 이 KB의 2차 서술은 [의존성 주입과
+  부트스트랩](../concepts/dependency-injection-and-bootstrap.md)에 있다.
 
 ## 필수와 선택과 패턴 밖
 
@@ -247,6 +299,8 @@ sources:
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점이 되는 패턴
 - [서비스 레이어](../concepts/service-layer-pattern.md) — 뒤집은 구조 위에 얹히는 조율 층
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 조직 원리 위에서 데이터 관리만 달리하는 패턴
+- [Component + Strategy 패턴](component-plus-strategy-pattern.md) — 이 패턴이 특수 경우로 속하는
+  일반형(같은 원전 6장)
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처
   패턴을 고를지가 걸리는 입력
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
@@ -254,4 +308,7 @@ sources:
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 1장 §"1.1. Copy this code" · 2장 §"2.1. Glossary" ·
     §"The difficulty of naming" · §"2.2. The pattern elements: App, Ports, Actors, Adapters" ·
     §"2.3. The 5th element: The Configurator" · §"2.4. What is required, optional, and outside the
-    pattern"(그림 2.1 포함). EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.
+    pattern"(그림 2.1 포함) · 6장 §"6.2. The original article: The Hexagonal (Ports & Adapters)
+    Architecture"(2005년 원문 재수록) · §"6.3. Comments on the original article in 2023" ·
+    §"6.5. The article: "Configurable Receiver"". 2005년 원문 직인용은 텍스트 레이어 훼손 없는
+    구간만 옮겼다. EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.

@@ -170,7 +170,8 @@ sources:
     포트와 경계의 시험을 갖춘 컴포넌트로 다룰 때에야 포트와 어댑터가 된다. 콕번은 이 일반형을
     6장 §"6.4"의 Component + Strategy 패턴으로 부르고, **포트와 어댑터를 그 특수한 경우 — 기술
     요소가 앱에 닿는 자리, 또는 한 팀의 결정 권한이 끝나는 자리를 보호 경계로 삼는 경우 — 로
-    규정한다** (5장 §"5.6").[^cockburn2024] 그 일반형의 전문은 6장을 담는 뒤 런의 몫이다.
+    규정한다** (5장 §"5.6").[^cockburn2024] 그 일반형의 전문은
+    [Component + Strategy 패턴](component-plus-strategy-pattern.md)에 있다.
 
 ## 부패 방지 계층은 어댑터인가
 
@@ -199,7 +200,8 @@ sources:
   겨냥하므로 체계 경계를 각 외부 기술 바로 앞에 선언하기를 권한다. 이 판정은
   [포트와 어댑터 규정](ports-and-adapters-defined.md)의 "필수와 선택과 패턴 밖"이 2장에서 이미
   건 갈고리("패턴은 중첩하지 않는다")를 5장에서 되풀이하며, 앱 경계를 어디에 두는가의 물음으로
-  되돌린다.
+  되돌린다. 헥사고날은 중첩하지 않으나 그 일반형은 중첩하도록 설계됐다는 이 갈림의 근거는
+  [Component + Strategy 패턴](component-plus-strategy-pattern.md)에 있다.
 
 ## CQRS는 포트와 어댑터의 예인가
 
@@ -229,6 +231,7 @@ sources:
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점
 - [부패 방지 계층](../concepts/anticorruption-layer.md) — 5.7이 어댑터인지 묻는 대상
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 5.9가 포트와 어댑터의 예인지 묻는 대상
+- [Component + Strategy 패턴](component-plus-strategy-pattern.md) — 5.6·5.7·5.8이 기대는 일반형(6.4)
 - [대역 어휘와 두 TDD 스타일](../concepts/test-double-vocabulary-and-tdd-styles.md) — 5.4의 대역이 닿는 자리
 - [도메인 주도 설계](../synthesis/domain-driven-design.md) — 5.6·5.7이 닿는 허브
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) — 이 축의 허브
