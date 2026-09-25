@@ -234,6 +234,10 @@ sources:
 
 ## 이어지는 페이지
 
+- [코드로 본 포트와 어댑터](ports-and-adapters-in-code.md) — 이 규정이 코드에서 어디에 서는지를
+  세금 계산기·web-hexagon·BlueZone 세 사례로 보이는 자리
+- [포트와 어댑터 적용 실무](ports-and-adapters-in-practice.md) — 같은 규정을 실무 문답으로 되풀이한
+  자리(포트란 무엇인가·앱 경계·포트 수·파일 배치·개발 순서)
 - [헥사고날 아키텍처의 이름과 역사](hexagonal-architecture-name-and-history.md) — 왜 "육각형"인가,
   포트와 어댑터로 이름을 고친 내력, 그리고 이 패턴의 비용과 편익
 - [의존성 역전 원칙](../concepts/dependency-inversion-principle.md) — 이 패턴이 이 KB에서 사는
