@@ -8,6 +8,7 @@ sources:
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
 status: draft
+contradicts: [ports-and-adapters-related-concepts]
 ---
 
 # 의존성 역전 원칙
@@ -362,6 +363,15 @@ status: draft
     [유비쿼터스 언어](ubiquitous-language.md)에 있다.
   - **이 KB는 이 네 이름에 페이지를 따로 세우지 않는다.** 두 소스가 같은 것이라고 적으므로
     이 페이지가 넷을 함께 갖는다.
+- **그러나 이 패턴의 원저자 콕번은 위 "같은 구성 요소"를 부정한다.** 콕번은 양파·클린이 포트와
+  어댑터와 **의존 구조는 같으나**, 포트의 명시를 요구하지 않고 포트와 어댑터가 두지 않는 층을 더
+  요구한다는 두 가지로 다르다고 못 박는다 — 차이가 이름뿐이 아니라 구조에 있다는 것이다
+  (5장 §"5.5. Layered, onion, clean, hexagonal: what is the difference?").[^cockburn2024] 위
+  판정은 도메인 주도 설계 입문서를 근거로 세운 2차 서술이고, 원전의 이 반론과 **"구성 요소가
+  같은가"라는 한 명제에서 사실로 충돌한다**(둘 다 참일 수 없다). 그래서 이 페이지가 원전 쪽
+  [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md)을 `contradicts`로 가리킨다.
+  다만 두 서술이 갈리지 않는 축 — **의존 방향의 동일성** — 은 콕번도 같다고 적으므로 대질에
+  넣지 않는다. 이 판정의 전문과 근거는 그 페이지의 "계층·양파·클린과 무엇이 다른가"에 있다.
 
 ## 포트와 어댑터의 원전 규정
 
@@ -389,8 +399,9 @@ status: draft
   원전은 패턴이 애플리케이션 내부 구조에 대해 아무것도 규정하지 않으며 **바로 그 점이 이 패턴을
   클린·양파 아키텍처와 다르게 만든다**고 못 박는다
   (2장 §"2.4. What is required, optional, and outside the pattern").[^cockburn2024] 두 서술의
-  이 갈림을 원전이 정면으로 대는 자리는 5장 §"5.5. Layered, onion, clean, hexagonal: what is the
-  difference?"다.
+  이 갈림을 원전이 정면으로 대는 자리가 5장 §"5.5"이고, 그 대질과 `contradicts` 판정은 위
+  [육각형·양파·클린은 같은 패턴이다](#육각형양파클린은-같은-패턴이다)와
+  [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md)에 있다.
 
 ## 이 아키텍처가 맞는 자리
 
@@ -423,6 +434,8 @@ status: draft
 - [계층 아키텍처](../concepts/layered-architecture.md) — 이 뒤집기의 출발점이 되는 패턴
 - [서비스 레이어](service-layer-pattern.md) — 뒤집은 구조 위에 얹히는 파사드 층
 - [CQRS 아키텍처](../concepts/cqrs-architecture.md) — 같은 조직 원리 위에서 데이터 관리만 달리하는 패턴
+- [포트와 어댑터와 이웃 개념](ports-and-adapters-related-concepts.md) — 원전이 이 패턴을
+  유스케이스·계층/양파/클린·DDD·CQRS와 견주는 5장이자 §5.5 대질의 상대
 - [업무 로직 구현 패턴 고르기](../concepts/choosing-a-business-logic-pattern.md) — 어느 아키텍처 패턴을
   고를지가 걸리는 입력
 - [도메인 모델과 애플리케이션 계층](../synthesis/domain-model-and-application-layers.md) —
@@ -454,5 +467,5 @@ status: draft
 
 [^cockburn2024]: Cockburn & Garrido de Paz 2024, 1장 §"1.1. Copy this code" · 2장 §"2.2. The
     pattern elements: App, Ports, Actors, Adapters" · §"2.3. The 5th element: The Configurator" ·
-    §"2.4. What is required, optional, and outside the pattern". EPUB(Calibre 변환본), 쪽 앵커 없음
-    — locator는 장·절 번호.
+    §"2.4. What is required, optional, and outside the pattern" · 5장 §"5.5. Layered, onion, clean,
+    hexagonal: what is the difference?". EPUB(Calibre 변환본), 쪽 앵커 없음 — locator는 장·절 번호.
