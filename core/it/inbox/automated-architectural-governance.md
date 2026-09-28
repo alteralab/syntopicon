@@ -736,6 +736,16 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
   적는다 (6장, p.92).[^richards2025]
   - **펜스를 하나만 두는 규약 때문에 여기서는 규칙의 뜻만 옮겼다.** 찾을 때의 키는
     `NetArchTest`와 `ShouldNot().HaveDependencyOn`이다.
+- **같은 책 11장이 이 도구 계열을 다섯 언어로 넓힌다** — 자바의 **ArchUnit**, .NET의
+  **ArchUnitNet**과 **NetArchTest**, 파이썬의 **PyTestArch**, 타입스크립트·자바스크립트의
+  **TSArch**다 (11장, p.172).[^richards2025]
+  - **PyTestArch와 TSArch와 ArchUnitNet은 이 KB에 여기서 처음 들어오는 이름이다.** 위 6장
+    대목은 자바와 .NET 둘만 들었다.
+  - **그 장이 거는 규칙의 종류도 다르다** — 6장이 *층 사이의 방향*을 막는다면 11장은
+    *모듈 쌍의 접근 자체*를 막고, 나아가 네임스페이스 준수와 의존 개수 상한까지 검사로 세운다.
+    그 셋과 ArchUnit 실물은 [모듈형 모놀리스 아키텍처 스타일](modular-monolith-architecture-style.md)에
+    있다.
+  - 버전 조건: 2025년 저술 시점의 도구 목록이다.
 
 ### 개발자가 지표를 속일 때
 
@@ -904,7 +914,8 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
 [^richards2025]: Richards·Ford 2025(2판), 6장 "Measuring and Governing Architecture
     Characteristics" — §"Governance and Fitness Functions"(p.86) · §"Governing Architecture
     Characteristics"(pp.86–87) · §"Distance from the Main Sequence fitness function"(pp.90–91,
-    ArchUnit 대목) · 지표 게이밍과 시미안 아미(pp.92–93) · 체크리스트 대목(p.93). 쪽은 인쇄판 쪽
+    ArchUnit 대목) · 지표 게이밍과 시미안 아미(pp.92–93) · 체크리스트 대목(p.93), 그리고 같은
+    책 11장 §Governance의 도구 열거 한 대목(p.172). 쪽은 인쇄판 쪽
     번호(PDF 쪽 − 24, 실측). **직인용을 쓰지 않았다** — 조문을 모두 한국어로 재서술하고 원어를
     병기해 검색 키를 남겼다. 굵은 글씨가 원문 문장의 재서술이며 괄호 안이 그 쪽이다. 표는 원문이
     문단으로 적은 세 원숭이를 "무엇을 거버넌스하는가"로 압축해 다시 쓴 것이다. **코드 펜스 하나는

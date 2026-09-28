@@ -117,6 +117,11 @@ sources:
   모놀리스를 11장에서 다룬다고 두 번 가리킨다 (9장, p.137).[^richards2025] **저자들이 그
   누락에 대해 아무 말도 하지 않는다** — 2판에서 새로 든 장이라 앞의 열거를 갱신하지 않은
   것으로 읽히나 근거가 본문에 없다. #hypothesis
+  - **11장 전장을 읽어 확인했다.** 그 장은 **1판을 쓴 2020년 이후 이 스타일이 인기를 얻어
+    2판에 장을 더했다**고만 적고 **9장의 목록이 왜 갱신되지 않았는지는 말하지 않는다** (11장
+    도입, p.165).[^richards2025] **곧 위 읽기를 뒷받침하는 정황은 늘었으나 문면은 여전히
+    없다.** #hypothesis 그 스타일의 카탈로그 항목은
+    [모듈형 모놀리스 아키텍처 스타일](modular-monolith-architecture-style.md)이다.
 
 ## 스위트 스폿 — 스타일을 배우는 이유
 
@@ -161,6 +166,10 @@ sources:
 ## 이어지는 페이지
 
 - [계층형 아키텍처 스타일](layered-architecture-style.md) — 이 규정이 처음 적용되는 스타일
+- [모듈형 모놀리스 아키텍처 스타일](modular-monolith-architecture-style.md) — 카탈로그의 둘째
+  항목이자 위 열거에서 빠진 그 장
+- [파이프라인 아키텍처 스타일](pipeline-architecture-style.md) — 카탈로그의 셋째 항목.
+  "파이프와 필터"라는 같은 낱말이 이 KB의 다른 층에서도 쓰인다는 분리표가 거기 있다
 - [아키텍처의 분할](architecture-partitioning.md) — 스타일을 가르는 첫 결정인 최상위 분할
 - [큰 진흙 공](big-ball-of-mud.md) — 스타일이 **없을** 때 남는 것
 - [클라이언트/서버와 티어 아키텍처](client-server-and-tiered-architectures.md) — 스타일이
@@ -176,7 +185,8 @@ sources:
 [^richards2025]: Richards·Ford 2025(2판), II부 도입(p.129)과 9장 "Foundations"
     (§"Styles Versus Patterns" pp.131–132 · 곁글 §"Where Do Architectural Styles Come From?"
     p.132 · §"Fundamental Patterns" 도입 p.133 · §"Monolithic Versus Distributed
-    Architectures" 도입과 스타일 목록 p.143 · §"On to Specific Styles" p.152). 쪽은 인쇄판
+    Architectures" 도입과 스타일 목록 p.143 · §"On to Specific Styles" p.152), 그리고 위
+    누락 실측을 닫으려고 뒤 런이 읽은 11장 도입(p.165). 쪽은 인쇄판
     쪽 번호(PDF 쪽 − 24, 실측). 직인용 둘(스타일이 담는 것의 규정 · "마이크로서비스는 라벨이지
     서술이 아니다")은 `pdftotext`로 교차 확인했다. 다섯 축의 표는 원문이 용어 목록
     (definition list) 조판이고 이 KB가 표로 옮겼으며 **값은 압축해 다시 썼다** — 낱말의 집합과
