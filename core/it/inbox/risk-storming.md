@@ -57,7 +57,9 @@ sources:
 - **진행자(facilitator)** — 리스크스토밍을 이끄는 아키텍트를 그렇게 부르고, **모든 참가자에게
   회기용으로 갱신된 도판을 보내는 책임**이 그에게 있다 (22장, p.410).[^richards2025]
 - **세 단계가 모두 포괄적이거나 맥락적인 아키텍처 도판을 쓴다** — 저자들이 그 자리로 23장을
-  가리킨다 (22장, p.410).[^richards2025] **이 KB는 아직 그 장을 반입하지 않았다.**
+  가리킨다 (22장, p.410).[^richards2025] 그 장의 자리는
+  [아키텍처 도식화 실무](architecture-diagramming-practice.md)와
+  [도식화 표준 셋 — UML·C4·아키메이트](diagramming-standards-uml-c4-archimate.md)다.
 
 ## 규정과 세 단계
 

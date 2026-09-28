@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-09-28T00:00:00Z" }
 status: draft
 sources:
   - { id: hohpe2020, resource: /it/sources/hohpe2020.md }
+  - { id: richards2025, resource: /it/sources/richards2025.md }
 ---
 
 # 아키텍처의 범위와 결정 시험
@@ -317,7 +318,23 @@ sources:
     [진화적 아키텍트의 역할](../concepts/evolutionary-architect-role.md)로 돌렸는데,
     **그 페이지에 그 목록이 없다.** 그리고 **원전 2판이 인쇄하는 넷은 그 목록과 다르다** —
     스타일이 들고 설계 원칙이 빠진다. **이 KB는 그 네 낱말 목록이 어느 판본의 무엇인지
-    판정하지 않고**, 귀속을 원전 쪽으로 옮겨 적었다. #hypothesis
+    판정하지 않고**, 귀속을 원전 쪽으로 옮겨 적었다.
+  - **원전 전권을 다 읽고 나서 그 자리를 닫는다.** `설계 원칙(design principle)`이 2판 어디에
+    나오는지를 전권 검색으로 셌더니 **정의의 자리에는 한 번도 나오지 않고 아키텍트의 기대를
+    세는 자리에 나온다** — **첫째 기대가 아키텍처 결정과 설계 원칙을 규정하는 것**(1장, p.8)이고
+    **둘째 기대가 그 둘의 준수를 보증하는 것**(1장, p.10)이며, 같은 낱말이 뒤에서 한 번 더
+    **팀에게 설계 원칙을 전달하는 방법**(24장, pp.450–452)으로 나온다. **책의 색인도 그 셋만
+    항목으로 세운다.**[^richards2025] 그 자리는
+    [아키텍트에게 기대되는 여덟 가지](../concepts/architect-expectations.md)와
+    [설계 원칙으로 팀을 이끌기](../concepts/guiding-teams-with-design-principles.md)가 갖는다.
+  - **책의 부록이 그 배치를 한 물음으로 확인해 준다** — 1장의 토론용 질문 둘째가 **아키텍처
+    결정과 설계 원칙의 차이**를 묻는다 (부록, p.497).[^richards2025] 곧 **저자들은 그 둘을
+    나란한 두 어휘로 세우면서도 소프트웨어 아키텍처를 규정하는 네 차원에는 설계 원칙을 넣지
+    않는다.**
+  - **그래서 옛 판의 네 낱말은 이 저자들의 정의가 아니라 이 저자들이 아키텍트의 첫째 기대로
+    적은 것의 낱말**로 읽는 것이 가장 가깝다. **1판 실물이 없어 확정하지는 못했고**, 2판
+    문면으로 말할 수 있는 것은 **그 넷이 정의의 자리에서 온 목록이 아니라는 것**까지다.
+    #hypothesis
 - **"단점 없는 결정은 뜻있지 않다"는 보조 시험은 이 KB의 절충 어휘와 같은 방향이다.**
   [트레이드오프 분석 방법](../concepts/trade-off-analysis-method.md)이 대안 비교를 절차로 세우는
   자리인데, 그 절차는 **단점을 찾아 비교하는 방법**을 주고 이 시험은 **단점이 하나도 없으면
@@ -380,3 +397,14 @@ sources:
     Martin Fowler · Pierre Koenig의 케이스 스터디 하우스 22호 · Julius Shulman · P. La Roche)은
     **이 KB가 원전으로 확인한 것이 아니다** — 귀속은 이 책이 그렇게 적는다까지로 둔다. 굵은
     글씨는 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
+
+[^richards2025]: Richards & Ford 2025(2판) *Fundamentals of Software Architecture* — 1장
+    "Introduction" §"Expectations of an Architect"의 소절 §"Make Architecture Decisions"(p.8)와
+    §"Ensure Compliance with Decisions"(p.10), 24장 §"Communicating Design Principles"
+    (pp.450–452), 색인 항목 `design principles`(p.518), 그리고 부록 "Discussion Questions"의
+    1장 물음 둘(p.497). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 24, 실측). **직인용이 없다** —
+    굵은 글씨가 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다. `design principle`의 전권
+    출현 자리는 `pdftotext` 전권 추출에 대한 검색으로 셌다. 이 소스는 이 페이지에서 **옛 판의
+    네 낱말 귀속을 가리는 데에만** 인용하고, 그 책의 아키텍처 규정 본문은
+    [소프트웨어 아키텍처의 규정 — 네 차원](../concepts/architecture-defined-four-dimensions.md)이
+    갖는다.

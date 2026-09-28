@@ -317,7 +317,8 @@ pp.185–186):[^richards2025]
     가능성을, 따라서 전반적 신뢰성을 해칠 수 있다.** 그런 상황에는 **이벤트 주도
     아키텍처(15장)가 훨씬 잘 맞는다.**
     - 그 스타일의 자리는 [이벤트 주도 마이크로서비스](../synthesis/event-driven-microservices.md)이고,
-      **richards2025 15장은 아직 이 KB에 들어오지 않았다.**
+      같은 책 15장의 판은
+      [이벤트 주도 아키텍처 스타일](event-driven-architecture-style.md)이 갖는다.
 
 ## 바깥의 용례와 실물
 
