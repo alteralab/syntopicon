@@ -162,10 +162,10 @@ sources:
   맞춰진다 (16장 §"Data Grid", p.289).[^richards2025] 고객 프로필을 담는 복제 맵을 얻는
   Hazelcast 호출이 그 실물이다.
 
-```java
-HazelcastInstance hz = Hazelcast.newHazelcastInstance();
-Map<String, CustomerProfile> profileCache = hz.getReplicatedMap("CustomerProfile");
-```
+  ```java
+  HazelcastInstance hz = Hazelcast.newHazelcastInstance();
+  Map<String, CustomerProfile> profileCache = hz.getReplicatedMap("CustomerProfile");
+  ```
 
 - **그 이름을 쓰는 처리 단위 전부가 같은 코드를 담아야 하고**, 한 처리 단위가 그 캐시를
   갱신하면 데이터 그리드가 같은 이름의 캐시를 가진 나머지 처리 단위 전부에 갱신을 옮긴다.
