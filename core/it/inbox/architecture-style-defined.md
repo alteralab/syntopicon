@@ -109,9 +109,14 @@ sources:
   모놀리식에는 없는 공통의 어려움 묶음을 공유하므로 이 분류가 좋은 가름**이라고 적는다 (9장
   §"Monolithic Versus Distributed Architectures", p.143).[^richards2025]
 - 그 뒤에 II부가 자세히 다룰 스타일이 열거된다 (9장, p.143):[^richards2025]
-  - **모놀리식** — 계층형(10장) · 파이프라인(12장) · 마이크로커널(13장)
-  - **분산** — 서비스 기반(14장) · 이벤트 주도(15장) · 공간 기반(16장) · 서비스 지향(17장) ·
-    마이크로서비스(18장)
+  - **모놀리식** — [계층형](layered-architecture-style.md)(10장) ·
+    [파이프라인](pipeline-architecture-style.md)(12장) ·
+    [마이크로커널](microkernel-architecture-style.md)(13장)
+  - **분산** — [서비스 기반](service-based-architecture-style.md)(14장) ·
+    [이벤트 주도](event-driven-architecture-style.md)(15장) ·
+    [공간 기반](space-based-architecture-style.md)(16장) ·
+    [서비스 지향](orchestration-driven-soa-architecture-style.md)(17장) ·
+    [마이크로서비스](microservices-architecture-style.md)(18장)
 - **이 목록이 여덟인데 II부의 스타일 장은 아홉이다.** 11장 모듈형 모놀리스가 이 열거에서
   빠져 있고, 같은 장 앞쪽([아키텍처의 분할](architecture-partitioning.md)이 담는 대목)은 모듈형
   모놀리스를 11장에서 다룬다고 두 번 가리킨다 (9장, p.137).[^richards2025] **저자들이 그
