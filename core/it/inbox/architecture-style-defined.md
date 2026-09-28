@@ -170,6 +170,11 @@ sources:
   항목이자 위 열거에서 빠진 그 장
 - [파이프라인 아키텍처 스타일](pipeline-architecture-style.md) — 카탈로그의 셋째 항목.
   "파이프와 필터"라는 같은 낱말이 이 KB의 다른 층에서도 쓰인다는 분리표가 거기 있다
+- [마이크로커널 아키텍처 스타일](microkernel-architecture-style.md) — 카탈로그의 넷째 항목이자
+  **모놀리식 쪽 마지막**. "플러그인"이라는 같은 낱말이 쓰이는 넷과의 분리표가 거기 있고,
+  **도메인 분할과 기술 분할을 겸하는 유일한 스타일이라는 주장**도 거기 있다
+- [서비스 기반 아키텍처 스타일](service-based-architecture-style.md) — 카탈로그의 다섯째
+  항목이자 **분산 쪽 첫째**. 이 KB에 2차 서술로만 있던 양식의 원전 자리다
 - [아키텍처의 분할](architecture-partitioning.md) — 스타일을 가르는 첫 결정인 최상위 분할
 - [큰 진흙 공](big-ball-of-mud.md) — 스타일이 **없을** 때 남는 것
 - [클라이언트/서버와 티어 아키텍처](client-server-and-tiered-architectures.md) — 스타일이

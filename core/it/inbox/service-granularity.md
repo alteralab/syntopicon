@@ -75,6 +75,18 @@ sources:
   p.38).[^richards2025] 그 규정의 전문은 [모듈성의 규정](../concepts/modularity-defined.md)에 있다.
   - **두 책의 판정이 같은 방향이다** — 양쪽 모두 **곤란의 자리를 모듈성이 아니라 세분도에**
     둔다. 이 장의 열 가지 힘은 그 곤란을 다루는 절차이고, 그쪽은 같은 진단에서 멈춘다.
+  - **그 책 14장이 그 진단에 대가 둘을 실물로 붙인다.** 서비스 기반 아키텍처의 굵은 도메인
+    서비스를 두고 적는 것이라 **세분도를 굵게 잡을 때 치르는 값**의 목록이 된다 (14장 §"Service
+    Design and Granularity", p.213):[^richards2025]
+    - **함께 테스트하고 함께 배포해야 한다** — `OrderService`의 주문 접수 기능을 바꾸면 결제
+      처리를 포함해 **그 서비스의 기능 전부를 테스트하고 재배포**해야 한다. 잘게 나눈
+      `OrderPlacement`였다면 `PaymentService`는 손대지 않아도 된다.
+    - **파급 반경이 넓어진다** — **도메인 서비스가 더 많은 기능을 배포하므로 다른 것이 깨질
+      위험도 더 크다.**
+    - **이 둘이 이 장의 분해 요인 가운데 코드 변동성·확장성과 같은 축을 반대편에서 적는다** —
+      이 장은 "왜 쪼개는가"를 세고, 그쪽은 "쪼개지 않으면 무엇을 내는가"를 센다. **저자가
+      겹치므로 독립 증언이 아니고**, 그 장의 전문은
+      [서비스 기반 아키텍처 스타일](service-based-architecture-style.md)이 갖는다. #hypothesis
 
 ## 세분도를 무엇으로 재는가
 
@@ -806,6 +818,8 @@ sources:
   같은 책의 앞 장
 - [도메인 서비스 만들기](../concepts/create-domain-services.md) — 이 장이 세분도를 판정하는 대상이 만들어지는
   자리
+- [서비스 기반 아키텍처 스타일](service-based-architecture-style.md) — 굵게 잡은 세분도가
+  치르는 대가 둘이 적히는 원전 전장
 - [컴포넌트를 식별하고 크기를 맞추기](../concepts/identify-and-size-components.md) — 문장 수라는 지표의 원전
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 2장이 세분도 논의를 이 장으로 넘기는 자리
 - [사가 패턴](../concepts/saga-pattern.md) — 워크플로 통합 요인이 미루는 대안과 그것을 꺼내기 전에 세분도를
@@ -889,7 +903,10 @@ sources:
     [DRY 원칙](dry-principle.md)이 갖는다.
 
 [^richards2025]: Richards·Ford 2025(2판), 3장 "Modularity" §"Modularity Versus
-    Granularity"(p.38). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 페이지는 그 절을 위 가름의
-    두 번째 인쇄를 기록하는 데만 쓰고 직인용은 두지 않았다 — 마크 리처즈의 경구를 포함한 그
-    절의 전문은 [모듈성의 규정](../concepts/modularity-defined.md)이 갖는다. 이 절에 수식도 도판도
-    코드 목록도 없다.
+    Granularity"(p.38)와 14장 "Service-Based Architecture Style" §"Service Design and
+    Granularity"(p.213). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 페이지는 앞 절을 위 가름의
+    두 번째 인쇄를 기록하는 데만, 뒤 절을 굵게 잡을 때의 대가 둘을 적는 데만 쓰고 직인용은 두지
+    않았다 — 마크 리처즈의 경구를 포함한 3장 절의 전문은
+    [모듈성의 규정](../concepts/modularity-defined.md)이, 14장 전장은
+    [서비스 기반 아키텍처 스타일](service-based-architecture-style.md)이 갖는다. 두 절 모두
+    수식도 도판도 코드 목록도 없다.
