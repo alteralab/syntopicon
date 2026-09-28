@@ -1,10 +1,11 @@
 ---
 type: concept
 title: 메시지 구성 패턴
-description: "메시지를 만들 때 무엇을 정해야 하는가 — 발신자의 의도로 갈리는 세 메시지(호출을 담는 Command Message·데이터를 넘기는 Document Message·변화를 알리는 Event Message)와 문서와 이벤트를 가르는 축(내용이냐 시점이냐), 단방향 채널 둘로 양방향 대화를 만드는 Request-Reply와 요청자의 두 수신 방식(동기 블록·비동기 콜백), 응답 채널을 요청이 들고 가는 Return Address, 응답을 요청에 되맞추는 Correlation Identifier의 여섯 부분과 업무 객체 ID 변형·응답 사슬, 한 메시지에 안 들어가는 데이터를 세 식별 필드로 쪼개는 Message Sequence, 언제부터 무의미해지는지를 발신자가 적는 Message Expiration, 그리고 형식 변경을 같은 채널에서 견디게 하는 Format Indicator의 세 구현(버전 번호·외래 키·형식 문서)"
+description: "메시지를 만들 때 무엇을 정해야 하는가 — 발신자의 의도로 갈리는 세 메시지(호출을 담는 Command Message·데이터를 넘기는 Document Message·변화를 알리는 Event Message)와 문서와 이벤트를 가르는 축(내용이냐 시점이냐), 단방향 채널 둘로 양방향 대화를 만드는 Request-Reply와 요청자의 두 수신 방식(동기 블록·비동기 콜백), 응답 채널을 요청이 들고 가는 Return Address, 응답을 요청에 되맞추는 Correlation Identifier의 여섯 부분과 업무 객체 ID 변형·응답 사슬, 한 메시지에 안 들어가는 데이터를 세 식별 필드로 쪼개는 Message Sequence, 언제부터 무의미해지는지를 발신자가 적는 Message Expiration, 그리고 형식 변경을 같은 채널에서 견디게 하는 Format Indicator의 세 구현(버전 번호·외래 키·형식 문서), 그리고 2025년의 한 소스가 Return Address와 Correlation Identifier를 보완이 아니라 갈라 고르는 두 구현으로 세우고 임시 큐가 브로커에 치르게 하는 값 때문에 상관 ID를 권하는 자리"
 generated: { by: "claude-opus-5", at: "2026-08-16T18:00:00Z" }
 sources:
   - { id: hohpe2004, resource: /it/sources/hohpe2004.md }
+  - { id: richards2025, resource: /it/sources/richards2025.md }
 ---
 
 # 메시지 구성 패턴
@@ -19,6 +20,7 @@ sources:
 - [Return Address — 응답 채널을 요청이 들고 간다](#return-address--응답-채널을-요청이-들고-간다)
 - [Correlation Identifier — 응답을 요청에 되맞추기](#correlation-identifier--응답을-요청에-되맞추기)
 - [업무 객체 ID와 응답 사슬](#업무-객체-id와-응답-사슬)
+- [두 패턴이 대안이 되는 자리 — 임시 큐](#두-패턴이-대안이-되는-자리--임시-큐)
 - [Message Sequence — 한 메시지에 안 들어갈 때](#message-sequence--한-메시지에-안-들어갈-때)
 - [Message Expiration — 언제부터 무의미해지는가](#message-expiration--언제부터-무의미해지는가)
 - [Format Indicator — 형식이 바뀔 것을 미리 적기](#format-indicator--형식이-바뀔-것을-미리-적기)
@@ -356,6 +358,35 @@ sources:
   Sequence*(170)의 식별자는 같은 발신자가 보낸 일련의 메시지 안에서 메시지의 위치를 지정하는 데
   쓰인다** (5장, p.167).[^hohpe2004]
 
+## 두 패턴이 대안이 되는 자리 — 임시 큐
+
+**이 장에서 *Return Address*와 *Correlation Identifier*는 서로 보완한다** — 위
+[Return Address](#return-address--응답-채널을-요청이-들고-간다)가 적듯 응답 주소는 **어느 채널로
+보낼지**를, 상관 식별자는 **어느 요청의 답인지**를 말한다. **2025년의 한 소스가 같은 둘을 보완이
+아니라 갈라 고르는 대안으로 세우고 한쪽에 권고를 붙인다.**
+
+- **자리** — 이벤트 주도 아키텍처 안에서 동기 응답이 필요할 때 쓰는 **요청-응답 메시징**이고, 저자들이
+  그것을 **의사동기 통신(pseudosynchronous communications)** 이라고도 부른다 (15장
+  §"Request-Reply Processing", p.256).[^richards2025]
+- **첫째 구현 — 상관 ID.** 응답 헤더에 원래 요청의 메시지 ID를 상관 ID로 적고, 요청자는 **메시지
+  선택자(message selector)를 걸어** 자기 상관 ID와 맞는 것만 집어 간다. 응답 큐에 남의 응답이 섞여
+  있어도 걸러진다 (15장, p.257).[^richards2025]
+  - **이 KB의 위 절이 적는 "양쪽이 합의해야 할 것"이 여기서는 선택자 하나로 구현된다** — 저자들은
+    합의 항목을 따로 열거하지 않고 **메시지 ID를 그대로 쓴다**고만 적는다.
+- **둘째 구현 — 임시 큐(temporary queue).** 응답 큐를 **요청마다 만들고 끝나면 지운다.** 그 큐 이름을
+  요청의 `reply-to` 헤더에 실어 보내므로 **상관 ID도 메시지 선택자도 필요 없다** — 그 큐에 오는 것은
+  전부 자기 응답이기 때문이다 (15장, pp.257–258).[^richards2025]
+  - **이것이 *Return Address*의 한 구현이다** — 위 절이 적는 이메일 `reply-to` 비유가 그대로 쓰인다.
+    **다른 것은 그 채널이 요청 하나만 살고 죽는다는 점**이고, 그래서 상관 식별자가 필요 없어진다.
+- **권고가 붙는다** — 임시 큐 쪽이 **훨씬 단순하되** 브로커가 **요청마다 큐를 만들고 곧바로 지워야**
+  하고, **메시지 양이 많고 동시성이 높으면 브로커가 크게 느려져 전체 성능과 응답성에 영향**을 준다.
+  그래서 저자들은 **대체로 상관 ID 쪽을 권한다** (15장, p.258).[^richards2025]
+- **두 소스가 겨루지 않는다.** 2004년 판은 **무엇이 어느 물음에 답하는가**를 가르고, 2025년 판은
+  **구현으로 골랐을 때 브로커가 치르는 값**을 잰다. **층이 다르다** — 뒤의 소스는 앞의 소스를
+  호명하지 않고, 앞의 소스는 임시 큐라는 낱말을 쓰지 않는다. #hypothesis 이 대응은 이 KB의 읽기다.
+- 이 패턴이 사는 양식 전체의 문면은
+  [이벤트 주도 아키텍처 스타일](../concepts/event-driven-architecture-style.md)에 있다.
+
 ## Message Sequence — 한 메시지에 안 들어갈 때
 
 - 문제 — **메시징이 임의로 큰 양의 데이터를 어떻게 전송할 수 있는가?** (5장, p.170).[^hohpe2004]
@@ -526,7 +557,16 @@ sources:
   실제로 채택한 계열
 - [순서 있는 전달 패턴](../concepts/ordered-delivery-patterns.md) — *Message Sequence*의 재조립
   문제가 스트림 처리에서 다시 나오는 자리
+- [이벤트 주도 아키텍처 스타일](../concepts/event-driven-architecture-style.md) — 두 패턴을 갈라 고르는
+  두 구현으로 세우는 쪽
 - [메시징 패턴](../synthesis/messaging-patterns.md) — 이 카탈로그의 허브
+
+[^richards2025]: [richards2025](../sources/richards2025.md) — 15장 "Event-Driven Architecture
+Style" §"Request-Reply Processing"(pp.256–258). 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 24, 실측).
+**이 절의 단계별 진행 서술과 도판 둘(그림 15-23 상관 ID·그림 15-24 임시 큐)은 옮기지 않았다** —
+여기에는 **이 페이지의 두 패턴과 갈리는 대목**만 옮겼고, 양식 전체의 문면은
+[이벤트 주도 아키텍처 스타일](../concepts/event-driven-architecture-style.md)에 있다. 이 소스는 호페를
+인용하지 않는다.
 
 [^hohpe2004]: Hohpe & Woolf 2004, 5장 "Message Construction" — "Introduction"(pp.143–144) ·
 "Command Message"(pp.145–146) · "Document Message"(pp.147–150) · "Event Message"(pp.151–153) ·

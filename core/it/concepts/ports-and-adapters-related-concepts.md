@@ -6,6 +6,7 @@ generated: { by: "claude-opus-5", at: "2026-09-25T00:00:00Z" }
 contradicts: [dependency-inversion-principle]
 sources:
   - { id: cockburn2024, resource: /it/sources/cockburn2024.md }
+  - { id: richards2025, resource: /it/sources/richards2025.md }
 ---
 
 # 포트와 어댑터와 이웃 개념
@@ -16,6 +17,7 @@ sources:
 - [시험 스위트는 구동 액터인가 어댑터인가](#시험-스위트는-구동-액터인가-어댑터인가)
 - [계층·양파·클린과 무엇이 다른가](#계층양파클린과-무엇이-다른가)
 - [도메인 주도 설계와의 관계](#도메인-주도-설계와의-관계)
+  - [다른 소스가 이 계보를 반대로 적는다](#다른-소스가-이-계보를-반대로-적는다)
 - [부패 방지 계층은 어댑터인가](#부패-방지-계층은-어댑터인가)
 - [중첩 헥사곤](#중첩-헥사곤)
 - [CQRS는 포트와 어댑터의 예인가](#cqrs는-포트와-어댑터의-예인가)
@@ -172,6 +174,28 @@ sources:
     규정한다** (5장 §"5.6").[^cockburn2024] 그 일반형의 전문은
     [Component + Strategy 패턴](../concepts/component-plus-strategy-pattern.md)에 있다.
 
+### 다른 소스가 이 계보를 반대로 적는다
+
+- [richards2025](../sources/richards2025.md)는 같은 두 이름을 **앞뒤로** 놓는다 — 헥사고날이
+  데이터 스키마를 업무 로직으로 포함하지 않은 것을 **당시 흔했던 오해에서 온 결함**이라 적고,
+  **에릭 에번스가 그의 책 *Domain-Driven Design*에서 이 실수를 바로잡는 통찰을 냈다**고 적는다
+  (20장 §"Hexagonal architecture", p.373).[^richards2025]
+- **콕번의 이 절과 방향이 맞지 않는다.** 콕번은 **두 패턴이 독립적으로 생겨 따로 진화했고 서로
+  관련이 없으며 명시적으로 묶여 있지도 않다**고 적는데, 저쪽은 **뒤엣것이 앞엣것의 실수를
+  고쳤다**고 적어 **한쪽이 다른 쪽에 응답한 관계**를 세운다.
+- **`contradicts`를 걸지 않았다.** 근거 둘 —
+  - **richards2025가 "에번스가 헥사고날에 응답했다"고 적지는 않는다.** 그가 고쳤다는 것은
+    **"헥사고날이라는 이름이 만들어지던 무렵에 흔했던" 오해**이므로 **업계 일반을 겨냥한
+    진술로도 읽힌다.** 그 읽기로는 콕번의 "서로 관련이 없다"와 같은 자리에서 부딪히지 않는다.
+  - **두 소스가 갈리지 않는 축도 있다** — 데이터베이스를 앱 바깥에 두는 것이 이 패턴의 성질이라는
+    **사실**에는 둘 다 동의한다. 갈리는 것은 그것이 **착상인가 오해인가**라는 판정이다.
+  - #hypothesis 이 대조는 이 KB가 세운 것이고 어느 쪽 저자도 상대를 부르지 않는다.
+- **판정의 무게가 대칭이 아니다** — **콕번은 이 패턴의 저자이고 richards2025는 그것을 한 절에서
+  인용하는 쪽**이다. **이 KB는 이 절의 서술을 정본으로 두고 저쪽의 판정을 병기한다.** 그 판정의
+  전문과 데이터 충실도 대질은
+  [헥사고날 아키텍처의 이름과 역사](../concepts/hexagonal-architecture-name-and-history.md)와
+  [패턴과 구현의 가름](../concepts/pattern-versus-implementation.md)에 있다.
+
 ## 부패 방지 계층은 어댑터인가
 
 - 5.7의 답은 "경우에 따라"다. 콕번은 부패 방지 계층(anti-corruption layer, ACL)이 포트와 어댑터의
@@ -243,3 +267,10 @@ sources:
     도판 열둘(그림 5.1~5.12)은 본문 서술이 그 내용을 그대로 담으므로 이미지를 열지 않았다 —
     그림 5.6·5.7·5.12는 각각 클린·양파·CQRS의 외부 표준 그림을 인용한 것이다. EPUB(Calibre
     변환본), 쪽 앵커 없음 — locator는 장·절 번호.
+
+[^richards2025]: Richards·Ford 2025(2판) *Fundamentals of Software Architecture* 20장
+    "Architectural Patterns" §"Hexagonal architecture"(p.373). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24,
+    실측). **직인용이 없다** — 굵은 글씨가 원문 문장의 한국어 재서술이고 괄호 안이 그 쪽이다.
+    이 페이지는 그 절에서 **DDD와의 계보를 적는 한 문장만** 옮겼고, 그 절의 전문은
+    [헥사고날 아키텍처의 이름과 역사](../concepts/hexagonal-architecture-name-and-history.md)와
+    [패턴과 구현의 가름](../concepts/pattern-versus-implementation.md)이 갖는다.

@@ -5,6 +5,7 @@ description: 모놀리스를 쪼개기로 했을 때 어떤 접근으로 쪼개�
 generated: { by: "claude-opus-5", at: "2026-09-17T21:30:00Z" }
 sources:
   - { id: ford2021-hard-parts, resource: /it/sources/ford2021-hard-parts.md }
+  - { id: richards2025, resource: /it/sources/richards2025.md }
   - { id: khononov2021, resource: /it/sources/khononov2021.md }
 ---
 
@@ -201,9 +202,14 @@ sources:
     미룰 수 있음·운영 자동화 불필요·조직 변경 불필요·세분성 판정의 유예)이다. **두 소스가
     이 자리에서 서로를 호명하지 않는다.** #hypothesis
 - 서비스 기반 아키텍처의 상세는 앞 책 *Fundamentals of Software Architecture*로 넘어간다
-  (4장, p.72).[^ford2021-hard-parts] 그 책은 이 KB에 없다.
-  - **다만 같은 책 2장의 곁상자가 그 양식을 규정하고, 5장의 마지막 패턴이 그것을 실제로 만들어
-    낸다.** 그 규정과 기본 토폴로지는
+  (4장, p.72).[^ford2021-hard-parts] **그 책이 이 KB에 들어왔다** — 그 양식의 전장은
+  [서비스 기반 아키텍처 스타일](service-based-architecture-style.md)이 갖는다
+  ([richards2025](../sources/richards2025.md) 14장).
+  - **그 장이 위 근거 넷에 하나를 더한다** — 디딤돌을 건너뛰고 곧장 마이크로서비스로 가면
+    **필요하지 않았던 기능까지 전부 마이크로서비스가 된다**는 것이다 (14장,
+    p.226).[^richards2025] **같은 저자 무리라 독립 증언은 아니다.** #hypothesis
+  - **그리고 같은 책 2장의 곁상자가 그 양식을 규정하고, 5장의 마지막 패턴이 그것을 실제로 만들어
+    낸다.** 그 규정과 기본 토폴로지, 그리고 2021년 판과 2025년 판을 맞대어 본 결과는
     [도메인 서비스 만들기](../concepts/create-domain-services.md)에 있다.
 
 ## 전술적 포크
@@ -357,6 +363,8 @@ sources:
 - [컴포넌트 의존 판정](determine-component-dependencies.md) — 이 페이지의 가부 판정을 컴포넌트
   사이의 의존으로 다시 묻는 자리
 - [도메인 서비스 만들기](../concepts/create-domain-services.md) — 위 디딤돌이 실제로 만들어지는 자리
+- [서비스 기반 아키텍처 스타일](service-based-architecture-style.md) — 그 디딤돌이 도착하는
+  양식의 원전 전장
 - [아키텍처 모듈성의 구동 요인](modularity-drivers.md) — 같은 책의 앞 장. 쪼개는 *왜*
 - [결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md) — 이 장이 가부 판정에
   쓰는 지표의 공식과 두 판 대조
@@ -400,3 +408,8 @@ sources:
 [^khononov2021]: Khononov 2021, 13장 "Domain-Driven Design in the Real World"
     §"Explore the Current Design"(p.203). 이 페이지는 그 한 절만 인용한다 — 전문과 나머지
     절차는 [브라운필드에 도메인 주도 설계 들이기](../concepts/applying-ddd-to-brownfield.md)에 있다.
+
+[^richards2025]: Richards·Ford 2025(2판), 14장 "Service-Based Architecture Style"
+    §"Examples and Use Cases"(p.226). 쪽은 인쇄판 쪽 번호(PDF 쪽 − 24, 실측). 이 페이지는 그
+    절을 디딤돌 근거 하나를 더하는 데만 쓰고 직인용은 두지 않았다 — 전문은
+    [서비스 기반 아키텍처 스타일](service-based-architecture-style.md)이 갖는다.
