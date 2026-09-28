@@ -116,7 +116,12 @@ sources:
   Documentation", p.401).[^richards2025]
   - **저자들의 주장은 그 빈자리를 ADR이 메운다는 것**이다.
   - **이 KB는 C4 모형과 아키메이트를 원전으로 확인하지 않았다** — 귀속은 이 책이 그렇게
-    적는다까지로 둔다. **도식화는 이 책의 23장이 다루고 이 KB는 아직 그 장을 반입하지 않았다.**
+    적는다까지로 둔다. **두 표준의 규정과 계보는 같은 책 23장이 다루고, 이 KB에서 그 자리는
+    [도식화 표준 셋 — UML·C4·아키메이트](diagramming-standards-uml-c4-archimate.md)다.**
+  - **이 진단이 23장에서 되울리지 않는다** — 23장은 도식화 표준 셋을 규정하면서 **문서화 표준의
+    부재를 다시 말하지 않고**, 대신 **표준을 세우되 합리적 예외를 허용하라**고 맺는다. **곧 이
+    장이 세운 대비(도식화에는 표준이 있고 문서화에는 없다)를 그 장이 갚지 않는다.**
+    #hypothesis
 - **어느 칸이 무엇을 문서화하는가** (21장, p.401):[^richards2025]
   - **맥락 칸** — **결정이 필요한 체계의 특정 영역을 서술하고 대안들을 서술할 자리**를 준다.
   - **결정 칸** — **왜 그 결정이 내려지는가의 이유를 서술하고**, 그것이 **단연 최고의 아키텍처
@@ -181,8 +186,8 @@ sources:
 - **위키 대 소스 저장소 대 작업 티켓 시스템의 세 갈래와 그 이득** — 다른 소스가 갖고, 이 장은
   티켓 시스템을 아예 들지 않는다.
 - **적합도 함수의 규정과 종류** — 이 KB에 두꺼운 페이지들이 있고 이 장은 준수 칸에서만 스친다.
-- **C4 모형과 아키메이트의 내용** — 이 장이 이름만 든다. **도식화 전문은 23장이고 아직 반입되지
-  않았다.**
+- **C4 모형과 아키메이트의 내용** — 이 장이 이름만 든다. 그 규정과 계보는
+  [도식화 표준 셋 — UML·C4·아키메이트](diagramming-standards-uml-c4-archimate.md)가 갖는다.
 
 **실제로 더한 것 다섯**
 
@@ -202,6 +207,10 @@ sources:
 - [결정을 취한 ADR을 완성하고 관리하기](../concepts/completing-and-curating-adrs.md) — 같은
   물음(어디에 두는가)에 다른 소스가 답하는 자리. 위에서 대질했다
 - [ADR의 형식과 수명 주기](../concepts/adr-structure-and-lifecycle.md) — 여덟 자리를 세는 판
+- [도식화 표준 셋 — UML·C4·아키메이트](diagramming-standards-uml-c4-archimate.md) — 이 절이
+  이름만 들고 넘긴 표준들이 규정을 받는 자리
+- [아키텍처 도식화 실무](architecture-diagramming-practice.md) — 같은 책이 도식화에 세우는
+  관례 쪽
 - [아키텍처적 결정의 안티패턴 셋](architectural-decision-antipatterns.md) — 같은 장의 앞쪽
 - [생성형 AI와 아키텍처 결정](generative-ai-in-architectural-decisions.md) — 같은 장의 끝
 - [표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) —

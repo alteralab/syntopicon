@@ -209,6 +209,18 @@ sources:
   애먹는 아키텍트를 여럿 알고**, 그런 아키텍트들은 **자리를 지키는 데 어려움을 겪는다** (1장,
   p.11).[^richards2025]
 
+- **이 기대가 24장에서 실무로 갚아진다** — **아키텍트가 주는 안내에 개발 팀을 이끄는 일이
+  포함된다**는 이 한 문장이 24장에서 기법 넷으로 펴진다 (24장, pp.433–452).[^richards2025]
+  - **관여의 양을 재는 눈금** — [아키텍트의 관여 정도와 경계](architect-involvement-and-boundaries.md).
+    **1장이 "리더십이 필요한 것의 적어도 절반"이라고만 적은 자리에 그 장이 다섯 요인과 ±20
+    눈금을 놓는다.**
+  - **팀을 관찰하는 눈** — [팀이 너무 크다는 신호 셋](team-warning-signs.md).
+  - **팀에 쥐어 주는 것** — [개발 팀의 체크리스트](checklists-for-development-teams.md).
+  - **정해 주는 것과 넘기는 것** — [설계 원칙으로 팀을 안내하기](guiding-teams-with-design-principles.md).
+  - **1장이 리더십을 기대의 한 항목으로만 적고 그 장을 이름으로 가리키지는 않는다** — 협상 쪽은
+    25장을 명시로 가리키는데 리더십 쪽에는 그런 지시가 없다. **그럼에도 24장이 그 기대를 통째로
+    받는 장으로 읽힌다.** #hypothesis
+
 ## 여덟 — 정치를 이해하고 헤쳐 나간다
 
 - **기대의 문면** (1장, p.12):[^richards2025]
@@ -298,6 +310,10 @@ sources:
   논증
 - [아키텍처와 코딩 실무의 균형](hands-on-architect-balance.md) — 다음 장이 이 기대 목록에
   더하는 시간 배분의 물음
+- [아키텍트의 관여 정도와 경계](architect-involvement-and-boundaries.md) — 일곱째 기대가
+  실무로 펴지는 자리
+- [팀이 너무 크다는 신호 셋](team-warning-signs.md) · [개발 팀의 체크리스트](checklists-for-development-teams.md) ·
+  [설계 원칙으로 팀을 안내하기](guiding-teams-with-design-principles.md) — 같은 장의 나머지 기법 셋
 - [진화적 아키텍트의 역할](evolutionary-architect-role.md) — 같은 물음에 여섯 책임으로 답하는
   자리
 - [아키텍처 역할과 조직 모형](architecture-roles-and-organizational-models.md) — 몇 종류를

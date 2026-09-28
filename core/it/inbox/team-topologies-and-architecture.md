@@ -173,6 +173,23 @@ p.151).[^richards2025]
 - [팀 소유권 모형](../concepts/team-ownership-models.md) · [조직 키우기](../concepts/scaling-an-organization.md) —
   같은 물음을 다른 손잡이로 다루는 자리들.
 
+**같은 책 24장이 팀을 통째로 다루는데 이 페이지가 그것을 받지 않는다.** 이 페이지가 묻는 것은
+**어떤 팀 유형들이 있고 그 유형은 무엇으로 갈리는가**이고, 그 장이 묻는 것은 **한 아키텍트가
+한 팀을 어떻게 다루는가**다. **팀의 분류와 아키텍트의 실무라 물음이 다르므로 그 장은 신설
+페이지 넷으로 갔다.**
+
+- [아키텍트의 관여 정도와 경계](architect-involvement-and-boundaries.md) — 제약의 크기와 성향
+  셋과 관여를 재는 요인 다섯
+- [팀이 너무 크다는 신호 셋](team-warning-signs.md) — 큰 팀을 사람 수가 아니라 증상으로 묻는
+  자리. **이 페이지의 네 유형이 인지 부하를 눈금으로 삼는 데 반해 그쪽은 관찰 가능한 증상을
+  눈금으로 삼는다.** 저자들이 그 대비를 적지 않는다 #hypothesis
+- [개발 팀의 체크리스트](checklists-for-development-teams.md) — 팀에 무엇을 쥐어 주는가
+- [설계 원칙으로 팀을 안내하기](guiding-teams-with-design-principles.md) — 무엇을 정해 주고
+  무엇을 넘기는가
+
+**24장에 `team topology`라는 낱말이 한 번도 나오지 않는다**(전수 검색). **곧 같은 책이 팀을 두
+자리에서 다루면서 두 어휘를 잇지 않는다.** #hypothesis
+
 ## 이어지는 페이지
 
 - [아키텍처 스타일의 규정](architecture-style-defined.md) — 이 넷이 스타일 장마다 나오는 이유
