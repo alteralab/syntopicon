@@ -618,7 +618,10 @@ p.404).[^ford2021-hard-parts]
     주어진 상황에서 최선(또는 가장 덜 나쁜) 선택지를 고르는 것**이다 (2장,
     p.30).[^richards2025]
     - **여기서 "가장 덜 나쁜(least worst)"이라는 낱말이 조건 없이 쓰인다.** 그 낱말을 이
-      저자들이 조문으로 세우는 자리는 같은 책 4장이다.
+      저자들이 조문으로 세우는 자리는 같은 책 4장 §"Trade-Offs and Least Worst
+      Architecture"(pp.64–65)이고, 문면과 논증은
+      [가장 덜 나쁜 아키텍처](least-worst-architecture.md)에 있다. **2장의 이 쓰임이 4장의
+      조문을 앞당겨 쓴 것**이다.
 - **토픽 쪽의 분명한 이점이 아키텍처 확장성(architectural extensibility)이다** — `Bid Producer`
   서비스는 **토픽 하나에 연결 하나만 있으면 된다.** 큐 쪽에서는 `Bid Producer`가 **서로 다른
   큐 셋에 연결해야 한다.** 여기에 입찰자에게 자기 입찰 이력을 주는 `Bid History` 서비스를 새로

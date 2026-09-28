@@ -85,10 +85,14 @@ sources:
   [아키텍처 모듈성의 구동 요인](modularity-drivers.md)은 같은 저자 무리의 2021년 책을 인용해
   **분명한 업무 구동 요인이 없으면 체계를 쪼개지 말라**고 적는다. **그쪽은 업무 동인을 분해의
   허가 조건으로 쓰고, 이쪽은 아키텍처 특성으로 번역할 입력으로 쓴다.** 재는 대상이 다르다.
-- **"아키텍처 특성"을 업무 요구에서 끌어내는 절차는 이 KB에 아직 원전이 없다.** 이 페이지가
-  그 자리를 4~7장으로 넘기는 예고만 갖는다.
+- **"아키텍처 특성"을 업무 요구에서 끌어내는 절차의 원전이 같은 책 4~5장이고, 이 페이지가 그
+  자리를 예고만 한다.** 절차 자체는
+  [아키텍처 특성을 끌어내는 세 출처](extracting-architectural-characteristics.md)와
+  [실리콘 샌드위치 카타 — 특성 도출의 실물](silicon-sandwiches-kata.md)에 있고, 그 앞에
+  놓이는 "무엇을 특성으로 셀 수 있는가"의 규정은
+  [아키텍처 특성의 규정](architectural-characteristics-defined.md)에 있다.
   [비기능 요건](../synthesis/nonfunctional-requirements.md) 축이 그 이름들을 하나씩 펼치는
-  자리이고, 끌어내는 절차 쪽은 비어 있다.
+  자리다.
 
 ## 이어지는 페이지
 
@@ -98,6 +102,10 @@ sources:
   너비가 깊이보다 중요하다는 판정과 그 논증
 - [기술적 너비를 넓히는 기법 — 20분 규칙과 개인 레이더](widening-technical-breadth.md) — 둘째
   조건을 실제로 채우는 실천 둘
+- [아키텍처 특성의 규정](architectural-characteristics-defined.md) — 셋째 조건이 옮겨 갈
+  목적지가 무엇인가. 같은 책 4장이 아키텍처 특성의 세 기준을 세우는 자리
+- [아키텍처 특성을 끌어내는 세 출처](extracting-architectural-characteristics.md) — 셋째 조건의
+  절차. 같은 책 5장이 도메인 관심사를 특성으로 옮기는 자리
 - [트레이드오프 분석 방법](trade-off-analysis-method.md) — 넷째 조건. 절충을 이해하고 분석하고
   화해시키는 절차
 - [아키텍처와 코딩 실무의 균형](hands-on-architect-balance.md) — 같은 장의 다섯째 절
