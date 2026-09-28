@@ -49,6 +49,14 @@ generated: { by: "claude-opus-5", at: "2026-09-28T00:00:00Z" }
 원전이 여기다. **같은 두 장의 아키텍트 역할 쪽 — 기대 여덟과 기술적 너비와 코딩 실무의 균형 —
 은 자식 허브 [조직과 아키텍트](organizations-and-architects.md)에 있다.**
 
+**같은 책 3장(모듈성)은 이 허브에 두지 않는다.** 그 장이 규정하는 모듈은 **코드의 논리적
+묶음**이라 이 허브가 머리에서 넘긴 "코드 수준의 모듈 경계" 갈래에 해당하고, 그래서
+[모듈성의 규정](../concepts/modularity-defined.md)과 [응집의 등급](../concepts/cohesion-range.md)은
+형제 허브 [복잡성과 모듈 설계](complexity-and-modular-design.md)의 진단 절에 산다. 그 장이 함께
+세우는 결합 쪽 잣대 둘([결합도와 추상도의 정량 지표](../concepts/coupling-and-abstractness-metrics.md)와
+[커네이선스](../concepts/connascence.md))도 이미 그쪽에 있었고, 이 책이 그 둘에 원전 문면을 보탰다 —
+LCOM의 공식 두 판본과 구심·원심이라는 이름의 작명 내력이 그것이다.
+
 - [소프트웨어 아키텍처의 규정 — 네 차원](../concepts/architecture-defined-four-dimensions.md) —
   한 체계의 소프트웨어 아키텍처를 아키텍처 스타일과 아키텍처 특성과 논리 컴포넌트와 아키텍처
   결정 넷으로 세고 그 넷을 떠받치는 굵은 선을 구조라 부르는 규정, 넷을 훑는 차례가 아키텍트가
