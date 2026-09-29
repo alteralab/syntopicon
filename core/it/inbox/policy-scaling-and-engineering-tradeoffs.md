@@ -97,6 +97,17 @@ sources:
   인프라 팀이 **자기 사내 사용자들을 새 버전으로 직접 옮기거나, 하위 호환을 유지한 채
   제자리에서 갱신**해야 한다는 규칙이다. 의존하는 프로젝트들이 따라가기만 하느라 점점 큰
   품을 쓰지 않게 된다는 것이 확장성의 근거다 (같은 절).[^winters2020-swe-at-google]
+- **같은 책 15장이 이 규칙을 폐기 절차의 얼개로 편다.** 그쪽은 이행 전문성을 **옛 체계를
+  걷어내는 책임을 진 한 전문가 팀 안에 국소화하는 것**이 강제 폐기가 확장되는 길이라고
+  적고, **인력을 대지 않은 강제 폐기는 고객 팀에 자금 없는 지시로 비쳐 오히려 폐기를
+  막는다**고 단다 (15장 §"Compulsory Deprecation").[^winters2020-swe-at-google] **이 절이
+  규칙을 세우고 15장이 그것을 절차로 편다.** 전문은
+  [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)와
+  [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)에 있다.
+  - **그리고 15장이 이 절에 없던 축을 하나 더한다** — **날짜를 정해 통보하는 방식이 확장되지
+    않는다**는 이 절의 판정과 별개로, **기한과 집행 권한 자체는 강제 폐기에 필요하다**는
+    것이다. 곧 15장이 기각하는 것은 기한이 아니라 **기한만 있고 인력이 없는 배치**다.
+    **이 절만 읽으면 기한 자체가 기각된 것으로 읽히기 쉽다.**
 
 ### 팀마다 따로 가는 개발 브랜치
 
@@ -114,6 +125,18 @@ sources:
   것으로 규정하고 트렁크 기반 개발을 처방하는 셋째 소스를 갖는다. **이 장은 그 처방에
   근거를 더하지 않는다** — 확장성이라는 같은 방향의 논거를 한 회사의 경험으로 덧붙일
   뿐이다.
+- **같은 책 16장이 이 예를 한 장 분량으로 편다.** 그쪽은 이 절이 적은 연쇄를 더 길게
+  적는다 — 병합 조정에 던지는 품이 늘어 **누군가 한 사람이 조직의 모든 브랜치를 병합하는
+  단일 조정자가 되고, 주간 병합 전략 회의가 열리며, 병합 대상으로 뽑히지 않은 팀이 그때마다
+  다시 동기화하고 다시 테스트한다**는 것이고, **그 품이 전부 순수 간접비**라는 판정이다
+  (16장 §"How did we become addicted to dev branches?").[^winters2020-swe-at-google]
+  **이 절이 확장 비용의 모양만 적었다면 16장은 그 비용이 조직 구조로 굳는 경로까지
+  적는다.** 전문은 [버전 관리 §브랜치의 확장 비용](../concepts/version-control-practice.md)에
+  있다.
+  - **그리고 16장이 이 예를 의존 판 정책과 한 뿌리로 묶는다** — 트렁크 기반 개발의 대안
+    패러다임을 적으면서 **어느 라이브러리 판을 쓸지를 놓고 달아오르는 논쟁도 없다, 하나뿐일
+    수 있기 때문**이라고 잇는다 (같은 절).[^winters2020-swe-at-google] 그 묶음의 전문은
+    [한 판 규칙](one-version-rule.md)이 갖는다.
 
 ## 베이온세 규칙 — CI에 없는 테스트는 세지 않는다
 
@@ -472,6 +495,14 @@ sources:
   같은 책의 테스트 장이 이 공용 CI 전제 위에 서 있다는 것을 적는 자리
 - [API 수명 주기](../concepts/api-lifecycle.md) — 시프트 레프트에 마찰이라는 단서와 시프트
   다운이라는 대응 어휘를 다는 자리
+- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 같은 책 15장이 처른
+  규칙을 폐기 절차의 얼개로 펴는 자리
+- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 그 절차가 요구하는
+  전담 팀과 도구, 그리고 베이온세 규칙이 폐기에 적용되는 자리
+- [한 판 규칙](one-version-rule.md) — 같은 책 16장이 개발 브랜치 문제와 한 뿌리로 묶는
+  의존 판 정책
+- [버전 관리의 정본 — 중앙식과 분산식](source-of-truth-in-version-control.md) — "사람 품이
+  선형 이하"라는 이 절의 잣대가 버전 관리 정책에 그대로 대어지는 자리
 - [기술 부채](../concepts/technical-debt.md) — 미뤄진 비용이라는 이 장의 어림 정의가 더
   좁고 절차적인 규정과 만나는 자리
 - [팀 규모와 소유권 모형](../concepts/team-ownership-models.md) — 전문가 집단과 일반 팀
@@ -482,7 +513,12 @@ sources:
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,
     *Software Engineering at Google*, abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23
     열람본. 인용한 장은 1장 `What Is Software Engineering?`(저자 Titus Winters, 편집
-    Tom Manshreck)이다. **공개판 HTML에 쪽 번호가 없어 locator는 장 번호와 원문 절
+    Tom Manshreck)이 본체이고, 이 절이 앞으로 가리킨 두 자리를 닫으면서 15장
+    `Deprecation`(저자 Hyrum Wright) §"Compulsory Deprecation"과 16장
+    `Version Control and Branch Management`(저자 Titus Winters) §"How did we become
+    addicted to dev branches?"의 해당 줄을 함께 받는다. 그 두 장의 전문은 각각
+    [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) 계열과
+    [한 판 규칙](one-version-rule.md) 계열이 갖는다. **공개판 HTML에 쪽 번호가 없어 locator는 장 번호와 원문 절
     제목이다.** 이 장의 내용은 한국어로 재서술했고, 직인용은 원문이 담당해야 하는 짧은
     구절로 한정했다 — 공개판 라이선스가 파생물을 금하는 CC BY-NC-ND 4.0이기 때문이다.
     유연성 요인 다섯의 표는 원문의 정의 목록(term/definition)을 옮긴 것이고 원어를 함께
