@@ -125,6 +125,11 @@ Changes").[^winters2020-swe-at-google]
   둘 다 규모와 무관하게 선다.
   - **리뷰 도중 설명을 갱신하라는 조항도 옮길 만하다.** 리뷰에서 결론이 바뀌었는데 설명이
     처음 것으로 남으면 **역사 기록이 거짓이 된다.**
+  - **이 절이 같은 책 10장으로 이어진다.** 변경 설명은 그 장이 세는 문서 유형 가운데
+    **참조 문서**에 가장 가깝고, 그 장의 조문 하나가 여기에 그대로 걸린다 — **공개 API를
+    쓸 때 구현 상세를 흘리지 말고 설계 근거는 설계 문서에 두라**는 것이다. 자리는
+    [문서 유형과 한 문서 한 목적](documentation-types-and-single-purpose.md)이고,
+    그 장이 변경 설명 자체를 다시 다루지는 않는다.
 
 ## 리뷰어를 최소로
 
@@ -422,6 +427,8 @@ Reviews").[^winters2020-swe-at-google] **겹치는 경우가 있다는 단서가
 
 ## 이어지는 페이지
 
+- [문서 유형과 한 문서 한 목적](documentation-types-and-single-purpose.md) — 같은 책
+  10장. 변경 설명이 드는 문서 유형과 그 유형이 담지 말아야 할 것
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 같은 장. 이 실무가
   굴러가게 하는 승인 구조
 - [코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) —
