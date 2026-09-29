@@ -34,7 +34,7 @@ sources:
 | 결정에 이르기까지 ADR을 써 가는 순서 | [ADR을 써 가며 결정을 빚기](../concepts/deciding-with-adrs.md) | 옮기지 않는다 — 이 장에 그 절이 없다 |
 | ADR을 어디에 두는가 | [결정을 취한 ADR을 완성하고 관리하기](../concepts/completing-and-curating-adrs.md) | **네 갈래 디렉토리 분류**와 **큰 조직에서 소스 저장소를 말리는 근거 둘** |
 | ADR 모음의 큐레이션 | [결정을 취한 ADR을 완성하고 관리하기](../concepts/completing-and-curating-adrs.md) | 옮기지 않는다 — 이 장에 그 절이 없다 |
-| 아키텍처 도식화 표준 | 이 KB에 도식화 축이 아직 없다 — 이 책의 23장 자리다 | **표준이 도식화에는 있고 문서화에는 없다는 진단**만 |
+| 아키텍처 도식화 표준 | [도식화 표준 셋 — UML·C4·아키메이트](../concepts/diagramming-standards-uml-c4-archimate.md) · [아키텍처 도식화 실무](../concepts/architecture-diagramming-practice.md) | **표준이 도식화에는 있고 문서화에는 없다는 진단**만 |
 | 표준의 수립과 강제 | [표준의 활성화와 강제](../concepts/architecture-standard-enablement-and-enforcement.md) · [표준 강제보다 행동 유도](../concepts/driving-behavior-over-enforcing-standards.md) | **ADR을 표준의 그릇으로 쓴다는 용법 하나**만 |
 | 적합도 함수로 결정을 재기 | [아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md) · [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) | 옮기지 않는다 — 준수 칸의 자리는 ADR 페이지가 받았다 |
 
