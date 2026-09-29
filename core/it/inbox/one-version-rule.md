@@ -270,8 +270,9 @@ sources:
   대해서는 정책이 아니라 구조적 사실이고, 정책으로 남는 것은 밖에서 오는 것뿐이다.**
 - **18장이 스스로 다음 장으로 넘긴다** — 이 문제를 **큰 모노레포 맥락에서 더 살펴본다**고 적고
   의존성 관리 장을 가리킨다 (18장 §"The One-Version
-  Rule").[^winters2020-swe-at-google] 2026-09-30 KB 작성 시점에 이 KB는 그 장을 아직 읽지
-  않았다.
+  Rule").[^winters2020-swe-at-google] 이 KB의 그 자리는
+  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) 계열이고,
+  같은 규칙을 그 장이 네 답 가운데 하나로 다시 놓는 대목은 아래에 있다.
 
 ## 이 장 수치의 지위
 

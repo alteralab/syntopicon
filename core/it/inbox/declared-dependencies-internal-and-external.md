@@ -41,8 +41,9 @@ sources:
   쪽**을 본다. 이 페이지는 **우리가 받는 쪽**을 본다.
 - **다만 이 소스가 그 주제의 전문을 여기 두지 않는다** — 18장이 스스로 **모노레포 맥락에서의
   의존성 관리는 21장에서 더 본다**고 넘긴다 (18장 §"The One-Version
-  Rule").[^winters2020-swe-at-google] 2026-09-30 KB 작성 시점에 이 KB는 그 장을 아직 읽지
-  않았다.
+  Rule").[^winters2020-swe-at-google] 이 KB의 그 자리는
+  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) 계열이고,
+  그 장과 이 페이지의 가름은 아래 절이 적는다.
 - **모듈을 어떻게 쪼개는가는
   [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)에 있다.**
 
