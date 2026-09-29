@@ -151,15 +151,51 @@ def test_개정_대기_쌍은_중복이_아니다(repo: Repo):
     assert result.returncode == 0, result.stdout
 
 
-def test_synthesis가_끼는_쌍은_여전히_중복이다(repo: Repo):
-    """synthesis는 인간 저작 전용 — 기계 초안의 검역 그림자를 가질 수 없다."""
+HUB = page({
+    "type": "synthesis", "title": "복제", "description": "허브",
+    "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}})
+
+
+def hub_draft(**extra) -> str:
+    return page({
+        "type": "synthesis", "title": "복제", "description": "허브",
+        "generated": {"by": "agent:claude", "at": "2026-09-29T00:00:00Z"},
+        **extra})
+
+
+def test_type이_어긋나는_쌍은_중복이다(repo: Repo):
+    """발행 위치가 synthesis인데 초안이 concept이면 개정 대기가 아니다.
+
+    디렉터리만 보면 이것이 통과하고, merge가 초안을 synthesis/로 보낸 뒤에야
+    디렉터리↔type 정합이 깨진다 — 게이트가 먼저 잡는다.
+    """
     repo.kb("it")
     repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
-    repo.write("it/synthesis/replication.md", page({
-        "type": "synthesis", "title": "복제", "description": "허브",
-        "generated": {"by": "human:me", "at": "2026-08-05T00:00:00Z"}}))
+    repo.write("it/synthesis/replication.md", HUB)
     repo.write("it/inbox/replication.md", concept(status="draft"))
     assert "중복" in failures(repo.validate())
+
+
+def test_허브_개정_쌍은_중복이_아니다(repo: Repo):
+    """synthesis + inbox의 같은 슬러그 = 허브 개정 대기(migrations 2026-09-29).
+
+    이 쌍을 막으면 허브 갱신이 synthesis/ 직접 쓰기로 새고, 그것이 게이트를
+    건너뛰는 유일한 길이 된다 — richards2025 배치에서 30회 일어난 일이다.
+    """
+    repo.kb("it")
+    repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
+    repo.write("it/synthesis/replication.md", HUB)
+    repo.write("it/inbox/replication.md", hub_draft(status="draft"))
+    result = repo.validate()
+    assert result.returncode == 0, result.stdout
+
+
+def test_짝_없는_허브_초안은_오류다(repo: Repo):
+    """창설은 사람 몫이다 — 경계 기준이 provenance이기 때문이다(SCHEMA §7)."""
+    repo.kb("it")
+    repo.write("it/sources/kleppmann2017-ddia.md", SOURCE)
+    repo.write("it/inbox/brand-new-hub.md", hub_draft(status="draft"))
+    assert "짝이 없습니다" in failures(repo.validate())
 
 
 def test_유사_ID는_경고일_뿐_막지_않는다(repo: Repo):

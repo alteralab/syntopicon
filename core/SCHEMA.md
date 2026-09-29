@@ -26,7 +26,7 @@ type의 정본은 frontmatter다** — 파일을 옮겨도 type이 따라 바뀌
 | `<kb>/concepts/` | `concept` | 개념 페이지. 하나의 질문에 답하는 단위 |
 | `<kb>/synthesis/` | `synthesis` | 인간 저작 종합. 허브(MoC)도 이것 |
 | `<kb>/sources/` | CSL 타입군 | 소스 메타 1건 = 1파일 |
-| `<kb>/inbox/` | `concept` + `status: draft` | 기계 산출물의 검역 구역 |
+| `<kb>/inbox/` | `concept` 또는 `synthesis` + `status: draft` | 기계 산출물의 검역 구역. `synthesis`는 **개정 초안만** — 짝이 없으면 오류(창설은 사람) |
 | 어디든 | `redirect` | 개명·이동·분할·병합의 잔여물 |
 | `overview.md`, `SCHEMA.md` | `guide` | 진입·설명 문서 |
 
@@ -377,7 +377,10 @@ OS 절대경로(`/Users/...`)는 어디에도 적지 않는다.
   내용의 전수 정확성이 아니다. 정확성은 쓰는 시점에 검증한다(review-on-read):
   기계가 쓴 claim을 실제로 확인했으면 `verified`를 추가해 승급시킨다.
 - **`synthesis/`** — 사람이 쓰고 전수 리뷰한다. 경계 기준은 **누가 썼는가**이지
-  내용이 얼마나 종합적인가가 아니다.
+  내용이 얼마나 종합적인가가 아니다. **기존 허브의 개정 초안은 LLM이 쓸 수 있고
+  `inbox/`에 같은 슬러그로 착지해 전수 리뷰를 지난다** — 승인이 저작 주체를 사람으로
+  넘긴다(kb-ingest 8단계). **창설은 사람 몫이다**: 짝 없는 synthesis 초안은 validate
+  오류다. 이 경로를 연 근거는 `schema/migrations.md` 2026-09-29 항목이다.
 
 ## 8. 스키마를 바꿀 때
 

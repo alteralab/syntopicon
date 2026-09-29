@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from conftest import Repo
-from test_validate import DDIA, SOURCE, concept
+from test_validate import DDIA, HUB, SOURCE, concept, hub_draft
 
 
 def seeded(repo: Repo) -> None:
@@ -119,3 +119,35 @@ def test_dry_run은_아무것도_옮기지_않는다(repo: Repo):
     assert (repo.root / "it/inbox/first-idea.md").exists()
     assert not (repo.root / "it/concepts").exists() or \
         not list((repo.root / "it/concepts").glob("*.md"))
+
+
+def test_허브_개정은_synthesis로_간다(repo: Repo):
+    """행선지는 초안의 type이 아니라 **같은 슬러그가 이미 사는 곳**이다.
+
+    이 경로가 열리기 전에는 허브 갱신이 synthesis/ 직접 쓰기로 샜다
+    (migrations 2026-09-29).
+    """
+    repo.seed_it()
+    repo.write("it/synthesis/replication.md", HUB)
+    repo.write("it/inbox/replication.md", hub_draft(status="draft"))
+    repo.commit()
+
+    result = repo.run("merge.py", "it/inbox/replication.md")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert not (repo.root / "it/concepts/replication.md").exists()
+
+    merged = repo.read("it/synthesis/replication.md")
+    assert "type: synthesis" in merged and "status: draft" not in merged
+    assert "agent:claude" in merged, "개정본이 대치되지 않았습니다"
+    assert repo.validate().returncode == 0
+
+
+def test_짝이_없으면_concepts로_간다(repo: Repo):
+    """신규 초안의 기본 행선지는 concepts다 — 허브 창설은 게이트가 막는다."""
+    repo.seed_it()
+    repo.write("it/inbox/brand-new.md", concept(status="draft"))
+    repo.commit()
+
+    assert repo.run("merge.py", "it/inbox/brand-new.md").returncode == 0
+    assert (repo.root / "it/concepts/brand-new.md").exists()
+    assert repo.validate().returncode == 0

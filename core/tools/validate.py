@@ -36,6 +36,7 @@ SEVERITY_WARN = "warn"
 # 도구다(§3 예외). 문자집합 검증(common.yaml)은 이 구조를 못 본다 — 저자도 연도도
 # 없는 키가 통과한 실측이 집세 심사 R40의 근거였고, common.yaml 주석이 약속한
 # "파이썬 관계 규칙 층"이 여기다.
+# ast-grep-ignore: regex-on-structure — 어휘: 고정 형식이자 문자집합 검증이라 정규 언어 그 자체다
 CITEKEY_STRUCTURE = re.compile(r"[a-z][a-z._]*\d{4}(-[a-z0-9][a-z0-9._-]*)?")
 
 
@@ -90,6 +91,57 @@ def _id_kind(layout: layout_mod.Layout, kbs: tuple[str, ...], relative: Path) ->
     return "citekey" if directory == "sources" else "slug"
 
 
+def _check_dir_agreement(layout: layout_mod.Layout, kbs: tuple[str, ...],
+                         sch: schemas.Schemas, f: MdFile, kind: str) -> list[Problem]:
+    """디렉터리는 뷰, type 정본은 frontmatter — 둘의 정합만 강제한다."""
+    directory = layout.content_dir_of(f.path, kbs)
+    if directory is None:
+        return []
+    path = str(f.path)
+    front = f.frontmatter or {}
+    problems: list[Problem] = []
+    allowed = layout.dir_types[directory]
+    if sch.group_of(kind) not in allowed:
+        problems.append(Problem(
+            SEVERITY_ERROR, path,
+            f"{directory}/ 는 {list(allowed)} 그룹만 허용합니다 (이 파일은 '{kind}')"))
+    problems += [
+        Problem(SEVERITY_ERROR, path, f"{directory}/ 는 {key}: {want} 가 필요합니다")
+        for key, want in layout.dir_constraints.get(directory, {}).items()
+        if front.get(key) != want
+    ]
+    return problems
+
+
+def _check_id_rules(layout: layout_mod.Layout, kbs: tuple[str, ...],
+                    sch: schemas.Schemas, f: MdFile, kind: str) -> list[Problem]:
+    """파일명 = ID. 발급 후 불변이므로 문자집합 위반은 여기서 막는 것이 마지막 기회다."""
+    id_kind = _id_kind(layout, kbs, f.path)
+    if id_kind is None:
+        return []
+    path = str(f.path)
+    front = f.frontmatter or {}
+    problems: list[Problem] = []
+    if errors := list(sch.shared(id_kind).iter_errors(f.path.stem)):
+        problems.append(Problem(
+            SEVERITY_ERROR, path, f"파일명이 {id_kind} 규칙 위반: {errors[0].message}"))
+    elif id_kind == "citekey" and not CITEKEY_STRUCTURE.fullmatch(f.path.stem):
+        problems.append(Problem(
+            SEVERITY_ERROR, path,
+            "citekey 구조 위반 — `저자성last연도[-슬러그]`여야 합니다 "
+            "(발급은 tools/citekey.py)"))
+
+    # redirect 대상이 어떤 ID 문법이어야 하는지는 스텁이 놓인 디렉터리가 정한다.
+    # 스키마는 네 형태를 다 받으므로(sources/는 citekey) 여기서 좁힌다.
+    if kind == "redirect" and (target := front.get("superseded_by")):
+        name = target.rpartition("/")[2]   # 정규형 `<kb>/<이름>`의 KB 접두 제거
+        if errors := list(sch.shared(id_kind).iter_errors(name)):
+            problems.append(Problem(
+                SEVERITY_ERROR, path,
+                f"superseded_by '{target}'가 {id_kind} 규칙 위반: {errors[0].message}"))
+    return problems
+
+
 def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
                sch: schemas.Schemas, f: MdFile) -> list[Problem]:
     problems: list[Problem] = []
@@ -109,38 +161,9 @@ def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
         for e in sorted(validator.iter_errors(front), key=lambda e: e.json_path)
     ]
 
-    # 디렉터리는 뷰, type 정본은 frontmatter — 둘의 정합만 강제한다.
-    if (directory := layout.content_dir_of(f.path, kbs)) is not None:
-        allowed = layout.dir_types[directory]
-        if sch.group_of(kind) not in allowed:
-            problems.append(Problem(
-                SEVERITY_ERROR, path,
-                f"{directory}/ 는 {list(allowed)} 그룹만 허용합니다 (이 파일은 '{kind}')"))
+    problems += _check_dir_agreement(layout, kbs, sch, f, kind)
 
-        for key, want in layout.dir_constraints.get(directory, {}).items():
-            if front.get(key) != want:
-                problems.append(Problem(
-                    SEVERITY_ERROR, path, f"{directory}/ 는 {key}: {want} 가 필요합니다"))
-
-    # 파일명 = ID. 발급 후 불변이므로 문자집합 위반은 여기서 막는 것이 마지막 기회다.
-    if (id_kind := _id_kind(layout, kbs, f.path)) is not None:
-        if errors := list(sch.shared(id_kind).iter_errors(f.path.stem)):
-            problems.append(Problem(
-                SEVERITY_ERROR, path, f"파일명이 {id_kind} 규칙 위반: {errors[0].message}"))
-        elif id_kind == "citekey" and not CITEKEY_STRUCTURE.fullmatch(f.path.stem):
-            problems.append(Problem(
-                SEVERITY_ERROR, path,
-                "citekey 구조 위반 — `저자성last연도[-슬러그]`여야 합니다 "
-                "(발급은 tools/citekey.py)"))
-
-        # redirect 대상이 어떤 ID 문법이어야 하는지는 스텁이 놓인 디렉터리가 정한다.
-        # 스키마는 네 형태를 다 받으므로(sources/는 citekey) 여기서 좁힌다.
-        if kind == "redirect" and (target := front.get("superseded_by")):
-            name = target.rpartition("/")[2]   # 정규형 `<kb>/<이름>`의 KB 접두 제거
-            if errors := list(sch.shared(id_kind).iter_errors(name)):
-                problems.append(Problem(
-                    SEVERITY_ERROR, path,
-                    f"superseded_by '{target}'가 {id_kind} 규칙 위반: {errors[0].message}"))
+    problems += _check_id_rules(layout, kbs, sch, f, kind)
 
     # 각주 = 출처 귀속 전용 채널이므로, 인용된 라벨은 sources[]에 있어야 한다.
     # 반대 방향(선언했는데 인용 안 함)은 lint 소관이다 — 깨진 각주도 그쪽으로 드러난다
@@ -162,29 +185,81 @@ def check_file(layout: layout_mod.Layout, kbs: tuple[str, ...],
     return problems
 
 
+PUBLISHED_DIRS = ("concepts", "synthesis")
+"""개정 대기 쌍에서 발행 위치가 될 수 있는 디렉터리."""
+
+
+def check_inbox_synthesis_is_revision(layout: layout_mod.Layout, kbs: tuple[str, ...],
+                                      files: list[MdFile]) -> list[Problem]:
+    """inbox의 synthesis 초안은 **개정만** 허용한다 — 창설은 사람이 한다.
+
+    경계 기준이 provenance(누가 썼는가)라서(SCHEMA §7) 새 허브를 기계가 세우는 길은
+    열지 않았다. 같은 슬러그가 synthesis/에 이미 있으면 그 페이지의 개정이므로
+    승인이 저작 주체를 사람으로 넘긴다(kb-ingest 8단계). 짝이 없으면 창설이다.
+    """
+    problems: list[Problem] = []
+    for f in files:
+        if (layout.content_dir_of(f.path, kbs) != "inbox"
+                or (f.frontmatter or {}).get("type") != "synthesis"):
+            continue
+        kb = f.path.parts[0]
+        if not (ROOT / kb / "synthesis" / f.path.name).exists():
+            problems.append(Problem(
+                SEVERITY_ERROR, kb,
+                f"{f.path}: synthesis 초안인데 {kb}/synthesis/{f.path.name} 짝이 없습니다 — "
+                "허브 창설은 사람이 합니다(SCHEMA §7). 개정만 검역을 지납니다",
+            ))
+    return problems
+
+
 def check_uniqueness(layout: layout_mod.Layout, kbs: tuple[str, ...],
                      files: list[MdFile]) -> list[Problem]:
     """ID 유일성 스코프는 KB다 — 슬러그는 concepts/synthesis/inbox를 가로질러 유일해야 한다.
 
-    한 가지 쌍만 합법이다: **concepts + inbox의 같은 슬러그 = 개정 대기**. 기존 페이지
-    갱신도 검역을 지나야 하므로(PLAN §4.4-4·5) 개정 초안은 같은 ID의 검역 그림자로
-    inbox에 머문다 — 두 ID의 충돌이 아니라 한 ID의 두 상태이고, 정규 참조형
-    `<kb>/<slug>`는 발행 위치(concepts)로만 해석되므로 모호함도 없다. synthesis가
-    끼는 쌍은 여전히 오류다 — 기계 산출물의 synthesis 직행은 금지다.
+    합법인 쌍은 **발행 디렉터리 + inbox의 같은 슬러그 = 개정 대기** 둘이다:
+    `{concepts, inbox}`와 `{synthesis, inbox}`. 기존 페이지 갱신도 검역을 지나야
+    하므로(PLAN §4.4-4·5) 개정 초안은 같은 ID의 검역 그림자로 inbox에 머문다 —
+    두 ID의 충돌이 아니라 한 ID의 두 상태이고, 정규 참조형 `<kb>/<slug>`는 발행
+    위치로만 해석되므로 모호함도 없다.
+
+    synthesis를 넣은 것은 2026-09-29이다(migrations.md). 그전에는 이 쌍을 오류로
+    막았고 근거를 "기계 산출물의 synthesis 직행 금지"라 적었는데, **inbox 경유는
+    직행이 아니라 그 반대**다. 검역 경로를 막으면 에이전트에게 남는 길은 synthesis/
+    직접 쓰기뿐이고, kb-ingest 4단계가 허브 연결을 요구하므로 실제로 그 일이
+    일어났다(richards2025 배치에서 30회, 그중 낡은 문장 하나는 승급까지 생존).
+    규칙이 막으려던 것을 규칙이 강제했다. 창설은 여전히 사람 몫이다 — 아래
+    check_inbox_synthesis_is_revision이 그것을 강제한다.
     """
     problems: list[Problem] = []
     for kb in kbs:
         seen: dict[str, list[str]] = defaultdict(list)
         dirs: dict[str, set[str]] = defaultdict(set)
+        draft_type: dict[str, str | None] = {}
         for f in files:
             if f.path.parts[0] == kb and (d := layout.content_dir_of(f.path, kbs)) is not None:
                 seen[f.path.stem].append(str(f.path))
                 dirs[f.path.stem].add(d)
+                if d == "inbox":
+                    draft_type[f.path.stem] = (f.frontmatter or {}).get("type")
+
+        def is_revision_pair(ident: str) -> bool:
+            """발행 위치 하나 + 검역 하나이고, **초안의 type이 그 발행 위치의 것**인가.
+
+            디렉터리만 보면 `type: concept` 초안이 synthesis 페이지의 개정으로 통과해
+            merge가 그것을 synthesis/로 보내고, 그 뒤에야 디렉터리↔type 정합이 깨진다.
+            게이트가 먼저 잡는 편이 낫다.
+            """
+            published = dirs[ident] - {"inbox"}
+            if "inbox" not in dirs[ident] or len(published) != 1:
+                return False
+            (directory,) = published
+            return (directory in PUBLISHED_DIRS
+                    and draft_type.get(ident) in layout.dir_types.get(directory, ()))
 
         problems += [
             Problem(SEVERITY_ERROR, kb, f"ID '{ident}' 중복: {', '.join(paths)}")
             for ident, paths in sorted(seen.items())
-            if len(paths) > 1 and not (len(paths) == 2 and dirs[ident] == {"concepts", "inbox"})
+            if len(paths) > 1 and not (len(paths) == 2 and is_revision_pair(ident))
         ]
 
         # 유사 충돌은 경고다 — 하이픈만 다른 이름은 사람이 헷갈리지만 규칙 위반은 아니다.
@@ -242,6 +317,7 @@ def main(argv: list[str]) -> int:
     problems += check_partition(layout, kbs)
     problems += check_retired_keys(files)
     problems += check_uniqueness(layout, kbs, files)
+    problems += check_inbox_synthesis_is_revision(layout, kbs, files)
     for f in files:
         problems += check_file(layout, kbs, sch, f)
 

@@ -207,3 +207,31 @@ LEDGER 실측으로 금지한 "썩는 산문 카운터"이며, 전체 재계산�
 derived는 reindex가 표를 DROP 뒤 재생성하므로(코덱스 리뷰 지적 — DELETE만으로는 옛 표에 열이
 없어 INSERT가 죽는다) backfill은 reindex 1회이고, lint는 옛 스키마를 만나면 reindex를 요구하며
 중단한다. 인라인 코드는 셈에 넣고 이미지 대체 텍스트는 뺀다. 결번 영향 없음.
+
+## 2026-09-29 — `inbox`에 `synthesis` 개정 초안 허용 (additive, 동결 코어 항목 8)
+
+`schema/layout.yaml`의 `dir_types.inbox`를 `[concept]`에서 `[concept, synthesis]`로 넓혔다.
+소비자는 셋이다 — validate의 디렉터리↔type 정합과 ID 유일성 쌍 검사(`REVISION_PAIRS`에
+`{synthesis, inbox}` 추가), merge의 행선지 결정(상수 `TARGET_DIR`을 초안별 `target_dir_for`로
+바꿔 같은 슬러그가 이미 사는 발행 디렉터리로 보낸다), 그리고 kb-ingest 5단계 문면.
+
+**발단은 규칙이 자기 목적의 반대를 달성하고 있다는 실측이다.** 옛 규칙은 synthesis가 끼는 쌍을
+오류로 막고 근거를 "기계 산출물의 synthesis 직행 금지"라 적었는데, inbox 경유는 직행이 아니라
+그 반대다. 검역 경로를 막으면 에이전트에게 남는 길은 `synthesis/` 직접 쓰기뿐이고, kb-ingest
+4단계가 고아 페이지 방지를 위해 허브 연결을 요구하므로 그 일이 실제로 일어났다 —
+richards2025 배치(19런, 2026-09-28~29)에서 허브 여덟 개를 **30회** 직접 고쳤고 그 30회가 전부
+사람 리뷰를 건너뛰었다. 코덱스 실측 리뷰가 30건 전수 diff를 세어 **판단·주장 서술 30 / 기계적
+갱신 0**으로 판정했고, 앞 런의 오류를 뒤 런이 고친다는 자기 교정 가설도 반증됐다 —
+"이 KB에 도식화 축이 아직 없다"는 문장이 같은 파일이 그 축의 페이지를 셋이나 링크하는
+상태에서 승급까지 생존했다(커밋 `49eef96`에서 제거).
+
+**창설은 열지 않았다.** `SCHEMA.md` §7의 경계 기준이 provenance(누가 썼는가)이므로 새 허브를
+기계가 세우는 길은 막아 둔다. validate에 `check_inbox_synthesis_is_revision`(error)을 더해
+`<kb>/synthesis/<슬러그>` 짝이 없는 synthesis 초안을 거부한다. 개정만 검역을 지나고, 승인이
+저작 주체를 사람으로 넘긴다는 규정은 kb-ingest 8단계가 이미 갖고 있었다("승인 = 저작 주체의
+이전")—`templates/review-synthesis.md`도 그때부터 있었으나 도달할 수 없는 상태였다.
+
+merge가 행선지를 초안의 `type`이 아니라 **짝의 위치**로 고르는 이유는 둘이 어긋날 때
+파일시스템이 정본이어야 하기 때문이다. type↔디렉터리 어긋남은 validate의 정합 검사가 따로
+잡는다. 결번 영향 없음. backfill 없음 — 이미 직접 편집된 30회는 git 이력에 남아 있고 소급
+검역은 하지 않는다(사후 리뷰는 사람이 `git log -- <kb>/synthesis/`로 본다).

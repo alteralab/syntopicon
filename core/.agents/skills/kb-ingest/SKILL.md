@@ -191,12 +191,22 @@ uv run tools/edges.py neighbors <관련페이지> --depth 2
 `status: draft`를 단다.
 
 **기존 페이지 갱신도 같은 경로다** — 갱신된 전체 페이지를 **같은 슬러그**로
-`inbox/`에 착지시킨다(개정판). concepts의 원본은 그대로 두고, 리뷰어는 두 파일의
-diff로 무엇이 변했는지 본다. 승인 시 `tools/merge.py`가 원본을 대치한다.
-concepts + inbox의 같은 슬러그 쌍은 validate가 개정 대기로 인정한다.
+`inbox/`에 착지시킨다(개정판). 발행된 원본은 그대로 두고, 리뷰어는 두 파일의
+diff로 무엇이 변했는지 본다. 승인 시 `tools/merge.py`가 원본을 대치하며, 행선지는
+**같은 슬러그가 이미 사는 곳**이다. validate가 개정 대기로 인정하는 쌍은 둘이다 —
+`concepts + inbox`와 `synthesis + inbox`.
 
-사용자가 "내가 종합한 거니 synthesis에 바로 넣어달라"고 해도 마찬가지다 —
-`synthesis/`의 경계 기준은 **작성 주체와 리뷰**이지 내용의 종합성이 아니다.
+**허브 개정도 이 경로다(2026-09-29부터).** 전에는 synthesis가 끼는 쌍이 validate
+오류여서 허브 갱신이 `synthesis/` 직접 쓰기로 샜고, 그것이 게이트를 건너뛰는
+유일한 길이 되어 richards2025 배치에서 30회 일어났다. **허브를 직접 고치지 마라** —
+개정본 전체를 같은 슬러그로 inbox에 착지시켜라. 근거는 `schema/migrations.md`
+2026-09-29 항목이다.
+
+**허브 창설은 사람 몫이다.** 짝 없는 synthesis 초안은 validate 오류다
+(`check_inbox_synthesis_is_revision`). 새 허브가 필요하면 만들지 말고 **보고에
+제안으로 적어라** — 이름 범위와 어느 페이지들을 담을지까지. `synthesis/`의 경계
+기준은 **작성 주체와 리뷰**이지 내용의 종합성이 아니고, 개정에서는 승인이 저작
+주체를 사람으로 넘긴다(8단계).
 
 ## 6. validate 루프 [기계 게이트]
 

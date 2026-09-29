@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-"""검역 해제 — inbox/의 초안을 concepts/로 승격한다 (PLAN §4.4-8).
+"""검역 해제 — inbox/의 초안을 발행 디렉터리로 승격한다 (PLAN §4.4-8).
+
+행선지는 초안마다 정한다. **같은 슬러그가 이미 사는 곳**으로 가고(concepts 또는
+synthesis), 짝이 없는 신규는 concepts다. synthesis 개정이 검역을 지나게 된 것은
+2026-09-29이다(migrations.md) — 그전에는 그 쌍이 validate 오류라서 허브 갱신이
+`synthesis/` 직접 쓰기로 샜다. **허브 창설은 여전히 사람 몫**이고 validate의
+check_inbox_synthesis_is_revision이 그것을 강제한다.
 
 rename과 다른 연산이다. rename은 발급된 ID의 이동이라 옛 경로에 redirect 스텁을
 남기지만, merge는 검역에서 본 코퍼스로의 승격이라 스텁을 남기지 않는다 — inbox는
-발행된 위치가 아니고, `dir_types`상 `concept`만 허용하므로 스텁을 두면 validate가
+발행된 위치가 아니고, `dir_types`상 redirect를 받지 않으므로 스텁을 두면 validate가
 깨진다.
 
 두 종류의 초안을 다룬다. **신규**(concepts에 같은 슬러그 없음)는 새 파일로 승격되고,
@@ -31,10 +37,26 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from syntopicon import layout as layout_mod, relocate
-from syntopicon.mdfile import frontmatter_span, read
+from syntopicon.mdfile import frontmatter_span
 from syntopicon.repo import ROOT, ensure_clean_worktree, run_validate_gate, visible_files
 
-TARGET_DIR = "concepts"
+PUBLISHED_DIRS = ("synthesis", "concepts")
+"""승격 행선지 후보. 짝을 찾는 순서이고, 짝이 없으면 마지막 값이 기본이다."""
+
+
+def target_dir_for(old: Path) -> str:
+    """이 초안이 갈 발행 디렉터리 — 같은 슬러그가 이미 사는 곳.
+
+    디렉터리를 초안의 `type`으로 고르지 않는 이유는 둘이 어긋날 때 파일시스템이
+    정본이어야 하기 때문이다. type이 synthesis인데 짝이 concepts에 있으면 그것은
+    개정 대상이 concepts 페이지라는 뜻이고, validate가 디렉터리↔type 정합으로
+    그 어긋남을 따로 잡는다.
+    """
+    kb = old.parts[0]
+    for directory in PUBLISHED_DIRS:
+        if (ROOT / kb / directory / old.name).exists():
+            return directory
+    return PUBLISHED_DIRS[-1]
 
 
 def strip_quarantine_keys(text: str) -> str:
@@ -71,7 +93,7 @@ def merge_one(layout: layout_mod.Layout, old: Path, dry_run: bool) -> Path:
     if layout.content_dir_of(old) != "inbox":
         raise relocate.RelocateError(f"{old}: inbox/의 파일이 아닙니다")
 
-    new = Path(old.parts[0], TARGET_DIR, old.name)
+    new = Path(old.parts[0], target_dir_for(old), old.name)
     revision = (ROOT / new).exists()
     if not revision:
         relocate.check_unique(layout, new, exclude=old)
@@ -96,7 +118,7 @@ def merge_one(layout: layout_mod.Layout, old: Path, dry_run: bool) -> Path:
 
 
 def main(argv: list[str]) -> int:
-    parser_ = argparse.ArgumentParser(description="inbox 초안을 concepts로 승격")
+    parser_ = argparse.ArgumentParser(description="inbox 초안을 발행 디렉터리로 승격")
     parser_.add_argument("paths", nargs="*", type=Path, help="승격할 inbox 파일")
     parser_.add_argument("--kb", default=None, help="--all과 함께 쓴다")
     parser_.add_argument("--all", action="store_true", help="그 KB의 inbox 전부")
