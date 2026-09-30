@@ -91,7 +91,7 @@ sources:
 
 ## 전이 폐포 시험의 비용은 계산이 아니라 귀속에서 나온다
 
-**런 10이 [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md)에서 이 질문을 여기로
+**[대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md)를 반입할 때 이 질문을 여기로
 넘겼다 — 변경이 영향을 줄 수 있는 시험 전부를 돌리는 것의 값이 무엇인가.**
 
 - **계산 쪽 답** — 사내 빌드 도구들이 **전역 의존 그래프를 실시간에 가깝게 유지하고 그것을
