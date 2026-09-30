@@ -650,7 +650,7 @@ Neville, "Emerging Standards and Futures in Enterprise Integration"(pp.625–627
     [일급 함수로 다시 쓰는 디자인 패턴](design-patterns-with-first-class-functions.md)이 갖는다.
     GoF 서문 인용은 이 소스가 옮긴 것을 재인용한 것이다 — 이 KB는 *Design Patterns* 원서를
     들이지 않았다.
-    §"다섯째 판정 — 언어에 흡수된 패턴과 이름이 살아남은 패턴"은 2026-08-18-10 런에서
+    §"다섯째 판정 — 언어에 흡수된 패턴과 이름이 살아남은 패턴"은
     같은 소스의 17장 "Iterators, Generators, and Classic Coroutines" §"Don't Make the
     Iterable an Iterator for Itself"(p.605) · §"Chapter Summary"(p.652) · §"Soapbox —
     The Minimalistic Iterator Interface in Python"(p.654)과 23장 "Attribute Descriptors"

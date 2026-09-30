@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 폐기 경고 — 실행 가능성과 적시성
-status: draft
 description: 낡은 체계에 기계가 읽을 수 있는 폐기 표시를 달아 사용자에게 경고하는 수단과 그 수단이 스스로를 망가뜨리는 경로에 대한 한 대규모 조직의 자기 보고 — 표시만 달고 사라지기를 바라는 것은 전략이 아니라는 되풀이와 경고가 새 쓰임은 막아도 기존 쓰임을 옮기지는 못한다는 판정, 전이적 의존을 타고 경고가 쌓여 사용자가 통째로 무시하게 되는 경로와 그것을 의료 쪽의 경보 피로라는 이름으로 부르는 자리, 사용자에게 내보내는 폐기 경고가 갖춰야 할 성질 둘 — 평균적인 엔지니어의 전문성을 전제해 실제로 다음 동작을 수행할 수 있게 하는 실행 가능성과 사용자가 그 동작을 실제로 하는 시점에 떠오르는 적시성, 그리고 가능한 모든 곳에 경고를 다는 충동을 참으라는 조문과 순진한 도구가 쏟아내는 경고량의 위험, 폐기 표시는 후하게 달되 정적 분석 도구로 새로 바뀐 줄에만 경고를 띄운다는 배치와 더 성가신 경고는 강제 폐기에만 붙인다는 등급
 generated: { by: "claude-opus-5", at: "2026-09-30T14:20:00Z" }
 sources:
@@ -182,7 +181,7 @@ sources:
 
 - [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 경고의 침습성이
   대응하는 구분
-- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 이 경고를 실제로 띄우는
+- [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md) — 이 경고를 실제로 띄우는
   도구가 사는 자리
 - [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 폐기 판단의 앞단
 - [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 같은 책 8장이 리뷰 시점 정적 분석을

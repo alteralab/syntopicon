@@ -103,7 +103,7 @@ sources:
   막는다**고 단다 (15장 §"Compulsory Deprecation").[^winters2020-swe-at-google] **이 절이
   규칙을 세우고 15장이 그것을 절차로 편다.** 전문은
   [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)와
-  [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)에 있다.
+  [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md)에 있다.
   - **그리고 15장이 이 절에 없던 축을 하나 더한다** — **날짜를 정해 통보하는 방식이 확장되지
     않는다**는 이 절의 판정과 별개로, **기한과 집행 권한 자체는 강제 폐기에 필요하다**는
     것이다. 곧 15장이 기각하는 것은 기한이 아니라 **기한만 있고 인력이 없는 배치**다.
@@ -534,7 +534,7 @@ sources:
   다운이라는 대응 어휘를 다는 자리
 - [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 같은 책 15장이 처른
   규칙을 폐기 절차의 얼개로 펴는 자리
-- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 그 절차가 요구하는
+- [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md) — 그 절차가 요구하는
   전담 팀과 도구, 그리고 베이온세 규칙이 폐기에 적용되는 자리
 - [한 판 규칙](one-version-rule.md) — 같은 책 16장이 개발 브랜치 문제와 한 뿌리로 묶는
   의존 판 정책

@@ -68,7 +68,7 @@ sources:
   비싼** 비대칭 조작이라, 자동 촉구가 없으면 **억제가 단조 증가**한다. 곧 "추적되는 비활성화"가
   성립하려면 **추적이 사람의 부지런함이 아니라 기계의 질의**여야 한다.
 - **이 판정이 이 KB의 다른 축에 그대로 걸린다** —
-  [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md)과
+  [폐기 경고의 실행 가능성과 관련성](../concepts/deprecation-warnings-actionability-and-relevance.md)과
   [문서의 신선도와 폐기](document-freshness-and-deprecation.md)가 같은 모양의
   비대칭을 다루는데, **자동 무효화 장치를 가진 것은 여기뿐**이다. 이 KB가
   "코드가 바뀌면 문서의 검토 상태를 지운다에 해당하는 값이 문서 축에 없다"고 표시해 둔 자리와
@@ -132,7 +132,7 @@ sources:
   예외가 걸리는 범주의 정본
 - [정적 분석 검사의 관문과 되먹임](static-analysis-check-admission-and-feedback.md) — 같은
   물음의 분석기 쪽 절반
-- [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md) —
+- [폐기 경고의 실행 가능성과 관련성](../concepts/deprecation-warnings-actionability-and-relevance.md) —
   같은 비대칭이 경고에 걸리는 자리
 - [문서의 신선도와 폐기](document-freshness-and-deprecation.md) — 자동 무효화
   장치가 빠져 있는 자리

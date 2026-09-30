@@ -111,7 +111,7 @@ sources:
   맞춰 최적화**하므로 도구가 무엇이든 결과가 **사람이 만든 변경과 최대한 비슷해 보이기를** 바라고,
   그 요건이 **스타일 지침과 자동 서식 도구의 필요**로 이어진다 (같은
   절).[^winters2020-swe-at-google] 그 전문은
-  [코드베이스가 자동 변경을 받아들이는 조건](codebase-amenability-to-automated-change.md)이 갖는다.
+  [코드베이스가 자동 변경을 받아들이는 조건](../concepts/codebase-amenability-to-automated-change.md)이 갖는다.
 
 ## 샤딩 — 가축이지 애완동물이 아니다
 
@@ -201,7 +201,7 @@ sources:
   있는 옛 쓰임 하나가 새 옛 쓰임을 낳는다.** 되돌아감 방지는 그 되먹임 고리를 끊는 장치이고,
   **그것이 없으면 이행은 점근적으로만 끝난다.** 그 장치의 전문은
   [정적 분석의 작업 흐름 삽입 지점](static-analysis-workflow-integration-points.md)과
-  [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md)가 갖는다.
+  [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md)가 갖는다.
 
 ## 이 장 수치의 지위
 
@@ -250,10 +250,10 @@ sources:
 - [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md) — 누가
   이 절차를 돌리는가
 - [기계가 만든 변경의 리뷰](reviewing-machine-generated-changes.md) — 샤드가 리뷰어에게 닿는 자리
-- [코드베이스가 자동 변경을 받아들이는 조건](codebase-amenability-to-automated-change.md) —
+- [코드베이스가 자동 변경을 받아들이는 조건](../concepts/codebase-amenability-to-automated-change.md) —
   생성 단계가 기대는 것
 - [결국 폐기될 것을 전제하고 설계한다](designing-for-eventual-deprecation.md) — 이 절차의 앞자리
-- [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md) — 되돌아감 방지의 다른 자리
+- [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md) — 되돌아감 방지의 다른 자리
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 목표의 사람 쪽 규범
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 갈래의 허브
 

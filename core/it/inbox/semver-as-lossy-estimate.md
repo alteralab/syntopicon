@@ -34,7 +34,7 @@ sources:
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다.
 - **이 페이지의 주장은 전부 기제 논증이고 계측이 하나도 없다.** 이 장 전체의 근거 부재 자인은
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
   갖는다. **이 페이지는 처방이 아니라 진단을 옮긴다** — 무엇이 왜 새는지에 대한 구조 서술이라
   규모를 크게 타지 않는다.
 - **다만 결론("규모에서는 지배적으로 실패한다")은 규모 전제를 단다.** 아래
@@ -184,7 +184,7 @@ sources:
   끌어들이지 않고 "주 판 상승이 값어치를 하는가"를 따져 볼 출발점**은 준다 (같은
   절).[^winters2020-swe-at-google]
   - **그 공표의 전문은
-    [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md)이 갖는다.**
+    [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md)이 갖는다.**
 - **대안 하나를 실물로 든다** — 두 언어의 표준 패키지 생태계에서는 **주 판 상승에 해당하는
   것이 아예 완전히 새 패키지로 다뤄진다.** 여기에 일종의 정의로움이 있다고 적는다 — **후진
   호환성을 기꺼이 깰 것이라면 왜 이것을 같은 API 묶음인 척하는가.** 다시 포장하고 이름을 전부
@@ -285,7 +285,7 @@ sources:
 - **그래서 이 페이지의 모든 주장은 기제 논증이고, 이 KB는 그것을 그대로 옮긴다.** 근거로 서는
   것은 계측이 아니라 **추론의 구조**이고, 읽는 쪽이 그 추론을 자기 상황에 대고 검사할 수 있다.
   이 장 전체의 수치 지위 판정은
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이 갖는다.
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이 갖는다.
 
 ## 규모를 떼면 무엇이 남는가
 
@@ -307,7 +307,7 @@ sources:
   이 장의 진단이 그 페이지의 서술을 강화한다. 그 페이지가 이미 적어 둔 관찰("번호로 기대를 싣는
   방식이 분산 체계에서 덜 쓰인다")에 이 장이 **왜 그런가의 기제**를 댄다. 그 페이지에 이 자리를
   가리키는 절을 더했다.
-- **[선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)가 같은 불신을
+- **[선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)가 같은 불신을
   실무 규정으로 적고 있었다.** 같은 책 18장이 자동 판 관리를 기각하면서 **"의미론적 판 매김을
   쓴다고 주장할 때조차" 깨는 갱신이 온다**고 적는데, **21장이 그 괄호의 근거 전체**다. 두 장이
   서로를 호명하지 않는다.
@@ -328,15 +328,15 @@ sources:
 
 - [판 선택의 네 모형과 헤드에 붙어 살기](version-selection-models-and-live-at-head.md) — 이
   진단이 미는 대안과 그 대안이 요구하는 것
-- [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) —
+- [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) —
   이 심문이 놓이는 문제의 틀
-- [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md) — 번호 대신 의도를
+- [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md) — 번호 대신 의도를
   공표하라는 처방의 자리
 - [계약을 깨는 변경의 관리](../concepts/managing-breaking-api-changes.md) — 같은 표기를
   제공자 쪽에서 쓰는 자리
 - [API의 이름과 판 매기기](../concepts/api-naming-and-versioning.md) — 판 매기는 형식의 선택지
 - [한 판 규칙](one-version-rule.md) — 해결 문제 자체를 없애는 다른 답
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 같은 불신의
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 같은 불신의
   실무 규정
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 과잉 약속
   논증의 뿌리

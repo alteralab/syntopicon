@@ -237,7 +237,7 @@ sources:
   병렬성과 재사용이라는 재료가 나온 자리
 - [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — "충분히
   작은 단위로 쪼개져 있다"는 전제를 만드는 일
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 외부
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 외부
   아티팩트 우회가 기각된 자리의 나머지 절반
 - [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md) — 놀고 있는 옆 기계를
   바라보던 ⑦에 대한 답

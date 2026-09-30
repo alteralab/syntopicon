@@ -72,7 +72,7 @@ sources:
   방치**다. 같은 모양을 이 KB가 다른 두 자리에 갖고 있다 —
   [의존을 들이는 값과 그 뒤의 상시 비용](importing-a-dependency-and-its-ongoing-cost.md)의
   고아가 된 패키지와
-  [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md)의 예산 없는 폐기다.
+  [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md)의 예산 없는 폐기다.
   **셋 다 원인이 "그 일이 누구의 일인지 정해지지 않았다"로 같다.**
 - **그 시절 교훈을 이렇게 적는다** — **장기 지원 계획과 권한 없이는 내놓지 말라.** 다만
   **조직 전체가 그것을 배웠는지는 두고 볼 일**이라고 덧붙인다 (같은
@@ -125,7 +125,7 @@ sources:
   - **소스 관리에서 의존성 관리로 옮겨 가 쓰임에 대한 가시성을 잃거나 바깥 집단의 경쟁하는
     우선순위에 종속되면**(특히 돈을 내는 쪽이면) **순수한 공학적 맞바꿈을 내리기가 훨씬 어려워진다.**
 - **이 KB가 다는 판정** — 이 사례가
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)의
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)의
   기준을 **가장 날카롭게 예시한다.** 통제권의 상실이 기술적 사실이 아니라 **사업 제약**으로
   나타났고, 그 제약이 **아래층 전체의 공학적 선택지를 삼 년 동안 잠갔다.**
 
@@ -143,7 +143,7 @@ sources:
   - 그래서 무언가를 내놓을지 판단할 때는 **장기 위험을 알고 있으라** — **바깥과 공유된 의존은
     시간에 걸쳐 고치는 값이 대개 훨씬 비싸다.**
 - **이 KB가 다는 판정** — 이 결론이
-  [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md)의 사다리와 짝을
+  [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md)의 사다리와 짝을
   이룬다. 그 페이지가 **약속의 등급을 읽는 쪽**이라면 여기는 **그 등급을 스스로 정하는 쪽**이고,
   이 절의 조언은 **등급을 낮게 잡으라**가 아니라 **어느 등급이든 그 값을 미리 세라**는 것이다.
 
@@ -162,7 +162,7 @@ sources:
   [대규모 변경과 원자적 커밋의 한계](large-scale-changes-and-atomic-commit-limits.md)에
   적어 두었다.
 - **이 장 전체의 수치 지위 판정은
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
   갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
@@ -196,14 +196,14 @@ sources:
 
 - [의존을 들이는 값과 그 뒤의 상시 비용](importing-a-dependency-and-its-ongoing-cost.md) — 같은
   장의 대칭 자리
-- [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md) — 내놓을 때 정하는 등급
-- [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) —
+- [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md) — 내놓을 때 정하는 등급
+- [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) —
   통제권 상실이라는 이 절의 뿌리
 - [대규모 변경과 원자적 커밋의 한계](large-scale-changes-and-atomic-commit-limits.md) — 첫
   사례가 없다고 적은 그 능력
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 공통
   부분집합 기제의 뿌리
-- [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md) — 같은 무주공산 문제
+- [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md) — 같은 무주공산 문제
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

@@ -157,7 +157,7 @@ sources:
     강제 폐기와 정확히 같은 모양이다** — 새것을 세우고, 옛것에 새 유입을 막고, 기존 쓰임을
     옮긴다. **15장과 16장이 같은 절차를 각자의 어휘로 적는다.** 유입 차단 수단은 15장의
     되돌림 방지 도구이고, 그 전문은
-    [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)에 있다.
+    [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md)에 있다.
 - **제삼자 패키지에서 이 규칙이 실제로 깨진다는 자인도 있다** — **외부 패키지가 자기 의존의
   고정된 사본을 자기 소스 배포에 묶어 오는 일이 있어서 많은 경우 이 규칙에 실패한다**는
   것이다 (16장 각주 10).[^winters2020-swe-at-google]
@@ -261,7 +261,7 @@ sources:
   따라 내려받는 편의**다. 서로 다른 라이브러리가 같은 제삼자 라이브러리의 다른 판에 의존할 수
   있으므로 **그 전략은 필연적으로 한 판 규칙을 어기고 다이아몬드 의존 문제로 이어진다**
   (18장 §"Transitive external dependencies").[^winters2020-swe-at-google] **그 경로와 그
-  대안의 전문은 [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)가
+  대안의 전문은 [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)가
   갖는다.**
 - **적용 범위가 갈리는 것도 적어 둔다** — 18장이 이 규칙을 **제삼자 의존**에 건다고 명시한다.
   **내부 의존에는 애초에 판이라는 개념이 없어**(한 타깃과 그 내부 의존은 늘 같은 리비전에서
@@ -271,7 +271,7 @@ sources:
 - **18장이 스스로 다음 장으로 넘긴다** — 이 문제를 **큰 모노레포 맥락에서 더 살펴본다**고 적고
   의존성 관리 장을 가리킨다 (18장 §"The One-Version
   Rule").[^winters2020-swe-at-google] 이 KB의 그 자리는
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) 계열이고,
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) 계열이고,
   같은 규칙을 그 장이 네 답 가운데 하나로 다시 놓는 대목은 아래에 있다.
 
 ## 이 장 수치의 지위
@@ -356,7 +356,7 @@ sources:
 - **같은 책 21장이 요구 충돌 문제의 일반형을 세운다** — 다이아몬드 의존은 **충돌하는 요구
   일반의 정본 이름일 뿐**이고, 운영체제·언어 판·컴파일러 판 같은 것도 **그 요구를 나타내는 숨은
   마디를 그래프에 더하면** 같은 꼴이 된다는 것이다. 그 일반형과 언어별 우회의 한계는
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
   갖는다.
 - **그 틀에서 보면 이 규칙의 위치가 바뀐다.** 21장이 이 문제에 대한 답을 넷으로 갈라 각각을
   **판 선택을 누가 하는가**로 견주는데
@@ -380,10 +380,10 @@ sources:
   자리. 이 장이 다섯째 소스로 들어간다
 - [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 판을 옮기는 절차가
   같은 모양인 자리
-- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 옛 판에 새 유입을 막는
+- [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md) — 옛 판에 새 유입을 막는
   도구
 - [일관성](../concepts/consistency-in-code.md) — 이 규칙이 부수 효과라고 지목하는 논의
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 같은 책
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 같은 책
   18장이 이 규칙을 어기는 경로로 지목하는 전이 외부 의존
 - [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md) —
   선택을 없애 확장을 산다는 같은 수를 빌드 파일에 거는 자리
@@ -395,7 +395,7 @@ sources:
 - [기술 부채](../concepts/technical-debt.md) — 우회 노동을 "잃은 노동"이라 부르는 값 판단이
   걸리는 자리
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
-- [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) —
+- [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) —
   같은 책 21장이 세우는 문제의 일반형
 - [판 선택의 네 모형과 헤드에 붙어 살기](version-selection-models-and-live-at-head.md) — 이
   규칙이 그 가운데 어디에 서는가

@@ -118,7 +118,7 @@ sources:
 
 ## 이 KB의 다른 자리와 만나는 곳
 
-**이 KB의 [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)과
+**이 KB의 [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)과
 [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md)이
 2026년 KB 작성 시점에 이미 두껍다. 같은 사실은 옮기지 않고 갈리는 자리만 적는다.**
 
@@ -164,7 +164,7 @@ sources:
   — 열차에 실린 것을 무엇으로 통과시키는가
 - [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md) —
   기술 쪽 절반의 정본
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 KB의 CI·CD 축 정본
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 KB의 CI·CD 축 정본
 - [진화적 아키텍처의 함정과 안티패턴](../concepts/evolutionary-architecture-antipatterns.md) —
   주기 시간을 상한으로 놓는 쪽
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 이 장이 드는 구조 처방의 목표

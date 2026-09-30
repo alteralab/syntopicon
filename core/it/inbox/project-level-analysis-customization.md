@@ -86,7 +86,7 @@ sources:
 - **그리고 이 규칙이 19장의 대시보드 예외를 설명한다.** 19장은 사람마다의 화면 구성을
   허용했는데, **대시보드가 영향을 주는 대상이 그 사람의 주의뿐**이기 때문이다. **같은 잣대의
   두 판정**이고, 두 장이 서로를 가리키지 않는다.
-  - [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 같은 대질을 그쪽 §"의견을 가진 절차와 프로젝트 수준의 변주"에도 적었다
+  - [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) — 같은 대질을 그쪽 §"의견을 가진 절차와 프로젝트 수준의 변주"에도 적었다
 
 ## 되돌린 실험 — 사용자 맞춤을 걷어내다
 
@@ -173,7 +173,7 @@ sources:
   방향이다.** 8장이 **규칙을 남에게서 복사해 오면 안 된다**고 적고 **예외를 승인제로**
   두는데, 20장의 프로젝트 수준 맞춤이 그 예외 승인제의 도구 판본이다. **개인이 자기 판단으로
   규칙을 끄는 길을 양쪽 다 막는다.**
-- **[일관성](consistency-in-code.md)의 논거를 이 페이지가 다른 근거로 뒷받침한다.** 그쪽은
+- **[일관성](../concepts/consistency-in-code.md)의 논거를 이 페이지가 다른 근거로 뒷받침한다.** 그쪽은
   일관성이 **읽는 사람의 부담을 줄이고 도구를 가능하게 한다**는 쪽으로 논증하고, 20장은
   **설정이 갈리면 노동이 서로를 지운다**는 쪽으로 논증한다. **일관성의 새 근거 하나**이고
   이 KB에 없던 것이다. 그 페이지를 개정하지 않았다. **사람이 볼 자리다.**
@@ -217,12 +217,12 @@ sources:
   여기서 사람이 직접 물어 얻은 것을 상시로 받는 통로
 - [정적 분석을 개발 흐름의 어디에 끼울 것인가](static-analysis-workflow-integration-points.md) —
   억제가 걸리는 층들
-- [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md) —
+- [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md) —
   억제 자체가 없는 층
 - [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 빠져나갈 장치를 두라는
   같은 책 8장의 조문
-- [일관성](consistency-in-code.md) — 같은 결론에 이르는 다른 논거
-- [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 같은 잣대가
+- [일관성](../concepts/consistency-in-code.md) — 같은 결론에 이르는 다른 논거
+- [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) — 같은 잣대가
   대시보드에서 반대로 판정되는 자리
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

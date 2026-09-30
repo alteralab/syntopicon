@@ -422,7 +422,7 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
     *ACM Transactions on Software Engineering and Methodology*. **확보본은 저자 수용본이라
     러닝 푸터의 권·호·쪽이 자리표시자(`Vol. V, No. N, Article A`)이므로 이 페이지의
     locator는 절 번호와 표·그림 번호로만 적었다** — 권·호·쪽수가 필요하면 DOI
-    10.1145/2699688의 서지 레코드가 근거이고, 이 반입 런은 그 레코드를 열지 않았다.
+    10.1145/2699688의 서지 레코드가 근거이고, 이 KB는 그 레코드를 열지 않았다.
     이 페이지는 초록·§1 Introduction·§2 Study Design(2.1–2.5)·§3 Results: Initial
     Study(3.1–3.4)·§4 Results: Replication Study(4.1–4.4)·§5 Discussion(5.1–5.2)·§8
     Related Work·§9 Conclusions를 담았다. §6(설문)·§7(향후 과제 논의)·부록 A(주입 뮤턴트
@@ -434,7 +434,7 @@ EvoSuite 결과에서 출발했다. 초기 실험은 피험자 49명·클래스 
 [^vonken2012-refactoring]: Vonken & Zaidman 2012, "Refactoring with Unit Testing: A Match
     Made in Heaven?", Working Conference on Reverse Engineering (WCRE). **확보본 1쪽에
     학회명·연도·쪽수 줄이 인쇄돼 있지 않은 저자본이라 쪽수를 locator로 쓰지 않고 절
-    번호와 표 번호로만 적었다** — 게재 쪽수는 리포지토리 레코드가 근거이고 이 반입 런은
+    번호와 표 번호로만 적었다** — 게재 쪽수는 리포지토리 레코드가 근거이고 이 KB는
     그것을 확인하지 않았다. 이 페이지는 초록·§I Introduction·§III Experimental
     Design(A–G)·§IV Results(A–B, 표 II·III·V·VI·VII)·§V Discussion(A–C)·§VI Conclusion·
     참고문헌 [25]를 담았다. §II Related Work가 전하는 제3자 수치(George & Williams,

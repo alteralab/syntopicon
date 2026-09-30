@@ -142,7 +142,7 @@ sources:
   예외를 나란히 들되 그 공통점을 적지 않는다 — 이 KB의 읽기다.
 - **그리고 컴파일러 쪽에 세 번째 예외가 있다** — 새 컴파일러 검사를 켜려면 **코드베이스
   전체의 기존 사례를 먼저 정리해야 하고**, 그 정리 자체가 전수 분석을 요구한다. 그 정본은
-  [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md)이다.
+  [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md)이다.
 
 ## 삽입 지점의 사다리
 
@@ -163,7 +163,7 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
   **둘 다 "그 검사가 참이 아닐 수 없다"는 조건을 요구한다.** 그래서 이 사다리는 단순한
   순서가 아니라 **분석의 확실성에 따라 걸 수 있는 층이 정해지는 구조**다. 확실한 것은
   아래로 내려가 막고, 확실하지 않은 것은 위에서 제안한다. **그 대응의 정본은**
-  [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md)**에
+  [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md)**에
   있다.**
 
 ## 이 장 수치의 지위
@@ -201,7 +201,7 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
-- **[지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)의 파이프라인보다
+- **[지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)의 파이프라인보다
   이 장의 무게 중심이 앞에 있다.** 그 축의 소스들은 검사를 **파이프라인의 단계**에 걸고,
   20장은 **커밋 이전의 리뷰 시점**을 주된 자리로 고른다. **부딪히지 않는다** — 20장도 제출
   전 검사와 지속 통합을 층으로 갖는다. **갈리는 것은 기본값**이고, 20장의 근거가 기술이
@@ -215,7 +215,7 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
   쪽이다.** 8장이 **서식기를 제출 전 검사로 걸어 서식을 리뷰의 주제에서 아예 뺀다**고
   적는데, 20장의 제출 전 검사 목록에 **서식이 제대로 돼 있는지**가 그대로 들어 있다.
   **같은 배치의 두 서술**이고 8장이 이유를, 20장이 자리를 적는다.
-- **[코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md)과 한 몸이다.**
+- **[코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md)과 한 몸이다.**
   19장이 분석 결과가 리뷰 화면에 어떻게 붙는지를 적고, 20장이 왜 거기 붙이는지를 적는다.
   **19장 쪽에 하나 더 있는 것은 오래 걸리는 분석보다 빠른 분석 결과를 먼저 보여 준다는
   배치**이고, 20장의 "몇 분은 돌 시간이 있다"와 짝이다.
@@ -254,15 +254,15 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
 ## 이어지는 페이지
 
 - [체감 오탐률](effective-false-positive-rate.md) — 이 장의 출발점이 되는 지표
-- [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md) —
+- [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md) —
   이 사다리의 가장 아래층
 - [정적 분석을 생태계로 — 검사를 들이는 관문과 되먹임](static-analysis-check-admission-and-feedback.md) —
   무엇을 이 지점들에 들일지의 관문
 - [분석 억제를 프로젝트 단위로 두기](project-level-analysis-customization.md) — 같은 장이
   적는 설정의 알갱이
-- [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 분석 결과가 붙는
+- [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) — 분석 결과가 붙는
   화면 쪽
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 파이프라인 쪽의 검사
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 파이프라인 쪽의 검사
 - [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

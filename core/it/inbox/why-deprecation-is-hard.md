@@ -52,7 +52,7 @@ sources:
   (같은 절).[^winters2020-swe-at-google]
   - **이 재규정이 이 페이지에서 가장 옮길 만한 한 줄이다.** 폐기를 "정리 작업"이 아니라
     **변경 관리의 가장 어려운 사례**로 놓으면, 변경 관리에 쓰던 도구와 절차가 그대로 폐기에도
-    필요하다는 것이 따라온다. 뒤의 [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)가
+    필요하다는 것이 따라온다. 뒤의 [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md)가
     실제로 그 도구들이 같은 것이라고 적는다.
 
 ## 대체는 정의상 다르다
@@ -160,7 +160,7 @@ sources:
 | 완전 교체가 비싸다 | 전략 | 제자리 점진 개선으로 쪼개기 |
 
 - **대응이 대는 자리가 셋으로 모인다** — **도구**(발견·이력 검색), **전담 팀**, **측정**이다.
-  세 대응 모두 뒤의 [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)가 받는다.
+  세 대응 모두 뒤의 [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md)가 받는다.
 - **이 장이 대응을 대지 않은 것이 하나 있다** — **위 [대체는 정의상 다르다](#대체는-정의상-다르다)의
   일대일 대응 부재**다. 전문가 팀에 맡긴다는 것이 대응이지만 **그 팀이 판단의 총량을 줄이지는
   않는다.** #hypothesis 이 장이 뒤에서 드는 자동 수정 제안(도구가 치환안을 내미는 것)이 그
@@ -202,7 +202,7 @@ sources:
   어려움들을 짓는 시점에 미리 줄이는 쪽
 - [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 그런데도 폐기하기로 한
   뒤의 갈림
-- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 이 절이 대는 대응 셋의
+- [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md) — 이 절이 대는 대응 셋의
   실물
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 하이럼의
   법칙의 성문 자리

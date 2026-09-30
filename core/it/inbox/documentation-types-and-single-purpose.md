@@ -299,7 +299,7 @@ comments").[^winters2020-swe-at-google]
   것에 소유와 정본과 리뷰를 거는 절차
 - [문서의 독자를 가르기](documentation-audiences-seekers-and-stumblers.md) — 같은 장.
   이 절의 서식 규약이 연역돼 나오는 독자 모형
-- [설계 문서 — 착수 전 관문](design-docs-as-a-prelaunch-gate.md) — 같은 장. 다섯 유형
+- [설계 문서 — 착수 전 관문](../concepts/design-docs-as-a-prelaunch-gate.md) — 같은 장. 다섯 유형
   가운데 이 KB가 따로 떼어 낸 하나
 - [문서의 수명 — 신선도 날짜와 폐기](document-freshness-and-deprecation.md) — 같은 장.
   이 유형들이 낡을 때

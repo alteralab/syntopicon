@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 컨테이너를 시간에 대한 추상 경계로 보기
-status: draft
 description: 격리 수단으로 들인 컨테이너가 실제로 더 큰 값을 내는 자리가 추상 경계라는 재규정 — 기계가 바뀔 때 고쳐야 하는 쪽이 한 팀의 컨테이너 소프트웨어로 좁혀지고 애플리케이션 쪽은 그대로 있어도 된다는 조직적 귀결, 파일 체계 추상이 바깥에서 들어온 소프트웨어를 기계 설정을 손대지 않고 얹게 하고 의존을 미리 선언해 담게 한다는 두 쓰임, 이름 붙은 자원을 경계 안으로 넣는 진화와 그것을 하지 않았을 때 애플리케이션 쪽에 남은 흔적, 그리고 암묵 의존의 법칙이 이 경계에도 걸리되 사용자가 API를 쓰고 있다고 느끼지 못해 더 심하게 걸린다는 진단과 프로세스 식별자 공간을 실물로 든 삼 단계 이행과 팔 년째 끝나지 않는 정리, 그 사례에서 뽑히는 교훈이 특정 격리 수단이 아니라 널리 쓰이는 공동체의 컨테이너 체계를 고르라는 것이라는 판정, 그리고 이 KB의 밀폐성 축과 이식성 축과 갈리는 자리
 generated: { by: "claude-opus-5", at: "2026-09-30T22:30:00Z" }
 sources:
@@ -151,9 +150,9 @@ sources:
 
 ## 이어지는 페이지
 
-- [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md) — 컨테이너를
+- [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md) — 컨테이너를
   격리로 들여온 자리
-- [계산 서비스 선택의 잠김과 API 분기](compute-service-choice-lock-in-and-bifurcation.md) — 같은
+- [계산 서비스 선택의 잠김과 API 분기](../concepts/compute-service-choice-lock-in-and-bifurcation.md) — 같은
   암묵 의존이 플랫폼 선택에 걸리는 자리
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 암묵 의존의
   법칙의 정본

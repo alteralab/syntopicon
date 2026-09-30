@@ -31,7 +31,7 @@ sources:
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다. 이 장의 저자와 규모 전제, 그리고
   이 KB가 19장을 어떻게 갈랐는지는
-  [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md)이 적는다.
+  [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md)이 적는다.
 - **이 절들이 서 있는 근거는 설계 결정의 서술과 그 결과에 대한 서술적 판단이다.** 계측은
   없다. 그 지위는 [아래 절](#이-장-수치의-지위)이 적는다.
 - **승인 구조 자체는 이 장의 것이 아니다.** 축이 셋이라는 규정과 누가 각 축의 자격을 갖는지는
@@ -143,7 +143,7 @@ sources:
 
 **이 소스에서는 수치의 지위를 장마다 새로 잰다. 19장에는 효과를 나타내는 수가 한 건도 없다.**
 
-[코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) §"이 장 수치의 지위"에 그 실측과
+[코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) §"이 장 수치의 지위"에 그 실측과
 이 장이 여는 여덟째 유형의 규정이 있다.
 
 - **이 페이지의 절들에 걸리는 몫만 여기 적는다.** 등급을 줄인 개정에 대해 **개정 전후의
@@ -216,7 +216,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 같은 장의
+- [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) — 같은 장의
   원칙 넷과 이 KB가 19장을 가른 방식
 - [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md) — 같은 장이
   적는 다른 작업 흐름 장치

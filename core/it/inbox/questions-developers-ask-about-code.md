@@ -54,7 +54,7 @@ sources:
   갈리는 자리, 그리고 신뢰가 채택의 조건이라는 판정. **전부 도구를 바꿔도 남는 판단이다.**
 - **이 페이지는 그 가운데 물음의 유형학을 받는다.** 나머지 셋은
   [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) ·
-  [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) ·
+  [코드 검색의 완전성과 신뢰](../concepts/code-search-completeness-and-trust.md) ·
   [코드를 찾는 일은 텍스트를 찾는 일과 다르다](searching-code-is-not-searching-text.md)에
   있다.
 
@@ -179,7 +179,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   정당화**이고, 그 판정은
   [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md)이
   갖는다. 이 장의 시스템 성능 수치(16장형)와 이름 없는 사내 질의 분석(10장형)의 판정도 그쪽과
-  [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md)에 나뉘어 있다.
+  [코드 검색의 완전성과 신뢰](../concepts/code-search-completeness-and-trust.md)에 나뉘어 있다.
 
 ## 규모를 떼면 무엇이 남는가
 
@@ -222,7 +222,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
 
 - [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) —
   왜 편집기 안이 아니라 따로 둔 도구인가
-- [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) — 무엇을 색인에서
+- [코드 검색의 완전성과 신뢰](../concepts/code-search-completeness-and-trust.md) — 무엇을 색인에서
   뺄 수 있는가의 세 저울
 - [코드를 찾는 일은 텍스트를 찾는 일과 다르다](searching-code-is-not-searching-text.md) —
   표현력의 사다리와 코드 고유의 랭킹 신호

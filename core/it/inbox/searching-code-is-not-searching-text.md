@@ -334,7 +334,7 @@ sources:
   요구와 사례 검색이 나오는 자리
 - [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) —
   이 색인을 누가 어디에 짓는가
-- [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) — 이 색인에 무엇을
+- [코드 검색의 완전성과 신뢰](../concepts/code-search-completeness-and-trust.md) — 이 색인에 무엇을
   담을 것인가
 - [전문 검색 색인](../concepts/full-text-search-indexes.md) — 색인 구조의 정본 자리
 - [하이브리드 검색과 재순위](../concepts/hybrid-search-and-reranking.md) — 가져온 것의

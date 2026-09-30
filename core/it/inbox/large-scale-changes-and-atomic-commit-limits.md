@@ -106,7 +106,7 @@ sources:
   이득 때문에 기꺼이 돕는다**고 적는다 (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 넷 가운데 **이질성만이 조직이 선택할 수 있는 변수**다. 나머지 셋은
   도구와 확률과 그래프 구조라서 주어지는데, 이질성은 **일관성에 투자한 만큼 줄어든다.** 그
-  투자의 다른 근거들은 [코드의 일관성](consistency-in-code.md)과
+  투자의 다른 근거들은 [코드의 일관성](../concepts/consistency-in-code.md)과
   [규칙 집행을 자동화한다](../concepts/automating-rule-enforcement.md)가 갖는데, **두 자리 다 "자동 변경이
   가능해진다"를 일관성의 값으로 세지 않는다.** 이 장이 그 항목을 더한다.
 
@@ -228,7 +228,7 @@ sources:
   적는다.** 같은 책 21장의 첫 사례가 **그 시절 대규모 리팩터링을 수행할 능력이 없었다**는 것을
   포크가 갈린 첫 사유로 든다. **같은 책 두 장이 같은 능력을 양쪽에서 말하되 서로를 호명하지
   않는다.**
-- **[코드의 일관성](consistency-in-code.md)에 이 장이 새 근거를 더한다** — 일관성의 값을
+- **[코드의 일관성](../concepts/consistency-in-code.md)에 이 장이 새 근거를 더한다** — 일관성의 값을
   읽는 부담이나 도구 가능성이 아니라 **기계가 코드베이스를 가로질러 고칠 수 있음**으로 센다.
   그 페이지를 개정해 절을 더했다.
 
@@ -238,7 +238,7 @@ sources:
   일을 하는가
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 승인부터 뒷정리까지
 - [기계가 만든 변경의 리뷰](reviewing-machine-generated-changes.md) — 리뷰가 규모에서 부딪히는 것
-- [코드베이스가 자동 변경을 받아들이는 조건](codebase-amenability-to-automated-change.md) —
+- [코드베이스가 자동 변경을 받아들이는 조건](../concepts/codebase-amenability-to-automated-change.md) —
   무엇이 이것을 가능하게 하는가
 - [한 판 규칙](one-version-rule.md) — 이 장을 세금 논거로 쓰는 자리
 - [리팩터링을 가로막는 것들](../concepts/obstacles-to-refactoring.md) — 같은 물음의 개인 규모

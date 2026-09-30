@@ -724,5 +724,5 @@ pp.82–83, 88).[^ciceri2022]
     **이 KB는 콘웨이의 원논문을 여전히 확인하지 않았고** 이 소스도 2차 경유다. 같은 곁글이
     이어지는 스타일 장의 서식을 예고하는 대목과 팀 유형 넷의 규정은
     [팀 토폴로지와 아키텍처](team-topologies-and-architecture.md)가 갖는다.
-    **런 13이 17장 §"Orchestration engine and message bus"(p.319)와 §"Team Topology
-    Considerations"(p.325)를 더했다** — 이 법칙이 조직 병리를 예측하는 데 쓰인 자리다.
+    **17장 §"Orchestration engine and message bus"(p.319)와 §"Team Topology
+    Considerations"(p.325)도 이 페이지에 담았다** — 이 법칙이 조직 병리를 예측하는 데 쓰인 자리다.

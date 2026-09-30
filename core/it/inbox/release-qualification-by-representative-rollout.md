@@ -77,7 +77,7 @@ sources:
   안 함"이 아니라 "같은 것을 다시 배포함"**이다. 그래야 배포 행위가 만드는 잡음이 양쪽에서
   상쇄된다. **이 설계가 위 관찰의 논리적 귀결이고, 그 연결이 이 장의 유일한 연역이다.**
 - **이 조작이 이 KB의 전달 성과 측정 축과 만난다** —
-  [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)의 계기 절이 파이프라인을
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)의 계기 절이 파이프라인을
   성과 지표의 계기 자리로 놓는데, **그 지표들은 전부 전달의 속도와 실패율**이고 **릴리스가
   제품을 낫게 했는가는 없다.** 이 장이 그 셋째 종류의 계기를 댄다.
 
@@ -138,7 +138,7 @@ sources:
   카나리와 기능 표식의 정본
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 같은 이동을 검증 자리의
   이동으로 논증하는 쪽
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 전달 성과 계기의 자리
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 전달 성과 계기의 자리
 - [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   되먹임 고리의 마지막 칸이 여기다
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 보호용 지표라는 어휘의 이웃

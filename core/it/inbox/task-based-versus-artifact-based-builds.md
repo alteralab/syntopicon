@@ -273,7 +273,7 @@ sources:
 - [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md) — 이 대립 앞에 놓인 물음
 - [분산 빌드 — 원격 캐시와 원격 실행](distributed-builds-remote-cache-and-execution.md) —
   병렬성과 재사용이 재료가 되는 다음 층
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 선언적
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 선언적
   매니페스트가 실제로 적는 것
 - [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 그
   매니페스트의 단위를 얼마나 잘게 쪼갤 것인가

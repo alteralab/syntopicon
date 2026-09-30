@@ -122,7 +122,7 @@ sources:
 
 ## 이 가름이 전달 성과 지표 축과 부딪히는 자리
 
-- **이 KB의 [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)이 파이프라인을
+- **이 KB의 [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)이 파이프라인을
   전달 성과 지표의 계기 자리로 놓는다.** 그 지표들은 **배포 빈도와 변경 실패율 같은 것**이고,
   곧 **주기를 직접 센다.**
 - **이 장의 가름이 그 계측을 반쯤 무효로 만든다** — 능력이 있으면서 의도적으로 주기를 낮춘
@@ -163,7 +163,7 @@ sources:
   — 그 주기 안에서 무엇을 통과시키는가
 - [배포와 릴리스의 분리와 릴리스 전략](../concepts/deployment-and-release-separation.md) —
   한 변경에 대해 같은 가름을 하는 층
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 주기를 세는 지표가
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 주기를 세는 지표가
   사는 자리
 - [외부 설정](../concepts/external-configuration.md) — 능력 넷 가운데 첫째와 둘째의 정본
 - [버전 관리의 정본 자리](source-of-truth-in-version-control.md) — 설정을 코드처럼 두는 쪽

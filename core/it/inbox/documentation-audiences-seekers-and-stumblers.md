@@ -246,7 +246,7 @@ sources:
   실제로 집행되는 절차 쪽
 - [문서 유형과 한 문서 한 목적](documentation-types-and-single-purpose.md) — 같은 장.
   찾는 사람과 헤매는 사람이 서식 규약으로 번역되는 자리
-- [설계 문서 — 착수 전 관문](design-docs-as-a-prelaunch-gate.md) — 같은 장. 독자가
+- [설계 문서 — 착수 전 관문](../concepts/design-docs-as-a-prelaunch-gate.md) — 같은 장. 독자가
   결정권자인 문서
 - [좋은 문서의 세 변수와 다섯 물음](documentation-quality-parameters.md) — 같은 장.
   독자의 필요를 문서 품질의 규정으로 바꾸는 자리

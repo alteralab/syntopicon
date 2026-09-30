@@ -372,7 +372,7 @@ sources:
   이 절차가 섬기려는 대상을 누구로 잡는가
 - [문서 유형과 한 문서 한 목적](documentation-types-and-single-purpose.md) — 같은 장.
   소유와 정본을 실제로 걸 단위가 무엇인가
-- [설계 문서 — 착수 전 관문](design-docs-as-a-prelaunch-gate.md) — 같은 장. 이 절차가
+- [설계 문서 — 착수 전 관문](../concepts/design-docs-as-a-prelaunch-gate.md) — 같은 장. 이 절차가
   코드 이전으로 당겨지는 자리
 - [문서의 수명 — 신선도 날짜와 폐기](document-freshness-and-deprecation.md) — 같은 장.
   일곱 축의 "주기적 평가"가 실제로 붙는 기제

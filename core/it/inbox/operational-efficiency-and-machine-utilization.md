@@ -449,7 +449,7 @@ sources:
 - **자동화의 상태도 적는다** — 그 체계 전체 자원 쓰임의 절반이 넘는 몫이 적정 크기화 자동화로 정해지되
   **잘하기가 놀랄 만큼 까다롭다고 자인한다** (같은 절).[^winters2020-swe-at-google] **이 KB는 그 값을
   효험의 근거로 쓰지 않는다** — 귀속할 계측의 이름조차 없다. 지위 판정의 전문은
-  [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md)가 갖는다.
+  [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md)가 갖는다.
 
 ## 버전 조건
 
@@ -486,7 +486,7 @@ sources:
 - [확장의 네 축](../concepts/four-axes-of-scaling.md) — 오토스케일링의 원전
 - [프로덕션 다중우주와 카오스](../concepts/production-multiverse-and-chaos.md) — 스카이스캐너가
   고른 그 실천
-- [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md) · [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md) —
+- [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md) · [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md) —
   여유의 쓰임을 바꾸는 쪽과 적정 크기화의 셋째 이유
 - [그린 소프트웨어 구축](../synthesis/building-green-software.md) — **이 페이지가 걸린 허브.**
   이 원전의 열아홉 페이지가 세 원칙과 측정과 조직 축으로 모여 있다

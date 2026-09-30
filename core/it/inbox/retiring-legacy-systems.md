@@ -337,7 +337,7 @@ sources:
 - [폐기를 전제로 설계하기](designing-for-eventual-deprecation.md) — 계획된 노후화의 짓는 쪽 판
 - [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 같은 격언이 이행 계획에
   걸리는 자리
-- [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 끄기로 정한 뒤의 절차
+- [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md) — 끄기로 정한 뒤의 절차
 - [아키텍트는 1차 도함수에 산다](../concepts/architects-in-the-first-derivative.md) — 단기
   최적화와 장기 속도의 절충을 다루는 3장
 - [계약을 깨는 변경의 관리](../concepts/managing-breaking-api-changes.md) — 퇴역의 절차를

@@ -62,7 +62,7 @@ sources:
   [^winters2020-swe-at-google]
 - **이 KB가 다는 판정 — 이 규정이 이 축에서 드문 꼴이다.** 서버리스를 **추상 수준의 한 칸**으로 놓는
   대신 **다중 세입을 한 층 더 올린 것**으로 놓는다. 그러면 이 페이지가
-  [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md)의 같은 사다리
+  [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md)의 같은 사다리
   위에 앉는다 — 격리로 기계를 나눠 쓴 것과 같은 수를 **프레임워크 프로세스에** 적용한 것이다. 이 KB의
   멀티테넌시 축(
   [멀티테넌트 배포 모형](../concepts/multi-tenant-deployment-models.md) 계열)은 **테넌트가 고객**인
@@ -151,7 +151,7 @@ sources:
   근거는 조직이 나중에 통합된 계산 구조로 가기로 정할 때 **자연스러운 경로를 준다**는 것이다
   (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정 — 이 기준이 잠김 논의와 한 쌍이고 방향이 반대다.**
-  [계산 서비스 선택의 잠김과 API 분기](compute-service-choice-lock-in-and-bifurcation.md)는 **잠김을
+  [계산 서비스 선택의 잠김과 API 분기](../concepts/compute-service-choice-lock-in-and-bifurcation.md)는 **잠김을
   어떻게 줄이는가**를 묻는데 여기서는 **성장해서 벗어날 것을 전제로 무엇을 고르는가**를 묻는다. 곧
   탈출 경로가 **위험 완화가 아니라 계획된 이행 경로**다. 그 격의 차이가 이 KB의 이행 축에 없다 —
   [레거시 시스템 걷어내기](retiring-legacy-systems.md)·
@@ -163,11 +163,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [계산 서비스 선택의 잠김과 API 분기](compute-service-choice-lock-in-and-bifurcation.md) — 탈출 경로의
+- [계산 서비스 선택의 잠김과 API 분기](../concepts/compute-service-choice-lock-in-and-bifurcation.md) — 탈출 경로의
   값을 깎는 쪽
 - [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md) — 이 장이 이득의
   출처로 되돌리는 자리
-- [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md) — 같은 사다리의
+- [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md) — 같은 사다리의
   아래쪽 칸들
 - [마이크로서비스 배포 선택지](../concepts/microservice-deployment-options.md) — 사다리와 어림법의 정본
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —

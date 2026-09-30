@@ -76,7 +76,7 @@ sources:
   복잡성과 위험을 다루기가 훨씬 쉽다**는 것이다 (21장 §"How Google Handles Importing
   Dependencies").[^winters2020-swe-at-google]
   - **그 대비가 이 KB의
-    [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+    [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
     받은 기준의 실물 적용이다.**
 - **그 쉬움이 바깥 프로젝트에서 무너진다** — 공개 생태계나 상업 협력사에서 들여오는 것들은
   단일 저장소의 **별도 디렉터리 하나**에 들어간다 (같은 절).[^winters2020-swe-at-google]
@@ -113,7 +113,7 @@ sources:
   **전이 사용이 늘 때 아무에게도 알림이 가지 않는다.**
 - **그리고 갱신 비용이 시간에 대해 선형이 아니라는 것도 이 경로가 보여 준다** — 미룬 갱신은
   **한 번에 치러야 할 덩어리**로 자란다. 이 KB의
-  [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md)가 같은 책 15장에서 받은
+  [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md)가 같은 책 15장에서 받은
   판정과 같은 모양이다.
 
 ## 막을 잣대를 아직 갖지 못했다
@@ -131,7 +131,7 @@ sources:
 - **판정의 근거가 수명이다** — 이 코드베이스의 기대 수명이 **수십 년 단위**이고, **안정성을
   명시적으로 우선하지 않는 상류 프로젝트는 위험**이다 (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 이 마지막 문장이
-  [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md)의 사다리를 **결정
+  [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md)의 사다리를 **결정
   규칙으로 바꾼다.** 약속의 등급과 코드의 기대 수명을 나란히 놓고, **수명이 약속보다 길면 그
   차이가 언젠가 청구될 부채**다.
 
@@ -143,7 +143,7 @@ sources:
 - **그래서 이 페이지의 지위 표시를 "이 조직이 자기 절차의 실패 양식을 그렇게 서술한다"까지로
   갈랐다.** 빈도도 심각도도 이 소스로 주장할 수 없다.
 - **이 장 전체의 수치 지위 판정은
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
   갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
@@ -159,7 +159,7 @@ sources:
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
-- **[선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)가 이 페이지의
+- **[선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)가 이 페이지의
   기계 쪽 짝이다.** 그쪽(같은 책 18장)은 **들인 뒤 그것을 어떻게 고정하고 검증하는가**(수동 판
   관리·해시·미러·벤더링)를 갖고, 이 페이지는 **들일지 말지의 판단**을 갖는다. 두 장이 서로를
   가리킨다.
@@ -169,7 +169,7 @@ sources:
   조직 안의 공유를 대상으로 하고 이쪽은 조직 밖에서 오는 것을 대상으로 해서 통제권이 다르기
   때문이다. **다만 두 소스 다 자기 전제를 명시하지 않아 그대로 읽으면 부딪힌다.** 사람이 볼
   자리다.
-- **[폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md)와 같은 실패를 반대 방향에서
+- **[폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md)와 같은 실패를 반대 방향에서
   본다.** 그쪽은 **우리가 만든 것을 걷어내는 데 사람이 없어 실패**하는 자리이고, 이쪽은 **남이
   만든 것을 올리는 데 사람이 없어 실패**하는 자리다. **둘 다 원인이 "소유자 명단이 실제 책임과
   어긋난다"로 같다.**
@@ -179,13 +179,13 @@ sources:
 
 ## 이어지는 페이지
 
-- [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md) — 들이기 전에 읽어야
+- [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md) — 들이기 전에 읽어야
   할 것
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 들인 뒤의 기계
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 들인 뒤의 기계
 - [의존을 내보내는 쪽의 값](exporting-a-dependency-and-its-costs.md) — 같은 물음의 반대편
-- [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) — 이
+- [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) — 이
   판단이 놓이는 틀
-- [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md) — 사람 없는 절차가 실패하는
+- [폐기는 담당자를 둔 절차다](../concepts/deprecation-as-a-staffed-process.md) — 사람 없는 절차가 실패하는
   같은 모양
 - [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md) — 소유자 명단이 하는 일
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 값을 시간

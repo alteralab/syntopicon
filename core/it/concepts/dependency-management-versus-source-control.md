@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 의존성 관리와 소스 관리를 가르는 물음
-status: draft
 description: 통제권이 없는 코드를 다루는 일을 소스 관리와 갈라 세우는 한 조직의 자기 보고 — 두 영역을 가르는 기준이 주제가 아니라 "우리 조직이 이 하위 프로젝트의 개발과 갱신과 관리를 통제하는가" 하나라는 규정과 그래서 조직의 경계를 넓게 다시 그을 수 있다면 그것이 대개 좋은 맞바꿈이라는 처방, 의존성 관리가 시간과 규모라는 두 축을 더한다는 진단과 하나의 의존이 아니라 의존들의 그물을 다루는 것이 어려움의 본체라는 재규정, 요구가 충돌하는 문제의 정본 이름이 다이아몬드 의존이되 컴파일러와 운영체제와 언어 판까지 전부 숨은 마디로 그래프에 넣으면 같은 꼴이 된다는 일반화와 그 충돌을 견디는 정도가 언어마다 다르되 어느 언어의 우회도 일반해가 아니라는 판정, 충돌을 처음 발견하는 사람이 구조적으로 그것을 고칠 처지에 있지 않다는 관찰, 그리고 이 장이 스스로 규모에서 통하는 해법의 직접 증거가 없다고 선언하며 무엇이 통하지 않는지의 요약이라고 자기 성격을 규정하는 대목
 generated: { by: "claude-opus-5", at: "2026-09-30T21:40:00Z" }
 sources:
@@ -84,7 +83,7 @@ sources:
   대응 관계와 정확히 이어진다.** 그 장은 버전 관리를 **(이름, 시간, 브랜치) → 내용**의 대응으로
   규정했는데, **의존성 관리는 그 대응 밖에 있는 좌표를 다루는 일**이다. 그 좌표를 대응 안으로
   끌어들이는 장치가
-  [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)의 벤더링이고,
+  [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)의 벤더링이고,
   그것이 통하는 조건이 곧 위 [조직의 경계](#그래서-조직의-경계를-넓게-그으라는-처방이-나온다)다.
 
 ## 어려움의 본체는 하나가 아니라 그물이다
@@ -148,7 +147,7 @@ sources:
   되어도 일반해는 아니다** (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 이 절이 **언어 선택을 의존성 관리의 입력으로 만든다.** 같은 책 22장이
   같은 수를 이행 쪽에서 다시 둔다 — 정적 타입 언어가 대규모 자동 변경에 훨씬 유리하다는 것이다
-  ([코드베이스가 자동 변경을 받아들이는 조건](codebase-amenability-to-automated-change.md)).
+  ([코드베이스가 자동 변경을 받아들이는 조건](../concepts/codebase-amenability-to-automated-change.md)).
   **두 장이 서로를 호명하지는 않는다.** #hypothesis
 
 ## 발견하는 사람과 고칠 수 있는 사람이 갈린다
@@ -229,7 +228,7 @@ sources:
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
-- **[선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)와 층이 다르다.**
+- **[선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)와 층이 다르다.**
   그 페이지(같은 책 18장)는 **빌드 파일이 무엇을 적는가**를 다룬다 — 안과 밖의 기준, 전이 의존,
   수동 대 자동 판 관리, 미러와 해시, 벤더링. **이 장은 그 앞의 물음**이다. 곧 **애초에 무엇이
   의존성 관리 문제이고 그 문제의 구조가 무엇인가**이고, 18장이 스스로 **나머지를 21장으로**
@@ -256,12 +255,12 @@ sources:
   심문하는 자리
 - [판 선택의 네 모형과 헤드에 붙어 살기](version-selection-models-and-live-at-head.md) — 이
   문제에 대한 답의 지형
-- [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md) — 그물의 마디가 무엇을
+- [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md) — 그물의 마디가 무엇을
   약속할 수 있는가
 - [의존을 들이는 값과 그 뒤의 상시 비용](importing-a-dependency-and-its-ongoing-cost.md) — 받는
   쪽의 판단
 - [의존을 내보내는 쪽의 값](exporting-a-dependency-and-its-costs.md) — 주는 쪽의 판단
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 같은 책 18장이
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 같은 책 18장이
   빌드 파일 층에서 받은 절반
 - [한 판 규칙](one-version-rule.md) — 경계를 넓혀 이 문제를 소스 관리로 바꾸는 정책
 - [버전 관리의 정본](source-of-truth-in-version-control.md) — 이 장이 대비의 축으로 삼는 쪽

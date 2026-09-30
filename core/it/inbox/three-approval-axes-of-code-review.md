@@ -381,7 +381,7 @@ Liability").[^winters2020-swe-at-google]
   기록해 둔 자리
 - [코드의 일관성](../concepts/consistency-in-code.md) — 리뷰를 집행 수단으로 다루는 다른 소스
 - [기술 부채](../concepts/technical-debt.md) — 승인자의 물음 셋이 겨누는 것
-- [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 같은 책 19장.
+- [코드 리뷰 도구의 설계 원칙](../concepts/code-review-tooling-design-principles.md) — 같은 책 19장.
   이 절차를 떠받치는 도구의 설계 판단
 - [리뷰 점수 체계가 만드는 행동](review-scoring-and-the-behavior-it-shapes.md) — 같은 책
   19장. 이 승인 구조가 값이 된 모양

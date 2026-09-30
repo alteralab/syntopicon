@@ -266,7 +266,7 @@ sources:
   "언제"가 장치로 내려오는 자리
 - [문서를 코드처럼 다루기](documentation-treated-as-code.md) — 같은 장. "어디"가 절차로
   내려오는 자리
-- [설계 문서 — 착수 전 관문](design-docs-as-a-prelaunch-gate.md) — 같은 장. "왜"가
+- [설계 문서 — 착수 전 관문](../concepts/design-docs-as-a-prelaunch-gate.md) — 같은 장. "왜"가
   "어떻게"에 맞먹는 유일한 문서
 - [완전성보다 강조](../concepts/emphasis-over-completeness.md) — 같은 저울을 그림에 세우는 소스
 - [바쁜 사람을 위한 글쓰기](../concepts/writing-for-busy-readers.md) — 같은 구조 처방에 다른 길로

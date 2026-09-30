@@ -49,7 +49,7 @@ sources:
 - **이 KB가 다는 판정 — 셋째 까닭이 나머지 둘과 격이 다르다.** 앞의 둘은 **저울**이라 자원을
   더 사면 옮겨 가지만, 공중 충돌은 **제출을 직렬화하지 않는 한 사라지지 않는 구조적 잔여**다.
   곧 **제출 전을 아무리 키워도 "통과했으니 안전하다"는 말이 참이 되지 않는다.** 이 KB의
-  [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)이 관문을 통과한 것을
+  [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)이 관문을 통과한 것을
   검증된 것으로 다루는데, 그 말이 성립하지 않는 경계가 여기다.
 - **셋째 까닭은 이 책 안에서도 잘못 매겨져 있다.** 이 장의 각주 하나가 이 현상의 이름을
   **확률이 극히 낮다는 뜻**으로 풀면서, 본문은 같은 것을 **이 규모에서는 거의 매일 일어난다**고
@@ -166,7 +166,7 @@ sources:
 - [지속 통합을 경보로 다시 놓기](../concepts/ci-as-alerting.md) — 뒤쪽 실패를 어떻게 다룰 것인가
 - [추적되는 비활성화로 스위트를 초록으로 유지하기](keeping-a-test-suite-green-by-tracked-disablement.md)
   — 당번이 다 고칠 수 없을 때의 장치
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 KB의 CI 축 정본
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 KB의 CI 축 정본
 - [버전 관리](version-control-practice.md) — 두 머리가 사는 자리
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 결과를 규범으로 얻는 쪽
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 전이 폐포를 다 돌리는 쪽

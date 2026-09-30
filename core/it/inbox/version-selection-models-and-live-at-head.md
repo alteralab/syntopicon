@@ -50,7 +50,7 @@ sources:
 - **이 KB가 다는 판정** — 이 조건 목록이 이 페이지에서 가장 재사용하기 좋은 도구다. **네 모형을
   견주는 잣대이기도 하고, 앞으로 나올 다섯째 모형을 재는 잣대이기도** 하다. 특히 **"조율이나
   가시성을 가정하지 않는다"**는 조건이
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)의
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)의
   기준과 한 몸이다.
 
 ## 네 모형을 가르는 축 — 판 선택을 누가 하는가
@@ -111,7 +111,7 @@ sources:
 - **이 KB가 다는 판정** — 이 모형이 **문제를 푸는 것이 아니라 옮긴다**는 것이 요점이다. 충돌
   해결의 노동은 사라지지 않고 배포자에게 모이며, 그 대가로 **하류 사용자가 그물을 안 봐도
   된다.** 이 KB의
-  [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)가 든 벤더링이
+  [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)가 든 벤더링이
   **한 조직이 자기를 위해 그 배포자 노릇을 하는 것**이고, 같은 값을 자기가 치르는 셈이다.
   두 자리가 서로를 호명하지는 않는다. #hypothesis
 
@@ -138,7 +138,7 @@ sources:
   **깨는 변경의 "대체로 구경꾼인 사람들" 비용을 크게 완화**하기 때문이다 (같은
   절).[^winters2020-swe-at-google]
   - **이 약속의 실물이
-    [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md)의 절충형이다.**
+    [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md)의 절충형이다.**
 - **채택의 어려움을 스스로 짚는다** — 공개 생태계에서 이 책임 이동을 처음에 설득하기 어렵고,
   **API 제공자에게 자기 하류 고객 전부에 대고 시험하고 고칠 부담을 지우는 것은 제공자 책임의
   중대한 개정**이다 (같은 절).[^winters2020-swe-at-google]
@@ -242,7 +242,7 @@ sources:
   값비싸되 효과적**이라 보되 **업계가 거기까지 갈 길이 분명하지 않다**는 것, 그리고 **그 모형이
   더 현실적인 자원으로 통하는지가 남은 물음**이라는 것이다.
 - **이 장 전체의 수치 지위 판정은
-  [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md)이
+  [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md)이
   갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
@@ -267,10 +267,10 @@ sources:
 - **[한 판 규칙](one-version-rule.md)과 네 번째 모형이 같은 목표에 다른 수단이다.** 한 판
   규칙은 **조직이 그물을 통제할 때** 고를 판을 없애고, 이 모형은 **통제하지 못할 때** 고를 판을
   없앤다. 둘 다 판 선택 문제를 소거하려 하되 **전자는 권한으로, 후자는 제공자 규율로** 한다.
-- **[지속적 통합과 지속적 전달](continuous-integration-and-delivery.md)의 범위가 이 모형에서
+- **[지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md)의 범위가 이 모형에서
   조직 밖으로 나간다.** 그 축의 파이프라인은 **우리 변경을 우리 테스트에 태우는데**, 이 모형은
   **우리 변경을 남의 테스트에 태운다.** 이 KB에 그 층을 다룬 소스가 이것 하나다.
-- **[선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md)가 정반대
+- **[선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md)가 정반대
   처방을 담고 있다.** 같은 책 18장은 **수동 판 관리**를 권하고(고정하라), 이 모형은 **고정을
   풀라**고 한다. **`contradicts`를 걸지 않았다** — 18장의 권고는 **제공자가 시험해 주지 않는
   세상**을 전제하고 이 모형은 그 전제를 바꾸자는 제안이라 층이 다르기 때문이다. **다만 같은 책
@@ -280,15 +280,15 @@ sources:
 ## 이어지는 페이지
 
 - [시맨틱 버저닝은 손실 있는 추정이다](semver-as-lossy-estimate.md) — 둘째 모형에 대한 심문
-- [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) — 이
+- [의존성 관리와 소스 관리를 가르는 물음](../concepts/dependency-management-versus-source-control.md) — 이
   네 모형이 답하려는 문제
-- [제공자의 호환 약속](compatibility-promises-of-dependency-providers.md) — 넷째 모형이 요구하는
+- [제공자의 호환 약속](../concepts/compatibility-promises-of-dependency-providers.md) — 넷째 모형이 요구하는
   약속의 실물
-- [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 같은 책 18장의
+- [선언된 의존 — 내부와 외부](../concepts/declared-dependencies-internal-and-external.md) — 같은 책 18장의
   반대 방향 권고
 - [한 판 규칙](one-version-rule.md) — 같은 목표에 다른 수단
 - [버전 관리 실무](../concepts/version-control-practice.md) — 이 모형이 늘리는 개발 방식
-- [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 모형이 조직 밖으로
+- [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이 모형이 조직 밖으로
   늘리는 장치
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 

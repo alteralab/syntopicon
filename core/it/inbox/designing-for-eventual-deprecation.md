@@ -175,7 +175,7 @@ sources:
   자리에서 받아 주는 것이 물음의 일부뿐이다.**
 - **자금을 미리 떼어 둔다는 비유의 소프트웨어 판이 없다.** 원자력 발전소 예에서 가장 구체적인
   것이 해체 자금 배정인데, **소프트웨어에서 그에 해당하는 것이 무엇인지를 적지 않는다.**
-  #speculation 뒤의 [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)가 드는
+  #speculation 뒤의 [폐기 절차의 담당자와 도구](../concepts/deprecation-as-a-staffed-process.md)가 드는
   전담 팀과 20% 시간이 그 자리일 수 있으나 이 장이 둘을 잇지 않는다.
 
 ## 이어지는 페이지

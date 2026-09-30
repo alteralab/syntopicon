@@ -101,7 +101,7 @@ Platform").[^winters2020-swe-at-google]
 - **그리고 둘째 기준이 컴파일러 층의 같은 기준보다 느슨하다.** 컴파일러 층은 **기계적으로
   적용될 수 있는 수정**을 요구하고 여기는 **안내가 들어 있을 것**만 요구한다. **층마다
   기준이 같은 이름으로 다른 엄격도를 갖는 구조**이고, 그 대응의 정본은
-  [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md)이다.
+  [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md)이다.
 
 ## 넷째 기준이 정확성이 아니라는 것
 
@@ -117,8 +117,8 @@ Platform").[^winters2020-swe-at-google]
   [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)이고, **8장이 규칙 쪽에서
   같은 것을 적는다.** 20장이 더하는 것은 **그 집행이 폐기 이주의 되돌아감을 막는 데
   쓰인다**는 구체적 쓰임이다 — 그 축의 정본은
-  [폐기는 인력이 배정된 절차다](deprecation-as-a-staffed-process.md)와
-  [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md)이다.
+  [폐기는 인력이 배정된 절차다](../concepts/deprecation-as-a-staffed-process.md)와
+  [폐기 경고의 실행 가능성과 관련성](../concepts/deprecation-warnings-actionability-and-relevance.md)이다.
 
 ## 되먹임 통로가 양방향이라는 것
 
@@ -254,8 +254,8 @@ Platform").[^winters2020-swe-at-google]
   들이는 관문**을 적는다. **8장의 규칙 개정 절차(제안은 기존 코드에서 발견된 패턴으로
   문제를 증명해야 한다)와 20장의 기여 경로 둘째(겪은 결함을 검사로 만든다)가 같은 모양**이고,
   그 대질이 이 KB에 없었다.
-- **[폐기는 인력이 배정된 절차다](deprecation-as-a-staffed-process.md)·
-  [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md)에
+- **[폐기는 인력이 배정된 절차다](../concepts/deprecation-as-a-staffed-process.md)·
+  [폐기 경고의 실행 가능성과 관련성](../concepts/deprecation-warnings-actionability-and-relevance.md)에
   20장이 기제를 준다.** 그쪽은 경고가 실행 가능하고 관련 있어야 한다고 적고, 20장은 그
   요구를 **검사를 들이는 관문의 둘째·셋째 기준**으로 성문화한다. **같은 조문의 두 판본**이고
   15장 쪽이 폐기에 한정해, 20장 쪽이 모든 분석에 걸쳐 적는다.
@@ -297,12 +297,12 @@ Platform").[^winters2020-swe-at-google]
 - [체감 오탐률](effective-false-positive-rate.md) — 이 관문과 통로가 지키는 지표
 - [정적 분석을 개발 흐름의 어디에 끼울 것인가](static-analysis-workflow-integration-points.md) —
   들어온 검사를 어느 층에 걸 것인가
-- [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md) —
+- [컴파일러 검사와 경고를 두지 않는 정책](../concepts/compiler-checks-and-no-warnings-policy.md) —
   같은 기준이 가장 엄해지는 층
 - [분석 억제를 프로젝트 단위로 두기](project-level-analysis-customization.md) — 들어온
   검사를 누가 끌 수 있는가
 - [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
-- [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md) —
+- [폐기 경고의 실행 가능성과 관련성](../concepts/deprecation-warnings-actionability-and-relevance.md) —
   같은 요구의 폐기 쪽 판본
 - [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
   이 관문을 통과한 검사 하나의 상세 기록

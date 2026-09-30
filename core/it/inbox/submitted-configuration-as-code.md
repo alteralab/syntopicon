@@ -86,7 +86,7 @@ sources:
   수 있는 같은 꼴로 적혀 있어야** 한다. 설정이 팀마다 다른 스크립트면 **자동 변경의 대상이 되지
   않는다.** 곧 표준 설정 언어는 편의가 아니라 **그 축의 입력 조건**이고, 같은 책 안에서 두 장이
   서로를 가리키지 않는다. 이 KB의
-  [코드베이스가 자동 변경에 얼마나 순한가](codebase-amenability-to-automated-change.md)가 그 순함을
+  [코드베이스가 자동 변경에 얼마나 순한가](../concepts/codebase-amenability-to-automated-change.md)가 그 순함을
   언어의 성질로 재는데 **설정 매체의 균질성을 그 잣대에 넣지 않는다.** 사람이 볼 자리다.
 
 ## 이 KB의 설정 축과 갈리는 자리
@@ -117,13 +117,13 @@ sources:
   걸지 않았다(대상이 갈린다 — 표식은 애플리케이션 안의 분기이고 이 설정은 플랫폼에 건네는 정의다).
   **그러나 어느 값을 어느 매체에 둘 것인가의 기준이 두 장 어디에도 없다.** 사람이 볼 자리다.
 - **같은 장이 넘긴 다른 갈고리(바깥이 움직였다는 것을 무엇으로 아는가)는 이 페이지가 아니라
-  [컨테이너를 시간에 대한 추상 경계로 보기](containers-as-an-abstraction-boundary.md)와
+  [컨테이너를 시간에 대한 추상 경계로 보기](../concepts/containers-as-an-abstraction-boundary.md)와
   [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) 쪽에서
   받았다.**
 
 ## 이어지는 페이지
 
-- [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md) — 이 설정을
+- [서비스로서의 계산과 잡일 제거의 사다리](../concepts/compute-as-a-service-and-the-toil-ladder.md) — 이 설정을
   받는 서비스가 어떻게 생겼는가
 - [릴리스 능력과 릴리스 주기는 다른 것이다](release-capability-versus-release-cadence.md) — 능력 넷
   가운데 이 페이지가 받는 자리
@@ -134,7 +134,7 @@ sources:
   원하는 상태의 유지를 플랫폼 쪽에서 적는 자리
 - [지식을 조직 전체로 확장하기](scaling-knowledge-across-an-organization.md) — 구전 지식이 썩는다는
   논거의 정본
-- [코드베이스가 자동 변경에 얼마나 순한가](codebase-amenability-to-automated-change.md) — 균질성을
+- [코드베이스가 자동 변경에 얼마나 순한가](../concepts/codebase-amenability-to-automated-change.md) — 균질성을
   잣대로 재는 자리
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 
