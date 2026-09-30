@@ -51,3 +51,5 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
   소스가 조직 구성을 편향의 통로로 읽는 쪽
 - [학습하는 시스템 사고](learning-systems-thinking.md) — 학습을 조직 구조와 정보 흐름 쪽에서
   묻는 축
+- [코드 검색과 훑기](code-search-and-browsing.md) — 형제 허브. 사람도 문서도 아닌 코드 자체를
+  지식의 매체로 놓는 통로가 그쪽에 있다

@@ -55,3 +55,4 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
 - [엔지니어링 생산성 측정](engineering-productivity-measurement.md) — 형제 허브. 이 절차의 속도가
   측정 대상이 되는 자리
 - [진화와 거버넌스](evolution-and-governance.md) — 규칙 준수를 기계 검사로 묻는 축
+- [코드 검색과 훑기](code-search-and-browsing.md) — 형제 허브. 고칠 코드를 먼저 찾아 훑는 쪽

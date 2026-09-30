@@ -48,8 +48,7 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
 
 ## 이웃 허브
 
-- [조직과 아키텍트](organizations-and-architects.md) — 부모 허브. 조직 구조·소유권·역할, 그리고
-  같은 잣대로 갈린 코드 검색 쪽
+- [조직과 아키텍트](organizations-and-architects.md) — 부모 허브. 조직 구조·소유권·역할
 - [코드 규칙과 변경 리뷰](code-rules-and-change-review.md) — 형제 허브. 이 도구들이 집행하는 규칙과
   승인 구조가 사는 자리
 - [진화와 거버넌스](evolution-and-governance.md) — 같은 종류의 검사를 파이프라인에 거는 축
@@ -57,3 +56,5 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
   배선을 다루는 자리가 그쪽에 있다
 - [엔지니어링 생산성 측정](engineering-productivity-measurement.md) — 형제 허브. 잴 수 없는 것을
   잴 수 있는 행동으로 바꾸는 수가 겹치는 자리
+- [코드 검색과 훑기](code-search-and-browsing.md) — 형제 허브. 같은 소스의 사내 도구 장을 같은
+  잣대로 가른 쪽이고, 절차를 집행하지 않고 물음에 답하는 도구

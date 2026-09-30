@@ -53,3 +53,5 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
   걸리는 쪽
 - [실용주의 철학과 접근](pragmatic-philosophy-and-approach.md) — 문서화를 개별 개발자의 실천으로
   보는 축
+- [코드 검색과 훑기](code-search-and-browsing.md) — 형제 허브. 문서가 아니라 코드를 찾아 답을
+  얻는 쪽

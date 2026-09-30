@@ -50,3 +50,5 @@ generated: { by: "claude-opus-5", at: "2026-09-30T00:00:00Z" }
   절차로 사는 쪽
 - [리뷰 도구와 정적 분석](review-tooling-and-static-analysis.md) — 형제 허브. 잴 수 없는 정확성을
   잴 수 있는 행동으로 바꾸는 쪽
+- [코드 검색과 훑기](code-search-and-browsing.md) — 형제 허브. 엔지니어 시간을 아끼는 도구 쪽이고,
+  그 도구를 정당화하는 논거가 이 측정과 같은 줄에 선다
