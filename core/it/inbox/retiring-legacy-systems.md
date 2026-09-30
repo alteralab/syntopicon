@@ -367,7 +367,7 @@ sources:
     `pdftoppm -r 160 -png`로 렌더해 대조했다 — 묘비의 글자는 텍스트 레이어에 없는 손글씨이고,
     그림에만 있는 주장은 없다.** 표도 코드 목록도 없다. **12장 본문은 p.101에서 끝나고 p.102가
     백지이며 13장이 p.103에서 시작한다**(러닝 헤더와 렌더로 실측 — `_progress.yaml`의 contents가
-    12장을 pp.95–102로 적고 있던 것을 이 런이 고쳤다). 저자가 대는 바깥 것들(Michael Feathers ·
+    12장을 pp.95–102로 적고 있던 것을 여기서 고쳤다). 저자가 대는 바깥 것들(Michael Feathers ·
     Stephan Murer·Bruno Bonati · Nicole Forsgren 외 *Accelerate* · Martin Fowler "If It Hurts,
     Do It More Often" · 영화 *Shaun of the Dead* · 구글의 API 관행)은 **이 KB가 원전으로 확인한
     것이 아니다** — 귀속은 이 책이 그렇게 적는다까지로 둔다. 굵은 글씨는 원문 문장의 한국어

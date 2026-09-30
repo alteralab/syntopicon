@@ -478,7 +478,7 @@ sources:
 [^petrovic2021-google-mutation]: Petrović, Ivanković, Fraser & Just 2021, "Practical
     Mutation Testing at Scale: A View from Google", IEEE Transactions on Software
     Engineering. **정본은 IEEE TSE 수용판(early access) 13쪽이고**, arXiv:2102.11378 v2
-    22쪽은 대조용으로 함께 보존했다. 두 판의 수치는 이 런이 대조한 범위에서 같았고 용어만
+    22쪽은 대조용으로 함께 보존했다. 두 판의 수치는 이 KB가 대조한 범위에서 같았고 용어만
     다르다(arXiv `surfaced` = 수용판 `reported`). **권·호·쪽수는 early access 판에
     인쇄되지 않아 적지 않았고**, locator는 절 번호와 표 번호다. 게재 사실의 근거는 각 쪽
     상단 띠와 `DOI 10.1109/TSE.2021.3107634`이다. 이 페이지가 담은 것은 §1~§5·§7과
