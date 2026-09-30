@@ -505,3 +505,8 @@ p.220).[^hewitt2019]
     Modern Architects* 초판(O'Reilly, 2019) 9장 §"Implementing Feature Toggles"(pp.219–221).
     쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 16, 실측). p.220의 두 줄짜리 고정폭 조각은 코드 펜스를
     쓰지 않고 산문으로 옮겼다. 저자가 가리키는 외부 글과 제품의 이름과 주소는 옮기지 않았다.
+
+[^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020, *Software Engineering at Google*,
+    abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23 열람본. 인용한 장은 9장 `Code Review` · 24장 `Continuous Delivery`다.
+    근거 등급은 `industry-norm` — 통제도 표본도 재현 절차도 없고, 규모 전제를 떼면
+    처방이 옮겨지지 않는다(소스 메타 참조).

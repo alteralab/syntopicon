@@ -679,3 +679,8 @@ pp.31–33).[^gough2022]
     Testing considered harmful", Martin Fowler의 테스팅 모양 갱신 글, Kent Beck *Test Driven
     Development: By Example*)은 **이 KB가 이 책을 통해 확인한 2차 경유**다.
     **이 소스는 이 축의 원전이 아니라 소비자**이고 2015년 글도 그 저자도 인용하지 않는다.
+
+[^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020, *Software Engineering at Google*,
+    abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23 열람본. 인용한 장은 23장 `Continuous Integration`다.
+    근거 등급은 `industry-norm` — 통제도 표본도 재현 절차도 없고, 규모 전제를 떼면
+    처방이 옮겨지지 않는다(소스 메타 참조).

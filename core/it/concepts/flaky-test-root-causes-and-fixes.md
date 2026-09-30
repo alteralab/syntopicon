@@ -544,3 +544,8 @@ sources:
     Martin Fowler "Eradicating Non-Determinism in Tests" 2011)은 이 KB가 확인한 원전이
     아니라 **이 책을 통한 2차 경유**다. **이 소스는 이 축의 원전이 아니라 소비자**이고,
     여기서는 같은 현상이 분산 체계 쪽에서 어떻게 서술되는가만 든다.
+
+[^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020, *Software Engineering at Google*,
+    abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23 열람본. 인용한 장은 23장 `Continuous Integration`다.
+    근거 등급은 `industry-norm` — 통제도 표본도 재현 절차도 없고, 규모 전제를 떼면
+    처방이 옮겨지지 않는다(소스 메타 참조).
