@@ -127,7 +127,7 @@ sources:
 ## 훑어볼 때 — 기본 배치가 깨지는 두 자리
 
 - **이 장의 기본은 새로 들어온 경고와 편집된 줄이다** — 그 근거는
-  [체감 오탐률](effective-false-positive-rate.md#비용과-이득의-저울--왜-새로-생긴-경고만-보는가)에
+  [체감 오탐률](effective-false-positive-rate.md) §"비용과 이득의 저울 — 왜 새로 생긴 경고만 보는가"에
   있다.
 - **장이 그 기본이 맞지 않는 자리 둘을 든다** (20장 §"Analysis While Editing and Browsing
   Code").[^winters2020-swe-at-google]
@@ -169,7 +169,7 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
 ## 이 장 수치의 지위
 
 **이 소스에서는 수치의 지위를 장마다 새로 잰다. 20장 전체의 실측은
-[체감 오탐률](effective-false-positive-rate.md#이-장-수치의-지위)에 있다. 이 페이지에
+[체감 오탐률](effective-false-positive-rate.md) §"이 장 수치의 지위"에 있다. 이 페이지에
 걸리는 몫만 여기 적는다.**
 
 - **이 페이지의 절들에 결과값이 하나도 없다.** 코드 리뷰를 고른 근거 여섯은 **전부 논증이고

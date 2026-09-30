@@ -215,7 +215,7 @@ sources:
   각주 2·7·8).[^winters2020-swe-at-google] **이 KB가 확인한 원전이 아니고, 자기 인용이라
   독립 검증의 성격이 없다.** 9장의 귀속보다 근거로서 약하다.
 - **전수 정리의 결과값 하나가 있고 이것이 이 책에서 처음이다** — 그 실측은
-  [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md#이-장-수치의-지위)에
+  [컴파일러 검사와 경고를 두지 않는 정책](compiler-checks-and-no-warnings-policy.md) §"이 장 수치의 지위"에
   적었다.
 
 ## 규모를 떼면 무엇이 남는가
