@@ -435,7 +435,7 @@ p.169).[^burns2025]
     여섯**(§"Logging" p.161 · §"Metrics" p.162 · §"Basic Request Monitoring" p.164 ·
     §"Advanced Request Monitoring" p.165 · §"Alerting" p.166 · §"Tracing" p.168)이며,
     **이 책에서 처음 나오는 셋째 층(13.8)이 둘**이다(§"Basic alerting" · §"Alerting on
-    anomolies", 둘 다 p.167). 앞 다섯 런은 이 책에 두 층뿐이라고 적었고 **이 장이 그것을
+    anomolies", 둘 다 p.167). 이 KB는 앞서 이 책에 두 층뿐이라고 적었고 **이 장이 그것을
     깬다** — 셋째 층은 굵은 산세리프인데 글자 높이가 본문 14.2보다 오히려 작다.
     장 끝 쪽은 러닝 푸터로 실측했다 — p.170(PDF 188)의 푸터가 "170 | Chapter 14: Monitoring
     and Observability Patterns"이고 목차 값과 같다. 쪽은 인쇄판 쪽 번호(본문 = PDF 쪽 − 18,

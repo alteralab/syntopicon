@@ -504,15 +504,15 @@ pp.387–388).[^richards2025]
     격언 한 줄뿐이라 직인용 블록을 따로 두지 않고 본문에 굵게 옮겼다 — 원문은
     "Defer decisions until the last responsible moment."이고 `pdftotext -layout` 추출로 문자 단위
     대조했다. 이 소절이 속한 절의 전문은 [규모의 결정 프로세스](../concepts/decision-processes-at-scale.md)에
-    있다. **런 09가 같은 소스의 12장 "The Art of Deciding"
-    §"Selecting a Decision Option"(pp.316-317)의 도입과 그 자리의 각주 둘을 더했다** — 그
+    있다. **같은 소스의 12장 "The Art of Deciding"
+    §"Selecting a Decision Option"(pp.316-317)의 도입과 그 자리의 각주 둘도 담았다** — 그
     구간에도 도판도 표도 코드 목록도 없고 `pdftotext -layout` 추출로 교차 확인했다.
     **베이조스의 주주 서한도 파울러의 2003년 글도 이 KB가 원전으로 확인한 것이 아니다** —
     귀속은 이 책이 그렇게 적는다까지로 둔다. 12장 전문은
     [결정의 프레이밍과 옵션 만들기](../concepts/framing-and-option-making.md)와
     [결정의 메타인지와 두려움과 편향](../concepts/metacognition-fear-and-bias.md)에 있다.
-    **런 10이 같은 소스의 14장 "Variability and the Interconnectedness of
-    Decisions"에서 가역성에 걸리는 세 자리(p.364의 오해 진단과 p.376의 두 조문)를 더했다** —
+    **같은 소스의 14장 "Variability and the Interconnectedness of
+    Decisions"에서 가역성에 걸리는 세 자리(p.364의 오해 진단과 p.376의 두 조문)도 담았다** —
     그 자리들에도 도판도 표도 코드 목록도 없고 `pdftotext -layout` 추출로 교차 확인했다.
     14장 전문은 [계열로 본 결정과 설계 부채](../concepts/decisions-as-a-series.md)와
     [뒤집힌 결정 위계](../concepts/inverted-decision-hierarchy.md)와

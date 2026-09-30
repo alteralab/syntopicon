@@ -600,7 +600,7 @@ sources:
     **이 장에 코드 목록은 하나도 없다.** 도판 둘(그림 8-1 2005년의 전형적 기술 스택 · 8-2 지난
     10년의 전형적 소프트웨어 스택)은 이미지로 조판돼 있어 재현하지 않았고, **본문이 그 도판에
     대해 적는 것과 상자의 배치만** 옮겼다 — 두 그림 모두 정의가 아니라 예시를 인코딩하는 자리이나
-    "복잡해졌다"는 주장을 떠받치는 것이 그림뿐이라 런 03의 규약을 적용해 `pdftoppm -r 150 -png`로
+    "복잡해졌다"는 주장을 떠받치는 것이 그림뿐이라 이 KB의 규약을 적용해 `pdftoppm -r 150 -png`로
     렌더해 눈으로 읽었다. 식 `v ∝ c`도 같은 방식으로 렌더해 기호 소실이 없음을 확인했다.
     §"Pitfall: Lack of Speed to Release"가 인용하는 *Continuous Delivery*(Addison-Wesley)와
     곁글이 인용하는 Chad Fowler·Wunderlist, 그리고 §"Antipattern: Inappropriate Governance"가

@@ -291,4 +291,4 @@ sources:
     프롬프트가 섞였고 길어서 펜스로 옮기지 않고 규칙만 서술했다.
     인스턴스 단위 캐시 절은 같은 소스의 22장 "Dynamic Attributes and Properties"
     §"Step 4: Bespoke Property Cache"(pp.853–855) · §"Step 5: Caching Properties with
-    functools"(pp.855–857)에서 왔다 — 2026-08-18-10 런에서 합류.
+    functools"(pp.855–857)에서 왔다.

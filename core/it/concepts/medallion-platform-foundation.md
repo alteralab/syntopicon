@@ -313,7 +313,7 @@ Considerations").[^strengholt2025] 개수를 정하는 이유가 다섯이다.
 
 ## 이 도메인은 데이터 메시의 도메인과 같은 낱말인가
 
-**같은 낱말의 다른 층이라는 것이 이 런의 판정이고, `contradicts`는 걸지 않았다.**
+**같은 낱말의 다른 층이라는 것이 이 KB의 판정이고, `contradicts`는 걸지 않았다.**
 
 - [도메인 소유권 원칙](../concepts/domain-ownership-principle.md)과
   [데이터 메시](../concepts/data-mesh.md)의 도메인은 **조직의 책임 단위**다. 누가 데이터를 소유하고

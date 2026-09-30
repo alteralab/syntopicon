@@ -96,7 +96,7 @@ pp.64–65).[^richards2025]
   책을 경유해 "Never shoot for the best architecture, but rather the least worst
   architecture. —Mark Richards and Neal Ford"를 인용해 두었다.** 그 인용에는 **어느 책의 어느
   쪽인지가 적혀 있지 않았고**, 이 KB는 그 자리를 "판정하지 않음"으로 남겨 왔다.
-- **이 런이 확인한 것은 이렇다.**
+- **이 KB가 확인한 것은 이렇다.**
   - **그 두 사람이 이 낱말을 조문으로 세우는 자리는 이 책 4장 §"Trade-Offs and Least Worst
     Architecture"(인쇄판 pp.64–65)이고, 2판이 인쇄하는 문면은 위 §"경구"에 옮긴 한 줄이다.**
   - **두 문장은 같지 않다.** 데이터 공학 책 쪽은 `shoot for`와 `but rather`를 쓰고, 이 책 2판은

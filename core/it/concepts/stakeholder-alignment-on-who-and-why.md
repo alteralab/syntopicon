@@ -427,7 +427,7 @@ sources:
     책임자를 하나 세우고 그에게 승인을 붙이고**, 하멜로의 규칙은 **결정을 취하는 사람을 하나 세우되
     승인자를 두지 않는다.** **둘 다 하나를 세운다는 점에서 구조가 같고, 그 하나가 승인권을 갖는지가
     갈린다.** **처방의 차이이지 사실의 차이가 아니므로 `contradicts`를 걸지 않는다.**
-  - **앞 런이 [조직 정렬과 최소 실행 가능한 합의](../concepts/organizational-alignment-and-agreement.md)와
+  - **이 KB가 [조직 정렬과 최소 실행 가능한 합의](../concepts/organizational-alignment-and-agreement.md)와
     [공유된 정렬과 정렬을 만드는 원칙 셋](../concepts/shared-alignment-and-management-principles.md)을 "묻는
     것이 다르다"로 갈라 세운 판정을 이 장이 뒤집지 않는다.** 이 장은 **정렬의 사회적 조건**을 더
     아래로 — **누구를 넣고 어떻게 관여시키는가**로 — 내려가지만, **무엇에 합의해야 하는가**는 여전히

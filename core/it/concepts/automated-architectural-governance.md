@@ -912,7 +912,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
   마음가짐이라는 것, 리뷰를 기다리는 동안 분석이 돌 시간이 있다는 것, 리뷰어의 압력, 그리고
   **결과를 무시하려면 리뷰어까지 설득해야 한다**는 것이다 (20장 §"Make Static Analysis a
   Part of the Core Developer Workflow").[^winters2020-swe-at-google] 정본은
-  [정적 분석을 개발 흐름의 어디에 끼울 것인가](../inbox/static-analysis-workflow-integration-points.md)다.
+  [정적 분석을 개발 흐름의 어디에 끼울 것인가](static-analysis-workflow-integration-points.md)다.
   - **이 KB의 판정 — 겨루지 않는다.** 그 장도 제출을 막는 층과 컴파일러 층을 따로 갖고,
     이 축의 파이프라인 검사와 층이 다르다. **갈리는 것은 기본값이고, 어느 조건에서 어느
     쪽인지의 기준이 양쪽 어디에도 없다.**
@@ -925,7 +925,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
     요구한다**(위 [규칙을 문서에 쓰는 것과 검사로 쓰는 것](#규칙을-문서에-쓰는-것과-검사로-쓰는-것)
     참조). **돌긴 도는데 아무도 그 결과로 무엇을 하지 않는 상태를 이 축의 어느 소스도
     실패로 세지 않는다.** 그 장의 지표가 정확히 그 자리를 잰다. 정본은
-    [체감 오탐률](../inbox/effective-false-positive-rate.md)이다.
+    [체감 오탐률](effective-false-positive-rate.md)이다.
   - **위 [개발자가 지표를 속일 때](#개발자가-지표를-속일-때)가 가장 가까운 자리인데 물음이
     다르다** — 그쪽은 **적극적 회피**를 다루고 체감 오탐은 **소극적 무시**를 다룬다. 둘 다
     검사가 이겼는데 목적은 지지 못한 경우이되, 앞엣것은 보이고 뒤엣것은 보이지 않는다.
@@ -937,7 +937,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
   - **이 축은 적합도 함수를 어떻게 만드는가를 적고 무엇을 들이지 않을 것인가의 문턱을 두지
     않는다.** 위 [몽둥이가 아니라 체크리스트](#몽둥이가-아니라-체크리스트)의 자기 제한이
     태도의 조문이라면, 그 장의 기준 넷은 **판정 가능한 관문**이다. 정본은
-    [정적 분석을 생태계로 — 검사를 들이는 관문과 되먹임](../inbox/static-analysis-check-admission-and-feedback.md)이다.
+    [정적 분석을 생태계로 — 검사를 들이는 관문과 되먹임](static-analysis-check-admission-and-feedback.md)이다.
   - **그리고 그 장이 관문과 짝으로 나가는 문도 둔다** — 되받기와 수정 요청의 비율을 추적해
     **개선하지 않는 분석기를 끈다**는 운영이다 (20장 §"Integrated Feedback
     Channels").[^winters2020-swe-at-google] **이 축에 적합도 함수를 폐기하는 절차가 없다.**
@@ -946,7 +946,7 @@ Within Existing Integration Architecture", pp.217–219).[^ford2022-evolutionary
   받아** 검사기의 결함과 오탐을 찾아냈다고 적는다. 핵심 통찰로 든 것이 **사용자 수준이
   아니라 프로젝트 수준의 맞춤**이고, 이유가 **한 사람이 고치는 것을 다른 사람이 들이는
   상황을 막는 것**이다 (20장 §"Per-Project Customization").[^winters2020-swe-at-google]
-  정본은 [분석 억제를 프로젝트 단위로 두기](../inbox/project-level-analysis-customization.md)다.
+  정본은 [분석 억제를 프로젝트 단위로 두기](project-level-analysis-customization.md)다.
   - **이 축은 누가 검사를 끌 수 있는지, 끈 것이 어떻게 보이는지를 다루지 않는다.**
     위 [이미 나빠진 값을 다루는 법 — 몰아가기](#이미-나빠진-값을-다루는-법--몰아가기)가
     문턱을 단계적으로 조이는 쪽을 다루되, **끄기**는 다루지 않는다.

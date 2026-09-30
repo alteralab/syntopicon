@@ -181,7 +181,7 @@ Topic 50에서 그 유보를 논증으로 확장한다 — 규약을 처방하�
 
 ## overview 등록 보류
 
-이 허브는 `it/overview.md`에 등록하지 않았다. 앞선 런에서 Hubs 목록이 상한을 넘어
+이 허브는 `it/overview.md`에 등록하지 않았다. 앞서 Hubs 목록이 상한을 넘어
 [실용주의의 유연성과 동시성](pragmatic-flexibility-and-concurrency.md)과
 [코딩하는 동안](pragmatic-coding-practice.md)이 미등록으로 남은 선례를 따른다 —
 **허브 계층 재편이 필요한 상태이고 그 판단은 리뷰의 몫이다.** 이 소스의 다섯 허브가 한꺼번에
@@ -198,7 +198,7 @@ Topic 50에서 그 유보를 논증으로 확장한다 — 규약을 처방하�
   설계 피드백 규정 위에 선다
 - [데이터 메시의 실행과 조직](data-mesh-execution-and-organization.md) — 팀 토폴로지·조직 변화가
   같은 문제를 회사 규모로 다루는 축
-- [데이터 엔지니어링 수명 주기](data-engineering-lifecycle.md) — DataOps의 자동화 기둥이 스타터
+- [데이터 엔지니어링 수명 주기](../synthesis/data-engineering-lifecycle.md) — DataOps의 자동화 기둥이 스타터
   킷의 셋째 다리와 만나는 축
 - [데이터 엔지니어링 디자인 패턴](data-engineering-design-patterns.md) — 품질 강제·관측 패턴이
   "가차 없는 테스팅"의 데이터 판본으로 서 있는 축

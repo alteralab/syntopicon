@@ -34,7 +34,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T00:10:00Z" }
 ## 가르는 기준
 
 **가르는 기준은 원전이다.** 아래 스물세 페이지는 전부 [mccabe2024](../sources/mccabe2024.md)에서
-왔고, 이 책이 여섯 런으로 전권 반입되면서 부모 허브의 한 절이 스물세 항목으로 자라 진입점 예산을
+왔고, 이 책이 전권 반입되면서 부모 허브의 한 절이 스물세 항목으로 자라 진입점 예산을
 넘겼기 때문에 갈라져 나왔다. **한 원전이 닫힌 묶음이라 경계가 또렷하다** — 이 책은 초판 하나뿐이므로
 여기 매달리는 목록은 더 자라지 않는다.
 
@@ -219,11 +219,11 @@ generated: { by: "claude-opus-5", at: "2026-09-24T00:10:00Z" }
   조직이 선언하는 표준이라면 이쪽은 서비스 하나를 리뷰하는 물음 일흔아홉이고, 개발자가 풀 리퀘스트
   전에 스스로 통과시키는 자기 점검으로 내려가 있다. 묶음 이름은 크게 겹치되 이쪽에만 사업 프로세스와
   문서화와 의미론적 항목(추상·의미 경계·이항 대립)이 있고 상호운용성 군이 없다
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **이 축의 14장이 정면으로 만나는
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **이 축의 14장이 정면으로 만나는
   결정 축의 허브.** 누구든 결정을 취하되 조언을 구하면 된다는 하나의 규칙과 거부권의 부재가
   거기 있고, 이 축의 14장은 승인 권한과 에스컬레이션 위계를 둔다. **사실이 충돌하는 것이 아니라
   자율을 어디까지 밀 것인가의 정도에서 갈린다**
-- [진화와 거버넌스](evolution-and-governance.md) — **지어진 체계를 기계로 재고 지키는 쪽.**
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — **지어진 체계를 기계로 재고 지키는 쪽.**
   적합도 함수와 자동화된 거버넌스가 거기 있고, 이 축의 11장은 그것을 짓는 기능 자체의 진화를
   말하며 14장은 적합도 함수를 결정의 사후 검증에 부른다. **같은 낱말의 다른 층이다**
 - [비기능 요건](nonfunctional-requirements.md) — **품질 속성 하나하나를 어떻게 재고 얻는가.**
@@ -246,7 +246,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T00:10:00Z" }
 ## 이웃 허브
 
 - [소프트웨어 아키텍처](software-architecture.md) — **이 축의 부모 허브**
-- [아키텍처 결정 실천](architecture-decision-practice.md) — 결정을 통째로 받는 허브
-- [진화와 거버넌스](evolution-and-governance.md) — 지은 것을 지키는 허브
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 결정을 통째로 받는 허브
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 지은 것을 지키는 허브
 - [비기능 요건](nonfunctional-requirements.md) — 품질 속성의 허브
 - [조직과 아키텍트](organizations-and-architects.md) — 역할과 조직의 허브

@@ -542,6 +542,6 @@ sources:
     (pp.402–403) · 14장 §"Make Interfaces Explicit with ABCs"(p.511) · 16장 §"Overloading *
     for Scalar Multiplication"(p.574)·§"Chapter Summary"(p.586)에서 왔고, 각 장의 전문은 그
     절이 지목하는 페이지들이 갖는다.
-    §"ABC를 만드는 것은 메타클래스다"는 2026-08-18-10 런에서 같은 소스의 17장 §"Iterables
+    §"ABC를 만드는 것은 메타클래스다"는 같은 소스의 17장 §"Iterables
     Versus Iterators"(pp.601–602)와 24장 §"Metaclasses 101"(pp.932–933) · §"A Class Can
     Only Have One Metaclass"(p.948)에서 합류했다.

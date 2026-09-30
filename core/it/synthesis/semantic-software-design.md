@@ -35,7 +35,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T02:20:00Z" }
 ## 가르는 기준
 
 **가르는 기준은 원전이다.** 아래 스물일곱 페이지는 전부 [hewitt2019](../sources/hewitt2019.md)
-에서 왔고, 이 책이 여덟 런으로 전권 반입되면서 부모 허브의 한 절이 스물일곱 항목으로 자라
+에서 왔고, 이 책이 전권 반입되면서 부모 허브의 한 절이 스물일곱 항목으로 자라
 진입점 훑기가 불가능해졌기 때문에 갈라져 나왔다. **한 원전이 닫힌 묶음이라 경계가 또렷하다** —
 이 책은 초판 하나뿐이므로 여기 매달리는 목록은 더 자라지 않는다.
 
@@ -263,7 +263,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T02:20:00Z" }
 ## 다른 원전과 맞닿는 자리
 
 이 축이 다른 소스와 만나는 자리만 한 줄씩 적는다. **아래 페이지들은 이 허브의 소유가 아니라
-다른 원전의 것이고, 각자의 허브에 걸려 있다.** 앞의 여섯은 이 책의 런들이 **개정한** 페이지다.
+다른 원전의 것이고, 각자의 허브에 걸려 있다.** 앞의 여섯은 이 책의 반입이 **개정한** 페이지다.
 
 - [함께 모델링하기의 규정](../concepts/modeling-together-defined.md) — **시스템 사고 쪽에서
   같은 겹침을 적는 자리.** 이 책 4장의 일곱 걸음을 맞댄 절이 그 페이지에 붙어 있다
@@ -275,7 +275,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T02:20:00Z" }
   **2024년 선언문의 첫 조항.** 이 책이 맥락을 경계 짓는 일을 설계의 본체로 두는 자리와 맞닿는다
 - [명세 패턴](../concepts/specification-pattern.md) — **이 책 7장이 되짚는 패턴의 정본
   페이지.** ACM 원전 논문 지목과 전략 패턴 계보와 전략+인터프리터 변형과 꿈의 클라이언트 절차가
-  이 책의 런에서 더해졌고, 12장의 실천 목록이 **이 KB의 이 자리를 쪽 번호로 가리키는 유일한
+  이 책의 반입에서 더해졌고, 12장의 실천 목록이 **이 KB의 이 자리를 쪽 번호로 가리키는 유일한
   앞 장 참조**를 만든다
 - [주석을 왜 쓰는가](../concepts/why-write-comments.md) — **주석의 정본 페이지.** 이 책 7장이
   요구와 제거를 시간 순서로 배열하는 셋째 자리와 자바 API에서 고른 본보기 일곱을 더했다
@@ -294,19 +294,19 @@ generated: { by: "claude-opus-5", at: "2026-09-24T02:20:00Z" }
 - [엔터프라이즈 아키텍처 표준과 비기능 요건 다섯 군](../concepts/enterprise-architecture-standards-and-nfrs.md) —
   **조직이 선언하는 표준 쪽.** 이 책 11장의 체크리스트는 서비스 하나를 리뷰하는 물음이라 층이
   다르다
-- [학습하는 시스템 사고](learning-systems-thinking.md) — **사고 자체를 기르는 실천 쪽.**
+- [학습하는 시스템 사고](../synthesis/learning-systems-thinking.md) — **사고 자체를 기르는 실천 쪽.**
   이 책의 실천 목록이 무엇을 설계 대상으로 셀 것인가를 바꾼다면 그쪽은 어떻게 생각하는가를
   바꾼다
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **결정 권한의 배치 쪽.** 이 책
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **결정 권한의 배치 쪽.** 이 책
   11장은 거버넌스 위원회를 세우고 12장의 실천 목록은 예방적 리뷰 보드를 기각한다. **두 문장의
   한정어가 다르다는 판정이 그 페이지들에 적혀 있다**
 
 ## 이웃 허브
 
 - [소프트웨어 아키텍처](software-architecture.md) — **부모 허브.** 이 축이 갈라져 나온 자리
-- [조직과 아키텍트](organizations-and-architects.md) — 역할과 조직 설계가 사는 자리
-- [진화와 거버넌스](evolution-and-governance.md) — 지은 것을 무엇으로 지키는가
-- [엔터프라이즈 아키텍처의 기초](fundamentals-of-enterprise-architecture.md) — 같은 물음을 한
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 역할과 조직 설계가 사는 자리
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 지은 것을 무엇으로 지키는가
+- [엔터프라이즈 아키텍처의 기초](../synthesis/fundamentals-of-enterprise-architecture.md) — 같은 물음을 한
   조직 전체의 기능으로 세우는 형제 허브
-- [비기능 요건](nonfunctional-requirements.md) — 품질 속성 하나하나를 어떻게 재고 얻는가
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 품질 속성 하나하나를 어떻게 재고 얻는가
 - [API 설계 패턴](api-design-patterns.md) — 이 책 7장의 지침이 맞닿는 자리

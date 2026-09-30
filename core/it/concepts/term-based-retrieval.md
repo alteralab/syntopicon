@@ -458,7 +458,7 @@ sources:
     길이별 포화 곡선, p.358)은 옮기지 않았고 본문이 서술한 것만 담았다.
     2.4–2.5절의 표기법 유도, 3.2–3.3절 관련성 피드백·블라인드 피드백, 3.6절 BM25F, 3.7절 비텍스트
     관련성 특징, 3.8절 위치 정보, 4절 다른 모델과의 비교(Maron–Kuhns·통합 모델·언어 모델·토픽
-    모델·DFR), 5.1–5.3절 최적화 기법 각론은 이 런에서 담지 않았다 — 사유는
+    모델·DFR), 5.1–5.3절 최적화 기법 각론은 담지 않았다 — 사유는
     `it/archive/robertson2009-bm25/_progress.yaml`의 skipped에 있다.
     Harter(1975)·Robertson and Sparck Jones(1977)·Robertson·van Rijsbergen·Porter(1981)·
     Robertson and Walker(1994; 1997)·Maron and Kuhns(1960)는 robertson2009-bm25를 통한 전언이다.

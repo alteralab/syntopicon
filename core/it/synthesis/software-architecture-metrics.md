@@ -29,14 +29,14 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 갈라진다 — **무엇을 잴 것인가, 그 수를 어디에 걸 것인가, 재기에 앞서 무엇을 안정시켜야 하는가,
 누구의 목표에서 그 수를 끌어낼 것인가, 그리고 아직 무엇을 재야 할지 모를 때는 어떻게 고르는가**다.
 
-**부모 허브는 [진화와 거버넌스](evolution-and-governance.md)**다. 그쪽은 **지은 것이 시간에 따라
+**부모 허브는 [진화와 거버넌스](../synthesis/evolution-and-governance.md)**다. 그쪽은 **지은 것이 시간에 따라
 퇴화하지 않게 무엇으로 지키는가**를 여러 소스로 갖고, 여기는 **그 지킴을 검사가 아니라 계기로
 수행하는 한 권**을 갖는다.
 
 ## 가르는 기준
 
 **가르는 기준은 원전이다.** 아래 열다섯 페이지는 전부
-[ciceri2022](../sources/ciceri2022.md)에서 왔고, 이 책이 여섯 런으로 전권 반입되며 부모 허브의 한
+[ciceri2022](../sources/ciceri2022.md)에서 왔고, 이 책이 전권 반입되며 부모 허브의 한
 절이 열다섯 항목으로 자라 진입점 훑기가 불가능해졌기 때문에 갈라져 나왔다. **한 원전이 닫힌
 묶음이라 경계가 또렷하다** — 이 책은 초판 하나뿐이므로 여기 매달리는 목록은 더 자라지 않는다.
 
@@ -56,7 +56,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 
 **한 권 안에서 같은 것이 여러 번 다르게 말해진다.** **적합도 함수는 2장·6장·7장·8장·9장 다섯
 곳에서 불리고 장마다 두는 자리가 다르며, 정의의 인쇄본이 둘이나 실린다.** **1장의 저자 하멜로는
-이 KB의 2024년 원전([아키텍처 결정 실천](architecture-decision-practice.md) 축)을 쓴 같은
+이 KB의 2024년 원전([아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) 축)을 쓴 같은
 사람이고, 8장의 저자 포드는 이 KB의 2022년 진화적 아키텍처 원전과 2021년 어려운 부분 원전의
 저자여서 그 장은 자기 책과 크게 겹친다.** 그 겹침을 감추지 않고 각 페이지가 대조표로 밝혀
 두었다.
@@ -194,7 +194,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 
 ## 이 책이 다른 원전의 페이지에 닿은 자리
 
-**이 책의 런들이 고친 페이지가 일곱이다.** 아래 페이지들은 이 허브의 소유가 아니라 다른 원전의
+**이 책의 반입이 고친 페이지가 일곱이다.** 아래 페이지들은 이 허브의 소유가 아니라 다른 원전의
 것이고 각자의 허브에 걸려 있다. **이 책이 무엇을 더했는지만 한 줄씩 적는다.**
 
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — **세 장이
@@ -220,12 +220,12 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 
 ## 이웃 허브
 
-- [진화와 거버넌스](evolution-and-governance.md) — **부모 허브.** 이 축이 갈라져 나온 자리
-- [비기능 요건](nonfunctional-requirements.md) — 이 책 7장이 재려는 품질들이 정의되는 축
+- [진화와 거버넌스](../synthesis/evolution-and-governance.md) — **부모 허브.** 이 축이 갈라져 나온 자리
+- [비기능 요건](../synthesis/nonfunctional-requirements.md) — 이 책 7장이 재려는 품질들이 정의되는 축
 - [복잡성과 모듈 설계](complexity-and-modular-design.md) — 이 책 4장과 9장이 재려는 구조가
   왜 그렇게 갈려야 하는가의 축
-- [빌드와 배포와 전달](build-deploy-and-delivery.md) — 이 책 1장과 3장과 5장이 계기를 꽂는
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 책 1장과 3장과 5장이 계기를 꽂는
   경로
-- [조직과 아키텍트](organizations-and-architects.md) — 이 책 6장이 지표를 올려 보내는 층
-- [아키텍처 결정 실천](architecture-decision-practice.md) — 이 책 10장의 사례가 결정을 남기는
+- [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 책 6장이 지표를 올려 보내는 층
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 책 10장의 사례가 결정을 남기는
   형식이 사는 축

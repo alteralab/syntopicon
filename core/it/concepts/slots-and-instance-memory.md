@@ -223,7 +223,7 @@ pp.385–386).[^ramalho2022]
     Savings" 본문에 적은 값이다. 코드 펜스는 예제 11-16 원문이고, 원문 코드 목록에 삽입된
     조판용 번호 표지와 이어지는 주석 한 줄(`# methods are the same as previous version`)만
     제거했다.
-    §"실행 중에 설정하려면 메타클래스여야 한다"는 2026-08-18-10 런에서 같은 소스의
+    §"실행 중에 설정하려면 메타클래스여야 한다"는 같은 소스의
     22장 §"Step 5: Caching Properties with functools"(p.856)과 24장 §"Why
     __init_subclass__ Cannot Configure __slots__"(p.921) · §"A Metaclass Solution for
     Checked"(p.943)에서 합류했다.

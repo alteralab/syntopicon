@@ -330,7 +330,7 @@ Thinking*(2024)이 열두 장 전체를 시스템 사고에 바치고, 그 1장�
     사슬과 Thermostat이 Room Temp로, Outside가 Dissipation으로 들어가는 두 입력을 이름 붙인다.
     본문이 같은 내용을 산문으로 적으므로 그림에만 있는 주장은 없다.** 표도 코드 목록도 없다.
     **10장 본문은 p.85에서 끝나고 p.86이 백지이며 11장이 p.87에서 시작한다**(러닝 헤더와 렌더로
-    실측 — `_progress.yaml`의 contents가 10장을 pp.79–86으로 적고 있던 것을 이 런이 고쳤다).
+    실측 — `_progress.yaml`의 contents가 10장을 pp.79–86으로 적고 있던 것을 여기서 고쳤다).
     저자가 대는 바깥 것들(Thomas Piketty · Gerald Weinberg · Donella Meadows · Herbert A.
     Simon · Elinor Ostrom · David Bollier · James R. Chiles · John D. Sterman · John Gall ·
     Frederic Laloux)은 **이 KB가 원전으로 확인한 것이 아니다** — 귀속은 이 책이 그렇게

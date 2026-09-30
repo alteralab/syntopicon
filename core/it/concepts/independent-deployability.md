@@ -504,7 +504,7 @@ p.92).[^ford2022-evolutionary]
     도판 셋(Figure 8-1 논리 관점 · 8-2 로드 밸런서가 인스턴스로 요청을 대응시키는 그림 ·
     8-4 같은 마이크로서비스의 인스턴스들이 데이터베이스를 공유하는 그림)은 이미지로
     조판돼 있어 본문이 그것에 대해 적는 것만 산문으로 옮겼고, MusicCorp 서사(Invoice와
-    Order 마이크로서비스)는 앞 런들과 같은 판정으로 옮기지 않았다. — 그리고 9장 "Testing"
+    Order 마이크로서비스)는 앞선 판정과 같게 옮기지 않았다. — 그리고 9장 "Testing"
     §"The Metaversion"(p.291) · §"Lack of Independent Testability"(pp.291–292) ·
     §"Should You Avoid End-to-End Tests?"(p.292) · §Summary(p.303). 9장 절들에서 이 페이지가
     옮긴 것은 한국어 재서술이고 직인용은 두지 않았다 — 그 절들의 직인용은

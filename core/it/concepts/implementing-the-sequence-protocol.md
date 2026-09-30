@@ -280,6 +280,6 @@ sources:
     Figure 12-1(축약 함수)·12-2(map-reduce)는 이미지로 조판돼 있어 캡션의 뜻만 본문 서술로
     풀었다. 코드 펜스는 예제 12-6 원문이고, 원문 코드 목록에 삽입된 조판용 번호 표지만
     제거했다.
-    §"속성 처리 특수 메서드의 전체 지도"는 2026-08-18-10 런에서 같은 소스의 22장
+    §"속성 처리 특수 메서드의 전체 지도"는 같은 소스의 22장
     "Dynamic Attributes and Properties" §"Special Methods for Attribute
     Handling"(pp.871–872)에서 합류했다.

@@ -257,7 +257,7 @@ sources:
     Figure 1-1(2차원 벡터 덧셈)과 Figure 1-2(`collections.abc` UML 클래스 다이어그램)는
     이미지로 조판돼 있어 딸린 설명 산문과 본문 서술만 옮겼다. 코드 펜스는 예제 1-1 원문
     그대로다.
-    §"문법마다 짝이 되는 프로토콜이 있다"는 2026-08-18-10 런에서 같은 소스의 17장
+    §"문법마다 짝이 되는 프로토콜이 있다"는 같은 소스의 17장
     §"Why Sequences Are Iterable: The iter Function"(pp.596–597) · 18장 §"Context Managers
     and with Blocks"(p.658) · 21장 §"Asynchronous Context Managers"(p.786) ·
     §"Asynchronous Iteration and Asynchronous Iterables"(p.811)에서 합류했다.
