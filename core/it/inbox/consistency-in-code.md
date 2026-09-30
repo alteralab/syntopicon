@@ -168,7 +168,7 @@ sources:
 집행할 때 무엇을 얻고 어디서 멈추는가**다. 그 장의 정본 넷은
 [규칙과 지침](rules-versus-guidance.md) · [규칙을 세우는 다섯 원칙](principles-for-writing-rules.md) ·
 [규칙을 바꾸는 절차와 중재자](rule-change-process-and-arbiters.md) ·
-[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)이고, **이 절은 이 페이지의 절들과
+[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)이고, **이 절은 이 페이지의 절들과
 겹치거나 갈리는 자리만 적는다.**
 
 **근거 등급이 다르다.** 그쪽은 한 회사의 조건 붙은 자기 보고(`industry-norm`)이고, 논증과
@@ -305,7 +305,7 @@ sources:
   일관성을 규칙을 세우는 다섯 잣대 가운데 하나로 두는 자리
 - [규칙과 지침](rules-versus-guidance.md) — 둘째 소스에서 규칙과 권고의 격을
   가르는 자리
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 집행 지점에
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 집행 지점에
   독립적으로 도달한 쪽
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 이 축의 허브
 - [대규모 변경과 원자적 커밋의 한계](large-scale-changes-and-atomic-commit-limits.md) —

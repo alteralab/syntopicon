@@ -30,7 +30,7 @@ sources:
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다.
 - **이 페이지의 배치는 전부 이 조직의 저장소 구조와 소유 명단 기제에 얹혀 있다.** 그 기제의
-  전문은 [코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md)가 갖는다. 옮길 수
+  전문은 [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md)가 갖는다. 옮길 수
   있는 것은 그 기제가 아니라 **규모가 리뷰에 거는 압력의 모양**이다.
 
 ## 이 페이지가 받는 갈고리
@@ -66,7 +66,7 @@ sources:
   가중치를 매긴다.** 특정 소유자가 응답하지 않으면 **적시에 리뷰를 받으려고 리뷰어를 자동으로
   더한다** (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 이 기제의 값어치는 **소유 명단이 리뷰 라우팅의 입력이 된다**는 데
-  있다. [코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md)가 그 명단을 **승인
+  있다. [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md)가 그 명단을 **승인
   권한과 지식 책임의 기록**으로 규정했는데, 이 절에서 그것이 **기계가 읽는 배차 표**가 된다.
   곧 **명단이 낡으면 이행이 느려진다** — 같은 책 21장이 적은 고아 패키지 문제와 같은 결함이
   여기서는 처리량으로 나타난다
@@ -115,7 +115,7 @@ sources:
   대해 실질을 잃었다고 보고한다.** 그 축이 남아 있되 **그것을 수행하는 주체가 지역 소유자에서
   전역 승인자로 옮겨 갔고**, 옮겨 간 이유가 **지역 소유자가 그 축을 실제로 수행하지 않았기**
   때문이다. 그 페이지를 개정해 이 대질을 적었다.
-- **그리고 [코드 리뷰가 결함 발견 말고 하는 일](code-review-benefits-beyond-defect-finding.md)의
+- **그리고 [코드 리뷰가 결함 발견 말고 하는 일](../concepts/code-review-benefits-beyond-defect-finding.md)의
   이득 목록이 여기서 대부분 성립하지 않는다.** 그 페이지가 세는 이득(지식 공유, 코드베이스
   일관성의 사회적 유지, 설명 가능성의 강제)이 **형식적 승인에서는 발생하지 않는다.** 이 장이
   그것을 손실로 세지 않고, 이 KB는 그 미계상을 사람이 볼 자리로 적어 둔다.
@@ -139,7 +139,7 @@ sources:
 - **이 KB가 다는 판정** — 이 배치가 리뷰를 **사람 수만큼 나누는 일에서 도구를 만드는 일로**
   바꾼다. 곧 리뷰의 확장 문제를 **리뷰어를 늘려** 푸는 것이 아니라 **리뷰 기준을 코드로 적어**
   푼다. 같은 수를 이 KB의
-  [규칙 집행을 자동화한다](automating-rule-enforcement.md)가 규칙 쪽에서 적는데, **거기서는
+  [규칙 집행을 자동화한다](../concepts/automating-rule-enforcement.md)가 규칙 쪽에서 적는데, **거기서는
   대상이 지침의 준수이고 여기서는 대상이 변경의 정확성**이다. 한 단계 더 나간 자리다.
 
 ## 이 장 수치의 지위
@@ -172,13 +172,13 @@ sources:
 - **[작은 변경과 빠른 리뷰](small-changes-and-fast-review.md)가 같은 사실을 규범으로 적고 이
   페이지가 대가로 적는다.** 9장은 **지적의 범위를 좁히라**고 하고 22장은 **왜 그 좁힘이
   리뷰의 실질을 줄였는지**를 적는다. 그 페이지를 개정했다.
-- **[코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md)의 소유 명단이 여기서
+- **[코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md)의 소유 명단이 여기서
   배차 표가 된다.** 그리고 **소유가 거부권이 아니라는 그 규정의 가장 강한 적용 사례**가 이
   페이지다. 그 페이지를 개정했다.
-- **[코드 리뷰가 결함 발견 말고 하는 일](code-review-benefits-beyond-defect-finding.md)의
+- **[코드 리뷰가 결함 발견 말고 하는 일](../concepts/code-review-benefits-beyond-defect-finding.md)의
   이득이 형식적 승인에서 발생하지 않는데 이 장이 그것을 손실로 세지 않는다.** 개정하지 않았다.
   사람이 볼 자리다.
-- **[규칙 집행을 자동화한다](automating-rule-enforcement.md)와 같은 수를 한 단계 더 쓴다** —
+- **[규칙 집행을 자동화한다](../concepts/automating-rule-enforcement.md)와 같은 수를 한 단계 더 쓴다** —
   거기서는 규칙의 준수를 기계가 판정하고, 여기서는 **변경의 정확성**을 기계가 판정한다.
 
 ## 이어지는 페이지
@@ -186,10 +186,10 @@ sources:
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 이 리뷰가 놓이는 단계
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 이 절이 흔드는 구조
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 사실의 규범 쪽
-- [코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md) — 소유 명단이 하는 일
-- [이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md) — 신뢰가
+- [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md) — 소유 명단이 하는 일
+- [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md) — 신뢰가
   쌓인 배경
-- [규칙 집행을 자동화한다](automating-rule-enforcement.md) — 판정을 도구로 적는 앞 단계
+- [규칙 집행을 자동화한다](../concepts/automating-rule-enforcement.md) — 판정을 도구로 적는 앞 단계
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 갈래의 허브
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

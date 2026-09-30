@@ -277,7 +277,7 @@ Naming").[^winters2020-swe-at-google] **이 KB가 이 사례를 받는 이유는
 - [규칙과 지침](rules-versus-guidance.md) — 같은 장. 이 절차가 다스리는 문서의 격 구분
 - [규칙을 세우는 다섯 원칙](principles-for-writing-rules.md) — 같은 장. 개정이 도달할 판정의
   잣대와 면제를 관찰 자료로 쓰는 같은 기제
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 장. 집행 도구의 복잡도가
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 장. 집행 도구의 복잡도가
   규칙 품질의 신호가 되는 자리
 - [아키텍처 결정 기록](../concepts/architecture-decision-records.md) — 결정 근거를 남기는
   같은 일의 다른 대상

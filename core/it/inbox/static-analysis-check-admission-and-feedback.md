@@ -114,7 +114,7 @@ Platform").[^winters2020-swe-at-google]
   (20장 도입부).[^winters2020-swe-at-google] 그리고 **API 폐기 절차에서 코드베이스를 새
   API로 이주시키는 동안 되돌아가는 것을 막는 데 필수적인 도구**라고도 적는다.
 - **그래서 정적 분석이 여기서 하는 일은 검출이 아니라 집행에 가깝다.** 그 층위의 정본은
-  [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)이고, **8장이 규칙 쪽에서
+  [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)이고, **8장이 규칙 쪽에서
   같은 것을 적는다.** 20장이 더하는 것은 **그 집행이 폐기 이주의 되돌아감을 막는 데
   쓰인다**는 구체적 쓰임이다 — 그 축의 정본은
   [폐기는 인력이 배정된 절차다](deprecation-as-a-staffed-process.md)와
@@ -172,7 +172,7 @@ Platform").[^winters2020-swe-at-google]
   **메시지가 아니라 수정이 충족시킬 수** 있다. **설명의 매체가 글에서 diff로 옮겨 간 것**이고,
   이것은 정적 분석 바깥의 어떤 자동 조언에도 옮겨진다.
 - **그리고 서식에 대한 판정이 8장의 조문과 같다** — **서식을 리뷰의 주제에서 아예 빼는
-  것**이고, 그 정본은 [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)다.
+  것**이고, 그 정본은 [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)다.
   **20장은 그 판정에 이유를 하나 더한다 — 사람 리뷰어의 시간을 쓸 자리가 아니라는 것.**
 
 ## 무엇을 분석할 수 있는가의 기술적 한계
@@ -249,7 +249,7 @@ Platform").[^winters2020-swe-at-google]
   이 **이 절의 되먹임 회로가 분석기 안에서 도는 모양**이다. 그리고 그 논문의 생산성 비율이
   **이 페이지의 10% 문턱이 요구하는 것과 같은 잣대**다. 그 대질을 그 페이지의 개정본에 절로
   적었다.
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)와 층이 맞물린다.**
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)와 층이 맞물린다.**
   8장이 **무엇을 규칙으로 올리고 무엇을 도구에 맡길지**를 판정하고, 20장이 **그 도구에 검사를
   들이는 관문**을 적는다. **8장의 규칙 개정 절차(제안은 기존 코드에서 발견된 패턴으로
   문제를 증명해야 한다)와 20장의 기여 경로 둘째(겪은 결함을 검사로 만든다)가 같은 모양**이고,
@@ -260,7 +260,7 @@ Platform").[^winters2020-swe-at-google]
   요구를 **검사를 들이는 관문의 둘째·셋째 기준**으로 성문화한다. **같은 조문의 두 판본**이고
   15장 쪽이 폐기에 한정해, 20장 쪽이 모든 분석에 걸쳐 적는다.
 - **[아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)·
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) 축에 이 관문이
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) 축에 이 관문이
   없다.** 그 축은 검사를 만드는 법을 적고 **검사를 들일지 말지의 문턱**을 두지 않는다.
   20장의 기준 넷이 정확히 그 자리다. 그 대질을 거버넌스 페이지 개정본에 적었다.
 - **[조직 전체에 지식을 퍼뜨리기](scaling-knowledge-across-an-organization.md)의 통로에
@@ -301,7 +301,7 @@ Platform").[^winters2020-swe-at-google]
   같은 기준이 가장 엄해지는 층
 - [분석 억제를 프로젝트 단위로 두기](project-level-analysis-customization.md) — 들어온
   검사를 누가 끌 수 있는가
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
 - [폐기 경고의 실행 가능성과 관련성](deprecation-warnings-actionability-and-relevance.md) —
   같은 요구의 폐기 쪽 판본
 - [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —

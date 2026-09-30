@@ -45,7 +45,7 @@ sources:
   [의존성 관리와 소스 관리를 가르는 물음](dependency-management-versus-source-control.md) 계열이고,
   그 장과 이 페이지의 가름은 아래 절이 적는다.
 - **모듈을 어떻게 쪼개는가는
-  [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)에 있다.**
+  [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)에 있다.**
 
 ## 안과 밖을 가르는 기준
 
@@ -74,7 +74,7 @@ sources:
   맞는다** — 그 장이 버전 관리를 **(파일 이름, 시간, 브랜치) → 내용**의 대응으로 규정했는데,
   내부 의존은 그 대응 안에 완전히 들어 있고 **외부 의존만 그 밖에 있다.** 그래서 외부 의존을
   그 대응 안으로 끌어들이는 장치가 필요해졌다 —
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)의 해시 매니페스트가 그것이다.
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)의 해시 매니페스트가 그것이다.
 
 ## 전이 의존이 공개 계약이 되는 문제
 
@@ -222,7 +222,7 @@ sources:
   뭉뚱그려지는데 **막는 수단이 다르고 비용이 다르다.** 해시는 싸고 보안만 막으며, 미러는
   비싸고 둘 다 막는다. 그래서 **작은 조직이라도 해시는 걸 수 있고 미러는 미룰 수 있다.**
   해시 매니페스트의 기제는
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)가 갖는다.
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)가 갖는다.
 
 ## 벤더링 — 외부를 전부 내부로 바꾸기
 
@@ -255,7 +255,7 @@ sources:
   다이아몬드 의존이 나는 기제, 일회 비용과 상시 비용의 대비 — 셋 다 수치 없이 서고, **이 KB가
   보기에 그래서 오히려 옮기기 쉽다.** 처방의 효험이 아니라 문제의 구조를 적고 있기 때문이다.
 - **18장 전체의 수치 지위 판정은
-  [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md)이 갖는다.**
+  [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md)이 갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
 
@@ -327,9 +327,9 @@ sources:
 ## 이어지는 페이지
 
 - [한 판 규칙](one-version-rule.md) — 이 페이지가 되풀이하는 규칙의 정본 자리
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — 무엇을
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 무엇을
   잇는가에 앞서는 물음
-- [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md) — 해시 매니페스트의 기제
+- [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md) — 해시 매니페스트의 기제
 - [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md) —
   의존 관리가 빌드 시스템의 가장 근본적인 일이라는 규정
 - [모노레포인가 가상 모노레포인가](monorepo-or-virtual-monorepo.md) — 벤더링이 얹혀 있는

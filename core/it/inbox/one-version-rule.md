@@ -153,7 +153,7 @@ sources:
     (16장 각주 11).
   - **이 둘을 함께 읽으면 규칙의 진짜 문면이 드러난다** — **금지되는 것은 여러 판의 존재가
     아니라 새 의존을 더할 때의 선택**이다. **그 구분이 이 페이지에서 가장 실무적으로 중요하다.**
-  - **그리고 각주 11의 절차가 [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)의
+  - **그리고 각주 11의 절차가 [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)의
     강제 폐기와 정확히 같은 모양이다** — 새것을 세우고, 옛것에 새 유입을 막고, 기존 쓰임을
     옮긴다. **15장과 16장이 같은 절차를 각자의 어휘로 적는다.** 유입 차단 수단은 15장의
     되돌림 방지 도구이고, 그 전문은
@@ -230,7 +230,7 @@ sources:
   개발자를 최신 상태에 머물게 독려하는 데 도움이 된다**
   (같은 절).[^winters2020-swe-at-google]
   - **도구가 정책의 집행 수단이 된다는 이 형식이 같은 책 8장의 것과 같다** —
-    [규칙 집행의 자동화](automating-rule-enforcement.md)가 그 자리다.
+    [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)가 그 자리다.
 
 ## 같은 책 18장이 제삼자 의존 쪽에서 같은 규칙을 다시 세운다
 
@@ -378,7 +378,7 @@ sources:
   선택
 - [버전 관리](../concepts/version-control-practice.md) — 브랜치와 트렁크 기반 개발의 정본
   자리. 이 장이 다섯째 소스로 들어간다
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 판을 옮기는 절차가
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 판을 옮기는 절차가
   같은 모양인 자리
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 옛 판에 새 유입을 막는
   도구
@@ -387,7 +387,7 @@ sources:
   18장이 이 규칙을 어기는 경로로 지목하는 전이 외부 의존
 - [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md) —
   선택을 없애 확장을 산다는 같은 수를 빌드 파일에 거는 자리
-- [규칙 집행의 자동화](automating-rule-enforcement.md) — 도구가 정책을 집행한다는 같은 형식
+- [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 도구가 정책을 집행한다는 같은 형식
 - [마이크로서비스 소스와 빌드의 배치](../concepts/microservice-source-layout.md) — 겨루는
   전제를 가진 쪽
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 그 전제의 원칙 자리

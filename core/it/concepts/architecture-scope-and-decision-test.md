@@ -352,7 +352,7 @@ sources:
 - [소프트웨어 아키텍처의 규정 — 네 차원](../concepts/architecture-defined-four-dimensions.md) —
   같은 물음에 알아보는 표지가 아니라 구성 요소의 열거로 답하는 자리
 - [아키텍처는 옵션을 파는 일이다](../concepts/architecture-as-selling-options.md) — 이 도비라가 "유연성을
-  사 준다"로 예고한 9장. 이 페이지와 같은 런에 들어왔다
+  사 준다"로 예고한 9장. 이 페이지와 함께 반입됐다
 - [아키텍트의 시스템 사고](systems-thinking-for-architects.md) — 이 장이 구조로 규정한 아키텍처를
   행동 쪽에서 되묻는 10장
 - [아키텍트의 결정 규율](../concepts/architect-decision-discipline.md) — 이 장이 가리키는 6장.

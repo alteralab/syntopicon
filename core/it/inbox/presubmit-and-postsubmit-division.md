@@ -160,17 +160,17 @@ sources:
 
 ## 이어지는 페이지
 
-- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) —
+- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   이 분담이 답하는 첫째 결정의 자리
 - [밀폐 시험](hermetic-testing.md) — 이 분담을 앞으로 당기는 수단
-- [지속 통합을 경보로 다시 놓기](ci-as-alerting.md) — 뒤쪽 실패를 어떻게 다룰 것인가
+- [지속 통합을 경보로 다시 놓기](../concepts/ci-as-alerting.md) — 뒤쪽 실패를 어떻게 다룰 것인가
 - [추적되는 비활성화로 스위트를 초록으로 유지하기](keeping-a-test-suite-green-by-tracked-disablement.md)
   — 당번이 다 고칠 수 없을 때의 장치
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 이 KB의 CI 축 정본
 - [버전 관리](version-control-practice.md) — 두 머리가 사는 자리
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 결과를 규범으로 얻는 쪽
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 전이 폐포를 다 돌리는 쪽
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — 하류 폐포의
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 하류 폐포의
   정밀도를 정하는 아래층
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 

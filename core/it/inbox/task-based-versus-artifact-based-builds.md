@@ -36,8 +36,8 @@ sources:
   (18장 §"Conclusion").[^winters2020-swe-at-google]
 - **이 페이지는 분류와 그 귀결까지를 받는다.** 그 분류를 성립시키는 관점(빌드를 함수로 보는
   것)과 그 관점을 떠받치는 장치들은
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)에 있고, 빌드 시스템이 왜
-  필요한가는 [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md)에 있다.
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)에 있고, 빌드 시스템이 왜
+  필요한가는 [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md)에 있다.
 
 ## 의존 관리가 빌드 시스템의 가장 근본적인 일이다
 
@@ -236,7 +236,7 @@ sources:
   **구조적 논증**이다 — 체계가 무엇을 아는가에서 무엇이 안전한가를 끌어낸다. 이 KB가 보기에
   이 장에서 가장 옮길 만한 부분이 그 논증이고, 수치는 딸린 것이다.
 - **18장 전체의 수치 지위 판정은
-  [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md)이 갖는다.**
+  [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md)이 갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
 
@@ -261,24 +261,24 @@ sources:
 - **[자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)와는
   방향이 반대다.** 그쪽은 **검사를 파이프라인에 더해** 규칙을 집행하고, 18장은 **규칙을 어길
   수 있는 표현력 자체를 빌드 파일에서 없앤다.** 같은 책 8장이 이미 그 두 수를 갈라 놓았다 —
-  [규칙 집행의 자동화](automating-rule-enforcement.md)가 그 자리다.
+  [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)가 그 자리다.
 - **[POSIX 셸 명령 언어](../synthesis/posix-shell-command-language.md) 축과 겹치지 않는다.**
   그쪽은 셸 스크립트를 **잘 쓰는 법**을 규범에서 끌어내고, 18장은 **빌드에 셸 스크립트를 쓰지
   말라**고 한다. 두 축이 같은 대상을 보되 물음이 다르다.
 
 ## 이어지는 페이지
 
-- [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md) — 이 가름을 성립시키는 관점과
+- [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md) — 이 가름을 성립시키는 관점과
   그것을 떠받치는 장치들
-- [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md) — 이 대립 앞에 놓인 물음
+- [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md) — 이 대립 앞에 놓인 물음
 - [분산 빌드 — 원격 캐시와 원격 실행](distributed-builds-remote-cache-and-execution.md) —
   병렬성과 재사용이 재료가 되는 다음 층
 - [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 선언적
   매니페스트가 실제로 적는 것
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — 그
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 그
   매니페스트의 단위를 얼마나 잘게 쪼갤 것인가
 - [규칙과 지침](rules-versus-guidance.md) — 선택을 없애 확장을 산다는 같은 수
-- [규칙 집행의 자동화](automating-rule-enforcement.md) — 같은 책이 집행 쪽에서 쓰는 다른 수
+- [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 같은 책이 집행 쪽에서 쓰는 다른 수
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

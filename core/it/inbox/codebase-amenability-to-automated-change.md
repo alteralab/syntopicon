@@ -76,7 +76,7 @@ sources:
 - **이 KB가 다는 판정 — 이 조건이 같은 책 17장의 축과 한 몸이다.**
   [코드를 찾는 것은 텍스트를 찾는 것이 아니다](searching-code-is-not-searching-text.md)가
   **토큰 색인이 코드에서 정보 파괴가 되는 이유**를 적고,
-  [중앙 색인인가 개발자별 색인인가](central-code-index-versus-per-developer-index.md)가 그
+  [중앙 색인인가 개발자별 색인인가](../concepts/central-code-index-versus-per-developer-index.md)가 그
   색인의 비용 구조를 적는데, **17장은 그 색인을 사람이 읽기 위한 것으로 세운다.** 이 절이
   **같은 색인의 둘째 소비자가 기계**임을 더한다. 그래서 색인에 드는 투자가 **검색 편의만이
   아니라 이행 역량**을 사는 것이 된다. **두 장이 서로를 가리킨다.**
@@ -168,7 +168,7 @@ sources:
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
 - **[코드를 찾는 것은 텍스트를 찾는 것이 아니다](searching-code-is-not-searching-text.md)와
-  [중앙 색인인가 개발자별 색인인가](central-code-index-versus-per-developer-index.md)가 이
+  [중앙 색인인가 개발자별 색인인가](../concepts/central-code-index-versus-per-developer-index.md)가 이
   페이지의 색인 조건을 미리 적어 두었다.** 17장은 **사람이 쓰는 색인**으로 세우고 이 장은
   **기계가 쓰는 색인**을 더한다. 두 장이 서로를 가리킨다.
 - **[코드의 일관성](consistency-in-code.md)에 새 근거가 붙는다** — 위 참조. 그 페이지를

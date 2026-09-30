@@ -254,7 +254,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T22:30:00Z" }
 - [조직과 아키텍트](organizations-and-architects.md) — **이 축이 가장 자주 닿는 형제.** 콘웨이의
   법칙과 팀 규모와 소유권 모형과 아키텍트 역할이 거기 살고, 이 축은 **그 구조가 낳는 사고의
   패턴과 그 구조를 소통 구조로 다시 읽는 자리**를 갖는다
-- [아키텍처 결정 실천](architecture-decision-practice.md) — 결정 하나가 어떻게 시작되어 어떻게
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 결정 하나가 어떻게 시작되어 어떻게
   취해지고 어떻게 남는가를 한 원전으로 받는 형제 자식 허브. **이 축의 7~8장과 그쪽의 조언
   프로세스가 같은 자리를 규약과 사고로 나눠 갖는다**
 - [소프트웨어 아키텍트 엘리베이터](software-architect-elevator.md) — 아키텍트의 자리와 일

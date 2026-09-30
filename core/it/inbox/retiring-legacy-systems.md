@@ -222,7 +222,7 @@ sources:
 [winters2020-swe-at-google](../sources/winters2020-swe-at-google.md) 15장이 이 페이지와 거의
 같은 지형을 다루되 **대상과 층이 다르다.** 근거 등급은 `industry-norm`이고 판정의 정본은
 [소스 메타](../sources/winters2020-swe-at-google.md)다. **전문은
-[코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) 계열 여섯 페이지에
+[코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) 계열 여섯 페이지에
 있고**, 여기에는 이 페이지와 맞대었을 때 드러나는 것만 적는다.
 
 ### 대상이 갈린다
@@ -251,7 +251,7 @@ sources:
   바라는 것이 전략이 아니라는 것이다 (15장 §"Advisory Deprecation" · §"Deprecation
   Warnings").[^winters2020-swe-at-google]
 - **겨루지 않고 같은 형식의 진단이다.** 이 KB의 자리는
-  [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)다.
+  [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)다.
 
 ### 계획된 노후화 — 사는 쪽과 짓는 쪽
 
@@ -331,11 +331,11 @@ sources:
 - [아키텍처의 범위와 결정 시험](../concepts/architecture-scope-and-decision-test.md) — 이 장이 속한 II부의
   도비라와 8장
 - [아키텍처는 옵션을 파는 일이다](../concepts/architecture-as-selling-options.md) — 락인을 행사가로 재는 자리
-- [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) — 둘째 소스가 같은
+- [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 둘째 소스가 같은
   물음을 사내 코드에 대해 여는 자리
 - [폐기가 어려운 이유](why-deprecation-is-hard.md) — 같은 농담이 안에서 적히는 자리
 - [폐기를 전제로 설계하기](designing-for-eventual-deprecation.md) — 계획된 노후화의 짓는 쪽 판
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 같은 격언이 이행 계획에
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 같은 격언이 이행 계획에
   걸리는 자리
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 끄기로 정한 뒤의 절차
 - [아키텍트는 1차 도함수에 산다](../concepts/architects-in-the-first-derivative.md) — 단기

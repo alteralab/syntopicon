@@ -298,7 +298,7 @@ generated: { by: "claude-opus-5", at: "2026-09-24T02:20:00Z" }
 - [학습하는 시스템 사고](learning-systems-thinking.md) — **사고 자체를 기르는 실천 쪽.**
   이 책의 실천 목록이 무엇을 설계 대상으로 셀 것인가를 바꾼다면 그쪽은 어떻게 생각하는가를
   바꾼다
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **결정 권한의 배치 쪽.** 이 책
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **결정 권한의 배치 쪽.** 이 책
   11장은 거버넌스 위원회를 세우고 12장의 실천 목록은 예방적 리뷰 보드를 기각한다. **두 문장의
   한정어가 다르다는 판정이 그 페이지들에 적혀 있다**
 

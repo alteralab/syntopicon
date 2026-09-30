@@ -33,7 +33,7 @@ sources:
 ## 이 KB에 없던 자리다
 
 **2026년 KB 작성 시점에 이 KB에서 밀폐(hermetic)라는 낱말은 여섯 페이지에 스쳐 지나가기만 했다.**
-[빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)가 **빌드의 밀폐성**을 갖고,
+[빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)가 **빌드의 밀폐성**을 갖고,
 [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md)은
 그것을 **큰 시험의 자격 요건**으로 쓰고,
 [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md)는 **근거 없이 놓인 낱말**로
@@ -152,7 +152,7 @@ sources:
 ## 이어지는 페이지
 
 - [제출 전과 제출 후의 분담](presubmit-and-postsubmit-division.md) — 이 수단이 옮기려는 경계
-- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) —
+- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   시험 대상 조립이 첫째 결정과 독립이라는 틀
 - [종단 테스트를 왜 줄이는가](../concepts/why-fewer-end-to-end-tests.md) — 이 절이 교정하는
   근거 없는 낱말이 표시된 자리
@@ -161,7 +161,7 @@ sources:
 - [테스트 대역의 선호 순서](../concepts/test-double-preference-at-scale.md) — 사다리 첫 칸의 정본
 - [테스트 오라클 문제](../synthesis/test-oracle-problem.md) — 기록-재생의 곤경이 환원되는 물음
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 격리 성질의 반대 극
-- [빌드를 함수로 본다 — 밀폐성과 그 장치들](build-as-a-function-and-hermeticity.md) — 같은
+- [빌드를 함수로 본다 — 밀폐성과 그 장치들](../concepts/build-as-a-function-and-hermeticity.md) — 같은
   낱말이 한 층 아래에서 쓰이는 자리
 - [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md)
   — 밀폐를 큰 시험의 자격 요건으로 쓰는 자리

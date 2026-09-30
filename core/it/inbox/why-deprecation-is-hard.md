@@ -28,7 +28,7 @@ sources:
 
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다. **이 장의 수치 실측은 계측 0건**이고
-  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md)가
+  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md)가
   갖는다.
 - **이 페이지의 항목들은 이 장에서 가장 근거가 얇은 부분이다.** 여섯 가운데 넷이 사람의
   심리와 조직 정치에 대한 관찰이고, 이 장은 그것을 뒷받침할 계측을 대지 않는다.
@@ -84,7 +84,7 @@ sources:
   든다. **걷어낸 코드도 다시 찾을 수 있다**는 것이다 (같은 절).[^winters2020-swe-at-google]
   - **감정의 문제에 도구로 답하는 형식**이고, 이 소스가 되풀이하는 수다. 같은 책 8장이
     규칙 준수를 설득이 아니라 자동 집행으로 옮기는 것과 같은 형식이다 —
-    [규칙 집행의 자동화](automating-rule-enforcement.md)가 그 자리다.
+    [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)가 그 자리다.
   - **그 이력 검색이 성립하려면 저장소가 하나여야 한다**는 전제가 붙는데 이 절은 그것을 적지
     않는다. 그 전제의 전문은 같은 책 16장이 갖고 이 KB의 자리는
     [모노레포인가 가상 모노레포인가](monorepo-or-virtual-monorepo.md)다.
@@ -114,7 +114,7 @@ sources:
   채 두는 값은 쉽게 관찰되지 않는다** (15장 §"Why Is Deprecation So
   Hard?").[^winters2020-swe-at-google]
   - **비대칭의 모양이 이것이다** — **드는 값은 예산 항목으로 보이고 아끼는 값은 아무 데도
-    나타나지 않는다.** 위 [코드는 부채다](code-as-liability-and-why-deprecate.md)가 적은
+    나타나지 않는다.** 위 [코드는 부채다](../concepts/code-as-liability-and-why-deprecate.md)가 적은
     "분자를 늘리는 유인만 있다"는 관찰과 같은 비대칭의 다른 면이다.
 - **그래서 관련 이해관계자를 설득하기 어려울 수 있고**, 특히 그 폐기가 **새 기능 개발에 부정적
   영향을 줄 때** 그렇다 (같은 절).[^winters2020-swe-at-google]
@@ -196,11 +196,11 @@ sources:
 
 ## 이어지는 페이지
 
-- [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) — 같은 장이 이 절
+- [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 같은 장이 이 절
   바로 앞에 놓는 논증
 - [폐기를 전제로 설계하기](designing-for-eventual-deprecation.md) — 같은 절의 뒷부분. 이
   어려움들을 짓는 시점에 미리 줄이는 쪽
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 그런데도 폐기하기로 한
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 그런데도 폐기하기로 한
   뒤의 갈림
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 이 절이 대는 대응 셋의
   실물

@@ -34,7 +34,7 @@ sources:
   [프로그래밍과 소프트웨어 엔지니어링](../concepts/programming-versus-software-engineering.md)이
   세웠다.
 - **이 페이지는 4장의 뒤쪽 절반이다.** 앞쪽 절반 — 편향이 기본값이라는 진단과 실패
-  사례들 — 은 [편향이 기본값이라는 진단](bias-as-the-default-in-engineering.md)이 갖고,
+  사례들 — 은 [편향이 기본값이라는 진단](../concepts/bias-as-the-default-in-engineering.md)이 갖고,
   **소스의 지위와 미국 조직 맥락이라는 조건도 거기서 자세히 적었다.**
 - **이 축의 첫 소스라 조건을 더 무겁게 단다.** 2026-09-29 KB 작성 시점에 이 KB에는 제품
   형평성의 축이 없었고, **아래 요구들을 이 지형의 정본으로 굳히지 않는다.**
@@ -245,7 +245,7 @@ Outcomes").[^winters2020-swe-at-google]
     예측하는가·편향에서 자유로운가·비교 가능하게 표준화돼 있는가**를 묻는 순서. **성과
     평가만이 아니라 어떤 자동 판정에도 옮겨진다.**
   - **정책의 존재를 결과의 증거로 쓰지 말라**는 판정. 그 정본은
-    [편향이 기본값이라는 진단](bias-as-the-default-in-engineering.md)에 있다.
+    [편향이 기본값이라는 진단](../concepts/bias-as-the-default-in-engineering.md)에 있다.
   - **소급하는 화법의 기각.** "구조적 문제라 어렵다"로 대화를 옮기는 것과 개선을 논의하는
     것을 가르는 잣대다.
 - **규모 전제나 맥락 전제가 걸리는 것**
@@ -305,7 +305,7 @@ Outcomes").[^winters2020-swe-at-google]
 
 ## 이어지는 페이지
 
-- [편향이 기본값이라는 진단](bias-as-the-default-in-engineering.md) — 같은 장의 앞쪽. 이
+- [편향이 기본값이라는 진단](../concepts/bias-as-the-default-in-engineering.md) — 같은 장의 앞쪽. 이
   요구들이 답하려는 진단과 실패 사례들
 - [예측 분석과 알고리즘의 해악](../concepts/predictive-analytics-and-algorithmic-harm.md) — 같은
   기제가 데이터 시스템 쪽에서 다뤄지는 자리

@@ -38,7 +38,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T06:00:00Z" }
 **같은 지형을 다른 소스가 자르는 자리는 부모 허브에 남아 있다.** 콘웨이의 법칙, 팀 규모와 소유권
 모형, 진화적 아키텍트의 역할, 아키텍처 결정 기록의 세 판 대조가 그쪽이다. **결정 하나가 어떻게
 시작되어 어떻게 취해지고 어떻게 남는가**는 형제 자식 허브
-[아키텍처 결정 실천](architecture-decision-practice.md)이 갖는다.
+[아키텍처 결정 실천](../synthesis/architecture-decision-practice.md)이 갖는다.
 
 **이 책의 II부에서 온 열 페이지는 여기와 형제 허브에 동시에 걸린다.** 아키텍처를 대상으로 다루는
 내용이라 [소프트웨어 아키텍처](software-architecture.md)가 그 열을 주제별로 갖고, 여기서는
@@ -171,7 +171,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T06:00:00Z" }
 
 - [조직과 아키텍트](organizations-and-architects.md) — **부모 허브.** 같은 지형을 다른 소스들이
   자르는 자리가 그쪽에 있다
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **형제 자식 허브.** 결정 하나가
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **형제 자식 허브.** 결정 하나가
   어떻게 시작되어 어떻게 취해지고 어떻게 남는가를 한 원전으로 받는다. **이쪽이 아키텍트의 자리와
   일 전체를 받는다면 그쪽은 그 일 가운데 결정 하나를 받는다**
 - [소프트웨어 아키텍처](software-architecture.md) — 조부모 허브. 위 II부의 열 페이지를 주제별로

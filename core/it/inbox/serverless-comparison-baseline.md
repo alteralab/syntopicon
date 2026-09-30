@@ -165,7 +165,7 @@ sources:
 
 - [계산 서비스 선택의 잠김과 API 분기](compute-service-choice-lock-in-and-bifurcation.md) — 탈출 경로의
   값을 깎는 쪽
-- [가축 모형은 애플리케이션의 성질이다](cattle-model-as-an-application-property.md) — 이 장이 이득의
+- [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md) — 이 장이 이득의
   출처로 되돌리는 자리
 - [서비스로서의 계산과 잡일 제거의 사다리](compute-as-a-service-and-the-toil-ladder.md) — 같은 사다리의
   아래쪽 칸들

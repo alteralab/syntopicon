@@ -113,7 +113,7 @@ sources:
   분통 터질 자리인데, **그 수고의 큰 몫이 완전한 시간 낭비였기** 때문이다 (같은
   절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 이 절은 **판 번호의 알갱이가 라이브러리의 알갱이와 맞지 않는다**는
-  문제다. 이 KB의 [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)이
+  문제다. 이 KB의 [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)이
   같은 책 18장에서 **내부 모듈을 얼마나 잘게 쪼갤 것인가**를 다루는데, **이 절은 그 물음을 판
   번호 쪽에서 되묻는 셈**이다. 두 장이 서로를 호명하지 않는다. #hypothesis
 

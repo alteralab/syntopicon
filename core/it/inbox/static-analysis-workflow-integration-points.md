@@ -207,11 +207,11 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
   전 검사와 지속 통합을 층으로 갖는다. **갈리는 것은 기본값**이고, 20장의 근거가 기술이
   아니라 사람의 상태와 사회적 배치라는 것이 이 KB의 CI 축에 없던 논거다. 그 대질을 CI 페이지
   개정본에 절로 적었다.
-- **[자동화된 아키텍처 거버넌스](automated-architectural-governance.md)와 같은 일을 다른
+- **[자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md)와 같은 일을 다른
   자리에서 한다.** 그 축은 거버넌스 검사를 **배포 파이프라인**에 걸고, 20장은 같은 종류의
   검사를 리뷰에 건다. **그리고 20장에는 그 축에 없는 것이 하나 있다 — 검사가 사람에게
   무시당하는 것을 실패로 세는 지표다.** 그 대질을 거버넌스 페이지 개정본에 적었다.
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)가 같은 배치의 규칙
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)가 같은 배치의 규칙
   쪽이다.** 8장이 **서식기를 제출 전 검사로 걸어 서식을 리뷰의 주제에서 아예 뺀다**고
   적는데, 20장의 제출 전 검사 목록에 **서식이 제대로 돼 있는지**가 그대로 들어 있다.
   **같은 배치의 두 서술**이고 8장이 이유를, 20장이 자리를 적는다.
@@ -263,7 +263,7 @@ Analysis a Part of the Core Developer Workflow" · §"Presubmits" · §"Compiler
 - [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 분석 결과가 붙는
   화면 쪽
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 파이프라인 쪽의 검사
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,
     *Software Engineering at Google*, abseil.io 공개판(CC BY-NC-ND 4.0), 2026-08-23

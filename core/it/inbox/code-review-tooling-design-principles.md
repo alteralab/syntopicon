@@ -66,7 +66,7 @@ sources:
   다시 적지 않고, 19장이 더하는 것 — 도구가 그 구조를 어떻게 집행하는가 — 만 받는다.**
 - **이 페이지는 그 가운데 설계 원칙과 규모 요구를 받는다.** 나머지 둘은
   [리뷰 점수 체계가 만드는 행동](review-scoring-and-the-behavior-it-shapes.md)과
-  [주의 집합 — 리뷰를 차례의 문제로 놓기](attention-set-and-turn-taking.md)에 있다.
+  [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md)에 있다.
 
 ## 원칙 넷
 
@@ -244,7 +244,7 @@ Review"):[^winters2020-swe-at-google] **바뀌는 코드를 누가 소유하는�
   9장이 절차를 적고 19장이 그 절차를 집행하는 도구를 적는다. **9장 스스로 두 장을 가른
   이유를 적어 두었다** — 절차의 토대가 도구보다 오래됐고 통찰 대부분이 어떤 도구를 쓰든
   적용된다는 것이다. **이 페이지가 받는 것은 그 자인의 반대쪽, 곧 도구에만 걸리는 판단이다.**
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)와 층이 다르다.** 8장은
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)와 층이 다르다.** 8장은
   *무엇을* 도구에 맡길지를 판정하고 19장은 *그 도구가 어떤 모양이어야* 하는지를 판정한다.
   8장이 "사회적 문제를 기술적 해법으로 풀지 말라"고 적은 것과 19장이 "소통 문제는 도구로
   풀리지 않는다"고 적은 것이 **같은 조문의 두 판본**이고, 19장 쪽이 도구 설계자의 입장에서
@@ -288,12 +288,12 @@ Review"):[^winters2020-swe-at-google] **바뀌는 코드를 누가 소유하는�
 
 - [리뷰 점수 체계가 만드는 행동](review-scoring-and-the-behavior-it-shapes.md) — 같은 장이
   적는 승인 신호의 설계와 그것이 리뷰어에게 금지하는 것
-- [주의 집합 — 리뷰를 차례의 문제로 놓기](attention-set-and-turn-taking.md) — 같은 장의
+- [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md) — 같은 장의
   차례 장치와 지적을 모아 한 번에 내는 배치
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 이 도구가 집행하는
   절차 자체
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 절차의 실무 규정
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 무엇을 도구에 맡길지의
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 무엇을 도구에 맡길지의
   판정
 - [정적 분석을 개발 흐름의 어디에 끼울 것인가](static-analysis-workflow-integration-points.md) —
   이 도구 안에 분석 결과가 붙는 이유

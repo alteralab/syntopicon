@@ -175,7 +175,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [가축 모형은 애플리케이션의 성질이다](cattle-model-as-an-application-property.md) — 이 사다리를 오른
+- [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md) — 이 사다리를 오른
   뒤 소프트웨어 쪽이 무엇을 바꿔야 하는가
 - [컨테이너를 시간에 대한 추상 경계로 보기](containers-as-an-abstraction-boundary.md) — 격리로 들인
   것이 무엇을 더 하게 되는가

@@ -103,7 +103,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T10:20:00Z" }
   [소프트웨어 아키텍처](software-architecture.md)의 의미론적 설계 절이다
 - [점진적 변경과 배포 파이프라인](../concepts/incremental-change-and-deployment-pipelines.md) —
   그 함수들이 실제로 도는 자리. 파이프라인 단계 배치와 수동 단계를 안에 두는 배치. **같은 페이지가
-  [빌드와 배포와 전달](build-deploy-and-delivery.md)에도 걸려 있는데, 그쪽이 보는 것은 전달
+  [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md)에도 걸려 있는데, 그쪽이 보는 것은 전달
   경로이고 여기서 보는 것은 거버넌스의 실행 자리다**
 - [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 그 검사를
   실제로 거는 일. 수작업 검토를 자동 검사로 옮기는 논거, 이미 나빠진 값을 단계적으로 조여 가는
@@ -349,7 +349,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T10:20:00Z" }
 
 - [소프트웨어 아키텍처](software-architecture.md) — **부모 허브.** 이 허브가 지키는 대상을
   짓는 세 물음(경계·전달·조직)이 그쪽 자식 허브들에 산다
-- [빌드와 배포와 전달](build-deploy-and-delivery.md) — 적합도 함수가 실제로 도는 전달 경로.
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 적합도 함수가 실제로 도는 전달 경로.
   점진적 변경과 배포 파이프라인 페이지를 이 허브와 나눠 갖는다
 - [복잡성과 모듈 설계](complexity-and-modular-design.md) — 커네이선스를 코드 수준의 모듈 경계
   쪽에서 보는 축
@@ -360,7 +360,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T10:20:00Z" }
 - [API 설계 패턴](api-design-patterns.md) — 그 인터페이스의 설계 물음들
 - [비기능 요건](nonfunctional-requirements.md) — 적합도 함수가 재는 특성들이 정의되는 축
 - [인코딩과 진화](encoding-and-evolution.md) — 스키마가 판을 넘어 살아남는 형식 층
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **같은 "거버넌스"라는 낱말을 다른
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **같은 "거버넌스"라는 낱말을 다른
   층에 거는 축.** 여기는 지어진 것이 규칙을 지키는가를 기계 검사로 묻고, 그쪽은 누가 그 규칙을
   정하는가를 결정의 권한과 기록으로 묻는다. 위 자동화된 아키텍처 거버넌스와 가설 주도 개발
   항목이 길 표시로 가리키던 페이지들이 그 허브에 산다

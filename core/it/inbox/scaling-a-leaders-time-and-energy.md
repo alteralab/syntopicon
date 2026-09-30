@@ -37,7 +37,7 @@ sources:
   세웠다.
 - **이 페이지는 6장의 셋째 늘이다.** 장 전체의 틀과 첫째 늘은
   [규모에서 이끄는 세 가지 늘](leading-at-scale-three-always.md)이, 둘째 늘은
-  [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md)가 갖는다.
+  [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md)가 갖는다.
 - **이 절들은 앞 절들과 근거의 성격이 또 다르다.** 앞의 두 늘이 조직 구조의 조문이라면 여기는
   **리더 개인의 일과 습관**을 다루고, 대는 근거가 **바깥 대중서 셋과 한 정치인의 말 하나**다.
   아래 대조 절이 그 서지의 지위를 따로 적는다.
@@ -144,7 +144,7 @@ sources:
   사소한 일이면 죄책감이 들 수 있고, 다른 리더가 고치는 데 더 오래 걸릴 테니 넘기는 것이
   비효율이라 걱정할 수도 있다. **그래도 그것이 그들에게 좋은 훈련이고 자기만 할 수 있는
   중요한 일에 쓸 시간을 벌어 준다.** 이 기제의 정본은
-  [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md)다.
+  [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md)다.
 - **전용 시간을 잡는다** — **정기적으로 두 시간 이상을 비워 두고 조용히 앉아 중요하지만 급하지
   않은 것만 한다.** 장이 드는 예가 **팀 전략, 자기 리더들의 경력 경로, 이웃 팀과 어떻게
   협업할지**다.
@@ -306,7 +306,7 @@ sources:
   **TLM을 둘로 쪼개는 근거**로 쓴다. **이 장은 같은 낱말을 리더 개인의 회복 문제로 쓴다** —
   **조직 배치로 푸는 답과 개인 습관으로 푸는 답이 같은 책 안에 나란히 있고 둘을 잇는 문장이
   없다.** 아래 사각 절에 적었다.
-- **위임** — [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md)가 같은
+- **위임** — [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md)가 같은
   장에서 정본을 갖는다. 이 페이지는 그것을 시간 관리 기법으로 다시 부를 뿐이다.
 - **부딪히는 주장은 찾지 못했다.** `contradicts`를 달지 않는다.
 
@@ -333,7 +333,7 @@ sources:
 ## 이어지는 페이지
 
 - [규모에서 이끄는 세 가지 늘](leading-at-scale-three-always.md) — 같은 장의 틀과 첫째 늘
-- [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md) — 같은 장의 둘째 늘.
+- [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md) — 같은 장의 둘째 늘.
   위임의 정본
 - [관리자와 테크 리드와 TLM](manager-and-tech-lead-roles.md) — 같은 책 5장. 소진을 조직
   배치로 푸는 답

@@ -53,7 +53,7 @@ sources:
   시간으로 환산하는 논거, 완전성을 두고 내린 저울질 셋, 코드를 찾는 일이 텍스트를 찾는 일과
   갈리는 자리, 그리고 신뢰가 채택의 조건이라는 판정. **전부 도구를 바꿔도 남는 판단이다.**
 - **이 페이지는 그 가운데 물음의 유형학을 받는다.** 나머지 셋은
-  [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md) ·
+  [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) ·
   [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) ·
   [코드를 찾는 일은 텍스트를 찾는 일과 다르다](searching-code-is-not-searching-text.md)에
   있다.
@@ -90,7 +90,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   (17장 각주 6).[^winters2020-swe-at-google]
   - **이 KB가 다는 판정** — 이 단서가 규모 전제와 붙어 있다. 대규모 자동 변경이 흔한 조직에서는
     **"누가 이 줄을 썼는가"의 답이 도구가 되기 쉽고**, 그러면 사람을 찾는 용도로 못 쓴다.
-    이 KB의 [코드 소유권은 청지기 노릇](code-ownership-as-stewardship.md)이 소유자를 **디렉터리
+    이 KB의 [코드 소유권은 청지기 노릇](../concepts/code-ownership-as-stewardship.md)이 소유자를 **디렉터리
     단위로 명시 선언**하는 배치를 갖는데, **이 각주가 그 배치가 필요한 이유 하나를 댄다** —
     이력만으로는 물어볼 사람을 못 찾기 때문이다.
 
@@ -125,7 +125,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   이동**(헤더·구현·테스트·빌드 파일 사이)이다 (17장 §"What?").[^winters2020-swe-at-google]
   - **이 KB가 다는 판정** — 둘째가 흥미롭다. **한 단위의 여러 얼굴**(선언·구현·테스트·빌드
     선언)이 파일 체계에서는 흩어져 있는데 그것을 하나로 묶어 오가게 한다는 것이다. 이 KB의
-    [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)이 적은
+    [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)이 적은
     **디렉터리 하나에 패키지 하나와 타깃 하나와 빌드 파일 하나**라는 관습이 **그 묶음을 파일
     체계 층에서 미리 만들어 둔 것**이다. 같은 책 두 장이 같은 것을 양쪽에서 다룬다.
 - **검색 결과 링크의 지위도 적힌다** — 그 링크가 **조직 안에서 코드를 가리키는 정본 방식**이고
@@ -177,7 +177,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
     "약"이 붙은 어림이라 정확히 배타적 분류인지 문면에서 확정되지 않는다.
 - **17장의 새 유형은 이 페이지가 아니라 다음 페이지에 있다** — **계측이 아니라 산술로 만든
   정당화**이고, 그 판정은
-  [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md)이
+  [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md)이
   갖는다. 이 장의 시스템 성능 수치(16장형)와 이름 없는 사내 질의 분석(10장형)의 판정도 그쪽과
   [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md)에 나뉘어 있다.
 
@@ -192,7 +192,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   이 책에 없다.** #hypothesis
 - **떨어지는 것** — "찾기에서 훑기로"의 이동은 **교차 참조 색인을 지을 수 있는 조직**을 전제한다.
   그 비용이 규모에 얹혀 있고, 그 사정은
-  [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md)이
+  [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md)이
   갖는다.
 - **자기 제한이 맺음에 있다** — **통합 개발 환경에 쉽게 들어가는 작은 프로젝트라면 이 장에서
   얻을 것이 별로 없을 것**이고, **큰 코드베이스의 엔지니어 생산성을 책임진다면 얻을 것이 있을
@@ -204,7 +204,7 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   늘어난다.** 같은 책 3장은 지식이 **사람에게 묻는 것과 문서**로 흐른다고 적고 그 둘의 확장
   성질을 다룬다. **17장의 분포는 세 번째 통로가 코드 자체라고 말하고**, 그 통로는 **묻는
   사람의 시간을 쓰지 않는다**는 점에서 확장 성질이 다르다. 겨루지 않고 3장에 없던 통로다.
-- **[코드 리뷰가 결함 찾기 너머에 주는 것](code-review-benefits-beyond-defect-finding.md)과
+- **[코드 리뷰가 결함 찾기 너머에 주는 것](../concepts/code-review-benefits-beyond-defect-finding.md)과
   같은 기능이 다른 방향이다.** 같은 책 9장은 리뷰를 **지식 전수의 자리**로 읽는데, 그것은
   **쓰는 사람에게서 읽는 사람으로** 간다. 17장의 "남들은 어떻게 했는가"는 **읽는 사람이 쓴
   사람 없이 가져가는** 쪽이다. **둘이 보완이고, 뒤쪽이 사람 시간을 쓰지 않아 더 잘 확장된다.**
@@ -213,14 +213,14 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   갈린다.** 그 축은 **코드를 읽기 쉽게 쓰는 일**이고 17장은 **쓰인 코드를 찾아 읽는 일**이다.
   만나는 자리가 위 [훑기 쉬운 코드를 쓰게 된다는 선순환](#훑기-쉬운-코드를-쓰게-된다는-선순환)
   하나이고, 거기서 **두 축이 같은 처방에 다른 근거를 댄다.**
-- **[코드 소유권은 청지기 노릇](code-ownership-as-stewardship.md)에 근거를 하나 보탠다** —
+- **[코드 소유권은 청지기 노릇](../concepts/code-ownership-as-stewardship.md)에 근거를 하나 보탠다** —
   각주 6의 단서(기계 생성 변경 때문에 이력 추적으로 사람을 못 찾는다)가 **소유자를 명시
   선언해야 하는 이유**가 된다. 같은 책 9장이 그 배치를 적고 17장이 그 배치가 필요해지는
   조건을 적는다.
 
 ## 이어지는 페이지
 
-- [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md) —
+- [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) —
   왜 편집기 안이 아니라 따로 둔 도구인가
 - [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) — 무엇을 색인에서
   뺄 수 있는가의 세 저울
@@ -228,9 +228,9 @@ Search?"의 다섯 하위 절에서 왔고, 비율의 귀속은 아래
   표현력의 사다리와 코드 고유의 랭킹 신호
 - [조직 전체에 지식을 퍼뜨리기](scaling-knowledge-across-an-organization.md) — 같은 책
   3장의 지식 통로 둘
-- [코드 리뷰가 결함 찾기 너머에 주는 것](code-review-benefits-beyond-defect-finding.md) —
+- [코드 리뷰가 결함 찾기 너머에 주는 것](../concepts/code-review-benefits-beyond-defect-finding.md) —
   같은 전수를 사람 시간으로 하는 쪽
-- [코드 소유권은 청지기 노릇](code-ownership-as-stewardship.md) — 물어볼 사람을 찾는 다른 길
+- [코드 소유권은 청지기 노릇](../concepts/code-ownership-as-stewardship.md) — 물어볼 사람을 찾는 다른 길
 - [문서를 코드처럼 다루기](documentation-treated-as-code.md) — 정본 주소라는 같은 요구의
   문서 쪽
 - [전문 검색 색인](../concepts/full-text-search-indexes.md) — 이 KB의 검색 축

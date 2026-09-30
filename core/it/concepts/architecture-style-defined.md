@@ -225,7 +225,7 @@ sources:
     (§"Styles Versus Patterns" pp.131–132 · 곁글 §"Where Do Architectural Styles Come From?"
     p.132 · §"Fundamental Patterns" 도입 p.133 · §"Monolithic Versus Distributed
     Architectures" 도입과 스타일 목록 p.143 · §"On to Specific Styles" p.152), 그리고 위
-    누락 실측을 닫으려고 뒤 런이 읽은 11장 도입(p.165). **20장 "Architectural Patterns"
+    누락 실측을 닫으려고 뒤에 읽은 11장 도입(p.165). **20장 "Architectural Patterns"
     도입(p.371)과 §"Orchestration Versus Choreography" 맺음(p.378), 그리고 19장이 "패턴"을
     스타일의 자리에 쓰는 두 대목(pp.367·370)이 위 §"패턴과 어디서 갈리는가"에 합류했다** —
     그 장의 전문은 [패턴과 구현의 가름](pattern-versus-implementation.md)이 갖고 여기에는

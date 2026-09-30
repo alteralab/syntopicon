@@ -27,7 +27,7 @@ sources:
 
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다. **이 장의 수치 실측은 계측 0건**이고
-  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md)가
+  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md)가
   갖는다.
 - **이 절은 원문에서 [폐기가 어려운 이유](why-deprecation-is-hard.md)의 하위 절이다.** 이 KB가
   페이지를 가른 이유는 **묻는 시점이 다르기 때문**이다 — 그쪽은 이미 낡은 것을 앞에 두고
@@ -181,7 +181,7 @@ sources:
 ## 이어지는 페이지
 
 - [폐기가 어려운 이유](why-deprecation-is-hard.md) — 원문에서 이 절을 품는 절
-- [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) — 이 설계 품이 무엇을
+- [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 이 설계 품이 무엇을
   아끼는가
 - [한 판 규칙](one-version-rule.md) — 이 절이 물음 둘의 답으로 가리키는 같은 책 16장
 - [정보 은닉과 누출](../concepts/information-hiding-and-leakage.md) — 물음 둘이 실제로 거는 설계 성질

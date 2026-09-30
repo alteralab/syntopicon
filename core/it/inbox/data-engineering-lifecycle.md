@@ -83,10 +83,10 @@ generated: { by: "claude-opus-5", at: "2026-08-15T12:00:00Z" }
 전권 원전을 갖는 자리다.
 
 한 원전이 전권 들어와 **스물두 페이지**가 되었다. 한 절이 감당할 크기를 넘겼으므로 그
-목록은 **자식 허브 [메달리온 아키텍처 구축](building-medallion-architectures.md)**이 원전의 부
+목록은 **자식 허브 [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md)**이 원전의 부
 단위로 나눠 갖는다. 여기에는 그 진입점과, 이 축의 다른 절들과 가장 자주 엮이는 셋만 둔다.
 
-- [메달리온 아키텍처 구축](building-medallion-architectures.md) — **자식 허브.** 이 원전의 스물두
+- [메달리온 아키텍처 구축](../synthesis/building-medallion-architectures.md) — **자식 허브.** 이 원전의 스물두
   페이지를 I부에서 IV부까지 부 단위로 나눠 갖고, 이 책이 다른 원전의 페이지에 닿아 고친 열아홉
   자리도 거기서 한 줄씩 가리킨다
 - [메달리온 아키텍처의 정의와 계보](../concepts/medallion-architecture-origins.md) — 1장. 계층 셋의

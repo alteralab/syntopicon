@@ -142,8 +142,7 @@ sources:
 ## 이 장 수치의 지위
 
 **이 소스에서는 수치의 지위를 장마다 새로 잰다. 19장에는 효과를 나타내는 수가 한 건도 없다 —
-그 실측과 이 장이 여는 여덟째 유형의 규정은
-[코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md#이-장-수치의-지위)에
+그 실측과 이 장이 여는 여덟째 유형의 규정은 [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md#이-장-수치의-지위)에
 있다.**
 
 - **이 페이지의 절들에 걸리는 몫만 여기 적는다.** 등급을 줄인 개정에 대해 **개정 전후의
@@ -175,7 +174,7 @@ sources:
   값 배치로 표현한다. **축이 셋인데 값이 둘인 이유**가 여기서 드러난다 — 정확성·이해의
   판정은 아무 엔지니어나 할 수 있어 하나의 값으로 족하고, 소유권과 언어 자격은 자격자마다
   따로 세어야 해서 개수를 갖는다.
-- **[코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md)의
+- **[코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md)의
   심리 효과와 이어진다.** 그쪽은 **절차 자체가 나쁜 경찰을 맡아 비판의 출처를 개인에서
   절차로 옮긴다**고 적는데, 19장의 점수 체계는 그 이전(移轉)을 **표현 가능한 값의 집합으로
   강제**한다. **9장이 문화로 적은 것을 19장이 데이터 모형으로 적는 관계**가 이 두 장 사이에
@@ -188,7 +187,7 @@ sources:
   `contradicts`를 걸지 않았다.
   - **다만 두 장 어디에도 그 규범이 깨졌는지 확인하는 장치가 없다.** 저자가 답만 하고
     해소로 바꿔 버린 지적과 정말 처리된 지적이 도구에서 구별되지 않는다. **사람이 볼 자리다.**
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)와 잣대가 반대다.** 8장은
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)와 잣대가 반대다.** 8장은
   **변경 크기 상한을 도구로 자동 기각하지 않기로** 했는데 그 이유가 **크기의 정의가
   모호해서**였다. 19장은 반대로 **표현할 값을 좁혀 사람의 판단을 특정 모양으로 몬다.**
   **둘 다 도구가 사람을 대신하지 않는 자리를 고르는 일이되, 8장은 판정을 맡기지 않는 쪽으로
@@ -218,14 +217,14 @@ sources:
 
 - [코드 리뷰 도구의 설계 원칙](code-review-tooling-design-principles.md) — 같은 장의
   원칙 넷과 이 KB가 19장을 가른 방식
-- [주의 집합 — 리뷰를 차례의 문제로 놓기](attention-set-and-turn-taking.md) — 같은 장이
+- [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md) — 같은 장이
   적는 다른 작업 흐름 장치
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 이 값들이 표현하는
   절차의 구조
-- [코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) —
+- [코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md) —
   같은 절차의 심리 효과
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 지적을 다루는 저자 쪽 규범
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 도구에 맡기지 않기로 한
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 도구에 맡기지 않기로 한
   판정의 반대 사례
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

@@ -325,7 +325,7 @@ sources:
 **앞 절이 적은 처방과 정반대 배치를 택한 소스가 이 KB에 들어왔다.**
 [winters2020-swe-at-google](../sources/winters2020-swe-at-google.md)의 9장이고, 그 장의 정본
 셋은 [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) ·
-[코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) ·
+[코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md) ·
 [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md)다. **이 절은 그 배치가 위 절의
 조문들과 어디서 부딪히는지만 적는다.**
 

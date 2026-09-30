@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 빌드 시스템의 목적과 그것이 없을 때 무너지는 경로
-status: draft
 description: 빌드 시스템이 무엇을 위한 물건이고 그것 없이 버티다 어디서 무너지는가 — 목적을 빠름과 올바름 두 성질로 못 박고 올바름을 "누가 어느 기계에서 돌려도 같은 입력이면 같은 결과"라는 결정성으로 규정하며 옛 체계들이 그 둘을 맞바꾼 지름길을 택했다는 진단, 빌드가 사람만을 위한 물건이 아니고 대다수가 자동으로 촉발된다는 관찰과 그 위에 서는 작업 흐름 다섯, 컴파일러 하나만으로 갈 때 부딪히는 자리 넷(파일 체계 바깥·단일 언어·순서와 낡은 산출물·외부 의존의 무지)과 셸 스크립트로 갈 때 부딪히는 자리 일곱(스크립트가 코드만큼 커짐·전부 다시 빌드·릴리스 절차의 손 지식·재구축 불가·새 사람마다의 부트스트랩·자동 빌드의 매일 아침 실패·놀고 있는 옆 기계), 그 실패가 도구의 문제가 아니라 규모의 문제라는 판정과 갈림선이 여러 기계의 작은 차이를 계상할 수 있는가라는 자리, 그리고 엔지니어의 권한을 줄이는 것이 생산성을 올린다는 이 장의 놀라운 결론
 generated: { by: "claude-opus-5", at: "2026-09-30T18:00:00Z" }
 sources:
@@ -36,7 +35,7 @@ sources:
   **빌드 시스템 그 자체** — 를 다룬 소스가 없었다. 18장이 그 아래층이다.
 - **이 페이지는 그 장의 앞부분(목적과 그것이 없을 때의 경로)을 받는다.** 이 장의 중심 대립은
   [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md)에,
-  그 대립을 성립시키는 관점은 [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)에
+  그 대립을 성립시키는 관점은 [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)에
   있다.
 
 ## 목적 — 빠름과 올바름
@@ -55,7 +54,7 @@ sources:
 - **이 KB가 보기에 이 둘의 나열 순서가 논지가 아니다.** 뒤에 오는 장 전체가 보이는 것은
   **올바름을 먼저 세우면 빠름이 따라온다**는 구조다 — 병렬 실행도, 결과 재사용도, 여러 기계로
   흩는 것도 전부 "같은 입력이면 같은 출력"이라는 보장 위에서만 안전해진다. 그 논증은
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)가 갖는다.
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)가 갖는다.
 
 ## 올바름의 규정이 결정성이다
 
@@ -69,7 +68,7 @@ sources:
   그 경계를 **선언된 것**으로 좁혀 답한다. 도구도 입력이고(→ 도구를 의존으로 선언), 외부에서
   받아 오는 파일도 입력이며(→ 해시 매니페스트), 선언하지 않은 파일은 아예 볼 수 없게 한다
   (→ 샌드박스). 그 셋의 정본은
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)다.
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)다.
 
 ## 빌드를 사람만 돌리는 것이 아니다
 
@@ -245,18 +244,18 @@ sources:
 - **[독립 배포 가능성](../concepts/independent-deployability.md)과는 단위가 다르다.** 그쪽은
   **서비스 하나를 따로 내보낼 수 있는가**를 묻고, 18장은 **그 서비스를 만드는 일을 어떻게
   쪼개고 다시 합치는가**를 묻는다. 겹치는 자리는
-  [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)에 있다.
+  [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)에 있다.
 
 ## 이어지는 페이지
 
 - [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md) — 이
   장의 중심 대립
-- [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md) — 이 장이 이 KB에 새로 여는 축
+- [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md) — 이 장이 이 KB에 새로 여는 축
 - [분산 빌드 — 원격 캐시와 원격 실행](distributed-builds-remote-cache-and-execution.md) —
   ⑦ 놀고 있는 기계에 대한 답
 - [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 컴파일러
   실패 ④에 대한 답
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — 빌드
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 빌드
   대상을 얼마나 잘게 쪼갤 것인가
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이
   층 위에 서는 파이프라인

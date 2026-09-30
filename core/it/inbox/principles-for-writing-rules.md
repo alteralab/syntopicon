@@ -51,7 +51,7 @@ sources:
   아무도 개의치 않는 상태에 이르렀다**고 적는다.
   - **이 KB의 판정 — 이 각주가 이 절 본문보다 중요하다.** 규칙의 총량이 비용이라는 통념을
     **도구가 무효화한다**는 명제이고, 그것이 곧 [규칙의 집행을 도구에
-    내리기](automating-rule-enforcement.md)의 근거가 된다. **자동화가 규칙 예산을 늘린다**는
+    내리기](../concepts/automating-rule-enforcement.md)의 근거가 된다. **자동화가 규칙 예산을 늘린다**는
     말로 읽을 수 있고, 규모와 무관하게 선다.
 - **자명한 것을 적지 않는다는 조항이 이 원칙에서 나온다.** 그 경계는
   [규칙과 지침](rules-versus-guidance.md)이 적는다. 핵심 논거는 **한두 사람이 틀리는 것 때문에
@@ -339,7 +339,7 @@ Guide").[^winters2020-swe-at-google]
 - [규칙과 지침](rules-versus-guidance.md) — 같은 장. 이 다섯 원칙이 적용되는 문서의 격 구분
 - [규칙을 바꾸는 절차와 중재자](rule-change-process-and-arbiters.md) — 같은 장. 근거를 함께
   싣는 조문과 면제 절차
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 장. "기억해야 하는
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 장. "기억해야 하는
   규칙 수"를 도구가 줄이는 자리
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 같은 책
   1장. 바깥 일관성의 저울이 기대는 기대 수명의 눈금

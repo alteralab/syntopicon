@@ -911,7 +911,7 @@ of Speed to Release", pp.186–188).[^ford2022-evolutionary] 그 장의 아홉 �
   서비스와 데이터와 모형과 런타임까지** 통합 대상으로 놓고, 그 귀결로 지속 통합을 **어느 지점에서
   무엇을 시험하고 그 지점마다 시험 대상을 어떻게 조립할 것인가**라는 배치 문제로 다시 규정한다.
   **판별 기준이 없는 규정**이라 이 페이지의 세 물음과 겨루지 않고 물음이 다르다. 전문은
-  [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md)다.
+  [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md)다.
 - **⑵ 단계를 가르는 잣대에 하나가 더 붙는다.** 위
   [빠른 피드백과 프로덕션 유사성의 저울](#빠른-피드백과-프로덕션-유사성의-저울)이 속도와
   충실도를 재는데, 23장은 **오탐 가능성**을 셋째 잣대로 두고 **제출 전을 빠짐없이 만들 수 없는
@@ -945,7 +945,7 @@ of Speed to Release", pp.186–188).[^ford2022-evolutionary] 그 장의 아홉 �
 - **그 곁글은 지속 통합을 개발 흐름 왼쪽 끝의 경보 체계로 다시 놓고**, 거기서 정책 셋을 끌어낸다 —
   **100% 초록은 100% 가동과 같은 값을 요구하고**, **영향 없는 실패를 끄는 것이 옳으며**,
   **"초록이 아니면 아무도 커밋할 수 없다"는 규칙은 대개 불합리하다**는 것이다. 전문은
-  [지속 통합을 경보로 다시 놓기](ci-as-alerting.md)이고, 그 페이지 전체에 `#hypothesis`가
+  [지속 통합을 경보로 다시 놓기](../concepts/ci-as-alerting.md)이고, 그 페이지 전체에 `#hypothesis`가
   붙어 있다(곁글 스스로 새 생각이라 적는다).
 - **이 페이지에 앞서 남긴 대질이 여기서 닫힌다** — 아래
   [검사를 파이프라인보다 앞에 두는 선택](#검사를-파이프라인보다-앞에-두는-선택)에 **깨진 빌드가
@@ -994,12 +994,12 @@ of Speed to Release", pp.186–188).[^ford2022-evolutionary] 그 장의 아홉 �
 - [모놀리스 분해 패턴](monolith-decomposition-patterns.md) — 기능 토글과 병행 운영의 규정과
   8장이 더하는 실행 방식
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 축의 허브
-- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) —
+- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   같은 책 23장이 이 축을 배치 문제로 다시 놓는 자리
 - [제출 전과 제출 후의 분담](presubmit-and-postsubmit-division.md) — 관문 앞뒤의 분담과 그
   분담이 요구하는 장치들
 - [밀폐 시험](hermetic-testing.md) — 시험 대상을 다시 조립하는 수단
-- [지속 통합을 경보로 다시 놓기](ci-as-alerting.md) — 셋째 판별 물음을 반박하는 자리
+- [지속 통합을 경보로 다시 놓기](../concepts/ci-as-alerting.md) — 셋째 판별 물음을 반박하는 자리
 - [추적되는 비활성화로 스위트를 초록으로 유지하기](keeping-a-test-suite-green-by-tracked-disablement.md)
   — 실패를 끄면서 잊지 않는 장치
 - [릴리스 열차와 마감의 규율](release-train-and-deadline-discipline.md) — 같은 책 24장이

@@ -102,7 +102,7 @@ sources:
   적고, **인력을 대지 않은 강제 폐기는 고객 팀에 자금 없는 지시로 비쳐 오히려 폐기를
   막는다**고 단다 (15장 §"Compulsory Deprecation").[^winters2020-swe-at-google] **이 절이
   규칙을 세우고 15장이 그것을 절차로 편다.** 전문은
-  [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)와
+  [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)와
   [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md)에 있다.
   - **그리고 15장이 이 절에 없던 축을 하나 더한다** — **날짜를 정해 통보하는 방식이 확장되지
     않는다**는 이 절의 판정과 별개로, **기한과 집행 권한 자체는 강제 폐기에 필요하다**는
@@ -327,7 +327,7 @@ sources:
   아니라 값싼 등급의 무제한**이라는 꼴로만 성립한다. 1장은 그 단서를 적지 않는다.
 - **그 대안이 기대는 조건이 다른 페이지에 있다** — 낮은 우선순위 배치를 사실상 공짜로 돌릴 수 있다는
   것은 **서빙 작업의 여유에 배치를 넣는 배치**에서 나온다. 그 기제는
-  [가축 모형은 애플리케이션의 성질이다](cattle-model-as-an-application-property.md)가 갖는다. 곧 이
+  [가축 모형은 애플리케이션의 성질이다](../concepts/cattle-model-as-an-application-property.md)가 갖는다. 곧 이
   처방은 **그 배치를 이미 갖춘 조직에서만 값이 난다.**
 - **한 번짜리 코드의 값어치를 이 장이 시간 문턱으로 적는다** — 하루치 기록을 훑는 일은 워크스테이션에서
   몇 분이면 되되, 일 년치를 훑는 데 하루를 기다리는 것은 받아들이기 어렵고, **되풀이가 필요한 일에서는
@@ -532,7 +532,7 @@ sources:
   같은 책의 테스트 장이 이 공용 CI 전제 위에 서 있다는 것을 적는 자리
 - [API 수명 주기](../concepts/api-lifecycle.md) — 시프트 레프트에 마찰이라는 단서와 시프트
   다운이라는 대응 어휘를 다는 자리
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 같은 책 15장이 처른
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 같은 책 15장이 처른
   규칙을 폐기 절차의 얼개로 펴는 자리
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 그 절차가 요구하는
   전담 팀과 도구, 그리고 베이온세 규칙이 폐기에 적용되는 자리
@@ -554,7 +554,7 @@ sources:
     `Deprecation`(저자 Hyrum Wright) §"Compulsory Deprecation"과 16장
     `Version Control and Branch Management`(저자 Titus Winters) §"How did we become
     addicted to dev branches?"의 해당 줄을 함께 받는다. 그 두 장의 전문은 각각
-    [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) 계열과
+    [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) 계열과
     [한 판 규칙](one-version-rule.md) 계열이 갖는다. **공개판 HTML에 쪽 번호가 없어 locator는 장 번호와 원문 절
     제목이다.** 이 장의 내용은 한국어로 재서술했고, 직인용은 원문이 담당해야 하는 짧은
     구절로 한정했다 — 공개판 라이선스가 파생물을 금하는 CC BY-NC-ND 4.0이기 때문이다.

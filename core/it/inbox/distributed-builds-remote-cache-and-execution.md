@@ -33,7 +33,7 @@ sources:
   코드베이스, 단순한 바이너리도 수만 개의 빌드 타깃에 의존한다는 깊이, 그리고 전용 데이터센터다.
   아래 [규모를 떼면 무엇이 남는가](#규모를-떼면-무엇이-남는가)에서 따로 잰다.
 - **이 페이지가 서는 바탕은 앞 두 페이지다** —
-  [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)의 결정성이 여기서 통화로 쓰이고,
+  [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)의 결정성이 여기서 통화로 쓰이고,
   [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md)가 얻은
   병렬성과 재사용이 여기서 재료가 된다.
 
@@ -49,7 +49,7 @@ sources:
 - **그리고 이 확장성이 목표였다고 적는다** — 이것이 **아티팩트 기반 빌드 시스템을 정의하며
   향해 온 성배**다 (같은 절).[^winters2020-swe-at-google]
 - **이 KB가 보기에 "충분히 작은 단위로 쪼개져 있다는 전제"가 사소하지 않다.** 그 전제를 만드는
-  일이 [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)의
+  일이 [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)의
   주제이고, 그 페이지가 잘게 쪼개는 쪽의 이득으로 드는 첫 항목이 바로 이것이다.
 
 ## 원격 캐시 — 가장 단순한 형태
@@ -76,7 +76,7 @@ sources:
   (18장 §"Remote caching").[^winters2020-swe-at-google]
 - **그 조건이 왜 필요한지도 적힌다** — **그것만이 아티팩트를 내려받은 결과가 직접 빌드한 결과와
   같음을 보장하는 길**이기 때문이다 (같은 절).[^winters2020-swe-at-google]
-- **이 KB가 보기에 이 문장이 [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)의
+- **이 KB가 보기에 이 문장이 [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)의
   값어치를 결산하는 자리다.** 앞 페이지의 장치 넷이 사 온 결정성이 여기서 **원격 캐시라는
   물건으로 환전된다.** 결정성이 없으면 캐시는 그냥 틀린 답을 나눠 주는 장치가 된다.
 - **캐시 열쇠의 모양까지 요구된다** — 캐시의 각 아티팩트는 **타깃과 그 입력의 해시 둘 다로
@@ -187,7 +187,7 @@ sources:
   보고한다"까지**다. 원격 캐시를 도입하면 두 배 빨라진다고 읽으면 틀린 독해이고, 장 스스로 위
   [원격 캐시가 늘 이득은 아니다](#원격-캐시가-늘-이득은-아니다)에서 그것을 부인한다.
 - **18장 전체의 수치 지위 판정은
-  [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md)이 갖는다.**
+  [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md)이 갖는다.**
 
 ## 규모를 떼면 무엇이 남는가
 
@@ -223,7 +223,7 @@ sources:
   2022년 소스는 **로컬 검증**을 처방하는데, 원격 캐시·원격 실행이 서면 **로컬 빌드와 중앙
   빌드가 같은 계산을 나눠 하는 사이**가 되어 "로컬이냐 중앙이냐"의 구분 자체가 흐려진다.
   겨루는 주장이 아니라 **한쪽이 다른 쪽의 전제를 무너뜨리는 자리**이고, 그 판정은
-  [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md)에 적었다.
+  [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md)에 적었다.
 - **[모노레포인가 가상 모노레포인가](monorepo-or-virtual-monorepo.md)에 근거를 하나 보탠다** —
   위 [나쁜 우회](#나쁜-우회--자기-코드를-외부-아티팩트로-내놓기)가 **소스 트리의 일관된
   조망**을 지키는 값어치에 빌드 쪽 논거를 댄다. 같은 책 16장이 저장소 쪽에서 하던 논증의
@@ -231,15 +231,15 @@ sources:
 
 ## 이어지는 페이지
 
-- [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md) — 이 층이 요구하는 성질들의
+- [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md) — 이 층이 요구하는 성질들의
   출처
 - [태스크 기반 빌드와 아티팩트 기반 빌드](task-based-versus-artifact-based-builds.md) —
   병렬성과 재사용이라는 재료가 나온 자리
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — "충분히
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — "충분히
   작은 단위로 쪼개져 있다"는 전제를 만드는 일
 - [선언된 의존 — 내부와 외부](declared-dependencies-internal-and-external.md) — 외부
   아티팩트 우회가 기각된 자리의 나머지 절반
-- [빌드 시스템의 목적](build-system-purpose-and-scaling-failure.md) — 놀고 있는 옆 기계를
+- [빌드 시스템의 목적](../concepts/build-system-purpose-and-scaling-failure.md) — 놀고 있는 옆 기계를
   바라보던 ⑦에 대한 답
 - [지속적 통합과 지속적 전달](../concepts/continuous-integration-and-delivery.md) — 이
   체계를 가장 많이 돌리는 쪽

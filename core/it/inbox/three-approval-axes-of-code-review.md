@@ -119,7 +119,7 @@ Google").[^winters2020-swe-at-google] **어떤 변경이든 승인을 요구하�
   제안할 수 있고 다른 어느 엔지니어든 동의 표시를 달 수 있지만**, 해당 디렉터리의 소유자도
   그 추가를 승인해야 한다. 소유자는 **테크 리드이거나 그 영역의 전문가로 인정된 엔지니어**일
   수 있고, **얼마나 넓게 혹은 좁게 소유 권한을 줄지는 대체로 팀마다 정한다.** 그 구조의 정본은
-  [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)다.
+  [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)다.
 - **셋째 축이 전사 인력 풀에서 온다.** 그 언어의 자격을 받은 **회사 전체 엔지니어 풀**에서
   나온다는 것이고, **각주가 그 낱말이 단순한 이해 가능성이 아니라 코드가 다른 엔지니어에게
   유지 가능하게 하는 스타일과 모범 관행의 집합**을 가리킨다고 밝힌다 (9장 §"How Code Review
@@ -239,7 +239,7 @@ Liability").[^winters2020-swe-at-google]
   사람들의 집합**을 관리하고, 그 장이 **코드 리뷰가 차례 기반이며 언제나 적어도 한 사람의
   차례**라고 적는다 (19장 §"'Whose turn' feature").[^winters2020-swe-at-google] **이 장의
   흐름 서술에는 "지금 누구에게 걸려 있는가"라는 값이 없다.** 정본은
-  [주의 집합 — 리뷰를 차례의 문제로 놓기](attention-set-and-turn-taking.md)다.
+  [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md)다.
 - **리뷰어를 고르는 잣대가 19장에 넷으로 인쇄돼 있다** — **누가 그 코드를 소유하는가**,
   **누가 가장 익숙한가**, **누가 지금 리뷰할 수 있는가**, **팀 별칭의 배분 설정**이다
   (19장 §"Stage 2: Request Review").[^winters2020-swe-at-google] **위
@@ -312,7 +312,7 @@ Liability").[^winters2020-swe-at-google]
 - **팀 규모와 소유권 모형** — [팀 규모와 소유권 모형](team-ownership-models.md)이 2026-09-17에
   **이 소스의 코드 소유권·코드 리뷰 서술이 이 KB에 한 줄도 없다**는 부재를 기록했고,
   2026-09-29에 리뷰 쪽 일부가 메워졌다고 덧붙였다. **이 페이지와
-  [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)가 남은 쪽을 갚는다** —
+  [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)가 남은 쪽을 갚는다** —
   자세한 대질은 그 페이지에 있다.
 - **기술 부채** — [기술 부채](../concepts/technical-debt.md) 축과 이 장의 승인자 물음 셋이
   만난다. **이 장이 더하는 것은 부채가 늘어나는 시점에 그것을 막을 사람을 지정한다는 것**이다 —
@@ -363,15 +363,15 @@ Liability").[^winters2020-swe-at-google]
 
 ## 이어지는 페이지
 
-- [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md) — 같은 장. 둘째 축을
+- [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md) — 같은 장. 둘째 축을
   떠받치는 구조
-- [코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) —
+- [코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md) —
   같은 장. 이 배치를 정당화하는 이득 여섯
 - [작은 변경과 빠른 리뷰](small-changes-and-fast-review.md) — 같은 장. 이 배치를 굴러가게
   하는 실무 규정과 이 장의 수치
 - [리더빌리티](readability-as-standardized-mentorship.md) — 같은 책 3장. 셋째 축의 자격이
   만들어지는 제도
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장. 이 리뷰가
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장. 이 리뷰가
   사회적 집행 수단으로 배치되는 자리
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 같은 책
   1장. 코드가 부채라는 규정이 기대는 시간 축
@@ -385,7 +385,7 @@ Liability").[^winters2020-swe-at-google]
   이 절차를 떠받치는 도구의 설계 판단
 - [리뷰 점수 체계가 만드는 행동](review-scoring-and-the-behavior-it-shapes.md) — 같은 책
   19장. 이 승인 구조가 값이 된 모양
-- [주의 집합 — 리뷰를 차례의 문제로 놓기](attention-set-and-turn-taking.md) — 같은 책 19장.
+- [주의 집합 — 리뷰를 차례의 문제로 놓기](../concepts/attention-set-and-turn-taking.md) — 같은 책 19장.
   이 흐름에 차례라는 값을 더하는 자리
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 갈래의 허브
 - [기계가 만든 변경의 리뷰](reviewing-machine-generated-changes.md) — 둘째 축이 옮겨 가는 자리

@@ -118,7 +118,7 @@ sources:
   **그러나 어느 값을 어느 매체에 둘 것인가의 기준이 두 장 어디에도 없다.** 사람이 볼 자리다.
 - **같은 장이 넘긴 다른 갈고리(바깥이 움직였다는 것을 무엇으로 아는가)는 이 페이지가 아니라
   [컨테이너를 시간에 대한 추상 경계로 보기](containers-as-an-abstraction-boundary.md)와
-  [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) 쪽에서
+  [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) 쪽에서
   받았다.**
 
 ## 이어지는 페이지

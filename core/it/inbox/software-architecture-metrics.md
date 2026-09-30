@@ -57,7 +57,7 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 
 **한 권 안에서 같은 것이 여러 번 다르게 말해진다.** **적합도 함수는 2장·6장·7장·8장·9장 다섯
 곳에서 불리고 장마다 두는 자리가 다르며, 정의의 인쇄본이 둘이나 실린다.** **1장의 저자 하멜로는
-이 KB의 2024년 원전([아키텍처 결정 실천](architecture-decision-practice.md) 축)을 쓴 같은
+이 KB의 2024년 원전([아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) 축)을 쓴 같은
 사람이고, 8장의 저자 포드는 이 KB의 2022년 진화적 아키텍처 원전과 2021년 어려운 부분 원전의
 저자여서 그 장은 자기 책과 크게 겹친다.** 그 겹침을 감추지 않고 각 페이지가 대조표로 밝혀
 두었다.
@@ -225,8 +225,8 @@ generated: { by: "claude-opus-5", at: "2026-09-23T21:00:00Z" }
 - [비기능 요건](nonfunctional-requirements.md) — 이 책 7장이 재려는 품질들이 정의되는 축
 - [복잡성과 모듈 설계](complexity-and-modular-design.md) — 이 책 4장과 9장이 재려는 구조가
   왜 그렇게 갈려야 하는가의 축
-- [빌드와 배포와 전달](build-deploy-and-delivery.md) — 이 책 1장과 3장과 5장이 계기를 꽂는
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 책 1장과 3장과 5장이 계기를 꽂는
   경로
 - [조직과 아키텍트](organizations-and-architects.md) — 이 책 6장이 지표를 올려 보내는 층
-- [아키텍처 결정 실천](architecture-decision-practice.md) — 이 책 10장의 사례가 결정을 남기는
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — 이 책 10장의 사례가 결정을 남기는
   형식이 사는 축

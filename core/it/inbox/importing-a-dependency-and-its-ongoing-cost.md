@@ -155,7 +155,7 @@ sources:
   **"누가 올릴 것인가"의 답이 "아무도"임이 더 빨리 드러난다.**
 - **떨어지는 것** — 사내 단일 저장소의 별도 디렉터리 배치와 소유자 파일 기제는 그 저장소 체계에
   얹혀 있다. 다만 **그 기제가 하는 일**(누가 책임지는지를 기록하는 것)은 어느 규모에서나 필요하고,
-  그 축의 전문은 [코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md)가 갖는다.
+  그 축의 전문은 [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md)가 갖는다.
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
@@ -187,7 +187,7 @@ sources:
   판단이 놓이는 틀
 - [폐기는 담당자를 둔 절차다](deprecation-as-a-staffed-process.md) — 사람 없는 절차가 실패하는
   같은 모양
-- [코드 소유는 청지기 의식이다](code-ownership-as-stewardship.md) — 소유자 명단이 하는 일
+- [코드 소유는 청지기 의식이다](../concepts/code-ownership-as-stewardship.md) — 소유자 명단이 하는 일
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 값을 시간
   축에서 다시 세는 잣대
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브

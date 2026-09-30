@@ -197,7 +197,7 @@ sources:
 - **이 KB가 보기에 첫째 난점이 이 KB의 도구 규약과 곧바로 만난다.** **구조를 파서로 읽지 않고
   정규식과 휴리스틱으로 읽다가 엣지 케이스가 늘어 무너졌다**는 경로이고, 그 교정이 **의미
   그래프**였다. 이 KB의
-  [규칙 집행의 자동화](automating-rule-enforcement.md)가 같은 책 8장에서 **집행 도구가 구조를
+  [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)가 같은 책 8장에서 **집행 도구가 구조를
   읽어야 한다**는 요구를 갖는데, **17장이 그것을 지키지 않았을 때 무엇이 났는지의 실제 사례를
   댄다.**
 - **둘째 난점도 옮길 만하다** — **검색 순위가 코드 이동의 숨은 비용**이라는 관찰이다. 이
@@ -279,7 +279,7 @@ sources:
 
 - **이 페이지가 받는 절들에는 결과값이 거의 없고 있는 것은 전부 규모·성능 서술이다** —
   17장의 수치 유형 판정 전체는
-  [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md)이
+  [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md)이
   갖는다(여섯째 유형 = 계측이 아니라 산술로 만든 정당화).
 - **이 페이지에 걸리는 값 둘을 따로 적어 둔다** (17장 §"Search
   Index"):[^winters2020-swe-at-google]
@@ -323,7 +323,7 @@ sources:
   순위에 되먹이면 **본 것이 더 보이게 되는** 고리가 생기고, 17장은 그것을 **활용과 탐색**이라는
   표준 어휘로 이름 붙이되 **실무에서 해롭지 않아 보인다**고 넘어간다. 그 판단의 근거가 이
   장에 없고, **새 파일이 묻히는 방향의 해로움은 스스로 인정**한다.
-- **[규칙 집행의 자동화](automating-rule-enforcement.md)에 실패 사례가 하나 붙는다** —
+- **[규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)에 실패 사례가 하나 붙는다** —
   참조 추출을 정규식과 휴리스틱으로 하다 복잡도에 무너져 의미 그래프로 바꾼 경로다. 같은 책
   8장이 **구조를 읽는 도구**를 요구하고 17장이 **그러지 않았을 때의 실물**을 댄다. 겨루지
   않고 같은 책 두 장이 한 조문의 양면을 적는다.
@@ -332,14 +332,14 @@ sources:
 
 - [개발자가 코드에 던지는 물음의 유형](questions-developers-ask-about-code.md) — 다양성
   요구와 사례 검색이 나오는 자리
-- [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md) —
+- [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) —
   이 색인을 누가 어디에 짓는가
 - [코드 검색의 완전성과 신뢰](code-search-completeness-and-trust.md) — 이 색인에 무엇을
   담을 것인가
 - [전문 검색 색인](../concepts/full-text-search-indexes.md) — 색인 구조의 정본 자리
 - [하이브리드 검색과 재순위](../concepts/hybrid-search-and-reranking.md) — 가져온 것의
   순서를 고치는 쪽
-- [규칙 집행의 자동화](automating-rule-enforcement.md) — 구조를 읽는 도구라는 요구
+- [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 구조를 읽는 도구라는 요구
 - [폐기의 어려움](why-deprecation-is-hard.md) — 코드 이동의 비용 목록
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

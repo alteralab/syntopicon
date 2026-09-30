@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 코드는 부채다 — 폐기의 근거
-status: draft
 description: 낡은 체계를 질서 있게 걷어내는 일을 무엇이 정당화하는가에 대한 한 대규모 조직의 자기 보고 — 폐기를 "낡은 체계에서 질서 있게 옮겨 가 결국 제거하는 절차"로 규정하는 정의와 그것이 프로그래밍이 아니라 소프트웨어 엔지니어링에 속한다는 배치, 논의의 출발 전제가 "코드는 자산이 아니라 부채"라는 것과 그 전제가 책 전체와 부딪혀 보이는 자리를 저자가 스스로 풀어내는 방식 — 값어치를 내는 것은 코드가 아니라 기능이고 코드는 그 수단일 뿐이므로 재야 할 것은 코드의 양이 아니라 코드 단위당 기능이라는 뒤집기, 나이만으로는 폐기의 근거가 되지 않는다는 단서와 조판 체계라는 반례, 폐기가 잘 맞는 조건은 명백히 낡았고 견줄 만한 대체가 이미 있을 때라는 규정, 같은 일을 하는 체계 둘을 함께 두는 값이 시간이 갈수록 불어나는 세 경로와 옛 체계가 새 체계의 진화 자체를 붙든다는 관찰, 그리고 조직이 동시에 감당할 수 있는 폐기 작업의 양에 상한이 있다는 실측과 도로 포장 비유
 generated: { by: "claude-opus-5", at: "2026-09-30T14:00:00Z" }
 sources:
@@ -54,7 +53,7 @@ sources:
   폐기(deprecation)라 부른다 (15장 머리말).[^winters2020-swe-at-google]
   - **정의 안에 두 동작이 들어 있다는 것이 이 어휘의 핵심이다** — **옮겨 가는 것(migration)**과
     **제거하는 것(removal)**이다. 둘 가운데 하나만 하는 것은 이 장의 폐기가 아니다. 뒤의
-    [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)가 그 갈림을 다시 쓴다.
+    [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)가 그 갈림을 다시 쓴다.
 - **전제 — 모든 체계는 늙는다.** 소프트웨어는 디지털 자산이라 물리적인 비트 자체는 닳지 않지만,
   새 기술과 라이브러리와 기법과 언어를 비롯한 환경 변화가 시간이 가면서 기존 체계를 낡게 만든다.
   낡은 체계는 **계속되는 유지보수와 비의적인 전문성을 요구하고, 주변 생태계에서 멀어질수록 일이
@@ -219,7 +218,7 @@ sources:
 - [폐기가 어려운 이유](why-deprecation-is-hard.md) — 같은 장이 이 논증 바로 뒤에 붙이는 반대편
 - [폐기를 전제로 설계하기](designing-for-eventual-deprecation.md) — 이 값을 짓는 시점에 미리
   줄이는 쪽
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 폐기하기로 한 뒤의 갈림
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 폐기하기로 한 뒤의 갈림
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 폐기를 프로젝트가 아니라
   절차로 두는 배치
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 같은 책

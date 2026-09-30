@@ -116,7 +116,7 @@ sources:
   기술의 부수 효과로 적지만, **이 KB는 그것이 이 절의 주된 값이라 읽는다.**
 - **이 KB의 모듈성 논증에 새 근거 하나가 붙는다** —
   [독립 배포 가능성](../concepts/independent-deployability.md)과
-  [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md)이 모듈성의
+  [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md)이 모듈성의
   값을 **배포와 빌드**로 논증하는데, 여기서는 **전달 부피**로 논증된다. 어느 쪽도 나머지를
   적지 않는다.
 
@@ -169,7 +169,7 @@ sources:
 - [버전 관리의 정본 자리](source-of-truth-in-version-control.md) — 설정을 코드처럼 두는 쪽
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 같은 모듈성을 다른 값으로
   논증하는 쪽
-- [빌드 모듈의 알갱이 크기와 가시성](build-module-granularity-and-visibility.md) — 동적 배포가
+- [빌드 모듈의 알갱이 크기와 가시성](../concepts/build-module-granularity-and-visibility.md) — 동적 배포가
   기대는 아래층
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
 

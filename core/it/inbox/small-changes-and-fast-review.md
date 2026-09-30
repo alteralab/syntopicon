@@ -121,7 +121,7 @@ Changes").[^winters2020-swe-at-google]
   기록하는 일이다.**
 - **이 KB의 판정**: "리뷰어의 몰이해가 코드의 결함을 가리킨다"는 판정이 이 장의 이해 가능성
   절과 한 쌍이다 — 자리는
-  [코드 리뷰가 주는 것](code-review-benefits-beyond-defect-finding.md)의 "고객은 늘 옳다"
+  [코드 리뷰가 주는 것](../concepts/code-review-benefits-beyond-defect-finding.md)의 "고객은 늘 옳다"
   규정이다. **그쪽은 물음을 타당한 것으로 보라 하고 이쪽은 그 물음을 진단 신호로 쓰라 한다.**
   둘 다 규모와 무관하게 선다.
   - **리뷰 도중 설명을 갱신하라는 조항도 옮길 만하다.** 리뷰에서 결론이 바뀌었는데 설명이
@@ -207,7 +207,7 @@ Professional").[^winters2020-swe-at-google] 그 문화의 정본은
   조항이다.** 리뷰 도구의 해소 표시가 **논쟁을 끝내는 버튼**이 되는 것을 막는 규칙이고, 도구
   이름 없이도 옮겨진다. **그리고 소유자에게 바깥 저자를 호의적으로 대하라는 조항이 소유권을
   문지기가 아니라 청지기로 다시 읽게 한다** — 자리는
-  [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)다.
+  [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)다.
 
 ## 보내는 순간 도는 검사
 
@@ -228,7 +228,7 @@ Professional").[^winters2020-swe-at-google] 그 문화의 정본은
 - **이 KB의 판정 — "어색한 메일을 막는다"는 서술이 이 절에서 가장 특이하다.** 자동 검사의
   이득을 **사람 사이의 체면**으로 적은 것이고, 앞의 심리 절과 같은 줄에 선다. **기술적 장치가
   사회적 마찰을 줄이는 자리**이고, 그 관찰이 규모와 무관하다. 같은 책 8장의 집행 논의와
-  이어진다 — 자리는 [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)다.
+  이어진다 — 자리는 [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)다.
 
 ## 리뷰 유형 넷
 
@@ -249,7 +249,7 @@ Reviews").[^winters2020-swe-at-google] **겹치는 경우가 있다는 단서가
     들일 필요가 있는지**다.
     - **새 프로젝트의 첫 리뷰가 새 디렉터리의 소유자 파일 하나인 경우가 많다**는 관찰이
       붙는다. 그 구조는
-      [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)가 받는다.
+      [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)가 받는다.
 - **동작 변경·개선·최적화** (9장 §"Behavioral Changes, Improvements, and
   Optimizations").[^winters2020-swe-at-google] **대부분의 변경이 이 범주**이고, 새 코드
   리뷰에 적용되는 지침이 그대로 적용된다 — **이 변경이 필요한가, 이 변경이 코드베이스를
@@ -399,7 +399,7 @@ Reviews").[^winters2020-swe-at-google] **겹치는 경우가 있다는 단서가
   [점진적 변경과 배포 파이프라인](../concepts/incremental-change-and-deployment-pipelines.md)이
   작은 변경을 **배포 쪽 근거**로 다룬다. **이 장은 같은 처방에 리뷰 쪽 근거를 더한다** —
   두 축이 같은 실천으로 수렴한다는 것이 기록할 만하다.
-- **규칙의 집행을 도구에 내리기** — [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)가
+- **규칙의 집행을 도구에 내리기** — [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)가
   **변경 크기 상한을 자동 기각하지 않기로 한 판정**을 받는다. **이 절의 이백 줄이 그 판정과
   어긋나지 않는 이유**가 거기 적혀 있다 — 권고이지 검사가 아니다.
 - **부딪히는 주장은 위 첫째 항목 하나이고 `contradicts`는 걸지 않았다.** 2026-09-30 KB 작성
@@ -455,11 +455,11 @@ Reviews").[^winters2020-swe-at-google] **겹치는 경우가 있다는 단서가
   10장. 변경 설명이 드는 문서 유형과 그 유형이 담지 말아야 할 것
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 같은 장. 이 실무가
   굴러가게 하는 승인 구조
-- [코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) —
+- [코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md) —
   같은 장. 이 비용을 정당화하는 이득 여섯
-- [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md) — 같은 장. 대규모
+- [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md) — 같은 장. 대규모
   변경의 전역 승인자와 새 프로젝트의 첫 리뷰가 소유자 파일인 자리
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장. 변경 크기를
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장. 변경 크기를
   자동 기각하지 않기로 한 판정
 - [규칙을 세우는 다섯 원칙](principles-for-writing-rules.md) — 같은 책 8장. 실천을 규칙이
   아니라 최적화로 규정하는 같은 형식

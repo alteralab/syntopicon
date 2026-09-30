@@ -1,7 +1,6 @@
 ---
 type: concept
 title: 지속 통합을 경보로 다시 놓기
-status: draft
 description: 2020년의 한 대규모 조직 자기 보고 23장에 실린 곁글이 지속 통합을 개발 흐름 왼쪽 끝의 경보 체계로 다시 놓고 그 유비에서 정책을 끌어내는 자리 — 두 영역이 같은 목적과 같은 개념 뼈대(국소 신호와 교차 의존 신호, 충실도를 불안정과 자원과 디버깅 난이도로 사는 관계)와 같은 실패 양식(임의의 문턱과 임의의 불변식이 건강·올바름과 근본적으로 이어지지 않는 채 발화하는 것, 그리고 쉬운 종단 탐침이 없을 때 사람들이 그런 대용품을 쓰게 되는 경로)을 공유한다는 관찰, 거기서 따라 나오는 정책 셋(100% 초록은 100% 가동과 같은 값을 요구한다·영향 없는 실패를 끄는 것이 옳다·초록이 아니면 아무도 커밋 못 한다는 규칙은 대개 잘못이다), 그리고 이 곁글이 같은 장 본문의 당번 규범과 이 KB의 CI 축 셋째 판별 물음과 정면으로 갈린다는 판정
 generated: { by: "claude-opus-5", at: "2026-09-30T20:15:00Z" }
 sources:
@@ -151,7 +150,7 @@ sources:
 - [추적되는 비활성화로 스위트를 초록으로 유지하기](keeping-a-test-suite-green-by-tracked-disablement.md)
   — 정책 ②를 안전하게 만드는 장치
 - [제출 전과 제출 후의 분담](presubmit-and-postsubmit-division.md) — 반대 규범이 사는 자리
-- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) —
+- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   이 정책이 얹히는 배치
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 겨루는 판별 물음이
   사는 이 KB의 CI 축 정본

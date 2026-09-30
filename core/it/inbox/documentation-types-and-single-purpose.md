@@ -122,7 +122,7 @@ comments").[^winters2020-swe-at-google]
   - **헤매는 사람 쪽도 같은 방식으로 내려온다** — **파일 맨 위의 개요**가 그것이다.
   - **이 연역 구조는 규모와 무관하게 선다.** 반면 **"모든 공개 클래스가"라는 의무의
     격은 집행 수단이 있어야 성립한다** — 그 수단은 같은 책 8장의 몫이고, 자리는
-    [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)다.
+    [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)다.
 
 ## 상용구를 쓰지 않기로 한 결정
 
@@ -311,7 +311,7 @@ comments").[^winters2020-swe-at-google]
 - [완전성보다 강조](../concepts/emphasis-over-completeness.md) — 같은 거래를 그림에 적용하는 소스
 - [구글의 테스트 크기 어휘와 스위트 운영](../concepts/google-test-sizes-and-suite-operations.md) —
   개념 문서 비유가 빌려 오는 구분
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 이 의무들이 실제로
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 이 의무들이 실제로
   집행되는 경로
 - [문서화와 코드 명료함](../synthesis/documentation-and-code-clarity.md) — 코드 주석 쪽의 허브
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 갈래의 허브

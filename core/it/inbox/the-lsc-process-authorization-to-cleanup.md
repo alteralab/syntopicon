@@ -196,7 +196,7 @@ sources:
   분석 틀을 쓰고, **그것이 되돌아감을 막는 효과적 방법으로 입증되었다**고 적는다 (같은
   절).[^winters2020-swe-at-google]
 - **이 KB가 다는 판정** — 이 단계가
-  [이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md)의 관찰과
+  [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md)의 관찰과
   맞물린다. 자발적 이행이 끝나지 않는 이유가 **기존 코드를 본보기로 쓰기 때문**이므로, **남아
   있는 옛 쓰임 하나가 새 옛 쓰임을 낳는다.** 되돌아감 방지는 그 되먹임 고리를 끊는 장치이고,
   **그것이 없으면 이행은 점근적으로만 끝난다.** 그 장치의 전문은
@@ -247,7 +247,7 @@ sources:
 
 - [대규모 변경과 원자적 커밋의 한계](large-scale-changes-and-atomic-commit-limits.md) — 이
   절차가 왜 필요한가
-- [이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md) — 누가
+- [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md) — 누가
   이 절차를 돌리는가
 - [기계가 만든 변경의 리뷰](reviewing-machine-generated-changes.md) — 샤드가 리뷰어에게 닿는 자리
 - [코드베이스가 자동 변경을 받아들이는 조건](codebase-amenability-to-automated-change.md) —

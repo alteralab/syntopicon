@@ -244,5 +244,5 @@ Sandwiches—Partitioning", pp.140–142).[^richards2025]
     쪽 표식이 데이터베이스에도 찍힌다는 것 · 실리콘 샌드위치 하위 컴포넌트의 배치 · `Deliver`
     대 `Delivery` 표기 어긋남)는 도판 출처를 밝혀 적었다. 장단점 목록 넷은 원문이 불릿이고
     이 KB가 문장으로 압축해 다시 썼다 — 낱말의 집합과 컴포넌트 이름은 검색 키로 남겼다.
-    **런 13이 17장 "Orchestration-Driven Service-Oriented Architecture"(pp.317·322·325·327)를
-    더했다** — 기술 분할의 극한 사례를 이 축에 붙이는 자리다.
+    **17장 "Orchestration-Driven Service-Oriented Architecture"(pp.317·322·325·327)도
+    이 페이지에 담았다** — 기술 분할의 극한 사례를 이 축에 붙이는 자리다.

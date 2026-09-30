@@ -373,7 +373,7 @@ sources:
     코드 펜스 둘은 예제 11-6과 예제 11-7 원문이고, 원문 코드 목록에 삽입된 조판용 번호
     표지와 예제 11-7의 생략 주석 한 줄(`# remaining methods: same as previous Vector2d`)만
     제거했다.
-    §"프로퍼티가 인스턴스 속성을 이기는 기제"는 2026-08-18-10 런에서 같은 소스의 22장
+    §"프로퍼티가 인스턴스 속성을 이기는 기제"는 같은 소스의 22장
     §"Properties Override Instance Attributes"(pp.861–863) · §"Step 5: Caching Properties
     with functools"(p.855) · §"Soapbox"(p.876)와 23장 §"Overriding Descriptors"(p.894)에서
     합류했다.

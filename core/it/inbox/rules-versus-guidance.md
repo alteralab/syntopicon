@@ -64,7 +64,7 @@ sources:
   조항**의 예로 **합리적인 범위 안에서 최대한 서술적인 이름을 쓰라**는 규칙을 든다.
   **"서술적"과 "합리적 범위"의 경계를 기계가 못 긋는다.** 그런데도 이 문서가 **엔지니어가
   책임을 지는 규칙의 정본 출처**라고 자리매김한다.
-- **이 KB의 판정**: 이 단서가 뒤의 [집행](automating-rule-enforcement.md) 논의와 이어지는
+- **이 KB의 판정**: 이 단서가 뒤의 [집행](../concepts/automating-rule-enforcement.md) 논의와 이어지는
   자리다. **법이면서 판단을 요구하는 조항이 섞여 있다는 것**이 곧 자동 집행률이 100퍼센트에
   닿지 않는 이유이고, 그 장은 그것을 결함이 아니라 설계로 다룬다.
 
@@ -207,7 +207,7 @@ sources:
     Principles").[^winters2020-swe-at-google] **조직 규모를 보이는 값**이고 집계 시점도
     집계 절차도 인쇄돼 있지 않다. 목표치도 측정 결과도 아니다.
   - **자동 검증 가능 비율 추정치** (8장 §"Error Checkers").[^winters2020-swe-at-google] 이
-    값의 지위는 [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)가 자세히
+    값의 지위는 [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)가 자세히
     적는다 — **장 스스로 비공식 조사라고 이름 붙인 추정**이다.
   - **서식 표준을 소급 적용한 일화의 셈** — 사람 수, 걸린 기간, 대상 파일 수, 그 기간에
     새로 늘어난 파일의 주당 수다 (8장 §"Retrofitting").[^winters2020-swe-at-google] **한 번
@@ -286,7 +286,7 @@ sources:
   가르는 잣대와 스타일 가이드의 세 범주
 - [규칙을 바꾸는 절차와 중재자](rule-change-process-and-arbiters.md) — 같은 장. 규칙에 근거를
   함께 싣는 조문과 그것이 여는 개정 경로
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 장. 사회적 집행과
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 장. 사회적 집행과
   기술적 집행, 그리고 자동화할 수 없는 것
 - [정책의 확장성과 엔지니어링 트레이드오프](policy-scaling-and-engineering-tradeoffs.md) —
   같은 책 1장. 같은 논증 구조를 값이 아니라 규모에 대고 적용한 자리

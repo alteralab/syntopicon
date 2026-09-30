@@ -244,13 +244,13 @@ sources:
   동작 그대로다.** **그러면 그 논문의 생산성 지표(피드백이 붙은 보고 가운데 생산적이라
   라벨된 비율)가 이 장의 체감 오탐률과 같은 잣대의 뒤집힌 판본**이 된다. 그 대질을 그
   페이지의 개정본에 절로 적었다.
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)의 일화가 여기서
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)의 일화가 여기서
   플랫폼을 얻는다.** 8장이 **폐기된 함수를 경고와 수정 제안을 함께 띄워 표시하자 새 사용이
   거의 사라졌다**고 적는데, 그 경고가 뜨는 자리와 수정 제안이 붙는 기제가 이 장에 있다.
   **8장이 "검출과 수정의 거리가 준수율을 정한다"로 읽힌 명제를 20장이 "자동으로 고칠 수 있는
   것은 자동으로 고쳐야 한다"는 조문과 체감 오탐 정의로 뒷받침한다.**
 - **[아키텍처 적합도 함수](../concepts/architecture-fitness-functions.md)·
-  [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) 축에 이 잣대가
+  [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) 축에 이 잣대가
   없다.** 그 축은 검사를 **객관적 무결성 평가**로 규정하고 그것이 돌아야 한다고 요구하는데,
   **그 검사가 사람에게 무시당하는 경우를 실패로 세는 지표가 없다.** 20장의 체감 오탐은
   정확히 그 자리를 잰다. 그 대질을 거버넌스 페이지 개정본에 적었다.
@@ -292,10 +292,10 @@ sources:
   체감 오탐 0을 요구하는 가장 엄한 자리
 - [분석 억제를 프로젝트 단위로 두기](project-level-analysis-customization.md) — 신뢰를
   자본으로 굴리는 순서의 정본
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 규칙 쪽
 - [뮤테이션 테스팅은 최종 심급이 아니다](../concepts/mutation-testing-not-a-final-arbiter.md) —
   같은 플랫폼 위에 선 다른 개입
-- [자동화된 아키텍처 거버넌스](automated-architectural-governance.md) — 같은 자동 검사를
+- [자동화된 아키텍처 거버넌스](../concepts/automated-architectural-governance.md) — 같은 자동 검사를
   다른 목적으로 거는 축
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

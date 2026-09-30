@@ -30,7 +30,7 @@ sources:
 
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다. **이 장의 수치 실측은 계측 0건**이고
-  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md)가
+  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md)가
   갖는다. **폐기 프로젝트의 수도 완료율도 걸린 기간도 이 절에 없다.**
 - **이 페이지가 이 장의 제목이 가리키는 자리다.** 앞 절들이 왜 폐기하고 왜 어렵고 어떤 종류가
   있는지를 다뤘다면, 이 절은 **그것을 어떻게 굴리는가**를 다룬다.
@@ -63,7 +63,7 @@ sources:
     권고 폐기는 저절로는 결코 끝나지 않는다**.
   - **이 KB가 보기에 이 논증의 형식이 깔끔하다.** 선택지를 셋으로 닫고 둘을 소거한다. 그리고
     권고 폐기가 저절로 끝나지 않는다는 전제는 앞 절
-    [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)가 이미 세워 두었다.
+    [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)가 이미 세워 두었다.
 - **중앙화의 근거** — 폐기 작업을 중앙화하는 것이 **전문성이 비용을 실제로 줄이도록 더 잘
   보장하고 그 비용을 더 투명하게 만든다** (같은 절).[^winters2020-swe-at-google]
   - **"비용을 더 투명하게 만든다"가 이 문장에서 눈에 띈다.** [폐기가 어려운 이유
@@ -166,7 +166,7 @@ sources:
     코드베이스 다른 데서 예시를 찾은) 체계의 새 쓰임을 계속 추가하고 폐기 팀은 그 새 쓰임을
     계속 옮긴다.** 그것은 **비생산적이고 사기를 꺾는 절차**다
     (같은 절).[^winters2020-swe-at-google]
-    - **이 모습이 [권고 폐기와 강제 폐기 §끌어당김](advisory-versus-compulsory-deprecation.md)이
+    - **이 모습이 [권고 폐기와 강제 폐기 §끌어당김](../concepts/advisory-versus-compulsory-deprecation.md)이
       적은 되먹임 고리의 실물이다.** 괄호 안의 "코드베이스 다른 데서 예시를 찾은"이 그 고리를
       정확히 지목한다.
   - **미시 수단** — 정적 분석 틀이 **폐기된 체계로 들어가는 호출을 추가하고 있다고 알리고
@@ -263,7 +263,7 @@ sources:
   **왜 그 장치가 없으면 안 되는지의 기제**를 더한다 — 자발적 이행이 끝나지 않는 이유가
   **엔지니어가 새 코드를 쓸 때 기존 코드를 본보기로 삼기** 때문이라서, **남아 있는 옛 쓰임
   하나가 새 옛 쓰임을 낳는다**는 것이다
-  ([이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md)).
+  ([이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md)).
 - **발견 단계의 요건이 그 장에서 도구 요건으로 다시 적힌다** — 22장이 변경 생성 도구에 **코드베이스
   전역에 걸쳐 빠짐없을 것**을 요구하는데, 근거가 **저자가 모든 경우를 덮었다고 확신할 수 있어야
   한다**는 것이다. **이 페이지의 발견 단계와 같은 능력을 다른 이름으로 요구한다**
@@ -278,12 +278,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 이 절차가 굴리는 두
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 이 절차가 굴리는 두
   종류
 - [폐기 경고 — 실행 가능성과 적시성](deprecation-warnings-actionability-and-relevance.md) —
   되돌림 방지 도구가 실제로 띄우는 것
 - [폐기가 어려운 이유](why-deprecation-is-hard.md) — 이 절차가 대응하는 어려움들
-- [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) — 이 절차를 시작할지의
+- [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 이 절차를 시작할지의
   판단
 - [정책의 확장성과 엔지니어링 트레이드오프](policy-scaling-and-engineering-tradeoffs.md) —
   베이온세 규칙과 처른 규칙의 성문 자리
@@ -297,7 +297,7 @@ sources:
 - [진화와 거버넌스](../synthesis/evolution-and-governance.md) — 이 갈래의 허브
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 이 장이 가리키던 이행
   도구의 자리
-- [이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md) — 이 장의
+- [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md) — 이 장의
   예산 논거의 일반형
 
 [^winters2020-swe-at-google]: Winters, Manshreck & Wright(큐레이터) 2020,

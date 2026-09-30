@@ -188,7 +188,7 @@ Integration").[^winters2020-swe-at-google] **이 조건들과 비슷한 것이 �
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
-- **[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)의 "절대적 도구"가
+- **[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)의 "절대적 도구"가
   여기서 기제를 얻는다.** 8장이 규칙을 뒷받침하는 도구 대부분이 **절대적**이라 모두가 그
   검사를 쓴다고 적는데, 20장이 **그 절대성을 어떻게 얻는가**(빌드를 깨뜨림)와 **그것을
   켜기 위해 무엇을 치러야 하는가**(전수 정리)를 적는다. **8장의 조문에 20장이 값을 매긴
@@ -237,7 +237,7 @@ Integration").[^winters2020-swe-at-google] **이 조건들과 비슷한 것이 �
 - [체감 오탐률](effective-false-positive-rate.md) — 이 층이 0을 요구하는 지표
 - [정적 분석을 생태계로 — 검사를 들이는 관문과 되먹임](static-analysis-check-admission-and-feedback.md) —
   위층에 검사를 들이는 더 느슨한 관문
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장의 절대적
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장의 절대적
   도구 쪽
 - [규칙과 지침](rules-versus-guidance.md) — 문서 수준의 같은 격 구분
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 깨진 빌드를 잡는

@@ -107,7 +107,7 @@ sources:
 - **이 KB가 다는 판정** — 넷 가운데 **이질성만이 조직이 선택할 수 있는 변수**다. 나머지 셋은
   도구와 확률과 그래프 구조라서 주어지는데, 이질성은 **일관성에 투자한 만큼 줄어든다.** 그
   투자의 다른 근거들은 [코드의 일관성](consistency-in-code.md)과
-  [규칙 집행을 자동화한다](automating-rule-enforcement.md)가 갖는데, **두 자리 다 "자동 변경이
+  [규칙 집행을 자동화한다](../concepts/automating-rule-enforcement.md)가 갖는데, **두 자리 다 "자동 변경이
   가능해진다"를 일관성의 값으로 세지 않는다.** 이 장이 그 항목을 더한다.
 
 ## 유령 묘지
@@ -234,7 +234,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [이행을 중앙에서 맡는 이유](centralized-migration-teams-and-unfunded-mandates.md) — 누가 이
+- [이행을 중앙에서 맡는 이유](../concepts/centralized-migration-teams-and-unfunded-mandates.md) — 누가 이
   일을 하는가
 - [대규모 변경의 절차](the-lsc-process-authorization-to-cleanup.md) — 승인부터 뒷정리까지
 - [기계가 만든 변경의 리뷰](reviewing-machine-generated-changes.md) — 리뷰가 규모에서 부딪히는 것

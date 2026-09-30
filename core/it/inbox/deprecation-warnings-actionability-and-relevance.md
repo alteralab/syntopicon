@@ -28,12 +28,12 @@ sources:
 
 - **근거 등급은 `industry-norm`이다.** 판정의 정본은
   [소스 메타](../sources/winters2020-swe-at-google.md)다. **이 장의 수치 실측은 계측 0건**이고
-  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md)가
+  그 판정의 전문은 [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md)가
   갖는다. **이 절에도 경고의 양이나 무시율 같은 수치는 하나도 인쇄돼 있지 않다.**
 - **이 절은 권고 폐기와 강제 폐기 양쪽에 걸친다** — 장이 스스로 **두 종류 모두에서 체계를
   폐기됨으로 표시하는 프로그램적 수단이 쓸모 있는 일이 잦다**고 적는다 (15장 §"Deprecation
   Warnings").[^winters2020-swe-at-google] 두 종류의 규정은
-  [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md)가 갖는다.
+  [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md)가 갖는다.
 
 ## 경고는 새 쓰임을 막을 뿐 이행을 낳지 않는다
 
@@ -46,7 +46,7 @@ sources:
   이행으로 이어지는 일은 드물다** (같은 절).[^winters2020-swe-at-google]
   - **이 판정이 이 절의 전제이자 이 절의 한계다.** 곧 이 절이 다루는 것은 **이행 수단이 아니라
     유입 차단 수단**이고, 그 구분을 놓치면 경고를 달고 일이 끝났다고 여기게 된다. 위
-    [권고 폐기와 강제 폐기 §기존 쓰임이 새 쓰임을 끌어당긴다](advisory-versus-compulsory-deprecation.md)가
+    [권고 폐기와 강제 폐기 §기존 쓰임이 새 쓰임을 끌어당긴다](../concepts/advisory-versus-compulsory-deprecation.md)가
     같은 판정을 다른 각도에서 적는다.
 
 ## 경고가 쌓이면 경보 피로가 된다
@@ -127,7 +127,7 @@ sources:
   침습적인 경고는 강제 폐기에만, 그리고 팀이 적극적으로 사용자를 옮기고 있을 때만 더한다**
   (같은 절).[^winters2020-swe-at-google]
   - **곧 경고의 침습성이 폐기의 종류에 대응한다.** 권고 폐기에는 새 줄 한정 경고까지, 강제
-    폐기에는 그 이상까지다. **이 대응이 이 절이 [권고와 강제의 구분](advisory-versus-compulsory-deprecation.md)에
+    폐기에는 그 이상까지다. **이 대응이 이 절이 [권고와 강제의 구분](../concepts/advisory-versus-compulsory-deprecation.md)에
     갚는 것이다.**
 - **맺음** — 어느 경우든 **적절한 정보를 적절한 사람에게 적절한 때에 드러내는 데 도구가 중요한
   구실을 하고**, 그것이 사용자를 지치게 하지 않으면서 더 많은 경고를 더할 수 있게 한다
@@ -180,12 +180,12 @@ sources:
 
 ## 이어지는 페이지
 
-- [권고 폐기와 강제 폐기](advisory-versus-compulsory-deprecation.md) — 경고의 침습성이
+- [권고 폐기와 강제 폐기](../concepts/advisory-versus-compulsory-deprecation.md) — 경고의 침습성이
   대응하는 구분
 - [폐기 절차의 담당자와 도구](deprecation-as-a-staffed-process.md) — 이 경고를 실제로 띄우는
   도구가 사는 자리
-- [코드는 부채다 — 폐기의 근거](code-as-liability-and-why-deprecate.md) — 폐기 판단의 앞단
-- [규칙 집행의 자동화](automating-rule-enforcement.md) — 같은 책 8장이 리뷰 시점 정적 분석을
+- [코드는 부채다 — 폐기의 근거](../concepts/code-as-liability-and-why-deprecate.md) — 폐기 판단의 앞단
+- [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 같은 책 8장이 리뷰 시점 정적 분석을
   다루는 자리
 - [정책의 확장성과 엔지니어링 트레이드오프](policy-scaling-and-engineering-tradeoffs.md) —
   시프트 레프트의 성문 자리

@@ -170,7 +170,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
 결정 하나가 어떻게 시작되어 어떻게 취해지고 어떻게 남고 어떻게 다음 결정에 걸리는가**는 자식
 허브가 갖는다.
 
-- [아키텍처 결정 실천](architecture-decision-practice.md) — **자식 허브.** 아키텍처를 실천한다는
+- [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md) — **자식 허브.** 아키텍처를 실천한다는
   것이 결정하는 것이라는 전제 위에서, 그 결정을 누가 어떤 규칙으로 무엇에 비추어 내리고 무엇으로
   남기며, 그 실천이 굴러가려면 사람들 사이에서 무엇이 바뀌고 조직의 나머지와 어떤 경계를 두어야
   하는가. **한 원전이 그 축을 통째로 받치고 마흔다섯 페이지가 거기 매달린다**
@@ -192,7 +192,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
   그 너비를 실제로 넓히는 실천 둘. 하루 최소 20분을 아침 첫 일과로 이메일 전에 쓰라는 규칙,
   기술 거품 안에서 클리퍼 지식을 통째로 버린 일화, 그리고 소트웍스 레이더의 유래와 사분면 넷과
   고리 넷을 개인용으로 바꿔 다는 법. **같은 장치를 조직 단위로 쓰는 쪽은 자식 허브
-  [아키텍처 결정 실천](architecture-decision-practice.md)에 있다**
+  [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md)에 있다**
 - [아키텍처와 코딩 실무의 균형](../concepts/hands-on-architect-balance.md) — 그 역할이 코드를
   계속 만지되 팀을 막지 않으려면 무엇을 맡는가. 임계 경로 코드를 떠맡아 팀의 병목이 되는 병목
   함정 안티패턴, 임계 부분을 위임하고 늦은 이터레이션의 작은 업무 기능을 맡으라는 회피책, 그리고
@@ -278,7 +278,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
 
 **이 넷이 이 허브의 결정권 지형과 부딪히는 자리가 하나 있다.** 넷째 페이지의 세 층 배치는
 **프레임워크 라이브러리에 대해 개발 팀이 분석조차 하지 말라**고 하는데, 이는 자식 허브
-[아키텍처 결정 실천](architecture-decision-practice.md)의
+[아키텍처 결정 실천](../synthesis/architecture-decision-practice.md)의
 [아키텍처 어드바이스 프로세스](../concepts/architecture-advice-process.md)가 가장 강하게
 금지하는 **사전 차단**과 모양이 같다. **`contradicts`를 걸지 않았다** — 갈리는 것이 사실이 아니라
 결정권의 배치이고 그 지형은 [규모에 따른 결정 프로세스](../concepts/decision-processes-at-scale.md)가
@@ -340,11 +340,11 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
   물음, 곧 그 역할이 조직의 어디에 서는가가 여기 있다**
 - [아키텍트의 결정 규율](../concepts/architect-decision-discipline.md) — 결정을 결과로 판단할 수
   없다는 출발점과 편향 셋과 마이크로모트와 결정 트리. **형제 자식 허브
-  [아키텍처 결정 실천](architecture-decision-practice.md)이 한 원전으로 닫혀 있으므로 다른 소스가
+  [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md)이 한 원전으로 닫혀 있으므로 다른 소스가
   같은 지형을 자르는 이 페이지를 여기서도 가리킨다**
 - [속도의 경제](../concepts/economies-of-speed.md) — 규모의 경제를 좇는 조직과 속도의 경제를 좇는
   조직이 왜 10퍼센트가 아니라 몇 자릿수로 갈리는가. **위 소유권 모형과 아래 형제 허브
-  [빌드와 배포와 전달](build-deploy-and-delivery.md)이 기계 구조에서 끌어내는 속도 논거를, 이쪽은
+  [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md)이 기계 구조에서 끌어내는 속도 논거를, 이쪽은
   예산 절차와 배치 크기와 조율 회의에서 끌어낸다** — 같은 결론에 다른 층위의 근거다
 
 **이 원전이 형제 축과 겨루어 보이는 자리를 세 군데 적어 둔다.** 통제를 놓는 방식은
@@ -367,7 +367,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
 
 ## 결정 실천 자식 허브에서 먼저 가리키는 자리
 
-자식 허브 [아키텍처 결정 실천](architecture-decision-practice.md)이 그 마흔다섯을 갖는다.
+자식 허브 [아키텍처 결정 실천](../synthesis/architecture-decision-practice.md)이 그 마흔다섯을 갖는다.
 여기서는 **위 "아키텍처를 돌보는 사람" 절의 다른 페이지들과 가장 자주 엮이는 셋**만 가리킨다.
 
 - [아키텍처 어드바이스 프로세스](../concepts/architecture-advice-process.md) — 그 축의 중심 규칙.
@@ -392,7 +392,7 @@ generated: { by: "claude-opus-5", at: "2026-09-29T13:20:00Z" }
 - [소프트웨어 아키텍처](software-architecture.md) — 부모 허브
 - [마이크로서비스 경계와 통신](microservice-boundaries-and-communication.md) — 이 조직 구조가
   복제되어 나타나는 서비스 경계 쪽
-- [빌드와 배포와 전달](build-deploy-and-delivery.md) — 소유권 모형이 실제로 갈리는 자리인
+- [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 소유권 모형이 실제로 갈리는 자리인
   소스 배치와 파이프라인
 - [DDD 전략 설계](ddd-strategic-design.md) — 전략 결정의 권위를 묻는 원전 쪽
 - [실용주의 프로그래머](pragmatic-programmer.md) — 협업을 개별 개발자의 실천으로 보는 축

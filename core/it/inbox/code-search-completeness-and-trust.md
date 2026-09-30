@@ -55,7 +55,7 @@ sources:
   유용할 때가 많은데**, 넣으려면 **그것을 만드는 도구와 설정을 통합해야 하고 그것이 복잡도와
   혼란과 지연의 거대한 원천**이 된다 (같은 절).[^winters2020-swe-at-google]
   - **이 KB가 보기에 이 대목이 같은 책 18장과 곧바로 만난다.**
-    [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)가 세운 체계라면 생성 파일을
+    [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)가 세운 체계라면 생성 파일을
     만드는 데 필요한 도구와 설정이 **이미 빌드 파일에 선언돼 있다.** 그런데도 17장은 그 통합을
     **거대한 복잡도의 원천**이라 부르며 하지 않았다. **같은 회사 두 장이 서로의 산출물을 쓰지
     않는 자리**이고, 왜 못 썼는지는 양쪽 어디에도 적혀 있지 않다. 사람이 볼 자리다.
@@ -159,7 +159,7 @@ sources:
 - **이 KB가 보기에 이것이 17장에서 가장 예상 밖의 연결이다.** **검색 도구가 코드 삭제를
   가능하게 했다**는 것이고, 이유는 **찾을 수 있다는 보장이 보존의 동기를 없앴기** 때문이다.
   - **이 KB의 폐기 축과 곧바로 만난다** —
-    [코드는 부채다, 그래서 폐기한다](code-as-liability-and-why-deprecate.md)와
+    [코드는 부채다, 그래서 폐기한다](../concepts/code-as-liability-and-why-deprecate.md)와
     [폐기의 어려움](why-deprecation-is-hard.md)이 같은 책 15장에서 **왜 코드를 걷어내야 하고
     왜 그게 어려운가**를 다루는데, **"지우면 못 찾을까 봐 못 지운다"는 장애물이 거기 목록에
     없다.** 17장이 그 장애물과 그 해소를 한 문장으로 적고, **두 장이 서로를 가리키지 않는다.**
@@ -229,7 +229,7 @@ sources:
   질의의 결과가 적으므로 완전 결과 기능 때문에 평균 속도를 희생하지 않겠다는 논거의 근거가
   그 한 줄이다. **근거가 얇은 채로 설계 결정 하나를 지탱하는 자리**라 따로 적어 둔다.
 - **17장 전체의 수치 유형 판정은
-  [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md)이
+  [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md)이
   갖는다** — 여섯째 유형(계측이 아니라 산술로 만든 정당화)의 판정과 이 장 성능 수치들의 격이
   그쪽에 있다.
 
@@ -254,7 +254,7 @@ sources:
 
 ## 이 KB의 다른 소스들과 맞대어 본 자리
 
-- **[코드는 부채다, 그래서 폐기한다](code-as-liability-and-why-deprecate.md) ·
+- **[코드는 부채다, 그래서 폐기한다](../concepts/code-as-liability-and-why-deprecate.md) ·
   [폐기의 어려움](why-deprecation-is-hard.md)에 장애물 하나가 빠져 있다.** 같은 책 15장이
   폐기가 어려운 이유를 여섯 들면서 **"지우면 못 찾을까 봐 못 지운다"**는 자리를 들지 않는데,
   17장이 그 장애물과 그 해소를 한 문장으로 적는다. **겨루지 않고 15장 목록의 빈자리**이고,
@@ -273,15 +273,15 @@ sources:
 
 - [개발자가 코드에 던지는 물음의 유형](questions-developers-ask-about-code.md) — 이 색인이
   답해야 하는 물음들
-- [중앙 코드 색인과 개발자마다의 색인](central-code-index-versus-per-developer-index.md) —
+- [중앙 코드 색인과 개발자마다의 색인](../concepts/central-code-index-versus-per-developer-index.md) —
   이 색인을 누가 어디에 짓는가
 - [코드를 찾는 일은 텍스트를 찾는 일과 다르다](searching-code-is-not-searching-text.md) —
   이 색인이 무엇을 지원해야 하는가
-- [코드는 부채다, 그래서 폐기한다](code-as-liability-and-why-deprecate.md) — 지울 수 있게
+- [코드는 부채다, 그래서 폐기한다](../concepts/code-as-liability-and-why-deprecate.md) — 지울 수 있게
   된다는 부수 효과가 닿는 자리
 - [버전 관리의 정본 — 중앙식과 분산식](source-of-truth-in-version-control.md) — 이력의
   모양을 정하는 선택
-- [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md) — 생성 파일을 만드는 도구와
+- [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md) — 생성 파일을 만드는 도구와
   설정이 이미 선언돼 있는 자리
 - [조직 전체에 지식을 퍼뜨리기](scaling-knowledge-across-an-organization.md) — 도구의 존재를
   알리는 통로

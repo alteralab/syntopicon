@@ -67,7 +67,7 @@ sources:
 | 이름 | 무엇을 다루는가 | 이 KB의 페이지 |
 |---|---|---|
 | 늘 결정하기 | **모호한 문제에서 절충을 찾아 이달의 답을 내고 다음 달에 다시 재는 일** | 이 페이지 |
-| 늘 떠나기 | **자기 없이도 그 문제를 계속 푸는 조직을 짓는 일** | [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md) |
+| 늘 떠나기 | **자기 없이도 그 문제를 계속 푸는 조직을 짓는 일** | [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md) |
 | 늘 확장하기 | **책임이 늘 때 리더 자신의 시간·주의·에너지를 지키는 일** | [리더의 시간과 주의와 에너지](scaling-a-leaders-time-and-energy.md) |
 
 - **맺음이 셋을 다시 한 줄씩 적으면서 리더가 완벽한 결정을 내리거나 모든 일을 직접 하거나 두
@@ -273,7 +273,7 @@ sources:
 
 ## 이어지는 페이지
 
-- [스스로 굴러가는 조직 짓기](building-a-self-driving-organization.md) — 같은 장의 둘째 늘.
+- [스스로 굴러가는 조직 짓기](../concepts/building-a-self-driving-organization.md) — 같은 장의 둘째 늘.
   자기 없이 굴러가는 조직을 짓는 일
 - [리더의 시간과 주의와 에너지](scaling-a-leaders-time-and-energy.md) — 같은 장의 셋째 늘.
   책임이 늘 때 리더 자신을 지키는 일

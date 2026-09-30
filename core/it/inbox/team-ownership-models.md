@@ -659,7 +659,7 @@ sources:
     결론을 서로 옮기지 않는다.**
   - **소유권 쪽이 2026-09-30에 들어왔다 — 그리고 들어오고 보니 대질이 아니었다.** 같은 책
     9장의 소유권 곁글이 반입됐고 그 자리가
-    [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)다. **그 페이지가
+    [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)다. **그 페이지가
     이 부재 기록에 답하는 정본이고**, 여기에는 판정만 적는다.
     - **그 페이지가 적는 대로, 그쪽이 소유권이라 부르는 것은 디렉터리에 대한 승인권과 지식
       책임**이다. 특정 이름의
@@ -1105,7 +1105,7 @@ p.201).[^ford2022-evolutionary]
     절의 내용은 전부 한국어로 재서술했고 **직인용을 두지 않았다** — 공개판 라이선스가 파생물을
     금하는 CC BY-NC-ND 4.0이기 때문이다. 이 페이지가 이 소스에서 받는 것은 이 한 항목뿐이고,
     같은 책 9장의 소유권 곁글 전문은
-    [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)가, 16장 전문은
+    [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)가, 16장 전문은
     [모노레포인가 가상 모노레포인가](monorepo-or-virtual-monorepo.md)와
     [한 판 규칙](one-version-rule.md)이 갖는다. 근거 등급·규모 전제·인용 제약의 정본은
     [소스 메타](../sources/winters2020-swe-at-google.md)다.

@@ -138,7 +138,7 @@ sources:
 
 ## 이 KB의 이웃 축과 갈리는 자리
 
-- **밀폐성 축과 갈린다** — [빌드를 함수로 본다](build-as-a-function-and-hermeticity.md)는 **빌드의
+- **밀폐성 축과 갈린다** — [빌드를 함수로 본다](../concepts/build-as-a-function-and-hermeticity.md)는 **빌드의
   입력이 새지 않게 하는 것**이고 [밀폐 시험](hermetic-testing.md)은 **시험이 바깥에 말을 걸지 않게
   하는 것**인데, 이 페이지는 **도는 프로그램이 기계의 성질에 기대지 않게 하는 것**이다. 셋이 같은
   낱말로 묶이지 않고 대상이 다 다르다.
@@ -158,7 +158,7 @@ sources:
 - [프로그래밍과 소프트웨어 엔지니어링](programming-versus-software-engineering.md) — 암묵 의존의
   법칙의 정본
 - [한 판 규칙](one-version-rule.md) — 같은 물음에 정책으로 답하는 쪽
-- [빌드를 함수로 본다 — 밀폐성과 그 장치들](build-as-a-function-and-hermeticity.md) ·
+- [빌드를 함수로 본다 — 밀폐성과 그 장치들](../concepts/build-as-a-function-and-hermeticity.md) ·
   [밀폐 시험](hermetic-testing.md) — 같은 낱말의 다른 대상
 - [컨테이너 오케스트레이션과 쿠버네티스](../concepts/container-orchestration-and-kubernetes.md) —
   이식성 절이 반대 방향을 보는 자리

@@ -139,7 +139,7 @@ sources:
 - [프로덕션에서의 테스트](../concepts/testing-in-production.md) — 같은 이동을 검증 자리의
   이동으로 논증하는 쪽
 - [지속적 통합과 지속적 전달](continuous-integration-and-delivery.md) — 전달 성과 계기의 자리
-- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](ci-as-a-test-scheduling-problem.md) —
+- [지속 통합을 무엇을 언제 시험할 것인가의 문제로 두기](../concepts/ci-as-a-test-scheduling-problem.md) —
   되먹임 고리의 마지막 칸이 여기다
 - [서비스 수준 목표](../concepts/service-level-objectives.md) — 보호용 지표라는 어휘의 이웃
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브

@@ -280,7 +280,7 @@ Process?").[^winters2020-swe-at-google]
 
 **셋째 장이 같은 제도를 또 다른 기능으로 읽는다** (8장 §"Applying the
 Rules").[^winters2020-swe-at-google] 그 장의 정본은
-[규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)다.
+[규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)다.
 
 - **8장은 규칙의 집행 경로를 둘로 가른다** — **교육과 훈련을 통한 사회적 집행**과 **도구를
   통한 기술적 집행**이다. 그리고 **사회적 경로의 핵심 조각으로 코드 리뷰가 하는 역할**을
@@ -305,7 +305,7 @@ Rules").[^winters2020-swe-at-google] 그 장의 정본은
     8장은 **준수 확인만은 사람이 아니라 도구가 하는 쪽을 강하게 선호한다**고 명시하고, 한
     언어의 규칙 가운데 상당 비율이 자동 검증 가능하다는 사내의 **비공식 추정**을 든다. **3장이
     방향으로 적은 것을 8장이 배치로 적는다.** 그 추정치의 지위는
-    [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md)가 표시한다.
+    [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md)가 표시한다.
 
 ## 자동화가 걷어 가는 층
 
@@ -359,7 +359,7 @@ Rules").[^winters2020-swe-at-google] 그 장의 정본은
   부재를 기록해 두었다. **이 페이지가 그 부재를 일부 메운다** — 다만 메우는 것은
   **리뷰 자격의 제도**이지 **소유권 모형**이 아니다.
   - **2026-09-30에 나머지가 들어왔다** — 같은 책 9장의 소유권 곁글이
-    [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md)로 반입됐다.
+    [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md)로 반입됐다.
     **그 페이지가 대질의 정본을 갖는다** — 요지는 두 소스가 같은 낱말로 다른 것을 잰다는
     것이다(한쪽은 결정권, 다른 쪽은 승인권과 지식 책임).
 - **표준을 강제하는 것과 행동을 이끄는 것** —
@@ -426,11 +426,11 @@ Rules").[^winters2020-swe-at-google] 그 장의 정본은
 - [함께 일하기](../concepts/working-together.md) — 같은 목적을 동시 협업으로 푸는 실천
 - [코드 리뷰의 세 승인 축](three-approval-axes-of-code-review.md) — 같은 책 9장. 이 자격이
   승인 구조 안에서 서는 자리
-- [코드 소유권 — 소유가 아니라 청지기](code-ownership-as-stewardship.md) — 같은 책 9장.
+- [코드 소유권 — 소유가 아니라 청지기](../concepts/code-ownership-as-stewardship.md) — 같은 책 9장.
   기록해 둔 부재의 소유권 쪽을 갚는 자리
-- [코드 리뷰가 주는 것 — 결함 찾기 너머](code-review-benefits-beyond-defect-finding.md) —
+- [코드 리뷰가 주는 것 — 결함 찾기 너머](../concepts/code-review-benefits-beyond-defect-finding.md) —
   같은 책 9장. 이 자격이 사는 리뷰가 무엇을 사는가
-- [규칙의 집행을 도구에 내리기](automating-rule-enforcement.md) — 같은 책 8장. 이 제도를
+- [규칙의 집행을 도구에 내리기](../concepts/automating-rule-enforcement.md) — 같은 책 8장. 이 제도를
   규칙의 사회적 집행 수단으로 다시 놓는 자리
 - [조직과 아키텍트](../synthesis/organizations-and-architects.md) — 이 갈래의 허브
 

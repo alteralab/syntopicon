@@ -48,7 +48,7 @@ sources:
   (같은 절).[^winters2020-swe-at-google]
   - **이 서술 형식이 이 소스가 되풀이하는 수다** — 규칙을 설득으로 지키게 하지 않고 **어기는
     쪽이 더 힘들도록 환경을 배치한다.** 같은 책 8장의 자동 집행과 같은 형식이고 그 자리는
-    [규칙 집행의 자동화](automating-rule-enforcement.md)다.
+    [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md)다.
 - **사라지는 일들이 열거된다** (같은 절):[^winters2020-swe-at-google]
   - **무엇의 어느 판이 공식인지 정하는 절차가 없다.**
   - **어느 저장소가 중요한지 발견할 일이 없다.**
@@ -327,7 +327,7 @@ sources:
 - [버전 관리](../concepts/version-control-practice.md) — 브랜치와 트렁크 기반 개발의 정본 자리
 - [팀 규모와 소유권 모형](team-ownership-models.md) — 이 페이지가 닫는 미결이 기록돼 있던 자리
 - [독립 배포 가능성](../concepts/independent-deployability.md) — 16장이 다루지 않는 층
-- [규칙 집행의 자동화](automating-rule-enforcement.md) — 어기는 쪽을 더 힘들게 만든다는 같은
+- [규칙 집행의 자동화](../concepts/automating-rule-enforcement.md) — 어기는 쪽을 더 힘들게 만든다는 같은
   형식
 - [폐기가 어려운 이유](why-deprecation-is-hard.md) — 같은 단일 저장소 전제 위에 선 15장의 대응
 - [빌드와 배포와 전달](../synthesis/build-deploy-and-delivery.md) — 이 갈래의 허브
